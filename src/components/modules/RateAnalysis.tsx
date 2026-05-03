@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { TrendingUp, Settings, DollarSign, Database, Activity, Layers, PenTool } from 'lucide-react';
 import { useMarketRates, MarketRates } from '../../context/MarketRatesContext';
+import { useSettings } from '../../context/SettingsContext';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 export default function RateAnalysis() {

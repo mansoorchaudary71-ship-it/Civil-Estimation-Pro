@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { PaintBucket, CheckSquare, Maximize, MinusCircle, Plus, PieChart as PieChartIcon } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useMarketRates } from '../../context/MarketRatesContext';
+import { useSettings } from '../../context/SettingsContext';
 
 interface Deduction {
   id: string;

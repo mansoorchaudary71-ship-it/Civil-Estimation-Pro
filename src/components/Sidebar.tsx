@@ -19,7 +19,7 @@ import {
 
 import Logo from './Logo';
 
-export type ModuleId = "home" | "takeoff" | "calculators" | "boq" | "ai" | "earthworks" | "road" | "sewerage" | "finishing" | "house" | "rates" | "formwork" | "specs";
+export type ModuleId = "home" | "takeoff" | "calculators" | "ai" | "earthworks" | "road" | "sewerage" | "finishing" | "house" | "rates" | "formwork";
 
 interface SidebarProps {
   activeModule: ModuleId;

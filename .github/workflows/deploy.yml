@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-  # Allow manual trigger from the Actions tab
+  # Allow manual trigger
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -36,14 +36,13 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v4
-
       - name: Build Application
-        # FIX: Appending the base path flag ensures Vite links assets correctly for GitHub Pages.
-        # We use the base_path output from the Setup Pages step above.
-        run: npm run build -- --base=${{ steps.pages.outputs.base_path }}/
+        # Since Vite is used, the build output is in 'dist'
+        # If your GitHub repo is named 'repo-name', you might need to set the base path in vite.config.ts to '/repo-name/'
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3

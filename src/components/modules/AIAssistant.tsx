@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Send, Loader2, Bot } from "lucide-react";
 import Markdown from "react-markdown";
 import { cn } from "../../lib/utils";
+import { processAIEstimate } from "../../lib/gemini";
 
 interface Message {
   role: "user" | "model";
@@ -27,23 +28,11 @@ export default function AIAssistant() {
     setIsLoading(true);
 
     try {
-      const res = await fetch("/api/estimate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ prompt: userMessage })
-      });
-
-      if (!res.ok) {
-        throw new Error("Failed to connect to assistant API");
-      }
-
-      const data = await res.json();
+      const content = await processAIEstimate(userMessage);
 
       setMessages((prev) => [
         ...prev,
-        { role: "model", content: data.content || "I was unable to generate an estimate at this time." }
+        { role: "model", content: content || "I was unable to generate an estimate at this time." }
       ]);
     } catch (error) {
       console.error(error);

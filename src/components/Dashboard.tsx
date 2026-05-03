@@ -124,24 +124,6 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
         )}
 
         
-
-        {/* LIVE BOQ */}
-        {match('live boq estimate builder') && (
-        <button 
-          onClick={() => onSelectModule('boq')}
-          className="col-span-1 relative bg-white p-6 rounded-[32px] border border-gray-100 flex flex-col justify-between text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all overflow-hidden group aspect-square"
-        >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-sky-500/5 rounded-full blur-2xl -mr-10 -mt-10" />
-          <div className="relative z-10 w-12 h-12 rounded-2xl bg-sky-50 text-sky-500 flex items-center justify-center mb-6 group-hover:bg-sky-500 group-hover:text-white transition-colors duration-300">
-             <FileSpreadsheet className="w-6 h-6" />
-          </div>
-          <div className="relative z-10">
-             <div className="text-[10px] font-bold text-sky-500 uppercase tracking-widest mb-1">ESTIMATE</div>
-             <div className="text-xl font-black text-gray-900 leading-tight">Live BOQ <br/> Builder</div>
-          </div>
-        </button>
-        )}
-
         {/* 2D TAKEOFF */}
         {match('2d takeoff plan measure area linear extraction') && (
         <button 
