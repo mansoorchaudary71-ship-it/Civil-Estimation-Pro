@@ -39,7 +39,7 @@ export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose 
     { id: "sewerage" as const, label: "Sewerage & Drainage", icon: Waves },
     { id: "finishing" as const, label: "Finishing Works", icon: Paintbrush },
     { id: "takeoff" as const, label: "2D Takeoff", icon: PencilRuler },
-    { id: "calculators" as const, label: "Core Calculators", icon: Calculator },
+    { id: "calculators" as const, label: "Material Estimator", icon: Calculator },
     { id: "ai" as const, label: "AI Assistant", icon: Sparkles },
   ];
 

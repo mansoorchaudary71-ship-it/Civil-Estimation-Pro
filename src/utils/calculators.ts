@@ -1,188 +1,259 @@
+export interface CalculatorUnit {
+  isMetric: boolean;
+}
+
 export class ConcreteMortarCalculator {
   length: number;
   width: number;
   depth: number;
   mixRatio: number[];
+  wastagePct: number;
+  wcRatio: number;
+  isMetric: boolean;
 
-  constructor(length: number, width: number, depth: number, mixRatio: string) {
+  constructor(length: number, width: number, depth: number, mixRatio: string, wastagePct: number = 5, wcRatio: number = 0.5, isMetric: boolean = false) {
     this.length = length;
     this.width = width;
     this.depth = depth;
     this.mixRatio = mixRatio.split(':').map(Number);
+    this.wastagePct = wastagePct;
+    this.wcRatio = wcRatio;
+    this.isMetric = isMetric;
   }
 
-  getWetVolumeCft() {
+  getWetVolume() {
     return this.length * this.width * this.depth;
   }
 
-  getDryVolumeCft() {
-    return this.getWetVolumeCft() * 1.54;
+  getDryVolume() {
+    return this.getWetVolume() * 1.54;
   }
 
   calculate() {
     const sumRatio = this.mixRatio.reduce((a, b) => a + b, 0);
-    if (sumRatio === 0) return { cementBags: 0, sandCft: 0, aggregateCft: 0 };
+    if (sumRatio === 0) return { cementBags: 0, sandVol: 0, aggregateVol: 0, waterLiters: 0, totalWetVolume: this.getWetVolume() };
 
-    const dryVol = this.getDryVolumeCft();
-    
-    // Cement calculation
+    let dryVol = this.getDryVolume();
+    dryVol = dryVol * (1 + this.wastagePct / 100);
+
     const cementRatio = this.mixRatio[0] || 0;
-    const cementVolCft = (cementRatio / sumRatio) * dryVol;
-    // 1 bag of 50kg cement = 1.226 cft (approx)
-    const cementBags = cementVolCft / 1.226;
+    const cementVol = (cementRatio / sumRatio) * dryVol;
+    
+    // In Metric (cubic meters), 1 bag cement (50kg) = 0.0347 cu.m
+    // In Imperial (cubic feet), 1 bag cement (50kg) = 1.226 cu.ft
+    const cementVolumePerBag = this.isMetric ? 0.0347 : 1.226;
+    const cementBags = cementVol / cementVolumePerBag;
 
-    // Sand calculation
+    // Weight of cement in kg
+    const cementWeightKg = cementBags * 50;
+
+    // Water amount (Liters = kg of water) = cementWeightKg * wcRatio
+    const waterLiters = cementWeightKg * this.wcRatio;
+
     const sandRatio = this.mixRatio[1] || 0;
-    const sandCft = (sandRatio / sumRatio) * dryVol;
+    const sandVol = (sandRatio / sumRatio) * dryVol;
 
-    // Aggregate calculation
     const aggRatio = this.mixRatio[2] || 0;
-    const aggregateCft = (aggRatio / sumRatio) * dryVol;
+    const aggregateVol = (aggRatio / sumRatio) * dryVol;
 
     return {
       cementBags,
-      sandCft,
-      aggregateCft
+      sandVol,
+      aggregateVol,
+      waterLiters,
+      totalWetVolume: this.getWetVolume()
     };
   }
 }
 
-export class BrickworkCalculator {
-  wallLengthFt: number;
-  wallHeightFt: number;
-  wallThicknessIn: number;
-  deductionsSqFt: number;
-  
-  brickLengthIn: number;
-  brickWidthIn: number;
-  brickHeightIn: number;
-  
-  mortarThicknessIn: number;
+export class PlasterCalculator {
+  area: number;
+  thickness: number;
   mixRatio: number[];
+  wastagePct: number;
+  isMetric: boolean;
 
-  constructor(
-    wallLengthFt: number,
-    wallHeightFt: number,
-    wallThicknessIn: number,
-    deductionsSqFt: number,
-    brickLengthIn: number,
-    brickWidthIn: number,
-    brickHeightIn: number,
-    mortarThicknessIn: number,
-    mixRatio: string
-  ) {
-    this.wallLengthFt = wallLengthFt;
-    this.wallHeightFt = wallHeightFt;
-    this.wallThicknessIn = wallThicknessIn;
-    this.deductionsSqFt = deductionsSqFt;
-    
-    this.brickLengthIn = brickLengthIn;
-    this.brickWidthIn = brickWidthIn;
-    this.brickHeightIn = brickHeightIn;
-    
-    this.mortarThicknessIn = mortarThicknessIn;
+  constructor(area: number, thickness: number, mixRatio: string, wastagePct: number = 5, isMetric: boolean = false) {
+    this.area = area;
+    this.thickness = thickness; // thickness should be in the same unit base (e.g., meters or feet)
     this.mixRatio = mixRatio.split(':').map(Number);
-  }
-
-  getNetWallVolumeCft() {
-    const wallVolCft = this.wallLengthFt * this.wallHeightFt * (this.wallThicknessIn / 12);
-    const deductionVolCft = this.deductionsSqFt * (this.wallThicknessIn / 12);
-    return Math.max(0, wallVolCft - deductionVolCft);
+    this.wastagePct = wastagePct;
+    this.isMetric = isMetric;
   }
 
   calculate() {
-    const netWallVolCft = this.getNetWallVolumeCft();
+    const wetVolume = this.area * this.thickness;
+    let dryVolume = wetVolume * 1.33; // standard for mortar
+    dryVolume = dryVolume * (1 + this.wastagePct / 100);
 
-    // Convert brick dims to ft
-    const bL = this.brickLengthIn / 12;
-    const bW = this.brickWidthIn / 12;
-    const bH = this.brickHeightIn / 12;
+    const sumRatio = this.mixRatio.reduce((a, b) => a + b, 0);
+    if (sumRatio === 0) return { cementBags: 0, sandVol: 0, totalWetVolume: wetVolume };
+
+    const cementRatio = this.mixRatio[0] || 0;
+    const cementVol = (cementRatio / sumRatio) * dryVolume;
     
-    const mT = this.mortarThicknessIn / 12;
+    const cementVolumePerBag = this.isMetric ? 0.0347 : 1.226;
+    const cementBags = cementVol / cementVolumePerBag;
 
-    // Brick volume with mortar
+    const sandRatio = this.mixRatio[1] || 0;
+    const sandVol = (sandRatio / sumRatio) * dryVolume;
+
+    return { cementBags, sandVol, totalWetVolume: wetVolume };
+  }
+}
+
+export class BrickworkCalculator {
+  wallLength: number;
+  wallHeight: number;
+  wallThickness: number;
+  deductionsSqUnits: number;
+  
+  brickLength: number;
+  brickWidth: number;
+  brickHeight: number;
+  
+  mortarThickness: number;
+  mixRatio: number[];
+  wastagePct: number;
+  isMetric: boolean;
+
+  constructor(
+    wallLength: number,
+    wallHeight: number,
+    wallThickness: number,
+    deductionsSqUnits: number,
+    brickLength: number,
+    brickWidth: number,
+    brickHeight: number,
+    mortarThickness: number,
+    mixRatio: string,
+    wastagePct: number = 5,
+    isMetric: boolean = false
+  ) {
+    this.wallLength = wallLength;
+    this.wallHeight = wallHeight;
+    this.wallThickness = wallThickness;
+    this.deductionsSqUnits = deductionsSqUnits;
+    this.brickLength = brickLength;
+    this.brickWidth = brickWidth;
+    this.brickHeight = brickHeight;
+    this.mortarThickness = mortarThickness;
+    this.mixRatio = mixRatio.split(':').map(Number);
+    this.wastagePct = wastagePct;
+    this.isMetric = isMetric;
+  }
+
+  getNetWallVolume() {
+    const wallVol = this.wallLength * this.wallHeight * this.wallThickness;
+    const deductionVol = this.deductionsSqUnits * this.wallThickness;
+    return Math.max(0, wallVol - deductionVol);
+  }
+
+  calculate() {
+    let netWallVol = this.getNetWallVolume();
+    netWallVol = netWallVol * (1 + this.wastagePct / 100);
+
+    const bL = this.brickLength;
+    const bW = this.brickWidth;
+    const bH = this.brickHeight;
+    const mT = this.mortarThickness;
+
+    // standard mortar joint thickness accounted around the brick
     const volBrickWithMortar = (bL + mT) * (bW + mT) * (bH + mT);
-    
-    // Number of bricks
-    const numBricks = volBrickWithMortar > 0 ? Math.ceil(netWallVolCft / volBrickWithMortar) : 0;
+    const numBricks = volBrickWithMortar > 0 ? Math.ceil(netWallVol / volBrickWithMortar) : 0;
 
-    // Actual volume of bricks without mortar
     const volOneBrick = bL * bW * bH;
-    const totalBrickVolCft = numBricks * volOneBrick;
+    const totalBrickVol = numBricks * volOneBrick;
 
     // Mortar volume (wet)
-    const mortarWetVolCft = Math.max(0, netWallVolCft - totalBrickVolCft);
-    // For mortar, dry volume factor is typically 1.33
-    const mortarDryVolCft = mortarWetVolCft * 1.33;
+    const mortarWetVol = Math.max(0, netWallVol - totalBrickVol);
+    const mortarDryVol = mortarWetVol * 1.33;
 
     const sumRatio = this.mixRatio.reduce((a, b) => a + b, 0);
     let cementBags = 0;
-    let sandCft = 0;
+    let sandVol = 0;
 
     if (sumRatio > 0 && this.mixRatio.length >= 2) {
-      const cementVolCft = (this.mixRatio[0] / sumRatio) * mortarDryVolCft;
-      cementBags = cementVolCft / 1.226; // 1 bag = 1.226 cft
-      sandCft = (this.mixRatio[1] / sumRatio) * mortarDryVolCft;
+      const cementVol = (this.mixRatio[0] / sumRatio) * mortarDryVol;
+      const cementVolumePerBag = this.isMetric ? 0.0347 : 1.226;
+      cementBags = cementVol / cementVolumePerBag;
+      sandVol = (this.mixRatio[1] / sumRatio) * mortarDryVol;
     }
 
     return {
-      netWallVolCft,
+      netWallVol,
       numBricks,
-      mortarWetVolCft,
+      mortarWetVol,
       cementBags,
-      sandCft
+      sandVol
     };
   }
 }
 
 export class SteelCalculator {
-  barDiameterMm: number;
-  spanLengthM: number;
-  spacingMm: number;
-  barLengthM: number;
+  barDiameter: number; // mm or inches depending on unit, but mathematically we'll standardize to standard formulas
+  spanLength: number;
+  spacing: number;     // in mm or inches
+  barLength: number;
   overlapFactor: number;
   overlapsPerBar: number;
+  wastagePct: number;
+  isMetric: boolean;
 
   constructor(
-    barDiameterMm: number,
-    spanLengthM: number,
-    spacingMm: number,
-    barLengthM: number,
+    barDiameter: number,
+    spanLength: number,
+    spacing: number,
+    barLength: number,
     overlapFactor: number,
-    overlapsPerBar: number
+    overlapsPerBar: number,
+    wastagePct: number = 5,
+    isMetric: boolean = true // Standard steel formulas are easiest in metric.
   ) {
-    this.barDiameterMm = barDiameterMm;
-    this.spanLengthM = spanLengthM;
-    this.spacingMm = spacingMm;
-    this.barLengthM = barLengthM;
+    this.barDiameter = barDiameter;
+    this.spanLength = spanLength;
+    this.spacing = spacing;
+    this.barLength = barLength;
     this.overlapFactor = overlapFactor;
     this.overlapsPerBar = overlapsPerBar;
+    this.wastagePct = wastagePct;
+    this.isMetric = isMetric;
   }
 
   calculate() {
-    const numBars = this.spacingMm > 0 ? Math.ceil(this.spanLengthM / (this.spacingMm / 1000)) + 1 : 1;
+    // If metric, spacing is in mm, otherwise in inches
+    const spacingMetersOrFt = this.isMetric ? this.spacing / 1000 : this.spacing / 12;
+    const numBars = spacingMetersOrFt > 0 ? Math.ceil(this.spanLength / spacingMetersOrFt) + 1 : 1;
     
-    // Overlap length in meters: (factor * diameter in mm) / 1000
-    const overlapLengthM = (this.overlapFactor * this.barDiameterMm) / 1000;
+    // overlap length
+    const overlapLength = this.isMetric ? (this.overlapFactor * this.barDiameter) / 1000 : (this.overlapFactor * this.barDiameter) / 12;
     
-    // Total length for a single bar including overlaps
-    const singleBarTotalLengthM = this.barLengthM + (overlapLengthM * this.overlapsPerBar);
+    let singleBarTotalLength = this.barLength + (overlapLength * this.overlapsPerBar);
     
-    // Total length for all bars combined
-    const totalLengthAllBarsM = numBars * singleBarTotalLengthM;
+    let totalLengthAllBars = numBars * singleBarTotalLength;
+    totalLengthAllBars = totalLengthAllBars * (1 + this.wastagePct / 100);
+
+    // Standard formula: D^2 / 162 in kg/m, D^2 / 533 in kg/ft
+    let weightPerUnitLength = 0;
+    if (this.isMetric) {
+      weightPerUnitLength = Math.pow(this.barDiameter, 2) / 162; 
+    } else {
+      // In US standard, bar # represents eighths of an inch. But if barDiameter is in eights or inches, let's assume barDiameter is in eighths? 
+      // If imperial, user inputs bar diameter in eights of inch (e.g. #4 is 4/8") => The formula is (D in eighths)^2 / 2.67 lbs/ft but kg is fine (D in mm)^2/533 for kg/ft
+      // Let's assume diameter is in mm for metric and inches or 'number' for imperial.
+      // D^2 / 533 applies to kg/ft where D is in mm! 
+      // Let's assume input barDiameter is always in mm for the weight formula, which is common.
+      weightPerUnitLength = Math.pow(this.barDiameter, 2) / 533; // kg/ft
+    }
     
-    // Weight per meter formula: D^2 / 162
-    const weightPerMeter = Math.pow(this.barDiameterMm, 2) / 162;
-    
-    // Total weights
-    const totalWeightKg = totalLengthAllBarsM * weightPerMeter;
+    const totalWeightKg = totalLengthAllBars * weightPerUnitLength;
     const totalWeightMT = totalWeightKg / 1000;
 
     return {
       numBars,
-      singleBarTotalLengthM,
-      totalLengthAllBarsM,
-      weightPerMeter,
+      singleBarTotalLength,
+      totalLengthAllBars,
+      weightPerUnitLength,
       totalWeightKg,
       totalWeightMT
     };

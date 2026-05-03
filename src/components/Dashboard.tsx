@@ -81,25 +81,25 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
         
-        {/* MARKET RATES */}
-        {match('market rates live db update material labor costs') && (
+        {/* CONSTRUCTION MATERIAL ESTIMATOR */}
+        {match('construction material estimator tools concrete bricks steel') && (
         <button 
-          onClick={() => onSelectModule('rates')}
+          onClick={() => onSelectModule('calculators')}
           className="col-span-2 lg:col-span-2 relative bg-white p-6 md:p-8 rounded-[32px] border border-gray-100 flex justify-between items-center text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all overflow-hidden group"
         >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/5 rounded-full blur-3xl -mr-20 -mt-20 transition-transform group-hover:scale-110" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/5 rounded-full blur-3xl -mr-20 -mt-20 transition-transform group-hover:scale-110" />
           <div className="relative z-10">
-            <div className="text-xs font-bold text-teal-600 uppercase tracking-widest mb-1.5 flex items-center gap-1.5"><TrendingUp className="w-4 h-4"/> MARKET RATES</div>
-            <div className="text-2xl font-black text-gray-900 mb-1">Live DB</div>
-            <p className="text-sm font-medium text-gray-500">Update material & labor costs</p>
+            <div className="text-xs font-bold text-red-600 uppercase tracking-widest mb-1.5 flex items-center gap-1.5"><Calculator className="w-4 h-4"/> TOOLS</div>
+            <div className="text-2xl font-black text-gray-900 mb-1">Construction Material Estimator</div>
+            <p className="text-sm font-medium text-gray-500">Accurate estimations for concrete, bricks, steel, blocks, and mortar.</p>
           </div>
-          <div className="relative z-10 w-16 h-16 bg-teal-50 rounded-2xl flex items-end justify-center p-2.5 gap-1.5 text-teal-500">
-            <div className="w-2.5 bg-teal-500 rounded-full h-[40%] group-hover:h-[60%] transition-all duration-300" />
-            <div className="w-2.5 bg-teal-500 rounded-full h-[70%] group-hover:h-[80%] transition-all duration-300 delay-75" />
-            <div className="w-2.5 bg-teal-500 rounded-full h-[50%] group-hover:h-[100%] transition-all duration-300 delay-150" />
+          <div className="relative z-10 w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center p-2.5 gap-1.5 text-red-500 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
+            <Calculator className="w-8 h-8" />
           </div>
         </button>
         )}
+
+
 
         {/* HOUSE ESTIMATOR */}
         {match('house estimator residential turnkey grey structure finishing') && (
@@ -227,19 +227,19 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
         </button>
         )}
 
-        {/* CORE CALCULATORS */}
-        {match('core calculators tools') && (
+        {/* MARKET RATES (Small card now) */}
+        {match('market rates live db') && (
         <button 
-          onClick={() => onSelectModule('calculators')}
+          onClick={() => onSelectModule('rates')}
           className="col-span-1 relative bg-white p-5 rounded-[28px] border border-gray-100 flex flex-col justify-between text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all overflow-hidden group min-h-[160px]"
         >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/5 rounded-full blur-2xl -mr-10 -mt-10" />
-          <div className="relative z-10 w-10 h-10 rounded-xl bg-red-50 text-red-500 flex items-center justify-center mb-4 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
-             <Calculator className="w-5 h-5" />
+          <div className="absolute top-0 right-0 w-32 h-32 bg-teal-500/5 rounded-full blur-2xl -mr-10 -mt-10" />
+          <div className="relative z-10 w-10 h-10 rounded-xl bg-teal-50 text-teal-500 flex items-center justify-center mb-4 group-hover:bg-teal-500 group-hover:text-white transition-colors duration-300">
+             <TrendingUp className="w-5 h-5" />
           </div>
           <div className="relative z-10 mt-auto">
-             <div className="text-[10px] font-bold text-red-500 uppercase tracking-widest mb-1">TOOLS</div>
-             <div className="text-base font-black text-gray-900 leading-tight">Core Calculators</div>
+             <div className="text-[10px] font-bold text-teal-600 uppercase tracking-widest mb-1">MARKET</div>
+             <div className="text-base font-black text-gray-900 leading-tight">Live DB Rates</div>
           </div>
         </button>
         )}
