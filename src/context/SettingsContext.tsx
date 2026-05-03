@@ -1,11 +1,13 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 export type Currency = 'PKR' | 'USD' | 'INR' | 'AED' | 'SAR' | 'GBP';
 export type MeasurementSystem = 'FPS' | 'SI';
+export type Theme = 'light' | 'dark' | 'system';
 
 interface SettingsState {
   currency: Currency;
   measurement: MeasurementSystem;
+  theme: Theme;
 }
 
 interface SettingsContextType {
@@ -17,6 +19,7 @@ interface SettingsContextType {
 const defaultSettings: SettingsState = {
   currency: 'PKR',
   measurement: 'FPS', // FPS = ft, sqft, cft; SI = m, sqm, cum
+  theme: 'system',
 };
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
@@ -31,7 +34,33 @@ const currencySymbols: Record<Currency, string> = {
 };
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
-  const [settings, setSettings] = useState<SettingsState>(defaultSettings);
+  const [settings, setSettings] = useState<SettingsState>(() => {
+    const saved = localStorage.getItem('app-settings');
+    if (saved) {
+      try {
+        return { ...defaultSettings, ...JSON.parse(saved) };
+      } catch (e) {
+        return defaultSettings;
+      }
+    }
+    return defaultSettings;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('app-settings', JSON.stringify(settings));
+    
+    // Apply theme to document
+    const isDark = 
+      settings.theme === 'dark' || 
+      (settings.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      
+    const root = window.document.documentElement;
+    if (isDark) {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+  }, [settings]);
 
   const updateSettings = (newSettings: Partial<SettingsState>) => {
     setSettings((prev) => ({ ...prev, ...newSettings }));

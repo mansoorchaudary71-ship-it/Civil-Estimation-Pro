@@ -73,6 +73,10 @@ export default function ConstructionMaterialEstimator() {
   const [sBarL, setSBarL] = useState(isSI ? "12" : "40"); // m or ft
   const [sOverlap, setSOverlap] = useState("50");
 
+  // Water
+  const [wCementKg, setWCementKg] = useState("50");
+  const [wWcRatio, setWWcRatio] = useState("0.5");
+
   const parseNum = (val: string) => parseFloat(val) || 0;
 
   let content = null;

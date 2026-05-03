@@ -75,22 +75,24 @@ export async function processAIEstimate(prompt: string) {
     const wallPerimeter = 2 * (length + width); // Total length of walls
     
     // standard 9-inch brick wall
+    // Check parameters in BrickworkCalculator logic. isSI defaults.
     const brickCalc = new BrickworkCalculator(
       wallPerimeter, // length
       height,        // height
-      9,             // thickness (inches)
+      9 / 12,        // thickness (ft fallback)
       deductions,    // deductions
-      9, 4.5, 3,     // brick sizes
-      0.39,          // mortar thickness
-      "1:4"          // mix ratio
+      9 / 12, 4.5 / 12, 3 / 12, // brick sizes
+      0.39 / 12,     // mortar thickness
+      "1:4",         // mix ratio
+      5, false
     );
     const brickRes = brickCalc.calculate();
 
     resultText += `**Brickwork for Walls** (Assume 9-inch thick walls, 1:4 Mortar)\n`;
-    resultText += `- **Total Wall Volume (net):** ${brickRes.netWallVolCft.toFixed(2)} cft\n`;
+    resultText += `- **Total Wall Volume (net):** ${brickRes.netWallVol.toFixed(2)} cft\n`;
     resultText += `- **Bricks Required:** ${brickRes.numBricks} bricks\n`;
     resultText += `- **Cement for Mortar:** ${brickRes.cementBags.toFixed(2)} bags\n`;
-    resultText += `- **Sand for Mortar:** ${brickRes.sandCft.toFixed(2)} cft\n\n`;
+    resultText += `- **Sand for Mortar:** ${brickRes.sandVol.toFixed(2)} cft\n\n`;
   }
 
   if (extracted.calculationType === 'room' || extracted.calculationType === 'slab') {
@@ -98,15 +100,15 @@ export async function processAIEstimate(prompt: string) {
     const slabDepthFt = 5 / 12; 
     
     const concCalc = new ConcreteMortarCalculator(
-      length, width, slabDepthFt, "1:2:4"
+      length, width, slabDepthFt, "1:2:4", 5, 0.5, false
     );
     const concRes = concCalc.calculate();
 
     resultText += `**Concrete for Slab** (Assume 5-inch thick slab, 1:2:4 Mix)\n`;
-    resultText += `- **Total Wet Volume:** ${concCalc.getWetVolumeCft().toFixed(2)} cft\n`;
+    resultText += `- **Total Wet Volume:** ${concRes.totalWetVolume.toFixed(2)} cft\n`;
     resultText += `- **Cement:** ${concRes.cementBags.toFixed(2)} bags\n`;
-    resultText += `- **Sand:** ${concRes.sandCft.toFixed(2)} cft\n`;
-    resultText += `- **Crush/Aggregate:** ${concRes.aggregateCft.toFixed(2)} cft\n`;
+    resultText += `- **Sand:** ${concRes.sandVol.toFixed(2)} cft\n`;
+    resultText += `- **Crush/Aggregate:** ${concRes.aggregateVol.toFixed(2)} cft\n`;
   }
 
   if (!resultText) {
