@@ -36,12 +36,14 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Build Application
-        # Since Vite is used, the build output is in 'dist'
-        run: npm run build
-
       - name: Setup Pages
+        id: pages
         uses: actions/configure-pages@v4
+
+      - name: Build Application
+        # FIX: Appending the base path flag ensures Vite links assets correctly for GitHub Pages.
+        # We use the base_path output from the Setup Pages step above.
+        run: npm run build -- --base=${{ steps.pages.outputs.base_path }}/
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
