@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- PWA Manifest & Theme Color -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#2980b9" />
+    <link rel="apple-touch-icon" href="/icon-192x192.png" />
+    
+    <!-- SEO Metadata -->
+    <meta name="description" content="Civil Estimation Pro: Advanced estimators for live construction rate analysis, house estimating, and dynamic BOQ." />
+    <meta name="keywords" content="civil engineering, live construction rate analysis, estimating software, BOQ" />
+    
+    <title>Civil Estimation Pro</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Register Service Worker for PWA
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').then(registration => {
+            console.log('SW registered: ', registration);
+          }).catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
+
