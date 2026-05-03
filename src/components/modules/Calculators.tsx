@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Copy, Droplet, Box, Hammer, PaintBucket, Scaling, ArrowRightLeft, Layers, Columns, Container } from "lucide-react";
 import { useSettings } from "../../context/SettingsContext";
 import { ConcreteMortarCalculator, BrickworkCalculator, PlasterCalculator, SteelCalculator } from "../../utils/calculators";
+import ShareMenu from "./ShareMenu";
 
 export default function ConstructionMaterialEstimator() {
   const { formatCurrency, settings } = useSettings();
@@ -80,12 +81,21 @@ export default function ConstructionMaterialEstimator() {
   const parseNum = (val: string) => parseFloat(val) || 0;
 
   let content = null;
+  let currentExportData: Record<string, any> = {};
 
   if (activeTab === "concrete") {
     const calc = new ConcreteMortarCalculator(
       parseNum(cLength), parseNum(cWidth), parseNum(cDepth), cMix, parseNum(wastage), parseNum(cWcRatio), isSI
     );
     const res = calc.calculate();
+    
+    currentExportData = {
+      "Concrete Mixed Volume": `${res.totalWetVolume.toFixed(2)} ${unitVol}`,
+      "Cement Required": `${res.cementBags.toFixed(2)} Bags`,
+      "Sand Required": `${res.sandVol.toFixed(2)} ${unitVol}`,
+      "Aggregate Required": `${res.aggregateVol.toFixed(2)} ${unitVol}`,
+      "Water Required": `${res.waterLiters.toFixed(1)} L`
+    };
     
     content = (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -179,6 +189,14 @@ export default function ConstructionMaterialEstimator() {
     const setH = activeTab === "bricks" ? setBrickH : setBlockH;
     const setJ = activeTab === "bricks" ? setBJoint : setBlockJoint;
 
+    currentExportData = {
+      "Net Wall Volume": `${res.netWallVol.toFixed(2)} ${unitVol}`,
+      "Total Units Required": `${res.numBricks} nos`,
+      "Mortar Volume": `${res.mortarWetVol.toFixed(2)} ${unitVol}`,
+      "Cement Required": `${res.cementBags.toFixed(2)} Bags`,
+      "Sand Required": `${res.sandVol.toFixed(2)} ${unitVol}`
+    };
+
     content = (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="space-y-6 bg-slate-50/50 p-6 rounded-2xl border">
@@ -264,6 +282,13 @@ export default function ConstructionMaterialEstimator() {
     );
     const res = calc.calculate();
     
+    currentExportData = {
+      "Total Bars Needed": `${res.numBars} nos`,
+      "Weight per Unit": `${res.weightPerUnitLength.toFixed(3)} kg`,
+      "Total Cut Length": `${res.totalLengthAllBars.toFixed(2)} ${unitFt}`,
+      "Total Weight": `${res.totalWeightKg.toFixed(1)} kg`
+    };
+
     content = (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="space-y-6 bg-slate-50/50 p-6 rounded-2xl border">
@@ -319,6 +344,12 @@ export default function ConstructionMaterialEstimator() {
     );
     const res = calc.calculate();
     
+    currentExportData = {
+      "Total Wet Volume": `${res.totalWetVolume.toFixed(2)} ${unitVol}`,
+      "Cement Required": `${res.cementBags.toFixed(2)} Bags`,
+      "Sand Required": `${res.sandVol.toFixed(2)} ${unitVol}`
+    };
+
     content = (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="space-y-6 bg-slate-50/50 p-6 rounded-2xl border">
@@ -363,6 +394,12 @@ export default function ConstructionMaterialEstimator() {
   } else if (activeTab === "water") {
     // Basic Water Calculator based on cement weight
     const waterCalc = parseNum(wCementKg) * parseNum(wWcRatio);
+    currentExportData = {
+      "Weight of Cement": `${wCementKg} kg`,
+      "W/C Ratio": `${wWcRatio}`,
+      "Water Required": `${waterCalc.toFixed(1)} Liters (${(waterCalc / 3.785).toFixed(2)} Gallons)`
+    };
+
     content = (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="space-y-6 bg-slate-50/50 p-6 rounded-2xl border">
@@ -423,7 +460,7 @@ export default function ConstructionMaterialEstimator() {
                <button 
                  key={tab.id}
                  onClick={() => setActiveTab(tab.id)}
-                 className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap ${activeTab === tab.id ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/20" : "bg-white hover:bg-slate-100 text-slate-600 border border-slate-200"}`}
+                 className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap ${activeTab === tab.id ? "bg-indigo-600 dark:bg-indigo-500 text-white shadow-md shadow-indigo-600/20" : "bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800"}`}
                >
                  <Icon className="w-4 h-4" />
                  {tab.label}
@@ -432,9 +469,20 @@ export default function ConstructionMaterialEstimator() {
            })}
         </div>
 
-        <div className="bg-white p-6 md:p-8 rounded-[2rem] shadow-sm border border-slate-200 transition-all duration-300">
+        <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] shadow-sm border border-slate-200 dark:border-slate-800 transition-all duration-300">
           {content}
         </div>
+        
+        {/* Floating Share Menu overlay */}
+        {Object.keys(currentExportData).length > 0 && (
+          <div className="flex justify-end mt-6">
+            <ShareMenu 
+              activeTab={activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} 
+              data={currentExportData} 
+              title={`${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Estimation`} 
+            />
+          </div>
+        )}
       </div>
     </div>
   );
