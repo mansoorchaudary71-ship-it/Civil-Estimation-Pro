@@ -66,17 +66,22 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
         )}
       </div>
 
-      <div className="mb-8 relative group max-w-md">
-        <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-          <Search className="text-blue-500 w-5 h-5 transition-transform group-focus-within:scale-110 group-focus-within:text-blue-600" />
+      <div className="mb-10 flex flex-col items-center">
+        <h2 className="text-[1.35rem] md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-700 dark:from-blue-400 dark:to-indigo-400 mb-6 text-center max-w-3xl px-4 text-balance tracking-tight">
+          Access Comprehensive Engineering Tools &amp; Precise Estimations
+        </h2>
+        <div className="relative group w-full max-w-2xl mx-auto">
+          <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+            <Search className="text-blue-500 w-5 h-5 transition-transform group-focus-within:scale-110 group-focus-within:text-blue-600" />
+          </div>
+          <input 
+            type="text" 
+            placeholder="Search only" 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 focus:border-blue-500 dark:focus:border-blue-500 rounded-full py-4 pl-14 pr-6 text-base font-semibold text-gray-800 dark:text-white shadow-sm hover:shadow-md focus:shadow-md focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600 placeholder:font-medium"
+          />
         </div>
-        <input 
-          type="text" 
-          placeholder="Search only" 
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 focus:border-blue-500 dark:focus:border-blue-500 rounded-3xl py-4 flex-1 pl-12 pr-4 text-sm font-semibold text-gray-800 dark:text-white shadow-sm hover:shadow-md focus:shadow-md focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600 placeholder:font-medium"
-        />
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
