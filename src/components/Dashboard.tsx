@@ -66,13 +66,13 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
         )}
       </div>
 
-      <div className="mb-8 relative group">
+      <div className="mb-8 relative group max-w-md">
         <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
           <Search className="text-blue-500 w-5 h-5 transition-transform group-focus-within:scale-110 group-focus-within:text-blue-600" />
         </div>
         <input 
           type="text" 
-          placeholder="Search modules..." 
+          placeholder="Search only" 
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 focus:border-blue-500 dark:focus:border-blue-500 rounded-3xl py-4 flex-1 pl-12 pr-4 text-sm font-semibold text-gray-800 dark:text-white shadow-sm hover:shadow-md focus:shadow-md focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600 placeholder:font-medium"
