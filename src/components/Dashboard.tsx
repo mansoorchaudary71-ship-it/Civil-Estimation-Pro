@@ -26,6 +26,8 @@ import {
 
 import Logo from './Logo';
 
+import RecentEstimates from './RecentEstimates';
+
 interface DashboardProps {
   onSelectModule: (id: ModuleId) => void;
   onOpenSidebar: () => void;
@@ -41,8 +43,8 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
   };
 
   return (
-    <div className="flex-1 overflow-y-auto px-4 md:px-8 py-6 md:py-10 pb-12 w-full max-w-7xl mx-auto">
-      <div className="mb-6 flex justify-between items-center px-1">
+    <div className="flex-1 px-4 md:px-8 py-6 md:py-10 pb-12 w-full max-w-7xl mx-auto flex flex-col">
+      <div className="mb-6 flex justify-between items-center px-1 hidden">
         <div className="flex items-center gap-3">
           <button onClick={onOpenSidebar} className="p-2 -ml-2 rounded-full hover:bg-gray-200 dark:hover:bg-slate-800 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-slate-800/50 md:hidden transition-colors">
             <Menu className="w-6 h-6" />
@@ -274,6 +276,8 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
         )}
 
       </div>
+
+      <RecentEstimates onSelectModule={onSelectModule} />
     </div>
   );
 }
