@@ -10,6 +10,8 @@ interface Estimate {
   typeLabel: string;
   color: string;
   icon: React.ReactNode;
+  progress: number;
+  status: string;
 }
 
 const DUMMY_ESTIMATES: Estimate[] = [
@@ -20,7 +22,9 @@ const DUMMY_ESTIMATES: Estimate[] = [
     type: 'house',
     typeLabel: 'House Estimator',
     color: 'from-blue-500 to-indigo-600',
-    icon: <Home className="w-5 h-5 text-white" />
+    icon: <Home className="w-5 h-5 text-white" />,
+    progress: 40,
+    status: 'Grey Structure Done',
   },
   {
     id: '2',
@@ -29,7 +33,9 @@ const DUMMY_ESTIMATES: Estimate[] = [
     type: 'earthworks',
     typeLabel: 'Earthworks',
     color: 'from-amber-500 to-orange-500',
-    icon: <Truck className="w-5 h-5 text-white" />
+    icon: <Truck className="w-5 h-5 text-white" />,
+    progress: 75,
+    status: 'In Progress',
   },
   {
     id: '3',
@@ -38,7 +44,9 @@ const DUMMY_ESTIMATES: Estimate[] = [
     type: 'sewerage',
     typeLabel: 'Sewerage',
     color: 'from-emerald-500 to-teal-500',
-    icon: <Droplets className="w-5 h-5 text-white" />
+    icon: <Droplets className="w-5 h-5 text-white" />,
+    progress: 90,
+    status: 'Almost Complete',
   }
 ];
 
@@ -108,7 +116,17 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
                <h4 className="text-lg font-bold text-slate-800 dark:text-slate-100 leading-tight mb-1.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                  {est.title}
                </h4>
-               <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Created {est.date}</p>
+               <p className="text-sm text-slate-500 dark:text-slate-400 font-medium mb-3">Created {est.date}</p>
+               
+               <div>
+                 <div className="flex justify-between text-xs font-bold text-slate-500 mb-1.5">
+                   <span>{est.status}</span>
+                   <span className="text-indigo-600 dark:text-indigo-400">{est.progress}%</span>
+                 </div>
+                 <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)]">
+                   <div className={`bg-gradient-to-r ${est.color} h-2 rounded-full group-hover:scale-y-110 transition-transform origin-left`} style={{ width: `${est.progress}%` }}></div>
+                 </div>
+               </div>
              </div>
              
              <button className="relative z-10 mt-auto w-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 group-hover:bg-gradient-to-r group-hover:from-indigo-500 group-hover:to-purple-600 group-hover:text-white font-bold py-3.5 rounded-[1rem] flex items-center justify-center gap-2 transition-all duration-300">
