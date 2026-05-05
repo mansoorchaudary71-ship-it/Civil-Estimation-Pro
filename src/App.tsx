@@ -69,7 +69,7 @@ export default function App() {
 
         <main className="flex-1 flex flex-col bg-[#f2f2f7] dark:bg-slate-950 overflow-hidden relative w-full h-full transition-colors duration-300">
           {["home", "about", "careers", "contact", "blog"].includes(activeModule) ? (
-            <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-y-auto">
+            <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-y-auto pb-24 md:pb-0">
               <TopNavbar onOpenSidebar={() => setIsSidebarOpen(true)} />
               {activeModule === "home" && <Dashboard onSelectModule={setActiveModule} onOpenSidebar={() => setIsSidebarOpen(true)} onOpenSettings={() => setIsSettingsOpen(true)} />}
               {activeModule === "about" && <div className="p-8 pt-12"><AboutUs /></div>}
@@ -96,6 +96,11 @@ export default function App() {
               {activeModule === "rates" && <ModuleWrapper title="Market Rates" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RateAnalysis /></ModuleWrapper>}
             </div>
           )}
+          <BottomNavBar 
+            activeModule={activeModule} 
+            onSelectModule={setActiveModule} 
+            onOpenProfile={() => setIsSidebarOpen(true)} 
+          />
         </main>
 
         <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
@@ -108,6 +113,7 @@ export default function App() {
 }
 
 import Breadcrumb, { BreadcrumbItem } from "./components/Breadcrumb";
+import BottomNavBar from "./components/BottomNavBar";
 
 function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: string; onOpenSidebar: () => void; onOpenSettings: () => void; onGoHome?: () => void }) {
   const breadcrumbItems: BreadcrumbItem[] = [
@@ -118,7 +124,7 @@ function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: 
 
   return (
     <div className="flex items-center px-4 py-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 sticky top-0 z-30 shrink-0 h-14 transition-colors duration-300">
-      <button onClick={onOpenSidebar} className="p-2 mr-2 -ml-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-500 dark:text-slate-400">
+      <button onClick={onOpenSidebar} className="p-2 mr-2 -ml-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-500 dark:text-slate-400 hidden md:block">
         <Menu className="w-5 h-5" />
       </button>
 
@@ -172,7 +178,7 @@ function ModuleWrapper({
         onGoHome={() => setActiveModule("home")}
       />
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto pb-24 md:pb-0">
         <div className="min-h-full flex flex-col items-center">
           <div className="flex-1 shrink-0 p-4 md:p-6 pb-2 w-full max-w-7xl">
             {children}

@@ -33,15 +33,6 @@ export default function TopNavbar({ onOpenSidebar }: { onOpenSidebar?: () => voi
           
           {/* Logo Area */}
           <div className="flex items-center gap-2 lg:gap-3 cursor-pointer group shrink-0">
-            {onOpenSidebar && (
-              <button 
-                onClick={onOpenSidebar} 
-                className="p-2 -ml-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors md:hidden"
-                aria-label="Open sidebar"
-              >
-                <Menu className="w-5 h-5" />
-              </button>
-            )}
             <div className="w-8 h-8 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
               <Logo className="w-8 h-8" />
             </div>

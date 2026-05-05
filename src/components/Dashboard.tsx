@@ -24,7 +24,9 @@ import {
   Settings as SettingsIcon,
   CheckSquare,
   Map,
-  Grid2X2
+  Grid2X2,
+  Flame,
+  Clock
 } from "lucide-react";
 
 import Logo from './Logo';
@@ -71,273 +73,290 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
         )}
       </div>
 
-      <div className="mb-12 flex flex-col items-center animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="w-16 h-16 flex items-center justify-center">
-            <Logo className="w-16 h-16" />
-          </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300">
-            Civil Estimation Pro
+      <div className="mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div>
+          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+            Welcome back, Alex <span className="text-2xl animate-bounce origin-bottom hover:animate-none cursor-default inline-block" style={{animationDuration: '2s', animationIterationCount: 2}}>👋</span>
           </h1>
+          <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium">Ready to continue your estimates?</p>
         </div>
-        <h2 className="text-lg md:text-xl font-medium text-slate-500 dark:text-slate-400 mb-8 text-center max-w-2xl px-4 text-balance">
-          Access Comprehensive Engineering Tools &amp; Precise Estimations
-        </h2>
-        <div className="relative group w-full max-w-2xl mx-auto">
+        <div className="flex items-center gap-3 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-white/60 dark:border-slate-800 shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] transition-all cursor-default">
+          <div className="p-2 bg-orange-100 dark:bg-orange-500/20 text-orange-500 rounded-xl relative">
+             <div className="absolute inset-0 bg-orange-400/20 blur animate-pulse" />
+             <Flame className="w-5 h-5 fill-orange-500/20 relative z-10" />
+          </div>
+          <div>
+            <div className="text-sm font-bold text-slate-800 dark:text-white leading-tight">12 Day Streak</div>
+            <div className="text-xs font-semibold text-slate-500 flex items-center gap-1">24 projects done</div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-10 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-75">
+        <div className="relative group w-full mb-8">
           <div className="absolute inset-y-0 left-6 flex items-center pointer-events-none">
             <Search className="text-blue-500/70 dark:text-blue-400/70 w-5 h-5 transition-transform group-focus-within:scale-110 group-focus-within:text-blue-600" />
           </div>
           <input 
             type="text" 
-            placeholder="Search only" 
+            placeholder="Search tools, materials, or projects..." 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 focus:border-blue-500 dark:focus:border-blue-500 rounded-full py-4 pl-14 pr-6 text-base font-semibold text-gray-800 dark:text-white shadow-sm hover:shadow-md focus:shadow-md focus:ring-4 focus:ring-blue-500/10 outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600 placeholder:font-medium"
+            className="w-full bg-gray-100/80 dark:bg-slate-900/80 border border-transparent focus:bg-white focus:border-blue-500 dark:focus:border-blue-500 rounded-2xl py-4 pl-14 pr-6 text-base font-medium text-gray-800 dark:text-white shadow-[inset_0_2px_5px_rgba(0,0,0,0.06)] focus:shadow-[inset_0_2px_5px_rgba(0,0,0,0.02),0_0_0_4px_rgba(59,130,246,0.1)] outline-none transition-all placeholder:text-gray-500 dark:placeholder:text-gray-500"
           />
         </div>
-      </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-        
-        {/* CONSTRUCTION MATERIAL ESTIMATOR */}
-        {match('construction material estimator tools concrete bricks steel') && (
-        <button 
-          onClick={() => onSelectModule('calculators')}
-          className="col-span-2 lg:col-span-2 relative bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[32px] border border-gray-100 dark:border-slate-800 flex justify-between items-center text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all overflow-hidden group"
-        >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/5 dark:bg-red-500/10 rounded-full blur-3xl -mr-20 -mt-20 transition-transform group-hover:scale-110" />
-          <div className="relative z-10">
-            <div className="text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5"><Calculator className="w-4 h-4"/> TOOLS</div>
-            <div className="text-2xl font-black text-gray-900 dark:text-white mb-1">Construction Material Estimator</div>
-            <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Accurate estimations for concrete, bricks, steel, blocks, and mortar.</p>
-          </div>
-          <div className="relative z-10 w-16 h-16 bg-red-50 dark:bg-red-500/10 rounded-2xl flex items-center justify-center p-2.5 gap-1.5 text-red-500 dark:text-red-400 group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
-            <Calculator className="w-8 h-8" />
-          </div>
-        </button>
-        )}
-
-
-
-        {/* HOUSE ESTIMATOR */}
-        {match('house estimator residential turnkey grey structure finishing') && (
-        <button 
-          onClick={() => onSelectModule('house')}
-          className="col-span-2 lg:col-span-2 relative bg-gradient-to-br from-blue-600 to-indigo-700 dark:from-blue-800 dark:to-indigo-900 p-6 md:p-8 rounded-[32px] border border-blue-500 dark:border-blue-700 flex flex-col text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(37,99,235,0.4)] transition-all overflow-hidden group min-h-[160px]"
-        >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20 group-hover:blur-2xl transition-all" />
-          <div className="absolute -right-4 -bottom-4 opacity-10 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-500">
-            <Home className="w-32 h-32 text-white" strokeWidth={1} />
-          </div>
-          
-          <div className="relative z-10 w-full mb-4">
-            <div className="text-[10px] font-bold text-blue-200 uppercase tracking-widest mb-1 flex items-center gap-1.5"><Home className="w-3 h-3"/> RESIDENTIAL</div>
-            <div className="text-2xl font-black text-white leading-tight max-w-[200px]">House Estimator</div>
-          </div>
-          <div className="relative z-10 flex gap-2 w-full mt-auto">
-            <div className="bg-white/20 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full text-xs font-bold text-white">Grey Structure</div>
-            <div className="bg-white/20 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full text-xs font-bold text-white">Finishing</div>
-          </div>
-        </button>
-        )}
-
-        
-        {/* 2D TAKEOFF */}
-        {match('2d takeoff plan measure area linear extraction') && (
-        <button 
-          onClick={() => onSelectModule('takeoff')}
-          className="col-span-2 lg:col-span-2 relative bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[32px] border border-gray-100 dark:border-slate-800 flex justify-between items-center text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all overflow-hidden group"
-        >
-          <div className="absolute top-0 left-0 w-64 h-64 bg-green-500/5 dark:bg-green-500/10 rounded-full blur-3xl -ml-20 -mt-20 group-hover:scale-110 transition-transform" />
-          <div className="relative z-10">
-            <div className="text-xs font-bold text-green-600 dark:text-green-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5"><PencilRuler className="w-4 h-4"/> 2D TAKEOFF</div>
-            <div className="text-2xl font-black text-gray-900 dark:text-white mb-1">Plan Measure</div>
-            <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Area & Linear extraction</p>
-          </div>
-          <div className="relative z-10 w-16 h-16 rounded-2xl bg-green-50 dark:bg-green-500/10 flex items-center justify-center text-green-600 dark:text-green-400 group-hover:bg-green-500 group-hover:text-white transition-colors duration-300">
-            <BoxSelect className="w-8 h-8" />
-          </div>
-        </button>
-        )}
-
-        {/* EARTHWORKS */}
-        {match('earthworks site prep') && (
-        <button 
-          onClick={() => onSelectModule('earthworks')}
-          className="col-span-1 relative bg-white dark:bg-slate-900 p-5 rounded-[28px] border border-gray-100 dark:border-slate-800 flex flex-col justify-between text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all overflow-hidden group min-h-[160px]"
-        >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 dark:bg-amber-500/10 rounded-full blur-2xl -mr-10 -mt-10" />
-          <div className="relative z-10 w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-500/10 text-amber-500 dark:text-amber-400 flex items-center justify-center mb-4 group-hover:bg-amber-500 group-hover:text-white transition-colors duration-300">
-             <Truck className="w-5 h-5" />
-          </div>
-          <div className="relative z-10 mt-auto">
-             <div className="text-[10px] font-bold text-amber-500 dark:text-amber-400 uppercase tracking-widest mb-1">SITE PREP</div>
-             <div className="text-base font-black text-gray-900 dark:text-white leading-tight">Earthworks</div>
-          </div>
-        </button>
-        )}
-
-        {/* TRENCH EXCAVATION */}
-        {match('trench excavation bedding') && (
-        <button 
-          onClick={() => onSelectModule('trench')}
-          className="col-span-1 border border-gray-100 dark:border-slate-800 hover:-translate-y-1 transition-all overflow-hidden group min-h-[160px] relative bg-white dark:bg-slate-900 p-5 rounded-[28px] flex flex-col justify-between text-left hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]"
-        >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-teal-500/5 dark:bg-teal-500/10 rounded-full blur-2xl -mr-10 -mt-10" />
-          <div className="relative z-10 w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center mb-4 group-hover:bg-teal-500 group-hover:text-white transition-colors duration-300">
-             <CheckSquare className="w-5 h-5" />
-          </div>
-          <div className="relative z-10 mt-auto">
-             <div className="text-[10px] font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest mb-1">SITE PREP</div>
-             <div className="text-base font-black text-gray-900 dark:text-white leading-tight">Trench Excavation</div>
-          </div>
-        </button>
-        )}
-
-        {/* GRID METHOD EARTHWORK */}
-        {match('grid method earthwork leveling') && (
-        <button 
-          onClick={() => onSelectModule('gridEarthwork')}
-          className="col-span-1 border border-gray-100 dark:border-slate-800 hover:-translate-y-1 transition-all overflow-hidden group min-h-[160px] relative bg-white dark:bg-slate-900 p-5 rounded-[28px] flex flex-col justify-between text-left hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]"
-        >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-2xl -mr-10 -mt-10" />
-          <div className="relative z-10 w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-4 group-hover:bg-indigo-500 group-hover:text-white transition-colors duration-300">
-             <Grid2X2 className="w-5 h-5" />
-          </div>
-          <div className="relative z-10 mt-auto">
-             <div className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mb-1">SITE PREP</div>
-             <div className="text-base font-black text-gray-900 dark:text-white leading-tight">Grid Method Volume</div>
-          </div>
-        </button>
-        )}
-
-        {/* CHAINAGE VOLUME */}
-        {match('chainage volume road highway') && (
-        <button 
-          onClick={() => onSelectModule('chainage')}
-          className="col-span-1 border border-gray-100 dark:border-slate-800 hover:-translate-y-1 transition-all overflow-hidden group min-h-[160px] relative bg-white dark:bg-slate-900 p-5 rounded-[28px] flex flex-col justify-between text-left hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]"
-        >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 dark:bg-amber-500/10 rounded-full blur-2xl -mr-10 -mt-10" />
-          <div className="relative z-10 w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-4 group-hover:bg-amber-500 group-hover:text-white transition-colors duration-300">
-             <Map className="w-5 h-5" />
-          </div>
-          <div className="relative z-10 mt-auto">
-             <div className="text-[10px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest mb-1">ROADWORKS</div>
-             <div className="text-base font-black text-gray-900 dark:text-white leading-tight">Chainage Volume</div>
-          </div>
-        </button>
-        )}
-
-        {/* ROAD ESTIMATOR */}
-        {match('road estimator infrastructure') && (
-        <button 
-          onClick={() => onSelectModule('road')}
-          className="col-span-1 relative bg-white dark:bg-slate-900 p-5 rounded-[28px] border border-gray-100 dark:border-slate-800 flex flex-col justify-between text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all overflow-hidden group min-h-[160px]"
-        >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-slate-500/5 dark:bg-slate-500/10 rounded-full blur-2xl -mr-10 -mt-10" />
-          <div className="relative z-10 w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-500/10 text-slate-500 dark:text-slate-400 flex items-center justify-center mb-4 group-hover:bg-slate-500 group-hover:text-white transition-colors duration-300">
-             <Route className="w-5 h-5" />
-          </div>
-          <div className="relative z-10 mt-auto">
-             <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">INFRASTRUCTURE</div>
-             <div className="text-base font-black text-gray-900 dark:text-white leading-tight">Road Estimator</div>
-          </div>
-        </button>
-        )}
-
-        {/* SEWERAGE & DRAINAGE */}
-        {match('sewerage drainage utilities') && (
-        <button 
-          onClick={() => onSelectModule('sewerage')}
-          className="col-span-1 relative bg-white dark:bg-slate-900 p-5 rounded-[28px] border border-gray-100 dark:border-slate-800 flex flex-col justify-between text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all overflow-hidden group min-h-[160px]"
-        >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 dark:bg-cyan-500/10 rounded-full blur-2xl -mr-10 -mt-10" />
-          <div className="relative z-10 w-10 h-10 rounded-xl bg-cyan-50 dark:bg-cyan-500/10 text-cyan-500 dark:text-cyan-400 flex items-center justify-center mb-4 group-hover:bg-cyan-500 group-hover:text-white transition-colors duration-300">
-             <Waves className="w-5 h-5" />
-          </div>
-          <div className="relative z-10 mt-auto">
-             <div className="text-[10px] font-bold text-cyan-500 dark:text-cyan-400 uppercase tracking-widest mb-1">UTILITIES</div>
-             <div className="text-base font-black text-gray-900 dark:text-white leading-tight">Sewerage &<br/>Drainage</div>
-          </div>
-        </button>
-        )}
-
-        {/* FINISHING WORKS */}
-        {match('finishing works interiors') && (
-        <button 
-          onClick={() => onSelectModule('finishing')}
-          className="col-span-1 relative bg-white dark:bg-slate-900 p-5 rounded-[28px] border border-gray-100 dark:border-slate-800 flex flex-col justify-between text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all overflow-hidden group min-h-[160px]"
-        >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-fuchsia-500/5 dark:bg-fuchsia-500/10 rounded-full blur-2xl -mr-10 -mt-10" />
-          <div className="relative z-10 w-10 h-10 rounded-xl bg-fuchsia-50 dark:bg-fuchsia-500/10 text-fuchsia-500 dark:text-fuchsia-400 flex items-center justify-center mb-4 group-hover:bg-fuchsia-500 group-hover:text-white transition-colors duration-300">
-             <Paintbrush className="w-5 h-5" />
-          </div>
-          <div className="relative z-10 mt-auto">
-             <div className="text-[10px] font-bold text-fuchsia-500 dark:text-fuchsia-400 uppercase tracking-widest mb-1">INTERIORS</div>
-             <div className="text-base font-black text-gray-900 dark:text-white leading-tight">Finishing works</div>
-          </div>
-        </button>
-        )}
-        
-        {/* FORMWORK & SCAFFOLD */}
-        {match('formwork scaffold structural') && (
-        <button 
-          onClick={() => onSelectModule('formwork')}
-          className="col-span-1 relative bg-white dark:bg-slate-900 p-5 rounded-[28px] border border-gray-100 dark:border-slate-800 flex flex-col justify-between text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all overflow-hidden group min-h-[160px]"
-        >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-violet-500/5 dark:bg-violet-500/10 rounded-full blur-2xl -mr-10 -mt-10" />
-          <div className="relative z-10 w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-500/10 text-violet-500 dark:text-violet-400 flex items-center justify-center mb-4 group-hover:bg-violet-500 group-hover:text-white transition-colors duration-300">
-             <Hammer className="w-5 h-5" />
-          </div>
-          <div className="relative z-10 mt-auto">
-             <div className="text-[10px] font-bold text-violet-500 dark:text-violet-400 uppercase tracking-widest mb-1">STRUCTURAL</div>
-             <div className="text-base font-black text-gray-900 dark:text-white leading-tight">Formwork &<br/>Scaffold</div>
-          </div>
-        </button>
-        )}
-
-        {/* MARKET RATES (Small card now) */}
-        {match('market rates live db') && (
-        <button 
-          onClick={() => onSelectModule('rates')}
-          className="col-span-1 relative bg-white dark:bg-slate-900 p-5 rounded-[28px] border border-gray-100 dark:border-slate-800 flex flex-col justify-between text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all overflow-hidden group min-h-[160px]"
-        >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-teal-500/5 dark:bg-teal-500/10 rounded-full blur-2xl -mr-10 -mt-10" />
-          <div className="relative z-10 w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-500/10 text-teal-500 dark:text-teal-400 flex items-center justify-center mb-4 group-hover:bg-teal-500 group-hover:text-white transition-colors duration-300">
-             <TrendingUp className="w-5 h-5" />
-          </div>
-          <div className="relative z-10 mt-auto">
-             <div className="text-[10px] font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest mb-1">MARKET</div>
-             <div className="text-base font-black text-gray-900 dark:text-white leading-tight">Live DB Rates</div>
-          </div>
-        </button>
-        )}
-
-        {/* AI ASSISTANT */}
-        {match('ai assistant gemini pro ask anything about construction') && (
-        <button 
-          onClick={() => onSelectModule('ai')}
-          className="col-span-2 md:col-span-3 lg:col-span-4 relative bg-[#09090b] dark:bg-slate-950 p-6 md:p-8 rounded-[32px] border border-[#27272a] dark:border-slate-800 flex justify-between items-center text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] transition-all overflow-hidden group lg:mt-4"
-        >
-          <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-[32px] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200" />
-          <div className="absolute -top-10 -right-10 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-pink-500/30 transition-colors duration-700" />
-          
-          <div className="relative z-10">
-            <div className="text-[10px] font-bold text-purple-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5"/> 
-              GEMINI PRO
+        {/* Jump Back In Section */}
+        {searchTerm === "" && (
+          <div className="w-full">
+            <div className="flex items-center gap-2 mb-4 px-1">
+              <Clock className="w-4 h-4 text-indigo-500" />
+              <h3 className="text-sm font-bold text-slate-800 dark:text-white uppercase tracking-wider">Jump Back In</h3>
             </div>
-            <div className="text-2xl font-black text-white mb-1">AI Assistant</div>
-            <p className="text-sm font-medium text-gray-400">Ask anything about construction</p>
-          </div>
-          
-          <div className="relative z-10 w-14 h-14 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/10 group-hover:bg-white/20 transition-colors">
-            <ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-          </div>
-        </button>
-        )}
+            
+            <div className="flex overflow-x-auto gap-4 pb-4 -mx-4 px-4 md:-mx-8 md:px-8 snap-x no-scrollbar" style={{scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
+              <div className="snap-start shrink-0 w-[280px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-5 rounded-[24px] border border-white/60 dark:border-slate-800 shadow-[0_8px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.06)] transition-all cursor-pointer group" onClick={() => onSelectModule('road')}>
+                <div className="flex justify-between items-start mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="p-1.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-lg"><Route className="w-4 h-4" strokeWidth={2.5}/></div>
+                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Road Estimator</span>
+                  </div>
+                  <span className="text-[10px] font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">2h ago</span>
+                </div>
+                <h4 className="font-bold text-slate-800 text-base mb-3 truncate dark:text-white">Highway Alpha Expansion</h4>
+                <div>
+                  <div className="flex justify-between text-xs font-bold text-slate-500 mb-1.5">
+                    <span>In Progress</span>
+                    <span className="text-indigo-600 dark:text-indigo-400">75%</span>
+                  </div>
+                  <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)]">
+                    <div className="bg-gradient-to-r from-indigo-500 to-blue-500 h-2 rounded-full w-3/4 group-hover:scale-y-110 transition-transform origin-left"></div>
+                  </div>
+                </div>
+              </div>
 
+              <div className="snap-start shrink-0 w-[280px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-5 rounded-[24px] border border-white/60 dark:border-slate-800 shadow-[0_8px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.06)] transition-all cursor-pointer group" onClick={() => onSelectModule('house')}>
+                <div className="flex justify-between items-start mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="p-1.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg"><Home className="w-4 h-4" strokeWidth={2.5}/></div>
+                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">House Estimator</span>
+                  </div>
+                  <span className="text-[10px] font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">Yesterday</span>
+                </div>
+                <h4 className="font-bold text-slate-800 text-base mb-3 truncate dark:text-white">Villa 4BHK Plot 12</h4>
+                <div>
+                  <div className="flex justify-between text-xs font-bold text-slate-500 mb-1.5">
+                    <span>Grey Structure Done</span>
+                    <span className="text-blue-600 dark:text-blue-400">40%</span>
+                  </div>
+                  <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)]">
+                    <div className="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full w-[40%] group-hover:scale-y-110 transition-transform origin-left"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="snap-start shrink-0 w-[280px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-5 rounded-[24px] border border-white/60 dark:border-slate-800 shadow-[0_8px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.06)] transition-all cursor-pointer group" onClick={() => onSelectModule('rigid-pavement')}>
+                <div className="flex justify-between items-start mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="p-1.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg"><Route className="w-4 h-4" strokeWidth={2.5}/></div>
+                    <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Rigid Pavement</span>
+                  </div>
+                  <span className="text-[10px] font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">3 days ago</span>
+                </div>
+                <h4 className="font-bold text-slate-800 text-base mb-3 truncate dark:text-white">City Center PQC Panel</h4>
+                <div>
+                  <div className="flex justify-between text-xs font-bold text-slate-500 mb-1.5">
+                    <span>Almost Complete</span>
+                    <span className="text-emerald-600 dark:text-emerald-400">90%</span>
+                  </div>
+                  <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)]">
+                    <div className="bg-gradient-to-r from-emerald-500 to-teal-500 h-2 rounded-full w-[90%] group-hover:scale-y-110 transition-transform origin-left"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
+
+      {searchTerm ? (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+           {/* Fallback to flat grid while searching */}
+           {match('construction material estimator tools concrete bricks steel') && (
+            <button onClick={() => onSelectModule('calculators')} className="col-span-2 relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 rounded-[32px] border border-white/60 dark:border-slate-800 flex justify-between items-center text-left hover:-translate-y-1 shadow-[0_8px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all overflow-hidden group">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/5 dark:bg-red-500/10 rounded-full blur-3xl -mr-20 -mt-20 group-hover:scale-110 transition-transform" />
+              <div className="relative z-10 w-full mb-1">
+                <div className="text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5"><Calculator className="w-4 h-4"/> TOOLS</div>
+                <div className="text-2xl font-black text-slate-800 dark:text-white mb-1">Material Estimator</div>
+              </div>
+            </button>
+           )}
+           {match('house estimator residential turnkey grey structure finishing') && (
+            <button onClick={() => onSelectModule('house')} className="col-span-2 relative bg-gradient-to-br from-blue-600 to-indigo-700 dark:from-blue-800 dark:to-indigo-900 p-6 rounded-[32px] border border-blue-400/50 dark:border-blue-700 flex justify-between items-center text-left hover:-translate-y-1 shadow-[0_8px_24px_rgba(37,99,235,0.2)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.4)] transition-all overflow-hidden group">
+              <div className="relative z-10 w-full mb-1">
+                <div className="text-xs font-bold text-blue-200 uppercase tracking-widest mb-1 flex items-center gap-1.5"><Home className="w-4 h-4"/> RESIDENTIAL</div>
+                <div className="text-2xl font-black text-white leading-tight">House Estimator</div>
+              </div>
+            </button>
+           )}
+           {match('2d takeoff plan measure area linear extraction') && (
+            <button onClick={() => onSelectModule('takeoff')} className="col-span-2 relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 rounded-[32px] border border-white/60 dark:border-slate-800 flex justify-between items-center text-left hover:-translate-y-1 shadow-[0_8px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all overflow-hidden group">
+              <div className="relative z-10 w-full mb-1">
+                <div className="text-xs font-bold text-green-600 dark:text-green-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5"><PencilRuler className="w-4 h-4"/> 2D TAKEOFF</div>
+                <div className="text-2xl font-black text-slate-800 dark:text-white mb-1">Plan Measure</div>
+              </div>
+            </button>
+           )}
+           {match('ai assistant gemini pro ask anything about construction') && (
+            <button onClick={() => onSelectModule('ai')} className="col-span-2 relative bg-[#09090b] dark:bg-slate-950 p-6 rounded-[32px] border border-white/10 flex justify-between items-center text-left hover:-translate-y-1 shadow-[0_8px_30px_rgba(0,0,0,0.2)] transition-all overflow-hidden group">
+              <div className="relative z-10 w-full mb-1">
+                <div className="text-xs font-bold text-purple-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5"/> GEMINI PRO</div>
+                <div className="text-2xl font-black text-white mb-1">AI Assistant</div>
+              </div>
+            </button>
+           )}
+           
+           {/* Other icons rendered plainly */}
+           {[ 
+             { id: 'earthworks', t: 'Earthworks', keys: 'earthworks site prep', icon: <Truck/>, c: 'text-amber-600', bg: 'bg-amber-100' },
+             { id: 'trench', t: 'Trench Excavation', keys: 'trench excavation bedding', icon: <CheckSquare/>, c: 'text-teal-600', bg: 'bg-teal-100' },
+             { id: 'gridEarthwork', t: 'Grid Method', keys: 'grid method earthwork leveling', icon: <Grid2X2/>, c: 'text-indigo-600', bg: 'bg-indigo-100' },
+             { id: 'chainage', t: 'Chainage Vol', keys: 'chainage volume road highway', icon: <Map/>, c: 'text-amber-600', bg: 'bg-amber-100' },
+             { id: 'road', t: 'Road Estimator', keys: 'road estimator infrastructure', icon: <Route/>, c: 'text-slate-600', bg: 'bg-slate-200' },
+             { id: 'rigid-pavement', t: 'Rigid Pavement', keys: 'rigid pavement concrete', icon: <Layers/>, c: 'text-gray-600', bg: 'bg-gray-200' },
+             { id: 'sewerage', t: 'Sewerage', keys: 'sewerage drainage utilities', icon: <Waves/>, c: 'text-cyan-600', bg: 'bg-cyan-100' },
+             { id: 'finishing', t: 'Finishing Works', keys: 'finishing works interiors', icon: <Paintbrush/>, c: 'text-fuchsia-600', bg: 'bg-fuchsia-100' },
+             { id: 'formwork', t: 'Formwork', keys: 'formwork scaffold structural', icon: <Hammer/>, c: 'text-violet-600', bg: 'bg-violet-100' },
+             { id: 'rates', t: 'Market Rates', keys: 'market rates live db', icon: <TrendingUp/>, c: 'text-emerald-600', bg: 'bg-emerald-100' },
+           ].map(item => match(item.keys) && (
+             <button key={item.id} onClick={() => onSelectModule(item.id as ModuleId)} className="col-span-1 relative bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl p-5 rounded-[28px] border border-white/60 dark:border-slate-800 flex flex-col justify-between text-left hover:-translate-y-1 shadow-[0_8px_24px_rgba(0,0,0,0.03)] transition-all overflow-hidden group min-h-[140px]">
+               <div className={`relative z-10 w-12 h-12 rounded-2xl ${item.bg} dark:bg-slate-800 ${item.c} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300`}>
+                 {item.icon}
+               </div>
+               <div className="text-base font-black text-slate-800 dark:text-white leading-tight">{item.t}</div>
+             </button>
+           ))}
+        </div>
+      ) : (
+        <div className="flex flex-col gap-10">
+          
+          {/* PRIMARY TOOLS (Full Width Cards) */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-5">
+            {/* CONSTRUCTION MATERIAL ESTIMATOR */}
+            <button onClick={() => onSelectModule('calculators')} className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 md:p-8 rounded-[32px] border border-white/60 dark:border-slate-800 flex justify-between items-center text-left hover:-translate-y-1 shadow-[0_8px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all overflow-hidden group">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/5 dark:bg-red-500/10 rounded-full blur-3xl -mr-20 -mt-20 transition-transform group-hover:scale-110" />
+              <div className="relative z-10">
+                <div className="text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5"><Calculator className="w-4 h-4"/> TOOLS</div>
+                <div className="text-2xl font-black text-slate-800 dark:text-white mb-1">Construction Material</div>
+                <p className="text-sm font-medium text-slate-500 dark:text-gray-400">Accurate estimations for concrete, bricks, steel, blocks, and mortar.</p>
+              </div>
+              <div className="relative z-10 w-20 h-20 bg-gradient-to-br from-red-100 to-red-50 dark:from-red-900/40 dark:to-red-800/10 rounded-3xl flex items-center justify-center p-2.5 gap-1.5 text-red-500 dark:text-red-400 transition-transform duration-300 group-hover:scale-110 shadow-[inset_0_2px_4px_rgba(255,255,255,0.8)] dark:shadow-[inset_0_2px_4px_rgba(255,255,255,0.1)]">
+                <Calculator className="w-10 h-10 fill-red-500/20" strokeWidth={2.5} />
+              </div>
+            </button>
+
+            {/* HOUSE ESTIMATOR */}
+            <button onClick={() => onSelectModule('house')} className="relative bg-gradient-to-br from-blue-600 to-indigo-700 dark:from-blue-800 dark:to-indigo-900 p-6 md:p-8 rounded-[32px] border border-blue-400/50 dark:border-blue-700 flex flex-col text-left hover:-translate-y-1 shadow-[0_8px_24px_rgba(37,99,235,0.2)] hover:shadow-[0_20px_40px_rgba(37,99,235,0.4)] transition-all overflow-hidden group min-h-[160px]">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20 group-hover:blur-2xl transition-all" />
+              <div className="absolute -right-4 -bottom-4 opacity-10 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-500">
+                <Home className="w-40 h-40 text-white fill-white/20" strokeWidth={1} />
+              </div>
+              <div className="relative z-10 w-full mb-4">
+                <div className="text-[10px] font-bold text-blue-200 uppercase tracking-widest mb-1 flex items-center gap-1.5"><Home className="w-3 h-3"/> RESIDENTIAL</div>
+                <div className="text-2xl font-black text-white leading-tight max-w-[200px]">House Estimator</div>
+              </div>
+              <div className="relative z-10 flex gap-2 w-full mt-auto">
+                <div className="bg-white/20 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full text-xs font-bold text-white shadow-[0_2px_8px_rgba(0,0,0,0.1)]">Grey Structure</div>
+                <div className="bg-white/20 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full text-xs font-bold text-white shadow-[0_2px_8px_rgba(0,0,0,0.1)]">Finishing</div>
+              </div>
+            </button>
+
+            {/* 2D TAKEOFF */}
+            <button onClick={() => onSelectModule('takeoff')} className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 md:p-8 rounded-[32px] border border-white/60 dark:border-slate-800 flex justify-between items-center text-left hover:-translate-y-1 shadow-[0_8px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all overflow-hidden group">
+              <div className="absolute top-0 left-0 w-64 h-64 bg-green-500/5 dark:bg-green-500/10 rounded-full blur-3xl -ml-20 -mt-20 group-hover:scale-110 transition-transform" />
+              <div className="relative z-10">
+                <div className="text-xs font-bold text-green-600 dark:text-green-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5"><PencilRuler className="w-4 h-4"/> 2D TAKEOFF</div>
+                <div className="text-2xl font-black text-slate-800 dark:text-white mb-1">Plan Measure</div>
+                <p className="text-sm font-medium text-slate-500 dark:text-gray-400">Area & Linear extraction.</p>
+              </div>
+              <div className="relative z-10 w-20 h-20 bg-gradient-to-br from-green-100 to-green-50 dark:from-green-900/40 dark:to-green-800/10 rounded-3xl flex items-center justify-center p-2.5 gap-1.5 text-green-600 dark:text-green-400 transition-transform duration-300 group-hover:scale-110 shadow-[inset_0_2px_4px_rgba(255,255,255,0.8)] dark:shadow-[inset_0_2px_4px_rgba(255,255,255,0.1)]">
+                <BoxSelect className="w-10 h-10 fill-green-500/20" strokeWidth={2.5} />
+              </div>
+            </button>
+
+            {/* AI ASSISTANT */}
+            <button onClick={() => onSelectModule('ai')} className="relative bg-[#09090b] dark:bg-slate-950 p-6 md:p-8 rounded-[32px] border border-white/10 flex justify-between items-center text-left hover:-translate-y-1 shadow-[0_8px_30px_rgba(0,0,0,0.2)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] transition-all overflow-hidden group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-[32px] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200" />
+              <div className="absolute -top-10 -right-10 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-pink-500/30 transition-colors duration-700" />
+              <div className="relative z-10">
+                <div className="text-[10px] font-bold text-purple-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5 drop-shadow-sm"><Sparkles className="w-3.5 h-3.5 fill-purple-400/50"/> GEMINI PRO</div>
+                <div className="text-2xl font-black text-white mb-1 drop-shadow-sm">AI Assistant</div>
+                <p className="text-sm font-medium text-gray-400">Ask anything about construction</p>
+              </div>
+              <div className="relative z-10 w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/10 group-hover:bg-white/20 transition-colors shadow-[inset_0_2px_8px_rgba(255,255,255,0.2)] group-hover:scale-105">
+                <ChevronRight className="w-8 h-8 group-hover:translate-x-1 transition-transform stroke-[2.5]" />
+              </div>
+            </button>
+          </div>
+
+          {[
+            {
+              category: "Site Prep",
+              items: [
+                { id: 'earthworks', t: 'Earthworks', keys: 'earthworks site prep', icon: <Truck className="w-7 h-7 fill-amber-500/20" strokeWidth={2.5} />, c: 'text-amber-600 dark:text-amber-400', bg: 'from-amber-100 to-amber-50 dark:from-amber-900/40 dark:to-amber-800/10' },
+                { id: 'trench', t: 'Trench Excavation', keys: 'trench excavation bedding', icon: <CheckSquare className="w-7 h-7 fill-teal-500/20" strokeWidth={2.5} />, c: 'text-teal-600 dark:text-teal-400', bg: 'from-teal-100 to-teal-50 dark:from-teal-900/40 dark:to-teal-800/10' },
+                { id: 'gridEarthwork', t: 'Grid Method Volume', keys: 'grid method earthwork leveling', icon: <Grid2X2 className="w-7 h-7 fill-indigo-500/20" strokeWidth={2.5} />, c: 'text-indigo-600 dark:text-indigo-400', bg: 'from-indigo-100 to-indigo-50 dark:from-indigo-900/40 dark:to-indigo-800/10' },
+              ]
+            },
+            {
+              category: "Infrastructure",
+              items: [
+                { id: 'road', t: 'Flexible Pavement', keys: 'road estimator infrastructure', icon: <Route className="w-7 h-7 fill-slate-500/20" strokeWidth={2.5} />, c: 'text-slate-600 dark:text-slate-400', bg: 'from-slate-200 to-slate-100 dark:from-slate-800/40 dark:to-slate-800/10' },
+                { id: 'rigid-pavement', t: 'Rigid Pavement', keys: 'rigid concrete road', icon: <Layers className="w-7 h-7 fill-blue-500/20" strokeWidth={2.5} />, c: 'text-blue-600 dark:text-blue-400', bg: 'from-blue-200 to-blue-100 dark:from-blue-900/40 dark:to-blue-800/10' },
+                { id: 'chainage', t: 'Chainage Volume', keys: 'chainage volume road highway', icon: <Map className="w-7 h-7 fill-amber-500/20" strokeWidth={2.5} />, c: 'text-amber-600 dark:text-amber-400', bg: 'from-amber-100 to-amber-50 dark:from-amber-900/40 dark:to-amber-800/10' },
+                { id: 'sewerage', t: 'Sewerage & Drainage', keys: 'sewerage drainage utilities', icon: <Waves className="w-7 h-7 fill-cyan-500/20" strokeWidth={2.5} />, c: 'text-cyan-600 dark:text-cyan-400', bg: 'from-cyan-100 to-cyan-50 dark:from-cyan-900/40 dark:to-cyan-800/10' },
+              ]
+            },
+            {
+              category: "Interiors & Structural",
+              items: [
+                { id: 'finishing', t: 'Finishing Works', keys: 'finishing works interiors', icon: <Paintbrush className="w-7 h-7 fill-fuchsia-500/20" strokeWidth={2.5} />, c: 'text-fuchsia-600 dark:text-fuchsia-400', bg: 'from-fuchsia-100 to-fuchsia-50 dark:from-fuchsia-900/40 dark:to-fuchsia-800/10' },
+                { id: 'formwork', t: 'Formwork & Scaffold', keys: 'formwork scaffold structural', icon: <Hammer className="w-7 h-7 fill-violet-500/20" strokeWidth={2.5} />, c: 'text-violet-600 dark:text-violet-400', bg: 'from-violet-100 to-violet-50 dark:from-violet-900/40 dark:to-violet-800/10' },
+              ]
+            },
+            {
+              category: "Market Data",
+              items: [
+                { id: 'rates', t: 'Live DB Rates', keys: 'market rates live db', icon: <TrendingUp className="w-7 h-7 fill-emerald-500/20" strokeWidth={2.5} />, c: 'text-emerald-600 dark:text-emerald-400', bg: 'from-emerald-100 to-emerald-50 dark:from-emerald-900/40 dark:to-emerald-800/10' },
+              ]
+            }
+          ].map((section, idx) => (
+            <div key={idx} className="flex flex-col gap-2 relative">
+              <h2 className="text-sm font-bold text-slate-400/80 uppercase tracking-widest pl-1">{section.category}</h2>
+              <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 pt-1 no-scrollbar -mx-4 px-4 md:-mx-8 md:px-8">
+                {section.items.map(item => (
+                  <button 
+                    key={item.id}
+                    onClick={() => onSelectModule(item.id as ModuleId)}
+                    className="w-[160px] md:w-[180px] shrink-0 snap-start relative bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl p-5 rounded-[28px] border border-white/60 dark:border-slate-800 flex flex-col justify-between text-left hover:-translate-y-1 shadow-[0_8px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all overflow-hidden group min-h-[160px]"
+                  >
+                    <div className="relative z-10 w-14 h-14 rounded-2xl bg-gradient-to-br flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-[inset_0_2px_4px_rgba(255,255,255,0.8)] dark:shadow-[inset_0_2px_4px_rgba(255,255,255,0.1)] gap-1.5 text-current" style={{ color: 'inherit' }}>
+                       <div className={`absolute inset-0 bg-gradient-to-br ${item.bg} rounded-2xl -z-10`} />
+                       <div className={`${item.c}`}>{item.icon}</div>
+                    </div>
+                    <div className="relative z-10 mt-auto">
+                       <div className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1 opacity-80">{section.category.split(' ')[0]}</div>
+                       <div className="text-base font-black text-slate-800 dark:text-white leading-tight">{item.t}</div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+
+        </div>
+      )}
+
 
       <RecentEstimates onSelectModule={onSelectModule} />
     </div>
