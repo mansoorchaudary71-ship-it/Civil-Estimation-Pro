@@ -26,6 +26,10 @@ import {
   CheckSquare,
   Map,
   Grid2X2,
+  Box,
+  ArrowRightLeft,
+  Weight,
+  Spline,
   Clock
 } from "lucide-react";
 
@@ -189,6 +193,84 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
               </div>
               <div className="absolute bottom-4 right-4 z-10 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-red-100 to-red-50 dark:from-red-900/40 dark:to-red-800/10 rounded-3xl flex items-center justify-center p-2.5 text-red-500 dark:text-red-400 transition-transform duration-300 group-hover:scale-110 shadow-[inset_0_2px_4px_rgba(255,255,255,0.8)] dark:shadow-[inset_0_2px_4px_rgba(255,255,255,0.1)]">
                 <Calculator className="w-8 h-8 sm:w-10 sm:h-10 fill-red-500/20" strokeWidth={2.5} />
+              </div>
+            </button>
+
+            {/* AREA CALCULATOR */}
+            <button onClick={() => onSelectModule('area-calculator')} className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 rounded-[32px] border border-orange-200/60 dark:border-slate-800 flex flex-col justify-between items-start text-left hover:-translate-y-1 shadow-[0_8px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all overflow-hidden group min-h-[160px]">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/5 dark:bg-orange-500/10 rounded-full blur-3xl -mr-20 -mt-20 transition-transform group-hover:scale-110" />
+              <div className="relative z-10 w-full mb-4">
+                <div className="text-xs font-bold text-orange-600 dark:text-orange-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5"><Grid2X2 className="w-4 h-4"/> TOOLS</div>
+                <div className="text-2xl font-black text-slate-800 dark:text-white mb-1 leading-tight">Area Calculator</div>
+                <p className="text-[11px] sm:text-xs font-medium text-slate-500 dark:text-gray-400">Calculate area & perimeter for multiple 2D shapes.</p>
+              </div>
+              <div className="absolute bottom-4 right-4 z-10 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-orange-100 to-orange-50 dark:from-orange-900/40 dark:to-orange-800/10 rounded-3xl flex items-center justify-center p-2.5 text-orange-500 dark:text-orange-400 transition-transform duration-300 group-hover:scale-110 shadow-[inset_0_2px_4px_rgba(255,255,255,0.8)] dark:shadow-[inset_0_2px_4px_rgba(255,255,255,0.1)]">
+                <Grid2X2 className="w-8 h-8 sm:w-10 sm:h-10 fill-orange-500/20" strokeWidth={2.5} />
+              </div>
+            </button>
+
+            {/* VOLUME ESTIMATOR */}
+            <button onClick={() => onSelectModule('volume-estimator')} className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 rounded-[32px] border border-cyan-200/60 dark:border-slate-800 flex flex-col justify-between items-start text-left hover:-translate-y-1 shadow-[0_8px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all overflow-hidden group min-h-[160px]">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 dark:bg-cyan-500/10 rounded-full blur-3xl -mr-20 -mt-20 transition-transform group-hover:scale-110" />
+              <div className="relative z-10 w-full mb-4">
+                <div className="text-xs font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5"><Box className="w-4 h-4"/> TOOLS</div>
+                <div className="text-2xl font-black text-slate-800 dark:text-white mb-1 leading-tight">Volume Estimator</div>
+                <p className="text-[11px] sm:text-xs font-medium text-slate-500 dark:text-gray-400">Calculate volumes, capacity & surface area.</p>
+              </div>
+              <div className="absolute bottom-4 right-4 z-10 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-cyan-100 to-cyan-50 dark:from-cyan-900/40 dark:to-cyan-800/10 rounded-3xl flex items-center justify-center p-2.5 text-cyan-500 dark:text-cyan-400 transition-transform duration-300 group-hover:scale-110 shadow-[inset_0_2px_4px_rgba(255,255,255,0.8)] dark:shadow-[inset_0_2px_4px_rgba(255,255,255,0.1)]">
+                <Box className="w-8 h-8 sm:w-10 sm:h-10 fill-cyan-500/20" strokeWidth={2.5} />
+              </div>
+            </button>
+
+            {/* UNIT CONVERTER */}
+            <button onClick={() => onSelectModule('unit-converter')} className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 rounded-[32px] border border-fuchsia-200/60 dark:border-slate-800 flex flex-col justify-between items-start text-left hover:-translate-y-1 shadow-[0_8px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all overflow-hidden group min-h-[160px]">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-fuchsia-500/5 dark:bg-fuchsia-500/10 rounded-full blur-3xl -mr-20 -mt-20 transition-transform group-hover:scale-110" />
+              <div className="relative z-10 w-full mb-4">
+                <div className="text-xs font-bold text-fuchsia-600 dark:text-fuchsia-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5"><ArrowRightLeft className="w-4 h-4"/> TOOLS</div>
+                <div className="text-2xl font-black text-slate-800 dark:text-white mb-1 leading-tight">Unit Converter</div>
+                <p className="text-[11px] sm:text-xs font-medium text-slate-500 dark:text-gray-400">Convert units across 15 engineering categories.</p>
+              </div>
+              <div className="absolute bottom-4 right-4 z-10 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-fuchsia-100 to-fuchsia-50 dark:from-fuchsia-900/40 dark:to-fuchsia-800/10 rounded-3xl flex items-center justify-center p-2.5 text-fuchsia-500 dark:text-fuchsia-400 transition-transform duration-300 group-hover:scale-110 shadow-[inset_0_2px_4px_rgba(255,255,255,0.8)] dark:shadow-[inset_0_2px_4px_rgba(255,255,255,0.1)]">
+                <ArrowRightLeft className="w-8 h-8 sm:w-10 sm:h-10 fill-fuchsia-500/20" strokeWidth={2.5} />
+              </div>
+            </button>
+
+            {/* METAL WEIGHT */}
+            <button onClick={() => onSelectModule('metal-weight')} className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 rounded-[32px] border border-neutral-200/60 dark:border-slate-800 flex flex-col justify-between items-start text-left hover:-translate-y-1 shadow-[0_8px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all overflow-hidden group min-h-[160px]">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-neutral-500/5 dark:bg-neutral-500/10 rounded-full blur-3xl -mr-20 -mt-20 transition-transform group-hover:scale-110" />
+              <div className="relative z-10 w-full mb-4">
+                <div className="text-xs font-bold text-neutral-600 dark:text-neutral-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5"><Weight className="w-4 h-4"/> TOOLS</div>
+                <div className="text-2xl font-black text-slate-800 dark:text-white mb-1 leading-tight">Metal Weight</div>
+                <p className="text-[11px] sm:text-xs font-medium text-slate-500 dark:text-gray-400">Calculate section weights of steel profiles.</p>
+              </div>
+              <div className="absolute bottom-4 right-4 z-10 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-neutral-100 to-neutral-50 dark:from-neutral-900/40 dark:to-neutral-800/10 rounded-3xl flex items-center justify-center p-2.5 text-neutral-500 dark:text-neutral-400 transition-transform duration-300 group-hover:scale-110 shadow-[inset_0_2px_4px_rgba(255,255,255,0.8)] dark:shadow-[inset_0_2px_4px_rgba(255,255,255,0.1)]">
+                <Weight className="w-8 h-8 sm:w-10 sm:h-10 fill-neutral-500/20" strokeWidth={2.5} />
+              </div>
+            </button>
+
+            {/* RCC STRUCTURE */}
+            <button onClick={() => onSelectModule('rcc-calculator')} className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 rounded-[32px] border border-indigo-200/60 dark:border-slate-800 flex flex-col justify-between items-start text-left hover:-translate-y-1 shadow-[0_8px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all overflow-hidden group min-h-[160px]">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-3xl -mr-20 -mt-20 transition-transform group-hover:scale-110" />
+              <div className="relative z-10 w-full mb-4">
+                <div className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5"><Spline className="w-4 h-4"/> TOOLS</div>
+                <div className="text-2xl font-black text-slate-800 dark:text-white mb-1 leading-tight">RCC Structure</div>
+                <p className="text-[11px] sm:text-xs font-medium text-slate-500 dark:text-gray-400">Calculate concrete & steel for slabs and columns.</p>
+              </div>
+              <div className="absolute bottom-4 right-4 z-10 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-indigo-100 to-indigo-50 dark:from-indigo-900/40 dark:to-indigo-800/10 rounded-3xl flex items-center justify-center p-2.5 text-indigo-500 dark:text-indigo-400 transition-transform duration-300 group-hover:scale-110 shadow-[inset_0_2px_4px_rgba(255,255,255,0.8)] dark:shadow-[inset_0_2px_4px_rgba(255,255,255,0.1)]">
+                <Spline className="w-8 h-8 sm:w-10 sm:h-10 fill-indigo-500/20" strokeWidth={2.5} />
+              </div>
+            </button>
+
+            {/* MASTER QUANTITY */}
+            <button onClick={() => onSelectModule('master-quantity')} className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-6 rounded-[32px] border border-blue-200/60 dark:border-slate-800 flex flex-col justify-between items-start text-left hover:-translate-y-1 shadow-[0_8px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all overflow-hidden group min-h-[160px]">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-3xl -mr-20 -mt-20 transition-transform group-hover:scale-110" />
+              <div className="relative z-10 w-full mb-4">
+                <div className="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5"><Calculator className="w-4 h-4"/> TOOLS</div>
+                <div className="text-2xl font-black text-slate-800 dark:text-white mb-1 leading-tight">Master Quantity</div>
+                <p className="text-[11px] sm:text-xs font-medium text-slate-500 dark:text-gray-400">23 comprehensive calculators for specialized items.</p>
+              </div>
+              <div className="absolute bottom-4 right-4 z-10 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-900/40 dark:to-blue-800/10 rounded-3xl flex items-center justify-center p-2.5 text-blue-500 dark:text-blue-400 transition-transform duration-300 group-hover:scale-110 shadow-[inset_0_2px_4px_rgba(255,255,255,0.8)] dark:shadow-[inset_0_2px_4px_rgba(255,255,255,0.1)]">
+                <Calculator className="w-8 h-8 sm:w-10 sm:h-10 fill-blue-500/20" strokeWidth={2.5} />
               </div>
             </button>
 

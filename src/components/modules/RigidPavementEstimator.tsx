@@ -4,7 +4,8 @@ import ShareButtonWithPopup from './ShareMenu';
 import { useSettings } from '../../context/SettingsContext';
 
 export default function RigidPavementEstimator() {
-  const { isPKR, formatCurrency } = useSettings();
+  const { settings, formatCurrency } = useSettings();
+  const isPKR = settings.currency === 'PKR';
 
   const [length, setLength] = useState<string>('1000'); // m
   const [laneWidth, setLaneWidth] = useState<string>('7.5'); // m

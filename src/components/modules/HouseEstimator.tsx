@@ -1,12 +1,14 @@
 import React, { useState, useMemo, useReducer } from 'react';
 import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
-import { Home, Layers, PaintRoller, Sliders, LayoutDashboard, Settings, ChevronUp, ChevronDown, Share2, Download, Database, RotateCcw, AlertCircle, ArrowRight } from 'lucide-react';
+import { Home, Layers, PaintRoller, Sliders, LayoutDashboard, Settings, ChevronUp, ChevronDown, Share2, Download, Database, RotateCcw, AlertCircle, ArrowRight, Spline, Calculator } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { useMarketRates } from '../../context/MarketRatesContext';
 import { useSettings } from '../../context/SettingsContext';
 import ShareButtonWithPopup from './ShareMenu';
 import AdvancedSpecs, { SpecsState, initialSpecs } from './AdvancedSpecs';
 import GlobalSettingsModal from './GlobalSettingsModal';
+import RccStructureCalculator from './RccStructureCalculator';
+import MasterQuantityEstimator from './MasterQuantityEstimator';
 
 type GeometryState = {
   plotSizeUnit: 'marla' | 'sqyd' | 'sqft';
@@ -91,7 +93,7 @@ export default function HouseEstimator() {
   const [isSpecsAccordionOpen, setIsSpecsAccordionOpen] = useState(false);
   
   const [showResults, setShowResults] = useState(false);
-  const [activeTab, setActiveTab] = useState<'grey' | 'finishing' | 'summary'>('summary');
+  const [activeTab, setActiveTab] = useState<'grey' | 'finishing' | 'summary' | 'rcc' | 'master'>('summary');
   const [finishQuality, setFinishQuality] = useState<number>(1); // 1: Standard, 2: Premium, 3: Luxury
   const [isGlobalSettingsOpen, setIsGlobalSettingsOpen] = useState(false);
   
@@ -634,6 +636,12 @@ export default function HouseEstimator() {
                     <button onClick={() => setActiveTab('finishing')} className={`relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeTab === 'finishing' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}>
                       <PaintRoller className="w-[18px] h-[18px]" /> <span className="whitespace-nowrap">Finishing</span>
                     </button>
+                    <button onClick={() => setActiveTab('rcc')} className={`relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeTab === 'rcc' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}>
+                      <Spline className="w-[18px] h-[18px]" /> <span className="whitespace-nowrap">RCC Detailed</span>
+                    </button>
+                    <button onClick={() => setActiveTab('master')} className={`relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeTab === 'master' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}>
+                      <Calculator className="w-[18px] h-[18px]" /> <span className="whitespace-nowrap">Master Quantities</span>
+                    </button>
                   </div>
                   
                   <button 
@@ -864,6 +872,18 @@ export default function HouseEstimator() {
                        </BarChart>
                      </ResponsiveContainer>
                    </div>
+                 </div>
+               )}
+
+               {activeTab === 'rcc' && (
+                 <div className="animate-in fade-in slide-in-from-bottom-8 duration-500 h-full flex flex-col pt-4">
+                   <RccStructureCalculator isEmbedded={true} />
+                 </div>
+               )}
+
+               {activeTab === 'master' && (
+                 <div className="animate-in fade-in slide-in-from-bottom-8 duration-500 h-full flex flex-col pt-4">
+                   <MasterQuantityEstimator isEmbedded={true} />
                  </div>
                )}
 

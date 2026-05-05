@@ -5,7 +5,8 @@ import ShareButtonWithPopup from './ShareMenu';
 import { useSettings } from '../../context/SettingsContext';
 
 export default function RoadEstimator() {
-  const { isPKR, formatCurrency } = useSettings();
+  const { settings, formatCurrency } = useSettings();
+  const isPKR = settings.currency === 'PKR';
 
   const [length, setLength] = useState<string>('1000'); // meters
   const [width, setWidth] = useState<string>('7.5'); // meters

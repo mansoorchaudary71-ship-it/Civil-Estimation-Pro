@@ -87,7 +87,7 @@ function createDonutChart(data: {label: string, value: number, color: string}[],
 export default function ShareButtonWithPopup({ activeTab, data, title, exportFormat }: ShareMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [showReportDetails, setShowReportDetails] = useState(false);
-  const [exportType, setExportType] = useState<"pdf" | "excel">("pdf");
+  const [exportType, setExportType] = useState<"pdf" | "excel" | "whatsapp" | "email">("pdf");
   const [reportDetails, setReportDetails] = useState({
     projectName: "",
     siteLocation: "",
@@ -386,7 +386,30 @@ export default function ShareButtonWithPopup({ activeTab, data, title, exportFor
     doc.setTextColor(150, 150, 150);
     doc.text("* Denotes a user-defined custom rate. This is a system-generated estimate. Actual prices may vary based on market conditions.", 14, doc.internal.pageSize.height - 10);
     
-    doc.save(`Corporate-BOQ-${title.replace(/[^a-zA-Z0-9]/g, '-')}.pdf`);
+    const pdfFileName = `Corporate-BOQ-${title.replace(/[^a-zA-Z0-9]/g, '-')}.pdf`;
+
+    if (exportType === "whatsapp" || exportType === "email") {
+      const pdfBlob = doc.output('blob');
+      const file = new File([pdfBlob], pdfFileName, { type: 'application/pdf' });
+      
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({
+              title: title,
+              text: 'Here is the estimation PDF generated via Civil Estimation Pro.',
+              files: [file]
+          }).catch(e => {
+              console.error("Error sharing", e);
+              // Fallback to save if share gets cancelled or fails (optional, but good UX)
+              // doc.save(pdfFileName);
+          });
+      } else {
+          alert(`Direct file sharing via ${exportType === "whatsapp" ? "WhatsApp" : "Email"} is not supported on this device/browser. The PDF will be downloaded so you can share it manually.`);
+          doc.save(pdfFileName);
+      }
+    } else {
+      doc.save(pdfFileName);
+    }
+    
     setShowReportDetails(false);
     setIsOpen(false);
   };
@@ -611,7 +634,7 @@ export default function ShareButtonWithPopup({ activeTab, data, title, exportFor
               
               <div className="h-px bg-slate-100 my-1 mx-4"></div>
               
-              <button onClick={handleWhatsApp} className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left">
+              <button onClick={() => { setExportType("whatsapp"); setIsOpen(false); setShowReportDetails(true); }} className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left">
                 <div className="p-2.5 rounded-full bg-green-50 text-green-600 group-hover:bg-green-100 transition-colors shrink-0">
                   <MessageCircle className="w-5 h-5" />
                 </div>
@@ -620,7 +643,7 @@ export default function ShareButtonWithPopup({ activeTab, data, title, exportFor
               
               <div className="h-px bg-slate-100 my-1 mx-4"></div>
               
-              <button onClick={handleEmail} className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left">
+              <button onClick={() => { setExportType("email"); setIsOpen(false); setShowReportDetails(true); }} className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left">
                 <div className="p-2.5 rounded-full bg-blue-50 text-blue-600 group-hover:bg-blue-100 transition-colors shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
@@ -693,11 +716,11 @@ export default function ShareButtonWithPopup({ activeTab, data, title, exportFor
                 Cancel
               </button>
               <button 
-                onClick={() => exportType === "pdf" ? generatePDF() : generateExcel()}
-                className={`flex-1 py-3 px-4 font-bold rounded-xl text-white ${exportType === "pdf" ? "bg-indigo-600 hover:bg-indigo-700 shadow-indigo-600/20" : "bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/20"} transition-colors flex justify-center items-center gap-2 shadow-lg`}
+                onClick={() => exportType === "pdf" || exportType === "whatsapp" || exportType === "email" ? generatePDF() : generateExcel()}
+                className={`flex-1 py-3 px-4 font-bold rounded-xl text-white ${exportType === "whatsapp" ? "bg-green-600 hover:bg-green-700 shadow-green-600/20" : exportType === "email" ? "bg-blue-600 hover:bg-blue-700 shadow-blue-600/20" : exportType === "pdf" ? "bg-indigo-600 hover:bg-indigo-700 shadow-indigo-600/20" : "bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/20"} transition-colors flex justify-center items-center gap-2 shadow-lg`}
               >
-                {exportType === "pdf" ? <FileText className="w-4 h-4" /> : <FileSpreadsheet className="w-4 h-4" />}
-                Generate {exportType === "pdf" ? "PDF" : "Excel"}
+                {exportType === "whatsapp" ? <MessageCircle className="w-4 h-4" /> : exportType === "email" ? <Mail className="w-4 h-4" /> : exportType === "pdf" ? <FileText className="w-4 h-4" /> : <FileSpreadsheet className="w-4 h-4" />}
+                {exportType === "whatsapp" ? "Share PDF" : exportType === "email" ? "Email PDF" : `Generate ${exportType === "pdf" ? "PDF" : "Excel"}`}
               </button>
             </div>
           </div>

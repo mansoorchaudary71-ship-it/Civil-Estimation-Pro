@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
-import { Copy, Droplet, Box, Hammer, PaintBucket, Scaling, ArrowRightLeft, Layers, Columns, Container } from "lucide-react";
+import { Copy, Droplet, Box, Hammer, PaintBucket, Scaling, ArrowRightLeft, Layers, Columns, Container, Spline, Calculator } from "lucide-react";
 import { useSettings } from "../../context/SettingsContext";
 import { ConcreteMortarCalculator, BrickworkCalculator, PlasterCalculator, SteelCalculator } from "../../utils/calculators";
 import ShareButtonWithPopup from "./ShareMenu";
+import RccStructureCalculator from "./RccStructureCalculator";
+import MasterQuantityEstimator from "./MasterQuantityEstimator";
 
 export default function ConstructionMaterialEstimator() {
   const { formatCurrency, settings } = useSettings();
@@ -20,6 +22,8 @@ export default function ConstructionMaterialEstimator() {
     { id: "blocks", label: "Blocks", icon: Container },
     { id: "plaster", label: "Plaster", icon: PaintBucket },
     { id: "steel", label: "Steel", icon: Layers },
+    { id: "rcc", label: "RCC Structure", icon: Spline },
+    { id: "master", label: "Master Quantities", icon: Calculator },
     { id: "water", label: "Water", icon: Droplet },
   ] as const;
   
@@ -531,6 +535,18 @@ export default function ConstructionMaterialEstimator() {
           </div>
         </div>
     );
+  } else if (activeTab === "rcc") {
+    content = (
+      <div className="w-full relative col-span-1 lg:col-span-2 space-y-4">
+        <RccStructureCalculator isEmbedded={true} />
+      </div>
+    );
+  } else if (activeTab === "master") {
+    content = (
+      <div className="w-full relative col-span-1 lg:col-span-2 space-y-4">
+        <MasterQuantityEstimator isEmbedded={true} />
+      </div>
+    );
   } else if (activeTab === "cement" || activeTab === "sand") {
     content = (
       <div className="bg-slate-50 border p-12 rounded-3xl text-center text-slate-500 max-w-xl mx-auto mt-8">
@@ -598,7 +614,7 @@ export default function ConstructionMaterialEstimator() {
         <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] shadow-sm border border-slate-200 dark:border-slate-800 transition-all duration-300 relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative">
             {content}
-            {(activeTab !== "cement" && activeTab !== "sand") && (
+            {(activeTab !== "cement" && activeTab !== "sand" && activeTab !== "rcc" && activeTab !== "master") && (
               <div className="bg-slate-900 rounded-3xl p-6 md:p-8 text-white space-y-4 shadow-xl sticky top-6 self-start z-10">
                  <div className="flex justify-between items-center mb-4">
                     <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest">Material Breakdown</h3>

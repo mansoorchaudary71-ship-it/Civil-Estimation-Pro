@@ -21,14 +21,18 @@ import {
   Grid2X2,
   ArrowUp,
   Triangle,
+  Box,
   ChevronDown,
   CheckSquare,
   Map,
   User,
-  LogOut
+  LogOut,
+  ArrowRightLeft,
+  Weight,
+  Spline
 } from "lucide-react";
 
-export type ModuleId = "home" | "takeoff" | "calculators" | "ai" | "earthworks" | "gridEarthwork" | "trench" | "chainage" | "road" | "rigid-pavement" | "sewerage" | "finishing" | "house" | "rates" | "formwork" | "about" | "careers" | "contact" | "blog";
+export type ModuleId = "home" | "takeoff" | "calculators" | "ai" | "earthworks" | "gridEarthwork" | "trench" | "chainage" | "road" | "rigid-pavement" | "sewerage" | "finishing" | "house" | "rates" | "formwork" | "area-calculator" | "volume-estimator" | "unit-converter" | "metal-weight" | "rcc-calculator" | "master-quantity" | "about" | "careers" | "contact" | "blog";
 
 interface SidebarProps {
   activeModule: ModuleId;
@@ -79,6 +83,12 @@ export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose 
     { id: "sewerage" as const, label: "Sewerage & Drainage", icon: Waves },
     { id: "finishing" as const, label: "Finishing Works", icon: Paintbrush },
     { id: "takeoff" as const, label: "2D Takeoff", icon: PencilRuler },
+    { id: "area-calculator" as const, label: "Area Calculator", icon: Triangle },
+    { id: "volume-estimator" as const, label: "Volume Estimator", icon: Box },
+    { id: "unit-converter" as const, label: "Unit Converter", icon: ArrowRightLeft },
+    { id: "metal-weight" as const, label: "Metal Weight", icon: Weight },
+    { id: "rcc-calculator" as const, label: "RCC Structure", icon: Spline },
+    { id: "master-quantity" as const, label: "Master Quantity", icon: Calculator },
     { id: "calculators" as const, label: "Material Estimator", icon: Calculator },
     { id: "ai" as const, label: "AI Assistant", icon: Sparkles },
   ];
