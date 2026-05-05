@@ -1,14 +1,14 @@
 import React, { useState } from "react";
+import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
 import { Copy, Droplet, Box, Hammer, PaintBucket, Scaling, ArrowRightLeft, Layers, Columns, Container } from "lucide-react";
 import { useSettings } from "../../context/SettingsContext";
 import { ConcreteMortarCalculator, BrickworkCalculator, PlasterCalculator, SteelCalculator } from "../../utils/calculators";
-import ShareMenu from "./ShareMenu";
+import ShareButtonWithPopup from "./ShareMenu";
 
 export default function ConstructionMaterialEstimator() {
   const { formatCurrency, settings } = useSettings();
   
-  const [localSI, setLocalSI] = useState<boolean>(settings.measurement === "SI");
-  const isSI = localSI;
+  const isSI = settings.measurement === "SI";
   const unitFt = isSI ? "m" : "ft";
   const unitIn = isSI ? "cm" : "in";
   const unitVol = isSI ? "m³" : "cft";
@@ -22,9 +22,18 @@ export default function ConstructionMaterialEstimator() {
     { id: "steel", label: "Steel", icon: Layers },
     { id: "water", label: "Water", icon: Droplet },
   ] as const;
-  // I am combining Cement/Sand logic simply inside concrete/plaster or basic tools. Wait, "Sand", "Cement", "Water" 
-  // Let me just include them as tabs to satisfy the exact phrasing.
   
+  const [showCost, setShowCost] = useState(false);
+  const [rates, setRates] = useState({
+    cement: 1200,
+    sand: 60,
+    aggregate: 80,
+    water: 1,
+    steel: 260,
+    bricks: 15,
+    blocks: 50
+  });
+
   const fullTabs = [
     ...tabs,
     { id: "cement", label: "Cement", icon: Box },
@@ -33,6 +42,24 @@ export default function ConstructionMaterialEstimator() {
   
   type TabId = typeof fullTabs[number]["id"];
   const [activeTab, setActiveTab] = useState<TabId>("concrete");
+
+  // Project Cart state
+  interface CartItem {
+    id: string;
+    name: string;
+    type: string;
+    cementBags: number;
+    sandVol: number;
+    aggregateVol: number;
+    waterLiters: number;
+    steelKg?: number;
+    bricksCount?: number;
+    blocksCount?: number;
+    unitVol: string;
+    rawExport: Record<string, any>;
+  }
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [elementName, setElementName] = useState<string>("");
 
   // Global inputs
   const [wastage, setWastage] = useState("5"); 
@@ -48,7 +75,15 @@ export default function ConstructionMaterialEstimator() {
   const [bWallL, setBWallL] = useState("20"); 
   const [bWallH, setBWallH] = useState("10"); 
   const [bWallT, setBWallT] = useState(isSI ? "22" : "9"); // cm or inches
-  const [bDeduc, setBDeduc] = useState("21"); 
+  interface Opening {
+    id: string;
+    type: 'Door' | 'Window' | 'Ventilator';
+    quantity: number;
+    length: number;
+    height: number;
+  }
+  const [openings, setOpenings] = useState<Opening[]>([]);
+  const [newOpening, setNewOpening] = useState<Omit<Opening, 'id'>>({ type: 'Door', quantity: 1, length: 0, height: 0 });
   
   const [brickL, setBrickL] = useState(isSI ? "22.8" : "9"); // cm or inches
   const [brickW, setBrickW] = useState(isSI ? "11.4" : "4.5"); 
@@ -82,6 +117,8 @@ export default function ConstructionMaterialEstimator() {
 
   let content = null;
   let currentExportData: Record<string, any> = {};
+  let currentExportInputs: Record<string, any> = {};
+  let currentCartItem: Omit<CartItem, 'id' | 'name'> | null = null;
 
   if (activeTab === "concrete") {
     const calc = new ConcreteMortarCalculator(
@@ -89,18 +126,35 @@ export default function ConstructionMaterialEstimator() {
     );
     const res = calc.calculate();
     
+    currentExportInputs = {
+      "Dimensions": `Length: ${cLength} ${unitFt} | Width: ${cWidth} ${unitFt} | Depth: ${cDepth} ${unitFt}`,
+      "Mix Ratio": cMix,
+      "W/C Ratio": cWcRatio,
+      "Wastage Allowed": `${wastage}%`
+    };
+
     currentExportData = {
       "Concrete Mixed Volume": `${res.totalWetVolume.toFixed(2)} ${unitVol}`,
+      [`Dry Volume (+${wastage}% waste)`]: `${(res.totalWetVolume * 1.54 * (1 + parseNum(wastage)/100)).toFixed(2)} ${unitVol}`,
       "Cement Required": `${res.cementBags.toFixed(2)} Bags`,
       "Sand Required": `${res.sandVol.toFixed(2)} ${unitVol}`,
       "Aggregate Required": `${res.aggregateVol.toFixed(2)} ${unitVol}`,
       "Water Required": `${res.waterLiters.toFixed(1)} L`
     };
     
+    currentCartItem = {
+      type: "Concrete",
+      cementBags: res.cementBags,
+      sandVol: res.sandVol,
+      aggregateVol: res.aggregateVol,
+      waterLiters: res.waterLiters,
+      unitVol,
+      rawExport: currentExportData
+    };
+    
     content = (
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="space-y-6 bg-slate-50/50 p-6 rounded-2xl border">
-          <h3 className="font-bold border-b pb-2">Concrete Slab / Footing</h3>
+      <div className="space-y-6 bg-slate-50/50 p-6 rounded-2xl border w-full">
+        <h3 className="font-bold border-b pb-2">Concrete Slab / Footing</h3>
           <div className="grid grid-cols-3 gap-4">
             <div>
               <label className="text-[10px] font-bold text-gray-500 uppercase">Length ({unitFt})</label>
@@ -114,6 +168,15 @@ export default function ConstructionMaterialEstimator() {
               <label className="text-[10px] font-bold text-gray-500 uppercase">Depth ({unitFt})</label>
               <input type="number" value={cDepth} onChange={e => setCDepth(e.target.value)} className="w-full bg-white border p-3 rounded-xl mt-1 font-medium" />
             </div>
+          </div>
+          <div className="bg-blue-50/50 rounded-xl p-4 border border-blue-100 flex items-center justify-center h-32 relative text-[10px] font-bold text-blue-500/80">
+             <svg viewBox="0 0 120 80" className="w-full h-full absolute inset-0 opacity-20 pointer-events-none">
+                <path d="M30,50 L90,50 L105,30 L45,30 Z" fill="currentColor"/>
+                <path d="M30,50 L30,60 L90,60 L90,50 M90,60 L105,40 L105,30" fill="none" stroke="currentColor" strokeWidth="2"/>
+             </svg>
+             <span className="absolute bottom-4 left-1/2 -translate-x-1/2 px-2 bg-blue-50">L {cLength}</span>
+             <span className="absolute right-10 top-6 px-2 bg-blue-50">W {cWidth}</span>
+             <span className="absolute left-8 bottom-6 px-2 bg-blue-50">D {cDepth}</span>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -133,34 +196,6 @@ export default function ConstructionMaterialEstimator() {
             </div>
           </div>
         </div>
-        <div className="bg-slate-900 rounded-3xl p-6 md:p-8 text-white space-y-4 shadow-xl">
-          <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest mb-4">Material Breakdown</h3>
-          <div className="flex justify-between border-b border-slate-800 pb-3">
-             <span className="text-slate-400">Wet Volume</span> 
-             <span className="font-mono font-bold">{res.totalWetVolume.toFixed(2)} {unitVol}</span>
-          </div>
-          <div className="flex justify-between border-b border-slate-800 pb-3">
-             <span className="text-slate-400">Dry Volume (+{wastage}% waste)</span> 
-             <span className="font-mono font-bold text-white">{(res.totalWetVolume * 1.54 * (1 + parseNum(wastage)/100)).toFixed(2)} {unitVol}</span>
-          </div>
-          <div className="flex justify-between border-b border-slate-800 pb-3 pt-2">
-             <span className="text-blue-400 font-bold">Cement</span> 
-             <span className="font-mono font-bold">{res.cementBags.toFixed(2)} Bags</span>
-          </div>
-          <div className="flex justify-between border-b border-slate-800 pb-3">
-             <span className="text-amber-400 font-bold">Sand</span> 
-             <span className="font-mono font-bold">{res.sandVol.toFixed(2)} {unitVol}</span>
-          </div>
-          <div className="flex justify-between border-b border-slate-800 pb-3">
-             <span className="text-gray-400 font-bold">Aggregate</span> 
-             <span className="font-mono font-bold">{res.aggregateVol.toFixed(2)} {unitVol}</span>
-          </div>
-          <div className="flex justify-between pt-2">
-             <span className="text-cyan-400 font-bold">Water</span> 
-             <span className="font-mono font-bold">{res.waterLiters.toFixed(1)} L</span>
-          </div>
-        </div>
-      </div>
     );
   } else if (activeTab === "bricks" || activeTab === "blocks") {
     
@@ -175,9 +210,11 @@ export default function ConstructionMaterialEstimator() {
     // Wait, let's normalize everything to the base unit (Meters or Feet).
     const conv = isSI ? 100 : 12; // cm to m, or inches to feet
 
+    const totalDeductionArea = openings.reduce((acc, op) => acc + (op.quantity * op.length * op.height), 0);
+
     const calc = new BrickworkCalculator(
       parseNum(bWallL), parseNum(bWallH), parseNum(bWallT) / conv, 
-      parseNum(bDeduc), 
+      totalDeductionArea, 
       parseNum(l) / conv, parseNum(w) / conv, parseNum(h) / conv, 
       parseNum(j) / conv, 
       bMix, parseNum(wastage), isSI
@@ -189,6 +226,15 @@ export default function ConstructionMaterialEstimator() {
     const setH = activeTab === "bricks" ? setBrickH : setBlockH;
     const setJ = activeTab === "bricks" ? setBJoint : setBlockJoint;
 
+    currentExportInputs = {
+      "Wall Dimensions": `L: ${bWallL} ${unitFt} | H: ${bWallH} ${unitFt} | T: ${bWallT} ${unitIn}`,
+      "Deductions Area": `${totalDeductionArea.toFixed(2)} ${unitArea}`,
+      "Unit Dimensions": `L: ${l} ${unitIn} | W: ${w} ${unitIn} | H: ${h} ${unitIn}`,
+      "Mortar Joint": `${j} ${unitIn}`,
+      "Mix Ratio": bMix,
+      "Wastage Allowed": `${wastage}%`
+    };
+
     currentExportData = {
       "Net Wall Volume": `${res.netWallVol.toFixed(2)} ${unitVol}`,
       "Total Units Required": `${res.numBricks} nos`,
@@ -197,11 +243,22 @@ export default function ConstructionMaterialEstimator() {
       "Sand Required": `${res.sandVol.toFixed(2)} ${unitVol}`
     };
 
+    currentCartItem = {
+      type: activeTab === "bricks" ? "Bricks" : "Blocks",
+      cementBags: res.cementBags,
+      sandVol: res.sandVol,
+      aggregateVol: 0,
+      waterLiters: 0,
+      bricksCount: activeTab === "bricks" ? res.numBricks : undefined,
+      blocksCount: activeTab === "blocks" ? res.numBricks : undefined,
+      unitVol,
+      rawExport: currentExportData
+    } as any;
+
     content = (
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="space-y-6 bg-slate-50/50 p-6 rounded-2xl border">
-          <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">{activeTab} Wall </h3>
-          <div className="grid grid-cols-2 gap-4">
+      <div className="space-y-6 bg-slate-50/50 p-6 rounded-2xl border w-full">
+        <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">{activeTab} Wall </h3>
+          <div className="grid grid-cols-3 gap-4">
             <div>
               <label className="text-[10px] font-bold text-gray-500 uppercase">Wall Length ({unitFt})</label>
               <input type="number" value={bWallL} onChange={e => setBWallL(e.target.value)} className="w-full bg-white border p-3 rounded-xl mt-1 font-medium" />
@@ -214,10 +271,70 @@ export default function ConstructionMaterialEstimator() {
               <label className="text-[10px] font-bold text-gray-500 uppercase">Wall Thick ({unitIn})</label>
               <input type="number" value={bWallT} onChange={e => setBWallT(e.target.value)} className="w-full bg-white border p-3 rounded-xl mt-1 font-medium" />
             </div>
-            <div>
-              <label className="text-[10px] font-bold text-gray-500 uppercase">Deductions ({unitArea})</label>
-              <input type="number" value={bDeduc} onChange={e => setBDeduc(e.target.value)} className="w-full bg-white border p-3 rounded-xl mt-1 font-medium" />
+          </div>
+          
+          <div className="bg-amber-50/50 rounded-xl p-4 border border-amber-100 flex items-center justify-center h-32 relative text-[10px] font-bold text-amber-600/80">
+             <svg viewBox="0 0 120 80" className="w-full h-full absolute inset-0 opacity-20 pointer-events-none">
+                <path d="M20,60 L80,60 L80,20 L20,20 Z" fill="currentColor"/>
+                <path d="M80,60 L95,45 L95,5 L80,20 M20,20 L35,5 L95,5" fill="none" stroke="currentColor" strokeWidth="2"/>
+             </svg>
+             <span className="absolute bottom-2 left-1/2 -translate-x-1/2 px-2 bg-amber-50">L {bWallL}</span>
+             <span className="absolute left-4 top-1/2 -translate-y-1/2 px-2 bg-amber-50">H {bWallH}</span>
+             <span className="absolute right-10 bottom-6 px-2 bg-amber-50">T {bWallT}</span>
+          </div>
+
+          <div className="bg-white p-4 rounded-xl border">
+            <h4 className="text-xs font-bold text-slate-500 uppercase flex justify-between items-center mb-4">
+              Add Deductions
+              <span className="bg-indigo-50 text-indigo-600 px-2 py-1 rounded text-[10px]">Total: {openings.reduce((acc, op) => acc + (op.quantity * op.length * op.height), 0).toFixed(2)} {unitArea}</span>
+            </h4>
+            <div className="flex flex-col gap-3">
+              <div className="grid grid-cols-4 gap-2">
+                <select 
+                  className="bg-slate-50 border p-2 rounded-lg text-xs font-medium"
+                  value={newOpening.type}
+                  onChange={e => setNewOpening({...newOpening, type: e.target.value as any})}
+                >
+                  <option value="Door">Door</option>
+                  <option value="Window">Window</option>
+                  <option value="Ventilator">Ventilator</option>
+                </select>
+                <div>
+                  <input type="number" placeholder="Qty" value={newOpening.quantity || ''} onChange={e => setNewOpening({...newOpening, quantity: parseFloat(e.target.value)})} className="w-full bg-slate-50 border p-2 rounded-lg text-xs font-medium" />
+                </div>
+                <div>
+                  <input type="number" placeholder={`L (${unitFt})`} value={newOpening.length || ''} onChange={e => setNewOpening({...newOpening, length: parseFloat(e.target.value)})} className="w-full bg-slate-50 border p-2 rounded-lg text-xs font-medium" />
+                </div>
+                <div>
+                  <input type="number" placeholder={`H (${unitFt})`} value={newOpening.height || ''} onChange={e => setNewOpening({...newOpening, height: parseFloat(e.target.value)})} className="w-full bg-slate-50 border p-2 rounded-lg text-xs font-medium" />
+                </div>
+              </div>
+              <button 
+                onClick={() => {
+                  if (newOpening.quantity && newOpening.length && newOpening.height) {
+                    setOpenings([...openings, { ...newOpening, id: Math.random().toString(36).substr(2, 9) } as Opening]);
+                    setNewOpening({ type: 'Door', quantity: 1, length: 0, height: 0 });
+                  }
+                }}
+                className="w-full py-2 bg-indigo-50 text-indigo-600 rounded-lg text-xs font-bold hover:bg-indigo-100 transition-colors"
+                disabled={!newOpening.quantity || !newOpening.length || !newOpening.height}
+              >
+                + Add Opening
+              </button>
             </div>
+            
+            {openings.length > 0 && (
+              <div className="mt-4 space-y-2">
+                {openings.map(op => (
+                  <div key={op.id} className="flex items-center justify-between bg-slate-50 p-2 rounded text-xs">
+                    <span className="font-semibold text-slate-600">{op.quantity}x {op.type}</span>
+                    <span className="text-slate-500">{op.length}×{op.height} {unitFt}</span>
+                    <span className="font-bold text-slate-700">{(op.quantity * op.length * op.height).toFixed(2)} {unitArea}</span>
+                    <button onClick={() => setOpenings(openings.filter(o => o.id !== op.id))} className="text-red-400 hover:text-red-600">×</button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <h3 className="font-bold border-b pb-2 pt-4 uppercase text-sm tracking-widest text-slate-500">Unit Dimensions ({unitIn})</h3>
@@ -251,30 +368,6 @@ export default function ConstructionMaterialEstimator() {
              </div>
           </div>
         </div>
-        <div className="bg-slate-900 rounded-3xl p-6 md:p-8 text-white space-y-4 shadow-xl">
-          <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest mb-4">Material Breakdown</h3>
-          <div className="flex justify-between border-b border-slate-800 pb-3">
-             <span className="text-slate-400">Net Wall Volume</span> 
-             <span className="font-mono font-bold">{res.netWallVol.toFixed(2)} {unitVol}</span>
-          </div>
-          <div className="flex justify-between border-b border-slate-800 pb-3 pt-2">
-             <span className="text-rose-400 font-bold uppercase">{activeTab} REQUIred</span> 
-             <span className="font-mono font-bold">{res.numBricks} nos</span>
-          </div>
-          <div className="flex justify-between border-b border-slate-800 pb-3 pt-2">
-             <span className="text-slate-400">Mortar Volume (Wet)</span> 
-             <span className="font-mono">{res.mortarWetVol.toFixed(2)} {unitVol}</span>
-          </div>
-          <div className="flex justify-between border-b border-slate-800 pb-3">
-             <span className="text-blue-400 font-bold">Cement</span> 
-             <span className="font-mono font-bold">{res.cementBags.toFixed(2)} Bags</span>
-          </div>
-          <div className="flex justify-between">
-             <span className="text-amber-400 font-bold">Sand</span> 
-             <span className="font-mono font-bold">{res.sandVol.toFixed(2)} {unitVol}</span>
-          </div>
-        </div>
-      </div>
     );
   } else if (activeTab === "steel") {
     const calc = new SteelCalculator(
@@ -282,6 +375,15 @@ export default function ConstructionMaterialEstimator() {
     );
     const res = calc.calculate();
     
+    currentExportInputs = {
+      "Bar Diameter": `${sDia} mm/in#`,
+      "Span/Length": `${sSpan} ${unitFt}`,
+      "Spacing": `${sSpace} mm/in`,
+      "Standard Bar Length": `${sBarL} ${unitFt}`,
+      "Overlap Factor": `${sOverlap}xD`,
+      "Wastage Allowed": `${wastage}%`
+    };
+
     currentExportData = {
       "Total Bars Needed": `${res.numBars} nos`,
       "Weight per Unit": `${res.weightPerUnitLength.toFixed(3)} kg`,
@@ -289,10 +391,20 @@ export default function ConstructionMaterialEstimator() {
       "Total Weight": `${res.totalWeightKg.toFixed(1)} kg`
     };
 
+    currentCartItem = {
+      type: "Steel",
+      cementBags: 0,
+      sandVol: 0,
+      aggregateVol: 0,
+      waterLiters: 0,
+      steelKg: res.totalWeightKg,
+      unitVol,
+      rawExport: currentExportData
+    };
+
     content = (
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="space-y-6 bg-slate-50/50 p-6 rounded-2xl border">
-          <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">Steel Reinforcement</h3>
+      <div className="space-y-6 bg-slate-50/50 p-6 rounded-2xl border w-full">
+        <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">Steel Reinforcement</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="text-[10px] font-bold text-gray-500 uppercase">Bar Dia (mm/in#)</label>
@@ -316,26 +428,6 @@ export default function ConstructionMaterialEstimator() {
             </div>
           </div>
         </div>
-        <div className="bg-slate-900 rounded-3xl p-6 md:p-8 text-white space-y-4 shadow-xl">
-          <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest mb-4">Material Breakdown</h3>
-          <div className="flex justify-between border-b border-slate-800 pb-3">
-             <span className="text-slate-400">Total Bars Needed</span> 
-             <span className="font-mono font-bold text-white">{res.numBars}</span>
-          </div>
-          <div className="flex justify-between border-b border-slate-800 pb-3">
-             <span className="text-slate-400">Unit Weight</span> 
-             <span className="font-mono text-white">{res.weightPerUnitLength.toFixed(3)} kg/{isSI ? 'm' : 'ft'}</span>
-          </div>
-          <div className="flex justify-between border-b border-slate-800 pb-3">
-             <span className="text-slate-400">Total Cut Length (+{wastage}%)</span> 
-             <span className="font-mono text-white">{res.totalLengthAllBars.toFixed(2)} {unitFt}</span>
-          </div>
-          <div className="flex justify-between pt-2">
-             <span className="text-indigo-400 font-bold">Total Weight</span> 
-             <span className="font-mono font-bold text-2xl">{res.totalWeightKg.toFixed(1)} kg</span>
-          </div>
-        </div>
-      </div>
     );
   } else if (activeTab === "plaster") {
     const conv = isSI ? 100 : 12;
@@ -344,16 +436,32 @@ export default function ConstructionMaterialEstimator() {
     );
     const res = calc.calculate();
     
+    currentExportInputs = {
+      "Surface Area": `${pArea} ${unitArea}`,
+      "Thickness": `${pThick} ${unitIn}`,
+      "Mix Ratio": pMix,
+      "Wastage Allowed": `${wastage}%`
+    };
+
     currentExportData = {
       "Total Wet Volume": `${res.totalWetVolume.toFixed(2)} ${unitVol}`,
       "Cement Required": `${res.cementBags.toFixed(2)} Bags`,
       "Sand Required": `${res.sandVol.toFixed(2)} ${unitVol}`
     };
 
+    currentCartItem = {
+      type: "Plaster",
+      cementBags: res.cementBags,
+      sandVol: res.sandVol,
+      aggregateVol: 0,
+      waterLiters: 0,
+      unitVol,
+      rawExport: currentExportData
+    };
+
     content = (
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="space-y-6 bg-slate-50/50 p-6 rounded-2xl border">
-          <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">Plaster / Mortar</h3>
+      <div className="space-y-6 bg-slate-50/50 p-6 rounded-2xl border w-full">
+        <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">Plaster / Mortar</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="text-[10px] font-bold text-gray-500 uppercase">Surface Area ({unitArea})</label>
@@ -373,37 +481,44 @@ export default function ConstructionMaterialEstimator() {
               </select>
             </div>
           </div>
-        </div>
-        <div className="bg-slate-900 rounded-3xl p-6 md:p-8 text-white space-y-4 shadow-xl">
-          <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest mb-4">Material Breakdown</h3>
-          <div className="flex justify-between border-b border-slate-800 pb-3">
-             <span className="text-slate-400">Total Wet Volume</span> 
-             <span className="font-mono font-bold text-white">{res.totalWetVolume.toFixed(2)} {unitVol}</span>
-          </div>
-          <div className="flex justify-between border-b border-slate-800 pb-3 pt-2">
-             <span className="text-blue-400 font-bold">Cement (+{wastage}%)</span> 
-             <span className="font-mono font-bold">{res.cementBags.toFixed(2)} Bags</span>
-          </div>
-          <div className="flex justify-between">
-             <span className="text-amber-400 font-bold">Sand (+{wastage}%)</span> 
-             <span className="font-mono font-bold">{res.sandVol.toFixed(2)} {unitVol}</span>
+          
+          <div className="bg-slate-100/50 rounded-xl p-4 border border-slate-200 flex items-center justify-center h-32 relative text-[10px] font-bold text-slate-500">
+             <svg viewBox="0 0 120 80" className="w-full h-full absolute inset-0 opacity-20 pointer-events-none">
+                <path d="M30,70 L90,60 L90,20 L30,30 Z" fill="currentColor"/>
+             </svg>
+             <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-2 bg-slate-50">Area: {pArea} {unitArea}</span>
+             <span className="absolute bottom-4 right-10 px-2 bg-slate-50">T: {pThick} {unitIn}</span>
           </div>
         </div>
-      </div>
     );
   } else if (activeTab === "water") {
     // Basic Water Calculator based on cement weight
     const waterCalc = parseNum(wCementKg) * parseNum(wWcRatio);
+    
+    currentExportInputs = {
+      "Weight of Cement": `${wCementKg} kg`,
+      "W/C Ratio": `${wWcRatio}`
+    };
+
     currentExportData = {
       "Weight of Cement": `${wCementKg} kg`,
       "W/C Ratio": `${wWcRatio}`,
-      "Water Required": `${waterCalc.toFixed(1)} Liters (${(waterCalc / 3.785).toFixed(2)} Gallons)`
+      "Required Water": `${waterCalc.toFixed(1)} L (${(waterCalc / 3.785).toFixed(2)} Gallons)`
+    };
+
+    currentCartItem = {
+      type: "Water",
+      cementBags: 0,
+      sandVol: 0,
+      aggregateVol: 0,
+      waterLiters: waterCalc,
+      unitVol,
+      rawExport: currentExportData
     };
 
     content = (
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="space-y-6 bg-slate-50/50 p-6 rounded-2xl border">
-          <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">Water Requirements</h3>
+      <div className="space-y-6 bg-slate-50/50 p-6 rounded-2xl border w-full">
+        <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">Water Requirements</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="text-[10px] font-bold text-gray-500 uppercase">Weight of Cement (kg)</label>
@@ -415,12 +530,6 @@ export default function ConstructionMaterialEstimator() {
             </div>
           </div>
         </div>
-        <div className="bg-slate-900 rounded-3xl p-6 md:p-8 text-white space-y-4 shadow-xl">
-           <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest mb-4">Required Water</h3>
-           <div className="text-5xl font-black text-cyan-400">{waterCalc.toFixed(1)} <span className="text-2xl text-slate-400">Liters</span></div>
-           <p className="text-slate-400 pt-4 text-sm">Or {(waterCalc / 3.785).toFixed(2)} US Gallons</p>
-        </div>
-      </div>
     );
   } else if (activeTab === "cement" || activeTab === "sand") {
     content = (
@@ -432,6 +541,26 @@ export default function ConstructionMaterialEstimator() {
     )
   }
 
+  const addToCart = () => {
+    if (!currentCartItem) return;
+    const item: CartItem = {
+      ...currentCartItem,
+      id: Math.random().toString(36).substr(2, 9),
+      name: elementName || `${currentCartItem.type} Element`
+    };
+    setCart([...cart, item]);
+    setElementName("");
+  };
+
+  const removeFromCart = (id: string) => {
+    setCart(cart.filter(item => item.id !== id));
+  };
+  
+  const totalCement = cart.reduce((acc, item) => acc + item.cementBags, 0);
+  const totalSand = cart.reduce((acc, item) => acc + item.sandVol, 0);
+  const totalAgg = cart.reduce((acc, item) => acc + item.aggregateVol, 0);
+  const totalWater = cart.reduce((acc, item) => acc + item.waterLiters, 0);
+
   return (
     <div className="w-full h-full overflow-y-auto bg-slate-50 text-slate-900 p-6 md:p-8">
       <div className="max-w-7xl mx-auto">
@@ -439,6 +568,7 @@ export default function ConstructionMaterialEstimator() {
            <div>
              <h1 className="text-3xl font-black text-gray-900 mb-2">Construction Material Estimator</h1>
              <p className="text-gray-500 font-medium">Accurate estimations for concrete, bricks, steel, blocks, and mortar.</p>
+             <div className="mt-4"><GlobalSettingsToggle /></div>
            </div>
            <div className="flex flex-wrap items-center gap-4">
              <div className="bg-white px-4 py-3 rounded-xl border flex items-center gap-2 shadow-sm">
@@ -446,11 +576,7 @@ export default function ConstructionMaterialEstimator() {
                 <input type="number" value={wastage} onChange={e => setWastage(e.target.value)} className="w-14 text-center font-bold bg-gray-50 rounded border-none p-1 focus:ring-2 focus:ring-indigo-500" />
                 <span className="text-xs font-bold text-gray-500">%</span>
              </div>
-             <button onClick={() => setLocalSI(!localSI)} className="bg-white text-indigo-600 px-5 py-3 rounded-xl font-bold flex items-center gap-2 shadow-sm border border-slate-200 hover:border-indigo-300 transition-all">
-               <ArrowRightLeft className="w-4 h-4"/>
-               {localSI ? "Metric System" : "Imperial System"}
-             </button>
-           </div>
+             </div>
         </div>
 
         <div className="flex overflow-x-auto pb-4 gap-2 mb-4 scrollbar-hide">
@@ -469,18 +595,206 @@ export default function ConstructionMaterialEstimator() {
            })}
         </div>
 
-        <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] shadow-sm border border-slate-200 dark:border-slate-800 transition-all duration-300">
-          {content}
+        <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] shadow-sm border border-slate-200 dark:border-slate-800 transition-all duration-300 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative">
+            {content}
+            {(activeTab !== "cement" && activeTab !== "sand") && (
+              <div className="bg-slate-900 rounded-3xl p-6 md:p-8 text-white space-y-4 shadow-xl sticky top-6 self-start z-10">
+                 <div className="flex justify-between items-center mb-4">
+                    <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest">Material Breakdown</h3>
+                    <label className="flex items-center gap-2 cursor-pointer text-xs bg-slate-800 p-2 rounded-lg hover:bg-slate-700 transition">
+                       <input type="checkbox" checked={showCost} onChange={e => setShowCost(e.target.checked)} className="accent-indigo-500 w-4 h-4 rounded" />
+                       Cost Est.
+                    </label>
+                 </div>
+                 
+                 {Object.entries(currentExportData).map(([key, val]) => {
+                    let colorClass = "text-slate-400";
+                    if (key.includes("Cement")) colorClass = "text-blue-400 font-bold";
+                    else if (key.includes("Sand")) colorClass = "text-amber-400 font-bold";
+                    else if (key.includes("Aggregate")) colorClass = "text-gray-400 font-bold";
+                    else if (key.includes("Water")) colorClass = "text-cyan-400 font-bold";
+                    else if (key.toLowerCase().includes("weight") || key.includes("Steel")) colorClass = "text-indigo-400 font-bold";
+                    else if (key.includes("Units Required")) colorClass = "text-rose-400 font-bold";
+                    
+                    return (
+                      <div key={key} className="flex justify-between border-b border-slate-800 pb-3 pt-2">
+                         <span className={colorClass}>{key}</span> 
+                         <span className={key.includes("Units Required") ? "font-mono font-bold text-white uppercase text-xl" : "font-mono font-bold text-white"}>{val}</span>
+                      </div>
+                    );
+                 })}
+
+                 {showCost && currentCartItem && (
+                    <div className="pt-4 mt-4 border-t-2 border-slate-700 space-y-3">
+                       <div className="grid grid-cols-2 gap-3 text-xs bg-slate-800/50 p-3 rounded-xl border border-slate-700">
+                          {currentCartItem.cementBags > 0 && (
+                            <div className="col-span-2 sm:col-span-1">
+                               <label className="text-slate-400 mb-1 block">Cement (per bag)</label>
+                               <input type="number" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.cement} onChange={e => setRates({...rates, cement: parseFloat(e.target.value) || 0})} />
+                            </div>
+                          )}
+                          {currentCartItem.sandVol > 0 && (
+                            <div className="col-span-2 sm:col-span-1">
+                               <label className="text-slate-400 mb-1 block">Sand (per {currentCartItem.unitVol})</label>
+                               <input type="number" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.sand} onChange={e => setRates({...rates, sand: parseFloat(e.target.value) || 0})} />
+                            </div>
+                          )}
+                          {(currentCartItem.aggregateVol || 0) > 0 && (
+                            <div className="col-span-2 sm:col-span-1">
+                               <label className="text-slate-400 mb-1 block">Aggregate (per {currentCartItem.unitVol})</label>
+                               <input type="number" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.aggregate} onChange={e => setRates({...rates, aggregate: parseFloat(e.target.value) || 0})} />
+                            </div>
+                          )}
+                          {currentCartItem.steelKg !== undefined && currentCartItem.steelKg > 0 && (
+                            <div className="col-span-2 sm:col-span-1">
+                               <label className="text-slate-400 mb-1 block">Steel (per kg)</label>
+                               <input type="number" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.steel} onChange={e => setRates({...rates, steel: parseFloat(e.target.value) || 0})} />
+                            </div>
+                          )}
+                          {currentCartItem.bricksCount !== undefined && currentCartItem.bricksCount > 0 && (
+                            <div className="col-span-2 sm:col-span-1">
+                               <label className="text-slate-400 mb-1 block">Bricks (per unit)</label>
+                               <input type="number" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.bricks} onChange={e => setRates({...rates, bricks: parseFloat(e.target.value) || 0})} />
+                            </div>
+                          )}
+                          {currentCartItem.blocksCount !== undefined && currentCartItem.blocksCount > 0 && (
+                            <div className="col-span-2 sm:col-span-1">
+                               <label className="text-slate-400 mb-1 block">Blocks (per unit)</label>
+                               <input type="number" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.blocks} onChange={e => setRates({...rates, blocks: parseFloat(e.target.value) || 0})} />
+                            </div>
+                          )}
+                          {currentCartItem.waterLiters > 0 && (
+                            <div className="col-span-2 sm:col-span-1">
+                               <label className="text-slate-400 mb-1 block">Water (per L)</label>
+                               <input type="number" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.water} onChange={e => setRates({...rates, water: parseFloat(e.target.value) || 0})} />
+                            </div>
+                          )}
+                       </div>
+                       <div className="flex justify-between items-center pt-2">
+                          <span className="text-slate-300 font-bold uppercase tracking-wider text-sm">Estimated Cost</span>
+                          <span className="text-2xl font-black text-green-400">
+                             {formatCurrency(
+                               (currentCartItem.cementBags * rates.cement) + 
+                               (currentCartItem.sandVol * rates.sand) + 
+                               ((currentCartItem.aggregateVol || 0) * rates.aggregate) + 
+                               (currentCartItem.waterLiters * rates.water) +
+                               ((currentCartItem.steelKg || 0) * rates.steel) +
+                               ((currentCartItem.bricksCount || 0) * rates.bricks) +
+                               ((currentCartItem.blocksCount || 0) * rates.blocks)
+                             )}
+                          </span>
+                       </div>
+                    </div>
+                 )}
+              </div>
+            )}
+          </div>
+          
+          {currentCartItem && (
+            <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row gap-4 items-end pb-12 sm:pb-0">
+              <div className="flex-1 w-full">
+                <label className="text-[10px] font-bold text-gray-500 uppercase">Element Name (Optional)</label>
+                <input 
+                  type="text" 
+                  placeholder="e.g., Footing A, Slab B, Retaining Wall" 
+                  value={elementName}
+                  onChange={e => setElementName(e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-indigo-500" 
+                />
+              </div>
+              <button 
+                onClick={addToCart}
+                className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-xl font-bold transition-colors shadow-md shadow-indigo-600/20 whitespace-nowrap"
+              >
+                + Add to Estimate
+              </button>
+            </div>
+          )}
+
+          {Object.keys(currentExportData).length > 0 && (
+             <ShareButtonWithPopup 
+               activeTab={activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} 
+               data={currentExportData} 
+               exportFormat={{
+                 inputs: currentExportInputs,
+                 breakdown: currentExportData,
+                 rates: rates,
+                 cartItem: currentCartItem
+               }}
+               title={`${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Estimation`} 
+             />
+          )}
         </div>
-        
-        {/* Floating Share Menu overlay */}
-        {Object.keys(currentExportData).length > 0 && (
-          <div className="flex justify-end mt-6">
-            <ShareMenu 
-              activeTab={activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} 
-              data={currentExportData} 
-              title={`${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Estimation`} 
-            />
+
+        {cart.length > 0 && (
+          <div className="mt-8 bg-slate-900 rounded-[2rem] p-6 md:p-8 text-white shadow-xl relative">
+            <h2 className="text-xl font-black mb-6">Project Cart ({cart.length} Elements)</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="col-span-2 space-y-4">
+                {cart.map(item => (
+                  <div key={item.id} className="bg-slate-800/50 p-4 rounded-2xl flex items-center justify-between border border-slate-700/50">
+                    <div>
+                      <div className="font-bold text-lg">{item.name}</div>
+                      <div className="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">{item.type}</div>
+                    </div>
+                    <button onClick={() => removeFromCart(item.id)} className="text-rose-400 hover:text-rose-300 bg-rose-400/10 hover:bg-rose-400/20 px-3 py-1.5 rounded-lg text-sm font-bold transition-colors">
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="bg-gradient-to-br from-indigo-600 to-indigo-800 p-6 rounded-2xl border border-indigo-500/30 self-start">
+                 <h3 className="font-bold text-indigo-200 text-sm uppercase tracking-widest mb-6">Accumulated Total</h3>
+                 <div className="space-y-4">
+                   <div className="flex justify-between border-b border-indigo-500/30 pb-3">
+                      <span className="text-indigo-100/70 font-semibold">Cement</span> 
+                      <span className="font-mono font-bold text-white">{totalCement.toFixed(2)} Bags</span>
+                   </div>
+                   <div className="flex justify-between border-b border-indigo-500/30 pb-3">
+                      <span className="text-indigo-100/70 font-semibold">Sand</span> 
+                      <span className="font-mono font-bold text-white">{totalSand.toFixed(2)} {isSI ? "m³" : "cft"}</span>
+                   </div>
+                   <div className="flex justify-between border-b border-indigo-500/30 pb-3">
+                      <span className="text-indigo-100/70 font-semibold">Aggregate</span> 
+                      <span className="font-mono font-bold text-white">{totalAgg.toFixed(2)} {isSI ? "m³" : "cft"}</span>
+                   </div>
+                   <div className="flex justify-between pt-1">
+                      <span className="text-indigo-100/70 font-semibold">Water</span> 
+                      <span className="font-mono font-bold text-white">{totalWater.toFixed(1)} L</span>
+                   </div>
+                 </div>
+              </div>
+            </div>
+             
+             <ShareButtonWithPopup 
+                 activeTab="Project Cart"
+                 data={{
+                   "Elements": cart.length,
+                   "Total Cement": `${totalCement.toFixed(2)} Bags`,
+                   "Total Sand": `${totalSand.toFixed(2)} ${isSI ? "m³" : "cft"}`,
+                   "Total Aggregate": `${totalAgg.toFixed(2)} ${isSI ? "m³" : "cft"}`,
+                   "Total Water": `${totalWater.toFixed(1)} L`,
+                 }} 
+                 exportFormat={{
+                   inputs: { "Cart Elements": String(cart.length) },
+                   breakdown: {
+                     "Total Cement": `${totalCement.toFixed(2)} Bags`,
+                     "Total Sand": `${totalSand.toFixed(2)} ${isSI ? "m³" : "cft"}`,
+                     "Total Aggregate": `${totalAgg.toFixed(2)} ${isSI ? "m³" : "cft"}`,
+                     "Total Water": `${totalWater.toFixed(1)} L`
+                   },
+                   rates: rates,
+                   cartItem: {
+                     cementBags: totalCement,
+                     sandVol: totalSand,
+                     aggregateVol: totalAgg,
+                     waterLiters: totalWater,
+                     unitVol: isSI ? "m³" : "cft"
+                   }
+                 }}
+                 title={`Combined Material Estimate`} 
+               />
           </div>
         )}
       </div>

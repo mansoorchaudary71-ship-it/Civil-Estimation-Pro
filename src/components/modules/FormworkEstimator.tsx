@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from 'react';
+import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
 import { Hammer, Grid, Plus, Trash2, RefreshCw, LayoutTemplate, SquareStack } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
+import ShareButtonWithPopup from './ShareMenu';
 
 interface FormworkElement {
   id: string;
@@ -113,6 +115,7 @@ export default function FormworkEstimator() {
           <p className="text-gray-500 mt-2 text-lg font-medium">
             Calculate accurate shuttering contact surface areas and standard material requirements.
           </p>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle /></div>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -304,6 +307,28 @@ export default function FormworkEstimator() {
 
         </div>
       </div>
+
+      <ShareButtonWithPopup 
+        activeTab="Formwork"
+        data={{
+          "Total Formwork Area": `${results.totalAreaSqm.toFixed(2)} m²`,
+          "Plywood Boards (8x4 ft)": Math.ceil(results.plywoodSheets),
+          "Steel Props (Jacks)": results.steelProps,
+          "Batten/Timber RFT": `${results.battensRft}`
+        }}
+        exportFormat={{
+          inputs: {
+            "Elements": `${elements.length} components`
+          },
+          breakdown: {
+            "Total Formwork Area": `${results.totalAreaSqm.toFixed(2)} m²`,
+            "Plywood Boards (8x4 ft)": `${Math.ceil(results.plywoodSheets)} nos`,
+            "Steel Props (Jacks)": `${results.steelProps} nos`,
+            "Batten/Timber RFT": `${results.battensRft} RFT`
+          }
+        }}
+        title="Formwork & Scaffold Estimator"
+      />
     </div>
   );
 }

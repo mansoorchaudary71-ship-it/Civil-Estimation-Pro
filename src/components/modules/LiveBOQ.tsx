@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
 import { Download, Plus, Search, Filter, Link as LinkIcon, Unlink, FileText, FileSpreadsheet, Loader2 } from "lucide-react";
 import { useSettings } from '../../context/SettingsContext';
 import { useTakeoff } from "../../context/TakeoffContext";
@@ -133,8 +134,8 @@ function BOQRow({ row, measurements, getQty, updateBoqItem, scalePxPerUnit, unit
           </>
         )}
       </td>
-      <td className="py-2 px-3 font-mono text-right text-slate-500">{row.rate.toFixed(2)}</td>
-      <td className="py-2 px-3 font-mono text-right font-medium">{amount.toFixed(2)}</td>
+      <td className="py-2 px-3 font-mono text-right text-slate-500">{formatCurrency(row.rate)}</td>
+      <td className="py-2 px-3 font-mono text-right font-medium">{formatCurrency(amount)}</td>
     </tr>
   );
 }
@@ -158,23 +159,29 @@ export default function LiveBOQ() {
     
     if (item.linkedMeasurementIds && item.linkedMeasurementIds.length > 0) {
       let totalVal = 0;
+      let hasNormalMeasurement = false;
       const fromBase = cleanUnit(unitName);
       const toBase = cleanUnit(item.unit);
       
       item.linkedMeasurementIds.forEach((mId: string) => {
-        const m = measurements.find(m => m.id === mId);
+        const m = measurements.find((m: any) => m.id === mId);
         if (m) {
           let val = 0;
           if (m.type === 'line') {
             val = calculateLength(m.points, scalePxPerUnit);
             val = convertLength(val, fromBase, toBase);
+            hasNormalMeasurement = true;
           } else if (m.type === 'area') {
             val = calculateArea(m.points, scalePxPerUnit);
             val = convertArea(val, fromBase, toBase);
+            hasNormalMeasurement = true;
+          } else if (m.type === 'assembly') {
+            hasNormalMeasurement = false;
           }
           totalVal += val;
         }
       });
+      if (!hasNormalMeasurement) return item.qtyOverride || 0;
       return totalVal;
     }
     return item.qtyOverride || 0;

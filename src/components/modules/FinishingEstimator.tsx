@@ -1,8 +1,10 @@
 import React, { useState, useMemo } from 'react';
+import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
 import { PaintBucket, CheckSquare, Maximize, MinusCircle, Plus, PieChart as PieChartIcon } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { useMarketRates } from '../../context/MarketRatesContext';
 import { useSettings } from '../../context/SettingsContext';
+import ShareButtonWithPopup from './ShareMenu';
 
 interface Deduction {
   id: string;
@@ -117,6 +119,7 @@ export default function FinishingEstimator() {
           <p className="text-gray-500 mt-2 text-lg font-medium">
             Calculate plaster, tile, and paint quantities with dynamic cost distributions.
           </p>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle /></div>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -333,6 +336,22 @@ export default function FinishingEstimator() {
         </div>
       </div>
       
+      <ShareButtonWithPopup 
+        activeTab="Finishing"
+        data={costData.reduce((acc, curr) => ({ ...acc, [curr.name]: curr.qty }), {} as Record<string, string>)}
+        exportFormat={{
+          inputs: {
+            "Total Area": `${totalArea} m²`,
+            "Net Area": `${results.netArea.toFixed(2)} m²`,
+            "Plaster Settings": `${plasterThickness}mm at 1:${mortarRatio}`,
+            "Tile Settings": `${tileWidth}x${tileLength}mm, ${tilesPerBox}/box`,
+            "Paint Setting": `${paintCoverage} sqm/L`
+          },
+          breakdown: costData.reduce((acc, curr) => ({ ...acc, [curr.name]: curr.qty }), {} as Record<string, string>),
+          rates: rates,
+        }}
+        title="Finishing Works Estimator"
+      />
     </div>
   );
 }

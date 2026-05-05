@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
 import { Sliders, ChevronDown, ChevronUp } from 'lucide-react';
 
 export type SpecsState = {
@@ -16,6 +17,7 @@ export type SpecsState = {
   internalWallFinish: string;
   exteriorFinish: string;
   ceilingType: string;
+  roofTreatment: string;
   mainGate: string;
   windowFrames: string;
   mainDoor: string;
@@ -43,6 +45,7 @@ export const initialSpecs: SpecsState = {
   internalWallFinish: 'Plastic Emulsion',
   exteriorFinish: 'Weather Shield',
   ceilingType: 'False Ceiling (Gypsum)',
+  roofTreatment: 'Standard (Bitumen coating + Polythene sheet + Mud)',
   mainGate: '16-gauge Steel',
   windowFrames: 'Aluminum (1.2mm)',
   mainDoor: 'Solid Ash Wood',
@@ -184,6 +187,7 @@ export default function AdvancedSpecs({ specs, setSpecs, isOpen, setIsOpen }: Pr
                 {renderDropdown('Internal Paint', 'internalWallFinish', ['Distemper', 'Matt Enamel', 'Plastic Emulsion', 'Wallpaper'])}
                 {renderDropdown('External Paint', 'exteriorFinish', ['Plaster & Paint', 'Rockwall', 'Weather Shield', 'Tiles'])}
                 {renderDropdown('Ceiling Type', 'ceilingType', ['Plaster', 'False Ceiling (Gypsum)', 'POP'])}
+                {renderDropdown('Roof Treatment & Insulation', 'roofTreatment', ['Standard (Bitumen coating + Polythene sheet + Mud)', 'Premium (Jumbolon insulation + Waterproofing chemicals + Brick tiles)', 'Luxury (Polyurethane spray + imported tiles)'])}
               </div>
             )}
           </div>

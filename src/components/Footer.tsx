@@ -1,7 +1,9 @@
 import React from 'react';
 import { Layers, Twitter, Github, Linkedin, Mail } from 'lucide-react';
+import Logo from './Logo';
+import { ModuleId } from '../App';
 
-export default function Footer() {
+export default function Footer({ onNavigate }: { onNavigate?: (id: ModuleId) => void }) {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -13,12 +15,15 @@ export default function Footer() {
           
           {/* Brand Info */}
           <div className="lg:col-span-2 flex flex-col items-start">
-            <div className="flex items-center gap-2 cursor-pointer group shrink-0 mb-4">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
-                <Layers className="w-4.5 h-4.5 text-white" />
+            <div 
+              className="flex items-center gap-2 cursor-pointer group shrink-0 mb-4"
+              onClick={() => onNavigate?.("home")}
+            >
+              <div className="w-9 h-9 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                <Logo className="w-9 h-9" />
               </div>
               <span className="font-bold text-[1.2rem] tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300">
-                Civil Pro
+                Civil Estimation Pro
               </span>
             </div>
             <p className="text-slate-500 dark:text-slate-400 text-sm font-medium leading-relaxed max-w-xs">
@@ -45,10 +50,10 @@ export default function Footer() {
 
           <div className="flex flex-col gap-3">
             <h4 className="font-bold text-slate-800 dark:text-slate-100 mb-2">Company</h4>
-            <a href="#" className="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">About Us</a>
-            <a href="#" className="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Careers</a>
-            <a href="#" className="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Contact</a>
-            <a href="#" className="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Blog</a>
+            <button onClick={() => onNavigate?.("about")} className="text-left text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">About Us</button>
+            <button onClick={() => onNavigate?.("careers")} className="text-left text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Careers</button>
+            <button onClick={() => onNavigate?.("contact")} className="text-left text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Contact</button>
+            <button onClick={() => onNavigate?.("blog")} className="text-left text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Blog</button>
           </div>
 
           <div className="flex flex-col gap-3">
@@ -66,7 +71,7 @@ export default function Footer() {
         {/* Bottom Section: Copyright & Socials */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-slate-500 dark:text-slate-400 font-medium text-center sm:text-left">
-            © {currentYear} Civil Pro. All rights reserved.
+            © {currentYear} Civil Estimation Pro. All rights reserved.
           </p>
           
           <div className="flex items-center gap-4">

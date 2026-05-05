@@ -1,4 +1,5 @@
 import React from 'react';
+import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
 import { useHouseSpecs } from '../../context/HouseSpecsContext';
 import { Box, Layers, Droplet, AppWindow, LayoutGrid, Paintbrush, ArrowUpRight, Sliders } from 'lucide-react';
 
@@ -16,6 +17,7 @@ export default function HouseSpecs() {
           <p className="text-gray-500 mt-2 text-lg font-medium">
             Define material specifications, structural mixes, and finish qualities mapping to central dynamic rates.
           </p>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle /></div>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
 import { Send, Loader2, Bot } from "lucide-react";
 import Markdown from "react-markdown";
 import { cn } from "../../lib/utils";

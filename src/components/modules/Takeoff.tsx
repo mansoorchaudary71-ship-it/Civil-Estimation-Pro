@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
 import { Layers, MousePointer2, ZoomIn, ZoomOut, Move, Ruler, Activity, Square, Upload, Trash2, Check, X, GripVertical } from "lucide-react";
 import { Stage, Layer, Image as KonvaImage, Line, Circle, Text as KonvaText, Group } from "react-konva";
 import { Point, MeasurementType, Measurement, getDistance, calculateLength, calculateArea, formatDualMeasurement, convertLength } from "../../../src/utils/measurements";
@@ -16,10 +17,10 @@ const ASSEMBLIES = [
     generateBoq: (id: string, inputs: any) => {
       const depth = parseFloat(inputs.depth || "0");
       return [
-        { desc: 'Excavation for Manhole', unit: 'm³', rate: 12.5, qtyOverride: 3.14 * 0.75 * 0.75 * depth, linkedMeasurementId: id },
-        { desc: 'PCC Foundation (Manhole)', unit: 'm³', rate: 85.0, qtyOverride: 3.14 * 0.75 * 0.75 * 0.15, linkedMeasurementId: id },
-        { desc: 'Brick Masonry for Manhole', unit: 'm³', rate: 110.0, qtyOverride: 3.14 * 1.2 * 0.23 * depth, linkedMeasurementId: id },
-        { desc: 'Manhole Cover (Cast Iron)', unit: 'No', rate: 150.0, qtyOverride: 1, linkedMeasurementId: id },
+        { desc: 'Excavation for Manhole', unit: 'm³', rate: 12.5, qtyOverride: 3.14 * 0.75 * 0.75 * depth, linkedMeasurementIds: [id] },
+        { desc: 'PCC Foundation (Manhole)', unit: 'm³', rate: 85.0, qtyOverride: 3.14 * 0.75 * 0.75 * 0.15, linkedMeasurementIds: [id] },
+        { desc: 'Brick Masonry for Manhole', unit: 'm³', rate: 110.0, qtyOverride: 3.14 * 1.2 * 0.23 * depth, linkedMeasurementIds: [id] },
+        { desc: 'Manhole Cover (Cast Iron)', unit: 'No', rate: 150.0, qtyOverride: 1, linkedMeasurementIds: [id] },
       ]
     }
   },
@@ -37,10 +38,10 @@ const ASSEMBLIES = [
       const width = parseFloat(inputs.width || "0");
       const area = length * width;
       return [
-        { desc: 'Subgrade Preparation', unit: 'm²', rate: 5.5, qtyOverride: area, linkedMeasurementId: id },
-        { desc: 'Subbase Course (Granular)', unit: 'm³', rate: 35.0, qtyOverride: area * 0.2, linkedMeasurementId: id },
-        { desc: 'Base Course (Crushed Stone)', unit: 'm³', rate: 45.0, qtyOverride: area * 0.15, linkedMeasurementId: id },
-        { desc: 'Asphalt Wearing Course', unit: 'm²', rate: 25.0, qtyOverride: area * 0.05, linkedMeasurementId: id },
+        { desc: 'Subgrade Preparation', unit: 'm²', rate: 5.5, qtyOverride: area, linkedMeasurementIds: [id] },
+        { desc: 'Subbase Course (Granular)', unit: 'm³', rate: 35.0, qtyOverride: area * 0.2, linkedMeasurementIds: [id] },
+        { desc: 'Base Course (Crushed Stone)', unit: 'm³', rate: 45.0, qtyOverride: area * 0.15, linkedMeasurementIds: [id] },
+        { desc: 'Asphalt Wearing Course', unit: 'm²', rate: 25.0, qtyOverride: area * 0.05, linkedMeasurementIds: [id] },
       ]
     }
   }

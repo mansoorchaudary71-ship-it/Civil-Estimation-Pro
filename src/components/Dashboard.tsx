@@ -21,7 +21,10 @@ import {
   BoxSelect,
   Search,
   Menu,
-  Settings as SettingsIcon
+  Settings as SettingsIcon,
+  CheckSquare,
+  Map,
+  Grid2X2
 } from "lucide-react";
 
 import Logo from './Logo';
@@ -68,13 +71,21 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
         )}
       </div>
 
-      <div className="mb-10 flex flex-col items-center">
-        <h2 className="text-[1.35rem] md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-700 dark:from-blue-400 dark:to-indigo-400 mb-6 text-center max-w-3xl px-4 text-balance tracking-tight">
+      <div className="mb-12 flex flex-col items-center animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="w-16 h-16 flex items-center justify-center">
+            <Logo className="w-16 h-16" />
+          </div>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300">
+            Civil Estimation Pro
+          </h1>
+        </div>
+        <h2 className="text-lg md:text-xl font-medium text-slate-500 dark:text-slate-400 mb-8 text-center max-w-2xl px-4 text-balance">
           Access Comprehensive Engineering Tools &amp; Precise Estimations
         </h2>
         <div className="relative group w-full max-w-2xl mx-auto">
-          <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-            <Search className="text-blue-500 w-5 h-5 transition-transform group-focus-within:scale-110 group-focus-within:text-blue-600" />
+          <div className="absolute inset-y-0 left-6 flex items-center pointer-events-none">
+            <Search className="text-blue-500/70 dark:text-blue-400/70 w-5 h-5 transition-transform group-focus-within:scale-110 group-focus-within:text-blue-600" />
           </div>
           <input 
             type="text" 
@@ -162,6 +173,57 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
           <div className="relative z-10 mt-auto">
              <div className="text-[10px] font-bold text-amber-500 dark:text-amber-400 uppercase tracking-widest mb-1">SITE PREP</div>
              <div className="text-base font-black text-gray-900 dark:text-white leading-tight">Earthworks</div>
+          </div>
+        </button>
+        )}
+
+        {/* TRENCH EXCAVATION */}
+        {match('trench excavation bedding') && (
+        <button 
+          onClick={() => onSelectModule('trench')}
+          className="col-span-1 border border-gray-100 dark:border-slate-800 hover:-translate-y-1 transition-all overflow-hidden group min-h-[160px] relative bg-white dark:bg-slate-900 p-5 rounded-[28px] flex flex-col justify-between text-left hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]"
+        >
+          <div className="absolute top-0 right-0 w-32 h-32 bg-teal-500/5 dark:bg-teal-500/10 rounded-full blur-2xl -mr-10 -mt-10" />
+          <div className="relative z-10 w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center mb-4 group-hover:bg-teal-500 group-hover:text-white transition-colors duration-300">
+             <CheckSquare className="w-5 h-5" />
+          </div>
+          <div className="relative z-10 mt-auto">
+             <div className="text-[10px] font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest mb-1">SITE PREP</div>
+             <div className="text-base font-black text-gray-900 dark:text-white leading-tight">Trench Excavation</div>
+          </div>
+        </button>
+        )}
+
+        {/* GRID METHOD EARTHWORK */}
+        {match('grid method earthwork leveling') && (
+        <button 
+          onClick={() => onSelectModule('gridEarthwork')}
+          className="col-span-1 border border-gray-100 dark:border-slate-800 hover:-translate-y-1 transition-all overflow-hidden group min-h-[160px] relative bg-white dark:bg-slate-900 p-5 rounded-[28px] flex flex-col justify-between text-left hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]"
+        >
+          <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-2xl -mr-10 -mt-10" />
+          <div className="relative z-10 w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-4 group-hover:bg-indigo-500 group-hover:text-white transition-colors duration-300">
+             <Grid2X2 className="w-5 h-5" />
+          </div>
+          <div className="relative z-10 mt-auto">
+             <div className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mb-1">SITE PREP</div>
+             <div className="text-base font-black text-gray-900 dark:text-white leading-tight">Grid Method Volume</div>
+          </div>
+        </button>
+        )}
+
+        {/* CHAINAGE VOLUME */}
+        {match('chainage volume road highway') && (
+        <button 
+          onClick={() => onSelectModule('chainage')}
+          className="col-span-1 border border-gray-100 dark:border-slate-800 hover:-translate-y-1 transition-all overflow-hidden group min-h-[160px] relative bg-white dark:bg-slate-900 p-5 rounded-[28px] flex flex-col justify-between text-left hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]"
+        >
+          <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 dark:bg-amber-500/10 rounded-full blur-2xl -mr-10 -mt-10" />
+          <div className="relative z-10 w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-4 group-hover:bg-amber-500 group-hover:text-white transition-colors duration-300">
+             <Map className="w-5 h-5" />
+          </div>
+          <div className="relative z-10 mt-auto">
+             <div className="text-[10px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-widest mb-1">ROADWORKS</div>
+             <div className="text-base font-black text-gray-900 dark:text-white leading-tight">Chainage Volume</div>
           </div>
         </button>
         )}

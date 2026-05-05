@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
 import { TrendingUp, Settings, DollarSign, Database, Activity, Layers, PenTool } from 'lucide-react';
 import { useMarketRates, MarketRates } from '../../context/MarketRatesContext';
 import { useSettings } from '../../context/SettingsContext';
@@ -6,7 +7,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 
 
 export default function RateAnalysis() {
   const { rates, updateRate } = useMarketRates();
-  const { settings } = useSettings();
+  const { settings, convertAmount, convertAmountToRaw, formatCurrency } = useSettings();
 
   const handleRateChange = (key: keyof MarketRates, valStr: string) => {
     const val = parseFloat(valStr);
@@ -64,6 +65,7 @@ export default function RateAnalysis() {
           <p className="text-gray-500 mt-2 text-lg font-medium">
             Centralized hub for local market rates. Updates here reflect globally across all estimation modules.
           </p>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle /></div>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -83,20 +85,20 @@ export default function RateAnalysis() {
 
                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                  {/* Material Input Cards */}
-                 <InputCard label="Cement (per Bag)" value={rates.cement} unit={settings.currency} onChange={(v) => handleRateChange('cement', v)} />
-                 <InputCard label="Steel (per kg)" value={rates.steel} unit={settings.currency} onChange={(v) => handleRateChange('steel', v)} />
-                 <InputCard label="Sand (per cft)" value={rates.sand} unit={settings.currency} onChange={(v) => handleRateChange('sand', v)} />
-                 <InputCard label="Crush (per cft)" value={rates.crush} unit={settings.currency} onChange={(v) => handleRateChange('crush', v)} />
-                 <InputCard label="Bricks (per Piece)" value={rates.bricks} unit={settings.currency} onChange={(v) => handleRateChange('bricks', v)} />
+                 <InputCard label="Cement (per Bag)" value={parseFloat(convertAmount(rates.cement).toFixed(2))} unit={settings.currency} onChange={(v) => handleRateChange('cement', convertAmountToRaw(parseFloat(v)).toString())} />
+                 <InputCard label="Steel (per kg)" value={parseFloat(convertAmount(rates.steel).toFixed(2))} unit={settings.currency} onChange={(v) => handleRateChange('steel', convertAmountToRaw(parseFloat(v)).toString())} />
+                 <InputCard label="Sand (per cft)" value={parseFloat(convertAmount(rates.sand).toFixed(2))} unit={settings.currency} onChange={(v) => handleRateChange('sand', convertAmountToRaw(parseFloat(v)).toString())} />
+                 <InputCard label="Crush (per cft)" value={parseFloat(convertAmount(rates.crush).toFixed(2))} unit={settings.currency} onChange={(v) => handleRateChange('crush', convertAmountToRaw(parseFloat(v)).toString())} />
+                 <InputCard label="Bricks (per Piece)" value={parseFloat(convertAmount(rates.bricks).toFixed(2))} unit={settings.currency} onChange={(v) => handleRateChange('bricks', convertAmountToRaw(parseFloat(v)).toString())} />
                  
                  <div className="col-span-1 sm:col-span-2 pt-4 pb-2">
                     <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-2">Finishing & Labor</h3>
                  </div>
 
-                 <InputCard label="Tiles (per Box)" value={rates.tiles} unit={settings.currency} onChange={(v) => handleRateChange('tiles', v)} />
-                 <InputCard label="Paint (per Liter)" value={rates.paint} unit={settings.currency} onChange={(v) => handleRateChange('paint', v)} />
-                 <InputCard label="Labour (Grey / sqft)" value={rates.laborGrey} unit={settings.currency} onChange={(v) => handleRateChange('laborGrey', v)} />
-                 <InputCard label="Finish Multiplier Base" value={rates.laborFinish} unit={settings.currency} onChange={(v) => handleRateChange('laborFinish', v)} />
+                 <InputCard label="Tiles (per Box)" value={parseFloat(convertAmount(rates.tiles).toFixed(2))} unit={settings.currency} onChange={(v) => handleRateChange('tiles', convertAmountToRaw(parseFloat(v)).toString())} />
+                 <InputCard label="Paint (per Liter)" value={parseFloat(convertAmount(rates.paint).toFixed(2))} unit={settings.currency} onChange={(v) => handleRateChange('paint', convertAmountToRaw(parseFloat(v)).toString())} />
+                 <InputCard label="Labour (Grey / sqft)" value={parseFloat(convertAmount(rates.laborGrey).toFixed(2))} unit={settings.currency} onChange={(v) => handleRateChange('laborGrey', convertAmountToRaw(parseFloat(v)).toString())} />
+                 <InputCard label="Finish Multiplier Base" value={parseFloat(convertAmount(rates.laborFinish).toFixed(2))} unit={settings.currency} onChange={(v) => handleRateChange('laborFinish', convertAmountToRaw(parseFloat(v)).toString())} />
                  
                  <div className="col-span-1 sm:col-span-2 bg-slate-50 p-4 rounded-2xl border border-slate-100 flex items-center justify-between">
                     <div>
@@ -146,11 +148,11 @@ export default function RateAnalysis() {
                            { name: 'Overhead', value: compositeCalc.overheadCost, color: '#10b981' }
                          ]} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                            <XAxis dataKey="name" tick={{fill: '#94a3b8', fontSize: 10}} axisLine={false} tickLine={false} />
-                           <YAxis tick={{fill: '#94a3b8', fontSize: 10}} axisLine={false} tickLine={false} tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`} />
+                           <YAxis tick={{fill: '#94a3b8', fontSize: 10}} axisLine={false} tickLine={false} tickFormatter={(value) => `${(convertAmount(value) / 1000).toFixed(0)}k`} />
                            <Tooltip 
                              cursor={{fill: 'rgba(255,255,255,0.05)'}} 
                              contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', borderRadius: '12px', color: '#fff' }}
-                             formatter={(value: number) => `${settings.currency === "PKR" ? "RS" : settings.currency} ${value.toFixed(0)}`}
+                             formatter={(value: number) => formatCurrency(value)}
                            />
                            <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                              {[
@@ -166,23 +168,22 @@ export default function RateAnalysis() {
                          </BarChart>
                        </ResponsiveContainer>
                     </div>
-
-                    <div className="space-y-4 font-mono text-sm">
+                     <div className="space-y-4 font-mono text-sm">
                        <div className="flex justify-between items-center group">
                           <span className="text-slate-400 group-hover:text-slate-300 transition-colors">Cement ({compositeCalc.cementBags.toFixed(2)} Bags)</span>
-                          <span className="font-bold text-slate-200">{compositeCalc.costCement.toFixed(0)}</span>
+                          <span className="font-bold text-slate-200">{formatCurrency(compositeCalc.costCement)}</span>
                        </div>
                        <div className="flex justify-between items-center group">
                           <span className="text-slate-400 group-hover:text-slate-300 transition-colors">Sand ({compositeCalc.sandCft.toFixed(2)} cft)</span>
-                          <span className="font-bold text-slate-200">{compositeCalc.costSand.toFixed(0)}</span>
+                          <span className="font-bold text-slate-200">{formatCurrency(compositeCalc.costSand)}</span>
                        </div>
                        <div className="flex justify-between items-center group">
                           <span className="text-slate-400 group-hover:text-slate-300 transition-colors">Crush ({compositeCalc.crushCft.toFixed(2)} cft)</span>
-                          <span className="font-bold text-slate-200">{compositeCalc.costCrush.toFixed(0)}</span>
+                          <span className="font-bold text-slate-200">{formatCurrency(compositeCalc.costCrush)}</span>
                        </div>
                        <div className="flex justify-between items-center text-slate-500 pt-2 border-t border-white/5">
                           <span>Labor & Equipment</span>
-                          <span>{(compositeCalc.costLabor + compositeCalc.costEquipment).toFixed(0)}</span>
+                          <span>{formatCurrency(compositeCalc.costLabor + compositeCalc.costEquipment)}</span>
                        </div>
                     </div>
                  </div>
@@ -190,17 +191,17 @@ export default function RateAnalysis() {
                  <div className="pt-6 border-t border-white/10 space-y-4">
                     <div className="flex justify-between items-center text-sm font-medium text-slate-300">
                        <span>Subtotal</span>
-                       <span className="font-mono">{compositeCalc.primeCost.toFixed(0)}</span>
+                       <span className="font-mono">{formatCurrency(compositeCalc.primeCost)}</span>
                     </div>
                     <div className="flex justify-between items-center text-sm font-medium text-slate-300">
                        <span>Overhead & Profit ({rates.overheadMarkup}%)</span>
-                       <span className="font-mono text-emerald-400">+{compositeCalc.overheadCost.toFixed(0)}</span>
+                       <span className="font-mono text-emerald-400">+{formatCurrency(compositeCalc.overheadCost)}</span>
                     </div>
 
                     <div className="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/10 mt-4 flex items-center justify-between">
                        <span className="text-xs font-bold uppercase tracking-widest text-slate-300">Analyzed Rate</span>
                        <div className="flex items-end gap-1">
-                          <span className="text-3xl font-black text-white leading-none">{compositeCalc.finalRate.toFixed(0)}</span>
+                          <span className="text-3xl font-black text-white leading-none">{formatCurrency(compositeCalc.finalRate)}</span>
                           <span className="text-sm font-medium text-teal-400 pb-0.5">/ m³</span>
                        </div>
                     </div>

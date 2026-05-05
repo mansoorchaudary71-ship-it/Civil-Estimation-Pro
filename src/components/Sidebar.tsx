@@ -21,12 +21,12 @@ import {
   Grid2X2,
   ArrowUp,
   Triangle,
-  ChevronDown
+  ChevronDown,
+  CheckSquare,
+  Map
 } from "lucide-react";
 
-import Logo from './Logo';
-
-export type ModuleId = "home" | "takeoff" | "calculators" | "ai" | "earthworks" | "road" | "sewerage" | "finishing" | "house" | "rates" | "formwork";
+export type ModuleId = "home" | "takeoff" | "calculators" | "ai" | "earthworks" | "gridEarthwork" | "trench" | "chainage" | "road" | "rigid-pavement" | "sewerage" | "finishing" | "house" | "rates" | "formwork" | "about" | "careers" | "contact" | "blog";
 
 interface SidebarProps {
   activeModule: ModuleId;
@@ -61,6 +61,9 @@ export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose 
     },
     { id: "formwork" as const, label: "Formwork & Scaffold", icon: Hammer },
     { id: "earthworks" as const, label: "Earthworks", icon: Truck },
+    { id: "gridEarthwork" as const, label: "Grid Method Earthwork", icon: Grid2X2 },
+    { id: "trench" as const, label: "Trench Excavation", icon: CheckSquare },
+    { id: "chainage" as const, label: "Road Earthworks", icon: Map },
     { 
       id: "road" as const, 
       label: "Road Estimator", 
@@ -70,6 +73,7 @@ export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose 
         { label: "Cross Section", icon: Maximize2 }
       ]
     },
+    { id: "rigid-pavement" as const, label: "Rigid Pavement", icon: Route },
     { id: "sewerage" as const, label: "Sewerage & Drainage", icon: Waves },
     { id: "finishing" as const, label: "Finishing Works", icon: Paintbrush },
     { id: "takeoff" as const, label: "2D Takeoff", icon: PencilRuler },
@@ -92,14 +96,6 @@ export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose 
         "fixed inset-y-0 left-0 z-50 transform transition-all duration-300 ease-in-out flex flex-col w-64 bg-slate-50 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 h-screen shrink-0",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}>
-        {/* App Header */}
-        <div className="h-16 flex items-center px-6 border-b border-slate-200 dark:border-slate-800 shrink-0">
-          <div className="flex items-center gap-2">
-            <Logo className="w-8 h-8" />
-            <span className="text-xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Civil Estimation Pro</span>
-          </div>
-        </div>
-
         {/* Navigation */}
         <div className="flex-1 p-4 space-y-1 overflow-y-auto">
           <div className="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">

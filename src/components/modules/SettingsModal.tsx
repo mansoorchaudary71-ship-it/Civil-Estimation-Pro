@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
 import { X, Settings as SettingsIcon, Moon, Sun, Laptop, User, Ruler, Palette, Camera } from 'lucide-react';
 import { useSettings, Currency, MeasurementSystem, Theme } from '../../context/SettingsContext';
 
@@ -68,7 +69,7 @@ export default function SettingsModal({ isOpen, onClose }: { isOpen: boolean; on
 
           <div className="hidden md:block mt-auto pb-2">
             <p className="text-xs text-slate-400 dark:text-slate-500 font-medium px-4">
-              Civil Pro Settings<br/>Version 1.0.4
+              Civil Estimation Pro Settings<br/>Version 1.0.4
             </p>
           </div>
         </div>

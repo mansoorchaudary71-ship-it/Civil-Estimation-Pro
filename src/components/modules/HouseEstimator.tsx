@@ -1,10 +1,12 @@
 import React, { useState, useMemo, useReducer } from 'react';
-import { Home, Layers, PaintRoller, Sliders, LayoutDashboard, Settings, ChevronUp, ChevronDown, Share2 } from 'lucide-react';
+import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+import { Home, Layers, PaintRoller, Sliders, LayoutDashboard, Settings, ChevronUp, ChevronDown, Share2, Download, Database, RotateCcw, AlertCircle, ArrowRight } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { useMarketRates } from '../../context/MarketRatesContext';
 import { useSettings } from '../../context/SettingsContext';
-import ExportShareModal from './ExportShareModal';
+import ShareButtonWithPopup from './ShareMenu';
 import AdvancedSpecs, { SpecsState, initialSpecs } from './AdvancedSpecs';
+import GlobalSettingsModal from './GlobalSettingsModal';
 
 type GeometryState = {
   plotSizeUnit: 'marla' | 'sqyd' | 'sqft';
@@ -81,16 +83,23 @@ function geometryReducer(state: GeometryState, action: GeometryAction): Geometry
 }
 
 export default function HouseEstimator() {
-  const { rates } = useMarketRates();
+  const { marketRates, customRates, rates, setCustomRate, resetCustomRates, isCustomRate } = useMarketRates();
   const { formatCurrency, settings } = useSettings();
   const [geoState, dispatch] = useReducer(geometryReducer, initialGeometry);
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [specs, setSpecs] = useState<SpecsState>(initialSpecs);
   const [isSpecsAccordionOpen, setIsSpecsAccordionOpen] = useState(false);
   
+  const [showResults, setShowResults] = useState(false);
   const [activeTab, setActiveTab] = useState<'grey' | 'finishing' | 'summary'>('summary');
   const [finishQuality, setFinishQuality] = useState<number>(1); // 1: Standard, 2: Premium, 3: Luxury
-  const [isExportModalOpen, setIsExportModalOpen] = useState(false);
+  const [isGlobalSettingsOpen, setIsGlobalSettingsOpen] = useState(false);
+  
+  // Boundary Wall State
+  const [includeBoundaryWall, setIncludeBoundaryWall] = useState(false);
+  const [bwLength, setBwLength] = useState(100); // feet
+  const [bwHeight, setBwHeight] = useState(6); // feet
+  const [bwGateSize, setBwGateSize] = useState(12); // feet
 
   const plotAreaSqft = useMemo(() => {
     const val = parseFloat(geoState.plotSizeValue) || 0;
@@ -200,44 +209,109 @@ export default function HouseEstimator() {
     const costPaint = builtUpArea * (finishRate * 0.20); // 20%
     const costWoodwork = builtUpArea * (finishRate * 0.25) * (1 + geoState.rooms.bedrooms * 0.02); // 25% + bonus for bedrooms
     const costMep = builtUpArea * (finishRate * baseMepPct) * mepMultiplier; 
+    
+    // Roof Treatment & Insulation Cost
+    let roofMultiplier = 1;
+    if (specs?.roofTreatment?.includes('Premium')) roofMultiplier = 1.6;
+    if (specs?.roofTreatment?.includes('Luxury')) roofMultiplier = 2.5;
+    const roofArea = geoState.stories > 0 ? builtUpArea / geoState.stories : builtUpArea;
+    const costRoofing = roofArea * (finishRate * 0.15) * roofMultiplier;
 
-    const totalFinishing = costTiles + costPaint + costWoodwork + costMep;
+    const totalFinishing = costTiles + costPaint + costWoodwork + costMep + costRoofing;
+
+    // Boundary Wall Calculations
+    const bwNetLength = Math.max(0, bwLength - bwGateSize);
+    const bwArea = bwNetLength * bwHeight; // sqft
+    const bwVolume = bwArea * 0.75; // assuming 9-inch wall
+    
+    // Boundary Wall Materials
+    const bwBricks = Math.ceil(bwVolume * 13.5);
+    const bwDryMortar = bwVolume * 0.3;
+    const bwCementBags = Math.ceil((bwDryMortar * 0.2) / 1.25); // 1:4 ratio approx -> 20% dry mortar, divide by 1.25 cft/bag
+    const bwSandCft = Math.ceil(bwDryMortar * 0.8);
+    const bwExcavation = Math.ceil(bwNetLength * 2 * 1.5); // 2 ft deep, 1.5 ft wide
+    const bwLaborCost = bwArea * rates.laborGrey; // simple labor estimate
+
+    const costBwCement = bwCementBags * rates.cement;
+    const costBwBricks = bwBricks * rates.bricks;
+    const costBwSand = bwSandCft * rates.sand;
+    const bwTotalCost = includeBoundaryWall ? (costBwCement + costBwBricks + costBwSand + bwLaborCost) : 0;
+    
+    // Additional Technical Base Requirements for Grey Structure
+    const termiteAreaSqft = coveredAreaSqft;
+    const polytheneAreaSqft = coveredAreaSqft;
+    const waterTankCost = 150000;
+    
+    // Extrapolated quantities & prices for add-ons
+    const excavationVolTotal = Math.ceil(excavationVolumeCft) + (includeBoundaryWall ? bwExcavation : 0);
+    const costExcavation = excavationVolTotal * (rates.laborGrey * 0.15); // est factor
+    const costTermite = termiteAreaSqft * 12; // estimated Rs 12/sqft
+    const costPolythene = polytheneAreaSqft * 8; // estimated Rs 8/sqft
+    const costWaterTank = includeBoundaryWall ? waterTankCost : 0;
+    
+    const trueTotalGrey = totalGrey + costExcavation + costTermite + costPolythene + costWaterTank;
 
     return {
-      cementBags: cementBagsTotal, 
+      cementBags: cementBagsTotal + (includeBoundaryWall ? bwCementBags : 0), 
       steelKg: steelKg, 
-      bricksCount: bricksCount, 
-      sandCft: sandCftTotal, 
+      bricksCount: bricksCount + (includeBoundaryWall ? bwBricks : 0), 
+      sandCft: sandCftTotal + (includeBoundaryWall ? bwSandCft : 0), 
       crushCft: crushCftTotal,
-      excavationCft: Math.ceil(excavationVolumeCft),
+      excavationCft: Math.ceil(excavationVolumeCft) + (includeBoundaryWall ? bwExcavation : 0),
       steelTons: steelMetricTons,
+      termiteAreaSqft,
+      polytheneAreaSqft,
+      
+      costTerms: { costExcavation, costTermite, costPolythene, costWaterTank },
 
-      costCement, costSteel, costBricks, costSand, costCrush, costLabor, totalGrey,
-      costTiles, costPaint, costWoodwork, costMep, totalFinishing,
-      totalCost: totalGrey + totalFinishing
+      costCement, costSteel, costBricks, costSand, costCrush, costLabor, totalGrey: trueTotalGrey,
+      costTiles, costPaint, costWoodwork, costMep, costRoofing, totalFinishing,
+      costBoundaryWall: bwTotalCost,
+      totalCost: trueTotalGrey + totalFinishing + bwTotalCost
     };
-  }, [coveredAreaSqft, builtUpArea, finishQuality, rates, geoState]);
+  }, [coveredAreaSqft, builtUpArea, finishQuality, rates, geoState, specs, includeBoundaryWall, bwLength, bwHeight, bwGateSize]);
 
-  const greyCostData = [
-    { name: 'Cement', value: estimates.costCement, color: '#94a3b8' },
-    { name: 'Steel', value: estimates.costSteel, color: '#334155' },
-    { name: 'Bricks', value: estimates.costBricks, color: '#b91c1c' },
-    { name: 'Sand', value: estimates.costSand, color: '#fcd34d' },
-    { name: 'Crush', value: estimates.costCrush, color: '#a3a3a3' },
-    { name: 'Labor', value: estimates.costLabor, color: '#0369a1' },
+  const greyFoundationData = [
+    { name: 'Excavation & Backfilling', value: estimates.costTerms.costExcavation, color: '#78716c', quantity: estimates.excavationCft, unit: 'Cft', rate: rates.laborGrey * 0.15 },
+    { name: 'Termite Treatment', value: estimates.costTerms.costTermite, color: '#f97316', quantity: estimates.termiteAreaSqft, unit: 'Sq.ft', rate: 12 },
+  ];
+  if (includeBoundaryWall) {
+    greyFoundationData.push({ name: 'Water Tank (UG & OH)', value: estimates.costTerms.costWaterTank, color: '#3b82f6', quantity: 1, unit: 'Lump Sum', rate: estimates.costTerms.costWaterTank });
+  }
+
+  const greySuperstructureData = [
+    { name: `Cement${isCustomRate('cement') ? '*' : ''}`, value: estimates.costCement, color: '#94a3b8', quantity: estimates.cementBags, unit: 'Bags', rate: rates.cement, isCustom: isCustomRate('cement') },
+    { name: `Steel${isCustomRate('steel') ? '*' : ''}`, value: estimates.costSteel, color: '#334155', quantity: parseFloat(estimates.steelTons.toFixed(2)), unit: 'Tons', rate: rates.steel * 1000, isCustom: isCustomRate('steel') },
+    { name: `Bricks${isCustomRate('bricks') ? '*' : ''}`, value: estimates.costBricks, color: '#b91c1c', quantity: estimates.bricksCount, unit: 'Nos', rate: rates.bricks, isCustom: isCustomRate('bricks') },
+    { name: `Sand${isCustomRate('sand') ? '*' : ''}`, value: estimates.costSand, color: '#fcd34d', quantity: estimates.sandCft, unit: 'Cft', rate: rates.sand, isCustom: isCustomRate('sand') },
+    { name: `Crush${isCustomRate('crush') ? '*' : ''}`, value: estimates.costCrush, color: '#a3a3a3', quantity: estimates.crushCft, unit: 'Cft', rate: rates.crush, isCustom: isCustomRate('crush') },
+    { name: 'Polythene Sheet & DPC', value: estimates.costTerms.costPolythene, color: '#6ee7b7', quantity: estimates.polytheneAreaSqft, unit: 'Sq.ft', rate: 8 },
+    { name: `Labor${isCustomRate('laborGrey') ? '*' : ''}`, value: estimates.costLabor, color: '#0369a1', quantity: builtUpArea, unit: 'Sq.ft', rate: rates.laborGrey, isCustom: isCustomRate('laborGrey') },
   ];
 
+  const greyCostData = [...greyFoundationData, ...greySuperstructureData];
+
+  const qualityMultiplier = finishQuality === 1 ? 1 : finishQuality === 2 ? 1.6 : 2.5;
+  const finishRate = rates.laborFinish * qualityMultiplier;
+  let roofMultiplier = 1;
+  if (specs?.roofTreatment?.includes('Premium')) roofMultiplier = 1.6;
+  if (specs?.roofTreatment?.includes('Luxury')) roofMultiplier = 2.5;
+
   const finishingCostData = [
-    { name: 'Tiles & Floor', value: estimates.costTiles, color: '#0ea5e9' },
-    { name: 'Paint & Ceiling', value: estimates.costPaint, color: '#ec4899' },
-    { name: 'Woodwork', value: estimates.costWoodwork, color: '#8b5cf6' },
-    { name: 'Electric & Plumbing', value: estimates.costMep, color: '#10b981' },
+    { name: `Tiles & Floor${isCustomRate('laborFinish') ? '*' : ''}`, value: estimates.costTiles, color: '#0ea5e9', quantity: builtUpArea, unit: 'Sq.ft', rate: finishRate * 0.35, isCustom: isCustomRate('laborFinish') },
+    { name: `Paint & Ceiling${isCustomRate('laborFinish') ? '*' : ''}`, value: estimates.costPaint, color: '#ec4899', quantity: builtUpArea, unit: 'Sq.ft', rate: finishRate * 0.20, isCustom: isCustomRate('laborFinish') },
+    { name: `Woodwork${isCustomRate('laborFinish') ? '*' : ''}`, value: estimates.costWoodwork, color: '#8b5cf6', quantity: builtUpArea, unit: 'Sq.ft', rate: finishRate * 0.25 * (1 + geoState.rooms.bedrooms * 0.02), isCustom: isCustomRate('laborFinish') },
+    { name: `Electric & Plumbing${isCustomRate('laborFinish') ? '*' : ''}`, value: estimates.costMep, color: '#10b981', quantity: builtUpArea, unit: 'Sq.ft', rate: (estimates.costMep / builtUpArea), isCustom: isCustomRate('laborFinish') },
+    { name: `Roofing & Insulation${isCustomRate('laborFinish') ? '*' : ''}`, value: estimates.costRoofing, color: '#f59e0b', quantity: (geoState.stories > 0 ? builtUpArea / geoState.stories : builtUpArea), unit: 'Sq.ft', rate: finishRate * 0.15 * roofMultiplier, isCustom: isCustomRate('laborFinish') },
   ];
 
   const summaryData = [
     { name: 'Grey Structure', value: estimates.totalGrey, color: '#64748b' },
     { name: 'Finishing Works', value: estimates.totalFinishing, color: '#8b5cf6' },
   ];
+  if (includeBoundaryWall) {
+    summaryData.push({ name: 'Boundary Wall', value: estimates.costBoundaryWall, color: '#10b981' });
+  }
 
   const getQualityLabel = (val: number) => {
     switch(val) {
@@ -252,7 +326,7 @@ export default function HouseEstimator() {
     <div className="w-full h-full overflow-y-auto bg-[#f8fafc] text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         
-        <header className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <header className="mb-8 block">
           <div>
             <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent pb-2">
               Complete House Estimator
@@ -260,10 +334,13 @@ export default function HouseEstimator() {
             <p className="text-gray-500 mt-2 text-lg font-medium">
               Precise civil engineering estimations for grey structure and finishing works.
             </p>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle /></div>
           </div>
-          <div className="bg-white px-5 py-3 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between gap-4">
-            <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">Built-up</span>
-            <span className="text-2xl font-black text-indigo-600 tracking-tighter">{builtUpArea.toFixed(0)} <span className="text-sm font-medium text-indigo-400">sq.ft</span></span>
+          <div className="flex items-center gap-3">
+            <div className="bg-white px-5 py-3 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between gap-4">
+              <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">Built-up</span>
+              <span className="text-2xl font-black text-indigo-600 tracking-tighter">{builtUpArea.toFixed(0)} <span className="text-sm font-medium text-indigo-400">sq.ft</span></span>
+            </div>
           </div>
         </header>
 
@@ -436,25 +513,138 @@ export default function HouseEstimator() {
             </div>
 
             <AdvancedSpecs specs={specs} setSpecs={setSpecs} isOpen={isSpecsAccordionOpen} setIsOpen={setIsSpecsAccordionOpen} />
+
+            {/* Boundary Wall Module */}
+            <div className="bg-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
+               <div className="flex items-center justify-between">
+                  <div className="flex flex-col">
+                     <h2 className="text-xl font-extrabold text-slate-800">Boundary Wall</h2>
+                     <span className="text-sm font-medium text-slate-500">Include exterior boundary wall</span>
+                  </div>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" className="sr-only peer" checked={includeBoundaryWall} onChange={() => setIncludeBoundaryWall(!includeBoundaryWall)} />
+                    <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                  </label>
+               </div>
+               
+               {includeBoundaryWall && (
+                 <div className="grid grid-cols-3 gap-3 pt-4 mt-4 border-t border-slate-100 animate-in fade-in slide-in-from-top-4 duration-300">
+                    <div>
+                      <label className="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Length (ft)</label>
+                      <input type="number" value={bwLength || ''} onChange={(e) => setBwLength(parseFloat(e.target.value))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-700 font-medium focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Height (ft)</label>
+                      <input type="number" value={bwHeight || ''} onChange={(e) => setBwHeight(parseFloat(e.target.value))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-700 font-medium focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Gate (ft)</label>
+                      <input type="number" value={bwGateSize || ''} onChange={(e) => setBwGateSize(parseFloat(e.target.value))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-700 font-medium focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                    </div>
+                 </div>
+               )}
+            </div>
           </section>
 
           {/* Results Area */}
           <section className="lg:col-span-8 flex flex-col gap-6">
-            
-            {/* Custom Segmented Control */}
-            <div className="flex overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden p-1.5 bg-white border border-slate-200 shadow-sm rounded-2xl w-full sm:w-fit relative">
-              <button onClick={() => setActiveTab('summary')} className={`relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeTab === 'summary' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}>
-                <LayoutDashboard className="w-[18px] h-[18px]" /> <span className="whitespace-nowrap">Summary</span>
-              </button>
-              <button onClick={() => setActiveTab('grey')} className={`relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeTab === 'grey' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}>
-                <Layers className="w-[18px] h-[18px]" /> <span className="whitespace-nowrap">Grey Structure</span>
-              </button>
-              <button onClick={() => setActiveTab('finishing')} className={`relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeTab === 'finishing' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}>
-                <PaintRoller className="w-[18px] h-[18px]" /> <span className="whitespace-nowrap">Finishing</span>
-              </button>
-            </div>
+            {!showResults ? (
+              <div className="bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_rgb(0,0,0,0.04)] border border-slate-100 flex-1 relative overflow-hidden flex flex-col">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 bg-indigo-50 text-indigo-600 rounded-2xl">
+                    <Database className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-extrabold text-slate-800">Configure Material Rates</h2>
+                    <p className="text-slate-500 font-medium text-sm mt-1">Review market rates and override with custom vendor quotes if needed.</p>
+                  </div>
+                </div>
 
-            <div className="bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_rgb(0,0,0,0.04)] border border-slate-100 flex-1 relative overflow-hidden transition-all duration-300">
+                <div className="flex-1 overflow-auto border border-slate-200 rounded-2xl mb-6">
+                  <table className="w-full text-sm text-left">
+                    <thead className="bg-[#f0f2f5] text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider sticky top-0 z-10">
+                      <tr>
+                        <th className="px-6 py-4 font-bold">Material Item</th>
+                        <th className="px-6 py-4 font-bold">Current Market Rate</th>
+                        <th className="px-6 py-4 font-bold bg-indigo-50/50 text-indigo-700">Your Custom Rate</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-slate-100">
+                      {([
+                        { key: 'cement', name: 'Cement (Per Bag)' },
+                        { key: 'steel', name: 'Steel 60-Grade (Per Kg)' },
+                        { key: 'bricks', name: 'Bricks A-Class (Per 1000)' },
+                        { key: 'sand', name: 'Sand (Per Cft)' },
+                        { key: 'crush', name: 'Crush (Per Cft)' },
+                        { key: 'laborGrey', name: 'Grey Labor (Per Sq.ft)' },
+                        { key: 'laborFinish', name: 'Finish Labor (Per Sq.ft)' },
+                      ] as const).map(item => (
+                        <tr key={item.key} className="hover:bg-slate-50 transition-colors">
+                          <td className="px-6 py-4 font-bold text-slate-700">{item.name}</td>
+                          <td className="px-6 py-4 font-bold text-slate-500">
+                            {formatCurrency(item.key === 'bricks' ? marketRates[item.key] * 1000 : marketRates[item.key])}
+                          </td>
+                          <td className="px-6 py-3 bg-indigo-50/30">
+                            <div className="relative flex items-center">
+                              <span className="absolute left-3 text-slate-400 font-bold mb-0.5">{settings.currency === 'PKR' ? 'Rs' : '$'}</span>
+                              <input 
+                                type="number"
+                                className={`w-full bg-white border ${customRates[item.key] !== undefined ? 'border-indigo-300 ring-2 ring-indigo-500/20 text-indigo-700 font-bold' : 'border-slate-200 text-slate-800'} rounded-xl py-2 pl-10 pr-3 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 transition-all`}
+                                placeholder="Default"
+                                value={customRates[item.key] !== undefined ? (item.key === 'bricks' ? customRates[item.key]! * 1000 : customRates[item.key]) : ''}
+                                onChange={(e) => {
+                                  const val = e.target.value ? parseFloat(e.target.value) : null;
+                                  setCustomRate(item.key, val !== null && item.key === 'bricks' ? val / 1000 : val);
+                                }}
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="flex items-center justify-between mt-auto">
+                  <button 
+                    onClick={resetCustomRates}
+                    className="flex items-center gap-2 text-slate-500 font-bold hover:text-slate-800 px-4 py-2 rounded-xl hover:bg-slate-100 transition-colors"
+                  >
+                    <RotateCcw className="w-4 h-4" /> Reset Defaults
+                  </button>
+                  <button 
+                    onClick={() => setShowResults(true)}
+                    className="flex items-center gap-2 bg-indigo-600 text-white font-bold px-8 py-3.5 rounded-xl hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-500/30 transition-all active:scale-95"
+                  >
+                    Generate Estimate <ArrowRight className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* Segmented Control & Actions */}
+                <div className="flex flex-col sm:flex-row gap-4 items-center justify-between relative">
+                  <div className="flex overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden p-1.5 bg-white border border-slate-200 shadow-sm rounded-2xl w-full sm:w-fit">
+                    <button onClick={() => setActiveTab('summary')} className={`relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeTab === 'summary' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}>
+                      <LayoutDashboard className="w-[18px] h-[18px]" /> <span className="whitespace-nowrap">Summary</span>
+                    </button>
+                    <button onClick={() => setActiveTab('grey')} className={`relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeTab === 'grey' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}>
+                      <Layers className="w-[18px] h-[18px]" /> <span className="whitespace-nowrap">Grey Structure</span>
+                    </button>
+                    <button onClick={() => setActiveTab('finishing')} className={`relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeTab === 'finishing' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}>
+                      <PaintRoller className="w-[18px] h-[18px]" /> <span className="whitespace-nowrap">Finishing</span>
+                    </button>
+                  </div>
+                  
+                  <button 
+                    onClick={() => setShowResults(false)}
+                    className="flex items-center gap-2 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 font-bold px-5 py-2.5 rounded-xl shadow-sm border border-indigo-100 transition-colors shrink-0 whitespace-nowrap"
+                  >
+                    <Database className="w-[18px] h-[18px]" /> View / Edit Rates
+                  </button>
+                </div>
+    
+                <div className="bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_rgb(0,0,0,0.04)] border border-slate-100 flex-1 relative overflow-hidden transition-all duration-300">
                
                {activeTab === 'summary' && (
                  <div className="animate-in fade-in zoom-in-95 duration-500 h-full flex flex-col">
@@ -464,16 +654,21 @@ export default function HouseEstimator() {
                      <div className="w-full md:w-1/2 h-64 relative" id="export-chart-target">
                        <ResponsiveContainer width="100%" height="100%">
                          <PieChart>
-                           <Pie data={summaryData} innerRadius={70} outerRadius={90} paddingAngle={5} dataKey="value" animationDuration={1000}>
+                           <Pie data={summaryData} innerRadius={85} outerRadius={110} paddingAngle={5} dataKey="value" animationDuration={1000}>
                              {summaryData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} stroke="none" />)}
                            </Pie>
                            <Tooltip formatter={(value: number) => formatCurrency(value)} contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }} />
+                           <text x="50%" y="42%" textAnchor="middle" dominantBaseline="middle" fill="#64748b" fontSize="11" fontWeight="600">
+                             Grey: {formatCurrency(estimates.totalGrey)}
+                           </text>
+                           <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="#8b5cf6" fontSize="11" fontWeight="600">
+                             Finish: {formatCurrency(estimates.totalFinishing)}
+                           </text>
+                           <text x="50%" y="62%" textAnchor="middle" dominantBaseline="middle" fill="#0f172a" fontSize="15" fontWeight="900">
+                             Total: {formatCurrency(estimates.totalCost)}
+                           </text>
                          </PieChart>
                        </ResponsiveContainer>
-                       <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                          <span className="text-xs font-bold uppercase tracking-widest text-slate-400">Total</span>
-                          <span className="text-lg font-black text-slate-800">{formatCurrency(estimates.totalCost)}</span>
-                       </div>
                      </div>
                      
                      <div className="w-full md:w-1/2 space-y-6">
@@ -531,46 +726,45 @@ export default function HouseEstimator() {
                    </div>
 
                                       <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">Detailed Exact BOQ</h3>
-                   <div className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm mb-8">
+                   <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm mb-8">
                      <table className="w-full text-sm text-left">
-                       <thead className="bg-slate-50 text-slate-500 border-b border-slate-200 uppercase text-xs tracking-wider">
+                       <thead className="bg-[#f0f2f5] text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider">
                          <tr>
-                           <th className="px-6 py-4 font-bold">Item Description</th>
-                           <th className="px-6 py-4 font-bold text-right">Exact Quantity</th>
-                           <th className="px-6 py-4 font-bold text-right">Unit</th>
+                           <th className="px-6 py-4 font-bold">Material / Item</th>
+                           <th className="px-6 py-4 font-bold text-center">Quantity</th>
+                           <th className="px-6 py-4 font-bold text-center">Unit</th>
+                           <th className="px-6 py-4 font-bold text-right">Amount (Rs)</th>
                          </tr>
                        </thead>
                        <tbody className="text-slate-800 divide-y divide-slate-100">
-                         <tr className="hover:bg-slate-50 transition-colors">
-                           <td className="px-6 py-4 font-medium">Total Bricks</td>
-                           <td className="px-6 py-4 text-right font-bold text-slate-600">{estimates.bricksCount.toLocaleString()}</td>
-                           <td className="px-6 py-4 text-right text-slate-500 text-xs">Nos</td>
+                         <tr className="bg-slate-50/50">
+                           <td colSpan={4} className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-500">Foundation Work</td>
                          </tr>
-                         <tr className="hover:bg-slate-50 transition-colors">
-                           <td className="px-6 py-4 font-medium">Cement (50Kg Bags)</td>
-                           <td className="px-6 py-4 text-right font-bold text-slate-600">{estimates.cementBags.toLocaleString()}</td>
-                           <td className="px-6 py-4 text-right text-slate-500 text-xs">Bags</td>
+                         {greyFoundationData.map((item, idx) => (
+                           <tr key={`f-${idx}`} className="hover:bg-slate-50/70 transition-colors">
+                             <td className="px-6 py-4 font-semibold text-slate-700">{item.name}</td>
+                             <td className="px-6 py-4 text-center font-bold text-slate-600">
+                               {typeof item.quantity === 'number' ? item.quantity.toLocaleString() : item.quantity}
+                               {item.rate && <div className="text-[10px] font-normal text-slate-400 mt-0.5 font-mono">@ Rs {item.rate.toLocaleString(undefined, {maximumFractionDigits: 0})}/{item.unit}</div>}
+                             </td>
+                             <td className="px-6 py-4 text-center font-medium text-slate-500">{item.unit}</td>
+                             <td className="px-6 py-4 text-right font-bold text-slate-800">{formatCurrency(item.value)}</td>
+                           </tr>
+                         ))}
+                         <tr className="bg-slate-50/50">
+                           <td colSpan={4} className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-500">Superstructure</td>
                          </tr>
-                         <tr className="hover:bg-slate-50 transition-colors">
-                           <td className="px-6 py-4 font-medium">Sand</td>
-                           <td className="px-6 py-4 text-right font-bold text-slate-600">{estimates.sandCft.toLocaleString()}</td>
-                           <td className="px-6 py-4 text-right text-slate-500 text-xs">Cubic Feet</td>
-                         </tr>
-                         <tr className="hover:bg-slate-50 transition-colors">
-                           <td className="px-6 py-4 font-medium">Crush / Aggregate</td>
-                           <td className="px-6 py-4 text-right font-bold text-slate-600">{estimates.crushCft.toLocaleString()}</td>
-                           <td className="px-6 py-4 text-right text-slate-500 text-xs">Cubic Feet</td>
-                         </tr>
-                         <tr className="hover:bg-slate-50 transition-colors">
-                           <td className="px-6 py-4 font-medium">Steel Reinforcement</td>
-                           <td className="px-6 py-4 text-right font-bold text-slate-600">{estimates.steelTons.toFixed(3)}</td>
-                           <td className="px-6 py-4 text-right text-slate-500 text-xs">Metric Tons</td>
-                         </tr>
-                         <tr className="hover:bg-slate-50 transition-colors">
-                           <td className="px-6 py-4 font-medium">Excavation Volume</td>
-                           <td className="px-6 py-4 text-right font-bold text-slate-600">{estimates.excavationCft.toLocaleString()}</td>
-                           <td className="px-6 py-4 text-right text-slate-500 text-xs">Cubic Feet</td>
-                         </tr>
+                         {greySuperstructureData.map((item, idx) => (
+                           <tr key={`s-${idx}`} className="hover:bg-slate-50/70 transition-colors">
+                             <td className="px-6 py-4 font-semibold text-slate-700">{item.name}</td>
+                             <td className="px-6 py-4 text-center font-bold text-slate-600">
+                               {typeof item.quantity === 'number' ? item.quantity.toLocaleString() : item.quantity}
+                               {item.rate && <div className="text-[10px] font-normal text-slate-400 mt-0.5 font-mono">@ Rs {item.rate.toLocaleString(undefined, {maximumFractionDigits: 0})}/{item.unit}</div>}
+                             </td>
+                             <td className="px-6 py-4 text-center font-medium text-slate-500">{item.unit}</td>
+                             <td className="px-6 py-4 text-right font-bold text-slate-800">{formatCurrency(item.value)}</td>
+                           </tr>
+                         ))}
                        </tbody>
                      </table>
                    </div>
@@ -625,46 +819,28 @@ export default function HouseEstimator() {
                    </div>
 
                                       <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">Detailed Exact BOQ</h3>
-                   <div className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm mb-8">
+                   <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm mb-8">
                      <table className="w-full text-sm text-left">
-                       <thead className="bg-slate-50 text-slate-500 border-b border-slate-200 uppercase text-xs tracking-wider">
+                       <thead className="bg-[#f0f2f5] text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider">
                          <tr>
-                           <th className="px-6 py-4 font-bold">Item Description</th>
-                           <th className="px-6 py-4 font-bold text-right">Exact Quantity</th>
-                           <th className="px-6 py-4 font-bold text-right">Unit</th>
+                           <th className="px-6 py-4 font-bold">Material / Item</th>
+                           <th className="px-6 py-4 font-bold text-center">Quantity</th>
+                           <th className="px-6 py-4 font-bold text-center">Unit</th>
+                           <th className="px-6 py-4 font-bold text-right">Amount (Rs)</th>
                          </tr>
                        </thead>
                        <tbody className="text-slate-800 divide-y divide-slate-100">
-                         <tr className="hover:bg-slate-50 transition-colors">
-                           <td className="px-6 py-4 font-medium">Total Bricks</td>
-                           <td className="px-6 py-4 text-right font-bold text-slate-600">{estimates.bricksCount.toLocaleString()}</td>
-                           <td className="px-6 py-4 text-right text-slate-500 text-xs">Nos</td>
-                         </tr>
-                         <tr className="hover:bg-slate-50 transition-colors">
-                           <td className="px-6 py-4 font-medium">Cement (50Kg Bags)</td>
-                           <td className="px-6 py-4 text-right font-bold text-slate-600">{estimates.cementBags.toLocaleString()}</td>
-                           <td className="px-6 py-4 text-right text-slate-500 text-xs">Bags</td>
-                         </tr>
-                         <tr className="hover:bg-slate-50 transition-colors">
-                           <td className="px-6 py-4 font-medium">Sand</td>
-                           <td className="px-6 py-4 text-right font-bold text-slate-600">{estimates.sandCft.toLocaleString()}</td>
-                           <td className="px-6 py-4 text-right text-slate-500 text-xs">Cubic Feet</td>
-                         </tr>
-                         <tr className="hover:bg-slate-50 transition-colors">
-                           <td className="px-6 py-4 font-medium">Crush / Aggregate</td>
-                           <td className="px-6 py-4 text-right font-bold text-slate-600">{estimates.crushCft.toLocaleString()}</td>
-                           <td className="px-6 py-4 text-right text-slate-500 text-xs">Cubic Feet</td>
-                         </tr>
-                         <tr className="hover:bg-slate-50 transition-colors">
-                           <td className="px-6 py-4 font-medium">Steel Reinforcement</td>
-                           <td className="px-6 py-4 text-right font-bold text-slate-600">{estimates.steelTons.toFixed(3)}</td>
-                           <td className="px-6 py-4 text-right text-slate-500 text-xs">Metric Tons</td>
-                         </tr>
-                         <tr className="hover:bg-slate-50 transition-colors">
-                           <td className="px-6 py-4 font-medium">Excavation Volume</td>
-                           <td className="px-6 py-4 text-right font-bold text-slate-600">{estimates.excavationCft.toLocaleString()}</td>
-                           <td className="px-6 py-4 text-right text-slate-500 text-xs">Cubic Feet</td>
-                         </tr>
+                         {finishingCostData.map((item, idx) => (
+                           <tr key={idx} className="hover:bg-slate-50/70 transition-colors">
+                             <td className="px-6 py-4 font-semibold text-slate-700">{item.name}</td>
+                             <td className="px-6 py-4 text-center font-bold text-slate-600">
+                               {typeof item.quantity === 'number' ? Math.round(item.quantity).toLocaleString() : item.quantity}
+                               {item.rate && <div className="text-[10px] font-normal text-slate-400 mt-0.5 font-mono">@ Rs {item.rate.toLocaleString(undefined, {maximumFractionDigits: 0})}/{item.unit}</div>}
+                             </td>
+                             <td className="px-6 py-4 text-center font-medium text-slate-500">{item.unit}</td>
+                             <td className="px-6 py-4 text-right font-bold text-slate-800">{formatCurrency(item.value)}</td>
+                           </tr>
+                         ))}
                        </tbody>
                      </table>
                    </div>
@@ -692,33 +868,46 @@ export default function HouseEstimator() {
                )}
 
             </div>
-
+          </>
+          )}
           </section>
 
         </div>
       </div>
 
-      {/* Floating Share Button */}
-      <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-40">
-        <button
-          onClick={() => setIsExportModalOpen(true)}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full p-4 shadow-xl shadow-indigo-600/30 flex items-center justify-center transition-all hover:scale-105 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-indigo-600/20"
-        >
-          <Share2 className="w-6 h-6 group-hover:-translate-y-1 transition-transform" />
-        </button>
-      </div>
-
-      <ExportShareModal 
-        isOpen={isExportModalOpen}
-        onClose={() => setIsExportModalOpen(false)}
-        estimates={estimates}
-        geoState={geoState}
-        plotAreaSqft={plotAreaSqft}
-        builtUpArea={builtUpArea}
-        finishQuality={finishQuality}
-        greyCostData={greyCostData}
-        finishingCostData={finishingCostData}
-        summaryData={summaryData}
+      <ShareButtonWithPopup 
+        activeTab="House Estimation"
+        data={{
+          "Total Cost": formatCurrency(estimates.totalCost),
+          "Grey Structure": formatCurrency(estimates.totalGrey),
+          "Finishing Works": formatCurrency(estimates.totalFinishing),
+          "Plot Size": `${geoState.plotSizeValue} ${geoState.plotSizeUnit.toUpperCase()} (${plotAreaSqft.toFixed(0)} sq.ft)`,
+          "Built-up Area": `${builtUpArea.toFixed(0)} sq.ft`,
+        }}
+        exportFormat={{
+          inputs: {
+            "Plot Size": `${geoState.plotSizeValue} ${geoState.plotSizeUnit.toUpperCase()} (${plotAreaSqft.toFixed(0)} sq.ft)`,
+            "Stories": geoState.stories.toString(),
+            "Built-up Area": `${builtUpArea.toFixed(0)} sq.ft`,
+            "Finish Quality": finishQuality === 1 ? 'Standard' : finishQuality === 2 ? 'Premium' : 'Luxury'
+          },
+          breakdown: {
+            "Total Cost": formatCurrency(estimates.totalCost),
+            "Grey Structure": formatCurrency(estimates.totalGrey),
+            "Finishing Works": formatCurrency(estimates.totalFinishing),
+            ...(estimates.costBoundaryWall > 0 ? { "Boundary Wall": formatCurrency(estimates.costBoundaryWall) } : {})
+          },
+          customTableData: [
+            ...greyCostData.map(d => ({ item: d.name, quantityStr: typeof d.quantity === 'number' ? Math.round(d.quantity) : d.quantity, unitStr: d.unit, rate: d.rate, cost: d.value, color: d.color })),
+            ...finishingCostData.map(d => ({ item: d.name, quantityStr: typeof d.quantity === 'number' ? Math.round(d.quantity) : d.quantity, unitStr: d.unit, rate: d.rate, cost: d.value, color: d.color }))
+          ]
+        }}
+        title="Complete House Estimate"
+      />
+      
+      <GlobalSettingsModal 
+        isOpen={isGlobalSettingsOpen}
+        onClose={() => setIsGlobalSettingsOpen(false)}
       />
     </div>
   );

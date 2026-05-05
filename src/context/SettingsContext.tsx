@@ -4,22 +4,40 @@ export type Currency = 'PKR' | 'USD' | 'INR' | 'AED' | 'SAR' | 'GBP';
 export type MeasurementSystem = 'FPS' | 'SI';
 export type Theme = 'light' | 'dark' | 'system';
 
+export interface MaterialRates {
+  cement: number;
+  steel: number;
+  bricks: number;
+  sand: number;
+  crush: number;
+}
+
 interface SettingsState {
   currency: Currency;
   measurement: MeasurementSystem;
   theme: Theme;
+  rates: MaterialRates;
 }
 
 interface SettingsContextType {
   settings: SettingsState;
   updateSettings: (newSettings: Partial<SettingsState>) => void;
-  formatCurrency: (amount: number) => string;
+  formatCurrency: (amount: number, applyExchangeRate?: boolean) => string;
+  convertAmount: (amount: number) => number;
+  convertAmountToRaw: (amount: number) => number;
 }
 
 const defaultSettings: SettingsState = {
   currency: 'PKR',
   measurement: 'FPS', // FPS = ft, sqft, cft; SI = m, sqm, cum
   theme: 'system',
+  rates: {
+    cement: 1200,   // per 50kg bag
+    steel: 260000,  // per ton
+    bricks: 15000,  // per 1000
+    sand: 60,       // per cft
+    crush: 120,     // per cft
+  }
 };
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
@@ -66,13 +84,36 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     setSettings((prev) => ({ ...prev, ...newSettings }));
   };
 
-  const formatCurrency = (amount: number) => {
+  const getExchangeRate = (curr: Currency) => {
+    switch (curr) {
+      case 'USD': return 1 / 278;
+      case 'SAR': return 1 / 74;
+      case 'INR': return 1 / 3.33;
+      case 'AED': return 1 / 75;
+      case 'GBP': return 1 / 350;
+      default: return 1; // PKR
+    }
+  };
+
+  const formatCurrency = (amount: number, applyExchangeRate = true) => {
     const symbol = currencySymbols[settings.currency];
-    return `${symbol} ${amount.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+    const rate = getExchangeRate(settings.currency);
+    const finalAmount = applyExchangeRate ? amount * rate : amount;
+    return `${symbol} ${finalAmount.toLocaleString(undefined, { maximumFractionDigits: settings.currency === 'PKR' ? 0 : 2 })}`;
+  };
+
+  const convertAmount = (amount: number) => {
+    const rate = getExchangeRate(settings.currency);
+    return amount * rate;
+  };
+
+  const convertAmountToRaw = (amount: number) => {
+    const rate = getExchangeRate(settings.currency);
+    return amount / rate;
   };
 
   return (
-    <SettingsContext.Provider value={{ settings, updateSettings, formatCurrency }}>
+    <SettingsContext.Provider value={{ settings, updateSettings, formatCurrency, convertAmount, convertAmountToRaw }}>
       {children}
     </SettingsContext.Provider>
   );

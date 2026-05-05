@@ -1,0 +1,369 @@
+import React, { useState } from 'react';
+import { Truck, Calculator, Ruler, Hash, Plus, Layers, ArrowRight, Trash2, Map, LayoutTemplate } from 'lucide-react';
+import ShareButtonWithPopup from './ShareMenu';
+import { useSettings } from '../../context/SettingsContext';
+import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+import { v4 as uuidv4 } from 'uuid';
+
+interface Station {
+  id: string;
+  chainage: string;
+  ngl: string;
+  fl: string;
+}
+
+export default function ChainageVolumeEstimator() {
+  const { settings, formatCurrency, convertAmount, convertAmountToRaw } = useSettings();
+  const isMetric = settings.measurement === 'SI';
+  const unitL = isMetric ? 'm' : 'ft';
+  const unitA = isMetric ? 'm²' : 'ft²';
+  const unitV = isMetric ? 'm³' : 'ft³';
+
+  const [formationWidth, setFormationWidth] = useState('10');
+  const [cutSlope, setCutSlope] = useState('1.5');
+  const [fillSlope, setFillSlope] = useState('2.0');
+
+  const [stations, setStations] = useState<Station[]>([
+    { id: uuidv4(), chainage: '0', ngl: '100', fl: '100' },
+    { id: uuidv4(), chainage: '30', ngl: '102', fl: '100' },
+    { id: uuidv4(), chainage: '60', ngl: '98', fl: '100' },
+  ]);
+
+  const parseChainage = (val: string) => {
+    const clean = val.replace(/\s/g, '');
+    if (clean.includes('+')) {
+      const parts = clean.split('+');
+      return parseFloat(parts.join('')) || 0;
+    }
+    return parseFloat(clean) || 0;
+  };
+
+  const handleUpdateStation = (id: string, field: keyof Station, value: string) => {
+    setStations(stations.map(st => st.id === id ? { ...st, [field]: value } : st));
+  };
+
+  const addStation = () => {
+    setStations([...stations, { id: uuidv4(), chainage: '', ngl: '', fl: '' }]);
+  };
+
+  const removeStation = (id: string) => {
+    if (stations.length > 1) {
+      setStations(stations.filter(st => st.id !== id));
+    }
+  };
+
+  const B = parseFloat(formationWidth) || 0;
+  const sc = parseFloat(cutSlope) || 0;
+  const sf = parseFloat(fillSlope) || 0;
+
+  const sortedStations = [...stations].sort((a, b) => parseChainage(a.chainage) - parseChainage(b.chainage));
+
+  let cumCut = 0;
+  let cumFill = 0;
+
+  const results = sortedStations.map((station, index) => {
+    const ch = parseChainage(station.chainage);
+    const ngl = parseFloat(station.ngl) || 0;
+    const fl = parseFloat(station.fl) || 0;
+
+    const d = ngl - fl;
+    const d_cut = d > 0 ? d : 0;
+    const d_fill = d < 0 ? -d : 0;
+
+    const cutArea = B * d_cut + sc * d_cut * d_cut;
+    const fillArea = B * d_fill + sf * d_fill * d_fill;
+
+    let intCut = 0;
+    let intFill = 0;
+    let length = 0;
+
+    if (index > 0) {
+      const prev = sortedStations[index - 1];
+      const prevCh = parseChainage(prev.chainage);
+      const prevNgl = parseFloat(prev.ngl) || 0;
+      const prevFl = parseFloat(prev.fl) || 0;
+
+      length = Math.max(0, ch - prevCh);
+
+      const d_prev = prevNgl - prevFl;
+      const prev_cutArea = B * (d_prev > 0 ? d_prev : 0) + sc * (d_prev > 0 ? d_prev : 0) * (d_prev > 0 ? d_prev : 0);
+      const prev_fillArea = B * (d_prev < 0 ? -d_prev : 0) + sf * (d_prev < 0 ? -d_prev : 0) * (d_prev < 0 ? -d_prev : 0);
+
+      const dm_true = (d + d_prev) / 2;
+      const true_dm_cut = dm_true > 0 ? dm_true : 0;
+      const true_dm_fill = dm_true < 0 ? -dm_true : 0;
+
+      const Am_cut = B * true_dm_cut + sc * true_dm_cut * true_dm_cut;
+      const Am_fill = B * true_dm_fill + sf * true_dm_fill * true_dm_fill;
+
+      // Prismoidal Formula
+      intCut = (length / 6) * (cutArea + 4 * Am_cut + prev_cutArea);
+      intFill = (length / 6) * (fillArea + 4 * Am_fill + prev_fillArea);
+
+      cumCut += intCut;
+      cumFill += intFill;
+    }
+
+    const netVolume = cumCut - cumFill;
+
+    return {
+      ...station,
+      parsedChainage: ch,
+      length,
+      depthCut: d_cut,
+      depthFill: d_fill,
+      cutArea,
+      fillArea,
+      intCut,
+      intFill,
+      cumCut,
+      cumFill,
+      netVolume
+    };
+  });
+
+  const totalCut = cumCut;
+  const totalFill = cumFill;
+  const finalNet = totalCut - totalFill;
+
+  return (
+    <div className="w-full h-full overflow-y-auto bg-gray-50 text-gray-900 font-sans p-6 md:p-8">
+      <div className="max-w-7xl mx-auto space-y-8">
+        <header className="mb-10 block">
+          <div>
+            <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent pb-1 flex items-center gap-3">
+              <Map className="w-8 h-8 text-amber-500" />
+              Road Earthwork Calculator
+            </h1>
+            <p className="text-gray-500 mt-2 font-medium">
+              Calculate road alignment cutting and filling volumes using the accurate Prismoidal Formula.
+            </p>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle /></div>
+          </div>
+        </header>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <section className="lg:col-span-8 space-y-6">
+            
+            {/* Global Parameters */}
+            <div className="bg-white p-6 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all">
+               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
+                  <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                    <Layers className="w-5 h-5" />
+                  </div>
+                  <h2 className="text-xl font-bold tracking-tight text-gray-800">Road Parameters</h2>
+               </div>
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Formation Width ({unitL})</label>
+                    <input 
+                      type="number" 
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
+                      value={formationWidth} onChange={e => setFormationWidth(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Cut Slope (H:1V)</label>
+                    <input 
+                      type="number" 
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
+                      value={cutSlope} onChange={e => setCutSlope(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Fill Slope (H:1V)</label>
+                    <input 
+                      type="number" 
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
+                      value={fillSlope} onChange={e => setFillSlope(e.target.value)}
+                    />
+                  </div>
+               </div>
+            </div>
+
+            <div className="bg-white p-6 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+              <div className="flex items-center justify-between mb-5 border-b border-gray-50 pb-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
+                    <Map className="w-5 h-5" />
+                  </div>
+                  <h2 className="text-xl font-bold tracking-tight text-gray-800">Station Data</h2>
+                </div>
+                <button
+                  onClick={addStation}
+                  className="flex items-center gap-2 px-4 py-2 bg-amber-50 text-amber-700 hover:bg-amber-100 rounded-lg text-sm font-semibold transition-colors"
+                >
+                  <Plus className="w-4 h-4" /> Add Station
+                </button>
+              </div>
+              
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="border-b border-gray-100 text-xs uppercase tracking-wider text-gray-500">
+                      <th className="pb-3 pr-4 font-semibold min-w-[120px]">Chainage</th>
+                      <th className="pb-3 px-4 font-semibold min-w-[100px]">NGL ({unitL})</th>
+                      <th className="pb-3 px-4 font-semibold min-w-[100px]">FL ({unitL})</th>
+                      <th className="pb-3 px-4 font-semibold min-w-[100px]">Depth ({unitL})</th>
+                      <th className="pb-3 pl-4 font-semibold text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-50">
+                    {results.map((st) => (
+                      <tr key={st.id} className="group hover:bg-slate-50 transition-colors">
+                        <td className="py-2 pr-4">
+                          <input 
+                            type="text" 
+                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm"
+                            value={st.chainage}
+                            onChange={e => handleUpdateStation(st.id, 'chainage', e.target.value)}
+                            placeholder="e.g. 1+200"
+                          />
+                        </td>
+                        <td className="py-2 px-4">
+                          <input 
+                            type="number" 
+                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm"
+                            value={st.ngl}
+                            onChange={e => handleUpdateStation(st.id, 'ngl', e.target.value)}
+                          />
+                        </td>
+                        <td className="py-2 px-4">
+                          <input 
+                            type="number" 
+                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm"
+                            value={st.fl}
+                            onChange={e => handleUpdateStation(st.id, 'fl', e.target.value)}
+                          />
+                        </td>
+                        <td className="py-2 px-4 whitespace-nowrap">
+                           <div className="font-mono text-[13px] font-semibold flex flex-col items-start bg-slate-100 rounded-lg px-3 py-1.5 min-w-[70px]">
+                             {st.depthCut > 0 && <span className="text-amber-600">C: {st.depthCut.toFixed(2)}</span>}
+                             {st.depthFill > 0 && <span className="text-indigo-600">F: {st.depthFill.toFixed(2)}</span>}
+                             {st.depthCut === 0 && st.depthFill === 0 && <span className="text-gray-400">0.00</span>}
+                           </div>
+                        </td>
+                        <td className="py-2 pl-4 text-right opacity-0 group-hover:opacity-100 transition-opacity">
+                          <button
+                            onClick={() => removeStation(st.id)}
+                            disabled={stations.length <= 1}
+                            className={`p-2 rounded-lg ${stations.length <= 1 ? 'text-gray-300 cursor-not-allowed' : 'text-red-400 hover:text-red-600 hover:bg-red-50'}`}
+                          >
+                            <Trash2 className="w-5 h-5" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
+            {/* Detailed Results Table */}
+            <div className="bg-white p-6 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
+              <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2"><LayoutTemplate className="w-5 h-5 text-gray-400" /> Calculation Output (Prismoidal Method)</h2>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-sm border-collapse whitespace-nowrap">
+                  <thead>
+                    <tr className="border-b border-gray-200 text-[11px] font-bold uppercase tracking-wider text-gray-500 bg-gray-50/50">
+                      <th className="py-3 px-4 rounded-tl-lg text-gray-800">Ch / Stn</th>
+                      <th className="py-3 px-4">Dist.</th>
+                      <th className="py-3 px-4 text-amber-700">Area C ({unitA})</th>
+                      <th className="py-3 px-4 text-indigo-700">Area F ({unitA})</th>
+                      <th className="py-3 px-4 text-amber-700">Vol C ({unitV})</th>
+                      <th className="py-3 px-4 text-indigo-700">Vol F ({unitV})</th>
+                      <th className="py-3 px-4 text-amber-900 bg-amber-50/50">Cum C</th>
+                      <th className="py-3 px-4 text-indigo-900 bg-indigo-50/50">Cum F</th>
+                      <th className="py-3 px-4 bg-gray-100/50 rounded-tr-lg">Balance</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100 font-mono text-[13px]">
+                    {results.map((r, i) => (
+                      <tr key={r.id} className="hover:bg-gray-50 transition-colors">
+                        <td className="py-3 px-4 font-medium text-gray-900">{r.chainage || '0'}</td>
+                        <td className="py-3 px-4 text-gray-500">{r.length > 0 ? r.length.toFixed(2) : '-'}</td>
+                        <td className="py-3 px-4 text-amber-600/70">{r.cutArea > 0 ? r.cutArea.toFixed(2) : '-'}</td>
+                        <td className="py-3 px-4 text-indigo-600/70">{r.fillArea > 0 ? r.fillArea.toFixed(2) : '-'}</td>
+                        <td className="py-3 px-4 text-amber-600 font-semibold bg-amber-50/10">{r.intCut > 0 ? r.intCut.toFixed(2) : '-'}</td>
+                        <td className="py-3 px-4 text-indigo-600 font-semibold bg-indigo-50/10">{r.intFill > 0 ? r.intFill.toFixed(2) : '-'}</td>
+                        <td className="py-3 px-4 text-amber-800 bg-amber-50/40 font-bold">{r.cumCut.toFixed(2)}</td>
+                        <td className="py-3 px-4 text-indigo-800 bg-indigo-50/40 font-bold">{r.cumFill.toFixed(2)}</td>
+                        <td className={`py-3 px-4 font-bold bg-gray-50/60 ${r.netVolume > 0 ? 'text-amber-600' : r.netVolume < 0 ? 'text-indigo-600' : 'text-gray-500'}`}>
+                          {r.netVolume > 0 ? 'C ' : r.netVolume < 0 ? 'F ' : ''}{Math.abs(r.netVolume).toFixed(2)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <section className="lg:col-span-4 space-y-6">
+            <div className="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-[2rem] p-8 shadow-2xl relative overflow-hidden sticky top-6">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl -ml-10 -mb-10"></div>
+              
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2 bg-white/10 rounded-xl backdrop-blur-md border border-white/10 text-white">
+                    <Calculator className="w-5 h-5" />
+                  </div>
+                  <h2 className="text-xl font-bold tracking-tight text-white">Summary</h2>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="bg-white/5 p-5 rounded-[1.25rem] border border-white/10 backdrop-blur-sm">
+                    <div className="text-amber-200/70 text-sm font-semibold mb-1 uppercase tracking-wider">Cumulative Cut</div>
+                    <div className="text-3xl font-black tracking-tight text-amber-100">
+                      {totalCut.toFixed(2)} <span className="text-lg font-medium text-amber-200/50">{unitV}</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-white/5 p-5 rounded-[1.25rem] border border-white/10 backdrop-blur-sm">
+                    <div className="text-indigo-200/70 text-sm font-semibold mb-1 uppercase tracking-wider">Cumulative Fill</div>
+                    <div className="text-3xl font-black tracking-tight text-indigo-100">
+                      {totalFill.toFixed(2)} <span className="text-lg font-medium text-indigo-200/50">{unitV}</span>
+                    </div>
+                  </div>
+
+                  <div className={`p-5 rounded-[1.25rem] border backdrop-blur-sm mt-6 ${finalNet >= 0 ? 'bg-amber-500/20 border-amber-500/30' : 'bg-indigo-500/20 border-indigo-500/30'}`}>
+                    <div className={`text-xs font-bold mb-1 uppercase tracking-widest ${finalNet >= 0 ? 'text-amber-200/80' : 'text-indigo-200/80'}`}>
+                      Final Balance {finalNet >= 0 ? '(Excess Cut)' : '(Required Fill)'}
+                    </div>
+                    <div className={`text-4xl font-black tracking-tight ${finalNet >= 0 ? 'text-amber-400' : 'text-indigo-400'}`}>
+                      {Math.abs(finalNet).toFixed(2)} <span className="text-xl font-medium opacity-60 ml-1">{unitV}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <ShareButtonWithPopup 
+              activeTab="Chainage Volume"
+              data={{
+                "Total Cut": `${totalCut.toFixed(2)} ${unitV}`,
+                "Total Fill": `${totalFill.toFixed(2)} ${unitV}`,
+                "Net Balance": `${Math.abs(finalNet).toFixed(2)} ${unitV} ${finalNet >= 0 ? '(Cut)' : '(Fill)'}`
+              }}
+              exportFormat={{
+                inputs: {
+                  "Formation Width": `${formationWidth} ${unitL}`,
+                  "Cut Slope": `1:${cutSlope}`,
+                  "Fill Slope": `1:${fillSlope}`,
+                  "Stations": stations.map(s => `Ch ${s.chainage} (NGL:${s.ngl}, FL:${s.fl})`).join(' | ')
+                },
+                breakdown: {
+                    "Total Cut": `${totalCut.toFixed(2)} ${unitV}`,
+                    "Total Fill": `${totalFill.toFixed(2)} ${unitV}`,
+                    "Net Balance": `${Math.abs(finalNet).toFixed(2)} ${unitV} ${finalNet >= 0 ? '(Cut)' : '(Fill)'}`
+                }
+              }}
+              title="Road Earthwork Estimator"
+            />
+          </section>
+        </div>
+      </div>
+    </div>
+  );
+}
