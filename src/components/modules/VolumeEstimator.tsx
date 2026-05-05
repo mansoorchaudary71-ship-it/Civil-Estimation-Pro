@@ -173,18 +173,57 @@ export default function VolumeEstimator() {
           {shapes.map((s) => {
             const Icon = s.icon;
             const isActive = activeShape === s.id;
+            const baseColor = s.color.split('-')[1];
+            
+            // Build safe styles instead of dynamic strings
+            const outerColorMap: Record<string, string> = {
+              emerald: isActive 
+                ? "bg-gradient-to-br from-emerald-500 to-emerald-700 border-emerald-500 text-white shadow-xl shadow-emerald-500/40 -translate-y-1 scale-105 z-10" 
+                : "bg-white dark:bg-slate-900 border-emerald-100 dark:border-emerald-900 text-slate-700 dark:text-slate-200 hover:border-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/20",
+              blue: isActive ? "bg-gradient-to-br from-blue-500 to-blue-700 border-blue-500 text-white shadow-xl shadow-blue-500/40 -translate-y-1 scale-105 z-10" : "bg-white dark:bg-slate-900 border-blue-100 dark:border-blue-900 text-slate-700 dark:text-slate-200 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/20",
+              purple: isActive ? "bg-gradient-to-br from-purple-500 to-purple-700 border-purple-500 text-white shadow-xl shadow-purple-500/40 -translate-y-1 scale-105 z-10" : "bg-white dark:bg-slate-900 border-purple-100 dark:border-purple-900 text-slate-700 dark:text-slate-200 hover:border-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/20",
+              rose: isActive ? "bg-gradient-to-br from-rose-500 to-rose-700 border-rose-500 text-white shadow-xl shadow-rose-500/40 -translate-y-1 scale-105 z-10" : "bg-white dark:bg-slate-900 border-rose-100 dark:border-rose-900 text-slate-700 dark:text-slate-200 hover:border-rose-300 hover:bg-rose-50 dark:hover:bg-rose-900/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-rose-500/20",
+              pink: isActive ? "bg-gradient-to-br from-pink-500 to-pink-700 border-pink-500 text-white shadow-xl shadow-pink-500/40 -translate-y-1 scale-105 z-10" : "bg-white dark:bg-slate-900 border-pink-100 dark:border-pink-900 text-slate-700 dark:text-slate-200 hover:border-pink-300 hover:bg-pink-50 dark:hover:bg-pink-900/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-pink-500/20",
+              amber: isActive ? "bg-gradient-to-br from-amber-500 to-amber-700 border-amber-500 text-white shadow-xl shadow-amber-500/40 -translate-y-1 scale-105 z-10" : "bg-white dark:bg-slate-900 border-amber-100 dark:border-amber-900 text-slate-700 dark:text-slate-200 hover:border-amber-300 hover:bg-amber-50 dark:hover:bg-amber-900/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-500/20",
+              orange: isActive ? "bg-gradient-to-br from-orange-500 to-orange-700 border-orange-500 text-white shadow-xl shadow-orange-500/40 -translate-y-1 scale-105 z-10" : "bg-white dark:bg-slate-900 border-orange-100 dark:border-orange-900 text-slate-700 dark:text-slate-200 hover:border-orange-300 hover:bg-orange-50 dark:hover:bg-orange-900/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-500/20",
+              yellow: isActive ? "bg-gradient-to-br from-yellow-500 to-yellow-700 border-yellow-500 text-white shadow-xl shadow-yellow-500/40 -translate-y-1 scale-105 z-10" : "bg-white dark:bg-slate-900 border-yellow-100 dark:border-yellow-900 text-slate-700 dark:text-slate-200 hover:border-yellow-300 hover:bg-yellow-50 dark:hover:bg-yellow-900/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-yellow-500/20",
+              teal: isActive ? "bg-gradient-to-br from-teal-500 to-teal-700 border-teal-500 text-white shadow-xl shadow-teal-500/40 -translate-y-1 scale-105 z-10" : "bg-white dark:bg-slate-900 border-teal-100 dark:border-teal-900 text-slate-700 dark:text-slate-200 hover:border-teal-300 hover:bg-teal-50 dark:hover:bg-teal-900/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-teal-500/20",
+              cyan: isActive ? "bg-gradient-to-br from-cyan-500 to-cyan-700 border-cyan-500 text-white shadow-xl shadow-cyan-500/40 -translate-y-1 scale-105 z-10" : "bg-white dark:bg-slate-900 border-cyan-100 dark:border-cyan-900 text-slate-700 dark:text-slate-200 hover:border-cyan-300 hover:bg-cyan-50 dark:hover:bg-cyan-900/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-500/20",
+              indigo: isActive ? "bg-gradient-to-br from-indigo-500 to-indigo-700 border-indigo-500 text-white shadow-xl shadow-indigo-500/40 -translate-y-1 scale-105 z-10" : "bg-white dark:bg-slate-900 border-indigo-100 dark:border-indigo-900 text-slate-700 dark:text-slate-200 hover:border-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/20",
+              lime: isActive ? "bg-gradient-to-br from-lime-500 to-lime-700 border-lime-500 text-white shadow-xl shadow-lime-500/40 -translate-y-1 scale-105 z-10" : "bg-white dark:bg-slate-900 border-lime-100 dark:border-lime-900 text-slate-700 dark:text-slate-200 hover:border-lime-300 hover:bg-lime-50 dark:hover:bg-lime-900/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-lime-500/20",
+            };
+            
+            const outerClass = outerColorMap[baseColor] || outerColorMap['blue'];
+
+            const innerColorMap: Record<string, string> = {
+              emerald: isActive ? 'bg-white/20 text-white shadow-inner backdrop-blur-sm' : "bg-gradient-to-br from-emerald-100 to-emerald-50 text-emerald-500 dark:from-emerald-500/20 dark:to-emerald-500/5",
+              blue: isActive ? 'bg-white/20 text-white shadow-inner backdrop-blur-sm' : "bg-gradient-to-br from-blue-100 to-blue-50 text-blue-500 dark:from-blue-500/20 dark:to-blue-500/5",
+              purple: isActive ? 'bg-white/20 text-white shadow-inner backdrop-blur-sm' : "bg-gradient-to-br from-purple-100 to-purple-50 text-purple-500 dark:from-purple-500/20 dark:to-purple-500/5",
+              rose: isActive ? 'bg-white/20 text-white shadow-inner backdrop-blur-sm' : "bg-gradient-to-br from-rose-100 to-rose-50 text-rose-500 dark:from-rose-500/20 dark:to-rose-500/5",
+              pink: isActive ? 'bg-white/20 text-white shadow-inner backdrop-blur-sm' : "bg-gradient-to-br from-pink-100 to-pink-50 text-pink-500 dark:from-pink-500/20 dark:to-pink-500/5",
+              amber: isActive ? 'bg-white/20 text-white shadow-inner backdrop-blur-sm' : "bg-gradient-to-br from-amber-100 to-amber-50 text-amber-500 dark:from-amber-500/20 dark:to-amber-500/5",
+              orange: isActive ? 'bg-white/20 text-white shadow-inner backdrop-blur-sm' : "bg-gradient-to-br from-orange-100 to-orange-50 text-orange-500 dark:from-orange-500/20 dark:to-orange-500/5",
+              yellow: isActive ? 'bg-white/20 text-white shadow-inner backdrop-blur-sm' : "bg-gradient-to-br from-yellow-100 to-yellow-50 text-yellow-500 dark:from-yellow-500/20 dark:to-yellow-500/5",
+              teal: isActive ? 'bg-white/20 text-white shadow-inner backdrop-blur-sm' : "bg-gradient-to-br from-teal-100 to-teal-50 text-teal-500 dark:from-teal-500/20 dark:to-teal-500/5",
+              cyan: isActive ? 'bg-white/20 text-white shadow-inner backdrop-blur-sm' : "bg-gradient-to-br from-cyan-100 to-cyan-50 text-cyan-500 dark:from-cyan-500/20 dark:to-cyan-500/5",
+              indigo: isActive ? 'bg-white/20 text-white shadow-inner backdrop-blur-sm' : "bg-gradient-to-br from-indigo-100 to-indigo-50 text-indigo-500 dark:from-indigo-500/20 dark:to-indigo-500/5",
+              lime: isActive ? 'bg-white/20 text-white shadow-inner backdrop-blur-sm' : "bg-gradient-to-br from-lime-100 to-lime-50 text-lime-500 dark:from-lime-500/20 dark:to-lime-500/5",
+            };
+
+            const innerClass = innerColorMap[baseColor] || innerColorMap['blue'];
             
             return (
               <button
                 key={s.id}
                 onClick={() => setActiveShape(s.id)}
-                className={`relative flex flex-col items-center justify-center gap-3 p-4 rounded-[20px] border transition-all overflow-hidden group ${isActive ? 'bg-blue-600 border-blue-500 text-white shadow-xl shadow-blue-600/30 -translate-y-1' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:-translate-y-1 hover:shadow-lg'}`}
+                className={`relative flex flex-col items-center justify-center gap-3 p-4 rounded-[20px] border-2 transition-all duration-300 overflow-hidden group ${outerClass}`}
               >
-                {isActive && <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-50 pointer-events-none" />}
-                <div className={`p-3 rounded-2xl ${isActive ? 'bg-white/20 text-white shadow-inner' : s.color} transition-all duration-300 group-hover:scale-110`}>
+                {isActive && <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-50 pointer-events-none" />}
+                <div className={`p-3 rounded-2xl relative transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 ${innerClass}`}>
                   <Icon className="w-8 h-8 relative z-10" strokeWidth={isActive ? 2.5 : 2} />
+                  {!isActive && <div className="absolute inset-0 blur-xl opacity-20 group-hover:opacity-40 transition-opacity" style={{ backgroundColor: baseColor === 'lime' ? '#84cc16' : baseColor === 'cyan' ? '#06b6d4' : baseColor === 'emerald' ? '#10b981' : '#3b82f6' }} />}
                 </div>
-                <span className="text-[11px] font-extrabold tracking-wide z-10 text-center leading-tight">{s.label}</span>
+                <span className={`text-[11px] font-extrabold text-center leading-tight tracking-wide z-10 ${isActive ? 'text-white' : 'text-slate-700 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white'}`}>{s.label}</span>
               </button>
             )
           })}
