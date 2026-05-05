@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from "react";
-import { Box, Cylinder, Database, Cuboid, Cone, Triangle, Square, Circle, Calculator, Droplets, Maximize, Share2 } from "lucide-react";
+import { Box, Cylinder, Database, Cuboid, Cone, Triangle, Square, Circle, Calculator, Droplets, Maximize, Share2, Container, Hexagon } from "lucide-react";
 import ShareButtonWithPopup from "./ShareMenu";
 
-type Shape = "Rectangular Prism" | "Cube" | "Cylinder" | "Sphere" | "Half Sphere" | "Cone" | "Frustum Cone" | "Parabolic Cone" | "Triangular Dumper" | "Trapezoidal Dumper";
+type Shape = "Rectangular Prism" | "Cube" | "Cylinder" | "Sphere" | "Half Sphere" | "Cone" | "Frustum Cone" | "Parabolic Cone" | "Triangular Dumper" | "Trapezoidal Dumper" | "Rectangle Tank" | "Prism";
 type System = "Metric" | "Imperial";
 
 export default function VolumeEstimator() {
@@ -21,6 +21,8 @@ export default function VolumeEstimator() {
   const [topWidth, setTopWidth] = useState("");
   const [bottomWidth, setBottomWidth] = useState("");
   const [depth, setDepth] = useState("");
+  const [baseArea, setBaseArea] = useState("");
+  const [basePerimeter, setBasePerimeter] = useState("");
 
   const shapes: { id: Shape; label: string; icon: any; color: string }[] = [
     { id: "Rectangular Prism", label: "Rect Prism", icon: Cuboid, color: "text-emerald-500 bg-emerald-100 dark:bg-emerald-500/20" },
@@ -33,6 +35,8 @@ export default function VolumeEstimator() {
     { id: "Parabolic Cone", label: "Parabolic Cone", icon: Cone, color: "text-yellow-500 bg-yellow-100 dark:bg-yellow-500/20" },
     { id: "Triangular Dumper", label: "Tri Dumper", icon: Triangle, color: "text-teal-500 bg-teal-100 dark:bg-teal-500/20" },
     { id: "Trapezoidal Dumper", label: "Trap Dumper", icon: Square, color: "text-cyan-500 bg-cyan-100 dark:bg-cyan-500/20" },
+    { id: "Rectangle Tank", label: "Rect Tank", icon: Container, color: "text-indigo-500 bg-indigo-100 dark:bg-indigo-500/20" },
+    { id: "Prism", label: "Prism", icon: Hexagon, color: "text-lime-500 bg-lime-100 dark:bg-lime-500/20" },
   ];
 
   const calculate = () => {
@@ -56,7 +60,10 @@ export default function VolumeEstimator() {
     const tw = parse(topWidth);
     const bw = parse(bottomWidth);
     const d = parse(depth);
+    const ba = parse(baseArea);
+    const bp = parse(basePerimeter);
     const unit = system === "Metric" ? "m" : "ft";
+    const sqUnit = system === "Metric" ? "m²" : "sq.ft";
 
     if (activeShape === "Rectangular Prism") {
       volume = l * w * h;
@@ -105,12 +112,20 @@ export default function VolumeEstimator() {
       const slant = Math.sqrt(Math.pow((tw - bw) / 2, 2) + d * d);
       surfaceArea = (tw + bw) * d + l * tw + l * bw + 2 * l * slant;
       inputs = { "Top Width": `${tw} ${unit}`, "Bottom Width": `${bw} ${unit}`, Depth: `${d} ${unit}`, Length: `${l} ${unit}` };
+    } else if (activeShape === "Rectangle Tank") {
+      volume = l * w * h;
+      surfaceArea = 2 * (l * w + l * h + w * h);
+      inputs = { Length: `${l} ${unit}`, Width: `${w} ${unit}`, Height: `${h} ${unit}` };
+    } else if (activeShape === "Prism") {
+      volume = ba * h;
+      surfaceArea = 2 * ba + bp * h;
+      inputs = { "Base Area": `${ba} ${sqUnit}`, "Base Perimeter": `${bp} ${unit}`, Height: `${h} ${unit}` };
     }
 
     return { volume, surfaceArea, inputs };
   };
 
-  const { volume, surfaceArea, inputs } = useMemo(calculate, [activeShape, system, length, width, height, side, radius, topRadius, bottomRadius, base, topWidth, bottomWidth, depth]);
+  const { volume, surfaceArea, inputs } = useMemo(calculate, [activeShape, system, length, width, height, side, radius, topRadius, bottomRadius, base, topWidth, bottomWidth, depth, baseArea, basePerimeter]);
 
   let liquidCapacity = 0;
   let capacityUnit = "";
@@ -159,31 +174,17 @@ export default function VolumeEstimator() {
             const Icon = s.icon;
             const isActive = activeShape === s.id;
             
-            // Generate robust gradient classes based on the color string
-            const baseColor = s.color.split('-')[1]; // extracts 'emerald', 'blue', etc
-            
             return (
               <button
                 key={s.id}
                 onClick={() => setActiveShape(s.id)}
-                className={`relative flex flex-col items-center justify-center gap-3 p-4 rounded-[20px] border-2 transition-all duration-300 overflow-hidden group 
-                  ${isActive 
-                    ? `bg-gradient-to-br from-${baseColor}-500 to-${baseColor}-700 border-${baseColor}-500 text-white shadow-xl shadow-${baseColor}-500/40 -translate-y-1 scale-105 z-10` 
-                    : `bg-white dark:bg-slate-900 border-${baseColor}-100 dark:border-${baseColor}-900 text-slate-700 dark:text-slate-200 hover:border-${baseColor}-300 hover:bg-${baseColor}-50 dark:hover:bg-${baseColor}-900/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-${baseColor}-500/20`
-                  }`}
+                className={`relative flex flex-col items-center justify-center gap-3 p-4 rounded-[20px] border transition-all overflow-hidden group ${isActive ? 'bg-blue-600 border-blue-500 text-white shadow-xl shadow-blue-600/30 -translate-y-1' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:-translate-y-1 hover:shadow-lg'}`}
               >
-                {isActive && <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-50 pointer-events-none" />}
-                
-                <div className={`
-                  p-3 rounded-2xl relative
-                  ${isActive ? 'bg-white/20 text-white shadow-inner backdrop-blur-sm' : `bg-gradient-to-br from-${baseColor}-100 to-${baseColor}-50 text-${baseColor}-500 dark:from-${baseColor}-500/20 dark:to-${baseColor}-500/5`} 
-                  transition-all duration-500 group-hover:scale-110 group-hover:rotate-3
-                `}>
+                {isActive && <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-50 pointer-events-none" />}
+                <div className={`p-3 rounded-2xl ${isActive ? 'bg-white/20 text-white shadow-inner' : s.color} transition-all duration-300 group-hover:scale-110`}>
                   <Icon className="w-8 h-8 relative z-10" strokeWidth={isActive ? 2.5 : 2} />
-                  {!isActive && <div className={`absolute inset-0 bg-${baseColor}-400 blur-xl opacity-20 group-hover:opacity-40 transition-opacity`} />}
                 </div>
-                
-                <span className={`text-[11px] font-extrabold text-center leading-tight tracking-wide z-10 ${isActive ? 'text-white' : `text-${baseColor}-700 dark:text-${baseColor}-400 group-hover:text-${baseColor}-600`}`}>{s.label}</span>
+                <span className="text-[11px] font-extrabold tracking-wide z-10 text-center leading-tight">{s.label}</span>
               </button>
             )
           })}
@@ -302,6 +303,40 @@ export default function VolumeEstimator() {
                        <label className="text-xs font-bold text-gray-500 uppercase">Length ({system === "Metric" ? "m" : "ft"})</label>
                        <input type="number" value={length} onChange={e => setLength(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500" />
                      </div>
+                  </div>
+                </div>
+              )}
+
+              {activeShape === "Rectangle Tank" && (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="text-xs font-bold text-gray-500 uppercase">Length ({system === "Metric" ? "m" : "ft"})</label>
+                    <input type="number" value={length} onChange={e => setLength(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-gray-500 uppercase">Width ({system === "Metric" ? "m" : "ft"})</label>
+                    <input type="number" value={width} onChange={e => setWidth(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-gray-500 uppercase">Height/Depth ({system === "Metric" ? "m" : "ft"})</label>
+                    <input type="number" value={height} onChange={e => setHeight(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500" />
+                  </div>
+                </div>
+              )}
+
+              {activeShape === "Prism" && (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="text-xs font-bold text-gray-500 uppercase">Base Area ({system === "Metric" ? "m²" : "sq.ft"})</label>
+                    <input type="number" value={baseArea} onChange={e => setBaseArea(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-gray-500 uppercase">Base Perimeter ({system === "Metric" ? "m" : "ft"})</label>
+                    <input type="number" value={basePerimeter} onChange={e => setBasePerimeter(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-gray-500 uppercase">Height ({system === "Metric" ? "m" : "ft"})</label>
+                    <input type="number" value={height} onChange={e => setHeight(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500" />
                   </div>
                 </div>
               )}

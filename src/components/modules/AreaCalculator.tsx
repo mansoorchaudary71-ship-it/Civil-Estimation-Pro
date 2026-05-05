@@ -229,29 +229,17 @@ export default function AreaCalculator() {
           {shapes.map((s) => {
             const Icon = s.icon;
             const isActive = activeShape === s.id;
-            const baseColor = s.color.split('-')[1];
             return (
               <button
                 key={s.id}
                 onClick={() => setActiveShape(s.id)}
-                className={`relative flex flex-col items-center justify-center gap-3 p-4 rounded-[20px] border-2 transition-all duration-300 overflow-hidden group 
-                  ${isActive 
-                    ? `bg-gradient-to-br from-${baseColor}-500 to-${baseColor}-700 border-${baseColor}-500 text-white shadow-xl shadow-${baseColor}-500/40 -translate-y-1 scale-105 z-10` 
-                    : `bg-white dark:bg-slate-900 border-${baseColor}-100 dark:border-${baseColor}-900 text-slate-700 dark:text-slate-200 hover:border-${baseColor}-300 hover:bg-${baseColor}-50 dark:hover:bg-${baseColor}-900/30 hover:-translate-y-1 hover:shadow-lg hover:shadow-${baseColor}-500/20`
-                  }`}
+                className={`relative flex flex-col items-center justify-center gap-3 p-4 rounded-[20px] border transition-all overflow-hidden group ${isActive ? 'bg-indigo-600 border-indigo-500 text-white shadow-xl shadow-indigo-600/30 -translate-y-1' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:-translate-y-1 hover:shadow-lg'}`}
               >
-                {isActive && <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-50 pointer-events-none" />}
-                
-                <div className={`
-                  p-3 rounded-2xl relative
-                  ${isActive ? 'bg-white/20 text-white shadow-inner backdrop-blur-sm' : `bg-gradient-to-br from-${baseColor}-100 to-${baseColor}-50 text-${baseColor}-500 dark:from-${baseColor}-500/20 dark:to-${baseColor}-500/5`} 
-                  transition-all duration-500 group-hover:scale-110 group-hover:rotate-3
-                `}>
+                {isActive && <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-50 pointer-events-none" />}
+                <div className={`p-3 rounded-2xl ${isActive ? 'bg-white/20 text-white shadow-inner' : s.color} transition-all duration-300 group-hover:scale-110`}>
                   <Icon className="w-8 h-8 relative z-10" strokeWidth={isActive ? 2.5 : 2} />
-                  {!isActive && <div className={`absolute inset-0 bg-${baseColor}-400 blur-xl opacity-20 group-hover:opacity-40 transition-opacity`} />}
                 </div>
-                
-                <span className={`text-[11px] font-extrabold tracking-wide z-10 text-center leading-tight ${isActive ? 'text-white' : `text-${baseColor}-700 dark:text-${baseColor}-400 group-hover:text-${baseColor}-600`}`}>{s.label}</span>
+                <span className="text-[11px] font-extrabold tracking-wide z-10 text-center leading-tight">{s.label}</span>
               </button>
             )
           })}
