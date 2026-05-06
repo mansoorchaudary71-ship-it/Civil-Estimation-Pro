@@ -41,9 +41,10 @@ interface SidebarProps {
   isOpen?: boolean;
   onClose?: () => void;
   onOpenAuth?: () => void;
+  onOpenProfile?: () => void;
 }
 
-export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose, onOpenAuth }: SidebarProps) {
+export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose, onOpenAuth, onOpenProfile }: SidebarProps) {
   const { user, logOut } = useAuth();
   const isAuthenticated = !!user;
   

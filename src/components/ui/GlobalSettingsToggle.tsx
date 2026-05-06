@@ -21,7 +21,7 @@ export function GlobalSettingsToggle() {
     <div className="relative z-50" ref={menuRef}>
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-amber-600 dark:hover:text-amber-500 transition-colors border border-slate-200 dark:border-slate-700 shadow-sm bg-white dark:bg-slate-900"
+        className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-500 transition-all border border-slate-200/60 dark:border-slate-700/60 shadow-inner bg-slate-50/80 dark:bg-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-700"
         title="Regional & Unit Settings"
       >
         <span className="hidden sm:inline-block tracking-wide">
@@ -34,7 +34,7 @@ export function GlobalSettingsToggle() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2">
+        <div className="absolute right-0 top-full mt-2 w-56 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border border-slate-200/80 dark:border-slate-700/80 rounded-3xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 ring-1 ring-slate-900/5 dark:ring-white/10">
           <div className="p-3">
              <div className="mb-2 text-[11px] font-black text-slate-500 uppercase tracking-wider flex items-center gap-1.5 pl-1">
                <Ruler className="w-3.5 h-3.5"/> Unit System

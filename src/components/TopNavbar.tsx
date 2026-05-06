@@ -44,10 +44,11 @@ export default function TopNavbar({
   };
 
   return (
-    <>
-      <div className="w-full px-4 py-3 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shrink-0 h-16 transition-colors duration-300 flex items-center justify-between relative z-30 shadow-sm">
+    <div className="w-full relative shrink-0 z-40">
+      <div className="w-full px-4 pt-4 pb-2">
+        <div className="w-full px-4 sm:px-6 py-2 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-white/20 dark:border-slate-700/50 rounded-full transition-colors duration-300 flex items-center justify-between relative z-30 shadow-lg shadow-slate-200/50 dark:shadow-none ring-1 ring-slate-900/5 dark:ring-white/10">
           
-          <div className="flex items-center gap-2 lg:gap-3 cursor-pointer group shrink-0">
+          <div className="flex items-center gap-2 lg:gap-3 cursor-pointer group shrink-0 pl-1 sm:pl-2">
             <div className="w-8 h-8 flex items-center justify-center transition-all duration-300 group-hover:scale-105 text-slate-800 dark:text-white">
               <Logo className="w-8 h-8" />
             </div>
@@ -56,33 +57,32 @@ export default function TopNavbar({
             </span>
           </div>
 
-          <div className="hidden md:flex items-center justify-center gap-6 flex-1 px-8">
+          <div className="hidden md:flex items-center justify-center gap-2 flex-1 px-8">
             {navLinks.map((link) => (
               <a 
                 key={link.name} 
                 href={link.href}
-                className="relative py-1 text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-500 transition-colors duration-300 group"
+                className="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-100/50 dark:hover:bg-amber-900/30 rounded-full transition-all duration-300"
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-amber-600 dark:bg-amber-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 rounded-t-sm" />
               </a>
             ))}
           </div>
 
-          <div className="hidden md:flex items-center gap-4 shrink-0">
+          <div className="hidden md:flex items-center gap-3 shrink-0 pr-1 sm:pr-2">
             <GlobalSettingsToggle />
-            <div className="h-6 w-px bg-slate-200 dark:bg-slate-700 hidden lg:block" />
+            <div className="h-6 w-px bg-slate-200 dark:bg-slate-700 hidden lg:block mx-1" />
             {!isAuthenticated ? (
               <>
                 <button 
                   onClick={onOpenAuth}
-                  className="px-4 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-slate-800 transition-all duration-300"
+                  className="px-4 py-2 rounded-full text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-slate-800 transition-all duration-300"
                 >
                   Sign In
                 </button>
                 <button 
                   onClick={onOpenAuth}
-                  className="px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-amber-600 hover:bg-amber-700 shadow-md shadow-amber-600/20 active:scale-95 transition-all duration-300"
+                  className="px-6 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-700 hover:to-orange-600 shadow-lg shadow-amber-500/30 active:scale-95 transition-all duration-300"
                 >
                   Get Started
                 </button>
@@ -91,9 +91,9 @@ export default function TopNavbar({
               <div className="relative" ref={profileRef}>
                 <button 
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                  className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all group"
+                  className="flex items-center gap-2 p-1.5 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all group"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 overflow-hidden text-slate-600 dark:text-slate-400 group-hover:text-amber-600">
+                  <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 overflow-hidden text-slate-600 dark:text-slate-400 group-hover:text-amber-600">
                     {user?.photoURL ? (
                       <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
                     ) : (
@@ -104,8 +104,8 @@ export default function TopNavbar({
                 </button>
 
                 {isProfileMenuOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 z-50">
-                    <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800/50 bg-slate-50/50 dark:bg-slate-800/20">
+                  <div className="absolute right-0 top-full mt-2 w-56 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border border-slate-200/80 dark:border-slate-700/80 rounded-3xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 z-50 ring-1 ring-slate-900/5 dark:ring-white/10">
+                    <div className="px-4 py-3 border-b border-slate-200/50 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-800/20">
                       <p className="text-sm font-bold text-slate-800 dark:text-white truncate">{user?.displayName || 'User'}</p>
                       <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
                     </div>
@@ -130,10 +130,10 @@ export default function TopNavbar({
             )}
           </div>
 
-          <div className="md:hidden flex items-center gap-3">
+          <div className="md:hidden flex items-center gap-3 pr-1">
             <GlobalSettingsToggle />
             {isAuthenticated && (
-              <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 overflow-hidden text-slate-600 dark:text-slate-400">
+              <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 overflow-hidden text-slate-600 dark:text-slate-400">
                  {user?.photoURL ? (
                     <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
@@ -143,17 +143,18 @@ export default function TopNavbar({
             )}
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 -mr-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+              className="p-2 -mr-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
+        </div>
       </div>
 
       <div 
-        className={`md:hidden absolute top-16 left-0 w-full px-4 mb-4 z-20 transition-all duration-300 ease-in-out ${isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"}`}
+        className={`md:hidden absolute top-[4.5rem] left-0 w-full px-4 mb-4 z-20 transition-all duration-300 ease-in-out ${isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"}`}
       >
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 shadow-xl flex flex-col gap-2 relative mt-2">
+        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border border-white/20 dark:border-slate-700/50 rounded-3xl p-4 shadow-xl flex flex-col gap-2 relative mt-4 ring-1 ring-slate-900/5 dark:ring-white/10">
           {isAuthenticated && (
              <div className="px-4 py-3 border-b border-slate-200/50 dark:border-slate-700/50 mb-2 flex items-center gap-3 overflow-hidden">
                 <div className="w-10 h-10 shrink-0 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400">
@@ -212,6 +213,6 @@ export default function TopNavbar({
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
