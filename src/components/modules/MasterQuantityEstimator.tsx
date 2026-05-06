@@ -64,6 +64,7 @@ const calculatorsList: CalcItem[] = [
 ];
 
 export default function MasterQuantityEstimator({ isEmbedded = false }: { isEmbedded?: boolean }) {
+  const { user } = useAuth();
   const [activeCalc, setActiveCalc] = useState<CalcId>("concrete");
   const [unitSystem, setUnitSystem] = useState<UnitSystem>("metric");
 

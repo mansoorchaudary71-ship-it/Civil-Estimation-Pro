@@ -7,6 +7,7 @@ import { useAuth } from "../../contexts/AuthContext";
 type StructureType = "Simple Slab" | "One Way Slab" | "Two Way Slab" | "4 Bar Column" | "6 Bar Column" | "8 Bar Column" | "Round Column";
 
 export default function RccStructureCalculator({ isEmbedded = false }: { isEmbedded?: boolean }) {
+  const { user } = useAuth();
   const [activeType, setActiveType] = useState<StructureType>("Simple Slab");
 
   // Slab Inputs
