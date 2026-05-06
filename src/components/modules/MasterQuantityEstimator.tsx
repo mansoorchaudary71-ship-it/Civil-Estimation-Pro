@@ -3,8 +3,10 @@ import {
   Calculator, Box, Layers, Columns, PaintBucket,
   Truck, ArrowRightLeft, Ruler, Square, Container, 
   Map, Droplet, ClipboardList, Waves, Cylinder, Pickaxe, Maximize2, Zap
-} from "lucide-react";
+, Save } from "lucide-react";
 import ShareButtonWithPopup from "./ShareMenu";
+import { saveEstimate } from "../../lib/estimates";
+import { useAuth } from "../../contexts/AuthContext";
 
 type UnitSystem = "metric" | "imperial";
 
@@ -212,14 +214,48 @@ export default function MasterQuantityEstimator({ isEmbedded = false }: { isEmbe
             </div>
           </div>
 
-          <div className="mt-8">
+          
+          <div className="mt-6 flex flex-wrap gap-4 items-center">
             <ShareButtonWithPopup 
               activeTab="Master Quantities" 
               title={`${calculatorsList.find(c => c.id === activeCalc)?.label} Estimate`}
               data={results}
               exportFormat={{ inputs: { length, width, depth, wastage }, breakdown: results }}
             />
+            {user && (
+              <button 
+                onClick={async () => {
+                  setIsSaving(true);
+                  setSaveMessage("");
+                  try {
+                    const payload = { inputs: { length, width, depth, wastage }, breakdown: results };
+                    const projName = prompt("Enter project element/estimate name:", "My MasterQuantityEstimator Estimate");
+                    if (projName) {
+                      await saveEstimate(projName, payload);
+                      setSaveMessage("Saved successfully!");
+                      setTimeout(() => setSaveMessage(""), 3000);
+                    }
+                  } catch (e) {
+                    setSaveMessage("Failed to save.");
+                  } finally {
+                    setIsSaving(false);
+                  }
+                }}
+                disabled={isSaving}
+                className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
+              >
+                {isSaving ? (
+                  <span className="animate-pulse">Saving...</span>
+                ) : (
+                  <>
+                    <Save className="w-5 h-5" /> Save to Profile
+                  </>
+                )}
+              </button>
+            )}
+            {saveMessage && <span className="text-sm font-bold text-green-400 ml-4">{saveMessage}</span>}
           </div>
+
         </div>
       </div>
     );

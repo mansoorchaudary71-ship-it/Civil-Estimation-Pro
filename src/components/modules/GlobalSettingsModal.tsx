@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
-import { X, Check } from 'lucide-react';
+import { X, Check, Database, Ruler, Palette } from 'lucide-react';
 import { useMarketRates } from '../../context/MarketRatesContext';
-import { useSettings } from '../../context/SettingsContext';
+import { useSettings, ModulePreferences } from '../../context/SettingsContext';
 
 interface GlobalSettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+type Tab = 'rates' | 'prefs';
+
 export default function GlobalSettingsModal({ isOpen, onClose }: GlobalSettingsModalProps) {
   const { rates, updateRate } = useMarketRates();
-  const { settings } = useSettings();
+  const { settings, updateSettings } = useSettings();
+  const [activeTab, setActiveTab] = useState<Tab>('rates');
   
   // Local state for edits
   const [localRates, setLocalRates] = React.useState({
@@ -22,6 +25,15 @@ export default function GlobalSettingsModal({ isOpen, onClose }: GlobalSettingsM
     crush: rates.crush,
   });
 
+  const defaultPrefs: ModulePreferences = {
+    units: { finishing: 'm', roads: 'km', earthworks: 'm' },
+    themes: { finishing: 'blue', roads: 'slate', earthworks: 'amber' }
+  };
+
+  const [localPrefs, setLocalPrefs] = React.useState<ModulePreferences>(
+    settings.modulePreferences || defaultPrefs
+  );
+
   React.useEffect(() => {
     if (isOpen) {
       setLocalRates({
@@ -31,8 +43,9 @@ export default function GlobalSettingsModal({ isOpen, onClose }: GlobalSettingsM
         sand: rates.sand,
         crush: rates.crush,
       });
+      setLocalPrefs(settings.modulePreferences || defaultPrefs);
     }
-  }, [isOpen, rates]);
+  }, [isOpen, rates, settings.modulePreferences]);
 
   if (!isOpen) return null;
 
@@ -44,12 +57,23 @@ export default function GlobalSettingsModal({ isOpen, onClose }: GlobalSettingsM
     }));
   };
 
+  const handlePrefChange = (category: 'units' | 'themes', module: keyof ModulePreferences['units'], value: string) => {
+    setLocalPrefs(prev => ({
+      ...prev,
+      [category]: {
+        ...prev[category],
+        [module]: value
+      }
+    }));
+  };
+
   const handleSave = () => {
     updateRate('cement', localRates.cement);
     updateRate('steel', localRates.steel / 1000);
     updateRate('bricks', localRates.bricks / 1000);
     updateRate('sand', localRates.sand);
     updateRate('crush', localRates.crush);
+    updateSettings({ modulePreferences: localPrefs });
     onClose();
   };
 
@@ -93,7 +117,7 @@ export default function GlobalSettingsModal({ isOpen, onClose }: GlobalSettingsM
               Global Settings
             </h3>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-              Update market unit rates to reflect real-time prices.
+              Configure parameters & market rates.
             </p>
           </div>
           <button 
@@ -104,13 +128,131 @@ export default function GlobalSettingsModal({ isOpen, onClose }: GlobalSettingsM
           </button>
         </div>
 
+        {/* Tabs */}
+        <div className="flex px-6 pt-4 border-b border-slate-200/50 dark:border-slate-800/50 shrink-0 gap-6">
+          <button 
+            onClick={() => setActiveTab('rates')}
+            className={`pb-3 font-semibold text-sm transition-colors relative ${activeTab === 'rates' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}`}
+          >
+            <div className="flex items-center gap-2"><Database className="w-4 h-4" /> Market Rates</div>
+            {activeTab === 'rates' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 dark:bg-blue-400 rounded-t-full"></div>}
+          </button>
+          <button 
+            onClick={() => setActiveTab('prefs')}
+            className={`pb-3 font-semibold text-sm transition-colors relative ${activeTab === 'prefs' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'}`}
+          >
+            <div className="flex items-center gap-2"><Ruler className="w-4 h-4" /> Module Preferences</div>
+            {activeTab === 'prefs' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 dark:bg-blue-400 rounded-t-full"></div>}
+          </button>
+        </div>
+
         {/* Content */}
         <div className="p-6 overflow-y-auto flex-1 space-y-2">
-          <InputRow label="Cement" unit="50kg Bag" value={localRates.cement} onChangeKey="cement" />
-          <InputRow label="Steel" unit="Ton" value={localRates.steel} onChangeKey="steel" />
-          <InputRow label="Bricks" unit="1000 Bricks" value={localRates.bricks} onChangeKey="bricks" />
-          <InputRow label="Sand" unit="CFT" value={localRates.sand} onChangeKey="sand" />
-          <InputRow label="Crush" unit="CFT" value={localRates.crush} onChangeKey="crush" />
+          {activeTab === 'rates' && (
+            <div className="space-y-2 animate-in fade-in slide-in-from-bottom-2 duration-300">
+              <InputRow label="Cement" unit="50kg Bag" value={localRates.cement} onChangeKey="cement" />
+              <InputRow label="Steel" unit="Ton" value={localRates.steel} onChangeKey="steel" />
+              <InputRow label="Bricks" unit="1000 Bricks" value={localRates.bricks} onChangeKey="bricks" />
+              <InputRow label="Sand" unit="CFT" value={localRates.sand} onChangeKey="sand" />
+              <InputRow label="Crush" unit="CFT" value={localRates.crush} onChangeKey="crush" />
+            </div>
+          )}
+
+          {activeTab === 'prefs' && (
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+              {/* Preferred Units */}
+              <div>
+                <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-2">
+                  <Ruler className="w-4 h-4 text-slate-400" /> Preferred Units
+                </h4>
+                <div className="space-y-3 bg-white/50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200/50 dark:border-slate-700/50">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Finishing</span>
+                    <select 
+                      value={localPrefs.units.finishing}
+                      onChange={(e) => handlePrefChange('units', 'finishing', e.target.value)}
+                      className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
+                    >
+                      <option value="mm">Millimeters (mm)</option>
+                      <option value="m">Meters (m)</option>
+                      <option value="in">Inches (in)</option>
+                      <option value="ft">Feet (ft)</option>
+                    </select>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Roads</span>
+                    <select 
+                      value={localPrefs.units.roads}
+                      onChange={(e) => handlePrefChange('units', 'roads', e.target.value)}
+                      className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
+                    >
+                      <option value="m">Meters (m)</option>
+                      <option value="km">Kilometers (km)</option>
+                      <option value="ft">Feet (ft)</option>
+                      <option value="mi">Miles (mi)</option>
+                    </select>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Earthworks</span>
+                    <select 
+                      value={localPrefs.units.earthworks}
+                      onChange={(e) => handlePrefChange('units', 'earthworks', e.target.value)}
+                      className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
+                    >
+                      <option value="m">Meters (m)</option>
+                      <option value="ft">Feet (ft)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              {/* Default Colors */}
+              <div>
+                <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-2">
+                  <Palette className="w-4 h-4 text-slate-400" /> Default Color Themes
+                </h4>
+                <div className="space-y-3 bg-white/50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200/50 dark:border-slate-700/50">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Finishing</span>
+                    <select 
+                      value={localPrefs.themes.finishing}
+                      onChange={(e) => handlePrefChange('themes', 'finishing', e.target.value)}
+                      className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
+                    >
+                      <option value="blue">Ocean Blue</option>
+                      <option value="indigo">Deep Indigo</option>
+                      <option value="emerald">Emerald Green</option>
+                      <option value="rose">Rose Red</option>
+                    </select>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Roads</span>
+                    <select 
+                      value={localPrefs.themes.roads}
+                      onChange={(e) => handlePrefChange('themes', 'roads', e.target.value)}
+                      className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
+                    >
+                      <option value="slate">Industrial Slate</option>
+                      <option value="amber">Warning Amber</option>
+                      <option value="orange">Construction Orange</option>
+                    </select>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">Earthworks</span>
+                    <select 
+                      value={localPrefs.themes.earthworks}
+                      onChange={(e) => handlePrefChange('themes', 'earthworks', e.target.value)}
+                      className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
+                    >
+                      <option value="amber">Dirt Amber</option>
+                      <option value="orange">Clay Orange</option>
+                      <option value="stone">Stone Gray</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Footer */}
@@ -126,7 +268,7 @@ export default function GlobalSettingsModal({ isOpen, onClose }: GlobalSettingsM
             className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] active:scale-95"
           >
             <Check className="w-4 h-4" />
-            Save Rates
+            Save Settings
           </button>
         </div>
       </div>

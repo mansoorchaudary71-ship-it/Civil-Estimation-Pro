@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-import { Route, Calculator, Layers, Settings2, BarChart3 } from 'lucide-react';
+import { Route, Calculator, Layers, Settings2, BarChart3 , Save } from 'lucide-react';
 import ShareButtonWithPopup from './ShareMenu';
+import { saveEstimate } from "../../lib/estimates";
+import { useAuth } from "../../contexts/AuthContext";
 import { useSettings } from '../../context/SettingsContext';
 
 export default function RigidPavementEstimator() {
+  const { user } = useAuth();
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState("");
   const { settings, formatCurrency } = useSettings();
   const isPKR = settings.currency === 'PKR';
 
@@ -115,8 +120,9 @@ export default function RigidPavementEstimator() {
             </div>
             <p className="text-gray-500 ml-1">Concrete & Joint Steel Parameter Calculation</p>
           </div>
-          <div className="flex items-center gap-3">
-             <ShareButtonWithPopup 
+          
+          <div className="mt-6 flex flex-wrap gap-4 items-center">
+            <ShareButtonWithPopup 
               activeTab="RigidPavement"
               data={{
                 "DLC Volume": volDLC.toFixed(2) + " m³",
@@ -150,7 +156,55 @@ export default function RigidPavementEstimator() {
               }}
               title="Rigid Pavement Estimator"
             />
+            {user && (
+              <button 
+                onClick={async () => {
+                  setIsSaving(true);
+                  setSaveMessage("");
+                  try {
+                    const payload = {
+                inputs: {
+                  "Length": `${length}m`,
+                  "Lane Width": `${laneWidth}m`,
+                  "DLC Thk": `${dlcThickness}mm`,
+                  "PQC Thk": `${pqcThickness}mm`
+                },
+                breakdown: {
+                  "DLC Volume": `${volDLC.toFixed(2)} m³`,
+                  "DLC Concrete Breakdown": `${dlcCementBags} bags Cement, ${dlcSandVol.toFixed(2)} m³ Sand, ${dlcAggVol.toFixed(2)} m³ Aggregate`,
+                  "PQC Volume": `${volPQC.toFixed(2)} m³`,
+                  "PQC Concrete Breakdown": `${pqcCementBags} bags Cement, ${pqcSandVol.toFixed(2)} m³ Sand, ${pqcAggVol.toFixed(2)} m³ Aggregate`,
+                  "Dowel Bars": `${totalDowels} nos (${totalDowelWeight.toFixed(2)} kg)`,
+                  "Tie Bars": `${totalTies} nos (${totalTieWeight.toFixed(2)} kg)`
+                }
+              };
+                    const projName = prompt("Enter project element/estimate name:", "My RigidPavementEstimator Estimate");
+                    if (projName) {
+                      await saveEstimate(projName, payload);
+                      setSaveMessage("Saved successfully!");
+                      setTimeout(() => setSaveMessage(""), 3000);
+                    }
+                  } catch (e) {
+                    setSaveMessage("Failed to save.");
+                  } finally {
+                    setIsSaving(false);
+                  }
+                }}
+                disabled={isSaving}
+                className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
+              >
+                {isSaving ? (
+                  <span className="animate-pulse">Saving...</span>
+                ) : (
+                  <>
+                    <Save className="w-5 h-5" /> Save to Profile
+                  </>
+                )}
+              </button>
+            )}
+            {saveMessage && <span className="text-sm font-bold text-green-400 ml-4">{saveMessage}</span>}
           </div>
+
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

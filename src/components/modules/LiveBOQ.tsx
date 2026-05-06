@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
-import { Download, Plus, Search, Filter, Link as LinkIcon, Unlink, FileText, FileSpreadsheet, Loader2 } from "lucide-react";
+import { Download, Plus, Search, Filter, Link as LinkIcon, Unlink, FileText, FileSpreadsheet, Loader2, Save } from "lucide-react";
 import { useSettings } from '../../context/SettingsContext';
 import { useTakeoff } from "../../context/TakeoffContext";
 import { calculateLength, calculateArea, convertLength, convertArea } from "../../utils/measurements";
 import { generatePDFReport, generateExcelReport } from "../../utils/reports";
+import ShareButtonWithPopup from "./ShareMenu";
+import { saveEstimate } from "../../lib/estimates";
+import { useAuth } from "../../contexts/AuthContext";
 
 function cleanUnit(u: string) {
   return u.replace(/[²³]/g, '').replace(/sq\.?/g, '').trim().toLowerCase();
@@ -143,6 +146,9 @@ function BOQRow({ row, measurements, getQty, updateBoqItem, scalePxPerUnit, unit
 export default function LiveBOQ() {
   const { formatCurrency, settings } = useSettings();
   const { boqItems, updateBoqItem, addBoqItem, measurements, scalePxPerUnit, unitName } = useTakeoff();
+  const { user } = useAuth();
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showExportModal, setShowExportModal] = useState(false);
   const [isPdfLoading, setIsPdfLoading] = useState(false);
@@ -293,6 +299,50 @@ export default function LiveBOQ() {
               </tr>
             </tfoot>
           </table>
+
+          <div className="mt-6 flex flex-wrap gap-4 items-center">
+            <ShareButtonWithPopup 
+              activeTab="Live BOQ" 
+              title="Bill of Quantities"
+              data={exportData}
+              exportFormat={{
+                 inputs: exportData,
+                 breakdown: { boqItems, totalCost }
+              }}
+            />
+            {user && (
+              <button 
+                onClick={async () => {
+                  setIsSaving(true);
+                  setSaveMessage("");
+                  try {
+                    const payload = { boqItems, totalCost, exportData };
+                    const projName = prompt("Enter project element/estimate name:", "My Live BOQ Estimate");
+                    if (projName) {
+                      await saveEstimate(projName, payload);
+                      setSaveMessage("Saved successfully!");
+                      setTimeout(() => setSaveMessage(""), 3000);
+                    }
+                  } catch (e) {
+                    setSaveMessage("Failed to save.");
+                  } finally {
+                    setIsSaving(false);
+                  }
+                }}
+                disabled={isSaving}
+                className="bg-green-600/20 text-green-600 dark:text-green-400 hover:bg-green-600/30 px-6 py-3 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
+              >
+                {isSaving ? (
+                  <span className="animate-pulse">Saving...</span>
+                ) : (
+                  <>
+                    <Save className="w-5 h-5" /> Save to Profile
+                  </>
+                )}
+              </button>
+            )}
+            {saveMessage && <span className="text-sm font-bold text-green-600 dark:text-green-400 ml-4">{saveMessage}</span>}
+          </div>
         </div>
       </div>
 

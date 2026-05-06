@@ -3,12 +3,17 @@ import {
   Circle, Square, CircleDashed, Hexagon, SquareDashed, 
   RectangleHorizontal, Type, Columns, CornerDownRight, 
   Minus, Layers, Weight, Calculator
-} from "lucide-react";
+, Save } from "lucide-react";
 import ShareButtonWithPopup from "./ShareMenu";
+import { saveEstimate } from "../../lib/estimates";
+import { useAuth } from "../../contexts/AuthContext";
 
 type Profile = "Round bar" | "Square bar" | "Round pipe bar" | "Hexagonal bar" | "Square tubing bar" | "Tee Bar" | "Beam bar" | "Channel shape" | "Angle shape" | "Flat shape" | "Sheet shape";
 
 export default function MetalWeightCalculator() {
+  const { user } = useAuth();
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState("");
   const [activeProfile, setActiveProfile] = useState<Profile>("Round bar");
   
   // Base Inputs
@@ -379,8 +384,9 @@ export default function MetalWeightCalculator() {
                </div>
             </div>
 
-            <div className="mt-10">
-               <ShareButtonWithPopup 
+            
+          <div className="mt-6 flex flex-wrap gap-4 items-center">
+            <ShareButtonWithPopup 
                  activeTab="Metal Weight" 
                  title={`${activeProfile} Weight Estimate`}
                  data={exportData}
@@ -389,7 +395,43 @@ export default function MetalWeightCalculator() {
                     breakdown: exportData
                  }}
                />
-            </div>
+            {user && (
+              <button 
+                onClick={async () => {
+                  setIsSaving(true);
+                  setSaveMessage("");
+                  try {
+                    const payload = {
+                    inputs: inputsUsed,
+                    breakdown: exportData
+                 };
+                    const projName = prompt("Enter project element/estimate name:", "My MetalWeightCalculator Estimate");
+                    if (projName) {
+                      await saveEstimate(projName, payload);
+                      setSaveMessage("Saved successfully!");
+                      setTimeout(() => setSaveMessage(""), 3000);
+                    }
+                  } catch (e) {
+                    setSaveMessage("Failed to save.");
+                  } finally {
+                    setIsSaving(false);
+                  }
+                }}
+                disabled={isSaving}
+                className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
+              >
+                {isSaving ? (
+                  <span className="animate-pulse">Saving...</span>
+                ) : (
+                  <>
+                    <Save className="w-5 h-5" /> Save to Profile
+                  </>
+                )}
+              </button>
+            )}
+            {saveMessage && <span className="text-sm font-bold text-green-400 ml-4">{saveMessage}</span>}
+          </div>
+
           </div>
         </div>
 

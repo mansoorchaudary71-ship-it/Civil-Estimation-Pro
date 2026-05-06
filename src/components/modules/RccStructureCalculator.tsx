@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from "react";
-import { Calculator, Box, Layers, Columns, Circle, Square, Hammer, AlignVerticalSpaceAround, Spline } from "lucide-react";
+import { Calculator, Box, Layers, Columns, Circle, Square, Hammer, AlignVerticalSpaceAround, Spline , Save } from "lucide-react";
 import ShareButtonWithPopup from "./ShareMenu";
+import { saveEstimate } from "../../lib/estimates";
+import { useAuth } from "../../contexts/AuthContext";
 
 type StructureType = "Simple Slab" | "One Way Slab" | "Two Way Slab" | "4 Bar Column" | "6 Bar Column" | "8 Bar Column" | "Round Column";
 
@@ -348,8 +350,9 @@ export default function RccStructureCalculator({ isEmbedded = false }: { isEmbed
                </div>
             </div>
 
-            <div className="mt-10">
-               <ShareButtonWithPopup 
+            
+          <div className="mt-6 flex flex-wrap gap-4 items-center">
+            <ShareButtonWithPopup 
                  activeTab="RCC Calculator" 
                  title={`${activeType} Estimate`}
                  data={exportData}
@@ -358,7 +361,43 @@ export default function RccStructureCalculator({ isEmbedded = false }: { isEmbed
                     breakdown: exportData
                  }}
                />
-            </div>
+            {user && (
+              <button 
+                onClick={async () => {
+                  setIsSaving(true);
+                  setSaveMessage("");
+                  try {
+                    const payload = {
+                    inputs: inputsUsed,
+                    breakdown: exportData
+                 };
+                    const projName = prompt("Enter project element/estimate name:", "My RccStructureCalculator Estimate");
+                    if (projName) {
+                      await saveEstimate(projName, payload);
+                      setSaveMessage("Saved successfully!");
+                      setTimeout(() => setSaveMessage(""), 3000);
+                    }
+                  } catch (e) {
+                    setSaveMessage("Failed to save.");
+                  } finally {
+                    setIsSaving(false);
+                  }
+                }}
+                disabled={isSaving}
+                className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
+              >
+                {isSaving ? (
+                  <span className="animate-pulse">Saving...</span>
+                ) : (
+                  <>
+                    <Save className="w-5 h-5" /> Save to Profile
+                  </>
+                )}
+              </button>
+            )}
+            {saveMessage && <span className="text-sm font-bold text-green-400 ml-4">{saveMessage}</span>}
+          </div>
+
           </div>
         </div>
 

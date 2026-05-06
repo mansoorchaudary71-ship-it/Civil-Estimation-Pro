@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { Circle, Square, RectangleHorizontal, RectangleVertical, Triangle, PlaySquare, Component, Pill, Hexagon, Calculator } from "lucide-react";
+import { Circle, Square, RectangleHorizontal, RectangleVertical, Triangle, PlaySquare, Component, Pill, Hexagon, Calculator , Save } from "lucide-react";
 import { motion } from "motion/react";
 import ShareButtonWithPopup from "./ShareMenu";
+import { saveEstimate } from "../../lib/estimates";
+import { useAuth } from "../../contexts/AuthContext";
 
 type Shape = "Circle" | "Square" | "Rectangle" | "Triangle" | "Trapezoid" | "Ellipse" | "RightTriangle" | "HorizontalCapsule" | "VerticalCapsule" | "Parallelogram" | "IrregularQuad";
 type InputUnit = "mm" | "cm" | "m" | "inches" | "feet";
 type OutputUnit = "sqm" | "sqft" | "acres" | "hectares";
 
 export default function AreaCalculator() {
+  const { user } = useAuth();
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState("");
   const [activeShape, setActiveShape] = useState<Shape>("Rectangle");
   const [inputUnit, setInputUnit] = useState<InputUnit>("m");
   const [outputUnit, setOutputUnit] = useState<OutputUnit>("sqm");
@@ -470,8 +475,9 @@ export default function AreaCalculator() {
                </div>
             </div>
 
-            <div className="mt-8">
-               <ShareButtonWithPopup 
+            
+          <div className="mt-6 flex flex-wrap gap-4 items-center">
+            <ShareButtonWithPopup 
                  activeTab="Area Calculator" 
                  title={`${activeShape} Area Calculation`}
                  data={exportData}
@@ -480,7 +486,43 @@ export default function AreaCalculator() {
                     breakdown: exportData
                  }}
                />
-            </div>
+            {user && (
+              <button 
+                onClick={async () => {
+                  setIsSaving(true);
+                  setSaveMessage("");
+                  try {
+                    const payload = {
+                    inputs: inputSummary,
+                    breakdown: exportData
+                 };
+                    const projName = prompt("Enter project element/estimate name:", "My AreaCalculator Estimate");
+                    if (projName) {
+                      await saveEstimate(projName, payload);
+                      setSaveMessage("Saved successfully!");
+                      setTimeout(() => setSaveMessage(""), 3000);
+                    }
+                  } catch (e) {
+                    setSaveMessage("Failed to save.");
+                  } finally {
+                    setIsSaving(false);
+                  }
+                }}
+                disabled={isSaving}
+                className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
+              >
+                {isSaving ? (
+                  <span className="animate-pulse">Saving...</span>
+                ) : (
+                  <>
+                    <Save className="w-5 h-5" /> Save to Profile
+                  </>
+                )}
+              </button>
+            )}
+            {saveMessage && <span className="text-sm font-bold text-green-400 ml-4">{saveMessage}</span>}
+          </div>
+
           </div>
         </div>
 

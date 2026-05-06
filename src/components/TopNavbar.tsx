@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Layers, Menu, X, User, LogOut, Settings, ChevronDown } from 'lucide-react';
+import { Menu, X, User, LogOut, Settings, ChevronDown } from 'lucide-react';
 import Logo from './Logo';
 import { GlobalSettingsToggle } from './ui/GlobalSettingsToggle';
 import { useAuth } from '../contexts/AuthContext';
@@ -45,42 +45,44 @@ export default function TopNavbar({
 
   return (
     <>
-      <div className="w-full px-4 py-3 bg-white/80 dark:bg-slate-900/80 border-b border-gray-200 dark:border-slate-800 shrink-0 h-14 transition-colors duration-300 flex items-center justify-between relative z-30">
+      <div className="w-full px-4 py-3 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shrink-0 h-16 transition-colors duration-300 flex items-center justify-between relative z-30 shadow-sm">
           
           <div className="flex items-center gap-2 lg:gap-3 cursor-pointer group shrink-0">
-            <div className="w-8 h-8 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
+            <div className="w-8 h-8 flex items-center justify-center transition-all duration-300 group-hover:scale-105 text-slate-800 dark:text-white">
               <Logo className="w-8 h-8" />
             </div>
-            <span className="font-bold text-[1.1rem] tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300">
+            <span className="font-black text-lg tracking-tight text-slate-800 dark:text-slate-100">
               Civil Estimation Pro
             </span>
           </div>
 
-          <div className="hidden md:flex items-center justify-center gap-1 flex-1 px-8">
+          <div className="hidden md:flex items-center justify-center gap-6 flex-1 px-8">
             {navLinks.map((link) => (
               <a 
                 key={link.name} 
                 href={link.href}
-                className="px-4 py-2 rounded-full text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-all duration-300"
+                className="relative py-1 text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-amber-600 dark:hover:text-amber-500 transition-colors duration-300 group"
               >
                 {link.name}
+                <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-amber-600 dark:bg-amber-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 rounded-t-sm" />
               </a>
             ))}
           </div>
 
-          <div className="hidden md:flex items-center gap-3 shrink-0">
+          <div className="hidden md:flex items-center gap-4 shrink-0">
             <GlobalSettingsToggle />
+            <div className="h-6 w-px bg-slate-200 dark:bg-slate-700 hidden lg:block" />
             {!isAuthenticated ? (
               <>
                 <button 
                   onClick={onOpenAuth}
-                  className="px-4 py-2 rounded-full text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300"
+                  className="px-4 py-2 rounded-lg text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-slate-800 transition-all duration-300"
                 >
                   Sign In
                 </button>
                 <button 
                   onClick={onOpenAuth}
-                  className="px-5 py-2 rounded-full text-sm font-bold text-white bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 shadow-sm hover:shadow transition-all duration-300"
+                  className="px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-amber-600 hover:bg-amber-700 shadow-md shadow-amber-600/20 active:scale-95 transition-all duration-300"
                 >
                   Get Started
                 </button>
@@ -89,35 +91,35 @@ export default function TopNavbar({
               <div className="relative" ref={profileRef}>
                 <button 
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                  className="flex items-center gap-2 p-1.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all"
+                  className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all group"
                 >
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-100 to-blue-50 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-600 overflow-hidden text-blue-600 dark:text-blue-400">
+                  <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 overflow-hidden text-slate-600 dark:text-slate-400 group-hover:text-amber-600">
                     {user?.photoURL ? (
                       <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
                     ) : (
-                      <User className="w-5 h-5" />
+                      <User className="w-4 h-4" />
                     )}
                   </div>
-                  <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 text-slate-400 group-hover:text-amber-600 transition-transform ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {isProfileMenuOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-lg shadow-black/5 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+                  <div className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 z-50">
                     <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800/50 bg-slate-50/50 dark:bg-slate-800/20">
                       <p className="text-sm font-bold text-slate-800 dark:text-white truncate">{user?.displayName || 'User'}</p>
                       <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
                     </div>
                     <div className="p-2 space-y-1">
-                      <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-colors">
+                      <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-colors">
                         <User className="w-4 h-4" /> My Profile
                       </button>
-                      <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-colors">
+                      <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-colors">
                         <Settings className="w-4 h-4" /> Account Settings
                       </button>
                       <div className="h-px bg-slate-200 dark:bg-slate-800 my-1" />
                       <button 
                         onClick={handleSignOut}
-                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
+                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-bold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
                       >
                         <LogOut className="w-4 h-4" /> Sign Out
                       </button>
@@ -128,19 +130,20 @@ export default function TopNavbar({
             )}
           </div>
 
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center gap-3">
+            <GlobalSettingsToggle />
             {isAuthenticated && (
-              <div className="w-8 h-8 mr-2 rounded-full bg-gradient-to-tr from-blue-100 to-blue-50 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-600 overflow-hidden text-blue-600 dark:text-blue-400">
+              <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 overflow-hidden text-slate-600 dark:text-slate-400">
                  {user?.photoURL ? (
                     <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
-                    <User className="w-5 h-5" />
+                    <User className="w-4 h-4" />
                   )}
               </div>
             )}
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 -mr-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="p-2 -mr-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -148,14 +151,14 @@ export default function TopNavbar({
       </div>
 
       <div 
-        className={`md:hidden absolute top-14 left-0 w-full px-4 mb-4 z-20 transition-all duration-300 ease-in-out ${isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"}`}
+        className={`md:hidden absolute top-16 left-0 w-full px-4 mb-4 z-20 transition-all duration-300 ease-in-out ${isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"}`}
       >
-        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-white/40 dark:border-slate-800/40 rounded-3xl p-4 shadow-xl flex flex-col gap-2 relative shadow-black/10 mt-2">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 shadow-xl flex flex-col gap-2 relative mt-2">
           {isAuthenticated && (
              <div className="px-4 py-3 border-b border-slate-200/50 dark:border-slate-700/50 mb-2 flex items-center gap-3 overflow-hidden">
-                <div className="w-10 h-10 shrink-0 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-600 text-blue-600 dark:text-blue-400">
+                <div className="w-10 h-10 shrink-0 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400">
                   {user?.photoURL ? (
-                    <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover rounded-full" />
+                    <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover rounded-lg" />
                   ) : (
                     <User className="w-5 h-5" />
                   )}
@@ -171,7 +174,7 @@ export default function TopNavbar({
             <a 
               key={link.name} 
               href={link.href}
-              className="px-4 py-3 rounded-2xl text-base font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="px-4 py-3 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-amber-600 dark:hover:text-amber-500 transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {link.name}
@@ -183,25 +186,25 @@ export default function TopNavbar({
             <>
               <button 
                 onClick={() => { setIsMobileMenuOpen(false); onOpenAuth?.(); }}
-                className="px-4 py-3 rounded-2xl text-base font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-left pl-4"
+                className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-amber-50 hover:text-amber-700 dark:hover:bg-slate-800 transition-colors text-left pl-4"
               >
                 Sign In
               </button>
               <button 
                 onClick={() => { setIsMobileMenuOpen(false); onOpenAuth?.(); }}
-                className="px-4 py-3 rounded-2xl text-base font-bold text-white bg-gradient-to-r from-blue-500 to-purple-600 shadow-md flex justify-center mt-2 hover:from-blue-600 hover:to-purple-700"
+                className="px-4 py-3 rounded-xl text-base font-bold text-white bg-amber-600 shadow-md flex justify-center mt-2 hover:bg-amber-700 transition-colors"
               >
                 Get Started
               </button>
             </>
           ) : (
             <>
-              <button onClick={() => { setIsMobileMenuOpen(false); onOpenProfile?.(); }} className="flex items-center gap-3 px-4 py-3 rounded-2xl text-base font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-left">
+              <button onClick={() => { setIsMobileMenuOpen(false); onOpenProfile?.(); }} className="flex items-center gap-3 px-4 py-3 rounded-xl text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-left">
                 <Settings className="w-5 h-5 text-slate-500" /> Account Settings
               </button>
               <button 
                 onClick={handleSignOut}
-                className="flex items-center gap-3 px-4 py-3 rounded-2xl text-base font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors text-left mt-1"
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-base font-bold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors text-left mt-1"
               >
                 <LogOut className="w-5 h-5" /> Sign Out
               </button>

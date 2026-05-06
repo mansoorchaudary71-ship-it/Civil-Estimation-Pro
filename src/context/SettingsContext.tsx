@@ -12,11 +12,25 @@ export interface MaterialRates {
   crush: number;
 }
 
+export interface ModulePreferences {
+  units: {
+    finishing: 'm' | 'mm' | 'ft' | 'in';
+    roads: 'm' | 'km' | 'ft' | 'mi';
+    earthworks: 'm' | 'ft';
+  };
+  themes: {
+    finishing: string;
+    roads: string;
+    earthworks: string;
+  };
+}
+
 interface SettingsState {
   currency: Currency;
   measurement: MeasurementSystem;
   theme: Theme;
   rates: MaterialRates;
+  modulePreferences?: ModulePreferences;
 }
 
 interface SettingsContextType {
@@ -37,6 +51,18 @@ const defaultSettings: SettingsState = {
     bricks: 15000,  // per 1000
     sand: 60,       // per cft
     crush: 120,     // per cft
+  },
+  modulePreferences: {
+    units: {
+      finishing: 'm',
+      roads: 'km',
+      earthworks: 'm',
+    },
+    themes: {
+      finishing: 'blue',
+      roads: 'slate',
+      earthworks: 'amber',
+    }
   }
 };
 

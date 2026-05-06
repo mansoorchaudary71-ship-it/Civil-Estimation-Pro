@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
 import { ModuleId } from '../App';
 import { 
   Calculator, 
@@ -94,10 +93,6 @@ const getCategoryTheme = (category: string, id: string) => {
 export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSettings }: DashboardProps) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { user } = useAuth();
-  
-  const firstName = user?.displayName ? user.displayName.split(' ')[0] : 'Guest';
-
   const filteredModules = ALL_MODULES.filter(m => {
     if (!searchTerm) return true;
     const term = searchTerm.toLowerCase();
@@ -136,13 +131,13 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
 
       <div className="mb-8 flex flex-col items-start gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#0f172a] dark:text-white flex items-center gap-2">
-           Welcome back, {firstName} <span className="text-2xl md:text-3xl animate-bounce origin-bottom hover:animate-none cursor-default inline-block" style={{animationDuration: '2s', animationIterationCount: 2}}>👋</span>
+           Welcome back, Alex <span className="text-2xl md:text-3xl animate-bounce origin-bottom hover:animate-none cursor-default inline-block" style={{animationDuration: '2s', animationIterationCount: 2}}>👋</span>
         </h1>
         <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium text-base">Ready to continue your estimates?</p>
       </div>
 
-      <div className="mb-10 w-full animate-in fade-in slide-in-from-bottom-4 duration-500 delay-75">
-        <div className="relative group w-full max-w-2xl md:mx-auto rounded-full p-[1px] bg-gradient-to-r from-red-500 via-yellow-400 to-blue-500 shadow-sm focus-within:shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all">
+      <div className="mb-10 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-75">
+        <div className="relative group w-full max-w-2xl rounded-full p-[1px] bg-gradient-to-r from-red-500 via-yellow-400 to-blue-500 shadow-sm focus-within:shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all">
           <div className="absolute inset-y-0 left-[24px] flex items-center pointer-events-none z-10">
             <Search className="text-slate-400 dark:text-slate-500 w-5 h-5 transition-colors group-focus-within:text-red-500" />
           </div>

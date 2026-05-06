@@ -1,13 +1,19 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
-import { TrendingUp, Settings, DollarSign, Database, Activity, Layers, PenTool } from 'lucide-react';
+import { TrendingUp, Settings, DollarSign, Database, Activity, Layers, PenTool, Save } from 'lucide-react';
 import { useMarketRates, MarketRates } from '../../context/MarketRatesContext';
 import { useSettings } from '../../context/SettingsContext';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import ShareButtonWithPopup from "./ShareMenu";
+import { saveEstimate } from "../../lib/estimates";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function RateAnalysis() {
   const { rates, updateRate } = useMarketRates();
   const { settings, convertAmount, convertAmountToRaw, formatCurrency } = useSettings();
+  const { user } = useAuth();
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState("");
 
   const handleRateChange = (key: keyof MarketRates, valStr: string) => {
     const val = parseFloat(valStr);
@@ -204,6 +210,49 @@ export default function RateAnalysis() {
                           <span className="text-3xl font-black text-white leading-none">{formatCurrency(compositeCalc.finalRate)}</span>
                           <span className="text-sm font-medium text-teal-400 pb-0.5">/ m³</span>
                        </div>
+                    </div>
+
+                    <div className="mt-6 flex flex-wrap gap-4 items-center">
+                      <ShareButtonWithPopup 
+                        activeTab="Rate Analysis" 
+                        title="Composite Item Analysis"
+                        data={compositeCalc}
+                        exportFormat={{
+                           inputs: { "Mix Ratio": "1:2:4", "Dry Vol": "1.54 m³" },
+                           breakdown: compositeCalc
+                        }}
+                      />
+                      {user && (
+                        <button 
+                          onClick={async () => {
+                            setIsSaving(true);
+                            setSaveMessage("");
+                            try {
+                              const projName = prompt("Enter project element/estimate name:", "My Rate Analysis Estimate");
+                              if (projName) {
+                                await saveEstimate(projName, compositeCalc);
+                                setSaveMessage("Saved successfully!");
+                                setTimeout(() => setSaveMessage(""), 3000);
+                              }
+                            } catch (e) {
+                              setSaveMessage("Failed to save.");
+                            } finally {
+                              setIsSaving(false);
+                            }
+                          }}
+                          disabled={isSaving}
+                          className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
+                        >
+                          {isSaving ? (
+                            <span className="animate-pulse">Saving...</span>
+                          ) : (
+                            <>
+                              <Save className="w-5 h-5" /> Save to Profile
+                            </>
+                          )}
+                        </button>
+                      )}
+                      {saveMessage && <span className="text-sm font-bold text-green-400 ml-4">{saveMessage}</span>}
                     </div>
                  </div>
                </div>
