@@ -599,16 +599,23 @@ export default function HouseEstimator() {
                     </thead>
                     <tbody className="bg-white divide-y divide-slate-100">
                       {([
-                        { key: 'cement', name: 'Cement (Per Bag)' },
-                        { key: 'steel', name: 'Steel 60-Grade (Per Kg)' },
-                        { key: 'bricks', name: 'Bricks A-Class (Per 1000)' },
-                        { key: 'sand', name: 'Sand (Per Cft)' },
-                        { key: 'crush', name: 'Crush (Per Cft)' },
-                        { key: 'laborGrey', name: 'Grey Labor (Per Sq.ft)' },
-                        { key: 'laborFinish', name: 'Finish Labor (Per Sq.ft)' },
+                        { key: 'cement', name: 'Cement (Per Bag)', color: 'bg-stone-500', bg: 'bg-stone-50' },
+                        { key: 'steel', name: 'Steel 60-Grade (Per Kg)', color: 'bg-slate-700', bg: 'bg-slate-50' },
+                        { key: 'bricks', name: 'Bricks A-Class (Per 1000)', color: 'bg-orange-500', bg: 'bg-orange-50' },
+                        { key: 'sand', name: 'Sand (Per Cft)', color: 'bg-amber-400', bg: 'bg-amber-50' },
+                        { key: 'crush', name: 'Crush (Per Cft)', color: 'bg-neutral-500', bg: 'bg-neutral-50' },
+                        { key: 'laborGrey', name: 'Grey Labor (Per Sq.ft)', color: 'bg-emerald-500', bg: 'bg-emerald-50' },
+                        { key: 'laborFinish', name: 'Finish Labor (Per Sq.ft)', color: 'bg-teal-500', bg: 'bg-teal-50' },
                       ] as const).map(item => (
-                        <tr key={item.key} className="hover:bg-slate-50 transition-colors">
-                          <td className="px-6 py-4 font-bold text-slate-700">{item.name}</td>
+                        <tr key={item.key} className="hover:bg-slate-50/80 transition-colors group">
+                          <td className="px-6 py-4 font-bold text-slate-700">
+                            <div className="flex items-center gap-3">
+                              <div className={`flex items-center justify-center w-8 h-8 rounded-lg ${item.bg} group-hover:scale-110 transition-transform`}>
+                                <div className={`w-3 h-3 rounded-full ${item.color} shadow-sm`}></div>
+                              </div>
+                              <span>{item.name}</span>
+                            </div>
+                          </td>
                           <td className="px-6 py-4 font-bold text-slate-500">
                             {formatCurrency(item.key === 'bricks' ? marketRates[item.key] * 1000 : marketRates[item.key])}
                           </td>

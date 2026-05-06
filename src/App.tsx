@@ -28,6 +28,7 @@ import SettingsModal from "./components/modules/SettingsModal";
 import AuthModal from "./components/auth/AuthModal";
 import ProfileSettings from "./components/auth/ProfileSettings";
 import { useAuth } from "./contexts/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 import { TakeoffProvider } from "./context/TakeoffContext";
 import { MarketRatesProvider } from "./context/MarketRatesContext";
@@ -74,7 +75,7 @@ export default function App() {
     <MarketRatesProvider>
       <TakeoffProvider>
       <div className="flex flex-row h-screen w-full bg-[#f2f2f7] dark:bg-slate-950 overflow-hidden font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
-        
+        <Toaster position="bottom-right" />
         <Sidebar 
           activeModule={activeModule} 
           onSelectModule={handleSelectModule} 

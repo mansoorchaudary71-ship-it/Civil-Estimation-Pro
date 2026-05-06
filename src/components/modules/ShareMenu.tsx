@@ -5,6 +5,8 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
+import { useAuth } from "../../contexts/AuthContext";
+import toast from "react-hot-toast";
 
 interface ShareMenuProps {
   activeTab: string;
@@ -86,14 +88,27 @@ function createDonutChart(data: {label: string, value: number, color: string}[],
 
 export default function ShareButtonWithPopup({ activeTab, data, title, exportFormat }: ShareMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [showReportDetails, setShowReportDetails] = useState(false);
-  const [exportType, setExportType] = useState<"pdf" | "excel" | "whatsapp" | "email">("pdf");
-  const [reportDetails, setReportDetails] = useState({
-    projectName: "",
-    siteLocation: "",
-    preparedBy: ""
-  });
   const menuRef = useRef<HTMLDivElement>(null);
+  const { user } = useAuth();
+
+  const getFileNamePrefix = () => {
+    const dateObj = new Date();
+    const d = dateObj.getDate().toString().padStart(2, '0');
+    const m = dateObj.toLocaleString('en-US', { month: 'short' });
+    const y = dateObj.getFullYear();
+    let hr = dateObj.getHours();
+    const min = dateObj.getMinutes().toString().padStart(2, '0');
+    const ampm = hr >= 12 ? 'PM' : 'AM';
+    hr = hr % 12;
+    hr = hr ? hr : 12; 
+    const hrStr = hr.toString().padStart(2, '0');
+    
+    const dateStr = `${d}-${m}-${y}`;
+    const timeStr = `${hrStr}${min}${ampm}`;
+    const prefix = user?.displayName ? user.displayName.replace(/\s+/g, '_') : "Civil";
+    
+    return `${prefix}_Estimate_${dateStr}_${timeStr}`;
+  };
 
   // Close menu when clicking outside could be added, but a simple toggle is okay for now.
 
@@ -106,19 +121,22 @@ export default function ShareButtonWithPopup({ activeTab, data, title, exportFor
     return txt;
   };
 
-  const handleWhatsApp = () => {
+  const handleWhatsAppHTML = () => {
     const text = encodeURIComponent(formatText());
     window.open(`https://wa.me/?text=${text}`, "_blank");
     setIsOpen(false);
+    toast.success("Opened WhatsApp");
   };
 
   const handleDownloadText = () => {
+    const fileName = `${getFileNamePrefix()}.txt`;
     const textBlob = new Blob([formatText()], { type: "text/plain;charset=utf-8" });
-    saveAs(textBlob, `${title.replace(/\s+/g, '_')}_Estimate.txt`);
+    saveAs(textBlob, fileName);
     setIsOpen(false);
+    toast.success(`✅ File saved as ${fileName}`);
   };
 
-  const handleEmail = () => {
+  const handleEmailHTML = () => {
     let html = `<!DOCTYPE html>
 <html>
 <head>
@@ -215,11 +233,13 @@ export default function ShareButtonWithPopup({ activeTab, data, title, exportFor
 </html>`;
 
     const blob = new Blob([html], { type: "text/html" });
-    saveAs(blob, `Email-Template-${title.replace(/[^a-zA-Z0-9]/g, '-')}.html`);
+    const fileName = `${getFileNamePrefix()}.html`;
+    saveAs(blob, fileName);
     setIsOpen(false);
+    toast.success(`✅ File saved as ${fileName}`);
   };
 
-  const generatePDF = async () => {
+  const generatePDF = async (exportType: "pdf" | "whatsapp" | "email" = "pdf") => {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.width;
 
@@ -256,9 +276,6 @@ export default function ShareButtonWithPopup({ activeTab, data, title, exportFor
     let isLeft = true;
     
     const inputsInfo = {
-      "Project Name": reportDetails.projectName || "Not specified",
-      "Site Location": reportDetails.siteLocation || "Not specified",
-      "Prepared By": reportDetails.preparedBy || "Not specified",
       "Structure Type": title,
       ...(exportFormat?.inputs || {})
     };
@@ -386,32 +403,33 @@ export default function ShareButtonWithPopup({ activeTab, data, title, exportFor
     doc.setTextColor(150, 150, 150);
     doc.text("* Denotes a user-defined custom rate. This is a system-generated estimate. Actual prices may vary based on market conditions.", 14, doc.internal.pageSize.height - 10);
     
-    const pdfFileName = `Corporate-BOQ-${title.replace(/[^a-zA-Z0-9]/g, '-')}.pdf`;
+    const fileName = `${getFileNamePrefix()}.pdf`;
 
     if (exportType === "whatsapp" || exportType === "email") {
       const pdfBlob = doc.output('blob');
-      const file = new File([pdfBlob], pdfFileName, { type: 'application/pdf' });
+      const file = new File([pdfBlob], fileName, { type: 'application/pdf' });
       
       if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
           navigator.share({
               title: title,
               text: 'Here is the estimation PDF generated via Civil Estimation Pro.',
               files: [file]
-          }).catch(e => {
+          }).then(() => toast.success("Shared successfully"))
+          .catch(e => {
               console.error("Error sharing", e);
-              // Fallback to save if share gets cancelled or fails (optional, but good UX)
-              // doc.save(pdfFileName);
           });
+          setIsOpen(false);
       } else {
-          alert(`Direct file sharing via ${exportType === "whatsapp" ? "WhatsApp" : "Email"} is not supported on this device/browser. The PDF will be downloaded so you can share it manually.`);
-          doc.save(pdfFileName);
+          toast(`Direct file sharing via ${exportType === "whatsapp" ? "WhatsApp" : "Email"} is not supported on this device/browser. The PDF will be downloaded so you can share it manually.`, { icon: 'ℹ️' });
+          doc.save(fileName);
+          setIsOpen(false);
+          toast.success(`✅ File saved as ${fileName}`);
       }
     } else {
-      doc.save(pdfFileName);
+      doc.save(fileName);
+      setIsOpen(false);
+      toast.success(`✅ File saved as ${fileName}`);
     }
-    
-    setShowReportDetails(false);
-    setIsOpen(false);
   };
 
   const generateExcel = async () => {
@@ -453,9 +471,6 @@ export default function ShareButtonWithPopup({ activeTab, data, title, exportFor
 
     // 2. Project Details (rows 4-x)
     const inputsInfo = {
-      "Project Name": reportDetails.projectName || "Not specified",
-      "Site Location": reportDetails.siteLocation || "Not specified",
-      "Prepared By": reportDetails.preparedBy || "Not specified",
       "Structure Type": title,
       ...(exportFormat?.inputs || {})
     };
@@ -586,11 +601,12 @@ export default function ShareButtonWithPopup({ activeTab, data, title, exportFor
       column.width = maxLen + 4;
     });
 
+    const fileName = `${getFileNamePrefix()}.xlsx`;
     const buffer = await workbook.xlsx.writeBuffer();
-    saveAs(new Blob([buffer]), `Corporate-BOQ-${title.replace(/[^a-zA-Z0-9]/g, '-')}.xlsx`);
+    saveAs(new Blob([buffer]), fileName);
     
-    setShowReportDetails(false);
     setIsOpen(false);
+    toast.success(`✅ File saved as ${fileName}`);
   };
 
   return (
@@ -616,7 +632,7 @@ export default function ShareButtonWithPopup({ activeTab, data, title, exportFor
               }
             `}</style>
             <div className="flex flex-col">
-              <button onClick={() => { setExportType("pdf"); setIsOpen(false); setShowReportDetails(true); }} className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left">
+              <button onClick={() => generatePDF("pdf")} className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left">
                 <div className="p-2.5 rounded-full bg-rose-50 text-rose-500 group-hover:bg-rose-100 transition-colors shrink-0">
                   <FileText className="w-5 h-5" />
                 </div>
@@ -625,7 +641,7 @@ export default function ShareButtonWithPopup({ activeTab, data, title, exportFor
               
               <div className="h-px bg-slate-100 my-1 mx-4"></div>
               
-              <button onClick={() => { setExportType("excel"); setIsOpen(false); setShowReportDetails(true); }} className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left">
+              <button onClick={generateExcel} className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left">
                 <div className="p-2.5 rounded-full bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100 transition-colors shrink-0">
                   <FileSpreadsheet className="w-5 h-5" />
                 </div>
@@ -634,7 +650,7 @@ export default function ShareButtonWithPopup({ activeTab, data, title, exportFor
               
               <div className="h-px bg-slate-100 my-1 mx-4"></div>
               
-              <button onClick={() => { setExportType("whatsapp"); setIsOpen(false); setShowReportDetails(true); }} className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left">
+              <button onClick={() => generatePDF("whatsapp")} className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left">
                 <div className="p-2.5 rounded-full bg-green-50 text-green-600 group-hover:bg-green-100 transition-colors shrink-0">
                   <MessageCircle className="w-5 h-5" />
                 </div>
@@ -643,7 +659,7 @@ export default function ShareButtonWithPopup({ activeTab, data, title, exportFor
               
               <div className="h-px bg-slate-100 my-1 mx-4"></div>
               
-              <button onClick={() => { setExportType("email"); setIsOpen(false); setShowReportDetails(true); }} className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left">
+              <button onClick={() => generatePDF("email")} className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left">
                 <div className="p-2.5 rounded-full bg-blue-50 text-blue-600 group-hover:bg-blue-100 transition-colors shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
@@ -661,71 +677,6 @@ export default function ShareButtonWithPopup({ activeTab, data, title, exportFor
           </div>
         )}
       </div>
-
-      {showReportDetails && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl w-full max-w-md shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden transform transition-all">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white">Project Details</h3>
-              <button 
-                onClick={() => setShowReportDetails(false)}
-                className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            
-            <div className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1">Project Name</label>
-                <input 
-                  type="text" 
-                  placeholder="e.g. Residential House Construction"
-                  className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-indigo-500"
-                  value={reportDetails.projectName}
-                  onChange={(e) => setReportDetails({...reportDetails, projectName: e.target.value})}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1">Site Location</label>
-                <input 
-                  type="text" 
-                  placeholder="e.g. Plot 42, Sector B"
-                  className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-indigo-500"
-                  value={reportDetails.siteLocation}
-                  onChange={(e) => setReportDetails({...reportDetails, siteLocation: e.target.value})}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1">Prepared By</label>
-                <input 
-                  type="text" 
-                  placeholder="e.g. John Doe"
-                  className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-800 border-none rounded-xl focus:ring-2 focus:ring-indigo-500"
-                  value={reportDetails.preparedBy}
-                  onChange={(e) => setReportDetails({...reportDetails, preparedBy: e.target.value})}
-                />
-              </div>
-            </div>
-            
-            <div className="p-6 pt-0 flex gap-3">
-              <button 
-                onClick={() => setShowReportDetails(false)}
-                className="flex-1 py-3 px-4 font-bold rounded-xl text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors"
-              >
-                Cancel
-              </button>
-              <button 
-                onClick={() => exportType === "pdf" || exportType === "whatsapp" || exportType === "email" ? generatePDF() : generateExcel()}
-                className={`flex-1 py-3 px-4 font-bold rounded-xl text-white ${exportType === "whatsapp" ? "bg-green-600 hover:bg-green-700 shadow-green-600/20" : exportType === "email" ? "bg-blue-600 hover:bg-blue-700 shadow-blue-600/20" : exportType === "pdf" ? "bg-indigo-600 hover:bg-indigo-700 shadow-indigo-600/20" : "bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/20"} transition-colors flex justify-center items-center gap-2 shadow-lg`}
-              >
-                {exportType === "whatsapp" ? <MessageCircle className="w-4 h-4" /> : exportType === "email" ? <Mail className="w-4 h-4" /> : exportType === "pdf" ? <FileText className="w-4 h-4" /> : <FileSpreadsheet className="w-4 h-4" />}
-                {exportType === "whatsapp" ? "Share PDF" : exportType === "email" ? "Email PDF" : `Generate ${exportType === "pdf" ? "PDF" : "Excel"}`}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

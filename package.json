@@ -33,6 +33,7 @@
     "node-fetch": "^3.3.2",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
+    "react-hot-toast": "^2.6.0",
     "react-konva": "^19.2.3",
     "react-markdown": "^10.1.0",
     "react-use": "^17.6.0",
