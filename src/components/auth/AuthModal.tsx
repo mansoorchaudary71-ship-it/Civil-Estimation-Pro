@@ -19,6 +19,31 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
   if (!isOpen) return null;
 
+  const getFriendlyErrorMessage = (error: any) => {
+    const code = error?.code || error?.message;
+    switch (code) {
+      case 'auth/unauthorized-domain':
+        return "This domain is not authorized for login. Please contact the administrator.";
+      case 'auth/user-not-found':
+        return "No account found with this email.";
+      case 'auth/wrong-password':
+      case 'auth/invalid-credential':
+        return "Incorrect password. Please try again.";
+      case 'auth/email-already-in-use':
+        return "An account with this email already exists.";
+      case 'auth/weak-password':
+        return "Password should be at least 6 characters.";
+      case 'auth/invalid-email':
+        return "Please enter a valid email address.";
+      case 'auth/network-request-failed':
+        return "Network error. Please check your internet connection.";
+      default:
+        // Attempt to clean up generic Firebase errors if they leak through
+        const msg = error?.message || 'An unexpected error occurred. Please try again.';
+        return msg.replace(/Firebase:\s(.*)\s\([^)]+\)./, '$1');
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -32,15 +57,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
       }
       onClose();
     } catch (err: any) {
-      if (err.code === 'auth/email-already-in-use') {
-        setError('User already exists');
-      } else if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password') {
-        setError('Incorrect email or password');
-      } else if (err.code === 'auth/weak-password') {
-         setError('Password should be at least 6 characters');
-      } else {
-        setError(err.message || 'An error occurred');
-      }
+      setError(getFriendlyErrorMessage(err));
     } finally {
       setIsLoading(false);
     }
@@ -53,7 +70,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
       await signInWithGoogle();
       onClose();
     } catch (err: any) {
-      setError(err.message || 'An error occurred with Google Sign-In');
+      setError(getFriendlyErrorMessage(err));
     } finally {
       setIsLoading(false);
     }
@@ -92,7 +109,10 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       type="text"
                       placeholder="Full Name"
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        setError('');
+                      }}
                       required
                       className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all dark:text-white"
                     />
@@ -107,7 +127,10 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     type="email"
                     placeholder="Email Address"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setError('');
+                    }}
                     required
                     className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all dark:text-white"
                   />
@@ -121,7 +144,10 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     type="password"
                     placeholder="Password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      setError('');
+                    }}
                     required
                     className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all dark:text-white"
                   />

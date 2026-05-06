@@ -141,8 +141,8 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
         <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium text-base">Ready to continue your estimates?</p>
       </div>
 
-      <div className="mb-10 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-75">
-        <div className="relative group w-full max-w-2xl rounded-full p-[1px] bg-gradient-to-r from-red-500 via-yellow-400 to-blue-500 shadow-sm focus-within:shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all">
+      <div className="mb-10 w-full animate-in fade-in slide-in-from-bottom-4 duration-500 delay-75">
+        <div className="relative group w-full max-w-2xl md:mx-auto rounded-full p-[1px] bg-gradient-to-r from-red-500 via-yellow-400 to-blue-500 shadow-sm focus-within:shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all">
           <div className="absolute inset-y-0 left-[24px] flex items-center pointer-events-none z-10">
             <Search className="text-slate-400 dark:text-slate-500 w-5 h-5 transition-colors group-focus-within:text-red-500" />
           </div>
@@ -155,6 +155,8 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
           />
         </div>
       </div>
+
+      {!searchTerm && <RecentEstimates onSelectModule={onSelectModule} />}
 
       <div className="flex flex-col gap-10 w-full animate-in fade-in slide-in-from-bottom-4 duration-500 delay-150">
         {groupsToDisplay.map((groupName) => (

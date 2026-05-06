@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
-import { Copy, Droplet, Box, Hammer, PaintBucket, Scaling, ArrowRightLeft, Layers, Columns, Container, Spline, Calculator } from "lucide-react";
+import { Copy, Droplet, Box, Hammer, PaintBucket, Scaling, ArrowRightLeft, Layers, Columns, Container, Spline, Calculator, Save } from "lucide-react";
 import { useSettings } from "../../context/SettingsContext";
 import { ConcreteMortarCalculator, BrickworkCalculator, PlasterCalculator, SteelCalculator } from "../../utils/calculators";
 import ShareButtonWithPopup from "./ShareMenu";
 import RccStructureCalculator from "./RccStructureCalculator";
 import MasterQuantityEstimator from "./MasterQuantityEstimator";
+import { saveEstimate } from "../../lib/estimates";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function ConstructionMaterialEstimator() {
   const { formatCurrency, settings } = useSettings();
+  const { user } = useAuth();
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState("");
+
   
   const isSI = settings.measurement === "SI";
   const unitFt = isSI ? "m" : "ft";
@@ -811,34 +817,77 @@ export default function ConstructionMaterialEstimator() {
               </div>
             </div>
              
-             <ShareButtonWithPopup 
-                 activeTab="Project Cart"
-                 data={{
-                   "Elements": cart.length,
-                   "Total Cement": `${totalCement.toFixed(2)} Bags`,
-                   "Total Sand": `${totalSand.toFixed(2)} ${isSI ? "m³" : "cft"}`,
-                   "Total Aggregate": `${totalAgg.toFixed(2)} ${isSI ? "m³" : "cft"}`,
-                   "Total Water": `${totalWater.toFixed(1)} L`,
-                 }} 
-                 exportFormat={{
-                   inputs: { "Cart Elements": String(cart.length) },
-                   breakdown: {
+             <div className="mt-6 flex flex-wrap gap-4 items-center">
+               <ShareButtonWithPopup 
+                   activeTab="Project Cart"
+                   data={{
+                     "Elements": cart.length,
                      "Total Cement": `${totalCement.toFixed(2)} Bags`,
                      "Total Sand": `${totalSand.toFixed(2)} ${isSI ? "m³" : "cft"}`,
                      "Total Aggregate": `${totalAgg.toFixed(2)} ${isSI ? "m³" : "cft"}`,
-                     "Total Water": `${totalWater.toFixed(1)} L`
-                   },
-                   rates: rates,
-                   cartItem: {
-                     cementBags: totalCement,
-                     sandVol: totalSand,
-                     aggregateVol: totalAgg,
-                     waterLiters: totalWater,
-                     unitVol: isSI ? "m³" : "cft"
-                   }
-                 }}
-                 title={`Combined Material Estimate`} 
-               />
+                     "Total Water": `${totalWater.toFixed(1)} L`,
+                   }} 
+                   exportFormat={{
+                     inputs: { "Cart Elements": String(cart.length) },
+                     breakdown: {
+                       "Total Cement": `${totalCement.toFixed(2)} Bags`,
+                       "Total Sand": `${totalSand.toFixed(2)} ${isSI ? "m³" : "cft"}`,
+                       "Total Aggregate": `${totalAgg.toFixed(2)} ${isSI ? "m³" : "cft"}`,
+                       "Total Water": `${totalWater.toFixed(1)} L`
+                     },
+                     rates: rates,
+                     cartItem: {
+                       cementBags: totalCement,
+                       sandVol: totalSand,
+                       aggregateVol: totalAgg,
+                       waterLiters: totalWater,
+                       unitVol: isSI ? "m³" : "cft"
+                     }
+                   }}
+                   title={`Combined Material Estimate`} 
+                 />
+
+                 {user && (
+                   <button 
+                     onClick={async () => {
+                       if (cart.length === 0) return;
+                       setIsSaving(true);
+                       setSaveMessage("");
+                       try {
+                         const payload = {
+                           cart,
+                           totals: {
+                             cementBags: totalCement,
+                             sandVol: totalSand,
+                             aggregateVol: totalAgg,
+                             waterLiters: totalWater,
+                             steelKg: cart.reduce((acc, item) => acc + (item.steelKg || 0), 0),
+                             bricksCount: cart.reduce((acc, item) => acc + (item.bricksCount || 0), 0),
+                             blocksCount: cart.reduce((acc, item) => acc + (item.blocksCount || 0), 0),
+                             unitVol: isSI ? "m³" : "cft"
+                           },
+                           rates
+                         };
+                         const projName = prompt("Enter project element/estimate name:", "My Material Estimate");
+                         if (projName) {
+                           await saveEstimate(projName, payload);
+                           setSaveMessage("Saved successfully!");
+                           setTimeout(() => setSaveMessage(""), 3000);
+                         }
+                       } catch (e) {
+                         setSaveMessage("Failed to save.");
+                       } finally {
+                         setIsSaving(false);
+                       }
+                     }}
+                     disabled={isSaving}
+                     className="mt-6 sm:mt-0 bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
+                   >
+                     {isSaving ? <span className="animate-pulse">Saving...</span> : <><Save className="w-5 h-5" /> Save to Profile</>}
+                   </button>
+                 )}
+                 {saveMessage && <span className="text-sm font-bold text-green-400 ml-4">{saveMessage}</span>}
+             </div>
           </div>
         )}
       </div>

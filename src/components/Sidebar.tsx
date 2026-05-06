@@ -40,15 +40,18 @@ interface SidebarProps {
   onSelectModule: (id: ModuleId) => void;
   isOpen?: boolean;
   onClose?: () => void;
+  onOpenAuth?: () => void;
+  onOpenProfile?: () => void;
 }
 
-export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose }: SidebarProps) {
+export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose, onOpenAuth, onOpenProfile }: SidebarProps) {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({
     house: false,
     road: false,
   });
   
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
+  const isAuthenticated = !!user;
 
   const toggleExpand = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -113,23 +116,46 @@ export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose 
       )}>
         {/* Profile Header section (acts as Profile tab on mobile) */}
         <div className="p-4 border-b border-slate-200 dark:border-slate-800 shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-100 to-blue-50 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-600 overflow-hidden text-blue-600 dark:text-blue-400 shrink-0">
-              <User className="w-5 h-5" />
+          {isAuthenticated ? (
+            <>
+              <div className="flex items-center gap-3 overflow-hidden">
+                <div className="w-10 h-10 shrink-0 rounded-full bg-gradient-to-tr from-blue-100 to-blue-50 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-600 font-bold overflow-hidden text-blue-600 dark:text-blue-400">
+                  {user?.photoURL ? (
+                    <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
+                  ) : (
+                    <span>{user?.displayName?.[0]?.toUpperCase() || <User className="w-5 h-5" />}</span>
+                  )}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-bold text-slate-800 dark:text-white truncate">{user?.displayName || 'User'}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 mt-3 w-full">
+                <button onClick={onOpenProfile} className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                  <Settings className="w-3.5 h-3.5" /> Account
+                </button>
+                <button onClick={async () => { await logOut(); onClose?.(); }} className="flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-semibold text-red-600 dark:text-red-400 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-red-50 dark:hover:bg-slate-700 transition-colors" title="Sign Out">
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="flex flex-col gap-2">
+              <button 
+                onClick={onOpenAuth}
+                className="w-full flex items-center justify-center gap-1.5 px-2 py-2 rounded-md text-sm font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                >
+                Sign In
+              </button>
+              <button 
+                onClick={onOpenAuth}
+                className="w-full flex items-center justify-center gap-1.5 px-2 py-2 rounded-md text-sm font-bold text-white bg-gradient-to-r from-blue-500 to-purple-600 shadow-sm hover:opacity-90 transition-opacity"
+                >
+                Get Started
+              </button>
             </div>
-            <div className="overflow-hidden">
-              <p className="text-sm font-bold text-slate-800 dark:text-white truncate">Alex Engineer</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 truncate">alex@civilpro.com</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 mt-3 w-full">
-            <button className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-              <Settings className="w-3.5 h-3.5" /> Account
-            </button>
-            <button className="flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-semibold text-red-600 dark:text-red-400 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-red-50 dark:hover:bg-slate-700 transition-colors" title="Sign Out">
-              <LogOut className="w-3.5 h-3.5" />
-            </button>
-          </div>
+          )}
         </div>
 
         {/* Navigation */}

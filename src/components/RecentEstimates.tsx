@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ModuleId } from '../App';
-import { Clock, FolderOpen, ArrowRight, Home, Truck, Droplets } from 'lucide-react';
+import { Clock, FolderOpen, ArrowRight, Home, Truck, Droplets, HardHat, Loader2 } from 'lucide-react';
+import { getMyEstimates } from '../lib/estimates';
+import { useAuth } from '../contexts/AuthContext';
 
 interface Estimate {
   id: string;
@@ -14,44 +16,70 @@ interface Estimate {
   status: string;
 }
 
-const DUMMY_ESTIMATES: Estimate[] = [
-  {
-    id: '1',
-    title: 'Smith Residence Reno',
-    date: 'Oct 24, 2024',
-    type: 'house',
-    typeLabel: 'House Estimator',
-    color: 'from-blue-500 to-indigo-600',
-    icon: <Home className="w-5 h-5 text-white" />,
-    progress: 40,
-    status: 'Grey Structure Done',
-  },
-  {
-    id: '2',
-    title: 'Highway 42 Extension',
-    date: 'Oct 20, 2024',
-    type: 'earthworks',
-    typeLabel: 'Earthworks',
-    color: 'from-amber-500 to-orange-500',
-    icon: <Truck className="w-5 h-5 text-white" />,
-    progress: 75,
-    status: 'In Progress',
-  },
-  {
-    id: '3',
-    title: 'Downtown Sewer Upgrade',
-    date: 'Oct 15, 2024',
-    type: 'sewerage',
-    typeLabel: 'Sewerage',
-    color: 'from-emerald-500 to-teal-500',
-    icon: <Droplets className="w-5 h-5 text-white" />,
-    progress: 90,
-    status: 'Almost Complete',
-  }
-];
-
 export default function RecentEstimates({ onSelectModule }: { onSelectModule: (id: ModuleId) => void }) {
   const [estimates, setEstimates] = useState<Estimate[]>([]);
+  const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
+  
+  useEffect(() => {
+    if (!user) {
+      setEstimates([]);
+      return;
+    }
+    const loadEstimates = async () => {
+      setLoading(true);
+      try {
+        const data = await getMyEstimates();
+        if (data) {
+          const formatted = data.map((d: any) => ({
+            id: d.id,
+            title: d.name,
+            date: new Date(d.createdAt).toLocaleDateString(),
+            type: 'calculators' as ModuleId,
+            typeLabel: 'Material Estimate',
+            color: 'from-[#ef4444] to-[#f97316]',
+            icon: <HardHat className="w-5 h-5 text-white" />,
+            progress: 100,
+            status: 'Completed',
+          }));
+          setEstimates(formatted);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadEstimates();
+  }, [user]);
+
+  if (!user) {
+    return (
+      <div className="mt-8 mb-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 flex items-center gap-2">
+            <Clock className="w-6 h-6 text-indigo-500" />
+            Recent Estimates
+          </h3>
+        </div>
+        <div className="w-full bg-white/60 dark:bg-slate-900/40 backdrop-blur-xl border border-white/60 dark:border-slate-800/60 rounded-[2rem] p-10 flex flex-col items-center justify-center text-center shadow-sm">
+          <div className="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center mb-4 text-slate-400 dark:text-slate-500 shadow-inner">
+            <FolderOpen className="w-8 h-8" />
+          </div>
+          <h4 className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-1">Sign in to save estimates</h4>
+          <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mb-6">Your saved estimates will appear here once you sign in and start estimating.</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="mt-8 mb-6 py-20 flex justify-center items-center">
+        <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
+      </div>
+    );
+  }
   
   if (estimates.length === 0) {
     return (
@@ -61,12 +89,6 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
             <Clock className="w-6 h-6 text-indigo-500" />
             Recent Estimates
           </h3>
-          <button 
-            onClick={() => setEstimates(DUMMY_ESTIMATES)}
-            className="text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1.5 rounded-lg transition-colors border border-indigo-100 dark:border-indigo-500/20"
-          >
-            Show Examples
-          </button>
         </div>
         <div className="w-full bg-white/60 dark:bg-slate-900/40 backdrop-blur-xl border border-white/60 dark:border-slate-800/60 rounded-[2rem] p-10 flex flex-col items-center justify-center text-center shadow-sm">
           <div className="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center mb-4 text-slate-400 dark:text-slate-500 shadow-inner">
@@ -86,12 +108,6 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
           <Clock className="w-6 h-6 text-indigo-500" />
           Recent Estimates
         </h3>
-        <button 
-          onClick={() => setEstimates([])}
-          className="text-sm font-semibold text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg transition-colors"
-        >
-          Clear
-        </button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {estimates.map((est) => (
@@ -117,16 +133,6 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
                  {est.title}
                </h4>
                <p className="text-sm text-slate-500 dark:text-slate-400 font-medium mb-3">Created {est.date}</p>
-               
-               <div>
-                 <div className="flex justify-between text-xs font-bold text-slate-500 mb-1.5">
-                   <span>{est.status}</span>
-                   <span className="text-indigo-600 dark:text-indigo-400">{est.progress}%</span>
-                 </div>
-                 <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-2 overflow-hidden shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)]">
-                   <div className={`bg-gradient-to-r ${est.color} h-2 rounded-full group-hover:scale-y-110 transition-transform origin-left`} style={{ width: `${est.progress}%` }}></div>
-                 </div>
-               </div>
              </div>
              
              <button className="relative z-10 mt-auto w-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 group-hover:bg-gradient-to-r group-hover:from-indigo-500 group-hover:to-purple-600 group-hover:text-white font-bold py-3.5 rounded-[1rem] flex items-center justify-center gap-2 transition-all duration-300">
