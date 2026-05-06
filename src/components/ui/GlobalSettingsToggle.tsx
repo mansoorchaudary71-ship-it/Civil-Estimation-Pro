@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "motion/react";
+import { Settings } from "lucide-react";
 import { useSettings, MeasurementSystem, Currency } from "../../context/SettingsContext";
 
 export function GlobalSettingsToggle() {
@@ -14,63 +15,66 @@ export function GlobalSettingsToggle() {
   };
 
   return (
-    <div className="flex items-center w-full max-w-full overflow-hidden">
-      <div className="relative inline-flex items-center gap-0.5 sm:gap-1 p-1 bg-white/60 hover:bg-white/80 transition-colors backdrop-blur-xl border border-gray-200/50 rounded-full shadow-sm">
-        
-        {/* Toggle A: Units */}
-        <div className="flex relative">
-          {["SI", "FPS"].map((val) => {
-            const isActive = settings.measurement === val;
-            return (
-              <button
-                key={val}
-                onClick={() => handleUnitChange(val as MeasurementSystem)}
-                className={`relative px-2.5 sm:px-4 py-1.5 text-[10px] sm:text-xs font-semibold tracking-wide uppercase transition-colors z-10 ${
-                  isActive ? "text-white" : "text-gray-500 hover:text-gray-800"
-                }`}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="unit-pill"
-                    className="absolute inset-0 bg-emerald-600/90 rounded-full shadow-[0_2px_8px_-2px_rgba(5,150,105,0.4)] -z-10"
-                    transition={{ type: "spring", stiffness: 500, damping: 35 }}
-                  />
-                )}
-                {val === "SI" ? "m/mm" : "ft/in"}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Divider */}
-        <div className="w-[1px] h-4 sm:h-5 bg-gray-300 mx-0.5 sm:mx-1 rounded-full" />
-
-        {/* Toggle B: Currency */}
-        <div className="flex relative">
-          {["PKR", "USD", "SAR", "INR"].map((val) => {
-            const isActive = settings.currency === val;
-            return (
-              <button
-                key={val}
-                onClick={() => handleCurrencyChange(val as Currency)}
-                className={`relative px-2.5 sm:px-4 py-1.5 text-[10px] sm:text-xs font-semibold tracking-wide uppercase transition-colors z-10 ${
-                  isActive ? "text-white" : "text-gray-500 hover:text-gray-800"
-                }`}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="curr-pill"
-                    className="absolute inset-0 bg-emerald-600/90 rounded-full shadow-[0_2px_8px_-2px_rgba(5,150,105,0.4)] -z-10"
-                    transition={{ type: "spring", stiffness: 500, damping: 35 }}
-                  />
-                )}
-                {val}
-              </button>
-            );
-          })}
-        </div>
-
+    <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full max-w-full overflow-hidden">
+      
+      {/* Settings Icon container */}
+      <div className="p-2 rounded-full cursor-pointer hover:bg-slate-100 hover:rotate-45 transition-all duration-300 group flex items-center justify-center">
+         <Settings className="w-5 h-5 text-gray-500 group-hover:text-gray-800 transition-colors" />
       </div>
+
+      {/* Measurement Segmented Control */}
+      <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-full p-[3px] shadow-inner relative">
+        {["SI", "FPS"].map((val) => {
+          const isActive = settings.measurement === val;
+          return (
+            <button
+              key={val}
+              onClick={() => handleUnitChange(val as MeasurementSystem)}
+              className={`relative px-3 py-1.5 text-xs font-semibold tracking-wide uppercase transition-all duration-300 ease-in-out z-10 w-[70px] flex items-center justify-center rounded-full ${
+                isActive ? "text-slate-900 dark:text-slate-900" : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+              }`}
+            >
+              {isActive && (
+                <motion.div
+                  layoutId="unit-active-bg"
+                  className="absolute inset-0 bg-white shadow-sm rounded-full -z-10 border border-slate-200/50"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
+              {val === "SI" ? "M/MM" : "FT/IN"}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Soft Divider */}
+      <div className="hidden sm:block w-[1px] h-6 bg-gray-200 dark:bg-slate-700" />
+
+      {/* Currency Segmented Control */}
+      <div className="flex items-center bg-slate-100 dark:bg-slate-800 rounded-full p-[3px] shadow-inner relative">
+        {["PKR", "USD", "SAR", "INR"].map((val) => {
+          const isActive = settings.currency === val;
+          return (
+            <button
+              key={val}
+              onClick={() => handleCurrencyChange(val as Currency)}
+              className={`relative px-3 py-1.5 text-xs font-semibold tracking-wide uppercase transition-all duration-300 ease-in-out z-10 w-[60px] flex items-center justify-center rounded-full ${
+                isActive ? "text-slate-900 dark:text-slate-900" : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+              }`}
+            >
+              {isActive && (
+                <motion.div
+                  layoutId="currency-active-bg"
+                  className="absolute inset-0 bg-white shadow-sm rounded-full -z-10 border border-slate-200/50"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
+              {val}
+            </button>
+          );
+        })}
+      </div>
+
     </div>
   );
 }

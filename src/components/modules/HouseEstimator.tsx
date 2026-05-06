@@ -13,8 +13,7 @@ import MasterQuantityEstimator from './MasterQuantityEstimator';
 type GeometryState = {
   plotSizeUnit: 'marla' | 'sqyd' | 'sqft';
   plotSizeValue: string;
-  coveredAreaUnit: 'pct' | 'sqft' | 'sqm' | 'sqyd' | 'rooms';
-  coveredAreaValue: string;
+  coveredAreaSqft: string;
   roomHeight: string;
   stories: number;
   rooms: {
@@ -35,8 +34,7 @@ type GeometryState = {
 type GeometryAction =
   | { type: 'SET_PLOT_SIZE_UNIT'; payload: 'marla' | 'sqyd' | 'sqft' }
   | { type: 'SET_PLOT_SIZE_VALUE'; payload: string }
-  | { type: 'SET_COVERED_AREA_UNIT'; payload: 'pct' | 'sqft' | 'sqm' | 'sqyd' | 'rooms' }
-  | { type: 'SET_COVERED_AREA_VALUE'; payload: string }
+  | { type: 'SET_COVERED_AREA_SQFT'; payload: string }
   | { type: 'SET_ROOM_HEIGHT'; payload: string }
   | { type: 'SET_STORIES'; payload: number }
   | { type: 'SET_ROOMS'; payload: Partial<GeometryState['rooms']> }
@@ -48,8 +46,7 @@ type GeometryAction =
 const initialGeometry: GeometryState = {
   plotSizeUnit: 'marla',
   plotSizeValue: '5',
-  coveredAreaUnit: 'pct',
-  coveredAreaValue: '80',
+  coveredAreaSqft: '900',
   roomHeight: '10.5',
   stories: 2,
   rooms: {
@@ -71,8 +68,7 @@ function geometryReducer(state: GeometryState, action: GeometryAction): Geometry
   switch (action.type) {
     case 'SET_PLOT_SIZE_UNIT': return { ...state, plotSizeUnit: action.payload };
     case 'SET_PLOT_SIZE_VALUE': return { ...state, plotSizeValue: action.payload };
-    case 'SET_COVERED_AREA_UNIT': return { ...state, coveredAreaUnit: action.payload };
-    case 'SET_COVERED_AREA_VALUE': return { ...state, coveredAreaValue: action.payload };
+    case 'SET_COVERED_AREA_SQFT': return { ...state, coveredAreaSqft: action.payload };
     case 'SET_ROOM_HEIGHT': return { ...state, roomHeight: action.payload };
     case 'SET_STORIES': return { ...state, stories: action.payload };
     case 'SET_ROOMS': return { ...state, rooms: { ...state.rooms, ...action.payload } };
@@ -111,29 +107,8 @@ export default function HouseEstimator() {
   }, [geoState.plotSizeUnit, geoState.plotSizeValue]);
 
   const coveredAreaSqft = useMemo(() => {
-    if (geoState.coveredAreaUnit === 'pct') {
-      const pct = parseFloat(geoState.coveredAreaValue) || 0;
-      return plotAreaSqft * (pct / 100);
-    } else if (geoState.coveredAreaUnit === 'rooms') {
-      let multiplier = 1;
-      if (geoState.roomAreaUnit === 'sqm') multiplier = 10.7639;
-      if (geoState.roomAreaUnit === 'sqyd') multiplier = 9;
-      
-      // Sum the areas of all rooms, and add 25% for circulation (corridors, walls, stairs)
-      const sum = (geoState.rooms.bedrooms * (parseFloat(geoState.roomAreas.bedrooms) || 0)) +
-                  (geoState.rooms.washrooms * (parseFloat(geoState.roomAreas.washrooms) || 0)) +
-                  (geoState.rooms.kitchens * (parseFloat(geoState.roomAreas.kitchens) || 0)) +
-                  (geoState.rooms.drawingDining * (parseFloat(geoState.roomAreas.drawingDining) || 0));
-      // Return total covered area per floor roughly (assuming rooms are spread across stories, returning total but then divided by stories as this represents floor area, wait: builtUpArea is coveredAreaSqft * stories).
-      // Let's divide by stories to get the average footprint per floor.
-      return Math.max(0, (sum * multiplier * 1.25) / geoState.stories);
-    }
-    const val = parseFloat(geoState.coveredAreaValue) || 0;
-    if (geoState.coveredAreaUnit === 'sqm') return val * 10.7639;
-    if (geoState.coveredAreaUnit === 'sqyd') return val * 9;
-    
-    return val;
-  }, [geoState.coveredAreaUnit, geoState.coveredAreaValue, geoState.rooms, geoState.roomAreas, geoState.roomAreaUnit, geoState.stories, plotAreaSqft]);
+    return parseFloat(geoState.coveredAreaSqft) || 0;
+  }, [geoState.coveredAreaSqft]);
 
   const builtUpArea = coveredAreaSqft * geoState.stories;
 
@@ -374,10 +349,7 @@ export default function HouseEstimator() {
                   <div className="flex justify-between items-center text-sm">
                     <span className="font-bold text-slate-500">Covered Area</span>
                     <span className="font-bold text-slate-800">
-                      {geoState.coveredAreaUnit === 'rooms' 
-                        ? `${coveredAreaSqft.toFixed(0)} Sq.Ft/fl` 
-                        : `${geoState.coveredAreaValue} ${geoState.coveredAreaUnit === 'pct' ? '%' : geoState.coveredAreaUnit === 'sqm' ? 'Sq.M' : geoState.coveredAreaUnit === 'sqyd' ? 'Sq.Yd' : 'Sq.Ft'}/fl`
-                      }
+                      {geoState.coveredAreaSqft} Sq.Ft/fl
                     </span>
                   </div>
                   <div className="flex justify-between items-center text-sm">
@@ -393,35 +365,89 @@ export default function HouseEstimator() {
               {/* Detailed View (when open) */}
               {isAccordionOpen && (
                 <div className="space-y-6 animate-in slide-in-from-top-4 fade-in duration-300">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Plot Size</label>
-                      <input type="number" value={geoState.plotSizeValue} onChange={(e) => dispatch({ type: 'SET_PLOT_SIZE_VALUE', payload: e.target.value })} className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Unit</label>
-                      <select value={geoState.plotSizeUnit} onChange={(e) => dispatch({ type: 'SET_PLOT_SIZE_UNIT', payload: e.target.value as any })} className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium appearance-none">
-                        <option value="marla">Marla</option>
-                        <option value="sqyd">Sq.Yd</option>
-                        <option value="sqft">Sq.Ft</option>
-                      </select>
-                    </div>
-                  </div>
+                  <div className="bg-slate-50/50 p-5 sm:p-6 rounded-[1.5rem] border border-slate-100 space-y-6">
+                    <h3 className="text-sm font-bold text-slate-800">Area Specifications</h3>
+                    
+                    <div className="space-y-5">
+                      {/* Total Area */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Total Area</label>
+                        <div className="flex gap-2">
+                          <input 
+                            type="number" 
+                            value={geoState.plotSizeValue} 
+                            onChange={(e) => dispatch({ type: 'SET_PLOT_SIZE_VALUE', payload: e.target.value })} 
+                            className="flex-1 bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all font-medium shadow-sm" 
+                            placeholder="0"
+                          />
+                          <select 
+                            value={geoState.plotSizeUnit} 
+                            onChange={(e) => dispatch({ type: 'SET_PLOT_SIZE_UNIT', payload: e.target.value as any })} 
+                            className="w-[100px] sm:w-[110px] bg-white border border-slate-200 text-slate-700 rounded-full px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all font-medium appearance-none shadow-sm cursor-pointer"
+                          >
+                            <option value="marla">Marla</option>
+                            <option value="sqyd">Sq.Yd</option>
+                            <option value="sqft">Sq.Ft</option>
+                          </select>
+                        </div>
+                        <p className="text-[11px] text-slate-400 mt-1.5 ml-2">Total plot size ({plotAreaSqft.toFixed(0)} Sq.Ft)</p>
+                      </div>
 
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className={geoState.coveredAreaUnit === 'rooms' ? 'opacity-50 pointer-events-none' : ''}>
-                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Covered / Floor</label>
-                      <input type="number" value={geoState.coveredAreaValue} onChange={(e) => dispatch({ type: 'SET_COVERED_AREA_VALUE', payload: e.target.value })} disabled={geoState.coveredAreaUnit === 'rooms'} className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium disabled:bg-slate-100 disabled:text-slate-400" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Area Type</label>
-                      <select value={geoState.coveredAreaUnit} onChange={(e) => dispatch({ type: 'SET_COVERED_AREA_UNIT', payload: e.target.value as any })} className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium appearance-none">
-                        <option value="pct">% of Plot</option>
-                        <option value="sqft">Fixed Sq.Ft</option>
-                        <option value="sqm">Fixed Sq.M</option>
-                        <option value="sqyd">Fixed Sq.Yd</option>
-                        <option value="rooms">From Rooms</option>
-                      </select>
+                      {/* Covered Area */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Covered Area</label>
+                        <div className="relative">
+                          <input 
+                            type="number" 
+                            value={geoState.coveredAreaSqft} 
+                            onChange={(e) => dispatch({ type: 'SET_COVERED_AREA_SQFT', payload: e.target.value })} 
+                            className="w-full bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all font-medium shadow-sm" 
+                            placeholder="0"
+                          />
+                          <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">SQ.FT</span>
+                        </div>
+                        <p className="text-[11px] text-slate-400 mt-1.5 ml-2">Constructed area per floor</p>
+                      </div>
+
+                      {/* Open Area */}
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Open Area</label>
+                        <div className="relative">
+                          <input 
+                            type="number" 
+                            value={Math.max(0, plotAreaSqft - (parseFloat(geoState.coveredAreaSqft) || 0))} 
+                            onChange={(e) => {
+                              const open = parseFloat(e.target.value) || 0;
+                              const covered = Math.max(0, plotAreaSqft - open);
+                              dispatch({ type: 'SET_COVERED_AREA_SQFT', payload: covered.toString() });
+                            }} 
+                            className="w-full bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all font-medium shadow-sm" 
+                            placeholder="0"
+                          />
+                          <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">SQ.FT</span>
+                        </div>
+                        <p className="text-[11px] text-slate-400 mt-1.5 ml-2">Unbuilt space (Total - Covered)</p>
+                      </div>
+
+                      {/* Visual Indicator */}
+                      <div className="pt-2 px-1">
+                        <div className="flex justify-between items-end mb-2">
+                          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Proportion Ratio</span>
+                          <span className="text-[10px] font-bold text-blue-600">
+                            {plotAreaSqft > 0 ? (((parseFloat(geoState.coveredAreaSqft) || 0) / plotAreaSqft) * 100).toFixed(0) : 0}% Covered
+                          </span>
+                        </div>
+                        <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden flex shadow-inner">
+                          <div 
+                            className="h-full bg-blue-500 transition-all duration-500 ease-out" 
+                            style={{ width: `${plotAreaSqft > 0 ? Math.min(100, Math.max(0, ((parseFloat(geoState.coveredAreaSqft) || 0) / plotAreaSqft) * 100)) : 0}%` }}
+                          />
+                          <div 
+                            className="h-full bg-slate-200 transition-all duration-500 ease-out" 
+                            style={{ width: `${plotAreaSqft > 0 ? Math.max(0, 100 - (((parseFloat(geoState.coveredAreaSqft) || 0) / plotAreaSqft) * 100)) : 100}%` }}
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -613,19 +639,27 @@ export default function HouseEstimator() {
                   </table>
                 </div>
 
-                <div className="flex items-center justify-between mt-auto">
+                <div className="flex flex-col sm:flex-row items-center justify-between mt-auto gap-4 pt-4 border-t border-slate-100">
                   <button 
                     onClick={resetCustomRates}
-                    className="flex items-center gap-2 text-slate-500 font-bold hover:text-slate-800 px-4 py-2 rounded-xl hover:bg-slate-100 transition-colors"
+                    className="flex items-center gap-2 text-slate-500 font-bold hover:text-slate-800 px-4 py-2 rounded-xl hover:bg-slate-100 transition-colors w-full sm:w-auto justify-center"
                   >
                     <RotateCcw className="w-4 h-4" /> Reset Defaults
                   </button>
-                  <button 
-                    onClick={() => setShowResults(true)}
-                    className="flex items-center gap-2 bg-indigo-600 text-white font-bold px-8 py-3.5 rounded-xl hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-500/30 transition-all active:scale-95"
-                  >
-                    Generate Estimate <ArrowRight className="w-5 h-5" />
-                  </button>
+                  <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+                    <button 
+                      onClick={() => setShowResults(true)}
+                      className="w-full sm:w-auto flex items-center justify-center gap-2 bg-emerald-50 text-emerald-600 font-bold px-8 py-3.5 rounded-xl hover:bg-emerald-100 transition-all active:scale-95"
+                    >
+                      UPDATE RATES
+                    </button>
+                    <button 
+                      onClick={() => setShowResults(true)}
+                      className="w-full sm:w-auto flex items-center justify-center gap-2 bg-indigo-600 text-white font-bold px-8 py-3.5 rounded-xl hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-500/30 transition-all active:scale-95"
+                    >
+                      Generate Estimate <ArrowRight className="w-5 h-5" />
+                    </button>
+                  </div>
                 </div>
               </div>
             ) : (
