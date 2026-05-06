@@ -64,14 +64,6 @@ export default function App() {
   }, [activeModule]);
 
   const handleSelectModule = (id: ModuleId) => {
-    const protectedModules = ["takeoff", "calculators", "rates", "master-quantity"];
-    
-    if (!user && protectedModules.includes(id)) {
-      setIsSidebarOpen(false);
-      setIsAuthOpen(true);
-      return;
-    }
-    
     setActiveModule(id);
     setIsSidebarOpen(false);
   };
