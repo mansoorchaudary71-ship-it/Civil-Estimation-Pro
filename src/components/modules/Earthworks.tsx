@@ -216,10 +216,16 @@ export default function EarthworksEstimator() {
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">{settings.currency}</span>
                     <input 
-                      type="number" 
+                      type="number"
+                      min="0"
+                      step="any"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-shadow"
                       value={excavationRate}
-                      onChange={e => setExcavationRate(e.target.value)}
+                      onChange={e => {
+                        const val = parseFloat(e.target.value);
+                        if (!isNaN(val) && val < 0) return;
+                        setExcavationRate(e.target.value);
+                      }}
                     />
                   </div>
                 </div>
@@ -228,10 +234,16 @@ export default function EarthworksEstimator() {
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">{settings.currency}</span>
                     <input 
-                      type="number" 
+                      type="number"
+                      min="0"
+                      step="any"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-shadow"
                       value={compactionRate}
-                      onChange={e => setCompactionRate(e.target.value)}
+                      onChange={e => {
+                        const val = parseFloat(e.target.value);
+                        if (!isNaN(val) && val < 0) return;
+                        setCompactionRate(e.target.value);
+                      }}
                     />
                   </div>
                 </div>
@@ -240,10 +252,16 @@ export default function EarthworksEstimator() {
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">{settings.currency}</span>
                     <input 
-                      type="number" 
+                      type="number"
+                      min="0"
+                      step="any"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-shadow"
                       value={haulingRate}
-                      onChange={e => setHaulingRate(e.target.value)}
+                      onChange={e => {
+                        const val = parseFloat(e.target.value);
+                        if (!isNaN(val) && val < 0) return;
+                        setHaulingRate(e.target.value);
+                      }}
                     />
                   </div>
                 </div>

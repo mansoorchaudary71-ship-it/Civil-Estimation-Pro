@@ -591,15 +591,21 @@ export default function HouseEstimator() {
                               <span className="absolute left-3 text-slate-400 font-bold mb-0.5">{settings.currency === 'PKR' ? 'Rs' : '$'}</span>
                               <input 
                                 type="number"
+                                min="0"
+                                step="any"
                                 className={`w-full bg-white border ${customRates[item.key] !== undefined ? 'border-indigo-300 ring-2 ring-indigo-500/20 text-indigo-700 font-bold' : 'border-slate-200 text-slate-800'} rounded-xl py-2 pl-10 pr-3 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 transition-all`}
                                 placeholder="Default"
                                 value={customRates[item.key] !== undefined ? (item.key === 'bricks' ? customRates[item.key]! * 1000 : customRates[item.key]) : ''}
                                 onChange={(e) => {
                                   const val = e.target.value ? parseFloat(e.target.value) : null;
+                                  if (val !== null && val < 0) return; // Prevent negative inputs
                                   setCustomRate(item.key, val !== null && item.key === 'bricks' ? val / 1000 : val);
                                 }}
                               />
                             </div>
+                            {customRates[item.key] !== undefined && (
+                              <div className="text-[10px] text-indigo-500 font-medium mt-1 ml-1 truncate">Custom rate active</div>
+                            )}
                           </td>
                         </tr>
                       ))}

@@ -647,43 +647,71 @@ export default function ConstructionMaterialEstimator() {
                           {currentCartItem.cementBags > 0 && (
                             <div className="col-span-2 sm:col-span-1">
                                <label className="text-slate-400 mb-1 block">Cement (per bag)</label>
-                               <input type="number" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.cement} onChange={e => setRates({...rates, cement: parseFloat(e.target.value) || 0})} />
+                               <input type="number" min="0" step="any" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.cement} onChange={e => {
+                                 const val = parseFloat(e.target.value);
+                                 if (!isNaN(val) && val < 0) return;
+                                 setRates({...rates, cement: isNaN(val) ? 0 : val});
+                               }} />
                             </div>
                           )}
                           {currentCartItem.sandVol > 0 && (
                             <div className="col-span-2 sm:col-span-1">
                                <label className="text-slate-400 mb-1 block">Sand (per {currentCartItem.unitVol})</label>
-                               <input type="number" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.sand} onChange={e => setRates({...rates, sand: parseFloat(e.target.value) || 0})} />
+                               <input type="number" min="0" step="any" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.sand} onChange={e => {
+                                 const val = parseFloat(e.target.value);
+                                 if (!isNaN(val) && val < 0) return;
+                                 setRates({...rates, sand: isNaN(val) ? 0 : val});
+                               }} />
                             </div>
                           )}
                           {(currentCartItem.aggregateVol || 0) > 0 && (
                             <div className="col-span-2 sm:col-span-1">
                                <label className="text-slate-400 mb-1 block">Aggregate (per {currentCartItem.unitVol})</label>
-                               <input type="number" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.aggregate} onChange={e => setRates({...rates, aggregate: parseFloat(e.target.value) || 0})} />
+                               <input type="number" min="0" step="any" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.aggregate} onChange={e => {
+                                 const val = parseFloat(e.target.value);
+                                 if (!isNaN(val) && val < 0) return;
+                                 setRates({...rates, aggregate: isNaN(val) ? 0 : val});
+                               }} />
                             </div>
                           )}
                           {currentCartItem.steelKg !== undefined && currentCartItem.steelKg > 0 && (
                             <div className="col-span-2 sm:col-span-1">
                                <label className="text-slate-400 mb-1 block">Steel (per kg)</label>
-                               <input type="number" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.steel} onChange={e => setRates({...rates, steel: parseFloat(e.target.value) || 0})} />
+                               <input type="number" min="0" step="any" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.steel} onChange={e => {
+                                 const val = parseFloat(e.target.value);
+                                 if (!isNaN(val) && val < 0) return;
+                                 setRates({...rates, steel: isNaN(val) ? 0 : val});
+                               }} />
                             </div>
                           )}
                           {currentCartItem.bricksCount !== undefined && currentCartItem.bricksCount > 0 && (
                             <div className="col-span-2 sm:col-span-1">
                                <label className="text-slate-400 mb-1 block">Bricks (per unit)</label>
-                               <input type="number" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.bricks} onChange={e => setRates({...rates, bricks: parseFloat(e.target.value) || 0})} />
+                               <input type="number" min="0" step="any" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.bricks} onChange={e => {
+                                 const val = parseFloat(e.target.value);
+                                 if (!isNaN(val) && val < 0) return;
+                                 setRates({...rates, bricks: isNaN(val) ? 0 : val});
+                               }} />
                             </div>
                           )}
                           {currentCartItem.blocksCount !== undefined && currentCartItem.blocksCount > 0 && (
                             <div className="col-span-2 sm:col-span-1">
                                <label className="text-slate-400 mb-1 block">Blocks (per unit)</label>
-                               <input type="number" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.blocks} onChange={e => setRates({...rates, blocks: parseFloat(e.target.value) || 0})} />
+                               <input type="number" min="0" step="any" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.blocks} onChange={e => {
+                                 const val = parseFloat(e.target.value);
+                                 if (!isNaN(val) && val < 0) return;
+                                 setRates({...rates, blocks: isNaN(val) ? 0 : val});
+                               }} />
                             </div>
                           )}
                           {currentCartItem.waterLiters > 0 && (
                             <div className="col-span-2 sm:col-span-1">
                                <label className="text-slate-400 mb-1 block">Water (per L)</label>
-                               <input type="number" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.water} onChange={e => setRates({...rates, water: parseFloat(e.target.value) || 0})} />
+                               <input type="number" min="0" step="any" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white font-mono" value={rates.water} onChange={e => {
+                                 const val = parseFloat(e.target.value);
+                                 if (!isNaN(val) && val < 0) return;
+                                 setRates({...rates, water: isNaN(val) ? 0 : val});
+                               }} />
                             </div>
                           )}
                        </div>

@@ -335,19 +335,31 @@ export default function RoadEstimator() {
                 <div>
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Prime Coat</label>
                   <input 
-                    type="number" 
+                    type="number"
+                    min="0"
+                    step="any"
                     className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow"
                     value={primeRateInput}
-                    onChange={e => setPrimeRateInput(e.target.value)}
+                    onChange={e => {
+                      const val = parseFloat(e.target.value);
+                      if (!isNaN(val) && val < 0) return;
+                      setPrimeRateInput(e.target.value);
+                    }}
                   />
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Tack Coat</label>
                   <input 
-                    type="number" 
+                    type="number"
+                    min="0"
+                    step="any"
                     className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow"
                     value={tackRateInput}
-                    onChange={e => setTackRateInput(e.target.value)}
+                    onChange={e => {
+                      const val = parseFloat(e.target.value);
+                      if (!isNaN(val) && val < 0) return;
+                      setTackRateInput(e.target.value);
+                    }}
                   />
                 </div>
               </div>
@@ -365,49 +377,85 @@ export default function RoadEstimator() {
                   <div>
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Sub-Grade /{isPKR?"CFT":"m³"}</label>
                     <input 
-                      type="number" 
+                      type="number"
+                      min="0"
+                      step="any"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
-                      value={rateSg} onChange={e => setRateSg(e.target.value)}
+                      value={rateSg} onChange={e => {
+                        const val = parseFloat(e.target.value);
+                        if (!isNaN(val) && val < 0) return;
+                        setRateSg(e.target.value);
+                      }}
                     />
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Sub-Base /{isPKR?"CFT":"m³"}</label>
                     <input 
-                      type="number" 
+                      type="number"
+                      min="0"
+                      step="any"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
-                      value={rateSb} onChange={e => setRateSb(e.target.value)}
+                      value={rateSb} onChange={e => {
+                        const val = parseFloat(e.target.value);
+                        if (!isNaN(val) && val < 0) return;
+                        setRateSb(e.target.value);
+                      }}
                     />
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">WBM /{isPKR?"CFT":"m³"}</label>
                     <input 
-                      type="number" 
+                      type="number"
+                      min="0"
+                      step="any"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
-                      value={rateWbm} onChange={e => setRateWbm(e.target.value)}
+                      value={rateWbm} onChange={e => {
+                        const val = parseFloat(e.target.value);
+                        if (!isNaN(val) && val < 0) return;
+                        setRateWbm(e.target.value);
+                      }}
                     />
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Asphalt /Ton</label>
                     <input 
-                      type="number" 
+                      type="number"
+                      min="0"
+                      step="any"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
-                      value={rateAsp} onChange={e => setRateAsp(e.target.value)}
+                      value={rateAsp} onChange={e => {
+                        const val = parseFloat(e.target.value);
+                        if (!isNaN(val) && val < 0) return;
+                        setRateAsp(e.target.value);
+                      }}
                     />
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Prime /Ton</label>
                     <input 
-                      type="number" 
+                      type="number"
+                      min="0"
+                      step="any"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
-                      value={ratePrime} onChange={e => setRatePrime(e.target.value)}
+                      value={ratePrime} onChange={e => {
+                        const val = parseFloat(e.target.value);
+                        if (!isNaN(val) && val < 0) return;
+                        setRatePrime(e.target.value);
+                      }}
                     />
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Tack /Ton</label>
                     <input 
-                      type="number" 
+                      type="number"
+                      min="0"
+                      step="any"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
-                      value={rateTack} onChange={e => setRateTack(e.target.value)}
+                      value={rateTack} onChange={e => {
+                        const val = parseFloat(e.target.value);
+                        if (!isNaN(val) && val < 0) return;
+                        setRateTack(e.target.value);
+                      }}
                     />
                   </div>
                 </div>

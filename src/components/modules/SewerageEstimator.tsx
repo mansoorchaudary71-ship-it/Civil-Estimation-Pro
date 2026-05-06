@@ -759,15 +759,27 @@ export default function SewerageEstimator() {
                    <div className="space-y-4 h-fit">
                       <div>
                         <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Number of Users</label>
-                        <input type="number" className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50" value={septicUsers} onChange={e => setSepticUsers(e.target.value)} />
+                        <input type="number" min="0" className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50" value={septicUsers} onChange={e => {
+                          const val = parseFloat(e.target.value);
+                          if (!isNaN(val) && val < 0) return;
+                          setSepticUsers(e.target.value);
+                        }} />
                       </div>
                       <div>
                         <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Per Capita Water Demand (L/day)</label>
-                        <input type="number" className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50" value={septicDemand} onChange={e => setSepticDemand(e.target.value)} />
+                        <input type="number" min="0" className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50" value={septicDemand} onChange={e => {
+                          const val = parseFloat(e.target.value);
+                          if (!isNaN(val) && val < 0) return;
+                          setSepticDemand(e.target.value);
+                        }} />
                       </div>
                       <div>
                         <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Soil Percolation Rate (L/m²/day)</label>
-                        <input type="number" className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50" value={septicPercolation} onChange={e => setSepticPercolation(e.target.value)} />
+                        <input type="number" min="0" step="any" className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50" value={septicPercolation} onChange={e => {
+                          const val = parseFloat(e.target.value);
+                          if (!isNaN(val) && val < 0) return;
+                          setSepticPercolation(e.target.value);
+                        }} />
                       </div>
                    </div>
                    <div className="bg-emerald-50 p-6 rounded-2xl border border-emerald-100 flex flex-col justify-center space-y-4">

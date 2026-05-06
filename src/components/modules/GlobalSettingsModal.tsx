@@ -61,14 +61,22 @@ export default function GlobalSettingsModal({ isOpen, onClose }: GlobalSettingsM
         <span className="font-semibold text-slate-800 dark:text-slate-200">{label}</span>
         <span className="text-xs text-slate-500 dark:text-slate-400">per {unit}</span>
       </div>
-      <div className="relative flex items-center w-full sm:w-48">
-        <span className="absolute left-3 text-slate-400 font-medium text-sm">{currencySymbol}</span>
-        <input 
-          type="number"
-          value={value || ''}
-          onChange={(e) => handleChange(onChangeKey, e.target.value)}
-          className="w-full pl-9 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 text-slate-800 dark:text-white font-medium transition-shadow"
-        />
+      <div className="relative flex flex-col w-full sm:w-48">
+        <div className="relative flex items-center w-full">
+          <span className="absolute left-3 text-slate-400 font-medium text-sm">{currencySymbol}</span>
+          <input 
+            type="number"
+            min="0"
+            step="any"
+            value={value || ''}
+            onChange={(e) => {
+               const val = parseFloat(e.target.value);
+               if (!isNaN(val) && val < 0) return;
+               handleChange(onChangeKey, e.target.value);
+            }}
+            className="w-full pl-9 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 text-slate-800 dark:text-white font-medium transition-shadow"
+          />
+        </div>
       </div>
     </div>
   );

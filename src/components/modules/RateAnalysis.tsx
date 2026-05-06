@@ -217,20 +217,31 @@ export default function RateAnalysis() {
 }
 
 function InputCard({ label, value, unit, onChange }: { label: string, value: number, unit: string, onChange: (v: string) => void }) {
+  const symbol = unit === 'PKR' ? 'Rs' : (unit === 'USD' ? '$' : unit);
   return (
     <div className="group bg-gray-50/50 hover:bg-white border border-gray-100 hover:border-emerald-200 p-4 rounded-2xl transition-all shadow-sm hover:shadow-md flex flex-col justify-between">
-       <label className="text-xs font-bold text-gray-500 tracking-wide mb-3 block">{label}</label>
-       <div className="flex items-center gap-2">
-         <div className="relative flex-1">
-           <input 
-             type="number"
-             className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-lg font-bold text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 pl-8 transition-shadow"
-             value={value}
-             onChange={(e) => onChange(e.target.value)}
-           />
-           <DollarSign className="w-4 h-4 text-emerald-500 absolute left-3 top-1/2 -translate-y-1/2 opacity-70" />
+       <div className="flex justify-between items-center mb-3">
+         <label className="text-xs font-bold text-gray-500 tracking-wide">{label}</label>
+       </div>
+       <div className="flex flex-col gap-1">
+         <div className="flex items-center gap-2">
+           <div className="relative flex-1">
+             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold mb-0.5 pointer-events-none">{symbol}</span>
+             <input 
+               type="number"
+               min="0"
+               step="any"
+               className={`w-full bg-white border border-gray-200 rounded-xl py-2.5 text-lg font-bold text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 transition-shadow ${symbol.length > 1 ? 'pl-10' : 'pl-7'}`}
+               value={value}
+               onChange={(e) => {
+                 const num = parseFloat(e.target.value);
+                 if (!isNaN(num) && num < 0) return;
+                 onChange(e.target.value);
+               }}
+             />
+           </div>
+           <span className="text-xs font-bold text-gray-400 uppercase w-10 text-right">{unit}</span>
          </div>
-         <span className="text-xs font-bold text-gray-400 uppercase w-10 text-right">{unit}</span>
        </div>
     </div>
   );
