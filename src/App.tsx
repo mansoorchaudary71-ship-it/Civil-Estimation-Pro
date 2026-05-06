@@ -25,6 +25,9 @@ import MetalWeightCalculator from "./components/modules/MetalWeightCalculator";
 import RccStructureCalculator from "./components/modules/RccStructureCalculator";
 import MasterQuantityEstimator from "./components/modules/MasterQuantityEstimator";
 import SettingsModal from "./components/modules/SettingsModal";
+import AuthModal from "./components/auth/AuthModal";
+import ProfileSettings from "./components/auth/ProfileSettings";
+import { useAuth } from "./contexts/AuthContext";
 
 import { TakeoffProvider } from "./context/TakeoffContext";
 import { MarketRatesProvider } from "./context/MarketRatesContext";
@@ -48,13 +51,30 @@ export default function App() {
   const [activeModule, setActiveModule] = useState<ModuleId>("home");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  
+  const { user, logOut } = useAuth();
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTo(0, 0);
     }
   }, [activeModule]);
+
+  const handleSelectModule = (id: ModuleId) => {
+    const protectedModules = ["takeoff", "calculators", "rates", "master-quantity"];
+    
+    if (!user && protectedModules.includes(id)) {
+      setIsSidebarOpen(false);
+      setIsAuthOpen(true);
+      return;
+    }
+    
+    setActiveModule(id);
+    setIsSidebarOpen(false);
+  };
 
   return (
     <SettingsProvider>
@@ -65,57 +85,62 @@ export default function App() {
         
         <Sidebar 
           activeModule={activeModule} 
-          onSelectModule={(id) => {
-            setActiveModule(id);
-            setIsSidebarOpen(false);
-          }} 
+          onSelectModule={handleSelectModule} 
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
+          onOpenAuth={() => { setIsSidebarOpen(false); setIsAuthOpen(true); }}
+          onOpenProfile={() => { setIsSidebarOpen(false); setIsProfileOpen(true); }}
         />
 
         <main className="flex-1 flex flex-col bg-[#f2f2f7] dark:bg-slate-950 overflow-hidden relative w-full h-full transition-colors duration-300">
           {["home", "about", "careers", "contact", "blog"].includes(activeModule) ? (
             <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-y-auto pb-24 md:pb-0">
-              <TopNavbar onOpenSidebar={() => setIsSidebarOpen(true)} />
-              {activeModule === "home" && <Dashboard onSelectModule={setActiveModule} onOpenSidebar={() => setIsSidebarOpen(true)} onOpenSettings={() => setIsSettingsOpen(true)} />}
+              <TopNavbar 
+                onOpenSidebar={() => setIsSidebarOpen(true)} 
+                onOpenAuth={() => setIsAuthOpen(true)}
+                onOpenProfile={() => setIsProfileOpen(true)}
+              />
+              {activeModule === "home" && <Dashboard onSelectModule={handleSelectModule} onOpenSidebar={() => setIsSidebarOpen(true)} onOpenSettings={() => setIsSettingsOpen(true)} />}
               {activeModule === "about" && <div className="p-8 pt-12"><AboutUs /></div>}
               {activeModule === "careers" && <div className="p-8 pt-12"><Careers /></div>}
               {activeModule === "contact" && <div className="p-8 pt-12"><Contact /></div>}
               {activeModule === "blog" && <div className="p-8 pt-12"><Blog /></div>}
-              <Footer onNavigate={setActiveModule} />
+              <Footer onNavigate={handleSelectModule} />
             </div>
           ) : (
             <div className="flex-1 flex flex-col min-h-0 relative w-full">
-              {activeModule === "takeoff" && <ModuleWrapper title="2D Takeoff" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><Takeoff /></ModuleWrapper>}
-              {activeModule === "area-calculator" && <ModuleWrapper title="Area Calculator" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AreaCalculator /></ModuleWrapper>}
-              {activeModule === "volume-estimator" && <ModuleWrapper title="Volume Estimator" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSettingsOpen} setIsSettingsOpen={setIsSettingsOpen}><VolumeEstimator /></ModuleWrapper>}
-              {activeModule === "unit-converter" && <ModuleWrapper title="Universal Unit Converter" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><UnitConverter /></ModuleWrapper>}
-              {activeModule === "metal-weight" && <ModuleWrapper title="Metal Weight Calculator" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MetalWeightCalculator /></ModuleWrapper>}
-              {activeModule === "rcc-calculator" && <ModuleWrapper title="RCC Structure Calculator" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RccStructureCalculator /></ModuleWrapper>}
-              {activeModule === "master-quantity" && <ModuleWrapper title="Master Quantity Estimator" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MasterQuantityEstimator /></ModuleWrapper>}
-              {activeModule === "calculators" && <ModuleWrapper title="Construction Material Estimator" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><Calculators /></ModuleWrapper>}
-              {activeModule === "ai" && <ModuleWrapper title="AI Assistant" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AIAssistant /></ModuleWrapper>}
-              {activeModule === "earthworks" && <ModuleWrapper title="Earthworks" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><EarthworksEstimator /></ModuleWrapper>}
-              {activeModule === "gridEarthwork" && <ModuleWrapper title="Grid Method Earthwork" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><GridEarthworkEstimator /></ModuleWrapper>}
-              {activeModule === "trench" && <ModuleWrapper title="Trench Excavation" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><TrenchExcavationEstimator /></ModuleWrapper>}
-              {activeModule === "chainage" && <ModuleWrapper title="Road Earthworks" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ChainageVolumeEstimator /></ModuleWrapper>}
-              {activeModule === "road" && <ModuleWrapper title="Road Estimator" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RoadEstimator /></ModuleWrapper>}
-              {activeModule === "rigid-pavement" && <ModuleWrapper title="Rigid Pavement Estimator" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RigidPavementEstimator /></ModuleWrapper>}
-              {activeModule === "sewerage" && <ModuleWrapper title="Sewerage" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><SewerageEstimator /></ModuleWrapper>}
-              {activeModule === "finishing" && <ModuleWrapper title="Finishing Works" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><FinishingEstimator /></ModuleWrapper>}
-              {activeModule === "house" && <ModuleWrapper title="House Estimator" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><HouseEstimator /></ModuleWrapper>}
-              {activeModule === "formwork" && <ModuleWrapper title="Formwork & Scaffold" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><FormworkEstimator /></ModuleWrapper>}
-              {activeModule === "rates" && <ModuleWrapper title="Market Rates" activeModule={activeModule} setActiveModule={setActiveModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RateAnalysis /></ModuleWrapper>}
+              {activeModule === "takeoff" && <ModuleWrapper title="2D Takeoff" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><Takeoff /></ModuleWrapper>}
+              {activeModule === "area-calculator" && <ModuleWrapper title="Area Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AreaCalculator /></ModuleWrapper>}
+              {activeModule === "volume-estimator" && <ModuleWrapper title="Volume Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSettingsOpen} setIsSettingsOpen={setIsSettingsOpen}><VolumeEstimator /></ModuleWrapper>}
+              {activeModule === "unit-converter" && <ModuleWrapper title="Universal Unit Converter" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><UnitConverter /></ModuleWrapper>}
+              {activeModule === "metal-weight" && <ModuleWrapper title="Metal Weight Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MetalWeightCalculator /></ModuleWrapper>}
+              {activeModule === "rcc-calculator" && <ModuleWrapper title="RCC Structure Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RccStructureCalculator /></ModuleWrapper>}
+              {activeModule === "master-quantity" && <ModuleWrapper title="Master Quantity Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MasterQuantityEstimator /></ModuleWrapper>}
+              {activeModule === "calculators" && <ModuleWrapper title="Construction Material Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><Calculators /></ModuleWrapper>}
+              {activeModule === "ai" && <ModuleWrapper title="AI Assistant" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AIAssistant /></ModuleWrapper>}
+              {activeModule === "earthworks" && <ModuleWrapper title="Earthworks" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><EarthworksEstimator /></ModuleWrapper>}
+              {activeModule === "gridEarthwork" && <ModuleWrapper title="Grid Method Earthwork" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><GridEarthworkEstimator /></ModuleWrapper>}
+              {activeModule === "trench" && <ModuleWrapper title="Trench Excavation" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><TrenchExcavationEstimator /></ModuleWrapper>}
+              {activeModule === "chainage" && <ModuleWrapper title="Road Earthworks" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ChainageVolumeEstimator /></ModuleWrapper>}
+              {activeModule === "road" && <ModuleWrapper title="Road Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RoadEstimator /></ModuleWrapper>}
+              {activeModule === "rigid-pavement" && <ModuleWrapper title="Rigid Pavement Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RigidPavementEstimator /></ModuleWrapper>}
+              {activeModule === "sewerage" && <ModuleWrapper title="Sewerage" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><SewerageEstimator /></ModuleWrapper>}
+              {activeModule === "finishing" && <ModuleWrapper title="Finishing Works" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><FinishingEstimator /></ModuleWrapper>}
+              {activeModule === "house" && <ModuleWrapper title="House Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><HouseEstimator /></ModuleWrapper>}
+              {activeModule === "formwork" && <ModuleWrapper title="Formwork & Scaffold" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><FormworkEstimator /></ModuleWrapper>}
+              {activeModule === "rates" && <ModuleWrapper title="Market Rates" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RateAnalysis /></ModuleWrapper>}
             </div>
           )}
           <BottomNavBar 
             activeModule={activeModule} 
-            onSelectModule={setActiveModule} 
+            onSelectModule={handleSelectModule} 
             onOpenProfile={() => setIsSidebarOpen(true)} 
           />
         </main>
 
         <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
+        <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
+        <ProfileSettings isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
       </div>
       </TakeoffProvider>
     </MarketRatesProvider>
@@ -199,14 +224,12 @@ function ModuleWrapper({
           <div className="w-full p-6 pb-24 md:pb-12 flex justify-center shrink-0">
             <button 
               onClick={() => setActiveModule("home")}
-              className="flex items-center gap-2.5 px-8 py-3.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white font-medium rounded-full shadow-[0_8px_20px_-6px_rgba(168,85,247,0.4)] hover:shadow-[0_12px_25px_-8px_rgba(168,85,247,0.5)] transition-all hover:-translate-y-0.5 active:scale-95 active:translate-y-0 group focus:outline-none focus:ring-4 focus:ring-purple-500/30"
+              className="group flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-full shadow-sm hover:shadow transition-all hover:-translate-y-0.5 active:scale-95 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-slate-400/20"
             >
-              <div className="bg-white/20 rounded-full p-1 group-hover:bg-white/30 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-0.5 transition-transform">
-                  <path d="m15 18-6-6 6-6"/>
-                </svg>
-              </div>
-              <span className="tracking-wide">Back to Dashboard</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 group-hover:-translate-x-0.5 transition-all">
+                <path d="m15 18-6-6 6-6"/>
+              </svg>
+              <span>Back to Dashboard</span>
             </button>
           </div>
         </div>

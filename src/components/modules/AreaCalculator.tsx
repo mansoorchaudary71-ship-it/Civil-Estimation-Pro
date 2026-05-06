@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Circle, Square, RectangleHorizontal, RectangleVertical, Triangle, PlaySquare, Component, Pill, Hexagon, Calculator } from "lucide-react";
+import { motion } from "motion/react";
 import ShareButtonWithPopup from "./ShareMenu";
 
 type Shape = "Circle" | "Square" | "Rectangle" | "Triangle" | "Trapezoid" | "Ellipse" | "RightTriangle" | "HorizontalCapsule" | "VerticalCapsule" | "Parallelogram" | "IrregularQuad";
@@ -247,8 +248,11 @@ export default function AreaCalculator() {
                   backgroundColor: isActive ? 'var(--theme-bg-light)' : undefined
                 } as React.CSSProperties}
               >
-                <div 
-                  className="flex items-center justify-center w-12 h-12 rounded-xl transition-transform duration-300 group-hover:scale-110"
+                <motion.div 
+                  className="flex items-center justify-center w-12 h-12 rounded-xl"
+                  animate={isActive ? { scale: [1, 1.15, 1], y: [0, -3, 0] } : { scale: 1, y: 0 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  whileHover={!isActive ? { scale: 1.1 } : {}}
                   style={{
                     backgroundColor: 'var(--theme-bg)',
                     color: 'var(--theme-color)',
@@ -256,8 +260,15 @@ export default function AreaCalculator() {
                   }}
                 >
                   <Icon className="w-7 h-7" strokeWidth={2} />
-                </div>
-                <span className={`text-[11px] font-extrabold text-center leading-tight tracking-wide ${isActive ? '' : 'text-slate-600 dark:text-slate-400 group-hover:[color:var(--theme-color-hover)]'}`} style={{ color: isActive ? 'var(--theme-color-hover)' : undefined }}>{s.label}</span>
+                </motion.div>
+                <motion.span 
+                  animate={isActive ? { scale: [1, 1.05, 1] } : { scale: 1 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className={`text-[11px] font-extrabold text-center leading-tight tracking-wide ${isActive ? '' : 'text-slate-600 dark:text-slate-400 group-hover:[color:var(--theme-color-hover)]'}`} 
+                  style={{ color: isActive ? 'var(--theme-color-hover)' : undefined }}
+                >
+                  {s.label}
+                </motion.span>
               </button>
             )
           })}
