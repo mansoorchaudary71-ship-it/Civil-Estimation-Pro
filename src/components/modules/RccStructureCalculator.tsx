@@ -9,6 +9,8 @@ type StructureType = "Simple Slab" | "One Way Slab" | "Two Way Slab" | "4 Bar Co
 export default function RccStructureCalculator({ isEmbedded = false }: { isEmbedded?: boolean }) {
   const { user } = useAuth();
   const [activeType, setActiveType] = useState<StructureType>("Simple Slab");
+  const [saveMessage, setSaveMessage] = useState<string>("");
+  const [isSaving, setIsSaving] = useState<boolean>(false);
 
   // Slab Inputs
   const [slabLength, setSlabLength] = useState<string>("5"); // m

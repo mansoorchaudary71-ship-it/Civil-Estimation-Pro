@@ -67,6 +67,8 @@ export default function MasterQuantityEstimator({ isEmbedded = false }: { isEmbe
   const { user } = useAuth();
   const [activeCalc, setActiveCalc] = useState<CalcId>("concrete");
   const [unitSystem, setUnitSystem] = useState<UnitSystem>("metric");
+  const [saveMessage, setSaveMessage] = useState<string>("");
+  const [isSaving, setIsSaving] = useState<boolean>(false);
 
   // Input states
   const [length, setLength] = useState<string>("10");
