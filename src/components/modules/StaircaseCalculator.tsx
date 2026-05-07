@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Layers, Info, CheckCircle2, ChevronRight, Calculator, Ruler, Hash, Cylinder, ArrowRight } from 'lucide-react';
 import ShareButtonWithPopup from "./ShareMenu";
+import { useGlobalSettings } from "../../context/SettingsContext";
 
 interface StaircaseCalculatorProps {
   isEmbedded?: boolean;
@@ -8,7 +9,9 @@ interface StaircaseCalculatorProps {
 }
 
 export default function StaircaseCalculator({ isEmbedded = false, onCalculate }: StaircaseCalculatorProps) {
-  const [unitSystem, setUnitSystem] = useState<'metric' | 'imperial'>('metric');
+  const { currentUnit, setCurrentUnit } = useGlobalSettings();
+  const unitSystem = currentUnit === 'Metric' ? 'metric' : 'imperial';
+  const setUnitSystem = (val: 'metric' | 'imperial') => setCurrentUnit(val === 'metric' ? 'Metric' : 'Imperial');
   const [stairShape, setStairShape] = useState<'straight' | 'l-shape' | 'u-shape' | 'spiral'>('straight');
   
   const [numSteps, setNumSteps] = useState<number>(10);

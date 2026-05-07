@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
 import { PaintBucket, CheckSquare, Maximize, MinusCircle, Plus, PieChart as PieChartIcon } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts';
@@ -13,28 +13,43 @@ interface Deduction {
 }
 
 export default function FinishingEstimator() {
-  const { formatCurrency } = useSettings();
+  const { settings, formatCurrency } = useSettings();
   const { rates } = useMarketRates();
-  const [totalArea, setTotalArea] = useState<string>('200'); // sqm
+  
+  const isSI = settings.measurement === 'SI';
+  const uArea = isSI ? 'm²' : 'sq.ft';
+  const uMm = isSI ? 'mm' : 'in';
+  const uVol = isSI ? 'L' : 'Gal';
+  
+  const [totalArea, setTotalArea] = useState<string>(isSI ? '200' : '2000'); 
   
   const [deductions, setDeductions] = useState<Deduction[]>([
-    { id: '1', name: 'Door', area: 2.1 },
-    { id: '2', name: 'Window', area: 1.44 }
+    { id: '1', name: 'Door', area: isSI ? 2.1 : 21 },
+    { id: '2', name: 'Window', area: isSI ? 1.44 : 15 }
   ]);
   const [newDeductionName, setNewDeductionName] = useState('Window');
-  const [newDeductionArea, setNewDeductionArea] = useState('1.5');
+  const [newDeductionArea, setNewDeductionArea] = useState(isSI ? '1.5' : '15');
 
   // Plaster inputs
-  const [plasterThickness, setPlasterThickness] = useState<string>('12'); // mm
+  const [plasterThickness, setPlasterThickness] = useState<string>(isSI ? '12' : '0.5'); 
   const [mortarRatio, setMortarRatio] = useState<string>('4'); // 1:4
 
   // Tile inputs
-  const [tileWidth, setTileWidth] = useState<string>('600'); // mm
-  const [tileLength, setTileLength] = useState<string>('600'); // mm
+  const [tileWidth, setTileWidth] = useState<string>(isSI ? '600' : '24'); 
+  const [tileLength, setTileLength] = useState<string>(isSI ? '600' : '24'); 
   const [tilesPerBox, setTilesPerBox] = useState<string>('4'); // pcs
 
   // Paint inputs
-  const [paintCoverage, setPaintCoverage] = useState<string>('12'); // sqm per liter
+  const [paintCoverage, setPaintCoverage] = useState<string>(isSI ? '12' : '350');
+
+  useEffect(() => {
+    setTotalArea(isSI ? '200' : '2000');
+    setPlasterThickness(isSI ? '12' : '0.5');
+    setTileWidth(isSI ? '600' : '24');
+    setTileLength(isSI ? '600' : '24');
+    setPaintCoverage(isSI ? '12' : '350');
+  }, [isSI]);
+
 
   const addDeduction = () => {
     if (parseFloat(newDeductionArea) > 0) {
@@ -197,7 +212,7 @@ export default function FinishingEstimator() {
                 </h3>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Thickness (mm)</label>
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Thickness ({uMm})</label>
                     <input type="number" className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500/30" value={plasterThickness} onChange={e => setPlasterThickness(e.target.value)} />
                   </div>
                   <div>
@@ -219,7 +234,7 @@ export default function FinishingEstimator() {
                   </h3>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1">Tile (W x L) mm</label>
+                      <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1">Tile (W x L) {uMm}</label>
                       <div className="flex gap-1">
                         <input type="number" className="w-full bg-gray-50/50 border border-gray-200 rounded-lg px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/30 text-center" value={tileWidth} onChange={e => setTileWidth(e.target.value)} />
                         <span className="text-gray-400 py-2">x</span>

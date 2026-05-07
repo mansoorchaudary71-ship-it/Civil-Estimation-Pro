@@ -1,21 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Circle, Square, RectangleHorizontal, RectangleVertical, Triangle, PlaySquare, Component, Pill, Hexagon, Calculator , Save } from "lucide-react";
 import { motion } from "motion/react";
 import ShareButtonWithPopup from "./ShareMenu";
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
+import { useSettings } from "../../context/SettingsContext";
 
 type Shape = "Circle" | "Square" | "Rectangle" | "Triangle" | "Trapezoid" | "Ellipse" | "RightTriangle" | "HorizontalCapsule" | "VerticalCapsule" | "Parallelogram" | "IrregularQuad";
 type InputUnit = "mm" | "cm" | "m" | "inches" | "feet";
 type OutputUnit = "sqm" | "sqft" | "acres" | "hectares";
 
 export default function AreaCalculator() {
+  const { settings, updateSettings } = useSettings();
+  const isMetric = settings.measurement === 'SI';
   const { user } = useAuth();
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
   const [activeShape, setActiveShape] = useState<Shape>("Rectangle");
-  const [inputUnit, setInputUnit] = useState<InputUnit>("m");
-  const [outputUnit, setOutputUnit] = useState<OutputUnit>("sqm");
+  const [inputUnit, setInputUnit] = useState<InputUnit>(isMetric ? "m" : "feet");
+  const [outputUnit, setOutputUnit] = useState<OutputUnit>(isMetric ? "sqm" : "sqft");
+
+  useEffect(() => {
+    if (isMetric && ["feet", "inches"].includes(inputUnit)) {
+      setInputUnit("m");
+    } else if (!isMetric && ["m", "cm", "mm"].includes(inputUnit)) {
+      setInputUnit("feet");
+    }
+    
+    if (isMetric && ["sqft", "acres"].includes(outputUnit)) {
+      setOutputUnit("sqm");
+    } else if (!isMetric && ["sqm", "hectares"].includes(outputUnit)) {
+      setOutputUnit("sqft");
+    }
+  }, [isMetric]);
 
   // Inputs
   const [radius, setRadius] = useState("");
@@ -211,7 +228,19 @@ export default function AreaCalculator() {
         <div className="flex flex-wrap gap-4 mb-8">
           <div>
              <label className="text-xs font-bold text-gray-500 uppercase block mb-1">Input Unit</label>
-             <select value={inputUnit} onChange={e => setInputUnit(e.target.value as InputUnit)} className="bg-white dark:bg-slate-800 border dark:border-slate-700 p-2 rounded-xl text-sm font-medium">
+             <select 
+              value={inputUnit} 
+              onChange={e => {
+                const newU = e.target.value as InputUnit;
+                setInputUnit(newU);
+                if (newU === "feet" || newU === "inches") {
+                  updateSettings({ measurement: "FPS" });
+                } else if (newU === "m" || newU === "cm" || newU === "mm") {
+                  updateSettings({ measurement: "SI" });
+                }
+              }} 
+              className="bg-white dark:bg-slate-800 border dark:border-slate-700 p-2 rounded-xl text-sm font-medium"
+            >
                <option value="mm">Millimeters (mm)</option>
                <option value="cm">Centimeters (cm)</option>
                <option value="m">Meters (m)</option>
@@ -221,7 +250,19 @@ export default function AreaCalculator() {
           </div>
           <div>
              <label className="text-xs font-bold text-gray-500 uppercase block mb-1">Area Output Unit</label>
-             <select value={outputUnit} onChange={e => setOutputUnit(e.target.value as OutputUnit)} className="bg-white dark:bg-slate-800 border dark:border-slate-700 p-2 rounded-xl text-sm font-medium">
+             <select 
+              value={outputUnit} 
+              onChange={e => {
+                const newU = e.target.value as OutputUnit;
+                setOutputUnit(newU);
+                if (newU === "sqft" || newU === "acres") {
+                  updateSettings({ measurement: "FPS" });
+                } else if (newU === "sqm" || newU === "hectares") {
+                  updateSettings({ measurement: "SI" });
+                }
+              }} 
+              className="bg-white dark:bg-slate-800 border dark:border-slate-700 p-2 rounded-xl text-sm font-medium"
+            >
                <option value="sqm">Square Meters (m²)</option>
                <option value="sqft">Square Feet (sq.ft)</option>
                <option value="acres">Acres</option>

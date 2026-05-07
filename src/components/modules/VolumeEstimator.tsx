@@ -7,12 +7,16 @@ import { useAuth } from "../../contexts/AuthContext";
 type Shape = "Rectangular Prism" | "Cube" | "Cylinder" | "Sphere" | "Half Sphere" | "Cone" | "Frustum Cone" | "Parabolic Cone" | "Triangular Dumper" | "Trapezoidal Dumper" | "Rectangle Tank" | "Prism";
 type System = "Metric" | "Imperial";
 
+import { useGlobalSettings } from "../../context/SettingsContext";
+
 export default function VolumeEstimator() {
   const { user } = useAuth();
+  const { currentUnit, setCurrentUnit } = useGlobalSettings();
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
   const [activeShape, setActiveShape] = useState<Shape>("Rectangular Prism");
-  const [system, setSystem] = useState<System>("Metric");
+  const system = currentUnit;
+
 
   // Input states
   const [length, setLength] = useState("");
@@ -168,8 +172,8 @@ export default function VolumeEstimator() {
           <div>
             <label className="text-xs font-bold text-gray-500 uppercase block mb-1">Measurement System</label>
             <div className="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1 w-fit">
-              <button onClick={() => setSystem("Metric")} className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all ${system === "Metric" ? "bg-white dark:bg-slate-700 shadow-sm text-blue-600" : "text-slate-500"}`}>Metric (m)</button>
-              <button onClick={() => setSystem("Imperial")} className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all ${system === "Imperial" ? "bg-white dark:bg-slate-700 shadow-sm text-blue-600" : "text-slate-500"}`}>Imperial (ft)</button>
+              <button onClick={() => setCurrentUnit("Metric")} className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all ${system === "Metric" ? "bg-white dark:bg-slate-700 shadow-sm text-blue-600" : "text-slate-500"}`}>Metric (m)</button>
+              <button onClick={() => setCurrentUnit("Imperial")} className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all ${system === "Imperial" ? "bg-white dark:bg-slate-700 shadow-sm text-blue-600" : "text-slate-500"}`}>Imperial (ft)</button>
             </div>
           </div>
         </div>

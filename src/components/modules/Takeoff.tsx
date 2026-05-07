@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+import { useGlobalSettings } from "../../context/SettingsContext";
 import ShareButtonWithPopup from "./ShareMenu";
 import { Layers, MousePointer2, ZoomIn, ZoomOut, Move, Ruler, Activity, Square, Upload, Trash2, Check, X, GripVertical } from "lucide-react";
 import { Stage, Layer, Image as KonvaImage, Line, Circle, Text as KonvaText, Group } from "react-konva";
@@ -53,9 +54,28 @@ type Mode = 'select' | 'pan' | 'line' | 'area' | 'scale';
 export default function Takeoff() {
   const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<any>(null);
+  const { currentUnit, setCurrentUnit } = useGlobalSettings();
   
   const { boqItems, measurements, setMeasurements, addMeasurement, removeMeasurement, scalePxPerUnit, setScalePxPerUnit, unitName, setUnitName, addBoqItems } = useTakeoff();
   
+  useEffect(() => {
+    const isGlobalMetric = currentUnit === "Metric";
+    const isLocalMetric = ['m', 'cm', 'mm'].includes(unitName);
+    if (isGlobalMetric && !isLocalMetric) {
+      const factor = convertLength(1, unitName, 'm');
+      if (factor) {
+        setScalePxPerUnit(scalePxPerUnit / factor);
+        setUnitName('m');
+      }
+    } else if (!isGlobalMetric && isLocalMetric) {
+      const factor = convertLength(1, unitName, 'ft');
+      if (factor) {
+        setScalePxPerUnit(scalePxPerUnit / factor);
+        setUnitName('ft');
+      }
+    }
+  }, [currentUnit]);
+
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [filename, setFilename] = useState("No file loaded");
@@ -301,6 +321,7 @@ export default function Takeoff() {
                   const newScale = scalePxPerUnit / factor;
                   setScalePxPerUnit(newScale);
                   setUnitName(newUnit);
+                  setCurrentUnit(targetSystem === 'imperial' ? 'Imperial' : 'Metric');
                 }
               }}
               className="px-2 py-0.5 bg-white border border-slate-200 text-slate-500 text-[10px] rounded outline-none hover:border-slate-300 focus:border-blue-500 transition-colors cursor-pointer"

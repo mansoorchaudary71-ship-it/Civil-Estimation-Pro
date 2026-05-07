@@ -97,7 +97,7 @@ export default function HouseEstimator() {
   const [isGlobalSettingsOpen, setIsGlobalSettingsOpen] = useState(false);
   
   // Master Unit System Toggle
-  const [masterUnit, setMasterUnit] = useState<"metric" | "imperial">(settings.measurement === "SI" ? "metric" : "imperial");
+  const masterUnit = settings.measurement === "SI" ? "metric" : "imperial";
 
   // Boundary Wall State
   const [includeBoundaryWall, setIncludeBoundaryWall] = useState(false);
