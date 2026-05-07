@@ -17,7 +17,7 @@ type CalcId =
   | "paint" | "tiles" | "terrazzo" | "floor_bricks" 
   | "excavation" | "filling" | "slope_filling" | "soil_mechanics" | "anti_termite"
   | "asphalt" | "super_elevation" 
-  | "helix_bar" | "form_work"
+  | "helix_bar" | "form_work" | "rebar_cage"
   | "water_tank" | "boq" | "diagonal" | "depth_foundation" | "precast_boundary";
 
 interface CalcItem {
@@ -55,6 +55,7 @@ const calculatorsList: CalcItem[] = [
   // Reinforcement & Formwork
   { id: "helix_bar", label: "Helix Bar", group: "Rebar & Formwork", icon: Zap },
   { id: "form_work", label: "Form Work", group: "Rebar & Formwork", icon: Square },
+  { id: "rebar_cage", label: "Rebar Cage Estimation", group: "Rebar & Formwork", icon: Layers },
 
   // General & Specialized
   { id: "water_tank", label: "Water Tank", group: "Specialized", icon: Droplet },
@@ -81,6 +82,11 @@ export default function MasterQuantityEstimator({ isEmbedded = false }: { isEmbe
   const [depth, setDepth] = useState<string>("0.15");
   const [mixRatioStr, setMixRatioStr] = useState<string>("1:2:4");
   const [wastage, setWastage] = useState<string>("5");
+  
+  const [rebarWeight, setRebarWeight] = useState<string>("1000");
+  const [steelGrade, setSteelGrade] = useState<string>("60");
+  const [rebarSpacing, setRebarSpacing] = useState<string>("150");
+  const [costPerTon, setCostPerTon] = useState<string>("250000");
 
   // Generalized helper for getting value based on unit system
   const cFactor = unitSystem === "metric" ? 1 : 0.3048; // For simple conversions if needed
@@ -167,6 +173,19 @@ export default function MasterQuantityEstimator({ isEmbedded = false }: { isEmbe
           "Diagonal (Hypotenuse)": `${Math.sqrt(l*l + w*w).toFixed(2)} ${unitL}`
         };
         break;
+      case "rebar_cage":
+        const weight = parse(rebarWeight);
+        const tons = weight / 1000;
+        const spacing = parse(rebarSpacing);
+        const cost = tons * parse(costPerTon);
+        results = {
+          "Total Steel Weight": `${weight.toFixed(2)} kg`,
+          "Steel Required (Tons)": `${tons.toFixed(3)} tons`,
+          "Steel Grade": `Grade ${steelGrade}`,
+          "Estimated Spacing": `${spacing} mm`,
+          "Total Cost": `Rs ${cost.toLocaleString(undefined, { maximumFractionDigits: 0 })}`
+        };
+        break;
       default:
         // Generic fallback for others
         results = {
@@ -182,29 +201,59 @@ export default function MasterQuantityEstimator({ isEmbedded = false }: { isEmbe
           <h3 className="font-bold mb-6 text-lg">Input Parameters</h3>
           
           <div className="space-y-4">
-            <div>
-              <label className="text-xs font-bold text-gray-500 uppercase">Length ({unitL})</label>
-              <input type="number" value={length} onChange={e => setLength(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500" />
-            </div>
-            <div>
-              <label className="text-xs font-bold text-gray-500 uppercase">Width ({unitL})</label>
-              <input type="number" value={width} onChange={e => setWidth(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500" />
-            </div>
+            {activeCalc !== "rebar_cage" && (
+              <>
+                <div>
+                  <label className="text-xs font-bold text-gray-500 uppercase">Length ({unitL})</label>
+                  <input type="number" value={length} onChange={e => setLength(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-gray-500 uppercase">Width ({unitL})</label>
+                  <input type="number" value={width} onChange={e => setWidth(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500" />
+                </div>
+              </>
+            )}
+            
             {["concrete", "bricks", "blocks", "excavation", "filling", "asphalt", "water_tank", "form_work"].includes(activeCalc) && (
               <div>
                 <label className="text-xs font-bold text-gray-500 uppercase">{activeCalc === 'form_work' ? 'Height' : 'Depth'} ({unitL})</label>
                 <input type="number" value={depth} onChange={e => setDepth(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500" />
               </div>
             )}
-            <div>
-              <label className="text-xs font-bold text-gray-500 uppercase">Wastage (%)</label>
-              <input type="number" value={wastage} onChange={e => setWastage(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500" />
-            </div>
+            
+            {activeCalc !== "rebar_cage" && (
+              <div>
+                <label className="text-xs font-bold text-gray-500 uppercase">Wastage (%)</label>
+                <input type="number" value={wastage} onChange={e => setWastage(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500" />
+              </div>
+            )}
+            
             {["concrete", "plaster", "concrete_test"].includes(activeCalc) && (
               <div>
                 <label className="text-xs font-bold text-gray-500 uppercase">Mix Ratio</label>
                 <input type="text" value={mixRatioStr} onChange={e => setMixRatioStr(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500" placeholder="e.g. 1:2:4" />
               </div>
+            )}
+
+            {activeCalc === "rebar_cage" && (
+              <>
+                <div>
+                  <label className="text-xs font-bold text-gray-500 uppercase">Total Rebar Weight (kg)</label>
+                  <input type="number" value={rebarWeight} onChange={e => setRebarWeight(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-gray-500 uppercase">Steel Grade</label>
+                  <input type="number" value={steelGrade} onChange={e => setSteelGrade(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-gray-500 uppercase">Spacing (mm)</label>
+                  <input type="number" value={rebarSpacing} onChange={e => setRebarSpacing(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-gray-500 uppercase">Cost per Ton (Rs)</label>
+                  <input type="number" value={costPerTon} onChange={e => setCostPerTon(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500" />
+                </div>
+              </>
             )}
           </div>
         </div>
