@@ -35,7 +35,8 @@ import {
   Cone,
   Droplet,
   PaintBucket,
-  Ruler
+  Ruler,
+  Columns
 } from "lucide-react";
 
 import Logo from './Logo';
@@ -49,7 +50,9 @@ const ALL_MODULES = [
   { id: 'unit-converter', title: 'Unit Converter', desc: 'Convert units across 15 engineering categories.', category: 'TOOLS', icon: Repeat },
   { id: 'metal-weight', title: 'Metal Weight', desc: 'Calculate section weights of steel profiles.', category: 'TOOLS', icon: Anvil },
   { id: 'rcc-calculator', title: 'RCC Structure', desc: 'Calculate concrete & steel for slabs, columns.', category: 'TOOLS', icon: Building2 },
+  { id: 'staircase-calculator', title: 'Staircase Calculator', desc: 'Concrete & steel quantity for RCC staircases.', category: 'TOOLS', icon: Layers },
   { id: 'master-quantity', title: 'Master Quantity', desc: '23 comprehensive calculators for specialized construction items.', category: 'TOOLS', icon: Blocks },
+  { id: 'column-estimator', title: 'Column Estimator', desc: 'Detailed concrete volume and material breakdown for columns.', category: 'TOOLS', icon: Columns },
   { id: 'earthworks', title: 'Earthworks', desc: 'Calculate site preparation, excavation and hauling volumes.', category: 'SITE PREP', icon: Shovel },
   { id: 'trench', title: 'Trench Excavation', desc: 'Pipe trenching and bedding volume estimations.', category: 'SITE PREP', icon: Pickaxe },
   { id: 'gridEarthwork', title: 'Grid Method Volume', desc: 'Leveling volume estimation using the grid method.', category: 'SITE PREP', icon: Grid2X2 },
@@ -78,6 +81,7 @@ const getCategoryTheme = (category: string, id: string) => {
   if (id === 'metal-weight') return { text: 'text-[#475569]', blob: 'bg-gradient-to-br from-[#475569]/40 to-transparent', border: 'border-[#475569]/30 dark:border-[#475569]/30' };
   if (id === 'rcc-calculator') return { text: 'text-[#6366f1]', blob: 'bg-gradient-to-br from-[#6366f1]/40 to-transparent', border: 'border-[#6366f1]/30 dark:border-[#6366f1]/30' };
   if (id === 'master-quantity') return { text: 'text-[#3b82f6]', blob: 'bg-gradient-to-br from-[#3b82f6]/40 to-transparent', border: 'border-[#3b82f6]/30 dark:border-[#3b82f6]/30' };
+  if (id === 'column-estimator') return { text: 'text-[#8b5cf6]', blob: 'bg-gradient-to-br from-[#8b5cf6]/40 to-transparent', border: 'border-[#8b5cf6]/30 dark:border-[#8b5cf6]/30' };
   if (id === 'takeoff') return { text: 'text-[#10b981]', blob: 'bg-gradient-to-br from-[#10b981]/40 to-transparent', border: 'border-[#10b981]/30 dark:border-[#10b981]/30' };
 
   if (category === 'SITE PREP') return { text: 'text-[#f97316]', blob: 'bg-gradient-to-br from-[#f97316]/40 to-transparent', border: 'border-[#f97316]/30 dark:border-[#f97316]/30' };

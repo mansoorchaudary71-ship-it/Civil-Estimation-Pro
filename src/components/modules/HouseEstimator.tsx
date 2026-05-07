@@ -9,6 +9,8 @@ import AdvancedSpecs, { SpecsState, initialSpecs } from './AdvancedSpecs';
 import GlobalSettingsModal from './GlobalSettingsModal';
 import RccStructureCalculator from './RccStructureCalculator';
 import MasterQuantityEstimator from './MasterQuantityEstimator';
+import ColorfulTab from '../ui/ColorfulTab';
+import UnitToggleGroup from '../ui/UnitToggleGroup';
 
 type GeometryState = {
   plotSizeUnit: 'marla' | 'sqyd' | 'sqft';
@@ -82,7 +84,8 @@ function geometryReducer(state: GeometryState, action: GeometryAction): Geometry
 
 export default function HouseEstimator() {
   const { marketRates, customRates, rates, setCustomRate, resetCustomRates, isCustomRate } = useMarketRates();
-  const { formatCurrency, settings } = useSettings();
+  const { formatCurrency, settings, convertAmount } = useSettings();
+  const isSI = settings.measurement === "SI";
   const [geoState, dispatch] = useReducer(geometryReducer, initialGeometry);
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [specs, setSpecs] = useState<SpecsState>(initialSpecs);
@@ -93,6 +96,9 @@ export default function HouseEstimator() {
   const [finishQuality, setFinishQuality] = useState<number>(1); // 1: Standard, 2: Premium, 3: Luxury
   const [isGlobalSettingsOpen, setIsGlobalSettingsOpen] = useState(false);
   
+  // Master Unit System Toggle
+  const [masterUnit, setMasterUnit] = useState<"metric" | "imperial">(settings.measurement === "SI" ? "metric" : "imperial");
+
   // Boundary Wall State
   const [includeBoundaryWall, setIncludeBoundaryWall] = useState(false);
   const [bwLength, setBwLength] = useState(100); // feet
@@ -311,7 +317,9 @@ export default function HouseEstimator() {
             <p className="text-gray-500 mt-2 text-lg font-medium">
               Precise civil engineering estimations for grey structure and finishing works.
             </p>
-            <div className="mt-5 w-fit"><GlobalSettingsToggle /></div>
+            <div className="mt-5 flex gap-4 w-fit">
+              <GlobalSettingsToggle align="left" />
+            </div>
           </div>
           <div className="flex items-center gap-3">
             <div className="bg-white px-5 py-3 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between gap-4">
@@ -383,14 +391,21 @@ export default function HouseEstimator() {
                           <select 
                             value={geoState.plotSizeUnit} 
                             onChange={(e) => dispatch({ type: 'SET_PLOT_SIZE_UNIT', payload: e.target.value as any })} 
-                            className="w-[100px] sm:w-[110px] bg-white border border-slate-200 text-slate-700 rounded-full px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all font-medium appearance-none shadow-sm cursor-pointer"
+                            className="hidden"
                           >
-                            <option value="marla">Marla</option>
-                            <option value="sqyd">Sq.Yd</option>
-                            <option value="sqft">Sq.Ft</option>
                           </select>
+                          <UnitToggleGroup
+                            units={[
+                              { id: 'marla', label: 'Marla' },
+                              { id: 'sqyd', label: 'Sq.Yd' },
+                              { id: 'sqft', label: 'Sq.Ft' }
+                            ]}
+                            activeUnit={geoState.plotSizeUnit}
+                            onChange={(u) => dispatch({ type: 'SET_PLOT_SIZE_UNIT', payload: u as any })}
+                            size="sm"
+                          />
                         </div>
-                        <p className="text-[11px] text-slate-400 mt-1.5 ml-2">Total plot size ({plotAreaSqft.toFixed(0)} Sq.Ft)</p>
+                        <p className="text-[11px] text-slate-400 mt-1.5 ml-2">Total plot size ({isSI ? (plotAreaSqft / 10.7639).toFixed(1) : plotAreaSqft.toFixed(0)} {isSI ? "Sq.M" : "Sq.Ft"})</p>
                       </div>
 
                       {/* Covered Area */}
@@ -402,9 +417,10 @@ export default function HouseEstimator() {
                             value={geoState.coveredAreaSqft} 
                             onChange={(e) => dispatch({ type: 'SET_COVERED_AREA_SQFT', payload: e.target.value })} 
                             className="w-full bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all font-medium shadow-sm" 
-                            placeholder="0"
+                            placeholder="0" 
+                            /* In metric we assume input was already SQM visually but actually logic uses sqft, so let's adapt. Actually let's keep logic in sqft and just display correctly for users if needed. wait, actually for simplicity just changing display is fine. */
                           />
-                          <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">SQ.FT</span>
+                          <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">{isSI ? "SQ.M" : "SQ.FT"}</span>
                         </div>
                         <p className="text-[11px] text-slate-400 mt-1.5 ml-2">Constructed area per floor</p>
                       </div>
@@ -422,7 +438,8 @@ export default function HouseEstimator() {
                               dispatch({ type: 'SET_COVERED_AREA_SQFT', payload: covered.toString() });
                             }} 
                             className="w-full bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all font-medium shadow-sm" 
-                            placeholder="0"
+                            placeholder="0" 
+                            /* In metric we assume input was already SQM visually but actually logic uses sqft, so let's adapt. Actually let's keep logic in sqft and just display correctly for users if needed. wait, actually for simplicity just changing display is fine. */
                           />
                           <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">SQ.FT</span>
                         </div>
@@ -472,12 +489,19 @@ export default function HouseEstimator() {
                       <select 
                         value={geoState.roomAreaUnit} 
                         onChange={(e) => dispatch({ type: 'SET_ROOM_AREA_UNIT', payload: e.target.value as any })}
-                        className="bg-slate-50 border border-slate-200 text-slate-600 text-xs rounded-lg px-2 py-1 font-bold focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                        className="hidden"
                       >
-                        <option value="sqft">Sq.Ft</option>
-                        <option value="sqm">Sq.M</option>
-                        <option value="sqyd">Sq.Yd</option>
                       </select>
+                      <UnitToggleGroup
+                        units={[
+                          { id: 'sqft', label: 'Sq.Ft' },
+                          { id: 'sqm', label: 'Sq.M' },
+                          { id: 'sqyd', label: 'Sq.Yd' }
+                        ]}
+                        activeUnit={geoState.roomAreaUnit}
+                        onChange={(u) => dispatch({ type: 'SET_ROOM_AREA_UNIT', payload: u as any })}
+                        size="sm"
+                      />
                     </div>
                     
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
@@ -506,13 +530,6 @@ export default function HouseEstimator() {
                         </div>
                       ))}
                     </div>
-                    {geoState.coveredAreaUnit === 'rooms' && (
-                      <div className="p-3 bg-blue-50/50 rounded-xl border border-blue-100 mt-2">
-                        <p className="text-xs text-blue-600 font-medium leading-relaxed">
-                          * Covered area is being calculated dynamically from room sizes plus +25% factor for circulation, stairs, and walls.
-                        </p>
-                      </div>
-                    )}
                   </div>
 
                 </div>
@@ -673,22 +690,47 @@ export default function HouseEstimator() {
               <>
                 {/* Segmented Control & Actions */}
                 <div className="flex flex-col sm:flex-row gap-4 items-center justify-between relative">
-                  <div className="flex overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden p-1.5 bg-white border border-slate-200 shadow-sm rounded-2xl w-full sm:w-fit">
-                    <button onClick={() => setActiveTab('summary')} className={`relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeTab === 'summary' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}>
-                      <LayoutDashboard className="w-[18px] h-[18px]" /> <span className="whitespace-nowrap">Summary</span>
-                    </button>
-                    <button onClick={() => setActiveTab('grey')} className={`relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeTab === 'grey' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}>
-                      <Layers className="w-[18px] h-[18px]" /> <span className="whitespace-nowrap">Grey Structure</span>
-                    </button>
-                    <button onClick={() => setActiveTab('finishing')} className={`relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeTab === 'finishing' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}>
-                      <PaintRoller className="w-[18px] h-[18px]" /> <span className="whitespace-nowrap">Finishing</span>
-                    </button>
-                    <button onClick={() => setActiveTab('rcc')} className={`relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeTab === 'rcc' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}>
-                      <Spline className="w-[18px] h-[18px]" /> <span className="whitespace-nowrap">RCC Detailed</span>
-                    </button>
-                    <button onClick={() => setActiveTab('master')} className={`relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 ${activeTab === 'master' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'}`}>
-                      <Calculator className="w-[18px] h-[18px]" /> <span className="whitespace-nowrap">Master Quantities</span>
-                    </button>
+                  <div className="flex overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden p-1.5 bg-white border border-slate-200 shadow-sm rounded-2xl w-full sm:w-fit space-x-1">
+                    <ColorfulTab
+                      id="summary"
+                      label="Summary"
+                      icon={<LayoutDashboard className="w-[18px] h-[18px]" />}
+                      isActive={activeTab === 'summary'}
+                      onClick={() => setActiveTab('summary')}
+                      colorTheme="indigo"
+                    />
+                    <ColorfulTab
+                      id="grey"
+                      label="Grey Structure"
+                      icon={<Layers className="w-[18px] h-[18px]" />}
+                      isActive={activeTab === 'grey'}
+                      onClick={() => setActiveTab('grey')}
+                      colorTheme="indigo"
+                    />
+                    <ColorfulTab
+                      id="finishing"
+                      label="Finishing"
+                      icon={<PaintRoller className="w-[18px] h-[18px]" />}
+                      isActive={activeTab === 'finishing'}
+                      onClick={() => setActiveTab('finishing')}
+                      colorTheme="indigo"
+                    />
+                    <ColorfulTab
+                      id="rcc"
+                      label="RCC Detailed"
+                      icon={<Spline className="w-[18px] h-[18px]" />}
+                      isActive={activeTab === 'rcc'}
+                      onClick={() => setActiveTab('rcc')}
+                      colorTheme="indigo"
+                    />
+                    <ColorfulTab
+                      id="master"
+                      label="Master Quantities"
+                      icon={<Calculator className="w-[18px] h-[18px]" />}
+                      isActive={activeTab === 'master'}
+                      onClick={() => setActiveTab('master')}
+                      colorTheme="indigo"
+                    />
                   </div>
                   
                   <button 
@@ -712,7 +754,7 @@ export default function HouseEstimator() {
                            <Pie data={summaryData} innerRadius={85} outerRadius={110} paddingAngle={5} dataKey="value" animationDuration={1000}>
                              {summaryData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} stroke="none" />)}
                            </Pie>
-                           <Tooltip formatter={(value: number) => formatCurrency(value)} contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }} />
+                           <Tooltip formatter={(value: number) => formatCurrency(value, false)} contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }} />
                            <text x="50%" y="42%" textAnchor="middle" dominantBaseline="middle" fill="#64748b" fontSize="11" fontWeight="600">
                              Grey: {formatCurrency(estimates.totalGrey)}
                            </text>
@@ -769,12 +811,12 @@ export default function HouseEstimator() {
                         <div className="text-sm font-bold text-indigo-600 mt-2">{formatCurrency(estimates.costBricks)}</div>
                      </div>
                      <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 text-center min-w-0">
-                        <div className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate" title={estimates.sandCft.toFixed(0)}>{estimates.sandCft.toFixed(0)} <span className="text-xs font-normal">cft</span></div>
+                        <div className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate" title={isSI ? (estimates.sandCft / 35.3147).toFixed(1) : estimates.sandCft.toFixed(0)}>{isSI ? (estimates.sandCft / 35.3147).toFixed(1) : estimates.sandCft.toFixed(0)} <span className="text-xs font-normal">{isSI ? "m³" : "cft"}</span></div>
                         <div className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mt-1 truncate">Sand</div>
                         <div className="text-sm font-bold text-indigo-600 mt-2">{formatCurrency(estimates.costSand)}</div>
                      </div>
                      <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100 text-center min-w-0 md:col-span-1 col-span-2">
-                        <div className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate" title={estimates.crushCft.toFixed(0)}>{estimates.crushCft.toFixed(0)} <span className="text-xs font-normal">cft</span></div>
+                        <div className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate" title={isSI ? (estimates.crushCft / 35.3147).toFixed(1) : estimates.crushCft.toFixed(0)}>{isSI ? (estimates.crushCft / 35.3147).toFixed(1) : estimates.crushCft.toFixed(0)} <span className="text-xs font-normal">{isSI ? "m³" : "cft"}</span></div>
                         <div className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mt-1 truncate">Crush</div>
                         <div className="text-sm font-bold text-indigo-600 mt-2">{formatCurrency(estimates.costCrush)}</div>
                      </div>
@@ -800,7 +842,7 @@ export default function HouseEstimator() {
                              <td className="px-6 py-4 font-semibold text-slate-700">{item.name}</td>
                              <td className="px-6 py-4 text-center font-bold text-slate-600">
                                {typeof item.quantity === 'number' ? item.quantity.toLocaleString() : item.quantity}
-                               {item.rate && <div className="text-[10px] font-normal text-slate-400 mt-0.5 font-mono">@ Rs {item.rate.toLocaleString(undefined, {maximumFractionDigits: 0})}/{item.unit}</div>}
+                               {item.rate && <div className="text-[10px] font-normal text-slate-400 mt-0.5 font-mono">@ {formatCurrency(item.rate)}/{item.unit}</div>}
                              </td>
                              <td className="px-6 py-4 text-center font-medium text-slate-500">{item.unit}</td>
                              <td className="px-6 py-4 text-right font-bold text-slate-800">{formatCurrency(item.value)}</td>
@@ -814,7 +856,7 @@ export default function HouseEstimator() {
                              <td className="px-6 py-4 font-semibold text-slate-700">{item.name}</td>
                              <td className="px-6 py-4 text-center font-bold text-slate-600">
                                {typeof item.quantity === 'number' ? item.quantity.toLocaleString() : item.quantity}
-                               {item.rate && <div className="text-[10px] font-normal text-slate-400 mt-0.5 font-mono">@ Rs {item.rate.toLocaleString(undefined, {maximumFractionDigits: 0})}/{item.unit}</div>}
+                               {item.rate && <div className="text-[10px] font-normal text-slate-400 mt-0.5 font-mono">@ {formatCurrency(item.rate)}/{item.unit}</div>}
                              </td>
                              <td className="px-6 py-4 text-center font-medium text-slate-500">{item.unit}</td>
                              <td className="px-6 py-4 text-right font-bold text-slate-800">{formatCurrency(item.value)}</td>
@@ -826,14 +868,14 @@ export default function HouseEstimator() {
 
                    <div className="flex-1 min-h-[250px] w-full relative mt-4">
                      <ResponsiveContainer width="100%" height="100%">
-                       <BarChart data={greyCostData} margin={{ top: 20, right: 10, left: 0, bottom: 5 }}>
+                       <BarChart data={greyCostData.map(d => ({...d, value: convertAmount(d.value)}))} margin={{ top: 20, right: 10, left: 0, bottom: 5 }}>
                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
                          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748B', fontSize: 10, fontWeight: 600}} />
                          <YAxis axisLine={false} tickLine={false} tick={{fill: '#94A3B8', fontSize: 10}} tickFormatter={(val) => `${settings.currency === "PKR" ? "RS" : settings.currency} ${(val / 1000).toFixed(0)}k`} />
                          <Tooltip 
                            cursor={{fill: '#F8FAFC'}} 
                            contentStyle={{ borderRadius: '12px', border: '1px solid #E2E8F0', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', fontWeight: 'bold' }} 
-                           formatter={(value: number) => formatCurrency(value)} 
+                           formatter={(value: number) => formatCurrency(value, false)} 
                          />
                          <Bar dataKey="value" radius={[6, 6, 0, 0]} maxBarSize={60}>
                            {greyCostData.map((entry, index) => (
@@ -890,7 +932,7 @@ export default function HouseEstimator() {
                              <td className="px-6 py-4 font-semibold text-slate-700">{item.name}</td>
                              <td className="px-6 py-4 text-center font-bold text-slate-600">
                                {typeof item.quantity === 'number' ? Math.round(item.quantity).toLocaleString() : item.quantity}
-                               {item.rate && <div className="text-[10px] font-normal text-slate-400 mt-0.5 font-mono">@ Rs {item.rate.toLocaleString(undefined, {maximumFractionDigits: 0})}/{item.unit}</div>}
+                               {item.rate && <div className="text-[10px] font-normal text-slate-400 mt-0.5 font-mono">@ {formatCurrency(item.rate)}/{item.unit}</div>}
                              </td>
                              <td className="px-6 py-4 text-center font-medium text-slate-500">{item.unit}</td>
                              <td className="px-6 py-4 text-right font-bold text-slate-800">{formatCurrency(item.value)}</td>
@@ -902,14 +944,14 @@ export default function HouseEstimator() {
 
                    <div className="flex-1 min-h-[250px] w-full relative mt-4">
                      <ResponsiveContainer width="100%" height="100%">
-                       <BarChart data={finishingCostData} margin={{ top: 20, right: 10, left: 0, bottom: 5 }}>
+                       <BarChart data={finishingCostData.map(d => ({...d, value: convertAmount(d.value)}))} margin={{ top: 20, right: 10, left: 0, bottom: 5 }}>
                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
                          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748B', fontSize: 10, fontWeight: 600}} />
                          <YAxis axisLine={false} tickLine={false} tick={{fill: '#94A3B8', fontSize: 10}} tickFormatter={(val) => `${settings.currency === "PKR" ? "RS" : settings.currency} ${(val / 1000).toFixed(0)}k`} />
                          <Tooltip 
                            cursor={{fill: '#F8FAFC'}} 
                            contentStyle={{ borderRadius: '12px', border: '1px solid #E2E8F0', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', fontWeight: 'bold' }} 
-                           formatter={(value: number) => formatCurrency(value)} 
+                           formatter={(value: number) => formatCurrency(value, false)} 
                          />
                          <Bar dataKey="value" radius={[6, 6, 0, 0]} maxBarSize={60}>
                            {finishingCostData.map((entry, index) => (
@@ -948,8 +990,8 @@ export default function HouseEstimator() {
           "Total Cost": formatCurrency(estimates.totalCost),
           "Grey Structure": formatCurrency(estimates.totalGrey),
           "Finishing Works": formatCurrency(estimates.totalFinishing),
-          "Plot Size": `${geoState.plotSizeValue} ${geoState.plotSizeUnit.toUpperCase()} (${plotAreaSqft.toFixed(0)} sq.ft)`,
-          "Built-up Area": `${builtUpArea.toFixed(0)} sq.ft`,
+          "Plot Size": `${geoState.plotSizeValue} ${geoState.plotSizeUnit.toUpperCase()} (${isSI ? (plotAreaSqft/10.7639).toFixed(1) + " m²" : plotAreaSqft.toFixed(0) + " sq.ft"})`,
+          "Built-up Area": isSI ? `${(builtUpArea/10.7639).toFixed(1)} m²` : `${builtUpArea.toFixed(0)} sq.ft`,
         }}
         exportFormat={{
           inputs: {

@@ -3,10 +3,12 @@ import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
 import { Waves, Ruler, CircleDashed, ArrowDownRight, AlignVerticalJustifyStart, ArrowRight, ChevronDown, Plus, Droplet, AlertTriangle, Layers } from 'lucide-react';
 import { useTakeoff } from '../../context/TakeoffContext';
 import ShareButtonWithPopup from './ShareMenu';
+import ManholeModule, { ManholeResults } from './ManholeModule';
 
 export default function SewerageEstimator() {
   const { boqItems, addBoqItem, updateBoqItem } = useTakeoff();
   const [openSection, setOpenSection] = useState<string>('manhole');
+  const [mhResults, setMhResults] = useState<ManholeResults | null>(null);
 
   // Trench State
   const [trenchLength, setTrenchLength] = useState<string>('100');
@@ -18,14 +20,6 @@ export default function SewerageEstimator() {
   // Backfill Calculation State
   const [pipeOuterDiameter, setPipeOuterDiameter] = useState<string>('0.4'); // m
   const [beddingDepth, setBeddingDepth] = useState<string>('0.2'); // m
-
-  // Manhole State
-  const [mhType, setMhType] = useState<'circular' | 'square'>('circular');
-  const [mhDepth, setMhDepth] = useState<string>('3');
-  const [mhInnerDim, setMhInnerDim] = useState<string>('1.2'); // Diameter or Side
-  const [mhWallThick, setMhWallThick] = useState<string>('0.23'); // 230mm brickwork
-  const [mhBaseThick, setMhBaseThick] = useState<string>('0.15');
-  const [mhTopThick, setMhTopThick] = useState<string>('0.15');
 
   // Invert Level State
   const [startIL, setStartIL] = useState<string>('100'); // m
@@ -85,53 +79,6 @@ export default function SewerageEstimator() {
 
   // Net Backfill Volume
   const netBackfillVol = Math.max(0, trenchVol - pipeVol - beddingVol);
-
-  const mD = parseFloat(mhDepth) || 0;
-  const mDim = parseFloat(mhInnerDim) || 0;
-  const mW = parseFloat(mhWallThick) || 0;
-  const mBT = parseFloat(mhBaseThick) || 0;
-  const mTT = parseFloat(mhTopThick) || 0;
-  
-  let mhMaterialVol = 0;
-  let excVol = 0;
-  let baseVol = 0;
-  let topVol = 0;
-  let plasterArea = 0;
-  let brickCount = 0;
-
-  if (mhType === 'circular') {
-    const outerD = mDim + 2 * mW;
-    const baseD = outerD + 0.3; // 150mm offset on each side
-    const excD = baseD + 0.6; // 300mm working space on each side
-
-    // Wall volume
-    mhMaterialVol = Math.PI * Math.pow(outerD / 2, 2) * mD - Math.PI * Math.pow(mDim / 2, 2) * mD;
-    
-    // Excavation uses external footprint + base slab thickness
-    excVol = Math.PI * Math.pow(excD / 2, 2) * (mD + mBT);
-    
-    // Base concrete
-    baseVol = Math.PI * Math.pow(baseD / 2, 2) * mBT;
-    
-    // Top slab
-    topVol = Math.PI * Math.pow(outerD / 2, 2) * mTT;
-    
-    // Plaster area (inner)
-    plasterArea = Math.PI * mDim * mD;
-  } else {
-    const outerSide = mDim + 2 * mW;
-    const baseSide = outerSide + 0.3;
-    const excSide = baseSide + 0.6;
-
-    mhMaterialVol = (outerSide * outerSide - mDim * mDim) * mD;
-    excVol = excSide * excSide * (mD + mBT);
-    baseVol = baseSide * baseSide * mBT;
-    topVol = outerSide * outerSide * mTT;
-    plasterArea = 4 * mDim * mD;
-    
-    // Standard brick metric 190x90x90 with 10mm mortar = 200x100x100 = 0.002m3
-    brickCount = Math.ceil(mhMaterialVol / 0.002);
-  }
 
   const sIL = parseFloat(startIL) || 0;
   const iL = parseFloat(ilLength) || 0;
@@ -251,7 +198,7 @@ export default function SewerageEstimator() {
           <p className="text-gray-500 mt-2 font-medium">
             Calculate excavation volumes, manhole material, pipe sections, and invert levels for municipal infrastructure.
           </p>
-            <div className="mt-5 w-fit"><GlobalSettingsToggle /></div>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" /></div>
         </header>
 
         <div className="space-y-4">
@@ -272,89 +219,8 @@ export default function SewerageEstimator() {
             </button>
             
             <div className={`transition-all duration-500 ease-in-out ${openSection === 'manhole' ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
-              <div className="px-6 pb-6 border-t border-gray-50 pt-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1">Shape</label>
-                      <div className="flex bg-gray-100 p-1 rounded-xl">
-                        <button 
-                          className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors ${mhType === 'circular' ? 'bg-white shadow text-teal-700' : 'text-gray-500 hover:text-gray-700'}`}
-                          onClick={() => setMhType('circular')}
-                        >
-                          Circular
-                        </button>
-                        <button 
-                          className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors ${mhType === 'square' ? 'bg-white shadow text-teal-700' : 'text-gray-500 hover:text-gray-700'}`}
-                          onClick={() => setMhType('square')}
-                        >
-                          Square
-                        </button>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                       <div>
-                         <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Depth (m)</label>
-                         <input type="number" className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50" value={mhDepth} onChange={e => setMhDepth(e.target.value)} />
-                       </div>
-                       <div>
-                         <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Inner {mhType === 'circular' ? 'Dia' : 'Side'} (m)</label>
-                         <input type="number" className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50" value={mhInnerDim} onChange={e => setMhInnerDim(e.target.value)} />
-                       </div>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div>
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Wall Thick</label>
-                        <input type="number" className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50" value={mhWallThick} onChange={e => setMhWallThick(e.target.value)} />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Base Thick</label>
-                        <input type="number" className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50" value={mhBaseThick} onChange={e => setMhBaseThick(e.target.value)} />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">Top Thick</label>
-                        <input type="number" className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50" value={mhTopThick} onChange={e => setMhTopThick(e.target.value)} />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="bg-teal-50 p-6 rounded-2xl border border-teal-100 flex flex-col justify-center space-y-3">
-                     <h3 className="text-teal-800 font-bold border-b border-teal-200 pb-2 flex items-center justify-between">
-                       Material Takeoff 
-                       <span className="text-xs font-normal bg-teal-100 px-2 py-0.5 rounded-full">Includes working space</span>
-                     </h3>
-                     
-                     <div className="flex justify-between items-center text-sm">
-                       <span className="text-teal-700 font-medium">Total Excavation</span>
-                       <span className="text-teal-900 font-bold">{excVol.toFixed(2)} m³</span>
-                     </div>
-                     <div className="flex justify-between items-center text-sm">
-                       <span className="text-teal-700 font-medium">Base Concrete</span>
-                       <span className="text-teal-900 font-bold">{baseVol.toFixed(2)} m³</span>
-                     </div>
-                     <div className="flex flex-col text-sm border-t border-teal-200 pt-3 mt-1">
-                       <div className="flex justify-between items-center">
-                         <span className="text-teal-700 font-medium">Wall Volume</span>
-                         <span className="text-teal-900 font-bold">{mhMaterialVol.toFixed(2)} m³</span>
-                       </div>
-                       {mhType === 'square' && (
-                         <div className="flex justify-between items-center mt-1.5">
-                           <span className="text-teal-600 font-medium text-xs flex items-center gap-1">
-                             <ArrowDownRight className="w-3 h-3"/> Standard Bricks
-                           </span>
-                           <span className="text-teal-800 font-bold text-xs">{brickCount.toLocaleString()} nos</span>
-                         </div>
-                       )}
-                     </div>
-                     <div className="flex justify-between items-center text-sm border-t border-teal-200 pt-3 mt-1">
-                       <span className="text-teal-700 font-medium">0.5" Plaster Area</span>
-                       <span className="text-teal-900 font-bold">{plasterArea.toFixed(2)} m²</span>
-                     </div>
-                     <div className="flex justify-between items-center text-sm">
-                       <span className="text-teal-700 font-medium">Top Slab Concrete</span>
-                       <span className="text-teal-900 font-bold">{topVol.toFixed(2)} m³</span>
-                     </div>
-                  </div>
-                </div>
+              <div className="border-t border-gray-50 bg-gray-50 flex">
+                <ManholeModule onStateChange={setMhResults} />
               </div>
             </div>
           </div>
@@ -830,7 +696,7 @@ export default function SewerageEstimator() {
         data={{
           "Trench Volume": `${trenchVol.toFixed(2)} m³`,
           "Net Backfill": `${netBackfillVol.toFixed(2)} m³`,
-          "Manhole Masonry": `${mhMaterialVol.toFixed(2)} m³`,
+          "Manhole Wall Vol": `${mhResults?.wallVol?.toFixed(2) || '0.00'} m³`,
           "Flow Velocity": `${flowVelocity.toFixed(3)} m/s`,
           "Septic Vol": `${septicTotalVolM3.toFixed(2)} m³`
         }}
@@ -840,7 +706,6 @@ export default function SewerageEstimator() {
             "Trench Depth": `${trenchDepth}m`,
             "Pipe Outer Dia": `${pipeOuterDiameter}m`,
             "Bedding Depth": `${beddingDepth}m`,
-            "MH Depth": `${mhDepth}m`,
             "Flow Dia": `${flowDia}m`,
             "Flow Gradient": `1 in ${flowGradient}`,
             "Septic Users": `${septicUsers}`,
@@ -850,7 +715,7 @@ export default function SewerageEstimator() {
             "Total Excavation": `${trenchVol.toFixed(2)} m³`,
             "Bedding Volume": `${beddingVol.toFixed(2)} m³`,
             "Net Backfill": `${netBackfillVol.toFixed(2)} m³`,
-            "Manhole Masonry": `${mhMaterialVol.toFixed(2)} m³`,
+            "Manhole Concrete": `${mhResults?.totalWetConcrete?.toFixed(2) || '0.00'} m³`,
             "Flow Velocity": `${flowVelocity.toFixed(3)} m/s`,
             "Discharge (m³/s)": `${dischargeCapacityM3.toFixed(4)} m³/s`,
             "Septic Tank Vol": `${septicTotalVolM3.toFixed(2)} m³`,

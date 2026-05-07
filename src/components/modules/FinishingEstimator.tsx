@@ -119,7 +119,7 @@ export default function FinishingEstimator() {
           <p className="text-gray-500 mt-2 text-lg font-medium">
             Calculate plaster, tile, and paint quantities with dynamic cost distributions.
           </p>
-            <div className="mt-5 w-fit"><GlobalSettingsToggle /></div>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" /></div>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

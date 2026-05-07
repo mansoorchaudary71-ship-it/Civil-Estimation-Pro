@@ -306,8 +306,15 @@ export default function LiveBOQ() {
               title="Bill of Quantities"
               data={exportData}
               exportFormat={{
-                 inputs: exportData,
-                 breakdown: { boqItems, totalCost }
+                 inputs: Object.fromEntries(Object.entries(exportData).map(([k, v]) => [k, String(v)])),
+                 breakdown: { "Total Cost": String(totalCost) },
+                 customTableData: boqItems.map(item => ({
+                   item: item.desc,
+                   quantityStr: getQty(item).toFixed(2),
+                   unitStr: item.unit,
+                   rate: item.rate,
+                   cost: getQty(item) * item.rate
+                 }))
               }}
             />
             {user && (

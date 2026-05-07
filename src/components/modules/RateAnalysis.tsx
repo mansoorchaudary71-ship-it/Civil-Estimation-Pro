@@ -71,7 +71,7 @@ export default function RateAnalysis() {
           <p className="text-gray-500 mt-2 text-lg font-medium">
             Centralized hub for local market rates. Updates here reflect globally across all estimation modules.
           </p>
-            <div className="mt-5 w-fit"><GlobalSettingsToggle /></div>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" /></div>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -219,7 +219,7 @@ export default function RateAnalysis() {
                         data={compositeCalc}
                         exportFormat={{
                            inputs: { "Mix Ratio": "1:2:4", "Dry Vol": "1.54 m³" },
-                           breakdown: compositeCalc
+                           breakdown: Object.fromEntries(Object.entries(compositeCalc).map(([k, v]) => [k, String(v)])) as Record<string, string>
                         }}
                       />
                       {user && (

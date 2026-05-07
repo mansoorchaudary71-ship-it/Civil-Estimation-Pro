@@ -48,7 +48,7 @@ export default function TrenchExcavationEstimator() {
             <p className="text-gray-500 mt-2 font-medium">
               Calculate total excavated volume and bedding material using a trapezoidal cross-section.
             </p>
-            <div className="mt-5 w-fit"><GlobalSettingsToggle /></div>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" /></div>
           </div>
           
         </header>

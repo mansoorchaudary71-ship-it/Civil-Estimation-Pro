@@ -4,17 +4,19 @@ import { Copy, Droplet, Box, Hammer, PaintBucket, Scaling, ArrowRightLeft, Layer
 import { useSettings } from "../../context/SettingsContext";
 import { ConcreteMortarCalculator, BrickworkCalculator, PlasterCalculator, SteelCalculator } from "../../utils/calculators";
 import ShareButtonWithPopup from "./ShareMenu";
+import ColorfulTab from "../ui/ColorfulTab";
+import UnitToggleGroup from "../ui/UnitToggleGroup";
 import RccStructureCalculator from "./RccStructureCalculator";
 import MasterQuantityEstimator from "./MasterQuantityEstimator";
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
+import Brickwork9InchModule from "./Brickwork9InchModule";
 
 export default function ConstructionMaterialEstimator() {
   const { formatCurrency, settings } = useSettings();
   const { user } = useAuth();
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
-
   
   const isSI = settings.measurement === "SI";
   const unitFt = isSI ? "m" : "ft";
@@ -122,6 +124,28 @@ export default function ConstructionMaterialEstimator() {
   // Water
   const [wCementKg, setWCementKg] = useState("50");
   const [wWcRatio, setWWcRatio] = useState("0.5");
+
+  React.useEffect(() => {
+    if (settings.measurement === 'SI') {
+      setCDepth("0.15");
+      setBWallT("22");
+      setBrickL("22.8"); setBrickW("11.4"); setBrickH("7.6"); setBJoint("1");
+      setBlockL("40"); setBlockW("20"); setBlockH("20"); setBlockJoint("1");
+      setPThick("1.2");
+      setSBarL("12");
+      setSDia("12");
+      setSSpace("150");
+    } else {
+      setCDepth("0.5");
+      setBWallT("9");
+      setBrickL("9"); setBrickW("4.5"); setBrickH("3"); setBJoint("0.39");
+      setBlockL("16"); setBlockW("8"); setBlockH("8"); setBlockJoint("0.39");
+      setPThick("0.5");
+      setSBarL("40");
+      setSDia("4");
+      setSSpace("6");
+    }
+  }, [settings.measurement]);
 
   const parseNum = (val: string) => parseFloat(val) || 0;
 
@@ -266,6 +290,9 @@ export default function ConstructionMaterialEstimator() {
     } as any;
 
     content = (
+      activeTab === "bricks" ? (
+        <Brickwork9InchModule />
+      ) : (
       <div className="space-y-6 bg-slate-50/50 p-6 rounded-2xl border w-full">
         <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">{activeTab} Wall </h3>
           <div className="grid grid-cols-3 gap-4">
@@ -378,6 +405,7 @@ export default function ConstructionMaterialEstimator() {
              </div>
           </div>
         </div>
+      )
     );
   } else if (activeTab === "steel") {
     const calc = new SteelCalculator(
@@ -544,13 +572,13 @@ export default function ConstructionMaterialEstimator() {
   } else if (activeTab === "rcc") {
     content = (
       <div className="w-full relative col-span-1 lg:col-span-2 space-y-4">
-        <RccStructureCalculator isEmbedded={true} />
+        <RccStructureCalculator isEmbedded={true} externalUnitSystem={settings.measurement === "SI" ? "metric" : "imperial"} />
       </div>
     );
   } else if (activeTab === "master") {
     content = (
       <div className="w-full relative col-span-1 lg:col-span-2 space-y-4">
-        <MasterQuantityEstimator isEmbedded={true} />
+        <MasterQuantityEstimator isEmbedded={true} externalUnitSystem={settings.measurement === "SI" ? "metric" : "imperial"} />
       </div>
     );
   } else if (activeTab === "cement" || activeTab === "sand") {
@@ -590,7 +618,9 @@ export default function ConstructionMaterialEstimator() {
            <div>
              <h1 className="text-3xl font-black text-gray-900 mb-2">Construction Material Estimator</h1>
              <p className="text-gray-500 font-medium">Accurate estimations for concrete, bricks, steel, blocks, and mortar.</p>
-             <div className="mt-4"><GlobalSettingsToggle /></div>
+             <div className="mt-4 flex items-center gap-4">
+               <GlobalSettingsToggle align="left" />
+             </div>
            </div>
            <div className="flex flex-wrap items-center gap-4">
              <div className="bg-white px-4 py-3 rounded-xl border flex items-center gap-2 shadow-sm">
@@ -601,20 +631,18 @@ export default function ConstructionMaterialEstimator() {
              </div>
         </div>
 
-        <div className="flex overflow-x-auto pb-4 gap-2 mb-4 scrollbar-hide">
-           {fullTabs.map((tab) => {
-             const Icon = tab.icon;
-             return (
-               <button 
-                 key={tab.id}
-                 onClick={() => setActiveTab(tab.id)}
-                 className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap ${activeTab === tab.id ? "bg-indigo-600 dark:bg-indigo-500 text-white shadow-md shadow-indigo-600/20" : "bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800"}`}
-               >
-                 <Icon className="w-4 h-4" />
-                 {tab.label}
-               </button>
-             )
-           })}
+        <div className="flex overflow-x-auto pb-4 gap-2 mb-4 scrollbar-hide p-1">
+           {fullTabs.map((tab) => (
+             <ColorfulTab
+               key={tab.id}
+               id={tab.id}
+               label={tab.label}
+               icon={<tab.icon className="w-4 h-4" />}
+               isActive={activeTab === tab.id}
+               onClick={() => setActiveTab(tab.id)}
+               colorTheme="indigo"
+             />
+           ))}
         </div>
 
         <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] shadow-sm border border-slate-200 dark:border-slate-800 transition-all duration-300 relative">

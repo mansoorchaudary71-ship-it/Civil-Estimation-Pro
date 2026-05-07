@@ -7,6 +7,7 @@ import {
 import ShareButtonWithPopup from "./ShareMenu";
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
+import Brickwork9InchModule from "./Brickwork9InchModule";
 
 type UnitSystem = "metric" | "imperial";
 
@@ -63,10 +64,14 @@ const calculatorsList: CalcItem[] = [
   { id: "precast_boundary", label: "Precast Boundary", group: "Specialized", icon: Container }
 ];
 
+import { useSettings } from '../../context/SettingsContext';
+import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+
 export default function MasterQuantityEstimator({ isEmbedded = false }: { isEmbedded?: boolean }) {
   const { user } = useAuth();
+  const { settings } = useSettings();
   const [activeCalc, setActiveCalc] = useState<CalcId>("concrete");
-  const [unitSystem, setUnitSystem] = useState<UnitSystem>("metric");
+  const unitSystem = settings.measurement === 'SI' ? 'metric' : 'imperial';
   const [saveMessage, setSaveMessage] = useState<string>("");
   const [isSaving, setIsSaving] = useState<boolean>(false);
 
@@ -270,32 +275,49 @@ export default function MasterQuantityEstimator({ isEmbedded = false }: { isEmbe
     <div className={isEmbedded ? "w-full" : "w-full h-full overflow-y-auto bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8"}>
       <div className={isEmbedded ? "w-full" : "max-w-7xl mx-auto"}>
         {!isEmbedded && (
-          <>
-            <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
-              <Calculator className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-              Master Quantity Estimator
-            </h1>
-            <p className="text-slate-500 dark:text-slate-400 mb-8 font-medium">Comprehensive suite of 23 civil engineering calculators for accurate material estimation.</p>
-          </>
+          <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
+            <div>
+              <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
+                <Calculator className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                Master Quantity Estimator
+              </h1>
+              <p className="text-slate-500 dark:text-slate-400 font-medium">Comprehensive suite of 23 civil engineering calculators for accurate material estimation.</p>
+            </div>
+            
+            <div className="mt-5 flex gap-4 w-fit">
+              <GlobalSettingsToggle align="left" />
+            </div>
+          </div>
         )}
 
         <div className="flex flex-col xl:flex-row gap-8">
-          {/* Sidebar / Top Nav for calculators */}
-          <div className="xl:w-64 flex-shrink-0 space-y-8">
-            <div className="bg-white dark:bg-slate-900 p-2 rounded-xl flex border border-slate-200 dark:border-slate-800 shadow-sm">
-              <button 
-                onClick={() => setUnitSystem("metric")}
-                className={`flex-1 py-2 text-sm font-bold rounded-lg transition-colors ${unitSystem === "metric" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300" : "text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800"}`}
+          {/* Mobile Dropdown Nav */}
+          <div className="xl:hidden w-full space-y-2">
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-2">Select Calculator</label>
+            <div className="relative">
+              <select
+                className="w-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 appearance-none font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={activeCalc}
+                onChange={(e) => setActiveCalc(e.target.value as CalcId)}
               >
-                Metric (m)
-              </button>
-              <button 
-                onClick={() => setUnitSystem("imperial")}
-                className={`flex-1 py-2 text-sm font-bold rounded-lg transition-colors ${unitSystem === "imperial" ? "bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300" : "text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800"}`}
-              >
-                Imperial (ft)
-              </button>
+                {groups.map(group => (
+                  <optgroup key={group} label={group}>
+                    {calculatorsList.filter(c => c.group === group).map(calc => (
+                      <option key={calc.id} value={calc.id}>{calc.label}</option>
+                    ))}
+                  </optgroup>
+                ))}
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500">
+                <svg className="fill-current h-4 w-4" viewBox="0 0 20 20">
+                  <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" fillRule="evenodd"></path>
+                </svg>
+              </div>
             </div>
+          </div>
+
+          {/* Sidebar / Top Nav for calculators (Desktop) */}
+          <div className="hidden xl:block xl:w-64 flex-shrink-0 space-y-8">
 
             <div className="xl:h-[600px] xl:overflow-y-auto pr-2 space-y-6 custom-scrollbar">
               {groups.map((group) => (
@@ -324,7 +346,11 @@ export default function MasterQuantityEstimator({ isEmbedded = false }: { isEmbe
 
           {/* Calculator Content */}
           <div className="flex-1">
-            {renderCalculatorContent()}
+            {activeCalc === "bricks" ? (
+              <Brickwork9InchModule />
+            ) : (
+              renderCalculatorContent()
+            )}
           </div>
         </div>
       </div>

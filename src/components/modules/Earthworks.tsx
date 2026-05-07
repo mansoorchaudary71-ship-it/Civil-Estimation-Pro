@@ -69,7 +69,7 @@ export default function EarthworksEstimator() {
             <p className="text-gray-500 mt-2 font-medium">
               Calculate accurate excavation volumes using the Prismoidal Formula and estimate hauling constraints.
             </p>
-            <div className="mt-5 w-fit"><GlobalSettingsToggle /></div>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" /></div>
           </div>
           
         </header>

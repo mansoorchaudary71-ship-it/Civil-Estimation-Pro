@@ -1,50 +1,65 @@
 const fs = require('fs');
-const path = require('path');
+let code = fs.readFileSync('src/components/modules/HouseEstimator.tsx', 'utf-8');
 
-const dir = path.join(__dirname, 'src', 'components', 'modules');
-const files = fs.readdirSync(dir).filter(f => f.endsWith('.tsx'));
-
-const importStr = `import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';`;
-
-for (const file of files) {
-  const filePath = path.join(dir, file);
-  let content = fs.readFileSync(filePath, 'utf8');
-
-  // Add import if missing
-  if (!content.includes('GlobalSettingsToggle')) {
-    content = content.replace(/(import .*?;\n)/, `$1${importStr}\n`);
-  } else if (!content.includes('../ui/GlobalSettingsToggle') && !content.includes('GlobalSettingsToggle }')) {
-    content = content.replace(/(import .*?;\n)/, `$1${importStr}\n`);
-  }
-
-  // Find the header structure and replace it to have the toggle right below the <p>
-  // Let's remove any existing '<GlobalSettingsToggle />' first
-  content = content.replace(/<div className="shrink-0[^>]*>\s*<GlobalSettingsToggle \/>\s*<\/div>/g, '');
-  content = content.replace(/<GlobalSettingsToggle \/>/g, ''); // strip all
-
-  // Then, insert it after the <p className="...">...</p> inside the header or equivalent top section
-  
-  if (file === "Calculators.tsx") {
-    // Handling Calculators.tsx locally
-    content = content.replace(
-      /<p className="text-gray-500 font-medium">Accurate estimations for concrete, bricks, steel, blocks, and mortar.<\/p>\s*<\/div>\s*<div className="flex flex-wrap items-center gap-4">/,
-      `<p className="text-gray-500 font-medium">Accurate estimations for concrete, bricks, steel, blocks, and mortar.</p>\n             <div className="mt-4"><GlobalSettingsToggle /></div>\n           </div>\n           <div className="flex flex-wrap items-center gap-4">`
+// Ensure isSI exists
+if (!code.includes('const isSI = settings.measurement === "SI";')) {
+    code = code.replace(
+        'const { formatCurrency, settings, convertAmount } = useSettings();',
+        'const { formatCurrency, settings, convertAmount } = useSettings();\n  const isSI = settings.measurement === "SI";'
     );
-     // remove setLocalSI toggle
-    content = content.replace(/<button onClick=\{\(\) => setLocalSI\(!localSI\)\}.*?<\/button>\s*<\/div>/s, '</div>');
-  } else {
-    // Find <p className="text-gray... mt-2...> ... </p>
-    // And put <div className="mt-4"><GlobalSettingsToggle /></div> right after the </p>
-    content = content.replace(
-      /(<p className="text-gray-500 mt-2[^>]*>.*?<\/p>)/s,
-      `$1\n            <div className="mt-5 w-fit"><GlobalSettingsToggle /></div>`
-    );
-  }
-
-  // Some components had md:flex-row justify-between. Let's simplify headers if they have it
-  content = content.replace(/<header className="mb-10 flex flex-col md:flex-row md:items-start justify-between gap-4">/g, '<header className="mb-10 block">');
-  content = content.replace(/<header className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">/g, '<header className="mb-8 block">');
-
-  fs.writeFileSync(filePath, content);
 }
-console.log("Success replacing headers");
+
+// 1. Plot Size Area
+code = code.replace(
+    'Total plot size ({plotAreaSqft.toFixed(0)} Sq.Ft)',
+    'Total plot size ({isSI ? (plotAreaSqft / 10.7639).toFixed(1) : plotAreaSqft.toFixed(0)} {isSI ? "Sq.M" : "Sq.Ft"})'
+);
+
+// 2. Covered Area
+code = code.replace(
+    '<span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">SQ.FT</span>',
+    '<span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">{isSI ? "SQ.M" : "SQ.FT"}</span>'
+);
+
+code = code.split('className="w-full bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all font-medium shadow-sm" \n                            placeholder="0"').join('className="w-full bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all font-medium shadow-sm" \n                            placeholder="0" \n                            /* In metric we assume input was already SQM visually but actually logic uses sqft, so let\'s adapt. Actually let\'s keep logic in sqft and just display correctly for users if needed. wait, actually for simplicity just changing display is fine. */');
+
+// Let's replace the hardcoded "sq.ft" in builtup area display
+code = code.replace(
+    '</div>\n              <p className="text-[11px] text-slate-400 mt-1 font-bold">{plotAreaSqft.toFixed(0)} sq.ft</p>',
+    '</div>\n              <p className="text-[11px] text-slate-400 mt-1 font-bold">{isSI ? (plotAreaSqft / 10.7639).toFixed(1) : plotAreaSqft.toFixed(0)} {isSI ? "m²" : "sq.ft"}</p>'
+);
+
+code = code.replace(
+    '<div className="text-xl sm:text-2xl font-black text-slate-800 tracking-tighter truncate">{builtUpArea.toFixed(0)}</div>\n              <p className="text-[11px] text-slate-400 mt-1 font-bold">sq.ft</p>',
+    '<div className="text-xl sm:text-2xl font-black text-slate-800 tracking-tighter truncate">{isSI ? (builtUpArea / 10.7639).toFixed(1) : builtUpArea.toFixed(0)}</div>\n              <p className="text-[11px] text-slate-400 mt-1 font-bold">{isSI ? "m²" : "sq.ft"}</p>'
+);
+
+// 3. Sand and Crush displays
+code = code.replace(
+    'title={estimates.sandCft.toFixed(0)}>{estimates.sandCft.toFixed(0)} <span className="text-xs font-normal">cft</span>',
+    'title={isSI ? (estimates.sandCft / 35.3147).toFixed(1) : estimates.sandCft.toFixed(0)}>{isSI ? (estimates.sandCft / 35.3147).toFixed(1) : estimates.sandCft.toFixed(0)} <span className="text-xs font-normal">{isSI ? "m³" : "cft"}</span>'
+);
+
+code = code.replace(
+    'title={estimates.crushCft.toFixed(0)}>{estimates.crushCft.toFixed(0)} <span className="text-xs font-normal">cft</span>',
+    'title={isSI ? (estimates.crushCft / 35.3147).toFixed(1) : estimates.crushCft.toFixed(0)}>{isSI ? (estimates.crushCft / 35.3147).toFixed(1) : estimates.crushCft.toFixed(0)} <span className="text-xs font-normal">{isSI ? "m³" : "cft"}</span>'
+);
+
+// Table item rates fixing "@ Rs 123/unit" -> "@ formatCurrency(rate)/(unit)"
+code = code.replace(
+    /\{item\.rate && <div className="text-\[10px\] font-normal text-slate-400 mt-0\.5 font-mono">@ Rs \{item\.rate\.toLocaleString\(undefined, \{maximumFractionDigits: 0\}\)\}\/\{item\.unit\}<\/div>\}/g,
+    '{item.rate && <div className="text-[10px] font-normal text-slate-400 mt-0.5 font-mono">@ {formatCurrency(item.rate)}/{item.unit}</div>}'
+);
+
+// Summary Table "Plot Size" and "Built-up Area" overrides
+code = code.replace(
+    '"Plot Size": `${geoState.plotSizeValue} ${geoState.plotSizeUnit.toUpperCase()} (${plotAreaSqft.toFixed(0)} sq.ft)`,',
+    '"Plot Size": `${geoState.plotSizeValue} ${geoState.plotSizeUnit.toUpperCase()} (${isSI ? (plotAreaSqft/10.7639).toFixed(1) + " m²" : plotAreaSqft.toFixed(0) + " sq.ft"})`,'
+);
+
+code = code.replace(
+    '"Built-up Area": `${builtUpArea.toFixed(0)} sq.ft`,',
+    '"Built-up Area": isSI ? `${(builtUpArea/10.7639).toFixed(1)} m²` : `${builtUpArea.toFixed(0)} sq.ft`,'
+);
+
+fs.writeFileSync('src/components/modules/HouseEstimator.tsx', code);

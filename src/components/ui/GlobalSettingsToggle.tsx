@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Settings, ChevronDown, Ruler, DollarSign } from "lucide-react";
 import { useSettings, MeasurementSystem, Currency } from "../../context/SettingsContext";
 
-export function GlobalSettingsToggle() {
+export function GlobalSettingsToggle({ align = "right" }: { align?: "left" | "right" }) {
   const { settings, updateSettings } = useSettings();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -17,6 +17,8 @@ export function GlobalSettingsToggle() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const alignClass = align === "left" ? "left-0 origin-top-left" : "right-0 origin-top-right";
+
   return (
     <div className="relative z-50" ref={menuRef}>
       <button 
@@ -27,14 +29,14 @@ export function GlobalSettingsToggle() {
         <span className="hidden sm:inline-block tracking-wide">
           {settings.measurement === "SI" ? "M/MM" : "FT/IN"} &bull; {settings.currency}
         </span>
-        <span className="sm:hidden tracking-wide text-xs">
-          {settings.currency}
+        <span className="sm:hidden tracking-wide text-xs flex items-center gap-1">
+          {settings.measurement === "SI" ? "SI" : "FPS"} &bull; {settings.currency}
         </span>
         <Settings className="w-4 h-4 text-slate-500" />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-56 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border border-slate-200/80 dark:border-slate-700/80 rounded-3xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 ring-1 ring-slate-900/5 dark:ring-white/10">
+        <div className={`absolute top-full mt-2 w-56 ${alignClass} bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border border-slate-200/80 dark:border-slate-700/80 rounded-[24px] shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 ring-1 ring-slate-900/5 dark:ring-white/10`}>
           <div className="p-3">
              <div className="mb-2 text-[11px] font-black text-slate-500 uppercase tracking-wider flex items-center gap-1.5 pl-1">
                <Ruler className="w-3.5 h-3.5"/> Unit System

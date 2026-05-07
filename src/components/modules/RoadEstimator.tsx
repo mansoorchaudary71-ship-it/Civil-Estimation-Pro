@@ -196,7 +196,7 @@ export default function RoadEstimator() {
           <p className="text-gray-500 mt-2 font-medium">
             Calculate material volumes, coat litrages, and visualize cross-sections for multi-layer road construction.
           </p>
-            <div className="mt-5 w-fit"><GlobalSettingsToggle /></div>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" /></div>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

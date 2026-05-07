@@ -23,6 +23,8 @@ import VolumeEstimator from "./components/modules/VolumeEstimator";
 import UnitConverter from "./components/modules/UnitConverter";
 import MetalWeightCalculator from "./components/modules/MetalWeightCalculator";
 import RccStructureCalculator from "./components/modules/RccStructureCalculator";
+import StaircaseCalculator from "./components/modules/StaircaseCalculator";
+import ColumnEstimator from "./components/modules/ColumnEstimator";
 import MasterQuantityEstimator from "./components/modules/MasterQuantityEstimator";
 import SettingsModal from "./components/modules/SettingsModal";
 import AuthModal from "./components/auth/AuthModal";
@@ -112,6 +114,8 @@ export default function App() {
               {activeModule === "unit-converter" && <ModuleWrapper title="Universal Unit Converter" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><UnitConverter /></ModuleWrapper>}
               {activeModule === "metal-weight" && <ModuleWrapper title="Metal Weight Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MetalWeightCalculator /></ModuleWrapper>}
               {activeModule === "rcc-calculator" && <ModuleWrapper title="RCC Structure Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RccStructureCalculator /></ModuleWrapper>}
+              {activeModule === "column-estimator" && <ModuleWrapper title="Column Concrete Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ColumnEstimator /></ModuleWrapper>}
+              {activeModule === "staircase-calculator" && <ModuleWrapper title="Staircase Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><StaircaseCalculator /></ModuleWrapper>}
               {activeModule === "master-quantity" && <ModuleWrapper title="Master Quantity Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MasterQuantityEstimator /></ModuleWrapper>}
               {activeModule === "calculators" && <ModuleWrapper title="Construction Material Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><Calculators /></ModuleWrapper>}
               {activeModule === "ai" && <ModuleWrapper title="AI Assistant" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AIAssistant /></ModuleWrapper>}

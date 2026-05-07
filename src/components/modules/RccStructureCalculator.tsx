@@ -3,11 +3,16 @@ import { Calculator, Box, Layers, Columns, Circle, Square, Hammer, AlignVertical
 import ShareButtonWithPopup from "./ShareMenu";
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
+import SlabSteelModule, { SlabSteelResults } from "./SlabSteelModule";
+
+import { useSettings } from '../../context/SettingsContext';
 
 type StructureType = "Simple Slab" | "One Way Slab" | "Two Way Slab" | "4 Bar Column" | "6 Bar Column" | "8 Bar Column" | "Round Column";
 
 export default function RccStructureCalculator({ isEmbedded = false }: { isEmbedded?: boolean }) {
   const { user } = useAuth();
+  const { settings } = useSettings();
+  const unitSystem = settings.measurement === 'SI' ? 'metric' : 'imperial';
   const [activeType, setActiveType] = useState<StructureType>("Simple Slab");
   const [saveMessage, setSaveMessage] = useState<string>("");
   const [isSaving, setIsSaving] = useState<boolean>(false);
@@ -16,11 +21,8 @@ export default function RccStructureCalculator({ isEmbedded = false }: { isEmbed
   const [slabLength, setSlabLength] = useState<string>("5"); // m
   const [slabWidth, setSlabWidth] = useState<string>("4"); // m
   const [slabThickness, setSlabThickness] = useState<string>("0.15"); // m
-  const [mainBarDia, setMainBarDia] = useState<string>("12"); // mm
-  const [mainBarSpacing, setMainBarSpacing] = useState<string>("150"); // mm
-  const [distBarDia, setDistBarDia] = useState<string>("10"); // mm
-  const [distBarSpacing, setDistBarSpacing] = useState<string>("200"); // mm
-  const [cover, setCover] = useState<string>("25"); // mm
+  
+  const [slabSteelResults, setSlabSteelResults] = useState<SlabSteelResults | null>(null);
 
   // Column Inputs
   const [colHeight, setColHeight] = useState<string>("3"); // m
@@ -54,28 +56,14 @@ export default function RccStructureCalculator({ isEmbedded = false }: { isEmbed
       const L = parse(slabLength);
       const W = parse(slabWidth);
       const T = parse(slabThickness);
-      const mainDia = parse(mainBarDia);
-      const mainSpc = parse(mainBarSpacing) / 1000; // to m
-      const distDia = parse(distBarDia);
-      const distSpc = parse(distBarSpacing) / 1000; // to m
-      const c = parse(cover) / 1000; // to m
 
       concreteVol = L * W * T;
       
       const isOneWay = activeType === "One Way Slab";
       const isTwoWay = activeType === "Two Way Slab";
 
-      // Let's assume shorter span is Main, longer is Distribution
-      const shortSpan = Math.min(L, W);
-      const longSpan = Math.max(L, W);
-
-      const mainBarsCount = Math.ceil((longSpan - 2 * c) / (mainSpc || 1)) + 1;
-      const mainBarLen = shortSpan - 2 * c;
-      const mainWt = mainBarsCount * mainBarLen * (mainDia * mainDia / 162.28);
-
-      const distBarsCount = Math.ceil((shortSpan - 2 * c) / (distSpc || 1)) + 1;
-      const distBarLen = longSpan - 2 * c;
-      const distWt = distBarsCount * distBarLen * (distDia * distDia / 162.28);
+      let mainWt = slabSteelResults?.mainTotalWeight || 0;
+      let distWt = slabSteelResults?.distTotalWeight || 0;
 
       let extraWt = 0;
       if (isTwoWay) {
@@ -89,11 +77,9 @@ export default function RccStructureCalculator({ isEmbedded = false }: { isEmbed
         "Length (m)": `${L}`,
         "Width (m)": `${W}`,
         "Thickness (m)": `${T}`,
-        "Main Bar Dia (mm)": `${mainDia}`,
-        "Main Spacing (mm)": `${mainSpc * 1000}`,
-        "Dist Bar Dia (mm)": `${distDia}`,
-        "Dist Spacing (mm)": `${distSpc * 1000}`,
-        "Cover (mm)": `${c * 1000}`
+        "Main Bars Wt (kg)": `${mainWt}`,
+        "Dist Bars Wt (kg)": `${distWt}`,
+        "Extra Wt (kg)": `${extraWt}`
       };
     } else {
       // Columns
@@ -162,8 +148,7 @@ export default function RccStructureCalculator({ isEmbedded = false }: { isEmbed
   };
 
   const { concreteVol, totalSteelKg, inputsUsed } = useMemo(calculate, [
-    activeType, slabLength, slabWidth, slabThickness, mainBarDia, mainBarSpacing, 
-    distBarDia, distBarSpacing, cover, colHeight, colWidth, colDepth, 
+    activeType, slabLength, slabWidth, slabThickness, slabSteelResults, colHeight, colWidth, colDepth, 
     colDia, colMainBarDia, colTieDia, colTieSpacing, colCover, colRoundBarsCount
   ]);
 
@@ -232,41 +217,28 @@ export default function RccStructureCalculator({ isEmbedded = false }: { isEmbed
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {activeType.includes("Slab") && (
                 <>
-                  <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase">Length (m)</label>
-                    <input type="number" value={slabLength} onChange={e => setSlabLength(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500" />
-                  </div>
-                  <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase">Width (m)</label>
-                    <input type="number" value={slabWidth} onChange={e => setSlabWidth(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500" />
-                  </div>
-                  <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase">Slab Thickness (m)</label>
-                    <input type="number" step="0.01" value={slabThickness} onChange={e => setSlabThickness(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500" />
-                  </div>
-                  <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase">Clear Cover (mm)</label>
-                    <input type="number" value={cover} onChange={e => setCover(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500" />
-                  </div>
-
-                  <div className="sm:col-span-2 pt-4"><h4 className="text-sm font-bold text-slate-800 dark:text-slate-200 border-b pb-2">Steel Details</h4></div>
-                  
-                  <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase">Main Bar Dia (mm)</label>
-                    <input type="number" value={mainBarDia} onChange={e => setMainBarDia(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500" />
-                  </div>
-                  <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase">Main Bar Spacing (mm)</label>
-                    <input type="number" value={mainBarSpacing} onChange={e => setMainBarSpacing(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500" />
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-b border-slate-100 dark:border-slate-800 pb-6 mb-6">
+                    <div>
+                      <label className="text-xs font-bold text-gray-500 uppercase">Length (m)</label>
+                      <input type="number" value={slabLength} onChange={e => setSlabLength(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500" />
+                    </div>
+                    <div>
+                      <label className="text-xs font-bold text-gray-500 uppercase">Width (m)</label>
+                      <input type="number" value={slabWidth} onChange={e => setSlabWidth(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500" />
+                    </div>
+                    <div>
+                      <label className="text-xs font-bold text-gray-500 uppercase">Slab Thickness (m)</label>
+                      <input type="number" step="0.01" value={slabThickness} onChange={e => setSlabThickness(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500" />
+                    </div>
                   </div>
                   
-                  <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase">Dist Bar Dia (mm)</label>
-                    <input type="number" value={distBarDia} onChange={e => setDistBarDia(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500" />
-                  </div>
-                  <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase">Dist Bar Spacing (mm)</label>
-                    <input type="number" value={distBarSpacing} onChange={e => setDistBarSpacing(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500" />
+                  <div className="sm:col-span-2">
+                    <SlabSteelModule 
+                      slabLength={slabLength} 
+                      slabWidth={slabWidth} 
+                      slabThickness={slabThickness}
+                      onStateChange={setSlabSteelResults}
+                    />
                   </div>
                 </>
               )}
