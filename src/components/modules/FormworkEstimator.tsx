@@ -115,7 +115,7 @@ export default function FormworkEstimator() {
           <p className="text-gray-500 mt-2 text-lg font-medium">
             Calculate accurate shuttering contact surface areas and standard material requirements.
           </p>
-            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" /></div>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" showCurrency={false} /></div>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

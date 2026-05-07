@@ -101,7 +101,7 @@ export default function ColumnEstimator() {
             </h1>
             <p className="text-slate-500 dark:text-slate-400 font-medium">Calculate concrete volume and material breakdown for columns.</p>
           </div>
-          <GlobalSettingsToggle align="left" />
+          <GlobalSettingsToggle align="left" showCurrency={false} />
         </div>
 
         <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">

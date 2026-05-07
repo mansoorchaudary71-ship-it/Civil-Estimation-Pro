@@ -230,12 +230,13 @@ export default function LiveBOQ() {
       <div className="flex-1 bg-white border border-slate-200 rounded-xl flex flex-col overflow-hidden">
         
         {/* Header */}
-        <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between shrink-0">
+        <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between shrink-0 flex-wrap gap-4">
           <div>
             <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-500">Live Bill of Quantities (BOQ)</h2>
             <span className="text-xs font-mono text-green-500 mt-1 block">Project: {exportData.projectName} • {exportData.projectId}</span>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center flex-wrap">
+            <GlobalSettingsToggle align="left" showCurrency={true} />
             <button 
               onClick={() => setShowExportModal(true)}
               className="px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded hover:bg-slate-200 transition-colors flex items-center gap-1.5"

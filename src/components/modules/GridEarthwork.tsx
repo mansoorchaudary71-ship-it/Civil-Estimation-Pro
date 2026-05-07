@@ -59,7 +59,7 @@ export default function GridEarthworkEstimator() {
             <p className="text-gray-500 mt-2 font-medium">
               Calculate leveling volume by comparing existing and proposed elevations at grid corners.
             </p>
-            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" /></div>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" showCurrency={false} /></div>
           </div>
           
         </header>

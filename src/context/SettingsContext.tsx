@@ -152,3 +152,17 @@ export function useSettings() {
   }
   return context;
 }
+
+export function useGlobalSettings() {
+  const context = useContext(SettingsContext);
+  if (context === undefined) {
+    throw new Error('useGlobalSettings must be used within a SettingsProvider');
+  }
+  return {
+    currentUnit: context.settings.measurement === 'SI' ? 'Metric' : 'Imperial',
+    currentCurrency: context.settings.currency,
+    setCurrentUnit: (unit: 'Metric' | 'Imperial') => context.updateSettings({ measurement: unit === 'Metric' ? 'SI' : 'FPS' }),
+    setCurrentCurrency: (currency: Currency) => context.updateSettings({ currency }),
+    ...context
+  };
+}

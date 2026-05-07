@@ -138,7 +138,7 @@ export default function ChainageVolumeEstimator() {
             <p className="text-gray-500 mt-2 font-medium">
               Calculate road alignment cutting and filling volumes using the accurate Prismoidal Formula.
             </p>
-            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" /></div>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" showCurrency={false} /></div>
           </div>
         </header>
 

@@ -198,7 +198,7 @@ export default function SewerageEstimator() {
           <p className="text-gray-500 mt-2 font-medium">
             Calculate excavation volumes, manhole material, pipe sections, and invert levels for municipal infrastructure.
           </p>
-            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" /></div>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" showCurrency={false} /></div>
         </header>
 
         <div className="space-y-4">

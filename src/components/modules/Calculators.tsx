@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
 import { Copy, Droplet, Box, Hammer, PaintBucket, Scaling, ArrowRightLeft, Layers, Columns, Container, Spline, Calculator, Save } from "lucide-react";
-import { useSettings } from "../../context/SettingsContext";
+import { useGlobalSettings } from "../../context/SettingsContext";
 import { ConcreteMortarCalculator, BrickworkCalculator, PlasterCalculator, SteelCalculator } from "../../utils/calculators";
 import ShareButtonWithPopup from "./ShareMenu";
 import ColorfulTab from "../ui/ColorfulTab";
@@ -13,12 +13,12 @@ import { useAuth } from "../../contexts/AuthContext";
 import Brickwork9InchModule from "./Brickwork9InchModule";
 
 export default function ConstructionMaterialEstimator() {
-  const { formatCurrency, settings } = useSettings();
+  const { formatCurrency, currentUnit, currentCurrency } = useGlobalSettings();
   const { user } = useAuth();
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
   
-  const isSI = settings.measurement === "SI";
+  const isSI = currentUnit === "Metric";
   const unitFt = isSI ? "m" : "ft";
   const unitIn = isSI ? "cm" : "in";
   const unitVol = isSI ? "m³" : "cft";
@@ -126,7 +126,7 @@ export default function ConstructionMaterialEstimator() {
   const [wWcRatio, setWWcRatio] = useState("0.5");
 
   React.useEffect(() => {
-    if (settings.measurement === 'SI') {
+    if (currentUnit === 'Metric') {
       setCDepth("0.15");
       setBWallT("22");
       setBrickL("22.8"); setBrickW("11.4"); setBrickH("7.6"); setBJoint("1");
@@ -145,7 +145,7 @@ export default function ConstructionMaterialEstimator() {
       setSDia("4");
       setSSpace("6");
     }
-  }, [settings.measurement]);
+  }, [currentUnit]);
 
   const parseNum = (val: string) => parseFloat(val) || 0;
 
@@ -203,7 +203,7 @@ export default function ConstructionMaterialEstimator() {
               <input type="number" value={cDepth} onChange={e => setCDepth(e.target.value)} className="w-full bg-white border p-3 rounded-xl mt-1 font-medium" />
             </div>
           </div>
-          <div className="bg-blue-50/50 rounded-xl p-4 border border-blue-100 flex items-center justify-center h-32 relative text-[10px] font-bold text-blue-500/80">
+          <div className="bg-blue-50/50 rounded-xl p-4 border border-blue-100 flex items-center justify-center min-h-[8rem] relative text-[10px] font-bold text-blue-500/80 overflow-hidden break-words">
              <svg viewBox="0 0 120 80" className="w-full h-full absolute inset-0 opacity-20 pointer-events-none">
                 <path d="M30,50 L90,50 L105,30 L45,30 Z" fill="currentColor"/>
                 <path d="M30,50 L30,60 L90,60 L90,50 M90,60 L105,40 L105,30" fill="none" stroke="currentColor" strokeWidth="2"/>
@@ -310,7 +310,7 @@ export default function ConstructionMaterialEstimator() {
             </div>
           </div>
           
-          <div className="bg-amber-50/50 rounded-xl p-4 border border-amber-100 flex items-center justify-center h-32 relative text-[10px] font-bold text-amber-600/80">
+          <div className="bg-amber-50/50 rounded-xl p-4 border border-amber-100 flex items-center justify-center min-h-[8rem] relative text-[10px] font-bold text-amber-600/80 overflow-hidden break-words">
              <svg viewBox="0 0 120 80" className="w-full h-full absolute inset-0 opacity-20 pointer-events-none">
                 <path d="M20,60 L80,60 L80,20 L20,20 Z" fill="currentColor"/>
                 <path d="M80,60 L95,45 L95,5 L80,20 M20,20 L35,5 L95,5" fill="none" stroke="currentColor" strokeWidth="2"/>
@@ -520,7 +520,7 @@ export default function ConstructionMaterialEstimator() {
             </div>
           </div>
           
-          <div className="bg-slate-100/50 rounded-xl p-4 border border-slate-200 flex items-center justify-center h-32 relative text-[10px] font-bold text-slate-500">
+          <div className="bg-slate-100/50 rounded-xl p-4 border border-slate-200 flex items-center justify-center min-h-[8rem] relative text-[10px] font-bold text-slate-500 overflow-hidden break-words">
              <svg viewBox="0 0 120 80" className="w-full h-full absolute inset-0 opacity-20 pointer-events-none">
                 <path d="M30,70 L90,60 L90,20 L30,30 Z" fill="currentColor"/>
              </svg>
@@ -572,13 +572,13 @@ export default function ConstructionMaterialEstimator() {
   } else if (activeTab === "rcc") {
     content = (
       <div className="w-full relative col-span-1 lg:col-span-2 space-y-4">
-        <RccStructureCalculator isEmbedded={true} externalUnitSystem={settings.measurement === "SI" ? "metric" : "imperial"} />
+        <RccStructureCalculator isEmbedded={true} />
       </div>
     );
   } else if (activeTab === "master") {
     content = (
       <div className="w-full relative col-span-1 lg:col-span-2 space-y-4">
-        <MasterQuantityEstimator isEmbedded={true} externalUnitSystem={settings.measurement === "SI" ? "metric" : "imperial"} />
+        <MasterQuantityEstimator isEmbedded={true} />
       </div>
     );
   } else if (activeTab === "cement" || activeTab === "sand") {
@@ -668,9 +668,9 @@ export default function ConstructionMaterialEstimator() {
                     else if (key.includes("Units Required")) colorClass = "text-rose-400 font-bold";
                     
                     return (
-                      <div key={key} className="flex justify-between border-b border-slate-800 pb-3 pt-2">
-                         <span className={colorClass}>{key}</span> 
-                         <span className={key.includes("Units Required") ? "font-mono font-bold text-white uppercase text-xl" : "font-mono font-bold text-white"}>{val}</span>
+                      <div key={key} className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-slate-800 pb-3 pt-2 gap-1 sm:gap-4">
+                         <span className={`${colorClass} break-words`}>{key}</span> 
+                         <span className={`${key.includes("Units Required") ? "font-mono font-bold text-white uppercase text-xl" : "font-mono font-bold text-white"} break-words text-left sm:text-right`}>{val}</span>
                       </div>
                     );
                  })}

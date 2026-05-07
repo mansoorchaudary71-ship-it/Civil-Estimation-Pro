@@ -1,0 +1,35 @@
+src/components/modules/FinishingEstimator.tsx:2:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/FinishingEstimator.tsx:122:            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" /></div>
+src/components/modules/Earthworks.tsx:5:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/Earthworks.tsx:72:            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" /></div>
+src/components/modules/ChainageVolume.tsx:5:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/ChainageVolume.tsx:141:            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" showCurrency={false} /></div>
+src/components/modules/ShareMenu.tsx:2:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/Calculators.tsx:2:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/Calculators.tsx:622:               <GlobalSettingsToggle align="left" />
+src/components/modules/LiveBOQ.tsx:2:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/AdvancedSpecs.tsx:2:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/RoadEstimator.tsx:2:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/RoadEstimator.tsx:199:            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" /></div>
+src/components/modules/SewerageEstimator.tsx:2:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/SewerageEstimator.tsx:201:            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" showCurrency={false} /></div>
+src/components/modules/MasterQuantityEstimator.tsx:69:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/MasterQuantityEstimator.tsx:337:              <GlobalSettingsToggle align="left" />
+src/components/modules/SettingsModal.tsx:2:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/RateAnalysis.tsx:2:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/RateAnalysis.tsx:74:            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" /></div>
+src/components/modules/AIAssistant.tsx:2:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/GridEarthwork.tsx:5:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/GridEarthwork.tsx:62:            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" showCurrency={false} /></div>
+src/components/modules/TrenchExcavation.tsx:5:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/TrenchExcavation.tsx:51:            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" showCurrency={false} /></div>
+src/components/modules/HouseSpecs.tsx:2:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/HouseSpecs.tsx:20:            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" showCurrency={false} /></div>
+src/components/modules/Takeoff.tsx:2:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/GlobalSettingsModal.tsx:2:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/HouseEstimator.tsx:2:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/HouseEstimator.tsx:321:              <GlobalSettingsToggle align="left" />
+src/components/modules/FormworkEstimator.tsx:2:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/FormworkEstimator.tsx:118:            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" showCurrency={false} /></div>
+src/components/modules/ColumnEstimator.tsx:3:import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+src/components/modules/ColumnEstimator.tsx:104:          <GlobalSettingsToggle align="left" showCurrency={false} />

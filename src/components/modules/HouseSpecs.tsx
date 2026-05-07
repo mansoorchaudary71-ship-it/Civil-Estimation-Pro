@@ -17,7 +17,7 @@ export default function HouseSpecs() {
           <p className="text-gray-500 mt-2 text-lg font-medium">
             Define material specifications, structural mixes, and finish qualities mapping to central dynamic rates.
           </p>
-            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" /></div>
+            <div className="mt-5 w-fit"><GlobalSettingsToggle align="left" showCurrency={false} /></div>
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
