@@ -203,7 +203,7 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
                     <button 
                       key={mod.id} 
                       onClick={() => onSelectModule(mod.id as ModuleId)} 
-                      className="col-span-1 bg-gradient-to-br from-indigo-600 via-purple-600 to-purple-800 p-6 rounded-[32px] transition-all duration-300 flex flex-col items-start relative text-left group hover:-translate-y-1.5 shadow-[0_8px_30px_rgba(76,29,149,0.15)] hover:shadow-[0_12px_40px_rgba(76,29,149,0.3)] h-[160px] md:h-[180px] overflow-hidden"
+                      className="col-span-1 bg-gradient-to-br from-indigo-600 via-purple-600 to-purple-800 p-6 md:p-7 rounded-3xl transition-all duration-300 flex flex-col items-start relative text-left group hover:-translate-y-1.5 shadow-md shadow-indigo-500/20 hover:shadow-2xl hover:shadow-indigo-500/40 min-h-[160px] md:min-h-[180px] overflow-hidden"
                     >
                       <div className="absolute right-[-10%] bottom-[-5%] text-indigo-300/10 group-hover:text-indigo-300/20 transition-all duration-500 pointer-events-none group-active:scale-95 group-active:-rotate-6">
                          <Home className="w-[180px] h-[180px] md:w-[220px] md:h-[220px]" strokeWidth={1} />
@@ -242,7 +242,7 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
                   <button 
                     key={mod.id} 
                     onClick={() => onSelectModule(mod.id as ModuleId)} 
-                    className={`col-span-1 bg-[#FFFFFF] dark:bg-slate-900 p-6 rounded-[32px] transition-all duration-300 flex flex-col items-start relative text-left group hover:-translate-y-1.5 shadow-[0_2px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] border ${theme.border} h-[160px] md:h-[180px] overflow-hidden`}
+                    className={`col-span-1 bg-white dark:bg-slate-900 p-6 md:p-7 rounded-3xl transition-all duration-300 flex flex-col items-start relative text-left group hover:-translate-y-1.5 shadow-sm hover:shadow-xl border ${theme.border} min-h-[160px] md:min-h-[180px] overflow-hidden`}
                   >
                     <div className="relative z-10 w-full flex-1 flex flex-col items-start pr-0">
                       <div className="w-full flex justify-between items-start mb-4">
