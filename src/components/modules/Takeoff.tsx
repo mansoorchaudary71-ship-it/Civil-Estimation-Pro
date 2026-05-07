@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { GlobalSettingsToggle } from '../ui/GlobalSettingsToggle';
+import ShareButtonWithPopup from "./ShareMenu";
 import { Layers, MousePointer2, ZoomIn, ZoomOut, Move, Ruler, Activity, Square, Upload, Trash2, Check, X, GripVertical } from "lucide-react";
 import { Stage, Layer, Image as KonvaImage, Line, Circle, Text as KonvaText, Group } from "react-konva";
 import { Point, MeasurementType, Measurement, getDistance, calculateLength, calculateArea, formatDualMeasurement, convertLength } from "../../../src/utils/measurements";
@@ -750,6 +751,23 @@ export default function Takeoff() {
           </div>
         </div>
       </div>
+      <ShareButtonWithPopup 
+        activeTab="Takeoff"
+        title="2D Takeoff Measurements"
+        data={{
+          "Total Measurements": measurements.length,
+          "Linear Lengths": measurements.filter(m => m.type === 'linear').length,
+          "Areas": measurements.filter(m => m.type === 'area').length,
+          "Assemblies": measurements.filter(m => m.type === 'assembly').length
+        }}
+        exportFormat={{
+          inputs: { "Image Loaded": image ? "Yes" : "No", "Scale Set": scale ? "Yes" : "No" },
+          breakdown: measurements.reduce((acc, m) => {
+            acc[m.name || m.id] = `${m.type.toUpperCase()}`;
+            return acc;
+          }, {} as Record<string, string>)
+        }}
+      />
     </div>
   );
 }

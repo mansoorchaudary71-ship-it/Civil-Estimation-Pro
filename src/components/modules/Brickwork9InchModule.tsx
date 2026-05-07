@@ -102,15 +102,17 @@ export default function Brickwork9InchModule() {
             <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl w-full">
               <button 
                 onClick={() => setBrickType('standard')}
-                className={`flex-1 flex justify-center py-2.5 text-sm font-semibold rounded-lg transition-all ${brickType === 'standard' ? 'bg-white dark:bg-slate-700 text-orange-600 shadow border border-slate-200/50 dark:border-slate-600' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'}`}
+                className={`flex-1 flex flex-col xl:flex-row items-center justify-center py-2 px-1 xl:gap-2 text-xs sm:text-sm font-semibold rounded-lg transition-all text-center h-full ${brickType === 'standard' ? 'bg-white dark:bg-slate-700 text-orange-600 shadow border border-slate-200/50 dark:border-slate-600' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'}`}
               >
-                Standard (230x110x75)
+                <span>Standard</span>
+                <span className="opacity-75 text-[10px] xl:text-xs font-medium">(230x110x75)</span>
               </button>
               <button 
                 onClick={() => setBrickType('modular')}
-                className={`flex-1 flex justify-center py-2.5 text-sm font-semibold rounded-lg transition-all ${brickType === 'modular' ? 'bg-white dark:bg-slate-700 text-orange-600 shadow border border-slate-200/50 dark:border-slate-600' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'}`}
+                className={`flex-1 flex flex-col xl:flex-row items-center justify-center py-2 px-1 xl:gap-2 text-xs sm:text-sm font-semibold rounded-lg transition-all text-center h-full ${brickType === 'modular' ? 'bg-white dark:bg-slate-700 text-orange-600 shadow border border-slate-200/50 dark:border-slate-600' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'}`}
               >
-                Modular (190x90x90)
+                <span>Modular</span>
+                <span className="opacity-75 text-[10px] xl:text-xs font-medium">(190x90x90)</span>
               </button>
             </div>
           </div>

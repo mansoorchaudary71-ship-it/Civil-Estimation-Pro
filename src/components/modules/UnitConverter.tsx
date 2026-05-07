@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ShareButtonWithPopup from "./ShareMenu";
 import { 
   Ruler, 
   Square, 
@@ -374,6 +375,26 @@ export default function UnitConverter() {
 
           </div>
         </div>
+
+        <ShareButtonWithPopup 
+          activeTab={activeTab}
+          title="Unit Conversion Result"
+          data={{
+            "From": `${fromValue || 0} ${currentUnits.find(u => u.id === fromUnit)?.label}`,
+            "To": `${toValue || 0} ${currentUnits.find(u => u.id === toUnit)?.label}`,
+            "Category": activeTab
+          }}
+          exportFormat={{
+            inputs: {
+              "From Value": (fromValue || "0").toString(),
+              "From Unit": currentUnits.find(u => u.id === fromUnit)?.label || "",
+              "To Unit": currentUnits.find(u => u.id === toUnit)?.label || ""
+            },
+            breakdown: {
+              "Result": (toValue || "0").toString()
+            }
+          }}
+        />
 
       </div>
     </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Layers, Info, CheckCircle2, ChevronRight, Calculator, Ruler, Hash, Cylinder, ArrowRight } from 'lucide-react';
+import ShareButtonWithPopup from "./ShareMenu";
 
 interface StaircaseCalculatorProps {
   isEmbedded?: boolean;
@@ -456,6 +457,38 @@ export default function StaircaseCalculator({ isEmbedded = false, onCalculate }:
           </div>
         </div>
       </div>
+      
+      {!isEmbedded && (
+        <ShareButtonWithPopup 
+          activeTab="Staircase Calculator"
+          title={`${stairShape} Staircase Estimation`}
+          data={{
+            "Concrete Volume": `${res.totalWetVolume.toFixed(2)} ${isMetric ? 'm³' : 'Cu.ft'}`,
+            "Cement": `${Math.ceil(res.cementBags)} bags`,
+            "Sand": `${res.sandCft.toFixed(1)} cft`,
+            "Aggregate": `${res.aggCft.toFixed(1)} cft`,
+            "Total Steel": `${res.totalSteelWeight.toFixed(1)} kg`,
+          }}
+          exportFormat={{
+            inputs: {
+              "Shape": stairShape,
+              "Steps": String(numSteps),
+              "Rise": `${rise} ${uMm}`,
+              "Tread": `${tread} ${uMm}`,
+              "Width": `${stairWidth} ${uM}`
+            },
+            breakdown: {
+              "Concrete Wet Volume": `${res.totalWetVolume.toFixed(2)} ${isMetric ? 'm³' : 'Cu.ft'}`,
+              "Cement Required": `${Math.ceil(res.cementBags)} bags`,
+              "Sand Required": `${res.sandCft.toFixed(1)} cft`,
+              "Aggregate Required": `${res.aggCft.toFixed(1)} cft`,
+              "Steel (Main)": `${res.mainWeight.toFixed(1)} kg`,
+              "Steel (Distribution)": `${res.distWeight.toFixed(1)} kg`,
+              "Total Steel Required": `${res.totalSteelWeight.toFixed(1)} kg`
+            }
+          }}
+        />
+      )}
     </div>
   );
 }
