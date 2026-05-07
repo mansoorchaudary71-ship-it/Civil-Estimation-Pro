@@ -92,11 +92,28 @@ const getCategoryTheme = (category: string, id: string) => {
 
 export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSettings }: DashboardProps) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const categories = ["All", ...Array.from(new Set(ALL_MODULES.map(m => {
+    if (m.id === 'calculators' || m.id === 'house') return 'POPULAR';
+    return m.category;
+  })))];
 
   const filteredModules = ALL_MODULES.filter(m => {
-    if (!searchTerm) return true;
-    const term = searchTerm.toLowerCase();
-    return m.title.toLowerCase().includes(term) || m.desc.toLowerCase().includes(term) || m.category.toLowerCase().includes(term);
+    const matchesSearch = !searchTerm || (
+      m.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      m.desc.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      m.category.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    let groupName = m.category;
+    if (m.id === 'calculators' || m.id === 'house') {
+      groupName = 'POPULAR';
+    }
+
+    const matchesCategory = activeCategory === "All" || groupName === activeCategory;
+
+    return matchesSearch && matchesCategory;
   });
 
   const groupsToDisplay: string[] = [];
@@ -136,8 +153,8 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
         <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium text-base">Ready to continue your estimates?</p>
       </div>
 
-      <div className="mb-10 flex justify-center animate-in fade-in slide-in-from-bottom-4 duration-500 delay-75">
-        <div className="relative group w-full max-w-2xl rounded-full p-[1px] bg-gradient-to-r from-red-500 via-yellow-400 to-blue-500 shadow-sm focus-within:shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all">
+      <div className="mb-10 flex flex-col justify-center animate-in fade-in slide-in-from-bottom-4 duration-500 delay-75">
+        <div className="relative group w-full max-w-2xl mx-auto rounded-full p-[1px] bg-gradient-to-r from-red-500 via-yellow-400 to-blue-500 shadow-sm focus-within:shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all">
           <div className="absolute inset-y-0 left-[24px] flex items-center pointer-events-none z-10">
             <Search className="text-slate-400 dark:text-slate-500 w-5 h-5 transition-colors group-focus-within:text-red-500" />
           </div>
@@ -148,6 +165,24 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
             onChange={(e) => setSearchTerm(e.target.value)}
             className="relative w-full bg-white dark:bg-slate-900 rounded-full py-3.5 pl-[46px] pr-6 text-base font-semibold text-slate-800 dark:text-white outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 placeholder:font-medium"
           />
+        </div>
+
+        <div className="mt-6 md:mt-8">
+          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 w-full max-w-4xl mx-auto">
+            {categories.map(category => (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`px-4 py-2 md:px-5 md:py-2.5 rounded-full whitespace-nowrap text-sm font-semibold transition-all duration-300 ${
+                  activeCategory === category 
+                  ? 'bg-slate-800 text-white shadow-md dark:bg-slate-200 dark:text-slate-900 border border-transparent' 
+                  : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:border-slate-300 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700 shadow-sm'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -164,7 +199,7 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
                     <button 
                       key={mod.id} 
                       onClick={() => onSelectModule(mod.id as ModuleId)} 
-                      className="col-span-1 bg-gradient-to-br from-[#4c1d95] via-[#3730a3] to-[#312e81] p-5 md:p-6 rounded-[28px] md:rounded-[32px] transition-all duration-300 flex flex-col items-start relative text-left group hover:-translate-y-1 shadow-[0_8px_30px_rgba(76,29,149,0.15)] h-[160px] md:h-[180px] overflow-hidden"
+                      className="col-span-1 bg-gradient-to-br from-indigo-600 via-purple-600 to-purple-800 p-6 rounded-[32px] transition-all duration-300 flex flex-col items-start relative text-left group hover:-translate-y-1.5 shadow-[0_8px_30px_rgba(76,29,149,0.15)] hover:shadow-[0_12px_40px_rgba(76,29,149,0.3)] h-[160px] md:h-[180px] overflow-hidden"
                     >
                       <div className="absolute right-[-10%] bottom-[-5%] text-indigo-300/10 group-hover:text-indigo-300/20 transition-all duration-500 pointer-events-none group-active:scale-95 group-active:-rotate-6">
                          <Home className="w-[180px] h-[180px] md:w-[220px] md:h-[220px]" strokeWidth={1} />
@@ -172,24 +207,24 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
                       
                       <div className="relative z-10 w-full flex-1 flex flex-col items-start pr-0">
                         <div className="w-full flex justify-between items-start mb-4">
-                          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-indigo-400/30 bg-white/5 backdrop-blur-sm text-[11px] md:text-[12px] font-bold tracking-[0.1em] uppercase text-[#a5b4fc] shadow-sm">
+                          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-indigo-400/30 bg-white/10 backdrop-blur-sm text-[11px] md:text-[12px] font-bold tracking-[0.1em] uppercase text-[#e0e7ff] shadow-sm">
                              <mod.icon className="w-4 h-4 md:w-[15px] md:h-[15px]" strokeWidth={2.5} />
                              <span className="truncate">{mod.category}</span>
                           </div>
                           
                           <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center ml-2 shrink-0">
                             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-400/40 to-transparent blur-[12px] md:blur-[16px] transition-transform duration-500 group-hover:scale-150 group-active:scale-100"></div>
-                            <mod.icon className="relative z-10 w-6 h-6 md:w-7 md:h-7 text-indigo-200 transition-all duration-300 group-hover:scale-110 group-active:scale-95 group-active:rotate-12" strokeWidth={2.5} />
+                            <mod.icon className="relative z-10 w-6 h-6 md:w-7 md:h-7 text-indigo-100 transition-all duration-300 group-hover:scale-110 group-active:scale-95 group-active:rotate-12" strokeWidth={2.5} />
                           </div>
                         </div>
                         
                         <h3 className="text-[20px] md:text-[24px] font-extrabold text-white mb-2 leading-[1.15]">{mod.title}</h3>
                         
                         <div className="flex flex-row flex-wrap gap-2 mt-auto pb-0 w-full">
-                           <div className="inline-flex items-center px-3 py-1 md:px-4 md:py-1.5 rounded-[10px] md:rounded-full border border-indigo-400/40 bg-white/5 backdrop-blur-md text-[12px] md:text-[13px] font-medium text-indigo-50 transition-colors group-hover:bg-white/10 group-hover:border-indigo-400/60">
+                           <div className="inline-flex items-center px-3 py-1 md:px-4 md:py-1.5 rounded-[10px] md:rounded-full border border-indigo-400/40 bg-white/10 backdrop-blur-md text-[12px] md:text-[13px] font-medium text-indigo-50 transition-colors group-hover:bg-white/20 group-hover:border-indigo-300/60">
                              Grey Structure
                            </div>
-                           <div className="inline-flex items-center px-3 py-1 md:px-4 md:py-1.5 rounded-[10px] md:rounded-full border border-indigo-400/40 bg-white/5 backdrop-blur-md text-[12px] md:text-[13px] font-medium text-indigo-50 transition-colors group-hover:bg-white/10 group-hover:border-indigo-400/60">
+                           <div className="inline-flex items-center px-3 py-1 md:px-4 md:py-1.5 rounded-[10px] md:rounded-full border border-indigo-400/40 bg-white/10 backdrop-blur-md text-[12px] md:text-[13px] font-medium text-indigo-50 transition-colors group-hover:bg-white/20 group-hover:border-indigo-300/60">
                              Finishing
                            </div>
                         </div>
@@ -203,7 +238,7 @@ export default function Dashboard({ onSelectModule, onOpenSidebar, onOpenSetting
                   <button 
                     key={mod.id} 
                     onClick={() => onSelectModule(mod.id as ModuleId)} 
-                    className={`col-span-1 bg-[#FFFFFF] dark:bg-slate-900 p-5 md:p-6 rounded-[28px] md:rounded-[32px] transition-all duration-300 flex flex-col items-start relative text-left group hover:-translate-y-1 shadow-[0_2px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] border ${theme.border} h-[160px] md:h-[180px] overflow-hidden`}
+                    className={`col-span-1 bg-[#FFFFFF] dark:bg-slate-900 p-6 rounded-[32px] transition-all duration-300 flex flex-col items-start relative text-left group hover:-translate-y-1.5 shadow-[0_2px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] border ${theme.border} h-[160px] md:h-[180px] overflow-hidden`}
                   >
                     <div className="relative z-10 w-full flex-1 flex flex-col items-start pr-0">
                       <div className="w-full flex justify-between items-start mb-4">

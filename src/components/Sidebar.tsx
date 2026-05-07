@@ -33,7 +33,7 @@ import {
   Spline
 } from "lucide-react";
 
-export type ModuleId = "home" | "takeoff" | "calculators" | "ai" | "earthworks" | "gridEarthwork" | "trench" | "chainage" | "road" | "rigid-pavement" | "sewerage" | "finishing" | "house" | "rates" | "formwork" | "area-calculator" | "volume-estimator" | "unit-converter" | "metal-weight" | "rcc-calculator" | "master-quantity" | "about" | "careers" | "contact" | "blog";
+export type ModuleId = "home" | "takeoff" | "calculators" | "ai" | "earthworks" | "gridEarthwork" | "trench" | "chainage" | "road" | "rigid-pavement" | "sewerage" | "finishing" | "house" | "rates" | "formwork" | "area-calculator" | "volume-estimator" | "unit-converter" | "metal-weight" | "rcc-calculator" | "master-quantity" | "about" | "careers" | "contact" | "blog" | "my-estimates" | "pricing";
 
 interface SidebarProps {
   activeModule: ModuleId;

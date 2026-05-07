@@ -3,15 +3,18 @@ import { Menu, X, User, LogOut, Settings, ChevronDown } from 'lucide-react';
 import Logo from './Logo';
 import { GlobalSettingsToggle } from './ui/GlobalSettingsToggle';
 import { useAuth } from '../contexts/AuthContext';
+import { ModuleId } from './Sidebar';
 
 export default function TopNavbar({ 
   onOpenSidebar, 
   onOpenAuth, 
-  onOpenProfile 
+  onOpenProfile,
+  onNavigate
 }: { 
   onOpenSidebar?: () => void;
   onOpenAuth?: () => void;
   onOpenProfile?: () => void;
+  onNavigate?: (id: ModuleId) => void;
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -21,10 +24,10 @@ export default function TopNavbar({
   const isAuthenticated = !!user;
 
   const navLinks = [
-    { name: 'Home', href: '#' },
-    { name: 'My Estimates', href: '#' },
-    { name: 'Tools', href: '#' },
-    { name: 'Pricing', href: '#' },
+    { name: 'Home', id: 'home' as ModuleId },
+    { name: 'My Estimates', id: 'my-estimates' as ModuleId },
+    { name: 'Tools', id: 'calculators' as ModuleId },
+    { name: 'Pricing', id: 'pricing' as ModuleId },
   ];
 
   useEffect(() => {
@@ -59,13 +62,13 @@ export default function TopNavbar({
 
           <div className="hidden md:flex items-center justify-center gap-2 flex-1 px-8">
             {navLinks.map((link) => (
-              <a 
+              <button 
                 key={link.name} 
-                href={link.href}
+                onClick={() => onNavigate?.(link.id)}
                 className="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-100/50 dark:hover:bg-amber-900/30 rounded-full transition-all duration-300"
               >
                 {link.name}
-              </a>
+              </button>
             ))}
           </div>
 
@@ -172,14 +175,13 @@ export default function TopNavbar({
           )}
           
           {navLinks.map((link) => (
-            <a 
+            <button 
               key={link.name} 
-              href={link.href}
-              className="px-4 py-3 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-amber-600 dark:hover:text-amber-500 transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={() => { setIsMobileMenuOpen(false); onNavigate?.(link.id); }}
+              className="px-4 py-3 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-amber-600 dark:hover:text-amber-500 transition-colors text-left"
             >
               {link.name}
-            </a>
+            </button>
           ))}
           <div className="h-px w-full bg-slate-200 dark:bg-slate-700/50 my-2" />
           

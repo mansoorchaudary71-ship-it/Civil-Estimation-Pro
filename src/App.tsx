@@ -36,6 +36,7 @@ import { HouseSpecsProvider } from "./context/HouseSpecsContext";
 import { SettingsProvider } from "./context/SettingsContext";
 
 import Dashboard from "./components/Dashboard";
+import RecentEstimates from "./components/RecentEstimates";
 import Sidebar, { ModuleId } from "./components/Sidebar";
 export type { ModuleId };
 import TopNavbar from "./components/TopNavbar";
@@ -74,7 +75,7 @@ export default function App() {
     <HouseSpecsProvider>
     <MarketRatesProvider>
       <TakeoffProvider>
-      <div className="flex flex-row h-screen w-full bg-[#f2f2f7] dark:bg-slate-950 overflow-hidden font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
+      <div className="flex flex-row h-screen w-full bg-transparent overflow-hidden font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
         <Toaster position="bottom-right" />
         <Sidebar 
           activeModule={activeModule} 
@@ -85,15 +86,18 @@ export default function App() {
           onOpenProfile={() => { setIsSidebarOpen(false); setIsProfileOpen(true); }}
         />
 
-        <main className="flex-1 flex flex-col bg-[#f2f2f7] dark:bg-slate-950 overflow-hidden relative w-full h-full transition-colors duration-300">
+        <main className="flex-1 flex flex-col bg-transparent overflow-hidden relative w-full h-full transition-colors duration-300">
           {["home", "about", "careers", "contact", "blog"].includes(activeModule) ? (
             <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-y-auto pb-24 md:pb-0">
               <TopNavbar 
                 onOpenSidebar={() => setIsSidebarOpen(true)} 
                 onOpenAuth={() => setIsAuthOpen(true)}
                 onOpenProfile={() => setIsProfileOpen(true)}
+                onNavigate={handleSelectModule} 
               />
               {activeModule === "home" && <Dashboard onSelectModule={handleSelectModule} onOpenSidebar={() => setIsSidebarOpen(true)} onOpenSettings={() => setIsSettingsOpen(true)} />}
+              {activeModule === "my-estimates" && <div className="p-8"><RecentEstimates onSelectModule={handleSelectModule} /></div>}
+              {activeModule === "pricing" && <div className="p-8 pt-12 text-center text-slate-500">Pricing options coming soon.</div>}
               {activeModule === "about" && <div className="p-8 pt-12"><AboutUs /></div>}
               {activeModule === "careers" && <div className="p-8 pt-12"><Careers /></div>}
               {activeModule === "contact" && <div className="p-8 pt-12"><Contact /></div>}
