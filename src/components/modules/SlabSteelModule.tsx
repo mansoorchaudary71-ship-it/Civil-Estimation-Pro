@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Layers } from "lucide-react";
+import { useSettings } from "../../context/SettingsContext";
+
 export interface SlabSteelResults {
   mainBarsCount: number;
   mainTotalWeight: number;
@@ -20,6 +22,8 @@ export default function SlabSteelModule({
   slabThickness = "0.15",
   onStateChange,
 }: SlabSteelModuleProps) {
+  const { settings } = useSettings();
+  const isSI = settings.measurement === "SI";
   const [mainDia, setMainDia] = useState("12");
   /* mm */ const [mainSpacing, setMainSpacing] = useState("150");
   /* mm (c/c) */ const [distDia, setDistDia] = useState("10");
