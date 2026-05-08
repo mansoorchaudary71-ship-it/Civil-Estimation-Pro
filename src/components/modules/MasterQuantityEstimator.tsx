@@ -265,43 +265,37 @@ export default function MasterQuantityEstimator({
     }
     return (
       <div className="flex flex-wrap  gap-8 items-center w-full">
-        {" "}
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl px-4 py-3 shadow-sm flex-1 min-w-fit whitespace-nowrap">
-          {" "}
           <h3 className="font-bold mb-6 text-lg whitespace-nowrap">
             Input Parameters
-          </h3>{" "}
+          </h3>
           <div className="space-y-4">
-            {" "}
             {activeCalc !== "rebar_cage" && (
               <>
-                {" "}
                 <div>
-                  {" "}
                   <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                     Length ({unitL})
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
                     className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
-                  />{" "}
-                </div>{" "}
+                  />
+                </div>
                 <div>
-                  {" "}
                   <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                     Width ({unitL})
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     value={width}
                     onChange={(e) => setWidth(e.target.value)}
                     className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
-                  />{" "}
-                </div>{" "}
+                  />
+                </div>
               </>
-            )}{" "}
+            )}
             {[
               "concrete",
               "bricks",
@@ -313,129 +307,116 @@ export default function MasterQuantityEstimator({
               "form_work",
             ].includes(activeCalc) && (
               <div>
-                {" "}
                 <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                   {activeCalc === "form_work" ? "Height" : "Depth"} ({unitL})
-                </label>{" "}
+                </label>
                 <input
                   type="number"
                   value={depth}
                   onChange={(e) => setDepth(e.target.value)}
                   className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
-                />{" "}
+                />
               </div>
-            )}{" "}
+            )}
             {activeCalc !== "rebar_cage" && (
               <div>
-                {" "}
                 <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                   Wastage (%)
-                </label>{" "}
+                </label>
                 <input
                   type="number"
                   value={wastage}
                   onChange={(e) => setWastage(e.target.value)}
                   className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
-                />{" "}
+                />
               </div>
-            )}{" "}
+            )}
             {["concrete", "plaster", "concrete_test"].includes(activeCalc) && (
               <div>
-                {" "}
                 <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                   Mix Ratio
-                </label>{" "}
+                </label>
                 <input
                   type="text"
                   value={mixRatioStr}
                   onChange={(e) => setMixRatioStr(e.target.value)}
                   className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   placeholder="e.g. 1:2:4"
-                />{" "}
+                />
               </div>
-            )}{" "}
+            )}
             {activeCalc === "rebar_cage" && (
               <>
-                {" "}
                 <div>
-                  {" "}
                   <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                     Total Rebar Weight (kg)
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     value={rebarWeight}
                     onChange={(e) => setRebarWeight(e.target.value)}
                     className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
-                  />{" "}
-                </div>{" "}
+                  />
+                </div>
                 <div>
-                  {" "}
                   <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                     Steel Grade
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     value={steelGrade}
                     onChange={(e) => setSteelGrade(e.target.value)}
                     className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
-                  />{" "}
-                </div>{" "}
+                  />
+                </div>
                 <div>
-                  {" "}
                   <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                     Spacing (mm)
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     value={rebarSpacing}
                     onChange={(e) => setRebarSpacing(e.target.value)}
                     className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
-                  />{" "}
-                </div>{" "}
+                  />
+                </div>
                 <div>
-                  {" "}
                   <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                     Cost per Ton (Rs)
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     value={costPerTon}
                     onChange={(e) => setCostPerTon(e.target.value)}
                     className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
-                  />{" "}
-                </div>{" "}
+                  />
+                </div>
               </>
-            )}{" "}
-          </div>{" "}
-        </div>{" "}
+            )}
+          </div>
+        </div>
         <div className="bg-blue-950 text-white rounded-3xl p-6 md:p-8 shadow-xl flex flex-col justify-between">
-          {" "}
           <div>
-            {" "}
             <h3 className="font-bold text-blue-300 text-sm uppercase tracking-widest mb-6 whitespace-nowrap">
               Quantities Required
-            </h3>{" "}
+            </h3>
             <div className="space-y-4">
-              {" "}
               {Object.entries(results).map(([key, val]) => (
                 <div
                   key={key}
                   className="bg-blue-900/50 p-4 rounded-xl border border-blue-800/50 flex justify-between items-center"
                 >
-                  {" "}
                   <span className="text-blue-200 text-sm font-medium">
                     {key}
-                  </span>{" "}
+                  </span>
                   <span className="text-xl font-bold text-white whitespace-nowrap">
                     {val}
-                  </span>{" "}
+                  </span>
                 </div>
-              ))}{" "}
-            </div>{" "}
-          </div>{" "}
+              ))}
+            </div>
+          </div>
           <div className="mt-6 flex flex-wrap gap-4 items-center">
-            {" "}
             <ShareButtonWithPopup
               activeTab="Master Quantities"
               title={`${calculatorsList.find((c) => c.id === activeCalc)?.label} Estimate`}
@@ -444,7 +425,7 @@ export default function MasterQuantityEstimator({
                 inputs: { length, width, depth, wastage },
                 breakdown: results,
               }}
-            />{" "}
+            />
             {user && (
               <button
                 onClick={async () => {
@@ -473,24 +454,22 @@ export default function MasterQuantityEstimator({
                 disabled={isSaving}
                 className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
               >
-                {" "}
                 {isSaving ? (
                   <span className="animate-pulse">Saving...</span>
                 ) : (
                   <>
-                    {" "}
-                    <Save className="w-5 h-5" /> Save to Profile{" "}
+                    <Save className="w-5 h-5" /> Save to Profile
                   </>
-                )}{" "}
+                )}
               </button>
-            )}{" "}
+            )}
             {saveMessage && (
               <span className="text-sm font-bold text-green-400 ml-4">
                 {saveMessage}
               </span>
-            )}{" "}
-          </div>{" "}
-        </div>{" "}
+            )}
+          </div>
+        </div>
       </div>
     );
   };
@@ -503,85 +482,68 @@ export default function MasterQuantityEstimator({
           : "w-full h-full overflow-y-auto bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8"
       }
     >
-      {" "}
       <div className={isEmbedded ? "w-full" : "max-w-7xl mx-auto"}>
-        {" "}
         {!isEmbedded && (
           <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
-            {" "}
             <div>
-              {" "}
               <h1 className="text-3xl font-black mb-2 flex items-center gap-3 whitespace-nowrap">
-                {" "}
-                <Calculator className="w-8 h-8 text-blue-600 dark:text-blue-400" />{" "}
-                Master Quantity Estimator{" "}
-              </h1>{" "}
+                <Calculator className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                Master Quantity Estimator
+              </h1>
               <p className="text-slate-500 dark:text-slate-400 font-medium">
                 Comprehensive suite of 23 civil engineering calculators for
                 accurate material estimation.
-              </p>{" "}
-            </div>{" "}
+              </p>
+            </div>
             <div className="mt-5 flex gap-4 w-fit">
-              {" "}
-              <GlobalSettingsToggle align="left" />{" "}
-            </div>{" "}
+              <GlobalSettingsToggle align="left" />
+            </div>
           </div>
-        )}{" "}
+        )}
         <div className="flex flex-col xl:flex-row gap-8">
-          {" "}
-          {/* Mobile Dropdown Nav */}{" "}
+          {/* Mobile Dropdown Nav */}
           <div className="xl:hidden w-full space-y-2">
-            {" "}
             <label className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-2 whitespace-nowrap">
               Select Calculator
-            </label>{" "}
+            </label>
             <div className="relative">
-              {" "}
               <select
                 className="w-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 appearance-none font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={activeCalc}
                 onChange={(e) => setActiveCalc(e.target.value as CalcId)}
               >
-                {" "}
                 {groups.map((group) => (
                   <optgroup key={group} label={group}>
-                    {" "}
                     {calculatorsList
                       .filter((c) => c.group === group)
                       .map((calc) => (
                         <option key={calc.id} value={calc.id}>
                           {calc.label}
                         </option>
-                      ))}{" "}
+                      ))}
                   </optgroup>
-                ))}{" "}
-              </select>{" "}
+                ))}
+              </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500">
-                {" "}
                 <svg className="fill-current h-4 w-4" viewBox="0 0 20 20">
-                  {" "}
                   <path
                     d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                     clipRule="evenodd"
                     fillRule="evenodd"
-                  ></path>{" "}
-                </svg>{" "}
-              </div>{" "}
-            </div>{" "}
-          </div>{" "}
-          {/* Sidebar / Top Nav for calculators (Desktop) */}{" "}
+                  ></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          {/* Sidebar / Top Nav for calculators (Desktop) */}
           <div className="hidden xl:block xl:w-64 flex-shrink-0 space-y-8">
-            {" "}
             <div className="xl:h-[600px] xl:overflow-y-auto pr-2 space-y-6 custom-scrollbar">
-              {" "}
               {groups.map((group) => (
                 <div key={group}>
-                  {" "}
                   <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 pl-2 whitespace-nowrap">
                     {group}
-                  </h4>{" "}
+                  </h4>
                   <div className="space-y-1">
-                    {" "}
                     {calculatorsList
                       .filter((c) => c.group === group)
                       .map((calc) => {
@@ -591,34 +553,36 @@ export default function MasterQuantityEstimator({
                           <button
                             key={calc.id}
                             onClick={() => setActiveCalc(calc.id)}
-                            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all text-left ${isActive ? "bg-blue-600 text-white shadow-md" : "text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 hover:shadow-sm"}`}
+                            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 font-bold tracking-wide text-left ${
+                              isActive 
+                              ? 'bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-md shadow-indigo-500/25 border-transparent ring-2 ring-indigo-500/50 ring-offset-2 ring-offset-slate-50 dark:ring-offset-slate-900 scale-[1.02] z-20' 
+                              : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50 border border-slate-200/50 dark:border-slate-800 shadow-sm hover:shadow cursor-pointer'
+                            }`}
                           >
-                            {" "}
                             <Icon
-                              className={`w-4 h-4 ${isActive ? "text-blue-200" : "text-slate-400"}`}
-                            />{" "}
-                            <span className="text-sm font-semibold">
+                              className={`w-4 h-4 ${isActive ? "text-white" : "text-slate-400"}`}
+                            />
+                            <span className="text-sm">
                               {calc.label}
-                            </span>{" "}
+                            </span>
                           </button>
                         );
-                      })}{" "}
-                  </div>{" "}
+                      })}
+                  </div>
                 </div>
-              ))}{" "}
-            </div>{" "}
-          </div>{" "}
-          {/* Calculator Content */}{" "}
+              ))}
+            </div>
+          </div>
+          {/* Calculator Content */}
           <div className="flex-1">
-            {" "}
             {activeCalc === "bricks" ? (
               <Brickwork9InchModule />
             ) : (
               renderCalculatorContent()
-            )}{" "}
-          </div>{" "}
-        </div>{" "}
-      </div>{" "}
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

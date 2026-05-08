@@ -15,35 +15,27 @@ export default function HouseSpecs() {
   const { specs, updateSpecs } = useHouseSpecs();
   return (
     <div className="w-full h-full overflow-y-auto bg-[#fafafa] text-gray-900 font-sans p-6 md:p-8">
-      {" "}
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
-        {" "}
         <header className="mb-10">
-          {" "}
           <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent pb-2 whitespace-nowrap">
-            {" "}
-            Material Specs & Finishing{" "}
-          </h1>{" "}
+            Material Specs & Finishing
+          </h1>
           <p className="text-gray-500 mt-2 text-lg font-medium whitespace-nowrap">
-            {" "}
             Define material specifications, structural mixes, and finish
-            qualities mapping to central dynamic rates.{" "}
-          </p>{" "}
+            qualities mapping to central dynamic rates.
+          </p>
           <div className="mt-5 w-fit">
             <GlobalSettingsToggle align="left" showCurrency={false} />
-          </div>{" "}
-        </header>{" "}
+          </div>
+        </header>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {" "}
-          {/* Brickwork Card */}{" "}
+          {/* Brickwork Card */}
           <GlassCard
             title="Brickwork"
             icon={<Box className="w-5 h-5 text-red-500" />}
             color="red"
           >
-            {" "}
             <div className="space-y-4">
-              {" "}
               <SelectInput
                 label="Brick Class"
                 value={specs.brickwork.type}
@@ -52,25 +44,23 @@ export default function HouseSpecs() {
                   { label: "A-Class (Premium)", value: "aClass" },
                   { label: "B-Class (Standard)", value: "bClass" },
                 ]}
-              />{" "}
+              />
               <NumberInput
                 label="Wastage (%)"
                 value={specs.brickwork.wastagePct.toString()}
                 onChange={(v: string) =>
                   updateSpecs("brickwork", "wastagePct", parseFloat(v) || 0)
                 }
-              />{" "}
-            </div>{" "}
-          </GlassCard>{" "}
-          {/* Concrete / Structure */}{" "}
+              />
+            </div>
+          </GlassCard>
+          {/* Concrete / Structure */}
           <GlassCard
             title="Concrete Mix"
             icon={<Layers className="w-5 h-5 text-gray-500" />}
             color="gray"
           >
-            {" "}
             <div className="space-y-4">
-              {" "}
               <SelectInput
                 label="Slab Mix Ratio"
                 value={specs.concrete.slabMix}
@@ -79,7 +69,7 @@ export default function HouseSpecs() {
                   { label: "1:1.5:3 (M20)", value: "1:1.5:3" },
                   { label: "1:2:4 (M15)", value: "1:2:4" },
                 ]}
-              />{" "}
+              />
               <SelectInput
                 label="Foundation Mix"
                 value={specs.concrete.foundationMix}
@@ -90,18 +80,16 @@ export default function HouseSpecs() {
                   { label: "1:3:6 (M10)", value: "1:3:6" },
                   { label: "1:4:8 (M7.5)", value: "1:4:8" },
                 ]}
-              />{" "}
-            </div>{" "}
-          </GlassCard>{" "}
-          {/* Plastering */}{" "}
+              />
+            </div>
+          </GlassCard>
+          {/* Plastering */}
           <GlassCard
             title="Plastering"
             icon={<Droplet className="w-5 h-5 text-teal-500" />}
             color="teal"
           >
-            {" "}
             <div className="space-y-4">
-              {" "}
               <SelectInput
                 label="Mortar Ratio"
                 value={specs.plastering.mortarRatio}
@@ -113,35 +101,32 @@ export default function HouseSpecs() {
                   { label: "1:5 (Standard)", value: "1:5" },
                   { label: "1:6 (Lean mix)", value: "1:6" },
                 ]}
-              />{" "}
+              />
               <div className="grid grid-cols-2 gap-3">
-                {" "}
                 <NumberInput
                   label="Inner (in)"
                   value={specs.plastering.innerThickness}
                   onChange={(v: string) =>
                     updateSpecs("plastering", "innerThickness", v)
                   }
-                />{" "}
+                />
                 <NumberInput
                   label="Outer (in)"
                   value={specs.plastering.outerThickness}
                   onChange={(v: string) =>
                     updateSpecs("plastering", "outerThickness", v)
                   }
-                />{" "}
-              </div>{" "}
-            </div>{" "}
-          </GlassCard>{" "}
-          {/* Flooring */}{" "}
+                />
+              </div>
+            </div>
+          </GlassCard>
+          {/* Flooring */}
           <GlassCard
             title="Flooring"
             icon={<LayoutGrid className="w-5 h-5 text-amber-500" />}
             color="amber"
           >
-            {" "}
             <div className="space-y-4">
-              {" "}
               <SelectInput
                 label="Material Type"
                 value={specs.flooring.type}
@@ -152,25 +137,23 @@ export default function HouseSpecs() {
                   { label: "Marble Slab", value: "marble" },
                   { label: "Wooden Laminate", value: "wooden" },
                 ]}
-              />{" "}
+              />
               <NumberInput
                 label="Market Price (/sqft)"
                 value={specs.flooring.pricePerSqft}
                 onChange={(v: string) =>
                   updateSpecs("flooring", "pricePerSqft", v)
                 }
-              />{" "}
-            </div>{" "}
-          </GlassCard>{" "}
-          {/* Ceiling */}{" "}
+              />
+            </div>
+          </GlassCard>
+          {/* Ceiling */}
           <GlassCard
             title="Ceiling Finish"
             icon={<ArrowUpRight className="w-5 h-5 text-indigo-500" />}
             color="indigo"
           >
-            {" "}
             <div className="space-y-4 pb-4">
-              {" "}
               <ToggleGroup
                 value={specs.ceiling.type}
                 onChange={(v: string) => updateSpecs("ceiling", "type", v)}
@@ -179,27 +162,24 @@ export default function HouseSpecs() {
                   { label: "Gypsum", value: "gypsum" },
                   { label: "Bare", value: "bare" },
                 ]}
-              />{" "}
+              />
               <p className="text-[11px] text-gray-500 mt-4 leading-relaxed font-medium">
-                {" "}
                 {specs.ceiling.type === "pop" &&
-                  "Standard Plaster of Paris finishes offering smooth surfaces."}{" "}
+                  "Standard Plaster of Paris finishes offering smooth surfaces."}
                 {specs.ceiling.type === "gypsum" &&
-                  "False ceiling boards. Ideal for recessed / hidden lighting."}{" "}
+                  "False ceiling boards. Ideal for recessed / hidden lighting."}
                 {specs.ceiling.type === "bare" &&
-                  "Bare concrete finish (Industrial look), zero added cost."}{" "}
-              </p>{" "}
-            </div>{" "}
-          </GlassCard>{" "}
-          {/* Doors & Windows */}{" "}
+                  "Bare concrete finish (Industrial look), zero added cost."}
+              </p>
+            </div>
+          </GlassCard>
+          {/* Doors & Windows */}
           <GlassCard
             title="Doors & Windows"
             icon={<AppWindow className="w-5 h-5 text-sky-500" />}
             color="sky"
           >
-            {" "}
             <div className="space-y-4">
-              {" "}
               <SelectInput
                 label="Material"
                 value={specs.doorsWindows.type}
@@ -210,7 +190,7 @@ export default function HouseSpecs() {
                   { label: "Aluminum", value: "aluminum" },
                   { label: "UPVC Profiles", value: "upvc" },
                 ]}
-              />{" "}
+              />
               <NumberInput
                 label="Total Openings (sqft)"
                 value={specs.doorsWindows.openingsSqft}
@@ -218,18 +198,16 @@ export default function HouseSpecs() {
                   updateSpecs("doorsWindows", "openingsSqft", v)
                 }
                 desc="Deducted from brickwork volume."
-              />{" "}
-            </div>{" "}
-          </GlassCard>{" "}
-          {/* Paint & Finishes */}{" "}
+              />
+            </div>
+          </GlassCard>
+          {/* Paint & Finishes */}
           <GlassCard
             title="Paint & Finishes"
             icon={<Paintbrush className="w-5 h-5 text-fuchsia-500" />}
             color="fuchsia"
           >
-            {" "}
             <div className="space-y-4">
-              {" "}
               <SelectInput
                 label="Interior Paint"
                 value={specs.paint.interior}
@@ -238,7 +216,7 @@ export default function HouseSpecs() {
                   { label: "Distemper (Standard)", value: "distemper" },
                   { label: "Plastic Emulsion", value: "emulsion" },
                 ]}
-              />{" "}
+              />
               <SelectInput
                 label="Exterior Paint"
                 value={specs.paint.exterior}
@@ -247,18 +225,16 @@ export default function HouseSpecs() {
                   { label: "Weather Shield", value: "weatherShield" },
                   { label: "Texture / Rockwall", value: "texture" },
                 ]}
-              />{" "}
-            </div>{" "}
-          </GlassCard>{" "}
-          {/* Electrical & MEP */}{" "}
+              />
+            </div>
+          </GlassCard>
+          {/* Electrical & MEP */}
           <GlassCard
             title="Electrical & MEP"
             icon={<Sliders className="w-5 h-5 text-cyan-500" />}
             color="sky"
           >
-            {" "}
             <div className="space-y-4">
-              {" "}
               <SelectInput
                 label="Electrical Wiring"
                 value={specs.electrical.wiring}
@@ -270,7 +246,7 @@ export default function HouseSpecs() {
                   },
                   { label: "Premium Brand", value: "Premium Brand" },
                 ]}
-              />{" "}
+              />
               <SelectInput
                 label="Switches & Boards"
                 value={specs.electrical.switches}
@@ -281,11 +257,11 @@ export default function HouseSpecs() {
                   { label: "Local Standard", value: "Local Standard" },
                   { label: "Premium", value: "Premium" },
                 ]}
-              />{" "}
-            </div>{" "}
-          </GlassCard>{" "}
-        </div>{" "}
-      </div>{" "}
+              />
+            </div>
+          </GlassCard>
+        </div>
+      </div>
     </div>
   );
 }
@@ -311,44 +287,37 @@ function GlassCard({
   };
   return (
     <div className="bg-white/70 backdrop-blur-3xl border border-white p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] transition-all">
-      {" "}
       <div className="flex items-center gap-3 mb-6">
-        {" "}
         <div className={`p-2.5 rounded-2xl ${bgColors[color]}`}>
-          {" "}
-          {icon}{" "}
-        </div>{" "}
+          {icon}
+        </div>
         <h3 className="text-lg font-bold text-gray-800 whitespace-nowrap">
           {title}
-        </h3>{" "}
-      </div>{" "}
-      {children}{" "}
+        </h3>
+      </div>
+      {children}
     </div>
   );
 }
 function SelectInput({ label, value, options, onChange }: any) {
   return (
     <div>
-      {" "}
       <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">
         {label}
-      </label>{" "}
+      </label>
       <div className="relative">
-        {" "}
         <select
           className="w-full bg-gray-50/80 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 text-sm font-semibold appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors flex-1 min-w-fit whitespace-nowrap"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         >
-          {" "}
           {options.map((opt: any) => (
             <option key={opt.value} value={opt.value}>
               {opt.label}
             </option>
-          ))}{" "}
-        </select>{" "}
+          ))}
+        </select>
         <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-          {" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -361,48 +330,45 @@ function SelectInput({ label, value, options, onChange }: any) {
             strokeLinejoin="round"
           >
             <path d="m6 9 6 6 6-6" />
-          </svg>{" "}
-        </div>{" "}
-      </div>{" "}
+          </svg>
+        </div>
+      </div>
     </div>
   );
 }
 function NumberInput({ label, value, onChange, desc }: any) {
   return (
     <div>
-      {" "}
       <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">
         {label}
-      </label>{" "}
+      </label>
       <input
         type="number"
         step="any"
         className="w-full bg-gray-50/80 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors flex-1 min-w-fit whitespace-nowrap"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-      />{" "}
+      />
       {desc && (
         <p className="text-[10px] text-gray-400 mt-1.5 font-bold tracking-wide">
           {desc}
         </p>
-      )}{" "}
+      )}
     </div>
   );
 }
 function ToggleGroup({ value, onChange, options }: any) {
   return (
     <div className="flex bg-gray-100/80 backdrop-blur-sm p-1 rounded-2xl w-full border border-gray-200/50 flex-1 min-w-fit whitespace-nowrap">
-      {" "}
       {options.map((opt: any) => (
         <button
           key={opt.value}
           onClick={() => onChange(opt.value)}
           className={`flex-1 py-2.5 px-3 text-[12px] font-bold rounded-xl transition-all duration-300 ${value === opt.value ? "bg-white text-gray-800 shadow-sm" : "text-gray-500 hover:text-gray-700 hover:bg-gray-200/50"}`}
         >
-          {" "}
-          {opt.label}{" "}
+          {opt.label}
         </button>
-      ))}{" "}
+      ))}
     </div>
   );
 }

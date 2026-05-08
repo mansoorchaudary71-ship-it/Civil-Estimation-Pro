@@ -263,44 +263,37 @@ export default function VolumeEstimator() {
   };
   return (
     <div className="w-full h-full overflow-y-auto bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8">
-      {" "}
       <div className="max-w-5xl mx-auto">
-        {" "}
         <h1 className="text-3xl font-black mb-2 flex items-center gap-3 whitespace-nowrap">
-          {" "}
-          <Database className="w-8 h-8 text-blue-500" /> Volume Estimator{" "}
-        </h1>{" "}
+          <Database className="w-8 h-8 text-blue-500" /> Volume Estimator
+        </h1>
         <p className="text-slate-500 dark:text-slate-400 mb-8 font-medium">
           Calculate total volume, surface area, and liquid capacity of civil
           engineering shapes.
-        </p>{" "}
-        {/* Global Settings */}{" "}
+        </p>
+        {/* Global Settings */}
         <div className="flex flex-wrap gap-4 mb-8 items-center bg-white dark:bg-slate-900 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-800 flex-1 min-w-fit whitespace-nowrap">
-          {" "}
           <div>
-            {" "}
             <label className="text-xs font-bold text-gray-500 uppercase block mb-1 whitespace-nowrap">
               Measurement System
-            </label>{" "}
+            </label>
             <div className="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1 w-fit">
-              {" "}
               <button
                 onClick={() => setCurrentUnit("Metric")}
                 className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all ${system === "Metric" ? "bg-white dark:bg-slate-700 shadow-sm text-blue-600" : "text-slate-500"}`}
               >
                 Metric (m)
-              </button>{" "}
+              </button>
               <button
                 onClick={() => setCurrentUnit("Imperial")}
                 className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all ${system === "Imperial" ? "bg-white dark:bg-slate-700 shadow-sm text-blue-600" : "text-slate-500"}`}
               >
                 Imperial (ft)
-              </button>{" "}
-            </div>{" "}
-          </div>{" "}
-        </div>{" "}
+              </button>
+            </div>
+          </div>
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
-          {" "}
           {shapes.map((s) => {
             const Icon = s.icon;
             const isActive = activeShape === s.id;
@@ -325,7 +318,6 @@ export default function VolumeEstimator() {
                   } as React.CSSProperties
                 }
               >
-                {" "}
                 <div
                   className="flex items-center justify-center w-12 h-12 rounded-xl transition-transform duration-300 group-hover:scale-110"
                   style={{
@@ -336,9 +328,8 @@ export default function VolumeEstimator() {
                       : undefined,
                   }}
                 >
-                  {" "}
-                  <Icon className="w-7 h-7" strokeWidth={2} />{" "}
-                </div>{" "}
+                  <Icon className="w-7 h-7" strokeWidth={2} />
+                </div>
                 <span
                   className={`text-[11px] font-extrabold text-center leading-tight tracking-wide ${isActive ? "" : "text-slate-600 dark:text-slate-400 group-hover:[color:var(--theme-color-hover)]"}`}
                   style={{
@@ -346,411 +337,366 @@ export default function VolumeEstimator() {
                   }}
                 >
                   {s.label}
-                </span>{" "}
+                </span>
               </button>
             );
-          })}{" "}
-        </div>{" "}
+          })}
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {" "}
-          {/* Inputs */}{" "}
+          {/* Inputs */}
           <div className="lg:col-span-7 bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-200 dark:border-slate-800">
-            {" "}
             <div className="flex items-center gap-4 mb-6">
-              {" "}
               <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 rounded-xl flex items-center justify-center text-blue-600">
-                {" "}
                 {(() => {
                   const ShapeIcon =
                     shapes.find((s) => s.id === activeShape)?.icon || Box;
                   return <ShapeIcon className="w-6 h-6" />;
-                })()}{" "}
-              </div>{" "}
+                })()}
+              </div>
               <h3 className="font-bold text-xl whitespace-nowrap">
                 {activeShape} Parameters
-              </h3>{" "}
-            </div>{" "}
+              </h3>
+            </div>
             <div className="space-y-4">
-              {" "}
               {activeShape === "Rectangular Prism" && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {" "}
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Length ({system === "Metric" ? "m" : "ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={length}
                       onChange={(e) => setLength(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Width ({system === "Metric" ? "m" : "ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={width}
                       onChange={(e) => setWidth(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Height ({system === "Metric" ? "m" : "ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                 </div>
-              )}{" "}
+              )}
               {activeShape === "Cube" && (
                 <div>
-                  {" "}
                   <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                     Side Length ({system === "Metric" ? "m" : "ft"})
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     value={side}
                     onChange={(e) => setSide(e.target.value)}
                     className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                  />{" "}
+                  />
                 </div>
-              )}{" "}
+              )}
               {["Cylinder", "Cone", "Parabolic Cone"].includes(activeShape) && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {" "}
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Radius ({system === "Metric" ? "m" : "ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={radius}
                       onChange={(e) => setRadius(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Height ({system === "Metric" ? "m" : "ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                 </div>
-              )}{" "}
+              )}
               {["Sphere", "Half Sphere"].includes(activeShape) && (
                 <div>
-                  {" "}
                   <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                     Radius ({system === "Metric" ? "m" : "ft"})
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     value={radius}
                     onChange={(e) => setRadius(e.target.value)}
                     className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                  />{" "}
+                  />
                 </div>
-              )}{" "}
+              )}
               {activeShape === "Frustum Cone" && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {" "}
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Top Radius ({system === "Metric" ? "m" : "ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={topRadius}
                       onChange={(e) => setTopRadius(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Bottom Radius ({system === "Metric" ? "m" : "ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={bottomRadius}
                       onChange={(e) => setBottomRadius(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Height ({system === "Metric" ? "m" : "ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                 </div>
-              )}{" "}
+              )}
               {activeShape === "Triangular Dumper" && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {" "}
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Base Width ({system === "Metric" ? "m" : "ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={base}
                       onChange={(e) => setBase(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Vertical / Triangle Height (
                       {system === "Metric" ? "m" : "ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Length ({system === "Metric" ? "m" : "ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={length}
                       onChange={(e) => setLength(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                 </div>
-              )}{" "}
+              )}
               {activeShape === "Trapezoidal Dumper" && (
                 <div className="grid grid-cols-1 gap-4">
-                  {" "}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {" "}
                     <div>
-                      {" "}
                       <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                         Top Width ({system === "Metric" ? "m" : "ft"})
-                      </label>{" "}
+                      </label>
                       <input
                         type="number"
                         value={topWidth}
                         onChange={(e) => setTopWidth(e.target.value)}
                         className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                      />{" "}
-                    </div>{" "}
+                      />
+                    </div>
                     <div>
-                      {" "}
                       <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                         Bottom Width ({system === "Metric" ? "m" : "ft"})
-                      </label>{" "}
+                      </label>
                       <input
                         type="number"
                         value={bottomWidth}
                         onChange={(e) => setBottomWidth(e.target.value)}
                         className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                      />{" "}
-                    </div>{" "}
-                  </div>{" "}
+                      />
+                    </div>
+                  </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {" "}
                     <div>
-                      {" "}
                       <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                         Depth / Height ({system === "Metric" ? "m" : "ft"})
-                      </label>{" "}
+                      </label>
                       <input
                         type="number"
                         value={depth}
                         onChange={(e) => setDepth(e.target.value)}
                         className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                      />{" "}
-                    </div>{" "}
+                      />
+                    </div>
                     <div>
-                      {" "}
                       <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                         Length ({system === "Metric" ? "m" : "ft"})
-                      </label>{" "}
+                      </label>
                       <input
                         type="number"
                         value={length}
                         onChange={(e) => setLength(e.target.value)}
                         className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                      />{" "}
-                    </div>{" "}
-                  </div>{" "}
+                      />
+                    </div>
+                  </div>
                 </div>
-              )}{" "}
+              )}
               {activeShape === "Rectangle Tank" && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {" "}
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Length ({system === "Metric" ? "m" : "ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={length}
                       onChange={(e) => setLength(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Width ({system === "Metric" ? "m" : "ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={width}
                       onChange={(e) => setWidth(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Height/Depth ({system === "Metric" ? "m" : "ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                 </div>
-              )}{" "}
+              )}
               {activeShape === "Prism" && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {" "}
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Base Area ({system === "Metric" ? "m²" : "sq.ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={baseArea}
                       onChange={(e) => setBaseArea(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Base Perimeter ({system === "Metric" ? "m" : "ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={basePerimeter}
                       onChange={(e) => setBasePerimeter(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Height ({system === "Metric" ? "m" : "ft"})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                 </div>
-              )}{" "}
-            </div>{" "}
-          </div>{" "}
+              )}
+            </div>
+          </div>
           <div className="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-[2rem] p-6 text-white shadow-xl flex flex-col justify-between items-center text-center">
-            {" "}
             <div className="w-full text-left mb-6">
-              {" "}
               <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest whitespace-nowrap">
                 Calculated Results
-              </h3>{" "}
-            </div>{" "}
+              </h3>
+            </div>
             <div className="w-full space-y-4 mb-8">
-              {" "}
               <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700 flex flex-col justify-center items-center flex-1 min-w-fit whitespace-nowrap">
-                {" "}
-                <Maximize className="w-6 h-6 text-blue-400 mb-2" />{" "}
+                <Maximize className="w-6 h-6 text-blue-400 mb-2" />
                 <span className="block text-slate-400 text-[11px] font-bold uppercase mb-1">
                   Total Volume
-                </span>{" "}
+                </span>
                 <span className="text-4xl font-black text-white whitespace-nowrap">
-                  {volume.toFixed(2)}{" "}
+                  {volume.toFixed(2)}
                   <span className="text-xl text-blue-300 whitespace-nowrap">
                     {volUnit}
                   </span>
-                </span>{" "}
-              </div>{" "}
+                </span>
+              </div>
               <div className="flex flex-wrap gap-4 items-center w-full">
-                {" "}
                 <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700 flex flex-col justify-center items-center flex-1 min-w-fit whitespace-nowrap">
-                  {" "}
                   <span className="block text-slate-400 text-[10px] font-bold uppercase mb-1">
                     Surface Area
-                  </span>{" "}
+                  </span>
                   <span className="text-xl font-bold text-emerald-400 whitespace-nowrap">
-                    {surfaceArea.toFixed(2)}{" "}
+                    {surfaceArea.toFixed(2)}
                     <span className="text-sm">{areaUnit}</span>
-                  </span>{" "}
-                </div>{" "}
+                  </span>
+                </div>
                 <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700 flex flex-col justify-center items-center flex-1 min-w-fit whitespace-nowrap">
-                  {" "}
                   <span className="block text-slate-400 text-[10px] font-bold uppercase mb-1">
                     Liquid Capacity
-                  </span>{" "}
+                  </span>
                   <span className="text-xl font-bold text-cyan-400 whitespace-nowrap">
-                    {liquidCapacity.toFixed(2)}{" "}
+                    {liquidCapacity.toFixed(2)}
                     <span className="text-sm">{capacityUnit}</span>
-                  </span>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+                  </span>
+                </div>
+              </div>
+            </div>
             <div className="mt-6 flex flex-wrap gap-4 items-center">
-              {" "}
               <ShareButtonWithPopup
                 activeTab="Volume Estimator"
                 title={`${activeShape} Volume BOQ`}
                 data={exportData}
                 exportFormat={{ inputs: inputs, breakdown: exportData }}
-              />{" "}
+              />
               {user && (
                 <button
                   onClick={async () => {
@@ -776,26 +722,24 @@ export default function VolumeEstimator() {
                   disabled={isSaving}
                   className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
                 >
-                  {" "}
                   {isSaving ? (
                     <span className="animate-pulse">Saving...</span>
                   ) : (
                     <>
-                      {" "}
-                      <Save className="w-5 h-5" /> Save to Profile{" "}
+                      <Save className="w-5 h-5" /> Save to Profile
                     </>
-                  )}{" "}
+                  )}
                 </button>
-              )}{" "}
+              )}
               {saveMessage && (
                 <span className="text-sm font-bold text-green-400 ml-4">
                   {saveMessage}
                 </span>
-              )}{" "}
-            </div>{" "}
-          </div>{" "}
-        </div>{" "}
-      </div>{" "}
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

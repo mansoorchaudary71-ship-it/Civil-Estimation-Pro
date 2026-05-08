@@ -41,223 +41,185 @@ export default function TrenchExcavationEstimator() {
   }
   return (
     <div className="w-full h-full overflow-y-auto bg-gray-50 text-gray-900 font-sans p-6 md:p-8">
-      {" "}
       <div className="max-w-4xl mx-auto space-y-8">
-        {" "}
         <header className="mb-10 block">
-          {" "}
           <div>
-            {" "}
             <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-teal-600 to-emerald-500 bg-clip-text text-transparent pb-1 whitespace-nowrap">
-              {" "}
-              Trench Excavation Estimator{" "}
-            </h1>{" "}
+              Trench Excavation Estimator
+            </h1>
             <p className="text-gray-500 mt-2 font-medium">
-              {" "}
               Calculate total excavated volume and bedding material using a
-              trapezoidal cross-section.{" "}
-            </p>{" "}
+              trapezoidal cross-section.
+            </p>
             <div className="mt-5 w-fit">
               <GlobalSettingsToggle align="left" showCurrency={false} />
-            </div>{" "}
-          </div>{" "}
-        </header>{" "}
+            </div>
+          </div>
+        </header>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {" "}
           <section>
-            {" "}
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] flex-1 min-w-fit whitespace-nowrap">
-              {" "}
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                {" "}
                 <div className="p-2.5 bg-teal-50 text-teal-600 rounded-xl">
-                  {" "}
-                  <Ruler className="w-5 h-5" />{" "}
-                </div>{" "}
+                  <Ruler className="w-5 h-5" />
+                </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800 whitespace-nowrap">
                   Trench Dimensions
-                </h2>{" "}
-              </div>{" "}
+                </h2>
+              </div>
               <div className="space-y-4">
-                {" "}
                 <div>
-                  {" "}
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                     Trench Length (L) [{unitL}]
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
-                  />{" "}
-                </div>{" "}
+                  />
+                </div>
                 <div className="grid grid-cols-2 gap-4">
-                  {" "}
                   <div>
-                    {" "}
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                       Bottom Width [{unitL}]
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                       value={bottomWidth}
                       onChange={(e) => setBottomWidth(e.target.value)}
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                       Top Width [{unitL}]
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                       value={topWidth}
                       onChange={(e) => setTopWidth(e.target.value)}
-                    />{" "}
-                  </div>{" "}
-                </div>{" "}
+                    />
+                  </div>
+                </div>
                 <div>
-                  {" "}
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                     Depth [{unitL}]
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                     value={depth}
                     onChange={(e) => setDepth(e.target.value)}
-                  />{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+                  />
+                </div>
+              </div>
+            </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] mt-6 flex-1 min-w-fit whitespace-nowrap">
-              {" "}
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                {" "}
                 <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
-                  {" "}
-                  <Activity className="w-5 h-5" />{" "}
-                </div>{" "}
+                  <Activity className="w-5 h-5" />
+                </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800 whitespace-nowrap">
                   Bedding Details
-                </h2>{" "}
-              </div>{" "}
+                </h2>
+              </div>
               <div className="space-y-4">
-                {" "}
                 <div>
-                  {" "}
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                     Pipe Diameter [{unitL}]
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                     value={pipeDiameter}
                     onChange={(e) => setPipeDiameter(e.target.value)}
                     placeholder={`e.g. 0.3 ${unitL}`}
-                  />{" "}
-                </div>{" "}
+                  />
+                </div>
                 <div>
-                  {" "}
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                     Bedding Depth [{unitL}]
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                     value={beddingDepth}
                     onChange={(e) => setBeddingDepth(e.target.value)}
                     placeholder={`e.g. 0.5 ${unitL}`}
-                  />{" "}
-                </div>{" "}
+                  />
+                </div>
                 <p className="text-xs text-gray-400 font-medium px-1">
-                  {" "}
-                  Leave empty if bedding calculation is not required.{" "}
-                </p>{" "}
-              </div>{" "}
-            </div>{" "}
-          </section>{" "}
+                  Leave empty if bedding calculation is not required.
+                </p>
+              </div>
+            </div>
+          </section>
           <section className="space-y-6">
-            {" "}
             <div className="bg-gradient-to-br from-gray-900 to-slate-800 rounded-[1.5rem] p-8 shadow-2xl relative overflow-hidden">
-              {" "}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20"></div>{" "}
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-teal-500/10 rounded-full blur-2xl -ml-10 -mb-10"></div>{" "}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-teal-500/10 rounded-full blur-2xl -ml-10 -mb-10"></div>
               <div className="relative z-10">
-                {" "}
                 <div className="flex items-center gap-3 mb-6">
-                  {" "}
                   <div className="p-2 bg-white/20 rounded-xl backdrop-blur-md">
-                    {" "}
-                    <Calculator className="w-5 h-5 text-white" />{" "}
-                  </div>{" "}
+                    <Calculator className="w-5 h-5 text-white" />
+                  </div>
                   <h2 className="text-xl font-bold tracking-tight text-white whitespace-nowrap">
                     Results
-                  </h2>{" "}
-                </div>{" "}
+                  </h2>
+                </div>
                 <div className="space-y-6">
-                  {" "}
                   <div className="bg-white/10 p-5 rounded-[1.25rem] border border-white/20 backdrop-blur-sm">
-                    {" "}
                     <div className="text-teal-100 text-sm font-medium mb-1">
                       Total Excavated Volume
-                    </div>{" "}
+                    </div>
                     <div className="text-4xl font-extrabold tracking-tight text-white whitespace-nowrap">
-                      {" "}
-                      {totalExcavationVolume.toFixed(2)}{" "}
+                      {totalExcavationVolume.toFixed(2)}
                       <span className="text-xl font-medium text-teal-200 whitespace-nowrap">
                         {unitV}
-                      </span>{" "}
-                    </div>{" "}
-                  </div>{" "}
+                      </span>
+                    </div>
+                  </div>
                   {(D_bedding > 0 || D_pipe > 0) && (
                     <div className="bg-white/10 p-5 rounded-[1.25rem] border border-white/20 backdrop-blur-sm transition-all duration-300">
-                      {" "}
                       <div className="text-indigo-100 text-sm font-medium mb-1">
                         Bedding Material Volume
-                      </div>{" "}
+                      </div>
                       <div className="text-3xl font-extrabold tracking-tight text-white whitespace-nowrap">
-                        {" "}
-                        {beddingMaterialVolume.toFixed(2)}{" "}
+                        {beddingMaterialVolume.toFixed(2)}
                         <span className="text-lg font-medium text-indigo-200/70 whitespace-nowrap">
                           {unitV}
-                        </span>{" "}
-                      </div>{" "}
+                        </span>
+                      </div>
                     </div>
-                  )}{" "}
+                  )}
                   <table className="w-full text-left mt-2 border-collapse">
-                    {" "}
                     <tbody className="divide-y divide-white/10 text-sm font-medium">
-                      {" "}
                       <tr>
-                        {" "}
                         <td className="py-3 text-gray-400">
                           Trapezoidal Area
-                        </td>{" "}
+                        </td>
                         <td className="py-3 text-right text-white font-mono">
                           {crossSectionArea.toFixed(2)} {unitA}
-                        </td>{" "}
-                      </tr>{" "}
+                        </td>
+                      </tr>
                       {D_pipe > 0 && (
                         <tr>
-                          {" "}
                           <td className="py-3 text-gray-400">
                             Pipe Volume
-                          </td>{" "}
+                          </td>
                           <td className="py-3 text-right text-white font-mono">
-                            {(Math.PI * Math.pow(D_pipe / 2, 2) * L).toFixed(2)}{" "}
+                            {(Math.PI * Math.pow(D_pipe / 2, 2) * L).toFixed(2)}
                             {unitV}
-                          </td>{" "}
+                          </td>
                         </tr>
-                      )}{" "}
-                    </tbody>{" "}
-                  </table>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
             <ShareButtonWithPopup
               activeTab="Trench Excavation"
               data={{
@@ -287,10 +249,10 @@ export default function TrenchExcavationEstimator() {
                 },
               }}
               title="Trench Excavation Estimator"
-            />{" "}
-          </section>{" "}
-        </div>{" "}
-      </div>{" "}
+            />
+          </section>
+        </div>
+      </div>
     </div>
   );
 }

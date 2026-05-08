@@ -74,50 +74,38 @@ export default function RateAnalysis() {
     }, [rates]);
   return (
     <div className="w-full h-full overflow-y-auto bg-[#fafafa] text-gray-900 font-sans p-6 md:p-8">
-      {" "}
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
-        {" "}
         <header className="mb-8">
-          {" "}
           <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent pb-2 whitespace-nowrap">
-            {" "}
-            Rate Analysis & Market Pricing{" "}
-          </h1>{" "}
+            Rate Analysis & Market Pricing
+          </h1>
           <p className="text-gray-500 mt-2 text-lg font-medium whitespace-nowrap">
-            {" "}
             Centralized hub for local market rates. Updates here reflect
-            globally across all estimation modules.{" "}
-          </p>{" "}
+            globally across all estimation modules.
+          </p>
           <div className="mt-5 w-fit">
             <GlobalSettingsToggle align="left" />
-          </div>{" "}
-        </header>{" "}
+          </div>
+        </header>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {" "}
-          {/* Rate Inputs */}{" "}
+          {/* Rate Inputs */}
           <section className="lg:col-span-7 space-y-6">
-            {" "}
             <div className="bg-white/80 p-8 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-gray-100 backdrop-blur-xl">
-              {" "}
               <div className="flex items-center gap-3 mb-8">
-                {" "}
                 <div className="p-3 bg-emerald-50 text-emerald-600 rounded-2xl shadow-sm border border-emerald-100 flex-1 min-w-fit whitespace-nowrap">
-                  {" "}
-                  <Database className="w-6 h-6" />{" "}
-                </div>{" "}
+                  <Database className="w-6 h-6" />
+                </div>
                 <div>
-                  {" "}
                   <h2 className="text-xl font-bold tracking-tight text-gray-800 whitespace-nowrap">
                     Global Material Rates
-                  </h2>{" "}
+                  </h2>
                   <p className="text-xs font-semibold text-gray-400 mt-1 uppercase tracking-wider whitespace-nowrap">
                     Updates globally in real-time
-                  </p>{" "}
-                </div>{" "}
-              </div>{" "}
+                  </p>
+                </div>
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {" "}
-                {/* Material Input Cards */}{" "}
+                {/* Material Input Cards */}
                 <InputCard
                   label="Cement (per Bag)"
                   value={parseFloat(convertAmount(rates.cement).toFixed(2))}
@@ -128,7 +116,7 @@ export default function RateAnalysis() {
                       convertAmountToRaw(parseFloat(v)).toString(),
                     )
                   }
-                />{" "}
+                />
                 <InputCard
                   label="Steel (per kg)"
                   value={parseFloat(convertAmount(rates.steel).toFixed(2))}
@@ -139,7 +127,7 @@ export default function RateAnalysis() {
                       convertAmountToRaw(parseFloat(v)).toString(),
                     )
                   }
-                />{" "}
+                />
                 <InputCard
                   label="Sand (per cft)"
                   value={parseFloat(convertAmount(rates.sand).toFixed(2))}
@@ -150,7 +138,7 @@ export default function RateAnalysis() {
                       convertAmountToRaw(parseFloat(v)).toString(),
                     )
                   }
-                />{" "}
+                />
                 <InputCard
                   label="Crush (per cft)"
                   value={parseFloat(convertAmount(rates.crush).toFixed(2))}
@@ -161,7 +149,7 @@ export default function RateAnalysis() {
                       convertAmountToRaw(parseFloat(v)).toString(),
                     )
                   }
-                />{" "}
+                />
                 <InputCard
                   label="Bricks (per Piece)"
                   value={parseFloat(convertAmount(rates.bricks).toFixed(2))}
@@ -172,13 +160,12 @@ export default function RateAnalysis() {
                       convertAmountToRaw(parseFloat(v)).toString(),
                     )
                   }
-                />{" "}
+                />
                 <div className="col-span-1 sm:col-span-2 pt-4 pb-2">
-                  {" "}
                   <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-2 whitespace-nowrap">
                     Finishing & Labor
-                  </h3>{" "}
-                </div>{" "}
+                  </h3>
+                </div>
                 <InputCard
                   label="Tiles (per Box)"
                   value={parseFloat(convertAmount(rates.tiles).toFixed(2))}
@@ -189,7 +176,7 @@ export default function RateAnalysis() {
                       convertAmountToRaw(parseFloat(v)).toString(),
                     )
                   }
-                />{" "}
+                />
                 <InputCard
                   label="Paint (per Liter)"
                   value={parseFloat(convertAmount(rates.paint).toFixed(2))}
@@ -200,7 +187,7 @@ export default function RateAnalysis() {
                       convertAmountToRaw(parseFloat(v)).toString(),
                     )
                   }
-                />{" "}
+                />
                 <InputCard
                   label="Labour (Grey / sqft)"
                   value={parseFloat(convertAmount(rates.laborGrey).toFixed(2))}
@@ -211,7 +198,7 @@ export default function RateAnalysis() {
                       convertAmountToRaw(parseFloat(v)).toString(),
                     )
                   }
-                />{" "}
+                />
                 <InputCard
                   label="Finish Multiplier Base"
                   value={parseFloat(
@@ -224,20 +211,17 @@ export default function RateAnalysis() {
                       convertAmountToRaw(parseFloat(v)).toString(),
                     )
                   }
-                />{" "}
+                />
                 <div className="col-span-1 sm:col-span-2 bg-slate-50 px-4 py-3 rounded-2xl border border-slate-100 flex items-center justify-between flex-1 min-w-fit whitespace-nowrap">
-                  {" "}
                   <div>
-                    {" "}
                     <div className="font-bold text-slate-700">
                       Contractor Overhead & Profit
-                    </div>{" "}
+                    </div>
                     <div className="text-xs text-slate-500 font-medium">
                       Applied to composite items
-                    </div>{" "}
-                  </div>{" "}
+                    </div>
+                  </div>
                   <div className="flex items-center gap-2">
-                    {" "}
                     <input
                       type="number"
                       className="w-24 bg-white border border-slate-200 rounded-xl px-3 py-2 text-center text-lg font-bold text-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 whitespace-nowrap"
@@ -245,48 +229,39 @@ export default function RateAnalysis() {
                       onChange={(e) =>
                         handleRateChange("overheadMarkup", e.target.value)
                       }
-                    />{" "}
+                    />
                     <span className="text-lg font-black text-slate-400 whitespace-nowrap">
                       %
-                    </span>{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
-          </section>{" "}
-          {/* Composite Rate Analyzer */}{" "}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          {/* Composite Rate Analyzer */}
           <section className="lg:col-span-5 space-y-6">
-            {" "}
             <div className="bg-gradient-to-b from-[#1e293b] to-[#0f172a] p-8 rounded-[2rem] shadow-2xl relative overflow-hidden text-white/90">
-              {" "}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/20 rounded-full blur-[80px]" />{" "}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/20 rounded-full blur-[80px]" />
               <div className="relative z-10">
-                {" "}
                 <div className="flex items-center justify-between mb-8">
-                  {" "}
                   <div className="flex items-center gap-3">
-                    {" "}
                     <div className="p-2.5 bg-white/10 rounded-xl backdrop-blur border border-white/10 flex-1 min-w-fit whitespace-nowrap">
-                      {" "}
-                      <Activity className="w-5 h-5 text-teal-400" />{" "}
-                    </div>{" "}
+                      <Activity className="w-5 h-5 text-teal-400" />
+                    </div>
                     <h3 className="text-lg font-bold whitespace-nowrap">
                       Composite Item Analysis
-                    </h3>{" "}
-                  </div>{" "}
-                </div>{" "}
+                    </h3>
+                  </div>
+                </div>
                 <div className="mb-6">
-                  {" "}
                   <h4 className="text-2xl font-black text-white leading-tight whitespace-nowrap">
                     1.0 m³ Concrete
-                  </h4>{" "}
+                  </h4>
                   <p className="text-teal-400/80 font-mono text-sm mt-1 mb-4 border-b border-white/10 pb-4">
                     Mix Ratio 1:2:4 | 1.54 Dry Vol
-                  </p>{" "}
+                  </p>
                   <div className="h-48 w-full mb-6 relative">
-                    {" "}
                     <ResponsiveContainer width="100%" height="100%">
-                      {" "}
                       <BarChart
                         data={[
                           {
@@ -319,13 +294,12 @@ export default function RateAnalysis() {
                         ]}
                         margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
                       >
-                        {" "}
                         <XAxis
                           dataKey="name"
                           tick={{ fill: "#94a3b8", fontSize: 10 }}
                           axisLine={false}
                           tickLine={false}
-                        />{" "}
+                        />
                         <YAxis
                           tick={{ fill: "#94a3b8", fontSize: 10 }}
                           axisLine={false}
@@ -333,7 +307,7 @@ export default function RateAnalysis() {
                           tickFormatter={(value) =>
                             `${(convertAmount(value) / 1000).toFixed(0)}k`
                           }
-                        />{" "}
+                        />
                         <Tooltip
                           cursor={{ fill: "rgba(255,255,255,0.05)" }}
                           contentStyle={{
@@ -343,9 +317,8 @@ export default function RateAnalysis() {
                             color: "#fff",
                           }}
                           formatter={(value: number) => formatCurrency(value)}
-                        />{" "}
+                        />
                         <Bar dataKey="value" radius={[4, 4, 0, 0]}>
-                          {" "}
                           {[
                             {
                               name: "Cement",
@@ -376,86 +349,75 @@ export default function RateAnalysis() {
                             },
                           ].map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={entry.color} />
-                          ))}{" "}
-                        </Bar>{" "}
-                      </BarChart>{" "}
-                    </ResponsiveContainer>{" "}
-                  </div>{" "}
+                          ))}
+                        </Bar>
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
                   <div className="space-y-4 font-mono text-sm">
-                    {" "}
                     <div className="flex justify-between items-center group">
-                      {" "}
                       <span className="text-slate-400 group-hover:text-slate-300 transition-colors">
                         Cement ({compositeCalc.cementBags.toFixed(2)} Bags)
-                      </span>{" "}
+                      </span>
                       <span className="font-bold text-slate-200">
                         {formatCurrency(compositeCalc.costCement)}
-                      </span>{" "}
-                    </div>{" "}
+                      </span>
+                    </div>
                     <div className="flex justify-between items-center group">
-                      {" "}
                       <span className="text-slate-400 group-hover:text-slate-300 transition-colors">
                         Sand ({compositeCalc.sandCft.toFixed(2)} cft)
-                      </span>{" "}
+                      </span>
                       <span className="font-bold text-slate-200">
                         {formatCurrency(compositeCalc.costSand)}
-                      </span>{" "}
-                    </div>{" "}
+                      </span>
+                    </div>
                     <div className="flex justify-between items-center group">
-                      {" "}
                       <span className="text-slate-400 group-hover:text-slate-300 transition-colors">
                         Crush ({compositeCalc.crushCft.toFixed(2)} cft)
-                      </span>{" "}
+                      </span>
                       <span className="font-bold text-slate-200">
                         {formatCurrency(compositeCalc.costCrush)}
-                      </span>{" "}
-                    </div>{" "}
+                      </span>
+                    </div>
                     <div className="flex justify-between items-center text-slate-500 pt-2 border-t border-white/5">
-                      {" "}
-                      <span>Labor & Equipment</span>{" "}
+                      <span>Labor & Equipment</span>
                       <span>
                         {formatCurrency(
                           compositeCalc.costLabor + compositeCalc.costEquipment,
                         )}
-                      </span>{" "}
-                    </div>{" "}
-                  </div>{" "}
-                </div>{" "}
+                      </span>
+                    </div>
+                  </div>
+                </div>
                 <div className="pt-6 border-t border-white/10 space-y-4">
-                  {" "}
                   <div className="flex justify-between items-center text-sm font-medium text-slate-300">
-                    {" "}
-                    <span>Subtotal</span>{" "}
+                    <span>Subtotal</span>
                     <span className="font-mono">
                       {formatCurrency(compositeCalc.primeCost)}
-                    </span>{" "}
-                  </div>{" "}
+                    </span>
+                  </div>
                   <div className="flex justify-between items-center text-sm font-medium text-slate-300">
-                    {" "}
                     <span>
                       Overhead & Profit ({rates.overheadMarkup}%)
-                    </span>{" "}
+                    </span>
                     <span className="font-mono text-emerald-400">
                       +{formatCurrency(compositeCalc.overheadCost)}
-                    </span>{" "}
-                  </div>{" "}
+                    </span>
+                  </div>
                   <div className="bg-white/10 backdrop-blur-md rounded-2xl px-4 py-3 border border-white/10 mt-4 flex items-center justify-between flex-1 min-w-fit whitespace-nowrap">
-                    {" "}
                     <span className="text-xs font-bold uppercase tracking-widest text-slate-300 whitespace-nowrap">
                       Analyzed Rate
-                    </span>{" "}
+                    </span>
                     <div className="flex items-end gap-1">
-                      {" "}
                       <span className="text-3xl font-black text-white leading-none whitespace-nowrap">
                         {formatCurrency(compositeCalc.finalRate)}
-                      </span>{" "}
+                      </span>
                       <span className="text-sm font-medium text-teal-400 pb-0.5">
                         / m³
-                      </span>{" "}
-                    </div>{" "}
-                  </div>{" "}
+                      </span>
+                    </div>
+                  </div>
                   <div className="mt-6 flex flex-wrap gap-4 items-center">
-                    {" "}
                     <ShareButtonWithPopup
                       activeTab="Rate Analysis"
                       title="Composite Item Analysis"
@@ -469,7 +431,7 @@ export default function RateAnalysis() {
                           ]),
                         ) as Record<string, string>,
                       }}
-                    />{" "}
+                    />
                     {user && (
                       <button
                         onClick={async () => {
@@ -494,29 +456,27 @@ export default function RateAnalysis() {
                         disabled={isSaving}
                         className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
                       >
-                        {" "}
                         {isSaving ? (
                           <span className="animate-pulse">Saving...</span>
                         ) : (
                           <>
-                            {" "}
-                            <Save className="w-5 h-5" /> Save to Profile{" "}
+                            <Save className="w-5 h-5" /> Save to Profile
                           </>
-                        )}{" "}
+                        )}
                       </button>
-                    )}{" "}
+                    )}
                     {saveMessage && (
                       <span className="text-sm font-bold text-green-400 ml-4">
                         {saveMessage}
                       </span>
-                    )}{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
-          </section>{" "}
-        </div>{" "}
-      </div>{" "}
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
   );
 }
@@ -534,22 +494,17 @@ function InputCard({
   const symbol = unit === "PKR" ? "Rs" : unit === "USD" ? "$" : unit;
   return (
     <div className="group bg-gray-50/50 hover:bg-white border border-gray-100 hover:border-emerald-200 px-4 py-3 rounded-2xl transition-all shadow-sm hover:shadow-md flex flex-col justify-between flex-1 min-w-fit whitespace-nowrap">
-      {" "}
       <div className="flex justify-between items-center mb-3">
-        {" "}
         <label className="text-xs font-bold text-gray-500 tracking-wide">
           {label}
-        </label>{" "}
-      </div>{" "}
+        </label>
+      </div>
       <div className="flex flex-col gap-1">
-        {" "}
         <div className="flex items-center gap-2">
-          {" "}
           <div className="relative flex-1">
-            {" "}
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold mb-0.5 pointer-events-none">
               {symbol}
-            </span>{" "}
+            </span>
             <input
               type="number"
               min="0"
@@ -561,13 +516,13 @@ function InputCard({
                 if (!isNaN(num) && num < 0) return;
                 onChange(e.target.value);
               }}
-            />{" "}
-          </div>{" "}
+            />
+          </div>
           <span className="text-xs font-bold text-gray-400 uppercase w-10 text-right whitespace-nowrap">
             {unit}
-          </span>{" "}
-        </div>{" "}
-      </div>{" "}
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

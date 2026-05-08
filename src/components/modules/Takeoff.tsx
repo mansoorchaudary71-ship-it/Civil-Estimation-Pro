@@ -377,21 +377,16 @@ export default function Takeoff() {
   }, [handleFinishDrawing]);
   return (
     <div className="flex flex-col h-full text-slate-900 p-8">
-      {" "}
       <div className="flex-1 bg-white border border-slate-200 rounded-xl flex flex-col overflow-hidden relative">
-        {" "}
-        {/* Header */}{" "}
+        {/* Header */}
         <div className="px-6 py-4 border-b border-slate-200 flex justify-between items-center bg-white">
-          {" "}
           <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">
             2D Takeoff Engine
-          </h2>{" "}
+          </h2>
           <div className="flex gap-2 items-center">
-            {" "}
             <span className="px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/20 text-blue-500 text-[10px]">
-              {" "}
-              Scale: 1px = {(1 / scalePxPerUnit).toFixed(4)} {unitName}{" "}
-            </span>{" "}
+              Scale: 1px = {(1 / scalePxPerUnit).toFixed(4)} {unitName}
+            </span>
             <select
               value={
                 ["m", "cm", "mm"].includes(unitName)
@@ -421,55 +416,47 @@ export default function Takeoff() {
               }}
               className="px-2 py-0.5 bg-white border border-slate-200 text-slate-500 text-[10px] rounded outline-none hover:border-slate-300 focus:border-blue-500 transition-colors cursor-pointer"
             >
-              {" "}
-              <option value="metric">Metric (m, m², m³)</option>{" "}
-              <option value="imperial">Imperial (ft, sq.ft, cu.ft)</option>{" "}
-            </select>{" "}
-          </div>{" "}
-        </div>{" "}
-        {/* Toolbar Inner */}{" "}
+              <option value="metric">Metric (m, m², m³)</option>
+              <option value="imperial">Imperial (ft, sq.ft, cu.ft)</option>
+            </select>
+          </div>
+        </div>
+        {/* Toolbar Inner */}
         <div className="h-12 border-b border-slate-200 bg-slate-50/50 flex items-center justify-between px-4 shrink-0 w-full text-xs">
-          {" "}
           <div className="flex items-center gap-4">
-            {" "}
             <div className="text-slate-800 font-medium truncate max-w-[200px]">
               {filename}
-            </div>{" "}
+            </div>
             {!image && (
               <label className="flex items-center gap-2 cursor-pointer text-xs bg-white border border-slate-200 hover:bg-slate-200 text-slate-500 px-3 py-1.5 rounded transition-colors">
-                {" "}
-                <Upload className="w-[14px] h-[14px]" /> Upload Image Blueprint{" "}
+                <Upload className="w-[14px] h-[14px]" /> Upload Image Blueprint
                 <input
                   type="file"
                   accept="image/*"
                   className="hidden"
                   onChange={handleImageUpload}
-                />{" "}
+                />
               </label>
-            )}{" "}
-            <div className="h-4 w-px bg-slate-200" />{" "}
+            )}
+            <div className="h-4 w-px bg-slate-200" />
             <div className="flex items-center gap-1">
-              {" "}
               <button
                 onClick={() => setMode("select")}
                 className={`p-1.5 rounded border ${mode === "select" ? "bg-slate-200 border-slate-400 text-slate-800" : "border-transparent text-slate-500 hover:bg-slate-100"}`}
                 title="Select"
               >
-                {" "}
-                <MousePointer2 className="w-[14px] h-[14px]" />{" "}
-              </button>{" "}
+                <MousePointer2 className="w-[14px] h-[14px]" />
+              </button>
               <button
                 onClick={() => setMode("pan")}
                 className={`p-1.5 rounded border ${mode === "pan" ? "bg-slate-200 border-slate-400 text-slate-800" : "border-transparent text-slate-500 hover:bg-slate-100"}`}
                 title="Pan"
               >
-                {" "}
-                <Move className="w-[14px] h-[14px]" />{" "}
-              </button>{" "}
-            </div>{" "}
-            <div className="h-4 w-px bg-slate-200" />{" "}
+                <Move className="w-[14px] h-[14px]" />
+              </button>
+            </div>
+            <div className="h-4 w-px bg-slate-200" />
             <div className="flex items-center gap-1">
-              {" "}
               <button
                 onClick={() => {
                   setMode("scale");
@@ -478,36 +465,32 @@ export default function Takeoff() {
                 className={`p-1.5 rounded border ${mode === "scale" ? "bg-slate-200 border-emerald-500 text-emerald-400" : "border-transparent text-slate-500 hover:bg-slate-100 hover:text-emerald-400"}`}
                 title="Set Scale"
               >
-                {" "}
-                <Ruler className="w-[14px] h-[14px]" />{" "}
-              </button>{" "}
-            </div>{" "}
-          </div>{" "}
+                <Ruler className="w-[14px] h-[14px]" />
+              </button>
+            </div>
+          </div>
           <div className="flex items-center gap-2">
-            {" "}
             <button
               onClick={() => setStageScale((s) => s / 1.2)}
               className="p-1.5 text-slate-500 hover:text-slate-800 rounded hover:bg-slate-100"
             >
               <ZoomOut className="w-[14px] h-[14px]" />
-            </button>{" "}
+            </button>
             <div className="font-mono text-slate-900 w-12 text-center text-[10px]">
               {Math.round(stageScale * 100)}%
-            </div>{" "}
+            </div>
             <button
               onClick={() => setStageScale((s) => s * 1.2)}
               className="p-1.5 text-slate-500 hover:text-slate-800 rounded hover:bg-slate-100"
             >
               <ZoomIn className="w-[14px] h-[14px]" />
-            </button>{" "}
-          </div>{" "}
-        </div>{" "}
-        {/* Main Workspace */}{" "}
+            </button>
+          </div>
+        </div>
+        {/* Main Workspace */}
         <div className="flex-1 flex overflow-hidden relative">
-          {" "}
-          {/* Left Measurement Tools */}{" "}
+          {/* Left Measurement Tools */}
           <div className="w-12 border-r border-slate-200 bg-slate-50 flex flex-col items-center py-4 gap-3 shrink-0">
-            {" "}
             <button
               onClick={() => {
                 setMode("area");
@@ -516,9 +499,8 @@ export default function Takeoff() {
               className={`w-8 h-8 rounded flex items-center justify-center cursor-pointer text-xs font-bold transition-colors ${mode === "area" ? "bg-orange-500/20 text-orange-400 border border-orange-500/30" : "text-slate-500 hover:text-slate-900 hover:bg-slate-100"}`}
               title="Area Takeoff"
             >
-              {" "}
-              <Square className="w-[14px] h-[14px]" />{" "}
-            </button>{" "}
+              <Square className="w-[14px] h-[14px]" />
+            </button>
             <button
               onClick={() => {
                 setMode("line");
@@ -527,24 +509,20 @@ export default function Takeoff() {
               className={`w-8 h-8 rounded flex items-center justify-center cursor-pointer text-xs font-bold transition-colors ${mode === "line" ? "bg-blue-500/20 text-blue-400 border border-blue-500/30" : "text-slate-500 hover:text-slate-900 hover:bg-slate-100"}`}
               title="Line Takeoff"
             >
-              {" "}
-              <Activity className="w-[14px] h-[14px]" />{" "}
-            </button>{" "}
-          </div>{" "}
-          {/* Assemblies Sidebar */}{" "}
+              <Activity className="w-[14px] h-[14px]" />
+            </button>
+          </div>
+          {/* Assemblies Sidebar */}
           <div className="w-56 border-r border-slate-200 bg-slate-50/50 flex flex-col shrink-0">
-            {" "}
             <div className="h-10 border-b border-slate-200 flex items-center px-4 bg-white/30">
-              {" "}
               <span className="text-[10px] font-semibold uppercase text-slate-500 tracking-wider flex-1">
                 Smart Assemblies
-              </span>{" "}
-            </div>{" "}
+              </span>
+            </div>
             <div className="flex-1 p-3 space-y-3 overflow-y-auto">
-              {" "}
               <div className="text-[10px] text-slate-500 pb-1">
                 Drag and drop onto canvas:
-              </div>{" "}
+              </div>
               {ASSEMBLIES.map((asm) => (
                 <div
                   key={asm.id}
@@ -554,32 +532,29 @@ export default function Takeoff() {
                   }}
                   className="p-3 bg-white border border-slate-200 rounded cursor-grab active:cursor-grabbing hover:border-slate-400 transition-all group"
                 >
-                  {" "}
                   <div className="flex items-center gap-2 mb-1">
-                    {" "}
                     <div
                       className="w-6 h-6 rounded bg-white border border-slate-200 flex items-center justify-center group-hover:border-slate-400 transition-colors"
                       style={{ color: asm.color }}
                     >
-                      {" "}
-                      {asm.icon}{" "}
-                    </div>{" "}
+                      {asm.icon}
+                    </div>
                     <span
                       className="text-xs font-semibold text-slate-900 flex-1 truncate"
                       title={asm.name}
                     >
                       {asm.name}
-                    </span>{" "}
-                    <GripVertical className="w-3 h-3 text-slate-300 group-hover:text-slate-500 transition-colors" />{" "}
-                  </div>{" "}
+                    </span>
+                    <GripVertical className="w-3 h-3 text-slate-300 group-hover:text-slate-500 transition-colors" />
+                  </div>
                   <p className="text-[9px] text-slate-500 mt-2 leading-tight">
                     Drop to generate BOQ for this assembly.
-                  </p>{" "}
+                  </p>
                 </div>
-              ))}{" "}
-            </div>{" "}
-          </div>{" "}
-          {/* Canvas Area */}{" "}
+              ))}
+            </div>
+          </div>
+          {/* Canvas Area */}
           <div
             ref={containerRef}
             className="flex-1 relative bg-transparent border border-dashed border-slate-200 m-4 rounded-lg bg-[radial-gradient(#27272a_1px,transparent_1px)] bg-[size:20px_20px] overflow-hidden"
@@ -587,16 +562,14 @@ export default function Takeoff() {
             onDragOver={handleDragOver}
             onDrop={handleDrop}
           >
-            {" "}
             {!image && (
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-50 text-slate-500">
-                {" "}
-                <Layers className="w-12 h-12 mb-4" />{" "}
+                <Layers className="w-12 h-12 mb-4" />
                 <span className="text-sm">
                   Upload a blueprint image to start
-                </span>{" "}
+                </span>
               </div>
-            )}{" "}
+            )}
             {dimensions.width > 0 && dimensions.height > 0 && (
               <Stage
                 ref={stageRef}
@@ -618,11 +591,9 @@ export default function Takeoff() {
                       : "cursor-default"
                 }
               >
-                {" "}
                 <Layer>
-                  {" "}
-                  {image && <KonvaImage image={image} opacity={0.8} />}{" "}
-                  {/* Render Completed Measurements */}{" "}
+                  {image && <KonvaImage image={image} opacity={0.8} />}
+                  {/* Render Completed Measurements */}
                   {measurements.map((m) => {
                     const flatPoints = m.points.flatMap((p) => [p.x, p.y]);
                     const isArea = m.type === "area";
@@ -636,13 +607,12 @@ export default function Takeoff() {
                       );
                       return (
                         <Group key={m.id} x={m.points[0].x} y={m.points[0].y}>
-                          {" "}
                           <Circle
                             radius={15 / stageScale}
                             fill={m.color}
                             opacity={0.2}
-                          />{" "}
-                          <Circle radius={2 / stageScale} fill={m.color} />{" "}
+                          />
+                          <Circle radius={2 / stageScale} fill={m.color} />
                           {isLinked && (
                             <Circle
                               radius={18 / stageScale}
@@ -650,13 +620,13 @@ export default function Takeoff() {
                               strokeWidth={2 / stageScale}
                               dash={[4 / stageScale, 4 / stageScale]}
                             />
-                          )}{" "}
+                          )}
                           <KonvaText
                             text={asmDef?.icon || "📦"}
                             fontSize={14 / stageScale}
                             offsetX={7 / stageScale}
                             offsetY={7 / stageScale}
-                          />{" "}
+                          />
                           <KonvaText
                             text={m.name}
                             fontSize={10 / stageScale}
@@ -665,28 +635,26 @@ export default function Takeoff() {
                             offsetX={
                               20 / stageScale
                             } /* approximate centering */
-                          />{" "}
+                          />
                           {isLinked && (
                             <Group x={12 / stageScale} y={-12 / stageScale}>
-                              {" "}
                               <Circle
                                 radius={5 / stageScale}
                                 fill="#3b82f6"
-                              />{" "}
+                              />
                               <KonvaText
                                 text="🔗"
                                 fontSize={6 / stageScale}
                                 offsetX={3 / stageScale}
                                 offsetY={3 / stageScale}
-                              />{" "}
+                              />
                             </Group>
-                          )}{" "}
+                          )}
                         </Group>
                       );
                     }
                     return (
                       <Group key={m.id}>
-                        {" "}
                         <Line
                           points={flatPoints}
                           stroke={m.color}
@@ -699,30 +667,28 @@ export default function Takeoff() {
                               ? [6 / stageScale, 4 / stageScale]
                               : undefined
                           }
-                        />{" "}
+                        />
                         {isLinked && m.points.length > 0 && (
                           <Group x={m.points[0].x} y={m.points[0].y}>
-                            {" "}
                             <Circle
                               radius={6 / stageScale}
                               fill="#3b82f6"
                               stroke="#18181b"
                               strokeWidth={2 / stageScale}
-                            />{" "}
+                            />
                             <KonvaText
                               text="🔗"
                               fontSize={8 / stageScale}
                               offsetX={4 / stageScale}
                               offsetY={4 / stageScale}
-                            />{" "}
+                            />
                           </Group>
-                        )}{" "}
+                        )}
                       </Group>
                     );
-                  })}{" "}
+                  })}
                   {drawingPoints.length > 0 && (
                     <>
-                      {" "}
                       <Line
                         points={drawingPoints.flatMap((p) => [p.x, p.y])}
                         stroke={
@@ -733,7 +699,7 @@ export default function Takeoff() {
                               : "#3b82f6"
                         }
                         strokeWidth={2 / stageScale}
-                      />{" "}
+                      />
                       {mousePos && (
                         <Line
                           points={[
@@ -752,8 +718,8 @@ export default function Takeoff() {
                           strokeWidth={2 / stageScale}
                           dash={[5 / stageScale, 5 / stageScale]}
                         />
-                      )}{" "}
-                      {/* Vertex circles */}{" "}
+                      )}
+                      {/* Vertex circles */}
                       {drawingPoints.map((p, i) => (
                         <Circle
                           key={i}
@@ -764,53 +730,48 @@ export default function Takeoff() {
                           stroke="#27272a"
                           strokeWidth={1 / stageScale}
                         />
-                      ))}{" "}
+                      ))}
                     </>
-                  )}{" "}
-                </Layer>{" "}
+                  )}
+                </Layer>
               </Stage>
-            )}{" "}
-            {/* Scale Prompt Overlay */}{" "}
+            )}
+            {/* Scale Prompt Overlay */}
             {scalePrompt.visible && (
               <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-50">
-                {" "}
                 <div className="bg-white border border-slate-200 rounded-lg p-6 max-w-sm w-full shadow-2xl">
-                  {" "}
                   <h3 className="text-sm font-semibold mb-4 text-slate-900">
                     Set Measurement Scale
-                  </h3>{" "}
+                  </h3>
                   <p className="text-xs text-slate-500 mb-4">
-                    Line length on drawing is{" "}
+                    Line length on drawing is
                     <span className="font-mono text-emerald-400">
                       {scalePrompt.pxLen.toFixed(1)} px
                     </span>
                     . What is the real-world distance?
-                  </p>{" "}
+                  </p>
                   <div className="flex gap-2 mb-4">
-                    {" "}
                     <input
                       type="number"
                       placeholder="e.g. 10"
                       value={scaleInputValue}
                       onChange={(e) => setScaleInputValue(e.target.value)}
                       className="flex-1 bg-white border border-slate-200 rounded p-2 text-xs text-slate-800 uppercase font-mono focus:outline-none focus:border-emerald-500 whitespace-nowrap"
-                    />{" "}
+                    />
                     <select
                       value={scaleInputUnit}
                       onChange={(e) => setScaleInputUnit(e.target.value)}
                       className="w-20 bg-white border border-slate-200 rounded p-2 text-xs text-center text-slate-800 focus:outline-none focus:border-emerald-500"
                     >
-                      {" "}
-                      <option value="m">m</option>{" "}
-                      <option value="cm">cm</option>{" "}
-                      <option value="mm">mm</option>{" "}
-                      <option value="ft">ft</option>{" "}
-                      <option value="in">in</option>{" "}
-                      <option value="yd">yd</option>{" "}
-                    </select>{" "}
-                  </div>{" "}
+                      <option value="m">m</option>
+                      <option value="cm">cm</option>
+                      <option value="mm">mm</option>
+                      <option value="ft">ft</option>
+                      <option value="in">in</option>
+                      <option value="yd">yd</option>
+                    </select>
+                  </div>
                   <div className="flex justify-end gap-2">
-                    {" "}
                     <button
                       onClick={() => {
                         setScalePrompt({ visible: false, pxLen: 0 });
@@ -818,9 +779,8 @@ export default function Takeoff() {
                       }}
                       className="px-3 py-1.5 text-xs text-slate-500 hover:text-slate-800 transition-colors border border-transparent"
                     >
-                      {" "}
-                      Cancel{" "}
-                    </button>{" "}
+                      Cancel
+                    </button>
                     <button
                       onClick={() => {
                         const realVal = parseFloat(scaleInputValue);
@@ -833,48 +793,41 @@ export default function Takeoff() {
                       }}
                       className="px-3 py-1.5 text-xs bg-emerald-600 hover:bg-emerald-500 text-slate-800 rounded transition-colors"
                     >
-                      {" "}
-                      Save Scale{" "}
-                    </button>{" "}
-                  </div>{" "}
-                </div>{" "}
+                      Save Scale
+                    </button>
+                  </div>
+                </div>
               </div>
-            )}{" "}
-            {/* Assembly Prompt Overlay */}{" "}
+            )}
+            {/* Assembly Prompt Overlay */}
             {assemblyPrompt && (
               <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-50">
-                {" "}
                 <div className="bg-white border border-slate-200 rounded-lg p-6 max-w-sm w-full shadow-2xl">
-                  {" "}
                   {(() => {
                     const asmDef = ASSEMBLIES.find(
                       (a) => a.id === assemblyPrompt.assemblyId,
                     );
                     return (
                       <>
-                        {" "}
                         <h3 className="text-sm font-semibold mb-2 text-slate-900 flex items-center gap-2">
-                          {" "}
                           <span style={{ color: asmDef?.color }}>
                             {asmDef?.icon}
-                          </span>{" "}
-                          Configure Assembly{" "}
-                        </h3>{" "}
+                          </span>
+                          Configure Assembly
+                        </h3>
                         <p className="text-xs text-slate-500 mb-5">
-                          Provide dimensions for{" "}
+                          Provide dimensions for
                           <span className="font-medium text-slate-800">
                             {asmDef?.name}
-                          </span>{" "}
+                          </span>
                           to generate BOQ sub-items automatically.
-                        </p>{" "}
+                        </p>
                         <div className="flex flex-col gap-3 mb-5">
-                          {" "}
                           {asmDef?.inputs.map((inp) => (
                             <div key={inp.key}>
-                              {" "}
                               <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
                                 {inp.label}
-                              </label>{" "}
+                              </label>
                               <input
                                 type={inp.type || "text"}
                                 placeholder={inp.placeholder || ""}
@@ -893,80 +846,72 @@ export default function Takeoff() {
                                   )
                                 }
                                 className="w-full bg-white border border-slate-200 rounded p-2 text-xs text-slate-800 focus:outline-none focus:border-blue-500"
-                              />{" "}
+                              />
                             </div>
-                          ))}{" "}
-                        </div>{" "}
+                          ))}
+                        </div>
                         <div className="flex justify-end gap-2 text-xs">
-                          {" "}
                           <button
                             onClick={() => setAssemblyPrompt(null)}
                             className="px-4 py-2 text-slate-500 hover:text-slate-800 transition-colors border border-transparent rounded"
                           >
-                            {" "}
-                            Cancel{" "}
-                          </button>{" "}
+                            Cancel
+                          </button>
                           <button
                             onClick={handleCreateAssembly}
                             className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded transition-colors"
                           >
-                            {" "}
-                            Generate BOQ{" "}
-                          </button>{" "}
-                        </div>{" "}
+                            Generate BOQ
+                          </button>
+                        </div>
                       </>
                     );
-                  })()}{" "}
-                </div>{" "}
+                  })()}
+                </div>
               </div>
-            )}{" "}
-            {/* Enter/Escape Helper */}{" "}
+            )}
+            {/* Enter/Escape Helper */}
             {drawingPoints.length > 0 && (
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-slate-50/80 border border-slate-200 rounded-full px-4 py-1.5 text-[10px] text-slate-500 backdrop-blur-sm pointer-events-none flex gap-4 shadow-lg">
-                {" "}
                 <span>
                   <kbd className="bg-white px-1.5 rounded border border-slate-200 mr-1">
                     Click
-                  </kbd>{" "}
+                  </kbd>
                   point
-                </span>{" "}
+                </span>
                 <span>
                   <kbd className="bg-white px-1.5 rounded border border-slate-200 mr-1">
                     Enter
-                  </kbd>{" "}
+                  </kbd>
                   finish
-                </span>{" "}
+                </span>
                 <span>
                   <kbd className="bg-white px-1.5 rounded border border-slate-200 mr-1">
                     Esc
-                  </kbd>{" "}
+                  </kbd>
                   cancel
-                </span>{" "}
+                </span>
               </div>
-            )}{" "}
-          </div>{" "}
-          {/* Right Panel */}{" "}
+            )}
+          </div>
+          {/* Right Panel */}
           <div className="w-64 border-l border-slate-200 bg-slate-50/50 flex flex-col shrink-0">
-            {" "}
             <div className="h-10 border-b border-slate-200 flex items-center px-4 bg-white/30">
-              {" "}
               <span className="text-[10px] font-semibold uppercase text-slate-500 tracking-wider flex-1">
                 Takeoffs
-              </span>{" "}
+              </span>
               <span className="text-[10px] text-blue-500 bg-blue-500/10 px-1.5 py-0.5 rounded border border-blue-500/20">
                 {measurements.length}
-              </span>{" "}
-            </div>{" "}
+              </span>
+            </div>
             <div className="flex-1 p-3 space-y-2 overflow-y-auto">
-              {" "}
               {measurements.length === 0 && (
                 <div className="text-[10px] text-center text-slate-500 mt-8 p-4 border border-dashed border-slate-200 rounded">
-                  {" "}
                   No takeoffs recorded.
                   <br />
-                  Set scale, then draw lines or drop assemblies.{" "}
+                  Set scale, then draw lines or drop assemblies.
                 </div>
-              )}{" "}
+              )}
               {measurements.map((m) => {
                 let primaryStr = "N/A",
                   secondaryStr = null;
@@ -991,33 +936,30 @@ export default function Takeoff() {
                     key={m.id}
                     className="p-2 bg-white border border-slate-200 rounded relative overflow-hidden group flex flex-col gap-1.5"
                   >
-                    {" "}
                     <div
                       className="absolute top-0 left-0 h-full w-1"
                       style={{ backgroundColor: m.color }}
-                    ></div>{" "}
+                    ></div>
                     <div className="pl-2 flex justify-between items-start gap-2 pr-2 pt-1">
-                      {" "}
                       <div className="flex gap-1.5 items-center min-w-0 flex-1 mt-1">
-                        {" "}
                         {m.type === "line" && (
                           <Activity
                             className="w-[14px] h-[14px] shrink-0"
                             style={{ color: m.color }}
                           />
-                        )}{" "}
+                        )}
                         {m.type === "area" && (
                           <Square
                             className="w-[14px] h-[14px] shrink-0"
                             style={{ color: m.color }}
                           />
-                        )}{" "}
+                        )}
                         {m.type === "assembly" && (
                           <Layers
                             className="w-[14px] h-[14px] shrink-0"
                             style={{ color: m.color }}
                           />
-                        )}{" "}
+                        )}
                         {editingMeasurementId === m.id ? (
                           <input
                             type="text"
@@ -1045,73 +987,64 @@ export default function Takeoff() {
                               setEditingMeasurementId(m.id);
                             }}
                           >
-                            {" "}
-                            {m.name}{" "}
+                            {m.name}
                           </span>
-                        )}{" "}
-                      </div>{" "}
+                        )}
+                      </div>
                       <div className="flex flex-col items-end gap-0.5 shrink-0 mt-1">
-                        {" "}
                         <span
                           className="text-[10px] font-mono whitespace-nowrap font-medium bg-white px-1.5 py-0.5 rounded border border-slate-200"
                           style={{ color: m.color }}
                         >
-                          {" "}
-                          {primaryStr}{" "}
-                        </span>{" "}
+                          {primaryStr}
+                        </span>
                         {secondaryStr && (
                           <span className="text-[9px] font-mono whitespace-nowrap text-slate-500">
-                            {" "}
-                            ({secondaryStr}){" "}
+                            ({secondaryStr})
                           </span>
-                        )}{" "}
-                      </div>{" "}
-                    </div>{" "}
+                        )}
+                      </div>
+                    </div>
                     {linkedBoqs.length > 0 ? (
                       <div className="pl-2 flex flex-col gap-1 mt-1">
-                        {" "}
                         <span className="text-[9px] text-slate-500 font-medium uppercase tracking-wider">
                           Linked To:
-                        </span>{" "}
+                        </span>
                         {linkedBoqs.map((item) => (
                           <div
                             key={item.id}
                             className="text-[10px] text-blue-400 font-mono truncate leading-tight"
                           >
-                            {" "}
-                            {item.id} - {item.desc}{" "}
+                            {item.id} - {item.desc}
                           </div>
-                        ))}{" "}
+                        ))}
                       </div>
                     ) : (
                       <div className="pl-2 mt-1">
-                        {" "}
                         <span className="text-[9px] text-slate-500 italic">
                           Unlinked
-                        </span>{" "}
+                        </span>
                       </div>
-                    )}{" "}
+                    )}
                     <div className="pl-2 flex justify-between items-center mt-1 pt-1 border-t border-slate-200">
-                      {" "}
                       <span className="text-[9px] text-slate-500 uppercase">
                         {m.type}
-                      </span>{" "}
+                      </span>
                       <button
                         onClick={() => removeMeasurement(m.id)}
                         className="text-slate-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
                         title="Delete"
                       >
-                        {" "}
-                        <Trash2 className="w-3 h-3" />{" "}
-                      </button>{" "}
-                    </div>{" "}
+                        <Trash2 className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
                 );
-              })}{" "}
-            </div>{" "}
-          </div>{" "}
-        </div>{" "}
-      </div>{" "}
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
       <ShareButtonWithPopup
         activeTab="Takeoff"
         title="2D Takeoff Measurements"
@@ -1135,7 +1068,7 @@ export default function Takeoff() {
             {} as Record<string, string>,
           ),
         }}
-      />{" "}
+      />
     </div>
   );
 }

@@ -149,258 +149,216 @@ export default function FinishingEstimator() {
   const totalCost = costData.reduce((acc, curr) => acc + curr.value, 0);
   return (
     <div className="w-full h-full overflow-y-auto bg-[#fafafa] text-gray-900 font-sans p-6 md:p-8 relative">
-      {" "}
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
-        {" "}
         <header className="mb-8">
-          {" "}
           <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent pb-2 whitespace-nowrap">
-            {" "}
-            Finishing Works Estimator{" "}
-          </h1>{" "}
+            Finishing Works Estimator
+          </h1>
           <p className="text-gray-500 mt-2 text-lg font-medium whitespace-nowrap">
-            {" "}
             Calculate plaster, tile, and paint quantities with dynamic cost
-            distributions.{" "}
-          </p>{" "}
+            distributions.
+          </p>
           <div className="mt-5 w-fit">
             <GlobalSettingsToggle align="left" />
-          </div>{" "}
-        </header>{" "}
+          </div>
+        </header>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {" "}
-          {/* Inputs Section */}{" "}
+          {/* Inputs Section */}
           <section className="lg:col-span-7 space-y-6">
-            {" "}
-            {/* Base Dimensions & Deductions Container */}{" "}
+            {/* Base Dimensions & Deductions Container */}
             <div className="bg-white/80 backdrop-blur-xl p-6 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-white/40">
-              {" "}
               <div className="flex items-center gap-3 mb-6">
-                {" "}
                 <div className="p-3 bg-indigo-50 text-indigo-600 rounded-2xl shadow-sm flex-1 min-w-fit whitespace-nowrap">
-                  {" "}
-                  <Maximize className="w-6 h-6" />{" "}
-                </div>{" "}
+                  <Maximize className="w-6 h-6" />
+                </div>
                 <div>
-                  {" "}
                   <h2 className="text-xl font-bold tracking-tight text-gray-800 whitespace-nowrap">
                     Space Dimensions
-                  </h2>{" "}
+                  </h2>
                   <p className="text-xs text-gray-500">
                     Define base area and deductions
-                  </p>{" "}
-                </div>{" "}
-              </div>{" "}
+                  </p>
+                </div>
+              </div>
               <div className="mb-6">
-                {" "}
                 <label className="block text-sm font-semibold text-gray-600 mb-2">
                   Total Surface Area (m²)
-                </label>{" "}
+                </label>
                 <input
                   type="number"
                   className="w-full bg-gray-50/50 border border-gray-200 focus:bg-white rounded-2xl px-4 py-3 text-lg font-medium focus:outline-none focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all shadow-inner whitespace-nowrap flex-1 min-w-fit whitespace-nowrap"
                   value={totalArea}
                   onChange={(e) => setTotalArea(e.target.value)}
-                />{" "}
-              </div>{" "}
+                />
+              </div>
               <div className="space-y-4">
-                {" "}
                 <label className="block text-sm font-semibold text-gray-600">
                   Deductions (Doors, Windows, etc.)
-                </label>{" "}
+                </label>
                 {deductions.map((d) => (
                   <div
                     key={d.id}
                     className="flex items-center justify-between bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 flex-1 min-w-fit whitespace-nowrap"
                   >
-                    {" "}
                     <span className="font-medium text-gray-700">
-                      {d.name}{" "}
+                      {d.name}
                       <span className="text-gray-400 font-normal ml-2">
                         {d.area} m²
                       </span>
-                    </span>{" "}
+                    </span>
                     <button
                       onClick={() => removeDeduction(d.id)}
                       className="text-red-400 hover:text-red-600 transition-colors p-1"
                     >
-                      {" "}
-                      <MinusCircle className="w-5 h-5" />{" "}
-                    </button>{" "}
+                      <MinusCircle className="w-5 h-5" />
+                    </button>
                   </div>
-                ))}{" "}
+                ))}
                 <div className="flex gap-2 items-center">
-                  {" "}
                   <input
                     type="text"
                     placeholder="E.g. Door"
                     className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
                     value={newDeductionName}
                     onChange={(e) => setNewDeductionName(e.target.value)}
-                  />{" "}
+                  />
                   <input
                     type="number"
                     placeholder="Area (m²)"
                     className="w-32 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30"
                     value={newDeductionArea}
                     onChange={(e) => setNewDeductionArea(e.target.value)}
-                  />{" "}
+                  />
                   <button
                     onClick={addDeduction}
                     className="bg-indigo-600 hover:bg-indigo-700 text-white p-3 rounded-xl shadow-lg transition-transform hover:scale-105"
                   >
-                    {" "}
-                    <Plus className="w-5 h-5" />{" "}
-                  </button>{" "}
-                </div>{" "}
-              </div>{" "}
+                    <Plus className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
               <div className="mt-8 p-5 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-2xl flex justify-between items-center border border-indigo-500/20">
-                {" "}
                 <span className="text-indigo-800 font-bold">
                   Net Operative Area
-                </span>{" "}
+                </span>
                 <span className="text-2xl font-black text-indigo-700 font-mono whitespace-nowrap">
                   {calcNetArea().toFixed(2)} m²
-                </span>{" "}
-              </div>{" "}
-            </div>{" "}
-            {/* Material Specific Inputs */}{" "}
+                </span>
+              </div>
+            </div>
+            {/* Material Specific Inputs */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {" "}
-              {/* Plaster Parameters */}{" "}
+              {/* Plaster Parameters */}
               <div className="bg-white/80 backdrop-blur-xl p-6 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-white/40">
-                {" "}
                 <h3 className="text-lg font-bold text-gray-800 mb-5 flex items-center gap-2 whitespace-nowrap">
-                  {" "}
                   <span className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-black text-slate-500">
                     P
-                  </span>{" "}
-                  Plaster Specs{" "}
-                </h3>{" "}
+                  </span>
+                  Plaster Specs
+                </h3>
                 <div className="space-y-4">
-                  {" "}
                   <div>
-                    {" "}
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 whitespace-nowrap">
                       Thickness ({uMm})
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-slate-500/30"
                       value={plasterThickness}
                       onChange={(e) => setPlasterThickness(e.target.value)}
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 whitespace-nowrap">
                       Mortar Ratio (1:X)
-                    </label>{" "}
+                    </label>
                     <div className="flex bg-gray-50/50 border border-gray-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-slate-500/30">
-                      {" "}
                       <span className="px-4 py-3 bg-gray-100 text-gray-500 font-bold">
                         1 :
-                      </span>{" "}
+                      </span>
                       <input
                         type="number"
                         className="flex-1 bg-transparent px-4 py-3 focus:outline-none"
                         value={mortarRatio}
                         onChange={(e) => setMortarRatio(e.target.value)}
-                      />{" "}
-                    </div>{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-              {/* Tile & Paint Parameters */}{" "}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Tile & Paint Parameters */}
               <div className="space-y-6">
-                {" "}
                 <div className="bg-white/80 backdrop-blur-xl p-6 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-white/40">
-                  {" "}
                   <h3 className="text-lg font-bold text-gray-800 mb-5 flex items-center gap-2 whitespace-nowrap">
-                    {" "}
                     <CheckSquare className="w-5 h-5 text-sky-500" /> Tiling
-                    Profile{" "}
-                  </h3>{" "}
+                    Profile
+                  </h3>
                   <div className="grid grid-cols-2 gap-4">
-                    {" "}
                     <div>
-                      {" "}
                       <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1">
                         Tile (W x L) {uMm}
-                      </label>{" "}
+                      </label>
                       <div className="flex gap-1">
-                        {" "}
                         <input
                           type="number"
                           className="w-full bg-gray-50/50 border border-gray-200 rounded-lg px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/30 text-center"
                           value={tileWidth}
                           onChange={(e) => setTileWidth(e.target.value)}
-                        />{" "}
-                        <span className="text-gray-400 py-2">x</span>{" "}
+                        />
+                        <span className="text-gray-400 py-2">x</span>
                         <input
                           type="number"
                           className="w-full bg-gray-50/50 border border-gray-200 rounded-lg px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/30 text-center"
                           value={tileLength}
                           onChange={(e) => setTileLength(e.target.value)}
-                        />{" "}
-                      </div>{" "}
-                    </div>{" "}
+                        />
+                      </div>
+                    </div>
                     <div>
-                      {" "}
                       <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1">
                         Pcs / Box
-                      </label>{" "}
+                      </label>
                       <input
                         type="number"
                         className="w-full bg-gray-50/50 border border-gray-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/30"
                         value={tilesPerBox}
                         onChange={(e) => setTilesPerBox(e.target.value)}
-                      />{" "}
-                    </div>{" "}
-                  </div>{" "}
-                </div>{" "}
+                      />
+                    </div>
+                  </div>
+                </div>
                 <div className="bg-white/80 backdrop-blur-xl p-6 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-white/40">
-                  {" "}
                   <h3 className="text-lg font-bold text-gray-800 mb-5 flex items-center gap-2 whitespace-nowrap">
-                    {" "}
                     <PaintBucket className="w-5 h-5 text-pink-500" /> Paint
-                    Coverage{" "}
-                  </h3>{" "}
+                    Coverage
+                  </h3>
                   <div>
-                    {" "}
                     <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-2">
                       Coverage (m² / Liter)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       className="w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500/30"
                       value={paintCoverage}
                       onChange={(e) => setPaintCoverage(e.target.value)}
-                    />{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
-          </section>{" "}
-          {/* Visualization & Results Section */}{" "}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          {/* Visualization & Results Section */}
           <section className="lg:col-span-5 space-y-6">
-            {" "}
             <div className="bg-gray-900 text-white p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
-              {" "}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/20 rounded-full blur-[80px]" />{" "}
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-600/20 rounded-full blur-[80px]" />{" "}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/20 rounded-full blur-[80px]" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-600/20 rounded-full blur-[80px]" />
               <div className="relative z-10 flex flex-col gap-6">
-                {" "}
                 <h2 className="text-xl font-bold flex items-center gap-2 mb-2 whitespace-nowrap">
-                  {" "}
-                  <PieChartIcon className="w-5 h-5" /> Cost Distribution{" "}
-                </h2>{" "}
+                  <PieChartIcon className="w-5 h-5" /> Cost Distribution
+                </h2>
                 <div className="h-64 cursor-pointer">
-                  {" "}
                   <ResponsiveContainer width="100%" height="100%">
-                    {" "}
                     <PieChart>
-                      {" "}
                       <Pie
                         data={costData}
                         cx="50%"
@@ -412,15 +370,14 @@ export default function FinishingEstimator() {
                         animationDuration={1500}
                         animationEasing="ease-out"
                       >
-                        {" "}
                         {costData.map((entry, index) => (
                           <Cell
                             key={`cell-${index}`}
                             fill={entry.color}
                             stroke="rgba(0,0,0,0)"
                           />
-                        ))}{" "}
-                      </Pie>{" "}
+                        ))}
+                      </Pie>
                       <Tooltip
                         formatter={(value: number) => formatCurrency(value)}
                         contentStyle={{
@@ -430,102 +387,93 @@ export default function FinishingEstimator() {
                           color: "#fff",
                         }}
                         itemStyle={{ color: "#fff", fontWeight: 600 }}
-                      />{" "}
-                    </PieChart>{" "}
-                  </ResponsiveContainer>{" "}
-                </div>{" "}
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
                 <div className="space-y-3">
-                  {" "}
                   {costData.map((d, i) => (
                     <div
                       key={i}
                       className="flex items-center justify-between text-sm"
                     >
-                      {" "}
                       <div className="flex items-center gap-2">
-                        {" "}
                         <div
                           className="w-3 h-3 rounded-full"
                           style={{ backgroundColor: d.color }}
-                        />{" "}
+                        />
                         <span className="text-gray-300 font-medium">
-                          {d.name}{" "}
+                          {d.name}
                           <span className="text-gray-500 ml-1">({d.qty})</span>
-                        </span>{" "}
-                      </div>{" "}
+                        </span>
+                      </div>
                       <span className="font-mono font-semibold">
                         {formatCurrency(d.value)}
-                      </span>{" "}
+                      </span>
                     </div>
-                  ))}{" "}
+                  ))}
                   <div className="pt-4 mt-2 border-t border-white/10 flex justify-between items-end">
-                    {" "}
                     <span className="text-gray-400 font-medium pb-1">
                       Total Estimated Cost
-                    </span>{" "}
+                    </span>
                     <span className="text-3xl font-black tracking-tight whitespace-nowrap">
                       {formatCurrency(totalCost)}
-                    </span>{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="flex flex-wrap gap-4 items-center w-full">
-              {" "}
               <div className="bg-white px-4 py-3 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center text-center flex-1 min-w-fit whitespace-nowrap">
-                {" "}
                 <div className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-2 whitespace-nowrap">
                   Cement
-                </div>{" "}
+                </div>
                 <div className="text-3xl font-black text-slate-700 whitespace-nowrap">
                   {results.cementBags}
-                </div>{" "}
+                </div>
                 <div className="text-slate-400 text-xs font-semibold mt-1">
                   Bags (50kg)
-                </div>{" "}
-              </div>{" "}
+                </div>
+              </div>
               <div className="bg-white px-4 py-3 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center text-center flex-1 min-w-fit whitespace-nowrap">
-                {" "}
                 <div className="text-amber-500 text-xs font-bold uppercase tracking-widest mb-2 whitespace-nowrap">
                   Sand
-                </div>{" "}
+                </div>
                 <div className="text-3xl font-black text-amber-600 whitespace-nowrap">
                   {results.sandVolumeCft}
-                </div>{" "}
+                </div>
                 <div className="text-amber-400/80 text-xs font-semibold mt-1">
                   CFT
-                </div>{" "}
-              </div>{" "}
+                </div>
+              </div>
               <div className="bg-white px-4 py-3 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center text-center relative overflow-hidden flex-1 min-w-fit whitespace-nowrap">
-                {" "}
-                <div className="absolute top-0 w-full h-1 bg-sky-400" />{" "}
+                <div className="absolute top-0 w-full h-1 bg-sky-400" />
                 <div className="text-sky-500 text-xs font-bold uppercase tracking-widest mb-2 whitespace-nowrap">
                   Tiles
-                </div>{" "}
+                </div>
                 <div className="text-3xl font-black text-sky-600 whitespace-nowrap">
                   {results.boxesReq}
-                </div>{" "}
+                </div>
                 <div className="text-sky-400/80 text-xs font-semibold mt-1">
                   Boxes
-                </div>{" "}
-              </div>{" "}
+                </div>
+              </div>
               <div className="bg-white px-4 py-3 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center text-center relative overflow-hidden flex-1 min-w-fit whitespace-nowrap">
-                {" "}
-                <div className="absolute top-0 w-full h-1 bg-pink-400" />{" "}
+                <div className="absolute top-0 w-full h-1 bg-pink-400" />
                 <div className="text-pink-500 text-xs font-bold uppercase tracking-widest mb-2 whitespace-nowrap">
                   Paint
-                </div>{" "}
+                </div>
                 <div className="text-3xl font-black text-pink-600 whitespace-nowrap">
                   {results.paintLiters}
-                </div>{" "}
+                </div>
                 <div className="text-pink-400/80 text-xs font-semibold mt-1">
                   Liters
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
-          </section>{" "}
-        </div>{" "}
-      </div>{" "}
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
       <ShareButtonWithPopup
         activeTab="Finishing"
         data={costData.reduce(
@@ -547,7 +495,7 @@ export default function FinishingEstimator() {
           rates: rates,
         }}
         title="Finishing Works Estimator"
-      />{" "}
+      />
     </div>
   );
 }

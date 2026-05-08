@@ -647,92 +647,77 @@ export default function ShareButtonWithPopup({
   };
   return (
     <>
-      {" "}
       <div
         className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-40 flex items-center gap-3"
         ref={menuRef}
       >
-        {" "}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full p-4 shadow-xl shadow-indigo-600/30 flex items-center justify-center transition-all hover:scale-105 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-indigo-600/20"
           title="Share"
         >
-          {" "}
-          <Share2 className="w-6 h-6 group-hover:-translate-y-1 transition-transform" />{" "}
-        </button>{" "}
+          <Share2 className="w-6 h-6 group-hover:-translate-y-1 transition-transform" />
+        </button>
         {isOpen && (
           <div
             className="absolute right-0 bottom-full mb-4 w-72 bg-white/95 backdrop-blur-md border border-slate-200/80 rounded-[16px] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.05)] z-50 p-2 font-sans origin-bottom-right"
             style={{ animation: "menuSlideUp 0.2s ease-out forwards" }}
           >
-            {" "}
-            <style>{` @keyframes menuSlideUp { from { opacity: 0; transform: translateY(10px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } } `}</style>{" "}
+            <style>{` @keyframes menuSlideUp { from { opacity: 0; transform: translateY(10px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } } `}</style>
             <div className="flex flex-col">
-              {" "}
               <button
                 onClick={() => generatePDF("pdf")}
                 className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left"
               >
-                {" "}
                 <div className="p-2.5 rounded-full bg-rose-50 text-rose-500 group-hover:bg-rose-100 transition-colors shrink-0">
-                  {" "}
-                  <FileText className="w-5 h-5" />{" "}
-                </div>{" "}
-                Download PDF{" "}
-              </button>{" "}
-              <div className="h-px bg-slate-100 my-1 mx-4"></div>{" "}
+                  <FileText className="w-5 h-5" />
+                </div>
+                Download PDF
+              </button>
+              <div className="h-px bg-slate-100 my-1 mx-4"></div>
               <button
                 onClick={generateExcel}
                 className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left"
               >
-                {" "}
                 <div className="p-2.5 rounded-full bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100 transition-colors shrink-0">
-                  {" "}
-                  <FileSpreadsheet className="w-5 h-5" />{" "}
-                </div>{" "}
-                Export to Excel (CSV){" "}
-              </button>{" "}
-              <div className="h-px bg-slate-100 my-1 mx-4"></div>{" "}
+                  <FileSpreadsheet className="w-5 h-5" />
+                </div>
+                Export to Excel (CSV)
+              </button>
+              <div className="h-px bg-slate-100 my-1 mx-4"></div>
               <button
                 onClick={() => generatePDF("whatsapp")}
                 className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left"
               >
-                {" "}
                 <div className="p-2.5 rounded-full bg-green-50 text-green-600 group-hover:bg-green-100 transition-colors shrink-0">
-                  {" "}
-                  <MessageCircle className="w-5 h-5" />{" "}
-                </div>{" "}
-                Share on WhatsApp{" "}
-              </button>{" "}
-              <div className="h-px bg-slate-100 my-1 mx-4"></div>{" "}
+                  <MessageCircle className="w-5 h-5" />
+                </div>
+                Share on WhatsApp
+              </button>
+              <div className="h-px bg-slate-100 my-1 mx-4"></div>
               <button
                 onClick={() => generatePDF("email")}
                 className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left"
               >
-                {" "}
                 <div className="p-2.5 rounded-full bg-blue-50 text-blue-600 group-hover:bg-blue-100 transition-colors shrink-0">
-                  {" "}
-                  <Mail className="w-5 h-5" />{" "}
-                </div>{" "}
-                Send via Email{" "}
-              </button>{" "}
-              <div className="h-px bg-slate-100 my-1 mx-4"></div>{" "}
+                  <Mail className="w-5 h-5" />
+                </div>
+                Send via Email
+              </button>
+              <div className="h-px bg-slate-100 my-1 mx-4"></div>
               <button
                 onClick={handleDownloadText}
                 className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left"
               >
-                {" "}
                 <div className="p-2.5 rounded-full bg-indigo-50 text-indigo-600 group-hover:bg-indigo-100 transition-colors shrink-0">
-                  {" "}
-                  <Download className="w-5 h-5" />{" "}
-                </div>{" "}
-                Download as Text{" "}
-              </button>{" "}
-            </div>{" "}
+                  <Download className="w-5 h-5" />
+                </div>
+                Download as Text
+              </button>
+            </div>
           </div>
-        )}{" "}
-      </div>{" "}
+        )}
+      </div>
     </>
   );
 }

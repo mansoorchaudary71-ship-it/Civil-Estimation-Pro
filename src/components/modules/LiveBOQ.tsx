@@ -59,35 +59,30 @@ function BOQRow({
   const useManual = isLinked ? !!row.isManualOverride : true;
   return (
     <tr className="hover:bg-slate-50 transition-colors group">
-      {" "}
       <td className="py-2 px-3 font-mono text-blue-400 text-[10px]">
         {row.id}
-      </td>{" "}
-      <td className="py-2 px-3 text-slate-900">{row.desc}</td>{" "}
+      </td>
+      <td className="py-2 px-3 text-slate-900">{row.desc}</td>
       <td className="py-2 px-3 text-slate-500">
-        {" "}
         <select
           value={row.unit}
           onChange={(e) => updateBoqItem(row.id, { unit: e.target.value })}
           className="bg-transparent appearance-none rounded focus:ring-1 focus:ring-blue-500 py-0.5 outline-none cursor-pointer max-w-[4rem] border border-transparent hover:border-slate-200"
         >
-          {" "}
           {COMMON_UNITS.map((u) => (
             <option key={u} value={u} className="bg-white">
               {u}
             </option>
-          ))}{" "}
+          ))}
           {!COMMON_UNITS.includes(row.unit) && (
             <option value={row.unit} className="bg-white">
               {row.unit}
             </option>
-          )}{" "}
-        </select>{" "}
-      </td>{" "}
+          )}
+        </select>
+      </td>
       <td className="py-2 px-3 text-right">
-        {" "}
         <div className="flex items-center justify-end gap-2 text-xs">
-          {" "}
           {isLinked && (
             <button
               onClick={() =>
@@ -102,16 +97,14 @@ function BOQRow({
                   : "Using linked data. Click to override manually."
               }
             >
-              {" "}
               {row.isManualOverride ? (
                 <Unlink className="w-3 h-3" />
               ) : (
                 <LinkIcon className="w-3 h-3" />
-              )}{" "}
+              )}
             </button>
-          )}{" "}
+          )}
           <div className="relative">
-            {" "}
             {useManual ? (
               <input
                 type="number"
@@ -127,40 +120,34 @@ function BOQRow({
               <span className="font-mono text-blue-400 px-1.5 py-0.5 inline-block min-w-[4rem] text-right">
                 {qty.toFixed(2)}
               </span>
-            )}{" "}
-          </div>{" "}
-        </div>{" "}
-      </td>{" "}
+            )}
+          </div>
+        </div>
+      </td>
       <td className="py-2 px-3 text-right relative">
-        {" "}
         <div
           className="bg-slate-50 border border-slate-200 rounded px-2 py-1 text-[10px] text-slate-800 w-full cursor-pointer flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity"
           onClick={() => setDropdownOpen(!dropdownOpen)}
         >
-          {" "}
           <span className="truncate flex-1 text-left w-20">
-            {" "}
             {isLinked
               ? `${row.linkedMeasurementIds?.length} linked`
-              : "-- No Link --"}{" "}
-          </span>{" "}
-          <span className="text-[8px]">▼</span>{" "}
-        </div>{" "}
+              : "-- No Link --"}
+          </span>
+          <span className="text-[8px]">▼</span>
+        </div>
         {dropdownOpen && (
           <>
-            {" "}
             <div
               className="fixed inset-0 z-10"
               onClick={() => setDropdownOpen(false)}
-            />{" "}
+            />
             <div className="absolute right-3 top-8 w-44 bg-white border border-slate-200 rounded-lg shadow-xl z-20 py-2 flex flex-col gap-1 max-h-48 overflow-y-auto">
-              {" "}
               <div className="px-2 pb-1 border-b border-slate-200 mb-1">
-                {" "}
                 <span className="text-[10px] text-slate-500 font-semibold uppercase">
                   Measurements
-                </span>{" "}
-              </div>{" "}
+                </span>
+              </div>
               {measurements.map((m: any) => {
                 const isSelected = row.linkedMeasurementIds?.includes(m.id);
                 let valStr = "";
@@ -186,7 +173,6 @@ function BOQRow({
                     key={m.id}
                     className="flex items-center gap-2 px-3 py-1.5 hover:bg-slate-50 cursor-pointer text-xs text-slate-800"
                   >
-                    {" "}
                     <input
                       type="checkbox"
                       className="accent-blue-500 rounded bg-slate-50 border-slate-200 shrink-0"
@@ -199,40 +185,38 @@ function BOQRow({
                             );
                         updateBoqItem(row.id, { linkedMeasurementIds: newIds });
                       }}
-                    />{" "}
+                    />
                     <div
                       className="w-2 h-2 rounded-full shrink-0"
                       style={{ backgroundColor: m.color }}
-                    />{" "}
+                    />
                     <div className="flex flex-col flex-1 min-w-0">
-                      {" "}
                       <span className="truncate flex-1" title={m.name}>
                         {m.name}
-                      </span>{" "}
+                      </span>
                       <div className="flex items-center gap-1 text-[9px] text-slate-500 mt-0.5">
-                        {" "}
-                        <span>{typeIcon}</span>{" "}
-                        <span className="font-mono">{valStr}</span>{" "}
-                      </div>{" "}
-                    </div>{" "}
+                        <span>{typeIcon}</span>
+                        <span className="font-mono">{valStr}</span>
+                      </div>
+                    </div>
                   </label>
                 );
-              })}{" "}
+              })}
               {measurements.length === 0 && (
                 <div className="px-3 py-2 text-xs text-slate-500">
                   No measurements
                 </div>
-              )}{" "}
-            </div>{" "}
+              )}
+            </div>
           </>
-        )}{" "}
-      </td>{" "}
+        )}
+      </td>
       <td className="py-2 px-3 font-mono text-right text-slate-500">
         {formatCurrency(row.rate)}
-      </td>{" "}
+      </td>
       <td className="py-2 px-3 font-mono text-right font-medium">
         {formatCurrency(amount)}
-      </td>{" "}
+      </td>
     </tr>
   );
 }
@@ -334,78 +318,63 @@ export default function LiveBOQ() {
   };
   return (
     <div className="flex flex-col h-full text-slate-900 p-8 relative">
-      {" "}
       <div className="flex-1 bg-white border border-slate-200 rounded-xl flex flex-col overflow-hidden">
-        {" "}
-        {/* Header */}{" "}
+        {/* Header */}
         <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between shrink-0 flex-wrap gap-4">
-          {" "}
           <div>
-            {" "}
             <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">
               Live Bill of Quantities (BOQ)
-            </h2>{" "}
+            </h2>
             <span className="text-xs font-mono text-green-500 mt-1 block">
               Project: {exportData.projectName} • {exportData.projectId}
-            </span>{" "}
-          </div>{" "}
+            </span>
+          </div>
           <div className="flex gap-2 items-center flex-wrap">
-            {" "}
-            <GlobalSettingsToggle align="left" showCurrency={true} />{" "}
+            <GlobalSettingsToggle align="left" showCurrency={true} />
             <button
               onClick={() => setShowExportModal(true)}
               className="px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded hover:bg-slate-200 transition-colors flex items-center gap-1.5"
             >
-              {" "}
-              <Download className="w-[14px] h-[14px]" /> Export Report{" "}
-            </button>{" "}
+              <Download className="w-[14px] h-[14px]" /> Export Report
+            </button>
             <button className="px-3 py-1.5 text-xs bg-indigo-600 font-medium text-white rounded hover:bg-indigo-500 transition-colors flex items-center gap-1.5 shadow-sm">
-              {" "}
-              <Plus className="w-[14px] h-[14px]" /> Add Item{" "}
-            </button>{" "}
-          </div>{" "}
-        </div>{" "}
-        {/* Search */}{" "}
+              <Plus className="w-[14px] h-[14px]" /> Add Item
+            </button>
+          </div>
+        </div>
+        {/* Search */}
         <div className="px-6 py-4 border-b border-slate-200 bg-slate-50/20 flex gap-4">
-          {" "}
           <div className="relative flex-1 max-w-sm">
-            {" "}
-            <Search className="w-[14px] h-[14px] absolute left-3 top-2.5 text-slate-500" />{" "}
+            <Search className="w-[14px] h-[14px] absolute left-3 top-2.5 text-slate-500" />
             <input
               type="text"
               placeholder="Search items..."
               className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 pl-8 py-1.5 text-xs focus:outline-none focus:border-blue-500 text-slate-800"
-            />{" "}
-          </div>{" "}
+            />
+          </div>
           <button className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs hover:bg-slate-200 transition-colors text-slate-500">
-            {" "}
-            <Filter className="w-[14px] h-[14px]" /> Filters{" "}
-          </button>{" "}
-        </div>{" "}
-        {/* Table Content */}{" "}
+            <Filter className="w-[14px] h-[14px]" /> Filters
+          </button>
+        </div>
+        {/* Table Content */}
         <div className="flex-1 overflow-auto p-4">
-          {" "}
           <table className="w-full text-left text-xs">
-            {" "}
             <thead className="text-slate-500 border-b border-slate-200">
-              {" "}
               <tr>
-                {" "}
-                <th className="py-2 px-3 font-normal w-20">Item</th>{" "}
-                <th className="py-2 px-3 font-normal">Description</th>{" "}
-                <th className="py-2 px-3 font-normal w-20">Unit</th>{" "}
-                <th className="py-2 px-3 font-normal text-right w-32">Qty</th>{" "}
-                <th className="py-2 px-3 font-normal text-right w-24">Link</th>{" "}
+                <th className="py-2 px-3 font-normal w-20">Item</th>
+                <th className="py-2 px-3 font-normal">Description</th>
+                <th className="py-2 px-3 font-normal w-20">Unit</th>
+                <th className="py-2 px-3 font-normal text-right w-32">Qty</th>
+                <th className="py-2 px-3 font-normal text-right w-24">Link</th>
                 <th className="py-2 px-3 font-normal text-right w-24">
                   Rate ({settings.currency})
-                </th>{" "}
+                </th>
                 <th className="py-2 px-3 font-normal text-right w-32">
                   Amount ({settings.currency})
-                </th>{" "}
-              </tr>{" "}
-            </thead>{" "}
+                </th>
+              </tr>
+            </thead>
             <tbody className="text-slate-300 divide-y divide-slate-200">
-              {" "}
               {boqItems.map((row) => (
                 <BOQRow
                   key={row.id}
@@ -418,26 +387,23 @@ export default function LiveBOQ() {
                   formatCurrency={formatCurrency}
                   settings={settings}
                 />
-              ))}{" "}
-            </tbody>{" "}
+              ))}
+            </tbody>
             <tfoot className="border-t border-slate-200">
-              {" "}
               <tr>
-                {" "}
                 <th
                   colSpan={6}
                   className="py-3 px-3 text-right text-[10px] text-slate-500 uppercase font-semibold"
                 >
                   Total Estimated Cost
-                </th>{" "}
+                </th>
                 <th className="py-3 px-3 font-mono text-right text-sm text-green-500 font-bold">
                   {formatCurrency(totalCost)}
-                </th>{" "}
-              </tr>{" "}
-            </tfoot>{" "}
-          </table>{" "}
+                </th>
+              </tr>
+            </tfoot>
+          </table>
           <div className="mt-6 flex flex-wrap gap-4 items-center">
-            {" "}
             <ShareButtonWithPopup
               activeTab="Live BOQ"
               title="Bill of Quantities"
@@ -455,7 +421,7 @@ export default function LiveBOQ() {
                   cost: getQty(item) * item.rate,
                 })),
               }}
-            />{" "}
+            />
             {user && (
               <button
                 onClick={async () => {
@@ -481,43 +447,36 @@ export default function LiveBOQ() {
                 disabled={isSaving}
                 className="bg-green-600/20 text-green-600 dark:text-green-400 hover:bg-green-600/30 px-6 py-3 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
               >
-                {" "}
                 {isSaving ? (
                   <span className="animate-pulse">Saving...</span>
                 ) : (
                   <>
-                    {" "}
-                    <Save className="w-5 h-5" /> Save to Profile{" "}
+                    <Save className="w-5 h-5" /> Save to Profile
                   </>
-                )}{" "}
+                )}
               </button>
-            )}{" "}
+            )}
             {saveMessage && (
               <span className="text-sm font-bold text-green-600 dark:text-green-400 ml-4">
                 {saveMessage}
               </span>
-            )}{" "}
-          </div>{" "}
-        </div>{" "}
-      </div>{" "}
-      {/* Export Modal */}{" "}
+            )}
+          </div>
+        </div>
+      </div>
+      {/* Export Modal */}
       {showExportModal && (
         <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-50">
-          {" "}
           <div className="bg-white border border-slate-200 rounded-lg p-6 max-w-sm w-full shadow-2xl">
-            {" "}
             <h3 className="text-sm font-semibold mb-4 text-slate-900 flex items-center gap-2">
-              {" "}
               <Download className="w-[16px] h-[16px] text-blue-400" /> Generate
-              Professional Report{" "}
-            </h3>{" "}
+              Professional Report
+            </h3>
             <div className="flex flex-col gap-4 mb-6">
-              {" "}
               <div>
-                {" "}
                 <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
                   Project Name
-                </label>{" "}
+                </label>
                 <input
                   type="text"
                   value={exportData.projectName}
@@ -528,13 +487,12 @@ export default function LiveBOQ() {
                     }))
                   }
                   className="w-full bg-slate-50 border border-slate-200 rounded p-2 text-xs text-slate-800 focus:outline-none focus:border-blue-500"
-                />{" "}
-              </div>{" "}
+                />
+              </div>
               <div>
-                {" "}
                 <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
                   Client Name
-                </label>{" "}
+                </label>
                 <input
                   type="text"
                   value={exportData.clientName}
@@ -545,13 +503,12 @@ export default function LiveBOQ() {
                     }))
                   }
                   className="w-full bg-slate-50 border border-slate-200 rounded p-2 text-xs text-slate-800 focus:outline-none focus:border-blue-500"
-                />{" "}
-              </div>{" "}
+                />
+              </div>
               <div>
-                {" "}
                 <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
                   Site Location
-                </label>{" "}
+                </label>
                 <input
                   type="text"
                   value={exportData.siteLocation}
@@ -562,58 +519,51 @@ export default function LiveBOQ() {
                     }))
                   }
                   className="w-full bg-slate-50 border border-slate-200 rounded p-2 text-xs text-slate-800 focus:outline-none focus:border-blue-500"
-                />{" "}
-              </div>{" "}
-            </div>{" "}
+                />
+              </div>
+            </div>
             <div className="grid grid-cols-2 gap-3 mb-4">
-              {" "}
               <button
                 onClick={() => handleExport("pdf")}
                 disabled={isPdfLoading || isExcelLoading}
                 className="flex flex-col items-center justify-center p-3 bg-slate-50 border border-slate-200 rounded hover:border-red-500/50 hover:bg-red-500/10 transition-colors gap-2 disabled:opacity-50 disabled:cursor-not-allowed group relative"
               >
-                {" "}
                 {isPdfLoading ? (
                   <Loader2 className="w-6 h-6 text-red-500 animate-spin" />
                 ) : (
                   <FileText className="w-6 h-6 text-red-500 group-hover:scale-110 transition-transform" />
-                )}{" "}
+                )}
                 <span className="text-xs font-medium text-slate-800">
-                  {" "}
-                  {isPdfLoading ? "Generating..." : "Export PDF"}{" "}
-                </span>{" "}
-              </button>{" "}
+                  {isPdfLoading ? "Generating..." : "Export PDF"}
+                </span>
+              </button>
               <button
                 onClick={() => handleExport("excel")}
                 disabled={isPdfLoading || isExcelLoading}
                 className="flex flex-col items-center justify-center p-3 bg-slate-50 border border-slate-200 rounded hover:border-green-500/50 hover:bg-green-500/10 transition-colors gap-2 disabled:opacity-50 disabled:cursor-not-allowed group relative"
               >
-                {" "}
                 {isExcelLoading ? (
                   <Loader2 className="w-6 h-6 text-green-500 animate-spin" />
                 ) : (
                   <FileSpreadsheet className="w-6 h-6 text-green-500 group-hover:scale-110 transition-transform" />
-                )}{" "}
+                )}
                 <span className="text-xs font-medium text-slate-800">
-                  {" "}
-                  {isExcelLoading ? "Generating..." : "Export Excel"}{" "}
-                </span>{" "}
-              </button>{" "}
-            </div>{" "}
+                  {isExcelLoading ? "Generating..." : "Export Excel"}
+                </span>
+              </button>
+            </div>
             <div className="flex justify-end mt-4">
-              {" "}
               <button
                 onClick={() => setShowExportModal(false)}
                 disabled={isPdfLoading || isExcelLoading}
                 className="px-4 py-2 text-xs text-slate-500 hover:text-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {" "}
-                Cancel{" "}
-              </button>{" "}
-            </div>{" "}
-          </div>{" "}
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
-      )}{" "}
+      )}
     </div>
   );
 }

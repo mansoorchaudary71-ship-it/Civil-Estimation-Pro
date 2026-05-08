@@ -50,19 +50,14 @@ export default function AIAssistant() {
   };
   return (
     <div className="flex flex-col h-full bg-slate-50 text-slate-900 p-8">
-      {" "}
       <div className="flex-1 bg-white border border-slate-200 rounded-xl flex flex-col overflow-hidden relative shadow-sm">
-        {" "}
         <div className="px-6 py-4 border-b border-slate-200 bg-slate-50 flex items-center gap-2">
-          {" "}
-          <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></div>{" "}
+          <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></div>
           <h2 className="text-sm font-bold uppercase tracking-widest text-slate-700 whitespace-nowrap">
-            {" "}
-            AI Assistant{" "}
-          </h2>{" "}
-        </div>{" "}
+            AI Assistant
+          </h2>
+        </div>
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          {" "}
           {messages.map((msg, index) => (
             <div
               key={index}
@@ -71,13 +66,11 @@ export default function AIAssistant() {
                 msg.role === "user" ? "justify-end" : "justify-start",
               )}
             >
-              {" "}
               {msg.role === "model" && (
                 <div className="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center shrink-0 mt-1">
-                  {" "}
-                  <Bot className="w-[18px] h-[18px] text-indigo-600" />{" "}
+                  <Bot className="w-[18px] h-[18px] text-indigo-600" />
                 </div>
-              )}{" "}
+              )}
               <div
                 className={cn(
                   "rounded-2xl px-5 py-3 max-w-[85%] text-sm shadow-sm",
@@ -86,38 +79,31 @@ export default function AIAssistant() {
                     : "bg-slate-50 text-slate-700 border border-slate-100 leading-relaxed",
                 )}
               >
-                {" "}
                 {msg.role === "model" ? (
                   <div className="prose prose-sm max-w-none prose-p:leading-relaxed prose-headings:text-slate-800 prose-a:text-indigo-600 prose-th:bg-slate-100 prose-td:border-slate-200">
-                    {" "}
-                    <Markdown>{msg.content}</Markdown>{" "}
+                    <Markdown>{msg.content}</Markdown>
                   </div>
                 ) : (
                   <div className="leading-relaxed">{msg.content}</div>
-                )}{" "}
-              </div>{" "}
+                )}
+              </div>
             </div>
-          ))}{" "}
+          ))}
           {isLoading && (
             <div className="flex gap-4 max-w-4xl mx-auto justify-start">
-              {" "}
               <div className="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center shrink-0 mt-1">
-                {" "}
-                <Loader2 className="w-[18px] h-[18px] text-indigo-600 animate-spin" />{" "}
-              </div>{" "}
+                <Loader2 className="w-[18px] h-[18px] text-indigo-600 animate-spin" />
+              </div>
               <div className="rounded-2xl px-5 py-4 bg-slate-50 border border-slate-100 flex items-center gap-2 shadow-sm">
-                {" "}
-                <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce"></span>{" "}
-                <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce delay-75"></span>{" "}
-                <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce delay-150"></span>{" "}
-              </div>{" "}
+                <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce"></span>
+                <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce delay-75"></span>
+                <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce delay-150"></span>
+              </div>
             </div>
-          )}{" "}
-        </div>{" "}
+          )}
+        </div>
         <div className="p-4 border-t border-slate-200 bg-white relative">
-          {" "}
           <div className="max-w-4xl mx-auto relative flex items-center">
-            {" "}
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -130,23 +116,21 @@ export default function AIAssistant() {
               placeholder="Ask about cost optimization or estimation..."
               className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 resize-none min-h-[44px] max-h-[120px] text-slate-800 shadow-sm transition-all flex-1 min-w-fit whitespace-nowrap"
               rows={1}
-            />{" "}
+            />
             <button
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
               className="absolute right-3 top-2.5 p-1.5 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              {" "}
-              <Send className="w-[16px] h-[16px]" />{" "}
-            </button>{" "}
-          </div>{" "}
+              <Send className="w-[16px] h-[16px]" />
+            </button>
+          </div>
           <div className="text-center mt-3 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-            {" "}
             AI generated estimates are preliminary. Always confirm with a
-            certified QS.{" "}
-          </div>{" "}
-        </div>{" "}
-      </div>{" "}
+            certified QS.
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

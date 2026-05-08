@@ -210,26 +210,21 @@ export default function RccStructureCalculator({
           : "w-full h-full overflow-y-auto bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8"
       }
     >
-      {" "}
       <div className={isEmbedded ? "w-full" : "max-w-6xl mx-auto"}>
-        {" "}
         {!isEmbedded && (
           <>
-            {" "}
             <h1 className="text-3xl font-black mb-2 flex items-center gap-3 whitespace-nowrap">
-              {" "}
-              <Spline className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />{" "}
-              RCC Structure Calculator{" "}
-            </h1>{" "}
+              <Spline className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
+              RCC Structure Calculator
+            </h1>
             <p className="text-slate-500 dark:text-slate-400 mb-8 font-medium">
               Estimate concrete volume and steel reinforcement for standard
               structural elements.
-            </p>{" "}
+            </p>
           </>
-        )}{" "}
-        {/* Types Grid */}{" "}
+        )}
+        {/* Types Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-8">
-          {" "}
           {structureTypes.map((t) => {
             const Icon = t.icon;
             const isActive = activeType === t.id;
@@ -254,7 +249,6 @@ export default function RccStructureCalculator({
                   } as React.CSSProperties
                 }
               >
-                {" "}
                 <div
                   className="flex items-center justify-center w-10 h-10 rounded-xl transition-transform duration-300 group-hover:scale-110"
                   style={{
@@ -265,9 +259,8 @@ export default function RccStructureCalculator({
                       : undefined,
                   }}
                 >
-                  {" "}
-                  <Icon className="w-5 h-5" strokeWidth={2} />{" "}
-                </div>{" "}
+                  <Icon className="w-5 h-5" strokeWidth={2} />
+                </div>
                 <span
                   className={`text-[10px] sm:text-[11px] font-extrabold text-center leading-tight tracking-wide z-10 ${isActive ? "" : "text-slate-600 dark:text-slate-400 group-hover:[color:var(--theme-color-hover)]"}`}
                   style={{
@@ -275,253 +268,224 @@ export default function RccStructureCalculator({
                   }}
                 >
                   {t.label}
-                </span>{" "}
+                </span>
               </button>
             );
-          })}{" "}
-        </div>{" "}
+          })}
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {" "}
-          {/* Inputs Section */}{" "}
+          {/* Inputs Section */}
           <div className="lg:col-span-7 bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm">
-            {" "}
             <h3 className="font-bold text-xl mb-6 whitespace-nowrap">
               {activeType} Parameters
-            </h3>{" "}
+            </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {" "}
               {activeType.includes("Slab") && (
                 <>
-                  {" "}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-b border-slate-100 dark:border-slate-800 pb-6 mb-6">
-                    {" "}
                     <div>
-                      {" "}
                       <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                         Length (m)
-                      </label>{" "}
+                      </label>
                       <input
                         type="number"
                         value={slabLength}
                         onChange={(e) => setSlabLength(e.target.value)}
                         className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
-                      />{" "}
-                    </div>{" "}
+                      />
+                    </div>
                     <div>
-                      {" "}
                       <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                         Width (m)
-                      </label>{" "}
+                      </label>
                       <input
                         type="number"
                         value={slabWidth}
                         onChange={(e) => setSlabWidth(e.target.value)}
                         className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
-                      />{" "}
-                    </div>{" "}
+                      />
+                    </div>
                     <div>
-                      {" "}
                       <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                         Slab Thickness (m)
-                      </label>{" "}
+                      </label>
                       <input
                         type="number"
                         step="0.01"
                         value={slabThickness}
                         onChange={(e) => setSlabThickness(e.target.value)}
                         className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
-                      />{" "}
-                    </div>{" "}
-                  </div>{" "}
+                      />
+                    </div>
+                  </div>
                   <div className="sm:col-span-2">
-                    {" "}
                     <SlabSteelModule
                       slabLength={slabLength}
                       slabWidth={slabWidth}
                       slabThickness={slabThickness}
                       onStateChange={setSlabSteelResults}
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                 </>
-              )}{" "}
+              )}
               {!activeType.includes("Slab") && (
                 <>
-                  {" "}
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Column Height (m)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={colHeight}
                       onChange={(e) => setColHeight(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
-                      Clear Cover (mm)
-                    </label>{" "}
+                      Clear Cover ({isSI ? "mm" : "in"})
+                    </label>
                     <input
                       type="number"
                       value={colCover}
                       onChange={(e) => setColCover(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   {activeType === "Round Column" ? (
                     <div>
-                      {" "}
                       <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
-                        Diameter (mm)
-                      </label>{" "}
+                        Diameter ({isSI ? "mm" : "in"})
+                      </label>
                       <input
                         type="number"
                         value={colDia}
                         onChange={(e) => setColDia(e.target.value)}
                         className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
-                      />{" "}
+                      />
                     </div>
                   ) : (
                     <>
-                      {" "}
                       <div>
-                        {" "}
                         <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
-                          Width (mm)
-                        </label>{" "}
+                          Width ({isSI ? "mm" : "in"})
+                        </label>
                         <input
                           type="number"
                           value={colWidth}
                           onChange={(e) => setColWidth(e.target.value)}
                           className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
-                        />{" "}
-                      </div>{" "}
+                        />
+                      </div>
                       <div>
-                        {" "}
                         <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
-                          Depth (mm)
-                        </label>{" "}
+                          Depth ({isSI ? "mm" : "in"})
+                        </label>
                         <input
                           type="number"
                           value={colDepth}
                           onChange={(e) => setColDepth(e.target.value)}
                           className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
-                        />{" "}
-                      </div>{" "}
+                        />
+                      </div>
                     </>
-                  )}{" "}
+                  )}
                   <div className="sm:col-span-2 pt-4">
                     <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200 border-b pb-2">
                       Steel Details
                     </h4>
-                  </div>{" "}
+                  </div>
                   {activeType === "Round Column" && (
                     <div>
-                      {" "}
                       <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                         No. of Main Bars
-                      </label>{" "}
+                      </label>
                       <input
                         type="number"
                         value={colRoundBarsCount}
                         onChange={(e) => setColRoundBarsCount(e.target.value)}
                         className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
-                      />{" "}
+                      />
                     </div>
-                  )}{" "}
+                  )}
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
-                      Main Bar Dia (mm)
-                    </label>{" "}
+                      Main Bar Dia ({isSI ? "mm" : "in"})
+                    </label>
                     <input
                       type="number"
                       value={colMainBarDia}
                       onChange={(e) => setColMainBarDia(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
-                      Stirrup / Tie Dia (mm)
-                    </label>{" "}
+                      Stirrup / Tie Dia ({isSI ? "mm" : "in"})
+                    </label>
                     <input
                       type="number"
                       value={colTieDia}
                       onChange={(e) => setColTieDia(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
-                      Tie Spacing (mm)
-                    </label>{" "}
+                      Tie Spacing ({isSI ? "mm" : "in"})
+                    </label>
                     <input
                       type="number"
                       value={colTieSpacing}
                       onChange={(e) => setColTieSpacing(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                 </>
-              )}{" "}
-            </div>{" "}
-          </div>{" "}
-          {/* Results Section */}{" "}
+              )}
+            </div>
+          </div>
+          {/* Results Section */}
           <div className="lg:col-span-5 bg-indigo-950 border border-indigo-900 rounded-[2rem] p-6 lg:p-10 text-white shadow-2xl flex flex-col justify-between">
-            {" "}
             <div>
-              {" "}
               <h3 className="font-bold text-indigo-300 text-sm uppercase tracking-widest mb-8 whitespace-nowrap">
                 Calculated Results
-              </h3>{" "}
+              </h3>
               <div className="space-y-6">
-                {" "}
                 <div className="bg-indigo-900/60 p-6 rounded-2xl border border-indigo-800">
-                  {" "}
                   <span className="block text-indigo-300 text-xs font-bold uppercase mb-2 whitespace-nowrap">
                     Concrete Volume
-                  </span>{" "}
+                  </span>
                   <span className="text-4xl font-black text-white whitespace-nowrap">
-                    {" "}
-                    {concreteVol.toFixed(3)}{" "}
+                    {concreteVol.toFixed(3)}
                     <span className="text-xl text-indigo-400 ml-2 whitespace-nowrap">
                       m³
-                    </span>{" "}
-                  </span>{" "}
-                </div>{" "}
+                    </span>
+                  </span>
+                </div>
                 <div className="bg-indigo-900/60 p-6 rounded-2xl border border-indigo-800">
-                  {" "}
                   <span className="block text-indigo-300 text-xs font-bold uppercase mb-2 whitespace-nowrap">
                     Total Steel Weight
-                  </span>{" "}
+                  </span>
                   <span className="text-5xl font-black text-emerald-400 whitespace-nowrap">
-                    {" "}
-                    {totalSteelKg.toFixed(2)}{" "}
+                    {totalSteelKg.toFixed(2)}
                     <span className="text-2xl text-indigo-400 ml-3 whitespace-nowrap">
                       kg
-                    </span>{" "}
-                  </span>{" "}
+                    </span>
+                  </span>
                   <div className="mt-3 text-sm font-semibold text-indigo-300">
-                    {" "}
-                    ≈ {(totalSteelKg / 1000).toFixed(3)} Metric Tons{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+                    ≈ {(totalSteelKg / 1000).toFixed(3)} Metric Tons
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="mt-6 flex flex-wrap gap-4 items-center">
-              {" "}
               <ShareButtonWithPopup
                 activeTab="RCC Calculator"
                 title={`${activeType} Estimate`}
                 data={exportData}
                 exportFormat={{ inputs: inputsUsed, breakdown: exportData }}
-              />{" "}
+              />
               {user && (
                 <button
                   onClick={async () => {
@@ -550,26 +514,24 @@ export default function RccStructureCalculator({
                   disabled={isSaving}
                   className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
                 >
-                  {" "}
                   {isSaving ? (
                     <span className="animate-pulse">Saving...</span>
                   ) : (
                     <>
-                      {" "}
-                      <Save className="w-5 h-5" /> Save to Profile{" "}
+                      <Save className="w-5 h-5" /> Save to Profile
                     </>
-                  )}{" "}
+                  )}
                 </button>
-              )}{" "}
+              )}
               {saveMessage && (
                 <span className="text-sm font-bold text-green-400 ml-4">
                   {saveMessage}
                 </span>
-              )}{" "}
-            </div>{" "}
-          </div>{" "}
-        </div>{" "}
-      </div>{" "}
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

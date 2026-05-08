@@ -147,218 +147,185 @@ export default function RoadEstimator() {
   const pathSg = `M ${500 - dxSbBot},${y3_S} L ${500 - dxCarriageway},${y3_Carriage} L 500,${y3_C} L ${500 + dxCarriageway},${y3_Carriage} L ${500 + dxSbBot},${y3_S} L ${500 + dxSgBot},${y4_S} L ${500 + dxCarriageway},${y4_Carriage} L 500,${y4_C} L ${500 - dxCarriageway},${y4_Carriage} L ${500 - dxSgBot},${y4_S} Z`;
   return (
     <div className="w-full h-full overflow-y-auto bg-gray-50 text-gray-900 font-sans p-6 md:p-8">
-      {" "}
       <div className="max-w-5xl mx-auto space-y-8">
-        {" "}
         <header className="mb-10">
-          {" "}
           <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent pb-1 whitespace-nowrap">
-            {" "}
-            Flexible Pavement Road Estimator{" "}
-          </h1>{" "}
+            Flexible Pavement Road Estimator
+          </h1>
           <p className="text-gray-500 mt-2 font-medium">
-            {" "}
             Calculate material volumes, coat litrages, and visualize
-            cross-sections for multi-layer road construction.{" "}
-          </p>{" "}
+            cross-sections for multi-layer road construction.
+          </p>
           <div className="mt-5 w-fit">
             <GlobalSettingsToggle align="left" />
-          </div>{" "}
-        </header>{" "}
+          </div>
+        </header>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {" "}
-          {/* Inputs Section */}{" "}
+          {/* Inputs Section */}
           <section className="lg:col-span-5 space-y-6">
-            {" "}
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex-1 min-w-fit whitespace-nowrap">
-              {" "}
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                {" "}
                 <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
-                  {" "}
-                  <Route className="w-5 h-5" />{" "}
-                </div>{" "}
+                  <Route className="w-5 h-5" />
+                </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800 whitespace-nowrap">
                   Geometry Input
-                </h2>{" "}
-              </div>{" "}
+                </h2>
+              </div>
               <div className="space-y-4">
-                {" "}
                 <div>
-                  {" "}
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                     Length (meters)
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
-                  />{" "}
-                </div>{" "}
+                  />
+                </div>
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                  {" "}
                   <div className="col-span-1">
-                    {" "}
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                       Carriage (m)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                       value={width}
                       onChange={(e) => setWidth(e.target.value)}
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div className="col-span-1">
-                    {" "}
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                       Camber (%)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                       value={camber}
                       onChange={(e) => setCamber(e.target.value)}
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div className="col-span-1">
-                    {" "}
                     <label
                       className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap"
                       title="Shoulder Width (m)"
                     >
                       Shoulder (m)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                       value={shoulderWidth}
                       onChange={(e) => setShoulderWidth(e.target.value)}
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div className="col-span-1">
-                    {" "}
                     <label
                       className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap"
                       title="Shoulder Cross-fall (%)"
                     >
                       Fall (%)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                       value={shoulderFall}
                       onChange={(e) => setShoulderFall(e.target.value)}
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div className="col-span-1">
-                    {" "}
                     <label
                       className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap"
                       title="Side Slope (H:1V)"
                     >
                       Slope (H:1V)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                       value={sideSlope}
                       onChange={(e) => setSideSlope(e.target.value)}
-                    />{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex-1 min-w-fit whitespace-nowrap">
-              {" "}
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                {" "}
                 <div className="p-2.5 bg-orange-50 text-orange-600 rounded-xl">
-                  {" "}
-                  <Layers className="w-5 h-5" />{" "}
-                </div>{" "}
+                  <Layers className="w-5 h-5" />
+                </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800 whitespace-nowrap">
                   Layer Thickness (mm)
-                </h2>{" "}
-              </div>{" "}
+                </h2>
+              </div>
               <div className="space-y-4">
-                {" "}
                 <div className="grid grid-cols-2 gap-4">
-                  {" "}
                   <div>
-                    {" "}
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                       Sub-Grade
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                       value={sgThickness}
                       onChange={(e) => setSgThickness(e.target.value)}
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                       Sub-Base
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                       value={sbThickness}
                       onChange={(e) => setSbThickness(e.target.value)}
-                    />{" "}
-                  </div>{" "}
-                </div>{" "}
+                    />
+                  </div>
+                </div>
                 <div className="grid grid-cols-2 gap-4">
-                  {" "}
                   <div>
-                    {" "}
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                       Base Course (WBM)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                       value={wbmThickness}
                       onChange={(e) => setWbmThickness(e.target.value)}
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                       Asphalt Course
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                       value={asphaltThickness}
                       onChange={(e) => setAsphaltThickness(e.target.value)}
-                    />{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex-1 min-w-fit whitespace-nowrap">
-              {" "}
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                {" "}
                 <div className="p-2.5 bg-blue-50 text-blue-600 rounded-xl">
-                  {" "}
-                  <Droplets className="w-5 h-5" />{" "}
-                </div>{" "}
+                  <Droplets className="w-5 h-5" />
+                </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800 whitespace-nowrap">
                   Application Rates (L/m²)
-                </h2>{" "}
-              </div>{" "}
+                </h2>
+              </div>
               <div className="grid grid-cols-2 gap-4">
-                {" "}
                 <div>
-                  {" "}
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                     Prime Coat
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     min="0"
@@ -370,13 +337,12 @@ export default function RoadEstimator() {
                       if (!isNaN(val) && val < 0) return;
                       setPrimeRateInput(e.target.value);
                     }}
-                  />{" "}
-                </div>{" "}
+                  />
+                </div>
                 <div>
-                  {" "}
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                     Tack Coat
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     min="0"
@@ -388,31 +354,25 @@ export default function RoadEstimator() {
                       if (!isNaN(val) && val < 0) return;
                       setTackRateInput(e.target.value);
                     }}
-                  />{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+                  />
+                </div>
+              </div>
+            </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex-1 min-w-fit whitespace-nowrap">
-              {" "}
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                {" "}
                 <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl">
-                  {" "}
-                  <Calculator className="w-5 h-5" />{" "}
-                </div>{" "}
+                  <Calculator className="w-5 h-5" />
+                </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800 whitespace-nowrap">
                   Material Rates
-                </h2>{" "}
-              </div>{" "}
+                </h2>
+              </div>
               <div className="space-y-4">
-                {" "}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {" "}
                   <div>
-                    {" "}
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                       Sub-Grade /{isPKR ? "CFT" : "m³"}
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       min="0"
@@ -424,13 +384,12 @@ export default function RoadEstimator() {
                         if (!isNaN(val) && val < 0) return;
                         setRateSg(e.target.value);
                       }}
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                       Sub-Base /{isPKR ? "CFT" : "m³"}
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       min="0"
@@ -442,13 +401,12 @@ export default function RoadEstimator() {
                         if (!isNaN(val) && val < 0) return;
                         setRateSb(e.target.value);
                       }}
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                       WBM /{isPKR ? "CFT" : "m³"}
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       min="0"
@@ -460,13 +418,12 @@ export default function RoadEstimator() {
                         if (!isNaN(val) && val < 0) return;
                         setRateWbm(e.target.value);
                       }}
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                       Asphalt /Ton
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       min="0"
@@ -478,13 +435,12 @@ export default function RoadEstimator() {
                         if (!isNaN(val) && val < 0) return;
                         setRateAsp(e.target.value);
                       }}
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                       Prime /Ton
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       min="0"
@@ -496,13 +452,12 @@ export default function RoadEstimator() {
                         if (!isNaN(val) && val < 0) return;
                         setRatePrime(e.target.value);
                       }}
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                       Tack /Ton
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       min="0"
@@ -514,91 +469,76 @@ export default function RoadEstimator() {
                         if (!isNaN(val) && val < 0) return;
                         setRateTack(e.target.value);
                       }}
-                    />{" "}
-                  </div>{" "}
-                </div>{" "}
+                    />
+                  </div>
+                </div>
                 <div className="grid grid-cols-2 gap-4 pt-2 border-t border-gray-50">
-                  {" "}
                   <div>
-                    {" "}
                     <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                       Asphalt Density (t/m³)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-600 text-sm rounded-xl px-3 py-2 focus:outline-none"
                       value={asphaltDensity}
                       onChange={(e) => setAsphaltDensity(e.target.value)}
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                       Bitumen Specific Gravity
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       className="w-full bg-gray-50/50 border border-gray-200 text-gray-600 text-sm rounded-xl px-3 py-2 focus:outline-none"
                       value={bitumenSG}
                       onChange={(e) => setBitumenSG(e.target.value)}
-                    />{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
-          </section>{" "}
-          {/* Visualization and Results Section */}{" "}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          {/* Visualization and Results Section */}
           <section className="lg:col-span-7 flex flex-col gap-6">
-            {" "}
             <div
               className="bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-8 rounded-[2rem] shadow-2xl relative overflow-hidden flex flex-col justify-between"
               style={{ minHeight: "360px" }}
             >
-              {" "}
-              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>{" "}
+              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
               <div className="relative z-10 flex items-center justify-between mb-8 text-white">
-                {" "}
                 <h2 className="text-xl font-bold tracking-tight flex items-center gap-2 whitespace-nowrap">
-                  {" "}
                   <Layers className="w-5 h-5 text-amber-400" /> Cross-Section
-                  Profile{" "}
-                </h2>{" "}
+                  Profile
+                </h2>
                 <div className="text-xs font-mono bg-white/10 px-3 py-1.5 rounded-lg border border-white/10">
-                  {" "}
-                  Camber: {c}% | Rise: {(riseAtCenter * 1000).toFixed(0)}mm{" "}
-                </div>{" "}
-              </div>{" "}
-              {/* Road SVG Diagram */}{" "}
+                  Camber: {c}% | Rise: {(riseAtCenter * 1000).toFixed(0)}mm
+                </div>
+              </div>
+              {/* Road SVG Diagram */}
               <div className="relative z-10 flex-1 flex flex-col justify-center w-full mt-4">
-                {" "}
                 <svg
                   viewBox="0 0 1000 320"
                   preserveAspectRatio="xMidYMid meet"
                   className="w-full h-auto drop-shadow-2xl"
                 >
-                  {" "}
                   <defs>
-                    {" "}
                     <linearGradient id="aspGrad" x1="0" y1="0" x2="0" y2="1">
-                      {" "}
-                      <stop offset="0%" stopColor="#374151" />{" "}
-                      <stop offset="100%" stopColor="#1f2937" />{" "}
-                    </linearGradient>{" "}
+                      <stop offset="0%" stopColor="#374151" />
+                      <stop offset="100%" stopColor="#1f2937" />
+                    </linearGradient>
                     <linearGradient id="wbmGrad" x1="0" y1="0" x2="0" y2="1">
-                      {" "}
-                      <stop offset="0%" stopColor="#8c7a6b" />{" "}
-                      <stop offset="100%" stopColor="#6e5d50" />{" "}
-                    </linearGradient>{" "}
+                      <stop offset="0%" stopColor="#8c7a6b" />
+                      <stop offset="100%" stopColor="#6e5d50" />
+                    </linearGradient>
                     <linearGradient id="sbGrad" x1="0" y1="0" x2="0" y2="1">
-                      {" "}
-                      <stop offset="0%" stopColor="#d0c1b0" />{" "}
-                      <stop offset="100%" stopColor="#bfae9a" />{" "}
-                    </linearGradient>{" "}
+                      <stop offset="0%" stopColor="#d0c1b0" />
+                      <stop offset="100%" stopColor="#bfae9a" />
+                    </linearGradient>
                     <linearGradient id="sgGrad" x1="0" y1="0" x2="0" y2="1">
-                      {" "}
-                      <stop offset="0%" stopColor="#a38a73" />{" "}
-                      <stop offset="100%" stopColor="#876f59" />{" "}
-                    </linearGradient>{" "}
+                      <stop offset="0%" stopColor="#a38a73" />
+                      <stop offset="100%" stopColor="#876f59" />
+                    </linearGradient>
                     <filter
                       id="shadow"
                       x="-5%"
@@ -606,15 +546,14 @@ export default function RoadEstimator() {
                       width="110%"
                       height="110%"
                     >
-                      {" "}
                       <feDropShadow
                         dx="0"
                         dy="8"
                         stdDeviation="6"
                         floodColor="#000"
                         floodOpacity="0.3"
-                      />{" "}
-                    </filter>{" "}
+                      />
+                    </filter>
                     <marker
                       id="arrow"
                       viewBox="0 0 10 10"
@@ -624,46 +563,44 @@ export default function RoadEstimator() {
                       markerHeight="6"
                       orient="auto-start-reverse"
                     >
-                      {" "}
                       <path
                         d="M 0 2 L 10 5 L 0 8 z"
                         fill="white"
                         opacity="0.5"
-                      />{" "}
-                    </marker>{" "}
-                  </defs>{" "}
+                      />
+                    </marker>
+                  </defs>
                   <g filter="url(#shadow)">
-                    {" "}
-                    {/* Sub-grade */}{" "}
+                    {/* Sub-grade */}
                     <path
                       d={pathSg}
                       fill="url(#sgGrad)"
                       stroke="#5c4a3d"
                       strokeWidth="2"
-                    />{" "}
-                    {/* Sub-base */}{" "}
+                    />
+                    {/* Sub-base */}
                     <path
                       d={pathSb}
                       fill="url(#sbGrad)"
                       stroke="#a1907d"
                       strokeWidth="2"
-                    />{" "}
-                    {/* WBM */}{" "}
+                    />
+                    {/* WBM */}
                     <path
                       d={pathWbm}
                       fill="url(#wbmGrad)"
                       stroke="#504337"
                       strokeWidth="2"
-                    />{" "}
-                    {/* Asphalt */}{" "}
+                    />
+                    {/* Asphalt */}
                     <path
                       d={pathAsp}
                       fill="url(#aspGrad)"
                       stroke="#111827"
                       strokeWidth="2"
-                    />{" "}
-                  </g>{" "}
-                  {/* Center Reference Line */}{" "}
+                    />
+                  </g>
+                  {/* Center Reference Line */}
                   <line
                     x1="500"
                     y1="10"
@@ -673,8 +610,8 @@ export default function RoadEstimator() {
                     strokeWidth="2"
                     strokeDasharray="8 8"
                     opacity="0.4"
-                  />{" "}
-                  {/* Horizontal Reference Line for Camber */}{" "}
+                  />
+                  {/* Horizontal Reference Line for Camber */}
                   <line
                     x1="0"
                     y1={y0_C}
@@ -684,8 +621,8 @@ export default function RoadEstimator() {
                     strokeWidth="2"
                     strokeDasharray="10 10"
                     opacity="0.6"
-                  />{" "}
-                  {/* Width Annotations */}{" "}
+                  />
+                  {/* Width Annotations */}
                   <path
                     d={`M ${500 - dxAspTop},${y0_C - 15} L ${500 + dxAspTop},${y0_C - 15}`}
                     stroke="white"
@@ -693,7 +630,7 @@ export default function RoadEstimator() {
                     opacity="0.5"
                     markerStart="url(#arrow)"
                     markerEnd="url(#arrow)"
-                  />{" "}
+                  />
                   <text
                     x="500"
                     y={y0_C - 22}
@@ -703,11 +640,10 @@ export default function RoadEstimator() {
                     opacity="0.8"
                   >
                     Top Width: {wAspTop.toFixed(2)}m
-                  </text>{" "}
-                  {/* Bottom Width Annotation */}{" "}
+                  </text>
+                  {/* Bottom Width Annotation */}
                   {s > 0 && (
                     <>
-                      {" "}
                       <path
                         d={`M ${500 - dxSgBot},${y4_S + 25} L ${500 + dxSgBot},${y4_S + 25}`}
                         stroke="#876f59"
@@ -715,7 +651,7 @@ export default function RoadEstimator() {
                         opacity="0.5"
                         markerStart="url(#arrow)"
                         markerEnd="url(#arrow)"
-                      />{" "}
+                      />
                       <text
                         x="500"
                         y={y4_S + 42}
@@ -725,10 +661,10 @@ export default function RoadEstimator() {
                         opacity="0.8"
                       >
                         Base Width: {wSgBot.toFixed(2)}m
-                      </text>{" "}
+                      </text>
                     </>
-                  )}{" "}
-                  {/* Labels */}{" "}
+                  )}
+                  {/* Labels */}
                   <text
                     x="500"
                     y={y0_C + vAsp / 2 + 5}
@@ -739,7 +675,7 @@ export default function RoadEstimator() {
                     letterSpacing="1"
                   >
                     ASPHALT ({aspT}mm)
-                  </text>{" "}
+                  </text>
                   <text
                     x="500"
                     y={y1_C + vWBM / 2 + 5}
@@ -751,7 +687,7 @@ export default function RoadEstimator() {
                     opacity="0.9"
                   >
                     WBM ({wbmT}mm)
-                  </text>{" "}
+                  </text>
                   <text
                     x="500"
                     y={y2_C + vSB / 2 + 5}
@@ -762,7 +698,7 @@ export default function RoadEstimator() {
                     letterSpacing="1"
                   >
                     SUB-BASE ({sbT}mm)
-                  </text>{" "}
+                  </text>
                   <text
                     x="500"
                     y={y3_C + vSG / 2 + 5}
@@ -773,216 +709,179 @@ export default function RoadEstimator() {
                     letterSpacing="1"
                   >
                     SUB-GRADE ({sgT}mm)
-                  </text>{" "}
-                </svg>{" "}
-              </div>{" "}
-            </div>{" "}
+                  </text>
+                </svg>
+              </div>
+            </div>
             <div className="flex flex-wrap  gap-4 items-center w-full">
-              {" "}
               <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-amber-200 transition-colors flex-1 min-w-fit whitespace-nowrap">
-                {" "}
                 <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 flex items-center gap-2 whitespace-nowrap">
-                  {" "}
                   <Calculator className="w-4 h-4 text-amber-500" /> Layer
-                  Quantities{" "}
-                </h3>{" "}
+                  Quantities
+                </h3>
                 <div className="space-y-3 font-mono text-sm">
-                  {" "}
                   <div className="flex justify-between items-center border-b border-gray-50 pb-2">
-                    {" "}
-                    <span className="text-gray-600">Sub-Grade</span>{" "}
+                    <span className="text-gray-600">Sub-Grade</span>
                     <span className="font-bold text-gray-900">
                       {volSG.toFixed(2)} m³
-                    </span>{" "}
-                  </div>{" "}
+                    </span>
+                  </div>
                   <div className="flex justify-between items-center border-b border-gray-50 pb-2">
-                    {" "}
-                    <span className="text-gray-600">Sub-Base</span>{" "}
+                    <span className="text-gray-600">Sub-Base</span>
                     <span className="font-bold text-gray-900">
                       {volSB.toFixed(2)} m³
-                    </span>{" "}
-                  </div>{" "}
+                    </span>
+                  </div>
                   <div className="flex justify-between items-center border-b border-gray-50 pb-2">
-                    {" "}
-                    <span className="text-gray-600">WBM</span>{" "}
+                    <span className="text-gray-600">WBM</span>
                     <span className="font-bold text-gray-900">
                       {volWBM.toFixed(2)} m³
-                    </span>{" "}
-                  </div>{" "}
+                    </span>
+                  </div>
                   <div className="flex justify-between items-center">
-                    {" "}
-                    <span className="text-gray-600">Asphalt</span>{" "}
+                    <span className="text-gray-600">Asphalt</span>
                     <div className="text-right">
-                      {" "}
                       <span className="font-bold text-gray-900 block">
                         {volAsphalt.toFixed(2)} m³
-                      </span>{" "}
+                      </span>
                       <span className="text-xs text-gray-400 font-medium">
                         {asphaltTons.toFixed(2)} Tons
-                      </span>{" "}
-                    </div>{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-orange-200 transition-colors flex-1 min-w-fit whitespace-nowrap">
-                {" "}
                 <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 flex items-center gap-2 whitespace-nowrap">
-                  {" "}
                   <Droplets className="w-4 h-4 text-orange-500" /> Bitumen
-                  Coats{" "}
-                </h3>{" "}
+                  Coats
+                </h3>
                 <div className="space-y-4">
-                  {" "}
                   <div className="bg-orange-50/50 px-4 py-3 rounded-xl border border-orange-100 flex-1 min-w-fit whitespace-nowrap">
-                    {" "}
                     <div className="flex justify-between items-start mb-1">
-                      {" "}
                       <div className="text-orange-800 text-xs font-semibold">
                         Prime Coat (on WBM)
-                      </div>{" "}
+                      </div>
                       <div className="text-orange-600/70 text-[10px] font-bold">
                         @ {primeCoatRate} L/m²
-                      </div>{" "}
-                    </div>{" "}
+                      </div>
+                    </div>
                     <div className="flex items-end justify-between">
-                      {" "}
                       <div className="flex items-end gap-2">
-                        {" "}
                         <span className="text-xl font-black text-orange-600 leading-none whitespace-nowrap">
                           {primeCoatVolume.toFixed(1)}
-                        </span>{" "}
+                        </span>
                         <span className="text-xs font-medium text-orange-400 mb-0.5">
                           L
-                        </span>{" "}
-                      </div>{" "}
+                        </span>
+                      </div>
                       <div className="text-sm font-bold text-orange-800 bg-orange-100/50 px-2 rounded">
                         {primeCoatTons.toFixed(2)} T
-                      </div>{" "}
-                    </div>{" "}
-                  </div>{" "}
+                      </div>
+                    </div>
+                  </div>
                   <div className="bg-gray-50 px-4 py-3 rounded-xl border border-gray-200 flex-1 min-w-fit whitespace-nowrap">
-                    {" "}
                     <div className="flex justify-between items-start mb-1">
-                      {" "}
                       <div className="text-gray-600 text-xs font-semibold">
                         Tack Coat
-                      </div>{" "}
+                      </div>
                       <div className="text-gray-400 text-[10px] font-bold">
                         @ {tackCoatRate} L/m²
-                      </div>{" "}
-                    </div>{" "}
+                      </div>
+                    </div>
                     <div className="flex items-end justify-between">
-                      {" "}
                       <div className="flex items-end gap-2">
-                        {" "}
                         <span className="text-xl font-black text-gray-800 leading-none whitespace-nowrap">
                           {tackCoatVolume.toFixed(1)}
-                        </span>{" "}
+                        </span>
                         <span className="text-xs font-medium text-gray-500 mb-0.5">
                           L
-                        </span>{" "}
-                      </div>{" "}
+                        </span>
+                      </div>
                       <div className="text-sm font-bold text-gray-800 bg-gray-200/50 px-2 rounded">
                         {tackCoatTons.toFixed(2)} T
-                      </div>{" "}
-                    </div>{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-indigo-200 transition-colors mb-6 mt-6 flex-1 min-w-fit whitespace-nowrap">
-              {" "}
               <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 flex items-center gap-2 whitespace-nowrap">
-                {" "}
                 <Layers className="w-4 h-4 text-indigo-500" /> Granular Material
-                Breakdown (Loose){" "}
-              </h3>{" "}
+                Breakdown (Loose)
+              </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-sm">
-                {" "}
                 <div>
-                  {" "}
                   <h4 className="font-semibold text-gray-700 bg-gray-50 px-3 py-1.5 rounded-md inline-block mb-3">
                     WBM Sub-components
-                  </h4>{" "}
+                  </h4>
                   <div className="space-y-3">
-                    {" "}
                     <div className="flex justify-between items-center border-b border-gray-50 pb-2">
-                      {" "}
                       <span className="text-gray-600">
                         Coarse Aggregate (80%)
-                      </span>{" "}
+                      </span>
                       <div className="text-right">
-                        {" "}
                         <span className="font-bold text-gray-900 block">
                           {wbmCoarseVol.toFixed(2)} m³
-                        </span>{" "}
+                        </span>
                         <span className="text-xs text-gray-400 font-medium">
                           {wbmCoarseTons.toFixed(2)} T
-                        </span>{" "}
-                      </div>{" "}
-                    </div>{" "}
+                        </span>
+                      </div>
+                    </div>
                     <div className="flex justify-between items-center border-b border-gray-50 pb-2">
-                      {" "}
                       <span className="text-gray-600">
                         Screenings (15%)
-                      </span>{" "}
+                      </span>
                       <div className="text-right">
-                        {" "}
                         <span className="font-bold text-gray-900 block">
                           {wbmScreeningVol.toFixed(2)} m³
-                        </span>{" "}
+                        </span>
                         <span className="text-xs text-gray-400 font-medium">
                           {wbmScreeningTons.toFixed(2)} T
-                        </span>{" "}
-                      </div>{" "}
-                    </div>{" "}
+                        </span>
+                      </div>
+                    </div>
                     <div className="flex justify-between items-center">
-                      {" "}
                       <span className="text-gray-600">
                         Binding Material (5%)
-                      </span>{" "}
+                      </span>
                       <div className="text-right">
-                        {" "}
                         <span className="font-bold text-gray-900 block">
                           {wbmBindingVol.toFixed(2)} m³
-                        </span>{" "}
+                        </span>
                         <span className="text-xs text-gray-400 font-medium">
                           {wbmBindingTons.toFixed(2)} T
-                        </span>{" "}
-                      </div>{" "}
-                    </div>{" "}
-                  </div>{" "}
-                </div>{" "}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div>
-                  {" "}
                   <h4 className="font-semibold text-gray-700 bg-gray-50 px-3 py-1.5 rounded-md inline-block mb-3">
                     Sub-base Material
-                  </h4>{" "}
+                  </h4>
                   <div className="space-y-3">
-                    {" "}
                     <div className="flex justify-between items-center">
-                      {" "}
                       <span className="text-gray-600">
                         GSB Aggregate (100%)
-                      </span>{" "}
+                      </span>
                       <div className="text-right">
-                        {" "}
                         <span className="font-bold text-gray-900 block">
                           {sbLooseVol.toFixed(2)} m³
-                        </span>{" "}
+                        </span>
                         <span className="text-xs text-gray-400 font-medium">
                           {sbMaterialTons.toFixed(2)} T
-                        </span>{" "}
-                      </div>{" "}
-                    </div>{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-emerald-200 transition-colors flex-1 min-w-fit whitespace-nowrap">
-              {" "}
               <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 flex items-center gap-2 whitespace-nowrap">
-                {" "}
                 <svg
                   className="w-4 h-4 text-emerald-500"
                   fill="none"
@@ -995,76 +894,65 @@ export default function RoadEstimator() {
                     strokeWidth={2}
                     d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
-                </svg>{" "}
-                Financial Summary{" "}
-              </h3>{" "}
+                </svg>
+                Financial Summary
+              </h3>
               <div className="space-y-3 font-mono text-sm">
-                {" "}
                 <div className="grid grid-cols-2 gap-4 pb-2 border-b border-gray-50">
-                  {" "}
                   <div className="flex justify-between">
-                    {" "}
-                    <span className="text-gray-600">Sub-Grade</span>{" "}
+                    <span className="text-gray-600">Sub-Grade</span>
                     <span className="font-bold text-gray-900">
                       {formatCurrency(costSg)}
-                    </span>{" "}
-                  </div>{" "}
+                    </span>
+                  </div>
                   <div className="flex justify-between">
-                    {" "}
-                    <span className="text-gray-600">Sub-Base</span>{" "}
+                    <span className="text-gray-600">Sub-Base</span>
                     <span className="font-bold text-gray-900">
                       {formatCurrency(costSb)}
-                    </span>{" "}
-                  </div>{" "}
-                </div>{" "}
+                    </span>
+                  </div>
+                </div>
                 <div className="grid grid-cols-2 gap-4 pb-2 border-b border-gray-50">
-                  {" "}
                   <div className="flex justify-between">
-                    {" "}
-                    <span className="text-gray-600">WBM</span>{" "}
+                    <span className="text-gray-600">WBM</span>
                     <span className="font-bold text-gray-900">
                       {formatCurrency(costWbm)}
-                    </span>{" "}
-                  </div>{" "}
+                    </span>
+                  </div>
                   <div className="flex justify-between">
-                    {" "}
-                    <span className="text-gray-600">Asphalt</span>{" "}
+                    <span className="text-gray-600">Asphalt</span>
                     <span className="font-bold text-emerald-600">
                       {formatCurrency(costAsp)}
-                    </span>{" "}
-                  </div>{" "}
-                </div>{" "}
+                    </span>
+                  </div>
+                </div>
                 <div className="grid grid-cols-2 gap-4 pb-4">
-                  {" "}
                   <div className="flex justify-between">
-                    {" "}
-                    <span className="text-gray-600">Prime Coat</span>{" "}
+                    <span className="text-gray-600">Prime Coat</span>
                     <span className="font-bold text-gray-900">
                       {formatCurrency(costPrime)}
-                    </span>{" "}
-                  </div>{" "}
+                    </span>
+                  </div>
                   <div className="flex justify-between">
-                    {" "}
-                    <span className="text-gray-600">Tack Coat</span>{" "}
+                    <span className="text-gray-600">Tack Coat</span>
                     <span className="font-bold text-gray-900">
                       {formatCurrency(costTack)}
-                    </span>{" "}
-                  </div>{" "}
-                </div>{" "}
+                    </span>
+                  </div>
+                </div>
                 <div className="pt-3 border-t-2 border-slate-800 flex justify-between items-center text-lg whitespace-nowrap">
-                  {" "}
                   <span className="font-bold text-slate-800 tracking-tight uppercase text-xs">
                     Total Estimate Project Cost
-                  </span>{" "}
+                  </span>
                   <span className="font-black text-emerald-600 bg-emerald-50 px-3 py-1 rounded-lg">
                     {formatCurrency(totalCost)}
-                  </span>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
-          </section>{" "}
-        </div>{" "}
-      </div>{" "}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
       <ShareButtonWithPopup
         activeTab="RoadEstimation"
         data={{
@@ -1155,7 +1043,7 @@ export default function RoadEstimator() {
           ],
         }}
         title="Road Construction Estimator"
-      />{" "}
+      />
     </div>
   );
 }

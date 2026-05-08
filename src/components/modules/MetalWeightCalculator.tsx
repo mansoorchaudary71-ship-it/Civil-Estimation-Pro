@@ -239,55 +239,48 @@ export default function MetalWeightCalculator() {
   };
   return (
     <div className="w-full h-full overflow-y-auto bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8">
-      {" "}
       <div className="max-w-6xl mx-auto">
-        {" "}
         <h1 className="text-3xl font-black mb-2 flex items-center gap-3 whitespace-nowrap">
-          {" "}
-          <Weight className="w-8 h-8 text-neutral-600 dark:text-neutral-400" />{" "}
-          Metal Weight Calculator{" "}
-        </h1>{" "}
+          <Weight className="w-8 h-8 text-neutral-600 dark:text-neutral-400" />
+          Metal Weight Calculator
+        </h1>
         <p className="text-slate-500 dark:text-slate-400 mb-8 font-medium">
           Calculate the mass and per-length weight of standard structural steel
           profiles.
-        </p>{" "}
-        {/* Global Settings */}{" "}
+        </p>
+        {/* Global Settings */}
         <div className="flex flex-wrap gap-4 mb-8 items-center bg-white dark:bg-slate-900 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex-1 min-w-fit whitespace-nowrap">
-          {" "}
           <div className="flex-1 min-w-[200px]">
-            {" "}
             <label className="text-xs font-bold text-gray-500 uppercase block mb-1.5 whitespace-nowrap">
               Material Density (kg/m³)
-            </label>{" "}
+            </label>
             <input
               type="number"
               value={density}
               onChange={(e) => setDensity(e.target.value)}
               className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl font-bold focus:ring-2 focus:ring-neutral-500"
-            />{" "}
+            />
             <p className="text-[10px] text-slate-400 mt-1 pl-1">
               Steel: 7850 | Aluminum: 2700 | Stainless: 7930
-            </p>{" "}
-          </div>{" "}
+            </p>
+          </div>
           <div className="flex-1 min-w-[200px]">
-            {" "}
             <label className="text-xs font-bold text-gray-500 uppercase block mb-1.5 whitespace-nowrap">
               Element Length (m)
-            </label>{" "}
+            </label>
             <input
               type="number"
               value={length}
               onChange={(e) => setLength(e.target.value)}
               className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl font-bold focus:ring-2 focus:ring-neutral-500"
-            />{" "}
+            />
             <p className="text-[10px] text-slate-400 mt-1 pl-1">
               Total run length of member
-            </p>{" "}
-          </div>{" "}
-        </div>{" "}
-        {/* Profiles Grid */}{" "}
+            </p>
+          </div>
+        </div>
+        {/* Profiles Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
-          {" "}
           {profiles.map((p) => {
             const Icon = p.icon;
             const isActive = activeProfile === p.id;
@@ -312,7 +305,6 @@ export default function MetalWeightCalculator() {
                   } as React.CSSProperties
                 }
               >
-                {" "}
                 <div
                   className="flex items-center justify-center w-12 h-12 rounded-xl transition-transform duration-300 group-hover:scale-110"
                   style={{
@@ -323,9 +315,8 @@ export default function MetalWeightCalculator() {
                       : undefined,
                   }}
                 >
-                  {" "}
-                  <Icon className="w-6 h-6" strokeWidth={2} />{" "}
-                </div>{" "}
+                  <Icon className="w-6 h-6" strokeWidth={2} />
+                </div>
                 <span
                   className={`text-[11px] font-extrabold text-center leading-tight tracking-wide z-10 ${isActive ? "" : "text-slate-600 dark:text-slate-400 group-hover:[color:var(--theme-color-hover)]"}`}
                   style={{
@@ -333,352 +324,316 @@ export default function MetalWeightCalculator() {
                   }}
                 >
                   {p.label}
-                </span>{" "}
+                </span>
               </button>
             );
-          })}{" "}
-        </div>{" "}
+          })}
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {" "}
-          {/* Inputs Section */}{" "}
+          {/* Inputs Section */}
           <div className="lg:col-span-7 bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm">
-            {" "}
             <h3 className="font-bold text-xl mb-6 whitespace-nowrap">
               {activeProfile} Dimensions
-            </h3>{" "}
+            </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {" "}
               {activeProfile === "Round bar" && (
                 <div>
-                  {" "}
                   <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                     Diameter (mm)
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     value={d}
                     onChange={(e) => setD(e.target.value)}
                     className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                     placeholder="e.g. 20"
-                  />{" "}
+                  />
                 </div>
-              )}{" "}
+              )}
               {activeProfile === "Square bar" && (
                 <div>
-                  {" "}
                   <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                     Side Width (mm)
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     value={w}
                     onChange={(e) => setW(e.target.value)}
                     className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                     placeholder="e.g. 50"
-                  />{" "}
+                  />
                 </div>
-              )}{" "}
+              )}
               {activeProfile === "Round pipe bar" && (
                 <>
-                  {" "}
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Outer Diameter (mm)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={d}
                       onChange={(e) => setD(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 100"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Wall Thickness (mm)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={t}
                       onChange={(e) => setT(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 5"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                 </>
-              )}{" "}
+              )}
               {activeProfile === "Hexagonal bar" && (
                 <div>
-                  {" "}
                   <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                     Size Across Flats (mm)
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     value={s}
                     onChange={(e) => setS(e.target.value)}
                     className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                     placeholder="e.g. 30"
-                  />{" "}
+                  />
                 </div>
-              )}{" "}
+              )}
               {activeProfile === "Square tubing bar" && (
                 <>
-                  {" "}
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Outer Width (mm)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={w}
                       onChange={(e) => setW(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 50"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Wall Thickness (mm)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={t}
                       onChange={(e) => setT(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 3"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                 </>
-              )}{" "}
+              )}
               {activeProfile === "Tee Bar" && (
                 <>
-                  {" "}
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Flange Width (mm)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={w}
                       onChange={(e) => setW(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 40"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Total Height (mm)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={h}
                       onChange={(e) => setH(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 40"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Thickness (mm)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={t}
                       onChange={(e) => setT(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 5"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                 </>
-              )}{" "}
+              )}
               {["Beam bar", "Channel shape"].includes(activeProfile) && (
                 <>
-                  {" "}
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Flange Width (mm)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={w}
                       onChange={(e) => setW(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 150"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Depth / Height (mm)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={h}
                       onChange={(e) => setH(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 300"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Flange Thickness (mm)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={tf}
                       onChange={(e) => setTf(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 10"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Web Thickness (mm)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={tw}
                       onChange={(e) => setTw(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 7"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                 </>
-              )}{" "}
+              )}
               {activeProfile === "Angle shape" && (
                 <>
-                  {" "}
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Leg 1 Length (mm)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={leg1}
                       onChange={(e) => setLeg1(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 50"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Leg 2 Length (mm)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={leg2}
                       onChange={(e) => setLeg2(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 50"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Thickness (mm)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={t}
                       onChange={(e) => setT(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 6"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                 </>
-              )}{" "}
+              )}
               {["Flat shape", "Sheet shape"].includes(activeProfile) && (
                 <>
-                  {" "}
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Width (mm)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={w}
                       onChange={(e) => setW(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 1000"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                   <div>
-                    {" "}
                     <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
                       Thickness (mm)
-                    </label>{" "}
+                    </label>
                     <input
                       type="number"
                       value={t}
                       onChange={(e) => setT(e.target.value)}
                       className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 10"
-                    />{" "}
-                  </div>{" "}
+                    />
+                  </div>
                 </>
-              )}{" "}
-            </div>{" "}
-          </div>{" "}
-          {/* Results Section */}{" "}
+              )}
+            </div>
+          </div>
+          {/* Results Section */}
           <div className="lg:col-span-5 bg-neutral-900 border border-neutral-800 rounded-[2rem] p-6 lg:p-10 text-white shadow-2xl flex flex-col justify-between">
-            {" "}
             <div>
-              {" "}
               <h3 className="font-bold text-neutral-400 text-sm uppercase tracking-widest mb-8 whitespace-nowrap">
                 Calculated Results
-              </h3>{" "}
+              </h3>
               <div className="space-y-6">
-                {" "}
                 <div className="bg-neutral-800/60 p-6 rounded-2xl border border-neutral-700">
-                  {" "}
                   <span className="block text-neutral-400 text-xs font-bold uppercase mb-2 whitespace-nowrap">
                     Weight per Unit Length
-                  </span>{" "}
+                  </span>
                   <span className="text-4xl font-black text-emerald-400 whitespace-nowrap">
-                    {" "}
-                    {weightPerM.toFixed(3)}{" "}
+                    {weightPerM.toFixed(3)}
                     <span className="text-xl text-neutral-500 ml-2 whitespace-nowrap">
                       kg/m
-                    </span>{" "}
-                  </span>{" "}
-                </div>{" "}
+                    </span>
+                  </span>
+                </div>
                 <div className="bg-neutral-800/60 p-6 rounded-2xl border border-neutral-700">
-                  {" "}
                   <span className="block text-neutral-400 text-xs font-bold uppercase mb-2 whitespace-nowrap">
                     Total Element Weight
-                  </span>{" "}
+                  </span>
                   <span className="text-5xl font-black text-white whitespace-nowrap">
-                    {" "}
-                    {totalWeight.toFixed(2)}{" "}
+                    {totalWeight.toFixed(2)}
                     <span className="text-2xl text-neutral-500 ml-3 whitespace-nowrap">
                       kg
-                    </span>{" "}
-                  </span>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
             <div className="mt-6 flex flex-wrap gap-4 items-center">
-              {" "}
               <ShareButtonWithPopup
                 activeTab="Metal Weight"
                 title={`${activeProfile} Weight Estimate`}
                 data={exportData}
                 exportFormat={{ inputs: inputsUsed, breakdown: exportData }}
-              />{" "}
+              />
               {user && (
                 <button
                   onClick={async () => {
@@ -707,26 +662,24 @@ export default function MetalWeightCalculator() {
                   disabled={isSaving}
                   className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
                 >
-                  {" "}
                   {isSaving ? (
                     <span className="animate-pulse">Saving...</span>
                   ) : (
                     <>
-                      {" "}
-                      <Save className="w-5 h-5" /> Save to Profile{" "}
+                      <Save className="w-5 h-5" /> Save to Profile
                     </>
-                  )}{" "}
+                  )}
                 </button>
-              )}{" "}
+              )}
               {saveMessage && (
                 <span className="text-sm font-bold text-green-400 ml-4">
                   {saveMessage}
                 </span>
-              )}{" "}
-            </div>{" "}
-          </div>{" "}
-        </div>{" "}
-      </div>{" "}
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

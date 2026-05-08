@@ -131,6 +131,8 @@ export default function ConstructionMaterialEstimator() {
     if (currentUnit === "Metric") {
       setCDepth("0.15");
       setBWallT("22");
+      setBWallL("5");
+      setBWallH("3");
       setBrickL("22.8");
       setBrickW("11.4");
       setBrickH("7.6");
@@ -146,6 +148,8 @@ export default function ConstructionMaterialEstimator() {
     } else {
       setCDepth("0.5");
       setBWallT("9");
+      setBWallL("20");
+      setBWallH("10");
       setBrickL("9");
       setBrickW("4.5");
       setBrickH("3");
@@ -201,109 +205,98 @@ export default function ConstructionMaterialEstimator() {
     };
     content = (
       <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full flex-1 min-w-fit whitespace-nowrap">
-        {" "}
         <h3 className="font-bold border-b pb-2">
           Concrete Slab / Footing
-        </h3>{" "}
+        </h3>
         <div className="grid grid-cols-3 gap-4">
-          {" "}
           <div>
-            {" "}
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Length ({unitFt})
-            </label>{" "}
+            </label>
             <input
               type="number"
               value={cLength}
               onChange={(e) => setCLength(e.target.value)}
-              className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-            />{" "}
-          </div>{" "}
+              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+            />
+          </div>
           <div>
-            {" "}
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Width ({unitFt})
-            </label>{" "}
+            </label>
             <input
               type="number"
               value={cWidth}
               onChange={(e) => setCWidth(e.target.value)}
-              className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-            />{" "}
-          </div>{" "}
+              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+            />
+          </div>
           <div>
-            {" "}
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Depth ({unitFt})
-            </label>{" "}
+            </label>
             <input
               type="number"
               value={cDepth}
               onChange={(e) => setCDepth(e.target.value)}
-              className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-            />{" "}
-          </div>{" "}
-        </div>{" "}
+              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+            />
+          </div>
+        </div>
         <div className="bg-blue-50/50 rounded-xl px-4 py-3 border border-blue-100 flex items-center justify-center min-h-[8rem] relative text-[10px] font-bold text-blue-500/80 overflow-hidden whitespace-nowrap flex-1 min-w-fit whitespace-nowrap">
-          {" "}
           <svg
             viewBox="0 0 120 80"
             className="w-full h-full absolute inset-0 opacity-20 pointer-events-none"
           >
-            {" "}
-            <path d="M30,50 L90,50 L105,30 L45,30 Z" fill="currentColor" />{" "}
+            <path d="M30,50 L90,50 L105,30 L45,30 Z" fill="currentColor" />
             <path
               d="M30,50 L30,60 L90,60 L90,50 M90,60 L105,40 L105,30"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
-            />{" "}
-          </svg>{" "}
+            />
+          </svg>
           <span className="absolute bottom-4 left-1/2 -translate-x-1/2 px-2 bg-blue-50">
             L {cLength}
-          </span>{" "}
+          </span>
           <span className="absolute right-10 top-6 px-2 bg-blue-50">
             W {cWidth}
-          </span>{" "}
+          </span>
           <span className="absolute left-8 bottom-6 px-2 bg-blue-50">
             D {cDepth}
-          </span>{" "}
-        </div>{" "}
+          </span>
+        </div>
         <div className="grid grid-cols-2 gap-4">
-          {" "}
           <div>
-            {" "}
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Mix Ratio
-            </label>{" "}
+            </label>
             <select
               value={cMix}
               onChange={(e) => setCMix(e.target.value)}
-              className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
+              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             >
-              {" "}
-              <option value="1:5:10">1:5:10 (M5)</option>{" "}
-              <option value="1:4:8">1:4:8 (M7.5)</option>{" "}
-              <option value="1:3:6">1:3:6 (M10)</option>{" "}
-              <option value="1:2:4">1:2:4 (M15)</option>{" "}
-              <option value="1:1.5:3">1:1.5:3 (M20)</option>{" "}
-              <option value="1:1:2">1:1:2 (M25)</option>{" "}
-            </select>{" "}
-          </div>{" "}
+              <option value="1:5:10">1:5:10 (M5)</option>
+              <option value="1:4:8">1:4:8 (M7.5)</option>
+              <option value="1:3:6">1:3:6 (M10)</option>
+              <option value="1:2:4">1:2:4 (M15)</option>
+              <option value="1:1.5:3">1:1.5:3 (M20)</option>
+              <option value="1:1:2">1:1:2 (M25)</option>
+            </select>
+          </div>
           <div>
-            {" "}
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               W/C Ratio (0.45-0.6)
-            </label>{" "}
+            </label>
             <input
               type="number"
               step="0.01"
               value={cWcRatio}
               onChange={(e) => setCWcRatio(e.target.value)}
-              className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-            />{" "}
-          </div>{" "}
-        </div>{" "}
+              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+            />
+          </div>
+        </div>
       </div>
     );
   } else if (activeTab === "bricks" || activeTab === "blocks") {
@@ -366,97 +359,86 @@ export default function ConstructionMaterialEstimator() {
         <Brickwork9InchModule />
       ) : (
         <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full flex-1 min-w-fit whitespace-nowrap">
-          {" "}
           <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">
-            {activeTab} Wall{" "}
-          </h3>{" "}
+            {activeTab} Wall
+          </h3>
           <div className="grid grid-cols-3 gap-4">
-            {" "}
             <div>
-              {" "}
               <label className="text-[10px] font-bold text-gray-500 uppercase">
                 Wall Length ({unitFt})
-              </label>{" "}
+              </label>
               <input
                 type="number"
                 value={bWallL}
                 onChange={(e) => setBWallL(e.target.value)}
-                className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-              />{" "}
-            </div>{" "}
+                className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
             <div>
-              {" "}
               <label className="text-[10px] font-bold text-gray-500 uppercase">
                 Wall Height ({unitFt})
-              </label>{" "}
+              </label>
               <input
                 type="number"
                 value={bWallH}
                 onChange={(e) => setBWallH(e.target.value)}
-                className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-              />{" "}
-            </div>{" "}
+                className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
             <div>
-              {" "}
               <label className="text-[10px] font-bold text-gray-500 uppercase">
                 Wall Thick ({unitIn})
-              </label>{" "}
+              </label>
               <input
                 type="number"
                 value={bWallT}
                 onChange={(e) => setBWallT(e.target.value)}
-                className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-              />{" "}
-            </div>{" "}
-          </div>{" "}
+                className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+          </div>
           <div className="bg-amber-50/50 rounded-xl px-4 py-3 border border-amber-100 flex items-center justify-center min-h-[8rem] relative text-[10px] font-bold text-amber-600/80 overflow-hidden whitespace-nowrap flex-1 min-w-fit whitespace-nowrap">
-            {" "}
             <svg
               viewBox="0 0 120 80"
               className="w-full h-full absolute inset-0 opacity-20 pointer-events-none"
             >
-              {" "}
               <path
                 d="M20,60 L80,60 L80,20 L20,20 Z"
                 fill="currentColor"
-              />{" "}
+              />
               <path
                 d="M80,60 L95,45 L95,5 L80,20 M20,20 L35,5 L95,5"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
-              />{" "}
-            </svg>{" "}
+              />
+            </svg>
             <span className="absolute bottom-2 left-1/2 -translate-x-1/2 px-2 bg-amber-50">
               L {bWallL}
-            </span>{" "}
+            </span>
             <span className="absolute left-4 top-1/2 -translate-y-1/2 px-2 bg-amber-50">
               H {bWallH}
-            </span>{" "}
+            </span>
             <span className="absolute right-10 bottom-6 px-2 bg-amber-50">
               T {bWallT}
-            </span>{" "}
-          </div>{" "}
+            </span>
+          </div>
           <div className="bg-white px-4 py-3 rounded-xl border flex-1 min-w-fit whitespace-nowrap">
-            {" "}
             <h4 className="text-xs font-bold text-slate-500 uppercase flex justify-between items-center mb-4 whitespace-nowrap">
-              {" "}
-              Add Deductions{" "}
+              Add Deductions
               <span className="bg-indigo-50 text-indigo-600 px-2 py-1 rounded text-[10px]">
-                Total:{" "}
+                Total:
                 {openings
                   .reduce(
                     (acc, op) => acc + op.quantity * op.length * op.height,
                     0,
                   )
-                  .toFixed(2)}{" "}
+                  .toFixed(2)}
                 {unitArea}
-              </span>{" "}
-            </h4>{" "}
+              </span>
+            </h4>
             <div className="flex flex-col gap-3">
-              {" "}
               <div className="grid grid-cols-4 gap-2">
-                {" "}
                 <select
                   className="bg-slate-50 border p-2 rounded-lg text-xs font-medium"
                   value={newOpening.type}
@@ -467,13 +449,11 @@ export default function ConstructionMaterialEstimator() {
                     })
                   }
                 >
-                  {" "}
-                  <option value="Door">Door</option>{" "}
-                  <option value="Window">Window</option>{" "}
-                  <option value="Ventilator">Ventilator</option>{" "}
-                </select>{" "}
+                  <option value="Door">Door</option>
+                  <option value="Window">Window</option>
+                  <option value="Ventilator">Ventilator</option>
+                </select>
                 <div>
-                  {" "}
                   <input
                     type="number"
                     placeholder="Qty"
@@ -484,11 +464,10 @@ export default function ConstructionMaterialEstimator() {
                         quantity: parseFloat(e.target.value),
                       })
                     }
-                    className="w-full bg-slate-50 border p-2 rounded-lg text-xs font-medium"
-                  />{" "}
-                </div>{" "}
+                    className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+                  />
+                </div>
                 <div>
-                  {" "}
                   <input
                     type="number"
                     placeholder={`L (${unitFt})`}
@@ -499,11 +478,10 @@ export default function ConstructionMaterialEstimator() {
                         length: parseFloat(e.target.value),
                       })
                     }
-                    className="w-full bg-slate-50 border p-2 rounded-lg text-xs font-medium"
-                  />{" "}
-                </div>{" "}
+                    className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+                  />
+                </div>
                 <div>
-                  {" "}
                   <input
                     type="number"
                     placeholder={`H (${unitFt})`}
@@ -514,10 +492,10 @@ export default function ConstructionMaterialEstimator() {
                         height: parseFloat(e.target.value),
                       })
                     }
-                    className="w-full bg-slate-50 border p-2 rounded-lg text-xs font-medium"
-                  />{" "}
-                </div>{" "}
-              </div>{" "}
+                    className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+                  />
+                </div>
+              </div>
               <button
                 onClick={() => {
                   if (
@@ -547,29 +525,26 @@ export default function ConstructionMaterialEstimator() {
                   !newOpening.height
                 }
               >
-                {" "}
-                + Add Opening{" "}
-              </button>{" "}
-            </div>{" "}
+                + Add Opening
+              </button>
+            </div>
             {openings.length > 0 && (
               <div className="mt-4 space-y-2">
-                {" "}
                 {openings.map((op) => (
                   <div
                     key={op.id}
                     className="flex items-center justify-between bg-slate-50 p-2 rounded text-xs"
                   >
-                    {" "}
                     <span className="font-semibold text-slate-600">
                       {op.quantity}x {op.type}
-                    </span>{" "}
+                    </span>
                     <span className="text-slate-500">
                       {op.length}×{op.height} {unitFt}
-                    </span>{" "}
+                    </span>
                     <span className="font-bold text-slate-700">
-                      {(op.quantity * op.length * op.height).toFixed(2)}{" "}
+                      {(op.quantity * op.length * op.height).toFixed(2)}
                       {unitArea}
-                    </span>{" "}
+                    </span>
                     <button
                       onClick={() =>
                         setOpenings(openings.filter((o) => o.id !== op.id))
@@ -577,86 +552,78 @@ export default function ConstructionMaterialEstimator() {
                       className="text-red-400 hover:text-red-600"
                     >
                       ×
-                    </button>{" "}
+                    </button>
                   </div>
-                ))}{" "}
+                ))}
               </div>
-            )}{" "}
-          </div>{" "}
+            )}
+          </div>
           <h3 className="font-bold border-b pb-2 pt-4 uppercase text-sm tracking-widest text-slate-500">
             Unit Dimensions ({unitIn})
-          </h3>{" "}
+          </h3>
           <div className="grid grid-cols-3 gap-4">
-            {" "}
             <div>
-              {" "}
               <label className="text-[10px] font-bold text-gray-500 uppercase">
                 Length
-              </label>{" "}
+              </label>
               <input
                 type="number"
                 value={l}
                 onChange={(e) => setL(e.target.value)}
-                className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-              />{" "}
-            </div>{" "}
+                className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
             <div>
-              {" "}
               <label className="text-[10px] font-bold text-gray-500 uppercase">
                 Width
-              </label>{" "}
+              </label>
               <input
                 type="number"
                 value={w}
                 onChange={(e) => setW(e.target.value)}
-                className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-              />{" "}
-            </div>{" "}
+                className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
             <div>
-              {" "}
               <label className="text-[10px] font-bold text-gray-500 uppercase">
                 Height
-              </label>{" "}
+              </label>
               <input
                 type="number"
                 value={h}
                 onChange={(e) => setH(e.target.value)}
-                className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-              />{" "}
-            </div>{" "}
-          </div>{" "}
+                className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+          </div>
           <div className="grid grid-cols-2 gap-4">
-            {" "}
             <div>
-              {" "}
               <label className="text-[10px] font-bold text-gray-500 uppercase">
                 Joint Thick ({unitIn})
-              </label>{" "}
+              </label>
               <input
                 type="number"
                 value={j}
                 onChange={(e) => setJ(e.target.value)}
-                className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-              />{" "}
-            </div>{" "}
+                className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
             <div>
-              {" "}
               <label className="text-[10px] font-bold text-gray-500 uppercase">
                 Mortar Mix
-              </label>{" "}
+              </label>
               <select
                 value={bMix}
                 onChange={(e) => setBMix(e.target.value)}
-                className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
+                className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
               >
-                {" "}
-                <option value="1:3">1:3</option>{" "}
-                <option value="1:4">1:4</option>{" "}
-                <option value="1:5">1:5</option>{" "}
-                <option value="1:6">1:6</option>{" "}
-              </select>{" "}
-            </div>{" "}
-          </div>{" "}
+                <option value="1:3">1:3</option>
+                <option value="1:4">1:4</option>
+                <option value="1:5">1:5</option>
+                <option value="1:6">1:6</option>
+              </select>
+            </div>
+          </div>
         </div>
       );
   } else if (activeTab === "steel") {
@@ -697,73 +664,69 @@ export default function ConstructionMaterialEstimator() {
     };
     content = (
       <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full flex-1 min-w-fit whitespace-nowrap">
-        {" "}
         <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">
           Steel Reinforcement
-        </h3>{" "}
+        </h3>
         <div className="grid grid-cols-2 gap-4">
-          {" "}
           <div>
-            {" "}
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Bar Dia (mm/in#)
-            </label>{" "}
+            </label>
             <input
               type="number"
               value={sDia}
               onChange={(e) => setSDia(e.target.value)}
-              className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-            />{" "}
-          </div>{" "}
+              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+            />
+          </div>
           <div>
-            {" "}
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Span Length ({unitFt})
-            </label>{" "}
+            </label>
             <input
               type="number"
               value={sSpan}
               onChange={(e) => setSSpan(e.target.value)}
-              className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-            />{" "}
-          </div>{" "}
+              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+            />
+          </div>
           <div>
-            {" "}
-            <label className="text-[10px] font-bold text-gray-500 uppercase">
-              Spacing ({isSI ? "mm" : "inch"})
-            </label>{" "}
+            <label
+              className="text-[10px] font-bold text-gray-500 uppercase"
+              title="Center-to-center spacing"
+            >
+              Spacing c/c ({isSI ? "mm" : "inch"})
+            </label>
             <input
               type="number"
               value={sSpace}
               onChange={(e) => setSSpace(e.target.value)}
-              className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-            />{" "}
-          </div>{" "}
+              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+            />
+          </div>
           <div>
-            {" "}
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Standard Bar Length ({unitFt})
-            </label>{" "}
+            </label>
             <input
               type="number"
               value={sBarL}
               onChange={(e) => setSBarL(e.target.value)}
-              className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-            />{" "}
-          </div>{" "}
+              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+            />
+          </div>
           <div>
-            {" "}
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Overlap Factor (xD)
-            </label>{" "}
+            </label>
             <input
               type="number"
               value={sOverlap}
               onChange={(e) => setSOverlap(e.target.value)}
-              className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-            />{" "}
-          </div>{" "}
-        </div>{" "}
+              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+            />
+          </div>
+        </div>
       </div>
     );
   } else if (activeTab === "plaster") {
@@ -798,69 +761,61 @@ export default function ConstructionMaterialEstimator() {
     };
     content = (
       <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full flex-1 min-w-fit whitespace-nowrap">
-        {" "}
         <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">
           Plaster / Mortar
-        </h3>{" "}
+        </h3>
         <div className="grid grid-cols-2 gap-4">
-          {" "}
           <div>
-            {" "}
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Surface Area ({unitArea})
-            </label>{" "}
+            </label>
             <input
               type="number"
               value={pArea}
               onChange={(e) => setPArea(e.target.value)}
-              className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-            />{" "}
-          </div>{" "}
+              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+            />
+          </div>
           <div>
-            {" "}
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Thickness ({unitIn})
-            </label>{" "}
+            </label>
             <input
               type="number"
               value={pThick}
               onChange={(e) => setPThick(e.target.value)}
-              className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-            />{" "}
-          </div>{" "}
+              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+            />
+          </div>
           <div>
-            {" "}
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Mix Ratio
-            </label>{" "}
+            </label>
             <select
               value={pMix}
               onChange={(e) => setPMix(e.target.value)}
-              className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
+              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             >
-              {" "}
-              <option value="1:3">1:3</option> <option value="1:4">1:4</option>{" "}
-              <option value="1:5">1:5</option>{" "}
-              <option value="1:6">1:6</option>{" "}
-            </select>{" "}
-          </div>{" "}
-        </div>{" "}
+              <option value="1:3">1:3</option> <option value="1:4">1:4</option>
+              <option value="1:5">1:5</option>
+              <option value="1:6">1:6</option>
+            </select>
+          </div>
+        </div>
         <div className="bg-slate-100/50 rounded-xl px-4 py-3 border border-slate-200 flex items-center justify-center min-h-[8rem] relative text-[10px] font-bold text-slate-500 overflow-hidden whitespace-nowrap flex-1 min-w-fit whitespace-nowrap">
-          {" "}
           <svg
             viewBox="0 0 120 80"
             className="w-full h-full absolute inset-0 opacity-20 pointer-events-none"
           >
-            {" "}
-            <path d="M30,70 L90,60 L90,20 L30,30 Z" fill="currentColor" />{" "}
-          </svg>{" "}
+            <path d="M30,70 L90,60 L90,20 L30,30 Z" fill="currentColor" />
+          </svg>
           <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-2 bg-slate-50">
             Area: {pArea} {unitArea}
-          </span>{" "}
+          </span>
           <span className="absolute bottom-4 right-10 px-2 bg-slate-50">
             T: {pThick} {unitIn}
-          </span>{" "}
-        </div>{" "}
+          </span>
+        </div>
       </div>
     );
   } else if (activeTab === "water") {
@@ -886,67 +841,60 @@ export default function ConstructionMaterialEstimator() {
     };
     content = (
       <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full flex-1 min-w-fit whitespace-nowrap">
-        {" "}
         <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">
           Water Requirements
-        </h3>{" "}
+        </h3>
         <div className="grid grid-cols-2 gap-4">
-          {" "}
           <div>
-            {" "}
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Weight of Cement (kg)
-            </label>{" "}
+            </label>
             <input
               type="number"
               value={wCementKg}
               onChange={(e) => setWCementKg(e.target.value)}
-              className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-            />{" "}
-          </div>{" "}
+              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+            />
+          </div>
           <div>
-            {" "}
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               W/C Ratio (0.45-0.6)
-            </label>{" "}
+            </label>
             <input
               type="number"
               step="0.01"
               value={wWcRatio}
               onChange={(e) => setWWcRatio(e.target.value)}
-              className="w-full bg-white border p-3 rounded-xl mt-1 font-medium"
-            />{" "}
-          </div>{" "}
-        </div>{" "}
+              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+            />
+          </div>
+        </div>
       </div>
     );
   } else if (activeTab === "rcc") {
     content = (
       <div className="w-full relative col-span-1 lg:col-span-2 space-y-4">
-        {" "}
-        <RccStructureCalculator isEmbedded={true} />{" "}
+        <RccStructureCalculator isEmbedded={true} />
       </div>
     );
   } else if (activeTab === "master") {
     content = (
       <div className="w-full relative col-span-1 lg:col-span-2 space-y-4">
-        {" "}
-        <MasterQuantityEstimator isEmbedded={true} />{" "}
+        <MasterQuantityEstimator isEmbedded={true} />
       </div>
     );
   } else if (activeTab === "cement" || activeTab === "sand") {
     content = (
       <div className="bg-slate-50 border p-12 rounded-3xl text-center text-slate-500 max-w-xl mx-auto mt-8">
-        {" "}
-        <Layers className="w-12 h-12 mx-auto text-slate-300 mb-4" />{" "}
+        <Layers className="w-12 h-12 mx-auto text-slate-300 mb-4" />
         <h3 className="text-xl font-bold text-slate-700 mb-2 whitespace-nowrap">
           Use Standard Modules
-        </h3>{" "}
+        </h3>
         <p>
           For standalone {activeTab} estimations, please rely on the Concrete,
           Plaster, or Block modules which accurately calculate the constituent
           cement/sand ratios from overall dimensions.
-        </p>{" "}
+        </p>
       </div>
     );
   }
@@ -969,44 +917,36 @@ export default function ConstructionMaterialEstimator() {
   const totalWater = cart.reduce((acc, item) => acc + item.waterLiters, 0);
   return (
     <div className="w-full h-full overflow-y-auto bg-slate-50 text-slate-900 p-6 md:p-8">
-      {" "}
       <div className="max-w-7xl mx-auto">
-        {" "}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
-          {" "}
           <div>
-            {" "}
             <h1 className="text-3xl font-black text-gray-900 mb-2 whitespace-nowrap">
               Construction Material Estimator
-            </h1>{" "}
+            </h1>
             <p className="text-gray-500 font-medium">
               Accurate estimations for concrete, bricks, steel, blocks, and
               mortar.
-            </p>{" "}
+            </p>
             <div className="mt-4 flex items-center gap-4">
-              {" "}
-              <GlobalSettingsToggle align="left" />{" "}
-            </div>{" "}
-          </div>{" "}
+              <GlobalSettingsToggle align="left" />
+            </div>
+          </div>
           <div className="flex flex-wrap items-center gap-4">
-            {" "}
             <div className="bg-white px-4 py-3 rounded-xl border flex items-center gap-2 shadow-sm flex-1 min-w-fit whitespace-nowrap">
-              {" "}
               <span className="text-xs font-bold text-gray-500">
                 WASTAGE
-              </span>{" "}
+              </span>
               <input
                 type="number"
                 value={wastage}
                 onChange={(e) => setWastage(e.target.value)}
                 className="w-14 text-center font-bold bg-gray-50 rounded border-none p-1 focus:ring-2 focus:ring-indigo-500"
-              />{" "}
-              <span className="text-xs font-bold text-gray-500">%</span>{" "}
-            </div>{" "}
-          </div>{" "}
-        </div>{" "}
+              />
+              <span className="text-xs font-bold text-gray-500">%</span>
+            </div>
+          </div>
+        </div>
         <div className="flex overflow-x-auto pb-4 gap-2 mb-4 scrollbar-hide p-1">
-          {" "}
           {fullTabs.map((tab) => (
             <ColorfulTab
               key={tab.id}
@@ -1017,35 +957,30 @@ export default function ConstructionMaterialEstimator() {
               onClick={() => setActiveTab(tab.id)}
               colorTheme="indigo"
             />
-          ))}{" "}
-        </div>{" "}
+          ))}
+        </div>
         <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] shadow-sm border border-slate-200 dark:border-slate-800 transition-all duration-300 relative">
-          {" "}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative">
-            {" "}
-            {content}{" "}
+            {content}
             {activeTab !== "cement" &&
               activeTab !== "sand" &&
               activeTab !== "rcc" &&
               activeTab !== "master" && (
                 <div className="bg-slate-900 rounded-3xl px-4 py-3 md:px-4 py-3 text-white space-y-4 shadow-xl sticky top-6 self-start z-10 flex-1 min-w-fit whitespace-nowrap">
-                  {" "}
                   <div className="flex justify-between items-center mb-4">
-                    {" "}
                     <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest whitespace-nowrap">
                       Material Breakdown
-                    </h3>{" "}
+                    </h3>
                     <label className="flex items-center gap-2 cursor-pointer text-xs bg-slate-800 p-2 rounded-lg hover:bg-slate-700 transition">
-                      {" "}
                       <input
                         type="checkbox"
                         checked={showCost}
                         onChange={(e) => setShowCost(e.target.checked)}
                         className="accent-indigo-500 w-4 h-4 rounded"
-                      />{" "}
-                      Cost Est.{" "}
-                    </label>{" "}
-                  </div>{" "}
+                      />
+                      Cost Est.
+                    </label>
+                  </div>
                   {Object.entries(currentExportData).map(([key, val]) => {
                     let colorClass = "text-slate-400";
                     if (key.includes("Cement"))
@@ -1068,29 +1003,25 @@ export default function ConstructionMaterialEstimator() {
                         key={key}
                         className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-slate-800 pb-3 pt-2 gap-1 sm:gap-4"
                       >
-                        {" "}
                         <span className={`${colorClass} whitespace-nowrap`}>
                           {key}
-                        </span>{" "}
+                        </span>
                         <span
                           className={`${key.includes("Units Required") ? "font-mono font-bold text-white uppercase text-xl" : "font-mono font-bold text-white"} whitespace-nowrap text-left sm:text-right`}
                         >
                           {val}
-                        </span>{" "}
+                        </span>
                       </div>
                     );
-                  })}{" "}
+                  })}
                   {showCost && currentCartItem && (
                     <div className="pt-4 mt-4 border-t-2 border-slate-700 space-y-3">
-                      {" "}
                       <div className="grid grid-cols-2 gap-3 text-xs bg-slate-800/50 p-3 rounded-xl border border-slate-700 flex-1 min-w-fit whitespace-nowrap">
-                        {" "}
                         {currentCartItem.cementBags > 0 && (
                           <div className="col-span-2 sm:col-span-1">
-                            {" "}
                             <label className="text-slate-400 mb-1 block">
                               Cement (per bag)
-                            </label>{" "}
+                            </label>
                             <input
                               type="number"
                               min="0"
@@ -1105,15 +1036,14 @@ export default function ConstructionMaterialEstimator() {
                                   cement: isNaN(val) ? 0 : val,
                                 });
                               }}
-                            />{" "}
+                            />
                           </div>
-                        )}{" "}
+                        )}
                         {currentCartItem.sandVol > 0 && (
                           <div className="col-span-2 sm:col-span-1">
-                            {" "}
                             <label className="text-slate-400 mb-1 block">
                               Sand (per {currentCartItem.unitVol})
-                            </label>{" "}
+                            </label>
                             <input
                               type="number"
                               min="0"
@@ -1128,15 +1058,14 @@ export default function ConstructionMaterialEstimator() {
                                   sand: isNaN(val) ? 0 : val,
                                 });
                               }}
-                            />{" "}
+                            />
                           </div>
-                        )}{" "}
+                        )}
                         {(currentCartItem.aggregateVol || 0) > 0 && (
                           <div className="col-span-2 sm:col-span-1">
-                            {" "}
                             <label className="text-slate-400 mb-1 block">
                               Aggregate (per {currentCartItem.unitVol})
-                            </label>{" "}
+                            </label>
                             <input
                               type="number"
                               min="0"
@@ -1151,16 +1080,15 @@ export default function ConstructionMaterialEstimator() {
                                   aggregate: isNaN(val) ? 0 : val,
                                 });
                               }}
-                            />{" "}
+                            />
                           </div>
-                        )}{" "}
+                        )}
                         {currentCartItem.steelKg !== undefined &&
                           currentCartItem.steelKg > 0 && (
                             <div className="col-span-2 sm:col-span-1">
-                              {" "}
                               <label className="text-slate-400 mb-1 block">
                                 Steel (per kg)
-                              </label>{" "}
+                              </label>
                               <input
                                 type="number"
                                 min="0"
@@ -1175,16 +1103,15 @@ export default function ConstructionMaterialEstimator() {
                                     steel: isNaN(val) ? 0 : val,
                                   });
                                 }}
-                              />{" "}
+                              />
                             </div>
-                          )}{" "}
+                          )}
                         {currentCartItem.bricksCount !== undefined &&
                           currentCartItem.bricksCount > 0 && (
                             <div className="col-span-2 sm:col-span-1">
-                              {" "}
                               <label className="text-slate-400 mb-1 block">
                                 Bricks (per unit)
-                              </label>{" "}
+                              </label>
                               <input
                                 type="number"
                                 min="0"
@@ -1199,16 +1126,15 @@ export default function ConstructionMaterialEstimator() {
                                     bricks: isNaN(val) ? 0 : val,
                                   });
                                 }}
-                              />{" "}
+                              />
                             </div>
-                          )}{" "}
+                          )}
                         {currentCartItem.blocksCount !== undefined &&
                           currentCartItem.blocksCount > 0 && (
                             <div className="col-span-2 sm:col-span-1">
-                              {" "}
                               <label className="text-slate-400 mb-1 block">
                                 Blocks (per unit)
-                              </label>{" "}
+                              </label>
                               <input
                                 type="number"
                                 min="0"
@@ -1223,15 +1149,14 @@ export default function ConstructionMaterialEstimator() {
                                     blocks: isNaN(val) ? 0 : val,
                                   });
                                 }}
-                              />{" "}
+                              />
                             </div>
-                          )}{" "}
+                          )}
                         {currentCartItem.waterLiters > 0 && (
                           <div className="col-span-2 sm:col-span-1">
-                            {" "}
                             <label className="text-slate-400 mb-1 block">
                               Water (per L)
-                            </label>{" "}
+                            </label>
                             <input
                               type="number"
                               min="0"
@@ -1246,17 +1171,15 @@ export default function ConstructionMaterialEstimator() {
                                   water: isNaN(val) ? 0 : val,
                                 });
                               }}
-                            />{" "}
+                            />
                           </div>
-                        )}{" "}
-                      </div>{" "}
+                        )}
+                      </div>
                       <div className="flex justify-between items-center pt-2">
-                        {" "}
                         <span className="text-slate-300 font-bold uppercase tracking-wider text-sm">
                           Estimated Cost
-                        </span>{" "}
+                        </span>
                         <span className="text-2xl font-black text-green-400 whitespace-nowrap">
-                          {" "}
                           {formatCurrency(
                             currentCartItem.cementBags * rates.cement +
                               currentCartItem.sandVol * rates.sand +
@@ -1267,39 +1190,36 @@ export default function ConstructionMaterialEstimator() {
                               (currentCartItem.bricksCount || 0) *
                                 rates.bricks +
                               (currentCartItem.blocksCount || 0) * rates.blocks,
-                          )}{" "}
-                        </span>{" "}
-                      </div>{" "}
+                          )}
+                        </span>
+                      </div>
                     </div>
-                  )}{" "}
+                  )}
                 </div>
-              )}{" "}
-          </div>{" "}
+              )}
+          </div>
           {currentCartItem && (
             <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row gap-4 items-end pb-12 sm:pb-0">
-              {" "}
               <div className="flex-1 w-full">
-                {" "}
                 <label className="text-[10px] font-bold text-gray-500 uppercase">
                   Element Name (Optional)
-                </label>{" "}
+                </label>
                 <input
                   type="text"
                   placeholder="e.g., Footing A, Slab B, Retaining Wall"
                   value={elementName}
                   onChange={(e) => setElementName(e.target.value)}
                   className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-indigo-500"
-                />{" "}
-              </div>{" "}
+                />
+              </div>
               <button
                 onClick={addToCart}
                 className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-xl font-bold transition-colors shadow-md shadow-indigo-600/20 whitespace-nowrap"
               >
-                {" "}
-                + Add to Estimate{" "}
-              </button>{" "}
+                + Add to Estimate
+              </button>
             </div>
-          )}{" "}
+          )}
           {Object.keys(currentExportData).length > 0 && (
             <ShareButtonWithPopup
               activeTab={activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
@@ -1312,91 +1232,78 @@ export default function ConstructionMaterialEstimator() {
               }}
               title={`${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Estimation`}
             />
-          )}{" "}
-        </div>{" "}
+          )}
+        </div>
         {cart.length > 0 && (
           <div className="mt-8 bg-slate-900 rounded-[2rem] p-6 md:p-8 text-white shadow-xl relative">
-            {" "}
             <h2 className="text-xl font-black mb-6 whitespace-nowrap">
               Project Cart ({cart.length} Elements)
-            </h2>{" "}
+            </h2>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {" "}
               <div className="col-span-2 space-y-4">
-                {" "}
                 {cart.map((item) => (
                   <div
                     key={item.id}
                     className="bg-slate-800/50 px-4 py-3 rounded-2xl flex items-center justify-between border border-slate-700/50 flex-1 min-w-fit whitespace-nowrap"
                   >
-                    {" "}
                     <div>
-                      {" "}
                       <div className="font-bold text-lg whitespace-nowrap">
                         {item.name}
-                      </div>{" "}
+                      </div>
                       <div className="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider whitespace-nowrap">
                         {item.type}
-                      </div>{" "}
-                    </div>{" "}
+                      </div>
+                    </div>
                     <button
                       onClick={() => removeFromCart(item.id)}
                       className="text-rose-400 hover:text-rose-300 bg-rose-400/10 hover:bg-rose-400/20 px-3 py-1.5 rounded-lg text-sm font-bold transition-colors"
                     >
-                      {" "}
-                      Remove{" "}
-                    </button>{" "}
+                      Remove
+                    </button>
                   </div>
-                ))}{" "}
-              </div>{" "}
+                ))}
+              </div>
               <div className="bg-gradient-to-br from-indigo-600 to-indigo-800 p-6 rounded-2xl border border-indigo-500/30 self-start">
-                {" "}
                 <h3 className="font-bold text-indigo-200 text-sm uppercase tracking-widest mb-6 whitespace-nowrap">
                   Accumulated Total
-                </h3>{" "}
+                </h3>
                 <div className="space-y-4">
-                  {" "}
                   <div className="flex justify-between border-b border-indigo-500/30 pb-3">
-                    {" "}
                     <span className="text-indigo-100/70 font-semibold">
                       Cement
-                    </span>{" "}
+                    </span>
                     <span className="font-mono font-bold text-white">
                       {totalCement.toFixed(2)} Bags
-                    </span>{" "}
-                  </div>{" "}
+                    </span>
+                  </div>
                   <div className="flex justify-between border-b border-indigo-500/30 pb-3">
-                    {" "}
                     <span className="text-indigo-100/70 font-semibold">
                       Sand
-                    </span>{" "}
+                    </span>
                     <span className="font-mono font-bold text-white">
                       {totalSand.toFixed(2)} {isSI ? "m³" : "cft"}
-                    </span>{" "}
-                  </div>{" "}
+                    </span>
+                  </div>
                   <div className="flex justify-between border-b border-indigo-500/30 pb-3">
-                    {" "}
                     <span className="text-indigo-100/70 font-semibold">
                       Aggregate
-                    </span>{" "}
+                    </span>
                     <span className="font-mono font-bold text-white">
                       {totalAgg.toFixed(2)} {isSI ? "m³" : "cft"}
-                    </span>{" "}
-                  </div>{" "}
+                    </span>
+                  </div>
                   <div className="flex justify-between pt-1">
-                    {" "}
                     <span className="text-indigo-100/70 font-semibold">
                       Water
-                    </span>{" "}
+                    </span>
                     <span className="font-mono font-bold text-white">
                       {totalWater.toFixed(1)} L
-                    </span>{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className="mt-6 flex flex-wrap gap-4 items-center">
-              {" "}
               <ShareButtonWithPopup
                 activeTab="Project Cart"
                 data={{
@@ -1424,7 +1331,7 @@ export default function ConstructionMaterialEstimator() {
                   },
                 }}
                 title={`Combined Material Estimate`}
-              />{" "}
+              />
               {user && (
                 <button
                   onClick={async () => {
@@ -1473,25 +1380,24 @@ export default function ConstructionMaterialEstimator() {
                   disabled={isSaving}
                   className="mt-6 sm:mt-0 bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
                 >
-                  {" "}
                   {isSaving ? (
                     <span className="animate-pulse">Saving...</span>
                   ) : (
                     <>
                       <Save className="w-5 h-5" /> Save to Profile
                     </>
-                  )}{" "}
+                  )}
                 </button>
-              )}{" "}
+              )}
               {saveMessage && (
                 <span className="text-sm font-bold text-green-400 ml-4">
                   {saveMessage}
                 </span>
-              )}{" "}
-            </div>{" "}
+              )}
+            </div>
           </div>
-        )}{" "}
-      </div>{" "}
+        )}
+      </div>
     </div>
   );
 }

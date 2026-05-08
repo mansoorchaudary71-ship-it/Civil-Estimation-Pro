@@ -40,38 +40,30 @@ export default function SettingsModal({
   ];
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/30 backdrop-blur-md p-4 dark:bg-slate-900/80 transition-opacity">
-      {" "}
       <div
         className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl border border-white/50 dark:border-slate-800/80 rounded-[2.5rem] w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] sm:h-[650px] relative"
         onClick={(e) => e.stopPropagation()}
       >
-        {" "}
-        {/* Mobile Close Button */}{" "}
+        {/* Mobile Close Button */}
         <button
           onClick={onClose}
           className="md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors"
         >
-          {" "}
-          <X className="w-4 h-4" />{" "}
-        </button>{" "}
-        {/* Sidebar */}{" "}
+          <X className="w-4 h-4" />
+        </button>
+        {/* Sidebar */}
         <div className="w-full md:w-64 bg-slate-50/50 dark:bg-slate-950/50 border-r border-slate-200/50 dark:border-slate-800/50 p-6 flex flex-col shrink-0 overflow-y-auto">
-          {" "}
           <div className="flex items-center gap-3 mb-10 pt-2">
-            {" "}
             <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-2xl flex items-center justify-center shadow-md shadow-blue-500/20">
-              {" "}
-              <SettingsIcon className="w-5 h-5 text-white" />{" "}
-            </div>{" "}
+              <SettingsIcon className="w-5 h-5 text-white" />
+            </div>
             <div>
-              {" "}
               <h2 className="text-xl font-bold text-slate-800 dark:text-white leading-tight whitespace-nowrap">
                 Preferences
-              </h2>{" "}
-            </div>{" "}
-          </div>{" "}
+              </h2>
+            </div>
+          </div>
           <div className="flex-1 space-y-2 flex flex-col">
-            {" "}
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -81,180 +73,148 @@ export default function SettingsModal({
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-3 w-full px-4 py-3.5 rounded-2xl font-semibold transition-all ${isActive ? "bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm border border-slate-100 dark:border-slate-700/50" : "text-slate-500 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/30 hover:text-slate-700 dark:hover:text-slate-300 border border-transparent"}`}
                 >
-                  {" "}
                   <Icon
                     className={`w-5 h-5 ${isActive ? "text-blue-600 dark:text-blue-400" : "text-slate-400 dark:text-slate-500"}`}
-                  />{" "}
-                  {tab.label}{" "}
+                  />
+                  {tab.label}
                 </button>
               );
-            })}{" "}
-          </div>{" "}
+            })}
+          </div>
           <div className="hidden md:block mt-auto pb-2">
-            {" "}
             <p className="text-xs text-slate-400 dark:text-slate-500 font-medium px-4">
-              {" "}
               Civil Estimation Pro Settings
               <br />
-              Version 1.0.4{" "}
-            </p>{" "}
-          </div>{" "}
-        </div>{" "}
-        {/* Main Content Area */}{" "}
+              Version 1.0.4
+            </p>
+          </div>
+        </div>
+        {/* Main Content Area */}
         <div className="flex-1 flex flex-col min-h-0 bg-transparent">
-          {" "}
           <div className="hidden md:flex items-center justify-between px-8 py-6 border-b border-slate-100 dark:border-slate-800/50">
-            {" "}
             <h3 className="text-2xl font-bold text-slate-800 dark:text-white capitalize whitespace-nowrap">
-              {" "}
-              {tabs.find((t) => t.id === activeTab)?.label}{" "}
-            </h3>{" "}
+              {tabs.find((t) => t.id === activeTab)?.label}
+            </h3>
             <button
               onClick={onClose}
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white border border-slate-200 dark:border-slate-700 shadow-sm transition-all"
             >
-              {" "}
-              <X className="w-5 h-5" />{" "}
-            </button>{" "}
-          </div>{" "}
+              <X className="w-5 h-5" />
+            </button>
+          </div>
           <div className="flex-1 overflow-y-auto px-6 py-8 md:px-10 md:py-10">
-            {" "}
             <div className="max-w-xl mx-auto md:mx-0">
-              {" "}
-              {/* Mobile Header */}{" "}
+              {/* Mobile Header */}
               <h3 className="md:hidden text-2xl font-bold text-slate-800 dark:text-white capitalize mb-6 whitespace-nowrap">
-                {" "}
-                {tabs.find((t) => t.id === activeTab)?.label}{" "}
-              </h3>{" "}
+                {tabs.find((t) => t.id === activeTab)?.label}
+              </h3>
               {activeTab === "account" && (
                 <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                  {" "}
                   <div className="flex items-center gap-6">
-                    {" "}
                     <div className="relative group">
-                      {" "}
                       <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-sky-400 to-indigo-500 flex items-center justify-center text-3xl font-bold text-white shadow-lg overflow-hidden relative whitespace-nowrap">
-                        {" "}
                         <span className="relative z-10 w-full h-full flex items-center justify-center">
                           {name.charAt(0)}
-                        </span>{" "}
+                        </span>
                         <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20">
-                          {" "}
-                          <Camera className="w-6 h-6 text-white" />{" "}
-                        </div>{" "}
-                      </div>{" "}
-                    </div>{" "}
+                          <Camera className="w-6 h-6 text-white" />
+                        </div>
+                      </div>
+                    </div>
                     <div>
-                      {" "}
                       <h4 className="text-lg font-bold text-slate-800 dark:text-slate-200 whitespace-nowrap">
                         Profile Picture
-                      </h4>{" "}
+                      </h4>
                       <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
                         Visible to other team members.
-                      </p>{" "}
+                      </p>
                       <div className="flex gap-2">
-                        {" "}
                         <button className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm flex-1 min-w-fit whitespace-nowrap">
-                          {" "}
-                          Upload New{" "}
-                        </button>{" "}
-                      </div>{" "}
-                    </div>{" "}
-                  </div>{" "}
+                          Upload New
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                   <div className="space-y-5">
-                    {" "}
                     <div>
-                      {" "}
                       <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
                         Full Name
-                      </label>{" "}
+                      </label>
                       <input
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3.5 text-slate-800 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 dark:focus:border-blue-500 outline-none transition-all shadow-sm flex-1 min-w-fit whitespace-nowrap"
-                      />{" "}
-                    </div>{" "}
+                      />
+                    </div>
                     <div>
-                      {" "}
                       <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
                         Email Address
-                      </label>{" "}
+                      </label>
                       <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3.5 text-slate-800 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 dark:focus:border-blue-500 outline-none transition-all shadow-sm flex-1 min-w-fit whitespace-nowrap"
-                      />{" "}
-                    </div>{" "}
-                  </div>{" "}
+                      />
+                    </div>
+                  </div>
                 </div>
-              )}{" "}
+              )}
               {activeTab === "measurements" && (
                 <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                  {" "}
                   <div className="bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 rounded-2xl p-5 mb-6">
-                    {" "}
                     <p className="text-sm font-medium text-blue-700 dark:text-blue-300">
-                      {" "}
                       This preference affects all calculation modules globally.
-                      Some legacy fields may still expect native inputs.{" "}
-                    </p>{" "}
-                  </div>{" "}
+                      Some legacy fields may still expect native inputs.
+                    </p>
+                  </div>
                   <div className="space-y-6">
-                    {" "}
                     <div className="flex flex-col gap-4">
-                      {" "}
                       <label
                         className={`relative flex items-center justify-between p-5 rounded-2xl border-2 cursor-pointer transition-all ${settings.measurement === "SI" ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900"}`}
                       >
-                        {" "}
                         <div className="flex flex-col">
-                          {" "}
                           <span className="text-lg font-bold text-slate-800 dark:text-white mb-1 whitespace-nowrap">
                             Metric (SI)
-                          </span>{" "}
+                          </span>
                           <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
                             Meters, Sq.Meters, Cu.Meters
-                          </span>{" "}
-                        </div>{" "}
+                          </span>
+                        </div>
                         <div
                           className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${settings.measurement === "SI" ? "border-blue-500 bg-blue-500" : "border-slate-300 dark:border-slate-600"}`}
                         >
-                          {" "}
                           {settings.measurement === "SI" && (
                             <div className="w-2.5 h-2.5 bg-white rounded-full" />
-                          )}{" "}
-                        </div>{" "}
+                          )}
+                        </div>
                         <input
                           type="radio"
                           name="measurement"
                           className="hidden"
                           checked={settings.measurement === "SI"}
                           onChange={() => updateSettings({ measurement: "SI" })}
-                        />{" "}
-                      </label>{" "}
+                        />
+                      </label>
                       <label
                         className={`relative flex items-center justify-between p-5 rounded-2xl border-2 cursor-pointer transition-all ${settings.measurement === "FPS" ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900"}`}
                       >
-                        {" "}
                         <div className="flex flex-col">
-                          {" "}
                           <span className="text-lg font-bold text-slate-800 dark:text-white mb-1 whitespace-nowrap">
                             Imperial (FPS)
-                          </span>{" "}
+                          </span>
                           <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
                             Feet, Inches, Sq.Ft, Cu.Ft
-                          </span>{" "}
-                        </div>{" "}
+                          </span>
+                        </div>
                         <div
                           className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${settings.measurement === "FPS" ? "border-blue-500 bg-blue-500" : "border-slate-300 dark:border-slate-600"}`}
                         >
-                          {" "}
                           {settings.measurement === "FPS" && (
                             <div className="w-2.5 h-2.5 bg-white rounded-full" />
-                          )}{" "}
-                        </div>{" "}
+                          )}
+                        </div>
                         <input
                           type="radio"
                           name="measurement"
@@ -263,22 +223,19 @@ export default function SettingsModal({
                           onChange={() =>
                             updateSettings({ measurement: "FPS" })
                           }
-                        />{" "}
-                      </label>{" "}
-                    </div>{" "}
-                  </div>{" "}
+                        />
+                      </label>
+                    </div>
+                  </div>
                 </div>
-              )}{" "}
+              )}
               {activeTab === "appearance" && (
                 <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                  {" "}
                   <div>
-                    {" "}
                     <h4 className="text-base font-bold text-slate-800 dark:text-slate-200 mb-4">
                       Color Theme
-                    </h4>{" "}
+                    </h4>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      {" "}
                       {[
                         { id: "light", label: "Light", icon: Sun },
                         { id: "dark", label: "Dark", icon: Moon },
@@ -294,86 +251,74 @@ export default function SettingsModal({
                             }
                             className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border-2 transition-all ${isActive ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900"}`}
                           >
-                            {" "}
                             <div
                               className={`p-3 rounded-full ${isActive ? "bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400" : "bg-slate-100 dark:bg-slate-800 text-slate-500"}`}
                             >
-                              {" "}
-                              <Icon className="w-6 h-6" />{" "}
-                            </div>{" "}
+                              <Icon className="w-6 h-6" />
+                            </div>
                             <span
                               className={`font-bold ${isActive ? "text-blue-700 dark:text-blue-400" : "text-slate-700 dark:text-slate-400"}`}
                             >
-                              {" "}
-                              {t.label}{" "}
-                            </span>{" "}
+                              {t.label}
+                            </span>
                           </button>
                         );
-                      })}{" "}
-                    </div>{" "}
-                  </div>{" "}
-                  <div className="h-px w-full bg-slate-200 dark:bg-slate-800 my-8" />{" "}
-                  {/* Additional visually pleasing mock toggles for appearance tab */}{" "}
+                      })}
+                    </div>
+                  </div>
+                  <div className="h-px w-full bg-slate-200 dark:bg-slate-800 my-8" />
+                  {/* Additional visually pleasing mock toggles for appearance tab */}
                   <div className="space-y-6">
-                    {" "}
                     <h4 className="text-base font-bold text-slate-800 dark:text-slate-200 mb-4">
                       Display Options
-                    </h4>{" "}
+                    </h4>
                     <div className="flex items-center justify-between px-4 py-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex-1 min-w-fit whitespace-nowrap">
-                      {" "}
                       <div className="flex flex-col">
-                        {" "}
                         <span className="font-bold text-slate-800 dark:text-white">
                           Compact Mode
-                        </span>{" "}
+                        </span>
                         <span className="text-sm text-slate-500 dark:text-slate-400">
                           Reduce padding to fit more data on screen
-                        </span>{" "}
-                      </div>{" "}
+                        </span>
+                      </div>
                       <label className="relative inline-flex items-center cursor-pointer">
-                        {" "}
-                        <input type="checkbox" className="sr-only peer" />{" "}
-                        <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-slate-600 peer-checked:bg-blue-600"></div>{" "}
-                      </label>{" "}
-                    </div>{" "}
+                        <input type="checkbox" className="sr-only peer" />
+                        <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-slate-600 peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
                     <div className="flex items-center justify-between px-4 py-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex-1 min-w-fit whitespace-nowrap">
-                      {" "}
                       <div className="flex flex-col">
-                        {" "}
                         <span className="font-bold text-slate-800 dark:text-white">
                           Animations
-                        </span>{" "}
+                        </span>
                         <span className="text-sm text-slate-500 dark:text-slate-400">
                           Enable UI transitions and micro-animations
-                        </span>{" "}
-                      </div>{" "}
+                        </span>
+                      </div>
                       <label className="relative inline-flex items-center cursor-pointer">
-                        {" "}
                         <input
                           type="checkbox"
                           className="sr-only peer"
                           defaultChecked
-                        />{" "}
-                        <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-slate-600 peer-checked:bg-blue-600"></div>{" "}
-                      </label>{" "}
-                    </div>{" "}
-                  </div>{" "}
+                        />
+                        <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-slate-600 peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                  </div>
                 </div>
-              )}{" "}
-            </div>{" "}
+              )}
+            </div>
             <div className="mt-12 max-w-xl mx-auto md:mx-0 flex justify-end">
-              {" "}
               <button
                 onClick={onClose}
                 className="px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-md hover:shadow-lg transition-all"
               >
-                {" "}
-                Save Changes{" "}
-              </button>{" "}
-            </div>{" "}
-          </div>{" "}
-        </div>{" "}
-      </div>{" "}
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -80,135 +80,116 @@ export default function SlabSteelModule({
   ]);
   return (
     <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[1.5rem] overflow-hidden mt-6 shadow-sm flex-1 min-w-fit whitespace-nowrap">
-      {" "}
       <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3 bg-slate-50 dark:bg-slate-800/50">
-        {" "}
-        <Layers className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />{" "}
+        <Layers className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
         <h3 className="text-lg font-bold text-slate-800 dark:text-white whitespace-nowrap">
           Steel Reinforcement Settings
-        </h3>{" "}
-      </div>{" "}
+        </h3>
+      </div>
       <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-        {" "}
         <div className="space-y-6">
-          {" "}
           <div className="bg-indigo-50/50 dark:bg-indigo-900/10 px-4 py-3 rounded-2xl border border-indigo-100 dark:border-indigo-800/30 flex-1 min-w-fit whitespace-nowrap">
-            {" "}
             <h4 className="text-sm font-bold text-indigo-800 dark:text-indigo-300 mb-4">
               Main Bars (Bottom • Short Span)
-            </h4>{" "}
+            </h4>
             <div className="grid grid-cols-2 gap-4">
-              {" "}
               <div>
-                {" "}
                 <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
-                  Diameter (mm)
-                </label>{" "}
+                  Diameter ({isSI ? "mm" : "in"})
+                </label>
                 <input
                   type="number"
                   className="w-full bg-white dark:bg-slate-800 border-none text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all flex-1 min-w-fit whitespace-nowrap"
                   value={mainDia}
                   onChange={(e) => setMainDia(e.target.value)}
-                />{" "}
-              </div>{" "}
+                />
+              </div>
               <div>
-                {" "}
                 <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
-                  Spacing c/c (mm)
-                </label>{" "}
+                  Spacing c/c ({isSI ? "mm" : "in"})
+                </label>
                 <input
                   type="number"
                   className="w-full bg-white dark:bg-slate-800 border-none text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all flex-1 min-w-fit whitespace-nowrap"
                   value={mainSpacing}
                   onChange={(e) => setMainSpacing(e.target.value)}
-                />{" "}
-              </div>{" "}
-            </div>{" "}
-          </div>{" "}
+                />
+              </div>
+            </div>
+          </div>
           <div className="bg-slate-50 dark:bg-slate-800/30 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-700/50 flex-1 min-w-fit whitespace-nowrap">
-            {" "}
             <h4 className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-4">
               Distribution Bars (Top/Cross)
-            </h4>{" "}
+            </h4>
             <div className="grid grid-cols-2 gap-4">
-              {" "}
               <div>
-                {" "}
                 <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
-                  Diameter (mm)
-                </label>{" "}
+                  Diameter ({isSI ? "mm" : "in"})
+                </label>
                 <input
                   type="number"
                   className="w-full bg-white dark:bg-slate-800 border-none text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all flex-1 min-w-fit whitespace-nowrap"
                   value={distDia}
                   onChange={(e) => setDistDia(e.target.value)}
-                />{" "}
-              </div>{" "}
+                />
+              </div>
               <div>
-                {" "}
                 <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
-                  Spacing c/c (mm)
-                </label>{" "}
+                  Spacing c/c ({isSI ? "mm" : "in"})
+                </label>
                 <input
                   type="number"
                   className="w-full bg-white dark:bg-slate-800 border-none text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all flex-1 min-w-fit whitespace-nowrap"
                   value={distSpacing}
                   onChange={(e) => setDistSpacing(e.target.value)}
-                />{" "}
-              </div>{" "}
-            </div>{" "}
-          </div>{" "}
+                />
+              </div>
+            </div>
+          </div>
           <div className="grid grid-cols-3 gap-3">
-            {" "}
             <div>
-              {" "}
               <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
-                Top Cover
-              </label>{" "}
+                Top Cover ({isSI ? "mm" : "in"})
+              </label>
               <input
                 type="number"
                 value={topCover}
                 onChange={(e) => setTopCover(e.target.value)}
                 className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
-              />{" "}
-            </div>{" "}
+              />
+            </div>
             <div>
-              {" "}
               <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
-                Bot Cover
-              </label>{" "}
+                Bot Cover ({isSI ? "mm" : "in"})
+              </label>
               <input
                 type="number"
                 value={bottomCover}
                 onChange={(e) => setBottomCover(e.target.value)}
                 className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
-              />{" "}
-            </div>{" "}
+              />
+            </div>
             <div>
-              {" "}
               <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
-                Side Cover
-              </label>{" "}
+                Side Cover ({isSI ? "mm" : "in"})
+              </label>
               <input
                 type="number"
                 value={sideCover}
                 onChange={(e) => setSideCover(e.target.value)}
                 className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
-              />{" "}
-            </div>{" "}
-          </div>{" "}
-        </div>{" "}
+              />
+            </div>
+          </div>
+        </div>
         <div className="flex flex-col">
-          {" "}
           <div className="flex-1 bg-slate-50 dark:bg-slate-800 rounded-2xl flex flex-col items-center justify-center px-4 py-3 border border-slate-100 dark:border-slate-700 relative min-h-[250px]">
-            {" "}
-            {/* SVG Visual representing cross section */}{" "}
+            {/* SVG Visual representing cross section */}
             <svg
               viewBox="0 0 400 150"
               className="w-full max-w-[300px] h-full object-contain"
             >
-              {" "}
-              {/* Slab Outline */}{" "}
+              {/* Slab Outline */}
               <rect
                 x="20"
                 y="20"
@@ -216,8 +197,8 @@ export default function SlabSteelModule({
                 height="110"
                 className="fill-slate-200 dark:fill-slate-700 stroke-slate-300 dark:stroke-slate-600"
                 strokeWidth="2"
-              />{" "}
-              {/* Main Bars (Bottom) */}{" "}
+              />
+              {/* Main Bars (Bottom) */}
               <line
                 x1="45"
                 y1="105"
@@ -226,20 +207,20 @@ export default function SlabSteelModule({
                 className="stroke-indigo-600 dark:stroke-indigo-400"
                 strokeWidth="6"
                 strokeLinecap="round"
-              />{" "}
+              />
               <circle
                 cx="355"
                 cy="105"
                 r="4"
                 className="fill-indigo-600 dark:fill-indigo-400"
-              />{" "}
+              />
               <circle
                 cx="45"
                 cy="105"
                 r="4"
                 className="fill-indigo-600 dark:fill-indigo-400"
-              />{" "}
-              {/* Dist Bars (Top perpendicular) */}{" "}
+              />
+              {/* Dist Bars (Top perpendicular) */}
               {[60, 100, 140, 180, 220, 260, 300, 340].map((cx, i) => (
                 <circle
                   key={i}
@@ -248,8 +229,8 @@ export default function SlabSteelModule({
                   r="5"
                   className="fill-rose-500 dark:fill-rose-400"
                 />
-              ))}{" "}
-              {/* Labels */}{" "}
+              ))}
+              {/* Labels */}
               <text
                 x="200"
                 y="85"
@@ -259,7 +240,7 @@ export default function SlabSteelModule({
                 fontWeight="bold"
               >
                 Dist. Bars
-              </text>{" "}
+              </text>
               <text
                 x="200"
                 y="125"
@@ -269,8 +250,8 @@ export default function SlabSteelModule({
                 fontWeight="bold"
               >
                 Main Bars
-              </text>{" "}
-              {/* Cover lines */}{" "}
+              </text>
+              {/* Cover lines */}
               <line
                 x1="200"
                 y1="20"
@@ -279,15 +260,15 @@ export default function SlabSteelModule({
                 className="stroke-slate-500 dark:stroke-slate-400"
                 strokeWidth="1"
                 strokeDasharray="2"
-              />{" "}
+              />
               <text
                 x="205"
                 y="32"
                 fontSize="10"
                 className="fill-slate-500 dark:fill-slate-400"
               >
-                {topCover}mm Cover
-              </text>{" "}
+                {topCover}{isSI ? "mm" : "in"} Cover
+              </text>
               <line
                 x1="200"
                 y1="115"
@@ -296,25 +277,24 @@ export default function SlabSteelModule({
                 className="stroke-slate-500 dark:stroke-slate-400"
                 strokeWidth="1"
                 strokeDasharray="2"
-              />{" "}
+              />
               <text
                 x="205"
                 y="125"
                 fontSize="10"
                 className="fill-slate-500 dark:fill-slate-400"
               >
-                {bottomCover}mm
-              </text>{" "}
-            </svg>{" "}
+                {bottomCover}{isSI ? "mm" : "in"}
+              </text>
+            </svg>
             <div className="mt-4 text-center">
-              {" "}
               <span className="text-xs text-slate-400 font-medium tracking-wide uppercase whitespace-nowrap">
                 Cross Section View
-              </span>{" "}
-            </div>{" "}
-          </div>{" "}
-        </div>{" "}
-      </div>{" "}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

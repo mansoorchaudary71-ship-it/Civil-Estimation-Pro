@@ -126,142 +126,115 @@ export default function ChainageVolumeEstimator() {
   const finalNet = totalCut - totalFill;
   return (
     <div className="w-full h-full overflow-y-auto bg-gray-50 text-gray-900 font-sans p-6 md:p-8">
-      {" "}
       <div className="max-w-7xl mx-auto space-y-8">
-        {" "}
         <header className="mb-10 block">
-          {" "}
           <div>
-            {" "}
             <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent pb-1 flex items-center gap-3 whitespace-nowrap">
-              {" "}
               <Map className="w-8 h-8 text-amber-500" /> Road Earthwork
-              Calculator{" "}
-            </h1>{" "}
+              Calculator
+            </h1>
             <p className="text-gray-500 mt-2 font-medium">
-              {" "}
               Calculate road alignment cutting and filling volumes using the
-              accurate Prismoidal Formula.{" "}
-            </p>{" "}
+              accurate Prismoidal Formula.
+            </p>
             <div className="mt-5 w-fit">
               <GlobalSettingsToggle align="left" showCurrency={false} />
-            </div>{" "}
-          </div>{" "}
-        </header>{" "}
+            </div>
+          </div>
+        </header>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {" "}
           <section className="lg:col-span-8 space-y-6">
-            {" "}
-            {/* Global Parameters */}{" "}
+            {/* Global Parameters */}
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all flex-1 min-w-fit whitespace-nowrap">
-              {" "}
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                {" "}
                 <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
-                  {" "}
-                  <Layers className="w-5 h-5" />{" "}
-                </div>{" "}
+                  <Layers className="w-5 h-5" />
+                </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800 whitespace-nowrap">
                   Road Parameters
-                </h2>{" "}
-              </div>{" "}
+                </h2>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {" "}
                 <div>
-                  {" "}
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                     Formation Width ({unitL})
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                     value={formationWidth}
                     onChange={(e) => setFormationWidth(e.target.value)}
-                  />{" "}
-                </div>{" "}
+                  />
+                </div>
                 <div>
-                  {" "}
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                     Cut Slope (H:1V)
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                     value={cutSlope}
                     onChange={(e) => setCutSlope(e.target.value)}
-                  />{" "}
-                </div>{" "}
+                  />
+                </div>
                 <div>
-                  {" "}
                   <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
                     Fill Slope (H:1V)
-                  </label>{" "}
+                  </label>
                   <input
                     type="number"
                     className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
                     value={fillSlope}
                     onChange={(e) => setFillSlope(e.target.value)}
-                  />{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+                  />
+                </div>
+              </div>
+            </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] flex-1 min-w-fit whitespace-nowrap">
-              {" "}
               <div className="flex items-center justify-between mb-5 border-b border-gray-50 pb-4">
-                {" "}
                 <div className="flex items-center gap-3">
-                  {" "}
                   <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
-                    {" "}
-                    <Map className="w-5 h-5" />{" "}
-                  </div>{" "}
+                    <Map className="w-5 h-5" />
+                  </div>
                   <h2 className="text-xl font-bold tracking-tight text-gray-800 whitespace-nowrap">
                     Station Data
-                  </h2>{" "}
-                </div>{" "}
+                  </h2>
+                </div>
                 <button
                   onClick={addStation}
                   className="flex items-center gap-2 px-4 py-2 bg-amber-50 text-amber-700 hover:bg-amber-100 rounded-lg text-sm font-semibold transition-colors"
                 >
-                  {" "}
-                  <Plus className="w-4 h-4" /> Add Station{" "}
-                </button>{" "}
-              </div>{" "}
+                  <Plus className="w-4 h-4" /> Add Station
+                </button>
+              </div>
               <div className="overflow-x-auto">
-                {" "}
                 <table className="w-full text-left border-collapse">
-                  {" "}
                   <thead>
-                    {" "}
                     <tr className="border-b border-gray-100 text-xs uppercase tracking-wider text-gray-500 whitespace-nowrap">
-                      {" "}
                       <th className="pb-3 pr-4 font-semibold min-w-[120px]">
                         Chainage
-                      </th>{" "}
+                      </th>
                       <th className="pb-3 px-4 font-semibold min-w-[100px]">
                         NGL ({unitL})
-                      </th>{" "}
+                      </th>
                       <th className="pb-3 px-4 font-semibold min-w-[100px]">
                         FL ({unitL})
-                      </th>{" "}
+                      </th>
                       <th className="pb-3 px-4 font-semibold min-w-[100px]">
                         Depth ({unitL})
-                      </th>{" "}
+                      </th>
                       <th className="pb-3 pl-4 font-semibold text-right">
                         Actions
-                      </th>{" "}
-                    </tr>{" "}
-                  </thead>{" "}
+                      </th>
+                    </tr>
+                  </thead>
                   <tbody className="divide-y divide-gray-50">
-                    {" "}
                     {results.map((st) => (
                       <tr
                         key={st.id}
                         className="group hover:bg-slate-50 transition-colors"
                       >
-                        {" "}
                         <td className="py-2 pr-4">
-                          {" "}
                           <input
                             type="text"
                             className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm flex-1 min-w-fit whitespace-nowrap"
@@ -274,10 +247,9 @@ export default function ChainageVolumeEstimator() {
                               )
                             }
                             placeholder="e.g. 1+200"
-                          />{" "}
-                        </td>{" "}
+                          />
+                        </td>
                         <td className="py-2 px-4">
-                          {" "}
                           <input
                             type="number"
                             className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm flex-1 min-w-fit whitespace-nowrap"
@@ -285,10 +257,9 @@ export default function ChainageVolumeEstimator() {
                             onChange={(e) =>
                               handleUpdateStation(st.id, "ngl", e.target.value)
                             }
-                          />{" "}
-                        </td>{" "}
+                          />
+                        </td>
                         <td className="py-2 px-4">
-                          {" "}
                           <input
                             type="number"
                             className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm flex-1 min-w-fit whitespace-nowrap"
@@ -296,202 +267,177 @@ export default function ChainageVolumeEstimator() {
                             onChange={(e) =>
                               handleUpdateStation(st.id, "fl", e.target.value)
                             }
-                          />{" "}
-                        </td>{" "}
+                          />
+                        </td>
                         <td className="py-2 px-4 whitespace-nowrap">
-                          {" "}
                           <div className="font-mono text-[13px] font-semibold flex flex-col items-start bg-slate-100 rounded-lg px-3 py-1.5 min-w-[70px]">
-                            {" "}
                             {st.depthCut > 0 && (
                               <span className="text-amber-600">
                                 C: {st.depthCut.toFixed(2)}
                               </span>
-                            )}{" "}
+                            )}
                             {st.depthFill > 0 && (
                               <span className="text-indigo-600">
                                 F: {st.depthFill.toFixed(2)}
                               </span>
-                            )}{" "}
+                            )}
                             {st.depthCut === 0 && st.depthFill === 0 && (
                               <span className="text-gray-400">0.00</span>
-                            )}{" "}
-                          </div>{" "}
-                        </td>{" "}
+                            )}
+                          </div>
+                        </td>
                         <td className="py-2 pl-4 text-right opacity-0 group-hover:opacity-100 transition-opacity">
-                          {" "}
                           <button
                             onClick={() => removeStation(st.id)}
                             disabled={stations.length <= 1}
                             className={`p-2 rounded-lg ${stations.length <= 1 ? "text-gray-300 cursor-not-allowed" : "text-red-400 hover:text-red-600 hover:bg-red-50"}`}
                           >
-                            {" "}
-                            <Trash2 className="w-5 h-5" />{" "}
-                          </button>{" "}
-                        </td>{" "}
+                            <Trash2 className="w-5 h-5" />
+                          </button>
+                        </td>
                       </tr>
-                    ))}{" "}
-                  </tbody>{" "}
-                </table>{" "}
-              </div>{" "}
-            </div>{" "}
-            {/* Detailed Results Table */}{" "}
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {/* Detailed Results Table */}
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex-1 min-w-fit whitespace-nowrap">
-              {" "}
               <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2 whitespace-nowrap">
                 <LayoutTemplate className="w-5 h-5 text-gray-400" /> Calculation
                 Output (Prismoidal Method)
-              </h2>{" "}
+              </h2>
               <div className="overflow-x-auto">
-                {" "}
                 <table className="w-full text-left text-sm border-collapse whitespace-nowrap">
-                  {" "}
                   <thead>
-                    {" "}
                     <tr className="border-b border-gray-200 text-[11px] font-bold uppercase tracking-wider text-gray-500 bg-gray-50/50">
-                      {" "}
                       <th className="py-3 px-4 rounded-tl-lg text-gray-800">
                         Ch / Stn
-                      </th>{" "}
-                      <th className="py-3 px-4">Dist.</th>{" "}
+                      </th>
+                      <th className="py-3 px-4">Dist.</th>
                       <th className="py-3 px-4 text-amber-700">
                         Area C ({unitA})
-                      </th>{" "}
+                      </th>
                       <th className="py-3 px-4 text-indigo-700">
                         Area F ({unitA})
-                      </th>{" "}
+                      </th>
                       <th className="py-3 px-4 text-amber-700">
                         Vol C ({unitV})
-                      </th>{" "}
+                      </th>
                       <th className="py-3 px-4 text-indigo-700">
                         Vol F ({unitV})
-                      </th>{" "}
+                      </th>
                       <th className="py-3 px-4 text-amber-900 bg-amber-50/50">
                         Cum C
-                      </th>{" "}
+                      </th>
                       <th className="py-3 px-4 text-indigo-900 bg-indigo-50/50">
                         Cum F
-                      </th>{" "}
+                      </th>
                       <th className="py-3 px-4 bg-gray-100/50 rounded-tr-lg">
                         Balance
-                      </th>{" "}
-                    </tr>{" "}
-                  </thead>{" "}
+                      </th>
+                    </tr>
+                  </thead>
                   <tbody className="divide-y divide-gray-100 font-mono text-[13px]">
-                    {" "}
                     {results.map((r, i) => (
                       <tr
                         key={r.id}
                         className="hover:bg-gray-50 transition-colors"
                       >
-                        {" "}
                         <td className="py-3 px-4 font-medium text-gray-900">
                           {r.chainage || "0"}
-                        </td>{" "}
+                        </td>
                         <td className="py-3 px-4 text-gray-500">
                           {r.length > 0 ? r.length.toFixed(2) : "-"}
-                        </td>{" "}
+                        </td>
                         <td className="py-3 px-4 text-amber-600/70">
                           {r.cutArea > 0 ? r.cutArea.toFixed(2) : "-"}
-                        </td>{" "}
+                        </td>
                         <td className="py-3 px-4 text-indigo-600/70">
                           {r.fillArea > 0 ? r.fillArea.toFixed(2) : "-"}
-                        </td>{" "}
+                        </td>
                         <td className="py-3 px-4 text-amber-600 font-semibold bg-amber-50/10">
                           {r.intCut > 0 ? r.intCut.toFixed(2) : "-"}
-                        </td>{" "}
+                        </td>
                         <td className="py-3 px-4 text-indigo-600 font-semibold bg-indigo-50/10">
                           {r.intFill > 0 ? r.intFill.toFixed(2) : "-"}
-                        </td>{" "}
+                        </td>
                         <td className="py-3 px-4 text-amber-800 bg-amber-50/40 font-bold">
                           {r.cumCut.toFixed(2)}
-                        </td>{" "}
+                        </td>
                         <td className="py-3 px-4 text-indigo-800 bg-indigo-50/40 font-bold">
                           {r.cumFill.toFixed(2)}
-                        </td>{" "}
+                        </td>
                         <td
                           className={`py-3 px-4 font-bold bg-gray-50/60 ${r.netVolume > 0 ? "text-amber-600" : r.netVolume < 0 ? "text-indigo-600" : "text-gray-500"}`}
                         >
-                          {" "}
                           {r.netVolume > 0 ? "C " : r.netVolume < 0 ? "F " : ""}
-                          {Math.abs(r.netVolume).toFixed(2)}{" "}
-                        </td>{" "}
+                          {Math.abs(r.netVolume).toFixed(2)}
+                        </td>
                       </tr>
-                    ))}{" "}
-                  </tbody>{" "}
-                </table>{" "}
-              </div>{" "}
-            </div>{" "}
-          </section>{" "}
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
           <section className="lg:col-span-4 space-y-6">
-            {" "}
             <div className="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-[2rem] p-8 shadow-2xl relative overflow-hidden sticky top-6">
-              {" "}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20"></div>{" "}
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl -ml-10 -mb-10"></div>{" "}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl -ml-10 -mb-10"></div>
               <div className="relative z-10">
-                {" "}
                 <div className="flex items-center gap-3 mb-6">
-                  {" "}
                   <div className="p-2 bg-white/10 rounded-xl backdrop-blur-md border border-white/10 text-white flex-1 min-w-fit whitespace-nowrap">
-                    {" "}
-                    <Calculator className="w-5 h-5" />{" "}
-                  </div>{" "}
+                    <Calculator className="w-5 h-5" />
+                  </div>
                   <h2 className="text-xl font-bold tracking-tight text-white whitespace-nowrap">
                     Summary
-                  </h2>{" "}
-                </div>{" "}
+                  </h2>
+                </div>
                 <div className="space-y-4">
-                  {" "}
                   <div className="bg-white/5 p-5 rounded-[1.25rem] border border-white/10 backdrop-blur-sm">
-                    {" "}
                     <div className="text-amber-200/70 text-sm font-semibold mb-1 uppercase tracking-wider whitespace-nowrap">
                       Cumulative Cut
-                    </div>{" "}
+                    </div>
                     <div className="text-3xl font-black tracking-tight text-amber-100 whitespace-nowrap">
-                      {" "}
-                      {totalCut.toFixed(2)}{" "}
+                      {totalCut.toFixed(2)}
                       <span className="text-lg font-medium text-amber-200/50 whitespace-nowrap">
                         {unitV}
-                      </span>{" "}
-                    </div>{" "}
-                  </div>{" "}
+                      </span>
+                    </div>
+                  </div>
                   <div className="bg-white/5 p-5 rounded-[1.25rem] border border-white/10 backdrop-blur-sm">
-                    {" "}
                     <div className="text-indigo-200/70 text-sm font-semibold mb-1 uppercase tracking-wider whitespace-nowrap">
                       Cumulative Fill
-                    </div>{" "}
+                    </div>
                     <div className="text-3xl font-black tracking-tight text-indigo-100 whitespace-nowrap">
-                      {" "}
-                      {totalFill.toFixed(2)}{" "}
+                      {totalFill.toFixed(2)}
                       <span className="text-lg font-medium text-indigo-200/50 whitespace-nowrap">
                         {unitV}
-                      </span>{" "}
-                    </div>{" "}
-                  </div>{" "}
+                      </span>
+                    </div>
+                  </div>
                   <div
                     className={`p-5 rounded-[1.25rem] border backdrop-blur-sm mt-6 ${finalNet >= 0 ? "bg-amber-500/20 border-amber-500/30" : "bg-indigo-500/20 border-indigo-500/30"}`}
                   >
-                    {" "}
                     <div
                       className={`text-xs font-bold mb-1 uppercase tracking-widest ${finalNet >= 0 ? "text-amber-200/80" : "text-indigo-200/80"}`}
                     >
-                      {" "}
-                      Final Balance{" "}
-                      {finalNet >= 0 ? "(Excess Cut)" : "(Required Fill)"}{" "}
-                    </div>{" "}
+                      Final Balance
+                      {finalNet >= 0 ? "(Excess Cut)" : "(Required Fill)"}
+                    </div>
                     <div
                       className={`text-4xl font-black tracking-tight ${finalNet >= 0 ? "text-amber-400" : "text-indigo-400"}`}
                     >
-                      {" "}
-                      {Math.abs(finalNet).toFixed(2)}{" "}
+                      {Math.abs(finalNet).toFixed(2)}
                       <span className="text-xl font-medium opacity-60 ml-1 whitespace-nowrap">
                         {unitV}
-                      </span>{" "}
-                    </div>{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <ShareButtonWithPopup
               activeTab="Chainage Volume"
               data={{
@@ -515,10 +461,10 @@ export default function ChainageVolumeEstimator() {
                 },
               }}
               title="Road Earthwork Estimator"
-            />{" "}
-          </section>{" "}
-        </div>{" "}
-      </div>{" "}
+            />
+          </section>
+        </div>
+      </div>
     </div>
   );
 }
