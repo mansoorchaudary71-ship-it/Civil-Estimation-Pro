@@ -34,6 +34,7 @@ type Shape =
   | "Prism";
 type System = "Metric" | "Imperial";
 import { useGlobalSettings } from "../../context/SettingsContext";
+import ColorfulTab from "../ui/ColorfulTab";
 export default function VolumeEstimator() {
   const { user } = useAuth();
   const { currentUnit, setCurrentUnit } = useGlobalSettings();
@@ -293,52 +294,20 @@ export default function VolumeEstimator() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
+        <div className="flex overflow-x-auto pb-4 gap-2 mb-8 scrollbar-hide p-1">
           {shapes.map((s) => {
             const Icon = s.icon;
-            const isActive = activeShape === s.id;
             const baseColor = s.color.split("-")[1];
             return (
-              <button
+              <ColorfulTab
                 key={s.id}
-                onClick={() => setActiveShape(s.id)}
-                className={`relative flex flex-col items-center justify-center gap-2 p-4 rounded-[20px] transition-all duration-200 overflow-hidden group hover:border-[color:var(--theme-color)] hover:bg-[color:var(--theme-bg-light)] ${isActive ? "shadow-sm" : "border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"}`}
-                style={
-                  {
-                    "--theme-color": `var(--color-${baseColor}-500)`,
-                    "--theme-color-hover": `var(--color-${baseColor}-600)`,
-                    "--theme-bg": `color-mix(in srgb, var(--color-${baseColor}-500) 10%, transparent)`,
-                    "--theme-bg-light": `color-mix(in srgb, var(--color-${baseColor}-500) 5%, transparent)`,
-                    borderColor: isActive ? "var(--theme-color)" : undefined,
-                    borderWidth: isActive ? "2px" : undefined,
-                    borderStyle: isActive ? "solid" : undefined,
-                    backgroundColor: isActive
-                      ? "var(--theme-bg-light)"
-                      : undefined,
-                  } as React.CSSProperties
-                }
-              >
-                <div
-                  className="flex items-center justify-center w-12 h-12 rounded-xl transition-transform duration-300 group-hover:scale-110"
-                  style={{
-                    backgroundColor: "var(--theme-bg)",
-                    color: "var(--theme-color)",
-                    filter: isActive
-                      ? "drop-shadow(0 0 20px color-mix(in srgb, var(--theme-color) 25%, transparent))"
-                      : undefined,
-                  }}
-                >
-                  <Icon className="w-7 h-7" strokeWidth={2} />
-                </div>
-                <span
-                  className={`text-[11px] font-extrabold text-center leading-tight tracking-wide ${isActive ? "" : "text-slate-600 dark:text-slate-400 group-hover:[color:var(--theme-color-hover)]"}`}
-                  style={{
-                    color: isActive ? "var(--theme-color-hover)" : undefined,
-                  }}
-                >
-                  {s.label}
-                </span>
-              </button>
+                id={s.id}
+                label={s.label}
+                icon={<Icon className="w-5 h-5" />}
+                isActive={activeShape === s.id}
+                onClick={() => setActiveShape(s.id as Shape)}
+                colorTheme={baseColor as any}
+              />
             );
           })}
         </div>
@@ -353,9 +322,7 @@ export default function VolumeEstimator() {
                   return <ShapeIcon className="w-6 h-6" />;
                 })()}
               </div>
-              <h3 className="font-bold text-xl">
-                {activeShape} Parameters
-              </h3>
+              <h3 className="font-bold text-xl">{activeShape} Parameters</h3>
             </div>
             <div className="space-y-4">
               {activeShape === "Rectangular Prism" && (
@@ -664,9 +631,7 @@ export default function VolumeEstimator() {
                 </span>
                 <span className="text-4xl font-black text-white">
                   {volume.toFixed(2)}
-                  <span className="text-xl text-blue-300">
-                    {volUnit}
-                  </span>
+                  <span className="text-xl text-blue-300">{volUnit}</span>
                 </span>
               </div>
               <div className="flex flex-wrap gap-4 items-center w-full">

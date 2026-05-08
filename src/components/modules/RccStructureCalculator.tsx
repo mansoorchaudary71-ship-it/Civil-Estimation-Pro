@@ -12,6 +12,7 @@ import {
   Save,
 } from "lucide-react";
 import ShareButtonWithPopup from "./ShareMenu";
+import ColorfulTab from "../ui/ColorfulTab";
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import SlabSteelModule, { SlabSteelResults } from "./SlabSteelModule";
@@ -225,52 +226,20 @@ export default function RccStructureCalculator({
           </>
         )}
         {/* Types Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-8">
+        <div className="flex overflow-x-auto pb-4 gap-2 mb-8 scrollbar-hide p-1">
           {structureTypes.map((t) => {
             const Icon = t.icon;
-            const isActive = activeType === t.id;
             const baseColor = t.color.split("-")[1];
             return (
-              <button
+              <ColorfulTab
                 key={t.id}
+                id={t.id}
+                label={t.label}
+                icon={<Icon className="w-4 h-4" />}
+                isActive={activeType === t.id}
                 onClick={() => setActiveType(t.id)}
-                className={`relative flex flex-col items-center justify-center gap-2 px-2 py-4 rounded-[16px] transition-all duration-200 overflow-hidden group hover:border-[color:var(--theme-color)] hover:bg-[color:var(--theme-bg-light)] ${isActive ? "shadow-sm" : "border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"}`}
-                style={
-                  {
-                    "--theme-color": `var(--color-${baseColor}-500)`,
-                    "--theme-color-hover": `var(--color-${baseColor}-600)`,
-                    "--theme-bg": `color-mix(in srgb, var(--color-${baseColor}-500) 10%, transparent)`,
-                    "--theme-bg-light": `color-mix(in srgb, var(--color-${baseColor}-500) 5%, transparent)`,
-                    borderColor: isActive ? "var(--theme-color)" : undefined,
-                    borderWidth: isActive ? "2px" : undefined,
-                    borderStyle: isActive ? "solid" : undefined,
-                    backgroundColor: isActive
-                      ? "var(--theme-bg-light)"
-                      : undefined,
-                  } as React.CSSProperties
-                }
-              >
-                <div
-                  className="flex items-center justify-center w-10 h-10 rounded-xl transition-transform duration-300 group-hover:scale-110"
-                  style={{
-                    backgroundColor: "var(--theme-bg)",
-                    color: "var(--theme-color)",
-                    filter: isActive
-                      ? "drop-shadow(0 0 20px color-mix(in srgb, var(--theme-color) 25%, transparent))"
-                      : undefined,
-                  }}
-                >
-                  <Icon className="w-5 h-5" strokeWidth={2} />
-                </div>
-                <span
-                  className={`text-[10px] sm:text-[11px] font-extrabold text-center leading-tight tracking-wide z-10 ${isActive ? "" : "text-slate-600 dark:text-slate-400 group-hover:[color:var(--theme-color-hover)]"}`}
-                  style={{
-                    color: isActive ? "var(--theme-color-hover)" : undefined,
-                  }}
-                >
-                  {t.label}
-                </span>
-              </button>
+                colorTheme={baseColor as any}
+              />
             );
           })}
         </div>
