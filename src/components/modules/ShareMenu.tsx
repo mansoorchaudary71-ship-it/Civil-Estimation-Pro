@@ -667,7 +667,7 @@ export default function ShareButtonWithPopup({
             <div className="flex flex-col">
               <button
                 onClick={() => generatePDF("pdf")}
-                className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left"
+                className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-transparent hover:text-slate-900 transition-all group w-full text-left"
               >
                 <div className="p-2.5 rounded-full bg-rose-50 text-rose-500 group-hover:bg-rose-100 transition-colors shrink-0">
                   <FileText className="w-5 h-5" />
@@ -677,7 +677,7 @@ export default function ShareButtonWithPopup({
               <div className="h-px bg-slate-100 my-1 mx-4"></div>
               <button
                 onClick={generateExcel}
-                className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left"
+                className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-transparent hover:text-slate-900 transition-all group w-full text-left"
               >
                 <div className="p-2.5 rounded-full bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100 transition-colors shrink-0">
                   <FileSpreadsheet className="w-5 h-5" />
@@ -687,7 +687,7 @@ export default function ShareButtonWithPopup({
               <div className="h-px bg-slate-100 my-1 mx-4"></div>
               <button
                 onClick={() => generatePDF("whatsapp")}
-                className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left"
+                className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-transparent hover:text-slate-900 transition-all group w-full text-left"
               >
                 <div className="p-2.5 rounded-full bg-green-50 text-green-600 group-hover:bg-green-100 transition-colors shrink-0">
                   <MessageCircle className="w-5 h-5" />
@@ -697,7 +697,7 @@ export default function ShareButtonWithPopup({
               <div className="h-px bg-slate-100 my-1 mx-4"></div>
               <button
                 onClick={() => generatePDF("email")}
-                className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left"
+                className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-transparent hover:text-slate-900 transition-all group w-full text-left"
               >
                 <div className="p-2.5 rounded-full bg-blue-50 text-blue-600 group-hover:bg-blue-100 transition-colors shrink-0">
                   <Mail className="w-5 h-5" />
@@ -707,7 +707,7 @@ export default function ShareButtonWithPopup({
               <div className="h-px bg-slate-100 my-1 mx-4"></div>
               <button
                 onClick={handleDownloadText}
-                className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-all group w-full text-left"
+                className="flex items-center gap-4 px-3 py-3 rounded-xl text-[15px] font-medium text-slate-700 hover:bg-transparent hover:text-slate-900 transition-all group w-full text-left"
               >
                 <div className="p-2.5 rounded-full bg-indigo-50 text-indigo-600 group-hover:bg-indigo-100 transition-colors shrink-0">
                   <Download className="w-5 h-5" />

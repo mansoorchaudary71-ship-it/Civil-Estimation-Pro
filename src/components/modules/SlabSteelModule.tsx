@@ -80,7 +80,7 @@ export default function SlabSteelModule({
   ]);
   return (
     <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[1.5rem] overflow-hidden mt-6 shadow-sm">
-      <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3 bg-slate-50 dark:bg-slate-800/50">
+      <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3 bg-transparent dark:bg-slate-800/50">
         <Layers className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
         <h3 className="text-lg font-bold text-slate-800 dark:text-white">
           Steel Reinforcement Settings
@@ -99,7 +99,7 @@ export default function SlabSteelModule({
                 </label>
                 <input
                   type="number"
-                  className="w-full bg-white dark:bg-slate-800 border-none text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all"
+                  className="w-full bg-white dark:bg-slate-800 border border-slate-200 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all"
                   value={mainDia}
                   onChange={(e) => setMainDia(e.target.value)}
                 />
@@ -110,14 +110,14 @@ export default function SlabSteelModule({
                 </label>
                 <input
                   type="number"
-                  className="w-full bg-white dark:bg-slate-800 border-none text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all"
+                  className="w-full bg-white dark:bg-slate-800 border border-slate-200 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all"
                   value={mainSpacing}
                   onChange={(e) => setMainSpacing(e.target.value)}
                 />
               </div>
             </div>
           </div>
-          <div className="bg-slate-50 dark:bg-slate-800/30 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-700/50">
+          <div className="bg-transparent dark:bg-slate-800/30 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-700/50">
             <h4 className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-4">
               Distribution Bars (Top/Cross)
             </h4>
@@ -128,7 +128,7 @@ export default function SlabSteelModule({
                 </label>
                 <input
                   type="number"
-                  className="w-full bg-white dark:bg-slate-800 border-none text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all"
+                  className="w-full bg-white dark:bg-slate-800 border border-slate-200 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all"
                   value={distDia}
                   onChange={(e) => setDistDia(e.target.value)}
                 />
@@ -139,7 +139,7 @@ export default function SlabSteelModule({
                 </label>
                 <input
                   type="number"
-                  className="w-full bg-white dark:bg-slate-800 border-none text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all"
+                  className="w-full bg-white dark:bg-slate-800 border border-slate-200 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all"
                   value={distSpacing}
                   onChange={(e) => setDistSpacing(e.target.value)}
                 />
@@ -155,7 +155,7 @@ export default function SlabSteelModule({
                 type="number"
                 value={topCover}
                 onChange={(e) => setTopCover(e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
               />
             </div>
             <div>
@@ -166,7 +166,7 @@ export default function SlabSteelModule({
                 type="number"
                 value={bottomCover}
                 onChange={(e) => setBottomCover(e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
               />
             </div>
             <div>
@@ -177,13 +177,13 @@ export default function SlabSteelModule({
                 type="number"
                 value={sideCover}
                 onChange={(e) => setSideCover(e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
               />
             </div>
           </div>
         </div>
         <div className="flex flex-col">
-          <div className="flex-1 bg-slate-50 dark:bg-slate-800 rounded-2xl flex flex-col items-center justify-center px-4 py-3 border border-slate-100 dark:border-slate-700 relative min-h-[250px]">
+          <div className="flex-1 bg-transparent dark:bg-slate-800 rounded-2xl flex flex-col items-center justify-center px-4 py-3 border border-slate-100 dark:border-slate-700 relative min-h-[250px]">
             {/* SVG Visual representing cross section */}
             <svg
               viewBox="0 0 400 150"

@@ -422,7 +422,7 @@ export default function Takeoff() {
           </div>
         </div>
         {/* Toolbar Inner */}
-        <div className="h-12 border-b border-slate-200 bg-slate-50/50 flex items-center justify-between px-4 shrink-0 w-full text-xs">
+        <div className="h-12 border-b border-slate-200 bg-transparent/50 flex items-center justify-between px-4 shrink-0 w-full text-xs">
           <div className="flex items-center gap-4">
             <div className="text-slate-800 font-medium truncate max-w-[200px]">
               {filename}
@@ -490,7 +490,7 @@ export default function Takeoff() {
         {/* Main Workspace */}
         <div className="flex-1 flex overflow-hidden relative">
           {/* Left Measurement Tools */}
-          <div className="w-12 border-r border-slate-200 bg-slate-50 flex flex-col items-center py-4 gap-3 shrink-0">
+          <div className="w-12 border-r border-slate-200 bg-transparent flex flex-col items-center py-4 gap-3 shrink-0">
             <button
               onClick={() => {
                 setMode("area");
@@ -513,7 +513,7 @@ export default function Takeoff() {
             </button>
           </div>
           {/* Assemblies Sidebar */}
-          <div className="w-56 border-r border-slate-200 bg-slate-50/50 flex flex-col shrink-0">
+          <div className="w-56 border-r border-slate-200 bg-transparent/50 flex flex-col shrink-0">
             <div className="h-10 border-b border-slate-200 flex items-center px-4 bg-white/30">
               <span className="text-[10px] font-semibold uppercase text-slate-500 tracking-wider flex-1">
                 Smart Assemblies
@@ -872,7 +872,7 @@ export default function Takeoff() {
             )}
             {/* Enter/Escape Helper */}
             {drawingPoints.length > 0 && (
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-slate-50/80 border border-slate-200 rounded-full px-4 py-1.5 text-[10px] text-slate-500 backdrop-blur-sm pointer-events-none flex gap-4 shadow-lg">
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-transparent/80 border border-slate-200 rounded-full px-4 py-1.5 text-[10px] text-slate-500 backdrop-blur-sm pointer-events-none flex gap-4 shadow-lg">
                 <span>
                   <kbd className="bg-white px-1.5 rounded border border-slate-200 mr-1">
                     Click
@@ -895,7 +895,7 @@ export default function Takeoff() {
             )}
           </div>
           {/* Right Panel */}
-          <div className="w-64 border-l border-slate-200 bg-slate-50/50 flex flex-col shrink-0">
+          <div className="w-64 border-l border-slate-200 bg-transparent/50 flex flex-col shrink-0">
             <div className="h-10 border-b border-slate-200 flex items-center px-4 bg-white/30">
               <span className="text-[10px] font-semibold uppercase text-slate-500 tracking-wider flex-1">
                 Takeoffs

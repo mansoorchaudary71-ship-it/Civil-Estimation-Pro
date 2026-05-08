@@ -9,30 +9,30 @@ interface ColorfulTabProps {
   colorTheme?: 'blue' | 'indigo' | 'orange' | 'teal' | 'rose' | 'emerald' | 'amber' | 'cyan' | 'slate';
 }
 
-const activeBgStyles = {
-  blue: 'bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-md shadow-blue-500/20 border-transparent',
-  indigo: 'bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-md shadow-indigo-500/20 border-transparent',
-  orange: 'bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-md shadow-orange-500/20 border-transparent',
-  teal: 'bg-gradient-to-br from-teal-500 to-teal-600 text-white shadow-md shadow-teal-500/20 border-transparent',
-  rose: 'bg-gradient-to-br from-rose-500 to-rose-600 text-white shadow-md shadow-rose-500/20 border-transparent',
-  emerald: 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-md shadow-emerald-500/20 border-transparent',
-  amber: 'bg-gradient-to-br from-amber-500 to-amber-600 text-white shadow-md shadow-amber-500/20 border-transparent',
-  cyan: 'bg-gradient-to-br from-cyan-500 to-cyan-600 text-white shadow-md shadow-cyan-500/20 border-transparent',
-  slate: 'bg-gradient-to-br from-slate-700 to-slate-800 text-white shadow-md shadow-slate-500/20 border-transparent',
+const activeBgStyles: Record<string, string> = {
+  blue: 'text-blue-600 border-b-[3px] border-blue-600 bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-xl rounded-b-none',
+  indigo: 'text-indigo-600 border-b-[3px] border-indigo-600 bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-xl rounded-b-none',
+  orange: 'text-orange-600 border-b-[3px] border-orange-600 bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-xl rounded-b-none',
+  teal: 'text-teal-600 border-b-[3px] border-teal-600 bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-xl rounded-b-none',
+  rose: 'text-rose-600 border-b-[3px] border-rose-600 bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-xl rounded-b-none',
+  emerald: 'text-emerald-600 border-b-[3px] border-emerald-600 bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-xl rounded-b-none',
+  amber: 'text-amber-600 border-b-[3px] border-amber-600 bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-xl rounded-b-none',
+  cyan: 'text-cyan-600 border-b-[3px] border-cyan-600 bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-xl rounded-b-none',
+  slate: 'text-slate-800 border-b-[3px] border-slate-800 bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-xl rounded-b-none',
 };
 
-const inactiveBgStyle = 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50 border-transparent shadow-sm hover:shadow cursor-pointer border border-slate-200/50 dark:border-slate-800';
+const inactiveBgStyle = 'bg-transparent text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50/50 dark:hover:bg-slate-800/50 cursor-pointer border-b-[3px] border-transparent rounded-xl';
 
 export default function ColorfulTab({ id, label, icon, isActive, onClick, colorTheme = 'indigo' }: ColorfulTabProps) {
-  const activeClasses = isActive ? activeBgStyles[colorTheme] + ' ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-900 ring-' + colorTheme + '-500/50 scale-[1.02]' : inactiveBgStyle;
+  const activeClasses = isActive ? activeBgStyles[colorTheme] : inactiveBgStyle;
 
   return (
     <button
       onClick={onClick}
-      className={`relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 border ${activeClasses}`}
+      className={`relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-3 font-bold text-sm transition-all duration-300 ${activeClasses}`}
     >
       {icon && (
-        <span className={`w-5 h-5 flex items-center justify-center ${isActive ? 'text-white/90' : 'text-slate-400 group-hover:text-slate-600'}`}>
+        <span className={`w-5 h-5 flex items-center justify-center ${isActive ? '' : 'text-slate-400 group-hover:text-slate-500'}`}>
           {icon}
         </span>
       )}

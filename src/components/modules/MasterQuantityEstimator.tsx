@@ -280,7 +280,7 @@ export default function MasterQuantityEstimator({
                     type="number"
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
@@ -291,7 +291,7 @@ export default function MasterQuantityEstimator({
                     type="number"
                     value={width}
                     onChange={(e) => setWidth(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </>
@@ -314,7 +314,7 @@ export default function MasterQuantityEstimator({
                   type="number"
                   value={depth}
                   onChange={(e) => setDepth(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             )}
@@ -327,7 +327,7 @@ export default function MasterQuantityEstimator({
                   type="number"
                   value={wastage}
                   onChange={(e) => setWastage(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             )}
@@ -340,7 +340,7 @@ export default function MasterQuantityEstimator({
                   type="text"
                   value={mixRatioStr}
                   onChange={(e) => setMixRatioStr(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   placeholder="e.g. 1:2:4"
                 />
               </div>
@@ -355,7 +355,7 @@ export default function MasterQuantityEstimator({
                     type="number"
                     value={rebarWeight}
                     onChange={(e) => setRebarWeight(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
@@ -366,7 +366,7 @@ export default function MasterQuantityEstimator({
                     type="number"
                     value={steelGrade}
                     onChange={(e) => setSteelGrade(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
@@ -377,7 +377,7 @@ export default function MasterQuantityEstimator({
                     type="number"
                     value={rebarSpacing}
                     onChange={(e) => setRebarSpacing(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
@@ -388,7 +388,7 @@ export default function MasterQuantityEstimator({
                     type="number"
                     value={costPerTon}
                     onChange={(e) => setCostPerTon(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </>
@@ -479,7 +479,7 @@ export default function MasterQuantityEstimator({
       className={
         isEmbedded
           ? "w-full"
-          : "w-full h-full overflow-y-auto bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8"
+          : "w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8"
       }
     >
       <div className={isEmbedded ? "w-full" : "max-w-7xl mx-auto"}>
@@ -556,7 +556,7 @@ export default function MasterQuantityEstimator({
                             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 font-bold tracking-wide text-left ${
                               isActive 
                               ? 'bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-md shadow-indigo-500/25 border-transparent ring-2 ring-indigo-500/50 ring-offset-2 ring-offset-slate-50 dark:ring-offset-slate-900 scale-[1.02] z-20' 
-                              : 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50 border border-slate-200/50 dark:border-slate-800 shadow-sm hover:shadow cursor-pointer'
+                              : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-transparent dark:hover:bg-slate-700/50 border border-slate-200/50 dark:border-slate-800 shadow-sm hover:shadow cursor-pointer'
                             }`}
                           >
                             <Icon

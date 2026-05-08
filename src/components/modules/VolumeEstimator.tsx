@@ -262,7 +262,7 @@ export default function VolumeEstimator() {
     "Liquid Capacity": `${liquidCapacity.toFixed(2)} ${capacityUnit}`,
   };
   return (
-    <div className="w-full h-full overflow-y-auto bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8">
+    <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8">
       <div className="max-w-5xl mx-auto">
         <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
           <Database className="w-8 h-8 text-blue-500" /> Volume Estimator
@@ -368,7 +368,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={length}
                       onChange={(e) => setLength(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
@@ -379,7 +379,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={width}
                       onChange={(e) => setWidth(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
@@ -390,7 +390,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                 </div>
@@ -404,7 +404,7 @@ export default function VolumeEstimator() {
                     type="number"
                     value={side}
                     onChange={(e) => setSide(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               )}
@@ -418,7 +418,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={radius}
                       onChange={(e) => setRadius(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
@@ -429,7 +429,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                 </div>
@@ -443,7 +443,7 @@ export default function VolumeEstimator() {
                     type="number"
                     value={radius}
                     onChange={(e) => setRadius(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               )}
@@ -457,7 +457,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={topRadius}
                       onChange={(e) => setTopRadius(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
@@ -468,7 +468,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={bottomRadius}
                       onChange={(e) => setBottomRadius(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
@@ -479,7 +479,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                 </div>
@@ -494,7 +494,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={base}
                       onChange={(e) => setBase(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
@@ -506,7 +506,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
@@ -517,7 +517,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={length}
                       onChange={(e) => setLength(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                 </div>
@@ -533,7 +533,7 @@ export default function VolumeEstimator() {
                         type="number"
                         value={topWidth}
                         onChange={(e) => setTopWidth(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                        className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                     <div>
@@ -544,7 +544,7 @@ export default function VolumeEstimator() {
                         type="number"
                         value={bottomWidth}
                         onChange={(e) => setBottomWidth(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                        className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   </div>
@@ -557,7 +557,7 @@ export default function VolumeEstimator() {
                         type="number"
                         value={depth}
                         onChange={(e) => setDepth(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                        className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                     <div>
@@ -568,7 +568,7 @@ export default function VolumeEstimator() {
                         type="number"
                         value={length}
                         onChange={(e) => setLength(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                        className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   </div>
@@ -584,7 +584,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={length}
                       onChange={(e) => setLength(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
@@ -595,7 +595,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={width}
                       onChange={(e) => setWidth(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
@@ -606,7 +606,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                 </div>
@@ -621,7 +621,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={baseArea}
                       onChange={(e) => setBaseArea(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
@@ -632,7 +632,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={basePerimeter}
                       onChange={(e) => setBasePerimeter(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
@@ -643,7 +643,7 @@ export default function VolumeEstimator() {
                       type="number"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                 </div>

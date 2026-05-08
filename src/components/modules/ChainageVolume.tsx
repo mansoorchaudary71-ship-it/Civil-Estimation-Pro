@@ -125,7 +125,7 @@ export default function ChainageVolumeEstimator() {
   const totalFill = cumFill;
   const finalNet = totalCut - totalFill;
   return (
-    <div className="w-full h-full overflow-y-auto bg-gray-50 text-gray-900 font-sans p-6 md:p-8">
+    <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-7xl mx-auto space-y-8">
         <header className="mb-10 block">
           <div>
@@ -232,7 +232,7 @@ export default function ChainageVolumeEstimator() {
                     {results.map((st) => (
                       <tr
                         key={st.id}
-                        className="group hover:bg-slate-50 transition-colors"
+                        className="group hover:bg-transparent transition-colors"
                       >
                         <td className="py-2 pr-4">
                           <input

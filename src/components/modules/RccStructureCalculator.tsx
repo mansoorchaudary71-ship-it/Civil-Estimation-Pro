@@ -32,6 +32,7 @@ export default function RccStructureCalculator({
   const { user } = useAuth();
   const { settings } = useSettings();
   const unitSystem = settings.measurement === "SI" ? "metric" : "imperial";
+  const isSI = unitSystem === "metric";
   const [activeType, setActiveType] = useState<StructureType>("Simple Slab");
   const [saveMessage, setSaveMessage] = useState<string>("");
   const [isSaving, setIsSaving] = useState<boolean>(false);
@@ -198,16 +199,16 @@ export default function RccStructureCalculator({
     colRoundBarsCount,
   ]);
   const exportData = {
-    "Concrete Volume": `${concreteVol.toFixed(3)} m³`,
-    "Total Steel": `${totalSteelKg.toFixed(2)} kg`,
-    "Steel Tonnage": `${(totalSteelKg / 1000).toFixed(3)} Metric Tons`,
+    "Concrete Volume": `${(concreteVol || 0).toFixed(3)} m³`,
+    "Total Steel": `${(totalSteelKg || 0).toFixed(2)} kg`,
+    "Steel Tonnage": `${((totalSteelKg || 0) / 1000).toFixed(3)} Metric Tons`,
   };
   return (
     <div
       className={
         isEmbedded
           ? "w-full"
-          : "w-full h-full overflow-y-auto bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8"
+          : "w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8"
       }
     >
       <div className={isEmbedded ? "w-full" : "max-w-6xl mx-auto"}>
@@ -291,7 +292,7 @@ export default function RccStructureCalculator({
                         type="number"
                         value={slabLength}
                         onChange={(e) => setSlabLength(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
+                        className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
                       />
                     </div>
                     <div>
@@ -302,7 +303,7 @@ export default function RccStructureCalculator({
                         type="number"
                         value={slabWidth}
                         onChange={(e) => setSlabWidth(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
+                        className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
                       />
                     </div>
                     <div>
@@ -314,7 +315,7 @@ export default function RccStructureCalculator({
                         step="0.01"
                         value={slabThickness}
                         onChange={(e) => setSlabThickness(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
+                        className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
                       />
                     </div>
                   </div>
@@ -338,7 +339,7 @@ export default function RccStructureCalculator({
                       type="number"
                       value={colHeight}
                       onChange={(e) => setColHeight(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
                     />
                   </div>
                   <div>
@@ -349,7 +350,7 @@ export default function RccStructureCalculator({
                       type="number"
                       value={colCover}
                       onChange={(e) => setColCover(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
                     />
                   </div>
                   {activeType === "Round Column" ? (
@@ -361,7 +362,7 @@ export default function RccStructureCalculator({
                         type="number"
                         value={colDia}
                         onChange={(e) => setColDia(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
+                        className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
                       />
                     </div>
                   ) : (
@@ -374,7 +375,7 @@ export default function RccStructureCalculator({
                           type="number"
                           value={colWidth}
                           onChange={(e) => setColWidth(e.target.value)}
-                          className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
+                          className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
                         />
                       </div>
                       <div>
@@ -385,7 +386,7 @@ export default function RccStructureCalculator({
                           type="number"
                           value={colDepth}
                           onChange={(e) => setColDepth(e.target.value)}
-                          className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
+                          className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
                         />
                       </div>
                     </>
@@ -404,7 +405,7 @@ export default function RccStructureCalculator({
                         type="number"
                         value={colRoundBarsCount}
                         onChange={(e) => setColRoundBarsCount(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
+                        className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
                       />
                     </div>
                   )}
@@ -416,7 +417,7 @@ export default function RccStructureCalculator({
                       type="number"
                       value={colMainBarDia}
                       onChange={(e) => setColMainBarDia(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
                     />
                   </div>
                   <div>
@@ -427,7 +428,7 @@ export default function RccStructureCalculator({
                       type="number"
                       value={colTieDia}
                       onChange={(e) => setColTieDia(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
                     />
                   </div>
                   <div>
@@ -438,7 +439,7 @@ export default function RccStructureCalculator({
                       type="number"
                       value={colTieSpacing}
                       onChange={(e) => setColTieSpacing(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
                     />
                   </div>
                 </>
@@ -457,7 +458,7 @@ export default function RccStructureCalculator({
                     Concrete Volume
                   </span>
                   <span className="text-4xl font-black text-white">
-                    {concreteVol.toFixed(3)}
+                    {(concreteVol || 0).toFixed(3)}
                     <span className="text-xl text-indigo-400 ml-2">
                       m³
                     </span>
@@ -468,13 +469,13 @@ export default function RccStructureCalculator({
                     Total Steel Weight
                   </span>
                   <span className="text-5xl font-black text-emerald-400">
-                    {totalSteelKg.toFixed(2)}
+                    {(totalSteelKg || 0).toFixed(2)}
                     <span className="text-2xl text-indigo-400 ml-3">
                       kg
                     </span>
                   </span>
                   <div className="mt-3 text-sm font-semibold text-indigo-300">
-                    ≈ {(totalSteelKg / 1000).toFixed(3)} Metric Tons
+                    ≈ {((totalSteelKg || 0) / 1000).toFixed(3)} Metric Tons
                   </div>
                 </div>
               </div>

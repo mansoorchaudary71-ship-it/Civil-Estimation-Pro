@@ -47,7 +47,7 @@ function NavItem({ icon, label, isActive, onClick }: { icon: React.ReactNode, la
   return (
     <button 
       onClick={onClick}
-      className={`flex flex-col items-center justify-center min-w-[64px] flex-1 py-1 gap-1 rounded-2xl transition-all duration-300 relative ${isActive ? 'text-blue-600 dark:text-blue-400 font-bold' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'}`}
+      className={`flex flex-col items-center justify-center min-w-[64px] flex-1 py-1 gap-1 rounded-2xl transition-all duration-300 relative ${isActive ? 'text-blue-600 dark:text-blue-400 font-bold' : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100'}`}
     >
       <div className={`flex items-center justify-center transition-transform ${isActive ? '-translate-y-1' : ''}`}>
         {icon}

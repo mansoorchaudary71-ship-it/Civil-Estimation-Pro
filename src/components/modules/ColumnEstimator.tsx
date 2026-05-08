@@ -115,7 +115,7 @@ export default function ColumnEstimator() {
   const sandCft = ((dryVol * ratio.s) / totalRatio) * 35.3147;
   const aggCft = ((dryVol * ratio.a) / totalRatio) * 35.3147;
   return (
-    <div className="w-full h-full overflow-y-auto bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8">
+    <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8">
       <div className="max-w-4xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
@@ -129,7 +129,7 @@ export default function ColumnEstimator() {
           </div>
           <GlobalSettingsToggle align="left" showCurrency={false} />
         </div>
-        <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-md border border-slate-200 dark:border-slate-800 overflow-hidden">
           <div className="p-6 md:p-8 space-y-8">
             {/* Shape Toggle Group */}
             <div>
@@ -181,7 +181,7 @@ export default function ColumnEstimator() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
+                      className="w-full bg-transparent dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                     />
@@ -192,7 +192,7 @@ export default function ColumnEstimator() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
+                      className="w-full bg-transparent dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
                       value={count}
                       onChange={(e) => setCount(e.target.value)}
                     />
@@ -203,7 +203,7 @@ export default function ColumnEstimator() {
                     Concrete Mix
                   </label>
                   <select
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm appearance-none"
+                    className="w-full bg-transparent dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm appearance-none"
                     value={mix}
                     onChange={(e) => setMix(e.target.value)}
                   >
@@ -216,7 +216,7 @@ export default function ColumnEstimator() {
                 </div>
               </div>
               {/* Visual Aid */}
-              <div className="bg-slate-50 dark:bg-slate-800 rounded-2xl flex flex-col items-center justify-center px-4 py-3 border border-slate-100 dark:border-slate-700/50 min-h-[300px]">
+              <div className="bg-transparent dark:bg-slate-800 rounded-2xl flex flex-col items-center justify-center px-4 py-3 border border-slate-100 dark:border-slate-700/50 min-h-[300px]">
                 <div
                   className="w-40 h-40 relative flex items-center justify-center text-blue-200 dark:text-blue-900 border-[8px] mb-6 shadow-inner transition-all duration-500 ease-in-out"
                   style={{

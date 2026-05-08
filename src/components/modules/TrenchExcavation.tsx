@@ -40,7 +40,7 @@ export default function TrenchExcavationEstimator() {
     beddingMaterialVolume = Math.max(0, beddingBoxVolume - pipeVolume);
   }
   return (
-    <div className="w-full h-full overflow-y-auto bg-gray-50 text-gray-900 font-sans p-6 md:p-8">
+    <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-4xl mx-auto space-y-8">
         <header className="mb-10 block">
           <div>

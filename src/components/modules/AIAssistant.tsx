@@ -49,9 +49,9 @@ export default function AIAssistant() {
     }
   };
   return (
-    <div className="flex flex-col h-full bg-slate-50 text-slate-900 p-8">
+    <div className="flex flex-col h-full bg-transparent text-slate-900 p-8">
       <div className="flex-1 bg-white border border-slate-200 rounded-xl flex flex-col overflow-hidden relative shadow-sm">
-        <div className="px-6 py-4 border-b border-slate-200 bg-slate-50 flex items-center gap-2">
+        <div className="px-6 py-4 border-b border-slate-200 bg-transparent flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></div>
           <h2 className="text-sm font-bold uppercase tracking-widest text-slate-700">
             AI Assistant
@@ -76,7 +76,7 @@ export default function AIAssistant() {
                   "rounded-2xl px-5 py-3 max-w-[85%] text-sm shadow-sm",
                   msg.role === "user"
                     ? "bg-indigo-600 text-white font-medium"
-                    : "bg-slate-50 text-slate-700 border border-slate-100 leading-relaxed",
+                    : "bg-transparent text-slate-700 border border-slate-100 leading-relaxed",
                 )}
               >
                 {msg.role === "model" ? (
@@ -94,7 +94,7 @@ export default function AIAssistant() {
               <div className="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center shrink-0 mt-1">
                 <Loader2 className="w-[18px] h-[18px] text-indigo-600 animate-spin" />
               </div>
-              <div className="rounded-2xl px-5 py-4 bg-slate-50 border border-slate-100 flex items-center gap-2 shadow-sm">
+              <div className="rounded-2xl px-5 py-4 bg-transparent border border-slate-100 flex items-center gap-2 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce"></span>
                 <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce delay-75"></span>
                 <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce delay-150"></span>
@@ -114,7 +114,7 @@ export default function AIAssistant() {
                 }
               }}
               placeholder="Ask about cost optimization or estimation..."
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 resize-none min-h-[44px] max-h-[120px] text-slate-800 shadow-sm transition-all"
+              className="w-full bg-transparent border border-slate-200 rounded-xl py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 resize-none min-h-[44px] max-h-[120px] text-slate-800 shadow-sm transition-all"
               rows={1}
             />
             <button

@@ -90,7 +90,7 @@ export default function AdvancedSpecs({
         <select
           value={specs[specKey] as string}
           onChange={(e) => updateSpec(specKey, e.target.value)}
-          className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium appearance-none text-sm"
+          className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium appearance-none text-sm"
         >
           {options.map((opt) => (
             <option key={opt} value={opt}>
@@ -116,12 +116,12 @@ export default function AdvancedSpecs({
         value={specs[specKey] as string}
         onChange={(e) => updateSpec(specKey, e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm"
+        className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm"
       />
     </div>
   );
   const renderToggle = (label: string, specKey: keyof SpecsState) => (
-    <div className="flex items-center justify-between col-span-2 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5">
+    <div className="flex items-center justify-between col-span-2 bg-transparent border border-slate-200 rounded-xl px-4 py-2.5">
       <span className="text-sm font-bold text-slate-700">{label}</span>
       <label className="relative inline-flex items-center cursor-pointer">
         <input
@@ -148,7 +148,7 @@ export default function AdvancedSpecs({
             Advanced Specifications
           </h2>
         </div>
-        <div className="p-2 bg-slate-50 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors">
+        <div className="p-2 bg-transparent text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors">
           {isOpen ? (
             <ChevronUp className="w-5 h-5" />
           ) : (
@@ -167,7 +167,7 @@ export default function AdvancedSpecs({
           <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(0)}
-              className="w-full flex items-center justify-between p-4 bg-slate-50/50 hover:bg-slate-50 text-left transition-colors"
+              className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
             >
               <span className="font-bold text-sm text-slate-800">
                 1. Foundation & Substructure
@@ -197,7 +197,7 @@ export default function AdvancedSpecs({
           <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(1)}
-              className="w-full flex items-center justify-between p-4 bg-slate-50/50 hover:bg-slate-50 text-left transition-colors"
+              className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
             >
               <span className="font-bold text-sm text-slate-800">
                 2. Superstructure (Grey Structure)
@@ -238,7 +238,7 @@ export default function AdvancedSpecs({
           <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(2)}
-              className="w-full flex items-center justify-between p-4 bg-slate-50/50 hover:bg-slate-50 text-left transition-colors"
+              className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
             >
               <span className="font-bold text-sm text-slate-800">
                 3. Finishing & Surfaces
@@ -290,7 +290,7 @@ export default function AdvancedSpecs({
           <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(3)}
-              className="w-full flex items-center justify-between p-4 bg-slate-50/50 hover:bg-slate-50 text-left transition-colors"
+              className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
             >
               <span className="font-bold text-sm text-slate-800">
                 4. Woodwork & Openings
@@ -337,7 +337,7 @@ export default function AdvancedSpecs({
           <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(4)}
-              className="w-full flex items-center justify-between p-4 bg-slate-50/50 hover:bg-slate-50 text-left transition-colors"
+              className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
             >
               <span className="font-bold text-sm text-slate-800">
                 5. MEP Services

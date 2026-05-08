@@ -73,7 +73,7 @@ export default function RateAnalysis() {
       };
     }, [rates]);
   return (
-    <div className="w-full h-full overflow-y-auto bg-slate-50 text-gray-900 font-sans p-6 md:p-8">
+    <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         <header className="mb-8">
           <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent pb-2">
@@ -212,7 +212,7 @@ export default function RateAnalysis() {
                     )
                   }
                 />
-                <div className="col-span-1 sm:col-span-2 bg-slate-50 px-4 py-3 rounded-2xl border border-slate-100 flex items-center justify-between">
+                <div className="col-span-1 sm:col-span-2 bg-transparent px-4 py-3 rounded-2xl border border-slate-100 flex items-center justify-between">
                   <div>
                     <div className="font-bold text-slate-700">
                       Contractor Overhead & Profit

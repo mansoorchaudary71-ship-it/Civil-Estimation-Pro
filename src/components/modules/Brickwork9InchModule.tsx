@@ -103,8 +103,8 @@ export default function Brickwork9InchModule() {
     };
   }, [wallLength, wallHeight, deductions, brickType, mixRatio, includeWastage, isSI]);
   return (
-    <div className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] overflow-hidden shadow-sm mt-4">
-      <div className="px-6 md:px-8 py-5 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between bg-slate-50 dark:bg-slate-800/50 gap-4">
+    <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] overflow-hidden shadow-md mt-4">
+      <div className="px-6 md:px-8 py-5 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between bg-transparent dark:bg-slate-800/50 gap-4">
         <div className="flex items-center gap-3">
           <div className="p-2.5 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-xl">
             <Columns className="w-5 h-5" />
@@ -118,15 +118,15 @@ export default function Brickwork9InchModule() {
             </p>
           </div>
         </div>
-        <span className="px-3 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold uppercase tracking-wider rounded-lg shadow-sm">
+        <span className="px-3 py-1.5 bg-transparent dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold uppercase tracking-wider rounded-lg shadow-sm">
           Load Bearing (230mm)
         </span>
       </div>
 
       <div className="p-6 md:p-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        <div className="flex flex-col gap-8 lg:gap-12">
           {/* Inputs Column */}
-          <div className="lg:col-span-7 space-y-8">
+          <div className="space-y-8">
             {/* Wall Dimensions Section */}
             <section>
               <h4 className="text-sm font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
@@ -166,7 +166,7 @@ export default function Brickwork9InchModule() {
                     type="number"
                     value={deductions}
                     onChange={(e) => setDeductions(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/50 shadow-sm transition-all"
+                    className="w-full bg-transparent dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/50 shadow-sm transition-all"
                     placeholder="e.g. 1.5"
                   />
                 </div>
@@ -184,23 +184,33 @@ export default function Brickwork9InchModule() {
                   <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">
                     Brick Size
                   </label>
-                  <div className="flex bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl w-full">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
                     <button
                       onClick={() => setBrickType("standard")}
-                      className={`flex-1 flex flex-col items-center justify-center py-2 px-2 text-sm font-bold rounded-lg transition-all ${brickType === "standard" ? "bg-white dark:bg-slate-700 text-orange-600 shadow-sm border border-slate-200/50 dark:border-slate-600" : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"}`}
+                      className={`flex flex-col items-start justify-center py-3 px-4 text-sm font-bold rounded-xl transition-all border ${brickType === "standard" ? "bg-orange-50 dark:bg-orange-500/10 border-orange-200 dark:border-orange-500/30 text-orange-700 dark:text-orange-400 shadow-sm" : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-orange-200 hover:bg-orange-50/50"}`}
                     >
-                      <span className="mb-0.5">Standard</span>
-                      <span className={`text-[10px] font-medium ${brickType === "standard" ? "text-orange-500/80" : "text-slate-400"}`}>
-                        230×110×75
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${brickType === "standard" ? "border-orange-500" : "border-slate-300"}`}>
+                          {brickType === "standard" && <div className="w-2 h-2 rounded-full bg-orange-500"></div>}
+                        </div>
+                        <span>Standard</span>
+                      </div>
+                      <span className={`text-[11px] font-medium ml-6 ${brickType === "standard" ? "text-orange-600/80 dark:text-orange-400/80" : "text-slate-400"}`}>
+                        230 × 110 × 75 mm
                       </span>
                     </button>
                     <button
                       onClick={() => setBrickType("modular")}
-                      className={`flex-1 flex flex-col items-center justify-center py-2 px-2 text-sm font-bold rounded-lg transition-all ${brickType === "modular" ? "bg-white dark:bg-slate-700 text-orange-600 shadow-sm border border-slate-200/50 dark:border-slate-600" : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"}`}
+                      className={`flex flex-col items-start justify-center py-3 px-4 text-sm font-bold rounded-xl transition-all border ${brickType === "modular" ? "bg-orange-50 dark:bg-orange-500/10 border-orange-200 dark:border-orange-500/30 text-orange-700 dark:text-orange-400 shadow-sm" : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-orange-200 hover:bg-orange-50/50"}`}
                     >
-                      <span className="mb-0.5">Modular</span>
-                      <span className={`text-[10px] font-medium ${brickType === "modular" ? "text-orange-500/80" : "text-slate-400"}`}>
-                        190×90×90
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${brickType === "modular" ? "border-orange-500" : "border-slate-300"}`}>
+                          {brickType === "modular" && <div className="w-2 h-2 rounded-full bg-orange-500"></div>}
+                        </div>
+                        <span>Modular</span>
+                      </div>
+                      <span className={`text-[11px] font-medium ml-6 ${brickType === "modular" ? "text-orange-600/80 dark:text-orange-400/80" : "text-slate-400"}`}>
+                        190 × 90 × 90 mm
                       </span>
                     </button>
                   </div>
@@ -251,9 +261,9 @@ export default function Brickwork9InchModule() {
           </div>
 
           {/* Results Column */}
-          <div className="lg:col-span-5 relative">
+          <div className="relative">
             <div className="sticky top-6 bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-md overflow-hidden flex flex-col h-full">
-              <div className="px-6 py-5 bg-slate-50 dark:bg-slate-800/80 border-b border-slate-100 dark:border-slate-700/50 text-center">
+              <div className="px-6 py-5 bg-transparent dark:bg-slate-800/80 border-b border-slate-100 dark:border-slate-700/50 text-center">
                 <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">
                   Net Wall Volume
                 </p>
@@ -335,7 +345,7 @@ export default function Brickwork9InchModule() {
               </div>
 
               {/* Footer info */}
-              <div className="px-6 py-4 bg-slate-50 dark:bg-slate-800/80 border-t border-slate-100 dark:border-slate-700 flex justify-center text-center">
+              <div className="px-6 py-4 bg-transparent dark:bg-slate-800/80 border-t border-slate-100 dark:border-slate-700 flex justify-center text-center">
                 <span className="flex items-center gap-1.5 text-xs font-bold text-slate-500 dark:text-slate-400">
                   <Droplets className="w-4 h-4 text-blue-400" />
                   Dry Mortar: {results.dryMortarVol.toFixed(3)} {results.isSI ? 'm³' : 'cft'}

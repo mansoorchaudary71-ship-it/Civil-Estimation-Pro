@@ -146,7 +146,7 @@ export default function RoadEstimator() {
   const pathSb = `M ${500 - dxWbmBot},${y2_S} L ${500 - dxCarriageway},${y2_Carriage} L 500,${y2_C} L ${500 + dxCarriageway},${y2_Carriage} L ${500 + dxWbmBot},${y2_S} L ${500 + dxSbBot},${y3_S} L ${500 + dxCarriageway},${y3_Carriage} L 500,${y3_C} L ${500 - dxCarriageway},${y3_Carriage} L ${500 - dxSbBot},${y3_S} Z`;
   const pathSg = `M ${500 - dxSbBot},${y3_S} L ${500 - dxCarriageway},${y3_Carriage} L 500,${y3_C} L ${500 + dxCarriageway},${y3_Carriage} L ${500 + dxSbBot},${y3_S} L ${500 + dxSgBot},${y4_S} L ${500 + dxCarriageway},${y4_Carriage} L 500,${y4_C} L ${500 - dxCarriageway},${y4_Carriage} L ${500 - dxSgBot},${y4_S} Z`;
   return (
-    <div className="w-full h-full overflow-y-auto bg-gray-50 text-gray-900 font-sans p-6 md:p-8">
+    <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-5xl mx-auto space-y-8">
         <header className="mb-10">
           <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent pb-1">

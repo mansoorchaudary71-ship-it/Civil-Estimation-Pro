@@ -204,7 +204,7 @@ export default function ConstructionMaterialEstimator() {
       rawExport: currentExportData,
     };
     content = (
-      <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full">
+      <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full">
         <h3 className="font-bold border-b pb-2">
           Concrete Slab / Footing
         </h3>
@@ -217,7 +217,7 @@ export default function ConstructionMaterialEstimator() {
               type="number"
               value={cLength}
               onChange={(e) => setCLength(e.target.value)}
-              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             />
           </div>
           <div>
@@ -228,7 +228,7 @@ export default function ConstructionMaterialEstimator() {
               type="number"
               value={cWidth}
               onChange={(e) => setCWidth(e.target.value)}
-              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             />
           </div>
           <div>
@@ -239,7 +239,7 @@ export default function ConstructionMaterialEstimator() {
               type="number"
               value={cDepth}
               onChange={(e) => setCDepth(e.target.value)}
-              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             />
           </div>
         </div>
@@ -274,7 +274,7 @@ export default function ConstructionMaterialEstimator() {
             <select
               value={cMix}
               onChange={(e) => setCMix(e.target.value)}
-              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             >
               <option value="1:5:10">1:5:10 (M5)</option>
               <option value="1:4:8">1:4:8 (M7.5)</option>
@@ -293,7 +293,7 @@ export default function ConstructionMaterialEstimator() {
               step="0.01"
               value={cWcRatio}
               onChange={(e) => setCWcRatio(e.target.value)}
-              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             />
           </div>
         </div>
@@ -358,7 +358,7 @@ export default function ConstructionMaterialEstimator() {
       activeTab === "bricks" ? (
         <Brickwork9InchModule />
       ) : (
-        <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full">
+        <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full">
           <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">
             {activeTab} Wall
           </h3>
@@ -371,7 +371,7 @@ export default function ConstructionMaterialEstimator() {
                 type="number"
                 value={bWallL}
                 onChange={(e) => setBWallL(e.target.value)}
-                className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
               />
             </div>
             <div>
@@ -382,7 +382,7 @@ export default function ConstructionMaterialEstimator() {
                 type="number"
                 value={bWallH}
                 onChange={(e) => setBWallH(e.target.value)}
-                className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
               />
             </div>
             <div>
@@ -393,7 +393,7 @@ export default function ConstructionMaterialEstimator() {
                 type="number"
                 value={bWallT}
                 onChange={(e) => setBWallT(e.target.value)}
-                className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
               />
             </div>
           </div>
@@ -440,7 +440,7 @@ export default function ConstructionMaterialEstimator() {
             <div className="flex flex-col gap-3">
               <div className="grid grid-cols-4 gap-2">
                 <select
-                  className="bg-slate-50 border p-2 rounded-lg text-xs font-medium"
+                  className="bg-transparent border p-2 rounded-lg text-xs font-medium"
                   value={newOpening.type}
                   onChange={(e) =>
                     setNewOpening({
@@ -464,7 +464,7 @@ export default function ConstructionMaterialEstimator() {
                         quantity: parseFloat(e.target.value),
                       })
                     }
-                    className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+                    className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
                   />
                 </div>
                 <div>
@@ -478,7 +478,7 @@ export default function ConstructionMaterialEstimator() {
                         length: parseFloat(e.target.value),
                       })
                     }
-                    className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+                    className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
                   />
                 </div>
                 <div>
@@ -492,7 +492,7 @@ export default function ConstructionMaterialEstimator() {
                         height: parseFloat(e.target.value),
                       })
                     }
-                    className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+                    className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
                   />
                 </div>
               </div>
@@ -533,7 +533,7 @@ export default function ConstructionMaterialEstimator() {
                 {openings.map((op) => (
                   <div
                     key={op.id}
-                    className="flex items-center justify-between bg-slate-50 p-2 rounded text-xs"
+                    className="flex items-center justify-between bg-transparent p-2 rounded text-xs"
                   >
                     <span className="font-semibold text-slate-600">
                       {op.quantity}x {op.type}
@@ -570,7 +570,7 @@ export default function ConstructionMaterialEstimator() {
                 type="number"
                 value={l}
                 onChange={(e) => setL(e.target.value)}
-                className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
               />
             </div>
             <div>
@@ -581,7 +581,7 @@ export default function ConstructionMaterialEstimator() {
                 type="number"
                 value={w}
                 onChange={(e) => setW(e.target.value)}
-                className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
               />
             </div>
             <div>
@@ -592,7 +592,7 @@ export default function ConstructionMaterialEstimator() {
                 type="number"
                 value={h}
                 onChange={(e) => setH(e.target.value)}
-                className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
               />
             </div>
           </div>
@@ -605,7 +605,7 @@ export default function ConstructionMaterialEstimator() {
                 type="number"
                 value={j}
                 onChange={(e) => setJ(e.target.value)}
-                className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
               />
             </div>
             <div>
@@ -615,7 +615,7 @@ export default function ConstructionMaterialEstimator() {
               <select
                 value={bMix}
                 onChange={(e) => setBMix(e.target.value)}
-                className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
               >
                 <option value="1:3">1:3</option>
                 <option value="1:4">1:4</option>
@@ -663,7 +663,7 @@ export default function ConstructionMaterialEstimator() {
       rawExport: currentExportData,
     };
     content = (
-      <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full">
+      <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full">
         <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">
           Steel Reinforcement
         </h3>
@@ -676,7 +676,7 @@ export default function ConstructionMaterialEstimator() {
               type="number"
               value={sDia}
               onChange={(e) => setSDia(e.target.value)}
-              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             />
           </div>
           <div>
@@ -687,7 +687,7 @@ export default function ConstructionMaterialEstimator() {
               type="number"
               value={sSpan}
               onChange={(e) => setSSpan(e.target.value)}
-              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             />
           </div>
           <div>
@@ -701,7 +701,7 @@ export default function ConstructionMaterialEstimator() {
               type="number"
               value={sSpace}
               onChange={(e) => setSSpace(e.target.value)}
-              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             />
           </div>
           <div>
@@ -712,7 +712,7 @@ export default function ConstructionMaterialEstimator() {
               type="number"
               value={sBarL}
               onChange={(e) => setSBarL(e.target.value)}
-              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             />
           </div>
           <div>
@@ -723,7 +723,7 @@ export default function ConstructionMaterialEstimator() {
               type="number"
               value={sOverlap}
               onChange={(e) => setSOverlap(e.target.value)}
-              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             />
           </div>
         </div>
@@ -760,7 +760,7 @@ export default function ConstructionMaterialEstimator() {
       rawExport: currentExportData,
     };
     content = (
-      <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full">
+      <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full">
         <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">
           Plaster / Mortar
         </h3>
@@ -773,7 +773,7 @@ export default function ConstructionMaterialEstimator() {
               type="number"
               value={pArea}
               onChange={(e) => setPArea(e.target.value)}
-              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             />
           </div>
           <div>
@@ -784,7 +784,7 @@ export default function ConstructionMaterialEstimator() {
               type="number"
               value={pThick}
               onChange={(e) => setPThick(e.target.value)}
-              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             />
           </div>
           <div>
@@ -794,7 +794,7 @@ export default function ConstructionMaterialEstimator() {
             <select
               value={pMix}
               onChange={(e) => setPMix(e.target.value)}
-              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             >
               <option value="1:3">1:3</option> <option value="1:4">1:4</option>
               <option value="1:5">1:5</option>
@@ -809,10 +809,10 @@ export default function ConstructionMaterialEstimator() {
           >
             <path d="M30,70 L90,60 L90,20 L30,30 Z" fill="currentColor" />
           </svg>
-          <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-2 bg-slate-50">
+          <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-2 bg-transparent">
             Area: {pArea} {unitArea}
           </span>
-          <span className="absolute bottom-4 right-10 px-2 bg-slate-50">
+          <span className="absolute bottom-4 right-10 px-2 bg-transparent">
             T: {pThick} {unitIn}
           </span>
         </div>
@@ -840,7 +840,7 @@ export default function ConstructionMaterialEstimator() {
       rawExport: currentExportData,
     };
     content = (
-      <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full">
+      <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full">
         <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">
           Water Requirements
         </h3>
@@ -853,7 +853,7 @@ export default function ConstructionMaterialEstimator() {
               type="number"
               value={wCementKg}
               onChange={(e) => setWCementKg(e.target.value)}
-              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             />
           </div>
           <div>
@@ -865,7 +865,7 @@ export default function ConstructionMaterialEstimator() {
               step="0.01"
               value={wWcRatio}
               onChange={(e) => setWWcRatio(e.target.value)}
-              className="mt-1 w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
             />
           </div>
         </div>
@@ -885,7 +885,7 @@ export default function ConstructionMaterialEstimator() {
     );
   } else if (activeTab === "cement" || activeTab === "sand") {
     content = (
-      <div className="bg-slate-50 border p-12 rounded-3xl text-center text-slate-500 max-w-xl mx-auto mt-8">
+      <div className="bg-transparent border p-12 rounded-3xl text-center text-slate-500 max-w-xl mx-auto mt-8">
         <Layers className="w-12 h-12 mx-auto text-slate-300 mb-4" />
         <h3 className="text-xl font-bold text-slate-700 mb-2">
           Use Standard Modules
@@ -916,7 +916,7 @@ export default function ConstructionMaterialEstimator() {
   const totalAgg = cart.reduce((acc, item) => acc + item.aggregateVol, 0);
   const totalWater = cart.reduce((acc, item) => acc + item.waterLiters, 0);
   return (
-    <div className="w-full h-full overflow-y-auto bg-slate-50 text-slate-900 p-6 md:p-8">
+    <div className="w-full h-full overflow-y-auto bg-transparent text-slate-900 p-6 md:p-8">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
           <div>
@@ -940,7 +940,7 @@ export default function ConstructionMaterialEstimator() {
                 type="number"
                 value={wastage}
                 onChange={(e) => setWastage(e.target.value)}
-                className="w-14 text-center font-bold bg-gray-50 rounded border-none p-1 focus:ring-2 focus:ring-indigo-500"
+                className="w-14 text-center font-bold bg-transparent rounded border border-slate-200 p-1 focus:ring-2 focus:ring-indigo-500"
               />
               <span className="text-xs font-bold text-gray-500">%</span>
             </div>
@@ -959,7 +959,7 @@ export default function ConstructionMaterialEstimator() {
             />
           ))}
         </div>
-        <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] shadow-sm border border-slate-200 dark:border-slate-800 transition-all duration-300 relative">
+        <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] shadow-md border border-slate-200 dark:border-slate-800 transition-all duration-300 relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative">
             {content}
             {activeTab !== "cement" &&
@@ -1209,7 +1209,7 @@ export default function ConstructionMaterialEstimator() {
                   placeholder="e.g., Footing A, Slab B, Retaining Wall"
                   value={elementName}
                   onChange={(e) => setElementName(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-indigo-500"
+                  className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1 font-medium focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
               <button

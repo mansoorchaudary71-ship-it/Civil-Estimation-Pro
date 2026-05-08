@@ -88,7 +88,7 @@ export default function App() {
           onOpenProfile={() => { setIsSidebarOpen(false); setIsProfileOpen(true); }}
         />
 
-        <main className="flex-1 flex flex-col bg-transparent overflow-hidden relative w-full h-full transition-colors duration-300">
+        <main className="flex-1 flex flex-col bg-slate-100 overflow-hidden relative w-full h-full transition-colors duration-300">
           {["home", "about", "careers", "contact", "blog"].includes(activeModule) ? (
             <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-y-auto pb-24 md:pb-0">
               <TopNavbar 

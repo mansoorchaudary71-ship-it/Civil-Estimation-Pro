@@ -52,7 +52,7 @@ export default function SettingsModal({
           <X className="w-4 h-4" />
         </button>
         {/* Sidebar */}
-        <div className="w-full md:w-64 bg-slate-50/50 dark:bg-slate-950/50 border-r border-slate-200/50 dark:border-slate-800/50 p-6 flex flex-col shrink-0 overflow-y-auto">
+        <div className="w-full md:w-64 bg-transparent/50 dark:bg-slate-950/50 border-r border-slate-200/50 dark:border-slate-800/50 p-6 flex flex-col shrink-0 overflow-y-auto">
           <div className="flex items-center gap-3 mb-10 pt-2">
             <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-2xl flex items-center justify-center shadow-md shadow-blue-500/20">
               <SettingsIcon className="w-5 h-5 text-white" />
@@ -71,7 +71,7 @@ export default function SettingsModal({
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-3 w-full px-4 py-3.5 rounded-2xl font-semibold transition-all ${isActive ? "bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm border border-slate-100 dark:border-slate-700/50" : "text-slate-500 dark:text-slate-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/30 hover:text-slate-700 dark:hover:text-slate-300 border border-transparent"}`}
+                  className={`flex items-center gap-3 w-full px-4 py-3.5 rounded-2xl font-semibold transition-all ${isActive ? "bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm border border-slate-100 dark:border-slate-700/50" : "text-slate-700 dark:text-slate-300 hover:bg-slate-100/50 dark:hover:bg-slate-800/30 hover:text-slate-900 dark:hover:text-slate-100 border border-transparent"}`}
                 >
                   <Icon
                     className={`w-5 h-5 ${isActive ? "text-blue-600 dark:text-blue-400" : "text-slate-400 dark:text-slate-500"}`}
@@ -129,7 +129,7 @@ export default function SettingsModal({
                         Visible to other team members.
                       </p>
                       <div className="flex gap-2">
-                        <button className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm">
+                        <button className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-transparent dark:hover:bg-slate-700 transition-colors shadow-sm">
                           Upload New
                         </button>
                       </div>

@@ -238,7 +238,7 @@ export default function MetalWeightCalculator() {
     "Total Weight": `${totalWeight.toFixed(2)} kg`,
   };
   return (
-    <div className="w-full h-full overflow-y-auto bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8">
+    <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
           <Weight className="w-8 h-8 text-neutral-600 dark:text-neutral-400" />
@@ -258,7 +258,7 @@ export default function MetalWeightCalculator() {
               type="number"
               value={density}
               onChange={(e) => setDensity(e.target.value)}
-              className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl font-bold focus:ring-2 focus:ring-neutral-500"
+              className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl font-bold focus:ring-2 focus:ring-neutral-500"
             />
             <p className="text-[10px] text-slate-400 mt-1 pl-1">
               Steel: 7850 | Aluminum: 2700 | Stainless: 7930
@@ -272,7 +272,7 @@ export default function MetalWeightCalculator() {
               type="number"
               value={length}
               onChange={(e) => setLength(e.target.value)}
-              className="w-full bg-slate-50 dark:bg-slate-800 border-none p-3 rounded-xl font-bold focus:ring-2 focus:ring-neutral-500"
+              className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl font-bold focus:ring-2 focus:ring-neutral-500"
             />
             <p className="text-[10px] text-slate-400 mt-1 pl-1">
               Total run length of member
@@ -345,7 +345,7 @@ export default function MetalWeightCalculator() {
                     type="number"
                     value={d}
                     onChange={(e) => setD(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                     placeholder="e.g. 20"
                   />
                 </div>
@@ -359,7 +359,7 @@ export default function MetalWeightCalculator() {
                     type="number"
                     value={w}
                     onChange={(e) => setW(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                     placeholder="e.g. 50"
                   />
                 </div>
@@ -374,7 +374,7 @@ export default function MetalWeightCalculator() {
                       type="number"
                       value={d}
                       onChange={(e) => setD(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 100"
                     />
                   </div>
@@ -386,7 +386,7 @@ export default function MetalWeightCalculator() {
                       type="number"
                       value={t}
                       onChange={(e) => setT(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 5"
                     />
                   </div>
@@ -401,7 +401,7 @@ export default function MetalWeightCalculator() {
                     type="number"
                     value={s}
                     onChange={(e) => setS(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                     placeholder="e.g. 30"
                   />
                 </div>
@@ -416,7 +416,7 @@ export default function MetalWeightCalculator() {
                       type="number"
                       value={w}
                       onChange={(e) => setW(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 50"
                     />
                   </div>
@@ -428,7 +428,7 @@ export default function MetalWeightCalculator() {
                       type="number"
                       value={t}
                       onChange={(e) => setT(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 3"
                     />
                   </div>
@@ -444,7 +444,7 @@ export default function MetalWeightCalculator() {
                       type="number"
                       value={w}
                       onChange={(e) => setW(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 40"
                     />
                   </div>
@@ -456,7 +456,7 @@ export default function MetalWeightCalculator() {
                       type="number"
                       value={h}
                       onChange={(e) => setH(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 40"
                     />
                   </div>
@@ -468,7 +468,7 @@ export default function MetalWeightCalculator() {
                       type="number"
                       value={t}
                       onChange={(e) => setT(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 5"
                     />
                   </div>
@@ -484,7 +484,7 @@ export default function MetalWeightCalculator() {
                       type="number"
                       value={w}
                       onChange={(e) => setW(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 150"
                     />
                   </div>
@@ -496,7 +496,7 @@ export default function MetalWeightCalculator() {
                       type="number"
                       value={h}
                       onChange={(e) => setH(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 300"
                     />
                   </div>
@@ -508,7 +508,7 @@ export default function MetalWeightCalculator() {
                       type="number"
                       value={tf}
                       onChange={(e) => setTf(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 10"
                     />
                   </div>
@@ -520,7 +520,7 @@ export default function MetalWeightCalculator() {
                       type="number"
                       value={tw}
                       onChange={(e) => setTw(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 7"
                     />
                   </div>
@@ -536,7 +536,7 @@ export default function MetalWeightCalculator() {
                       type="number"
                       value={leg1}
                       onChange={(e) => setLeg1(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 50"
                     />
                   </div>
@@ -548,7 +548,7 @@ export default function MetalWeightCalculator() {
                       type="number"
                       value={leg2}
                       onChange={(e) => setLeg2(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 50"
                     />
                   </div>
@@ -560,7 +560,7 @@ export default function MetalWeightCalculator() {
                       type="number"
                       value={t}
                       onChange={(e) => setT(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 6"
                     />
                   </div>
@@ -576,7 +576,7 @@ export default function MetalWeightCalculator() {
                       type="number"
                       value={w}
                       onChange={(e) => setW(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 1000"
                     />
                   </div>
@@ -588,7 +588,7 @@ export default function MetalWeightCalculator() {
                       type="number"
                       value={t}
                       onChange={(e) => setT(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border-none p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 10"
                     />
                   </div>
