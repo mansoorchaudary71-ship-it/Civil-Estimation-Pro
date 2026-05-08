@@ -265,15 +265,15 @@ export default function MasterQuantityEstimator({
     }
     return (
       <div className="flex flex-wrap  gap-8 items-center w-full">
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl px-4 py-3 shadow-sm flex-1 min-w-fit whitespace-nowrap">
-          <h3 className="font-bold mb-6 text-lg whitespace-nowrap">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl px-4 py-3 shadow-sm">
+          <h3 className="font-bold mb-6 text-lg">
             Input Parameters
           </h3>
           <div className="space-y-4">
             {activeCalc !== "rebar_cage" && (
               <>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                  <label className="text-xs font-bold text-gray-500 uppercase">
                     Length ({unitL})
                   </label>
                   <input
@@ -284,7 +284,7 @@ export default function MasterQuantityEstimator({
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                  <label className="text-xs font-bold text-gray-500 uppercase">
                     Width ({unitL})
                   </label>
                   <input
@@ -307,7 +307,7 @@ export default function MasterQuantityEstimator({
               "form_work",
             ].includes(activeCalc) && (
               <div>
-                <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                <label className="text-xs font-bold text-gray-500 uppercase">
                   {activeCalc === "form_work" ? "Height" : "Depth"} ({unitL})
                 </label>
                 <input
@@ -320,7 +320,7 @@ export default function MasterQuantityEstimator({
             )}
             {activeCalc !== "rebar_cage" && (
               <div>
-                <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                <label className="text-xs font-bold text-gray-500 uppercase">
                   Wastage (%)
                 </label>
                 <input
@@ -333,7 +333,7 @@ export default function MasterQuantityEstimator({
             )}
             {["concrete", "plaster", "concrete_test"].includes(activeCalc) && (
               <div>
-                <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                <label className="text-xs font-bold text-gray-500 uppercase">
                   Mix Ratio
                 </label>
                 <input
@@ -348,7 +348,7 @@ export default function MasterQuantityEstimator({
             {activeCalc === "rebar_cage" && (
               <>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                  <label className="text-xs font-bold text-gray-500 uppercase">
                     Total Rebar Weight (kg)
                   </label>
                   <input
@@ -359,7 +359,7 @@ export default function MasterQuantityEstimator({
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                  <label className="text-xs font-bold text-gray-500 uppercase">
                     Steel Grade
                   </label>
                   <input
@@ -370,7 +370,7 @@ export default function MasterQuantityEstimator({
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                  <label className="text-xs font-bold text-gray-500 uppercase">
                     Spacing (mm)
                   </label>
                   <input
@@ -381,7 +381,7 @@ export default function MasterQuantityEstimator({
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                  <label className="text-xs font-bold text-gray-500 uppercase">
                     Cost per Ton (Rs)
                   </label>
                   <input
@@ -397,7 +397,7 @@ export default function MasterQuantityEstimator({
         </div>
         <div className="bg-blue-950 text-white rounded-3xl p-6 md:p-8 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="font-bold text-blue-300 text-sm uppercase tracking-widest mb-6 whitespace-nowrap">
+            <h3 className="font-bold text-blue-300 text-sm uppercase tracking-widest mb-6">
               Quantities Required
             </h3>
             <div className="space-y-4">
@@ -409,7 +409,7 @@ export default function MasterQuantityEstimator({
                   <span className="text-blue-200 text-sm font-medium">
                     {key}
                   </span>
-                  <span className="text-xl font-bold text-white whitespace-nowrap">
+                  <span className="text-xl font-bold text-white">
                     {val}
                   </span>
                 </div>
@@ -486,7 +486,7 @@ export default function MasterQuantityEstimator({
         {!isEmbedded && (
           <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
             <div>
-              <h1 className="text-3xl font-black mb-2 flex items-center gap-3 whitespace-nowrap">
+              <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
                 <Calculator className="w-8 h-8 text-blue-600 dark:text-blue-400" />
                 Master Quantity Estimator
               </h1>
@@ -503,7 +503,7 @@ export default function MasterQuantityEstimator({
         <div className="flex flex-col xl:flex-row gap-8">
           {/* Mobile Dropdown Nav */}
           <div className="xl:hidden w-full space-y-2">
-            <label className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-2 whitespace-nowrap">
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-2">
               Select Calculator
             </label>
             <div className="relative">
@@ -540,7 +540,7 @@ export default function MasterQuantityEstimator({
             <div className="xl:h-[600px] xl:overflow-y-auto pr-2 space-y-6 custom-scrollbar">
               {groups.map((group) => (
                 <div key={group}>
-                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 pl-2 whitespace-nowrap">
+                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 pl-2">
                     {group}
                   </h4>
                   <div className="space-y-1">

@@ -322,7 +322,7 @@ export default function LiveBOQ() {
         {/* Header */}
         <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between shrink-0 flex-wrap gap-4">
           <div>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-500">
               Live Bill of Quantities (BOQ)
             </h2>
             <span className="text-xs font-mono text-green-500 mt-1 block">

@@ -53,7 +53,7 @@ export default function AIAssistant() {
       <div className="flex-1 bg-white border border-slate-200 rounded-xl flex flex-col overflow-hidden relative shadow-sm">
         <div className="px-6 py-4 border-b border-slate-200 bg-slate-50 flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></div>
-          <h2 className="text-sm font-bold uppercase tracking-widest text-slate-700 whitespace-nowrap">
+          <h2 className="text-sm font-bold uppercase tracking-widest text-slate-700">
             AI Assistant
           </h2>
         </div>
@@ -114,7 +114,7 @@ export default function AIAssistant() {
                 }
               }}
               placeholder="Ask about cost optimization or estimation..."
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 resize-none min-h-[44px] max-h-[120px] text-slate-800 shadow-sm transition-all flex-1 min-w-fit whitespace-nowrap"
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 resize-none min-h-[44px] max-h-[120px] text-slate-800 shadow-sm transition-all"
               rows={1}
             />
             <button

@@ -58,7 +58,7 @@ export default function SettingsModal({
               <SettingsIcon className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-slate-800 dark:text-white leading-tight whitespace-nowrap">
+              <h2 className="text-xl font-bold text-slate-800 dark:text-white leading-tight">
                 Preferences
               </h2>
             </div>
@@ -92,7 +92,7 @@ export default function SettingsModal({
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col min-h-0 bg-transparent">
           <div className="hidden md:flex items-center justify-between px-8 py-6 border-b border-slate-100 dark:border-slate-800/50">
-            <h3 className="text-2xl font-bold text-slate-800 dark:text-white capitalize whitespace-nowrap">
+            <h3 className="text-2xl font-bold text-slate-800 dark:text-white capitalize">
               {tabs.find((t) => t.id === activeTab)?.label}
             </h3>
             <button
@@ -105,14 +105,14 @@ export default function SettingsModal({
           <div className="flex-1 overflow-y-auto px-6 py-8 md:px-10 md:py-10">
             <div className="max-w-xl mx-auto md:mx-0">
               {/* Mobile Header */}
-              <h3 className="md:hidden text-2xl font-bold text-slate-800 dark:text-white capitalize mb-6 whitespace-nowrap">
+              <h3 className="md:hidden text-2xl font-bold text-slate-800 dark:text-white capitalize mb-6">
                 {tabs.find((t) => t.id === activeTab)?.label}
               </h3>
               {activeTab === "account" && (
                 <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
                   <div className="flex items-center gap-6">
                     <div className="relative group">
-                      <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-sky-400 to-indigo-500 flex items-center justify-center text-3xl font-bold text-white shadow-lg overflow-hidden relative whitespace-nowrap">
+                      <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-sky-400 to-indigo-500 flex items-center justify-center text-3xl font-bold text-white shadow-lg overflow-hidden relative">
                         <span className="relative z-10 w-full h-full flex items-center justify-center">
                           {name.charAt(0)}
                         </span>
@@ -122,14 +122,14 @@ export default function SettingsModal({
                       </div>
                     </div>
                     <div>
-                      <h4 className="text-lg font-bold text-slate-800 dark:text-slate-200 whitespace-nowrap">
+                      <h4 className="text-lg font-bold text-slate-800 dark:text-slate-200">
                         Profile Picture
                       </h4>
                       <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
                         Visible to other team members.
                       </p>
                       <div className="flex gap-2">
-                        <button className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm flex-1 min-w-fit whitespace-nowrap">
+                        <button className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm">
                           Upload New
                         </button>
                       </div>
@@ -144,7 +144,7 @@ export default function SettingsModal({
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3.5 text-slate-800 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 dark:focus:border-blue-500 outline-none transition-all shadow-sm flex-1 min-w-fit whitespace-nowrap"
+                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3.5 text-slate-800 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 dark:focus:border-blue-500 outline-none transition-all shadow-sm"
                       />
                     </div>
                     <div>
@@ -155,7 +155,7 @@ export default function SettingsModal({
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3.5 text-slate-800 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 dark:focus:border-blue-500 outline-none transition-all shadow-sm flex-1 min-w-fit whitespace-nowrap"
+                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3.5 text-slate-800 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 dark:focus:border-blue-500 outline-none transition-all shadow-sm"
                       />
                     </div>
                   </div>
@@ -175,7 +175,7 @@ export default function SettingsModal({
                         className={`relative flex items-center justify-between p-5 rounded-2xl border-2 cursor-pointer transition-all ${settings.measurement === "SI" ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900"}`}
                       >
                         <div className="flex flex-col">
-                          <span className="text-lg font-bold text-slate-800 dark:text-white mb-1 whitespace-nowrap">
+                          <span className="text-lg font-bold text-slate-800 dark:text-white mb-1">
                             Metric (SI)
                           </span>
                           <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
@@ -201,7 +201,7 @@ export default function SettingsModal({
                         className={`relative flex items-center justify-between p-5 rounded-2xl border-2 cursor-pointer transition-all ${settings.measurement === "FPS" ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900"}`}
                       >
                         <div className="flex flex-col">
-                          <span className="text-lg font-bold text-slate-800 dark:text-white mb-1 whitespace-nowrap">
+                          <span className="text-lg font-bold text-slate-800 dark:text-white mb-1">
                             Imperial (FPS)
                           </span>
                           <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
@@ -272,7 +272,7 @@ export default function SettingsModal({
                     <h4 className="text-base font-bold text-slate-800 dark:text-slate-200 mb-4">
                       Display Options
                     </h4>
-                    <div className="flex items-center justify-between px-4 py-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex-1 min-w-fit whitespace-nowrap">
+                    <div className="flex items-center justify-between px-4 py-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
                       <div className="flex flex-col">
                         <span className="font-bold text-slate-800 dark:text-white">
                           Compact Mode
@@ -286,7 +286,7 @@ export default function SettingsModal({
                         <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-slate-600 peer-checked:bg-blue-600"></div>
                       </label>
                     </div>
-                    <div className="flex items-center justify-between px-4 py-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex-1 min-w-fit whitespace-nowrap">
+                    <div className="flex items-center justify-between px-4 py-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
                       <div className="flex flex-col">
                         <span className="font-bold text-slate-800 dark:text-white">
                           Animations

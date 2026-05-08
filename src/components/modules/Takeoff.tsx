@@ -380,7 +380,7 @@ export default function Takeoff() {
       <div className="flex-1 bg-white border border-slate-200 rounded-xl flex flex-col overflow-hidden relative">
         {/* Header */}
         <div className="px-6 py-4 border-b border-slate-200 flex justify-between items-center bg-white">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-500">
             2D Takeoff Engine
           </h2>
           <div className="flex gap-2 items-center">
@@ -993,13 +993,13 @@ export default function Takeoff() {
                       </div>
                       <div className="flex flex-col items-end gap-0.5 shrink-0 mt-1">
                         <span
-                          className="text-[10px] font-mono whitespace-nowrap font-medium bg-white px-1.5 py-0.5 rounded border border-slate-200"
+                          className="text-[10px] font-mono font-medium bg-white px-1.5 py-0.5 rounded border border-slate-200"
                           style={{ color: m.color }}
                         >
                           {primaryStr}
                         </span>
                         {secondaryStr && (
-                          <span className="text-[9px] font-mono whitespace-nowrap text-slate-500">
+                          <span className="text-[9px] font-mono text-slate-500">
                             ({secondaryStr})
                           </span>
                         )}

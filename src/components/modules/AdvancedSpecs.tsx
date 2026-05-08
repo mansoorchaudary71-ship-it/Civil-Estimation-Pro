@@ -144,7 +144,7 @@ export default function AdvancedSpecs({
           <div className="p-3 bg-teal-50 text-teal-600 rounded-2xl">
             <Sliders className="w-6 h-6" />
           </div>
-          <h2 className="text-lg font-bold text-gray-800 whitespace-nowrap">
+          <h2 className="text-lg font-bold text-gray-800">
             Advanced Specifications
           </h2>
         </div>

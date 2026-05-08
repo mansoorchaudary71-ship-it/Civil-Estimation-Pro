@@ -507,10 +507,10 @@ export default function HouseEstimator() {
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         <header className="mb-8 block">
           <div>
-            <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent pb-2 whitespace-nowrap">
+            <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent pb-2">
               Complete House Estimator
             </h1>
-            <p className="text-gray-500 mt-2 text-lg font-medium whitespace-nowrap">
+            <p className="text-gray-500 mt-2 text-lg font-medium">
               Precise civil engineering estimations for grey structure and
               finishing works.
             </p>
@@ -519,11 +519,11 @@ export default function HouseEstimator() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="bg-white px-4 py-3 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between gap-4 flex-1 min-w-fit whitespace-nowrap">
-              <span className="text-sm font-bold text-gray-400 uppercase tracking-widest whitespace-nowrap">
+            <div className="bg-white px-4 py-3 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between gap-4">
+              <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">
                 Built-up
               </span>
-              <span className="text-2xl font-black text-indigo-600 tracking-tighter whitespace-nowrap">
+              <span className="text-2xl font-black text-indigo-600 tracking-tighter">
                 {builtUpArea.toFixed(0)}
                 <span className="text-sm font-medium text-indigo-400">
                   sq.ft
@@ -545,7 +545,7 @@ export default function HouseEstimator() {
                   <div className="p-3 bg-blue-50 text-blue-600 rounded-2xl">
                     <Home className="w-6 h-6" />
                   </div>
-                  <h2 className="text-lg font-bold text-gray-800 whitespace-nowrap">
+                  <h2 className="text-lg font-bold text-gray-800">
                     Plot & Geometry
                   </h2>
                 </div>
@@ -596,7 +596,7 @@ export default function HouseEstimator() {
               {/* Detailed View (when open) */}
               {isAccordionOpen && (
                 <div className="space-y-6 animate-in slide-in-from-top-4 fade-in duration-300">
-                  <div className="bg-slate-50/50 px-4 py-3 sm:px-4 py-3 rounded-[1.5rem] border border-slate-100 space-y-6 flex-1 min-w-fit whitespace-nowrap">
+                  <div className="bg-slate-50/50 px-4 py-3 sm:px-4 py-3 rounded-[1.5rem] border border-slate-100 space-y-6">
                     <h3 className="text-sm font-bold text-slate-800">
                       Area Specifications
                     </h3>
@@ -746,9 +746,9 @@ export default function HouseEstimator() {
                       </div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 whitespace-nowrap">
+                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
                         Stories
                       </label>
                       <div className="flex items-center gap-2">
@@ -763,7 +763,7 @@ export default function HouseEstimator() {
                         >
                           -
                         </button>
-                        <span className="font-bold text-lg w-6 text-center whitespace-nowrap">
+                        <span className="font-bold text-lg w-6 text-center">
                           {geoState.stories}
                         </span>
                         <button
@@ -780,7 +780,7 @@ export default function HouseEstimator() {
                       </div>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 whitespace-nowrap">
+                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
                         Room Ht (ft)
                       </label>
                       <input
@@ -901,16 +901,16 @@ export default function HouseEstimator() {
                 <div className="p-3 bg-violet-50 text-violet-600 rounded-2xl">
                   <Sliders className="w-6 h-6" />
                 </div>
-                <h2 className="text-lg font-bold text-gray-800 whitespace-nowrap">
+                <h2 className="text-lg font-bold text-gray-800">
                   Finish Quality
                 </h2>
               </div>
               <div className="space-y-4">
                 <div className="flex justify-between items-end mb-2">
-                  <span className="text-2xl font-black text-violet-600 tracking-tighter whitespace-nowrap">
+                  <span className="text-2xl font-black text-violet-600 tracking-tighter">
                     {getQualityLabel(finishQuality)}
                   </span>
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider whitespace-nowrap">
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                     x
                     {finishQuality === 1
                       ? "1.0"
@@ -944,7 +944,7 @@ export default function HouseEstimator() {
             <div className="bg-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
               <div className="flex items-center justify-between">
                 <div className="flex flex-col">
-                  <h2 className="text-xl font-extrabold text-slate-800 whitespace-nowrap">
+                  <h2 className="text-xl font-extrabold text-slate-800">
                     Boundary Wall
                   </h2>
                   <span className="text-sm font-medium text-slate-500">
@@ -966,7 +966,7 @@ export default function HouseEstimator() {
               {includeBoundaryWall && (
                 <div className="grid grid-cols-3 gap-3 pt-4 mt-4 border-t border-slate-100 animate-in fade-in slide-in-from-top-4 duration-300">
                   <div>
-                    <label className="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 whitespace-nowrap">
+                    <label className="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">
                       Length (ft)
                     </label>
                     <input
@@ -977,7 +977,7 @@ export default function HouseEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 whitespace-nowrap">
+                    <label className="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">
                       Height (ft)
                     </label>
                     <input
@@ -988,7 +988,7 @@ export default function HouseEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5 whitespace-nowrap">
+                    <label className="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">
                       Gate (ft)
                     </label>
                     <input
@@ -1013,7 +1013,7 @@ export default function HouseEstimator() {
                     <Database className="w-6 h-6" />
                   </div>
                   <div>
-                    <h2 className="text-2xl font-extrabold text-slate-800 whitespace-nowrap">
+                    <h2 className="text-2xl font-extrabold text-slate-800">
                       Configure Material Rates
                     </h2>
                     <p className="text-slate-500 font-medium text-sm mt-1">
@@ -1218,7 +1218,7 @@ export default function HouseEstimator() {
                   </div>
                   <button
                     onClick={() => setShowResults(false)}
-                    className="flex items-center gap-2 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 font-bold px-4 py-2.5 rounded-xl shadow-sm border border-indigo-100 transition-colors shrink-0 whitespace-nowrap flex-1 min-w-fit whitespace-nowrap"
+                    className="flex items-center gap-2 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 font-bold px-4 py-2.5 rounded-xl shadow-sm border border-indigo-100 transition-colors shrink-0 whitespace-nowrap"
                   >
                     <Database className="w-[18px] h-[18px]" /> View / Edit
                     Rates
@@ -1227,7 +1227,7 @@ export default function HouseEstimator() {
                 <div className="bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_rgb(0,0,0,0.04)] border border-slate-100 flex-1 relative overflow-hidden transition-all duration-300">
                   {activeTab === "summary" && (
                     <div className="animate-in fade-in zoom-in-95 duration-500 h-full flex flex-col">
-                      <h3 className="text-xl font-bold text-slate-800 mb-6 whitespace-nowrap">
+                      <h3 className="text-xl font-bold text-slate-800 mb-6">
                         Total Project Estimate
                       </h3>
                       <div className="flex flex-col md:flex-row items-center justify-between gap-8 flex-1">
@@ -1302,13 +1302,13 @@ export default function HouseEstimator() {
                           </ResponsiveContainer>
                         </div>
                         <div className="w-full md:w-1/2 space-y-6">
-                          <div className="bg-slate-50 px-4 py-3 rounded-2xl border border-slate-100 relative overflow-hidden group flex flex-col justify-center min-w-0 flex-1 min-w-fit whitespace-nowrap">
+                          <div className="bg-slate-50 px-4 py-3 rounded-2xl border border-slate-100 relative overflow-hidden group flex flex-col justify-center min-w-0">
                             <div className="absolute top-0 left-0 w-1.5 h-full bg-slate-500" />
-                            <div className="text-slate-500 text-xs md:text-sm font-bold uppercase tracking-widest mb-1 pl-2 truncate whitespace-nowrap">
+                            <div className="text-slate-500 text-xs md:text-sm font-bold uppercase tracking-widest mb-1 pl-2 truncate">
                               Grey Structure
                             </div>
                             <div
-                              className="text-xl sm:text-2xl font-black text-slate-800 pl-2 truncate whitespace-nowrap"
+                              className="text-xl sm:text-2xl font-black text-slate-800 pl-2 truncate"
                               title={formatCurrency(estimates.totalGrey)}
                             >
                               {formatCurrency(estimates.totalGrey)}
@@ -1317,13 +1317,13 @@ export default function HouseEstimator() {
                               Foundation, Framing, Masonry
                             </div>
                           </div>
-                          <div className="bg-violet-50 px-4 py-3 rounded-2xl border border-violet-100 relative overflow-hidden flex flex-col justify-center min-w-0 flex-1 min-w-fit whitespace-nowrap">
+                          <div className="bg-violet-50 px-4 py-3 rounded-2xl border border-violet-100 relative overflow-hidden flex flex-col justify-center min-w-0">
                             <div className="absolute top-0 left-0 w-1.5 h-full bg-violet-500" />
-                            <div className="text-violet-600 text-xs md:text-sm font-bold uppercase tracking-widest mb-1 pl-2 truncate whitespace-nowrap">
+                            <div className="text-violet-600 text-xs md:text-sm font-bold uppercase tracking-widest mb-1 pl-2 truncate">
                               Finishing Works
                             </div>
                             <div
-                              className="text-xl sm:text-2xl font-black text-violet-800 pl-2 truncate whitespace-nowrap"
+                              className="text-xl sm:text-2xl font-black text-violet-800 pl-2 truncate"
                               title={formatCurrency(estimates.totalFinishing)}
                             >
                               {formatCurrency(estimates.totalFinishing)}
@@ -1339,17 +1339,17 @@ export default function HouseEstimator() {
                   {activeTab === "grey" && (
                     <div className="animate-in fade-in slide-in-from-right-8 duration-500 h-full flex flex-col">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
-                        <h3 className="text-xl font-bold text-slate-800 whitespace-nowrap">
+                        <h3 className="text-xl font-bold text-slate-800">
                           Grey Structure Breakdown
                         </h3>
-                        <div className="text-2xl font-black text-indigo-600 tracking-tighter bg-indigo-50 px-4 py-1.5 rounded-xl border border-indigo-100 whitespace-nowrap flex-1 min-w-fit whitespace-nowrap">
+                        <div className="text-2xl font-black text-indigo-600 tracking-tighter bg-indigo-50 px-4 py-1.5 rounded-xl border border-indigo-100">
                           {formatCurrency(estimates.totalGrey)}
                         </div>
                       </div>
                       <div className="flex flex-wrap  gap-4 mb-8 items-center w-full">
-                        <div className="bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 text-center min-w-0 flex-1 min-w-fit whitespace-nowrap">
+                        <div className="bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 text-center min-w-0">
                           <div
-                            className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate whitespace-nowrap"
+                            className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate"
                             title={estimates.cementBags.toFixed(0)}
                           >
                             {estimates.cementBags.toFixed(0)}
@@ -1362,9 +1362,9 @@ export default function HouseEstimator() {
                             {formatCurrency(estimates.costCement)}
                           </div>
                         </div>
-                        <div className="bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 text-center min-w-0 flex-1 min-w-fit whitespace-nowrap">
+                        <div className="bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 text-center min-w-0">
                           <div
-                            className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate whitespace-nowrap"
+                            className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate"
                             title={(estimates.steelKg / 1000).toFixed(1)}
                           >
                             {(estimates.steelKg / 1000).toFixed(1)}
@@ -1377,9 +1377,9 @@ export default function HouseEstimator() {
                             {formatCurrency(estimates.costSteel)}
                           </div>
                         </div>
-                        <div className="bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 text-center min-w-0 flex-1 min-w-fit whitespace-nowrap">
+                        <div className="bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 text-center min-w-0">
                           <div
-                            className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate whitespace-nowrap"
+                            className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate"
                             title={`${(estimates.bricksCount / 1000).toFixed(0)}k`}
                           >
                             {(estimates.bricksCount / 1000).toFixed(0)}k
@@ -1392,9 +1392,9 @@ export default function HouseEstimator() {
                             {formatCurrency(estimates.costBricks)}
                           </div>
                         </div>
-                        <div className="bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 text-center min-w-0 flex-1 min-w-fit whitespace-nowrap">
+                        <div className="bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 text-center min-w-0">
                           <div
-                            className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate whitespace-nowrap"
+                            className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate"
                             title={
                               isSI
                                 ? (estimates.sandCft / 35.3147).toFixed(1)
@@ -1415,9 +1415,9 @@ export default function HouseEstimator() {
                             {formatCurrency(estimates.costSand)}
                           </div>
                         </div>
-                        <div className="bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 text-center min-w-0 md:col-span-1 col-span-2 flex-1 min-w-fit whitespace-nowrap">
+                        <div className="bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 text-center min-w-0 md:col-span-1 col-span-2">
                           <div
-                            className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate whitespace-nowrap"
+                            className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate"
                             title={
                               isSI
                                 ? (estimates.crushCft / 35.3147).toFixed(1)
@@ -1439,7 +1439,7 @@ export default function HouseEstimator() {
                           </div>
                         </div>
                       </div>
-                      <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4 whitespace-nowrap">
+                      <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">
                         Detailed Exact BOQ
                       </h3>
                       <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm mb-8">
@@ -1463,7 +1463,7 @@ export default function HouseEstimator() {
                             <tr className="bg-slate-50/50">
                               <td
                                 colSpan={4}
-                                className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-500 whitespace-nowrap"
+                                className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-500"
                               >
                                 Foundation Work
                               </td>
@@ -1497,7 +1497,7 @@ export default function HouseEstimator() {
                             <tr className="bg-slate-50/50">
                               <td
                                 colSpan={4}
-                                className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-500 whitespace-nowrap"
+                                className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-500"
                               >
                                 Superstructure
                               </td>
@@ -1595,10 +1595,10 @@ export default function HouseEstimator() {
                   {activeTab === "finishing" && (
                     <div className="animate-in fade-in slide-in-from-left-8 duration-500 h-full flex flex-col">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                        <h3 className="text-xl font-bold text-slate-800 whitespace-nowrap">
+                        <h3 className="text-xl font-bold text-slate-800">
                           Finishing Breakdown
                         </h3>
-                        <div className="text-2xl font-black text-violet-600 tracking-tighter bg-violet-50 px-4 py-1.5 rounded-xl border border-violet-100 whitespace-nowrap flex-1 min-w-fit whitespace-nowrap">
+                        <div className="text-2xl font-black text-violet-600 tracking-tighter bg-violet-50 px-4 py-1.5 rounded-xl border border-violet-100">
                           {formatCurrency(estimates.totalFinishing)}
                         </div>
                       </div>
@@ -1610,7 +1610,7 @@ export default function HouseEstimator() {
                         {finishingCostData.map((item, idx) => (
                           <div
                             key={idx}
-                            className="bg-white border border-slate-100 px-4 py-3 rounded-2xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group flex-1 min-w-fit whitespace-nowrap"
+                            className="bg-white border border-slate-100 px-4 py-3 rounded-2xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
                           >
                             <div
                               className="absolute top-0 left-0 w-1 h-full opacity-50 group-hover:opacity-100 transition-opacity"
@@ -1619,12 +1619,12 @@ export default function HouseEstimator() {
                             <div className="flex justify-between items-start pl-2 min-w-0">
                               <div className="min-w-0 flex-1 pr-2">
                                 <div
-                                  className="text-lg sm:text-2xl font-black text-slate-800 tracking-tight truncate whitespace-nowrap"
+                                  className="text-lg sm:text-2xl font-black text-slate-800 tracking-tight truncate"
                                   title={formatCurrency(item.value)}
                                 >
                                   {formatCurrency(item.value)}
                                 </div>
-                                <div className="text-[10px] sm:text-xs uppercase tracking-widest font-bold text-slate-400 mt-1 truncate whitespace-nowrap">
+                                <div className="text-[10px] sm:text-xs uppercase tracking-widest font-bold text-slate-400 mt-1 truncate">
                                   {item.name}
                                 </div>
                               </div>
@@ -1641,7 +1641,7 @@ export default function HouseEstimator() {
                           </div>
                         ))}
                       </div>
-                      <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4 whitespace-nowrap">
+                      <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">
                         Detailed Exact BOQ
                       </h3>
                       <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm mb-8">

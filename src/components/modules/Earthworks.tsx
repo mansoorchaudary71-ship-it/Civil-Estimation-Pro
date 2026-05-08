@@ -65,7 +65,7 @@ export default function EarthworksEstimator() {
       <div className="max-w-4xl mx-auto space-y-8">
         <header className="mb-10 block">
           <div>
-            <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent pb-1 whitespace-nowrap">
+            <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent pb-1">
               Earthworks & Hauling Estimator
             </h1>
             <p className="text-gray-500 mt-2 font-medium">
@@ -80,18 +80,18 @@ export default function EarthworksEstimator() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Inputs Section */}
           <section className="space-y-6">
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] flex-1 min-w-fit whitespace-nowrap">
+            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
                 <div className="p-2.5 bg-blue-50 text-blue-600 rounded-xl">
                   <Ruler className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold tracking-tight text-gray-800 whitespace-nowrap">
+                <h2 className="text-xl font-bold tracking-tight text-gray-800">
                   Volume Calculation
                 </h2>
               </div>
               <div className="space-y-4">
                 <div className="mb-4">
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1 whitespace-nowrap">
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1">
                     Calculation Method
                   </label>
                   <div className="flex bg-gray-100/80 p-1 rounded-xl">
@@ -110,36 +110,36 @@ export default function EarthworksEstimator() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                     Length (L) [{unitL}]
                   </label>
                   <input
                     type="number"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow"
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
                     placeholder={`Enter length in ${unitL}...`}
                   />
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                       End Area 1 (A₁) [{unitA}]
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow"
                       value={area1}
                       onChange={(e) => setArea1(e.target.value)}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                       End Area 2 (A₂) [{unitA}]
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow"
                       value={area2}
                       onChange={(e) => setArea2(e.target.value)}
                     />
@@ -148,7 +148,7 @@ export default function EarthworksEstimator() {
                 {calcMethod === "prismoidal" && (
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider ml-1 whitespace-nowrap">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider ml-1">
                         Middle Area (Aₘ) [{unitA}]
                       </label>
                       <label className="flex items-center gap-2 cursor-pointer pr-1">
@@ -166,7 +166,7 @@ export default function EarthworksEstimator() {
                     {!autoCalcAm ? (
                       <input
                         type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow"
                         value={areaM}
                         onChange={(e) => setAreaM(e.target.value)}
                       />
@@ -182,47 +182,47 @@ export default function EarthworksEstimator() {
                 )}
               </div>
             </div>
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] flex-1 min-w-fit whitespace-nowrap">
+            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
                 <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
                   <Truck className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold tracking-tight text-gray-800 whitespace-nowrap">
+                <h2 className="text-xl font-bold tracking-tight text-gray-800">
                   Factors & Hauling
                 </h2>
               </div>
               <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                       Swell Factor (%)
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow"
                       value={bulkingFactor}
                       onChange={(e) => setBulkingFactor(e.target.value)}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                       Shrink Factor (%)
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow"
                       value={shrinkageFactor}
                       onChange={(e) => setShrinkageFactor(e.target.value)}
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                     Truck Capacity ({unitV})
                   </label>
                   <input
                     type="number"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow"
                     value={truckCapacity}
                     onChange={(e) => setTruckCapacity(e.target.value)}
                   />
@@ -230,18 +230,18 @@ export default function EarthworksEstimator() {
               </div>
             </div>
             {/* Cost Estimation */}
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] mt-6 flex-1 min-w-fit whitespace-nowrap">
+            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] mt-6">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
                 <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl">
                   <DollarSign className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold tracking-tight text-gray-800 whitespace-nowrap">
+                <h2 className="text-xl font-bold tracking-tight text-gray-800">
                   Cost Estimation
                 </h2>
               </div>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                     Excavation Rate (per Bank {unitV})
                   </label>
                   <div className="relative">
@@ -252,7 +252,7 @@ export default function EarthworksEstimator() {
                       type="number"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-shadow"
                       value={excavationRate}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -263,7 +263,7 @@ export default function EarthworksEstimator() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                     Compaction Rate (per Compacted {unitV})
                   </label>
                   <div className="relative">
@@ -274,7 +274,7 @@ export default function EarthworksEstimator() {
                       type="number"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-shadow"
                       value={compactionRate}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -285,7 +285,7 @@ export default function EarthworksEstimator() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                     Hauling Rate (per Truck Trip)
                   </label>
                   <div className="relative">
@@ -296,7 +296,7 @@ export default function EarthworksEstimator() {
                       type="number"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-shadow"
                       value={haulingRate}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -320,7 +320,7 @@ export default function EarthworksEstimator() {
                   <div className="p-2 bg-white/20 rounded-xl backdrop-blur-md">
                     <Calculator className="w-5 h-5 text-white" />
                   </div>
-                  <h2 className="text-xl font-bold tracking-tight whitespace-nowrap">
+                  <h2 className="text-xl font-bold tracking-tight">
                     Calculation Results
                   </h2>
                 </div>
@@ -329,9 +329,9 @@ export default function EarthworksEstimator() {
                     <div className="text-blue-100 text-sm font-medium mb-1">
                       Solid Volume (Bank Measure)
                     </div>
-                    <div className="text-4xl font-extrabold tracking-tight whitespace-nowrap">
+                    <div className="text-4xl font-extrabold tracking-tight">
                       {solidVolume.toFixed(2)}
-                      <span className="text-xl font-medium text-blue-200 whitespace-nowrap">
+                      <span className="text-xl font-medium text-blue-200">
                         {unitV}
                       </span>
                     </div>
@@ -341,9 +341,9 @@ export default function EarthworksEstimator() {
                       <div className="text-blue-100 text-xs font-medium mb-1">
                         Loose Volume (Swell)
                       </div>
-                      <div className="text-2xl font-bold whitespace-nowrap">
+                      <div className="text-2xl font-bold">
                         {looseVolume.toFixed(2)}
-                        <span className="text-lg font-medium text-blue-200/70 whitespace-nowrap">
+                        <span className="text-lg font-medium text-blue-200/70">
                           {unitV}
                         </span>
                       </div>
@@ -352,9 +352,9 @@ export default function EarthworksEstimator() {
                       <div className="text-indigo-100 text-xs font-medium mb-1">
                         Compacted Volume
                       </div>
-                      <div className="text-2xl font-bold whitespace-nowrap">
+                      <div className="text-2xl font-bold">
                         {compactedVolume.toFixed(2)}
-                        <span className="text-lg font-medium text-indigo-200/70 whitespace-nowrap">
+                        <span className="text-lg font-medium text-indigo-200/70">
                           {unitV}
                         </span>
                       </div>
@@ -364,9 +364,9 @@ export default function EarthworksEstimator() {
               </div>
             </div>
             {/* Hauling Summary */}
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex items-center justify-between flex-1 min-w-fit whitespace-nowrap">
+            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-bold text-gray-800 mb-1 whitespace-nowrap">
+                <h3 className="text-lg font-bold text-gray-800 mb-1">
                   Total Truck Trips
                 </h3>
                 <p className="text-sm text-gray-500 font-medium">
@@ -374,7 +374,7 @@ export default function EarthworksEstimator() {
                 </p>
               </div>
               <div className="flex items-center gap-2">
-                <div className="text-4xl font-black text-indigo-600 tracking-tighter whitespace-nowrap">
+                <div className="text-4xl font-black text-indigo-600 tracking-tighter">
                   {truckTrips}
                 </div>
                 <div className="text-gray-400 mt-2">trips</div>
@@ -384,7 +384,7 @@ export default function EarthworksEstimator() {
             <div className="bg-gradient-to-br from-emerald-500 to-teal-600 p-6 rounded-[1.5rem] shadow-[0_8px_30px_rgb(20,184,166,0.2)] text-white flex items-center justify-between mt-6 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
               <div className="relative z-10">
-                <h3 className="text-lg font-bold text-white mb-1 whitespace-nowrap">
+                <h3 className="text-lg font-bold text-white mb-1">
                   Total Project Cost
                 </h3>
                 <p className="text-sm text-emerald-100 font-medium">
@@ -392,7 +392,7 @@ export default function EarthworksEstimator() {
                 </p>
               </div>
               <div className="flex items-center gap-2 relative z-10">
-                <div className="text-3xl sm:text-4xl font-black text-white tracking-tighter whitespace-nowrap">
+                <div className="text-3xl sm:text-4xl font-black text-white tracking-tighter">
                   {formatCurrency(totalCostConverted)}
                 </div>
               </div>
@@ -400,12 +400,12 @@ export default function EarthworksEstimator() {
           </section>
         </div>
         {/* Analytics Table */}
-        <div className="bg-white rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden mt-8 flex-1 min-w-fit whitespace-nowrap">
+        <div className="bg-white rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden mt-8">
           <div className="px-6 py-5 border-b border-gray-100 flex items-center gap-3">
             <div className="p-2 bg-gray-50 text-gray-600 rounded-xl">
               <Layers className="w-5 h-5" />
             </div>
-            <h3 className="text-lg font-bold tracking-tight text-gray-800 whitespace-nowrap">
+            <h3 className="text-lg font-bold tracking-tight text-gray-800">
               Earthwork Volume Data Table
             </h3>
           </div>
@@ -413,13 +413,13 @@ export default function EarthworksEstimator() {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-gray-50/50">
-                  <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-100 whitespace-nowrap">
+                  <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-100">
                     Parameter
                   </th>
-                  <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-100 whitespace-nowrap">
+                  <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-100">
                     Value
                   </th>
-                  <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-100 whitespace-nowrap">
+                  <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-100">
                     Description
                   </th>
                 </tr>

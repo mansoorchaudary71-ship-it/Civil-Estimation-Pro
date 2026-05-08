@@ -264,7 +264,7 @@ export default function VolumeEstimator() {
   return (
     <div className="w-full h-full overflow-y-auto bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-3xl font-black mb-2 flex items-center gap-3 whitespace-nowrap">
+        <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
           <Database className="w-8 h-8 text-blue-500" /> Volume Estimator
         </h1>
         <p className="text-slate-500 dark:text-slate-400 mb-8 font-medium">
@@ -272,9 +272,9 @@ export default function VolumeEstimator() {
           engineering shapes.
         </p>
         {/* Global Settings */}
-        <div className="flex flex-wrap gap-4 mb-8 items-center bg-white dark:bg-slate-900 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-800 flex-1 min-w-fit whitespace-nowrap">
+        <div className="flex flex-wrap gap-4 mb-8 items-center bg-white dark:bg-slate-900 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-800">
           <div>
-            <label className="text-xs font-bold text-gray-500 uppercase block mb-1 whitespace-nowrap">
+            <label className="text-xs font-bold text-gray-500 uppercase block mb-1">
               Measurement System
             </label>
             <div className="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1 w-fit">
@@ -353,7 +353,7 @@ export default function VolumeEstimator() {
                   return <ShapeIcon className="w-6 h-6" />;
                 })()}
               </div>
-              <h3 className="font-bold text-xl whitespace-nowrap">
+              <h3 className="font-bold text-xl">
                 {activeShape} Parameters
               </h3>
             </div>
@@ -361,7 +361,7 @@ export default function VolumeEstimator() {
               {activeShape === "Rectangular Prism" && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Length ({system === "Metric" ? "m" : "ft"})
                     </label>
                     <input
@@ -372,7 +372,7 @@ export default function VolumeEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Width ({system === "Metric" ? "m" : "ft"})
                     </label>
                     <input
@@ -383,7 +383,7 @@ export default function VolumeEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Height ({system === "Metric" ? "m" : "ft"})
                     </label>
                     <input
@@ -397,7 +397,7 @@ export default function VolumeEstimator() {
               )}
               {activeShape === "Cube" && (
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                  <label className="text-xs font-bold text-gray-500 uppercase">
                     Side Length ({system === "Metric" ? "m" : "ft"})
                   </label>
                   <input
@@ -411,7 +411,7 @@ export default function VolumeEstimator() {
               {["Cylinder", "Cone", "Parabolic Cone"].includes(activeShape) && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Radius ({system === "Metric" ? "m" : "ft"})
                     </label>
                     <input
@@ -422,7 +422,7 @@ export default function VolumeEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Height ({system === "Metric" ? "m" : "ft"})
                     </label>
                     <input
@@ -436,7 +436,7 @@ export default function VolumeEstimator() {
               )}
               {["Sphere", "Half Sphere"].includes(activeShape) && (
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                  <label className="text-xs font-bold text-gray-500 uppercase">
                     Radius ({system === "Metric" ? "m" : "ft"})
                   </label>
                   <input
@@ -450,7 +450,7 @@ export default function VolumeEstimator() {
               {activeShape === "Frustum Cone" && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Top Radius ({system === "Metric" ? "m" : "ft"})
                     </label>
                     <input
@@ -461,7 +461,7 @@ export default function VolumeEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Bottom Radius ({system === "Metric" ? "m" : "ft"})
                     </label>
                     <input
@@ -472,7 +472,7 @@ export default function VolumeEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Height ({system === "Metric" ? "m" : "ft"})
                     </label>
                     <input
@@ -487,7 +487,7 @@ export default function VolumeEstimator() {
               {activeShape === "Triangular Dumper" && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Base Width ({system === "Metric" ? "m" : "ft"})
                     </label>
                     <input
@@ -498,7 +498,7 @@ export default function VolumeEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Vertical / Triangle Height (
                       {system === "Metric" ? "m" : "ft"})
                     </label>
@@ -510,7 +510,7 @@ export default function VolumeEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Length ({system === "Metric" ? "m" : "ft"})
                     </label>
                     <input
@@ -526,7 +526,7 @@ export default function VolumeEstimator() {
                 <div className="grid grid-cols-1 gap-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                      <label className="text-xs font-bold text-gray-500 uppercase">
                         Top Width ({system === "Metric" ? "m" : "ft"})
                       </label>
                       <input
@@ -537,7 +537,7 @@ export default function VolumeEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                      <label className="text-xs font-bold text-gray-500 uppercase">
                         Bottom Width ({system === "Metric" ? "m" : "ft"})
                       </label>
                       <input
@@ -550,7 +550,7 @@ export default function VolumeEstimator() {
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                      <label className="text-xs font-bold text-gray-500 uppercase">
                         Depth / Height ({system === "Metric" ? "m" : "ft"})
                       </label>
                       <input
@@ -561,7 +561,7 @@ export default function VolumeEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                      <label className="text-xs font-bold text-gray-500 uppercase">
                         Length ({system === "Metric" ? "m" : "ft"})
                       </label>
                       <input
@@ -577,7 +577,7 @@ export default function VolumeEstimator() {
               {activeShape === "Rectangle Tank" && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Length ({system === "Metric" ? "m" : "ft"})
                     </label>
                     <input
@@ -588,7 +588,7 @@ export default function VolumeEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Width ({system === "Metric" ? "m" : "ft"})
                     </label>
                     <input
@@ -599,7 +599,7 @@ export default function VolumeEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Height/Depth ({system === "Metric" ? "m" : "ft"})
                     </label>
                     <input
@@ -614,7 +614,7 @@ export default function VolumeEstimator() {
               {activeShape === "Prism" && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Base Area ({system === "Metric" ? "m²" : "sq.ft"})
                     </label>
                     <input
@@ -625,7 +625,7 @@ export default function VolumeEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Base Perimeter ({system === "Metric" ? "m" : "ft"})
                     </label>
                     <input
@@ -636,7 +636,7 @@ export default function VolumeEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Height ({system === "Metric" ? "m" : "ft"})
                     </label>
                     <input
@@ -652,38 +652,38 @@ export default function VolumeEstimator() {
           </div>
           <div className="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-[2rem] p-6 text-white shadow-xl flex flex-col justify-between items-center text-center">
             <div className="w-full text-left mb-6">
-              <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest whitespace-nowrap">
+              <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest">
                 Calculated Results
               </h3>
             </div>
             <div className="w-full space-y-4 mb-8">
-              <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700 flex flex-col justify-center items-center flex-1 min-w-fit whitespace-nowrap">
+              <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700 flex flex-col justify-center items-center">
                 <Maximize className="w-6 h-6 text-blue-400 mb-2" />
                 <span className="block text-slate-400 text-[11px] font-bold uppercase mb-1">
                   Total Volume
                 </span>
-                <span className="text-4xl font-black text-white whitespace-nowrap">
+                <span className="text-4xl font-black text-white">
                   {volume.toFixed(2)}
-                  <span className="text-xl text-blue-300 whitespace-nowrap">
+                  <span className="text-xl text-blue-300">
                     {volUnit}
                   </span>
                 </span>
               </div>
               <div className="flex flex-wrap gap-4 items-center w-full">
-                <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700 flex flex-col justify-center items-center flex-1 min-w-fit whitespace-nowrap">
+                <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700 flex flex-col justify-center items-center">
                   <span className="block text-slate-400 text-[10px] font-bold uppercase mb-1">
                     Surface Area
                   </span>
-                  <span className="text-xl font-bold text-emerald-400 whitespace-nowrap">
+                  <span className="text-xl font-bold text-emerald-400">
                     {surfaceArea.toFixed(2)}
                     <span className="text-sm">{areaUnit}</span>
                   </span>
                 </div>
-                <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700 flex flex-col justify-center items-center flex-1 min-w-fit whitespace-nowrap">
+                <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700 flex flex-col justify-center items-center">
                   <span className="block text-slate-400 text-[10px] font-bold uppercase mb-1">
                     Liquid Capacity
                   </span>
-                  <span className="text-xl font-bold text-cyan-400 whitespace-nowrap">
+                  <span className="text-xl font-bold text-cyan-400">
                     {liquidCapacity.toFixed(2)}
                     <span className="text-sm">{capacityUnit}</span>
                   </span>

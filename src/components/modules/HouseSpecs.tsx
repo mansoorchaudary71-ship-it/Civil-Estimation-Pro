@@ -17,10 +17,10 @@ export default function HouseSpecs() {
     <div className="w-full h-full overflow-y-auto bg-[#fafafa] text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         <header className="mb-10">
-          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent pb-2 whitespace-nowrap">
+          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent pb-2">
             Material Specs & Finishing
           </h1>
-          <p className="text-gray-500 mt-2 text-lg font-medium whitespace-nowrap">
+          <p className="text-gray-500 mt-2 text-lg font-medium">
             Define material specifications, structural mixes, and finish
             qualities mapping to central dynamic rates.
           </p>
@@ -291,7 +291,7 @@ function GlassCard({
         <div className={`p-2.5 rounded-2xl ${bgColors[color]}`}>
           {icon}
         </div>
-        <h3 className="text-lg font-bold text-gray-800 whitespace-nowrap">
+        <h3 className="text-lg font-bold text-gray-800">
           {title}
         </h3>
       </div>
@@ -307,7 +307,7 @@ function SelectInput({ label, value, options, onChange }: any) {
       </label>
       <div className="relative">
         <select
-          className="w-full bg-gray-50/80 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 text-sm font-semibold appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors flex-1 min-w-fit whitespace-nowrap"
+          className="w-full bg-gray-50/80 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 text-sm font-semibold appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         >
@@ -345,7 +345,7 @@ function NumberInput({ label, value, onChange, desc }: any) {
       <input
         type="number"
         step="any"
-        className="w-full bg-gray-50/80 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors flex-1 min-w-fit whitespace-nowrap"
+        className="w-full bg-gray-50/80 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors"
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
@@ -359,7 +359,7 @@ function NumberInput({ label, value, onChange, desc }: any) {
 }
 function ToggleGroup({ value, onChange, options }: any) {
   return (
-    <div className="flex bg-gray-100/80 backdrop-blur-sm p-1 rounded-2xl w-full border border-gray-200/50 flex-1 min-w-fit whitespace-nowrap">
+    <div className="flex bg-gray-100/80 backdrop-blur-sm p-1 rounded-2xl w-full border border-gray-200/50">
       {options.map((opt: any) => (
         <button
           key={opt.value}

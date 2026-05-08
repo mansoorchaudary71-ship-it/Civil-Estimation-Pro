@@ -213,7 +213,7 @@ export default function RccStructureCalculator({
       <div className={isEmbedded ? "w-full" : "max-w-6xl mx-auto"}>
         {!isEmbedded && (
           <>
-            <h1 className="text-3xl font-black mb-2 flex items-center gap-3 whitespace-nowrap">
+            <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
               <Spline className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
               RCC Structure Calculator
             </h1>
@@ -276,7 +276,7 @@ export default function RccStructureCalculator({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Inputs Section */}
           <div className="lg:col-span-7 bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm">
-            <h3 className="font-bold text-xl mb-6 whitespace-nowrap">
+            <h3 className="font-bold text-xl mb-6">
               {activeType} Parameters
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -284,7 +284,7 @@ export default function RccStructureCalculator({
                 <>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-b border-slate-100 dark:border-slate-800 pb-6 mb-6">
                     <div>
-                      <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                      <label className="text-xs font-bold text-gray-500 uppercase">
                         Length (m)
                       </label>
                       <input
@@ -295,7 +295,7 @@ export default function RccStructureCalculator({
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                      <label className="text-xs font-bold text-gray-500 uppercase">
                         Width (m)
                       </label>
                       <input
@@ -306,7 +306,7 @@ export default function RccStructureCalculator({
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                      <label className="text-xs font-bold text-gray-500 uppercase">
                         Slab Thickness (m)
                       </label>
                       <input
@@ -331,7 +331,7 @@ export default function RccStructureCalculator({
               {!activeType.includes("Slab") && (
                 <>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Column Height (m)
                     </label>
                     <input
@@ -342,7 +342,7 @@ export default function RccStructureCalculator({
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Clear Cover ({isSI ? "mm" : "in"})
                     </label>
                     <input
@@ -354,7 +354,7 @@ export default function RccStructureCalculator({
                   </div>
                   {activeType === "Round Column" ? (
                     <div>
-                      <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                      <label className="text-xs font-bold text-gray-500 uppercase">
                         Diameter ({isSI ? "mm" : "in"})
                       </label>
                       <input
@@ -367,7 +367,7 @@ export default function RccStructureCalculator({
                   ) : (
                     <>
                       <div>
-                        <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                        <label className="text-xs font-bold text-gray-500 uppercase">
                           Width ({isSI ? "mm" : "in"})
                         </label>
                         <input
@@ -378,7 +378,7 @@ export default function RccStructureCalculator({
                         />
                       </div>
                       <div>
-                        <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                        <label className="text-xs font-bold text-gray-500 uppercase">
                           Depth ({isSI ? "mm" : "in"})
                         </label>
                         <input
@@ -397,7 +397,7 @@ export default function RccStructureCalculator({
                   </div>
                   {activeType === "Round Column" && (
                     <div>
-                      <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                      <label className="text-xs font-bold text-gray-500 uppercase">
                         No. of Main Bars
                       </label>
                       <input
@@ -409,7 +409,7 @@ export default function RccStructureCalculator({
                     </div>
                   )}
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Main Bar Dia ({isSI ? "mm" : "in"})
                     </label>
                     <input
@@ -420,7 +420,7 @@ export default function RccStructureCalculator({
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Stirrup / Tie Dia ({isSI ? "mm" : "in"})
                     </label>
                     <input
@@ -431,7 +431,7 @@ export default function RccStructureCalculator({
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase whitespace-nowrap">
+                    <label className="text-xs font-bold text-gray-500 uppercase">
                       Tie Spacing ({isSI ? "mm" : "in"})
                     </label>
                     <input
@@ -448,28 +448,28 @@ export default function RccStructureCalculator({
           {/* Results Section */}
           <div className="lg:col-span-5 bg-indigo-950 border border-indigo-900 rounded-[2rem] p-6 lg:p-10 text-white shadow-2xl flex flex-col justify-between">
             <div>
-              <h3 className="font-bold text-indigo-300 text-sm uppercase tracking-widest mb-8 whitespace-nowrap">
+              <h3 className="font-bold text-indigo-300 text-sm uppercase tracking-widest mb-8">
                 Calculated Results
               </h3>
               <div className="space-y-6">
                 <div className="bg-indigo-900/60 p-6 rounded-2xl border border-indigo-800">
-                  <span className="block text-indigo-300 text-xs font-bold uppercase mb-2 whitespace-nowrap">
+                  <span className="block text-indigo-300 text-xs font-bold uppercase mb-2">
                     Concrete Volume
                   </span>
-                  <span className="text-4xl font-black text-white whitespace-nowrap">
+                  <span className="text-4xl font-black text-white">
                     {concreteVol.toFixed(3)}
-                    <span className="text-xl text-indigo-400 ml-2 whitespace-nowrap">
+                    <span className="text-xl text-indigo-400 ml-2">
                       m³
                     </span>
                   </span>
                 </div>
                 <div className="bg-indigo-900/60 p-6 rounded-2xl border border-indigo-800">
-                  <span className="block text-indigo-300 text-xs font-bold uppercase mb-2 whitespace-nowrap">
+                  <span className="block text-indigo-300 text-xs font-bold uppercase mb-2">
                     Total Steel Weight
                   </span>
-                  <span className="text-5xl font-black text-emerald-400 whitespace-nowrap">
+                  <span className="text-5xl font-black text-emerald-400">
                     {totalSteelKg.toFixed(2)}
-                    <span className="text-2xl text-indigo-400 ml-3 whitespace-nowrap">
+                    <span className="text-2xl text-indigo-400 ml-3">
                       kg
                     </span>
                   </span>

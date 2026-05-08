@@ -25,12 +25,12 @@ function CircularColumnInputs({
 }) {
   return (
     <div className="animate-in fade-in slide-in-from-top-2 duration-300">
-      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
         Diameter (m)
       </label>
       <input
         type="number"
-        className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm flex-1 min-w-fit whitespace-nowrap"
+        className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
         value={diameter}
         onChange={(e) => setDiameter(e.target.value)}
         placeholder="e.g. 0.4"
@@ -54,12 +54,12 @@ function RectangularColumnInputs({
   return (
     <div className="grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2 duration-300">
       <div>
-        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
           {isSquare ? "Side Length (m)" : "Length (m)"}
         </label>
         <input
           type="number"
-          className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm flex-1 min-w-fit whitespace-nowrap"
+          className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
           value={length}
           onChange={(e) => {
             setLength(e.target.value);
@@ -70,12 +70,12 @@ function RectangularColumnInputs({
       </div>
       {!isSquare && (
         <div>
-          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
             Width (m)
           </label>
           <input
             type="number"
-            className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm flex-1 min-w-fit whitespace-nowrap"
+            className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
             value={width}
             onChange={(e) => setWidth(e.target.value)}
             placeholder="e.g. 0.3"
@@ -119,7 +119,7 @@ export default function ColumnEstimator() {
       <div className="max-w-4xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-black mb-2 flex items-center gap-3 text-slate-800 dark:text-white whitespace-nowrap">
+            <h1 className="text-3xl font-black mb-2 flex items-center gap-3 text-slate-800 dark:text-white">
               <Columns className="w-8 h-8 text-blue-600 dark:text-blue-400" />
               Column Concrete Estimator
             </h1>
@@ -129,7 +129,7 @@ export default function ColumnEstimator() {
           </div>
           <GlobalSettingsToggle align="left" showCurrency={false} />
         </div>
-        <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden flex-1 min-w-fit whitespace-nowrap">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
           <div className="p-6 md:p-8 space-y-8">
             {/* Shape Toggle Group */}
             <div>
@@ -174,36 +174,36 @@ export default function ColumnEstimator() {
                     isSquare={shape === "square"}
                   />
                 )}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                       Height (m)
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm flex-1 min-w-fit whitespace-nowrap"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                       Number of Columns
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm flex-1 min-w-fit whitespace-nowrap"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
                       value={count}
                       onChange={(e) => setCount(e.target.value)}
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                     Concrete Mix
                   </label>
                   <select
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm appearance-none flex-1 min-w-fit whitespace-nowrap"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm appearance-none"
                     value={mix}
                     onChange={(e) => setMix(e.target.value)}
                   >
@@ -216,7 +216,7 @@ export default function ColumnEstimator() {
                 </div>
               </div>
               {/* Visual Aid */}
-              <div className="bg-slate-50 dark:bg-slate-800 rounded-2xl flex flex-col items-center justify-center px-4 py-3 border border-slate-100 dark:border-slate-700/50 min-h-[300px] flex-1 min-w-fit whitespace-nowrap">
+              <div className="bg-slate-50 dark:bg-slate-800 rounded-2xl flex flex-col items-center justify-center px-4 py-3 border border-slate-100 dark:border-slate-700/50 min-h-[300px]">
                 <div
                   className="w-40 h-40 relative flex items-center justify-center text-blue-200 dark:text-blue-900 border-[8px] mb-6 shadow-inner transition-all duration-500 ease-in-out"
                   style={{
@@ -256,20 +256,20 @@ export default function ColumnEstimator() {
             </div>
             {/* Results Grid */}
             <div className="flex flex-wrap  gap-6 pt-6 border-t border-slate-100 dark:border-slate-800 items-center w-full">
-              <div className="bg-blue-50 dark:bg-blue-900/20 px-4 py-3 rounded-2xl border border-blue-100 dark:border-blue-800/50 flex-1 min-w-fit whitespace-nowrap">
+              <div className="bg-blue-50 dark:bg-blue-900/20 px-4 py-3 rounded-2xl border border-blue-100 dark:border-blue-800/50">
                 <div className="flex items-center gap-2 mb-4">
                   <Droplets className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                   <h4 className="font-bold text-blue-800 dark:text-blue-300">
                     Concrete Volume
                   </h4>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <span className="block text-xs font-semibold text-blue-500 dark:text-blue-400 mb-1">
                       Wet Volume
                     </span>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-black text-blue-700 dark:text-blue-200 whitespace-nowrap">
+                      <span className="text-3xl font-black text-blue-700 dark:text-blue-200">
                         {vol.toFixed(3)}
                       </span>
                       <span className="text-blue-600 dark:text-blue-400 font-medium">
@@ -282,7 +282,7 @@ export default function ColumnEstimator() {
                       Dry Volume
                     </span>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-black text-blue-700 dark:text-blue-200 whitespace-nowrap">
+                      <span className="text-3xl font-black text-blue-700 dark:text-blue-200">
                         {dryVol.toFixed(3)}
                       </span>
                       <span className="text-blue-600 dark:text-blue-400 font-medium">
@@ -292,17 +292,17 @@ export default function ColumnEstimator() {
                   </div>
                 </div>
               </div>
-              <div className="bg-slate-100 dark:bg-slate-800 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-700 flex-1 min-w-fit whitespace-nowrap">
+              <div className="bg-slate-100 dark:bg-slate-800 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-700">
                 <h4 className="font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
                   <Layers className="w-5 h-5 text-slate-500 dark:text-slate-400" />
                   Material Breakdown
                 </h4>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
                     <span className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
                       Cement
                     </span>
-                    <span className="block text-xl font-bold text-slate-800 dark:text-white whitespace-nowrap">
+                    <span className="block text-xl font-bold text-slate-800 dark:text-white">
                       {cementBags}
                       <span className="text-sm text-slate-500">bags</span>
                     </span>
@@ -311,7 +311,7 @@ export default function ColumnEstimator() {
                     <span className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
                       Sand
                     </span>
-                    <span className="block text-xl font-bold text-slate-800 dark:text-white whitespace-nowrap">
+                    <span className="block text-xl font-bold text-slate-800 dark:text-white">
                       {sandCft.toFixed(1)}
                       <span className="text-sm text-slate-500">cft</span>
                     </span>
@@ -320,7 +320,7 @@ export default function ColumnEstimator() {
                     <span className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
                       Aggregate
                     </span>
-                    <span className="block text-xl font-bold text-slate-800 dark:text-white whitespace-nowrap">
+                    <span className="block text-xl font-bold text-slate-800 dark:text-white">
                       {aggCft.toFixed(1)}
                       <span className="text-sm text-slate-500">cft</span>
                     </span>

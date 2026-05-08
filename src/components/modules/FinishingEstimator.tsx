@@ -151,10 +151,10 @@ export default function FinishingEstimator() {
     <div className="w-full h-full overflow-y-auto bg-[#fafafa] text-gray-900 font-sans p-6 md:p-8 relative">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         <header className="mb-8">
-          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent pb-2 whitespace-nowrap">
+          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent pb-2">
             Finishing Works Estimator
           </h1>
-          <p className="text-gray-500 mt-2 text-lg font-medium whitespace-nowrap">
+          <p className="text-gray-500 mt-2 text-lg font-medium">
             Calculate plaster, tile, and paint quantities with dynamic cost
             distributions.
           </p>
@@ -168,11 +168,11 @@ export default function FinishingEstimator() {
             {/* Base Dimensions & Deductions Container */}
             <div className="bg-white/80 backdrop-blur-xl p-6 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-white/40">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-indigo-50 text-indigo-600 rounded-2xl shadow-sm flex-1 min-w-fit whitespace-nowrap">
+                <div className="p-3 bg-indigo-50 text-indigo-600 rounded-2xl shadow-sm">
                   <Maximize className="w-6 h-6" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold tracking-tight text-gray-800 whitespace-nowrap">
+                  <h2 className="text-xl font-bold tracking-tight text-gray-800">
                     Space Dimensions
                   </h2>
                   <p className="text-xs text-gray-500">
@@ -186,7 +186,7 @@ export default function FinishingEstimator() {
                 </label>
                 <input
                   type="number"
-                  className="w-full bg-gray-50/50 border border-gray-200 focus:bg-white rounded-2xl px-4 py-3 text-lg font-medium focus:outline-none focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all shadow-inner whitespace-nowrap flex-1 min-w-fit whitespace-nowrap"
+                  className="w-full bg-gray-50/50 border border-gray-200 focus:bg-white rounded-2xl px-4 py-3 text-lg font-medium focus:outline-none focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all shadow-inner"
                   value={totalArea}
                   onChange={(e) => setTotalArea(e.target.value)}
                 />
@@ -198,7 +198,7 @@ export default function FinishingEstimator() {
                 {deductions.map((d) => (
                   <div
                     key={d.id}
-                    className="flex items-center justify-between bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 flex-1 min-w-fit whitespace-nowrap"
+                    className="flex items-center justify-between bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100"
                   >
                     <span className="font-medium text-gray-700">
                       {d.name}
@@ -241,7 +241,7 @@ export default function FinishingEstimator() {
                 <span className="text-indigo-800 font-bold">
                   Net Operative Area
                 </span>
-                <span className="text-2xl font-black text-indigo-700 font-mono whitespace-nowrap">
+                <span className="text-2xl font-black text-indigo-700 font-mono">
                   {calcNetArea().toFixed(2)} m²
                 </span>
               </div>
@@ -250,7 +250,7 @@ export default function FinishingEstimator() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Plaster Parameters */}
               <div className="bg-white/80 backdrop-blur-xl p-6 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-white/40">
-                <h3 className="text-lg font-bold text-gray-800 mb-5 flex items-center gap-2 whitespace-nowrap">
+                <h3 className="text-lg font-bold text-gray-800 mb-5 flex items-center gap-2">
                   <span className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-black text-slate-500">
                     P
                   </span>
@@ -258,7 +258,7 @@ export default function FinishingEstimator() {
                 </h3>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 whitespace-nowrap">
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                       Thickness ({uMm})
                     </label>
                     <input
@@ -269,7 +269,7 @@ export default function FinishingEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 whitespace-nowrap">
+                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                       Mortar Ratio (1:X)
                     </label>
                     <div className="flex bg-gray-50/50 border border-gray-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-slate-500/30">
@@ -289,11 +289,11 @@ export default function FinishingEstimator() {
               {/* Tile & Paint Parameters */}
               <div className="space-y-6">
                 <div className="bg-white/80 backdrop-blur-xl p-6 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-white/40">
-                  <h3 className="text-lg font-bold text-gray-800 mb-5 flex items-center gap-2 whitespace-nowrap">
+                  <h3 className="text-lg font-bold text-gray-800 mb-5 flex items-center gap-2">
                     <CheckSquare className="w-5 h-5 text-sky-500" /> Tiling
                     Profile
                   </h3>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1">
                         Tile (W x L) {uMm}
@@ -328,7 +328,7 @@ export default function FinishingEstimator() {
                   </div>
                 </div>
                 <div className="bg-white/80 backdrop-blur-xl p-6 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-white/40">
-                  <h3 className="text-lg font-bold text-gray-800 mb-5 flex items-center gap-2 whitespace-nowrap">
+                  <h3 className="text-lg font-bold text-gray-800 mb-5 flex items-center gap-2">
                     <PaintBucket className="w-5 h-5 text-pink-500" /> Paint
                     Coverage
                   </h3>
@@ -353,7 +353,7 @@ export default function FinishingEstimator() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/20 rounded-full blur-[80px]" />
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-600/20 rounded-full blur-[80px]" />
               <div className="relative z-10 flex flex-col gap-6">
-                <h2 className="text-xl font-bold flex items-center gap-2 mb-2 whitespace-nowrap">
+                <h2 className="text-xl font-bold flex items-center gap-2 mb-2">
                   <PieChartIcon className="w-5 h-5" /> Cost Distribution
                 </h2>
                 <div className="h-64 cursor-pointer">
@@ -416,7 +416,7 @@ export default function FinishingEstimator() {
                     <span className="text-gray-400 font-medium pb-1">
                       Total Estimated Cost
                     </span>
-                    <span className="text-3xl font-black tracking-tight whitespace-nowrap">
+                    <span className="text-3xl font-black tracking-tight">
                       {formatCurrency(totalCost)}
                     </span>
                   </div>
@@ -424,46 +424,46 @@ export default function FinishingEstimator() {
               </div>
             </div>
             <div className="flex flex-wrap gap-4 items-center w-full">
-              <div className="bg-white px-4 py-3 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center text-center flex-1 min-w-fit whitespace-nowrap">
-                <div className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-2 whitespace-nowrap">
+              <div className="bg-white px-4 py-3 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center text-center">
+                <div className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-2">
                   Cement
                 </div>
-                <div className="text-3xl font-black text-slate-700 whitespace-nowrap">
+                <div className="text-3xl font-black text-slate-700">
                   {results.cementBags}
                 </div>
                 <div className="text-slate-400 text-xs font-semibold mt-1">
                   Bags (50kg)
                 </div>
               </div>
-              <div className="bg-white px-4 py-3 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center text-center flex-1 min-w-fit whitespace-nowrap">
-                <div className="text-amber-500 text-xs font-bold uppercase tracking-widest mb-2 whitespace-nowrap">
+              <div className="bg-white px-4 py-3 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center text-center">
+                <div className="text-amber-500 text-xs font-bold uppercase tracking-widest mb-2">
                   Sand
                 </div>
-                <div className="text-3xl font-black text-amber-600 whitespace-nowrap">
+                <div className="text-3xl font-black text-amber-600">
                   {results.sandVolumeCft}
                 </div>
                 <div className="text-amber-400/80 text-xs font-semibold mt-1">
                   CFT
                 </div>
               </div>
-              <div className="bg-white px-4 py-3 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center text-center relative overflow-hidden flex-1 min-w-fit whitespace-nowrap">
+              <div className="bg-white px-4 py-3 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center text-center relative overflow-hidden">
                 <div className="absolute top-0 w-full h-1 bg-sky-400" />
-                <div className="text-sky-500 text-xs font-bold uppercase tracking-widest mb-2 whitespace-nowrap">
+                <div className="text-sky-500 text-xs font-bold uppercase tracking-widest mb-2">
                   Tiles
                 </div>
-                <div className="text-3xl font-black text-sky-600 whitespace-nowrap">
+                <div className="text-3xl font-black text-sky-600">
                   {results.boxesReq}
                 </div>
                 <div className="text-sky-400/80 text-xs font-semibold mt-1">
                   Boxes
                 </div>
               </div>
-              <div className="bg-white px-4 py-3 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center text-center relative overflow-hidden flex-1 min-w-fit whitespace-nowrap">
+              <div className="bg-white px-4 py-3 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center text-center relative overflow-hidden">
                 <div className="absolute top-0 w-full h-1 bg-pink-400" />
-                <div className="text-pink-500 text-xs font-bold uppercase tracking-widest mb-2 whitespace-nowrap">
+                <div className="text-pink-500 text-xs font-bold uppercase tracking-widest mb-2">
                   Paint
                 </div>
-                <div className="text-3xl font-black text-pink-600 whitespace-nowrap">
+                <div className="text-3xl font-black text-pink-600">
                   {results.paintLiters}
                 </div>
                 <div className="text-pink-400/80 text-xs font-semibold mt-1">

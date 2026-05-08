@@ -79,67 +79,67 @@ export default function SlabSteelModule({
     onStateChange,
   ]);
   return (
-    <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[1.5rem] overflow-hidden mt-6 shadow-sm flex-1 min-w-fit whitespace-nowrap">
+    <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[1.5rem] overflow-hidden mt-6 shadow-sm">
       <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3 bg-slate-50 dark:bg-slate-800/50">
         <Layers className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-        <h3 className="text-lg font-bold text-slate-800 dark:text-white whitespace-nowrap">
+        <h3 className="text-lg font-bold text-slate-800 dark:text-white">
           Steel Reinforcement Settings
         </h3>
       </div>
       <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-6">
-          <div className="bg-indigo-50/50 dark:bg-indigo-900/10 px-4 py-3 rounded-2xl border border-indigo-100 dark:border-indigo-800/30 flex-1 min-w-fit whitespace-nowrap">
+          <div className="bg-indigo-50/50 dark:bg-indigo-900/10 px-4 py-3 rounded-2xl border border-indigo-100 dark:border-indigo-800/30">
             <h4 className="text-sm font-bold text-indigo-800 dark:text-indigo-300 mb-4">
               Main Bars (Bottom • Short Span)
             </h4>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
                   Diameter ({isSI ? "mm" : "in"})
                 </label>
                 <input
                   type="number"
-                  className="w-full bg-white dark:bg-slate-800 border-none text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all flex-1 min-w-fit whitespace-nowrap"
+                  className="w-full bg-white dark:bg-slate-800 border-none text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all"
                   value={mainDia}
                   onChange={(e) => setMainDia(e.target.value)}
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
                   Spacing c/c ({isSI ? "mm" : "in"})
                 </label>
                 <input
                   type="number"
-                  className="w-full bg-white dark:bg-slate-800 border-none text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all flex-1 min-w-fit whitespace-nowrap"
+                  className="w-full bg-white dark:bg-slate-800 border-none text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all"
                   value={mainSpacing}
                   onChange={(e) => setMainSpacing(e.target.value)}
                 />
               </div>
             </div>
           </div>
-          <div className="bg-slate-50 dark:bg-slate-800/30 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-700/50 flex-1 min-w-fit whitespace-nowrap">
+          <div className="bg-slate-50 dark:bg-slate-800/30 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-700/50">
             <h4 className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-4">
               Distribution Bars (Top/Cross)
             </h4>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
                   Diameter ({isSI ? "mm" : "in"})
                 </label>
                 <input
                   type="number"
-                  className="w-full bg-white dark:bg-slate-800 border-none text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all flex-1 min-w-fit whitespace-nowrap"
+                  className="w-full bg-white dark:bg-slate-800 border-none text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all"
                   value={distDia}
                   onChange={(e) => setDistDia(e.target.value)}
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
                   Spacing c/c ({isSI ? "mm" : "in"})
                 </label>
                 <input
                   type="number"
-                  className="w-full bg-white dark:bg-slate-800 border-none text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all flex-1 min-w-fit whitespace-nowrap"
+                  className="w-full bg-white dark:bg-slate-800 border-none text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm transition-all"
                   value={distSpacing}
                   onChange={(e) => setDistSpacing(e.target.value)}
                 />
@@ -148,7 +148,7 @@ export default function SlabSteelModule({
           </div>
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
                 Top Cover ({isSI ? "mm" : "in"})
               </label>
               <input
@@ -159,7 +159,7 @@ export default function SlabSteelModule({
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
                 Bot Cover ({isSI ? "mm" : "in"})
               </label>
               <input
@@ -170,7 +170,7 @@ export default function SlabSteelModule({
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
                 Side Cover ({isSI ? "mm" : "in"})
               </label>
               <input
@@ -288,7 +288,7 @@ export default function SlabSteelModule({
               </text>
             </svg>
             <div className="mt-4 text-center">
-              <span className="text-xs text-slate-400 font-medium tracking-wide uppercase whitespace-nowrap">
+              <span className="text-xs text-slate-400 font-medium tracking-wide uppercase">
                 Cross Section View
               </span>
             </div>

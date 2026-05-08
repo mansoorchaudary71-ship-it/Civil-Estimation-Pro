@@ -129,7 +129,7 @@ export default function ChainageVolumeEstimator() {
       <div className="max-w-7xl mx-auto space-y-8">
         <header className="mb-10 block">
           <div>
-            <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent pb-1 flex items-center gap-3 whitespace-nowrap">
+            <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent pb-1 flex items-center gap-3">
               <Map className="w-8 h-8 text-amber-500" /> Road Earthwork
               Calculator
             </h1>
@@ -145,58 +145,58 @@ export default function ChainageVolumeEstimator() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <section className="lg:col-span-8 space-y-6">
             {/* Global Parameters */}
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all flex-1 min-w-fit whitespace-nowrap">
+            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
                 <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
                   <Layers className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold tracking-tight text-gray-800 whitespace-nowrap">
+                <h2 className="text-xl font-bold tracking-tight text-gray-800">
                   Road Parameters
                 </h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                     Formation Width ({unitL})
                   </label>
                   <input
                     type="number"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
                     value={formationWidth}
                     onChange={(e) => setFormationWidth(e.target.value)}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                     Cut Slope (H:1V)
                   </label>
                   <input
                     type="number"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
                     value={cutSlope}
                     onChange={(e) => setCutSlope(e.target.value)}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                     Fill Slope (H:1V)
                   </label>
                   <input
                     type="number"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow flex-1 min-w-fit whitespace-nowrap"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
                     value={fillSlope}
                     onChange={(e) => setFillSlope(e.target.value)}
                   />
                 </div>
               </div>
             </div>
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] flex-1 min-w-fit whitespace-nowrap">
+            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
               <div className="flex items-center justify-between mb-5 border-b border-gray-50 pb-4">
                 <div className="flex items-center gap-3">
                   <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
                     <Map className="w-5 h-5" />
                   </div>
-                  <h2 className="text-xl font-bold tracking-tight text-gray-800 whitespace-nowrap">
+                  <h2 className="text-xl font-bold tracking-tight text-gray-800">
                     Station Data
                   </h2>
                 </div>
@@ -210,7 +210,7 @@ export default function ChainageVolumeEstimator() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-gray-100 text-xs uppercase tracking-wider text-gray-500 whitespace-nowrap">
+                    <tr className="border-b border-gray-100 text-xs uppercase tracking-wider text-gray-500">
                       <th className="pb-3 pr-4 font-semibold min-w-[120px]">
                         Chainage
                       </th>
@@ -237,7 +237,7 @@ export default function ChainageVolumeEstimator() {
                         <td className="py-2 pr-4">
                           <input
                             type="text"
-                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm flex-1 min-w-fit whitespace-nowrap"
+                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm"
                             value={st.chainage}
                             onChange={(e) =>
                               handleUpdateStation(
@@ -252,7 +252,7 @@ export default function ChainageVolumeEstimator() {
                         <td className="py-2 px-4">
                           <input
                             type="number"
-                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm flex-1 min-w-fit whitespace-nowrap"
+                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm"
                             value={st.ngl}
                             onChange={(e) =>
                               handleUpdateStation(st.id, "ngl", e.target.value)
@@ -262,14 +262,14 @@ export default function ChainageVolumeEstimator() {
                         <td className="py-2 px-4">
                           <input
                             type="number"
-                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm flex-1 min-w-fit whitespace-nowrap"
+                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm"
                             value={st.fl}
                             onChange={(e) =>
                               handleUpdateStation(st.id, "fl", e.target.value)
                             }
                           />
                         </td>
-                        <td className="py-2 px-4 whitespace-nowrap">
+                        <td className="py-2 px-4">
                           <div className="font-mono text-[13px] font-semibold flex flex-col items-start bg-slate-100 rounded-lg px-3 py-1.5 min-w-[70px]">
                             {st.depthCut > 0 && (
                               <span className="text-amber-600">
@@ -302,13 +302,13 @@ export default function ChainageVolumeEstimator() {
               </div>
             </div>
             {/* Detailed Results Table */}
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex-1 min-w-fit whitespace-nowrap">
-              <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2 whitespace-nowrap">
+            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
+              <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
                 <LayoutTemplate className="w-5 h-5 text-gray-400" /> Calculation
                 Output (Prismoidal Method)
               </h2>
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-sm border-collapse whitespace-nowrap">
+                <table className="w-full text-left text-sm border-collapse">
                   <thead>
                     <tr className="border-b border-gray-200 text-[11px] font-bold uppercase tracking-wider text-gray-500 bg-gray-50/50">
                       <th className="py-3 px-4 rounded-tl-lg text-gray-800">
@@ -387,32 +387,32 @@ export default function ChainageVolumeEstimator() {
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl -ml-10 -mb-10"></div>
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 bg-white/10 rounded-xl backdrop-blur-md border border-white/10 text-white flex-1 min-w-fit whitespace-nowrap">
+                  <div className="p-2 bg-white/10 rounded-xl backdrop-blur-md border border-white/10 text-white">
                     <Calculator className="w-5 h-5" />
                   </div>
-                  <h2 className="text-xl font-bold tracking-tight text-white whitespace-nowrap">
+                  <h2 className="text-xl font-bold tracking-tight text-white">
                     Summary
                   </h2>
                 </div>
                 <div className="space-y-4">
                   <div className="bg-white/5 p-5 rounded-[1.25rem] border border-white/10 backdrop-blur-sm">
-                    <div className="text-amber-200/70 text-sm font-semibold mb-1 uppercase tracking-wider whitespace-nowrap">
+                    <div className="text-amber-200/70 text-sm font-semibold mb-1 uppercase tracking-wider">
                       Cumulative Cut
                     </div>
-                    <div className="text-3xl font-black tracking-tight text-amber-100 whitespace-nowrap">
+                    <div className="text-3xl font-black tracking-tight text-amber-100">
                       {totalCut.toFixed(2)}
-                      <span className="text-lg font-medium text-amber-200/50 whitespace-nowrap">
+                      <span className="text-lg font-medium text-amber-200/50">
                         {unitV}
                       </span>
                     </div>
                   </div>
                   <div className="bg-white/5 p-5 rounded-[1.25rem] border border-white/10 backdrop-blur-sm">
-                    <div className="text-indigo-200/70 text-sm font-semibold mb-1 uppercase tracking-wider whitespace-nowrap">
+                    <div className="text-indigo-200/70 text-sm font-semibold mb-1 uppercase tracking-wider">
                       Cumulative Fill
                     </div>
-                    <div className="text-3xl font-black tracking-tight text-indigo-100 whitespace-nowrap">
+                    <div className="text-3xl font-black tracking-tight text-indigo-100">
                       {totalFill.toFixed(2)}
-                      <span className="text-lg font-medium text-indigo-200/50 whitespace-nowrap">
+                      <span className="text-lg font-medium text-indigo-200/50">
                         {unitV}
                       </span>
                     </div>
@@ -430,7 +430,7 @@ export default function ChainageVolumeEstimator() {
                       className={`text-4xl font-black tracking-tight ${finalNet >= 0 ? "text-amber-400" : "text-indigo-400"}`}
                     >
                       {Math.abs(finalNet).toFixed(2)}
-                      <span className="text-xl font-medium opacity-60 ml-1 whitespace-nowrap">
+                      <span className="text-xl font-medium opacity-60 ml-1">
                         {unitV}
                       </span>
                     </div>

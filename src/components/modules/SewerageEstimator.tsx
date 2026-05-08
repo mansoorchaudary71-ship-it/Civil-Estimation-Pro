@@ -201,7 +201,7 @@ export default function SewerageEstimator() {
     <div className="w-full h-full overflow-y-auto bg-gray-50 text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-4xl mx-auto space-y-8">
         <header className="mb-10">
-          <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-teal-500 to-cyan-500 bg-clip-text text-transparent pb-1 whitespace-nowrap">
+          <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-teal-500 to-cyan-500 bg-clip-text text-transparent pb-1">
             Sewerage & Drainage Calculator
           </h1>
           <p className="text-gray-500 mt-2 font-medium">
@@ -214,7 +214,7 @@ export default function SewerageEstimator() {
         </header>
         <div className="space-y-4">
           {/* Manhole Material Accordion */}
-          <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden flex-1 min-w-fit whitespace-nowrap">
+          <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden">
             <button
               onClick={() => toggleSection("manhole")}
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors"
@@ -223,7 +223,7 @@ export default function SewerageEstimator() {
                 <div className="p-2 bg-teal-50 text-teal-600 rounded-xl">
                   <CircleDashed className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-800 whitespace-nowrap">
+                <h2 className="text-xl font-bold text-gray-800">
                   Manhole Calculator
                 </h2>
               </div>
@@ -240,7 +240,7 @@ export default function SewerageEstimator() {
             </div>
           </div>
           {/* Trench Excavation Accordion */}
-          <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden flex-1 min-w-fit whitespace-nowrap">
+          <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden">
             <button
               onClick={() => toggleSection("trench")}
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors"
@@ -249,7 +249,7 @@ export default function SewerageEstimator() {
                 <div className="p-2 bg-amber-50 text-amber-600 rounded-xl">
                   <AlignVerticalJustifyStart className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-800 whitespace-nowrap">
+                <h2 className="text-xl font-bold text-gray-800">
                   Trench Excavation
                 </h2>
               </div>
@@ -264,7 +264,7 @@ export default function SewerageEstimator() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="grid grid-cols-2 gap-4 h-fit">
                     <div className="col-span-2">
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                         Length (m)
                       </label>
                       <input
@@ -275,7 +275,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                         Bottom Width (m)
                       </label>
                       <input
@@ -286,7 +286,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                         Depth (m)
                       </label>
                       <input
@@ -297,7 +297,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div className="col-span-2 mt-2 border-t border-gray-100 pt-4">
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                         Trench Profile
                       </label>
                       <div className="flex bg-gray-100 p-1 rounded-xl mb-4">
@@ -317,7 +317,7 @@ export default function SewerageEstimator() {
                     </div>
                     {trenchProfile === "sloped" && (
                       <div className="col-span-2 -mt-2">
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                           Side Slope Ratio (Horizontal:Vertical)
                         </label>
                         <input
@@ -334,9 +334,9 @@ export default function SewerageEstimator() {
                       <h3 className="text-sm font-bold text-gray-800 mb-3">
                         Backfill Parameters
                       </h3>
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                             Pipe Outer Dia (m)
                           </label>
                           <input
@@ -349,7 +349,7 @@ export default function SewerageEstimator() {
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                             Bedding Depth (m)
                           </label>
                           <input
@@ -362,7 +362,7 @@ export default function SewerageEstimator() {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-amber-50 px-4 py-3 rounded-2xl border border-amber-100 flex flex-col justify-center space-y-4 flex-1 min-w-fit whitespace-nowrap">
+                  <div className="bg-amber-50 px-4 py-3 rounded-2xl border border-amber-100 flex flex-col justify-center space-y-4">
                     <h3 className="text-amber-800 font-bold border-b border-amber-200 pb-2">
                       Excavation & Backfill
                     </h3>
@@ -370,7 +370,7 @@ export default function SewerageEstimator() {
                       <span className="text-amber-700 font-medium">
                         Total Excavation Vol
                       </span>
-                      <span className="text-amber-900 font-bold text-xl whitespace-nowrap">
+                      <span className="text-amber-900 font-bold text-xl">
                         {trenchVol.toFixed(2)} m³
                       </span>
                     </div>
@@ -394,7 +394,7 @@ export default function SewerageEstimator() {
                       <span className="text-amber-800 font-bold text-base">
                         Net Backfill Volume
                       </span>
-                      <span className="text-amber-900 font-black text-2xl whitespace-nowrap">
+                      <span className="text-amber-900 font-black text-2xl">
                         {netBackfillVol.toFixed(2)} m³
                       </span>
                     </div>
@@ -404,7 +404,7 @@ export default function SewerageEstimator() {
             </div>
           </div>
           {/* Invert Level Accordion */}
-          <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden flex-1 min-w-fit whitespace-nowrap">
+          <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden">
             <button
               onClick={() => toggleSection("il")}
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors"
@@ -413,7 +413,7 @@ export default function SewerageEstimator() {
                 <div className="p-2 bg-blue-50 text-blue-600 rounded-xl">
                   <ArrowDownRight className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-800 whitespace-nowrap">
+                <h2 className="text-xl font-bold text-gray-800">
                   Invert Level (IL) Calculator
                 </h2>
               </div>
@@ -428,7 +428,7 @@ export default function SewerageEstimator() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                         Starting IL (m)
                       </label>
                       <input
@@ -438,9 +438,9 @@ export default function SewerageEstimator() {
                         onChange={(e) => setStartIL(e.target.value)}
                       />
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                           Length (m)
                         </label>
                         <input
@@ -451,7 +451,7 @@ export default function SewerageEstimator() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                           Gradient (1 in X)
                         </label>
                         <div className="flex items-center bg-gray-50/50 border border-gray-200 rounded-xl focus-within:ring-2 focus-within:ring-blue-500/50 overflow-hidden">
@@ -468,15 +468,15 @@ export default function SewerageEstimator() {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-blue-50 px-4 py-3 rounded-2xl border border-blue-100 flex flex-col justify-center flex-1 min-w-fit whitespace-nowrap">
+                  <div className="bg-blue-50 px-4 py-3 rounded-2xl border border-blue-100 flex flex-col justify-center">
                     <div className="text-blue-800 text-sm font-semibold mb-1">
                       Ending Invert Level
                     </div>
                     <div className="flex items-end gap-2">
-                      <span className="text-5xl font-black text-blue-600 tracking-tighter whitespace-nowrap">
+                      <span className="text-5xl font-black text-blue-600 tracking-tighter">
                         {endIL.toFixed(3)}
                       </span>
-                      <span className="text-xl font-medium text-blue-500 mb-1 whitespace-nowrap">
+                      <span className="text-xl font-medium text-blue-500 mb-1">
                         m
                       </span>
                     </div>
@@ -492,7 +492,7 @@ export default function SewerageEstimator() {
             </div>
           </div>
           {/* Pipe Sections Accordion */}
-          <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden flex-1 min-w-fit whitespace-nowrap">
+          <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden">
             <button
               onClick={() => toggleSection("pipe")}
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors"
@@ -501,7 +501,7 @@ export default function SewerageEstimator() {
                 <div className="p-2 bg-indigo-50 text-indigo-600 rounded-xl">
                   <Waves className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-800 whitespace-nowrap">
+                <h2 className="text-xl font-bold text-gray-800">
                   Pipe Count Calculator
                 </h2>
               </div>
@@ -516,7 +516,7 @@ export default function SewerageEstimator() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-4 h-fit">
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                         Total Run Length (m)
                       </label>
                       <input
@@ -527,7 +527,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                         One Pipe Section Length (m)
                       </label>
                       <input
@@ -538,16 +538,16 @@ export default function SewerageEstimator() {
                       />
                     </div>
                   </div>
-                  <div className="bg-indigo-50 px-4 py-3 rounded-2xl border border-indigo-100 flex flex-col justify-center flex-1 min-w-fit whitespace-nowrap">
+                  <div className="bg-indigo-50 px-4 py-3 rounded-2xl border border-indigo-100 flex flex-col justify-center">
                     <div className="text-indigo-800 text-sm font-semibold mb-1">
                       Required Pipes
                     </div>
                     <div className="flex items-center justify-between mt-1">
                       <div className="flex items-baseline gap-2">
-                        <span className="text-6xl font-black text-indigo-600 tracking-tighter leading-none whitespace-nowrap">
+                        <span className="text-6xl font-black text-indigo-600 tracking-tighter leading-none">
                           {pipeCount}
                         </span>
-                        <span className="text-lg font-medium text-indigo-500 whitespace-nowrap">
+                        <span className="text-lg font-medium text-indigo-500">
                           sections
                         </span>
                       </div>
@@ -565,7 +565,7 @@ export default function SewerageEstimator() {
             </div>
           </div>
           {/* Pipe Bedding Calculator Accordion */}
-          <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden mb-8 flex-1 min-w-fit whitespace-nowrap">
+          <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden mb-8">
             <button
               onClick={() => toggleSection("bedding")}
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors"
@@ -574,7 +574,7 @@ export default function SewerageEstimator() {
                 <div className="p-2 bg-purple-50 text-purple-600 rounded-xl">
                   <Layers className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-800 whitespace-nowrap">
+                <h2 className="text-xl font-bold text-gray-800">
                   Pipe Bedding Calculator
                 </h2>
               </div>
@@ -588,9 +588,9 @@ export default function SewerageEstimator() {
               <div className="px-6 pb-6 border-t border-gray-50 pt-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-4 h-fit">
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                           Trench Length (m)
                         </label>
                         <input
@@ -601,7 +601,7 @@ export default function SewerageEstimator() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                           Trench Width (m)
                         </label>
                         <input
@@ -613,7 +613,7 @@ export default function SewerageEstimator() {
                       </div>
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                         Pipe Outer Dia (m)
                       </label>
                       <input
@@ -624,7 +624,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                         Bedding Type / Class
                       </label>
                       <select
@@ -645,7 +645,7 @@ export default function SewerageEstimator() {
                     </div>
                     <div className="grid grid-cols-2 gap-4 border-t border-gray-100 pt-4">
                       <div>
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                           Depth Under Pipe (m)
                         </label>
                         <input
@@ -656,7 +656,7 @@ export default function SewerageEstimator() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                           Haunching HT (m)
                         </label>
                         <input
@@ -670,7 +670,7 @@ export default function SewerageEstimator() {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-purple-50 px-4 py-3 rounded-2xl border border-purple-100 flex flex-col justify-center space-y-4 flex-1 min-w-fit whitespace-nowrap">
+                  <div className="bg-purple-50 px-4 py-3 rounded-2xl border border-purple-100 flex flex-col justify-center space-y-4">
                     <h3 className="text-purple-800 font-bold border-b border-purple-200 pb-2">
                       Material Requirements
                     </h3>
@@ -692,7 +692,7 @@ export default function SewerageEstimator() {
                         Total Volume
                       </span>
                       <div className="text-right">
-                        <span className="text-purple-900 font-bold text-xl whitespace-nowrap">
+                        <span className="text-purple-900 font-bold text-xl">
                           {beddingCalculatedVol.toFixed(2)}
                         </span>
                         <span className="text-purple-600 font-medium text-sm">
@@ -712,7 +712,7 @@ export default function SewerageEstimator() {
                             </span>
                           </div>
                           <div className="text-right">
-                            <span className="text-purple-900 font-black text-2xl whitespace-nowrap">
+                            <span className="text-purple-900 font-black text-2xl">
                               {beddingWeightTons.toFixed(2)}
                             </span>
                             <span className="text-purple-600 font-bold">
@@ -735,7 +735,7 @@ export default function SewerageEstimator() {
             </div>
           </div>
           {/* Hydraulic Flow Calculator Accordion */}
-          <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden flex-1 min-w-fit whitespace-nowrap">
+          <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden">
             <button
               onClick={() => toggleSection("flow")}
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors"
@@ -744,7 +744,7 @@ export default function SewerageEstimator() {
                 <div className="p-2 bg-cyan-50 text-cyan-600 rounded-xl">
                   <Droplet className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-800 whitespace-nowrap">
+                <h2 className="text-xl font-bold text-gray-800">
                   Hydraulic Flow Calculator
                 </h2>
               </div>
@@ -759,7 +759,7 @@ export default function SewerageEstimator() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-4 h-fit">
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                         Pipe Inner Diameter (m)
                       </label>
                       <input
@@ -770,7 +770,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                         Gradient (1 in X)
                       </label>
                       <input
@@ -781,7 +781,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                         Pipe Material
                       </label>
                       <select
@@ -800,7 +800,7 @@ export default function SewerageEstimator() {
                       </select>
                     </div>
                   </div>
-                  <div className="bg-cyan-50 px-4 py-3 rounded-2xl border border-cyan-100 flex flex-col justify-center space-y-4 flex-1 min-w-fit whitespace-nowrap">
+                  <div className="bg-cyan-50 px-4 py-3 rounded-2xl border border-cyan-100 flex flex-col justify-center space-y-4">
                     <h3 className="text-cyan-800 font-bold border-b border-cyan-200 pb-2">
                       Full-Bore Flow Characteristics
                     </h3>
@@ -809,7 +809,7 @@ export default function SewerageEstimator() {
                         Flow Velocity
                       </span>
                       <div className="text-right">
-                        <span className="text-cyan-900 font-bold text-xl whitespace-nowrap">
+                        <span className="text-cyan-900 font-bold text-xl">
                           {flowVelocity.toFixed(3)}
                         </span>
                         <span className="text-cyan-600 font-medium text-sm">
@@ -832,7 +832,7 @@ export default function SewerageEstimator() {
                         Discharge Capacity
                       </span>
                       <div className="text-right">
-                        <span className="text-cyan-900 font-bold text-lg whitespace-nowrap">
+                        <span className="text-cyan-900 font-bold text-lg">
                           {dischargeCapacityM3.toFixed(4)}
                         </span>
                         <span className="text-cyan-600 font-medium text-sm">
@@ -845,7 +845,7 @@ export default function SewerageEstimator() {
                         Discharge (Liters/sec)
                       </span>
                       <div className="text-right">
-                        <span className="text-cyan-900 font-black text-2xl whitespace-nowrap">
+                        <span className="text-cyan-900 font-black text-2xl">
                           {dischargeCapacityL.toFixed(2)}
                         </span>
                         <span className="text-cyan-600 font-bold">
@@ -859,7 +859,7 @@ export default function SewerageEstimator() {
             </div>
           </div>
           {/* Septic System Sizing Calculator Accordion */}
-          <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden mb-8 flex-1 min-w-fit whitespace-nowrap">
+          <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden mb-8">
             <button
               onClick={() => toggleSection("septic")}
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors"
@@ -868,7 +868,7 @@ export default function SewerageEstimator() {
                 <div className="p-2 bg-emerald-50 text-emerald-600 rounded-xl">
                   <Waves className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-800 whitespace-nowrap">
+                <h2 className="text-xl font-bold text-gray-800">
                   Septic System Sizing Calculator
                 </h2>
               </div>
@@ -883,7 +883,7 @@ export default function SewerageEstimator() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-4 h-fit">
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                         Number of Users
                       </label>
                       <input
@@ -899,7 +899,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                         Per Capita Water Demand (L/day)
                       </label>
                       <input
@@ -915,7 +915,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1 whitespace-nowrap">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
                         Soil Percolation Rate (L/m²/day)
                       </label>
                       <input
@@ -932,32 +932,32 @@ export default function SewerageEstimator() {
                       />
                     </div>
                   </div>
-                  <div className="bg-emerald-50 px-4 py-3 rounded-2xl border border-emerald-100 flex flex-col justify-center space-y-4 flex-1 min-w-fit whitespace-nowrap">
+                  <div className="bg-emerald-50 px-4 py-3 rounded-2xl border border-emerald-100 flex flex-col justify-center space-y-4">
                     <h3 className="text-emerald-800 font-bold border-b border-emerald-200 pb-2">
                       Septic Tank Dimensions
                     </h3>
                     <div className="flex flex-wrap gap-2 items-center w-full">
-                      <div className="bg-white/60 p-3 rounded-xl border border-emerald-100 text-center flex-1 min-w-fit whitespace-nowrap">
+                      <div className="bg-white/60 p-3 rounded-xl border border-emerald-100 text-center">
                         <span className="block text-emerald-600 text-xs font-semibold mb-1">
                           Length
                         </span>
-                        <span className="block text-emerald-900 font-bold text-lg whitespace-nowrap">
+                        <span className="block text-emerald-900 font-bold text-lg">
                           {septicLength.toFixed(2)} m
                         </span>
                       </div>
-                      <div className="bg-white/60 p-3 rounded-xl border border-emerald-100 text-center flex-1 min-w-fit whitespace-nowrap">
+                      <div className="bg-white/60 p-3 rounded-xl border border-emerald-100 text-center">
                         <span className="block text-emerald-600 text-xs font-semibold mb-1">
                           Width
                         </span>
-                        <span className="block text-emerald-900 font-bold text-lg whitespace-nowrap">
+                        <span className="block text-emerald-900 font-bold text-lg">
                           {septicWidth.toFixed(2)} m
                         </span>
                       </div>
-                      <div className="bg-white/60 p-3 rounded-xl border border-emerald-100 text-center flex-1 min-w-fit whitespace-nowrap">
+                      <div className="bg-white/60 p-3 rounded-xl border border-emerald-100 text-center">
                         <span className="block text-emerald-600 text-xs font-semibold mb-1">
                           Liquid Depth
                         </span>
-                        <span className="block text-emerald-900 font-bold text-lg whitespace-nowrap">
+                        <span className="block text-emerald-900 font-bold text-lg">
                           {septicDepth.toFixed(2)} m
                         </span>
                       </div>
@@ -978,19 +978,19 @@ export default function SewerageEstimator() {
                       </span>
                     </div>
                     <div className="flex flex-wrap gap-2 mt-1 items-center w-full">
-                      <div className="bg-white/60 p-3 rounded-xl border border-emerald-100 text-center flex-1 min-w-fit whitespace-nowrap">
+                      <div className="bg-white/60 p-3 rounded-xl border border-emerald-100 text-center">
                         <span className="block text-emerald-600 text-xs font-semibold mb-1">
                           Diameter
                         </span>
-                        <span className="block text-emerald-900 font-bold text-xl whitespace-nowrap">
+                        <span className="block text-emerald-900 font-bold text-xl">
                           {soakageDia.toFixed(2)} m
                         </span>
                       </div>
-                      <div className="bg-white/60 p-3 rounded-xl border border-emerald-100 text-center flex-1 min-w-fit whitespace-nowrap">
+                      <div className="bg-white/60 p-3 rounded-xl border border-emerald-100 text-center">
                         <span className="block text-emerald-600 text-xs font-semibold mb-1">
                           Depth
                         </span>
-                        <span className="block text-emerald-900 font-bold text-xl whitespace-nowrap">
+                        <span className="block text-emerald-900 font-bold text-xl">
                           {soakageDepth.toFixed(2)} m
                         </span>
                       </div>

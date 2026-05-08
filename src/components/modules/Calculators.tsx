@@ -204,11 +204,11 @@ export default function ConstructionMaterialEstimator() {
       rawExport: currentExportData,
     };
     content = (
-      <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full flex-1 min-w-fit whitespace-nowrap">
+      <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full">
         <h3 className="font-bold border-b pb-2">
           Concrete Slab / Footing
         </h3>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Length ({unitFt})
@@ -243,7 +243,7 @@ export default function ConstructionMaterialEstimator() {
             />
           </div>
         </div>
-        <div className="bg-blue-50/50 rounded-xl px-4 py-3 border border-blue-100 flex items-center justify-center min-h-[8rem] relative text-[10px] font-bold text-blue-500/80 overflow-hidden whitespace-nowrap flex-1 min-w-fit whitespace-nowrap">
+        <div className="bg-blue-50/50 rounded-xl px-4 py-3 border border-blue-100 flex items-center justify-center min-h-[8rem] relative text-[10px] font-bold text-blue-500/80 overflow-hidden">
           <svg
             viewBox="0 0 120 80"
             className="w-full h-full absolute inset-0 opacity-20 pointer-events-none"
@@ -266,7 +266,7 @@ export default function ConstructionMaterialEstimator() {
             D {cDepth}
           </span>
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Mix Ratio
@@ -358,11 +358,11 @@ export default function ConstructionMaterialEstimator() {
       activeTab === "bricks" ? (
         <Brickwork9InchModule />
       ) : (
-        <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full flex-1 min-w-fit whitespace-nowrap">
+        <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full">
           <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">
             {activeTab} Wall
           </h3>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label className="text-[10px] font-bold text-gray-500 uppercase">
                 Wall Length ({unitFt})
@@ -397,7 +397,7 @@ export default function ConstructionMaterialEstimator() {
               />
             </div>
           </div>
-          <div className="bg-amber-50/50 rounded-xl px-4 py-3 border border-amber-100 flex items-center justify-center min-h-[8rem] relative text-[10px] font-bold text-amber-600/80 overflow-hidden whitespace-nowrap flex-1 min-w-fit whitespace-nowrap">
+          <div className="bg-amber-50/50 rounded-xl px-4 py-3 border border-amber-100 flex items-center justify-center min-h-[8rem] relative text-[10px] font-bold text-amber-600/80 overflow-hidden">
             <svg
               viewBox="0 0 120 80"
               className="w-full h-full absolute inset-0 opacity-20 pointer-events-none"
@@ -423,8 +423,8 @@ export default function ConstructionMaterialEstimator() {
               T {bWallT}
             </span>
           </div>
-          <div className="bg-white px-4 py-3 rounded-xl border flex-1 min-w-fit whitespace-nowrap">
-            <h4 className="text-xs font-bold text-slate-500 uppercase flex justify-between items-center mb-4 whitespace-nowrap">
+          <div className="bg-white px-4 py-3 rounded-xl border">
+            <h4 className="text-xs font-bold text-slate-500 uppercase flex justify-between items-center mb-4">
               Add Deductions
               <span className="bg-indigo-50 text-indigo-600 px-2 py-1 rounded text-[10px]">
                 Total:
@@ -561,7 +561,7 @@ export default function ConstructionMaterialEstimator() {
           <h3 className="font-bold border-b pb-2 pt-4 uppercase text-sm tracking-widest text-slate-500">
             Unit Dimensions ({unitIn})
           </h3>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label className="text-[10px] font-bold text-gray-500 uppercase">
                 Length
@@ -596,7 +596,7 @@ export default function ConstructionMaterialEstimator() {
               />
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="text-[10px] font-bold text-gray-500 uppercase">
                 Joint Thick ({unitIn})
@@ -663,11 +663,11 @@ export default function ConstructionMaterialEstimator() {
       rawExport: currentExportData,
     };
     content = (
-      <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full flex-1 min-w-fit whitespace-nowrap">
+      <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full">
         <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">
           Steel Reinforcement
         </h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Bar Dia (mm/in#)
@@ -760,11 +760,11 @@ export default function ConstructionMaterialEstimator() {
       rawExport: currentExportData,
     };
     content = (
-      <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full flex-1 min-w-fit whitespace-nowrap">
+      <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full">
         <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">
           Plaster / Mortar
         </h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Surface Area ({unitArea})
@@ -802,7 +802,7 @@ export default function ConstructionMaterialEstimator() {
             </select>
           </div>
         </div>
-        <div className="bg-slate-100/50 rounded-xl px-4 py-3 border border-slate-200 flex items-center justify-center min-h-[8rem] relative text-[10px] font-bold text-slate-500 overflow-hidden whitespace-nowrap flex-1 min-w-fit whitespace-nowrap">
+        <div className="bg-slate-100/50 rounded-xl px-4 py-3 border border-slate-200 flex items-center justify-center min-h-[8rem] relative text-[10px] font-bold text-slate-500 overflow-hidden">
           <svg
             viewBox="0 0 120 80"
             className="w-full h-full absolute inset-0 opacity-20 pointer-events-none"
@@ -840,11 +840,11 @@ export default function ConstructionMaterialEstimator() {
       rawExport: currentExportData,
     };
     content = (
-      <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full flex-1 min-w-fit whitespace-nowrap">
+      <div className="space-y-6 bg-slate-50/50 px-4 py-3 rounded-2xl border w-full">
         <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">
           Water Requirements
         </h3>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="text-[10px] font-bold text-gray-500 uppercase">
               Weight of Cement (kg)
@@ -887,7 +887,7 @@ export default function ConstructionMaterialEstimator() {
     content = (
       <div className="bg-slate-50 border p-12 rounded-3xl text-center text-slate-500 max-w-xl mx-auto mt-8">
         <Layers className="w-12 h-12 mx-auto text-slate-300 mb-4" />
-        <h3 className="text-xl font-bold text-slate-700 mb-2 whitespace-nowrap">
+        <h3 className="text-xl font-bold text-slate-700 mb-2">
           Use Standard Modules
         </h3>
         <p>
@@ -920,7 +920,7 @@ export default function ConstructionMaterialEstimator() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
           <div>
-            <h1 className="text-3xl font-black text-gray-900 mb-2 whitespace-nowrap">
+            <h1 className="text-3xl font-black text-gray-900 mb-2">
               Construction Material Estimator
             </h1>
             <p className="text-gray-500 font-medium">
@@ -932,7 +932,7 @@ export default function ConstructionMaterialEstimator() {
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-4">
-            <div className="bg-white px-4 py-3 rounded-xl border flex items-center gap-2 shadow-sm flex-1 min-w-fit whitespace-nowrap">
+            <div className="bg-white px-4 py-3 rounded-xl border flex items-center gap-2 shadow-sm">
               <span className="text-xs font-bold text-gray-500">
                 WASTAGE
               </span>
@@ -966,9 +966,9 @@ export default function ConstructionMaterialEstimator() {
               activeTab !== "sand" &&
               activeTab !== "rcc" &&
               activeTab !== "master" && (
-                <div className="bg-slate-900 rounded-3xl px-4 py-3 md:px-4 py-3 text-white space-y-4 shadow-xl sticky top-6 self-start z-10 flex-1 min-w-fit whitespace-nowrap">
+                <div className="bg-slate-900 rounded-3xl px-4 py-3 md:px-4 py-3 text-white space-y-4 shadow-xl sticky top-6 self-start z-10">
                   <div className="flex justify-between items-center mb-4">
-                    <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest whitespace-nowrap">
+                    <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest">
                       Material Breakdown
                     </h3>
                     <label className="flex items-center gap-2 cursor-pointer text-xs bg-slate-800 p-2 rounded-lg hover:bg-slate-700 transition">
@@ -1003,11 +1003,11 @@ export default function ConstructionMaterialEstimator() {
                         key={key}
                         className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-slate-800 pb-3 pt-2 gap-1 sm:gap-4"
                       >
-                        <span className={`${colorClass} whitespace-nowrap`}>
+                        <span className={`${colorClass}`}>
                           {key}
                         </span>
                         <span
-                          className={`${key.includes("Units Required") ? "font-mono font-bold text-white uppercase text-xl" : "font-mono font-bold text-white"} whitespace-nowrap text-left sm:text-right`}
+                          className={`${key.includes("Units Required") ? "font-mono font-bold text-white uppercase text-xl" : "font-mono font-bold text-white"} text-left sm:text-right`}
                         >
                           {val}
                         </span>
@@ -1016,7 +1016,7 @@ export default function ConstructionMaterialEstimator() {
                   })}
                   {showCost && currentCartItem && (
                     <div className="pt-4 mt-4 border-t-2 border-slate-700 space-y-3">
-                      <div className="grid grid-cols-2 gap-3 text-xs bg-slate-800/50 p-3 rounded-xl border border-slate-700 flex-1 min-w-fit whitespace-nowrap">
+                      <div className="grid grid-cols-2 gap-3 text-xs bg-slate-800/50 p-3 rounded-xl border border-slate-700">
                         {currentCartItem.cementBags > 0 && (
                           <div className="col-span-2 sm:col-span-1">
                             <label className="text-slate-400 mb-1 block">
@@ -1179,7 +1179,7 @@ export default function ConstructionMaterialEstimator() {
                         <span className="text-slate-300 font-bold uppercase tracking-wider text-sm">
                           Estimated Cost
                         </span>
-                        <span className="text-2xl font-black text-green-400 whitespace-nowrap">
+                        <span className="text-2xl font-black text-green-400">
                           {formatCurrency(
                             currentCartItem.cementBags * rates.cement +
                               currentCartItem.sandVol * rates.sand +
@@ -1214,7 +1214,7 @@ export default function ConstructionMaterialEstimator() {
               </div>
               <button
                 onClick={addToCart}
-                className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-xl font-bold transition-colors shadow-md shadow-indigo-600/20 whitespace-nowrap"
+                className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-xl font-bold transition-colors shadow-md shadow-indigo-600/20"
               >
                 + Add to Estimate
               </button>
@@ -1236,7 +1236,7 @@ export default function ConstructionMaterialEstimator() {
         </div>
         {cart.length > 0 && (
           <div className="mt-8 bg-slate-900 rounded-[2rem] p-6 md:p-8 text-white shadow-xl relative">
-            <h2 className="text-xl font-black mb-6 whitespace-nowrap">
+            <h2 className="text-xl font-black mb-6">
               Project Cart ({cart.length} Elements)
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -1244,13 +1244,13 @@ export default function ConstructionMaterialEstimator() {
                 {cart.map((item) => (
                   <div
                     key={item.id}
-                    className="bg-slate-800/50 px-4 py-3 rounded-2xl flex items-center justify-between border border-slate-700/50 flex-1 min-w-fit whitespace-nowrap"
+                    className="bg-slate-800/50 px-4 py-3 rounded-2xl flex items-center justify-between border border-slate-700/50"
                   >
                     <div>
-                      <div className="font-bold text-lg whitespace-nowrap">
+                      <div className="font-bold text-lg">
                         {item.name}
                       </div>
-                      <div className="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider whitespace-nowrap">
+                      <div className="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">
                         {item.type}
                       </div>
                     </div>
@@ -1264,7 +1264,7 @@ export default function ConstructionMaterialEstimator() {
                 ))}
               </div>
               <div className="bg-gradient-to-br from-indigo-600 to-indigo-800 p-6 rounded-2xl border border-indigo-500/30 self-start">
-                <h3 className="font-bold text-indigo-200 text-sm uppercase tracking-widest mb-6 whitespace-nowrap">
+                <h3 className="font-bold text-indigo-200 text-sm uppercase tracking-widest mb-6">
                   Accumulated Total
                 </h3>
                 <div className="space-y-4">
