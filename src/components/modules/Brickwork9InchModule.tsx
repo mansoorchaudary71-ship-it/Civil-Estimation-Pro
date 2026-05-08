@@ -103,194 +103,245 @@ export default function Brickwork9InchModule() {
     };
   }, [wallLength, wallHeight, deductions, brickType, mixRatio, includeWastage, isSI]);
   return (
-    <div className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[1.5rem] overflow-hidden shadow-sm mt-4">
-      <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50 dark:bg-slate-800/50">
+    <div className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] overflow-hidden shadow-sm mt-4">
+      <div className="px-6 md:px-8 py-5 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between bg-slate-50 dark:bg-slate-800/50 gap-4">
         <div className="flex items-center gap-3">
-          <Columns className="w-5 h-5 text-orange-600 dark:text-orange-500" />
-          <h3 className="text-lg font-bold text-slate-800 dark:text-white">
-            9-Inch Brickwork Estimator
-          </h3>
+          <div className="p-2.5 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-xl">
+            <Columns className="w-5 h-5" />
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-slate-800 dark:text-white">
+              Brickwork Estimator
+            </h3>
+            <p className="text-sm font-medium text-slate-500">
+              Calculate bricks, cement, and sand for a 9-inch wall.
+            </p>
+          </div>
         </div>
-        <span className="px-3 py-1 bg-orange-100 dark:bg-orange-500/20 text-orange-700 dark:text-orange-400 text-xs font-bold rounded-full">
+        <span className="px-3 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold uppercase tracking-wider rounded-lg shadow-sm">
           Load Bearing (230mm)
         </span>
       </div>
-      <div className="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-        {/* Input Section */}
-        <div className="space-y-6">
-          {/* Brick Type Toggle */}
-          <div>
-            <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-3">
-              Brick Size Standard
-            </label>
-            <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl w-full">
-              <button
-                onClick={() => setBrickType("standard")}
-                className={`flex-1 flex flex-col xl:flex-row items-center justify-center py-2 px-1 xl:gap-2 text-xs sm:text-sm font-semibold rounded-lg transition-all text-center h-full ${brickType === "standard" ? "bg-white dark:bg-slate-700 text-orange-600 shadow border border-slate-200/50 dark:border-slate-600" : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"}`}
-              >
-                <span>Standard</span>
-                <span className="opacity-75 text-[10px] xl:text-xs font-medium">
-                  (230x110x75)
-                </span>
-              </button>
-              <button
-                onClick={() => setBrickType("modular")}
-                className={`flex-1 flex flex-col xl:flex-row items-center justify-center py-2 px-1 xl:gap-2 text-xs sm:text-sm font-semibold rounded-lg transition-all text-center h-full ${brickType === "modular" ? "bg-white dark:bg-slate-700 text-orange-600 shadow border border-slate-200/50 dark:border-slate-600" : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"}`}
-              >
-                <span>Modular</span>
-                <span className="opacity-75 text-[10px] xl:text-xs font-medium">
-                  (190x90x90)
-                </span>
-              </button>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
-                Wall Length ({results.isSI ? 'm' : 'ft'})
-              </label>
-              <input
-                type="number"
-                value={wallLength}
-                onChange={(e) => setWallLength(e.target.value)}
-                className="w-full bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 shadow-sm transition-all"
-                placeholder="e.g. 5"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
-                Wall Height ({results.isSI ? 'm' : 'ft'})
-              </label>
-              <input
-                type="number"
-                value={wallHeight}
-                onChange={(e) => setWallHeight(e.target.value)}
-                className="w-full bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 shadow-sm transition-all"
-                placeholder="e.g. 3"
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4 border-t border-slate-100 dark:border-slate-800 pt-5">
-            <div>
-              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 flex items-center gap-1">
-                <MinusSquare className="w-3.5 h-3.5" /> Deductions ({results.isSI ? 'm²' : 'sq.ft'})
-              </label>
-              <input
-                type="number"
-                value={deductions}
-                onChange={(e) => setDeductions(e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 shadow-sm transition-all"
-                placeholder="For doors/windows"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
-                Mortar Ratio
-              </label>
-              <div className="relative">
-                <select
-                  value={mixRatio}
-                  onChange={(e) => setMixRatio(e.target.value)}
-                  className="w-full appearance-none bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-orange-500/50 shadow-sm transition-all cursor-pointer font-medium"
-                >
-                  <option value="1:3">1:3 (Rich Mix)</option>
-                  <option value="1:4">1:4 (Standard Mix)</option>
-                  <option value="1:6">1:6 (Lean Mix)</option>
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500">
-                  <Settings className="w-4 h-4" />
+
+      <div className="p-6 md:p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          {/* Inputs Column */}
+          <div className="lg:col-span-7 space-y-8">
+            {/* Wall Dimensions Section */}
+            <section>
+              <h4 className="text-sm font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                Wall Dimensions
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+                    Length ({results.isSI ? 'm' : 'ft'})
+                  </label>
+                  <input
+                    type="number"
+                    value={wallLength}
+                    onChange={(e) => setWallLength(e.target.value)}
+                    className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/50 shadow-sm transition-all"
+                    placeholder="e.g. 5"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+                    Height ({results.isSI ? 'm' : 'ft'})
+                  </label>
+                  <input
+                    type="number"
+                    value={wallHeight}
+                    onChange={(e) => setWallHeight(e.target.value)}
+                    className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/50 shadow-sm transition-all"
+                    placeholder="e.g. 3"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+                    Deductions ({results.isSI ? 'm²' : 'sq.ft'})
+                  </label>
+                  <input
+                    type="number"
+                    value={deductions}
+                    onChange={(e) => setDeductions(e.target.value)}
+                    className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/50 shadow-sm transition-all"
+                    placeholder="e.g. 1.5"
+                  />
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-3 bg-orange-50/50 dark:bg-orange-900/10 px-4 py-3 rounded-xl border border-orange-100 dark:border-orange-900/30">
-            <input
-              type="checkbox"
-              id="wastage-toggle"
-              checked={includeWastage}
-              onChange={(e) => setIncludeWastage(e.target.checked)}
-              className="w-4 h-4 text-orange-600 rounded border-slate-300 focus:ring-orange-500"
-            />
-            <label
-              htmlFor="wastage-toggle"
-              className="text-sm font-semibold text-slate-700 dark:text-slate-300 cursor-pointer"
-            >
-              Include 10% Wastage (Bricks & Mortar)
-            </label>
-          </div>
-        </div>
-        {/* Output Section */}
-        <div className="bg-slate-100 dark:bg-slate-800/50 px-4 py-3 md:px-4 py-3 rounded-3xl border border-slate-200 dark:border-slate-700 flex flex-col justify-center">
-          <div className="mb-8">
-            <p className="text-sm font-semibold text-slate-500 uppercase tracking-widest mb-2">
-              Net Wall Volume
-            </p>
-            <div className="flex items-baseline gap-2 text-slate-800 dark:text-white">
-              <span className="text-4xl font-black">
-                {results.netVolume.toFixed(2)}
-              </span>
-              <span className="text-xl font-bold text-slate-500">
-                {results.isSI ? 'm³' : 'cft'}
-              </span>
-            </div>
-          </div>
-          <div className="flex flex-wrap sm:gap-4 items-center w-full">
-            <div className="bg-white dark:bg-slate-800 px-4 py-3 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
-              <div className="flex items-center gap-2 mb-3">
-                <Box className="w-5 h-5 text-orange-500" />
-                <h4 className="font-bold text-slate-700 dark:text-slate-300">
-                  Total Bricks
-                </h4>
+            </section>
+
+            {/* Specifications Section */}
+            <section>
+              <h4 className="text-sm font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                Specifications
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+                    Brick Size
+                  </label>
+                  <div className="flex bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl w-full">
+                    <button
+                      onClick={() => setBrickType("standard")}
+                      className={`flex-1 flex flex-col items-center justify-center py-2 px-2 text-sm font-bold rounded-lg transition-all ${brickType === "standard" ? "bg-white dark:bg-slate-700 text-orange-600 shadow-sm border border-slate-200/50 dark:border-slate-600" : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"}`}
+                    >
+                      <span className="mb-0.5">Standard</span>
+                      <span className={`text-[10px] font-medium ${brickType === "standard" ? "text-orange-500/80" : "text-slate-400"}`}>
+                        230×110×75
+                      </span>
+                    </button>
+                    <button
+                      onClick={() => setBrickType("modular")}
+                      className={`flex-1 flex flex-col items-center justify-center py-2 px-2 text-sm font-bold rounded-lg transition-all ${brickType === "modular" ? "bg-white dark:bg-slate-700 text-orange-600 shadow-sm border border-slate-200/50 dark:border-slate-600" : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"}`}
+                    >
+                      <span className="mb-0.5">Modular</span>
+                      <span className={`text-[10px] font-medium ${brickType === "modular" ? "text-orange-500/80" : "text-slate-400"}`}>
+                        190×90×90
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex flex-col justify-between">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+                      Mortar Ratio (Cement:Sand)
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={mixRatio}
+                        onChange={(e) => setMixRatio(e.target.value)}
+                        className="w-full appearance-none bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-orange-500/50 shadow-sm transition-all cursor-pointer font-bold"
+                      >
+                        <option value="1:3">1:3 (Rich Mix)</option>
+                        <option value="1:4">1:4 (Standard Mix)</option>
+                        <option value="1:6">1:6 (Lean Mix)</option>
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                        <Settings className="w-5 h-5" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <p className="text-2xl font-bold text-slate-900 dark:text-white">
-                {results.noOfBricks.toLocaleString()}
-                <span className="text-sm text-slate-500 font-medium">
-                  pcs
+
+              <div className="mt-6 flex items-center gap-3">
+                <label className="relative flex cursor-pointer items-center rounded-full p-1 border border-orange-100 hover:bg-orange-50/50 transition-colors">
+                  <input
+                    type="checkbox"
+                    className="peer cursor-pointer appearance-none rounded-md border border-slate-300 transition-all checked:border-orange-500 checked:bg-orange-500 checked:before:bg-orange-500 w-5 h-5 ml-1"
+                    checked={includeWastage}
+                    onChange={(e) => setIncludeWastage(e.target.checked)}
+                  />
+                  <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-white opacity-0 transition-opacity peer-checked:opacity-100 ml-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" strokeWidth="1">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
+                    </svg>
+                  </div>
+                </label>
+                <span className="text-sm font-bold text-slate-700 dark:text-slate-300 cursor-pointer select-none" onClick={() => setIncludeWastage(!includeWastage)}>
+                  Include 10% Wastage (Bricks & Mortar)
                 </span>
-              </p>
-            </div>
-            <div className="bg-white dark:bg-slate-800 px-4 py-3 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
-              <div className="flex items-center gap-2 mb-3">
-                <Construction className="w-5 h-5 text-slate-500" />
-                <h4 className="font-bold text-slate-700 dark:text-slate-300">
-                  Cement
-                </h4>
               </div>
-              <p className="text-2xl font-bold text-slate-900 dark:text-white">
-                {results.cementBags}
-                <span className="text-sm text-slate-500 font-medium">
-                  bags
-                </span>
-              </p>
-            </div>
-            <div className="bg-white dark:bg-slate-800 px-4 py-3 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 sm:col-span-2">
-              <div className="flex items-center gap-2 mb-3">
-                <Layers className="w-5 h-5 text-amber-500" />
-                <h4 className="font-bold text-slate-700 dark:text-slate-300">
-                  Sand Required
-                </h4>
-              </div>
-              <div className="flex flex-wrap items-center gap-4 sm:gap-8">
-                <p className="text-2xl font-bold text-slate-900 dark:text-white">
-                  {results.sandCft.toFixed(1)}
-                  <span className="text-sm text-slate-500 font-medium">
-                    cft
-                  </span>
-                </p>
-                <div className="hidden sm:block w-px self-stretch bg-slate-200 dark:bg-slate-700"></div>
-                <p className="text-2xl font-bold text-slate-900 dark:text-white">
-                  {((results.sandCft || 0) / 35.3147).toFixed(2)}
-                  <span className="text-sm text-slate-500 font-medium">
-                    m³
-                  </span>
-                </p>
-              </div>
-            </div>
+            </section>
           </div>
-          <div className="mt-6 flex items-center gap-2 text-xs font-semibold text-slate-400 bg-slate-200/50 dark:bg-slate-800 p-3 rounded-lg">
-            <Droplets className="w-4 h-4 text-blue-400" /> Dry Mortar Required:
-            {results.dryMortarVol.toFixed(3)} {results.isSI ? 'm³' : 'cft'} | Wet:
-            {results.wetMortarVol.toFixed(3)} {results.isSI ? 'm³' : 'cft'}
+
+          {/* Results Column */}
+          <div className="lg:col-span-5 relative">
+            <div className="sticky top-6 bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-md overflow-hidden flex flex-col h-full">
+              <div className="px-6 py-5 bg-slate-50 dark:bg-slate-800/80 border-b border-slate-100 dark:border-slate-700/50 text-center">
+                <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">
+                  Net Wall Volume
+                </p>
+                <div className="flex items-center justify-center gap-1.5 text-slate-800 dark:text-white">
+                  <span className="text-3xl font-black">
+                    {results.netVolume.toFixed(2)}
+                  </span>
+                  <span className="text-lg font-bold text-slate-500">
+                    {results.isSI ? 'm³' : 'cft'}
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-6 md:p-8 space-y-6 flex-1 bg-gradient-to-b from-transparent to-slate-50/50 dark:to-slate-800/50">
+                {/* Total Bricks Highlight */}
+                <div className="bg-orange-50 dark:bg-orange-900/10 rounded-2xl p-5 border border-orange-100 dark:border-orange-900/30 text-center">
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <Box className="w-5 h-5 text-orange-600" />
+                    <h4 className="text-[11px] font-bold text-orange-600/80 dark:text-orange-400 uppercase tracking-widest">
+                      Total Bricks Estimated
+                    </h4>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <p className="text-4xl font-black text-orange-600 dark:text-orange-400">
+                      {results.noOfBricks.toLocaleString()}
+                    </p>
+                    <span className="text-base font-bold text-orange-500/70 mt-2">
+                      pcs
+                    </span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Cement Result */}
+                  <div className="bg-white dark:bg-slate-800 px-4 py-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="p-1.5 bg-slate-100 dark:bg-slate-700 rounded-lg">
+                        <Construction className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+                      </div>
+                      <h4 className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest">
+                        Cement
+                      </h4>
+                    </div>
+                    <div className="flex items-end gap-1">
+                      <p className="text-2xl font-black text-slate-800 dark:text-white">
+                        {results.cementBags}
+                      </p>
+                      <span className="text-sm font-semibold text-slate-400 mb-0.5">
+                        bags
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Sand Result */}
+                  <div className="bg-white dark:bg-slate-800 px-4 py-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="p-1.5 bg-amber-100 dark:bg-amber-900/30 rounded-lg">
+                        <Layers className="w-4 h-4 text-amber-600 dark:text-amber-500" />
+                      </div>
+                      <h4 className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest">
+                        Sand
+                      </h4>
+                    </div>
+                    <div>
+                      <div className="flex items-end gap-1">
+                        <p className="text-2xl font-black text-slate-800 dark:text-white">
+                          {results.sandCft.toFixed(1)}
+                        </p>
+                        <span className="text-sm font-semibold text-slate-400 mb-0.5">
+                          cft
+                        </span>
+                      </div>
+                      <p className="text-[10px] font-bold text-slate-400 mt-0.5">
+                        {((results.sandCft || 0) / 35.3147).toFixed(2)} m³
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer info */}
+              <div className="px-6 py-4 bg-slate-50 dark:bg-slate-800/80 border-t border-slate-100 dark:border-slate-700 flex justify-center text-center">
+                <span className="flex items-center gap-1.5 text-xs font-bold text-slate-500 dark:text-slate-400">
+                  <Droplets className="w-4 h-4 text-blue-400" />
+                  Dry Mortar: {results.dryMortarVol.toFixed(3)} {results.isSI ? 'm³' : 'cft'}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
