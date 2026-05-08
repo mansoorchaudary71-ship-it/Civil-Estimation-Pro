@@ -502,7 +502,7 @@ export default function RoadEstimator() {
           {/* Visualization and Results Section */}
           <section className="lg:col-span-7 flex flex-col gap-6">
             <div
-              className="bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-8 rounded-[2rem] shadow-2xl relative overflow-hidden flex flex-col justify-between"
+              className="bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-[2rem] shadow-2xl relative overflow-hidden flex flex-col justify-between"
               style={{ minHeight: "360px" }}
             >
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>

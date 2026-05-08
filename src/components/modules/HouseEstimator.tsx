@@ -503,7 +503,7 @@ export default function HouseEstimator() {
     }
   };
   return (
-    <div className="w-full h-full overflow-y-auto bg-[#f8fafc] text-gray-900 font-sans p-6 md:p-8">
+    <div className="w-full h-full overflow-y-auto bg-slate-50 text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         <header className="mb-8 block">
           <div>
@@ -1023,7 +1023,7 @@ export default function HouseEstimator() {
                   </div>
                 </div>
                 <div className="flex-1 overflow-auto border border-slate-200 rounded-2xl mb-6">
-                  <table className="w-full text-sm text-left"><thead className="bg-[#f0f2f5] text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider sticky top-0 z-10">
+                  <table className="w-full text-sm text-left"><thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider sticky top-0 z-10">
                       <tr>
                         <th className="px-6 py-4 font-bold">
                           Material Item
@@ -1444,7 +1444,7 @@ export default function HouseEstimator() {
                       </h3>
                       <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm mb-8">
                         <table className="w-full text-sm text-left">
-                          <thead className="bg-[#f0f2f5] text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider">
+                          <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider">
                             <tr>
                               <th className="px-6 py-4 font-bold">
                                 Material / Item
@@ -1646,7 +1646,7 @@ export default function HouseEstimator() {
                       </h3>
                       <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm mb-8">
                         <table className="w-full text-sm text-left">
-                          <thead className="bg-[#f0f2f5] text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider">
+                          <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider">
                             <tr>
                               <th className="px-6 py-4 font-bold">
                                 Material / Item

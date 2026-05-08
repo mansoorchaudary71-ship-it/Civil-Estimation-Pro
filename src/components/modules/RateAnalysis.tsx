@@ -73,7 +73,7 @@ export default function RateAnalysis() {
       };
     }, [rates]);
   return (
-    <div className="w-full h-full overflow-y-auto bg-[#fafafa] text-gray-900 font-sans p-6 md:p-8">
+    <div className="w-full h-full overflow-y-auto bg-slate-50 text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         <header className="mb-8">
           <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent pb-2">
@@ -240,7 +240,7 @@ export default function RateAnalysis() {
           </section>
           {/* Composite Rate Analyzer */}
           <section className="lg:col-span-5 space-y-6">
-            <div className="bg-gradient-to-b from-[#1e293b] to-[#0f172a] p-8 rounded-[2rem] shadow-2xl relative overflow-hidden text-white/90">
+            <div className="bg-gradient-to-b from-slate-800 to-slate-900 p-8 rounded-[2rem] shadow-2xl relative overflow-hidden text-white/90">
               <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/20 rounded-full blur-[80px]" />
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-8">

@@ -148,7 +148,7 @@ export default function FinishingEstimator() {
   }, [results, rates]);
   const totalCost = costData.reduce((acc, curr) => acc + curr.value, 0);
   return (
-    <div className="w-full h-full overflow-y-auto bg-[#fafafa] text-gray-900 font-sans p-6 md:p-8 relative">
+    <div className="w-full h-full overflow-y-auto bg-slate-50 text-gray-900 font-sans p-6 md:p-8 relative">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         <header className="mb-8">
           <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent pb-2">
