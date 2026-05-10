@@ -102,7 +102,7 @@ export default function App() {
         />
 
         <main id="main-content" className="flex-1 flex flex-col bg-slate-100 overflow-hidden relative w-full h-full transition-colors duration-300">
-          {["home", "about", "careers", "contact", "blog"].includes(activeModule) ? (
+          {["home", "my-estimates", "about", "careers", "contact", "blog"].includes(activeModule) ? (
             <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-y-auto pb-24 md:pb-0">
               <TopNavbar 
                 onOpenSidebar={() => setIsSidebarOpen(true)} 

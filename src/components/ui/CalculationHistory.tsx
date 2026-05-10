@@ -115,17 +115,17 @@ export function CalculationHistory({
     window.dispatchEvent(new CustomEvent('go-home'));
   };
 
-  const baseBtnClass = "group relative flex-1 flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-full transition-all duration-200 text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900";
+  const baseBtnClass = "group relative flex-1 flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-full transition-all duration-200 text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 border";
 
   return (
     <>
-      <div className="fixed bottom-0 left-0 right-0 w-full px-4 sm:px-6 pb-4 sm:pb-6 z-[60] pointer-events-none font-sans flex justify-center">
-        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 shadow-[0_20px_40px_rgb(0,0,0,0.1)] dark:shadow-[0_20px_40px_rgb(0,0,0,0.3)] rounded-full p-2 flex gap-1.5 sm:gap-2 w-full max-w-2xl pointer-events-auto transform hover:-translate-y-1 hover:shadow-[0_25px_50px_rgb(0,0,0,0.15)] dark:hover:shadow-[0_25px_50px_rgb(0,0,0,0.4)] transition-all duration-300">
+      <div className="w-full mt-8 mb-4 font-sans flex justify-center">
+        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 shadow-[0_4px_16px_rgb(0,0,0,0.05)] dark:shadow-[0_4px_16px_rgb(0,0,0,0.2)] rounded-full p-2 flex flex-wrap gap-2 w-full transform transition-all duration-300 sm:flex-nowrap sm:max-w-3xl">
           
           {/* Dashboard Button: Slate */}
           <button
             onClick={handleGoHome}
-            className={`${baseBtnClass} bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-slate-100 focus:ring-slate-500`}
+            className={`${baseBtnClass} bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 border-slate-300/80 hover:border-slate-400 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-slate-100 dark:border-slate-600 dark:hover:border-slate-500 focus:ring-slate-500 min-w-fit`}
             title="Back to Dashboard"
           >
             <Home className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
@@ -136,7 +136,7 @@ export function CalculationHistory({
           {/* History Button: Indigo */}
           <button
             onClick={() => setIsOpen(true)}
-            className={`${baseBtnClass} bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-300 dark:hover:bg-indigo-500/20 focus:ring-indigo-500`}
+            className={`${baseBtnClass} bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border-indigo-300 hover:border-indigo-400 dark:bg-indigo-500/10 dark:text-indigo-300 dark:hover:bg-indigo-500/20 dark:border-indigo-500/40 dark:hover:border-indigo-500/50 focus:ring-indigo-500`}
             title="View History"
           >
             <History className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
@@ -161,7 +161,7 @@ export function CalculationHistory({
               }
             }}
             disabled={isSavingLocal || isSavingCloud}
-            className={`${baseBtnClass} bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-300 dark:hover:bg-emerald-500/20 focus:ring-emerald-500 disabled:opacity-50`}
+            className={`${baseBtnClass} bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border-emerald-300 hover:border-emerald-400 dark:bg-emerald-500/10 dark:text-emerald-300 dark:hover:bg-emerald-500/20 dark:border-emerald-500/40 dark:hover:border-emerald-500/50 focus:ring-emerald-500 disabled:opacity-50`}
             title="Save Calculation"
           >
             {isSavingLocal || isSavingCloud ? (
@@ -173,13 +173,13 @@ export function CalculationHistory({
           </button>
 
           {/* Share Button: Amber/Orange */}
-          <div className={`${baseBtnClass} !p-0 !bg-transparent`}>
+          <div className={`${baseBtnClass} !p-0 !bg-transparent border-none`}>
             <ShareButtonWithPopup
               activeTab={calculatorId}
               title={estimationName || "Calculation"}
               data={currentResults || currentInputs || {}}
               exportFormat={savePayload || { inputs: currentInputs || {}, breakdown: currentResults || {} }}
-              triggerClassName={`group w-full h-full flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-full transition-all duration-200 text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-500/10 dark:text-amber-300 dark:hover:bg-amber-500/20 focus:ring-amber-500`}
+              triggerClassName={`group w-full h-full flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-full transition-all duration-200 text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 border border-amber-300 hover:border-amber-400 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-500/10 dark:text-amber-300 dark:hover:bg-amber-500/20 dark:border-amber-500/40 dark:hover:border-amber-500/50 focus:ring-amber-500`}
               triggerContent={
                 <>
                   <Share2 className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
