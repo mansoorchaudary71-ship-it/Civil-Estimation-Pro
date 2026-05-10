@@ -4,6 +4,22 @@ import { Route, Calculator, Layers, Droplets, ArrowRight } from "lucide-react";
 
 import { useSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { SEO } from "../SEO";
+
+const roadSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Flexible Pavement Estimator",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "WebBrowser",
+  "description": "Calculate materials, volumes, and costs for flexible pavement layer by layer including Subgrade, Sub-base, WBM, and Asphalt.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+
 export default function RoadEstimator() {
   const { settings, formatCurrency } = useSettings();
   const isPKR = settings.currency === "PKR";
@@ -148,6 +164,12 @@ export default function RoadEstimator() {
   const pathSg = `M ${500 - dxSbBot},${y3_S} L ${500 - dxCarriageway},${y3_Carriage} L 500,${y3_C} L ${500 + dxCarriageway},${y3_Carriage} L ${500 + dxSbBot},${y3_S} L ${500 + dxSgBot},${y4_S} L ${500 + dxCarriageway},${y4_Carriage} L 500,${y4_C} L ${500 - dxCarriageway},${y4_Carriage} L ${500 - dxSgBot},${y4_S} Z`;
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
+      <SEO 
+        title="Flexible Pavement Estimator" 
+        description="Calculate materials, volumes, and costs for flexible pavement layer by layer including Subgrade, Sub-base, WBM, and Asphalt." 
+        keywords="flexible pavement, road estimator, subgrade, sub-base, asphalt, highway engineering"
+        schema={roadSchema}
+      />
       <div className="max-w-5xl mx-auto space-y-8">
         <header className="mb-10">
           <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent pb-1">

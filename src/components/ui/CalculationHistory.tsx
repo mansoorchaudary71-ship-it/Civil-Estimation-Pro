@@ -20,7 +20,7 @@ interface CalculationHistoryProps {
   currentResults?: Record<string, any>;
   summaryGeneration?: (inputs: Record<string, any>, results: Record<string, any>) => string;
   onRestore: (inputs: Record<string, any>) => void;
-  savePayload?: { inputs: any; breakdown: any };
+  savePayload?: any;
   estimationName?: string;
 }
 

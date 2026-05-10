@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ModuleId } from "../App";
+import { useAuth } from "../contexts/AuthContext";
 import {
   Calculator,
   Sparkles,
@@ -208,6 +209,7 @@ interface DashboardProps {
   onSelectModule: (id: ModuleId) => void;
   onOpenSidebar: () => void;
   onOpenSettings?: () => void;
+  onOpenAuth?: () => void;
   previousModule?: string | null;
 }
 
@@ -315,8 +317,10 @@ export default function Dashboard({
   onSelectModule,
   onOpenSidebar,
   onOpenSettings,
+  onOpenAuth,
   previousModule,
 }: DashboardProps) {
+  const { user } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
 
@@ -413,7 +417,11 @@ export default function Dashboard({
 
       <div className="mb-8 flex flex-col items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500 text-center mt-6">
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#0f172a] dark:text-white flex items-center justify-center gap-2">
-          Welcome back, Alex{" "}
+          {user ? (
+            <>Welcome back, {user.displayName || "User"}</>
+          ) : (
+            <>Welcome to Civil Estimation Pro</>
+          )}{" "}
           <span
             className="text-2xl md:text-3xl animate-bounce origin-bottom hover:animate-none cursor-default inline-block"
             style={{ animationDuration: "2s", animationIterationCount: 2 }}
@@ -421,9 +429,22 @@ export default function Dashboard({
             👋
           </span>
         </h1>
-        <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium text-base">
-          Ready to continue your estimates?
-        </p>
+        <div className="text-slate-500 dark:text-slate-400 mt-1 flex flex-col items-center gap-1 font-medium text-base">
+          <p>
+            {user ? "Ready to continue your estimates?" : "What would you like to estimate today?"}
+          </p>
+          {!user && (
+            <p className="text-sm font-normal">
+              <button 
+                onClick={onOpenAuth}
+                className="text-amber-600 hover:text-amber-700 hover:underline font-semibold"
+              >
+                Sign In
+              </button>{" "}
+              to save your estimates and access more features.
+            </p>
+          )}
+        </div>
       </div>
 
       <div className="mb-10 flex flex-col justify-center animate-in fade-in slide-in-from-bottom-4 duration-500 delay-75">
@@ -477,7 +498,7 @@ export default function Dashboard({
                     >
                       <div className="absolute right-[-10%] bottom-[-5%] text-indigo-300/10 group-hover:text-indigo-300/20 transition-all duration-500 pointer-events-none group-active:scale-95 group-active:-rotate-6">
                         <Home
-                          className="w-[180px] h-[180px] md:w-[220px] md:h-[220px]"
+                          className="w-[180px] h-[180px] md:w-[220px] md:h-[220px] opacity-80"
                           strokeWidth={1}
                         />
                       </div>
@@ -487,7 +508,7 @@ export default function Dashboard({
                           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-400/40 to-transparent blur-[12px] md:blur-[16px] transition-transform duration-500 group-hover:scale-150 group-active:scale-100"></div>
                           <mod.icon
                             className="relative z-10 w-7 h-7 md:w-8 md:h-8 text-indigo-100 transition-all duration-300 group-hover:scale-110 group-active:scale-95 group-active:rotate-12"
-                            strokeWidth={2.5}
+                            strokeWidth={1.5}
                           />
                         </div>
 
@@ -527,7 +548,7 @@ export default function Dashboard({
                         ></div>
                         <mod.icon
                           className={`relative z-10 w-7 h-7 md:w-8 md:h-8 ${theme.text} transition-all duration-300 group-hover:scale-110 group-active:scale-95 group-active:rotate-12`}
-                          strokeWidth={2.5}
+                          strokeWidth={1.5}
                         />
                       </div>
 

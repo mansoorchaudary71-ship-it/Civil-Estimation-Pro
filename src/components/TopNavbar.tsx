@@ -16,7 +16,6 @@ export default function TopNavbar({
   onOpenProfile?: () => void;
   onNavigate?: (id: ModuleId) => void;
 }) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
   const { user, logOut } = useAuth();
@@ -43,7 +42,6 @@ export default function TopNavbar({
   const handleSignOut = async () => {
     await logOut();
     setIsProfileMenuOpen(false);
-    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -66,10 +64,10 @@ export default function TopNavbar({
         {/* Mobile Left: Hamburger */}
         <div className="lg:hidden flex items-center justify-start flex-1">
           <button 
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={() => onOpenSidebar?.()}
             className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
           >
-            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            <Menu className="w-5 h-5" />
           </button>
         </div>
 
@@ -157,69 +155,7 @@ export default function TopNavbar({
           )}
         </div>
       </div>
-
-
-      <div 
-        className={`lg:hidden absolute top-[4.5rem] left-0 w-full px-4 mb-4 z-20 transition-all duration-300 ease-in-out ${isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"}`}
-      >
-        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border border-white/20 dark:border-slate-700/50 rounded-3xl p-4 shadow-xl flex flex-col gap-2 relative mt-4 ring-1 ring-slate-900/5 dark:ring-white/10">
-          {isAuthenticated && (
-             <div className="px-4 py-3 border-b border-slate-200/50 dark:border-slate-700/50 mb-2 flex items-center gap-3 overflow-hidden">
-                <div className="w-10 h-10 shrink-0 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400">
-                  {user?.photoURL ? (
-                    <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover rounded-lg" />
-                  ) : (
-                    <User className="w-5 h-5" />
-                  )}
-                </div>
-                <div className="min-w-0">
-                  <p className="text-sm font-bold text-slate-800 dark:text-white truncate">{user?.displayName || 'User'}</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
-                </div>
-             </div>
-          )}
-          
-          {navLinks.map((link) => (
-            <button 
-              key={link.name} 
-              onClick={() => { setIsMobileMenuOpen(false); onNavigate?.(link.id); }}
-              className="px-4 py-3 rounded-lg text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-amber-600 dark:hover:text-amber-500 transition-colors text-left"
-            >
-              {link.name}
-            </button>
-          ))}
-          <div className="h-px w-full bg-slate-200 dark:bg-slate-700/50 my-2" />
-          
-          {!isAuthenticated ? (
-            <>
-              <button 
-                onClick={() => { setIsMobileMenuOpen(false); onOpenAuth?.(); }}
-                className="px-4 py-3 rounded-xl text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-amber-50 hover:text-amber-700 dark:hover:bg-slate-800 transition-colors text-left pl-4"
-              >
-                Sign In
-              </button>
-              <button 
-                onClick={() => { setIsMobileMenuOpen(false); onOpenAuth?.(); }}
-                className="px-4 py-3 rounded-xl text-base font-bold text-white bg-amber-600 shadow-md flex justify-center mt-2 hover:bg-amber-700 transition-colors"
-              >
-                Get Started
-              </button>
-            </>
-          ) : (
-            <>
-              <button onClick={() => { setIsMobileMenuOpen(false); onOpenProfile?.(); }} className="flex items-center gap-3 px-4 py-3 rounded-xl text-base font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-left">
-                <Settings className="w-5 h-5 text-slate-500" /> Account Settings
-              </button>
-              <button 
-                onClick={handleSignOut}
-                className="flex items-center gap-3 px-4 py-3 rounded-xl text-base font-bold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors text-left mt-1"
-              >
-                <LogOut className="w-5 h-5" /> Sign Out
-              </button>
-            </>
-          )}
-        </div>
-      </div>
     </div>
   );
 }
+

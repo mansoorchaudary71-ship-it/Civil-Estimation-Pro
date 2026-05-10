@@ -14,10 +14,27 @@ import {
 import ColorfulTab from "../ui/ColorfulTab";
 import { useGlobalSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { SEO } from "../SEO";
+
 interface StaircaseCalculatorProps {
   isEmbedded?: boolean;
   onCalculate?: (results: any) => void;
 }
+
+const staircaseSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Concrete Staircase Calculator",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "WebBrowser",
+  "description": "Calculate concrete volume, formwork area, and steel weight for dog-legged and straight concrete staircases instantly.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+
 export default function StaircaseCalculator({
   isEmbedded = false,
   onCalculate,
@@ -187,6 +204,12 @@ export default function StaircaseCalculator({
     <div
       className={`w-full ${isEmbedded ? "" : "p-4 md:p-8 max-w-7xl mx-auto"}`}
     >
+      <SEO 
+        title="Concrete Staircase Calculator" 
+        description="Calculate concrete volume, formwork area, and steel weight for dog-legged and straight concrete staircases instantly with this advanced estimation tool." 
+        keywords="staircase calculator, concrete stairs, civil engineering, material estimation, dog-legged staircase"
+        schema={staircaseSchema}
+      />
       {" "}
       {!isEmbedded && (
         <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 animate-in fade-in slide-in-from-bottom-2 duration-500">

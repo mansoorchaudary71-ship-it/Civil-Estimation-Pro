@@ -200,10 +200,10 @@ const unitsData: Record<Category, Unit[]> = {
   ],
   Angle: [
     { id: "deg", label: "Degree (°)", factor: 1 },
-    { id: "rad", label: "Radian (rad)", factor: 57.295779513 },
+    { id: "rad", label: "Radian (rad)", factor: 180 / Math.PI },
     { id: "grad", label: "Gradian (grad)", factor: 0.9 },
-    { id: "arcmin", label: "Minute of Arc (')", factor: 0.016666666667 },
-    { id: "arcsec", label: 'Second of Arc (")', factor: 0.000277777778 },
+    { id: "arcmin", label: "Minute of Arc (')", factor: 1 / 60 },
+    { id: "arcsec", label: 'Second of Arc (")', factor: 1 / 3600 },
   ],
   Power: [
     { id: "w", label: "Watt (W)", factor: 1 },
@@ -284,10 +284,20 @@ export default function UnitConverter() {
   const [fromValue, setFromValue] = useState<string>("1");
   const [toValue, setToValue] = useState<string>("");
   const convertValue = (valStr: string, fUnit: string, tUnit: string, cat: Category): string => {
-    if (valStr === "" || isNaN(parseFloat(valStr))) {
+    // Edge case: empty string, just minus sign, or decimal point
+    if (!valStr || valStr.trim() === "" || valStr === "-" || valStr === "." || valStr === "-.") {
       return "";
     }
     const val = parseFloat(valStr);
+    if (isNaN(val)) {
+      return "";
+    }
+    
+    // Prevent negative values for non-temperature categories 
+    // Usually only Temperature and occasionally some others might have negative values, 
+    // but typically users might just type accidentally. If needed, we can constrain here.
+    // For now, let's keep negative values valid for all in case of offset calculations (though technically Area etc shouldn't be negative).
+    
     let result = 0;
     if (cat === "Temperature") {
       /* Special logic */ let celsius = val;
@@ -297,28 +307,40 @@ export default function UnitConverter() {
       else if (tUnit === "f") result = (celsius * 9) / 5 + 32;
       else if (tUnit === "k") result = celsius + 273.15;
     } else if (cat === "Fuel") {
-      /* Special logic */ let kml = val;
+      /* Special logic representing inversely proportional units where applicable */ 
+      let kml = val;
+      // Handle division by zero edge case
+      if (Math.abs(val) < 1e-12 && (fUnit === "l_100" || tUnit === "l_100")) return "0";
+      
       if (fUnit === "l_100") kml = 100 / val;
       else if (fUnit === "mpg_us") kml = val / 2.35214583;
       else if (fUnit === "mpg_uk") kml = val / 2.824809363;
+      
       if (tUnit === "km_l") result = kml;
-      else if (tUnit === "l_100") result = 100 / kml;
+      else if (tUnit === "l_100") result = kml === 0 ? 0 : 100 / kml;
       else if (tUnit === "mpg_us") result = kml * 2.35214583;
       else if (tUnit === "mpg_uk") result = kml * 2.824809363;
     } else {
-      /* Normal factor-based logic */ const uData = unitsData[cat];
+      /* Normal factor-based logic */ 
+      const uData = unitsData[cat];
       const fUnitDef = uData.find((u) => u.id === fUnit);
       const tUnitDef = uData.find((u) => u.id === tUnit);
-      if (fUnitDef && tUnitDef && fUnitDef.factor && tUnitDef.factor) {
+      if (fUnitDef && tUnitDef && fUnitDef.factor !== undefined && tUnitDef.factor !== undefined && tUnitDef.factor !== 0) {
         const baseVal = val * fUnitDef.factor;
         result = baseVal / tUnitDef.factor;
       }
     }
-    /* Format nicely */ if (result === 0) return "0";
+    
+    /* Format nicely */ 
+    if (result === 0) return "0";
     if (Math.abs(result) < 0.000001 || Math.abs(result) > 10000000) {
       return result.toExponential(6).replace(/\.?0+e/, "e");
     }
-    return parseFloat(result.toFixed(6)).toString();
+    
+    // Strip trailing zeroes after formatting to 6 decimals
+    const fixedResult = parseFloat(result.toFixed(6));
+    // Check if parseFloat results in an exact integer representation
+    return fixedResult.toString();
   };
 
   const handleFromValueChange = (valStr: string) => {
@@ -356,6 +378,11 @@ export default function UnitConverter() {
     setToValue(convertValue(fromValue, toUnit, tempUnit, activeCategory));
   };
   const currentUnits = unitsData[activeCategory] || [];
+  
+  const fromUnitLabel = currentUnits.find((u) => u.id === fromUnit)?.label || fromUnit;
+  const toUnitLabel = currentUnits.find((u) => u.id === toUnit)?.label || toUnit;
+  const conversionRate = convertValue("1", fromUnit, toUnit, activeCategory);
+
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8">
       {" "}
@@ -493,6 +520,20 @@ export default function UnitConverter() {
               </div>{" "}
             </div>{" "}
           </div>{" "}
+          
+          {/* Conversion specific feedback */}
+          {conversionRate !== "" && (
+             <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-bottom-2 duration-500">
+                <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1">
+                  Conversion Rate
+                </p>
+                <div className="inline-flex items-center gap-3 px-6 py-2.5 bg-fuchsia-50 dark:bg-fuchsia-500/10 rounded-full border border-fuchsia-100 dark:border-fuchsia-500/20 text-fuchsia-700 dark:text-fuchsia-300 font-medium sm:text-lg text-sm flex-wrap justify-center">
+                  <span>1 {fromUnitLabel.split(' (')[0]}</span>
+                  <span className="text-fuchsia-400 dark:text-fuchsia-500 font-normal">=</span>
+                  <span className="font-bold">{conversionRate} {toUnitLabel.split(' (')[0]}</span>
+                </div>
+             </div>
+          )}
         </div>{" "}
         {" "}
       </div>{" "}

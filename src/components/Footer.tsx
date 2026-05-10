@@ -26,7 +26,7 @@ export default function Footer({ onNavigate }: { onNavigate?: (id: ModuleId) => 
                 Civil Estimation Pro
               </span>
             </div>
-            <p className="text-slate-500 dark:text-slate-400 text-sm font-medium leading-relaxed max-w-xs">
+            <p className="text-slate-700 dark:text-slate-300 text-sm font-medium leading-relaxed max-w-xs">
               Comprehensive engineering tools and precise estimation modules built for modern construction professionals.
             </p>
           </div>
@@ -34,33 +34,33 @@ export default function Footer({ onNavigate }: { onNavigate?: (id: ModuleId) => 
           {/* Links Columns */}
           <div className="flex flex-col gap-3">
             <h4 className="font-bold text-slate-800 dark:text-slate-100 mb-2">Product Modules</h4>
-            <a href="#" className="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">2D Takeoff</a>
-            <a href="#" className="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">House Estimator</a>
-            <a href="#" className="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Earthworks</a>
-            <a href="#" className="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Calculators</a>
+            <a href="#" className="text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">2D Takeoff</a>
+            <a href="#" className="text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">House Estimator</a>
+            <a href="#" className="text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Earthworks</a>
+            <a href="#" className="text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Calculators</a>
           </div>
 
           <div className="flex flex-col gap-3">
             <h4 className="font-bold text-slate-800 dark:text-slate-100 mb-2">Resources</h4>
-            <a href="#" className="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Documentation</a>
-            <a href="#" className="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">API Reference</a>
-            <a href="#" className="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Help Center</a>
-            <a href="#" className="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Community</a>
+            <a href="#" className="text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Documentation</a>
+            <a href="#" className="text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">API Reference</a>
+            <a href="#" className="text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Help Center</a>
+            <a href="#" className="text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Community</a>
           </div>
 
           <div className="flex flex-col gap-3">
             <h4 className="font-bold text-slate-800 dark:text-slate-100 mb-2">Company</h4>
-            <button onClick={() => onNavigate?.("about")} className="text-left text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">About Us</button>
-            <button onClick={() => onNavigate?.("careers")} className="text-left text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Careers</button>
-            <button onClick={() => onNavigate?.("contact")} className="text-left text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Contact</button>
-            <button onClick={() => onNavigate?.("blog")} className="text-left text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Blog</button>
+            <button onClick={() => onNavigate?.("about")} className="text-left text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">About Us</button>
+            <button onClick={() => onNavigate?.("careers")} className="text-left text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Careers</button>
+            <button onClick={() => onNavigate?.("contact")} className="text-left text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Contact</button>
+            <button onClick={() => onNavigate?.("blog")} className="text-left text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Blog</button>
           </div>
 
           <div className="flex flex-col gap-3">
             <h4 className="font-bold text-slate-800 dark:text-slate-100 mb-2">Legal</h4>
-            <a href="#" className="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Privacy Policy</a>
-            <a href="#" className="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Terms of Service</a>
-            <a href="#" className="text-sm text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">Cookie Policy</a>
+            <a href="#" className="text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Privacy Policy</a>
+            <a href="#" className="text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Terms of Service</a>
+            <a href="#" className="text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Cookie Policy</a>
           </div>
 
         </div>
@@ -70,21 +70,21 @@ export default function Footer({ onNavigate }: { onNavigate?: (id: ModuleId) => 
 
         {/* Bottom Section: Copyright & Socials */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium text-center sm:text-left">
+          <p className="text-sm text-slate-700 dark:text-slate-300 font-medium text-center sm:text-left">
             © {currentYear} Civil Estimation Pro. All rights reserved.
           </p>
           
           <div className="flex items-center gap-4">
-            <a href="#" className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-500/10 dark:hover:text-blue-400 transition-colors">
+            <a href="#" className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-blue-50 hover:text-blue-700 dark:hover:bg-blue-500/10 dark:hover:text-blue-400 transition-colors">
               <Twitter className="w-4.5 h-4.5" />
             </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-slate-700 dark:hover:text-white transition-colors">
+            <a href="#" className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-slate-200 hover:text-slate-900 dark:hover:bg-slate-700 dark:hover:text-white transition-colors">
               <Github className="w-4.5 h-4.5" />
             </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-blue-50 hover:text-blue-700 dark:hover:bg-blue-500/10 dark:hover:text-blue-400 transition-colors">
+            <a href="#" className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-blue-50 hover:text-blue-700 dark:hover:bg-blue-500/10 dark:hover:text-blue-400 transition-colors">
               <Linkedin className="w-4.5 h-4.5" />
             </a>
-            <a href="#" className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-indigo-50 hover:text-indigo-600 dark:hover:bg-indigo-500/10 dark:hover:text-indigo-400 transition-colors">
+            <a href="#" className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-indigo-50 hover:text-indigo-700 dark:hover:bg-indigo-500/10 dark:hover:text-indigo-400 transition-colors">
               <Mail className="w-4.5 h-4.5" />
             </a>
           </div>

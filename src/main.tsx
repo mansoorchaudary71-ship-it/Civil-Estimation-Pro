@@ -1,9 +1,20 @@
 import {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
+import { registerSW } from 'virtual:pwa-register';
 import App from './App.tsx';
 import ErrorBoundary from './components/ErrorBoundary.tsx';
 import { AuthProvider } from './contexts/AuthContext.tsx';
 import './index.css';
+
+// Register the PWA service worker
+const updateSW = registerSW({
+  onNeedRefresh() {
+    // Optionally prompt user to hit refresh
+  },
+  onOfflineReady() {
+    console.log('App is ready to work offline');
+  },
+})
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

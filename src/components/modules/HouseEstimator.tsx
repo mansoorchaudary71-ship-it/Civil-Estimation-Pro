@@ -531,6 +531,36 @@ export default function HouseEstimator() {
         return "Standard";
     }
   };
+
+  const pdfExportPayload = useMemo(() => {
+    const customTableData = [...greyCostData, ...finishingCostData].map(d => ({
+      item: d.name.replace(/\*/g, ''),
+      quantityStr: typeof d.quantity === 'number' ? Math.round(d.quantity).toLocaleString() : d.quantity,
+      unitStr: d.unit,
+      rate: d.rate,
+      cost: d.value,
+      color: d.color
+    }));
+    
+    return {
+      inputs: {
+        "Project Name": projectDetails.projectName || "-",
+        "Client Name": projectDetails.clientName || "-",
+        "Plot Size": `${geoState.plotSizeValue} ${geoState.plotSizeUnit.toUpperCase()}`,
+        "Covered Area": `${geoState.coveredAreaSqft} Sq.Ft`,
+        "Stories": geoState.stories,
+        "Finish Grade": getQualityLabel(finishQuality),
+        "Total Built-up Area": `${builtUpArea.toFixed(0)} sq.ft`
+      },
+      breakdown: {
+        "Total Cost": estimates.totalCost.toFixed(2),
+        "Grey Structure": estimates.totalGrey.toFixed(2),
+        "Finishing": estimates.totalFinishing.toFixed(2)
+      },
+      customTableData
+    };
+  }, [greyCostData, finishingCostData, geoState, finishQuality, projectDetails, builtUpArea, estimates]);
+
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
@@ -1914,6 +1944,7 @@ export default function HouseEstimator() {
           if (inputs.activeTab) setActiveTab(inputs.activeTab);
           if (inputs.finishQuality) setFinishQuality(inputs.finishQuality);
         }}
+        savePayload={pdfExportPayload}
       />
     </div>
   );
