@@ -125,7 +125,7 @@ export function CalculationHistory({
           {/* Dashboard Button: Slate */}
           <button
             onClick={handleGoHome}
-            className={`${baseBtnClass} bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 border-slate-300/80 hover:border-slate-400 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-slate-100 dark:border-slate-600 dark:hover:border-slate-500 focus:ring-slate-500 min-w-fit`}
+            className={`${baseBtnClass} bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 border-slate-300/80 hover:border-slate-400 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-slate-100 dark:border-slate-600 dark:hover:border-slate-500 focus:ring-slate-500`}
             title="Back to Dashboard"
           >
             <Home className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
