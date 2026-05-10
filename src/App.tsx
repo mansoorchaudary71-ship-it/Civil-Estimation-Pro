@@ -111,7 +111,7 @@ export default function App() {
                 onNavigate={handleSelectModule} 
               />
               {activeModule === "home" && <Dashboard previousModule={previousModule} onSelectModule={handleSelectModule} onOpenSidebar={() => setIsSidebarOpen(true)} onOpenSettings={() => setIsSettingsOpen(true)} />}
-              {activeModule === "my-estimates" && <div className="p-8"><RecentEstimates onSelectModule={handleSelectModule} /></div>}
+              {activeModule === "my-estimates" && <RecentEstimates onSelectModule={handleSelectModule} />}
               {activeModule === "pricing" && <div className="p-8 pt-12 text-center text-slate-500">Pricing options coming soon.</div>}
               {activeModule === "about" && <div className="p-8 pt-12"><AboutUs /></div>}
               {activeModule === "careers" && <div className="p-8 pt-12"><Careers /></div>}

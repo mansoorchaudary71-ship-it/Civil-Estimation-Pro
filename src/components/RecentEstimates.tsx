@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { ModuleId } from '../App';
-import { Clock, FolderOpen, ArrowRight, Home, Truck, Droplets, HardHat, Loader2, GripVertical } from 'lucide-react';
+import { Clock, FolderOpen, ArrowRight, Loader2, GripVertical, FileText } from 'lucide-react';
 import { getMyEstimates, updateEstimateStatus, updateEstimateOrders } from '../lib/estimates';
 import { useAuth } from '../contexts/AuthContext';
+import { ALL_MODULES, getCategoryTheme } from './Dashboard';
 
 interface Estimate {
   id: string;
@@ -11,11 +12,40 @@ interface Estimate {
   type: ModuleId;
   typeLabel: string;
   color: string;
-  icon: React.ReactNode;
+  icon: any;
   progress: number;
   status: string;
   order?: number;
+  desc: string;
+  theme: any;
 }
+
+const mapCalculatorToModule = (calcId: string): ModuleId => {
+  const mapping: Record<string, ModuleId> = {
+    'area_v1': 'area-calculator',
+    'volume_v1': 'volume-estimator',
+    'unit_converter_v1': 'unit-converter',
+    'metal_weight_v1': 'metal-weight',
+    'rcc_slab_v1': 'rcc-calculator',
+    'column_v1': 'column-estimator',
+    'staircase_v1': 'staircase-calculator',
+    'master_qty_v1': 'master-quantity',
+    'calculators_v1': 'calculators',
+    'ai_assistant_v1': 'ai',
+    'earthworks_v1': 'earthworks',
+    'grid_earthwork_v1': 'gridEarthwork',
+    'trench_excavation_v1': 'trench',
+    'chainage_v1': 'chainage',
+    'road_estimator_v1': 'road',
+    'rigid_pavement_v1': 'rigid-pavement',
+    'sewerage_v1': 'sewerage',
+    'formwork_estimator_v1': 'formwork',
+    'finishing_estimator_v1': 'finishing',
+    'house_estimator_v1': 'house',
+    'rate_analysis_v1': 'rates',
+  };
+  return mapping[calcId] || 'calculators';
+};
 
 export default function RecentEstimates({ onSelectModule }: { onSelectModule: (id: ModuleId) => void }) {
   const [estimates, setEstimates] = useState<Estimate[]>([]);
@@ -39,18 +69,26 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
             if (a.order !== undefined) return -1;
             if (b.order !== undefined) return 1;
             return b.createdAt - a.createdAt;
-          }).map((d: any) => ({
-            id: d.id,
-            title: d.name,
-            date: new Date(d.createdAt).toLocaleDateString(),
-            type: 'calculators' as ModuleId,
-            typeLabel: 'Material Estimate',
-            color: 'from-[#ef4444] to-[#f97316]',
-            icon: <HardHat className="w-5 h-5 text-white" />,
-            progress: 100,
-            status: d.status || 'To Do',
-            order: d.order,
-          }));
+          }).map((d: any) => {
+            const modId = mapCalculatorToModule(d.payload?.calculatorId || '');
+            const modInfo = ALL_MODULES.find(m => m.id === modId) || ALL_MODULES[0];
+            const theme = getCategoryTheme(modInfo.category, modInfo.id);
+            
+            return {
+              id: d.id,
+              title: d.name,
+              desc: modInfo.title,
+              date: new Date(d.createdAt).toLocaleDateString(),
+              type: modId,
+              typeLabel: modInfo.category,
+              color: theme.blob,
+              icon: modInfo.icon,
+              progress: 100,
+              status: d.status || 'To Do',
+              order: d.order,
+              theme: theme
+            };
+          });
           setEstimates(formatted);
         }
       } catch (err) {
@@ -111,12 +149,14 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
 
   if (!user) {
     return (
-      <div className="mt-8 mb-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 flex items-center gap-2">
-            <Clock className="w-6 h-6 text-indigo-500" />
-            Recent Estimates
-          </h3>
+      <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col font-sans mb-auto">
+        <div className="mb-8 flex flex-col items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500 text-center mt-6">
+          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#0f172a] dark:text-white flex items-center justify-center gap-2">
+            My Estimates
+          </h1>
+          <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium text-base">
+            Manage your saved construction calculations
+          </p>
         </div>
         <div className="w-full bg-white/60 dark:bg-slate-900/40 backdrop-blur-xl border border-white/60 dark:border-slate-800/60 rounded-[2rem] p-10 flex flex-col items-center justify-center text-center shadow-sm">
           <div className="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center mb-4 text-slate-400 dark:text-slate-500 shadow-inner">
@@ -131,98 +171,103 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
 
   if (loading) {
     return (
-      <div className="mt-8 mb-6 py-20 flex justify-center items-center">
+      <div className="flex-1 py-20 w-full flex justify-center items-center">
         <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
-      </div>
-    );
-  }
-  
-  if (estimates.length === 0) {
-    return (
-      <div className="mt-8 mb-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 flex items-center gap-2">
-            <Clock className="w-6 h-6 text-indigo-500" />
-            Recent Estimates
-          </h3>
-        </div>
-        <div className="w-full bg-white/60 dark:bg-slate-900/40 backdrop-blur-xl border border-white/60 dark:border-slate-800/60 rounded-[2rem] p-10 flex flex-col items-center justify-center text-center shadow-sm">
-          <div className="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center mb-4 text-slate-400 dark:text-slate-500 shadow-inner">
-            <FolderOpen className="w-8 h-8" />
-          </div>
-          <h4 className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-1">No Projects Yet</h4>
-          <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mb-6">Create a new estimate from the modules above to see it appear in your saved projects.</p>
-        </div>
       </div>
     );
   }
 
   return (
-    <div className="mt-8 mb-6">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-black text-slate-800 dark:text-slate-100 flex items-center gap-2">
-          <Clock className="w-6 h-6 text-indigo-500" />
-          Recent Estimates
-        </h3>
+    <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col font-sans pb-12">
+      <div className="mb-8 flex flex-col items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500 text-center mt-6">
+        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#0f172a] dark:text-white flex items-center justify-center gap-2">
+          My Estimates
+        </h1>
+        <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium text-base">
+          Manage your saved construction calculations
+        </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {estimates.map((est) => (
-           <div 
-             key={est.id}
-             draggable
-             onDragStart={(e) => handleDragStart(e, est.id)}
-             onDragOver={(e) => handleDragOver(e, est.id)}
-             onDrop={handleDrop}
-             className={`group relative bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl border ${dragOverId === est.id ? 'border-indigo-500 shadow-indigo-500/20' : 'border-white/40 dark:border-slate-800/60'} rounded-[2rem] p-6 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10 shadow-[0_8px_30px_rgb(0,0,0,0.02)] transition-all duration-300 flex flex-col overflow-hidden cursor-pointer ${draggedId === est.id ? 'opacity-50' : 'opacity-100'}`}
-             onClick={() => onSelectModule(est.type)}
-           >
-             {/* Background Glow */}
-             <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${est.color} opacity-5 dark:opacity-15 rounded-full blur-2xl -mr-10 -mt-10 group-hover:opacity-20 transition-opacity`} />
-             
-             <div className="flex items-start justify-between mb-5 relative z-10">
-               <div className="flex items-center gap-3">
-                 <div className="cursor-grab text-slate-300 hover:text-slate-500 dark:text-slate-600 dark:hover:text-slate-400 p-1" onPointerDown={e => e.stopPropagation()}>
-                   <GripVertical className="w-5 h-5" />
-                 </div>
-                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${est.color} flex items-center justify-center shadow-lg shadow-black/10 group-hover:scale-105 transition-transform duration-300`}>
-                   {est.icon}
-                 </div>
-               </div>
-               <div className="flex flex-col items-end gap-2">
-                 <div className="bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1 border border-slate-100 dark:border-slate-700 shadow-sm">
-                   {est.typeLabel}
-                 </div>
-                 <select
-                   value={est.status}
-                   onClick={(e) => e.stopPropagation()}
-                   onChange={(e) => handleStatusChange(e, est.id)}
-                   className={`text-xs font-bold rounded-lg px-2 py-1.5 border-none focus:ring-2 focus:ring-indigo-500 cursor-pointer shadow-sm transition-colors ${
-                     est.status === 'Completed' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                     est.status === 'In Progress' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
-                     'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'
-                   }`}
-                 >
-                   <option value="To Do">To Do</option>
-                   <option value="In Progress">In Progress</option>
-                   <option value="Completed">Completed</option>
-                 </select>
-               </div>
-             </div>
-             
-             <div className="relative z-10 mb-6">
-               <h4 className="text-lg font-bold text-slate-800 dark:text-slate-100 leading-tight mb-1.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                 {est.title}
-               </h4>
-               <p className="text-sm text-slate-500 dark:text-slate-400 font-medium mb-3">Created {est.date}</p>
-             </div>
-             
-             <button className="relative z-10 mt-auto w-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 group-hover:bg-gradient-to-r group-hover:from-indigo-500 group-hover:to-purple-600 group-hover:text-white font-bold py-3.5 rounded-[1rem] flex items-center justify-center gap-2 transition-all duration-300">
-               Open Project
-               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-             </button>
-           </div>
-        ))}
-      </div>
+
+      {estimates.length === 0 ? (
+        <div className="w-full bg-white/60 dark:bg-slate-900/40 backdrop-blur-xl border border-white/60 dark:border-slate-800/60 rounded-[2rem] p-10 flex flex-col items-center justify-center text-center shadow-sm">
+          <div className="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center mb-4 text-slate-400 dark:text-slate-500 shadow-inner">
+            <FolderOpen className="w-8 h-8" />
+          </div>
+          <h4 className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-1">No Projects Yet</h4>
+          <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mb-6">Create a new estimate from the modules globally to see it appear here.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6 w-full animate-in fade-in slide-in-from-bottom-4 duration-500 delay-150">
+          {estimates.map((est: any) => {
+            const Icon = est.icon;
+            
+            return (
+              <div 
+                key={est.id}
+                draggable
+                onDragStart={(e) => handleDragStart(e, est.id)}
+                onDragOver={(e) => handleDragOver(e, est.id)}
+                onDrop={handleDrop}
+                className={`group relative col-span-1 bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl transition-all duration-300 flex flex-col items-center text-center border cursor-pointer hover:-translate-y-1.5 shadow-sm hover:shadow-xl overflow-hidden ${dragOverId === est.id ? 'border-indigo-500 shadow-indigo-500/20' : est.theme.border} ${draggedId === est.id ? 'opacity-50' : 'opacity-100'}`}
+                onClick={() => onSelectModule(est.type)}
+                style={{ minHeight: "240px" }}
+              >
+                {/* Drag Handle Top Left */}
+                <div className="absolute top-4 left-4 z-20 cursor-grab text-slate-300 hover:text-slate-500 dark:text-slate-600 dark:hover:text-slate-400 p-1" onPointerDown={e => e.stopPropagation()}>
+                  <GripVertical className="w-5 h-5" />
+                </div>
+                
+                {/* Status Selector Top Right */}
+                <div className="absolute top-4 right-4 z-20">
+                  <select
+                    value={est.status}
+                    onClick={(e) => e.stopPropagation()}
+                    onChange={(e) => handleStatusChange(e, est.id)}
+                    className={`text-[11px] font-bold rounded-lg px-2 py-1.5 border-none focus:ring-2 focus:ring-indigo-500 cursor-pointer shadow-sm transition-colors ${
+                      est.status === 'Completed' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
+                      est.status === 'In Progress' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
+                      'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'
+                    }`}
+                  >
+                    <option value="To Do">To Do</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                  </select>
+                </div>
+
+                <div className="relative z-10 w-full flex-1 flex flex-col items-center mt-6">
+                  <div className="relative w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4 shrink-0">
+                    <div
+                      className={`absolute inset-0 rounded-full ${est.theme.blob} blur-[12px] md:blur-[16px] transition-transform duration-500 group-hover:scale-150 group-active:scale-100`}
+                    />
+                    <Icon
+                      className={`relative z-10 w-7 h-7 md:w-8 md:h-8 ${est.theme.text} transition-all duration-300 group-hover:scale-110 group-active:scale-95 group-active:rotate-12`}
+                      strokeWidth={2.5}
+                    />
+                  </div>
+
+                  <div
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border ${est.theme.border} bg-slate-50 dark:bg-slate-800/80 shadow-sm text-[11px] md:text-[12px] font-bold tracking-[0.1em] uppercase ${est.theme.text} mb-4`}
+                  >
+                    <span className="truncate">{est.typeLabel}</span>
+                  </div>
+
+                  <h3 className="text-[18px] md:text-[20px] font-extrabold text-[#0f172a] dark:text-white mb-2 leading-[1.2]">
+                    {est.title}
+                  </h3>
+                  
+                  <div className="flex flex-col items-center mt-auto">
+                    <p className="text-[12px] md:text-[13px] text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap overflow-hidden text-ellipsis mb-1">
+                      <FileText className="w-3 h-3 inline mr-1 opacity-70" /> {est.desc}
+                    </p>
+                    <p className="text-[11px] text-slate-400 font-medium">Saved: {est.date}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

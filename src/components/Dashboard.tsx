@@ -43,7 +43,7 @@ import {
 import Logo from "./Logo";
 import RecentEstimates from "./RecentEstimates";
 
-const ALL_MODULES = [
+export const ALL_MODULES = [
   {
     id: "calculators",
     title: "Construction Material",
@@ -211,7 +211,7 @@ interface DashboardProps {
   previousModule?: string | null;
 }
 
-const getCategoryTheme = (category: string, id: string) => {
+export const getCategoryTheme = (category: string, id: string) => {
   if (id === "calculators")
     return {
       text: "text-[#ef4444]",
