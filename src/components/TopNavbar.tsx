@@ -27,7 +27,6 @@ export default function TopNavbar({
     { name: 'Home', id: 'home' as ModuleId },
     { name: 'My Estimates', id: 'my-estimates' as ModuleId },
     { name: 'Tools', id: 'calculators' as ModuleId },
-    { name: 'Pricing', id: 'pricing' as ModuleId },
     { name: 'About', id: 'about' as ModuleId },
   ];
 
@@ -48,54 +47,77 @@ export default function TopNavbar({
   };
 
   return (
-    <div className="w-full relative shrink-0 z-40">
-      <div className="w-full px-4 pt-4 pb-2">
-        <div className="w-full px-4 sm:px-6 py-2 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-white/20 dark:border-slate-700/50 rounded-full transition-colors duration-300 flex items-center justify-between relative z-30 shadow-lg shadow-slate-200/50 dark:shadow-none ring-1 ring-slate-900/5 dark:ring-white/10">
-          
-          <div className="flex items-center gap-2 lg:gap-3 cursor-pointer group shrink-0 pl-1 sm:pl-2">
-            <div className="w-8 h-8 flex items-center justify-center transition-all duration-300 group-hover:scale-105 text-slate-800 dark:text-white">
-              <Logo className="w-8 h-8" />
-            </div>
-            <span className="font-black text-lg tracking-tight text-slate-800 dark:text-slate-100">
-              Civil Estimation Pro
-            </span>
-          </div>
+    <div className="w-full max-w-7xl mx-auto relative shrink-0 z-40 px-3 sm:px-6 pt-4 sm:pt-6 pb-2">
+      <div className="w-full px-3 sm:px-5 py-2.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 rounded-full transition-colors duration-300 flex items-center justify-between shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)]">
+        
+        {/* Left: Text navigation links */}
+        <div className="hidden lg:flex items-center gap-1 xl:gap-2 flex-1 justify-start">
+          {navLinks.map((link) => (
+            <button 
+              key={link.name} 
+              onClick={() => onNavigate?.(link.id)}
+              className="px-3 xl:px-4 py-2 text-[13px] xl:text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-100/50 dark:hover:bg-amber-900/30 rounded-full transition-all duration-300 whitespace-nowrap"
+            >
+              {link.name}
+            </button>
+          ))}
+        </div>
 
-          <div className="hidden md:flex items-center justify-center gap-2 flex-1 px-8">
-            {navLinks.map((link) => (
-              <button 
-                key={link.name} 
-                onClick={() => onNavigate?.(link.id)}
-                className="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-100/50 dark:hover:bg-amber-900/30 rounded-full transition-all duration-300"
-              >
-                {link.name}
-              </button>
-            ))}
-          </div>
+        {/* Mobile Left: Hamburger */}
+        <div className="lg:hidden flex items-center justify-start flex-1">
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+          >
+            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
 
-          <div className="hidden md:flex items-center gap-3 shrink-0 pr-1 sm:pr-2">
+        {/* Center: Logo perfectly centered */}
+        <div className="flex items-center justify-center gap-2 cursor-pointer group shrink-0 px-2 sm:px-4">
+          <div className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center transition-all duration-300 group-hover:scale-105 text-slate-800 dark:text-white">
+            <Logo className="w-7 h-7 sm:w-8 sm:h-8" />
+          </div>
+          <span className="hidden sm:block font-black text-base sm:text-lg tracking-tight text-slate-800 dark:text-slate-100 whitespace-nowrap">
+            Civil Estimation Pro
+          </span>
+        </div>
+
+        {/* Right: Action Buttons */}
+        <div className="flex items-center justify-end gap-2 md:gap-3 shrink-0 flex-1">
+          <div className="hidden sm:block">
             <GlobalSettingsToggle />
-            <div className="h-6 w-px bg-slate-200 dark:bg-slate-700 hidden lg:block mx-1" />
-            {!isAuthenticated ? (
-              <>
-                <button 
-                  onClick={onOpenAuth}
-                  className="px-4 py-2 rounded-full text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-slate-800 transition-all duration-300"
-                >
-                  Sign In
-                </button>
-                <button 
-                  onClick={onOpenAuth}
-                  className="px-6 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-700 hover:to-orange-600 shadow-lg shadow-amber-500/30 active:scale-95 transition-all duration-300"
-                >
-                  Get Started
-                </button>
-              </>
-            ) : (
-              <div className="relative" ref={profileRef}>
+          </div>
+          <div className="h-5 w-px bg-slate-200 dark:bg-slate-700 hidden lg:block mx-0.5" />
+          
+          {!isAuthenticated ? (
+            <>
+              <button 
+                onClick={onOpenAuth}
+                className="hidden md:block px-3 py-2 rounded-full text-[13px] md:text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-slate-800 transition-all duration-300 whitespace-nowrap"
+              >
+                Sign In
+              </button>
+              <button 
+                onClick={onOpenAuth}
+                className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[13px] sm:text-sm font-bold text-white bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-700 hover:to-orange-600 shadow-lg shadow-amber-500/30 active:scale-95 transition-all duration-300 whitespace-nowrap"
+              >
+                Get Started
+              </button>
+            </>
+          ) : (
+            <div className="relative flex items-center gap-2 sm:gap-3">
+              <div className="lg:hidden">
+                {user?.photoURL && (
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 overflow-hidden text-slate-600 dark:text-slate-400">
+                    <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
+                  </div>
+                )}
+              </div>
+              <div ref={profileRef} className="hidden lg:block relative">
                 <button 
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                  className="flex items-center gap-2 p-1.5 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all group"
+                  className="flex items-center gap-1.5 p-1.5 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all group"
                 >
                   <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 overflow-hidden text-slate-600 dark:text-slate-400 group-hover:text-amber-600">
                     {user?.photoURL ? (
@@ -131,32 +153,14 @@ export default function TopNavbar({
                   </div>
                 )}
               </div>
-            )}
-          </div>
-
-          <div className="md:hidden flex items-center gap-3 pr-1">
-            <GlobalSettingsToggle />
-            {isAuthenticated && (
-              <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 overflow-hidden text-slate-600 dark:text-slate-400">
-                 {user?.photoURL ? (
-                    <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
-                  ) : (
-                    <User className="w-4 h-4" />
-                  )}
-              </div>
-            )}
-            <button 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 -mr-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
-            >
-              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
+            </div>
+          )}
         </div>
       </div>
 
+
       <div 
-        className={`md:hidden absolute top-[4.5rem] left-0 w-full px-4 mb-4 z-20 transition-all duration-300 ease-in-out ${isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"}`}
+        className={`lg:hidden absolute top-[4.5rem] left-0 w-full px-4 mb-4 z-20 transition-all duration-300 ease-in-out ${isMobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"}`}
       >
         <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border border-white/20 dark:border-slate-700/50 rounded-3xl p-4 shadow-xl flex flex-col gap-2 relative mt-4 ring-1 ring-slate-900/5 dark:ring-white/10">
           {isAuthenticated && (
