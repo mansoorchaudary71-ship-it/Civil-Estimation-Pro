@@ -238,16 +238,21 @@ export default function RoadEstimator() {
                   <div className="col-span-1">
                     <label
                       className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1"
-                      title="Side Slope (H:1V)"
+                      title="Side Slope (1 Vertical : X Horizontal)"
                     >
-                      Slope (H:1V)
+                      Side Slope
                     </label>
-                    <input
-                      type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
-                      value={sideSlope}
-                      onChange={(e) => setSideSlope(e.target.value)}
-                    />
+                    <div className="flex items-center gap-3 w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-amber-500/50 transition-shadow">
+                      <span className="text-gray-500 font-semibold text-sm whitespace-nowrap">1 V :</span>
+                      <input
+                        type="number"
+                        className="w-full bg-transparent text-gray-800 focus:outline-none -ml-1 text-sm md:text-base font-semibold"
+                        value={sideSlope}
+                        placeholder="e.g. 2"
+                        onChange={(e) => setSideSlope(e.target.value)}
+                      />
+                      <span className="text-gray-500 font-semibold text-sm whitespace-nowrap">H</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -971,7 +976,7 @@ export default function RoadEstimator() {
             "Shoulder Width": `${shoulderWidth}m`,
             "Shoulder Fall": `${shoulderFall}%`,
             Camber: `${camber}%`,
-            "Side Slope": `${sideSlope} (H:1V)`,
+            "Side Slope": `1 V : ${sideSlope} H`,
             "SubGrade Thk": `${sgThickness}mm`,
             "SubBase Thk": `${sbThickness}mm`,
             "WBM Thk": `${wbmThickness}mm`,

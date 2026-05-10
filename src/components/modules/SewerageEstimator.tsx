@@ -318,16 +318,20 @@ export default function SewerageEstimator() {
                     {trenchProfile === "sloped" && (
                       <div className="col-span-2 -mt-2">
                         <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
-                          Side Slope Ratio (Horizontal:Vertical)
+                          Side Slope (1 Vertical : X Horizontal)
                         </label>
-                        <input
-                          type="number"
-                          step="0.1"
-                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
-                          placeholder="e.g. 0.5 for 1H:2V"
-                          value={trenchSlopeRatio}
-                          onChange={(e) => setTrenchSlopeRatio(e.target.value)}
-                        />
+                        <div className="flex items-center gap-3 w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-amber-500/50 transition-shadow">
+                          <span className="text-gray-500 font-semibold text-sm whitespace-nowrap">1 V :</span>
+                          <input
+                            type="number"
+                            step="0.1"
+                            className="w-full bg-transparent text-gray-800 focus:outline-none -ml-1 text-sm md:text-base font-semibold"
+                            placeholder="e.g. 0.5"
+                            value={trenchSlopeRatio}
+                            onChange={(e) => setTrenchSlopeRatio(e.target.value)}
+                          />
+                          <span className="text-gray-500 font-semibold text-sm whitespace-nowrap">H</span>
+                        </div>
                       </div>
                     )}
                     <div className="col-span-2 mt-2 border-t border-gray-100 pt-4">

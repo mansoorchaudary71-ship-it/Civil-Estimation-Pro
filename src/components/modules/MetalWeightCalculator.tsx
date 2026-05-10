@@ -18,6 +18,7 @@ import {
 import ShareButtonWithPopup from "./ShareMenu";
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
+import { CalculationHistory } from "../ui/CalculationHistory";
 import ColorfulTab from "../ui/ColorfulTab";
 type Profile =
   | "Round bar"
@@ -33,8 +34,8 @@ type Profile =
   | "Sheet shape";
 export default function MetalWeightCalculator() {
   const { user } = useAuth();
-  const [isSaving, setIsSaving] = useState(false);
-  const [saveMessage, setSaveMessage] = useState("");
+  
+  
   const [activeProfile, setActiveProfile] = useState<Profile>("Round bar");
   /* Base Inputs */ const [length, setLength] = useState<string>("1");
   /* Length in meters */ const [density, setDensity] = useState<string>("7850");
@@ -281,7 +282,7 @@ export default function MetalWeightCalculator() {
           </div>
         </div>
         {/* Profiles Grid */}
-        <div className="flex overflow-x-auto pb-4 gap-2 mb-8 scrollbar-hide p-1">
+        <div className="flex overflow-x-auto pb-4 gap-2 mb-8 p-1">
           {profiles.map((p) => {
             const Icon = p.icon;
             const baseColor = p.color.split("-")[1];
@@ -599,52 +600,32 @@ export default function MetalWeightCalculator() {
                 data={exportData}
                 exportFormat={{ inputs: inputsUsed, breakdown: exportData }}
               />
-              {user && (
-                <button
-                  onClick={async () => {
-                    setIsSaving(true);
-                    setSaveMessage("");
-                    try {
-                      const payload = {
-                        inputs: inputsUsed,
-                        breakdown: exportData,
-                      };
-                      const projName = prompt(
-                        "Enter project element/estimate name:",
-                        "My MetalWeightCalculator Estimate",
-                      );
-                      if (projName) {
-                        await saveEstimate(projName, payload);
-                        setSaveMessage("Saved successfully!");
-                        setTimeout(() => setSaveMessage(""), 3000);
-                      }
-                    } catch (e) {
-                      setSaveMessage("Failed to save.");
-                    } finally {
-                      setIsSaving(false);
-                    }
-                  }}
-                  disabled={isSaving}
-                  className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
-                >
-                  {isSaving ? (
-                    <span className="animate-pulse">Saving...</span>
-                  ) : (
-                    <>
-                      <Save className="w-5 h-5" /> Save to Profile
-                    </>
-                  )}
-                </button>
-              )}
-              {saveMessage && (
-                <span className="text-sm font-bold text-green-400 ml-4">
-                  {saveMessage}
-                </span>
-              )}
+              
+              
             </div>
           </div>
         </div>
       </div>
+      <CalculationHistory
+        calculatorId="metal_weight_calculator_v1"
+        currentInputs={{ activeProfile, length, density, d, w, h, t, tf, tw, s, leg1, leg2 }}
+        currentResults={{ weight: `${weightPerM.toFixed(3)} kg/m`, totalWeight: `${totalWeight.toFixed(2)} kg` }}
+        summaryGeneration={(inputs, results) => `${inputs.activeProfile} Weight: ${results.totalWeight}`}
+        onRestore={(inputs) => {
+          if (inputs.activeProfile) setActiveProfile(inputs.activeProfile);
+          if (inputs.length !== undefined) setLength(inputs.length);
+          if (inputs.density !== undefined) setDensity(inputs.density);
+          if (inputs.d !== undefined) setD(inputs.d);
+          if (inputs.w !== undefined) setW(inputs.w);
+          if (inputs.h !== undefined) setH(inputs.h);
+          if (inputs.t !== undefined) setT(inputs.t);
+          if (inputs.tf !== undefined) setTf(inputs.tf);
+          if (inputs.tw !== undefined) setTw(inputs.tw);
+          if (inputs.s !== undefined) setS(inputs.s);
+          if (inputs.leg1 !== undefined) setLeg1(inputs.leg1);
+          if (inputs.leg2 !== undefined) setLeg2(inputs.leg2);
+        }}
+      />
     </div>
   );
 }

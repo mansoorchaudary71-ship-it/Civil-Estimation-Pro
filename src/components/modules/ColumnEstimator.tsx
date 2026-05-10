@@ -138,7 +138,7 @@ export default function ColumnEstimator() {
               <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-3">
                 Column Shape
               </label>
-              <div className="flex overflow-x-auto pb-4 gap-2 mb-6 scrollbar-hide p-1">
+              <div className="flex overflow-x-auto pb-4 gap-2 mb-6 p-1">
                 {(["rectangular", "square", "circular"] as const).map(
                   (s) => (
                     <ColorfulTab
@@ -147,7 +147,7 @@ export default function ColumnEstimator() {
                       label={s.charAt(0).toUpperCase() + s.slice(1)}
                       isActive={shape === s}
                       onClick={() => setShape(s)}
-                      colorTheme="indigo"
+                      colorTheme={s === 'rectangular' ? 'indigo' : s === 'square' ? 'teal' : 'amber'}
                       icon={s === "circular" ? <CircleDashed className="w-4 h-4" /> : <Square className="w-4 h-4" />}
                     />
                   ),

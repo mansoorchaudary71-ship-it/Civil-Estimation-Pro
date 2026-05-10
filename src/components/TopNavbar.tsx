@@ -28,6 +28,7 @@ export default function TopNavbar({
     { name: 'My Estimates', id: 'my-estimates' as ModuleId },
     { name: 'Tools', id: 'calculators' as ModuleId },
     { name: 'Pricing', id: 'pricing' as ModuleId },
+    { name: 'About', id: 'about' as ModuleId },
   ];
 
   useEffect(() => {

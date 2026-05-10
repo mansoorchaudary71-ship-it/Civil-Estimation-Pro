@@ -1050,15 +1050,14 @@ export default function Takeoff() {
         title="2D Takeoff Measurements"
         data={{
           "Total Measurements": measurements.length,
-          "Linear Lengths": measurements.filter((m) => m.type === "linear")
-            .length,
+          "Linear Lengths": measurements.filter((m) => m.type === "line").length,
           Areas: measurements.filter((m) => m.type === "area").length,
           Assemblies: measurements.filter((m) => m.type === "assembly").length,
         }}
         exportFormat={{
           inputs: {
             "Image Loaded": image ? "Yes" : "No",
-            "Scale Set": scale ? "Yes" : "No",
+            "Scale Set": scalePxPerUnit !== 1 ? "Yes" : "No",
           },
           breakdown: measurements.reduce(
             (acc, m) => {

@@ -10,6 +10,7 @@ import {
   AlignVerticalSpaceAround,
   Spline,
   Save,
+  Info,
 } from "lucide-react";
 import ShareButtonWithPopup from "./ShareMenu";
 import ColorfulTab from "../ui/ColorfulTab";
@@ -17,6 +18,17 @@ import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import SlabSteelModule, { SlabSteelResults } from "./SlabSteelModule";
 import { useSettings } from "../../context/SettingsContext";
+
+const Tooltip = ({ content }: { content: string }) => (
+  <div className="relative group inline-flex ml-1.5 align-middle">
+    <Info className="w-4 h-4 text-slate-400 hover:text-indigo-500 transition-colors cursor-help" />
+    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[200px] p-2 bg-slate-900 text-white text-[11px] font-normal rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center shadow-xl">
+      {content}
+      <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-[5px] border-transparent border-t-slate-900"></div>
+    </div>
+  </div>
+);
+
 type StructureType =
   | "Simple Slab"
   | "One Way Slab"
@@ -35,8 +47,8 @@ export default function RccStructureCalculator({
   const unitSystem = settings.measurement === "SI" ? "metric" : "imperial";
   const isSI = unitSystem === "metric";
   const [activeType, setActiveType] = useState<StructureType>("Simple Slab");
-  const [saveMessage, setSaveMessage] = useState<string>("");
-  const [isSaving, setIsSaving] = useState<boolean>(false);
+  
+  
   /* Slab Inputs */ const [slabLength, setSlabLength] = useState<string>("5");
   /* m */ const [slabWidth, setSlabWidth] = useState<string>("4");
   /* m */ const [slabThickness, setSlabThickness] = useState<string>("0.15");
@@ -105,6 +117,7 @@ export default function RccStructureCalculator({
     let concreteVol = 0;
     /* m³ */ let totalSteelKg = 0;
     /* kg */ let inputsUsed: Record<string, string> = {};
+    let steelBreakdown: { label: string; details: string; weight: number; tooltip: string }[] = [];
     const parse = (v: string) => (isNaN(parseFloat(v)) ? 0 : parseFloat(v));
     if (activeType.includes("Slab")) {
       const L = parse(slabLength);
@@ -125,10 +138,31 @@ export default function RccStructureCalculator({
         "Length (m)": `${L}`,
         "Width (m)": `${W}`,
         "Thickness (m)": `${T}`,
-        "Main Bars Wt (kg)": `${mainWt}`,
-        "Dist Bars Wt (kg)": `${distWt}`,
-        "Extra Wt (kg)": `${extraWt}`,
+        "Main Bars Wt (kg)": `${mainWt.toFixed(2)}`,
+        "Dist Bars Wt (kg)": `${distWt.toFixed(2)}`,
+        "Extra Wt (kg)": `${extraWt.toFixed(2)}`,
       };
+      
+      steelBreakdown.push({
+        label: "Main Bars",
+        details: `${slabSteelResults?.mainBarsCount || 0} bars`,
+        weight: mainWt,
+        tooltip: "Primary reinforcement resisting bending moment."
+      });
+      steelBreakdown.push({
+        label: "Distribution Bars",
+        details: `${slabSteelResults?.distBarsCount || 0} bars`,
+        weight: distWt,
+        tooltip: "Secondary reinforcement for shrinkage and temperature."
+      });
+      if (extraWt > 0) {
+        steelBreakdown.push({
+          label: "Extra / Crank Bars",
+          details: "Est. 15% for Two-way",
+          weight: extraWt,
+          tooltip: "Additional reinforcement for negative moments."
+        });
+      }
     } else {
       /* Columns */ const H = parse(colHeight);
       const W = parse(colWidth) / 1000;
@@ -143,12 +177,17 @@ export default function RccStructureCalculator({
       else if (activeType === "8 Bar Column") noOfBars = 8;
       else if (activeType === "Round Column")
         noOfBars = parse(colRoundBarsCount);
+        
+      let mainWt = 0;
+      let tieWt = 0;
+      let extraTiesWt = 0;
+      
       if (activeType === "Round Column") {
         concreteVol = (Math.PI / 4) * diaM * diaM * H;
-        const mainWt = noOfBars * H * ((mainDia * mainDia) / 162.28);
+        mainWt = noOfBars * H * ((mainDia * mainDia) / 162.28);
         const tiesCount = Math.ceil(H / (tieSpc || 1)) + 1;
         const tieLen = Math.PI * (diaM - 2 * c);
-        const tieWt = tiesCount * tieLen * ((tieDia * tieDia) / 162.28);
+        tieWt = tiesCount * tieLen * ((tieDia * tieDia) / 162.28);
         totalSteelKg = mainWt + tieWt;
         inputsUsed = {
           "Height (m)": `${H}`,
@@ -158,14 +197,25 @@ export default function RccStructureCalculator({
           "Tie Spacing (mm)": `${tieSpc * 1000}`,
           "Cover (mm)": `${c * 1000}`,
         };
+        steelBreakdown.push({
+          label: "Vertical Main Bars",
+          details: `${noOfBars} bars of Ø${mainDia}`,
+          weight: mainWt,
+          tooltip: "Main longitudinal reinforcement."
+        });
+        steelBreakdown.push({
+          label: "Spiral / Circular Ties",
+          details: `Ø${tieDia} @ ${tieSpc*1000}mm c/c`,
+          weight: tieWt,
+          tooltip: "Lateral ties providing shear reinforcement."
+        });
       } else {
         concreteVol = W * D * H;
-        const mainWt = noOfBars * H * ((mainDia * mainDia) / 162.28);
+        mainWt = noOfBars * H * ((mainDia * mainDia) / 162.28);
         const tiesCount = Math.ceil(H / (tieSpc || 1)) + 1;
         const tieLen = 2 * (W - 2 * c + (D - 2 * c)) + 0.1;
-        /* 100mm for hook */ const tieWt =
+        /* 100mm for hook */ tieWt =
           tiesCount * tieLen * ((tieDia * tieDia) / 162.28);
-        let extraTiesWt = 0;
         if (noOfBars > 4) {
           /* For 6 or 8 bars, more ties are often required (cross ties or diamond) */ extraTiesWt =
             tieWt * 0.5;
@@ -179,11 +229,31 @@ export default function RccStructureCalculator({
           "Tie Spacing (mm)": `${tieSpc * 1000}`,
           "Cover (mm)": `${c * 1000}`,
         };
+        steelBreakdown.push({
+          label: "Vertical Main Bars",
+          details: `${noOfBars} bars of Ø${mainDia}`,
+          weight: mainWt,
+          tooltip: "Main longitudinal reinforcement."
+        });
+        steelBreakdown.push({
+          label: "Lateral Ties",
+          details: `Ø${tieDia} @ ${tieSpc*1000}mm c/c`,
+          weight: tieWt,
+          tooltip: "Perimeter shear reinforcement."
+        });
+        if (extraTiesWt > 0) {
+          steelBreakdown.push({
+            label: "Cross / Inner Ties",
+            details: "For interior bars",
+            weight: extraTiesWt,
+            tooltip: "Additional ties to confine bars spaced more than 150mm apart."
+          });
+        }
       }
     }
-    return { concreteVol, totalSteelKg, inputsUsed };
+    return { concreteVol, totalSteelKg, inputsUsed, steelBreakdown };
   };
-  const { concreteVol, totalSteelKg, inputsUsed } = useMemo(calculate, [
+  const { concreteVol, totalSteelKg, inputsUsed, steelBreakdown } = useMemo(calculate, [
     activeType,
     slabLength,
     slabWidth,
@@ -226,7 +296,7 @@ export default function RccStructureCalculator({
           </>
         )}
         {/* Types Grid */}
-        <div className="flex overflow-x-auto pb-4 gap-2 mb-8 scrollbar-hide p-1">
+        <div className="flex overflow-x-auto pb-4 gap-2 mb-8 p-1">
           {structureTypes.map((t) => {
             const Icon = t.icon;
             const baseColor = t.color.split("-")[1];
@@ -379,8 +449,9 @@ export default function RccStructureCalculator({
                     </div>
                   )}
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase">
+                    <label className="text-xs font-bold text-gray-500 uppercase flex items-center">
                       Main Bar Dia ({isSI ? "mm" : "in"})
+                      <Tooltip content={`Standard unit is ${isSI ? "mm" : "in"}. Larger diameter exponentially increases total steel weight.`} />
                     </label>
                     <input
                       type="number"
@@ -390,8 +461,9 @@ export default function RccStructureCalculator({
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase">
+                    <label className="text-xs font-bold text-gray-500 uppercase flex items-center">
                       Stirrup / Tie Dia ({isSI ? "mm" : "in"})
+                      <Tooltip content={`Standard unit is ${isSI ? "mm" : "in"}. Used for shear reinforcement.`} />
                     </label>
                     <input
                       type="number"
@@ -401,8 +473,9 @@ export default function RccStructureCalculator({
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase">
+                    <label className="text-xs font-bold text-gray-500 uppercase flex items-center">
                       Tie Spacing ({isSI ? "mm" : "in"})
+                      <Tooltip content={`Center-to-center distance (${isSI ? "in mm" : "in inches"}). Smaller spacing requires more ties, increasing weight.`} />
                     </label>
                     <input
                       type="number"
@@ -423,9 +496,21 @@ export default function RccStructureCalculator({
               </h3>
               <div className="space-y-6">
                 <div className="bg-indigo-900/60 p-6 rounded-2xl border border-indigo-800">
-                  <span className="block text-indigo-300 text-xs font-bold uppercase mb-2">
-                    Concrete Volume
-                  </span>
+                  <div className="flex items-center mb-2 group relative w-fit">
+                    <span className="block text-indigo-300 text-xs font-bold uppercase cursor-help">
+                      Concrete Volume
+                    </span>
+                    <Info className="w-3.5 h-3.5 ml-1.5 text-indigo-400 cursor-help" />
+                    <div className="absolute hidden group-hover:block bottom-full left-0 mb-2 w-max max-w-[280px] p-3 bg-slate-800 border border-slate-700 rounded-xl shadow-xl text-xs font-medium normal-case text-slate-200 z-50">
+                      <strong>Formula:</strong><br />
+                      {activeType.includes("Slab") 
+                        ? "Volume = Length × Width × Thickness."
+                        : activeType === "Round Column" 
+                        ? "Volume = π × (Diameter/2)² × Height."
+                        : "Volume = Width × Depth × Height."}
+                      <div className="absolute -bottom-1.5 left-4 w-3 h-3 bg-slate-800 border-b border-r border-slate-700 rotate-45"></div>
+                    </div>
+                  </div>
                   <span className="text-4xl font-black text-white">
                     {(concreteVol || 0).toFixed(3)}
                     <span className="text-xl text-indigo-400 ml-2">
@@ -434,9 +519,21 @@ export default function RccStructureCalculator({
                   </span>
                 </div>
                 <div className="bg-indigo-900/60 p-6 rounded-2xl border border-indigo-800">
-                  <span className="block text-indigo-300 text-xs font-bold uppercase mb-2">
-                    Total Steel Weight
-                  </span>
+                  <div className="flex items-center mb-2 group relative w-fit">
+                    <span className="block text-indigo-300 text-xs font-bold uppercase cursor-help">
+                      Total Steel Weight
+                    </span>
+                    <Info className="w-3.5 h-3.5 ml-1.5 text-indigo-400 cursor-help" />
+                    <div className="absolute hidden group-hover:block bottom-full left-0 mb-2 w-max max-w-[280px] p-3 bg-slate-800 border border-slate-700 rounded-xl shadow-xl text-xs font-medium normal-case text-slate-200 z-50">
+                      <strong>Formula:</strong><br />
+                      {activeType.includes("Slab") 
+                        ? "Total Weight = Main Bars + Distribution Bars + Extra (if Two-Way)."
+                        : "Total Weight = Main Vertical Bars + Lateral Ties/Stirrups."}
+                      <br /><br />
+                      <span className="text-slate-400">Unit Weight = d² / 162.28 kg/m.</span>
+                      <div className="absolute -bottom-1.5 left-4 w-3 h-3 bg-slate-800 border-b border-r border-slate-700 rotate-45"></div>
+                    </div>
+                  </div>
                   <span className="text-5xl font-black text-emerald-400">
                     {(totalSteelKg || 0).toFixed(2)}
                     <span className="text-2xl text-indigo-400 ml-3">
@@ -447,6 +544,32 @@ export default function RccStructureCalculator({
                     ≈ {((totalSteelKg || 0) / 1000).toFixed(3)} Metric Tons
                   </div>
                 </div>
+
+                <div className="bg-indigo-900/40 rounded-2xl border border-indigo-800/60 overflow-x-auto p-1">
+                  <table className="w-full text-left text-sm whitespace-nowrap">
+                    <thead className="bg-indigo-900/80 text-indigo-300 rounded-xl">
+                      <tr>
+                        <th className="px-4 py-3 font-semibold w-1/3 rounded-tl-xl">Element</th>
+                        <th className="px-4 py-3 font-semibold w-1/3">Details</th>
+                        <th className="px-4 py-3 text-right font-semibold w-1/3 rounded-tr-xl">Weight (kg)</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-indigo-800/40 text-slate-200">
+                      {steelBreakdown.map((item, idx) => (
+                        <tr key={idx} className="hover:bg-indigo-800/20 transition-colors">
+                          <td className="px-4 py-3">
+                            <span className="flex items-center font-medium">
+                              {item.label}
+                              <Tooltip content={item.tooltip} />
+                            </span>
+                          </td>
+                          <td className="px-4 py-3 text-slate-300">{item.details}</td>
+                          <td className="px-4 py-3 text-right font-bold text-emerald-400">{item.weight.toFixed(2)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
             <div className="mt-6 flex flex-wrap gap-4 items-center">
@@ -456,48 +579,8 @@ export default function RccStructureCalculator({
                 data={exportData}
                 exportFormat={{ inputs: inputsUsed, breakdown: exportData }}
               />
-              {user && (
-                <button
-                  onClick={async () => {
-                    setIsSaving(true);
-                    setSaveMessage("");
-                    try {
-                      const payload = {
-                        inputs: inputsUsed,
-                        breakdown: exportData,
-                      };
-                      const projName = prompt(
-                        "Enter project element/estimate name:",
-                        "My RccStructureCalculator Estimate",
-                      );
-                      if (projName) {
-                        await saveEstimate(projName, payload);
-                        setSaveMessage("Saved successfully!");
-                        setTimeout(() => setSaveMessage(""), 3000);
-                      }
-                    } catch (e) {
-                      setSaveMessage("Failed to save.");
-                    } finally {
-                      setIsSaving(false);
-                    }
-                  }}
-                  disabled={isSaving}
-                  className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
-                >
-                  {isSaving ? (
-                    <span className="animate-pulse">Saving...</span>
-                  ) : (
-                    <>
-                      <Save className="w-5 h-5" /> Save to Profile
-                    </>
-                  )}
-                </button>
-              )}
-              {saveMessage && (
-                <span className="text-sm font-bold text-green-400 ml-4">
-                  {saveMessage}
-                </span>
-              )}
+              
+              
             </div>
           </div>
         </div>

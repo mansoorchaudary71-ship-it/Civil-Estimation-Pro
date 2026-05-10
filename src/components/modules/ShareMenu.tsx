@@ -646,23 +646,23 @@ export default function ShareButtonWithPopup({
     toast.success(`✅ File saved as ${fileName}`);
   };
   return (
-    <>
-      <div
-        className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-40 flex items-center gap-3"
-        ref={menuRef}
+    <div
+      className="relative inline-flex items-center gap-3 z-30 font-sans"
+      ref={menuRef}
+    >
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white px-5 py-2.5 rounded-full font-bold transition-all hover:scale-105 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-teal-500/30 shadow-md flex items-center justify-center gap-2 text-sm"
+        title="Share Results"
       >
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full p-4 shadow-xl shadow-indigo-600/30 flex items-center justify-center transition-all hover:scale-105 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-indigo-600/20"
-          title="Share"
+        <Share2 className="w-4 h-4 group-hover:-translate-y-[1px] transition-transform" />
+        <span>Share Results</span>
+      </button>
+      {isOpen && (
+        <div
+          className="absolute left-0 bottom-full mb-3 w-72 bg-white/95 backdrop-blur-md border border-slate-200/80 rounded-[16px] shadow-[0_15px_35px_-5px_rgba(0,0,0,0.15),0_8px_10px_-6px_rgba(0,0,0,0.05)] z-50 p-2 font-sans origin-bottom-left"
+          style={{ animation: "menuSlideUp 0.2s ease-out forwards" }}
         >
-          <Share2 className="w-6 h-6 group-hover:-translate-y-1 transition-transform" />
-        </button>
-        {isOpen && (
-          <div
-            className="absolute right-0 bottom-full mb-4 w-72 bg-white/95 backdrop-blur-md border border-slate-200/80 rounded-[16px] shadow-[0_10px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.05)] z-50 p-2 font-sans origin-bottom-right"
-            style={{ animation: "menuSlideUp 0.2s ease-out forwards" }}
-          >
             <style>{` @keyframes menuSlideUp { from { opacity: 0; transform: translateY(10px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } } `}</style>
             <div className="flex flex-col">
               <button
@@ -718,6 +718,5 @@ export default function ShareButtonWithPopup({
           </div>
         )}
       </div>
-    </>
   );
 }

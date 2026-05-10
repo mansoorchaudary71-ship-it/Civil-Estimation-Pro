@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, FileText, Wrench, User } from 'lucide-react';
+import { Home, FileText, Wrench, User, Info } from 'lucide-react';
 import { ModuleId } from './Sidebar';
 
 interface BottomNavBarProps {
@@ -10,8 +10,10 @@ interface BottomNavBarProps {
 
 export default function BottomNavBar({ activeModule, onSelectModule, onOpenProfile }: BottomNavBarProps) {
   const isHome = activeModule === 'home';
+  const isAbout = activeModule === 'about';
+  const isMyEstimates = activeModule === 'my-estimates';
   // Define what belongs to tools (most modules)
-  const isTools = activeModule !== 'home' && activeModule !== 'rates' && activeModule !== 'about' && activeModule !== 'contact' && activeModule !== 'careers' && activeModule !== 'blog';
+  const isTools = activeModule !== 'home' && activeModule !== 'my-estimates' && activeModule !== 'rates' && activeModule !== 'about' && activeModule !== 'contact' && activeModule !== 'careers' && activeModule !== 'blog';
 
   return (
     <div className="fixed bottom-4 left-4 right-4 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center justify-around px-2 py-2 md:hidden">
@@ -24,14 +26,20 @@ export default function BottomNavBar({ activeModule, onSelectModule, onOpenProfi
       <NavItem 
         icon={<FileText className="w-[22px] h-[22px]" />} 
         label="My Estimates" 
-        isActive={false}
-        onClick={() => onSelectModule('home')} 
+        isActive={isMyEstimates}
+        onClick={() => onSelectModule('my-estimates')} 
       />
       <NavItem 
         icon={<Wrench className="w-[22px] h-[22px]" />} 
-        label="Templates/Tools" 
+        label="Tools" 
         isActive={isTools} 
         onClick={() => onSelectModule('calculators')} 
+      />
+      <NavItem 
+        icon={<Info className="w-[22px] h-[22px]" />} 
+        label="About" 
+        isActive={isAbout} 
+        onClick={() => onSelectModule('about')} 
       />
       <NavItem 
         icon={<User className="w-[22px] h-[22px]" />} 

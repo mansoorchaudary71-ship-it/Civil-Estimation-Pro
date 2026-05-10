@@ -13,6 +13,7 @@ import {
 import ShareButtonWithPopup from "./ShareMenu";
 import ColorfulTab from "../ui/ColorfulTab";
 import { useGlobalSettings } from "../../context/SettingsContext";
+import { CalculationHistory } from "../ui/CalculationHistory";
 interface StaircaseCalculatorProps {
   isEmbedded?: boolean;
   onCalculate?: (results: any) => void;
@@ -219,7 +220,7 @@ export default function StaircaseCalculator({
           </div>{" "}
         </div>
       )}{" "}
-      <div className="flex overflow-x-auto pb-4 gap-2 mb-6 scrollbar-hide p-1">
+      <div className="flex overflow-x-auto pb-4 gap-2 mb-6 p-1">
         {" "}
         {(["straight", "l-shape", "u-shape", "spiral"] as const).map(
           (shape) => (
@@ -229,7 +230,7 @@ export default function StaircaseCalculator({
               label={shape.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
               isActive={stairShape === shape}
               onClick={() => setStairShape(shape)}
-              colorTheme="indigo"
+              colorTheme={shape === "straight" ? "indigo" : shape === "l-shape" ? "amber" : shape === "u-shape" ? "rose" : "emerald"}
             />
           ),
         )}{" "}
@@ -887,6 +888,28 @@ export default function StaircaseCalculator({
           }}
         />
       )}{" "}
+      <CalculationHistory
+        calculatorId="staircase_calculator_v1"
+        currentInputs={{ stairShape, numSteps, rise, tread, stairWidth, waistThickness, mainBarDia, mainBarSpacing, distBarDia, distBarSpacing, clearCover, concreteGrade, wastage, landings }}
+        currentResults={res}
+        summaryGeneration={(inputs, results) => `${inputs.stairShape} Staircase: ${results?.totalConcreteVol?.toFixed(2) || 0} m³ concrete, ${results?.totalSteelWeight?.toFixed(1) || 0} kg steel`}
+        onRestore={(inputs) => {
+          if (inputs.stairShape) setStairShape(inputs.stairShape);
+          if (inputs.numSteps !== undefined) setNumSteps(inputs.numSteps);
+          if (inputs.rise !== undefined) setRise(inputs.rise);
+          if (inputs.tread !== undefined) setTread(inputs.tread);
+          if (inputs.stairWidth !== undefined) setStairWidth(inputs.stairWidth);
+          if (inputs.waistThickness !== undefined) setWaistThickness(inputs.waistThickness);
+          if (inputs.mainBarDia !== undefined) setMainBarDia(inputs.mainBarDia);
+          if (inputs.mainBarSpacing !== undefined) setMainBarSpacing(inputs.mainBarSpacing);
+          if (inputs.distBarDia !== undefined) setDistBarDia(inputs.distBarDia);
+          if (inputs.distBarSpacing !== undefined) setDistBarSpacing(inputs.distBarSpacing);
+          if (inputs.clearCover !== undefined) setClearCover(inputs.clearCover);
+          if (inputs.concreteGrade !== undefined) setConcreteGrade(inputs.concreteGrade);
+          if (inputs.wastage !== undefined) setWastage(inputs.wastage);
+          if (inputs.landings !== undefined) setLandings(inputs.landings);
+        }}
+      />
     </div>
   );
 }

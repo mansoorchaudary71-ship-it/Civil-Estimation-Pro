@@ -1,4 +1,9 @@
 import React, { useState, useMemo } from "react";
+import ShareButtonWithPopup from "./ShareMenu";
+import { saveEstimate } from "../../lib/estimates";
+import { useAuth } from "../../contexts/AuthContext";
+import { Save } from "lucide-react";
+import { CalculationHistory } from "../ui/CalculationHistory";
 import {
   Columns,
   Settings,
@@ -353,8 +358,37 @@ export default function Brickwork9InchModule() {
               </div>
             </div>
           </div>
+          <div className="mt-6 flex flex-wrap gap-4 items-center">
+            <ShareButtonWithPopup
+              activeTab="Brickwork Estimator"
+              title="Brickwork Estimate"
+              data={results}
+              exportFormat={{
+                inputs: { brickType, wallLength, wallHeight, deductions, mixRatio, includeWastage: includeWastage.toString() },
+                breakdown: {
+                    bricks: results.noOfBricks.toString(),
+                    cement: results.cementBags.toString() + " bags",
+                    sand: results.sandCft.toFixed(1) + " cft"
+                },
+              }}
+            />
+          </div>
         </div>
       </div>
+      <CalculationHistory
+        calculatorId="brickwork_9inch_v1"
+        currentInputs={{ brickType, wallLength, wallHeight, deductions, mixRatio, includeWastage }}
+        currentResults={{ noOfBricks: results.noOfBricks, cementBags: results.cementBags, sandCft: results.sandCft }}
+        summaryGeneration={(inputs, res) => `9in Brickwork Area ${inputs.wallLength}x${inputs.wallHeight}`}
+        onRestore={(inputs) => {
+          if (inputs.brickType) setBrickType(inputs.brickType);
+          if (inputs.wallLength !== undefined) setWallLength(inputs.wallLength);
+          if (inputs.wallHeight !== undefined) setWallHeight(inputs.wallHeight);
+          if (inputs.deductions !== undefined) setDeductions(inputs.deductions);
+          if (inputs.mixRatio !== undefined) setMixRatio(inputs.mixRatio);
+          if (inputs.includeWastage !== undefined) setIncludeWastage(inputs.includeWastage);
+        }}
+      />
     </div>
   );
 }

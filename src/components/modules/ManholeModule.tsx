@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+import ShareButtonWithPopup from "./ShareMenu";
+import { saveEstimate } from "../../lib/estimates";
+import { useAuth } from "../../contexts/AuthContext";
+import { Save } from "lucide-react";
+import { CalculationHistory } from "../ui/CalculationHistory";
 import {
   CircleDashed,
   Square,
@@ -120,6 +125,33 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
   const wallThick = parseFloat(mhWallThick) || 0;
   const baseThick = parseFloat(mhBaseThick) || 0;
   const topThick = parseFloat(mhTopThick) || 0;
+  
+  let excVol = 0;
+  let wallVol = 0;
+  let baseVol = 0;
+  let topSlabVol = 0;
+
+  if (mhType === "circular") {
+    const outerD = len + 2 * wallThick;
+    const baseD = outerD + 0.3;
+    const excD = baseD + 0.6;
+    wallVol = Math.PI * Math.pow(outerD / 2, 2) * depth - Math.PI * Math.pow(len / 2, 2) * depth;
+    excVol = Math.PI * Math.pow(excD / 2, 2) * (depth + baseThick);
+    baseVol = Math.PI * Math.pow(baseD / 2, 2) * baseThick;
+    topSlabVol = Math.PI * Math.pow(outerD / 2, 2) * topThick;
+  } else {
+    const outerL = len + 2 * wallThick;
+    const outerW = wid + 2 * wallThick;
+    const baseL = outerL + 0.3;
+    const baseW = outerW + 0.3;
+    const excL = baseL + 0.6;
+    const excW = baseW + 0.6;
+    wallVol = (outerL * outerW - len * wid) * depth;
+    excVol = excL * excW * (depth + baseThick);
+    baseVol = baseL * baseW * baseThick;
+    topSlabVol = outerL * outerW * topThick;
+  }
+
   /* Let's recreate calculations for display */ const totalWetConcrete =
     mhType === "circular"
       ? Math.PI * Math.pow((len + 2 * wallThick) / 2, 2) * depth -
@@ -143,7 +175,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
           <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1">
             Shape
           </label>{" "}
-          <div className="flex overflow-x-auto pb-4 gap-2 mb-2 scrollbar-hide p-1 w-full max-w-sm">
+          <div className="flex overflow-x-auto pb-4 gap-2 mb-2 p-1 w-full max-w-sm">
             {" "}
             <ColorfulTab
               id="circular"
@@ -159,7 +191,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
               icon={<Square className="w-4 h-4" />}
               isActive={mhType === "rectangular"}
               onClick={() => setMhType("rectangular")}
-              colorTheme="teal"
+              colorTheme="indigo"
             />
           </div>{" "}
         </div>{" "}
@@ -378,8 +410,41 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
               </div>{" "}
             </div>{" "}
           </div>{" "}
+          <div className="mt-6 flex flex-wrap gap-4 items-center">
+            <ShareButtonWithPopup
+              activeTab="Manhole Estimator"
+              title="Manhole Estimate"
+              data={{ excavationVol: excVol, wallVol, baseVol, topSlabVol, cementBags, sandCft, aggCft }}
+              exportFormat={{
+                inputs: { mhType, mhDepth, mhInnerLen, mhInnerWid, mhWallThick, mhBaseThick, mhTopThick, concreteMix },
+                breakdown: {
+                    "Excavation Volume": excVol.toFixed(2) + " m³",
+                    "Total Wet Concrete": totalWetConcrete.toFixed(2) + " m³",
+                    cement: cementBags.toString() + " bags",
+                    sand: sandCft.toFixed(1) + " cft",
+                    aggregate: aggCft.toFixed(1) + " cft"
+                },
+              }}
+            />
+          </div>
         </div>{" "}
       </div>{" "}
+      <CalculationHistory
+        calculatorId="manhole_v1"
+        currentInputs={{ mhType, mhDepth, mhInnerLen, mhInnerWid, mhWallThick, mhBaseThick, mhTopThick, concreteMix }}
+        currentResults={{ excVol, totalWetConcrete, cementBags, sandCft, aggCft }}
+        summaryGeneration={(inputs, res) => `Manhole ${inputs.mhType} - Depth: ${inputs.mhDepth}m`}
+        onRestore={(inputs) => {
+          if (inputs.mhType) setMhType(inputs.mhType);
+          if (inputs.mhDepth !== undefined) setMhDepth(inputs.mhDepth);
+          if (inputs.mhInnerLen !== undefined) setMhInnerLen(inputs.mhInnerLen);
+          if (inputs.mhInnerWid !== undefined) setMhInnerWid(inputs.mhInnerWid);
+          if (inputs.mhWallThick !== undefined) setMhWallThick(inputs.mhWallThick);
+          if (inputs.mhBaseThick !== undefined) setMhBaseThick(inputs.mhBaseThick);
+          if (inputs.mhTopThick !== undefined) setMhTopThick(inputs.mhTopThick);
+          if (inputs.concreteMix !== undefined) setConcreteMix(inputs.concreteMix);
+        }}
+      />
     </div>
   );
 }

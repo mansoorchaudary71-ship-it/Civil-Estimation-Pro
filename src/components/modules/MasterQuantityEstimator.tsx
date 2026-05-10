@@ -18,6 +18,11 @@ import {
   Zap,
   Maximize2,
 } from "lucide-react";
+import ShareButtonWithPopup from "./ShareMenu";
+import { saveEstimate } from "../../lib/estimates";
+import { useAuth } from "../../contexts/AuthContext";
+import { CalculationHistory } from "../ui/CalculationHistory";
+import Brickwork9InchModule from "./Brickwork9InchModule";
 
 interface CalcItem {
   id: string;
@@ -138,11 +143,7 @@ export const calculatorsList: CalcItem[] = [
 ];
 import { useSettings } from "../../context/SettingsContext";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
-import { useAuth } from "../../contexts/AuthContext";
-import ShareButtonWithPopup from "./ShareMenu";
-import { saveEstimate } from "../../lib/estimates";
 import { Save } from "lucide-react";
-import Brickwork9InchModule from "./Brickwork9InchModule";
 type CalcId = string;
 export default function MasterQuantityEstimator({
   isEmbedded = false,
@@ -153,9 +154,10 @@ export default function MasterQuantityEstimator({
   const { settings } = useSettings();
   const [activeCalc, setActiveCalc] = useState<CalcId>("concrete");
   const unitSystem = settings.measurement === "SI" ? "metric" : "imperial";
-  const [saveMessage, setSaveMessage] = useState<string>("");
-  const [isSaving, setIsSaving] = useState<boolean>(false);
-  /* Input states */ const [length, setLength] = useState<string>("10");
+  
+  
+  /* Input states */ 
+  const [length, setLength] = useState<string>("10");
   const [width, setWidth] = useState<string>("10");
   const [depth, setDepth] = useState<string>("0.15");
   const [mixRatioStr, setMixRatioStr] = useState<string>("1:2:4");
@@ -164,105 +166,115 @@ export default function MasterQuantityEstimator({
   const [steelGrade, setSteelGrade] = useState<string>("60");
   const [rebarSpacing, setRebarSpacing] = useState<string>("150");
   const [costPerTon, setCostPerTon] = useState<string>("250000");
-  /* Generalized helper for getting value based on unit system */ const cFactor =
-    unitSystem === "metric" ? 1 : 0.3048;
-  /* For simple conversions if needed */ const parse = (v: string) =>
-    isNaN(parseFloat(v)) ? 0 : parseFloat(v);
+  const [totalArea, setTotalArea] = useState<string>("100");
+  const [thickness, setThickness] = useState<string>("10");
+  const [weightPerUnit, setWeightPerUnit] = useState<string>("50");
+  const [quantity, setQuantity] = useState<string>("1");
+  const [basePrice, setBasePrice] = useState<string>("1000");
+  const [grade, setGrade] = useState<string>("C20");
+  const [rooms, setRooms] = useState<string>("3");
+  const [pointsPerRoom, setPointsPerRoom] = useState<string>("4");
+  const [wireLengthPerPoint, setWireLengthPerPoint] = useState<string>("5");
+  const [pipeLengthPerRoom, setPipeLengthPerRoom] = useState<string>("10");
+  const [boardPerRoom, setBoardPerRoom] = useState<string>("2");
+  const cFactor = unitSystem === "metric" ? 1 : 0.3048;
+  const parse = (v: string) => isNaN(parseFloat(v)) ? 0 : parseFloat(v);
+
+  let results: Record<string, string> = {};
+  const l = parse(length);
+  const w = parse(width);
+  const d = parse(depth);
+  const wst = parse(wastage);
+  const volume = l * w * d * (1 + wst / 100);
+  const area = l * w * (1 + wst / 100);
+  const unitL = unitSystem === "metric" ? "m" : "ft";
+  const unitA = unitSystem === "metric" ? "m²" : "sq ft";
+  const unitV = unitSystem === "metric" ? "m³" : "cu ft";
+  switch (activeCalc) {
+    case "concrete":
+      results = {
+        "Total Volume": `${volume.toFixed(2)} ${unitV}`,
+        "Cement Bags (50kg)": `${Math.ceil(volume * 6)} bags`,
+        Sand: `${(volume * 0.45).toFixed(2)} ${unitV}`,
+        Aggregate: `${(volume * 0.9).toFixed(2)} ${unitV}`,
+      };
+      break;
+    case "bricks":
+      results = {
+        "Total Wall Area": `${area.toFixed(2)} ${unitA}`,
+        "No. of Bricks": `${Math.ceil(volume * (unitSystem === "metric" ? 500 : 14.15))} pcs`,
+        "Mortar Volume": `${(volume * 0.25).toFixed(2)} ${unitV}`,
+      };
+      break;
+    case "tiles":
+      results = {
+        "Floor Area": `${area.toFixed(2)} ${unitA}`,
+        "No. of Tiles (600x600)": `${Math.ceil(area / (unitSystem === "metric" ? 0.36 : 3.87))} pcs`,
+        "Tile Adhesive": `${(area * 4).toFixed(2)} kg`,
+      };
+      break;
+    case "paint":
+      results = {
+        "Surface Area": `${area.toFixed(2)} ${unitA}`,
+        "Primer Required": `${(area / 10).toFixed(2)} Liters`,
+        "Paint Required (2 coats)": `${(area / 6).toFixed(2)} Liters`,
+      };
+      break;
+    case "excavation":
+    case "filling":
+      results = {
+        "Earth Volume": `${volume.toFixed(2)} ${unitV}`,
+        "Trucks required (10m³ / 350cft)": `${Math.ceil(volume / (unitSystem === "metric" ? 10 : 350))} trips`,
+      };
+      break;
+    case "asphalt":
+      results = {
+        Volume: `${volume.toFixed(2)} ${unitV}`,
+        "Asphalt Required": `${(volume * (unitSystem === "metric" ? 2.4 : 0.068)).toFixed(2)} Tons`,
+      };
+      break;
+    case "form_work":
+      results = {
+        "Contact Area": `${(l * d * 2 + w * d * 2).toFixed(2)} ${unitA}`,
+        "Plywood sheets (4x8)": `${Math.ceil((l * d * 2 + w * d * 2) / (unitSystem === "metric" ? 2.97 : 32))} sheets`,
+      };
+      break;
+    case "water_tank":
+      results = {
+        "Tank Capacity": `${volume.toFixed(2)} ${unitV}`,
+        "Water Volume": `${(volume * (unitSystem === "metric" ? 1000 : 28.31)).toFixed(2)} Liters / ${(volume * (unitSystem === "metric" ? 264.17 : 7.48)).toFixed(2)} Gallons`,
+      };
+      break;
+    case "diagonal":
+      results = {
+        Width: `${w.toFixed(2)} ${unitL}`,
+        Length: `${l.toFixed(2)} ${unitL}`,
+        "Diagonal (Hypotenuse)": `${Math.sqrt(l * l + w * w).toFixed(2)} ${unitL}`,
+      };
+      break;
+    case "rebar_cage":
+      const weight = parse(rebarWeight);
+      const tons = weight / 1000;
+      const spacing = parse(rebarSpacing);
+      const cost = tons * parse(costPerTon);
+      results = {
+        "Total Steel Weight": `${weight.toFixed(2)} kg`,
+        "Steel Required (Tons)": `${tons.toFixed(3)} tons`,
+        "Steel Grade": `Grade ${steelGrade}`,
+        "Estimated Spacing": `${spacing} mm`,
+        "Total Cost": `Rs ${cost.toLocaleString(undefined, { maximumFractionDigits: 0 })}`,
+      };
+      break;
+    default:
+      /* Generic fallback for others */ results = {
+        "Calculated Value 1": `${(volume * 1.5).toFixed(2)} units`,
+        "Calculated Value 2": `${(area * 0.8).toFixed(2)} units`,
+      };
+      break;
+  }
+
   const renderCalculatorContent = () => {
-    /* A simplified generic layout for each calculator for the sake of completion. In a full implementation, each of these 23 would have its own specific component logic. */ let content =
-      null;
-    let results: Record<string, string> = {};
-    const l = parse(length);
-    const w = parse(width);
-    const d = parse(depth);
-    const wst = parse(wastage);
-    const volume = l * w * d * (1 + wst / 100);
-    const area = l * w * (1 + wst / 100);
-    const unitL = unitSystem === "metric" ? "m" : "ft";
-    const unitA = unitSystem === "metric" ? "m²" : "sq ft";
-    const unitV = unitSystem === "metric" ? "m³" : "cu ft";
-    switch (activeCalc) {
-      case "concrete":
-        results = {
-          "Total Volume": `${volume.toFixed(2)} ${unitV}`,
-          "Cement Bags (50kg)": `${Math.ceil(volume * 6)} bags`,
-          Sand: `${(volume * 0.45).toFixed(2)} ${unitV}`,
-          Aggregate: `${(volume * 0.9).toFixed(2)} ${unitV}`,
-        };
-        break;
-      case "bricks":
-        results = {
-          "Total Wall Area": `${area.toFixed(2)} ${unitA}`,
-          "No. of Bricks": `${Math.ceil(volume * (unitSystem === "metric" ? 500 : 14.15))} pcs`,
-          "Mortar Volume": `${(volume * 0.25).toFixed(2)} ${unitV}`,
-        };
-        break;
-      case "tiles":
-        results = {
-          "Floor Area": `${area.toFixed(2)} ${unitA}`,
-          "No. of Tiles (600x600)": `${Math.ceil(area / (unitSystem === "metric" ? 0.36 : 3.87))} pcs`,
-          "Tile Adhesive": `${(area * 4).toFixed(2)} kg`,
-        };
-        break;
-      case "paint":
-        results = {
-          "Surface Area": `${area.toFixed(2)} ${unitA}`,
-          "Primer Required": `${(area / 10).toFixed(2)} Liters`,
-          "Paint Required (2 coats)": `${(area / 6).toFixed(2)} Liters`,
-        };
-        break;
-      case "excavation":
-      case "filling":
-        results = {
-          "Earth Volume": `${volume.toFixed(2)} ${unitV}`,
-          "Trucks required (10m³ / 350cft)": `${Math.ceil(volume / (unitSystem === "metric" ? 10 : 350))} trips`,
-        };
-        break;
-      case "asphalt":
-        results = {
-          Volume: `${volume.toFixed(2)} ${unitV}`,
-          "Asphalt Required": `${(volume * (unitSystem === "metric" ? 2.4 : 0.068)).toFixed(2)} Tons`,
-        };
-        break;
-      case "form_work":
-        results = {
-          "Contact Area": `${(l * d * 2 + w * d * 2).toFixed(2)} ${unitA}`,
-          "Plywood sheets (4x8)": `${Math.ceil((l * d * 2 + w * d * 2) / (unitSystem === "metric" ? 2.97 : 32))} sheets`,
-        };
-        break;
-      case "water_tank":
-        results = {
-          "Tank Capacity": `${volume.toFixed(2)} ${unitV}`,
-          "Water Volume": `${(volume * (unitSystem === "metric" ? 1000 : 28.31)).toFixed(2)} Liters / ${(volume * (unitSystem === "metric" ? 264.17 : 7.48)).toFixed(2)} Gallons`,
-        };
-        break;
-      case "diagonal":
-        results = {
-          Width: `${w.toFixed(2)} ${unitL}`,
-          Length: `${l.toFixed(2)} ${unitL}`,
-          "Diagonal (Hypotenuse)": `${Math.sqrt(l * l + w * w).toFixed(2)} ${unitL}`,
-        };
-        break;
-      case "rebar_cage":
-        const weight = parse(rebarWeight);
-        const tons = weight / 1000;
-        const spacing = parse(rebarSpacing);
-        const cost = tons * parse(costPerTon);
-        results = {
-          "Total Steel Weight": `${weight.toFixed(2)} kg`,
-          "Steel Required (Tons)": `${tons.toFixed(3)} tons`,
-          "Steel Grade": `Grade ${steelGrade}`,
-          "Estimated Spacing": `${spacing} mm`,
-          "Total Cost": `Rs ${cost.toLocaleString(undefined, { maximumFractionDigits: 0 })}`,
-        };
-        break;
-      default:
-        /* Generic fallback for others */ results = {
-          "Calculated Value 1": `${(volume * 1.5).toFixed(2)} units`,
-          "Calculated Value 2": `${(area * 0.8).toFixed(2)} units`,
-        };
-        break;
-    }
+    /* A simplified generic layout for each calculator for the sake of completion. */ let content = null;
     return (
       <div className="flex flex-wrap  gap-8 items-center w-full">
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl px-4 py-3 shadow-sm">
@@ -426,48 +438,8 @@ export default function MasterQuantityEstimator({
                 breakdown: results,
               }}
             />
-            {user && (
-              <button
-                onClick={async () => {
-                  setIsSaving(true);
-                  setSaveMessage("");
-                  try {
-                    const payload = {
-                      inputs: { length, width, depth, wastage },
-                      breakdown: results,
-                    };
-                    const projName = prompt(
-                      "Enter project element/estimate name:",
-                      "My MasterQuantityEstimator Estimate",
-                    );
-                    if (projName) {
-                      await saveEstimate(projName, payload);
-                      setSaveMessage("Saved successfully!");
-                      setTimeout(() => setSaveMessage(""), 3000);
-                    }
-                  } catch (e) {
-                    setSaveMessage("Failed to save.");
-                  } finally {
-                    setIsSaving(false);
-                  }
-                }}
-                disabled={isSaving}
-                className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
-              >
-                {isSaving ? (
-                  <span className="animate-pulse">Saving...</span>
-                ) : (
-                  <>
-                    <Save className="w-5 h-5" /> Save to Profile
-                  </>
-                )}
-              </button>
-            )}
-            {saveMessage && (
-              <span className="text-sm font-bold text-green-400 ml-4">
-                {saveMessage}
-              </span>
-            )}
+            
+            
           </div>
         </div>
       </div>
@@ -583,6 +555,32 @@ export default function MasterQuantityEstimator({
           </div>
         </div>
       </div>
+      {activeCalc !== 'bricks' && (
+        <CalculationHistory
+          calculatorId={`mqt_${activeCalc}_v1`}
+          currentInputs={{ length, width, depth, wastage, totalArea, thickness, weightPerUnit, quantity, costPerTon, basePrice, grade, rooms, pointsPerRoom, wireLengthPerPoint, pipeLengthPerRoom, boardPerRoom }}
+          currentResults={results}
+          summaryGeneration={(inputs, results) => `${activeCalc.replace('_', ' ').toUpperCase()} Calculator`}
+          onRestore={(inputs) => {
+            if (inputs.length !== undefined) setLength(inputs.length);
+            if (inputs.width !== undefined) setWidth(inputs.width);
+            if (inputs.depth !== undefined) setDepth(inputs.depth);
+            if (inputs.wastage !== undefined) setWastage(inputs.wastage);
+            if (inputs.totalArea !== undefined) setTotalArea(inputs.totalArea);
+            if (inputs.thickness !== undefined) setThickness(inputs.thickness);
+            if (inputs.weightPerUnit !== undefined) setWeightPerUnit(inputs.weightPerUnit);
+            if (inputs.quantity !== undefined) setQuantity(inputs.quantity);
+            if (inputs.costPerTon !== undefined) setCostPerTon(inputs.costPerTon);
+            if (inputs.basePrice !== undefined) setBasePrice(inputs.basePrice);
+            if (inputs.grade !== undefined) setGrade(inputs.grade);
+            if (inputs.rooms !== undefined) setRooms(inputs.rooms);
+            if (inputs.pointsPerRoom !== undefined) setPointsPerRoom(inputs.pointsPerRoom);
+            if (inputs.wireLengthPerPoint !== undefined) setWireLengthPerPoint(inputs.wireLengthPerPoint);
+            if (inputs.pipeLengthPerRoom !== undefined) setPipeLengthPerRoom(inputs.pipeLengthPerRoom);
+            if (inputs.boardPerRoom !== undefined) setBoardPerRoom(inputs.boardPerRoom);
+          }}
+        />
+      )}
     </div>
   );
 }

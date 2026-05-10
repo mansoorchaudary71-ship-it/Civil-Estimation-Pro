@@ -25,6 +25,7 @@ import {
 import ShareButtonWithPopup from "./ShareMenu";
 import ColorfulTab from "../ui/ColorfulTab";
 import UnitToggleGroup from "../ui/UnitToggleGroup";
+import { CalculationHistory } from "../ui/CalculationHistory";
 import RccStructureCalculator from "./RccStructureCalculator";
 import MasterQuantityEstimator from "./MasterQuantityEstimator";
 import { saveEstimate } from "../../lib/estimates";
@@ -33,8 +34,8 @@ import Brickwork9InchModule from "./Brickwork9InchModule";
 export default function ConstructionMaterialEstimator() {
   const { formatCurrency, currentUnit, currentCurrency } = useGlobalSettings();
   const { user } = useAuth();
-  const [isSaving, setIsSaving] = useState(false);
-  const [saveMessage, setSaveMessage] = useState("");
+  
+  
   const isSI = currentUnit === "Metric";
   const unitFt = isSI ? "m" : "ft";
   const unitIn = isSI ? "cm" : "in";
@@ -946,20 +947,24 @@ export default function ConstructionMaterialEstimator() {
             </div>
           </div>
         </div>
-        <div className="flex overflow-x-auto pb-4 gap-2 mb-4 scrollbar-hide p-1">
-          {fullTabs.map((tab) => (
-            <ColorfulTab
-              key={tab.id}
-              id={tab.id}
-              label={tab.label}
-              icon={<tab.icon className="w-4 h-4" />}
-              isActive={activeTab === tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              colorTheme="indigo"
-            />
-          ))}
+        <div className="flex overflow-x-auto pb-4 gap-2 mb-4 p-1">
+          {fullTabs.map((tab, idx) => {
+            const colors = ["indigo", "rose", "emerald", "amber", "cyan", "fuchsia", "teal"];
+            const color = colors[idx % colors.length] as any;
+            return (
+              <ColorfulTab
+                key={tab.id}
+                id={tab.id}
+                label={tab.label}
+                icon={<tab.icon className="w-4 h-4" />}
+                isActive={activeTab === tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                colorTheme={color}
+              />
+            );
+          })}
         </div>
-        <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] shadow-md border border-slate-200 dark:border-slate-800 transition-all duration-300 relative">
+        <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-xl shadow-md border border-slate-200 dark:border-slate-800 transition-all duration-300 relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative">
             {content}
             {activeTab !== "cement" &&
@@ -1332,72 +1337,45 @@ export default function ConstructionMaterialEstimator() {
                 }}
                 title={`Combined Material Estimate`}
               />
-              {user && (
-                <button
-                  onClick={async () => {
-                    if (cart.length === 0) return;
-                    setIsSaving(true);
-                    setSaveMessage("");
-                    try {
-                      const payload = {
-                        cart,
-                        totals: {
-                          cementBags: totalCement,
-                          sandVol: totalSand,
-                          aggregateVol: totalAgg,
-                          waterLiters: totalWater,
-                          steelKg: cart.reduce(
-                            (acc, item) => acc + (item.steelKg || 0),
-                            0,
-                          ),
-                          bricksCount: cart.reduce(
-                            (acc, item) => acc + (item.bricksCount || 0),
-                            0,
-                          ),
-                          blocksCount: cart.reduce(
-                            (acc, item) => acc + (item.blocksCount || 0),
-                            0,
-                          ),
-                          unitVol: isSI ? "m³" : "cft",
-                        },
-                        rates,
-                      };
-                      const projName = prompt(
-                        "Enter project element/estimate name:",
-                        "My Material Estimate",
-                      );
-                      if (projName) {
-                        await saveEstimate(projName, payload);
-                        setSaveMessage("Saved successfully!");
-                        setTimeout(() => setSaveMessage(""), 3000);
-                      }
-                    } catch (e) {
-                      setSaveMessage("Failed to save.");
-                    } finally {
-                      setIsSaving(false);
-                    }
-                  }}
-                  disabled={isSaving}
-                  className="mt-6 sm:mt-0 bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
-                >
-                  {isSaving ? (
-                    <span className="animate-pulse">Saving...</span>
-                  ) : (
-                    <>
-                      <Save className="w-5 h-5" /> Save to Profile
-                    </>
-                  )}
-                </button>
-              )}
-              {saveMessage && (
-                <span className="text-sm font-bold text-green-400 ml-4">
-                  {saveMessage}
-                </span>
-              )}
+              
+              
             </div>
           </div>
         )}
       </div>
+      {(activeTab !== 'master' && activeTab !== 'rcc') && (
+        <CalculationHistory
+          calculatorId={`material_calc_${activeTab}`}
+          currentInputs={currentExportInputs}
+          currentResults={currentExportData}
+          summaryGeneration={(inputs, results) => `${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} calculation`}
+          onRestore={(inputs) => {
+            if (activeTab === "concrete") {
+              if (inputs["Dimensions"]) {
+                const match = inputs["Dimensions"].match(/Length:\s([\d.]+).*?Width:\s([\d.]+).*?Depth:\s([\d.]+)/);
+                if (match) { setCLength(match[1]); setCWidth(match[2]); setCDepth(match[3]); }
+              }
+              if (inputs["Mix Ratio"]) setCMix(inputs["Mix Ratio"]);
+              if (inputs["W/C Ratio"]) setCWcRatio(inputs["W/C Ratio"]);
+              if (inputs["Wastage Allowed"]) setWastage(inputs["Wastage Allowed"].replace("%", ""));
+            } else if (activeTab === "bricks" || activeTab === "blocks") {
+              if (inputs["Wall Dimensions"]) {
+                 const match = inputs["Wall Dimensions"].match(/Length:\s([\d.]+).*?Height:\s([\d.]+).*?Thickness:\s([\d.]+)/);
+                 if (match) { setBWallL(match[1]); setBWallH(match[2]); setBWallT(match[3]); }
+              }
+              if (inputs["Mix Ratio (Cement:Sand)"]) setBMix(inputs["Mix Ratio (Cement:Sand)"]);
+            } else if (activeTab === "plaster") {
+              if (inputs["Total Plaster Area"]) setPArea(inputs["Total Plaster Area"].split(" ")[0]);
+              if (inputs["Plaster Thickness"]) setPThick(inputs["Plaster Thickness"].split(" ")[0]);
+              if (inputs["Mix Ratio"]) setPMix(inputs["Mix Ratio"]);
+            } else if (activeTab === "steel") {
+              if (inputs["Total Span/Length"]) setSSpan(inputs["Total Span/Length"].split(" ")[0]);
+              if (inputs["Spacing (c/c)"]) setSSpace(inputs["Spacing (c/c)"].split(" ")[0]);
+              if (inputs["Bar Diameter"]) setSDia(inputs["Bar Diameter"].split(" ")[0]);
+            }
+          }}
+        />
+      )}
     </div>
   );
 }

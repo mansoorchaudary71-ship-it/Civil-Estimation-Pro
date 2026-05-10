@@ -19,6 +19,7 @@ import {
 import ShareButtonWithPopup from "./ShareMenu";
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
+import { CalculationHistory } from "../ui/CalculationHistory";
 type Shape =
   | "Rectangular Prism"
   | "Cube"
@@ -38,8 +39,8 @@ import ColorfulTab from "../ui/ColorfulTab";
 export default function VolumeEstimator() {
   const { user } = useAuth();
   const { currentUnit, setCurrentUnit } = useGlobalSettings();
-  const [isSaving, setIsSaving] = useState(false);
-  const [saveMessage, setSaveMessage] = useState("");
+  
+  
   const [activeShape, setActiveShape] = useState<Shape>("Rectangular Prism");
   const system = currentUnit;
   /* Input states */ const [length, setLength] = useState("");
@@ -294,7 +295,7 @@ export default function VolumeEstimator() {
             </div>
           </div>
         </div>
-        <div className="flex overflow-x-auto pb-4 gap-2 mb-8 scrollbar-hide p-1">
+        <div className="flex overflow-x-auto pb-4 gap-2 mb-8 p-1">
           {shapes.map((s) => {
             const Icon = s.icon;
             const baseColor = s.color.split("-")[1];
@@ -662,49 +663,34 @@ export default function VolumeEstimator() {
                 data={exportData}
                 exportFormat={{ inputs: inputs, breakdown: exportData }}
               />
-              {user && (
-                <button
-                  onClick={async () => {
-                    setIsSaving(true);
-                    setSaveMessage("");
-                    try {
-                      const payload = { inputs: inputs, breakdown: exportData };
-                      const projName = prompt(
-                        "Enter project element/estimate name:",
-                        "My VolumeEstimator Estimate",
-                      );
-                      if (projName) {
-                        await saveEstimate(projName, payload);
-                        setSaveMessage("Saved successfully!");
-                        setTimeout(() => setSaveMessage(""), 3000);
-                      }
-                    } catch (e) {
-                      setSaveMessage("Failed to save.");
-                    } finally {
-                      setIsSaving(false);
-                    }
-                  }}
-                  disabled={isSaving}
-                  className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
-                >
-                  {isSaving ? (
-                    <span className="animate-pulse">Saving...</span>
-                  ) : (
-                    <>
-                      <Save className="w-5 h-5" /> Save to Profile
-                    </>
-                  )}
-                </button>
-              )}
-              {saveMessage && (
-                <span className="text-sm font-bold text-green-400 ml-4">
-                  {saveMessage}
-                </span>
-              )}
+              
+              
             </div>
           </div>
         </div>
       </div>
+      <CalculationHistory
+        calculatorId="volume_estimator_v1"
+        currentInputs={{ activeShape, length, width, height, side, radius, topRadius, bottomRadius, base, topWidth, bottomWidth, depth, baseArea, basePerimeter }}
+        currentResults={{ volVal: volume.toFixed(2), volUnit, surfaceArea: surfaceArea.toFixed(2), liquidCapacity: liquidCapacity.toFixed(2) }}
+        summaryGeneration={(inputs, res) => `${inputs.activeShape} Volume: ${res.volVal} ${res.volUnit}`}
+        onRestore={(inputs) => {
+          if (inputs.activeShape) setActiveShape(inputs.activeShape);
+          if (inputs.length !== undefined) setLength(inputs.length);
+          if (inputs.width !== undefined) setWidth(inputs.width);
+          if (inputs.height !== undefined) setHeight(inputs.height);
+          if (inputs.side !== undefined) setSide(inputs.side);
+          if (inputs.radius !== undefined) setRadius(inputs.radius);
+          if (inputs.topRadius !== undefined) setTopRadius(inputs.topRadius);
+          if (inputs.bottomRadius !== undefined) setBottomRadius(inputs.bottomRadius);
+          if (inputs.base !== undefined) setBase(inputs.base);
+          if (inputs.topWidth !== undefined) setTopWidth(inputs.topWidth);
+          if (inputs.bottomWidth !== undefined) setBottomWidth(inputs.bottomWidth);
+          if (inputs.depth !== undefined) setDepth(inputs.depth);
+          if (inputs.baseArea !== undefined) setBaseArea(inputs.baseArea);
+          if (inputs.basePerimeter !== undefined) setBasePerimeter(inputs.basePerimeter);
+        }}
+      />
     </div>
   );
 }

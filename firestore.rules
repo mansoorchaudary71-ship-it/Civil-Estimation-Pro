@@ -31,15 +31,16 @@ service cloud.firestore {
              data.userId is string && data.userId.size() <= 128 &&
              data.name is string && data.name.size() <= 200 &&
              data.type is string && data.type.size() <= 100 &&
+             data.get('status', '') is string &&
              data.createdAt is number;
     }
 
     match /estimates/{estimateId} {
       allow get: if isSignedIn() && existing().userId == request.auth.uid;
       allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
-      allow create: if isSignedIn() && incoming().userId == request.auth.uid && isValidId(estimateId) && isValidEstimate(incoming());
+      allow create: if isSignedIn() && incoming().userId == request.auth.uid && isValidId(estimateId) && isValidEstimate(incoming()) && incoming().keys().hasOnly(['userId', 'name', 'type', 'payload', 'status', 'createdAt']);
       allow update: if isSignedIn() && existing().userId == request.auth.uid && incoming().userId == request.auth.uid && isValidId(estimateId) && isValidEstimate(incoming()) &&
-                    incoming().diff(existing()).affectedKeys().hasOnly(['name', 'type', 'payload']);
+                    incoming().diff(existing()).affectedKeys().hasOnly(['name', 'type', 'payload', 'status']);
       allow delete: if isSignedIn() && existing().userId == request.auth.uid;
     }
   }

@@ -63,9 +63,9 @@ export default function EarthworksEstimator() {
     <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
       {/* SEO hidden tags for Earthworks, if needed, though typically React Helmet is better. We'll use standard semantic HTML. */}
       <div className="max-w-4xl mx-auto space-y-8">
-        <header className="mb-10 block">
+        <header className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6 bg-white p-6 rounded-[2rem] shadow-sm border border-gray-100">
           <div>
-            <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent pb-1">
+            <h1 className="text-3xl md:text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent pb-1">
               Earthworks & Hauling Estimator
             </h1>
             <p className="text-gray-500 mt-2 font-medium">
@@ -75,6 +75,34 @@ export default function EarthworksEstimator() {
             <div className="mt-5 w-fit">
               <GlobalSettingsToggle align="left" />
             </div>
+          </div>
+          <div className="flex flex-wrap gap-4 items-center">
+            <ShareButtonWithPopup
+              activeTab="Earthworks"
+              data={{
+                "Solid Volume": `${solidVolume.toFixed(2)} ${unitV}`,
+                "Loose Volume": `${looseVolume.toFixed(2)} ${unitV}`,
+                "Compacted Volume": `${compactedVolume.toFixed(2)} ${unitV}`,
+                "Total Trips": `${truckTrips} trips`,
+              }}
+              exportFormat={{
+                inputs: {
+                  Length: `${l.toFixed(2)} ${unitL}`,
+                  "Area 1": `${a1.toFixed(2)} ${unitA}`,
+                  "Area 2": `${a2.toFixed(2)} ${unitA}`,
+                  ...(calcMethod === "prismoidal"
+                    ? { "Middle Area": `${am.toFixed(2)} ${unitA}` }
+                    : {}),
+                },
+                breakdown: {
+                  "Solid Volume": `${solidVolume.toFixed(2)} ${unitV}`,
+                  "Loose Volume": `${looseVolume.toFixed(2)} ${unitV}`,
+                  "Compacted Volume": `${compactedVolume.toFixed(2)} ${unitV}`,
+                  "Total Trips": `${truckTrips} trips`,
+                },
+              }}
+              title="Earthworks & Hauling Estimator"
+            />
           </div>
         </header>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -479,32 +507,6 @@ export default function EarthworksEstimator() {
           </div>
         </div>
       </div>
-      <ShareButtonWithPopup
-        activeTab="Earthworks"
-        data={{
-          "Solid Volume": `${solidVolume.toFixed(2)} ${unitV}`,
-          "Loose Volume": `${looseVolume.toFixed(2)} ${unitV}`,
-          "Compacted Volume": `${compactedVolume.toFixed(2)} ${unitV}`,
-          "Total Trips": `${truckTrips} trips`,
-        }}
-        exportFormat={{
-          inputs: {
-            Length: `${l.toFixed(2)} ${unitL}`,
-            "Area 1": `${a1.toFixed(2)} ${unitA}`,
-            "Area 2": `${a2.toFixed(2)} ${unitA}`,
-            ...(calcMethod === "prismoidal"
-              ? { "Middle Area": `${am.toFixed(2)} ${unitA}` }
-              : {}),
-          },
-          breakdown: {
-            "Solid Volume": `${solidVolume.toFixed(2)} ${unitV}`,
-            "Loose Volume": `${looseVolume.toFixed(2)} ${unitV}`,
-            "Compacted Volume": `${compactedVolume.toFixed(2)} ${unitV}`,
-            "Total Trips": `${truckTrips} trips`,
-          },
-        }}
-        title="Earthworks & Hauling Estimator"
-      />
     </div>
   );
 }

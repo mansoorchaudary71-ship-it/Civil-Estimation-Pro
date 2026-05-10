@@ -8,10 +8,23 @@ import {
   Layers,
   ArrowRight,
   Activity,
+  ChevronDown,
+  Info,
 } from "lucide-react";
 import ShareButtonWithPopup from "./ShareMenu";
 import { useSettings } from "../../context/SettingsContext";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
+
+const Tooltip = ({ content }: { content: string }) => (
+  <div className="relative group inline-flex ml-1.5 align-middle">
+    <Info className="w-4 h-4 text-gray-400 hover:text-teal-500 transition-colors cursor-help" />
+    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[200px] p-2 bg-gray-900 text-white text-[11px] font-normal rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center shadow-xl">
+      {content}
+      <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-[5px] border-transparent border-t-gray-900"></div>
+    </div>
+  </div>
+);
+
 export default function TrenchExcavationEstimator() {
   const { settings, formatCurrency, convertAmount, convertAmountToRaw } =
     useSettings();
@@ -19,26 +32,36 @@ export default function TrenchExcavationEstimator() {
   const unitL = isMetric ? "m" : "ft";
   const unitA = isMetric ? "m²" : "ft²";
   const unitV = isMetric ? "m³" : "ft³";
+  
   const [length, setLength] = useState<string>("100");
   const [bottomWidth, setBottomWidth] = useState<string>("1");
-  const [topWidth, setTopWidth] = useState<string>("2");
+  const [sideSlope, setSideSlope] = useState<string>("0.5");
   const [depth, setDepth] = useState<string>("1.5");
   const [pipeDiameter, setPipeDiameter] = useState<string>("");
   const [beddingDepth, setBeddingDepth] = useState<string>("");
+  
+  const [isDimensionsOpen, setIsDimensionsOpen] = useState<boolean>(true);
+  const [isBeddingOpen, setIsBeddingOpen] = useState<boolean>(true);
+
   const L = parseFloat(length) || 0;
   const W_b = parseFloat(bottomWidth) || 0;
-  const W_t = parseFloat(topWidth) || 0;
+  const X = parseFloat(sideSlope) || 0;
   const D = parseFloat(depth) || 0;
+  
+  // Calculate top width based on side slope
+  const W_t = W_b + 2 * X * D;
   const crossSectionArea = ((W_b + W_t) / 2) * D;
   const totalExcavationVolume = crossSectionArea * L;
   const D_pipe = parseFloat(pipeDiameter) || 0;
   const D_bedding = parseFloat(beddingDepth) || 0;
+  
   let beddingMaterialVolume = 0;
   if (D_bedding > 0 || D_pipe > 0) {
     const pipeVolume = Math.PI * Math.pow(D_pipe / 2, 2) * L;
     const beddingBoxVolume = W_b * D_bedding * L;
     beddingMaterialVolume = Math.max(0, beddingBoxVolume - pipeVolume);
   }
+
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-4xl mx-auto space-y-8">
@@ -56,106 +79,151 @@ export default function TrenchExcavationEstimator() {
             </div>
           </div>
         </header>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <section>
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
-              <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-teal-50 text-teal-600 rounded-xl">
-                  <Ruler className="w-5 h-5" />
-                </div>
-                <h2 className="text-xl font-bold tracking-tight text-gray-800">
-                  Trench Dimensions
-                </h2>
-              </div>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
-                    Trench Length (L) [{unitL}]
-                  </label>
-                  <input
-                    type="number"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-shadow"
-                    value={length}
-                    onChange={(e) => setLength(e.target.value)}
-                  />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
-                      Bottom Width [{unitL}]
-                    </label>
-                    <input
-                      type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-shadow"
-                      value={bottomWidth}
-                      onChange={(e) => setBottomWidth(e.target.value)}
-                    />
+          <section className="space-y-6">
+            <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+              <button
+                onClick={() => setIsDimensionsOpen(!isDimensionsOpen)}
+                className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors focus:outline-none"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 bg-teal-50 text-teal-600 rounded-xl">
+                    <Ruler className="w-5 h-5" />
                   </div>
-                  <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
-                      Top Width [{unitL}]
-                    </label>
-                    <input
-                      type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-shadow"
-                      value={topWidth}
-                      onChange={(e) => setTopWidth(e.target.value)}
-                    />
-                  </div>
+                  <h2 className="text-xl font-bold tracking-tight text-gray-800">
+                    Trench Dimensions
+                  </h2>
                 </div>
-                <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
-                    Depth [{unitL}]
-                  </label>
-                  <input
-                    type="number"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-shadow"
-                    value={depth}
-                    onChange={(e) => setDepth(e.target.value)}
-                  />
+                <ChevronDown
+                  className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${isDimensionsOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+              
+              <div 
+                className={`transition-all duration-300 ease-in-out ${isDimensionsOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'} grid`}
+              >
+                <div className="overflow-hidden">
+                  <div className="px-6 pb-6 pt-2 space-y-5 border-t border-gray-50 bg-gray-50/30">
+                    <div>
+                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1 flex items-center">
+                        Trench Length (L) [{unitL}]
+                        <Tooltip content="The total linear distance of the trench along its centerline." />
+                      </label>
+                      <input
+                        type="number"
+                        className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-shadow"
+                        value={length}
+                        onChange={(e) => setLength(e.target.value)}
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1 flex items-center">
+                          Bottom Width [{unitL}]
+                          <Tooltip content="The width of the trench at its flat base." />
+                        </label>
+                        <input
+                          type="number"
+                          className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-shadow"
+                          value={bottomWidth}
+                          onChange={(e) => setBottomWidth(e.target.value)}
+                        />
+                      </div>
+                      <div>
+                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1 flex items-center">
+                          Side Slope (1V : XH)
+                          <Tooltip content="Ratio of horizontal run to 1 unit of vertical drop. For example, 0.5 means a 1:0.5 slope (steep), while 2 means a 1:2 slope (gentle)." />
+                        </label>
+                        <div className="flex items-center gap-3 w-full bg-white border border-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-teal-500/50 transition-shadow">
+                          <span className="text-gray-500 font-semibold text-sm whitespace-nowrap">1 V :</span>
+                          <input
+                            type="number"
+                            step="0.1"
+                            className="w-full bg-transparent text-gray-800 focus:outline-none -ml-1 text-sm md:text-base font-semibold"
+                            value={sideSlope}
+                            placeholder="e.g. 0.5"
+                            onChange={(e) => setSideSlope(e.target.value)}
+                          />
+                          <span className="text-gray-500 font-semibold text-sm whitespace-nowrap">H</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1 flex items-center">
+                        Depth [{unitL}]
+                        <Tooltip content="The vertical distance from the ground surface to the bottom of the trench." />
+                      </label>
+                      <input
+                        type="number"
+                        className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500 transition-shadow"
+                        value={depth}
+                        onChange={(e) => setDepth(e.target.value)}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] mt-6">
-              <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
-                  <Activity className="w-5 h-5" />
+
+            <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
+              <button
+                onClick={() => setIsBeddingOpen(!isBeddingOpen)}
+                className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors focus:outline-none"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                    <Activity className="w-5 h-5" />
+                  </div>
+                  <h2 className="text-xl font-bold tracking-tight text-gray-800">
+                    Pipe & Bedding Details
+                  </h2>
                 </div>
-                <h2 className="text-xl font-bold tracking-tight text-gray-800">
-                  Bedding Details
-                </h2>
-              </div>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
-                    Pipe Diameter [{unitL}]
-                  </label>
-                  <input
-                    type="number"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow"
-                    value={pipeDiameter}
-                    onChange={(e) => setPipeDiameter(e.target.value)}
-                    placeholder={`e.g. 0.3 ${unitL}`}
-                  />
+                <ChevronDown
+                  className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${isBeddingOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+              
+              <div 
+                className={`transition-all duration-300 ease-in-out ${isBeddingOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'} grid`}
+              >
+                <div className="overflow-hidden">
+                  <div className="px-6 pb-6 pt-2 space-y-5 border-t border-gray-50 bg-gray-50/30">
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1 flex items-center">
+                        Pipe Diameter [{unitL}]
+                        <Tooltip content="The outer diameter of the pipe. Used to deduct pipe volume from bedding material." />
+                      </label>
+                      <input
+                        type="number"
+                        className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow"
+                        value={pipeDiameter}
+                        onChange={(e) => setPipeDiameter(e.target.value)}
+                        placeholder={`e.g. 0.3`}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1 flex items-center">
+                        Bedding Depth [{unitL}]
+                        <Tooltip content="The thickness of bedding material placed below and around the pipe inside the trench." />
+                      </label>
+                      <input
+                        type="number"
+                        className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow"
+                        value={beddingDepth}
+                        onChange={(e) => setBeddingDepth(e.target.value)}
+                        placeholder={`e.g. 0.5`}
+                      />
+                    </div>
+                    <p className="text-xs text-gray-400 font-medium px-1">
+                      Leave empty if bedding calculation is not required.
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
-                    Bedding Depth [{unitL}]
-                  </label>
-                  <input
-                    type="number"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow"
-                    value={beddingDepth}
-                    onChange={(e) => setBeddingDepth(e.target.value)}
-                    placeholder={`e.g. 0.5 ${unitL}`}
-                  />
-                </div>
-                <p className="text-xs text-gray-400 font-medium px-1">
-                  Leave empty if bedding calculation is not required.
-                </p>
               </div>
             </div>
           </section>
+
           <section className="space-y-6">
             <div className="bg-gradient-to-br from-gray-900 to-slate-800 rounded-[1.5rem] p-8 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
@@ -176,7 +244,7 @@ export default function TrenchExcavationEstimator() {
                     </div>
                     <div className="text-4xl font-extrabold tracking-tight text-white">
                       {totalExcavationVolume.toFixed(2)}
-                      <span className="text-xl font-medium text-teal-200">
+                      <span className="text-xl font-medium text-teal-200 ml-2">
                         {unitV}
                       </span>
                     </div>
@@ -188,7 +256,7 @@ export default function TrenchExcavationEstimator() {
                       </div>
                       <div className="text-3xl font-extrabold tracking-tight text-white">
                         {beddingMaterialVolume.toFixed(2)}
-                        <span className="text-lg font-medium text-indigo-200/70">
+                        <span className="text-lg font-medium text-indigo-200/70 ml-2">
                           {unitV}
                         </span>
                       </div>
@@ -210,7 +278,7 @@ export default function TrenchExcavationEstimator() {
                             Pipe Volume
                           </td>
                           <td className="py-3 text-right text-white font-mono">
-                            {(Math.PI * Math.pow(D_pipe / 2, 2) * L).toFixed(2)}
+                            {(Math.PI * Math.pow(D_pipe / 2, 2) * L).toFixed(2)}{" "}
                             {unitV}
                           </td>
                         </tr>
@@ -234,7 +302,7 @@ export default function TrenchExcavationEstimator() {
                 inputs: {
                   Length: `${L.toFixed(2)} ${unitL}`,
                   "Bottom Width": `${W_b.toFixed(2)} ${unitL}`,
-                  "Top Width": `${W_t.toFixed(2)} ${unitL}`,
+                  "Side Slope": `1 V : ${X} H`,
                   Depth: `${D.toFixed(2)} ${unitL}`,
                   "Pipe Diameter": `${D_pipe.toFixed(2)} ${unitL}`,
                   "Bedding Depth": `${D_bedding.toFixed(2)} ${unitL}`,

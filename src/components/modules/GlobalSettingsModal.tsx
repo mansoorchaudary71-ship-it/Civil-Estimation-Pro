@@ -151,7 +151,7 @@ export default function GlobalSettingsModal({
           </button>{" "}
         </div>{" "}
         {/* Tabs */}{" "}
-        <div className="flex overflow-x-auto px-6 py-4 border-b border-slate-200/50 dark:border-slate-800/50 shrink-0 gap-2 scrollbar-hide p-1">
+        <div className="flex overflow-x-auto px-6 py-4 border-b border-slate-200/50 dark:border-slate-800/50 shrink-0 gap-2 p-1">
           {" "}
           <ColorfulTab
             id="rates"
@@ -167,7 +167,7 @@ export default function GlobalSettingsModal({
             icon={<Ruler className="w-4 h-4" />}
             isActive={activeTab === "prefs"}
             onClick={() => setActiveTab("prefs")}
-            colorTheme="indigo"
+            colorTheme="rose"
           />
         </div>{" "}
         {/* Content */}{" "}

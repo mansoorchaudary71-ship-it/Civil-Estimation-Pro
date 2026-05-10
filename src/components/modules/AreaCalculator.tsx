@@ -18,6 +18,7 @@ import ColorfulTab from "../ui/ColorfulTab";
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { useSettings } from "../../context/SettingsContext";
+import { CalculationHistory } from "../ui/CalculationHistory";
 type Shape =
   | "Circle"
   | "Square"
@@ -36,8 +37,8 @@ export default function AreaCalculator() {
   const { settings, updateSettings } = useSettings();
   const isMetric = settings.measurement === "SI";
   const { user } = useAuth();
-  const [isSaving, setIsSaving] = useState(false);
-  const [saveMessage, setSaveMessage] = useState("");
+  
+  
   const [activeShape, setActiveShape] = useState<Shape>("Rectangle");
   const [inputUnit, setInputUnit] = useState<InputUnit>(
     isMetric ? "m" : "feet",
@@ -406,7 +407,7 @@ export default function AreaCalculator() {
           </div>{" "}
         </div>{" "}
         {/* Shapes Grid */}{" "}
-        <div className="flex overflow-x-auto pb-4 gap-2 mb-8 scrollbar-hide p-1">
+        <div className="flex overflow-x-auto pb-4 gap-2 mb-8 p-1">
           {" "}
           {shapes.map((s) => {
             const Icon = s.icon;
@@ -892,54 +893,52 @@ export default function AreaCalculator() {
                 data={exportData}
                 exportFormat={{ inputs: inputSummary, breakdown: exportData }}
               />{" "}
-              {user && (
-                <button
-                  onClick={async () => {
-                    setIsSaving(true);
-                    setSaveMessage("");
-                    try {
-                      const payload = {
-                        inputs: inputSummary,
-                        breakdown: exportData,
-                      };
-                      const projName = prompt(
-                        "Enter project element/estimate name:",
-                        "My AreaCalculator Estimate",
-                      );
-                      if (projName) {
-                        await saveEstimate(projName, payload);
-                        setSaveMessage("Saved successfully!");
-                        setTimeout(() => setSaveMessage(""), 3000);
-                      }
-                    } catch (e) {
-                      setSaveMessage("Failed to save.");
-                    } finally {
-                      setIsSaving(false);
-                    }
-                  }}
-                  disabled={isSaving}
-                  className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
-                >
-                  {" "}
-                  {isSaving ? (
-                    <span className="animate-pulse">Saving...</span>
-                  ) : (
-                    <>
-                      {" "}
-                      <Save className="w-5 h-5" /> Save to Profile{" "}
-                    </>
-                  )}{" "}
-                </button>
-              )}{" "}
-              {saveMessage && (
-                <span className="text-sm font-bold text-green-400 ml-4">
-                  {saveMessage}
-                </span>
-              )}{" "}
+              {" "}
+              {" "}
             </div>{" "}
           </div>{" "}
         </div>{" "}
       </div>{" "}
+      <CalculationHistory
+        calculatorId="area_calculator_v1"
+        currentInputs={{ activeShape, inputUnit, outputUnit, radius, side, length, width, triBase, triHeight, triSide2, triSide3, trapBase1, trapBase2, trapHeight, trapSide1, trapSide2, ellMajor, ellMinor, rtBase, rtHeight, capLength, capRadius, vCapLength, vCapRadius, paraBase, paraSide, paraHeight, quadA, quadB, quadC, quadD, quadDiag }}
+        currentResults={{ area: formatArea(calcAreaSqM), perimeter: formatPerimeter(calcPerimeterM) }}
+        summaryGeneration={(inputs, results) => `${inputs.activeShape} Area: ${results.area}`}
+        onRestore={(inputs) => {
+          if (inputs.activeShape) setActiveShape(inputs.activeShape);
+          if (inputs.inputUnit) setInputUnit(inputs.inputUnit);
+          if (inputs.outputUnit) setOutputUnit(inputs.outputUnit);
+          if (inputs.radius !== undefined) setRadius(inputs.radius);
+          if (inputs.side !== undefined) setSide(inputs.side);
+          if (inputs.length !== undefined) setLength(inputs.length);
+          if (inputs.width !== undefined) setWidth(inputs.width);
+          if (inputs.triBase !== undefined) setTriBase(inputs.triBase);
+          if (inputs.triHeight !== undefined) setTriHeight(inputs.triHeight);
+          if (inputs.triSide2 !== undefined) setTriSide2(inputs.triSide2);
+          if (inputs.triSide3 !== undefined) setTriSide3(inputs.triSide3);
+          if (inputs.trapBase1 !== undefined) setTrapBase1(inputs.trapBase1);
+          if (inputs.trapBase2 !== undefined) setTrapBase2(inputs.trapBase2);
+          if (inputs.trapHeight !== undefined) setTrapHeight(inputs.trapHeight);
+          if (inputs.trapSide1 !== undefined) setTrapSide1(inputs.trapSide1);
+          if (inputs.trapSide2 !== undefined) setTrapSide2(inputs.trapSide2);
+          if (inputs.ellMajor !== undefined) setEllMajor(inputs.ellMajor);
+          if (inputs.ellMinor !== undefined) setEllMinor(inputs.ellMinor);
+          if (inputs.rtBase !== undefined) setRtBase(inputs.rtBase);
+          if (inputs.rtHeight !== undefined) setRtHeight(inputs.rtHeight);
+          if (inputs.capLength !== undefined) setCapLength(inputs.capLength);
+          if (inputs.capRadius !== undefined) setCapRadius(inputs.capRadius);
+          if (inputs.vCapLength !== undefined) setVCapLength(inputs.vCapLength);
+          if (inputs.vCapRadius !== undefined) setVCapRadius(inputs.vCapRadius);
+          if (inputs.paraBase !== undefined) setParaBase(inputs.paraBase);
+          if (inputs.paraSide !== undefined) setParaSide(inputs.paraSide);
+          if (inputs.paraHeight !== undefined) setParaHeight(inputs.paraHeight);
+          if (inputs.quadA !== undefined) setQuadA(inputs.quadA);
+          if (inputs.quadB !== undefined) setQuadB(inputs.quadB);
+          if (inputs.quadC !== undefined) setQuadC(inputs.quadC);
+          if (inputs.quadD !== undefined) setQuadD(inputs.quadD);
+          if (inputs.quadDiag !== undefined) setQuadDiag(inputs.quadDiag);
+        }}
+      />
     </div>
   );
 }

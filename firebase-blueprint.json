@@ -20,7 +20,12 @@
       "properties": {
         "userId": { "type": "string" },
         "name": { "type": "string" },
-        "type": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["concrete", "brickwork", "room", "material_calculation"],
+          "description": "Categorize saved estimates, such as 'concrete', 'brickwork', 'room', etc."
+        },
+        "status": { "type": "string" },
         "payload": { "type": "object" },
         "createdAt": { "type": "number", "description": "Server Timestamp" }
       },

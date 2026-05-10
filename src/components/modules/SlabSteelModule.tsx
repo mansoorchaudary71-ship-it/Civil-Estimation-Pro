@@ -1,6 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Layers } from "lucide-react";
+import ShareButtonWithPopup from "./ShareMenu";
+import { saveEstimate } from "../../lib/estimates";
+import { useAuth } from "../../contexts/AuthContext";
+import { Save } from "lucide-react";
+import { CalculationHistory } from "../ui/CalculationHistory";
+import { Layers, Info } from "lucide-react";
 import { useSettings } from "../../context/SettingsContext";
+
+const Tooltip = ({ content }: { content: string }) => (
+  <div className="relative group inline-flex ml-1.5 align-middle">
+    <Info className="w-4 h-4 text-slate-400 hover:text-indigo-500 transition-colors cursor-help" />
+    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[200px] p-2 bg-slate-900 text-white text-[11px] font-normal rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center shadow-xl">
+      {content}
+      <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-[5px] border-transparent border-t-slate-900"></div>
+    </div>
+  </div>
+);
 
 export interface SlabSteelResults {
   mainBarsCount: number;
@@ -57,17 +72,15 @@ export default function SlabSteelModule({
     const distBarCuttingLen = longSpan > 2 * cSide ? longSpan - 2 * cSide : 0;
     const distWt =
       distBarsCount * distBarCuttingLen * (Math.pow(dDia, 2) / 162.28);
-    const totalSteelWtKg = mainWt + distWt;
-    const results: SlabSteelResults = {
-      mainBarsCount,
-      mainTotalWeight: Number(mainWt.toFixed(2)),
-      distBarsCount,
-      distTotalWeight: Number(distWt.toFixed(2)),
-      totalSteelWtKg: Number(totalSteelWtKg.toFixed(2)),
-      totalSteelWtTon: Number((totalSteelWtKg / 1000).toFixed(4)),
-    };
     if (onStateChange) {
-      onStateChange(results);
+      onStateChange({
+        mainBarsCount,
+        mainTotalWeight: Number(mainWt.toFixed(2)),
+        distBarsCount,
+        distTotalWeight: Number(distWt.toFixed(2)),
+        totalSteelWtKg: Number((mainWt + distWt).toFixed(2)),
+        totalSteelWtTon: Number(((mainWt + distWt) / 1000).toFixed(4)),
+      });
     }
   }, [
     slabLength,
@@ -82,6 +95,37 @@ export default function SlabSteelModule({
     sideCover,
     onStateChange,
   ]);
+
+  const parse = (v: string) => (isNaN(parseFloat(v)) ? 0 : parseFloat(v));
+  const L = parse(slabLength);
+  const W = parse(slabWidth);
+  const mDia = parse(mainDia);
+  const mSpc = parse(mainSpacing) / 1000;
+  const dDia = parse(distDia);
+  const dSpc = parse(distSpacing) / 1000;
+  const cSide = parse(sideCover) / 1000;
+  
+  const shortSpan = Math.min(L, W);
+  const longSpan = Math.max(L, W);
+  
+  const mainBarsCount = mSpc > 0 && longSpan > 2 * cSide ? Math.ceil((longSpan - 2 * cSide) / mSpc) + 1 : 0;
+  const mainBarCuttingLen = shortSpan > 2 * cSide ? shortSpan - 2 * cSide : 0;
+  const mainWt = mainBarsCount * mainBarCuttingLen * (Math.pow(mDia, 2) / 162.28);
+  
+  const distBarsCount = dSpc > 0 && shortSpan > 2 * cSide ? Math.ceil((shortSpan - 2 * cSide) / dSpc) + 1 : 0;
+  const distBarCuttingLen = longSpan > 2 * cSide ? longSpan - 2 * cSide : 0;
+  const distWt = distBarsCount * distBarCuttingLen * (Math.pow(dDia, 2) / 162.28);
+  const totalSteelWtKg = mainWt + distWt;
+  
+  const results: SlabSteelResults = {
+    mainBarsCount,
+    mainTotalWeight: Number(mainWt.toFixed(2)),
+    distBarsCount,
+    distTotalWeight: Number(distWt.toFixed(2)),
+    totalSteelWtKg: Number(totalSteelWtKg.toFixed(2)),
+    totalSteelWtTon: Number((totalSteelWtKg / 1000).toFixed(4)),
+  };
+
   return (
     <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[1.5rem] overflow-hidden mt-6 shadow-sm">
       <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3 bg-transparent dark:bg-slate-800/50">
@@ -98,8 +142,9 @@ export default function SlabSteelModule({
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
+                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
                   Diameter ({isSI ? "mm" : "in"})
+                  <Tooltip content={`Standard unit is ${isSI ? "mm" : "in"}. Larger diameter exponentially increases total steel weight.`} />
                 </label>
                 <input
                   type="number"
@@ -109,8 +154,9 @@ export default function SlabSteelModule({
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
+                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
                   Spacing c/c ({isSI ? "mm" : "in"})
+                  <Tooltip content={`Center-to-center distance (${isSI ? "mm" : "in"}). Smaller spacing requires more bars, increasing total weight.`} />
                 </label>
                 <input
                   type="number"
@@ -127,8 +173,9 @@ export default function SlabSteelModule({
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
+                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
                   Diameter ({isSI ? "mm" : "in"})
+                  <Tooltip content={`Standard unit is ${isSI ? "mm" : "in"}. Larger diameter exponentially increases total steel weight.`} />
                 </label>
                 <input
                   type="number"
@@ -138,8 +185,9 @@ export default function SlabSteelModule({
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
+                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
                   Spacing c/c ({isSI ? "mm" : "in"})
+                  <Tooltip content={`Center-to-center distance (${isSI ? "mm" : "in"}). Smaller spacing requires more bars, increasing total weight.`} />
                 </label>
                 <input
                   type="number"
@@ -297,8 +345,40 @@ export default function SlabSteelModule({
               </span>
             </div>
           </div>
+          <div className="mt-6 flex flex-wrap gap-4 items-center">
+            <ShareButtonWithPopup
+              activeTab="Slab Steel Estimator"
+              title="Slab Steel Estimate"
+              data={results}
+              exportFormat={{
+                inputs: { slabLength, slabWidth, slabThickness, mainDia, mainSpacing, distDia, distSpacing, topCover, bottomCover, sideCover },
+                breakdown: {
+                    "Main Bars Count": results.mainBarsCount.toString(),
+                    "Main Bars Weight": results.mainTotalWeight.toFixed(2) + " kg",
+                    "Dist Bars Count": results.distBarsCount.toString(),
+                    "Dist Bars Weight": results.distTotalWeight.toFixed(2) + " kg",
+                    "Total Weight": results.totalSteelWtKg.toFixed(2) + " kg"
+                },
+              }}
+            />
+          </div>
         </div>
       </div>
+      <CalculationHistory
+        calculatorId="slab_steel_v1"
+        currentInputs={{ slabLength, slabWidth, slabThickness, mainDia, mainSpacing, distDia, distSpacing, topCover, bottomCover, sideCover }}
+        currentResults={{ mainBarsCount: results.mainBarsCount, mainTotalWeight: results.mainTotalWeight, distBarsCount: results.distBarsCount, distTotalWeight: results.distTotalWeight, totalSteelWtKg: results.totalSteelWtKg, totalSteelWtTon: results.totalSteelWtTon }}
+        summaryGeneration={(inputs, res) => `Slab Steel ${inputs.slabLength}x${inputs.slabWidth}`}
+        onRestore={(inputs) => {
+          if (inputs.mainDia !== undefined) setMainDia(inputs.mainDia);
+          if (inputs.mainSpacing !== undefined) setMainSpacing(inputs.mainSpacing);
+          if (inputs.distDia !== undefined) setDistDia(inputs.distDia);
+          if (inputs.distSpacing !== undefined) setDistSpacing(inputs.distSpacing);
+          if (inputs.topCover !== undefined) setTopCover(inputs.topCover);
+          if (inputs.bottomCover !== undefined) setBottomCover(inputs.bottomCover);
+          if (inputs.sideCover !== undefined) setSideCover(inputs.sideCover);
+        }}
+      />
     </div>
   );
 }

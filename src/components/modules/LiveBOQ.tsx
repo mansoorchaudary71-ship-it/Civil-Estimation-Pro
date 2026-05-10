@@ -231,8 +231,8 @@ export default function LiveBOQ() {
     unitName,
   } = useTakeoff();
   const { user } = useAuth();
-  const [isSaving, setIsSaving] = useState(false);
-  const [saveMessage, setSaveMessage] = useState("");
+  
+  
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showExportModal, setShowExportModal] = useState(false);
   const [isPdfLoading, setIsPdfLoading] = useState(false);
@@ -422,45 +422,8 @@ export default function LiveBOQ() {
                 })),
               }}
             />
-            {user && (
-              <button
-                onClick={async () => {
-                  setIsSaving(true);
-                  setSaveMessage("");
-                  try {
-                    const payload = { boqItems, totalCost, exportData };
-                    const projName = prompt(
-                      "Enter project element/estimate name:",
-                      "My Live BOQ Estimate",
-                    );
-                    if (projName) {
-                      await saveEstimate(projName, payload);
-                      setSaveMessage("Saved successfully!");
-                      setTimeout(() => setSaveMessage(""), 3000);
-                    }
-                  } catch (e) {
-                    setSaveMessage("Failed to save.");
-                  } finally {
-                    setIsSaving(false);
-                  }
-                }}
-                disabled={isSaving}
-                className="bg-green-600/20 text-green-600 dark:text-green-400 hover:bg-green-600/30 px-6 py-3 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
-              >
-                {isSaving ? (
-                  <span className="animate-pulse">Saving...</span>
-                ) : (
-                  <>
-                    <Save className="w-5 h-5" /> Save to Profile
-                  </>
-                )}
-              </button>
-            )}
-            {saveMessage && (
-              <span className="text-sm font-bold text-green-600 dark:text-green-400 ml-4">
-                {saveMessage}
-              </span>
-            )}
+            
+            
           </div>
         </div>
       </div>

@@ -29,8 +29,8 @@ export default function RateAnalysis() {
   const { settings, convertAmount, convertAmountToRaw, formatCurrency } =
     useSettings();
   const { user } = useAuth();
-  const [isSaving, setIsSaving] = useState(false);
-  const [saveMessage, setSaveMessage] = useState("");
+  
+  
   const handleRateChange = (key: keyof MarketRates, valStr: string) => {
     const val = parseFloat(valStr);
     if (!isNaN(val)) {
@@ -432,44 +432,8 @@ export default function RateAnalysis() {
                         ) as Record<string, string>,
                       }}
                     />
-                    {user && (
-                      <button
-                        onClick={async () => {
-                          setIsSaving(true);
-                          setSaveMessage("");
-                          try {
-                            const projName = prompt(
-                              "Enter project element/estimate name:",
-                              "My Rate Analysis Estimate",
-                            );
-                            if (projName) {
-                              await saveEstimate(projName, compositeCalc);
-                              setSaveMessage("Saved successfully!");
-                              setTimeout(() => setSaveMessage(""), 3000);
-                            }
-                          } catch (e) {
-                            setSaveMessage("Failed to save.");
-                          } finally {
-                            setIsSaving(false);
-                          }
-                        }}
-                        disabled={isSaving}
-                        className="bg-green-600/20 text-green-400 hover:bg-green-600/30 px-6 py-4 rounded-xl font-bold transition-colors shadow-sm flex items-center justify-center gap-2"
-                      >
-                        {isSaving ? (
-                          <span className="animate-pulse">Saving...</span>
-                        ) : (
-                          <>
-                            <Save className="w-5 h-5" /> Save to Profile
-                          </>
-                        )}
-                      </button>
-                    )}
-                    {saveMessage && (
-                      <span className="text-sm font-bold text-green-400 ml-4">
-                        {saveMessage}
-                      </span>
-                    )}
+                    
+                    
                   </div>
                 </div>
               </div>

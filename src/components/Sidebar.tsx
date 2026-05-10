@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { cn } from "../lib/utils";
 import { useAuth } from "../contexts/AuthContext";
-import { 
-  Calculator, 
-  FileSpreadsheet, 
-  PencilRuler, 
-  Sparkles, 
+import {
+  Calculator,
+  FileSpreadsheet,
+  PencilRuler,
+  Sparkles,
   Settings,
   HardHat,
   Truck,
@@ -31,10 +31,39 @@ import {
   ArrowRightLeft,
   Weight,
   Spline,
-  Columns
+  Columns,
 } from "lucide-react";
 
-export type ModuleId = "home" | "takeoff" | "calculators" | "ai" | "earthworks" | "gridEarthwork" | "trench" | "chainage" | "road" | "rigid-pavement" | "sewerage" | "finishing" | "house" | "rates" | "formwork" | "area-calculator" | "volume-estimator" | "unit-converter" | "metal-weight" | "rcc-calculator" | "staircase-calculator" | "column-estimator" | "master-quantity" | "about" | "careers" | "contact" | "blog" | "my-estimates" | "pricing";
+export type ModuleId =
+  | "home"
+  | "takeoff"
+  | "calculators"
+  | "ai"
+  | "earthworks"
+  | "gridEarthwork"
+  | "trench"
+  | "chainage"
+  | "road"
+  | "rigid-pavement"
+  | "sewerage"
+  | "finishing"
+  | "house"
+  | "rates"
+  | "formwork"
+  | "area-calculator"
+  | "volume-estimator"
+  | "unit-converter"
+  | "metal-weight"
+  | "rcc-calculator"
+  | "staircase-calculator"
+  | "column-estimator"
+  | "master-quantity"
+  | "about"
+  | "careers"
+  | "contact"
+  | "blog"
+  | "my-estimates"
+  | "pricing";
 
 interface SidebarProps {
   activeModule: ModuleId;
@@ -45,10 +74,17 @@ interface SidebarProps {
   onOpenProfile?: () => void;
 }
 
-export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose, onOpenAuth, onOpenProfile }: SidebarProps) {
+export default function Sidebar({
+  activeModule,
+  onSelectModule,
+  isOpen,
+  onClose,
+  onOpenAuth,
+  onOpenProfile,
+}: SidebarProps) {
   const { user, logOut } = useAuth();
   const isAuthenticated = !!user;
-  
+
   const [expanded, setExpanded] = useState<Record<string, boolean>>({
     house: false,
     road: false,
@@ -56,49 +92,73 @@ export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose,
 
   const toggleExpand = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    setExpanded(prev => ({ ...prev, [id]: !prev[id] }));
+    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   const navItems = [
     { id: "home" as const, label: "Dashboard", icon: LayoutDashboard },
     { id: "rates" as const, label: "Market Rates", icon: TrendingUp },
-    { 
-      id: "house" as const, 
-      label: "House Estimator", 
+    {
+      id: "house" as const,
+      label: "House Estimator",
       icon: Home,
       subItems: [
         { label: "Ground Floor", icon: Grid2X2 },
         { label: "First Floor", icon: ArrowUp },
-        { label: "Roof", icon: Triangle }
-      ]
+        { label: "Roof", icon: Triangle },
+      ],
     },
     { id: "formwork" as const, label: "Formwork & Scaffold", icon: Hammer },
     { id: "earthworks" as const, label: "Earthworks", icon: Truck },
-    { id: "gridEarthwork" as const, label: "Grid Method Earthwork", icon: Grid2X2 },
+    {
+      id: "gridEarthwork" as const,
+      label: "Grid Method Earthwork",
+      icon: Grid2X2,
+    },
     { id: "trench" as const, label: "Trench Excavation", icon: CheckSquare },
     { id: "chainage" as const, label: "Road Earthworks", icon: Map },
-    { 
-      id: "road" as const, 
-      label: "Road Estimator", 
+    {
+      id: "road" as const,
+      label: "Road Estimator",
       icon: Route,
       subItems: [
         { label: "Layer Thickness", icon: Layers },
-        { label: "Cross Section", icon: Maximize2 }
-      ]
+        { label: "Cross Section", icon: Maximize2 },
+      ],
     },
     { id: "rigid-pavement" as const, label: "Rigid Pavement", icon: Route },
     { id: "sewerage" as const, label: "Sewerage & Drainage", icon: Waves },
     { id: "finishing" as const, label: "Finishing Works", icon: Paintbrush },
     { id: "takeoff" as const, label: "2D Takeoff", icon: PencilRuler },
-    { id: "area-calculator" as const, label: "Area Calculator", icon: Triangle },
+    {
+      id: "area-calculator" as const,
+      label: "Area Calculator",
+      icon: Triangle,
+    },
     { id: "volume-estimator" as const, label: "Volume Estimator", icon: Box },
-    { id: "unit-converter" as const, label: "Unit Converter", icon: ArrowRightLeft },
+    {
+      id: "unit-converter" as const,
+      label: "Unit Converter",
+      icon: ArrowRightLeft,
+    },
     { id: "metal-weight" as const, label: "Metal Weight", icon: Weight },
     { id: "rcc-calculator" as const, label: "RCC Structure", icon: Spline },
     { id: "staircase-calculator" as const, label: "Staircase", icon: Layers },
-    { id: "column-estimator" as const, label: "Column Estimator", icon: Columns },
-    { id: "master-quantity" as const, label: "Master Quantity", icon: Calculator },
-    { id: "calculators" as const, label: "Material Estimator", icon: Calculator },
+    {
+      id: "column-estimator" as const,
+      label: "Column Estimator",
+      icon: Columns,
+    },
+    {
+      id: "master-quantity" as const,
+      label: "Master Quantity & Estimation",
+      icon: Calculator,
+    },
+    {
+      id: "calculators" as const,
+      label: "Material Estimator",
+      icon: Calculator,
+    },
     { id: "ai" as const, label: "AI Assistant", icon: Sparkles },
   ];
 
@@ -106,17 +166,19 @@ export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose,
     <>
       {/* Mobile Overlay */}
       {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 transition-opacity" 
+        <div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 transition-opacity"
           onClick={onClose}
         />
       )}
-      
+
       {/* Sidebar Content */}
-      <div className={cn(
-        "fixed inset-y-0 left-0 z-[60] transform transition-all duration-300 ease-in-out flex flex-col w-64 bg-slate-50 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 h-screen shrink-0",
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      )}>
+      <div
+        className={cn(
+          "fixed inset-y-0 left-0 z-[60] transform transition-all duration-300 ease-in-out flex flex-col w-64 bg-slate-50 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 h-screen shrink-0",
+          isOpen ? "translate-x-0" : "-translate-x-full",
+        )}
+      >
         {/* Profile Header section (acts as Profile tab on mobile) */}
         <div className="p-4 border-b border-slate-200 dark:border-slate-800 shrink-0">
           {isAuthenticated ? (
@@ -124,37 +186,59 @@ export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose,
               <div className="flex items-center gap-3 overflow-hidden">
                 <div className="w-10 h-10 shrink-0 rounded-full bg-gradient-to-tr from-blue-100 to-blue-50 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-600 font-bold overflow-hidden text-blue-600 dark:text-blue-400">
                   {user?.photoURL ? (
-                    <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
+                    <img
+                      src={user.photoURL}
+                      alt="Profile"
+                      className="w-full h-full object-cover"
+                    />
                   ) : (
-                    <span>{user?.displayName?.[0]?.toUpperCase() || <User className="w-5 h-5" />}</span>
+                    <span>
+                      {user?.displayName?.[0]?.toUpperCase() || (
+                        <User className="w-5 h-5" />
+                      )}
+                    </span>
                   )}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-bold text-slate-800 dark:text-white truncate">{user?.displayName || 'User'}</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
+                  <p className="text-sm font-bold text-slate-800 dark:text-white truncate">
+                    {user?.displayName || "User"}
+                  </p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                    {user?.email}
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-2 mt-3 w-full">
-                <button onClick={onOpenProfile} className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                <button
+                  onClick={onOpenProfile}
+                  className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-semibold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                >
                   <Settings className="w-3.5 h-3.5" /> Account
                 </button>
-                <button onClick={async () => { await logOut(); onClose?.(); }} className="flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-semibold text-red-600 dark:text-red-400 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-red-50 dark:hover:bg-slate-700 transition-colors" title="Sign Out">
+                <button
+                  onClick={async () => {
+                    await logOut();
+                    onClose?.();
+                  }}
+                  className="flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-md text-xs font-semibold text-red-600 dark:text-red-400 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-red-50 dark:hover:bg-slate-700 transition-colors"
+                  title="Sign Out"
+                >
                   <LogOut className="w-3.5 h-3.5" />
                 </button>
               </div>
             </>
           ) : (
             <div className="flex flex-col gap-2">
-              <button 
+              <button
                 onClick={onOpenAuth}
                 className="w-full flex items-center justify-center gap-1.5 px-2 py-2 rounded-md text-sm font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
-                >
+              >
                 Sign In
               </button>
-              <button 
+              <button
                 onClick={onOpenAuth}
                 className="w-full flex items-center justify-center gap-1.5 px-2 py-2 rounded-md text-sm font-bold text-white bg-gradient-to-r from-blue-500 to-purple-600 shadow-sm hover:opacity-90 transition-opacity"
-                >
+              >
                 Get Started
               </button>
             </div>
@@ -170,21 +254,21 @@ export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose,
             const Icon = item.icon;
             const isActive = activeModule === item.id;
             const isExpanded = expanded[item.id];
-            
+
             return (
               <div key={item.id} className="flex flex-col mb-1">
                 <button
                   onClick={() => onSelectModule(item.id)}
                   className={cn(
                     "w-full flex items-center gap-3 px-3 py-2 text-sm transition-colors",
-                    isActive 
-                      ? "bg-white dark:bg-slate-800 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-700 font-bold rounded-md" 
-                      : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white font-medium rounded-md"
+                    isActive
+                      ? "bg-white dark:bg-slate-800 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-700 font-bold rounded-md"
+                      : "text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white font-medium rounded-md",
                   )}
                 >
                   <Icon className={cn("w-[18px] h-[18px]")} />
                   {item.label}
-                  
+
                   {item.id === "ai" && (
                     <span className="ml-auto bg-purple-500/10 dark:bg-purple-500/20 border border-purple-500/20 text-purple-500 text-[10px] px-2 py-0.5 rounded font-bold">
                       Beta
@@ -192,8 +276,8 @@ export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose,
                   )}
 
                   {item.subItems && (
-                    <div 
-                      className={`ml-auto p-1 rounded-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                    <div
+                      className={`ml-auto p-1 rounded-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-transform ${isExpanded ? "rotate-180" : ""}`}
                       onClick={(e) => toggleExpand(item.id, e)}
                     >
                       <ChevronDown className="w-3.5 h-3.5" />
@@ -209,8 +293,8 @@ export default function Sidebar({ activeModule, onSelectModule, isOpen, onClose,
                         key={idx}
                         className="w-full flex items-center gap-2.5 px-3 py-1.5 rounded-md text-[13px] font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors"
                       >
-                         <sub.icon className="w-[15px] h-[15px]" />
-                         {sub.label}
+                        <sub.icon className="w-[15px] h-[15px]" />
+                        {sub.label}
                       </button>
                     ))}
                   </div>

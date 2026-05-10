@@ -53,6 +53,7 @@ import { GlobalSettingsToggle } from "./components/ui/GlobalSettingsToggle";
 
 export default function App() {
   const [activeModule, setActiveModule] = useState<ModuleId>("home");
+  const [previousModule, setPreviousModule] = useState<ModuleId | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
@@ -63,11 +64,14 @@ export default function App() {
 
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTo(0, 0);
+      if (activeModule !== "home" || !previousModule || ["home", "my-estimates", "pricing", "about", "careers", "contact", "blog"].includes(previousModule)) {
+        scrollRef.current.scrollTo(0, 0);
+      }
     }
-  }, [activeModule]);
+  }, [activeModule, previousModule]);
 
   const handleSelectModule = (id: ModuleId) => {
+    setPreviousModule(activeModule);
     setActiveModule(id);
     setIsSidebarOpen(false);
   };
@@ -88,7 +92,7 @@ export default function App() {
           onOpenProfile={() => { setIsSidebarOpen(false); setIsProfileOpen(true); }}
         />
 
-        <main className="flex-1 flex flex-col bg-slate-100 overflow-hidden relative w-full h-full transition-colors duration-300">
+        <main id="main-content" className="flex-1 flex flex-col bg-slate-100 overflow-hidden relative w-full h-full transition-colors duration-300">
           {["home", "about", "careers", "contact", "blog"].includes(activeModule) ? (
             <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-y-auto pb-24 md:pb-0">
               <TopNavbar 
@@ -97,7 +101,7 @@ export default function App() {
                 onOpenProfile={() => setIsProfileOpen(true)}
                 onNavigate={handleSelectModule} 
               />
-              {activeModule === "home" && <Dashboard onSelectModule={handleSelectModule} onOpenSidebar={() => setIsSidebarOpen(true)} onOpenSettings={() => setIsSettingsOpen(true)} />}
+              {activeModule === "home" && <Dashboard previousModule={previousModule} onSelectModule={handleSelectModule} onOpenSidebar={() => setIsSidebarOpen(true)} onOpenSettings={() => setIsSettingsOpen(true)} />}
               {activeModule === "my-estimates" && <div className="p-8"><RecentEstimates onSelectModule={handleSelectModule} /></div>}
               {activeModule === "pricing" && <div className="p-8 pt-12 text-center text-slate-500">Pricing options coming soon.</div>}
               {activeModule === "about" && <div className="p-8 pt-12"><AboutUs /></div>}

@@ -17,6 +17,7 @@ import {
   ArrowRight,
   Spline,
   Calculator,
+  Briefcase,
 } from "lucide-react";
 import {
   PieChart,
@@ -147,6 +148,11 @@ export default function HouseEstimator() {
   const { formatCurrency, settings, convertAmount } = useSettings();
   const isSI = settings.measurement === "SI";
   const [geoState, dispatch] = useReducer(geometryReducer, initialGeometry);
+  const [projectDetails, setProjectDetails] = useState({
+    projectName: "",
+    clientName: "",
+    siteLocation: "",
+  });
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [specs, setSpecs] = useState<SpecsState>(initialSpecs);
   const [isSpecsAccordionOpen, setIsSpecsAccordionOpen] = useState(false);
@@ -490,6 +496,28 @@ export default function HouseEstimator() {
       color: "#10b981",
     });
   }
+
+  const combinedCostData = useMemo(() => {
+    const data: any[] = [];
+    greyCostData.forEach((d) =>
+      data.push({
+        name: d.name.replace(/\*/g, ""),
+        value: convertAmount(d.value),
+        category: "Grey Structure",
+        color: d.color || "#64748b",
+      })
+    );
+    finishingCostData.forEach((d) =>
+      data.push({
+        name: d.name.replace(/\*/g, ""),
+        value: convertAmount(d.value),
+        category: "Finishing Works",
+        color: d.color || "#8b5cf6",
+      })
+    );
+    return data.sort((a, b) => b.value - a.value);
+  }, [greyCostData, finishingCostData, convertAmount]);
+
   const getQualityLabel = (val: number) => {
     switch (val) {
       case 1:
@@ -532,6 +560,77 @@ export default function HouseEstimator() {
             </div>
           </div>
         </header>
+
+        {/* Project Details */}
+        <section className="bg-white/80 p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_32px_rgba(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-3 bg-indigo-50 rounded-2xl">
+              <Briefcase className="w-6 h-6 text-indigo-600" />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-gray-800">
+                Project Details
+              </h2>
+              <p className="text-sm text-gray-500 font-medium">
+                For accurate reports & records
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-gray-400 uppercase tracking-widest">
+                Project Name
+              </label>
+              <input
+                type="text"
+                value={projectDetails.projectName}
+                onChange={(e) =>
+                  setProjectDetails({
+                    ...projectDetails,
+                    projectName: e.target.value,
+                  })
+                }
+                className="bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
+                placeholder="e.g. 5 Marla Villa"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-gray-400 uppercase tracking-widest">
+                Client Name
+              </label>
+              <input
+                type="text"
+                value={projectDetails.clientName}
+                onChange={(e) =>
+                  setProjectDetails({
+                    ...projectDetails,
+                    clientName: e.target.value,
+                  })
+                }
+                className="bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
+                placeholder="e.g. John Doe"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-gray-400 uppercase tracking-widest">
+                Site Location
+              </label>
+              <input
+                type="text"
+                value={projectDetails.siteLocation}
+                onChange={(e) =>
+                  setProjectDetails({
+                    ...projectDetails,
+                    siteLocation: e.target.value,
+                  })
+                }
+                className="bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-indigo-500/30 transition-all"
+                placeholder="e.g. DHA Phase 6"
+              />
+            </div>
+          </div>
+        </section>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Main Controls Overlay */}
           <section className="lg:col-span-4 space-y-6">
@@ -561,9 +660,7 @@ export default function HouseEstimator() {
               {!isAccordionOpen && (
                 <div className="space-y-4 animate-in fade-in zoom-in-95">
                   <div className="flex justify-between items-center text-sm">
-                    <span className="font-bold text-slate-500">
-                      Plot Size
-                    </span>
+                    <span className="font-bold text-slate-500">Plot Size</span>
                     <span className="font-bold text-slate-800">
                       {geoState.plotSizeValue}
                       {geoState.plotSizeUnit.toUpperCase()}
@@ -578,9 +675,7 @@ export default function HouseEstimator() {
                     </span>
                   </div>
                   <div className="flex justify-between items-center text-sm">
-                    <span className="font-bold text-slate-500">
-                      Stories
-                    </span>
+                    <span className="font-bold text-slate-500">Stories</span>
                     <span className="font-bold text-slate-800">
                       {geoState.stories}
                     </span>
@@ -628,8 +723,7 @@ export default function HouseEstimator() {
                               })
                             }
                             className="hidden"
-                          >
-                          </select>
+                          ></select>
                           <UnitToggleGroup
                             units={[
                               { id: "marla", label: "Marla" },
@@ -811,8 +905,7 @@ export default function HouseEstimator() {
                           })
                         }
                         className="hidden"
-                      >
-                      </select>
+                      ></select>
                       <UnitToggleGroup
                         units={[
                           { id: "sqft", label: "Sq.Ft" },
@@ -1023,11 +1116,10 @@ export default function HouseEstimator() {
                   </div>
                 </div>
                 <div className="flex-1 overflow-auto border border-slate-200 rounded-2xl mb-6">
-                  <table className="w-full text-sm text-left"><thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider sticky top-0 z-10">
+                  <table className="w-full text-sm text-left">
+                    <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider sticky top-0 z-10">
                       <tr>
-                        <th className="px-6 py-4 font-bold">
-                          Material Item
-                        </th>
+                        <th className="px-6 py-4 font-bold">Material Item</th>
                         <th className="px-6 py-4 font-bold">
                           Current Market Rate
                         </th>
@@ -1035,7 +1127,8 @@ export default function HouseEstimator() {
                           Your Custom Rate
                         </th>
                       </tr>
-                    </thead><tbody className="bg-white divide-y divide-slate-100">
+                    </thead>
+                    <tbody className="bg-white divide-y divide-slate-100">
                       {(
                         [
                           {
@@ -1145,7 +1238,8 @@ export default function HouseEstimator() {
                           </td>
                         </tr>
                       ))}
-                    </tbody></table>
+                    </tbody>
+                  </table>
                 </div>
                 <div className="flex flex-col sm:flex-row items-center justify-between mt-auto gap-4 pt-4 border-t border-slate-100">
                   <button
@@ -1174,7 +1268,7 @@ export default function HouseEstimator() {
               <>
                 {/* Segmented Control & Actions */}
                 <div className="flex flex-col sm:flex-row gap-4 items-center justify-between relative">
-                  <div className="flex overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden p-1.5 bg-white border border-slate-200 shadow-sm rounded-2xl w-full sm:w-fit space-x-1">
+                  <div className="flex overflow-x-auto p-1.5 bg-white border border-slate-200 shadow-sm rounded-2xl w-full sm:w-fit space-x-1">
                     <ColorfulTab
                       id="summary"
                       label="Summary"
@@ -1189,7 +1283,7 @@ export default function HouseEstimator() {
                       icon={<Layers className="w-[18px] h-[18px]" />}
                       isActive={activeTab === "grey"}
                       onClick={() => setActiveTab("grey")}
-                      colorTheme="indigo"
+                      colorTheme="slate"
                     />
                     <ColorfulTab
                       id="finishing"
@@ -1197,7 +1291,7 @@ export default function HouseEstimator() {
                       icon={<PaintRoller className="w-[18px] h-[18px]" />}
                       isActive={activeTab === "finishing"}
                       onClick={() => setActiveTab("finishing")}
-                      colorTheme="indigo"
+                      colorTheme="rose"
                     />
                     <ColorfulTab
                       id="rcc"
@@ -1205,7 +1299,7 @@ export default function HouseEstimator() {
                       icon={<Spline className="w-[18px] h-[18px]" />}
                       isActive={activeTab === "rcc"}
                       onClick={() => setActiveTab("rcc")}
-                      colorTheme="indigo"
+                      colorTheme="amber"
                     />
                     <ColorfulTab
                       id="master"
@@ -1213,15 +1307,14 @@ export default function HouseEstimator() {
                       icon={<Calculator className="w-[18px] h-[18px]" />}
                       isActive={activeTab === "master"}
                       onClick={() => setActiveTab("master")}
-                      colorTheme="indigo"
+                      colorTheme="emerald"
                     />
                   </div>
                   <button
                     onClick={() => setShowResults(false)}
                     className="flex items-center gap-2 text-indigo-600 bg-indigo-50 hover:bg-indigo-100 font-bold px-4 py-2.5 rounded-xl shadow-sm border border-indigo-100 transition-colors shrink-0 whitespace-nowrap"
                   >
-                    <Database className="w-[18px] h-[18px]" /> View / Edit
-                    Rates
+                    <Database className="w-[18px] h-[18px]" /> View / Edit Rates
                   </button>
                 </div>
                 <div className="bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_rgb(0,0,0,0.04)] border border-slate-100 flex-1 relative overflow-hidden transition-all duration-300">
@@ -1332,6 +1425,37 @@ export default function HouseEstimator() {
                               {getQualityLabel(finishQuality)} Grade Finishing
                             </div>
                           </div>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-10 pt-8 border-t border-slate-100/60" id="overview-bar-chart">
+                        <h4 className="text-lg font-bold text-slate-800 mb-6 flex justify-between items-center">
+                          <span>Cost Breakdown Comparison</span>
+                          <span className="text-xs font-medium text-slate-400 font-normal">Highest to Lowest</span>
+                        </h4>
+                        <div className="w-full h-[450px]">
+                          <ResponsiveContainer width="100%" height="100%">
+                            <BarChart
+                              data={combinedCostData}
+                              layout="vertical"
+                              margin={{ top: 5, right: 30, left: 10, bottom: 5 }}
+                            >
+                              <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={true} stroke="#f1f5f9" />
+                              <XAxis type="number" axisLine={false} tickLine={false} tick={{ fill: "#94a3b8", fontSize: 12 }} 
+                                tickFormatter={(val) => `${settings.currency === "PKR" ? "RS" : settings.currency} ${(val / 1000).toFixed(0)}k`} />
+                              <YAxis dataKey="name" type="category" width={140} axisLine={false} tickLine={false} tick={{ fill: "#475569", fontSize: 11, fontWeight: 500 }} />
+                              <Tooltip 
+                                cursor={{ fill: "#f8fafc" }}
+                                contentStyle={{ borderRadius: "12px", border: "1px solid #e2e8f0", boxShadow: "0 10px 30px rgba(0,0,0,0.05)", fontWeight: "bold" }}
+                                formatter={(value: number, name: string, props: any) => [formatCurrency(value, false), props.payload.category]}
+                              />
+                              <Bar dataKey="value" radius={[0, 4, 4, 0]} maxBarSize={40}>
+                                {combinedCostData.map((entry, index) => (
+                                  <Cell key={`cell-${index}`} fill={entry.color} />
+                                ))}
+                              </Bar>
+                            </BarChart>
+                          </ResponsiveContainer>
                         </div>
                       </div>
                     </div>
@@ -1459,7 +1583,8 @@ export default function HouseEstimator() {
                                 Amount (Rs)
                               </th>
                             </tr>
-                          </thead><tbody className="text-slate-800 divide-y divide-slate-100">
+                          </thead>
+                          <tbody className="text-slate-800 divide-y divide-slate-100">
                             <tr className="bg-transparent/50">
                               <td
                                 colSpan={4}
@@ -1661,7 +1786,8 @@ export default function HouseEstimator() {
                                 Amount (Rs)
                               </th>
                             </tr>
-                          </thead><tbody className="text-slate-800 divide-y divide-slate-100">
+                          </thead>
+                          <tbody className="text-slate-800 divide-y divide-slate-100">
                             {finishingCostData.map((item, idx) => (
                               <tr
                                 key={idx}
@@ -1771,6 +1897,15 @@ export default function HouseEstimator() {
       <ShareButtonWithPopup
         activeTab="House Estimation"
         data={{
+          ...(projectDetails.projectName
+            ? { "Project Name": projectDetails.projectName }
+            : {}),
+          ...(projectDetails.clientName
+            ? { "Client Name": projectDetails.clientName }
+            : {}),
+          ...(projectDetails.siteLocation
+            ? { "Site Location": projectDetails.siteLocation }
+            : {}),
           "Total Cost": formatCurrency(estimates.totalCost),
           "Grey Structure": formatCurrency(estimates.totalGrey),
           "Finishing Works": formatCurrency(estimates.totalFinishing),
@@ -1781,6 +1916,15 @@ export default function HouseEstimator() {
         }}
         exportFormat={{
           inputs: {
+            ...(projectDetails.projectName
+              ? { "Project Name": projectDetails.projectName }
+              : {}),
+            ...(projectDetails.clientName
+              ? { "Client Name": projectDetails.clientName }
+              : {}),
+            ...(projectDetails.siteLocation
+              ? { "Site Location": projectDetails.siteLocation }
+              : {}),
             "Plot Size": `${geoState.plotSizeValue} ${geoState.plotSizeUnit.toUpperCase()} (${plotAreaSqft.toFixed(0)} sq.ft)`,
             Stories: geoState.stories.toString(),
             "Built-up Area": `${builtUpArea.toFixed(0)} sq.ft`,

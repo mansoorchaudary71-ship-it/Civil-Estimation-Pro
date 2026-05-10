@@ -10,15 +10,38 @@ export async function saveEstimate(name: string, payload: any) {
       name,
       type: 'material_calculation',
       payload,
-      createdAt: Date.now()
+      createdAt: Date.now(),
+      status: 'To Do'
     });
   } catch (err) {
     handleFirestoreError(err, OperationType.CREATE, 'estimates');
   }
 }
 
-export async function getMyEstimates() {
+export async function updateEstimateStatus(id: string, status: string) {
   if (!auth.currentUser) throw new Error("User not authenticated");
+  try {
+    const docRef = doc(db, 'estimates', id);
+    await updateDoc(docRef, { status });
+  } catch (err) {
+    handleFirestoreError(err, OperationType.UPDATE, 'estimates');
+  }
+}
+
+export async function updateEstimateOrders(orders: { id: string, order: number }[]) {
+  if (!auth.currentUser) throw new Error("User not authenticated");
+  try {
+    const promises = orders.map(({ id, order }) => {
+      const docRef = doc(db, 'estimates', id);
+      return updateDoc(docRef, { order });
+    });
+    await Promise.all(promises);
+  } catch (err) {
+    handleFirestoreError(err, OperationType.UPDATE, 'estimates');
+  }
+}
+
+export async function getMyEstimates() {
   try {
     const q = query(collection(db, 'estimates'), where('userId', '==', auth.currentUser.uid));
     const snapshot = await getDocs(q);
