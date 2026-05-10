@@ -23,6 +23,7 @@ import {
 } from "recharts";
 
 import { saveEstimate } from "../../lib/estimates";
+import { CalculationHistory } from "../ui/CalculationHistory";
 import { useAuth } from "../../contexts/AuthContext";
 export default function RateAnalysis() {
   const { rates, updateRate } = useMarketRates();
@@ -428,6 +429,20 @@ export default function RateAnalysis() {
           </section>
         </div>
       </div>
+      <CalculationHistory
+        calculatorId="rate_analysis_v1"
+        estimationName="Rate Analysis"
+        currentInputs={{ rates }}
+        currentResults={{ 
+          finalRate: compositeCalc.finalRate.toFixed(2),
+          primeCost: compositeCalc.primeCost.toFixed(2),
+          overheadCost: compositeCalc.overheadCost.toFixed(2),
+        }}
+        summaryGeneration={(inputs, res) => `Analyzed Rate: ${res.finalRate}/m³`}
+        onRestore={(inputs) => {
+          // Complex state - rates context handles values, might not be fully restorable
+        }}
+      />
     </div>
   );
 }

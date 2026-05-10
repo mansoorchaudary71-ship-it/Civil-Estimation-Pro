@@ -38,6 +38,7 @@ import AdvancedSpecs, { SpecsState, initialSpecs } from "./AdvancedSpecs";
 import GlobalSettingsModal from "./GlobalSettingsModal";
 import RccStructureCalculator from "./RccStructureCalculator";
 import MasterQuantityEstimator from "./MasterQuantityEstimator";
+import { CalculationHistory } from "../ui/CalculationHistory";
 import ColorfulTab from "../ui/ColorfulTab";
 import UnitToggleGroup from "../ui/UnitToggleGroup";
 type GeometryState = {
@@ -1898,6 +1899,21 @@ export default function HouseEstimator() {
       <GlobalSettingsModal
         isOpen={isGlobalSettingsOpen}
         onClose={() => setIsGlobalSettingsOpen(false)}
+      />
+      <CalculationHistory
+        calculatorId="house_estimator_v1"
+        estimationName="Complete House Estimator"
+        currentInputs={{ activeTab, finishQuality }}
+        currentResults={{ 
+          totalCost: estimates.totalCost.toFixed(2),
+          totalGrey: estimates.totalGrey.toFixed(2),
+          totalFinishing: estimates.totalFinishing.toFixed(2)
+        }}
+        summaryGeneration={(inputs, res) => `Total Cost: ${res.totalCost}`}
+        onRestore={(inputs) => {
+          if (inputs.activeTab) setActiveTab(inputs.activeTab);
+          if (inputs.finishQuality) setFinishQuality(inputs.finishQuality);
+        }}
       />
     </div>
   );

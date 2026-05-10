@@ -14,6 +14,7 @@ import {
 
 import { useSettings } from "../../context/SettingsContext";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 const Tooltip = ({ content }: { content: string }) => (
   <div className="relative group inline-flex ml-1.5 align-middle">
@@ -292,6 +293,21 @@ export default function TrenchExcavationEstimator() {
           </section>
         </div>
       </div>
+      <CalculationHistory
+        calculatorId="trench_excavation_v1"
+        estimationName="Trench Excavation"
+        currentInputs={{ length, bottomWidth, sideSlope, depth, pipeDiameter, beddingDepth }}
+        currentResults={{ totalExcavationVolume: totalExcavationVolume.toFixed(2), crossSectionArea: crossSectionArea.toFixed(2) }}
+        summaryGeneration={(inputs, res) => `Excavated Vol: ${res.totalExcavationVolume} ${unitV}`}
+        onRestore={(inputs) => {
+          if(inputs.length) setLength(inputs.length);
+          if(inputs.bottomWidth) setBottomWidth(inputs.bottomWidth);
+          if(inputs.sideSlope) setSideSlope(inputs.sideSlope);
+          if(inputs.depth) setDepth(inputs.depth);
+          if(inputs.pipeDiameter) setPipeDiameter(inputs.pipeDiameter);
+          if(inputs.beddingDepth) setBeddingDepth(inputs.beddingDepth);
+        }}
+      />
     </div>
   );
 }

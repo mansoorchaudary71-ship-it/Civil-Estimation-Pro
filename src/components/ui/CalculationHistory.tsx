@@ -119,16 +119,16 @@ export function CalculationHistory({
 
   return (
     <>
-      <div className="w-full max-w-3xl mx-auto mt-12 mb-8 px-4 relative z-10 font-sans">
-        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] rounded-full p-2 flex gap-1.5 sm:gap-2">
+      <div className="fixed bottom-0 left-0 right-0 w-full px-4 sm:px-6 pb-4 sm:pb-6 z-[60] pointer-events-none font-sans flex justify-center">
+        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 shadow-[0_20px_40px_rgb(0,0,0,0.1)] dark:shadow-[0_20px_40px_rgb(0,0,0,0.3)] rounded-full p-2 flex gap-1.5 sm:gap-2 w-full max-w-2xl pointer-events-auto transform hover:-translate-y-1 hover:shadow-[0_25px_50px_rgb(0,0,0,0.15)] dark:hover:shadow-[0_25px_50px_rgb(0,0,0,0.4)] transition-all duration-300">
           
           {/* Dashboard Button: Slate */}
           <button
             onClick={handleGoHome}
-            className={`${baseBtnClass} bg-slate-200 text-slate-700 hover:bg-slate-300 hover:text-slate-900 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600 dark:hover:text-slate-100 focus:ring-slate-500`}
+            className={`${baseBtnClass} bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-slate-100 focus:ring-slate-500`}
             title="Back to Dashboard"
           >
-            <Home className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5" />
+            <Home className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
             <span className="truncate hidden sm:inline">Dashboard</span>
             <span className="truncate sm:hidden">Dash</span>
           </button>
@@ -136,10 +136,10 @@ export function CalculationHistory({
           {/* History Button: Indigo */}
           <button
             onClick={() => setIsOpen(true)}
-            className={`${baseBtnClass} bg-indigo-100 text-indigo-700 hover:bg-indigo-200 hover:text-indigo-900 dark:bg-indigo-500/20 dark:text-indigo-300 dark:hover:bg-indigo-500/30 dark:hover:text-indigo-200 focus:ring-indigo-500`}
+            className={`${baseBtnClass} bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-300 dark:hover:bg-indigo-500/20 focus:ring-indigo-500`}
             title="View History"
           >
-            <History className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5" />
+            <History className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
             <span className="truncate">History</span>
             {history.length > 0 && (
               <span className="absolute top-0 right-0 -mt-1 -mr-1 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-indigo-500 text-[9px] sm:text-[10px] font-bold text-white shadow-sm ring-2 ring-white dark:ring-slate-900">
@@ -148,7 +148,7 @@ export function CalculationHistory({
             )}
           </button>
 
-          {/* Local Save Button: Emerald */}
+          {/* Save Button: Emerald */}
           <button
             onClick={() => {
               if (!currentInputs || Object.keys(currentInputs).length === 0) {
@@ -156,37 +156,21 @@ export function CalculationHistory({
                 return;
               }
               saveHistory();
+              if (user) {
+                handleCloudSave();
+              }
             }}
-            disabled={isSavingLocal}
-            className={`${baseBtnClass} bg-emerald-100 text-emerald-700 hover:bg-emerald-200 hover:text-emerald-900 dark:bg-emerald-500/20 dark:text-emerald-300 dark:hover:bg-emerald-500/30 dark:hover:text-emerald-200 focus:ring-emerald-500 disabled:opacity-50`}
-            title="Save Local"
+            disabled={isSavingLocal || isSavingCloud}
+            className={`${baseBtnClass} bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-300 dark:hover:bg-emerald-500/20 focus:ring-emerald-500 disabled:opacity-50`}
+            title="Save Calculation"
           >
-            {isSavingLocal ? (
+            {isSavingLocal || isSavingCloud ? (
                <Save className="w-4 h-4 sm:w-5 sm:h-5 animate-pulse" />
             ) : (
-               <Save className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5" />
+               <Save className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
             )}
-            <span className="truncate hidden sm:inline">Save Local</span>
-            <span className="truncate sm:hidden">Save</span>
+            <span className="truncate">Save</span>
           </button>
-
-          {/* Cloud Save Button: Cyan/Blueish */}
-          {user && (
-            <button
-              onClick={handleCloudSave}
-              disabled={isSavingCloud}
-              className={`${baseBtnClass} bg-cyan-100 text-cyan-700 hover:bg-cyan-200 hover:text-cyan-900 dark:bg-cyan-500/20 dark:text-cyan-300 dark:hover:bg-cyan-500/30 dark:hover:text-cyan-200 focus:ring-cyan-500 disabled:opacity-50`}
-              title="Save to Cloud"
-            >
-              {isSavingCloud ? (
-                <CloudUpload className="w-4 h-4 sm:w-5 sm:h-5 animate-pulse" />
-              ) : (
-                <CloudUpload className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5" />
-              )}
-              <span className="truncate hidden sm:inline">Save Cloud</span>
-              <span className="truncate sm:hidden">Cloud</span>
-            </button>
-          )}
 
           {/* Share Button: Amber/Orange */}
           <div className={`${baseBtnClass} !p-0 !bg-transparent`}>
@@ -195,10 +179,10 @@ export function CalculationHistory({
               title={estimationName || "Calculation"}
               data={currentResults || currentInputs || {}}
               exportFormat={savePayload || { inputs: currentInputs || {}, breakdown: currentResults || {} }}
-              triggerClassName={`group w-full h-full flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-full transition-all duration-200 text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 bg-amber-100 text-amber-700 hover:bg-amber-200 hover:text-amber-900 dark:bg-amber-500/20 dark:text-amber-300 dark:hover:bg-amber-500/30 dark:hover:text-amber-200 focus:ring-amber-500`}
+              triggerClassName={`group w-full h-full flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-full transition-all duration-200 text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-500/10 dark:text-amber-300 dark:hover:bg-amber-500/20 focus:ring-amber-500`}
               triggerContent={
                 <>
-                  <Share2 className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5" />
+                  <Share2 className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
                   <span className="truncate">Share</span>
                 </>
               }

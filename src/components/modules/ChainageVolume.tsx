@@ -14,6 +14,7 @@ import {
 
 import { useSettings } from "../../context/SettingsContext";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
+import { CalculationHistory } from "../ui/CalculationHistory";
 import { v4 as uuidv4 } from "uuid";
 interface Station {
   id: string;
@@ -444,6 +445,25 @@ export default function ChainageVolumeEstimator() {
           </section>
         </div>
       </div>
+      <CalculationHistory
+        calculatorId="chainage_v1"
+        estimationName="Road Earthworks"
+        currentInputs={{
+          formationWidth, cutSlope, fillSlope, stations
+        }}
+        currentResults={{ 
+          totalCut: totalCut.toFixed(2), 
+          totalFill: totalFill.toFixed(2), 
+          finalNet: finalNet.toFixed(2)
+        }}
+        summaryGeneration={(inputs, res) => `Cut: ${res.totalCut}${unitV} | Fill: ${res.totalFill}${unitV}`}
+        onRestore={(inputs) => {
+          if (inputs.formationWidth) setFormationWidth(inputs.formationWidth);
+          if (inputs.cutSlope) setCutSlope(inputs.cutSlope);
+          if (inputs.fillSlope) setFillSlope(inputs.fillSlope);
+          if (inputs.stations && Array.isArray(inputs.stations)) setStations(inputs.stations);
+        }}
+      />
     </div>
   );
 }

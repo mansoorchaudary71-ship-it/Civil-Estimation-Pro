@@ -12,6 +12,7 @@ import {
 
 import { useSettings } from "../../context/SettingsContext";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
+import { CalculationHistory } from "../ui/CalculationHistory";
 export default function EarthworksEstimator() {
   const { settings, formatCurrency, convertAmount, convertAmountToRaw } =
     useSettings();
@@ -481,6 +482,27 @@ export default function EarthworksEstimator() {
             </table>
           </div>
         </div>
+        <CalculationHistory
+          calculatorId="earthworks_v1"
+          estimationName="Earthworks Estimate"
+          currentInputs={{ length, area1, area2, areaM, calcMethod, autoCalcAm, bulkingFactor, shrinkageFactor, truckCapacity, excavationRate, compactionRate, haulingRate }}
+          currentResults={{ solidVolume: solidVolume.toFixed(2), looseVolume: looseVolume.toFixed(2), truckTrips, totalCost: totalCostConverted }}
+          summaryGeneration={(inputs, res) => `Vol: ${res.solidVolume} ${unitV} - Cost: ${res.totalCost}`}
+          onRestore={(inputs) => {
+            setLength(inputs.length || "");
+            setArea1(inputs.area1 || "");
+            setArea2(inputs.area2 || "");
+            setAreaM(inputs.areaM || "");
+            setCalcMethod(inputs.calcMethod || "prismoidal");
+            setAutoCalcAm(inputs.autoCalcAm || false);
+            setBulkingFactor(inputs.bulkingFactor || "");
+            setShrinkageFactor(inputs.shrinkageFactor || "");
+            setTruckCapacity(inputs.truckCapacity || "");
+            setExcavationRate(inputs.excavationRate || "");
+            setCompactionRate(inputs.compactionRate || "");
+            setHaulingRate(inputs.haulingRate || "");
+          }}
+        />
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { useSettings } from "../../context/SettingsContext";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 import ColorfulTab from "../ui/ColorfulTab";
 
@@ -328,7 +329,22 @@ export default function ColumnEstimator() {
           </div>
         </div>
       </div>
-      
+      <CalculationHistory
+          calculatorId="column_v1"
+          estimationName="Column Estimate"
+          currentInputs={{ shape, diameter, length, width, height, mix, count }}
+          currentResults={{ vol: vol.toFixed(2), cementBags, sandCft: sandCft.toFixed(2), aggCft: aggCft.toFixed(2) }}
+          summaryGeneration={(inputs, res) => `Vol: ${res.vol} cft - Cement: ${res.cementBags} bags`}
+          onRestore={(inputs) => {
+            if (inputs.shape) setShape(inputs.shape);
+            if (inputs.diameter) setDiameter(inputs.diameter);
+            if (inputs.length) setLength(inputs.length);
+            if (inputs.width) setWidth(inputs.width);
+            if (inputs.height) setHeight(inputs.height);
+            if (inputs.mix) setMix(inputs.mix);
+            if (inputs.count) setCount(inputs.count);
+          }}
+      />
     </div>
   );
 }

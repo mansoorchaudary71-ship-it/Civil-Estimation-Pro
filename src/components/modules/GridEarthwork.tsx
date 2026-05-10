@@ -12,6 +12,7 @@ import {
 
 import { useSettings } from "../../context/SettingsContext";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
+import { CalculationHistory } from "../ui/CalculationHistory";
 export default function GridEarthworkEstimator() {
   const { settings, formatCurrency, convertAmount, convertAmountToRaw } =
     useSettings();
@@ -355,6 +356,21 @@ export default function GridEarthworkEstimator() {
           </section>
         </div>
       </div>
+      <CalculationHistory
+        calculatorId="grid_earthwork_v1"
+        estimationName="Grid Earthwork"
+        currentInputs={{ gridLength, gridWidth, cornerTL, cornerTR, cornerBL, cornerBR }}
+        currentResults={{ totalVolume: totalVolume.toFixed(2), avgDepth: avgDepth.toFixed(3) }}
+        summaryGeneration={(inputs, res) => `Volume: ${res.totalVolume} ${unitV}`}
+        onRestore={(inputs) => {
+          if (inputs.gridLength) setGridLength(inputs.gridLength);
+          if (inputs.gridWidth) setGridWidth(inputs.gridWidth);
+          if (inputs.cornerTL) setCornerTL(inputs.cornerTL);
+          if (inputs.cornerTR) setCornerTR(inputs.cornerTR);
+          if (inputs.cornerBL) setCornerBL(inputs.cornerBL);
+          if (inputs.cornerBR) setCornerBR(inputs.cornerBR);
+        }}
+      />
     </div>
   );
 }

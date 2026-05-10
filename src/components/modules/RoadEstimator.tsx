@@ -3,6 +3,7 @@ import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { Route, Calculator, Layers, Droplets, ArrowRight } from "lucide-react";
 
 import { useSettings } from "../../context/SettingsContext";
+import { CalculationHistory } from "../ui/CalculationHistory";
 export default function RoadEstimator() {
   const { settings, formatCurrency } = useSettings();
   const isPKR = settings.currency === "PKR";
@@ -958,7 +959,30 @@ export default function RoadEstimator() {
           </section>
         </div>
       </div>
-      
+      <CalculationHistory
+        calculatorId="road_estimator_v1"
+        estimationName="Road Calculation"
+        currentInputs={{ length, width, camber, shoulderWidth, shoulderFall, sideSlope, sgThickness, sbThickness, wbmThickness, asphaltThickness }}
+        currentResults={{ 
+          volSG: volSG.toFixed(2), 
+          volSB: volSB.toFixed(2), 
+          volWBM: volWBM.toFixed(2), 
+          volAsphalt: volAsphalt.toFixed(2) 
+        }}
+        summaryGeneration={(inputs, res) => `Asphalt: ${res.volAsphalt} m³`}
+        onRestore={(inputs) => {
+          if(inputs.length) setLength(inputs.length);
+          if(inputs.width) setWidth(inputs.width);
+          if(inputs.camber) setCamber(inputs.camber);
+          if(inputs.shoulderWidth) setShoulderWidth(inputs.shoulderWidth);
+          if(inputs.shoulderFall) setShoulderFall(inputs.shoulderFall);
+          if(inputs.sideSlope) setSideSlope(inputs.sideSlope);
+          if(inputs.sgThickness) setSgThickness(inputs.sgThickness);
+          if(inputs.sbThickness) setSbThickness(inputs.sbThickness);
+          if(inputs.wbmThickness) setWbmThickness(inputs.wbmThickness);
+          if(inputs.asphaltThickness) setAsphaltThickness(inputs.asphaltThickness);
+        }}
+      />
     </div>
   );
 }

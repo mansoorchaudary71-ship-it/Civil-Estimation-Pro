@@ -18,6 +18,7 @@ import {
 } from "recharts";
 import { useMarketRates } from "../../context/MarketRatesContext";
 import { useSettings } from "../../context/SettingsContext";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 interface Deduction {
   id: string;
@@ -474,7 +475,32 @@ export default function FinishingEstimator() {
           </section>
         </div>
       </div>
-      
+        <CalculationHistory
+          calculatorId="finishing_estimator_v1"
+          estimationName="Finishing Works"
+          currentInputs={{
+            totalArea, deductions, plasterThickness, mortarRatio,
+            tileLength, tileWidth, tilesPerBox, paintCoverage
+          }}
+          currentResults={{
+            effectiveArea: results.netArea.toFixed(2),
+            cementBags: results.cementBags,
+            sandVolumeCft: results.sandVolumeCft,
+            boxesReq: results.boxesReq,
+            paintLiters: results.paintLiters
+          }}
+          summaryGeneration={(inputs, res) => `Area: ${res.effectiveArea}m² | Cement: ${res.cementBags}bags`}
+          onRestore={(inputs) => {
+            if (inputs.totalArea) setTotalArea(inputs.totalArea);
+            if (inputs.deductions && Array.isArray(inputs.deductions)) setDeductions(inputs.deductions);
+            if (inputs.plasterThickness) setPlasterThickness(inputs.plasterThickness);
+            if (inputs.mortarRatio) setMortarRatio(inputs.mortarRatio);
+            if (inputs.tileLength) setTileLength(inputs.tileLength);
+            if (inputs.tileWidth) setTileWidth(inputs.tileWidth);
+            if (inputs.tilesPerBox) setTilesPerBox(inputs.tilesPerBox);
+            if (inputs.paintCoverage) setPaintCoverage(inputs.paintCoverage);
+          }}
+        />
     </div>
   );
 }

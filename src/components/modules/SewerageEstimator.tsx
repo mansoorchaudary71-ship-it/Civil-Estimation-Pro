@@ -14,6 +14,7 @@ import {
   Layers,
 } from "lucide-react";
 import { useTakeoff } from "../../context/TakeoffContext";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 import ManholeModule, { ManholeResults } from "./ManholeModule";
 export default function SewerageEstimator() {
@@ -1006,7 +1007,27 @@ export default function SewerageEstimator() {
           </div>
         </div>
       </div>
-      
+      <CalculationHistory
+        calculatorId="sewerage_v1"
+        estimationName="Sewerage Calculation"
+        currentInputs={{
+          openSection, trenchLength, trenchWidth, trenchDepth, pipeOuterDiameter, beddingDepth
+        }}
+        currentResults={{
+          dischargeCapacityL: dischargeCapacityL.toFixed(2),
+          septicTotalVolM3: septicTotalVolM3.toFixed(2),
+          soakageAreaRequired: soakageAreaRequired.toFixed(2)
+        }}
+        summaryGeneration={(inputs, res) => `Flow: ${res.dischargeCapacityL} L/s`}
+        onRestore={(inputs) => {
+          if (inputs.openSection) setOpenSection(inputs.openSection);
+          if (inputs.trenchLength) setTrenchLength(inputs.trenchLength);
+          if (inputs.trenchWidth) setTrenchWidth(inputs.trenchWidth);
+          if (inputs.trenchDepth) setTrenchDepth(inputs.trenchDepth);
+          if (inputs.pipeOuterDiameter) setPipeOuterDiameter(inputs.pipeOuterDiameter);
+          if (inputs.beddingDepth) setBeddingDepth(inputs.beddingDepth);
+        }}
+      />
     </div>
   );
 }

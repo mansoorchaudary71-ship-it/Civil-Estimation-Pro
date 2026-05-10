@@ -10,6 +10,7 @@ import {
   SquareStack,
 } from "lucide-react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 interface FormworkElement {
   id: string;
@@ -485,7 +486,25 @@ export default function FormworkEstimator() {
           </section>{" "}
         </div>{" "}
       </div>{" "}
-      {" "}
+      <CalculationHistory
+        calculatorId="formwork_estimator_v1"
+        estimationName="Formwork Calculation"
+        currentInputs={{
+          elements, repetitionFactor, wastagePct
+        }}
+        currentResults={{
+          totalAreaSqm: results.totalAreaSqm.toFixed(2),
+          plywoodSheets: results.plywoodSheets,
+          battensRft: results.battensRft,
+          steelProps: results.steelProps
+        }}
+        summaryGeneration={(inputs, res) => `Area: ${res.totalAreaSqm}m² | Plywood: ${res.plywoodSheets} sheets`}
+        onRestore={(inputs) => {
+          if (inputs.elements && Array.isArray(inputs.elements)) setElements(inputs.elements);
+          if (inputs.repetitionFactor !== undefined) setRepetitionFactor(inputs.repetitionFactor);
+          if (inputs.wastagePct !== undefined) setWastagePct(inputs.wastagePct);
+        }}
+      />
     </div>
   );
 }
