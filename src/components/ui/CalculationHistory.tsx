@@ -115,12 +115,12 @@ export function CalculationHistory({
     window.dispatchEvent(new CustomEvent('go-home'));
   };
 
-  const baseBtnClass = "group relative flex-1 flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-full transition-all duration-200 text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 border";
+  const baseBtnClass = "group relative w-full h-full flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-3 rounded-full transition-all duration-200 text-[10px] leading-tight sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 border";
 
   return (
     <>
       <div className="w-full mt-8 mb-4 font-sans flex justify-center">
-        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 shadow-[0_4px_16px_rgb(0,0,0,0.05)] dark:shadow-[0_4px_16px_rgb(0,0,0,0.2)] rounded-full p-2 flex flex-wrap gap-2 w-full transform transition-all duration-300 sm:flex-nowrap sm:max-w-3xl">
+        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 shadow-[0_4px_16px_rgb(0,0,0,0.05)] dark:shadow-[0_4px_16px_rgb(0,0,0,0.2)] rounded-full p-2 grid grid-cols-4 gap-2 w-full transform transition-all duration-300 max-w-3xl">
           
           {/* Dashboard Button: Slate */}
           <button
@@ -179,7 +179,7 @@ export function CalculationHistory({
               title={estimationName || "Calculation"}
               data={currentResults || currentInputs || {}}
               exportFormat={savePayload || { inputs: currentInputs || {}, breakdown: currentResults || {} }}
-              triggerClassName={`group w-full h-full flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-full transition-all duration-200 text-xs sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 border border-amber-300 hover:border-amber-400 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-500/10 dark:text-amber-300 dark:hover:bg-amber-500/20 dark:border-amber-500/40 dark:hover:border-amber-500/50 focus:ring-amber-500`}
+              triggerClassName={`group w-full h-full flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-3 rounded-full transition-all duration-200 text-[10px] leading-tight sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 border border-amber-300 hover:border-amber-400 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-500/10 dark:text-amber-300 dark:hover:bg-amber-500/20 dark:border-amber-500/40 dark:hover:border-amber-500/50 focus:ring-amber-500`}
               triggerContent={
                 <>
                   <Share2 className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
