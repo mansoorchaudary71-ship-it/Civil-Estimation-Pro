@@ -11,7 +11,7 @@ import {
   ChevronDown,
   Info,
 } from "lucide-react";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import { useSettings } from "../../context/SettingsContext";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 
@@ -288,36 +288,7 @@ export default function TrenchExcavationEstimator() {
                 </div>
               </div>
             </div>
-            <ShareButtonWithPopup
-              activeTab="Trench Excavation"
-              data={{
-                "Total Excavated Volume": `${totalExcavationVolume.toFixed(2)} ${unitV}`,
-                ...(D_bedding > 0 || D_pipe > 0
-                  ? {
-                      "Bedding Volume": `${beddingMaterialVolume.toFixed(2)} ${unitV}`,
-                    }
-                  : {}),
-              }}
-              exportFormat={{
-                inputs: {
-                  Length: `${L.toFixed(2)} ${unitL}`,
-                  "Bottom Width": `${W_b.toFixed(2)} ${unitL}`,
-                  "Side Slope": `1 V : ${X} H`,
-                  Depth: `${D.toFixed(2)} ${unitL}`,
-                  "Pipe Diameter": `${D_pipe.toFixed(2)} ${unitL}`,
-                  "Bedding Depth": `${D_bedding.toFixed(2)} ${unitL}`,
-                },
-                breakdown: {
-                  "Total Excavated Volume": `${totalExcavationVolume.toFixed(2)} ${unitV}`,
-                  ...(D_bedding > 0 || D_pipe > 0
-                    ? {
-                        "Bedding Volume": `${beddingMaterialVolume.toFixed(2)} ${unitV}`,
-                      }
-                    : {}),
-                },
-              }}
-              title="Trench Excavation Estimator"
-            />
+            
           </section>
         </div>
       </div>

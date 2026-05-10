@@ -14,7 +14,7 @@ import {
   Layers,
 } from "lucide-react";
 import { useTakeoff } from "../../context/TakeoffContext";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import ManholeModule, { ManholeResults } from "./ManholeModule";
 export default function SewerageEstimator() {
   const { boqItems, addBoqItem, updateBoqItem } = useTakeoff();
@@ -1006,40 +1006,7 @@ export default function SewerageEstimator() {
           </div>
         </div>
       </div>
-      <ShareButtonWithPopup
-        activeTab="Sewerage"
-        data={{
-          "Trench Volume": `${trenchVol.toFixed(2)} m³`,
-          "Net Backfill": `${netBackfillVol.toFixed(2)} m³`,
-          "Manhole Wall Vol": `${mhResults?.wallVol?.toFixed(2) || "0.00"} m³`,
-          "Flow Velocity": `${flowVelocity.toFixed(3)} m/s`,
-          "Septic Vol": `${septicTotalVolM3.toFixed(2)} m³`,
-        }}
-        exportFormat={{
-          inputs: {
-            "Trench Length": `${trenchLength}m`,
-            "Trench Depth": `${trenchDepth}m`,
-            "Pipe Outer Dia": `${pipeOuterDiameter}m`,
-            "Bedding Depth": `${beddingDepth}m`,
-            "Flow Dia": `${flowDia}m`,
-            "Flow Gradient": `1 in ${flowGradient}`,
-            "Septic Users": `${septicUsers}`,
-            "Septic Demand": `${septicDemand} L/d`,
-          },
-          breakdown: {
-            "Total Excavation": `${trenchVol.toFixed(2)} m³`,
-            "Bedding Volume": `${beddingVol.toFixed(2)} m³`,
-            "Net Backfill": `${netBackfillVol.toFixed(2)} m³`,
-            "Manhole Concrete": `${mhResults?.totalWetConcrete?.toFixed(2) || "0.00"} m³`,
-            "Flow Velocity": `${flowVelocity.toFixed(3)} m/s`,
-            "Discharge (m³/s)": `${dischargeCapacityM3.toFixed(4)} m³/s`,
-            "Septic Tank Vol": `${septicTotalVolM3.toFixed(2)} m³`,
-            "Soakage Area": `${soakageAreaRequired.toFixed(2)} m²`,
-            "Pipes Required": `${pipeCount} nos`,
-          },
-        }}
-        title="Sewerage Estimator"
-      />
+      
     </div>
   );
 }

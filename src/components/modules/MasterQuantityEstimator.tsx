@@ -18,7 +18,7 @@ import {
   Zap,
   Maximize2,
 } from "lucide-react";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
@@ -429,15 +429,7 @@ export default function MasterQuantityEstimator({
             </div>
           </div>
           <div className="mt-6 flex flex-wrap gap-4 items-center">
-            <ShareButtonWithPopup
-              activeTab="Master Quantities"
-              title={`${calculatorsList.find((c) => c.id === activeCalc)?.label} Estimate`}
-              data={results}
-              exportFormat={{
-                inputs: { length, width, depth, wastage },
-                breakdown: results,
-              }}
-            />
+            
             
             
           </div>

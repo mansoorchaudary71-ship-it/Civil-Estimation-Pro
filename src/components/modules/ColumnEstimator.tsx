@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { useSettings } from "../../context/SettingsContext";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import ColorfulTab from "../ui/ColorfulTab";
 
 const mixRatios: Record<string, { c: number; s: number; a: number }> = {
@@ -328,37 +328,7 @@ export default function ColumnEstimator() {
           </div>
         </div>
       </div>
-      <ShareButtonWithPopup
-        activeTab="Column Concrete"
-        title={`${shape} Column Concrete Estimation`}
-        data={{
-          "Wet Volume": `${vol.toFixed(3)} m³`,
-          "Dry Volume": `${dryVol.toFixed(3)} m³`,
-          Cement: `${cementBags} bags`,
-          Sand: `${sandCft.toFixed(1)} cft`,
-          Aggregate: `${aggCft.toFixed(1)} cft`,
-        }}
-        exportFormat={{
-          inputs: {
-            Shape: shape,
-            Count: String(count),
-            Height: `${height} m`,
-            "Concrete Mix": mix,
-            ...(shape === "circular"
-              ? { Diameter: `${diameter} m` }
-              : shape === "square"
-                ? { "Side Length": `${length} m` }
-                : { Length: `${length} m`, Width: `${width} m` }),
-          },
-          breakdown: {
-            "Wet Concrete Volume": `${vol.toFixed(3)} m³`,
-            "Dry Concrete Volume": `${dryVol.toFixed(3)} m³`,
-            "Cement Needed": `${cementBags} bags`,
-            "Sand Needed": `${sandCft.toFixed(1)} cft`,
-            "Aggregate Needed": `${aggCft.toFixed(1)} cft`,
-          },
-        }}
-      />
+      
     </div>
   );
 }

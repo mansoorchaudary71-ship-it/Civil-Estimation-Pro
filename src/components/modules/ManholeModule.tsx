@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { Save } from "lucide-react";
@@ -411,21 +411,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
             </div>{" "}
           </div>{" "}
           <div className="mt-6 flex flex-wrap gap-4 items-center">
-            <ShareButtonWithPopup
-              activeTab="Manhole Estimator"
-              title="Manhole Estimate"
-              data={{ excavationVol: excVol, wallVol, baseVol, topSlabVol, cementBags, sandCft, aggCft }}
-              exportFormat={{
-                inputs: { mhType, mhDepth, mhInnerLen, mhInnerWid, mhWallThick, mhBaseThick, mhTopThick, concreteMix },
-                breakdown: {
-                    "Excavation Volume": excVol.toFixed(2) + " m³",
-                    "Total Wet Concrete": totalWetConcrete.toFixed(2) + " m³",
-                    cement: cementBags.toString() + " bags",
-                    sand: sandCft.toFixed(1) + " cft",
-                    aggregate: aggCft.toFixed(1) + " cft"
-                },
-              }}
-            />
+            
           </div>
         </div>{" "}
       </div>{" "}

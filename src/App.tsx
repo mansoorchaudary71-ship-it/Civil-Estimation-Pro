@@ -70,6 +70,15 @@ export default function App() {
     }
   }, [activeModule, previousModule]);
 
+  useEffect(() => {
+    const handleGoHome = () => {
+      setPreviousModule(activeModule);
+      setActiveModule("home");
+    };
+    window.addEventListener('go-home', handleGoHome);
+    return () => window.removeEventListener('go-home', handleGoHome);
+  }, [activeModule]);
+
   const handleSelectModule = (id: ModuleId) => {
     setPreviousModule(activeModule);
     setActiveModule(id);
@@ -220,24 +229,10 @@ function ModuleWrapper({
         onGoHome={() => setActiveModule("home")}
       />
 
-      <div className="flex-1 overflow-y-auto pb-24 md:pb-0">
+      <div className="flex-1 overflow-y-auto">
         <div className="min-h-full flex flex-col items-center">
-          <div className="flex-1 shrink-0 p-4 md:p-6 pb-2 w-full max-w-7xl">
+          <div className="flex-1 shrink-0 p-4 md:p-6 pb-6 w-full max-w-7xl">
             {children}
-          </div>
-          
-          <div className="w-full p-6 pb-24 md:pb-12 flex justify-center shrink-0">
-            <div className="rounded-full p-[1px] bg-gradient-to-r from-red-500 via-yellow-400 to-blue-500 shadow-sm hover:shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all">
-              <button 
-                onClick={() => setActiveModule("home")}
-                className="group flex items-center gap-2 px-5 py-2.5 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-medium rounded-full transition-all focus:outline-none"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 group-hover:-translate-x-0.5 transition-all">
-                  <path d="m15 18-6-6 6-6"/>
-                </svg>
-                <span>Back to Dashboard</span>
-              </button>
-            </div>
           </div>
         </div>
       </div>

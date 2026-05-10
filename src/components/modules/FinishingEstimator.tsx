@@ -18,7 +18,7 @@ import {
 } from "recharts";
 import { useMarketRates } from "../../context/MarketRatesContext";
 import { useSettings } from "../../context/SettingsContext";
-import ShareButtonWithPopup from "./ShareMenu";
+
 interface Deduction {
   id: string;
   name: string;
@@ -474,28 +474,7 @@ export default function FinishingEstimator() {
           </section>
         </div>
       </div>
-      <ShareButtonWithPopup
-        activeTab="Finishing"
-        data={costData.reduce(
-          (acc, curr) => ({ ...acc, [curr.name]: curr.qty }),
-          {} as Record<string, string>,
-        )}
-        exportFormat={{
-          inputs: {
-            "Total Area": `${totalArea} m²`,
-            "Net Area": `${results.netArea.toFixed(2)} m²`,
-            "Plaster Settings": `${plasterThickness}mm at 1:${mortarRatio}`,
-            "Tile Settings": `${tileWidth}x${tileLength}mm, ${tilesPerBox}/box`,
-            "Paint Setting": `${paintCoverage} sqm/L`,
-          },
-          breakdown: costData.reduce(
-            (acc, curr) => ({ ...acc, [curr.name]: curr.qty }),
-            {} as Record<string, string>,
-          ),
-          rates: rates,
-        }}
-        title="Finishing Works Estimator"
-      />
+      
     </div>
   );
 }

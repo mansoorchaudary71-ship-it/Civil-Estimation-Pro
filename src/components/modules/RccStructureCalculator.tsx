@@ -12,7 +12,7 @@ import {
   Save,
   Info,
 } from "lucide-react";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import ColorfulTab from "../ui/ColorfulTab";
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
@@ -573,12 +573,7 @@ export default function RccStructureCalculator({
               </div>
             </div>
             <div className="mt-6 flex flex-wrap gap-4 items-center">
-              <ShareButtonWithPopup
-                activeTab="RCC Calculator"
-                title={`${activeType} Estimate`}
-                data={exportData}
-                exportFormat={{ inputs: inputsUsed, breakdown: exportData }}
-              />
+              
               
               
             </div>

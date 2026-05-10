@@ -15,7 +15,7 @@ import {
   Calculator,
   Save,
 } from "lucide-react";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
@@ -594,12 +594,7 @@ export default function MetalWeightCalculator() {
               </div>
             </div>
             <div className="mt-6 flex flex-wrap gap-4 items-center">
-              <ShareButtonWithPopup
-                activeTab="Metal Weight"
-                title={`${activeProfile} Weight Estimate`}
-                data={exportData}
-                exportFormat={{ inputs: inputsUsed, breakdown: exportData }}
-              />
+              
               
               
             </div>

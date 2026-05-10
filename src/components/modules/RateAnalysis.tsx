@@ -21,7 +21,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 export default function RateAnalysis() {
@@ -418,20 +418,7 @@ export default function RateAnalysis() {
                     </div>
                   </div>
                   <div className="mt-6 flex flex-wrap gap-4 items-center">
-                    <ShareButtonWithPopup
-                      activeTab="Rate Analysis"
-                      title="Composite Item Analysis"
-                      data={compositeCalc}
-                      exportFormat={{
-                        inputs: { "Mix Ratio": "1:2:4", "Dry Vol": "1.54 m³" },
-                        breakdown: Object.fromEntries(
-                          Object.entries(compositeCalc).map(([k, v]) => [
-                            k,
-                            String(v),
-                          ]),
-                        ) as Record<string, string>,
-                      }}
-                    />
+                    
                     
                     
                   </div>

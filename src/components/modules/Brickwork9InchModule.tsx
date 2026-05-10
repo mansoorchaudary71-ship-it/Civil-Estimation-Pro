@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { Save } from "lucide-react";
@@ -359,19 +359,7 @@ export default function Brickwork9InchModule() {
             </div>
           </div>
           <div className="mt-6 flex flex-wrap gap-4 items-center">
-            <ShareButtonWithPopup
-              activeTab="Brickwork Estimator"
-              title="Brickwork Estimate"
-              data={results}
-              exportFormat={{
-                inputs: { brickType, wallLength, wallHeight, deductions, mixRatio, includeWastage: includeWastage.toString() },
-                breakdown: {
-                    bricks: results.noOfBricks.toString(),
-                    cement: results.cementBags.toString() + " bags",
-                    sand: results.sandCft.toFixed(1) + " cft"
-                },
-              }}
-            />
+            
           </div>
         </div>
       </div>

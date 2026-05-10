@@ -10,7 +10,7 @@ import {
   SquareStack,
 } from "lucide-react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
-import ShareButtonWithPopup from "./ShareMenu";
+
 interface FormworkElement {
   id: string;
   name: string;
@@ -485,25 +485,7 @@ export default function FormworkEstimator() {
           </section>{" "}
         </div>{" "}
       </div>{" "}
-      <ShareButtonWithPopup
-        activeTab="Formwork"
-        data={{
-          "Total Formwork Area": `${results.totalAreaSqm.toFixed(2)} m²`,
-          "Plywood Boards (8x4 ft)": Math.ceil(results.plywoodSheets),
-          "Steel Props (Jacks)": results.steelProps,
-          "Batten/Timber RFT": `${results.battensRft}`,
-        }}
-        exportFormat={{
-          inputs: { Elements: `${elements.length} components` },
-          breakdown: {
-            "Total Formwork Area": `${results.totalAreaSqm.toFixed(2)} m²`,
-            "Plywood Boards (8x4 ft)": `${Math.ceil(results.plywoodSheets)} nos`,
-            "Steel Props (Jacks)": `${results.steelProps} nos`,
-            "Batten/Timber RFT": `${results.battensRft} RFT`,
-          },
-        }}
-        title="Formwork & Scaffold Estimator"
-      />{" "}
+      {" "}
     </div>
   );
 }

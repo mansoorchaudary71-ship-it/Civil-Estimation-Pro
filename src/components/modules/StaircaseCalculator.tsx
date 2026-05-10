@@ -10,7 +10,7 @@ import {
   Cylinder,
   ArrowRight,
 } from "lucide-react";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import ColorfulTab from "../ui/ColorfulTab";
 import { useGlobalSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
@@ -857,37 +857,7 @@ export default function StaircaseCalculator({
           </div>{" "}
         </div>{" "}
       </div>{" "}
-      {!isEmbedded && (
-        <ShareButtonWithPopup
-          activeTab="Staircase Calculator"
-          title={`${stairShape} Staircase Estimation`}
-          data={{
-            "Concrete Volume": `${(res.totalWetVolume || 0).toFixed(2)} ${isMetric ? "m³" : "Cu.ft"}`,
-            Cement: `${Math.ceil(res.cementBags)} bags`,
-            Sand: `${(res.sandCft || 0).toFixed(1)} cft`,
-            Aggregate: `${(res.aggCft || 0).toFixed(1)} cft`,
-            "Total Steel": `${(res.totalSteelWeight || 0).toFixed(1)} kg`,
-          }}
-          exportFormat={{
-            inputs: {
-              Shape: stairShape,
-              Steps: String(numSteps),
-              Rise: `${rise} ${uMm}`,
-              Tread: `${tread} ${uMm}`,
-              Width: `${stairWidth} ${uM}`,
-            },
-            breakdown: {
-              "Concrete Wet Volume": `${(res.totalWetVolume || 0).toFixed(2)} ${isMetric ? "m³" : "Cu.ft"}`,
-              "Cement Required": `${Math.ceil(res.cementBags)} bags`,
-              "Sand Required": `${(res.sandCft || 0).toFixed(1)} cft`,
-              "Aggregate Required": `${(res.aggCft || 0).toFixed(1)} cft`,
-              "Steel (Main)": `${(res.mainWeight || 0).toFixed(1)} kg`,
-              "Steel (Distribution)": `${(res.distWeight || 0).toFixed(1)} kg`,
-              "Total Steel Required": `${(res.totalSteelWeight || 0).toFixed(1)} kg`,
-            },
-          }}
-        />
-      )}{" "}
+      {" "}
       <CalculationHistory
         calculatorId="staircase_calculator_v1"
         currentInputs={{ stairShape, numSteps, rise, tread, stairWidth, waistThickness, mainBarDia, mainBarSpacing, distBarDia, distBarSpacing, clearCover, concreteGrade, wastage, landings }}

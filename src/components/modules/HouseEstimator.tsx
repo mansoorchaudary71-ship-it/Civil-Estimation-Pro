@@ -33,7 +33,7 @@ import {
 } from "recharts";
 import { useMarketRates } from "../../context/MarketRatesContext";
 import { useSettings } from "../../context/SettingsContext";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import AdvancedSpecs, { SpecsState, initialSpecs } from "./AdvancedSpecs";
 import GlobalSettingsModal from "./GlobalSettingsModal";
 import RccStructureCalculator from "./RccStructureCalculator";
@@ -1894,82 +1894,7 @@ export default function HouseEstimator() {
           </section>
         </div>
       </div>
-      <ShareButtonWithPopup
-        activeTab="House Estimation"
-        data={{
-          ...(projectDetails.projectName
-            ? { "Project Name": projectDetails.projectName }
-            : {}),
-          ...(projectDetails.clientName
-            ? { "Client Name": projectDetails.clientName }
-            : {}),
-          ...(projectDetails.siteLocation
-            ? { "Site Location": projectDetails.siteLocation }
-            : {}),
-          "Total Cost": formatCurrency(estimates.totalCost),
-          "Grey Structure": formatCurrency(estimates.totalGrey),
-          "Finishing Works": formatCurrency(estimates.totalFinishing),
-          "Plot Size": `${geoState.plotSizeValue} ${geoState.plotSizeUnit.toUpperCase()} (${isSI ? (plotAreaSqft / 10.7639).toFixed(1) + " m²" : plotAreaSqft.toFixed(0) + " sq.ft"})`,
-          "Built-up Area": isSI
-            ? `${(builtUpArea / 10.7639).toFixed(1)} m²`
-            : `${builtUpArea.toFixed(0)} sq.ft`,
-        }}
-        exportFormat={{
-          inputs: {
-            ...(projectDetails.projectName
-              ? { "Project Name": projectDetails.projectName }
-              : {}),
-            ...(projectDetails.clientName
-              ? { "Client Name": projectDetails.clientName }
-              : {}),
-            ...(projectDetails.siteLocation
-              ? { "Site Location": projectDetails.siteLocation }
-              : {}),
-            "Plot Size": `${geoState.plotSizeValue} ${geoState.plotSizeUnit.toUpperCase()} (${plotAreaSqft.toFixed(0)} sq.ft)`,
-            Stories: geoState.stories.toString(),
-            "Built-up Area": `${builtUpArea.toFixed(0)} sq.ft`,
-            "Finish Quality":
-              finishQuality === 1
-                ? "Standard"
-                : finishQuality === 2
-                  ? "Premium"
-                  : "Luxury",
-          },
-          breakdown: {
-            "Total Cost": formatCurrency(estimates.totalCost),
-            "Grey Structure": formatCurrency(estimates.totalGrey),
-            "Finishing Works": formatCurrency(estimates.totalFinishing),
-            ...(estimates.costBoundaryWall > 0
-              ? { "Boundary Wall": formatCurrency(estimates.costBoundaryWall) }
-              : {}),
-          },
-          customTableData: [
-            ...greyCostData.map((d) => ({
-              item: d.name,
-              quantityStr:
-                typeof d.quantity === "number"
-                  ? Math.round(d.quantity)
-                  : d.quantity,
-              unitStr: d.unit,
-              rate: d.rate,
-              cost: d.value,
-              color: d.color,
-            })),
-            ...finishingCostData.map((d) => ({
-              item: d.name,
-              quantityStr:
-                typeof d.quantity === "number"
-                  ? Math.round(d.quantity)
-                  : d.quantity,
-              unitStr: d.unit,
-              rate: d.rate,
-              cost: d.value,
-              color: d.color,
-            })),
-          ],
-        }}
-        title="Complete House Estimate"
-      />
+      
       <GlobalSettingsModal
         isOpen={isGlobalSettingsOpen}
         onClose={() => setIsGlobalSettingsOpen(false)}

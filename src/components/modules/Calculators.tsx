@@ -22,7 +22,7 @@ import {
   PlasterCalculator,
   SteelCalculator,
 } from "../../utils/calculators";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import ColorfulTab from "../ui/ColorfulTab";
 import UnitToggleGroup from "../ui/UnitToggleGroup";
 import { CalculationHistory } from "../ui/CalculationHistory";
@@ -1225,19 +1225,7 @@ export default function ConstructionMaterialEstimator() {
               </button>
             </div>
           )}
-          {Object.keys(currentExportData).length > 0 && (
-            <ShareButtonWithPopup
-              activeTab={activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
-              data={currentExportData}
-              exportFormat={{
-                inputs: currentExportInputs,
-                breakdown: currentExportData,
-                rates: rates,
-                cartItem: currentCartItem,
-              }}
-              title={`${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Estimation`}
-            />
-          )}
+          
         </div>
         {cart.length > 0 && (
           <div className="mt-8 bg-slate-900 rounded-[2rem] p-6 md:p-8 text-white shadow-xl relative">
@@ -1309,34 +1297,7 @@ export default function ConstructionMaterialEstimator() {
               </div>
             </div>
             <div className="mt-6 flex flex-wrap gap-4 items-center">
-              <ShareButtonWithPopup
-                activeTab="Project Cart"
-                data={{
-                  Elements: cart.length,
-                  "Total Cement": `${totalCement.toFixed(2)} Bags`,
-                  "Total Sand": `${totalSand.toFixed(2)} ${isSI ? "m³" : "cft"}`,
-                  "Total Aggregate": `${totalAgg.toFixed(2)} ${isSI ? "m³" : "cft"}`,
-                  "Total Water": `${totalWater.toFixed(1)} L`,
-                }}
-                exportFormat={{
-                  inputs: { "Cart Elements": String(cart.length) },
-                  breakdown: {
-                    "Total Cement": `${totalCement.toFixed(2)} Bags`,
-                    "Total Sand": `${totalSand.toFixed(2)} ${isSI ? "m³" : "cft"}`,
-                    "Total Aggregate": `${totalAgg.toFixed(2)} ${isSI ? "m³" : "cft"}`,
-                    "Total Water": `${totalWater.toFixed(1)} L`,
-                  },
-                  rates: rates,
-                  cartItem: {
-                    cementBags: totalCement,
-                    sandVol: totalSand,
-                    aggregateVol: totalAgg,
-                    waterLiters: totalWater,
-                    unitVol: isSI ? "m³" : "cft",
-                  },
-                }}
-                title={`Combined Material Estimate`}
-              />
+              
               
               
             </div>

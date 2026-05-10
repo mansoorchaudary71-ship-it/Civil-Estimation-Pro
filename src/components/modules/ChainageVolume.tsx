@@ -11,7 +11,7 @@ import {
   Map,
   LayoutTemplate,
 } from "lucide-react";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import { useSettings } from "../../context/SettingsContext";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { v4 as uuidv4 } from "uuid";
@@ -142,30 +142,7 @@ export default function ChainageVolumeEstimator() {
             </div>
           </div>
           <div className="flex flex-wrap gap-4 items-center">
-            <ShareButtonWithPopup
-              activeTab="Chainage Volume"
-              data={{
-                "Total Cut": `${totalCut.toFixed(2)} ${unitV}`,
-                "Total Fill": `${totalFill.toFixed(2)} ${unitV}`,
-                "Net Balance": `${Math.abs(finalNet).toFixed(2)} ${unitV} ${finalNet >= 0 ? "(Cut)" : "(Fill)"}`,
-              }}
-              exportFormat={{
-                inputs: {
-                  "Formation Width": `${formationWidth} ${unitL}`,
-                  "Cut Slope": `1:${cutSlope}`,
-                  "Fill Slope": `1:${fillSlope}`,
-                  Stations: stations
-                    .map((s) => `Ch ${s.chainage} (NGL:${s.ngl}, FL:${s.fl})`)
-                    .join(" | "),
-                },
-                breakdown: {
-                  "Total Cut": `${totalCut.toFixed(2)} ${unitV}`,
-                  "Total Fill": `${totalFill.toFixed(2)} ${unitV}`,
-                  "Net Balance": `${Math.abs(finalNet).toFixed(2)} ${unitV} ${finalNet >= 0 ? "(Cut)" : "(Fill)"}`,
-                },
-              }}
-              title="Road Earthwork Estimator"
-            />
+            
           </div>
         </header>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

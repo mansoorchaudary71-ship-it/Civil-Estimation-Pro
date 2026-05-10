@@ -9,7 +9,7 @@ import {
   ArrowRight,
   Grid2X2,
 } from "lucide-react";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import { useSettings } from "../../context/SettingsContext";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 export default function GridEarthworkEstimator() {
@@ -351,25 +351,7 @@ export default function GridEarthworkEstimator() {
                 </div>
               </div>
             </div>
-            <ShareButtonWithPopup
-              activeTab="Grid Earthwork"
-              data={{
-                "Average Depth": `${Math.abs(avgDepth).toFixed(3)} ${unitL} ${isCut ? "(Cut)" : isFill ? "(Fill)" : ""}`,
-                "Total Volume": `${totalVolume.toFixed(2)} ${unitV} ${isCut ? "(Cut)" : isFill ? "(Fill)" : ""}`,
-              }}
-              exportFormat={{
-                inputs: {
-                  "Grid Area": `${area.toFixed(2)} ${unitA}`,
-                  "Average Existing": `${avgExisting.toFixed(3)} ${unitL}`,
-                  "Average Proposed": `${avgProposed.toFixed(3)} ${unitL}`,
-                },
-                breakdown: {
-                  "Average Depth": `${Math.abs(avgDepth).toFixed(3)} ${unitL} ${isCut ? "(Cut)" : isFill ? "(Fill)" : ""}`,
-                  "Total Volume": `${totalVolume.toFixed(2)} ${unitV} ${isCut ? "(Cut)" : isFill ? "(Fill)" : ""}`,
-                },
-              }}
-              title="Grid Method Earthwork Estimator"
-            />
+            
           </section>
         </div>
       </div>

@@ -13,7 +13,7 @@ import {
   Save,
 } from "lucide-react";
 import { motion } from "motion/react";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import ColorfulTab from "../ui/ColorfulTab";
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
@@ -887,12 +887,7 @@ export default function AreaCalculator() {
             </div>{" "}
             <div className="mt-6 flex flex-wrap gap-4 items-center">
               {" "}
-              <ShareButtonWithPopup
-                activeTab="Area Calculator"
-                title={`${activeShape} Area Calculation`}
-                data={exportData}
-                exportFormat={{ inputs: inputSummary, breakdown: exportData }}
-              />{" "}
+              {" "}
               {" "}
               {" "}
             </div>{" "}

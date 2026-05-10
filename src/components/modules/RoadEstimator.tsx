@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { Route, Calculator, Layers, Droplets, ArrowRight } from "lucide-react";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import { useSettings } from "../../context/SettingsContext";
 export default function RoadEstimator() {
   const { settings, formatCurrency } = useSettings();
@@ -958,97 +958,7 @@ export default function RoadEstimator() {
           </section>
         </div>
       </div>
-      <ShareButtonWithPopup
-        activeTab="RoadEstimation"
-        data={{
-          "SubGrade Volume": volSG.toFixed(2) + " m³",
-          "SubBase Volume": volSB.toFixed(2) + " m³",
-          "WBM/Base Volume": volWBM.toFixed(2) + " m³",
-          "Asphalt Volume": volAsphalt.toFixed(2) + " m³",
-          "Asphalt Tons": asphaltTons.toFixed(2) + " t",
-          "Prime Coat": primeCoatVolume.toFixed(2) + " L",
-          "Tack Coat": tackCoatVolume.toFixed(2) + " L",
-        }}
-        exportFormat={{
-          inputs: {
-            Length: `${length}m`,
-            Carriageway: `${width}m`,
-            "Shoulder Width": `${shoulderWidth}m`,
-            "Shoulder Fall": `${shoulderFall}%`,
-            Camber: `${camber}%`,
-            "Side Slope": `1 V : ${sideSlope} H`,
-            "SubGrade Thk": `${sgThickness}mm`,
-            "SubBase Thk": `${sbThickness}mm`,
-            "WBM Thk": `${wbmThickness}mm`,
-            "Asphalt Thk": `${asphaltThickness}mm`,
-            "Asphalt Density": `${asphaltDensity} t/m³`,
-            "Bitumen SG": `${bitumenSG}`,
-          },
-          breakdown: {
-            "SubGrade Volume": `${volSG.toFixed(2)} m³`,
-            "SubBase Volume": `${volSB.toFixed(2)} m³ (GSB ${sbMaterialTons.toFixed(2)} t)`,
-            "WBM/Base Volume": `${volWBM.toFixed(2)} m³`,
-            "WBM Coarse": `${wbmCoarseVol.toFixed(2)} m³ (${wbmCoarseTons.toFixed(2)} t)`,
-            "WBM Screenings": `${wbmScreeningVol.toFixed(2)} m³ (${wbmScreeningTons.toFixed(2)} t)`,
-            "WBM Binding": `${wbmBindingVol.toFixed(2)} m³ (${wbmBindingTons.toFixed(2)} t)`,
-            "Asphalt Volume": `${volAsphalt.toFixed(2)} m³`,
-            "Asphalt Metric Tons": `${asphaltTons.toFixed(2)} t`,
-            "Prime Coat": `${primeCoatVolume.toFixed(2)} L (${primeCoatTons.toFixed(2)} t)`,
-            "Tack Coat": `${tackCoatVolume.toFixed(2)} L (${tackCoatTons.toFixed(2)} t)`,
-          },
-          customTableData: [
-            {
-              item: "Sub-Grade",
-              quantityStr: volSG.toFixed(2),
-              unitStr: "m³",
-              rate: rateSg,
-              cost: costSg,
-              color: "#64748b",
-            },
-            {
-              item: "Sub-Base",
-              quantityStr: volSB.toFixed(2),
-              unitStr: "m³",
-              rate: rateSb,
-              cost: costSb,
-              color: "#94a3b8",
-            },
-            {
-              item: "WBM",
-              quantityStr: volWBM.toFixed(2),
-              unitStr: "m³",
-              rate: rateWbm,
-              cost: costWbm,
-              color: "#cbd5e1",
-            },
-            {
-              item: "Asphalt",
-              quantityStr: asphaltTons.toFixed(2),
-              unitStr: "tons",
-              rate: rateAsp,
-              cost: costAsp,
-              color: "#1e293b",
-            },
-            {
-              item: "Prime Coat",
-              quantityStr: primeCoatTons.toFixed(2),
-              unitStr: "tons",
-              rate: ratePrime,
-              cost: costPrime,
-              color: "#f97316",
-            },
-            {
-              item: "Tack Coat",
-              quantityStr: tackCoatTons.toFixed(2),
-              unitStr: "tons",
-              rate: rateTack,
-              cost: costTack,
-              color: "#9ca3af",
-            },
-          ],
-        }}
-        title="Road Construction Estimator"
-      />
+      
     </div>
   );
 }

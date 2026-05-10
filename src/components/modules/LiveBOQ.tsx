@@ -21,7 +21,7 @@ import {
   convertArea,
 } from "../../utils/measurements";
 import { generatePDFReport, generateExcelReport } from "../../utils/reports";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 function cleanUnit(u: string) {
@@ -404,24 +404,7 @@ export default function LiveBOQ() {
             </tfoot>
           </table>
           <div className="mt-6 flex flex-wrap gap-4 items-center">
-            <ShareButtonWithPopup
-              activeTab="Live BOQ"
-              title="Bill of Quantities"
-              data={exportData}
-              exportFormat={{
-                inputs: Object.fromEntries(
-                  Object.entries(exportData).map(([k, v]) => [k, String(v)]),
-                ),
-                breakdown: { "Total Cost": String(totalCost) },
-                customTableData: boqItems.map((item) => ({
-                  item: item.desc,
-                  quantityStr: getQty(item).toFixed(2),
-                  unitStr: item.unit,
-                  rate: item.rate,
-                  cost: getQty(item) * item.rate,
-                })),
-              }}
-            />
+            
             
             
           </div>

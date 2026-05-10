@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { Save } from "lucide-react";
@@ -346,21 +346,7 @@ export default function SlabSteelModule({
             </div>
           </div>
           <div className="mt-6 flex flex-wrap gap-4 items-center">
-            <ShareButtonWithPopup
-              activeTab="Slab Steel Estimator"
-              title="Slab Steel Estimate"
-              data={results}
-              exportFormat={{
-                inputs: { slabLength, slabWidth, slabThickness, mainDia, mainSpacing, distDia, distSpacing, topCover, bottomCover, sideCover },
-                breakdown: {
-                    "Main Bars Count": results.mainBarsCount.toString(),
-                    "Main Bars Weight": results.mainTotalWeight.toFixed(2) + " kg",
-                    "Dist Bars Count": results.distBarsCount.toString(),
-                    "Dist Bars Weight": results.distTotalWeight.toFixed(2) + " kg",
-                    "Total Weight": results.totalSteelWtKg.toFixed(2) + " kg"
-                },
-              }}
-            />
+            
           </div>
         </div>
       </div>

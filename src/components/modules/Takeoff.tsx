@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { useGlobalSettings } from "../../context/SettingsContext";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import {
   Layers,
   MousePointer2,
@@ -1045,29 +1045,7 @@ export default function Takeoff() {
           </div>
         </div>
       </div>
-      <ShareButtonWithPopup
-        activeTab="Takeoff"
-        title="2D Takeoff Measurements"
-        data={{
-          "Total Measurements": measurements.length,
-          "Linear Lengths": measurements.filter((m) => m.type === "line").length,
-          Areas: measurements.filter((m) => m.type === "area").length,
-          Assemblies: measurements.filter((m) => m.type === "assembly").length,
-        }}
-        exportFormat={{
-          inputs: {
-            "Image Loaded": image ? "Yes" : "No",
-            "Scale Set": scalePxPerUnit !== 1 ? "Yes" : "No",
-          },
-          breakdown: measurements.reduce(
-            (acc, m) => {
-              acc[m.name || m.id] = `${m.type.toUpperCase()}`;
-              return acc;
-            },
-            {} as Record<string, string>,
-          ),
-        }}
-      />
+      
     </div>
   );
 }

@@ -9,7 +9,7 @@ import {
   ArrowRight,
   DollarSign,
 } from "lucide-react";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import { useSettings } from "../../context/SettingsContext";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 export default function EarthworksEstimator() {
@@ -77,32 +77,7 @@ export default function EarthworksEstimator() {
             </div>
           </div>
           <div className="flex flex-wrap gap-4 items-center">
-            <ShareButtonWithPopup
-              activeTab="Earthworks"
-              data={{
-                "Solid Volume": `${solidVolume.toFixed(2)} ${unitV}`,
-                "Loose Volume": `${looseVolume.toFixed(2)} ${unitV}`,
-                "Compacted Volume": `${compactedVolume.toFixed(2)} ${unitV}`,
-                "Total Trips": `${truckTrips} trips`,
-              }}
-              exportFormat={{
-                inputs: {
-                  Length: `${l.toFixed(2)} ${unitL}`,
-                  "Area 1": `${a1.toFixed(2)} ${unitA}`,
-                  "Area 2": `${a2.toFixed(2)} ${unitA}`,
-                  ...(calcMethod === "prismoidal"
-                    ? { "Middle Area": `${am.toFixed(2)} ${unitA}` }
-                    : {}),
-                },
-                breakdown: {
-                  "Solid Volume": `${solidVolume.toFixed(2)} ${unitV}`,
-                  "Loose Volume": `${looseVolume.toFixed(2)} ${unitV}`,
-                  "Compacted Volume": `${compactedVolume.toFixed(2)} ${unitV}`,
-                  "Total Trips": `${truckTrips} trips`,
-                },
-              }}
-              title="Earthworks & Hauling Estimator"
-            />
+            
           </div>
         </header>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

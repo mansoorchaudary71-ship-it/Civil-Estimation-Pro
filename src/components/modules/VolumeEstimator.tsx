@@ -16,7 +16,7 @@ import {
   Hexagon,
   Save,
 } from "lucide-react";
-import ShareButtonWithPopup from "./ShareMenu";
+
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
@@ -657,12 +657,7 @@ export default function VolumeEstimator() {
               </div>
             </div>
             <div className="mt-6 flex flex-wrap gap-4 items-center">
-              <ShareButtonWithPopup
-                activeTab="Volume Estimator"
-                title={`${activeShape} Volume BOQ`}
-                data={exportData}
-                exportFormat={{ inputs: inputs, breakdown: exportData }}
-              />
+              
               
               
             </div>
