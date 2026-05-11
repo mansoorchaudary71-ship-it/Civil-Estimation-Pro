@@ -53,13 +53,13 @@ export default function ConstructionMaterialEstimator() {
   const unitVol = isSI ? "m³" : "cft";
   const unitArea = isSI ? "m²" : "sq.ft";
   const tabs = [
+    { id: "master", label: "Master Quantities", icon: Calculator },
     { id: "concrete", label: "Concrete", icon: Box },
     { id: "bricks", label: "Bricks", icon: Columns },
     { id: "blocks", label: "Blocks", icon: Container },
     { id: "plaster", label: "Plaster", icon: PaintBucket },
     { id: "steel", label: "Steel", icon: Layers },
     { id: "rcc", label: "RCC Structure", icon: Spline },
-    { id: "master", label: "Master Quantities", icon: Calculator },
     { id: "water", label: "Water", icon: Droplet },
   ] as const;
   const [showCost, setShowCost] = useState(false);
@@ -78,7 +78,7 @@ export default function ConstructionMaterialEstimator() {
     { id: "sand", label: "Sand", icon: Scaling },
   ] as const;
   type TabId = (typeof fullTabs)[number]["id"];
-  const [activeTab, setActiveTab] = useState<TabId>("concrete");
+  const [activeTab, setActiveTab] = useState<TabId>("master");
   /* Project Cart state */ interface CartItem {
     id: string;
     name: string;

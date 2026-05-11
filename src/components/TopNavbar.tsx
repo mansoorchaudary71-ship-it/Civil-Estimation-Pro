@@ -45,16 +45,16 @@ export default function TopNavbar({
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto relative shrink-0 z-40 px-3 sm:px-6 pt-4 sm:pt-6 pb-2">
-      <div className="w-full px-3 sm:px-5 py-2.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 rounded-full transition-colors duration-300 flex items-center justify-between shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)]">
+    <div className="w-full max-w-7xl mx-auto relative shrink-0 z-40 px-4 sm:px-8 pt-6 sm:pt-8 pb-4">
+      <div className="w-full px-4 sm:px-6 py-3 bg-white/70 dark:bg-slate-900/70 backdrop-blur-2xl border border-white/60 dark:border-slate-700/50 rounded-full transition-all duration-300 flex items-center justify-between shadow-[0_8px_32px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
         
         {/* Left: Text navigation links */}
-        <div className="hidden lg:flex items-center gap-1 xl:gap-2 flex-1 justify-start">
+        <div className="hidden lg:flex items-center gap-2 flex-1 justify-start">
           {navLinks.map((link) => (
             <button 
               key={link.name} 
               onClick={() => onNavigate?.(link.id)}
-              className="px-3 xl:px-4 py-2 text-[13px] xl:text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-100/50 dark:hover:bg-amber-900/30 rounded-full transition-all duration-300 whitespace-nowrap"
+              className="px-5 py-2.5 text-[14px] font-bold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white/60 dark:hover:bg-slate-800/60 rounded-full transition-all duration-300 whitespace-nowrap"
             >
               {link.name}
             </button>
@@ -65,40 +65,40 @@ export default function TopNavbar({
         <div className="lg:hidden flex items-center justify-start flex-1">
           <button 
             onClick={() => onOpenSidebar?.()}
-            className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            className="p-2.5 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
           >
-            <Menu className="w-5 h-5" />
+            <Menu className="w-6 h-6" />
           </button>
         </div>
 
         {/* Center: Logo perfectly centered */}
-        <div className="flex items-center justify-center gap-2 cursor-pointer group shrink-0 px-2 sm:px-4">
-          <div className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center transition-all duration-300 group-hover:scale-105 text-slate-800 dark:text-white">
-            <Logo className="w-7 h-7 sm:w-8 sm:h-8" />
+        <div className="flex items-center justify-center gap-3 cursor-pointer group shrink-0 px-2 sm:px-4">
+          <div className="w-8 h-8 flex items-center justify-center transition-all duration-300 group-hover:scale-110 text-indigo-600 dark:text-indigo-400">
+            <Logo className="w-8 h-8" />
           </div>
-          <span className="hidden sm:block font-black text-base sm:text-lg tracking-tight text-slate-800 dark:text-slate-100 whitespace-nowrap">
+          <span className="hidden sm:block font-black text-[19px] tracking-tight text-slate-800 dark:text-slate-100 whitespace-nowrap">
             Civil Estimation Pro
           </span>
         </div>
 
         {/* Right: Action Buttons */}
-        <div className="flex items-center justify-end gap-2 md:gap-3 shrink-0 flex-1">
+        <div className="flex items-center justify-end gap-3 shrink-0 flex-1">
           <div className="hidden sm:block">
             <GlobalSettingsToggle />
           </div>
-          <div className="h-5 w-px bg-slate-200 dark:bg-slate-700 hidden lg:block mx-0.5" />
+          <div className="h-5 w-px bg-slate-200/50 dark:bg-slate-700/50 hidden lg:block mx-1" />
           
           {!isAuthenticated ? (
             <>
               <button 
                 onClick={onOpenAuth}
-                className="hidden md:block px-3 py-2 rounded-full text-[13px] md:text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-amber-700 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-slate-800 transition-all duration-300 whitespace-nowrap"
+                className="hidden md:block px-5 py-2.5 rounded-full text-[14px] font-bold text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white/60 dark:hover:bg-slate-800/60 transition-all duration-300 whitespace-nowrap"
               >
                 Sign In
               </button>
               <button 
                 onClick={onOpenAuth}
-                className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[13px] sm:text-sm font-bold text-white bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-700 hover:to-orange-600 shadow-lg shadow-amber-500/30 active:scale-95 transition-all duration-300 whitespace-nowrap"
+                className="px-6 py-2.5 rounded-full text-[14px] font-bold text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/30 active:scale-95 transition-all duration-300 whitespace-nowrap"
               >
                 Get Started
               </button>

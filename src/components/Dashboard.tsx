@@ -422,14 +422,14 @@ export default function Dashboard({
       </div>
 
       <div className="mb-8 flex flex-col items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500 text-center mt-6">
-        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#0f172a] dark:text-white flex items-center justify-center gap-2">
+        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-[#0f172a] dark:text-white flex items-center justify-center gap-2 flex-wrap">
           {user ? (
-            <>Welcome back, {user.displayName || "User"}</>
+            <>Welcome back, <span className="relative"><span className="relative z-10 text-indigo-600 dark:text-indigo-400">{user.displayName || "User"}</span><svg className="absolute w-full h-3 -bottom-1 left-0 text-indigo-200 dark:text-indigo-900/50 -z-0" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0,15 Q50,0 100,15" stroke="currentColor" strokeWidth="8" fill="none" strokeLinecap="round" /></svg></span></>
           ) : (
-            <>Welcome to Civil Estimation Pro</>
+            <>Welcome to Civil <span className="relative whitespace-nowrap"><span className="relative z-10 text-indigo-600 dark:text-indigo-400">Estimation Pro</span><svg className="absolute w-full h-3 -bottom-1 left-0 text-indigo-200 dark:text-indigo-900/50 -z-0" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0,15 Q30,5 100,15" stroke="currentColor" strokeWidth="8" fill="none" strokeLinecap="round" /></svg></span></>
           )}{" "}
           <span
-            className="text-2xl md:text-3xl animate-bounce origin-bottom hover:animate-none cursor-default inline-block"
+            className="text-3xl md:text-5xl animate-bounce origin-bottom hover:animate-none cursor-default inline-block"
             style={{ animationDuration: "2s", animationIterationCount: 2 }}
           >
             👋
@@ -454,29 +454,30 @@ export default function Dashboard({
       </div>
 
       <div className="mb-10 flex flex-col justify-center animate-in fade-in slide-in-from-bottom-4 duration-500 delay-75">
-        <div className="relative group w-full max-w-2xl mx-auto rounded-full p-[1px] bg-gradient-to-r from-red-500 via-yellow-400 to-blue-500 shadow-sm focus-within:shadow-[0_0_15px_rgba(239,68,68,0.4)] transition-all">
+        <div className="relative group w-full max-w-2xl mx-auto drop-shadow-md">
           <div className="absolute inset-y-0 left-[24px] flex items-center pointer-events-none z-10">
-            <Search className="text-slate-400 dark:text-slate-500 w-5 h-5 transition-colors group-focus-within:text-red-500" />
+            <Search className="text-slate-400 dark:text-slate-500 w-6 h-6 transition-colors group-focus-within:text-indigo-500" />
           </div>
           <input
             type="text"
             placeholder="Search tools, materials, or projects."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="relative w-full bg-white dark:bg-slate-900 rounded-full py-3.5 pl-[46px] pr-6 text-base font-semibold text-slate-800 dark:text-white outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 placeholder:font-medium"
+            className="w-full bg-white/80 backdrop-blur-xl dark:bg-slate-900/80 rounded-full py-4 pl-[60px] pr-6 text-lg font-medium text-slate-800 dark:text-white outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 border border-white/50 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 shadow-[0_8px_32px_rgba(0,0,0,0.05)] focus:shadow-[0_10px_40px_rgba(99,102,241,0.15)]"
+            style={{ borderRadius: '9999px', borderWidth: '1px' }}
           />
         </div>
 
-        <div className="mt-6 md:mt-8">
-          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 w-full max-w-4xl mx-auto">
+        <div className="mt-8">
+          <div className="flex flex-wrap items-center justify-center gap-3 w-full max-w-5xl mx-auto">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 md:px-5 md:py-2.5 rounded-full whitespace-nowrap text-sm font-semibold transition-all duration-300 ${
+                className={`px-5 py-2.5 rounded-full whitespace-nowrap text-[15px] font-semibold transition-all duration-300 ${
                   activeCategory === category
-                    ? "bg-slate-800 text-white shadow-md dark:bg-slate-200 dark:text-slate-900 border border-transparent"
-                    : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:border-slate-300 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-700 shadow-sm"
+                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 transform scale-105"
+                    : "bg-white/60 backdrop-blur-md text-slate-600 border border-white/50 hover:bg-white hover:shadow-md dark:bg-slate-800/60 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
                 }`}
               >
                 {category}
@@ -500,7 +501,7 @@ export default function Dashboard({
                       key={mod.id}
                       id={`module-card-${mod.id}`}
                       onClick={() => onSelectModule(mod.id as ModuleId)}
-                      className="col-span-1 bg-gradient-to-br from-indigo-600 via-purple-600 to-purple-800 p-6 md:p-8 rounded-2xl transition-all duration-300 flex flex-col items-center relative text-center group hover:-translate-y-1.5 shadow-md shadow-indigo-500/20 hover:shadow-2xl hover:shadow-indigo-500/40 min-h-[240px] overflow-hidden"
+                      className="col-span-1 bg-gradient-to-br from-indigo-600 via-purple-600 to-purple-800 p-8 rounded-[32px] transition-all duration-300 flex flex-col items-center relative text-center group hover:-translate-y-2 shadow-[0_12px_40px_rgba(79,70,229,0.25)] hover:shadow-[0_20px_50px_rgba(79,70,229,0.4)] min-h-[260px] overflow-hidden"
                     >
                       <div className="absolute right-[-10%] bottom-[-5%] text-indigo-300/10 group-hover:text-indigo-300/20 transition-all duration-500 pointer-events-none group-active:scale-95 group-active:-rotate-6">
                         <Home
@@ -510,27 +511,24 @@ export default function Dashboard({
                       </div>
 
                       <div className="relative z-10 w-full flex-1 flex flex-col items-center">
-                        <div className="relative w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4 shrink-0">
-                          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-400/40 to-transparent blur-[12px] md:blur-[16px] transition-transform duration-500 group-hover:scale-150 group-active:scale-100"></div>
-                          <mod.icon
-                            className="relative z-10 w-7 h-7 md:w-8 md:h-8 text-indigo-100 transition-all duration-300 group-hover:scale-110 group-active:scale-95 group-active:rotate-12"
-                            strokeWidth={2.5}
-                          />
+                        <div className="relative w-16 h-16 flex items-center justify-center mb-5 shrink-0">
+                          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-400/40 to-transparent blur-[16px] transition-transform duration-500 group-hover:scale-150"></div>
+                          <mod.icon className="relative z-10 w-8 h-8 text-indigo-50 transition-transform duration-300 group-hover:scale-110" strokeWidth={2.5} />
                         </div>
 
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-indigo-400/30 bg-white/10 backdrop-blur-sm text-[11px] md:text-[12px] font-bold tracking-[0.1em] uppercase text-[#e0e7ff] shadow-sm mb-4">
+                        <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-indigo-300/30 bg-white/10 backdrop-blur-md text-[12px] font-bold tracking-widest uppercase text-indigo-50 shadow-sm mb-5">
                           <span className="truncate">{mod.category}</span>
                         </div>
 
-                        <h3 className="text-[18px] md:text-[20px] font-extrabold text-white mb-4 leading-[1.2]">
+                        <h3 className="text-[22px] font-bold text-white mb-4 leading-tight">
                           {mod.title}
                         </h3>
 
                         <div className="flex flex-row flex-wrap justify-center gap-2 mt-auto pt-2 w-full">
-                          <div className="inline-flex items-center px-3 py-1 md:px-4 md:py-1.5 rounded-[10px] md:rounded-full border border-indigo-400/40 bg-white/10 backdrop-blur-md text-[12px] md:text-[13px] font-medium text-indigo-50 transition-colors group-hover:bg-white/20 group-hover:border-indigo-300/60">
+                          <div className="inline-flex items-center px-4 py-2 rounded-full border border-indigo-300/40 bg-white/10 backdrop-blur-md text-[13px] font-medium text-indigo-50 transition-colors group-hover:bg-white/20">
                             Grey Structure
                           </div>
-                          <div className="inline-flex items-center px-3 py-1 md:px-4 md:py-1.5 rounded-[10px] md:rounded-full border border-indigo-400/40 bg-white/10 backdrop-blur-md text-[12px] md:text-[13px] font-medium text-indigo-50 transition-colors group-hover:bg-white/20 group-hover:border-indigo-300/60">
+                          <div className="inline-flex items-center px-4 py-2 rounded-full border border-indigo-300/40 bg-white/10 backdrop-blur-md text-[13px] font-medium text-indigo-50 transition-colors group-hover:bg-white/20">
                             Finishing
                           </div>
                         </div>
@@ -545,29 +543,29 @@ export default function Dashboard({
                     key={mod.id}
                     id={`module-card-${mod.id}`}
                     onClick={() => onSelectModule(mod.id as ModuleId)}
-                    className={`col-span-1 bg-white dark:bg-slate-900 p-6 md:p-8 rounded-2xl transition-all duration-300 flex flex-col items-center relative text-center group hover:-translate-y-1.5 shadow-sm hover:shadow-xl border-2 border-slate-200 hover:border-slate-300 dark:border-slate-800 dark:hover:border-slate-700 min-h-[220px] overflow-hidden`}
+                    className="col-span-1 bg-white/70 backdrop-blur-xl dark:bg-slate-900/70 p-8 rounded-[32px] transition-all duration-300 flex flex-col items-center relative text-center group hover:-translate-y-2 shadow-[0_8px_32px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.2)] dark:hover:shadow-[0_16px_48px_rgba(0,0,0,0.4)] border border-white/60 hover:border-white dark:border-slate-700/50 dark:hover:border-slate-600 min-h-[240px] overflow-hidden"
                   >
                     <div className="relative z-10 w-full flex-1 flex flex-col items-center">
-                      <div className="relative w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4 shrink-0">
+                      <div className="relative w-16 h-16 flex items-center justify-center mb-5 shrink-0">
                         <div
-                          className={`absolute inset-0 rounded-full ${theme.blob} blur-[12px] md:blur-[16px] transition-transform duration-500 group-hover:scale-150 group-active:scale-100`}
+                          className={`absolute inset-0 rounded-full ${theme.blob} blur-[16px] transition-transform duration-500 group-hover:scale-150`}
                         ></div>
                         <mod.icon
-                          className={`relative z-10 w-7 h-7 md:w-8 md:h-8 ${theme.text} transition-all duration-300 group-hover:scale-110 group-active:scale-95 group-active:rotate-12`}
+                          className={`relative z-10 w-8 h-8 ${theme.text} transition-transform duration-300 group-hover:scale-110`}
                           strokeWidth={2.5}
                         />
                       </div>
 
                       <div
-                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border ${theme.border} bg-slate-50 dark:bg-slate-800/80 shadow-sm text-[11px] md:text-[12px] font-bold tracking-[0.1em] uppercase ${theme.text} mb-4`}
+                        className={`inline-flex items-center px-4 py-1.5 rounded-full border ${theme.border} bg-white/50 backdrop-blur-sm dark:bg-slate-800/80 shadow-sm text-[12px] font-bold tracking-widest uppercase ${theme.text} mb-4`}
                       >
                         <span className="truncate">{mod.category}</span>
                       </div>
 
-                      <h3 className="text-[18px] md:text-[20px] font-extrabold text-[#0f172a] dark:text-white mb-3 leading-[1.2]">
+                      <h3 className="text-[20px] font-bold text-slate-800 dark:text-white mb-3 leading-tight">
                         {mod.title}
                       </h3>
-                      <p className="text-[13px] md:text-[14px] text-slate-500 dark:text-slate-400 font-medium leading-relaxed line-clamp-3 mt-auto">
+                      <p className="text-[14px] text-slate-500 dark:text-slate-400 font-medium leading-relaxed line-clamp-3 mt-auto">
                         {mod.desc}
                       </p>
                     </div>

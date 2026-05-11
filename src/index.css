@@ -6,66 +6,39 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  /* Inject Warm Palette replacing Slate */
-  --color-slate-50: #F9F8F6;
-  --color-slate-100: #F5F2EB;
-  --color-slate-200: #EAE6DC;
-  --color-slate-300: #DCD5C6;
-  --color-slate-400: #BDB49F;
-  --color-slate-500: #9C927A;
-  --color-slate-600: #7A715A;
-  --color-slate-700: #5A5240;
-  --color-slate-800: #3D372B;
-  --color-slate-900: #2B2519;
-  --color-slate-950: #1A160F;
-
-  /* Inject Warm Palette replacing Gray */
-  --color-gray-50: #F9F8F6;
-  --color-gray-100: #F5F2EB;
-  --color-gray-200: #EAE6DC;
-  --color-gray-300: #DCD5C6;
-  --color-gray-400: #BDB49F;
-  --color-gray-500: #9C927A;
-  --color-gray-600: #7A715A;
-  --color-gray-700: #5A5240;
-  --color-gray-800: #3D372B;
-  --color-gray-900: #2B2519;
-  --color-gray-950: #1A160F;
-
-  /* Update shadows to be softer / warmer */
-  --shadow-sm: 0 1px 2px 0 rgba(43, 37, 25, 0.05);
-  --shadow: 0 1px 3px 0 rgba(43, 37, 25, 0.1), 0 1px 2px -1px rgba(43, 37, 25, 0.1);
-  --shadow-md: 0 4px 6px -1px rgba(43, 37, 25, 0.1), 0 2px 4px -2px rgba(43, 37, 25, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(43, 37, 25, 0.1), 0 4px 6px -4px rgba(43, 37, 25, 0.1);
-  --shadow-xl: 0 20px 25px -5px rgba(43, 37, 25, 0.1), 0 8px 10px -6px rgba(43, 37, 25, 0.1);
+  /* Update shadows to be softer, more diffused (glassmorphism style) */
+  --shadow-sm: 0 2px 8px 0 rgba(0, 0, 0, 0.03);
+  --shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 8px 24px -2px rgba(0, 0, 0, 0.05), 0 4px 8px -2px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 12px 32px -4px rgba(0, 0, 0, 0.06), 0 8px 16px -6px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 48px -5px rgba(0, 0, 0, 0.08), 0 10px 24px -8px rgba(0, 0, 0, 0.04);
 }
 
 @custom-variant dark (&:is(.dark *));
 
 @layer base {
   :root {
-    --background: 40 14% 97%; /* #f9f8f6 */
-    --foreground: 39 13% 21%; /* #3D372B */
-    --border: 43 20% 89%; /* #EAE6DC */
-    --ring: 39 13% 21%;
+    --background: 210 40% 98%;
+    --foreground: 222.2 84% 4.9%;
   }
 
   .dark {
-    --background: 39 13% 21%; /* #3D372B */
-    --foreground: 40 14% 97%; /* #f9f8f6 */
-    --border: 43 15% 35%; /* #5A5240 */
-    --ring: 43 20% 89%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
   }
 
   body {
-    background-color: hsl(var(--background));
+    background-color: #fafaf9; /* Fallback */
+    /* Soft, subtle, multi-color mesh gradient background (peach, purple, white blend) */
     background-image: 
-      linear-gradient(rgba(122, 113, 90, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(122, 113, 90, 0.05) 1px, transparent 1px),
-      linear-gradient(rgba(122, 113, 90, 0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(122, 113, 90, 0.08) 1px, transparent 1px);
-    background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
-    background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+      radial-gradient(at 10% 20%, hsla(28, 100%, 74%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, hsla(250, 100%, 75%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, hsla(355, 100%, 93%, 0.3) 0px, transparent 50%),
+      radial-gradient(at 80% 50%, hsla(340, 100%, 76%, 0.12) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(22, 100%, 77%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 80% 100%, hsla(242, 100%, 70%, 0.15) 0px, transparent 50%),
+      radial-gradient(at 50% 50%, hsla(0, 0%, 100%, 0.8) 0px, transparent 100%);
+    background-attachment: fixed;
     color: hsl(var(--foreground));
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -73,11 +46,15 @@
 }
 
 .dark body {
+    background-color: #0f172a;
     background-image: 
-      linear-gradient(rgba(249, 248, 246, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(249, 248, 246, 0.03) 1px, transparent 1px),
-      linear-gradient(rgba(249, 248, 246, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(249, 248, 246, 0.05) 1px, transparent 1px);
+      radial-gradient(at 10% 20%, hsla(28, 100%, 74%, 0.05) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, hsla(250, 100%, 75%, 0.05) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, hsla(355, 100%, 93%, 0.05) 0px, transparent 50%),
+      radial-gradient(at 80% 50%, hsla(340, 100%, 76%, 0.05) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(22, 100%, 77%, 0.05) 0px, transparent 50%),
+      radial-gradient(at 80% 100%, hsla(242, 100%, 70%, 0.05) 0px, transparent 50%),
+      radial-gradient(at 50% 50%, hsla(222, 84%, 4.9%, 0.8) 0px, transparent 100%);
 }
 
 /* Custom Scrollbar Styles */
@@ -134,11 +111,19 @@
   input[type="password"],
   select,
   textarea {
-    border-width: 1.5px !important;
-    border-color: #94a3b8 !important; /* Cool gray */
+    border-width: 1px !important;
+    border-color: #e2e8f0 !important; /* Lighter borders for airy feel */
     border-style: solid !important;
-    box-shadow: none !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02) !important;
+    border-radius: 9999px !important; /* Pill shape for inputs globally */
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
     transition: all 0.2s ease-in-out !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  textarea {
+    border-radius: 24px !important;
   }
 
   input[type="text"]:focus,
@@ -147,9 +132,10 @@
   input[type="password"]:focus,
   select:focus,
   textarea:focus {
-    border-color: #3b82f6 !important; /* Blue accent */
+    border-color: #6366f1 !important; /* Indigo primary accent */
     outline: none !important;
-    box-shadow: 0 0 0 1.5px #3b82f6 !important;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.15) !important;
+    background-color: #ffffff !important;
   }
 
   .dark input[type="text"],
@@ -158,7 +144,8 @@
   .dark input[type="password"],
   .dark select,
   .dark textarea {
-    border-color: #475569 !important; /* Darker cool gray for dark mode */
+    border-color: #334155 !important; 
+    background-color: rgba(30, 41, 59, 0.6) !important;
   }
 
   .dark input[type="text"]:focus,
@@ -167,7 +154,8 @@
   .dark input[type="password"]:focus,
   .dark select:focus,
   .dark textarea:focus {
-    border-color: #60a5fa !important; /* Lighter blue for dark mode */
-    box-shadow: 0 0 0 1.5px #60a5fa !important;
+    border-color: #818cf8 !important; 
+    box-shadow: 0 4px 15px rgba(129, 140, 248, 0.15) !important;
+    background-color: rgba(30, 41, 59, 0.9) !important;
   }
 }

@@ -101,7 +101,7 @@ export default function App() {
           onOpenProfile={() => { setIsSidebarOpen(false); setIsProfileOpen(true); }}
         />
 
-        <main id="main-content" className="flex-1 flex flex-col bg-slate-100 overflow-hidden relative w-full h-full transition-colors duration-300">
+        <main id="main-content" className="flex-1 flex flex-col bg-transparent overflow-hidden relative w-full h-full transition-colors duration-300">
           {["home", "my-estimates", "about", "careers", "contact", "blog"].includes(activeModule) ? (
             <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-y-auto pb-[90px] md:pb-0">
               <TopNavbar 
@@ -174,16 +174,13 @@ function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: 
   ];
 
   return (
-    <div className="flex items-center px-4 py-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 sticky top-0 z-30 shrink-0 h-14 transition-colors duration-300">
-      <button onClick={onOpenSidebar} className="p-2 mr-2 -ml-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-500 dark:text-slate-400 hidden md:block">
+    <div className="flex items-center px-6 py-2.5 mx-4 mt-6 mb-4 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/50 dark:border-slate-700/50 rounded-full shadow-[0_4px_24px_rgba(0,0,0,0.04)] sticky top-6 z-30 shrink-0 min-h-[56px] transition-all duration-300">
+      <button onClick={onOpenSidebar} className="p-2 mr-3 -ml-2 rounded-full hover:bg-white/80 dark:hover:bg-slate-800/80 text-slate-500 dark:text-slate-400 hidden md:block transition-all">
         <Menu className="w-5 h-5" />
       </button>
 
-      <div className="flex items-center gap-2 mr-4 shrink-0 hidden md:flex cursor-pointer" onClick={onGoHome}>
-         <Logo className="w-6 h-6" />
-         <span className="font-bold text-[1rem] tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300">
-           Civil Estimation Pro
-         </span>
+      <div className="flex items-center gap-2 mr-5 shrink-0 hidden md:flex cursor-pointer transition-transform hover:scale-105" onClick={onGoHome}>
+         <Logo className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
       </div>
       
       {onGoHome ? (
@@ -191,14 +188,14 @@ function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: 
           <Breadcrumb items={breadcrumbItems} />
         </div>
       ) : (
-        <h1 className="text-base sm:text-lg font-bold text-gray-800 dark:text-white flex-1 truncate pr-2">{title}</h1>
+        <h1 className="text-[17px] font-bold text-slate-800 dark:text-white flex-1 truncate pr-2">{title}</h1>
       )}
 
-      <div className="hidden sm:flex mr-3">
+      <div className="hidden sm:flex mx-3">
         <GlobalSettingsToggle />
       </div>
 
-      <button onClick={onOpenSettings} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-500 dark:text-slate-400 transition-colors">
+      <button onClick={onOpenSettings} className="p-2 -mr-2 rounded-full hover:bg-white/80 dark:hover:bg-slate-800/80 text-slate-500 dark:text-slate-400 transition-all">
         <SettingsIcon className="w-5 h-5" />
       </button>
     </div>
