@@ -405,6 +405,149 @@ export default function SewerageEstimator() {
                     </div>
                   </div>
                 </div>
+
+                {/* Trench Cross-Section Diagram */}
+                <div className="mt-8 bg-white border border-gray-100 rounded-[1.5rem] p-6 flex flex-col items-center shadow-sm">
+                  <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-6 flex items-center gap-2">
+                    <AlignVerticalJustifyStart className="w-4 h-4" />
+                    Trench Cross Section Profile
+                  </h3>
+                  
+                  <div className="w-full max-w-lg relative">
+                    <svg viewBox="0 0 500 300" className="w-full h-auto drop-shadow-md">
+                      <defs>
+                        <pattern id="soil" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                          <circle cx="2" cy="2" r="1" fill="#d4af37" opacity="0.3" />
+                          <circle cx="10" cy="10" r="1.5" fill="#8b4513" opacity="0.2" />
+                          <circle cx="18" cy="4" r="0.8" fill="#a0522d" opacity="0.4" />
+                        </pattern>
+                        <pattern id="bedding" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                          <circle cx="2" cy="2" r="1" fill="#9ca3af" />
+                          <circle cx="8" cy="6" r="1.5" fill="#6b7280" />
+                          <circle cx="4" cy="8" r="0.8" fill="#4b5563" />
+                        </pattern>
+                        <pattern id="backfill" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+                          <line x1="0" y1="0" x2="16" y2="16" stroke="#d97706" strokeWidth="1" opacity="0.2" />
+                          <line x1="16" y1="0" x2="0" y2="16" stroke="#d97706" strokeWidth="1" opacity="0.2" />
+                        </pattern>
+                      </defs>
+
+                      {/* Ground level line */}
+                      <line x1="20" y1="40" x2="480" y2="40" stroke="#84cc16" strokeWidth="4" strokeLinecap="round" />
+                      <line x1="20" y1="44" x2="480" y2="44" stroke="#4d7c0f" strokeWidth="2" strokeLinecap="round" opacity="0.5" />
+                      
+                      {(() => {
+                        const isSloped = trenchProfile === "sloped";
+                        const wBot = parseFloat(trenchWidth) || 1.5;
+                        const d = parseFloat(trenchDepth) || 2.5;
+                        const s = parseFloat(trenchSlopeRatio) || 0.5;
+                        const wTop = isSloped ? wBot + 2 * (d * s) : wBot;
+                        const pipeD = parseFloat(pipeOuterDiameter) || 0.5;
+                        const bedD = parseFloat(beddingDepth) || 0.15;
+
+                        // Diagram scaling bounds
+                        const svgWidth = 500;
+                        const svgHeight = 300;
+                        const yTop = 40;
+                        const yBot = 260; // diagram trench bottom
+                        const h = yBot - yTop;
+
+                        const maxWDraw = 360;
+                        const wRatio = wTop > 0 ? maxWDraw / wTop : 1;
+                        
+                        const drawTopW = maxWDraw;
+                        const drawBotW = wBot * wRatio;
+
+                        const x1 = (svgWidth - drawTopW) / 2; // Top Left
+                        const x2 = x1 + drawTopW; // Top Right
+                        const x4 = (svgWidth - drawBotW) / 2; // Bottom Left
+                        const x3 = x4 + drawBotW; // Bottom Right
+
+                        // Pipe scaling
+                        const depthRatio = h / d;
+                        const pDiaDraw = pipeD * depthRatio;
+                        const bDiaDraw = bedD * depthRatio;
+                        
+                        // Pipe center X and Y
+                        const pCX = svgWidth / 2;
+                        const pCY = yBot - bDiaDraw - (pDiaDraw / 2);
+
+                        return (
+                          <>
+                            {/* The Trench Hole (Backfill color) */}
+                            <polygon 
+                              points={`${x1},${yTop} ${x2},${yTop} ${x3},${yBot} ${x4},${yBot}`}
+                              fill="url(#backfill)"
+                              stroke="#b45309"
+                              strokeWidth="2"
+                              strokeDasharray="4 4"
+                            />
+
+                            {/* Bedding Material */}
+                            <polygon 
+                              points={`
+                                ${(x4 + (yBot - (yBot - bDiaDraw)) * ((x1 - x4)/h))},${yBot - bDiaDraw}
+                                ${(x3 + (yBot - (yBot - bDiaDraw)) * ((x2 - x3)/h))},${yBot - bDiaDraw}
+                                ${x3},${yBot}
+                                ${x4},${yBot}
+                              `}
+                              fill="url(#bedding)"
+                              opacity="0.8"
+                            />
+
+                            {/* The Pipe */}
+                            <circle 
+                              cx={pCX} 
+                              cy={pCY} 
+                              r={pDiaDraw / 2} 
+                              fill="#f3f4f6" 
+                              stroke="#64748b" 
+                              strokeWidth="4" 
+                            />
+                            {/* Pipe inner hole */}
+                            <circle 
+                              cx={pCX} 
+                              cy={pCY} 
+                              r={(pDiaDraw / 2) * 0.8} 
+                              fill="#1e293b" 
+                            />
+
+                            {/* Annotations */}
+                            {/* Total depth line */}
+                            <line x1={x1 - 20} y1={yTop} x2={x1 - 20} y2={yBot} stroke="#64748b" strokeWidth="1.5" strokeDasharray="3 3"/>
+                            <text x={x1 - 25} y={yTop + h/2} fill="#475569" fontSize="12" fontWeight="bold" textAnchor="end" transform={`rotate(-90, ${x1 - 25}, ${yTop + h/2})`}>{d}m Depth</text>
+
+                            {/* Top width line */}
+                            <line x1={x1} y1={yTop - 15} x2={x2} y2={yTop - 15} stroke="#64748b" strokeWidth="1.5" />
+                            <polygon points={`${x1},${yTop - 15} ${x1+5},${yTop - 18} ${x1+5},${yTop - 12}`} fill="#64748b" />
+                            <polygon points={`${x2},${yTop - 15} ${x2-5},${yTop - 18} ${x2-5},${yTop - 12}`} fill="#64748b" />
+                            <text x={svgWidth/2} y={yTop - 22} fill="#475569" fontSize="12" fontWeight="bold" textAnchor="middle">{wTop.toFixed(2)}m Top Width</text>
+
+                            {/* Bottom width line */}
+                            <line x1={x4} y1={yBot + 15} x2={x3} y2={yBot + 15} stroke="#64748b" strokeWidth="1.5" />
+                            <polygon points={`${x4},${yBot + 15} ${x4+5},${yBot + 18} ${x4+5},${yBot + 12}`} fill="#64748b" />
+                            <polygon points={`${x3},${yBot + 15} ${x3-5},${yBot + 18} ${x3-5},${yBot + 12}`} fill="#64748b" />
+                            <text x={svgWidth/2} y={yBot + 30} fill="#475569" fontSize="12" fontWeight="bold" textAnchor="middle">{wBot}m Bottom W</text>
+
+                            {/* Pipe and Bedding labels */}
+                            <line x1={pCX + pDiaDraw/2 + 5} y1={pCY} x2={x2 + 20} y2={pCY} stroke="#94a3b8" strokeWidth="1" strokeDasharray="2 2" />
+                            <text x={x2 + 25} y={pCY + 4} fill="#64748b" fontSize="11" fontWeight="600">Pipe ∅{pipeD}m</text>
+
+                            <line x1={pCX + pDiaDraw/2} y1={yBot - bDiaDraw/2} x2={x2 + 20} y2={yBot - bDiaDraw/2} stroke="#94a3b8" strokeWidth="1" strokeDasharray="2 2" />
+                            <text x={x2 + 25} y={yBot - bDiaDraw/2 + 4} fill="#64748b" fontSize="11" fontWeight="600">{bedD}m Bedding</text>
+                            
+                            {/* Slope ratio text if sloped */}
+                            {isSloped && (
+                              <text x={x1 + 10} y={yTop + 30} fill="#b45309" fontSize="11" fontWeight="bold" textAnchor="start">
+                                1V : {s}H
+                              </text>
+                            )}
+                          </>
+                        );
+                      })()}
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

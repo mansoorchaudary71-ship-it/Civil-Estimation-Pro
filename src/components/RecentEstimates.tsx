@@ -208,7 +208,7 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
                 onDragStart={(e) => handleDragStart(e, est.id)}
                 onDragOver={(e) => handleDragOver(e, est.id)}
                 onDrop={handleDrop}
-                className={`group relative col-span-1 bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl transition-all duration-300 flex flex-col items-center text-center border cursor-pointer hover:-translate-y-1.5 shadow-sm hover:shadow-xl overflow-hidden ${dragOverId === est.id ? 'border-indigo-500 shadow-indigo-500/20' : est.theme.border} ${draggedId === est.id ? 'opacity-50' : 'opacity-100'}`}
+                className={`group relative col-span-1 bg-white dark:bg-slate-900 p-6 md:p-8 rounded-2xl transition-all duration-300 flex flex-col items-center text-center border-2 border-slate-200 hover:border-slate-300 dark:border-slate-800 dark:hover:border-slate-700 cursor-pointer hover:-translate-y-1.5 shadow-sm hover:shadow-xl overflow-hidden ${dragOverId === est.id ? '!border-indigo-500 shadow-indigo-500/20' : ''} ${draggedId === est.id ? 'opacity-50' : 'opacity-100'}`}
                 onClick={() => onSelectModule(est.type)}
                 style={{ minHeight: "240px" }}
               >

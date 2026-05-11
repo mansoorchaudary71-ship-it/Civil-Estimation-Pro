@@ -31,10 +31,21 @@ import MasterQuantityEstimator from "./MasterQuantityEstimator";
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import Brickwork9InchModule from "./Brickwork9InchModule";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from "recharts";
+import { SEO } from "../SEO";
+
 export default function ConstructionMaterialEstimator() {
   const { formatCurrency, currentUnit, currentCurrency } = useGlobalSettings();
   const { user } = useAuth();
   
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Construction Material Estimator",
+    "applicationCategory": "BusinessApplication",
+    "description": "Calculate exact material requirements like cement, sand, and aggregate for brickwork, plaster, and concrete.",
+    "operatingSystem": "All"
+  };
   
   const isSI = currentUnit === "Metric";
   const unitFt = isSI ? "m" : "ft";
@@ -918,6 +929,12 @@ export default function ConstructionMaterialEstimator() {
   const totalWater = cart.reduce((acc, item) => acc + item.waterLiters, 0);
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-slate-900 p-6 md:p-8">
+      <SEO 
+        title="Construction Material Estimator" 
+        description="Calculate exact material requirements like cement, sand, and aggregate for brickwork, plaster, and concrete across your construction projects." 
+        canonicalUrl="https://civilestimationpro.com/calculators" 
+        schema={schema}
+      />
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
           <div>
@@ -1198,6 +1215,70 @@ export default function ConstructionMaterialEstimator() {
                           )}
                         </span>
                       </div>
+                      
+                      {/* Pie Chart for Cost Breakdown */}
+                      {(() => {
+                        const pieData = [];
+                        const cCost = currentCartItem.cementBags * rates.cement;
+                        const sCost = currentCartItem.sandVol * rates.sand;
+                        const aCost = (currentCartItem.aggregateVol || 0) * rates.aggregate;
+                        const wCost = currentCartItem.waterLiters * rates.water;
+                        const stCost = (currentCartItem.steelKg || 0) * rates.steel;
+                        const bkCost = (currentCartItem.bricksCount || 0) * rates.bricks;
+                        const blCost = (currentCartItem.blocksCount || 0) * rates.blocks;
+
+                        if (cCost > 0) pieData.push({ name: 'Cement', value: cCost, fill: '#60a5fa' });
+                        if (sCost > 0) pieData.push({ name: 'Sand', value: sCost, fill: '#fbbf24' });
+                        if (aCost > 0) pieData.push({ name: 'Aggregate', value: aCost, fill: '#9ca3af' });
+                        if (wCost > 0) pieData.push({ name: 'Water', value: wCost, fill: '#22d3ee' });
+                        if (stCost > 0) pieData.push({ name: 'Steel', value: stCost, fill: '#818cf8' });
+                        if (bkCost > 0) pieData.push({ name: 'Bricks', value: bkCost, fill: '#fb7185' });
+                        if (blCost > 0) pieData.push({ name: 'Blocks', value: blCost, fill: '#a78bfa' });
+
+                        if (pieData.length === 0) return null;
+
+                        return (
+                          <div className="mt-4 pt-4 border-t border-slate-700/50">
+                            <h4 className="text-xs font-bold text-slate-400 text-center mb-2 uppercase tracking-wide">Cost Breakdown</h4>
+                            <div className="h-48 w-full">
+                              <ResponsiveContainer width="100%" height="100%">
+                                <PieChart>
+                                  <Pie
+                                    data={pieData}
+                                    cx="50%"
+                                    cy="50%"
+                                    innerRadius={45}
+                                    outerRadius={70}
+                                    paddingAngle={3}
+                                    dataKey="value"
+                                    stroke="none"
+                                  >
+                                    {pieData.map((entry, index) => (
+                                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                                    ))}
+                                  </Pie>
+                                  <RechartsTooltip 
+                                    formatter={(value: number) => formatCurrency(value)}
+                                    contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
+                                    itemStyle={{ color: '#e2e8f0' }}
+                                  />
+                                </PieChart>
+                              </ResponsiveContainer>
+                            </div>
+                            <div className="flex flex-wrap justify-center gap-2.5 mt-2">
+                              {pieData.map(entry => (
+                                <div key={entry.name} className="flex items-center gap-1.5 text-[10px] text-slate-300 font-medium">
+                                  <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: entry.fill }} />
+                                  {entry.name}
+                                  <span className="opacity-60 ml-0.5">
+                                    {Math.round((entry.value / pieData.reduce((acc, curr) => acc + curr.value, 0)) * 100)}%
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })()}
                     </div>
                   )}
                 </div>

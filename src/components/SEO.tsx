@@ -1,58 +1,47 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { Helmet } from "react-helmet-async";
 
 interface SEOProps {
   title: string;
   description: string;
   keywords?: string;
+  canonicalUrl?: string;
   schema?: Record<string, any>;
 }
 
-export const SEO: React.FC<SEOProps> = ({ title, description, keywords, schema }) => {
-  useEffect(() => {
-    // Update title
-    document.title = `${title} | Civil Estimation Pro`;
+export const SEO: React.FC<SEOProps> = ({ title, description, keywords, canonicalUrl, schema }) => {
+  const fullTitle = `${title} | Civil Estimation Pro`;
 
-    // Update meta description
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute("content", description);
-    } else {
-      const meta = document.createElement("meta");
-      meta.name = "description";
-      meta.content = description;
-      document.head.appendChild(meta);
-    }
+  const defaultSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Civil Estimation Pro",
+    "description": "Advanced estimators for live construction rate analysis, house estimating, and comprehensive BOQ calculators.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "All"
+  };
 
-    // Update meta keywords
-    if (keywords) {
-      const metaKeywords = document.querySelector('meta[name="keywords"]');
-      if (metaKeywords) {
-        metaKeywords.setAttribute("content", keywords);
-      } else {
-        const meta = document.createElement("meta");
-        meta.name = "keywords";
-        meta.content = keywords;
-        document.head.appendChild(meta);
-      }
-    }
+  const finalSchema = schema || defaultSchema;
 
-    // Add JSON-LD Schema
-    let script: HTMLScriptElement | null = null;
-    if (schema) {
-      script = document.createElement("script");
-      script.type = "application/ld+json";
-      script.text = JSON.stringify(schema);
-      document.head.appendChild(script);
-    }
+  return (
+    <Helmet>
+      <title>{fullTitle}</title>
+      <meta name="description" content={description} />
+      {keywords && <meta name="keywords" content={keywords} />}
+      {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+      
+      <meta property="og:title" content={fullTitle} />
+      <meta property="og:description" content={description} />
+      {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+      <meta property="og:type" content="website" />
+      
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={fullTitle} />
+      <meta name="twitter:description" content={description} />
 
-    // Cleanup on unmount
-    return () => {
-      document.title = "Civil Estimation Pro";
-      if (script) {
-        document.head.removeChild(script);
-      }
-    };
-  }, [title, description, keywords, schema]);
-
-  return null;
+      <script type="application/ld+json">
+        {JSON.stringify(finalSchema)}
+      </script>
+    </Helmet>
+  );
 };

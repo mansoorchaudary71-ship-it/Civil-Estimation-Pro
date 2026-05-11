@@ -18,6 +18,7 @@ import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import SlabSteelModule, { SlabSteelResults } from "./SlabSteelModule";
 import { useSettings } from "../../context/SettingsContext";
+import { SEO } from "../SEO";
 
 const Tooltip = ({ content }: { content: string }) => (
   <div className="relative group inline-flex ml-1.5 align-middle">
@@ -250,6 +251,21 @@ export default function RccStructureCalculator({
           });
         }
       }
+
+      const sizeWeights: Record<string, number> = {};
+      sizeWeights[`Ø${mainDia}mm`] = (sizeWeights[`Ø${mainDia}mm`] || 0) + mainWt;
+      sizeWeights[`Ø${tieDia}mm`] = (sizeWeights[`Ø${tieDia}mm`] || 0) + tieWt + extraTiesWt;
+
+      Object.entries(sizeWeights).forEach(([size, w]) => {
+        if (w > 0) {
+          steelBreakdown.push({
+            label: `Total ${size}`,
+            details: "Grouped by size",
+            weight: w,
+            tooltip: `Total weight for all ${size} bars.`
+          });
+        }
+      });
     }
     return { concreteVol, totalSteelKg, inputsUsed, steelBreakdown };
   };
@@ -282,6 +298,13 @@ export default function RccStructureCalculator({
           : "w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8"
       }
     >
+      {!isEmbedded && (
+        <SEO 
+          title="RCC Structure Calculator" 
+          description="Calculate concrete volume and steel reinforcement weight for slabs and columns." 
+          canonicalUrl="https://civilestimationpro.com/rcc-calculator" 
+        />
+      )}
       <div className={isEmbedded ? "w-full" : "max-w-6xl mx-auto"}>
         {!isEmbedded && (
           <>
@@ -556,7 +579,7 @@ export default function RccStructureCalculator({
                     </thead>
                     <tbody className="divide-y divide-indigo-800/40 text-slate-200">
                       {steelBreakdown.map((item, idx) => (
-                        <tr key={idx} className="hover:bg-indigo-800/20 transition-colors">
+                        <tr key={idx} className={`transition-colors ${item.label.startsWith('Total Ø') ? 'bg-indigo-800/30 font-semibold' : 'hover:bg-indigo-800/20'}`}>
                           <td className="px-4 py-3">
                             <span className="flex items-center font-medium">
                               {item.label}

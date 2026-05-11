@@ -19,6 +19,7 @@ import {
   ArrowRightLeft,
   RefreshCcw,
 } from "lucide-react";
+import ColorfulTab from "../ui/ColorfulTab";
 import { CalculationHistory } from "../ui/CalculationHistory";
 type Category =
   | "Length"
@@ -397,59 +398,25 @@ export default function UnitConverter() {
           Instantly convert across 15 engineering and scientific categories with
           standard precision.
         </p>{" "}
-        {/* Categories Grid */}{" "}
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 mb-10">
-          {" "}
+        {/* Categories Tabs */}
+        <div className="flex overflow-x-auto pb-4 gap-2 mb-10 p-1">
           {categories.map((c) => {
             const Icon = c.icon;
             const isActive = activeCategory === c.id;
             const baseColor = c.color.split("-")[1];
             return (
-              <button
+              <ColorfulTab
                 key={c.id}
+                id={c.id}
+                label={c.label}
+                icon={<Icon className="w-5 h-5" />}
+                isActive={isActive}
                 onClick={() => setActiveCategory(c.id)}
-                className={`relative flex flex-col items-center justify-center gap-2 p-4 rounded-[20px] transition-all duration-200 overflow-hidden group hover:border-[color:var(--theme-color)] hover:bg-[color:var(--theme-bg-light)] ${isActive ? "shadow-sm" : "border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"}`}
-                style={
-                  {
-                    "--theme-color": `var(--color-${baseColor}-500)`,
-                    "--theme-color-hover": `var(--color-${baseColor}-600)`,
-                    "--theme-bg": `color-mix(in srgb, var(--color-${baseColor}-500) 10%, transparent)`,
-                    "--theme-bg-light": `color-mix(in srgb, var(--color-${baseColor}-500) 5%, transparent)`,
-                    borderColor: isActive ? "var(--theme-color)" : undefined,
-                    borderWidth: isActive ? "2px" : undefined,
-                    borderStyle: isActive ? "solid" : undefined,
-                    backgroundColor: isActive
-                      ? "var(--theme-bg-light)"
-                      : undefined,
-                  } as React.CSSProperties
-                }
-              >
-                {" "}
-                <div
-                  className="flex items-center justify-center w-12 h-12 rounded-xl transition-transform duration-300 group-hover:scale-110"
-                  style={{
-                    backgroundColor: "var(--theme-bg)",
-                    color: "var(--theme-color)",
-                    filter: isActive
-                      ? "drop-shadow(0 0 20px color-mix(in srgb, var(--theme-color) 25%, transparent))"
-                      : undefined,
-                  }}
-                >
-                  {" "}
-                  <Icon className="w-7 h-7" strokeWidth={2} />{" "}
-                </div>{" "}
-                <span
-                  className={`text-[11px] sm:text-xs font-extrabold tracking-wide text-center leading-tight ${isActive ? "" : "text-slate-600 dark:text-slate-400 group-hover:[color:var(--theme-color-hover)]"}`}
-                  style={{
-                    color: isActive ? "var(--theme-color-hover)" : undefined,
-                  }}
-                >
-                  {c.label}
-                </span>{" "}
-              </button>
+                colorTheme={baseColor as any}
+              />
             );
-          })}{" "}
-        </div>{" "}
+          })}
+        </div>
         {/* Conversion UI */}{" "}
         <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 md:p-12 border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none">
           {" "}
@@ -480,7 +447,7 @@ export default function UnitConverter() {
                 type="number"
                 value={fromValue}
                 onChange={(e) => handleFromValueChange(e.target.value)}
-                className="w-full bg-transparent border border-slate-200 text-4xl sm:text-5xl font-black text-slate-900 dark:text-white placeholder-slate-300 dark:placeholder-slate-700 focus:ring-0 p-0 text-center whitespace-nowrap"
+                className="w-full bg-transparent border-0 text-4xl sm:text-5xl font-black text-slate-900 dark:text-white placeholder-slate-300 dark:placeholder-slate-700 focus:ring-0 focus:outline-none p-0 text-center whitespace-nowrap"
                 placeholder="0"
               />{" "}
             </div>{" "}

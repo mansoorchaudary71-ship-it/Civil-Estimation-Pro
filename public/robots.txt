@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://civilestimationpro.com/sitemap.xml

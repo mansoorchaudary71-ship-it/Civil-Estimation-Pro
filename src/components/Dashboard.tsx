@@ -40,6 +40,7 @@ import {
   Columns,
   ClipboardList,
 } from "lucide-react";
+import { SEO } from "./SEO";
 
 import Logo from "./Logo";
 import RecentEstimates from "./RecentEstimates";
@@ -400,6 +401,11 @@ export default function Dashboard({
 
   return (
     <div className="flex-1 px-4 md:px-8 py-6 pb-12 w-full max-w-7xl mx-auto flex flex-col font-sans">
+      <SEO 
+        title="Dashboard" 
+        description="Civil Estimation Pro: Advanced estimators for live construction rate analysis, house estimating, and comprehensive BOQ calculators." 
+        canonicalUrl="https://civilestimationpro.com" 
+      />
       <div className="mb-6 flex items-center justify-between gap-3 md:hidden">
         <div className="flex items-center gap-2">
           <Logo className="w-8 h-8" />
@@ -494,11 +500,11 @@ export default function Dashboard({
                       key={mod.id}
                       id={`module-card-${mod.id}`}
                       onClick={() => onSelectModule(mod.id as ModuleId)}
-                      className="col-span-1 bg-gradient-to-br from-indigo-600 via-purple-600 to-purple-800 p-6 md:p-8 rounded-3xl transition-all duration-300 flex flex-col items-center relative text-center group hover:-translate-y-1.5 shadow-md shadow-indigo-500/20 hover:shadow-2xl hover:shadow-indigo-500/40 min-h-[240px] overflow-hidden"
+                      className="col-span-1 bg-gradient-to-br from-indigo-600 via-purple-600 to-purple-800 p-6 md:p-8 rounded-2xl transition-all duration-300 flex flex-col items-center relative text-center group hover:-translate-y-1.5 shadow-md shadow-indigo-500/20 hover:shadow-2xl hover:shadow-indigo-500/40 min-h-[240px] overflow-hidden"
                     >
                       <div className="absolute right-[-10%] bottom-[-5%] text-indigo-300/10 group-hover:text-indigo-300/20 transition-all duration-500 pointer-events-none group-active:scale-95 group-active:-rotate-6">
                         <Home
-                          className="w-[180px] h-[180px] md:w-[220px] md:h-[220px] opacity-80"
+                          className="w-[180px] h-[180px] md:w-[220px] md:h-[220px]"
                           strokeWidth={1}
                         />
                       </div>
@@ -508,7 +514,7 @@ export default function Dashboard({
                           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-400/40 to-transparent blur-[12px] md:blur-[16px] transition-transform duration-500 group-hover:scale-150 group-active:scale-100"></div>
                           <mod.icon
                             className="relative z-10 w-7 h-7 md:w-8 md:h-8 text-indigo-100 transition-all duration-300 group-hover:scale-110 group-active:scale-95 group-active:rotate-12"
-                            strokeWidth={1.5}
+                            strokeWidth={2.5}
                           />
                         </div>
 
@@ -539,7 +545,7 @@ export default function Dashboard({
                     key={mod.id}
                     id={`module-card-${mod.id}`}
                     onClick={() => onSelectModule(mod.id as ModuleId)}
-                    className={`col-span-1 bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl transition-all duration-300 flex flex-col items-center relative text-center group hover:-translate-y-1.5 shadow-sm hover:shadow-xl border ${theme.border} min-h-[220px] overflow-hidden`}
+                    className={`col-span-1 bg-white dark:bg-slate-900 p-6 md:p-8 rounded-2xl transition-all duration-300 flex flex-col items-center relative text-center group hover:-translate-y-1.5 shadow-sm hover:shadow-xl border-2 border-slate-200 hover:border-slate-300 dark:border-slate-800 dark:hover:border-slate-700 min-h-[220px] overflow-hidden`}
                   >
                     <div className="relative z-10 w-full flex-1 flex flex-col items-center">
                       <div className="relative w-14 h-14 md:w-16 md:h-16 flex items-center justify-center mb-4 shrink-0">
@@ -548,7 +554,7 @@ export default function Dashboard({
                         ></div>
                         <mod.icon
                           className={`relative z-10 w-7 h-7 md:w-8 md:h-8 ${theme.text} transition-all duration-300 group-hover:scale-110 group-active:scale-95 group-active:rotate-12`}
-                          strokeWidth={1.5}
+                          strokeWidth={2.5}
                         />
                       </div>
 

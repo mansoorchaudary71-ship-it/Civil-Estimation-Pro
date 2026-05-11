@@ -39,6 +39,7 @@ import GlobalSettingsModal from "./GlobalSettingsModal";
 import RccStructureCalculator from "./RccStructureCalculator";
 import MasterQuantityEstimator from "./MasterQuantityEstimator";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { SEO } from "../SEO";
 import ColorfulTab from "../ui/ColorfulTab";
 import UnitToggleGroup from "../ui/UnitToggleGroup";
 type GeometryState = {
@@ -563,6 +564,11 @@ export default function HouseEstimator() {
 
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
+      <SEO 
+        title="Complete House Estimator" 
+        description="Estimate complete house construction costs including grey structure and finishing works." 
+        canonicalUrl="https://civilestimationpro.com/house" 
+      />
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         <header className="mb-8 block">
           <div>

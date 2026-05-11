@@ -23,6 +23,7 @@ import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import Brickwork9InchModule from "./Brickwork9InchModule";
+import { SEO } from "../SEO";
 
 interface CalcItem {
   id: string;
@@ -446,6 +447,13 @@ export default function MasterQuantityEstimator({
           : "w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8"
       }
     >
+      {!isEmbedded && (
+        <SEO 
+          title="Master Quantity Estimator" 
+          description="Comprehensive construction quantity estimator for multiple elements including concrete, bricks, plaster, paint, and more." 
+          canonicalUrl="https://civilestimationpro.com/master-quantity" 
+        />
+      )}
       <div className={isEmbedded ? "w-full" : "max-w-7xl mx-auto"}>
         {!isEmbedded && (
           <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
