@@ -44,7 +44,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-        await createOrUpdateUserDoc(currentUser);
+        try {
+          await createOrUpdateUserDoc(currentUser);
+        } catch (error) {
+          console.warn("Failed to create or update user doc during auth state change:", error);
+        }
       }
       setUser(currentUser);
       setLoading(false);
@@ -57,7 +61,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
-      await createOrUpdateUserDoc(result.user);
+      try {
+        await createOrUpdateUserDoc(result.user);
+      } catch (error) {
+        console.warn("User signed in with Google, but failed to sync user doc:", error);
+      }
     } catch (error) {
        console.error("Google sign-in error:", error);
        throw error;
@@ -71,7 +79,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signUpWithEmail = async (email: string, pass: string, name: string) => {
     const res = await createUserWithEmailAndPassword(auth, email, pass);
     await updateProfile(res.user, { displayName: name });
-    await createOrUpdateUserDoc({ ...res.user, displayName: name } as User);
+    try {
+      await createOrUpdateUserDoc({ ...res.user, displayName: name } as User);
+    } catch (error) {
+      console.warn("User signed up, but failed to sync user doc:", error);
+    }
   };
 
   const logOut = async () => {

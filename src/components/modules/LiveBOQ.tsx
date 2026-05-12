@@ -283,7 +283,7 @@ export default function LiveBOQ() {
       setIsPdfLoading(true);
       await new Promise((resolve) => setTimeout(resolve, 50));
       try {
-        generatePDFReport(
+        await generatePDFReport(
           boqItems,
           measurements,
           scalePxPerUnit,

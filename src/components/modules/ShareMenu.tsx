@@ -16,6 +16,8 @@ import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import { useAuth } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
+import { generateProfessionalPDF, formatTitleCase, formatCapitalize, filterValidParameters } from "../../utils/pdfGenerator";
+
 interface ShareMenuProps {
   activeTab: string;
   data: Record<string, any>;
@@ -36,60 +38,6 @@ interface ShareMenuProps {
       color?: string;
     }[];
   };
-}
-function createDonutChart(
-  data: { label: string; value: number; color: string }[],
-  totalText: string,
-): Promise<string | null> {
-  return new Promise((resolve) => {
-    let svg = `<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg"> <defs> <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"> <feDropShadow dx="0" dy="8" stdDeviation="12" flood-opacity="0.15" /> </filter> </defs> <g filter="url(#shadow)">`;
-    let total = data.reduce((sum, d) => sum + d.value, 0);
-    if (total <= 0) return resolve(null);
-    let currentAngle = -Math.PI / 2;
-    const center = 400,
-      radius = 320,
-      innerRadius = 200;
-    data.forEach((d) => {
-      if (d.value <= 0) return;
-      const sliceAngle = (d.value / total) * 2 * Math.PI;
-      /* Gap between slices */ const gap = 0.02;
-      const drawAngle = Math.max(0, sliceAngle - gap);
-      const nextAngle = currentAngle + sliceAngle;
-      const x1 = center + radius * Math.cos(currentAngle + gap / 2);
-      const y1 = center + radius * Math.sin(currentAngle + gap / 2);
-      const x2 = center + radius * Math.cos(currentAngle + gap / 2 + drawAngle);
-      const y2 = center + radius * Math.sin(currentAngle + gap / 2 + drawAngle);
-      const ix1 = center + innerRadius * Math.cos(currentAngle + gap / 2);
-      const iy1 = center + innerRadius * Math.sin(currentAngle + gap / 2);
-      const ix2 =
-        center + innerRadius * Math.cos(currentAngle + gap / 2 + drawAngle);
-      const iy2 =
-        center + innerRadius * Math.sin(currentAngle + gap / 2 + drawAngle);
-      const largeArc = drawAngle > Math.PI ? 1 : 0;
-      if (sliceAngle > 2 * Math.PI - 0.01) {
-        svg += `<circle cx="400" cy="400" r="${(radius + innerRadius) / 2}" fill="none" stroke="${d.color}" stroke-width="${radius - innerRadius}" />`;
-      } else {
-        const path = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2} L ${ix2} ${iy2} A ${innerRadius} ${innerRadius} 0 ${largeArc} 0 ${ix1} ${iy1} Z`;
-        svg += `<path d="${path}" fill="${d.color}" />`;
-      }
-      currentAngle = nextAngle;
-    });
-    svg += `</g> <text x="400" y="380" text-anchor="middle" font-family="helvetica, sans-serif" font-size="40" fill="#64748b" font-weight="bold">Grand Total</text> <text x="400" y="440" text-anchor="middle" font-family="helvetica, sans-serif" font-size="56" fill="#1e293b" font-weight="bold">${totalText}</text> </svg>`;
-    const blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const img = new window.Image();
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = 800;
-      canvas.height = 800;
-      const ctx = canvas.getContext("2d");
-      if (ctx) ctx.drawImage(img, 0, 0);
-      URL.revokeObjectURL(url);
-      resolve(canvas.toDataURL("image/png", 1.0));
-    };
-    img.onerror = () => resolve(null);
-    img.src = url;
-  });
 }
 export default function ShareButtonWithPopup({
   activeTab,
@@ -123,8 +71,12 @@ export default function ShareButtonWithPopup({
   /* Close menu when clicking outside could be added, but a simple toggle is okay for now. */ const formatText =
     () => {
       let txt = `${title}\n\n`;
-      Object.entries(data).forEach(([key, val]) => {
-        txt += `${key}: ${val}\n`;
+      Object.entries(filterValidParameters(exportFormat?.inputs || data)).forEach(([key, val]) => {
+        txt += `${formatTitleCase(key)}: ${val}\n`;
+      });
+      txt += `\nBreakdown:\n`;
+      Object.entries(exportFormat?.breakdown || data).forEach(([key, val]) => {
+         txt += `${formatCapitalize(key.replace(/\*/g, ''))}: ${val}\n`;
       });
       txt += `\nGenerated via Civil Estimation Pro`;
       return txt;
@@ -191,8 +143,26 @@ export default function ShareButtonWithPopup({
         addRow("Blocks", cItem.blocksCount, "nos", "blocks");
     } else {
       Object.entries(exportFormat?.breakdown || data).forEach(([k, v]) => {
+        const vLower = String(v).toLowerCase();
+        let cost = 0;
+        let inferredKey = k.toLowerCase();
+        
+        if (inferredKey.includes("cement")) inferredKey = "cement";
+        else if (inferredKey.includes("sand")) inferredKey = "sand";
+        else if (inferredKey.includes("aggregate") || inferredKey.includes("crush")) inferredKey = "aggregate";
+        else if (inferredKey.includes("water")) inferredKey = "water";
+        else if (inferredKey.includes("steel")) inferredKey = "steel";
+        else if (inferredKey.includes("brick")) inferredKey = "bricks";
+        else if (inferredKey.includes("block")) inferredKey = "blocks";
+
+        if (rates && rates[inferredKey]) {
+          const rawNum = parseFloat(vLower.replace(/[^0-9.-]+/g, "")) || 0;
+          cost = rawNum * rates[inferredKey];
+        }
+
         const bg = isEven ? "#f9f9f9" : "#ffffff";
-        html += ` <tr style="background-color: ${bg};"> <td style="padding: 10px; border: 1px solid #ddd; color: #333;">${k}</td> <td style="padding: 10px; border: 1px solid #ddd; text-align: right; color: #333;">${v}</td> <td style="padding: 10px; border: 1px solid #ddd; text-align: right; color: #333;">-</td> </tr>`;
+        html += ` <tr style="background-color: ${bg};"> <td style="padding: 10px; border: 1px solid #ddd; color: #333;">${formatCapitalize(k.replace(/\*/g, ''))}</td> <td style="padding: 10px; border: 1px solid #ddd; text-align: right; color: #333;">${v}</td> <td style="padding: 10px; border: 1px solid #ddd; text-align: right; color: #333;">${cost > 0 ? cost.toFixed(2) : "-"}</td> </tr>`;
+        if (cost > 0) grandTotal += cost;
         isEven = !isEven;
       });
     }
@@ -208,57 +178,7 @@ export default function ShareButtonWithPopup({
   const generatePDF = async (
     exportType: "pdf" | "whatsapp" | "email" = "pdf",
   ) => {
-    const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.width;
-    /* 1. Header */ doc.setFillColor(40, 42, 101);
-    /* #282A65 */ doc.rect(0, 0, pageWidth, 30, "F");
-    doc.setTextColor(255, 255, 255);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(20);
-    doc.text(`${title}`, 14, 20);
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    const dateStr = new Date().toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
-    doc.text(`Date Generated: ${dateStr}`, pageWidth - 14, 16, {
-      align: "right",
-    });
-    doc.text(`Rates Valid As Of: ${dateStr}`, pageWidth - 14, 24, {
-      align: "right",
-    });
-    /* 2. Project Parameters */ let currentY = 40;
-    doc.setTextColor(40, 42, 101);
-    doc.setFontSize(14);
-    doc.setFont("helvetica", "bold");
-    doc.text("Project Parameters", 14, currentY);
-    doc.setDrawColor(40, 42, 101);
-    doc.setLineWidth(0.5);
-    doc.line(14, currentY + 2, pageWidth - 14, currentY + 2);
-    currentY += 10;
-    doc.setFontSize(10);
-    doc.setTextColor(50, 50, 50);
-    doc.setFont("helvetica", "normal");
-    let isLeft = true;
-    const inputsInfo = {
-      "Structure Type": title,
-      ...(exportFormat?.inputs || {}),
-    };
-    Object.entries(inputsInfo).forEach(([key, val]) => {
-      const x = isLeft ? 14 : pageWidth / 2 + 10;
-      doc.setFont("helvetica", "bold");
-      doc.text(`${key}:`, x, currentY);
-      doc.setFont("helvetica", "normal");
-      doc.text(String(val), x + doc.getTextWidth(`${key}:`) + 3, currentY);
-      if (!isLeft) {
-        currentY += 7;
-      }
-      isLeft = !isLeft;
-    });
-    if (!isLeft) currentY += 7;
-    /* 3. Visual Summary (Chart) */ const cItem = exportFormat?.cartItem as any;
+    const cItem = exportFormat?.cartItem as any;
     const customTableData = exportFormat?.customTableData;
     const rates: any = (exportFormat as any)?.rates || {};
     let chartData: { label: string; value: number; color: string }[] = [];
@@ -317,80 +237,47 @@ export default function ShareButtonWithPopup({
         addRow("Blocks", cItem.blocksCount, "nos", "blocks");
     } else {
       Object.entries(exportFormat?.breakdown || data).forEach(([k, v]) => {
-        tableRows.push([k, String(v), "-", "-"]);
+        const vLower = String(v).toLowerCase();
+        let cost = 0;
+        let rateStr = "-";
+        
+        let inferredKey = k.toLowerCase();
+        if (inferredKey.includes("cement")) inferredKey = "cement";
+        else if (inferredKey.includes("sand")) inferredKey = "sand";
+        else if (inferredKey.includes("aggregate") || inferredKey.includes("crush")) inferredKey = "aggregate";
+        else if (inferredKey.includes("water")) inferredKey = "water";
+        else if (inferredKey.includes("steel")) inferredKey = "steel";
+        else if (inferredKey.includes("brick")) inferredKey = "bricks";
+        else if (inferredKey.includes("block")) inferredKey = "blocks";
+
+        if (rates && rates[inferredKey]) {
+          const rawNum = parseFloat(vLower.replace(/[^0-9.-]+/g, "")) || 0;
+          cost = rawNum * rates[inferredKey];
+          rateStr = `${rates[inferredKey]}`;
+        }
+
+        const quantityText = rateStr !== "-" ? `${String(v)}\n(@ Rs ${rateStr})` : String(v);
+        tableRows.push([k, quantityText, "-", cost > 0 ? cost.toFixed(2) : "-"]);
+        
+        if (cost > 0) {
+          grandTotal += cost;
+          chartData.push({ label: k, value: cost, color: "#8b5cf6" });
+        }
       });
     }
-    currentY += 5;
-    const totalText = `Rs ${grandTotal.toFixed(0)}`;
-    const chartBase64 = await createDonutChart(chartData, totalText);
-    if (chartBase64 && chartData.length > 0) {
-      doc.addImage(chartBase64, "PNG", pageWidth / 2 - 40, currentY, 80, 80);
-      currentY += 85;
-    } else {
-      currentY += 10;
-    }
-    /* 5. BOQ Table Structure */ const tableBody: any[] = [];
-    tableBody.push([
-      {
-        content: `${title} - Details`,
-        colSpan: 4,
-        styles: {
-          fillColor: [240, 240, 240],
-          textColor: [40, 42, 101],
-          fontStyle: "bold",
-          halign: "center",
-        },
+
+    const doc = await generateProfessionalPDF({
+      title,
+      toolId: activeTab,
+      inputs: {
+        "Structure Type": title,
+        ...(exportFormat?.inputs || {}),
       },
-    ]);
-    tableRows.forEach((r) => tableBody.push(r));
-    autoTable(doc, {
-      startY: currentY,
-      head: [["Material / Item", "Quantity", "Unit", "Amount (Rs)"]],
-      body: tableBody,
-      theme: "grid",
-      headStyles: {
-        fillColor: [40, 42, 101],
-        textColor: [255, 255, 255],
-        font: "helvetica",
-        fontStyle: "bold",
-      },
-      styles: {
-        font: "helvetica",
-        fontSize: 10,
-        cellPadding: 4,
-        valign: "middle",
-      },
-      margin: { left: 14 },
+      tableData: tableRows,
+      chartData: chartData.length > 0 ? chartData : undefined,
+      grandTotal,
     });
-    const finalY = (doc as any).lastAutoTable.finalY || currentY + 10;
-    /* 4. Financial Summary Table (bottom line) */ autoTable(doc, {
-      startY: finalY,
-      body: [["Grand Total Estimated", `Rs ${grandTotal.toFixed(2)}`]],
-      theme: "grid",
-      styles: { font: "helvetica", fontSize: 12, cellPadding: 6 },
-      columnStyles: {
-        0: {
-          fontStyle: "bold",
-          fillColor: [240, 248, 255],
-          textColor: [40, 42, 101],
-        },
-        1: {
-          halign: "right",
-          fontStyle: "bold",
-          fillColor: [240, 248, 255],
-          textColor: [40, 42, 101],
-          cellWidth: 50,
-        },
-      },
-      margin: { left: 14 },
-    });
-    /* 6. Footer */ doc.setFontSize(8);
-    doc.setTextColor(150, 150, 150);
-    doc.text(
-      "* Denotes a user-defined custom rate. This is a system-generated estimate. Actual prices may vary based on market conditions.",
-      14,
-      doc.internal.pageSize.height - 10,
-    );
+
     const fileName = `${getFileNamePrefix()}.pdf`;
     if (exportType === "whatsapp" || exportType === "email") {
       const pdfBlob = doc.output("blob");
@@ -492,13 +379,13 @@ export default function ShareButtonWithPopup({
     };
     /* Set height of row 1, 2 */ sheet.getRow(1).height = 18;
     sheet.getRow(2).height = 18;
-    /* 2. Project Details (rows 4-x) */ const inputsInfo = {
+    /* 2. Project Details (rows 4-x) */ const inputsInfo = filterValidParameters({
       "Structure Type": title,
       ...(exportFormat?.inputs || {}),
-    };
+    });
     let currentRow = 4;
     Object.entries(inputsInfo).forEach(([key, val]) => {
-      sheet.getCell(`A${currentRow}`).value = `${key}: `;
+      sheet.getCell(`A${currentRow}`).value = `${formatTitleCase(key)}: `;
       sheet.getCell(`A${currentRow}`).font = { bold: true };
       sheet.getCell(`B${currentRow}`).value = val;
       currentRow++;
@@ -593,11 +480,31 @@ export default function ShareButtonWithPopup({
     } else {
       Object.entries(exportFormat?.breakdown || data).forEach(([k, v]) => {
         const row = sheet.getRow(currentRow);
-        row.getCell(1).value = k;
+        const vLower = String(v).toLowerCase();
+        let cost = 0;
+        let inferredKey = k.toLowerCase();
+        
+        if (inferredKey.includes("cement")) inferredKey = "cement";
+        else if (inferredKey.includes("sand")) inferredKey = "sand";
+        else if (inferredKey.includes("aggregate") || inferredKey.includes("crush")) inferredKey = "aggregate";
+        else if (inferredKey.includes("water")) inferredKey = "water";
+        else if (inferredKey.includes("steel")) inferredKey = "steel";
+        else if (inferredKey.includes("brick")) inferredKey = "bricks";
+        else if (inferredKey.includes("block")) inferredKey = "blocks";
+
+        if (rates && rates[inferredKey]) {
+          const rawNum = parseFloat(vLower.replace(/[^0-9.-]+/g, "")) || 0;
+          cost = rawNum * rates[inferredKey];
+        }
+
+        row.getCell(1).value = formatCapitalize(k.replace(/\*/g, ''));
         row.getCell(2).value = String(v);
         row.getCell(3).value = "-";
-        row.getCell(4).value = 0;
-        row.getCell(5).value = 0;
+        row.getCell(4).value = rates && rates[inferredKey] ? rates[inferredKey] : "-";
+        row.getCell(5).value = cost || "-";
+        if (cost) {
+          row.getCell(5).numFmt = '"Rs "#,##0.00';
+        }
         currentRow++;
       });
     }

@@ -45,8 +45,8 @@ export default function TopNavbar({
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto relative shrink-0 z-40 px-4 sm:px-8 pt-6 sm:pt-8 pb-4">
-      <div className="w-full px-4 sm:px-6 py-3 bg-white/70 dark:bg-slate-900/70 backdrop-blur-2xl border border-white/60 dark:border-slate-700/50 rounded-full transition-all duration-300 flex items-center justify-between shadow-[0_8px_32px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+    <div className="w-full max-w-7xl mx-auto relative shrink-0 z-40 px-3 md:px-8 pt-4 md:pt-8 pb-2 md:pb-4">
+      <div className="w-full px-3 md:px-6 py-2 md:py-3 bg-white/70 dark:bg-slate-900/70 backdrop-blur-2xl border border-white/60 dark:border-slate-700/50 rounded-full transition-all duration-300 flex items-center justify-between shadow-[0_8px_32px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
         
         {/* Left: Text navigation links */}
         <div className="hidden lg:flex items-center gap-2 flex-1 justify-start">

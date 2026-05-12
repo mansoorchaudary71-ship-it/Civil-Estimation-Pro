@@ -174,7 +174,7 @@ function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: 
   ];
 
   return (
-    <div className="flex items-center px-6 py-2.5 mx-4 mt-6 mb-4 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/50 dark:border-slate-700/50 rounded-full shadow-[0_4px_24px_rgba(0,0,0,0.04)] sticky top-6 z-30 shrink-0 min-h-[56px] transition-all duration-300">
+    <div className="flex items-center px-4 md:px-6 py-2.5 mx-2 md:mx-4 mt-3 md:mt-6 mb-3 md:mb-4 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/50 dark:border-slate-700/50 rounded-full shadow-[0_4px_24px_rgba(0,0,0,0.04)] sticky top-3 md:top-6 z-30 shrink-0 min-h-[50px] md:min-h-[56px] transition-all duration-300">
       <button onClick={onOpenSidebar} className="p-2 mr-3 -ml-2 rounded-full hover:bg-white/80 dark:hover:bg-slate-800/80 text-slate-500 dark:text-slate-400 hidden md:block transition-all">
         <Menu className="w-5 h-5" />
       </button>

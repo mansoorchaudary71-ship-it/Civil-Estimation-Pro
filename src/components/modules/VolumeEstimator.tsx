@@ -20,6 +20,7 @@ import {
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { SVGShapeVisualizer } from "./ShapeVisualizer";
 type Shape =
   | "Rectangular Prism"
   | "Cube"
@@ -624,6 +625,22 @@ export default function VolumeEstimator() {
                 Calculated Results
               </h3>
             </div>
+            
+            {["Trapezoidal Dumper", "Cylinder", "Rectangle Tank"].includes(activeShape) && (
+              <SVGShapeVisualizer
+                shape={activeShape}
+                dimensions={{
+                  topWidth: Number(topWidth),
+                  bottomWidth: Number(bottomWidth),
+                  depth: Number(depth),
+                  length: Number(length),
+                  width: Number(width),
+                  height: Number(height),
+                  radius: Number(radius)
+                }}
+              />
+            )}
+
             <div className="w-full space-y-4 mb-8">
               <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700 flex flex-col justify-center items-center">
                 <Maximize className="w-6 h-6 text-blue-400 mb-2" />

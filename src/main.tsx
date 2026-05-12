@@ -5,7 +5,11 @@ import { HelmetProvider } from 'react-helmet-async';
 import App from './App.tsx';
 import ErrorBoundary from './components/ErrorBoundary.tsx';
 import { AuthProvider } from './contexts/AuthContext.tsx';
+import { initGlobalInputBehavior } from './globalInputBehavior.ts';
 import './index.css';
+
+// Initialize global input formatting site-wide immediately 
+initGlobalInputBehavior();
 
 // Register the PWA service worker
 const updateSW = registerSW({

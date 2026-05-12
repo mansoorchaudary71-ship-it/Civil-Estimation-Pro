@@ -116,8 +116,8 @@
     border-style: solid !important;
     box-shadow: 0 2px 10px rgba(0,0,0,0.02) !important;
     border-radius: 9999px !important; /* Pill shape for inputs globally */
-    padding-left: 1.25rem !important;
-    padding-right: 1.25rem !important;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
     transition: all 0.2s ease-in-out !important;
     background-color: rgba(255, 255, 255, 0.9) !important;
   }
@@ -157,5 +157,23 @@
     border-color: #818cf8 !important; 
     box-shadow: 0 4px 15px rgba(129, 140, 248, 0.15) !important;
     background-color: rgba(30, 41, 59, 0.9) !important;
+  }
+
+  /* Global Input Features for Calculators */
+  input[type="number"]::placeholder,
+  .calc-input::placeholder {
+    color: rgba(0, 0, 0, 0.35) !important;
+    opacity: 1 !important; /* Some browsers lower opacity by default */
+    font-weight: 400;
+  }
+
+  .dark input[type="number"]::placeholder,
+  .dark .calc-input::placeholder {
+    color: rgba(255, 255, 255, 0.35) !important;
+  }
+
+  input[type="number"],
+  .calc-input {
+    color: var(--tw-text-opacity, 1);
   }
 }

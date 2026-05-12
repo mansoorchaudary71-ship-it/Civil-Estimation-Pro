@@ -19,6 +19,7 @@ import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { useSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { SVGShapeVisualizer } from "./ShapeVisualizer";
 type Shape =
   | "Circle"
   | "Square"
@@ -859,10 +860,19 @@ export default function AreaCalculator() {
           <div className="bg-slate-900 border border-slate-800 rounded-[2rem] p-6 lg:p-8 text-white shadow-xl flex flex-col justify-between">
             {" "}
             <div>
-              {" "}
               <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest mb-6">
                 Real-Time Calculation
-              </h3>{" "}
+              </h3>
+              {activeShape === "Trapezoid" && (
+                <SVGShapeVisualizer
+                  shape="Trapezoid"
+                  dimensions={{
+                    base1: Number(trapBase1),
+                    base2: Number(trapBase2),
+                    height: Number(trapHeight),
+                  }}
+                />
+              )}
               <div className="space-y-6">
                 {" "}
                 <div className="bg-slate-800/50 px-4 py-3 rounded-xl border border-slate-700">

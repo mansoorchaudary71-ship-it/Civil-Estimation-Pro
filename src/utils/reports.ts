@@ -42,62 +42,49 @@ export const getMappedQty = (item: BOQItem, measurements: Measurement[], scalePx
   return item.qtyOverride || 0;
 };
 
-export const generatePDFReport = (boqItems: BOQItem[], measurements: Measurement[], scalePxPerUnit: number, globalUnitName: string, details: ReportDetails, currencySymbol: string = "$") => {
-  const doc = new jsPDF();
+import { generateProfessionalPDF, formatCapitalize } from './pdfGenerator';
 
-  // Header content
-  doc.setFontSize(20);
-  doc.setTextColor(40, 40, 40);
-  doc.text("Bill of Quantities (BOQ) Report", 14, 22);
-
-  doc.setFontSize(10);
-  doc.setTextColor(100, 100, 100);
-  doc.text(`Project Name: ${details.projectName}`, 14, 32);
-  doc.text(`Project ID: ${details.projectId}`, 14, 38);
-  doc.text(`Client: ${details.clientName}`, 120, 32);
-  doc.text(`Location: ${details.siteLocation}`, 120, 38);
-  doc.text(`Date: ${details.date}`, 120, 44);
-
-  // Table Data Preparation
-  const tableColumn = ["Item ID", "Description", "Unit", "Quantity", `Rate (${currencySymbol})`, `Amount (${currencySymbol})`];
+export const generatePDFReport = async (boqItems: BOQItem[], measurements: Measurement[], scalePxPerUnit: number, globalUnitName: string, details: ReportDetails, currencySymbol: string = "$") => {
   const tableRows: any[] = [];
-  
   let grandTotal = 0;
+  const chartData: { label: string; value: number; color: string }[] = [];
 
-  boqItems.forEach(item => {
+  const colors = ["#8b5cf6", "#ec4899", "#0ea5e9", "#10b981", "#f59e0b", "#64748b", "#3b82f6"];
+
+  boqItems.forEach((item, index) => {
     const qty = getMappedQty(item, measurements, scalePxPerUnit, globalUnitName);
     const amount = qty * item.rate;
     grandTotal += amount;
     
     tableRows.push([
-      item.id,
-      item.desc,
+      `${item.id} - ${item.desc}`,
+      `${qty.toFixed(2)} (@ ${currencySymbol}${item.rate.toFixed(2)})`,
       item.unit,
-      qty.toFixed(2),
-      item.rate.toFixed(2),
-      amount.toFixed(2)
+      amount.toFixed(2)           
     ]);
+
+    if (amount > 0) {
+       chartData.push({
+          label: formatCapitalize(item.desc),
+          value: amount,
+          color: colors[index % colors.length]
+       });
+    }
   });
 
-  autoTable(doc, {
-    head: [tableColumn],
-    body: tableRows,
-    startY: 55,
-    theme: 'grid',
-    headStyles: { fillColor: [41, 128, 185], textColor: 255 },
-    alternateRowStyles: { fillColor: [245, 245, 245] },
-    columnStyles: {
-      3: { halign: 'right' },
-      4: { halign: 'right' },
-      5: { halign: 'right' },
+  const doc = await generateProfessionalPDF({
+    title: "Bill of Quantities (BOQ)",
+    inputs: {
+      "Project Name": details.projectName,
+      "Project ID": details.projectId,
+      "Client Name": details.clientName,
+      "Site Location": details.siteLocation,
+      "Date": details.date
     },
-    styles: { fontSize: 9 },
+    tableData: tableRows,
+    chartData: chartData.length > 0 ? chartData : undefined,
+    grandTotal
   });
-
-  const finalY = (doc as any).lastAutoTable.finalY || 55;
-  doc.setFontSize(12);
-  doc.setTextColor(0, 0, 0);
-  doc.text(`Grand Total: ${currencySymbol} ${grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, 14, finalY + 10);
 
   doc.save(`BOQ_Report_${details.projectId}.pdf`);
 };
