@@ -39,7 +39,7 @@ export default function ColorfulTab({ id, label, icon, isActive, onClick, colorT
   return (
     <button
       onClick={onClick}
-      className={`group relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 font-bold text-sm transition-all duration-300 ${isActive ? themeClasses + ' opacity-100' : 'text-slate-500 dark:text-slate-400 bg-transparent opacity-80 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 hover:text-slate-700 dark:hover:text-slate-200 rounded-t-xl rounded-b-none'}`}
+      className={`group relative z-10 flex-shrink-0 flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 font-bold text-sm transition-all duration-300 ${isActive ? themeClasses + ' opacity-100' : 'text-slate-500 dark:text-slate-400 bg-transparent opacity-80 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 hover:text-slate-700 dark:hover:text-slate-200 rounded-t-xl rounded-b-none'}`}
     >
       {icon && (
         <span className="w-5 h-5 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">

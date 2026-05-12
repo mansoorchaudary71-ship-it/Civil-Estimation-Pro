@@ -500,34 +500,34 @@ export default function Dashboard({
                       key={mod.id}
                       id={`module-card-${mod.id}`}
                       onClick={() => onSelectModule(mod.id as ModuleId)}
-                      className="col-span-1 bg-gradient-to-br from-indigo-600 via-purple-600 to-purple-800 p-6 rounded-[28px] transition-all duration-300 flex flex-col items-center relative text-center group hover:-translate-y-2 shadow-[0_12px_40px_rgba(79,70,229,0.25)] hover:shadow-[0_20px_50px_rgba(79,70,229,0.4)] min-h-[220px] overflow-hidden"
+                      className="col-span-1 bg-gradient-to-br from-indigo-600 via-purple-600 to-purple-800 p-4 md:p-5 rounded-[24px] transition-all duration-300 flex flex-col items-center relative text-center group hover:-translate-y-2 shadow-[0_12px_40px_rgba(79,70,229,0.25)] hover:shadow-[0_20px_50px_rgba(79,70,229,0.4)] min-h-[160px] overflow-hidden"
                     >
                       <div className="absolute right-[-10%] bottom-[-5%] text-indigo-300/10 group-hover:text-indigo-300/20 transition-all duration-500 pointer-events-none group-active:scale-95 group-active:-rotate-6">
                         <Home
-                          className="w-[160px] h-[160px] md:w-[180px] md:h-[180px]"
+                          className="w-[140px] h-[140px] md:w-[160px] md:h-[160px]"
                           strokeWidth={1}
                         />
                       </div>
 
                       <div className="relative z-10 w-full flex-1 flex flex-col items-center">
-                        <div className="relative w-14 h-14 flex items-center justify-center mb-4 shrink-0">
+                        <div className="relative w-12 h-12 flex items-center justify-center mb-3 shrink-0">
                           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-400/40 to-transparent blur-[16px] transition-transform duration-500 group-hover:scale-150"></div>
-                          <mod.icon className="relative z-10 w-7 h-7 text-indigo-50 transition-transform duration-300 group-hover:scale-110" strokeWidth={2.5} />
+                          <mod.icon className="relative z-10 w-6 h-6 text-indigo-50 transition-transform duration-300 group-hover:scale-110" strokeWidth={2.5} />
                         </div>
 
-                        <div className="inline-flex items-center gap-1.5 px-4 py-1 rounded-full border border-indigo-300/30 bg-white/10 backdrop-blur-md text-[11px] font-bold tracking-widest uppercase text-indigo-50 shadow-sm mb-4">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-indigo-300/30 bg-white/10 backdrop-blur-md text-[10px] font-bold tracking-widest uppercase text-indigo-50 shadow-sm mb-3">
                           <span className="truncate">{mod.category}</span>
                         </div>
 
-                        <h3 className="text-[20px] font-bold text-white mb-2 leading-tight">
+                        <h3 className="text-[18px] font-bold text-white mb-2 leading-tight">
                           {mod.title}
                         </h3>
 
                         <div className="flex flex-row flex-wrap justify-center gap-2 mt-auto pt-2 w-full">
-                          <div className="inline-flex items-center px-3 py-1.5 rounded-full border border-indigo-300/40 bg-white/10 backdrop-blur-md text-[12px] font-medium text-indigo-50 transition-colors group-hover:bg-white/20">
+                          <div className="inline-flex items-center px-2 py-1 rounded-full border border-indigo-300/40 bg-white/10 backdrop-blur-md text-[11px] font-medium text-indigo-50 transition-colors group-hover:bg-white/20">
                             Grey Structure
                           </div>
-                          <div className="inline-flex items-center px-3 py-1.5 rounded-full border border-indigo-300/40 bg-white/10 backdrop-blur-md text-[12px] font-medium text-indigo-50 transition-colors group-hover:bg-white/20">
+                          <div className="inline-flex items-center px-2 py-1 rounded-full border border-indigo-300/40 bg-white/10 backdrop-blur-md text-[11px] font-medium text-indigo-50 transition-colors group-hover:bg-white/20">
                             Finishing
                           </div>
                         </div>
@@ -542,29 +542,29 @@ export default function Dashboard({
                     key={mod.id}
                     id={`module-card-${mod.id}`}
                     onClick={() => onSelectModule(mod.id as ModuleId)}
-                    className="col-span-1 bg-white/70 backdrop-blur-xl dark:bg-slate-900/70 p-6 rounded-[28px] transition-all duration-300 flex flex-col items-center relative text-center group hover:-translate-y-2 shadow-[0_8px_32px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.2)] dark:hover:shadow-[0_16px_48px_rgba(0,0,0,0.4)] border border-white/60 hover:border-white dark:border-slate-700/50 dark:hover:border-slate-600 min-h-[220px] overflow-hidden"
+                    className="col-span-1 bg-white/70 backdrop-blur-xl dark:bg-slate-900/70 p-4 md:p-5 rounded-[24px] transition-all duration-300 flex flex-col items-center relative text-center group hover:-translate-y-2 shadow-[0_8px_32px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.2)] dark:hover:shadow-[0_16px_48px_rgba(0,0,0,0.4)] border border-white/60 hover:border-white dark:border-slate-700/50 dark:hover:border-slate-600 min-h-[160px] overflow-hidden"
                   >
                     <div className="relative z-10 w-full flex-1 flex flex-col items-center">
-                      <div className="relative w-14 h-14 flex items-center justify-center mb-4 shrink-0">
+                      <div className="relative w-12 h-12 flex items-center justify-center mb-3 shrink-0">
                         <div
                           className={`absolute inset-0 rounded-full ${theme.blob} blur-[16px] transition-transform duration-500 group-hover:scale-150`}
                         ></div>
                         <mod.icon
-                          className={`relative z-10 w-7 h-7 ${theme.text} transition-transform duration-300 group-hover:scale-110`}
+                          className={`relative z-10 w-6 h-6 ${theme.text} transition-transform duration-300 group-hover:scale-110`}
                           strokeWidth={2.5}
                         />
                       </div>
 
                       <div
-                        className={`inline-flex items-center px-3 py-1 rounded-full border ${theme.border} bg-white/50 backdrop-blur-sm dark:bg-slate-800/80 shadow-sm text-[11px] font-bold tracking-widest uppercase ${theme.text} mb-3`}
+                        className={`inline-flex items-center px-3 py-1 rounded-full border ${theme.border} bg-white/50 backdrop-blur-sm dark:bg-slate-800/80 shadow-sm text-[10px] font-bold tracking-widest uppercase ${theme.text} mb-2`}
                       >
                         <span className="truncate">{mod.category}</span>
                       </div>
 
-                      <h3 className="text-[18px] font-bold text-slate-800 dark:text-white mb-2 leading-tight">
+                      <h3 className="text-[16px] font-bold text-slate-800 dark:text-white mb-2 leading-tight">
                         {mod.title}
                       </h3>
-                      <p className="text-[13px] text-slate-500 dark:text-slate-400 font-medium leading-relaxed line-clamp-3 mt-auto">
+                      <p className="text-[12px] text-slate-500 dark:text-slate-400 font-medium leading-relaxed line-clamp-3 mt-auto">
                         {mod.desc}
                       </p>
                     </div>

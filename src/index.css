@@ -84,10 +84,39 @@
   background-color: rgba(100, 116, 139, 0.8);
 }
 
+/* Horizontal Scrollbar Upgrades */
+::-webkit-scrollbar:horizontal {
+  height: 12px; /* 8px requested height + 4px (2px top & bottom border) */
+}
+
+::-webkit-scrollbar-track:horizontal {
+  background-color: rgba(241, 245, 249, 0.7); /* #f1f5f9 semi-transparent */
+  border-radius: 100px;
+}
+
+.dark ::-webkit-scrollbar-track:horizontal {
+  background-color: rgba(30, 41, 59, 0.5); /* Matching dark mode */
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  background-color: #4f46e5; /* Primary dark blue brand color */
+  border-radius: 100px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:horizontal:hover {
+  background-color: #3730a3; /* Darkens on hover */
+}
+
 /* Firefox support */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+  scrollbar-color: #4f46e5 rgba(241, 245, 249, 0.7);
+}
+
+.dark * {
+  scrollbar-color: #4f46e5 rgba(30, 41, 59, 0.5);
 }
 
 @layer utilities {

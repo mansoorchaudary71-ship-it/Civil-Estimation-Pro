@@ -525,7 +525,7 @@ export default function MasterQuantityEstimator({
                           <button
                             key={calc.id}
                             onClick={() => setActiveCalc(calc.id)}
-                            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 font-bold tracking-wide text-left ${
+                            className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 font-bold tracking-wide text-left ${
                               isActive 
                               ? 'bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-md shadow-indigo-500/25 border-transparent ring-2 ring-indigo-500/50 ring-offset-2 ring-offset-slate-50 dark:ring-offset-slate-900 scale-[1.02] z-20' 
                               : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-transparent dark:hover:bg-slate-700/50 border border-slate-200/50 dark:border-slate-800 shadow-sm hover:shadow cursor-pointer'
