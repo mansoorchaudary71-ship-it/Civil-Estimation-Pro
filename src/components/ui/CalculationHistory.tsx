@@ -173,21 +173,20 @@ export function CalculationHistory({
           </button>
 
           {/* Share Button: Amber/Orange */}
-          <div className={`${baseBtnClass} !p-0 !bg-transparent border-none`}>
-            <ShareButtonWithPopup
-              activeTab={calculatorId}
-              title={estimationName || "Calculation"}
-              data={currentResults || currentInputs || {}}
-              exportFormat={savePayload || { inputs: currentInputs || {}, breakdown: currentResults || {} }}
-              triggerClassName={`group w-full h-full flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-3 rounded-full transition-all duration-200 text-[10px] leading-tight sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 border border-amber-300 hover:border-amber-400 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-500/10 dark:text-amber-300 dark:hover:bg-amber-500/20 dark:border-amber-500/40 dark:hover:border-amber-500/50 focus:ring-amber-500`}
-              triggerContent={
-                <>
-                  <Share2 className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
-                  <span className="truncate">Share</span>
-                </>
-              }
-            />
-          </div>
+          <ShareButtonWithPopup
+            activeTab={calculatorId}
+            title={estimationName || "Calculation"}
+            data={currentResults || currentInputs || {}}
+            exportFormat={savePayload || { inputs: currentInputs || {}, breakdown: currentResults || {} }}
+            containerClassName="w-full h-full !gap-0"
+            triggerClassName={`${baseBtnClass} border-amber-300 hover:border-amber-400 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-500/10 dark:text-amber-300 dark:hover:bg-amber-500/20 dark:border-amber-500/40 dark:hover:border-amber-500/50 focus:ring-amber-500 w-full shrink-0`}
+            triggerContent={
+              <>
+                <Share2 className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
+                <span className="truncate">Share</span>
+              </>
+            }
+          />
 
         </div>
       </div>

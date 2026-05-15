@@ -18,12 +18,13 @@ import { useAuth } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
 import { generateProfessionalPDF, formatTitleCase, formatCapitalize, filterValidParameters } from "../../utils/pdfGenerator";
 
-interface ShareMenuProps {
+export interface ShareMenuProps {
   activeTab: string;
   data: Record<string, any>;
   title: string;
   triggerClassName?: string;
   triggerContent?: React.ReactNode;
+  containerClassName?: string;
   exportFormat?: {
     inputs: Record<string, string>;
     breakdown: Record<string, string>;
@@ -45,6 +46,7 @@ export default function ShareButtonWithPopup({
   title,
   triggerClassName,
   triggerContent,
+  containerClassName,
   exportFormat,
 }: ShareMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -558,7 +560,7 @@ export default function ShareButtonWithPopup({
   };
   return (
     <div
-      className="relative inline-flex items-center gap-3 z-30 font-sans"
+      className={`relative inline-flex items-center gap-3 z-30 font-sans ${containerClassName || ""}`}
       ref={menuRef}
     >
       <button
