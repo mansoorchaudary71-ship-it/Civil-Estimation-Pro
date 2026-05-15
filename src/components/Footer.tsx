@@ -3,8 +3,16 @@ import { Layers, Twitter, Github, Linkedin, Mail } from 'lucide-react';
 import Logo from './Logo';
 import { ModuleId } from '../App';
 
-export default function Footer({ onNavigate }: { onNavigate?: (id: ModuleId) => void }) {
+export default function Footer({ activeModule, onNavigate }: { activeModule?: ModuleId, onNavigate?: (id: ModuleId) => void }) {
   const currentYear = new Date().getFullYear();
+
+  const getLinkClasses = (moduleId: ModuleId) => {
+    return `text-left text-sm transition-colors ${
+      activeModule === moduleId 
+        ? "text-blue-700 dark:text-blue-400 font-bold" 
+        : "text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium"
+    }`;
+  };
 
   return (
     <footer className="w-full max-w-7xl mx-auto px-4 sm:px-6 mb-8 mt-12">
@@ -50,17 +58,17 @@ export default function Footer({ onNavigate }: { onNavigate?: (id: ModuleId) => 
 
           <div className="flex flex-col gap-3">
             <h4 className="font-bold text-slate-800 dark:text-slate-100 mb-2">Company</h4>
-            <button onClick={() => onNavigate?.("about")} className="text-left text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">About Us</button>
-            <button onClick={() => onNavigate?.("careers")} className="text-left text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Careers</button>
-            <button onClick={() => onNavigate?.("contact")} className="text-left text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Contact</button>
-            <button onClick={() => onNavigate?.("blog")} className="text-left text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Blog</button>
+            <button onClick={() => onNavigate?.("about")} className={getLinkClasses("about")}>About Us</button>
+            <button onClick={() => onNavigate?.("careers")} className={getLinkClasses("careers")}>Careers</button>
+            <button onClick={() => onNavigate?.("contact")} className={getLinkClasses("contact")}>Contact</button>
+            <button onClick={() => onNavigate?.("blog")} className={getLinkClasses("blog")}>Blog</button>
           </div>
 
           <div className="flex flex-col gap-3">
             <h4 className="font-bold text-slate-800 dark:text-slate-100 mb-2">Legal</h4>
-            <a href="#" className="text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Privacy Policy</a>
-            <a href="#" className="text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Terms of Service</a>
-            <a href="#" className="text-sm text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 font-medium transition-colors">Cookie Policy</a>
+            <button onClick={() => onNavigate?.("privacy")} className={getLinkClasses("privacy")}>Privacy Policy</button>
+            <button onClick={() => onNavigate?.("terms")} className={getLinkClasses("terms")}>Terms of Service</button>
+            <button onClick={() => onNavigate?.("cookies")} className={getLinkClasses("cookies")}>Cookie Policy</button>
           </div>
 
         </div>

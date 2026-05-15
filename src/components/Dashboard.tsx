@@ -39,6 +39,8 @@ import {
   Ruler,
   Columns,
   ClipboardList,
+  Maximize2,
+  FileSpreadsheet,
 } from "lucide-react";
 import { SEO } from "./SEO";
 
@@ -96,6 +98,13 @@ export const ALL_MODULES = [
     desc: "Calculate concrete & steel for slabs, columns.",
     category: "TOOLS",
     icon: Building2,
+  },
+  {
+    id: "bbs-generator",
+    title: "BBS Generator",
+    desc: "Bar Bending Schedule with precise cut lengths.",
+    category: "TOOLS",
+    icon: FileSpreadsheet,
   },
   {
     id: "staircase-calculator",
@@ -173,6 +182,13 @@ export const ALL_MODULES = [
     desc: "Shuttering and scaffolding material computations.",
     category: "STRUCTURAL",
     icon: Hammer,
+  },
+  {
+    id: "gradient-calculator",
+    title: "Gradient & Slope",
+    desc: "Dynamic bidirectional slope and elevation calculator.",
+    category: "SITE_PREP",
+    icon: Maximize2,
   },
   {
     id: "finishing",

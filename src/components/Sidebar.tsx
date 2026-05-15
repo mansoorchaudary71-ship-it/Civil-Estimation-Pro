@@ -32,6 +32,7 @@ import {
   Weight,
   Spline,
   Columns,
+  FileSpreadsheet,
 } from "lucide-react";
 
 export type ModuleId =
@@ -58,12 +59,17 @@ export type ModuleId =
   | "staircase-calculator"
   | "column-estimator"
   | "master-quantity"
+  | "gradient-calculator"
+  | "bbs-generator"
   | "about"
   | "careers"
   | "contact"
   | "blog"
   | "my-estimates"
-  | "pricing";
+  | "pricing"
+  | "privacy"
+  | "terms"
+  | "cookies";
 
 interface SidebarProps {
   activeModule: ModuleId;
@@ -144,6 +150,16 @@ export default function Sidebar({
     { id: "metal-weight" as const, label: "Metal Weight", icon: Weight },
     { id: "rcc-calculator" as const, label: "RCC Structure", icon: Spline },
     { id: "staircase-calculator" as const, label: "Staircase", icon: Layers },
+    {
+      id: "gradient-calculator" as const,
+      label: "Gradient & Slope",
+      icon: Maximize2,
+    },
+    {
+      id: "bbs-generator" as const,
+      label: "BBS Generator",
+      icon: FileSpreadsheet,
+    },
     {
       id: "column-estimator" as const,
       label: "Column Estimator",

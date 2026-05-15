@@ -10,6 +10,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 async function startServer() {
   const app = express();
   const PORT = 3000;
+  
+  app.use(express.json());
 
   // Database setup
   const dbPath = path.join(process.cwd(), 'market_rates.sqlite');
@@ -72,6 +74,123 @@ async function startServer() {
       res.json({ status: "ok", data: currentRates });
     } catch (e) {
       res.status(500).json({ status: "error", message: "Failed to fetch rates" });
+    }
+  });
+
+  // Contact API route
+  app.post("/api/contact", async (req, res) => {
+    try {
+      const { name, email, subject, message } = req.body;
+      
+      if (!name || !email || !subject || !message) {
+        return res.status(400).json({ error: "All fields are required." });
+      }
+
+      if (!process.env.RESEND_API_KEY) {
+        console.error("RESEND_API_KEY is not defined in environment variables.");
+        return res.status(500).json({ error: "Email service is not configured." });
+      }
+
+      // Dynamic import to avoid module issues
+      const { Resend } = await import("resend");
+      const resend = new Resend(process.env.RESEND_API_KEY);
+
+      // Sending email logic
+      const data = await resend.emails.send({
+        from: 'Contact Form <onboarding@resend.dev>', // Using Resend's default test sender
+        to: process.env.CONTACT_EMAIL || 'delivered@resend.dev', // Fallback to resend dev
+        subject: `New Contact Form Submission: ${subject}`,
+        html: `
+          <h2>New Message from Civil Estimation Pro</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Subject:</strong> ${subject}</p>
+          <h3>Message:</h3>
+          <p>${message.replace(/\n/g, '<br/>')}</p>
+        `
+      });
+
+      res.status(200).json({ success: true, data });
+    } catch (error) {
+      console.error("Failed to send email:", error);
+      res.status(500).json({ error: "Failed to send message." });
+    }
+  });
+
+  // Blog API routes
+  app.get("/api/blog/posts", async (req, res) => {
+    try {
+      const fs = await import("fs");
+      const path = await import("path");
+      const matter = (await import("gray-matter")).default;
+      
+      const blogDir = path.join(process.cwd(), "content", "blog");
+      if (!fs.existsSync(blogDir)) {
+        return res.json({ posts: [] });
+      }
+      
+      const files = fs.readdirSync(blogDir).filter(file => file.endsWith(".md") || file.endsWith(".mdx"));
+      const posts = files.map(file => {
+        const fileContent = fs.readFileSync(path.join(blogDir, file), "utf-8");
+        const { data } = matter(fileContent);
+        return {
+          slug: file.replace(/\.mdx?$/, ""),
+          title: data.title || "Untitled",
+          date: data.date || "",
+          excerpt: data.excerpt || "",
+          author: data.author || "Admin",
+          category: data.category || "General",
+          image: data.image || "https://images.unsplash.com/photo-1541888086425-d81bb19240f5?auto=format&fit=crop&q=80&w=800"
+        };
+      });
+
+      // Sort by date descending
+      posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+      res.json({ posts });
+    } catch (e) {
+      console.error(e);
+      res.status(500).json({ error: "Failed to load posts" });
+    }
+  });
+
+  app.get("/api/blog/posts/:slug", async (req, res) => {
+    try {
+      const fs = await import("fs");
+      const path = await import("path");
+      const matter = (await import("gray-matter")).default;
+
+      const slug = req.params.slug;
+      const mdPath = path.join(process.cwd(), "content", "blog", `${slug}.md`);
+      const mdxPath = path.join(process.cwd(), "content", "blog", `${slug}.mdx`);
+      
+      let filePath = mdPath;
+      if (!fs.existsSync(filePath)) {
+        if (fs.existsSync(mdxPath)) {
+          filePath = mdxPath;
+        } else {
+          return res.status(404).json({ error: "Post not found" });
+        }
+      }
+
+      const fileContent = fs.readFileSync(filePath, "utf-8");
+      const { data, content } = matter(fileContent);
+      
+      res.json({
+        post: {
+          slug,
+          title: data.title || "Untitled",
+          date: data.date || "",
+          excerpt: data.excerpt || "",
+          author: data.author || "Admin",
+          category: data.category || "General",
+          image: data.image || "https://images.unsplash.com/photo-1541888086425-d81bb19240f5?auto=format&fit=crop&q=80&w=800",
+          content
+        }
+      });
+    } catch (e) {
+      console.error(e);
+      res.status(500).json({ error: "Failed to process post" });
     }
   });
 

@@ -1,54 +1,61 @@
 import React from 'react';
-import { Briefcase, ArrowRight, MapPin, Clock } from 'lucide-react';
-
-const jobs = [
-  { id: 1, title: 'Senior Frontend Engineer', department: 'Engineering', location: 'Remote (US)', type: 'Full-time' },
-  { id: 2, title: 'Civil Engineering Consultant', department: 'Product', location: 'London, UK', type: 'Full-time' },
-  { id: 3, title: 'Product Marketing Manager', department: 'Marketing', location: 'Remote (Global)', type: 'Full-time' },
-  { id: 4, title: 'Customer Success Specialist', department: 'Support', location: 'New York, NY', type: 'Contract' },
-];
+import { Briefcase, Mail, Sparkles } from 'lucide-react';
+import { SEO } from '../SEO';
 
 export default function Careers() {
   return (
-    <div className="max-w-4xl mx-auto space-y-12 pb-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="text-center space-y-4">
-        <div className="inline-flex items-center justify-center p-3 bg-blue-50 dark:bg-blue-500/10 rounded-2xl mb-4">
-          <Briefcase className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+    <div className="w-full max-w-4xl mx-auto space-y-12 pb-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <SEO 
+        title="Careers | Civil Estimation Pro" 
+        description="Join our team and help build the future of construction software." 
+      />
+
+      <div className="text-center space-y-6">
+        <div className="inline-flex items-center justify-center p-4 bg-purple-50 dark:bg-purple-900/30 rounded-3xl mb-2 shadow-[0_8px_16px_-6px_rgba(168,85,247,0.2)]">
+          <Briefcase className="w-8 h-8 text-purple-600 dark:text-purple-400" strokeWidth={1.5} />
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white tracking-tight">
           Join Our Team
         </h1>
-        <p className="text-lg text-slate-500 dark:text-slate-400 dark:text-slate-700 dark:text-slate-300 max-w-2xl mx-auto">
-          Help us build the software that's literally building the world. We're looking for passionate people to join our fully remote team.
+        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+          Help us build the software that's literally building the world. We are always looking for passionate engineers, designers, and innovators.
         </p>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-        <div className="px-6 py-5 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
-          <h3 className="font-bold text-slate-800 dark:text-white">Open Positions</h3>
-        </div>
-        <div className="divide-y divide-slate-100 dark:divide-slate-800">
-          {jobs.map(job => (
-            <div key={job.id} className="p-6 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div>
-                <h4 className="text-lg font-bold text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">
-                  {job.title}
-                </h4>
-                <div className="flex flex-wrap items-center gap-4 text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 font-medium">
-                  <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /> {job.location}</span>
-                  <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {job.type}</span>
-                  <span className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-slate-600 dark:text-slate-300 font-semibold text-xs uppercase tracking-wider">
-                    {job.department}
-                  </span>
-                </div>
-              </div>
-              <div className="shrink-0">
-                <button className="flex items-center gap-2 text-sm font-bold text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors">
-                  View Details <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </div>
+      {/* Empty State */}
+      <div className="bg-white dark:bg-slate-900 rounded-[3rem] p-10 md:p-16 border border-slate-200 dark:border-slate-800 shadow-sm text-center relative overflow-hidden">
+        {/* Subtle background decoration */}
+        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl opacity-50 mix-blend-screen pointer-events-none" />
+        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl opacity-50 mix-blend-screen pointer-events-none" />
+        
+        <div className="relative z-10 max-w-xl mx-auto flex flex-col items-center">
+          <div className="w-20 h-20 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mb-6 border border-slate-100 dark:border-slate-700">
+            <Sparkles className="w-8 h-8 text-slate-400 dark:text-slate-500" strokeWidth={1.5} />
+          </div>
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-4">
+            We aren't actively hiring right now.
+          </h2>
+          <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed mb-10">
+            While we don't have any open positions at the moment, we're always excited to connect with talented individuals who share our vision. 
+          </p>
+
+          <div className="w-full bg-slate-50 dark:bg-slate-800/50 rounded-3xl p-8 border border-slate-200 dark:border-slate-700/50 flex flex-col items-center text-center shadow-inner">
+            <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center shadow-sm border border-slate-100 dark:border-slate-700 mb-5">
+              <Mail className="w-6 h-6 text-slate-600 dark:text-slate-400" strokeWidth={1.5} />
             </div>
-          ))}
+            <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-2">
+              Send us your resume anyway!
+            </h3>
+            <p className="text-slate-500 dark:text-slate-400 mb-6 text-sm max-w-sm mx-auto">
+              Drop us a line with your portfolio or CV, and we'll keep you in mind for future opportunities.
+            </p>
+            <a 
+              href="mailto:careers@civilpro.com" 
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-slate-900 border border-slate-800 dark:bg-white dark:border-white text-white dark:text-slate-900 font-bold rounded-xl hover:bg-slate-800 dark:hover:bg-slate-100 transition-all shadow-md hover:shadow-lg w-full md:w-auto justify-center"
+            >
+              careers@civilpro.com
+            </a>
+          </div>
         </div>
       </div>
     </div>

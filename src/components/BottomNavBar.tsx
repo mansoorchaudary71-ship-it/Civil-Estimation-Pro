@@ -55,12 +55,12 @@ function NavItem({ icon, label, isActive, onClick }: { icon: React.ReactNode, la
   return (
     <button 
       onClick={onClick}
-      className={`flex flex-col items-center justify-center min-w-[64px] flex-1 py-1 gap-1 rounded-2xl transition-all duration-300 relative ${isActive ? 'text-blue-600 dark:text-blue-400 font-bold' : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100'}`}
+      className={`flex flex-col items-center justify-center flex-1 w-0 py-1 gap-1 rounded-2xl transition-all duration-300 relative ${isActive ? 'text-blue-600 dark:text-blue-400 font-bold' : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100'}`}
     >
       <div className={`flex items-center justify-center transition-transform ${isActive ? '-translate-y-1' : ''}`}>
         {icon}
       </div>
-      <span className={`text-[10px] whitespace-nowrap transition-opacity ${isActive ? 'opacity-100' : 'opacity-80'}`}>{label}</span>
+      <span className={`text-[10px] whitespace-nowrap truncate max-w-full px-0.5 transition-opacity ${isActive ? 'opacity-100' : 'opacity-80'}`}>{label}</span>
       {isActive && (
         <div className="absolute bottom-0 w-1 h-1 rounded-full bg-blue-600 dark:bg-blue-400 font-bold" />
       )}

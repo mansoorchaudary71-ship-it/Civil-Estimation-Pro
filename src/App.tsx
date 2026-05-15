@@ -22,7 +22,9 @@ import AreaCalculator from "./components/modules/AreaCalculator";
 import VolumeEstimator from "./components/modules/VolumeEstimator";
 import UnitConverter from "./components/modules/UnitConverter";
 import MetalWeightCalculator from "./components/modules/MetalWeightCalculator";
+import GradientCalculator from "./components/modules/GradientCalculator";
 import RccStructureCalculator from "./components/modules/RccStructureCalculator";
+import BarBendingSchedule from "./components/modules/BarBendingSchedule";
 import StaircaseCalculator from "./components/modules/StaircaseCalculator";
 import ColumnEstimator from "./components/modules/ColumnEstimator";
 import MasterQuantityEstimator from "./components/modules/MasterQuantityEstimator";
@@ -48,6 +50,7 @@ import AboutUs from "./components/pages/AboutUs";
 import Careers from "./components/pages/Careers";
 import Contact from "./components/pages/Contact";
 import Blog from "./components/pages/Blog";
+import LegalPages from "./components/pages/LegalPages";
 import { Menu, Settings as SettingsIcon } from "lucide-react";
 import { GlobalSettingsToggle } from "./components/ui/GlobalSettingsToggle";
 
@@ -102,7 +105,7 @@ export default function App() {
         />
 
         <main id="main-content" className="flex-1 flex flex-col bg-transparent overflow-hidden relative w-full h-full transition-colors duration-300">
-          {["home", "my-estimates", "about", "careers", "contact", "blog"].includes(activeModule) ? (
+          {["home", "my-estimates", "about", "careers", "contact", "blog", "privacy", "terms", "cookies"].includes(activeModule) ? (
             <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-y-auto pb-[110px] md:pb-0">
               <TopNavbar 
                 onOpenSidebar={() => setIsSidebarOpen(true)} 
@@ -117,7 +120,10 @@ export default function App() {
               {activeModule === "careers" && <div className="p-8 pt-12"><Careers /></div>}
               {activeModule === "contact" && <div className="p-8 pt-12"><Contact /></div>}
               {activeModule === "blog" && <div className="p-8 pt-12"><Blog /></div>}
-              <Footer onNavigate={handleSelectModule} />
+              {activeModule === "privacy" && <LegalPages page="privacy" onNavigate={handleSelectModule} />}
+              {activeModule === "terms" && <LegalPages page="terms" onNavigate={handleSelectModule} />}
+              {activeModule === "cookies" && <LegalPages page="cookies" onNavigate={handleSelectModule} />}
+              <Footer activeModule={activeModule} onNavigate={handleSelectModule} />
             </div>
           ) : (
             <div className="flex-1 flex flex-col min-h-0 relative w-full">
@@ -126,6 +132,8 @@ export default function App() {
               {activeModule === "volume-estimator" && <ModuleWrapper title="Volume Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSettingsOpen} setIsSettingsOpen={setIsSettingsOpen}><VolumeEstimator /></ModuleWrapper>}
               {activeModule === "unit-converter" && <ModuleWrapper title="Universal Unit Converter" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><UnitConverter /></ModuleWrapper>}
               {activeModule === "metal-weight" && <ModuleWrapper title="Metal Weight Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MetalWeightCalculator /></ModuleWrapper>}
+              {activeModule === "gradient-calculator" && <ModuleWrapper title="Gradient & Slope Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><GradientCalculator /></ModuleWrapper>}
+              {activeModule === "bbs-generator" && <ModuleWrapper title="Bar Bending Schedule" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><BarBendingSchedule /></ModuleWrapper>}
               {activeModule === "rcc-calculator" && <ModuleWrapper title="RCC Structure Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RccStructureCalculator /></ModuleWrapper>}
               {activeModule === "column-estimator" && <ModuleWrapper title="Column Concrete Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ColumnEstimator /></ModuleWrapper>}
               {activeModule === "staircase-calculator" && <ModuleWrapper title="Staircase Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><StaircaseCalculator /></ModuleWrapper>}
@@ -184,11 +192,11 @@ function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: 
       </div>
       
       {onGoHome ? (
-        <div className="flex-1 pr-2 overflow-x-hidden flex items-center">
+        <div className="flex-1 min-w-0 pr-2 overflow-x-hidden flex items-center">
           <Breadcrumb items={breadcrumbItems} />
         </div>
       ) : (
-        <h1 className="text-[17px] font-bold text-slate-800 dark:text-white flex-1 truncate pr-2">{title}</h1>
+        <h1 className="text-[17px] font-bold text-slate-800 dark:text-white flex-1 min-w-0 truncate pr-2">{title}</h1>
       )}
 
       <div className="hidden sm:flex mx-3">

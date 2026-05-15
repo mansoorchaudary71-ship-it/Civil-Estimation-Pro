@@ -63,8 +63,10 @@ export default function RccStructureCalculator({
   /* mm */ const [colTieDia, setColTieDia] = useState<string>("8");
   /* mm */ const [colTieSpacing, setColTieSpacing] = useState<string>("150");
   /* mm */ const [colCover, setColCover] = useState<string>("40");
-  /* mm */ const [colRoundBarsCount, setColRoundBarsCount] =
-    useState<string>("6");
+  /* mm */ const [colRoundBarsCount, setColRoundBarsCount] = useState<string>("6");
+  const [steelGrade, setSteelGrade] = useState<string>("Fe500");
+  const [concreteGrade, setConcreteGrade] = useState<string>("M20");
+
   const structureTypes: {
     id: StructureType;
     label: string;
@@ -173,6 +175,23 @@ export default function RccStructureCalculator({
       /* m */ const mainDia = parse(colMainBarDia);
       const tieDia = parse(colTieDia);
       const tieSpc = parse(colTieSpacing) / 1000;
+      
+      // Determine lap multiplier based on grade (heuristic for IS 456)
+      // Standard lap is 50d for Fe500, 40d for Fe415, etc.
+      let lapDMultiplier = 50;
+      if (steelGrade === 'Fe415' || steelGrade === 'Grade 40') lapDMultiplier = 40;
+      if (steelGrade === 'Fe550') lapDMultiplier = 55;
+      
+      const lapLengthPerLap = lapDMultiplier * mainDia / 1000; // in meters
+      // Let's assume standard bar length is 12m, but typically a column has at least one lap per floor if extending, or we add one lap if height > 6m.
+      // For simplicity, we add lap length proportional to height if H > 12, but standard practice is 1 lap per story or continuous. 
+      // We will add 1 lap length per bar as a standard overlap allowance for multi-story estimation or calculate proportional laps.
+      const lapsRequired = Math.floor(H / 12);
+      const totalLapLengthPerBar = lapsRequired > 0 ? (lapsRequired * lapLengthPerLap) : lapLengthPerLap; 
+      // adding one safety lap is common in estimation to maintain continuity
+      
+      const mainCuttingLength = H + totalLapLengthPerBar;
+
       let noOfBars = 4;
       if (activeType === "6 Bar Column") noOfBars = 6;
       else if (activeType === "8 Bar Column") noOfBars = 8;
@@ -185,9 +204,10 @@ export default function RccStructureCalculator({
       
       if (activeType === "Round Column") {
         concreteVol = (Math.PI / 4) * diaM * diaM * H;
-        mainWt = noOfBars * H * ((mainDia * mainDia) / 162.28);
+        mainWt = noOfBars * mainCuttingLength * ((mainDia * mainDia) / 162.28);
         const tiesCount = Math.ceil(H / (tieSpc || 1)) + 1;
-        const tieLen = Math.PI * (diaM - 2 * c);
+        // Circular stirrup length: Pi * (D - 2c) + 24d hook
+        const tieLen = Math.PI * (diaM - 2 * c) + (24 * tieDia) / 1000;
         tieWt = tiesCount * tieLen * ((tieDia * tieDia) / 162.28);
         totalSteelKg = mainWt + tieWt;
         inputsUsed = {
@@ -197,29 +217,35 @@ export default function RccStructureCalculator({
           "Tie Dia (mm)": `${tieDia}`,
           "Tie Spacing (mm)": `${tieSpc * 1000}`,
           "Cover (mm)": `${c * 1000}`,
+          "Steel Grade": steelGrade,
         };
         steelBreakdown.push({
           label: "Vertical Main Bars",
-          details: `${noOfBars} bars of Ø${mainDia}`,
+          details: `${noOfBars} bars of Ø${mainDia} (includes lap = ${lapLengthPerLap.toFixed(2)}m/bar)`,
           weight: mainWt,
-          tooltip: "Main longitudinal reinforcement."
+          tooltip: `Cutting Length = Height + Laps (${lapDMultiplier}d). Main longitudinal reinforcement.`
         });
         steelBreakdown.push({
           label: "Spiral / Circular Ties",
           details: `Ø${tieDia} @ ${tieSpc*1000}mm c/c`,
           weight: tieWt,
-          tooltip: "Lateral ties providing shear reinforcement."
+          tooltip: "Lateral ties providing shear reinforcement. Cutting length includes hook."
         });
       } else {
         concreteVol = W * D * H;
-        mainWt = noOfBars * H * ((mainDia * mainDia) / 162.28);
+        mainWt = noOfBars * mainCuttingLength * ((mainDia * mainDia) / 162.28);
         const tiesCount = Math.ceil(H / (tieSpc || 1)) + 1;
-        const tieLen = 2 * (W - 2 * c + (D - 2 * c)) + 0.1;
-        /* 100mm for hook */ tieWt =
-          tiesCount * tieLen * ((tieDia * tieDia) / 162.28);
+        
+        // Rectangular Stirrup cutting length L = 2(A + B) + 24d
+        const A = W - 2 * c;
+        const B = D - 2 * c;
+        const tieLen = 2 * (A + B) + (24 * tieDia) / 1000;
+        
+        tieWt = tiesCount * tieLen * ((tieDia * tieDia) / 162.28);
         if (noOfBars > 4) {
-          /* For 6 or 8 bars, more ties are often required (cross ties or diamond) */ extraTiesWt =
-            tieWt * 0.5;
+          /* For 6 or 8 bars, more ties are required (cross ties or diamond) */ 
+          // Approximate extra ties weight 
+          extraTiesWt = tieWt * 0.5;
         }
         totalSteelKg = mainWt + tieWt + extraTiesWt;
         inputsUsed = {
@@ -229,18 +255,19 @@ export default function RccStructureCalculator({
           "Tie Dia (mm)": `${tieDia}`,
           "Tie Spacing (mm)": `${tieSpc * 1000}`,
           "Cover (mm)": `${c * 1000}`,
+          "Steel Grade": steelGrade,
         };
         steelBreakdown.push({
           label: "Vertical Main Bars",
-          details: `${noOfBars} bars of Ø${mainDia}`,
+          details: `${noOfBars} bars of Ø${mainDia} (includes lap = ${lapLengthPerLap.toFixed(2)}m/bar)`,
           weight: mainWt,
-          tooltip: "Main longitudinal reinforcement."
+          tooltip: `Cutting Length = Height + Laps (${lapDMultiplier}d).`
         });
         steelBreakdown.push({
           label: "Lateral Ties",
           details: `Ø${tieDia} @ ${tieSpc*1000}mm c/c`,
           weight: tieWt,
-          tooltip: "Perimeter shear reinforcement."
+          tooltip: "Perimeter shear reinforcement. Evaluated using L = 2(A + B) + 24d (Includes hook and bend deductions)."
         });
         if (extraTiesWt > 0) {
           steelBreakdown.push({
@@ -414,6 +441,37 @@ export default function RccStructureCalculator({
                       onChange={(e) => setColCover(e.target.value)}
                       className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
                     />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                      Steel Grade
+                      <Tooltip content="Used to calculate lap lengths (e.g. 50d for Fe500)." />
+                    </label>
+                    <select
+                      value={steelGrade}
+                      onChange={(e) => setSteelGrade(e.target.value)}
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
+                    >
+                      <option value="Fe415">Fe415 / Grade 40 (40d Lap)</option>
+                      <option value="Fe500">Fe500 / Grade 60 (50d Lap)</option>
+                      <option value="Fe550">Fe550 (55d Lap)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                      Concrete Grade
+                      <Tooltip content="M20, M25, M30. Indicates compressive strength." />
+                    </label>
+                    <select
+                      value={concreteGrade}
+                      onChange={(e) => setConcreteGrade(e.target.value)}
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-indigo-500"
+                    >
+                      <option value="M15">M15 (1:2:4)</option>
+                      <option value="M20">M20 (1:1.5:3)</option>
+                      <option value="M25">M25 (1:1.2:2)</option>
+                      <option value="M30">M30 (Design Mix)</option>
+                    </select>
                   </div>
                   {activeType === "Round Column" ? (
                     <div>

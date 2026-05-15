@@ -286,6 +286,7 @@ export const unitsData: Record<Category, Unit[]> = {
     { id: "aud", label: "Australian Dollar (AUD)", factor: 0.65 },
     { id: "inr", label: "Indian Rupee (INR)", factor: 0.012 },
     { id: "cny", label: "Chinese Yuan (CNY)", factor: 0.14 },
+    { id: "pkr", label: "Pakistani Rupee (PKR)", factor: 0.0036 },
   ],
 };
 
