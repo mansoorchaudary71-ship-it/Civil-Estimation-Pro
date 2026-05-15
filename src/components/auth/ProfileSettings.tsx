@@ -59,7 +59,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
             <h2 className="text-xl font-bold text-slate-800 dark:text-white">Profile Settings</h2>
             <button
               onClick={onClose}
-              className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -71,7 +71,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
                 {photoURL ? (
                   <img src={photoURL} alt="Profile" className="w-full h-full object-cover" />
                 ) : (
-                  <User className="w-10 h-10 text-slate-400" />
+                  <User className="w-10 h-10 text-slate-700 dark:text-slate-300" />
                 )}
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <Camera className="w-6 h-6 text-white" />
@@ -81,9 +81,9 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">Display Name</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">Display Name</label>
                 <div className="relative flex items-center">
-                  <User className="absolute left-3.5 w-5 h-5 text-slate-400" />
+                  <User className="absolute left-3.5 w-5 h-5 text-slate-700 dark:text-slate-300" />
                   <input
                     type="text"
                     value={name}
@@ -94,9 +94,9 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">Photo URL</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">Photo URL</label>
                 <div className="relative flex items-center">
-                  <Camera className="absolute left-3.5 w-5 h-5 text-slate-400" />
+                  <Camera className="absolute left-3.5 w-5 h-5 text-slate-700 dark:text-slate-300" />
                   <input
                      type="url"
                      value={photoURL}

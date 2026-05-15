@@ -20,7 +20,7 @@ export default function HouseSpecs() {
           <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent pb-2">
             Material Specs & Finishing
           </h1>
-          <p className="text-gray-500 mt-2 text-lg font-medium">
+          <p className="text-gray-500 dark:text-gray-400 mt-2 text-lg font-medium">
             Define material specifications, structural mixes, and finish
             qualities mapping to central dynamic rates.
           </p>
@@ -57,7 +57,7 @@ export default function HouseSpecs() {
           {/* Concrete / Structure */}
           <GlassCard
             title="Concrete Mix"
-            icon={<Layers className="w-5 h-5 text-gray-500" />}
+            icon={<Layers className="w-5 h-5 text-gray-700 dark:text-gray-300" />}
             color="gray"
           >
             <div className="space-y-4">
@@ -163,7 +163,7 @@ export default function HouseSpecs() {
                   { label: "Bare", value: "bare" },
                 ]}
               />
-              <p className="text-[11px] text-gray-500 mt-4 leading-relaxed font-medium">
+              <p className="text-[11px] text-gray-700 dark:text-gray-300 mt-4 leading-relaxed font-medium">
                 {specs.ceiling.type === "pop" &&
                   "Standard Plaster of Paris finishes offering smooth surfaces."}
                 {specs.ceiling.type === "gypsum" &&
@@ -302,7 +302,7 @@ function GlassCard({
 function SelectInput({ label, value, options, onChange }: any) {
   return (
     <div>
-      <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">
+      <label className="block text-[11px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest mb-1.5">
         {label}
       </label>
       <div className="relative">
@@ -317,7 +317,7 @@ function SelectInput({ label, value, options, onChange }: any) {
             </option>
           ))}
         </select>
-        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-700 dark:text-gray-300">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -339,7 +339,7 @@ function SelectInput({ label, value, options, onChange }: any) {
 function NumberInput({ label, value, onChange, desc }: any) {
   return (
     <div>
-      <label className="block text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">
+      <label className="block text-[11px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest mb-1.5">
         {label}
       </label>
       <input
@@ -350,7 +350,7 @@ function NumberInput({ label, value, onChange, desc }: any) {
         onChange={(e) => onChange(e.target.value)}
       />
       {desc && (
-        <p className="text-[10px] text-gray-400 mt-1.5 font-bold tracking-wide">
+        <p className="text-[10px] text-gray-700 dark:text-gray-300 mt-1.5 font-bold tracking-wide">
           {desc}
         </p>
       )}
@@ -364,7 +364,7 @@ function ToggleGroup({ value, onChange, options }: any) {
         <button
           key={opt.value}
           onClick={() => onChange(opt.value)}
-          className={`flex-1 py-2.5 px-3 text-[12px] font-bold rounded-xl transition-all duration-300 ${value === opt.value ? "bg-white text-gray-800 shadow-sm" : "text-gray-500 hover:text-gray-700 hover:bg-gray-200/50"}`}
+          className={`flex-1 py-2.5 px-3 text-[12px] font-bold rounded-xl transition-all duration-300 ${value === opt.value ? "bg-white text-gray-800 shadow-sm" : "text-gray-700 dark:text-gray-300 hover:text-gray-700 hover:bg-gray-200/50"}`}
         >
           {opt.label}
         </button>

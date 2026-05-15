@@ -208,9 +208,9 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
                 onDragStart={(e) => handleDragStart(e, est.id)}
                 onDragOver={(e) => handleDragOver(e, est.id)}
                 onDrop={handleDrop}
-                className={`group relative col-span-1 bg-white dark:bg-slate-900 p-5 md:p-6 rounded-2xl transition-all duration-300 flex flex-col items-center text-center border-2 border-slate-200 hover:border-slate-300 dark:border-slate-800 dark:hover:border-slate-700 cursor-pointer hover:-translate-y-1.5 shadow-sm hover:shadow-xl overflow-hidden ${dragOverId === est.id ? '!border-indigo-500 shadow-indigo-500/20' : ''} ${draggedId === est.id ? 'opacity-50' : 'opacity-100'}`}
+                className={`group relative col-span-1 bg-white dark:bg-slate-900 p-4 md:p-4 rounded-2xl transition-all duration-300 flex flex-col items-center text-center border-2 border-slate-200 hover:border-slate-300 dark:border-slate-800 dark:hover:border-slate-700 cursor-pointer hover:-translate-y-1.5 shadow-sm hover:shadow-xl overflow-hidden ${dragOverId === est.id ? '!border-indigo-500 shadow-indigo-500/20' : ''} ${draggedId === est.id ? 'opacity-50' : 'opacity-100'}`}
                 onClick={() => onSelectModule(est.type)}
-                style={{ minHeight: "200px" }}
+                style={{ minHeight: "150px" }}
               >
                 {/* Drag Handle Top Left */}
                 <div className="absolute top-4 left-4 z-20 cursor-grab text-slate-300 hover:text-slate-500 dark:text-slate-600 dark:hover:text-slate-400 p-1" onPointerDown={e => e.stopPropagation()}>

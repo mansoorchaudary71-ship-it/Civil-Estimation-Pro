@@ -175,7 +175,7 @@ export default function Sidebar({
       {/* Sidebar Content */}
       <div
         className={cn(
-          "fixed inset-y-0 left-0 z-[60] transform transition-all duration-300 ease-in-out flex flex-col w-[280px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl border-r border-slate-200/50 dark:border-slate-800/50 shadow-[4px_0_24px_rgba(0,0,0,0.02)] h-screen shrink-0",
+          "fixed inset-y-0 left-0 z-[60] transform transition-all duration-300 ease-in-out flex flex-col w-[280px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl border-r border-slate-200/50 dark:border-slate-800/50 shadow-[4px_0_24px_rgba(0,0,0,0.02)] h-[100dvh] shrink-0",
           isOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >

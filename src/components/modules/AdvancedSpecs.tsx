@@ -83,7 +83,7 @@ export default function AdvancedSpecs({
     options: string[],
   ) => (
     <div className="space-y-2 col-span-2">
-      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+      <label className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
         {label}
       </label>
       <div className="relative">
@@ -98,7 +98,7 @@ export default function AdvancedSpecs({
             </option>
           ))}
         </select>
-        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
+        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400 pointer-events-none" />
       </div>
     </div>
   );
@@ -108,7 +108,7 @@ export default function AdvancedSpecs({
     placeholder?: string,
   ) => (
     <div className="space-y-2 col-span-2 sm:col-span-1">
-      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+      <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
         {label}
       </label>
       <input
@@ -148,7 +148,7 @@ export default function AdvancedSpecs({
             Advanced Specifications
           </h2>
         </div>
-        <div className="p-2 bg-transparent text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors">
+        <div className="p-2 bg-transparent text-slate-700 dark:text-slate-300 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors">
           {isOpen ? (
             <ChevronUp className="w-5 h-5" />
           ) : (
@@ -157,7 +157,7 @@ export default function AdvancedSpecs({
         </div>
       </div>
       {!isOpen && (
-        <p className="text-sm text-slate-500 font-medium">
+        <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">
           Using standard smart defaults for accurate initial estimates.
         </p>
       )}
@@ -173,9 +173,9 @@ export default function AdvancedSpecs({
                 1. Foundation & Substructure
               </span>
               {openCategory === 0 ? (
-                <ChevronUp className="w-4 h-4 text-slate-400" />
+                <ChevronUp className="w-4 h-4 text-slate-700 dark:text-slate-300" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-slate-400" />
+                <ChevronDown className="w-4 h-4 text-slate-700 dark:text-slate-300" />
               )}
             </button>
             {openCategory === 0 && (
@@ -203,9 +203,9 @@ export default function AdvancedSpecs({
                 2. Superstructure (Grey Structure)
               </span>
               {openCategory === 1 ? (
-                <ChevronUp className="w-4 h-4 text-slate-400" />
+                <ChevronUp className="w-4 h-4 text-slate-700 dark:text-slate-300" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-slate-400" />
+                <ChevronDown className="w-4 h-4 text-slate-700 dark:text-slate-300" />
               )}
             </button>
             {openCategory === 1 && (
@@ -244,9 +244,9 @@ export default function AdvancedSpecs({
                 3. Finishing & Surfaces
               </span>
               {openCategory === 2 ? (
-                <ChevronUp className="w-4 h-4 text-slate-400" />
+                <ChevronUp className="w-4 h-4 text-slate-700 dark:text-slate-300" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-slate-400" />
+                <ChevronDown className="w-4 h-4 text-slate-700 dark:text-slate-300" />
               )}
             </button>
             {openCategory === 2 && (
@@ -296,9 +296,9 @@ export default function AdvancedSpecs({
                 4. Woodwork & Openings
               </span>
               {openCategory === 3 ? (
-                <ChevronUp className="w-4 h-4 text-slate-400" />
+                <ChevronUp className="w-4 h-4 text-slate-700 dark:text-slate-300" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-slate-400" />
+                <ChevronDown className="w-4 h-4 text-slate-700 dark:text-slate-300" />
               )}
             </button>
             {openCategory === 3 && (
@@ -343,9 +343,9 @@ export default function AdvancedSpecs({
                 5. MEP Services
               </span>
               {openCategory === 4 ? (
-                <ChevronUp className="w-4 h-4 text-slate-400" />
+                <ChevronUp className="w-4 h-4 text-slate-700 dark:text-slate-300" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-slate-400" />
+                <ChevronDown className="w-4 h-4 text-slate-700 dark:text-slate-300" />
               )}
             </button>
             {openCategory === 4 && (

@@ -126,7 +126,7 @@ export default function AIAssistant() {
               <Send className="w-[16px] h-[16px]" />
             </button>
           </div>
-          <div className="text-center mt-3 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+          <div className="text-center mt-3 text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest">
             AI generated estimates are preliminary. Always confirm with a
             certified QS.
           </div>

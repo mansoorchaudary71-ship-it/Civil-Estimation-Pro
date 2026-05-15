@@ -69,7 +69,7 @@ export default function EarthworksEstimator() {
             <h1 className="text-3xl md:text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent pb-1">
               Earthworks & Hauling Estimator
             </h1>
-            <p className="text-gray-500 mt-2 font-medium">
+            <p className="text-gray-500 dark:text-gray-400 mt-2 font-medium">
               Calculate accurate excavation volumes using the Prismoidal Formula
               and estimate hauling constraints.
             </p>
@@ -95,26 +95,26 @@ export default function EarthworksEstimator() {
               </div>
               <div className="space-y-4">
                 <div className="mb-4">
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1">
+                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2 ml-1">
                     Calculation Method
                   </label>
                   <div className="flex bg-gray-100/80 p-1 rounded-xl">
                     <button
                       onClick={() => setCalcMethod("prismoidal")}
-                      className={`flex-1 py-1.5 text-sm font-semibold rounded-lg transition-all ${calcMethod === "prismoidal" ? "bg-white shadow-[0_2px_10px_rgb(0,0,0,0.05)] text-blue-600" : "text-gray-500 hover:text-gray-700"}`}
+                      className={`flex-1 py-1.5 text-sm font-semibold rounded-lg transition-all ${calcMethod === "prismoidal" ? "bg-white shadow-[0_2px_10px_rgb(0,0,0,0.05)] text-blue-600" : "text-gray-700 dark:text-gray-300 hover:text-gray-700"}`}
                     >
                       Prismoidal Formula
                     </button>
                     <button
                       onClick={() => setCalcMethod("averageEnd")}
-                      className={`flex-1 py-1.5 text-sm font-semibold rounded-lg transition-all ${calcMethod === "averageEnd" ? "bg-white shadow-[0_2px_10px_rgb(0,0,0,0.05)] text-blue-600" : "text-gray-500 hover:text-gray-700"}`}
+                      className={`flex-1 py-1.5 text-sm font-semibold rounded-lg transition-all ${calcMethod === "averageEnd" ? "bg-white shadow-[0_2px_10px_rgb(0,0,0,0.05)] text-blue-600" : "text-gray-700 dark:text-gray-300 hover:text-gray-700"}`}
                     >
                       Average End Area
                     </button>
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                     Length (L) [{unitL}]
                   </label>
                   <input
@@ -127,7 +127,7 @@ export default function EarthworksEstimator() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       End Area 1 (A₁) [{unitA}]
                     </label>
                     <input
@@ -138,7 +138,7 @@ export default function EarthworksEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       End Area 2 (A₂) [{unitA}]
                     </label>
                     <input
@@ -152,7 +152,7 @@ export default function EarthworksEstimator() {
                 {calcMethod === "prismoidal" && (
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider ml-1">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider ml-1">
                         Middle Area (Aₘ) [{unitA}]
                       </label>
                       <label className="flex items-center gap-2 cursor-pointer pr-1">
@@ -162,7 +162,7 @@ export default function EarthworksEstimator() {
                           onChange={(e) => setAutoCalcAm(e.target.checked)}
                           className="w-3.5 h-3.5 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
                         />
-                        <span className="text-xs font-medium text-gray-500">
+                        <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
                           Calculate Aₘ Automatically
                         </span>
                       </label>
@@ -175,9 +175,9 @@ export default function EarthworksEstimator() {
                         onChange={(e) => setAreaM(e.target.value)}
                       />
                     ) : (
-                      <div className="w-full bg-gray-50 border border-gray-200 text-gray-500 rounded-xl px-4 py-3 cursor-not-allowed font-medium">
+                      <div className="w-full bg-gray-50 border border-gray-200 text-gray-700 dark:text-gray-300 rounded-xl px-4 py-3 cursor-not-allowed font-medium">
                         {am.toFixed(2)}
-                        <span className="text-gray-400 text-sm ml-1 font-normal">
+                        <span className="text-gray-700 dark:text-gray-300 text-sm ml-1 font-normal">
                           (approximated)
                         </span>
                       </div>
@@ -198,7 +198,7 @@ export default function EarthworksEstimator() {
               <div className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Swell Factor (%)
                     </label>
                     <input
@@ -209,7 +209,7 @@ export default function EarthworksEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Shrink Factor (%)
                     </label>
                     <input
@@ -221,7 +221,7 @@ export default function EarthworksEstimator() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                     Truck Capacity ({unitV})
                   </label>
                   <input
@@ -245,11 +245,11 @@ export default function EarthworksEstimator() {
               </div>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                     Excavation Rate (per Bank {unitV})
                   </label>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 dark:text-gray-300 font-medium">
                       {settings.currency}
                     </span>
                     <input
@@ -267,11 +267,11 @@ export default function EarthworksEstimator() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                     Compaction Rate (per Compacted {unitV})
                   </label>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 dark:text-gray-300 font-medium">
                       {settings.currency}
                     </span>
                     <input
@@ -289,11 +289,11 @@ export default function EarthworksEstimator() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                     Hauling Rate (per Truck Trip)
                   </label>
                   <div className="relative">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 dark:text-gray-300 font-medium">
                       {settings.currency}
                     </span>
                     <input
@@ -373,7 +373,7 @@ export default function EarthworksEstimator() {
                 <h3 className="text-lg font-bold text-gray-800 mb-1">
                   Total Truck Trips
                 </h3>
-                <p className="text-sm text-gray-500 font-medium">
+                <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">
                   Based on loose volume & capacity
                 </p>
               </div>
@@ -381,7 +381,7 @@ export default function EarthworksEstimator() {
                 <div className="text-4xl font-black text-indigo-600 tracking-tighter">
                   {truckTrips}
                 </div>
-                <div className="text-gray-400 mt-2">trips</div>
+                <div className="text-gray-700 dark:text-gray-300 mt-2">trips</div>
               </div>
             </div>
             {/* Total Cost Summary */}
@@ -417,13 +417,13 @@ export default function EarthworksEstimator() {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-gray-50/50">
-                  <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-100">
+                  <th className="px-6 py-4 text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider border-b border-gray-100">
                     Parameter
                   </th>
-                  <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-100">
+                  <th className="px-6 py-4 text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider border-b border-gray-100">
                     Value
                   </th>
-                  <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-100">
+                  <th className="px-6 py-4 text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider border-b border-gray-100">
                     Description
                   </th>
                 </tr>
@@ -434,7 +434,7 @@ export default function EarthworksEstimator() {
                   <td className="px-6 py-4 font-mono text-blue-600">
                     {l.toFixed(2)} {unitL}
                   </td>
-                  <td className="px-6 py-4 text-gray-500">
+                  <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
                     Distance between end sections
                   </td>
                 </tr>
@@ -443,7 +443,7 @@ export default function EarthworksEstimator() {
                   <td className="px-6 py-4 font-mono text-blue-600">
                     {a1.toFixed(2)} / {a2.toFixed(2)} {unitA}
                   </td>
-                  <td className="px-6 py-4 text-gray-500">A1 and A2</td>
+                  <td className="px-6 py-4 text-gray-700 dark:text-gray-300">A1 and A2</td>
                 </tr>
                 {calcMethod === "prismoidal" && (
                   <tr className="hover:bg-gray-50/50 transition-colors">
@@ -451,7 +451,7 @@ export default function EarthworksEstimator() {
                     <td className="px-6 py-4 font-mono text-blue-600">
                       {am.toFixed(2)} {unitA}
                     </td>
-                    <td className="px-6 py-4 text-gray-500">
+                    <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
                       Am (used in Prismoidal formula)
                     </td>
                   </tr>
@@ -463,7 +463,7 @@ export default function EarthworksEstimator() {
                   <td className="px-6 py-4 font-mono font-bold text-gray-900">
                     {solidVolume.toFixed(2)} {unitV}
                   </td>
-                  <td className="px-6 py-4 text-gray-500">
+                  <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
                     Bank measure before swell
                   </td>
                 </tr>
@@ -474,7 +474,7 @@ export default function EarthworksEstimator() {
                   <td className="px-6 py-4 font-mono font-bold text-indigo-600">
                     {truckTrips} trips
                   </td>
-                  <td className="px-6 py-4 text-gray-500">
+                  <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
                     @ {tCap.toFixed(2)} {unitV} capacity
                   </td>
                 </tr>

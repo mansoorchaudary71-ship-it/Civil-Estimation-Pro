@@ -205,7 +205,7 @@ export default function SewerageEstimator() {
           <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-teal-500 to-cyan-500 bg-clip-text text-transparent pb-1">
             Sewerage & Drainage Calculator
           </h1>
-          <p className="text-gray-500 mt-2 font-medium">
+          <p className="text-gray-500 dark:text-gray-400 mt-2 font-medium">
             Calculate excavation volumes, manhole material, pipe sections, and
             invert levels for municipal infrastructure.
           </p>
@@ -229,7 +229,7 @@ export default function SewerageEstimator() {
                 </h2>
               </div>
               <ChevronDown
-                className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${openSection === "manhole" ? "rotate-180" : ""}`}
+                className={`w-5 h-5 text-gray-700 dark:text-gray-300 transition-transform duration-300 ${openSection === "manhole" ? "rotate-180" : ""}`}
               />
             </button>
             <div
@@ -255,7 +255,7 @@ export default function SewerageEstimator() {
                 </h2>
               </div>
               <ChevronDown
-                className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${openSection === "trench" ? "rotate-180" : ""}`}
+                className={`w-5 h-5 text-gray-700 dark:text-gray-300 transition-transform duration-300 ${openSection === "trench" ? "rotate-180" : ""}`}
               />
             </button>
             <div
@@ -265,7 +265,7 @@ export default function SewerageEstimator() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="grid grid-cols-2 gap-4 h-fit">
                     <div className="col-span-2">
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                         Length (m)
                       </label>
                       <input
@@ -276,7 +276,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                         Bottom Width (m)
                       </label>
                       <input
@@ -287,7 +287,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                         Depth (m)
                       </label>
                       <input
@@ -298,18 +298,18 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div className="col-span-2 mt-2 border-t border-gray-100 pt-4">
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                         Trench Profile
                       </label>
                       <div className="flex bg-gray-100 p-1 rounded-xl mb-4">
                         <button
-                          className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${trenchProfile === "vertical" ? "bg-white text-gray-800 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
+                          className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${trenchProfile === "vertical" ? "bg-white text-gray-800 shadow-sm" : "text-gray-700 dark:text-gray-300 hover:text-gray-700"}`}
                           onClick={() => setTrenchProfile("vertical")}
                         >
                           Vertical
                         </button>
                         <button
-                          className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${trenchProfile === "sloped" ? "bg-white text-gray-800 shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
+                          className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${trenchProfile === "sloped" ? "bg-white text-gray-800 shadow-sm" : "text-gray-700 dark:text-gray-300 hover:text-gray-700"}`}
                           onClick={() => setTrenchProfile("sloped")}
                         >
                           Sloped/Trapezoidal
@@ -318,11 +318,11 @@ export default function SewerageEstimator() {
                     </div>
                     {trenchProfile === "sloped" && (
                       <div className="col-span-2 -mt-2">
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                           Side Slope (1 Vertical : X Horizontal)
                         </label>
                         <div className="flex items-center gap-3 w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-amber-500/50 transition-shadow">
-                          <span className="text-gray-500 font-semibold text-sm whitespace-nowrap">1 V :</span>
+                          <span className="text-gray-700 dark:text-gray-300 font-semibold text-sm whitespace-nowrap">1 V :</span>
                           <input
                             type="number"
                             step="0.1"
@@ -331,7 +331,7 @@ export default function SewerageEstimator() {
                             value={trenchSlopeRatio}
                             onChange={(e) => setTrenchSlopeRatio(e.target.value)}
                           />
-                          <span className="text-gray-500 font-semibold text-sm whitespace-nowrap">H</span>
+                          <span className="text-gray-700 dark:text-gray-300 font-semibold text-sm whitespace-nowrap">H</span>
                         </div>
                       </div>
                     )}
@@ -341,7 +341,7 @@ export default function SewerageEstimator() {
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                          <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                             Pipe Outer Dia (m)
                           </label>
                           <input
@@ -354,7 +354,7 @@ export default function SewerageEstimator() {
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                          <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                             Bedding Depth (m)
                           </label>
                           <input
@@ -408,7 +408,7 @@ export default function SewerageEstimator() {
 
                 {/* Trench Cross-Section Diagram */}
                 <div className="mt-8 bg-white border border-gray-100 rounded-[1.5rem] p-6 flex flex-col items-center shadow-sm">
-                  <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-6 flex items-center gap-2">
+                  <h3 className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-6 flex items-center gap-2">
                     <AlignVerticalJustifyStart className="w-4 h-4" />
                     Trench Cross Section Profile
                   </h3>
@@ -566,7 +566,7 @@ export default function SewerageEstimator() {
                 </h2>
               </div>
               <ChevronDown
-                className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${openSection === "il" ? "rotate-180" : ""}`}
+                className={`w-5 h-5 text-gray-700 dark:text-gray-300 transition-transform duration-300 ${openSection === "il" ? "rotate-180" : ""}`}
               />
             </button>
             <div
@@ -576,7 +576,7 @@ export default function SewerageEstimator() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                         Starting IL (m)
                       </label>
                       <input
@@ -588,7 +588,7 @@ export default function SewerageEstimator() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                           Length (m)
                         </label>
                         <input
@@ -599,11 +599,11 @@ export default function SewerageEstimator() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                           Gradient (1 in X)
                         </label>
                         <div className="flex items-center bg-gray-50/50 border border-gray-200 rounded-xl focus-within:ring-2 focus-within:ring-blue-500/50 overflow-hidden">
-                          <div className="px-3 text-sm text-gray-400 font-medium">
+                          <div className="px-3 text-sm text-gray-700 dark:text-gray-300 font-medium">
                             1 :
                           </div>
                           <input
@@ -654,7 +654,7 @@ export default function SewerageEstimator() {
                 </h2>
               </div>
               <ChevronDown
-                className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${openSection === "pipe" ? "rotate-180" : ""}`}
+                className={`w-5 h-5 text-gray-700 dark:text-gray-300 transition-transform duration-300 ${openSection === "pipe" ? "rotate-180" : ""}`}
               />
             </button>
             <div
@@ -664,7 +664,7 @@ export default function SewerageEstimator() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-4 h-fit">
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                         Total Run Length (m)
                       </label>
                       <input
@@ -675,7 +675,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                         One Pipe Section Length (m)
                       </label>
                       <input
@@ -727,7 +727,7 @@ export default function SewerageEstimator() {
                 </h2>
               </div>
               <ChevronDown
-                className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${openSection === "bedding" ? "rotate-180" : ""}`}
+                className={`w-5 h-5 text-gray-700 dark:text-gray-300 transition-transform duration-300 ${openSection === "bedding" ? "rotate-180" : ""}`}
               />
             </button>
             <div
@@ -738,7 +738,7 @@ export default function SewerageEstimator() {
                   <div className="space-y-4 h-fit">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                           Trench Length (m)
                         </label>
                         <input
@@ -749,7 +749,7 @@ export default function SewerageEstimator() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                           Trench Width (m)
                         </label>
                         <input
@@ -761,7 +761,7 @@ export default function SewerageEstimator() {
                       </div>
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                         Pipe Outer Dia (m)
                       </label>
                       <input
@@ -772,7 +772,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                         Bedding Type / Class
                       </label>
                       <select
@@ -793,7 +793,7 @@ export default function SewerageEstimator() {
                     </div>
                     <div className="grid grid-cols-2 gap-4 border-t border-gray-100 pt-4">
                       <div>
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                           Depth Under Pipe (m)
                         </label>
                         <input
@@ -804,7 +804,7 @@ export default function SewerageEstimator() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                           Haunching HT (m)
                         </label>
                         <input
@@ -897,7 +897,7 @@ export default function SewerageEstimator() {
                 </h2>
               </div>
               <ChevronDown
-                className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${openSection === "flow" ? "rotate-180" : ""}`}
+                className={`w-5 h-5 text-gray-700 dark:text-gray-300 transition-transform duration-300 ${openSection === "flow" ? "rotate-180" : ""}`}
               />
             </button>
             <div
@@ -907,7 +907,7 @@ export default function SewerageEstimator() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-4 h-fit">
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                         Pipe Inner Diameter (m)
                       </label>
                       <input
@@ -918,7 +918,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                         Gradient (1 in X)
                       </label>
                       <input
@@ -929,7 +929,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                         Pipe Material
                       </label>
                       <select
@@ -1021,7 +1021,7 @@ export default function SewerageEstimator() {
                 </h2>
               </div>
               <ChevronDown
-                className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${openSection === "septic" ? "rotate-180" : ""}`}
+                className={`w-5 h-5 text-gray-700 dark:text-gray-300 transition-transform duration-300 ${openSection === "septic" ? "rotate-180" : ""}`}
               />
             </button>
             <div
@@ -1031,7 +1031,7 @@ export default function SewerageEstimator() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-4 h-fit">
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                         Number of Users
                       </label>
                       <input
@@ -1047,7 +1047,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                         Per Capita Water Demand (L/day)
                       </label>
                       <input
@@ -1063,7 +1063,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                         Soil Percolation Rate (L/m²/day)
                       </label>
                       <input

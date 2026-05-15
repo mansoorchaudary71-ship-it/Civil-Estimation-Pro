@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
@@ -58,8 +59,8 @@ export default function Brickwork9InchModule() {
 
     // Convert from imperial if needed to metric for base calculations
     if (!isSI) {
-      l = l * 0.3048; // ft to m
-      h = h * 0.3048; // ft to m
+      l = l * CIVIL_CONSTANTS.FT_TO_M; // ft to m
+      h = h * CIVIL_CONSTANTS.FT_TO_M; // ft to m
       ded = ded * 0.092903; // sq.ft to m2
     }
 
@@ -118,7 +119,7 @@ export default function Brickwork9InchModule() {
             <h3 className="text-xl font-bold text-slate-800 dark:text-white">
               Brickwork Estimator
             </h3>
-            <p className="text-sm font-medium text-slate-500">
+            <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
               Calculate bricks, cement, and sand for a 9-inch wall.
             </p>
           </div>
@@ -140,7 +141,7 @@ export default function Brickwork9InchModule() {
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
                     Length ({results.isSI ? 'm' : 'ft'})
                   </label>
                   <input
@@ -152,7 +153,7 @@ export default function Brickwork9InchModule() {
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
                     Height ({results.isSI ? 'm' : 'ft'})
                   </label>
                   <input
@@ -164,7 +165,7 @@ export default function Brickwork9InchModule() {
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
                     Deductions ({results.isSI ? 'm²' : 'sq.ft'})
                   </label>
                   <input
@@ -186,13 +187,13 @@ export default function Brickwork9InchModule() {
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
                     Brick Size
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
                     <button
                       onClick={() => setBrickType("standard")}
-                      className={`flex flex-col items-start justify-center py-3 px-4 text-sm font-bold rounded-xl transition-all border ${brickType === "standard" ? "bg-orange-50 dark:bg-orange-500/10 border-orange-200 dark:border-orange-500/30 text-orange-700 dark:text-orange-400 shadow-sm" : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-orange-200 hover:bg-orange-50/50"}`}
+                      className={`flex flex-col items-start justify-center py-3 px-4 text-sm font-bold rounded-xl transition-all border ${brickType === "standard" ? "bg-orange-50 dark:bg-orange-500/10 border-orange-200 dark:border-orange-500/30 text-orange-700 dark:text-orange-400 shadow-sm" : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-orange-200 hover:bg-orange-50/50"}`}
                     >
                       <div className="flex items-center gap-2 mb-1">
                         <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${brickType === "standard" ? "border-orange-500" : "border-slate-300"}`}>
@@ -200,13 +201,13 @@ export default function Brickwork9InchModule() {
                         </div>
                         <span>Standard</span>
                       </div>
-                      <span className={`text-[11px] font-medium ml-6 ${brickType === "standard" ? "text-orange-600/80 dark:text-orange-400/80" : "text-slate-400"}`}>
+                      <span className={`text-[11px] font-medium ml-6 ${brickType === "standard" ? "text-orange-600/80 dark:text-orange-400/80" : "text-slate-700 dark:text-slate-300"}`}>
                         230 × 110 × 75 mm
                       </span>
                     </button>
                     <button
                       onClick={() => setBrickType("modular")}
-                      className={`flex flex-col items-start justify-center py-3 px-4 text-sm font-bold rounded-xl transition-all border ${brickType === "modular" ? "bg-orange-50 dark:bg-orange-500/10 border-orange-200 dark:border-orange-500/30 text-orange-700 dark:text-orange-400 shadow-sm" : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-500 hover:border-orange-200 hover:bg-orange-50/50"}`}
+                      className={`flex flex-col items-start justify-center py-3 px-4 text-sm font-bold rounded-xl transition-all border ${brickType === "modular" ? "bg-orange-50 dark:bg-orange-500/10 border-orange-200 dark:border-orange-500/30 text-orange-700 dark:text-orange-400 shadow-sm" : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-orange-200 hover:bg-orange-50/50"}`}
                     >
                       <div className="flex items-center gap-2 mb-1">
                         <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${brickType === "modular" ? "border-orange-500" : "border-slate-300"}`}>
@@ -214,7 +215,7 @@ export default function Brickwork9InchModule() {
                         </div>
                         <span>Modular</span>
                       </div>
-                      <span className={`text-[11px] font-medium ml-6 ${brickType === "modular" ? "text-orange-600/80 dark:text-orange-400/80" : "text-slate-400"}`}>
+                      <span className={`text-[11px] font-medium ml-6 ${brickType === "modular" ? "text-orange-600/80 dark:text-orange-400/80" : "text-slate-700 dark:text-slate-300"}`}>
                         190 × 90 × 90 mm
                       </span>
                     </button>
@@ -223,7 +224,7 @@ export default function Brickwork9InchModule() {
 
                 <div className="flex flex-col justify-between">
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+                    <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
                       Mortar Ratio (Cement:Sand)
                     </label>
                     <div className="relative">
@@ -236,7 +237,7 @@ export default function Brickwork9InchModule() {
                         <option value="1:4">1:4 (Standard Mix)</option>
                         <option value="1:6">1:6 (Lean Mix)</option>
                       </select>
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-700 dark:text-slate-300">
                         <Settings className="w-5 h-5" />
                       </div>
                     </div>
@@ -269,14 +270,14 @@ export default function Brickwork9InchModule() {
           <div className="relative">
             <div className="sticky top-6 bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-md overflow-hidden flex flex-col h-full">
               <div className="px-6 py-5 bg-transparent dark:bg-slate-800/80 border-b border-slate-100 dark:border-slate-700/50 text-center">
-                <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">
+                <p className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5">
                   Net Wall Volume
                 </p>
                 <div className="flex items-center justify-center gap-1.5 text-slate-800 dark:text-white">
                   <span className="text-3xl font-black">
                     {results.netVolume.toFixed(2)}
                   </span>
-                  <span className="text-lg font-bold text-slate-500">
+                  <span className="text-lg font-bold text-slate-700 dark:text-slate-300">
                     {results.isSI ? 'm³' : 'cft'}
                   </span>
                 </div>
@@ -306,9 +307,9 @@ export default function Brickwork9InchModule() {
                   <div className="bg-white dark:bg-slate-800 px-4 py-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
                     <div className="flex items-center gap-2 mb-2">
                       <div className="p-1.5 bg-slate-100 dark:bg-slate-700 rounded-lg">
-                        <Construction className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+                        <Construction className="w-4 h-4 text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300" />
                       </div>
-                      <h4 className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest">
+                      <h4 className="text-xs font-bold text-slate-600 dark:text-slate-700 dark:text-slate-300 uppercase tracking-widest">
                         Cement
                       </h4>
                     </div>
@@ -316,7 +317,7 @@ export default function Brickwork9InchModule() {
                       <p className="text-2xl font-black text-slate-800 dark:text-white">
                         {results.cementBags}
                       </p>
-                      <span className="text-sm font-semibold text-slate-400 mb-0.5">
+                      <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-0.5">
                         bags
                       </span>
                     </div>
@@ -328,7 +329,7 @@ export default function Brickwork9InchModule() {
                       <div className="p-1.5 bg-amber-100 dark:bg-amber-900/30 rounded-lg">
                         <Layers className="w-4 h-4 text-amber-600 dark:text-amber-500" />
                       </div>
-                      <h4 className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest">
+                      <h4 className="text-xs font-bold text-slate-600 dark:text-slate-700 dark:text-slate-300 uppercase tracking-widest">
                         Sand
                       </h4>
                     </div>
@@ -337,11 +338,11 @@ export default function Brickwork9InchModule() {
                         <p className="text-2xl font-black text-slate-800 dark:text-white">
                           {results.sandCft.toFixed(1)}
                         </p>
-                        <span className="text-sm font-semibold text-slate-400 mb-0.5">
+                        <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-0.5">
                           cft
                         </span>
                       </div>
-                      <p className="text-[10px] font-bold text-slate-400 mt-0.5">
+                      <p className="text-[10px] font-bold text-slate-700 dark:text-slate-300 mt-0.5">
                         {((results.sandCft || 0) / 35.3147).toFixed(2)} m³
                       </p>
                     </div>
@@ -351,7 +352,7 @@ export default function Brickwork9InchModule() {
 
               {/* Footer info */}
               <div className="px-6 py-4 bg-transparent dark:bg-slate-800/80 border-t border-slate-100 dark:border-slate-700 flex justify-center text-center">
-                <span className="flex items-center gap-1.5 text-xs font-bold text-slate-500 dark:text-slate-400">
+                <span className="flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300">
                   <Droplets className="w-4 h-4 text-blue-400" />
                   Dry Mortar: {results.dryMortarVol.toFixed(3)} {results.isSI ? 'm³' : 'cft'}
                 </span>

@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
+import { useSettings } from "../../context/SettingsContext";
 import {
   Hammer,
   Grid,
@@ -22,23 +23,28 @@ interface FormworkElement {
   count: string;
 }
 export default function FormworkEstimator() {
+  const { settings } = useSettings();
+  const isMetric = settings.measurement === "SI";
+  const unitStr = isMetric ? "m" : "ft";
+  const areaUnitStr = isMetric ? "m²" : "sq.ft";
+
   const [elements, setElements] = useState<FormworkElement[]>([
     {
       id: "1",
       name: "Column C1",
       type: "column",
-      length: "0.3",
-      width: "0.4",
-      height: "3.0",
+      length: isMetric ? "0.3" : "1",
+      width: isMetric ? "0.4" : "1.3",
+      height: isMetric ? "3.0" : "10.0",
       count: "10",
     },
     {
       id: "2",
       name: "Slab Roof",
       type: "slab",
-      length: "12.0",
-      width: "10.0",
-      height: "0.15",
+      length: isMetric ? "12.0" : "40",
+      width: isMetric ? "10.0" : "33",
+      height: isMetric ? "0.15" : "0.5",
       count: "1",
     },
   ]);
@@ -51,9 +57,9 @@ export default function FormworkEstimator() {
         id: Math.random().toString(36).substring(2, 9),
         name: "New Item",
         type: "beam",
-        length: "4.0",
-        width: "0.3",
-        height: "0.45",
+        length: isMetric ? "4.0" : "13.0",
+        width: isMetric ? "0.3" : "1.0",
+        height: isMetric ? "0.45" : "1.5",
         count: "1",
       },
     ]);
@@ -76,8 +82,8 @@ export default function FormworkEstimator() {
     );
   };
   const results = useMemo(() => {
-    let totalAreaSqm = 0;
-    /* Detailed areas for charting/breakdown */ let colArea = 0;
+    let totalArea = 0;
+    let colArea = 0;
     let beamArea = 0;
     let slabArea = 0;
     elements.forEach((item) => {
@@ -87,31 +93,32 @@ export default function FormworkEstimator() {
       const c = parseFloat(item.count) || 0;
       let area = 0;
       if (item.type === "column") {
-        /* (2 * width * height) + (2 * length * height) */ area =
-          (2 * w * h + 2 * l * h) * c;
+        area = (2 * w * h + 2 * l * h) * c;
         colArea += area;
       } else if (item.type === "beam") {
-        /* Bottom + 2 Sides (length * width) + (2 * length * depth) */ area =
-          (l * w + 2 * l * h) * c;
+        area = (l * w + 2 * l * h) * c;
         beamArea += area;
       } else if (item.type === "slab") {
-        /* Bottom + Perimeters */ area = (l * w + 2 * (l + w) * h) * c;
+        area = (l * w + 2 * (l + w) * h) * c;
         slabArea += area;
       }
-      totalAreaSqm += area;
+      totalArea += area;
     });
-    /* */ const totalAreaSqft = totalAreaSqm * 10.7639;
-    /* Repetition Factor affects the actual material purchased/rented */ const effectiveAreaSqft =
+
+    const totalAreaSqm = isMetric ? totalArea : totalArea / 10.7639;
+    const totalAreaSqft = isMetric ? totalArea * 10.7639 : totalArea;
+
+    const effectiveAreaSqft =
       (totalAreaSqft / repetitionFactor) * (1 + wastagePct / 100);
     const effectiveAreaSqm =
       (totalAreaSqm / repetitionFactor) * (1 + wastagePct / 100);
-    /* 1 standard plywood sheet = 4ft x 8ft = 32 sqft */ const plywoodSheets =
-      Math.ceil(effectiveAreaSqft / 32);
-    /* Wooden battens/runners: rule of thumb roughly ~2.5 - 3 running ft per sqft of formwork */ const battensRft =
-      Math.ceil(effectiveAreaSqft * 2.5);
-    /* Props / Scaffolding pipes: rule of thumb approx 1.2 props per sqm of formwork */ const steelProps =
-      Math.ceil(effectiveAreaSqm * 1.5);
+
+    const plywoodSheets = Math.ceil(effectiveAreaSqft / 32);
+    const battensRft = Math.ceil(effectiveAreaSqft * 2.5);
+    const steelProps = Math.ceil(effectiveAreaSqm * 1.5);
+
     return {
+      totalArea,
       totalAreaSqm,
       totalAreaSqft,
       effectiveAreaSqft,
@@ -120,20 +127,20 @@ export default function FormworkEstimator() {
       steelProps,
       breakdown: { colArea, beamArea, slabArea },
     };
-  }, [elements, repetitionFactor, wastagePct]);
+  }, [elements, repetitionFactor, wastagePct, isMetric]);
   const breakdownData = useMemo(() => {
     return [
       { name: "Columns", value: results.breakdown.colArea, color: "#f59e0b" },
-      /* amber-500 */ {
+      {
         name: "Slabs",
         value: results.breakdown.slabArea,
         color: "#f43f5e",
       },
-      /* rose-500 */ {
+      {
         name: "Beams",
         value: results.breakdown.beamArea,
         color: "#6366f1",
-      } /* indigo-500 */,
+      },
     ].filter((d: any) => d.value > 0);
   }, [results]);
   return (
@@ -147,7 +154,7 @@ export default function FormworkEstimator() {
             {" "}
             Formwork & Scaffolding{" "}
           </h1>{" "}
-          <p className="text-gray-500 mt-2 text-lg font-medium">
+          <p className="text-gray-500 dark:text-gray-400 mt-2 text-lg font-medium">
             {" "}
             Calculate accurate shuttering contact surface areas and standard
             material requirements.{" "}
@@ -176,7 +183,7 @@ export default function FormworkEstimator() {
                     <h2 className="text-xl font-bold text-gray-800">
                       Shuttering Elements
                     </h2>{" "}
-                    <p className="text-sm text-gray-500 font-medium">
+                    <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">
                       Add columns, beams, or slabs
                     </p>{" "}
                   </div>{" "}
@@ -202,7 +209,7 @@ export default function FormworkEstimator() {
                       {" "}
                       <div className="col-span-2 md:col-span-2 space-y-1">
                         {" "}
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block">
+                        <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest block">
                           Type & Name
                         </label>{" "}
                         <div className="flex gap-2">
@@ -231,8 +238,8 @@ export default function FormworkEstimator() {
                       </div>{" "}
                       <div className="space-y-1">
                         {" "}
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block">
-                          L (m)
+                        <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest block">
+                          L ({unitStr})
                         </label>{" "}
                         <input
                           type="number"
@@ -247,8 +254,8 @@ export default function FormworkEstimator() {
                       </div>{" "}
                       <div className="space-y-1">
                         {" "}
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block">
-                          W (m)
+                        <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest block">
+                          W ({unitStr})
                         </label>{" "}
                         <input
                           type="number"
@@ -263,8 +270,8 @@ export default function FormworkEstimator() {
                       </div>{" "}
                       <div className="space-y-1">
                         {" "}
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block">
-                          H/D (m)
+                        <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest block">
+                          H/D ({unitStr})
                         </label>{" "}
                         <input
                           type="number"
@@ -279,7 +286,7 @@ export default function FormworkEstimator() {
                       </div>{" "}
                       <div className="space-y-1">
                         {" "}
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block">
+                        <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest block">
                           Qty
                         </label>{" "}
                         <input
@@ -305,7 +312,7 @@ export default function FormworkEstimator() {
                 {elements.length === 0 && (
                   <div className="text-center py-12 bg-transparent border-2 border-dashed border-gray-200 rounded-[2rem]">
                     {" "}
-                    <p className="text-gray-400 font-medium">
+                    <p className="text-gray-700 dark:text-gray-300 font-medium">
                       No formwork elements added.
                     </p>{" "}
                   </div>
@@ -323,7 +330,7 @@ export default function FormworkEstimator() {
                     Repetition Factor
                   </h3>{" "}
                 </div>{" "}
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-700 dark:text-gray-300">
                   How many times will the shuttering be reused? This drastically
                   reduces material required.
                 </p>{" "}
@@ -334,7 +341,7 @@ export default function FormworkEstimator() {
                   <button
                     key={factor}
                     onClick={() => setRepetitionFactor(factor)}
-                    className={`w-12 h-12 rounded-2xl font-black transition-all ${repetitionFactor === factor ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-gray-500 hover:bg-gray-200"}`}
+                    className={`w-12 h-12 rounded-2xl font-black transition-all ${repetitionFactor === factor ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200"}`}
                   >
                     {" "}
                     x{factor}{" "}
@@ -358,20 +365,20 @@ export default function FormworkEstimator() {
                 </h2>{" "}
                 <div className="mb-8">
                   {" "}
-                  <div className="text-gray-400 text-sm font-semibold mb-1">
+                  <div className="text-gray-700 dark:text-gray-300 text-sm font-semibold mb-1">
                     Total Formwork Area
                   </div>{" "}
                   <div className="flex items-end gap-2">
                     {" "}
                     <span className="text-4xl font-black tracking-tighter">
-                      {results.totalAreaSqm.toFixed(1)}
+                      {results.totalArea.toFixed(1)}
                     </span>{" "}
-                    <span className="text-lg font-medium text-gray-500 mb-0.5">
-                      m²
+                    <span className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-0.5">
+                      {areaUnitStr}
                     </span>{" "}
                   </div>{" "}
-                  <div className="text-gray-500 font-mono text-xs mt-1">
-                    ({results.totalAreaSqft.toFixed(1)} sq.ft)
+                  <div className="text-gray-700 dark:text-gray-300 font-mono text-xs mt-1">
+                    ({isMetric ? results.totalAreaSqft.toFixed(1) + " sq.ft" : results.totalAreaSqm.toFixed(1) + " m²"})
                   </div>{" "}
                 </div>{" "}
                 <div className="space-y-4">
@@ -424,7 +431,7 @@ export default function FormworkEstimator() {
                 </div>{" "}
                 <div className="mt-8 pt-6 border-t border-white/10">
                   {" "}
-                  <div className="mb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                  <div className="mb-4 text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
                     Area Breakdown
                   </div>{" "}
                   <div className="h-48 w-full relative">
@@ -452,7 +459,7 @@ export default function FormworkEstimator() {
                         </Pie>{" "}
                         <Tooltip
                           formatter={(value: number) =>
-                            `${value.toFixed(1)} m²`
+                            `${value.toFixed(1)} ${areaUnitStr}`
                           }
                           contentStyle={{
                             backgroundColor: "#1f2937",
@@ -465,7 +472,7 @@ export default function FormworkEstimator() {
                       </PieChart>{" "}
                     </ResponsiveContainer>{" "}
                   </div>{" "}
-                  <div className="flex justify-center gap-4 mt-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                  <div className="flex justify-center gap-4 mt-2 text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
                     {" "}
                     <span className="flex items-center gap-1.5">
                       <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />{" "}
@@ -493,12 +500,12 @@ export default function FormworkEstimator() {
           elements, repetitionFactor, wastagePct
         }}
         currentResults={{
-          totalAreaSqm: results.totalAreaSqm.toFixed(2),
+          totalArea: results.totalArea.toFixed(2),
           plywoodSheets: results.plywoodSheets,
           battensRft: results.battensRft,
           steelProps: results.steelProps
         }}
-        summaryGeneration={(inputs, res) => `Area: ${res.totalAreaSqm}m² | Plywood: ${res.plywoodSheets} sheets`}
+        summaryGeneration={(inputs, res) => `Area: ${res.totalArea}${areaUnitStr} | Plywood: ${res.plywoodSheets} sheets`}
         onRestore={(inputs) => {
           if (inputs.elements && Array.isArray(inputs.elements)) setElements(inputs.elements);
           if (inputs.repetitionFactor !== undefined) setRepetitionFactor(inputs.repetitionFactor);

@@ -1,6 +1,7 @@
 import QRCode from "qrcode";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { CIVIL_CONSTANTS } from './unitConverter';
 
 // PRO-TIPS DATABASE
 const PRO_TIPS = [
@@ -411,9 +412,9 @@ export const generateProfessionalPDF = async ({
   
   let formulaText = "Amounts(Rs) = Quantity × Unit Rate. Constants: Dry Volume Multipliers used appropriately.";
   if (toolId?.includes("concrete")) {
-    formulaText = "Dry Concrete Volume = Wet Volume × 1.54. Cement volume in bags uses 0.0347 m³ per 50kg bag.";
+    formulaText = `Dry Concrete Volume = Wet Volume × ${CIVIL_CONSTANTS.DRY_CONCRETE_FACTOR}. Cement volume in bags uses ${CIVIL_CONSTANTS.CEMENT_BAG_VOLUME_M3} m³ per 50kg bag.`;
   } else if (toolId?.includes("brick")) {
-    formulaText = "Dry Mortar Volume = Wet Mortar Volume × 1.33. Brick count includes 10mm mortar thickness allowance.";
+    formulaText = `Dry Mortar Volume = Wet Mortar Volume × ${CIVIL_CONSTANTS.DRY_MORTAR_FACTOR}. Brick count includes 10mm mortar thickness allowance.`;
   } else if (toolId?.includes("steel")) {
     formulaText = "Steel Unit Weight = d² / 162.28 (kg/m). Total cost factors in unit rates and exact piece cutting calculations.";
   } else if (toolId?.includes("earth")) {

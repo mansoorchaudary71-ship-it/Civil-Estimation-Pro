@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import {
   Calculator,
   Box,
@@ -154,6 +155,8 @@ export default function MasterQuantityEstimator({
   const { user } = useAuth();
   const { settings } = useSettings();
   const [activeCalc, setActiveCalc] = useState<CalcId>("concrete");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [expandedGroup, setExpandedGroup] = useState<string | null>("Concrete");
   const unitSystem = settings.measurement === "SI" ? "metric" : "imperial";
   
   
@@ -178,7 +181,7 @@ export default function MasterQuantityEstimator({
   const [wireLengthPerPoint, setWireLengthPerPoint] = useState<string>("5");
   const [pipeLengthPerRoom, setPipeLengthPerRoom] = useState<string>("10");
   const [boardPerRoom, setBoardPerRoom] = useState<string>("2");
-  const cFactor = unitSystem === "metric" ? 1 : 0.3048;
+  const cFactor = unitSystem === "metric" ? 1 : CIVIL_CONSTANTS.FT_TO_M;
   const parse = (v: string) => isNaN(parseFloat(v)) ? 0 : parseFloat(v);
 
   let results: Record<string, string> = {};
@@ -286,7 +289,7 @@ export default function MasterQuantityEstimator({
             {activeCalc !== "rebar_cage" && (
               <>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase">
+                  <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">
                     Length ({unitL})
                   </label>
                   <input
@@ -297,7 +300,7 @@ export default function MasterQuantityEstimator({
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                     Width ({unitL})
                   </label>
                   <input
@@ -320,7 +323,7 @@ export default function MasterQuantityEstimator({
               "form_work",
             ].includes(activeCalc) && (
               <div>
-                <label className="text-xs font-bold text-gray-500 uppercase">
+                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                   {activeCalc === "form_work" ? "Height" : "Depth"} ({unitL})
                 </label>
                 <input
@@ -333,7 +336,7 @@ export default function MasterQuantityEstimator({
             )}
             {activeCalc !== "rebar_cage" && (
               <div>
-                <label className="text-xs font-bold text-gray-500 uppercase">
+                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                   Wastage (%)
                 </label>
                 <input
@@ -346,7 +349,7 @@ export default function MasterQuantityEstimator({
             )}
             {["concrete", "plaster", "concrete_test"].includes(activeCalc) && (
               <div>
-                <label className="text-xs font-bold text-gray-500 uppercase">
+                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                   Mix Ratio
                 </label>
                 <input
@@ -361,7 +364,7 @@ export default function MasterQuantityEstimator({
             {activeCalc === "rebar_cage" && (
               <>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                     Total Rebar Weight (kg)
                   </label>
                   <input
@@ -372,7 +375,7 @@ export default function MasterQuantityEstimator({
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                     Steel Grade
                   </label>
                   <input
@@ -383,7 +386,7 @@ export default function MasterQuantityEstimator({
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                     Spacing (mm)
                   </label>
                   <input
@@ -394,7 +397,7 @@ export default function MasterQuantityEstimator({
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 uppercase">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                     Cost per Ton (Rs)
                   </label>
                   <input
@@ -462,7 +465,7 @@ export default function MasterQuantityEstimator({
                 <Calculator className="w-8 h-8 text-blue-600 dark:text-blue-400" />
                 Master Quantity Estimator
               </h1>
-              <p className="text-slate-500 dark:text-slate-400 font-medium">
+              <p className="text-slate-500 dark:text-slate-400 dark:text-slate-700 dark:text-slate-300 font-medium">
                 Comprehensive suite of 23 civil engineering calculators for
                 accurate material estimation.
               </p>
@@ -473,76 +476,72 @@ export default function MasterQuantityEstimator({
           </div>
         )}
         <div className="flex flex-col xl:flex-row gap-8">
-          {/* Mobile Dropdown Nav */}
-          <div className="xl:hidden w-full space-y-2">
-            <label className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-2">
-              Select Calculator
-            </label>
+          {/* Searchable Accordion / Tool Selection (Desktop & Mobile unified) */}
+          <div className="w-full xl:w-80 flex-shrink-0 space-y-4">
             <div className="relative">
-              <select
-                className="w-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 appearance-none font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={activeCalc}
-                onChange={(e) => setActiveCalc(e.target.value as CalcId)}
-              >
-                {groups.map((group) => (
-                  <optgroup key={group} label={group}>
-                    {calculatorsList
-                      .filter((c) => c.group === group)
-                      .map((calc) => (
-                        <option key={calc.id} value={calc.id}>
-                          {calc.label}
-                        </option>
-                      ))}
-                  </optgroup>
-                ))}
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500">
-                <svg className="fill-current h-4 w-4" viewBox="0 0 20 20">
-                  <path
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                    fillRule="evenodd"
-                  ></path>
-                </svg>
-              </div>
+              <input
+                type="text"
+                placeholder="Search tools..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 font-medium dark:text-white outline-none placeholder:text-slate-700 dark:text-slate-300"
+              />
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm("")}
+                  className="absolute right-3 top-3.5 text-slate-700 dark:text-slate-300 hover:text-slate-600"
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
             </div>
-          </div>
-          {/* Sidebar / Top Nav for calculators (Desktop) */}
-          <div className="hidden xl:block xl:w-64 flex-shrink-0 space-y-8">
-            <div className="xl:h-[600px] xl:overflow-y-auto pr-2 space-y-6 custom-scrollbar">
-              {groups.map((group) => (
-                <div key={group}>
-                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 pl-2">
-                    {group}
-                  </h4>
-                  <div className="space-y-1">
-                    {calculatorsList
-                      .filter((c) => c.group === group)
-                      .map((calc) => {
-                        const Icon = calc.icon;
-                        const isActive = activeCalc === calc.id;
-                        return (
-                          <button
-                            key={calc.id}
-                            onClick={() => setActiveCalc(calc.id)}
-                            className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 font-bold tracking-wide text-left ${
-                              isActive 
-                              ? 'bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-md shadow-indigo-500/25 border-transparent ring-2 ring-indigo-500/50 ring-offset-2 ring-offset-slate-50 dark:ring-offset-slate-900 scale-[1.02] z-20' 
-                              : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-transparent dark:hover:bg-slate-700/50 border border-slate-200/50 dark:border-slate-800 shadow-sm hover:shadow cursor-pointer'
-                            }`}
-                          >
-                            <Icon
-                              className={`w-4 h-4 ${isActive ? "text-white" : "text-slate-400"}`}
-                            />
-                            <span className="text-sm">
-                              {calc.label}
-                            </span>
-                          </button>
-                        );
-                      })}
+
+            <div className="xl:h-[600px] xl:overflow-y-auto pr-2 space-y-3 custom-scrollbar">
+              {groups.map((group) => {
+                const groupTools = calculatorsList.filter(
+                  (c) => c.group === group && c.label.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+                if (groupTools.length === 0) return null;
+                
+                const isExpanded = expandedGroup === group || searchTerm !== "";
+                return (
+                  <div key={group} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden shadow-sm">
+                    <button
+                      onClick={() => setExpandedGroup(isExpanded && searchTerm === "" ? null : group)}
+                      className="w-full flex items-center justify-between px-4 py-3 text-left font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
+                    >
+                      <span className="uppercase text-xs tracking-widest">{group}</span>
+                      <svg className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    {isExpanded && (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-1 p-2 border-t border-slate-100 dark:border-slate-700/50">
+                        {groupTools.map((calc) => {
+                          const Icon = calc.icon;
+                          const isActive = activeCalc === calc.id;
+                          return (
+                            <button
+                              key={calc.id}
+                              onClick={() => setActiveCalc(calc.id)}
+                              className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all text-left ${
+                                isActive 
+                                ? 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 font-bold' 
+                                : 'text-slate-600 dark:text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 font-medium'
+                              }`}
+                            >
+                              <Icon className={`w-4 h-4 flex-shrink-0 ${isActive ? "text-indigo-600 dark:text-indigo-400" : "text-slate-700 dark:text-slate-300"}`} />
+                              <span className="text-sm truncate">{calc.label}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
           {/* Calculator Content */}

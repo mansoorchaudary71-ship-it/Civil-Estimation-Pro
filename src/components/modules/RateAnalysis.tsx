@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import {
   TrendingUp,
@@ -40,16 +41,16 @@ export default function RateAnalysis() {
   };
   /* Composite Calculation: 1 m3 of 1:2:4 Concrete */ const compositeCalc =
     useMemo(() => {
-      const dryVol = 1.54;
+      const dryVol = CIVIL_CONSTANTS.DRY_CONCRETE_FACTOR;
       /* m3 */ const sumRatio = 1 + 2 + 4;
       /* Cement Component (1 part) */ const cementVol = (1 / sumRatio) * dryVol;
-      /* m3 */ const cementBags = cementVol / 0.0347;
+      /* m3 */ const cementBags = cementVol / CIVIL_CONSTANTS.CEMENT_BAG_VOLUME_M3;
       /* approx 6.34 // Sand Component (2 parts) */ const sandVol =
         (2 / sumRatio) * dryVol;
-      /* m3 */ const sandCft = sandVol * 35.3147;
+      /* m3 */ const sandCft = sandVol * CIVIL_CONSTANTS.M3_TO_CFT;
       /* approx 15.54 cft // Crush Component (4 parts) */ const crushVol =
         (4 / sumRatio) * dryVol;
-      /* m3 */ const crushCft = crushVol * 35.3147;
+      /* m3 */ const crushCft = crushVol * CIVIL_CONSTANTS.M3_TO_CFT;
       /* approx 31.08 cft */ const costCement = cementBags * rates.cement;
       const costSand = sandCft * rates.sand;
       const costCrush = crushCft * rates.crush;
@@ -80,7 +81,7 @@ export default function RateAnalysis() {
           <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent pb-2">
             Rate Analysis & Market Pricing
           </h1>
-          <p className="text-gray-500 mt-2 text-lg font-medium">
+          <p className="text-gray-500 dark:text-gray-400 mt-2 text-lg font-medium">
             Centralized hub for local market rates. Updates here reflect
             globally across all estimation modules.
           </p>
@@ -100,7 +101,7 @@ export default function RateAnalysis() {
                   <h2 className="text-xl font-bold tracking-tight text-gray-800">
                     Global Material Rates
                   </h2>
-                  <p className="text-xs font-semibold text-gray-400 mt-1 uppercase tracking-wider">
+                  <p className="text-xs font-semibold text-gray-700 dark:text-gray-300 mt-1 uppercase tracking-wider">
                     Updates globally in real-time
                   </p>
                 </div>
@@ -163,7 +164,7 @@ export default function RateAnalysis() {
                   }
                 />
                 <div className="col-span-1 sm:col-span-2 pt-4 pb-2">
-                  <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest border-b border-gray-100 pb-2">
+                  <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest border-b border-gray-100 pb-2">
                     Finishing & Labor
                   </h3>
                 </div>
@@ -218,7 +219,7 @@ export default function RateAnalysis() {
                     <div className="font-bold text-slate-700">
                       Contractor Overhead & Profit
                     </div>
-                    <div className="text-xs text-slate-500 font-medium">
+                    <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                       Applied to composite items
                     </div>
                   </div>
@@ -231,7 +232,7 @@ export default function RateAnalysis() {
                         handleRateChange("overheadMarkup", e.target.value)
                       }
                     />
-                    <span className="text-lg font-black text-slate-400">
+                    <span className="text-lg font-black text-slate-700 dark:text-slate-300">
                       %
                     </span>
                   </div>
@@ -357,7 +358,7 @@ export default function RateAnalysis() {
                   </div>
                   <div className="space-y-4 font-mono text-sm">
                     <div className="flex justify-between items-center group">
-                      <span className="text-slate-400 group-hover:text-slate-300 transition-colors">
+                      <span className="text-slate-700 dark:text-slate-300 group-hover:text-slate-300 transition-colors">
                         Cement ({compositeCalc.cementBags.toFixed(2)} Bags)
                       </span>
                       <span className="font-bold text-slate-200">
@@ -365,7 +366,7 @@ export default function RateAnalysis() {
                       </span>
                     </div>
                     <div className="flex justify-between items-center group">
-                      <span className="text-slate-400 group-hover:text-slate-300 transition-colors">
+                      <span className="text-slate-700 dark:text-slate-300 group-hover:text-slate-300 transition-colors">
                         Sand ({compositeCalc.sandCft.toFixed(2)} cft)
                       </span>
                       <span className="font-bold text-slate-200">
@@ -373,14 +374,14 @@ export default function RateAnalysis() {
                       </span>
                     </div>
                     <div className="flex justify-between items-center group">
-                      <span className="text-slate-400 group-hover:text-slate-300 transition-colors">
+                      <span className="text-slate-700 dark:text-slate-300 group-hover:text-slate-300 transition-colors">
                         Crush ({compositeCalc.crushCft.toFixed(2)} cft)
                       </span>
                       <span className="font-bold text-slate-200">
                         {formatCurrency(compositeCalc.costCrush)}
                       </span>
                     </div>
-                    <div className="flex justify-between items-center text-slate-500 pt-2 border-t border-white/5">
+                    <div className="flex justify-between items-center text-slate-700 dark:text-slate-300 pt-2 border-t border-white/5">
                       <span>Labor & Equipment</span>
                       <span>
                         {formatCurrency(
@@ -461,14 +462,14 @@ function InputCard({
   return (
     <div className="group bg-gray-50/50 hover:bg-white border border-gray-100 hover:border-emerald-200 px-4 py-3 rounded-2xl transition-all shadow-sm hover:shadow-md flex flex-col justify-between">
       <div className="flex justify-between items-center mb-3">
-        <label className="text-xs font-bold text-gray-500 tracking-wide">
+        <label className="text-xs font-bold text-gray-700 dark:text-gray-300 tracking-wide">
           {label}
         </label>
       </div>
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2">
           <div className="relative flex-1">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold mb-0.5 pointer-events-none">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-700 dark:text-gray-300 font-bold mb-0.5 pointer-events-none">
               {symbol}
             </span>
             <input
@@ -484,7 +485,7 @@ function InputCard({
               }}
             />
           </div>
-          <span className="text-xs font-bold text-gray-400 uppercase w-10 text-right">
+          <span className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase w-10 text-right">
             {unit}
           </span>
         </div>

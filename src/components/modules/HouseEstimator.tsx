@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useReducer } from "react";
+import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import {
   Home,
@@ -208,7 +209,7 @@ export default function HouseEstimator() {
     const sandBw = (4 / 5) * brickworkDryMortar;
     /* 3. RCC */ const slabVolume = coveredAreaSqft * slabThickness * stories;
     const rcWetVolume = slabVolume * 1.25;
-    /* Slab + 25% for beams/columns */ const rccDryVolume = rcWetVolume * 1.54;
+    /* Slab + 25% for beams/columns */ const rccDryVolume = rcWetVolume * CIVIL_CONSTANTS.DRY_CONCRETE_FACTOR;
     const cementRcc = (1 / 7) * rccDryVolume;
     const sandRcc = (2 / 7) * rccDryVolume;
     const crushRcc = (4 / 7) * rccDryVolume;
@@ -575,7 +576,7 @@ export default function HouseEstimator() {
             <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent pb-2">
               Complete House Estimator
             </h1>
-            <p className="text-gray-500 mt-2 text-lg font-medium">
+            <p className="text-gray-500 dark:text-gray-400 mt-2 text-lg font-medium">
               Precise civil engineering estimations for grey structure and
               finishing works.
             </p>
@@ -585,7 +586,7 @@ export default function HouseEstimator() {
           </div>
           <div className="flex items-center gap-3">
             <div className="bg-white px-4 py-3 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between gap-4">
-              <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">
+              <span className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
                 Built-up
               </span>
               <span className="text-2xl font-black text-indigo-600 tracking-tighter">
@@ -608,14 +609,14 @@ export default function HouseEstimator() {
               <h2 className="text-xl font-bold text-gray-800">
                 Project Details
               </h2>
-              <p className="text-sm text-gray-500 font-medium">
+              <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">
                 For accurate reports & records
               </p>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-2">
-              <label className="text-xs font-bold text-gray-400 uppercase tracking-widest">
+              <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
                 Project Name
               </label>
               <input
@@ -632,7 +633,7 @@ export default function HouseEstimator() {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-bold text-gray-400 uppercase tracking-widest">
+              <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
                 Client Name
               </label>
               <input
@@ -649,7 +650,7 @@ export default function HouseEstimator() {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-bold text-gray-400 uppercase tracking-widest">
+              <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
                 Site Location
               </label>
               <input
@@ -685,7 +686,7 @@ export default function HouseEstimator() {
                     Plot & Geometry
                   </h2>
                 </div>
-                <div className="p-2 bg-transparent text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors">
+                <div className="p-2 bg-transparent text-slate-500 dark:text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors">
                   {isAccordionOpen ? (
                     <ChevronUp className="w-5 h-5" />
                   ) : (
@@ -697,14 +698,14 @@ export default function HouseEstimator() {
               {!isAccordionOpen && (
                 <div className="space-y-4 animate-in fade-in zoom-in-95">
                   <div className="flex justify-between items-center text-sm">
-                    <span className="font-bold text-slate-500">Plot Size</span>
+                    <span className="font-bold text-slate-700 dark:text-slate-300">Plot Size</span>
                     <span className="font-bold text-slate-800">
                       {geoState.plotSizeValue}
                       {geoState.plotSizeUnit.toUpperCase()}
                     </span>
                   </div>
                   <div className="flex justify-between items-center text-sm">
-                    <span className="font-bold text-slate-500">
+                    <span className="font-bold text-slate-700 dark:text-slate-300">
                       Covered Area
                     </span>
                     <span className="font-bold text-slate-800">
@@ -712,7 +713,7 @@ export default function HouseEstimator() {
                     </span>
                   </div>
                   <div className="flex justify-between items-center text-sm">
-                    <span className="font-bold text-slate-500">Stories</span>
+                    <span className="font-bold text-slate-700 dark:text-slate-300">Stories</span>
                     <span className="font-bold text-slate-800">
                       {geoState.stories}
                     </span>
@@ -735,7 +736,7 @@ export default function HouseEstimator() {
                     <div className="space-y-5">
                       {/* Total Area */}
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">
+                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">
                           Total Area
                         </label>
                         <div className="flex gap-2">
@@ -777,7 +778,7 @@ export default function HouseEstimator() {
                             size="sm"
                           />
                         </div>
-                        <p className="text-[11px] text-slate-400 mt-1.5 ml-2">
+                        <p className="text-[11px] text-slate-700 dark:text-slate-300 mt-1.5 ml-2">
                           Total plot size (
                           {isSI
                             ? (plotAreaSqft / 10.7639).toFixed(1)
@@ -787,7 +788,7 @@ export default function HouseEstimator() {
                       </div>
                       {/* Covered Area */}
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">
+                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">
                           Covered Area
                         </label>
                         <div className="relative">
@@ -803,17 +804,17 @@ export default function HouseEstimator() {
                             className="w-full bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all font-medium shadow-sm"
                             placeholder="0" /* In metric we assume input was already SQM visually but actually logic uses sqft, so let's adapt. Actually let's keep logic in sqft and just display correctly for users if needed. wait, actually for simplicity just changing display is fine. */
                           />
-                          <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">
+                          <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-700 dark:text-slate-300 pointer-events-none">
                             {isSI ? "SQ.M" : "SQ.FT"}
                           </span>
                         </div>
-                        <p className="text-[11px] text-slate-400 mt-1.5 ml-2">
+                        <p className="text-[11px] text-slate-700 dark:text-slate-300 mt-1.5 ml-2">
                           Constructed area per floor
                         </p>
                       </div>
                       {/* Open Area */}
                       <div>
-                        <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1.5 ml-1">
+                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">
                           Open Area
                         </label>
                         <div className="relative">
@@ -835,18 +836,18 @@ export default function HouseEstimator() {
                             className="w-full bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all font-medium shadow-sm"
                             placeholder="0" /* In metric we assume input was already SQM visually but actually logic uses sqft, so let's adapt. Actually let's keep logic in sqft and just display correctly for users if needed. wait, actually for simplicity just changing display is fine. */
                           />
-                          <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">
+                          <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-700 dark:text-slate-300 pointer-events-none">
                             SQ.FT
                           </span>
                         </div>
-                        <p className="text-[11px] text-slate-400 mt-1.5 ml-2">
+                        <p className="text-[11px] text-slate-700 dark:text-slate-300 mt-1.5 ml-2">
                           Unbuilt space (Total - Covered)
                         </p>
                       </div>
                       {/* Visual Indicator */}
                       <div className="pt-2 px-1">
                         <div className="flex justify-between items-end mb-2">
-                          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                          <span className="text-[10px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest">
                             Proportion Ratio
                           </span>
                           <span className="text-[10px] font-bold text-blue-600">
@@ -879,7 +880,7 @@ export default function HouseEstimator() {
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                      <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                         Stories
                       </label>
                       <div className="flex items-center gap-2">
@@ -911,7 +912,7 @@ export default function HouseEstimator() {
                       </div>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                      <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                         Room Ht (ft)
                       </label>
                       <input
@@ -966,7 +967,7 @@ export default function HouseEstimator() {
                         >
                       ).map((room) => (
                         <div key={room} className="flex flex-col gap-2">
-                          <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                          <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
                             {room.replace(/([A-Z])/g, " $1").trim()}
                           </label>
                           <div className="flex items-center gap-3">
@@ -978,7 +979,7 @@ export default function HouseEstimator() {
                                     payload: room,
                                   })
                                 }
-                                className="w-7 h-7 rounded text-slate-500 font-bold hover:bg-slate-200 flex items-center justify-center"
+                                className="w-7 h-7 rounded text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-200 flex items-center justify-center"
                               >
                                 -
                               </button>
@@ -992,7 +993,7 @@ export default function HouseEstimator() {
                                     payload: room,
                                   })
                                 }
-                                className="w-7 h-7 rounded text-slate-500 font-bold hover:bg-slate-200 flex items-center justify-center"
+                                className="w-7 h-7 rounded text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-200 flex items-center justify-center"
                               >
                                 +
                               </button>
@@ -1010,7 +1011,7 @@ export default function HouseEstimator() {
                                 className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium text-sm pr-10"
                                 placeholder="Area"
                               />
-                              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 font-bold">
+                              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-700 dark:text-slate-300 font-bold">
                                 {geoState.roomAreaUnit === "sqft"
                                   ? "sf"
                                   : geoState.roomAreaUnit === "sqm"
@@ -1040,7 +1041,7 @@ export default function HouseEstimator() {
                   <span className="text-2xl font-black text-violet-600 tracking-tighter">
                     {getQualityLabel(finishQuality)}
                   </span>
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                  <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                     x
                     {finishQuality === 1
                       ? "1.0"
@@ -1059,7 +1060,7 @@ export default function HouseEstimator() {
                   onChange={(e) => setFinishQuality(parseInt(e.target.value))}
                   className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-violet-600"
                 />
-                <div className="flex justify-between text-[10px] uppercase tracking-widest text-slate-400 font-bold mt-2">
+                <div className="flex justify-between text-[10px] uppercase tracking-widest text-slate-700 dark:text-slate-300 font-bold mt-2">
                   <span>Std</span> <span>Prem</span> <span>Lux</span>
                 </div>
               </div>
@@ -1077,7 +1078,7 @@ export default function HouseEstimator() {
                   <h2 className="text-xl font-extrabold text-slate-800">
                     Boundary Wall
                   </h2>
-                  <span className="text-sm font-medium text-slate-500">
+                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                     Include exterior boundary wall
                   </span>
                 </div>
@@ -1096,7 +1097,7 @@ export default function HouseEstimator() {
               {includeBoundaryWall && (
                 <div className="grid grid-cols-3 gap-3 pt-4 mt-4 border-t border-slate-100 animate-in fade-in slide-in-from-top-4 duration-300">
                   <div>
-                    <label className="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">
+                    <label className="block text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5">
                       Length (ft)
                     </label>
                     <input
@@ -1107,7 +1108,7 @@ export default function HouseEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">
+                    <label className="block text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5">
                       Height (ft)
                     </label>
                     <input
@@ -1118,7 +1119,7 @@ export default function HouseEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">
+                    <label className="block text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5">
                       Gate (ft)
                     </label>
                     <input
@@ -1146,7 +1147,7 @@ export default function HouseEstimator() {
                     <h2 className="text-2xl font-extrabold text-slate-800">
                       Configure Material Rates
                     </h2>
-                    <p className="text-slate-500 font-medium text-sm mt-1">
+                    <p className="text-slate-700 dark:text-slate-300 font-medium text-sm mt-1">
                       Review market rates and override with custom vendor quotes
                       if needed.
                     </p>
@@ -1228,7 +1229,7 @@ export default function HouseEstimator() {
                               <span>{item.name}</span>
                             </div>
                           </td>
-                          <td className="px-6 py-4 font-bold text-slate-500">
+                          <td className="px-6 py-4 font-bold text-slate-700 dark:text-slate-300">
                             {formatCurrency(
                               item.key === "bricks"
                                 ? marketRates[item.key] * 1000
@@ -1237,7 +1238,7 @@ export default function HouseEstimator() {
                           </td>
                           <td className="px-6 py-3 bg-indigo-50/30">
                             <div className="relative flex items-center">
-                              <span className="absolute left-3 text-slate-400 font-bold mb-0.5">
+                              <span className="absolute left-3 text-slate-700 dark:text-slate-300 font-bold mb-0.5">
                                 {settings.currency === "PKR" ? "Rs" : "$"}
                               </span>
                               <input
@@ -1281,7 +1282,7 @@ export default function HouseEstimator() {
                 <div className="flex flex-col sm:flex-row items-center justify-between mt-auto gap-4 pt-4 border-t border-slate-100">
                   <button
                     onClick={resetCustomRates}
-                    className="flex items-center gap-2 text-slate-500 font-bold hover:text-slate-800 px-4 py-2 rounded-xl hover:bg-slate-100 transition-colors w-full sm:w-auto justify-center"
+                    className="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-bold hover:text-slate-800 px-4 py-2 rounded-xl hover:bg-slate-100 transition-colors w-full sm:w-auto justify-center"
                   >
                     <RotateCcw className="w-4 h-4" /> Reset Defaults
                   </button>
@@ -1434,7 +1435,7 @@ export default function HouseEstimator() {
                         <div className="w-full md:w-1/2 space-y-6">
                           <div className="bg-transparent px-4 py-3 rounded-2xl border border-slate-100 relative overflow-hidden group flex flex-col justify-center min-w-0">
                             <div className="absolute top-0 left-0 w-1.5 h-full bg-slate-500" />
-                            <div className="text-slate-500 text-xs md:text-sm font-bold uppercase tracking-widest mb-1 pl-2 truncate">
+                            <div className="text-slate-700 dark:text-slate-300 text-xs md:text-sm font-bold uppercase tracking-widest mb-1 pl-2 truncate">
                               Grey Structure
                             </div>
                             <div
@@ -1443,7 +1444,7 @@ export default function HouseEstimator() {
                             >
                               {formatCurrency(estimates.totalGrey)}
                             </div>
-                            <div className="text-slate-400 text-xs md:text-sm font-medium mt-1 pl-2 truncate">
+                            <div className="text-slate-700 dark:text-slate-300 text-xs md:text-sm font-medium mt-1 pl-2 truncate">
                               Foundation, Framing, Masonry
                             </div>
                           </div>
@@ -1468,7 +1469,7 @@ export default function HouseEstimator() {
                       <div className="mt-10 pt-8 border-t border-slate-100/60" id="overview-bar-chart">
                         <h4 className="text-lg font-bold text-slate-800 mb-6 flex justify-between items-center">
                           <span>Cost Breakdown Comparison</span>
-                          <span className="text-xs font-medium text-slate-400 font-normal">Highest to Lowest</span>
+                          <span className="text-xs font-medium text-slate-700 dark:text-slate-300 font-normal">Highest to Lowest</span>
                         </h4>
                         <div className="w-full h-[450px]">
                           <ResponsiveContainer width="100%" height="100%">
@@ -1516,7 +1517,7 @@ export default function HouseEstimator() {
                             {estimates.cementBags.toFixed(0)}
                             <span className="text-xs font-normal">bags</span>
                           </div>
-                          <div className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mt-1 truncate">
+                          <div className="text-[10px] uppercase tracking-widest font-bold text-slate-700 dark:text-slate-300 mt-1 truncate">
                             Cement
                           </div>
                           <div className="text-sm font-bold text-indigo-600 mt-2">
@@ -1531,7 +1532,7 @@ export default function HouseEstimator() {
                             {(estimates.steelKg / 1000).toFixed(1)}
                             <span className="text-xs font-normal">tons</span>
                           </div>
-                          <div className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mt-1 truncate">
+                          <div className="text-[10px] uppercase tracking-widest font-bold text-slate-700 dark:text-slate-300 mt-1 truncate">
                             Steel
                           </div>
                           <div className="text-sm font-bold text-indigo-600 mt-2">
@@ -1546,7 +1547,7 @@ export default function HouseEstimator() {
                             {(estimates.bricksCount / 1000).toFixed(0)}k
                             <span className="text-xs font-normal">qty</span>
                           </div>
-                          <div className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mt-1 truncate">
+                          <div className="text-[10px] uppercase tracking-widest font-bold text-slate-700 dark:text-slate-300 mt-1 truncate">
                             Bricks
                           </div>
                           <div className="text-sm font-bold text-indigo-600 mt-2">
@@ -1569,7 +1570,7 @@ export default function HouseEstimator() {
                               {isSI ? "m³" : "cft"}
                             </span>
                           </div>
-                          <div className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mt-1 truncate">
+                          <div className="text-[10px] uppercase tracking-widest font-bold text-slate-700 dark:text-slate-300 mt-1 truncate">
                             Sand
                           </div>
                           <div className="text-sm font-bold text-indigo-600 mt-2">
@@ -1592,7 +1593,7 @@ export default function HouseEstimator() {
                               {isSI ? "m³" : "cft"}
                             </span>
                           </div>
-                          <div className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mt-1 truncate">
+                          <div className="text-[10px] uppercase tracking-widest font-bold text-slate-700 dark:text-slate-300 mt-1 truncate">
                             Crush
                           </div>
                           <div className="text-sm font-bold text-indigo-600 mt-2">
@@ -1625,7 +1626,7 @@ export default function HouseEstimator() {
                             <tr className="bg-transparent/50">
                               <td
                                 colSpan={4}
-                                className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-500"
+                                className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"
                               >
                                 Foundation Work
                               </td>
@@ -1643,12 +1644,12 @@ export default function HouseEstimator() {
                                     ? item.quantity.toLocaleString()
                                     : item.quantity}
                                   {item.rate && (
-                                    <div className="text-[10px] font-normal text-slate-400 mt-0.5 font-mono">
+                                    <div className="text-[10px] font-normal text-slate-700 dark:text-slate-300 mt-0.5 font-mono">
                                       @ {formatCurrency(item.rate)}/{item.unit}
                                     </div>
                                   )}
                                 </td>
-                                <td className="px-6 py-4 text-center font-medium text-slate-500">
+                                <td className="px-6 py-4 text-center font-medium text-slate-700 dark:text-slate-300">
                                   {item.unit}
                                 </td>
                                 <td className="px-6 py-4 text-right font-bold text-slate-800">
@@ -1659,7 +1660,7 @@ export default function HouseEstimator() {
                             <tr className="bg-transparent/50">
                               <td
                                 colSpan={4}
-                                className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-500"
+                                className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"
                               >
                                 Superstructure
                               </td>
@@ -1677,12 +1678,12 @@ export default function HouseEstimator() {
                                     ? item.quantity.toLocaleString()
                                     : item.quantity}
                                   {item.rate && (
-                                    <div className="text-[10px] font-normal text-slate-400 mt-0.5 font-mono">
+                                    <div className="text-[10px] font-normal text-slate-700 dark:text-slate-300 mt-0.5 font-mono">
                                       @ {formatCurrency(item.rate)}/{item.unit}
                                     </div>
                                   )}
                                 </td>
-                                <td className="px-6 py-4 text-center font-medium text-slate-500">
+                                <td className="px-6 py-4 text-center font-medium text-slate-700 dark:text-slate-300">
                                   {item.unit}
                                 </td>
                                 <td className="px-6 py-4 text-right font-bold text-slate-800">
@@ -1786,7 +1787,7 @@ export default function HouseEstimator() {
                                 >
                                   {formatCurrency(item.value)}
                                 </div>
-                                <div className="text-[10px] sm:text-xs uppercase tracking-widest font-bold text-slate-400 mt-1 truncate">
+                                <div className="text-[10px] sm:text-xs uppercase tracking-widest font-bold text-slate-700 dark:text-slate-300 mt-1 truncate">
                                   {item.name}
                                 </div>
                               </div>
@@ -1838,12 +1839,12 @@ export default function HouseEstimator() {
                                     ? Math.round(item.quantity).toLocaleString()
                                     : item.quantity}
                                   {item.rate && (
-                                    <div className="text-[10px] font-normal text-slate-400 mt-0.5 font-mono">
+                                    <div className="text-[10px] font-normal text-slate-700 dark:text-slate-300 mt-0.5 font-mono">
                                       @ {formatCurrency(item.rate)}/{item.unit}
                                     </div>
                                   )}
                                 </td>
-                                <td className="px-6 py-4 text-center font-medium text-slate-500">
+                                <td className="px-6 py-4 text-center font-medium text-slate-700 dark:text-slate-300">
                                   {item.unit}
                                 </td>
                                 <td className="px-6 py-4 text-right font-bold text-slate-800">

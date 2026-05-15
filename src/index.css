@@ -120,6 +120,11 @@
 }
 
 @layer utilities {
+  .text-fluid-metric {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    line-height: 1.1;
+  }
+  
   .scrollbar-hide::-webkit-scrollbar,
   .no-scrollbar::-webkit-scrollbar {
     display: none;

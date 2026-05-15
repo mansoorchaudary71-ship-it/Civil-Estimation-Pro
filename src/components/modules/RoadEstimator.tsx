@@ -175,7 +175,7 @@ export default function RoadEstimator() {
           <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent pb-1">
             Flexible Pavement Road Estimator
           </h1>
-          <p className="text-gray-500 mt-2 font-medium">
+          <p className="text-gray-500 dark:text-gray-400 mt-2 font-medium">
             Calculate material volumes, coat litrages, and visualize
             cross-sections for multi-layer road construction.
           </p>
@@ -197,7 +197,7 @@ export default function RoadEstimator() {
               </div>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                     Length (meters)
                   </label>
                   <input
@@ -209,7 +209,7 @@ export default function RoadEstimator() {
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                   <div className="col-span-1">
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Carriage (m)
                     </label>
                     <input
@@ -220,7 +220,7 @@ export default function RoadEstimator() {
                     />
                   </div>
                   <div className="col-span-1">
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Camber (%)
                     </label>
                     <input
@@ -232,7 +232,7 @@ export default function RoadEstimator() {
                   </div>
                   <div className="col-span-1">
                     <label
-                      className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1"
+                      className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1"
                       title="Shoulder Width (m)"
                     >
                       Shoulder (m)
@@ -246,7 +246,7 @@ export default function RoadEstimator() {
                   </div>
                   <div className="col-span-1">
                     <label
-                      className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1"
+                      className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1"
                       title="Shoulder Cross-fall (%)"
                     >
                       Fall (%)
@@ -260,13 +260,13 @@ export default function RoadEstimator() {
                   </div>
                   <div className="col-span-1">
                     <label
-                      className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1"
+                      className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1"
                       title="Side Slope (1 Vertical : X Horizontal)"
                     >
                       Side Slope
                     </label>
                     <div className="flex items-center gap-3 w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-amber-500/50 transition-shadow">
-                      <span className="text-gray-500 font-semibold text-sm whitespace-nowrap">1 V :</span>
+                      <span className="text-gray-700 dark:text-gray-300 font-semibold text-sm whitespace-nowrap">1 V :</span>
                       <input
                         type="number"
                         className="w-full bg-transparent text-gray-800 focus:outline-none -ml-1 text-sm md:text-base font-semibold"
@@ -274,7 +274,7 @@ export default function RoadEstimator() {
                         placeholder="e.g. 2"
                         onChange={(e) => setSideSlope(e.target.value)}
                       />
-                      <span className="text-gray-500 font-semibold text-sm whitespace-nowrap">H</span>
+                      <span className="text-gray-700 dark:text-gray-300 font-semibold text-sm whitespace-nowrap">H</span>
                     </div>
                   </div>
                 </div>
@@ -292,7 +292,7 @@ export default function RoadEstimator() {
               <div className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Sub-Grade
                     </label>
                     <input
@@ -303,7 +303,7 @@ export default function RoadEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Sub-Base
                     </label>
                     <input
@@ -316,7 +316,7 @@ export default function RoadEstimator() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Base Course (WBM)
                     </label>
                     <input
@@ -327,7 +327,7 @@ export default function RoadEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Asphalt Course
                     </label>
                     <input
@@ -351,7 +351,7 @@ export default function RoadEstimator() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                     Prime Coat
                   </label>
                   <input
@@ -368,7 +368,7 @@ export default function RoadEstimator() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                     Tack Coat
                   </label>
                   <input
@@ -398,7 +398,7 @@ export default function RoadEstimator() {
               <div className="space-y-4">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Sub-Grade /{isPKR ? "CFT" : "m³"}
                     </label>
                     <input
@@ -415,7 +415,7 @@ export default function RoadEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Sub-Base /{isPKR ? "CFT" : "m³"}
                     </label>
                     <input
@@ -432,7 +432,7 @@ export default function RoadEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       WBM /{isPKR ? "CFT" : "m³"}
                     </label>
                     <input
@@ -449,7 +449,7 @@ export default function RoadEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Asphalt /Ton
                     </label>
                     <input
@@ -466,7 +466,7 @@ export default function RoadEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Prime /Ton
                     </label>
                     <input
@@ -483,7 +483,7 @@ export default function RoadEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Tack /Ton
                     </label>
                     <input
@@ -502,7 +502,7 @@ export default function RoadEstimator() {
                 </div>
                 <div className="grid grid-cols-2 gap-4 pt-2 border-t border-gray-50">
                   <div>
-                    <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-[10px] font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Asphalt Density (t/m³)
                     </label>
                     <input
@@ -513,7 +513,7 @@ export default function RoadEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-[10px] font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Bitumen Specific Gravity
                     </label>
                     <input
@@ -743,7 +743,7 @@ export default function RoadEstimator() {
             </div>
             <div className="flex flex-wrap  gap-4 items-center w-full">
               <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-amber-200 transition-colors">
-                <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-4 flex items-center gap-2">
                   <Calculator className="w-4 h-4 text-amber-500" /> Layer
                   Quantities
                 </h3>
@@ -772,7 +772,7 @@ export default function RoadEstimator() {
                       <span className="font-bold text-gray-900 block">
                         {volAsphalt.toFixed(2)} m³
                       </span>
-                      <span className="text-xs text-gray-400 font-medium">
+                      <span className="text-xs text-gray-700 dark:text-gray-300 font-medium">
                         {asphaltTons.toFixed(2)} Tons
                       </span>
                     </div>
@@ -780,7 +780,7 @@ export default function RoadEstimator() {
                 </div>
               </div>
               <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-orange-200 transition-colors">
-                <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-4 flex items-center gap-2">
                   <Droplets className="w-4 h-4 text-orange-500" /> Bitumen
                   Coats
                 </h3>
@@ -813,7 +813,7 @@ export default function RoadEstimator() {
                       <div className="text-gray-600 text-xs font-semibold">
                         Tack Coat
                       </div>
-                      <div className="text-gray-400 text-[10px] font-bold">
+                      <div className="text-gray-700 dark:text-gray-300 text-[10px] font-bold">
                         @ {tackCoatRate} L/m²
                       </div>
                     </div>
@@ -822,7 +822,7 @@ export default function RoadEstimator() {
                         <span className="text-xl font-black text-gray-800 leading-none">
                           {tackCoatVolume.toFixed(1)}
                         </span>
-                        <span className="text-xs font-medium text-gray-500 mb-0.5">
+                        <span className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-0.5">
                           L
                         </span>
                       </div>
@@ -835,7 +835,7 @@ export default function RoadEstimator() {
               </div>
             </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-indigo-200 transition-colors mb-6 mt-6">
-              <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+              <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-4 flex items-center gap-2">
                 <Layers className="w-4 h-4 text-indigo-500" /> Granular Material
                 Breakdown (Loose)
               </h3>
@@ -853,7 +853,7 @@ export default function RoadEstimator() {
                         <span className="font-bold text-gray-900 block">
                           {wbmCoarseVol.toFixed(2)} m³
                         </span>
-                        <span className="text-xs text-gray-400 font-medium">
+                        <span className="text-xs text-gray-700 dark:text-gray-300 font-medium">
                           {wbmCoarseTons.toFixed(2)} T
                         </span>
                       </div>
@@ -866,7 +866,7 @@ export default function RoadEstimator() {
                         <span className="font-bold text-gray-900 block">
                           {wbmScreeningVol.toFixed(2)} m³
                         </span>
-                        <span className="text-xs text-gray-400 font-medium">
+                        <span className="text-xs text-gray-700 dark:text-gray-300 font-medium">
                           {wbmScreeningTons.toFixed(2)} T
                         </span>
                       </div>
@@ -879,7 +879,7 @@ export default function RoadEstimator() {
                         <span className="font-bold text-gray-900 block">
                           {wbmBindingVol.toFixed(2)} m³
                         </span>
-                        <span className="text-xs text-gray-400 font-medium">
+                        <span className="text-xs text-gray-700 dark:text-gray-300 font-medium">
                           {wbmBindingTons.toFixed(2)} T
                         </span>
                       </div>
@@ -899,7 +899,7 @@ export default function RoadEstimator() {
                         <span className="font-bold text-gray-900 block">
                           {sbLooseVol.toFixed(2)} m³
                         </span>
-                        <span className="text-xs text-gray-400 font-medium">
+                        <span className="text-xs text-gray-700 dark:text-gray-300 font-medium">
                           {sbMaterialTons.toFixed(2)} T
                         </span>
                       </div>
@@ -909,7 +909,7 @@ export default function RoadEstimator() {
               </div>
             </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-emerald-200 transition-colors">
-              <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+              <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-4 flex items-center gap-2">
                 <svg
                   className="w-4 h-4 text-emerald-500"
                   fill="none"

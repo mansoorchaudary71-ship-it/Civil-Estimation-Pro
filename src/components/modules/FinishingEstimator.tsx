@@ -155,7 +155,7 @@ export default function FinishingEstimator() {
           <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent pb-2">
             Finishing Works Estimator
           </h1>
-          <p className="text-gray-500 mt-2 text-lg font-medium">
+          <p className="text-gray-500 dark:text-gray-400 mt-2 text-lg font-medium">
             Calculate plaster, tile, and paint quantities with dynamic cost
             distributions.
           </p>
@@ -176,7 +176,7 @@ export default function FinishingEstimator() {
                   <h2 className="text-xl font-bold tracking-tight text-gray-800">
                     Space Dimensions
                   </h2>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-gray-700 dark:text-gray-300">
                     Define base area and deductions
                   </p>
                 </div>
@@ -203,7 +203,7 @@ export default function FinishingEstimator() {
                   >
                     <span className="font-medium text-gray-700">
                       {d.name}
-                      <span className="text-gray-400 font-normal ml-2">
+                      <span className="text-gray-700 dark:text-gray-300 font-normal ml-2">
                         {d.area} m²
                       </span>
                     </span>
@@ -238,11 +238,11 @@ export default function FinishingEstimator() {
                   </button>
                 </div>
               </div>
-              <div className="mt-8 p-5 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-2xl flex justify-between items-center border border-indigo-500/20">
-                <span className="text-indigo-800 font-bold">
+              <div className="mt-8 p-5 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-2xl flex justify-between items-center flex-wrap gap-4 border border-indigo-500/20">
+                <span className="text-indigo-800 font-bold break-words min-w-[120px] flex-1">
                   Net Operative Area
                 </span>
-                <span className="text-2xl font-black text-indigo-700 font-mono">
+                <span className="text-2xl font-black text-indigo-700 font-mono break-all text-right shrink-0 w-full sm:w-auto">
                   {calcNetArea().toFixed(2)} m²
                 </span>
               </div>
@@ -252,14 +252,14 @@ export default function FinishingEstimator() {
               {/* Plaster Parameters */}
               <div className="bg-white/80 backdrop-blur-xl p-6 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-white/40">
                 <h3 className="text-lg font-bold text-gray-800 mb-5 flex items-center gap-2">
-                  <span className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-black text-slate-500">
+                  <span className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-black text-slate-500 dark:text-slate-400">
                     P
                   </span>
                   Plaster Specs
                 </h3>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                       Thickness ({uMm})
                     </label>
                     <input
@@ -270,11 +270,11 @@ export default function FinishingEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                       Mortar Ratio (1:X)
                     </label>
                     <div className="flex bg-gray-50/50 border border-gray-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-slate-500/30">
-                      <span className="px-4 py-3 bg-gray-100 text-gray-500 font-bold">
+                      <span className="px-4 py-3 bg-gray-100 text-gray-700 dark:text-gray-300 font-bold">
                         1 :
                       </span>
                       <input
@@ -296,7 +296,7 @@ export default function FinishingEstimator() {
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1">
+                      <label className="block text-[10px] font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1">
                         Tile (W x L) {uMm}
                       </label>
                       <div className="flex gap-1">
@@ -306,7 +306,7 @@ export default function FinishingEstimator() {
                           value={tileWidth}
                           onChange={(e) => setTileWidth(e.target.value)}
                         />
-                        <span className="text-gray-400 py-2">x</span>
+                        <span className="text-gray-700 dark:text-gray-300 py-2">x</span>
                         <input
                           type="number"
                           className="w-full bg-gray-50/50 border border-gray-200 rounded-lg px-2 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/30 text-center"
@@ -316,7 +316,7 @@ export default function FinishingEstimator() {
                       </div>
                     </div>
                     <div>
-                      <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-1">
+                      <label className="block text-[10px] font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1">
                         Pcs / Box
                       </label>
                       <input
@@ -334,7 +334,7 @@ export default function FinishingEstimator() {
                     Coverage
                   </h3>
                   <div>
-                    <label className="block text-[10px] font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                    <label className="block text-[10px] font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                       Coverage (m² / Liter)
                     </label>
                     <input
@@ -405,7 +405,7 @@ export default function FinishingEstimator() {
                         />
                         <span className="text-gray-300 font-medium">
                           {d.name}
-                          <span className="text-gray-500 ml-1">({d.qty})</span>
+                          <span className="text-gray-700 dark:text-gray-300 ml-1">({d.qty})</span>
                         </span>
                       </div>
                       <span className="font-mono font-semibold">
@@ -414,7 +414,7 @@ export default function FinishingEstimator() {
                     </div>
                   ))}
                   <div className="pt-4 mt-2 border-t border-white/10 flex justify-between items-end">
-                    <span className="text-gray-400 font-medium pb-1">
+                    <span className="text-gray-700 dark:text-gray-300 font-medium pb-1">
                       Total Estimated Cost
                     </span>
                     <span className="text-3xl font-black tracking-tight">
@@ -426,13 +426,13 @@ export default function FinishingEstimator() {
             </div>
             <div className="flex flex-wrap gap-4 items-center w-full">
               <div className="bg-white px-4 py-3 rounded-3xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-gray-50 flex flex-col items-center text-center">
-                <div className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-2">
+                <div className="text-slate-700 dark:text-slate-300 text-xs font-bold uppercase tracking-widest mb-2">
                   Cement
                 </div>
                 <div className="text-3xl font-black text-slate-700">
                   {results.cementBags}
                 </div>
-                <div className="text-slate-400 text-xs font-semibold mt-1">
+                <div className="text-slate-700 dark:text-slate-300 text-xs font-semibold mt-1">
                   Bags (50kg)
                 </div>
               </div>

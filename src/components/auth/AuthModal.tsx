@@ -104,7 +104,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         >
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors z-10"
+            className="absolute top-5 right-5 p-2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors z-10"
           >
             <X className="w-5 h-5" />
           </button>
@@ -113,7 +113,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
               {isLogin ? 'Welcome back' : 'Create an account'}
             </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-8">
+            <p className="text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-8">
               {isLogin ? 'Sign in to access your estimates' : 'Sign up to save your estimation data safely'}
             </p>
 
@@ -121,7 +121,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               {!isLogin && (
                 <div>
                   <div className="relative flex items-center">
-                    <User className="absolute left-3.5 w-5 h-5 text-slate-400" />
+                    <User className="absolute left-3.5 w-5 h-5 text-slate-700 dark:text-slate-300" />
                     <input
                       type="text"
                       placeholder="Full Name"
@@ -139,7 +139,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               
               <div>
                 <div className="relative flex items-center">
-                  <AtSign className="absolute left-3.5 w-5 h-5 text-slate-400" />
+                  <AtSign className="absolute left-3.5 w-5 h-5 text-slate-700 dark:text-slate-300" />
                   <input
                     type="email"
                     placeholder="Email Address"
@@ -156,7 +156,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
               <div>
                 <div className="relative flex items-center">
-                  <Lock className="absolute left-3.5 w-5 h-5 text-slate-400" />
+                  <Lock className="absolute left-3.5 w-5 h-5 text-slate-700 dark:text-slate-300" />
                   <input
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
@@ -171,7 +171,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 focus:outline-none"
+                    className="absolute right-3.5 text-slate-700 dark:text-slate-300 hover:text-slate-600 dark:hover:text-slate-300 focus:outline-none"
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
@@ -195,7 +195,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
             <div className="my-6 flex items-center">
               <div className="flex-1 border-t border-slate-200 dark:border-slate-700"></div>
-              <span className="px-4 text-xs font-medium text-slate-400 uppercase tracking-wider">or</span>
+              <span className="px-4 text-xs font-medium text-slate-700 dark:text-slate-300 uppercase tracking-wider">or</span>
               <div className="flex-1 border-t border-slate-200 dark:border-slate-700"></div>
             </div>
 
@@ -214,7 +214,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               Sign in with Google
             </button>
 
-            <p className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
+            <p className="mt-8 text-center text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300">
               {isLogin ? "Don't have an account? " : "Already have an account? "}
               <button
                 type="button"

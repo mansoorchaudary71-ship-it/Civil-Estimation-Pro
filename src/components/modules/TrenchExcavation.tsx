@@ -18,7 +18,7 @@ import { CalculationHistory } from "../ui/CalculationHistory";
 
 const Tooltip = ({ content }: { content: string }) => (
   <div className="relative group inline-flex ml-1.5 align-middle">
-    <Info className="w-4 h-4 text-gray-400 hover:text-teal-500 transition-colors cursor-help" />
+    <Info className="w-4 h-4 text-gray-500 dark:text-gray-400 hover:text-teal-500 transition-colors cursor-help" />
     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[200px] p-2 bg-gray-900 text-white text-[11px] font-normal rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center shadow-xl">
       {content}
       <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-[5px] border-transparent border-t-gray-900"></div>
@@ -71,7 +71,7 @@ export default function TrenchExcavationEstimator() {
             <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-teal-600 to-emerald-500 bg-clip-text text-transparent pb-1">
               Trench Excavation Estimator
             </h1>
-            <p className="text-gray-500 mt-2 font-medium">
+            <p className="text-gray-700 dark:text-gray-300 mt-2 font-medium">
               Calculate total excavated volume and bedding material using a
               trapezoidal cross-section.
             </p>
@@ -97,7 +97,7 @@ export default function TrenchExcavationEstimator() {
                   </h2>
                 </div>
                 <ChevronDown
-                  className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${isDimensionsOpen ? "rotate-180" : ""}`}
+                  className={`w-5 h-5 text-gray-700 dark:text-gray-300 transition-transform duration-300 ${isDimensionsOpen ? "rotate-180" : ""}`}
                 />
               </button>
               
@@ -107,7 +107,7 @@ export default function TrenchExcavationEstimator() {
                 <div className="overflow-hidden">
                   <div className="px-6 pb-6 pt-2 space-y-5 border-t border-gray-50 bg-gray-50/30">
                     <div>
-                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1 flex items-center">
+                      <label className="text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2 ml-1 flex items-center">
                         Trench Length (L) [{unitL}]
                         <Tooltip content="The total linear distance of the trench along its centerline." />
                       </label>
@@ -120,7 +120,7 @@ export default function TrenchExcavationEstimator() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
-                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1 flex items-center">
+                        <label className="text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2 ml-1 flex items-center">
                           Bottom Width [{unitL}]
                           <Tooltip content="The width of the trench at its flat base." />
                         </label>
@@ -132,12 +132,12 @@ export default function TrenchExcavationEstimator() {
                         />
                       </div>
                       <div>
-                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1 flex items-center">
+                        <label className="text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2 ml-1 flex items-center">
                           Side Slope (1V : XH)
                           <Tooltip content="Ratio of horizontal run to 1 unit of vertical drop. For example, 0.5 means a 1:0.5 slope (steep), while 2 means a 1:2 slope (gentle)." />
                         </label>
                         <div className="flex items-center gap-3 w-full bg-white border border-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-teal-500/50 transition-shadow">
-                          <span className="text-gray-500 font-semibold text-sm whitespace-nowrap">1 V :</span>
+                          <span className="text-gray-700 dark:text-gray-300 font-semibold text-sm whitespace-nowrap">1 V :</span>
                           <input
                             type="number"
                             step="0.1"
@@ -146,12 +146,12 @@ export default function TrenchExcavationEstimator() {
                             placeholder="e.g. 0.5"
                             onChange={(e) => setSideSlope(e.target.value)}
                           />
-                          <span className="text-gray-500 font-semibold text-sm whitespace-nowrap">H</span>
+                          <span className="text-gray-700 dark:text-gray-300 font-semibold text-sm whitespace-nowrap">H</span>
                         </div>
                       </div>
                     </div>
                     <div>
-                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1 flex items-center">
+                      <label className="text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2 ml-1 flex items-center">
                         Depth [{unitL}]
                         <Tooltip content="The vertical distance from the ground surface to the bottom of the trench." />
                       </label>
@@ -181,7 +181,7 @@ export default function TrenchExcavationEstimator() {
                   </h2>
                 </div>
                 <ChevronDown
-                  className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${isBeddingOpen ? "rotate-180" : ""}`}
+                  className={`w-5 h-5 text-gray-700 dark:text-gray-300 transition-transform duration-300 ${isBeddingOpen ? "rotate-180" : ""}`}
                 />
               </button>
               
@@ -191,7 +191,7 @@ export default function TrenchExcavationEstimator() {
                 <div className="overflow-hidden">
                   <div className="px-6 pb-6 pt-2 space-y-5 border-t border-gray-50 bg-gray-50/30">
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1 flex items-center">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2 ml-1 flex items-center">
                         Pipe Diameter [{unitL}]
                         <Tooltip content="The outer diameter of the pipe. Used to deduct pipe volume from bedding material." />
                       </label>
@@ -204,7 +204,7 @@ export default function TrenchExcavationEstimator() {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1 flex items-center">
+                      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2 ml-1 flex items-center">
                         Bedding Depth [{unitL}]
                         <Tooltip content="The thickness of bedding material placed below and around the pipe inside the trench." />
                       </label>
@@ -216,7 +216,7 @@ export default function TrenchExcavationEstimator() {
                         placeholder={`e.g. 0.5`}
                       />
                     </div>
-                    <p className="text-xs text-gray-400 font-medium px-1">
+                    <p className="text-xs text-gray-700 dark:text-gray-300 font-medium px-1">
                       Leave empty if bedding calculation is not required.
                     </p>
                   </div>
@@ -266,7 +266,7 @@ export default function TrenchExcavationEstimator() {
                   <table className="w-full text-left mt-2 border-collapse">
                     <tbody className="divide-y divide-white/10 text-sm font-medium">
                       <tr>
-                        <td className="py-3 text-gray-400">
+                        <td className="py-3 text-gray-700 dark:text-gray-300">
                           Trapezoidal Area
                         </td>
                         <td className="py-3 text-right text-white font-mono">
@@ -275,7 +275,7 @@ export default function TrenchExcavationEstimator() {
                       </tr>
                       {D_pipe > 0 && (
                         <tr>
-                          <td className="py-3 text-gray-400">
+                          <td className="py-3 text-gray-700 dark:text-gray-300">
                             Pipe Volume
                           </td>
                           <td className="py-3 text-right text-white font-mono">

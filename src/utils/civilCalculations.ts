@@ -68,7 +68,7 @@ export interface SlabResult {
 
 /**
  * Calculates slab concrete volume and steel reinforcement weight.
- * Uses exact engineering formula W = D^2 / 162 per meter.
+ * Uses exact engineering formula W = D^2 / 162.28 per meter.
  */
 export function calculateSlabAndSteel(params: SlabParams): SlabResult {
   const {
@@ -91,8 +91,8 @@ export function calculateSlabAndSteel(params: SlabParams): SlabResult {
   const barsPerMeter = 1 / spacingMeters;
   const lengthPerSqm = barsPerMeter * 2; // total running length of steel per sq.m
 
-  // Weight formula: D^2 / 162 = kg per meter
-  const weightPerMeter = Math.pow(barDiameterMm, 2) / 162;
+  // Weight formula: D^2 / 162.28 = kg per meter
+  const weightPerMeter = Math.pow(barDiameterMm, 2) / 162.28;
   const weightPerSqm = lengthPerSqm * weightPerMeter;
 
   // Total steel weight + 10% for lap lengths, bends, wastage

@@ -90,7 +90,7 @@ export default function App() {
     <HouseSpecsProvider>
     <MarketRatesProvider>
       <TakeoffProvider>
-      <div className="flex flex-col md:flex-row h-screen w-full bg-transparent overflow-hidden font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
+      <div className="flex flex-col md:flex-row h-[100dvh] w-full bg-transparent overflow-hidden font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
         <Toaster position="bottom-right" />
         <Sidebar 
           activeModule={activeModule} 
@@ -103,7 +103,7 @@ export default function App() {
 
         <main id="main-content" className="flex-1 flex flex-col bg-transparent overflow-hidden relative w-full h-full transition-colors duration-300">
           {["home", "my-estimates", "about", "careers", "contact", "blog"].includes(activeModule) ? (
-            <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-y-auto pb-[90px] md:pb-0">
+            <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-y-auto pb-[110px] md:pb-0">
               <TopNavbar 
                 onOpenSidebar={() => setIsSidebarOpen(true)} 
                 onOpenAuth={() => setIsAuthOpen(true)}
@@ -226,7 +226,7 @@ function ModuleWrapper({
         onGoHome={() => setActiveModule("home")}
       />
 
-      <div className="flex-1 overflow-y-auto pb-[90px] md:pb-0">
+      <div className="flex-1 overflow-y-auto pb-[110px] md:pb-0">
         <div className="min-h-full flex flex-col items-center">
           <div className="flex-1 shrink-0 p-4 md:p-6 pb-6 w-full max-w-7xl">
             {children}

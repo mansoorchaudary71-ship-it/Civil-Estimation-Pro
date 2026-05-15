@@ -380,7 +380,7 @@ export default function Takeoff() {
       <div className="flex-1 bg-white border border-slate-200 rounded-xl flex flex-col overflow-hidden relative">
         {/* Header */}
         <div className="px-6 py-4 border-b border-slate-200 flex justify-between items-center bg-white">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-500">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
             2D Takeoff Engine
           </h2>
           <div className="flex gap-2 items-center">
@@ -414,7 +414,7 @@ export default function Takeoff() {
                   );
                 }
               }}
-              className="px-2 py-0.5 bg-white border border-slate-200 text-slate-500 text-[10px] rounded outline-none hover:border-slate-300 focus:border-blue-500 transition-colors cursor-pointer"
+              className="px-2 py-0.5 bg-white border border-slate-200 text-slate-700 dark:text-slate-300 text-[10px] rounded outline-none hover:border-slate-300 focus:border-blue-500 transition-colors cursor-pointer"
             >
               <option value="metric">Metric (m, m², m³)</option>
               <option value="imperial">Imperial (ft, sq.ft, cu.ft)</option>
@@ -428,7 +428,7 @@ export default function Takeoff() {
               {filename}
             </div>
             {!image && (
-              <label className="flex items-center gap-2 cursor-pointer text-xs bg-white border border-slate-200 hover:bg-slate-200 text-slate-500 px-3 py-1.5 rounded transition-colors">
+              <label className="flex items-center gap-2 cursor-pointer text-xs bg-white border border-slate-200 hover:bg-slate-200 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded transition-colors">
                 <Upload className="w-[14px] h-[14px]" /> Upload Image Blueprint
                 <input
                   type="file"
@@ -442,14 +442,14 @@ export default function Takeoff() {
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setMode("select")}
-                className={`p-1.5 rounded border ${mode === "select" ? "bg-slate-200 border-slate-400 text-slate-800" : "border-transparent text-slate-500 hover:bg-slate-100"}`}
+                className={`p-1.5 rounded border ${mode === "select" ? "bg-slate-200 border-slate-400 text-slate-800" : "border-transparent text-slate-700 dark:text-slate-300 hover:bg-slate-100"}`}
                 title="Select"
               >
                 <MousePointer2 className="w-[14px] h-[14px]" />
               </button>
               <button
                 onClick={() => setMode("pan")}
-                className={`p-1.5 rounded border ${mode === "pan" ? "bg-slate-200 border-slate-400 text-slate-800" : "border-transparent text-slate-500 hover:bg-slate-100"}`}
+                className={`p-1.5 rounded border ${mode === "pan" ? "bg-slate-200 border-slate-400 text-slate-800" : "border-transparent text-slate-700 dark:text-slate-300 hover:bg-slate-100"}`}
                 title="Pan"
               >
                 <Move className="w-[14px] h-[14px]" />
@@ -462,7 +462,7 @@ export default function Takeoff() {
                   setMode("scale");
                   setDrawingPoints([]);
                 }}
-                className={`p-1.5 rounded border ${mode === "scale" ? "bg-slate-200 border-emerald-500 text-emerald-400" : "border-transparent text-slate-500 hover:bg-slate-100 hover:text-emerald-400"}`}
+                className={`p-1.5 rounded border ${mode === "scale" ? "bg-slate-200 border-emerald-500 text-emerald-400" : "border-transparent text-slate-700 dark:text-slate-300 hover:bg-slate-100 hover:text-emerald-400"}`}
                 title="Set Scale"
               >
                 <Ruler className="w-[14px] h-[14px]" />
@@ -472,7 +472,7 @@ export default function Takeoff() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setStageScale((s) => s / 1.2)}
-              className="p-1.5 text-slate-500 hover:text-slate-800 rounded hover:bg-slate-100"
+              className="p-1.5 text-slate-700 dark:text-slate-300 hover:text-slate-800 rounded hover:bg-slate-100"
             >
               <ZoomOut className="w-[14px] h-[14px]" />
             </button>
@@ -481,7 +481,7 @@ export default function Takeoff() {
             </div>
             <button
               onClick={() => setStageScale((s) => s * 1.2)}
-              className="p-1.5 text-slate-500 hover:text-slate-800 rounded hover:bg-slate-100"
+              className="p-1.5 text-slate-700 dark:text-slate-300 hover:text-slate-800 rounded hover:bg-slate-100"
             >
               <ZoomIn className="w-[14px] h-[14px]" />
             </button>
@@ -496,7 +496,7 @@ export default function Takeoff() {
                 setMode("area");
                 setDrawingPoints([]);
               }}
-              className={`w-8 h-8 rounded flex items-center justify-center cursor-pointer text-xs font-bold transition-colors ${mode === "area" ? "bg-orange-500/20 text-orange-400 border border-orange-500/30" : "text-slate-500 hover:text-slate-900 hover:bg-slate-100"}`}
+              className={`w-8 h-8 rounded flex items-center justify-center cursor-pointer text-xs font-bold transition-colors ${mode === "area" ? "bg-orange-500/20 text-orange-400 border border-orange-500/30" : "text-slate-700 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-100"}`}
               title="Area Takeoff"
             >
               <Square className="w-[14px] h-[14px]" />
@@ -506,7 +506,7 @@ export default function Takeoff() {
                 setMode("line");
                 setDrawingPoints([]);
               }}
-              className={`w-8 h-8 rounded flex items-center justify-center cursor-pointer text-xs font-bold transition-colors ${mode === "line" ? "bg-blue-500/20 text-blue-400 border border-blue-500/30" : "text-slate-500 hover:text-slate-900 hover:bg-slate-100"}`}
+              className={`w-8 h-8 rounded flex items-center justify-center cursor-pointer text-xs font-bold transition-colors ${mode === "line" ? "bg-blue-500/20 text-blue-400 border border-blue-500/30" : "text-slate-700 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-100"}`}
               title="Line Takeoff"
             >
               <Activity className="w-[14px] h-[14px]" />
@@ -515,12 +515,12 @@ export default function Takeoff() {
           {/* Assemblies Sidebar */}
           <div className="w-56 border-r border-slate-200 bg-transparent/50 flex flex-col shrink-0">
             <div className="h-10 border-b border-slate-200 flex items-center px-4 bg-white/30">
-              <span className="text-[10px] font-semibold uppercase text-slate-500 tracking-wider flex-1">
+              <span className="text-[10px] font-semibold uppercase text-slate-700 dark:text-slate-300 tracking-wider flex-1">
                 Smart Assemblies
               </span>
             </div>
             <div className="flex-1 p-3 space-y-3 overflow-y-auto">
-              <div className="text-[10px] text-slate-500 pb-1">
+              <div className="text-[10px] text-slate-700 dark:text-slate-300 pb-1">
                 Drag and drop onto canvas:
               </div>
               {ASSEMBLIES.map((asm) => (
@@ -545,9 +545,9 @@ export default function Takeoff() {
                     >
                       {asm.name}
                     </span>
-                    <GripVertical className="w-3 h-3 text-slate-300 group-hover:text-slate-500 transition-colors" />
+                    <GripVertical className="w-3 h-3 text-slate-300 group-hover:text-slate-700 dark:text-slate-300 transition-colors" />
                   </div>
-                  <p className="text-[9px] text-slate-500 mt-2 leading-tight">
+                  <p className="text-[9px] text-slate-700 dark:text-slate-300 mt-2 leading-tight">
                     Drop to generate BOQ for this assembly.
                   </p>
                 </div>
@@ -563,7 +563,7 @@ export default function Takeoff() {
             onDrop={handleDrop}
           >
             {!image && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-50 text-slate-500">
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-50 text-slate-700 dark:text-slate-300">
                 <Layers className="w-12 h-12 mb-4" />
                 <span className="text-sm">
                   Upload a blueprint image to start
@@ -743,7 +743,7 @@ export default function Takeoff() {
                   <h3 className="text-sm font-semibold mb-4 text-slate-900">
                     Set Measurement Scale
                   </h3>
-                  <p className="text-xs text-slate-500 mb-4">
+                  <p className="text-xs text-slate-700 dark:text-slate-300 mb-4">
                     Line length on drawing is
                     <span className="font-mono text-emerald-400">
                       {scalePrompt.pxLen.toFixed(1)} px
@@ -777,7 +777,7 @@ export default function Takeoff() {
                         setScalePrompt({ visible: false, pxLen: 0 });
                         setMode("select");
                       }}
-                      className="px-3 py-1.5 text-xs text-slate-500 hover:text-slate-800 transition-colors border border-transparent"
+                      className="px-3 py-1.5 text-xs text-slate-700 dark:text-slate-300 hover:text-slate-800 transition-colors border border-transparent"
                     >
                       Cancel
                     </button>
@@ -815,7 +815,7 @@ export default function Takeoff() {
                           </span>
                           Configure Assembly
                         </h3>
-                        <p className="text-xs text-slate-500 mb-5">
+                        <p className="text-xs text-slate-700 dark:text-slate-300 mb-5">
                           Provide dimensions for
                           <span className="font-medium text-slate-800">
                             {asmDef?.name}
@@ -825,7 +825,7 @@ export default function Takeoff() {
                         <div className="flex flex-col gap-3 mb-5">
                           {asmDef?.inputs.map((inp) => (
                             <div key={inp.key}>
-                              <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
+                              <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
                                 {inp.label}
                               </label>
                               <input
@@ -853,7 +853,7 @@ export default function Takeoff() {
                         <div className="flex justify-end gap-2 text-xs">
                           <button
                             onClick={() => setAssemblyPrompt(null)}
-                            className="px-4 py-2 text-slate-500 hover:text-slate-800 transition-colors border border-transparent rounded"
+                            className="px-4 py-2 text-slate-700 dark:text-slate-300 hover:text-slate-800 transition-colors border border-transparent rounded"
                           >
                             Cancel
                           </button>
@@ -872,7 +872,7 @@ export default function Takeoff() {
             )}
             {/* Enter/Escape Helper */}
             {drawingPoints.length > 0 && (
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-transparent/80 border border-slate-200 rounded-full px-4 py-1.5 text-[10px] text-slate-500 backdrop-blur-sm pointer-events-none flex gap-4 shadow-lg">
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-transparent/80 border border-slate-200 rounded-full px-4 py-1.5 text-[10px] text-slate-700 dark:text-slate-300 backdrop-blur-sm pointer-events-none flex gap-4 shadow-lg">
                 <span>
                   <kbd className="bg-white px-1.5 rounded border border-slate-200 mr-1">
                     Click
@@ -897,7 +897,7 @@ export default function Takeoff() {
           {/* Right Panel */}
           <div className="w-64 border-l border-slate-200 bg-transparent/50 flex flex-col shrink-0">
             <div className="h-10 border-b border-slate-200 flex items-center px-4 bg-white/30">
-              <span className="text-[10px] font-semibold uppercase text-slate-500 tracking-wider flex-1">
+              <span className="text-[10px] font-semibold uppercase text-slate-700 dark:text-slate-300 tracking-wider flex-1">
                 Takeoffs
               </span>
               <span className="text-[10px] text-blue-500 bg-blue-500/10 px-1.5 py-0.5 rounded border border-blue-500/20">
@@ -906,7 +906,7 @@ export default function Takeoff() {
             </div>
             <div className="flex-1 p-3 space-y-2 overflow-y-auto">
               {measurements.length === 0 && (
-                <div className="text-[10px] text-center text-slate-500 mt-8 p-4 border border-dashed border-slate-200 rounded">
+                <div className="text-[10px] text-center text-slate-700 dark:text-slate-300 mt-8 p-4 border border-dashed border-slate-200 rounded">
                   No takeoffs recorded.
                   <br />
                   Set scale, then draw lines or drop assemblies.
@@ -999,7 +999,7 @@ export default function Takeoff() {
                           {primaryStr}
                         </span>
                         {secondaryStr && (
-                          <span className="text-[9px] font-mono text-slate-500">
+                          <span className="text-[9px] font-mono text-slate-700 dark:text-slate-300">
                             ({secondaryStr})
                           </span>
                         )}
@@ -1007,7 +1007,7 @@ export default function Takeoff() {
                     </div>
                     {linkedBoqs.length > 0 ? (
                       <div className="pl-2 flex flex-col gap-1 mt-1">
-                        <span className="text-[9px] text-slate-500 font-medium uppercase tracking-wider">
+                        <span className="text-[9px] text-slate-700 dark:text-slate-300 font-medium uppercase tracking-wider">
                           Linked To:
                         </span>
                         {linkedBoqs.map((item) => (
@@ -1021,18 +1021,18 @@ export default function Takeoff() {
                       </div>
                     ) : (
                       <div className="pl-2 mt-1">
-                        <span className="text-[9px] text-slate-500 italic">
+                        <span className="text-[9px] text-slate-700 dark:text-slate-300 italic">
                           Unlinked
                         </span>
                       </div>
                     )}
                     <div className="pl-2 flex justify-between items-center mt-1 pt-1 border-t border-slate-200">
-                      <span className="text-[9px] text-slate-500 uppercase">
+                      <span className="text-[9px] text-slate-700 dark:text-slate-300 uppercase">
                         {m.type}
                       </span>
                       <button
                         onClick={() => removeMeasurement(m.id)}
-                        className="text-slate-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="text-slate-700 dark:text-slate-300 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
                         title="Delete"
                       >
                         <Trash2 className="w-3 h-3" />

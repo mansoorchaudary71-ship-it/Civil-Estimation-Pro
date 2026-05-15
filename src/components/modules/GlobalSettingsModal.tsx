@@ -92,7 +92,7 @@ export default function GlobalSettingsModal({
         <span className="font-semibold text-slate-800 dark:text-slate-200">
           {label}
         </span>{" "}
-        <span className="text-xs text-slate-500 dark:text-slate-400">
+        <span className="text-xs text-slate-500 dark:text-slate-400 dark:text-slate-700 dark:text-slate-300">
           per {unit}
         </span>{" "}
       </div>{" "}
@@ -100,7 +100,7 @@ export default function GlobalSettingsModal({
         {" "}
         <div className="relative flex items-center w-full">
           {" "}
-          <span className="absolute left-3 text-slate-400 font-medium text-sm">
+          <span className="absolute left-3 text-slate-700 dark:text-slate-300 font-medium text-sm">
             {currencySymbol}
           </span>{" "}
           <input
@@ -137,14 +137,14 @@ export default function GlobalSettingsModal({
               {" "}
               Global Settings{" "}
             </h3>{" "}
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+            <p className="text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mt-1">
               {" "}
               Configure parameters & market rates.{" "}
             </p>{" "}
           </div>{" "}
           <button
             onClick={onClose}
-            className="p-2 -mr-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/50 text-slate-500 transition-colors"
+            className="p-2 -mr-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/50 text-slate-700 dark:text-slate-300 transition-colors"
           >
             {" "}
             <X className="w-5 h-5" />{" "}
@@ -216,7 +216,7 @@ export default function GlobalSettingsModal({
                 {" "}
                 <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-2">
                   {" "}
-                  <Ruler className="w-4 h-4 text-slate-400" /> Preferred
+                  <Ruler className="w-4 h-4 text-slate-700 dark:text-slate-300" /> Preferred
                   Units{" "}
                 </h4>{" "}
                 <div className="space-y-3 bg-white/50 dark:bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-200/50 dark:border-slate-700/50">
@@ -283,7 +283,7 @@ export default function GlobalSettingsModal({
                 {" "}
                 <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200 mb-3 flex items-center gap-2">
                   {" "}
-                  <Palette className="w-4 h-4 text-slate-400" /> Default Color
+                  <Palette className="w-4 h-4 text-slate-700 dark:text-slate-300" /> Default Color
                   Themes{" "}
                 </h4>{" "}
                 <div className="space-y-3 bg-white/50 dark:bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-200/50 dark:border-slate-700/50">

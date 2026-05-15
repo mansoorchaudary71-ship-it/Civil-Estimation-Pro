@@ -22,7 +22,7 @@ import { SEO } from "../SEO";
 
 const Tooltip = ({ content }: { content: string }) => (
   <div className="relative group inline-flex ml-1.5 align-middle">
-    <Info className="w-4 h-4 text-slate-400 hover:text-indigo-500 transition-colors cursor-help" />
+    <Info className="w-4 h-4 text-slate-500 dark:text-slate-400 hover:text-indigo-500 transition-colors cursor-help" />
     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[200px] p-2 bg-slate-900 text-white text-[11px] font-normal rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center shadow-xl">
       {content}
       <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-[5px] border-transparent border-t-slate-900"></div>
@@ -312,7 +312,7 @@ export default function RccStructureCalculator({
               <Spline className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
               RCC Structure Calculator
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 mb-8 font-medium">
+            <p className="text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-8 font-medium">
               Estimate concrete volume and steel reinforcement for standard
               structural elements.
             </p>
@@ -347,7 +347,7 @@ export default function RccStructureCalculator({
                 <>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-b border-slate-100 dark:border-slate-800 pb-6 mb-6">
                     <div>
-                      <label className="text-xs font-bold text-gray-500 uppercase">
+                      <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">
                         Length (m)
                       </label>
                       <input
@@ -358,7 +358,7 @@ export default function RccStructureCalculator({
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold text-gray-500 uppercase">
+                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                         Width (m)
                       </label>
                       <input
@@ -369,7 +369,7 @@ export default function RccStructureCalculator({
                       />
                     </div>
                     <div>
-                      <label className="text-xs font-bold text-gray-500 uppercase">
+                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                         Slab Thickness (m)
                       </label>
                       <input
@@ -394,7 +394,7 @@ export default function RccStructureCalculator({
               {!activeType.includes("Slab") && (
                 <>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Column Height (m)
                     </label>
                     <input
@@ -405,7 +405,7 @@ export default function RccStructureCalculator({
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Clear Cover ({isSI ? "mm" : "in"})
                     </label>
                     <input
@@ -417,7 +417,7 @@ export default function RccStructureCalculator({
                   </div>
                   {activeType === "Round Column" ? (
                     <div>
-                      <label className="text-xs font-bold text-gray-500 uppercase">
+                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                         Diameter ({isSI ? "mm" : "in"})
                       </label>
                       <input
@@ -430,7 +430,7 @@ export default function RccStructureCalculator({
                   ) : (
                     <>
                       <div>
-                        <label className="text-xs font-bold text-gray-500 uppercase">
+                        <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                           Width ({isSI ? "mm" : "in"})
                         </label>
                         <input
@@ -441,7 +441,7 @@ export default function RccStructureCalculator({
                         />
                       </div>
                       <div>
-                        <label className="text-xs font-bold text-gray-500 uppercase">
+                        <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                           Depth ({isSI ? "mm" : "in"})
                         </label>
                         <input
@@ -460,7 +460,7 @@ export default function RccStructureCalculator({
                   </div>
                   {activeType === "Round Column" && (
                     <div>
-                      <label className="text-xs font-bold text-gray-500 uppercase">
+                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                         No. of Main Bars
                       </label>
                       <input
@@ -472,7 +472,7 @@ export default function RccStructureCalculator({
                     </div>
                   )}
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase flex items-center">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase flex items-center">
                       Main Bar Dia ({isSI ? "mm" : "in"})
                       <Tooltip content={`Standard unit is ${isSI ? "mm" : "in"}. Larger diameter exponentially increases total steel weight.`} />
                     </label>
@@ -484,7 +484,7 @@ export default function RccStructureCalculator({
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase flex items-center">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase flex items-center">
                       Stirrup / Tie Dia ({isSI ? "mm" : "in"})
                       <Tooltip content={`Standard unit is ${isSI ? "mm" : "in"}. Used for shear reinforcement.`} />
                     </label>
@@ -496,7 +496,7 @@ export default function RccStructureCalculator({
                     />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-gray-500 uppercase flex items-center">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase flex items-center">
                       Tie Spacing ({isSI ? "mm" : "in"})
                       <Tooltip content={`Center-to-center distance (${isSI ? "in mm" : "in inches"}). Smaller spacing requires more ties, increasing weight.`} />
                     </label>
@@ -553,7 +553,7 @@ export default function RccStructureCalculator({
                         ? "Total Weight = Main Bars + Distribution Bars + Extra (if Two-Way)."
                         : "Total Weight = Main Vertical Bars + Lateral Ties/Stirrups."}
                       <br /><br />
-                      <span className="text-slate-400">Unit Weight = d² / 162.28 kg/m.</span>
+                      <span className="text-slate-700 dark:text-slate-300">Unit Weight = d² / 162.28 kg/m.</span>
                       <div className="absolute -bottom-1.5 left-4 w-3 h-3 bg-slate-800 border-b border-r border-slate-700 rotate-45"></div>
                     </div>
                   </div>

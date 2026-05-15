@@ -18,7 +18,7 @@ export default function Careers() {
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white tracking-tight">
           Join Our Team
         </h1>
-        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+        <p className="text-lg text-slate-500 dark:text-slate-400 dark:text-slate-700 dark:text-slate-300 max-w-2xl mx-auto">
           Help us build the software that's literally building the world. We're looking for passionate people to join our fully remote team.
         </p>
       </div>
@@ -34,7 +34,7 @@ export default function Careers() {
                 <h4 className="text-lg font-bold text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">
                   {job.title}
                 </h4>
-                <div className="flex flex-wrap items-center gap-4 text-sm text-slate-500 dark:text-slate-400 font-medium">
+                <div className="flex flex-wrap items-center gap-4 text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 font-medium">
                   <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /> {job.location}</span>
                   <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {job.type}</span>
                   <span className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 rounded-lg text-slate-600 dark:text-slate-300 font-semibold text-xs uppercase tracking-wider">

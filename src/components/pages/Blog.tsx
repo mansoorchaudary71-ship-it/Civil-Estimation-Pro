@@ -38,7 +38,7 @@ export default function Blog() {
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white tracking-tight">
           Civil Estimation Pro Blog
         </h1>
-        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+        <p className="text-lg text-slate-500 dark:text-slate-400 dark:text-slate-700 dark:text-slate-300 max-w-2xl mx-auto">
           Insights, updates, and tutorials from the team building the future of construction software.
         </p>
       </div>
@@ -58,7 +58,7 @@ export default function Blog() {
               <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-3 leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                 {post.title}
               </h3>
-              <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 flex-1">
+              <p className="text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-6 flex-1">
                 {post.excerpt}
               </p>
               
@@ -69,7 +69,7 @@ export default function Blog() {
                   </div>
                   {post.author}
                 </div>
-                <div className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
+                <div className="flex items-center gap-1 text-xs text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 font-medium">
                   <Clock className="w-3.5 h-3.5" />
                   {post.date}
                 </div>

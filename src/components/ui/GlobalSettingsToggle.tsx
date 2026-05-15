@@ -32,13 +32,13 @@ export function GlobalSettingsToggle({ align = "right", showCurrency = true }: {
         <span className="sm:hidden tracking-wide flex items-center gap-1">
           {settings.measurement === "SI" ? "SI" : "FPS"} {showCurrency && `• ${settings.currency}`}
         </span>
-        <Settings className="w-4 h-4 ml-0.5 text-slate-400" />
+        <Settings className="w-4 h-4 ml-0.5 text-slate-700" />
       </button>
 
       {isOpen && (
         <div className={`absolute top-full mt-2 w-56 ${alignClass} bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/80 dark:border-slate-700/80 rounded-[24px] shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 ring-1 ring-slate-900/5 dark:ring-white/10`}>
           <div className="p-3">
-            <div className="mb-2 text-[11px] font-black text-slate-500 uppercase tracking-wider flex items-center gap-1.5 pl-1">
+            <div className="mb-2 text-[11px] font-black text-slate-700 uppercase tracking-wider flex items-center gap-1.5 pl-1">
               <Ruler className="w-3.5 h-3.5"/> Unit System
             </div>
             <div className={`grid grid-cols-2 gap-1.5 ${showCurrency ? 'mb-4' : ''}`}>
@@ -62,7 +62,7 @@ export function GlobalSettingsToggle({ align = "right", showCurrency = true }: {
 
             {showCurrency && (
               <>
-                <div className="mb-2 text-[11px] font-black text-slate-500 uppercase tracking-wider flex items-center gap-1.5 pl-1">
+                <div className="mb-2 text-[11px] font-black text-slate-700 uppercase tracking-wider flex items-center gap-1.5 pl-1">
                   <DollarSign className="w-3.5 h-3.5"/> Currency
                 </div>
                 <div className="grid grid-cols-2 gap-1.5">

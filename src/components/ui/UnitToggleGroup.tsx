@@ -15,7 +15,7 @@ export default function UnitToggleGroup({ units, activeUnit, onChange, size = 'm
   };
 
   const activeStyle = 'bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-md shadow-indigo-500/25 border-transparent ring-2 ring-indigo-500/50 ring-offset-2 ring-offset-slate-100 dark:ring-offset-slate-900 scale-105 z-20';
-  const inactiveStyle = 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-700/50 border-transparent shadow-sm hover:shadow cursor-pointer';
+  const inactiveStyle = 'bg-white dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-700/50 border-transparent shadow-sm hover:shadow cursor-pointer';
 
   return (
     <div className="flex bg-slate-100/90 dark:bg-slate-900/90 p-1.5 rounded-[1.25rem] shadow-inner w-fit backdrop-blur-sm gap-1 border border-slate-200/50 dark:border-slate-800">

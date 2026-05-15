@@ -47,7 +47,7 @@ export default function SettingsModal({
         {/* Mobile Close Button */}
         <button
           onClick={onClose}
-          className="md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white transition-colors"
+          className="md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:text-slate-700 dark:text-slate-300 dark:hover:text-white transition-colors"
         >
           <X className="w-4 h-4" />
         </button>
@@ -74,7 +74,7 @@ export default function SettingsModal({
                   className={`flex items-center gap-3 w-full px-4 py-3.5 rounded-2xl font-semibold transition-all ${isActive ? "bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm border border-slate-100 dark:border-slate-700/50" : "text-slate-700 dark:text-slate-300 hover:bg-slate-100/50 dark:hover:bg-slate-800/30 hover:text-slate-900 dark:hover:text-slate-100 border border-transparent"}`}
                 >
                   <Icon
-                    className={`w-5 h-5 ${isActive ? "text-blue-600 dark:text-blue-400" : "text-slate-400 dark:text-slate-500"}`}
+                    className={`w-5 h-5 ${isActive ? "text-blue-600 dark:text-blue-400" : "text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300"}`}
                   />
                   {tab.label}
                 </button>
@@ -82,7 +82,7 @@ export default function SettingsModal({
             })}
           </div>
           <div className="hidden md:block mt-auto pb-2">
-            <p className="text-xs text-slate-400 dark:text-slate-500 font-medium px-4">
+            <p className="text-xs text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 font-medium px-4">
               Civil Estimation Pro Settings
               <br />
               Version 1.0.4
@@ -97,7 +97,7 @@ export default function SettingsModal({
             </h3>
             <button
               onClick={onClose}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white border border-slate-200 dark:border-slate-700 shadow-sm transition-all"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-800 dark:text-slate-700 dark:text-slate-300 dark:hover:text-white border border-slate-200 dark:border-slate-700 shadow-sm transition-all"
             >
               <X className="w-5 h-5" />
             </button>
@@ -125,7 +125,7 @@ export default function SettingsModal({
                       <h4 className="text-lg font-bold text-slate-800 dark:text-slate-200">
                         Profile Picture
                       </h4>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">
+                      <p className="text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-3">
                         Visible to other team members.
                       </p>
                       <div className="flex gap-2">
@@ -178,7 +178,7 @@ export default function SettingsModal({
                           <span className="text-lg font-bold text-slate-800 dark:text-white mb-1">
                             Metric (SI)
                           </span>
-                          <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                          <span className="text-sm font-medium text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300">
                             Meters, Sq.Meters, Cu.Meters
                           </span>
                         </div>
@@ -204,7 +204,7 @@ export default function SettingsModal({
                           <span className="text-lg font-bold text-slate-800 dark:text-white mb-1">
                             Imperial (FPS)
                           </span>
-                          <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                          <span className="text-sm font-medium text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300">
                             Feet, Inches, Sq.Ft, Cu.Ft
                           </span>
                         </div>
@@ -252,12 +252,12 @@ export default function SettingsModal({
                             className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border-2 transition-all ${isActive ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900"}`}
                           >
                             <div
-                              className={`p-3 rounded-full ${isActive ? "bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400" : "bg-slate-100 dark:bg-slate-800 text-slate-500"}`}
+                              className={`p-3 rounded-full ${isActive ? "bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400" : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"}`}
                             >
                               <Icon className="w-6 h-6" />
                             </div>
                             <span
-                              className={`font-bold ${isActive ? "text-blue-700 dark:text-blue-400" : "text-slate-700 dark:text-slate-400"}`}
+                              className={`font-bold ${isActive ? "text-blue-700 dark:text-blue-400" : "text-slate-700 dark:text-slate-700 dark:text-slate-300"}`}
                             >
                               {t.label}
                             </span>
@@ -277,7 +277,7 @@ export default function SettingsModal({
                         <span className="font-bold text-slate-800 dark:text-white">
                           Compact Mode
                         </span>
-                        <span className="text-sm text-slate-500 dark:text-slate-400">
+                        <span className="text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300">
                           Reduce padding to fit more data on screen
                         </span>
                       </div>
@@ -291,7 +291,7 @@ export default function SettingsModal({
                         <span className="font-bold text-slate-800 dark:text-white">
                           Animations
                         </span>
-                        <span className="text-sm text-slate-500 dark:text-slate-400">
+                        <span className="text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300">
                           Enable UI transitions and micro-animations
                         </span>
                       </div>

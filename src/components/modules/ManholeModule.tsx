@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
@@ -83,7 +84,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
     }
     /* Concrete is used in base and top slab. Walls could be brick or concrete. Since we want concrete calculations, let's assume if circular -> concrete rings or cast-in-place; if rectangular -> either RCC or Brick. Let's calculate total concrete for Base + Top Slab + optionally wall if circular). Let's assume the user wants concrete details for base & top slab. */ const totalWetConcrete =
       baseVol + topSlabVol + (mhType === "circular" ? wallVol : 0);
-    const totalDryConcrete = totalWetConcrete * 1.54;
+    const totalDryConcrete = totalWetConcrete * CIVIL_CONSTANTS.DRY_CONCRETE_FACTOR;
     const ratio = mixRatios[concreteMix];
     const totalRatio = ratio.c + ratio.s + ratio.a;
     /* cement volume in m3 */ const cementM3 =
@@ -160,11 +161,11 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
         Math.PI * Math.pow((len + 2 * wallThick) / 2, 2) * topThick
       : (len + 2 * wallThick + 0.3) * (wid + 2 * wallThick + 0.3) * baseThick +
         (len + 2 * wallThick) * (wid + 2 * wallThick) * topThick;
-  const totalDryConcrete = totalWetConcrete * 1.54;
+  const totalDryConcrete = totalWetConcrete * CIVIL_CONSTANTS.DRY_CONCRETE_FACTOR;
   const cementM3 = (totalDryConcrete * ratio.c) / totalRatio;
-  const cementBags = Math.ceil(cementM3 / 0.0347);
-  const sandCft = ((totalDryConcrete * ratio.s) / totalRatio) * 35.3147;
-  const aggCft = ((totalDryConcrete * ratio.a) / totalRatio) * 35.3147;
+  const cementBags = Math.ceil(cementM3 / CIVIL_CONSTANTS.CEMENT_BAG_VOLUME_M3);
+  const sandCft = ((totalDryConcrete * ratio.s) / totalRatio) * CIVIL_CONSTANTS.M3_TO_CFT;
+  const aggCft = ((totalDryConcrete * ratio.a) / totalRatio) * CIVIL_CONSTANTS.M3_TO_CFT;
   return (
     <div className="w-full h-full">
       {" "}
@@ -172,7 +173,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
         {" "}
         <div className="flex flex-col mb-6">
           {" "}
-          <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1">
+          <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 ml-1">
             Shape
           </label>{" "}
           <div className="flex overflow-x-auto pb-4 gap-2 mb-2 p-1 w-full max-w-sm">
@@ -199,7 +200,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
           {" "}
           <div>
             {" "}
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
               Depth (m)
             </label>{" "}
             <input
@@ -211,7 +212,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
           </div>{" "}
           <div>
             {" "}
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
               {mhType === "circular" ? "Inner Diameter" : "Inner Length"} (m)
             </label>{" "}
             <input
@@ -224,7 +225,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
           {mhType === "rectangular" && (
             <div>
               {" "}
-              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                 Inner Width (m)
               </label>{" "}
               <input
@@ -237,7 +238,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
           )}{" "}
           <div>
             {" "}
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
               Wall Thickness (m)
             </label>{" "}
             <input
@@ -250,7 +251,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
           </div>{" "}
           <div>
             {" "}
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
               Base Thick (m)
             </label>{" "}
             <input
@@ -263,7 +264,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
           </div>{" "}
           <div>
             {" "}
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
               Top Slab Thick (m)
             </label>{" "}
             <input
@@ -276,7 +277,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
           </div>{" "}
           <div className="lg:col-span-2">
             {" "}
-            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
               Concrete Mix Grade
             </label>{" "}
             <select
@@ -319,7 +320,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
               <h4 className="font-bold text-gray-800 mb-1">
                 {mhType === "circular" ? "Circular" : "Rectangular"} Manhole
               </h4>{" "}
-              <p className="text-xs text-gray-500 font-medium">
+              <p className="text-xs text-gray-700 dark:text-gray-300 font-medium">
                 Depth: {depth}m
               </p>{" "}
             </div>{" "}
@@ -358,12 +359,12 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
                   <span className="text-2xl font-bold text-gray-800">
                     {totalDryConcrete.toFixed(2)}
                   </span>{" "}
-                  <span className="text-gray-500 text-sm font-medium">
+                  <span className="text-gray-700 dark:text-gray-300 text-sm font-medium">
                     m³
                   </span>{" "}
                 </div>{" "}
               </div>{" "}
-              <div className="mt-2 text-xs text-gray-400 font-medium bg-transparent p-2 rounded-lg inline-block">
+              <div className="mt-2 text-xs text-gray-700 dark:text-gray-300 font-medium bg-transparent p-2 rounded-lg inline-block">
                 {" "}
                 Wet factor used: × 1.54{" "}
               </div>{" "}

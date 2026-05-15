@@ -1,3 +1,5 @@
+import { CIVIL_CONSTANTS } from './unitConverter';
+
 export interface CalculatorUnit {
   isMetric: boolean;
 }
@@ -26,7 +28,7 @@ export class ConcreteMortarCalculator {
   }
 
   getDryVolume() {
-    return this.getWetVolume() * 1.54;
+    return this.getWetVolume() * CIVIL_CONSTANTS.DRY_CONCRETE_FACTOR;
   }
 
   calculate() {
@@ -233,10 +235,10 @@ export class SteelCalculator {
     let totalLengthAllBars = numBars * singleBarTotalLength;
     totalLengthAllBars = totalLengthAllBars * (1 + this.wastagePct / 100);
 
-    // Standard formula: D^2 / 162 in kg/m, D^2 / 533 in kg/ft
+    // Standard formula: D^2 / 162.28 in kg/m, D^2 / 533 in kg/ft
     let weightPerUnitLength = 0;
     if (this.isMetric) {
-      weightPerUnitLength = Math.pow(this.barDiameter, 2) / 162; 
+      weightPerUnitLength = Math.pow(this.barDiameter, 2) / 162.28; 
     } else {
       // In US standard, bar # represents eighths of an inch. But if barDiameter is in eights or inches, let's assume barDiameter is in eighths? 
       // If imperial, user inputs bar diameter in eights of inch (e.g. #4 is 4/8") => The formula is (D in eighths)^2 / 2.67 lbs/ft but kg is fine (D in mm)^2/533 for kg/ft

@@ -204,7 +204,7 @@ export function CalculationHistory({
               </h2>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="p-2 -mr-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                className="p-2 -mr-2 text-slate-700 hover:text-slate-600 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -212,7 +212,7 @@ export function CalculationHistory({
 
             <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
               {history.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-48 text-slate-400 dark:text-slate-500">
+                <div className="flex flex-col items-center justify-center h-48 text-slate-700 dark:text-slate-700">
                   <History className="w-12 h-12 mb-3 opacity-20" />
                   <p>No history saved yet.</p>
                   <p className="text-sm mt-1">Save a calculation to see it here.</p>
@@ -223,11 +223,11 @@ export function CalculationHistory({
                     <div className="flex justify-between items-start mb-2">
                       <div className="pr-4">
                         <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm truncate">{item.name}</h3>
-                        <p className="text-[11px] text-slate-500 dark:text-slate-400">{new Date(item.date).toLocaleString()}</p>
+                        <p className="text-[11px] text-slate-700 dark:text-slate-700">{new Date(item.date).toLocaleString()}</p>
                       </div>
                       <button 
                         onClick={() => deleteItem(item.id)}
-                        className="text-slate-400 hover:text-red-500 p-1 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors opacity-0 group-hover:opacity-100 shrink-0"
+                        className="text-slate-700 hover:text-red-500 p-1 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors opacity-0 group-hover:opacity-100 shrink-0"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -260,7 +260,7 @@ export function CalculationHistory({
                       localStorage.removeItem(`calc_history_${calculatorId}`);
                     }
                   }}
-                  className="w-full py-2.5 text-slate-500 hover:text-red-500 text-sm font-medium hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg transition-colors"
+                  className="w-full py-2.5 text-slate-700 hover:text-red-500 text-sm font-medium hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg transition-colors"
                 >
                   Clear All History
                 </button>

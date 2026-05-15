@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import {
   Layers,
   Info,
@@ -99,13 +100,13 @@ export default function StaircaseCalculator({
   const calculateResults = useCallback(() => {
     const isMetric = unitSystem === "metric";
     /* Convert everything to meters */ /* for calculation */ let riseM =
-      isMetric ? rise / 1000 : (rise * 25.4) / 1000;
-    let treadM = isMetric ? tread / 1000 : (tread * 25.4) / 1000;
+      isMetric ? rise / 1000 : (rise * CIVIL_CONSTANTS.IN_TO_MM) / 1000;
+    let treadM = isMetric ? tread / 1000 : (tread * CIVIL_CONSTANTS.IN_TO_MM) / 1000;
     let waistThicknessM = isMetric
       ? waistThickness / 1000
-      : (waistThickness * 25.4) / 1000;
-    let clearCoverM = isMetric ? clearCover / 1000 : (clearCover * 25.4) / 1000;
-    let stairWidthM = isMetric ? stairWidth : stairWidth * 0.3048;
+      : (waistThickness * CIVIL_CONSTANTS.IN_TO_MM) / 1000;
+    let clearCoverM = isMetric ? clearCover / 1000 : (clearCover * CIVIL_CONSTANTS.IN_TO_MM) / 1000;
+    let stairWidthM = isMetric ? stairWidth : stairWidth * CIVIL_CONSTANTS.FT_TO_M;
     /* Concrete Volume */ const stepVolume = 0.5 * riseM * treadM * stairWidthM;
     const totalStepVolume = numSteps * stepVolume;
     const inclinedLength =
@@ -114,16 +115,16 @@ export default function StaircaseCalculator({
     let landingsVolume = 0;
     let totalLandingLength = 0;
     landings.forEach((l) => {
-      let lLengthM = isMetric ? l.length : l.length * 0.3048;
-      let lWidthM = isMetric ? l.width : l.width * 0.3048;
+      let lLengthM = isMetric ? l.length : l.length * CIVIL_CONSTANTS.FT_TO_M;
+      let lWidthM = isMetric ? l.width : l.width * CIVIL_CONSTANTS.FT_TO_M;
       let lThicknessM = isMetric
         ? l.thickness / 1000
-        : (l.thickness * 25.4) / 1000;
+        : (l.thickness * CIVIL_CONSTANTS.IN_TO_MM) / 1000;
       landingsVolume += lLengthM * lWidthM * lThicknessM;
       totalLandingLength += lLengthM;
     });
     const totalWetVolume = totalStepVolume + waistVolume + landingsVolume;
-    const totalDryVolume = totalWetVolume * 1.54;
+    const totalDryVolume = totalWetVolume * CIVIL_CONSTANTS.DRY_CONCRETE_FACTOR;
     /* Mix Ratios */ let cementRatio = 1,
       sandRatio = 1.5,
       structRatio = 3;
@@ -138,29 +139,29 @@ export default function StaircaseCalculator({
     const cementVol = totalDryVolume * (cementRatio / totalRatio);
     const sandVol = totalDryVolume * (sandRatio / totalRatio);
     const aggVol = totalDryVolume * (structRatio / totalRatio);
-    const cementBags = cementVol * 28.8;
-    /* 1m3 = 28.8 bags approx */ const sandCft = sandVol * 35.3147;
-    const aggCft = aggVol * 35.3147;
+    const cementBags = cementVol / CIVIL_CONSTANTS.CEMENT_BAG_VOLUME_M3;
+    /* 1m3 = ~28.8 bags */ const sandCft = sandVol * CIVIL_CONSTANTS.M3_TO_CFT;
+    const aggCft = aggVol * CIVIL_CONSTANTS.M3_TO_CFT;
     /* Steel Calculation */ let mainBarSpacingM = isMetric
       ? mainBarSpacing / 1000
-      : (mainBarSpacing * 25.4) / 1000;
+      : (mainBarSpacing * CIVIL_CONSTANTS.IN_TO_MM) / 1000;
     let distBarSpacingM = isMetric
       ? distBarSpacing / 1000
-      : (distBarSpacing * 25.4) / 1000;
-    let mainBarDiaMm = isMetric ? mainBarDia : mainBarDia * 25.4;
-    let distBarDiaMm = isMetric ? distBarDia : distBarDia * 25.4;
+      : (distBarSpacing * CIVIL_CONSTANTS.IN_TO_MM) / 1000;
+    let mainBarDiaMm = isMetric ? mainBarDia : mainBarDia * CIVIL_CONSTANTS.IN_TO_MM;
+    let distBarDiaMm = isMetric ? distBarDia : distBarDia * CIVIL_CONSTANTS.IN_TO_MM;
     const totalWalkLength = inclinedLength + totalLandingLength;
     const mainBarLength = totalWalkLength - 2 * clearCoverM;
     const numMainBars =
       Math.floor((stairWidthM - 2 * clearCoverM) / mainBarSpacingM) + 1;
     const totalMainBarLengthCut = numMainBars * mainBarLength;
     const mainBarWeight =
-      (totalMainBarLengthCut * Math.pow(mainBarDiaMm, 2)) / 162;
+      (totalMainBarLengthCut * Math.pow(mainBarDiaMm, 2)) / 162.28;
     const distBarLength = stairWidthM - 2 * clearCoverM;
     const numDistBars = Math.floor(totalWalkLength / distBarSpacingM) + 1;
     const totalDistBarLengthCut = numDistBars * distBarLength;
     const distBarWeight =
-      (totalDistBarLengthCut * Math.pow(distBarDiaMm, 2)) / 162;
+      (totalDistBarLengthCut * Math.pow(distBarDiaMm, 2)) / 162.28;
     const totalSteelWeight =
       (mainBarWeight + distBarWeight) * (1 + wastage / 100);
     const results = {
@@ -219,7 +220,7 @@ export default function StaircaseCalculator({
             <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
               Staircase Calculator
             </h1>{" "}
-            <p className="text-slate-500 mt-2 font-medium">
+            <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">
               Calculate precise concrete and steel quantities for RCC
               staircases.
             </p>{" "}
@@ -228,14 +229,14 @@ export default function StaircaseCalculator({
             {" "}
             <button
               onClick={() => setUnitSystem("metric")}
-              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${unitSystem === "metric" ? "bg-white dark:bg-slate-700 text-blue-600 shadow-sm" : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"}`}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${unitSystem === "metric" ? "bg-white dark:bg-slate-700 text-blue-600 shadow-sm" : "text-slate-700 dark:text-slate-300 hover:text-slate-700 dark:text-slate-700 dark:text-slate-300 dark:hover:text-slate-300"}`}
             >
               {" "}
               Metric{" "}
             </button>{" "}
             <button
               onClick={() => setUnitSystem("imperial")}
-              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${unitSystem === "imperial" ? "bg-white dark:bg-slate-700 text-blue-600 shadow-sm" : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"}`}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${unitSystem === "imperial" ? "bg-white dark:bg-slate-700 text-blue-600 shadow-sm" : "text-slate-700 dark:text-slate-300 hover:text-slate-700 dark:text-slate-700 dark:text-slate-300 dark:hover:text-slate-300"}`}
             >
               {" "}
               Imperial{" "}
@@ -283,7 +284,7 @@ export default function StaircaseCalculator({
                 </label>{" "}
                 <div className="relative">
                   {" "}
-                  <span className="absolute inset-y-0 left-3 flex items-center text-slate-400">
+                  <span className="absolute inset-y-0 left-3 flex items-center text-slate-700 dark:text-slate-300">
                     <Hash className="w-4 h-4" />
                   </span>{" "}
                   <input
@@ -308,7 +309,7 @@ export default function StaircaseCalculator({
                     onChange={(e) => setRise(Number(e.target.value))}
                     className="w-full pl-4 pr-12 py-3 bg-transparent dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none font-medium"
                   />{" "}
-                  <span className="absolute right-4 top-3 text-slate-400 text-sm font-medium">
+                  <span className="absolute right-4 top-3 text-slate-700 dark:text-slate-300 text-sm font-medium">
                     {uMm}
                   </span>{" "}
                 </div>{" "}
@@ -326,7 +327,7 @@ export default function StaircaseCalculator({
                     onChange={(e) => setTread(Number(e.target.value))}
                     className="w-full pl-4 pr-12 py-3 bg-transparent dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none font-medium"
                   />{" "}
-                  <span className="absolute right-4 top-3 text-slate-400 text-sm font-medium">
+                  <span className="absolute right-4 top-3 text-slate-700 dark:text-slate-300 text-sm font-medium">
                     {uMm}
                   </span>{" "}
                 </div>{" "}
@@ -345,7 +346,7 @@ export default function StaircaseCalculator({
                     onChange={(e) => setStairWidth(Number(e.target.value))}
                     className="w-full pl-4 pr-12 py-3 bg-transparent dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none font-medium"
                   />{" "}
-                  <span className="absolute right-4 top-3 text-slate-400 text-sm font-medium">
+                  <span className="absolute right-4 top-3 text-slate-700 dark:text-slate-300 text-sm font-medium">
                     {uM}
                   </span>{" "}
                 </div>{" "}
@@ -363,7 +364,7 @@ export default function StaircaseCalculator({
                     onChange={(e) => setWaistThickness(Number(e.target.value))}
                     className="w-full pl-4 pr-12 py-3 bg-transparent dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none font-medium"
                   />{" "}
-                  <span className="absolute right-4 top-3 text-slate-400 text-sm font-medium">
+                  <span className="absolute right-4 top-3 text-slate-700 dark:text-slate-300 text-sm font-medium">
                     {uMm}
                   </span>{" "}
                 </div>{" "}
@@ -395,7 +396,7 @@ export default function StaircaseCalculator({
                   {" "}
                   <div>
                     {" "}
-                    <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">
                       Landing {index + 1} Length ({uM})
                     </label>{" "}
                     <input
@@ -414,7 +415,7 @@ export default function StaircaseCalculator({
                   </div>{" "}
                   <div>
                     {" "}
-                    <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">
                       Width ({uM})
                     </label>{" "}
                     <input
@@ -433,7 +434,7 @@ export default function StaircaseCalculator({
                   </div>{" "}
                   <div>
                     {" "}
-                    <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">
                       Thickness ({uMm})
                     </label>{" "}
                     <input
@@ -495,7 +496,7 @@ export default function StaircaseCalculator({
                     <button
                       key={grade}
                       onClick={() => setConcreteGrade(grade)}
-                      className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all border ${concreteGrade === grade ? "bg-amber-500 text-white border-amber-500 shadow-md" : "bg-white text-slate-600 border-slate-200 hover:bg-transparent dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400 dark:hover:bg-slate-700"}`}
+                      className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all border ${concreteGrade === grade ? "bg-amber-500 text-white border-amber-500 shadow-md" : "bg-white text-slate-600 border-slate-200 hover:bg-transparent dark:bg-slate-800 dark:border-slate-700 dark:text-slate-700 dark:text-slate-300 dark:hover:bg-slate-700"}`}
                     >
                       {" "}
                       {grade}{" "}
@@ -516,7 +517,7 @@ export default function StaircaseCalculator({
                     onChange={(e) => setClearCover(Number(e.target.value))}
                     className="w-full pl-4 pr-12 py-3 bg-transparent dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all font-medium"
                   />{" "}
-                  <span className="absolute right-4 top-3 text-slate-400 text-sm font-medium">
+                  <span className="absolute right-4 top-3 text-slate-700 dark:text-slate-300 text-sm font-medium">
                     {uMm}
                   </span>{" "}
                 </div>{" "}
@@ -534,7 +535,7 @@ export default function StaircaseCalculator({
                     onChange={(e) => setWastage(Number(e.target.value))}
                     className="w-full pl-4 pr-12 py-3 bg-transparent dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-2xl text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all font-medium"
                   />{" "}
-                  <span className="absolute right-4 top-3 text-slate-400 text-sm font-medium">
+                  <span className="absolute right-4 top-3 text-slate-700 dark:text-slate-300 text-sm font-medium">
                     %
                   </span>{" "}
                 </div>{" "}
@@ -553,7 +554,7 @@ export default function StaircaseCalculator({
                   {" "}
                   <div>
                     {" "}
-                    <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">
                       Bar Dia ({uMm})
                     </label>{" "}
                     <input
@@ -566,7 +567,7 @@ export default function StaircaseCalculator({
                   </div>{" "}
                   <div>
                     {" "}
-                    <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">
                       Spacing ({uMm})
                     </label>{" "}
                     <input
@@ -591,7 +592,7 @@ export default function StaircaseCalculator({
                   {" "}
                   <div>
                     {" "}
-                    <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">
                       Bar Dia ({uMm})
                     </label>{" "}
                     <input
@@ -604,7 +605,7 @@ export default function StaircaseCalculator({
                   </div>{" "}
                   <div>
                     {" "}
-                    <label className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wider">
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">
                       Spacing ({uMm})
                     </label>{" "}
                     <input
@@ -622,7 +623,7 @@ export default function StaircaseCalculator({
           </div>{" "}
           <div className="bg-white dark:bg-slate-900 px-4 py-3 md:px-4 py-3 rounded-3xl border border-dashed border-slate-300 dark:border-slate-700 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-200">
             {" "}
-            <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 mb-4 uppercase tracking-wider flex items-center gap-2">
+            <h3 className="text-xs font-bold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-4 uppercase tracking-wider flex items-center gap-2">
               {" "}
               <Info className="w-4 h-4" /> Component Diagram{" "}
             </h3>{" "}
@@ -735,7 +736,7 @@ export default function StaircaseCalculator({
                 {" "}
                 <div>
                   {" "}
-                  <div className="text-slate-400 text-sm font-semibold mb-2 uppercase tracking-wide flex justify-between items-center">
+                  <div className="text-slate-700 dark:text-slate-300 text-sm font-semibold mb-2 uppercase tracking-wide flex justify-between items-center">
                     {" "}
                     <span>Total Wet Volume</span>{" "}
                     <span className="text-[10px] bg-slate-800 px-2 py-0.5 rounded-full text-slate-300">
@@ -749,7 +750,7 @@ export default function StaircaseCalculator({
                         ? (res.totalWetVolume || 0).toFixed(2)
                         : ((res.totalWetVolume || 0) * 35.3147).toFixed(2)}
                     </span>{" "}
-                    <span className="text-lg text-slate-500 font-medium">
+                    <span className="text-lg text-slate-700 dark:text-slate-300 font-medium">
                       {isMetric ? "m³" : "Cu.ft"}
                     </span>{" "}
                   </div>{" "}
@@ -759,31 +760,31 @@ export default function StaircaseCalculator({
                   {" "}
                   <div className="bg-slate-800/80 dark:bg-slate-700/40 px-4 py-3 md:px-4 py-3 rounded-2xl border border-slate-700/50 dark:border-slate-600/30">
                     {" "}
-                    <div className="text-slate-400 text-[11px] font-bold mb-1.5 uppercase tracking-widest">
+                    <div className="text-slate-700 dark:text-slate-300 text-[11px] font-bold mb-1.5 uppercase tracking-widest">
                       CEMENT
                     </div>{" "}
                     <div className="text-2xl font-bold text-white mb-1">
                       {Math.ceil(res.cementBags)}{" "}
-                      <span className="text-sm text-slate-500 font-medium">
+                      <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">
                         bags
                       </span>
                     </div>{" "}
-                    <div className="text-xs text-slate-500">
+                    <div className="text-xs text-slate-700 dark:text-slate-300">
                       50kg standard
                     </div>{" "}
                   </div>{" "}
                   <div className="bg-slate-800/80 dark:bg-slate-700/40 px-4 py-3 md:px-4 py-3 rounded-2xl border border-slate-700/50 dark:border-slate-600/30">
                     {" "}
-                    <div className="text-slate-400 text-[11px] font-bold mb-1.5 uppercase tracking-widest">
+                    <div className="text-slate-700 dark:text-slate-300 text-[11px] font-bold mb-1.5 uppercase tracking-widest">
                       SAND
                     </div>{" "}
                     <div className="text-2xl font-bold text-white mb-1">
                       {(res.sandCft || 0).toFixed(1)}{" "}
-                      <span className="text-sm text-slate-500 font-medium">
+                      <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">
                         cft
                       </span>
                     </div>{" "}
-                    <div className="text-xs text-slate-500">
+                    <div className="text-xs text-slate-700 dark:text-slate-300">
                       Fine aggregate
                     </div>{" "}
                   </div>{" "}
@@ -791,16 +792,16 @@ export default function StaircaseCalculator({
                     {" "}
                     <div>
                       {" "}
-                      <div className="text-slate-400 text-[11px] font-bold mb-1.5 uppercase tracking-widest">
+                      <div className="text-slate-700 dark:text-slate-300 text-[11px] font-bold mb-1.5 uppercase tracking-widest">
                         AGGREGATE
                       </div>{" "}
                       <div className="text-2xl font-bold text-white mb-1">
                         {(res.aggCft || 0).toFixed(1)}{" "}
-                        <span className="text-sm text-slate-500 font-medium">
+                        <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">
                           cft
                         </span>
                       </div>{" "}
-                      <div className="text-xs text-slate-500">
+                      <div className="text-xs text-slate-700 dark:text-slate-300">
                         Coarse material
                       </div>{" "}
                     </div>{" "}
@@ -835,7 +836,7 @@ export default function StaircaseCalculator({
                     {" "}
                     <div className="flex justify-between items-center text-sm">
                       {" "}
-                      <span className="text-slate-400 flex items-center gap-2">
+                      <span className="text-slate-700 dark:text-slate-300 flex items-center gap-2">
                         {" "}
                         <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>{" "}
                         Main (Ø{mainBarDia}
@@ -852,7 +853,7 @@ export default function StaircaseCalculator({
                     </div>{" "}
                     <div className="flex justify-between items-center text-sm">
                       {" "}
-                      <span className="text-slate-400 flex items-center gap-2">
+                      <span className="text-slate-700 dark:text-slate-300 flex items-center gap-2">
                         {" "}
                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>{" "}
                         Dist (Ø{distBarDia}
@@ -885,7 +886,7 @@ export default function StaircaseCalculator({
         calculatorId="staircase_calculator_v1"
         currentInputs={{ stairShape, numSteps, rise, tread, stairWidth, waistThickness, mainBarDia, mainBarSpacing, distBarDia, distBarSpacing, clearCover, concreteGrade, wastage, landings }}
         currentResults={res}
-        summaryGeneration={(inputs, results) => `${inputs.stairShape} Staircase: ${results?.totalConcreteVol?.toFixed(2) || 0} m³ concrete, ${results?.totalSteelWeight?.toFixed(1) || 0} kg steel`}
+        summaryGeneration={(inputs, results) => `${inputs.stairShape} Staircase: ${results?.totalWetVolume?.toFixed(2) || 0} m³ concrete, ${results?.totalSteelWeight?.toFixed(1) || 0} kg steel`}
         onRestore={(inputs) => {
           if (inputs.stairShape) setStairShape(inputs.stairShape);
           if (inputs.numSteps !== undefined) setNumSteps(inputs.numSteps);

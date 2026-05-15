@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import {
   Columns,
   CircleDashed,
@@ -28,7 +29,7 @@ function CircularColumnInputs({
 }) {
   return (
     <div className="animate-in fade-in slide-in-from-top-2 duration-300">
-      <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+      <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1.5 ml-1">
         Diameter (m)
       </label>
       <input
@@ -57,7 +58,7 @@ function RectangularColumnInputs({
   return (
     <div className="grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2 duration-300">
       <div>
-        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
           {isSquare ? "Side Length (m)" : "Length (m)"}
         </label>
         <input
@@ -73,7 +74,7 @@ function RectangularColumnInputs({
       </div>
       {!isSquare && (
         <div>
-          <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+          <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
             Width (m)
           </label>
           <input
@@ -110,13 +111,13 @@ export default function ColumnEstimator() {
   } else {
     vol = l * w * h * n;
   }
-  const dryVol = vol * 1.54;
+  const dryVol = vol * CIVIL_CONSTANTS.DRY_CONCRETE_FACTOR;
   const ratio = mixRatios[mix];
   const totalRatio = ratio.c + ratio.s + ratio.a;
   const cementM3 = (dryVol * ratio.c) / totalRatio;
-  const cementBags = Math.ceil(cementM3 / 0.0347);
-  const sandCft = ((dryVol * ratio.s) / totalRatio) * 35.3147;
-  const aggCft = ((dryVol * ratio.a) / totalRatio) * 35.3147;
+  const cementBags = Math.ceil(cementM3 / CIVIL_CONSTANTS.CEMENT_BAG_VOLUME_M3);
+  const sandCft = ((dryVol * ratio.s) / totalRatio) * CIVIL_CONSTANTS.M3_TO_CFT;
+  const aggCft = ((dryVol * ratio.a) / totalRatio) * CIVIL_CONSTANTS.M3_TO_CFT;
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8">
       <div className="max-w-4xl mx-auto space-y-6">
@@ -126,7 +127,7 @@ export default function ColumnEstimator() {
               <Columns className="w-8 h-8 text-blue-600 dark:text-blue-400" />
               Column Concrete Estimator
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 font-medium">
+            <p className="text-slate-500 dark:text-slate-400 dark:text-slate-700 dark:text-slate-300 font-medium">
               Calculate concrete volume and material breakdown for columns.
             </p>
           </div>
@@ -174,7 +175,7 @@ export default function ColumnEstimator() {
                 )}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Height (m)
                     </label>
                     <input
@@ -185,7 +186,7 @@ export default function ColumnEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                       Number of Columns
                     </label>
                     <input
@@ -197,7 +198,7 @@ export default function ColumnEstimator() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                     Concrete Mix
                   </label>
                   <select
@@ -241,7 +242,7 @@ export default function ColumnEstimator() {
                   <h4 className="font-bold text-slate-800 dark:text-white capitalize">
                     {shape} Column Cross-Section
                   </h4>
-                  <p className="text-xs text-slate-500 font-medium mt-1">
+                  <p className="text-xs text-slate-700 dark:text-slate-300 font-medium mt-1">
                     {shape === "circular"
                       ? `Ø ${d}m`
                       : shape === "square"
@@ -292,35 +293,35 @@ export default function ColumnEstimator() {
               </div>
               <div className="bg-slate-100 dark:bg-slate-800 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-700">
                 <h4 className="font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
-                  <Layers className="w-5 h-5 text-slate-500 dark:text-slate-400" />
+                  <Layers className="w-5 h-5 text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300" />
                   Material Breakdown
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
-                    <span className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
+                    <span className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1">
                       Cement
                     </span>
                     <span className="block text-xl font-bold text-slate-800 dark:text-white">
                       {cementBags}
-                      <span className="text-sm text-slate-500">bags</span>
+                      <span className="text-sm text-slate-700 dark:text-slate-300">bags</span>
                     </span>
                   </div>
                   <div>
-                    <span className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
+                    <span className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1">
                       Sand
                     </span>
                     <span className="block text-xl font-bold text-slate-800 dark:text-white">
                       {sandCft.toFixed(1)}
-                      <span className="text-sm text-slate-500">cft</span>
+                      <span className="text-sm text-slate-700 dark:text-slate-300">cft</span>
                     </span>
                   </div>
                   <div>
-                    <span className="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
+                    <span className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1">
                       Aggregate
                     </span>
                     <span className="block text-xl font-bold text-slate-800 dark:text-white">
                       {aggCft.toFixed(1)}
-                      <span className="text-sm text-slate-500">cft</span>
+                      <span className="text-sm text-slate-700 dark:text-slate-300">cft</span>
                     </span>
                   </div>
                 </div>

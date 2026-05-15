@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import {
   Copy,
@@ -200,7 +201,7 @@ export default function ConstructionMaterialEstimator() {
     };
     currentExportData = {
       "Concrete Mixed Volume": `${res.totalWetVolume.toFixed(2)} ${unitVol}`,
-      [`Dry Volume (+${wastage}% waste)`]: `${(res.totalWetVolume * 1.54 * (1 + parseNum(wastage) / 100)).toFixed(2)} ${unitVol}`,
+      [`Dry Volume (+${wastage}% waste)`]: `${(res.totalWetVolume * CIVIL_CONSTANTS.DRY_CONCRETE_FACTOR * (1 + parseNum(wastage) / 100)).toFixed(2)} ${unitVol}`,
       "Cement Required": `${res.cementBags.toFixed(2)} Bags`,
       "Sand Required": `${res.sandVol.toFixed(2)} ${unitVol}`,
       "Aggregate Required": `${res.aggregateVol.toFixed(2)} ${unitVol}`,
@@ -222,7 +223,7 @@ export default function ConstructionMaterialEstimator() {
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label className="text-[10px] font-bold text-gray-500 uppercase">
+            <label className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase">
               Length ({unitFt})
             </label>
             <input
@@ -233,7 +234,7 @@ export default function ConstructionMaterialEstimator() {
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold text-gray-500 uppercase">
+            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
               Width ({unitFt})
             </label>
             <input
@@ -244,7 +245,7 @@ export default function ConstructionMaterialEstimator() {
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold text-gray-500 uppercase">
+            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
               Depth ({unitFt})
             </label>
             <input
@@ -280,7 +281,7 @@ export default function ConstructionMaterialEstimator() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="text-[10px] font-bold text-gray-500 uppercase">
+            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
               Mix Ratio
             </label>
             <select
@@ -297,7 +298,7 @@ export default function ConstructionMaterialEstimator() {
             </select>
           </div>
           <div>
-            <label className="text-[10px] font-bold text-gray-500 uppercase">
+            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
               W/C Ratio (0.45-0.6)
             </label>
             <input
@@ -371,12 +372,12 @@ export default function ConstructionMaterialEstimator() {
         <Brickwork9InchModule />
       ) : (
         <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full">
-          <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">
+          <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500 dark:text-slate-400">
             {activeTab} Wall
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="text-[10px] font-bold text-gray-500 uppercase">
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
                 Wall Length ({unitFt})
               </label>
               <input
@@ -387,7 +388,7 @@ export default function ConstructionMaterialEstimator() {
               />
             </div>
             <div>
-              <label className="text-[10px] font-bold text-gray-500 uppercase">
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
                 Wall Height ({unitFt})
               </label>
               <input
@@ -398,7 +399,7 @@ export default function ConstructionMaterialEstimator() {
               />
             </div>
             <div>
-              <label className="text-[10px] font-bold text-gray-500 uppercase">
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
                 Wall Thick ({unitIn})
               </label>
               <input
@@ -436,7 +437,7 @@ export default function ConstructionMaterialEstimator() {
             </span>
           </div>
           <div className="bg-white px-4 py-3 rounded-xl border">
-            <h4 className="text-xs font-bold text-slate-500 uppercase flex justify-between items-center mb-4">
+            <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase flex justify-between items-center mb-4">
               Add Deductions
               <span className="bg-indigo-50 text-indigo-600 px-2 py-1 rounded text-[10px]">
                 Total:
@@ -550,7 +551,7 @@ export default function ConstructionMaterialEstimator() {
                     <span className="font-semibold text-slate-600">
                       {op.quantity}x {op.type}
                     </span>
-                    <span className="text-slate-500">
+                    <span className="text-slate-700 dark:text-slate-300">
                       {op.length}×{op.height} {unitFt}
                     </span>
                     <span className="font-bold text-slate-700">
@@ -570,12 +571,12 @@ export default function ConstructionMaterialEstimator() {
               </div>
             )}
           </div>
-          <h3 className="font-bold border-b pb-2 pt-4 uppercase text-sm tracking-widest text-slate-500">
+          <h3 className="font-bold border-b pb-2 pt-4 uppercase text-sm tracking-widest text-slate-700 dark:text-slate-300">
             Unit Dimensions ({unitIn})
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="text-[10px] font-bold text-gray-500 uppercase">
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
                 Length
               </label>
               <input
@@ -586,7 +587,7 @@ export default function ConstructionMaterialEstimator() {
               />
             </div>
             <div>
-              <label className="text-[10px] font-bold text-gray-500 uppercase">
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
                 Width
               </label>
               <input
@@ -597,7 +598,7 @@ export default function ConstructionMaterialEstimator() {
               />
             </div>
             <div>
-              <label className="text-[10px] font-bold text-gray-500 uppercase">
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
                 Height
               </label>
               <input
@@ -610,7 +611,7 @@ export default function ConstructionMaterialEstimator() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-[10px] font-bold text-gray-500 uppercase">
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
                 Joint Thick ({unitIn})
               </label>
               <input
@@ -621,7 +622,7 @@ export default function ConstructionMaterialEstimator() {
               />
             </div>
             <div>
-              <label className="text-[10px] font-bold text-gray-500 uppercase">
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
                 Mortar Mix
               </label>
               <select
@@ -676,12 +677,12 @@ export default function ConstructionMaterialEstimator() {
     };
     content = (
       <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full">
-        <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">
+        <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-700 dark:text-slate-300">
           Steel Reinforcement
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="text-[10px] font-bold text-gray-500 uppercase">
+            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
               Bar Dia (mm/in#)
             </label>
             <input
@@ -692,7 +693,7 @@ export default function ConstructionMaterialEstimator() {
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold text-gray-500 uppercase">
+            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
               Span Length ({unitFt})
             </label>
             <input
@@ -704,7 +705,7 @@ export default function ConstructionMaterialEstimator() {
           </div>
           <div>
             <label
-              className="text-[10px] font-bold text-gray-500 uppercase"
+              className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase"
               title="Center-to-center spacing"
             >
               Spacing c/c ({isSI ? "mm" : "inch"})
@@ -717,7 +718,7 @@ export default function ConstructionMaterialEstimator() {
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold text-gray-500 uppercase">
+            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
               Standard Bar Length ({unitFt})
             </label>
             <input
@@ -728,7 +729,7 @@ export default function ConstructionMaterialEstimator() {
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold text-gray-500 uppercase">
+            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
               Overlap Factor (xD)
             </label>
             <input
@@ -773,12 +774,12 @@ export default function ConstructionMaterialEstimator() {
     };
     content = (
       <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full">
-        <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">
+        <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-700 dark:text-slate-300">
           Plaster / Mortar
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="text-[10px] font-bold text-gray-500 uppercase">
+            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
               Surface Area ({unitArea})
             </label>
             <input
@@ -789,7 +790,7 @@ export default function ConstructionMaterialEstimator() {
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold text-gray-500 uppercase">
+            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
               Thickness ({unitIn})
             </label>
             <input
@@ -800,7 +801,7 @@ export default function ConstructionMaterialEstimator() {
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold text-gray-500 uppercase">
+            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
               Mix Ratio
             </label>
             <select
@@ -814,7 +815,7 @@ export default function ConstructionMaterialEstimator() {
             </select>
           </div>
         </div>
-        <div className="bg-slate-100/50 rounded-xl px-4 py-3 border border-slate-200 flex items-center justify-center min-h-[8rem] relative text-[10px] font-bold text-slate-500 overflow-hidden">
+        <div className="bg-slate-100/50 rounded-xl px-4 py-3 border border-slate-200 flex items-center justify-center min-h-[8rem] relative text-[10px] font-bold text-slate-700 dark:text-slate-300 overflow-hidden">
           <svg
             viewBox="0 0 120 80"
             className="w-full h-full absolute inset-0 opacity-20 pointer-events-none"
@@ -853,12 +854,12 @@ export default function ConstructionMaterialEstimator() {
     };
     content = (
       <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full">
-        <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500">
+        <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-700 dark:text-slate-300">
           Water Requirements
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="text-[10px] font-bold text-gray-500 uppercase">
+            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
               Weight of Cement (kg)
             </label>
             <input
@@ -869,7 +870,7 @@ export default function ConstructionMaterialEstimator() {
             />
           </div>
           <div>
-            <label className="text-[10px] font-bold text-gray-500 uppercase">
+            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
               W/C Ratio (0.45-0.6)
             </label>
             <input
@@ -897,7 +898,7 @@ export default function ConstructionMaterialEstimator() {
     );
   } else if (activeTab === "cement" || activeTab === "sand") {
     content = (
-      <div className="bg-transparent border p-12 rounded-3xl text-center text-slate-500 max-w-xl mx-auto mt-8">
+      <div className="bg-transparent border p-12 rounded-3xl text-center text-slate-700 dark:text-slate-300 max-w-xl mx-auto mt-8">
         <Layers className="w-12 h-12 mx-auto text-slate-300 mb-4" />
         <h3 className="text-xl font-bold text-slate-700 mb-2">
           Use Standard Modules
@@ -941,7 +942,7 @@ export default function ConstructionMaterialEstimator() {
             <h1 className="text-3xl font-black text-gray-900 mb-2">
               Construction Material Estimator
             </h1>
-            <p className="text-gray-500 font-medium">
+            <p className="text-gray-700 dark:text-gray-300 font-medium">
               Accurate estimations for concrete, bricks, steel, blocks, and
               mortar.
             </p>
@@ -951,7 +952,7 @@ export default function ConstructionMaterialEstimator() {
           </div>
           <div className="flex flex-wrap items-center gap-4">
             <div className="bg-white px-4 py-3 rounded-xl border flex items-center gap-2 shadow-sm">
-              <span className="text-xs font-bold text-gray-500">
+              <span className="text-xs font-bold text-gray-700 dark:text-gray-300">
                 WASTAGE
               </span>
               <input
@@ -960,11 +961,11 @@ export default function ConstructionMaterialEstimator() {
                 onChange={(e) => setWastage(e.target.value)}
                 className="w-14 text-center font-bold bg-transparent rounded border border-slate-200 p-1 focus:ring-2 focus:ring-indigo-500"
               />
-              <span className="text-xs font-bold text-gray-500">%</span>
+              <span className="text-xs font-bold text-gray-700 dark:text-gray-300">%</span>
             </div>
           </div>
         </div>
-        <div className="flex overflow-x-auto pb-4 gap-2 mb-4 p-1">
+        <div className="flex overflow-x-auto pb-4 gap-2 mb-4 p-1 snap-x snap-mandatory scroll-smooth scrollbar-hide">
           {fullTabs.map((tab, idx) => {
             const colors = ["indigo", "rose", "emerald", "amber", "cyan", "fuchsia", "teal"];
             const color = colors[idx % colors.length] as any;
@@ -1004,13 +1005,13 @@ export default function ConstructionMaterialEstimator() {
                     </label>
                   </div>
                   {Object.entries(currentExportData).map(([key, val]) => {
-                    let colorClass = "text-slate-400";
+                    let colorClass = "text-slate-700 dark:text-slate-300";
                     if (key.includes("Cement"))
                       colorClass = "text-blue-400 font-bold";
                     else if (key.includes("Sand"))
                       colorClass = "text-amber-400 font-bold";
                     else if (key.includes("Aggregate"))
-                      colorClass = "text-gray-400 font-bold";
+                      colorClass = "text-gray-700 dark:text-gray-300 font-bold";
                     else if (key.includes("Water"))
                       colorClass = "text-cyan-400 font-bold";
                     else if (
@@ -1041,7 +1042,7 @@ export default function ConstructionMaterialEstimator() {
                       <div className="grid grid-cols-2 gap-3 text-xs bg-slate-800/50 p-3 rounded-xl border border-slate-700">
                         {currentCartItem.cementBags > 0 && (
                           <div className="col-span-2 sm:col-span-1">
-                            <label className="text-slate-400 mb-1 block">
+                            <label className="text-slate-700 dark:text-slate-300 mb-1 block">
                               Cement (per bag)
                             </label>
                             <input
@@ -1063,7 +1064,7 @@ export default function ConstructionMaterialEstimator() {
                         )}
                         {currentCartItem.sandVol > 0 && (
                           <div className="col-span-2 sm:col-span-1">
-                            <label className="text-slate-400 mb-1 block">
+                            <label className="text-slate-700 dark:text-slate-300 mb-1 block">
                               Sand (per {currentCartItem.unitVol})
                             </label>
                             <input
@@ -1085,7 +1086,7 @@ export default function ConstructionMaterialEstimator() {
                         )}
                         {(currentCartItem.aggregateVol || 0) > 0 && (
                           <div className="col-span-2 sm:col-span-1">
-                            <label className="text-slate-400 mb-1 block">
+                            <label className="text-slate-700 dark:text-slate-300 mb-1 block">
                               Aggregate (per {currentCartItem.unitVol})
                             </label>
                             <input
@@ -1108,7 +1109,7 @@ export default function ConstructionMaterialEstimator() {
                         {currentCartItem.steelKg !== undefined &&
                           currentCartItem.steelKg > 0 && (
                             <div className="col-span-2 sm:col-span-1">
-                              <label className="text-slate-400 mb-1 block">
+                              <label className="text-slate-700 dark:text-slate-300 mb-1 block">
                                 Steel (per kg)
                               </label>
                               <input
@@ -1131,7 +1132,7 @@ export default function ConstructionMaterialEstimator() {
                         {currentCartItem.bricksCount !== undefined &&
                           currentCartItem.bricksCount > 0 && (
                             <div className="col-span-2 sm:col-span-1">
-                              <label className="text-slate-400 mb-1 block">
+                              <label className="text-slate-700 dark:text-slate-300 mb-1 block">
                                 Bricks (per unit)
                               </label>
                               <input
@@ -1154,7 +1155,7 @@ export default function ConstructionMaterialEstimator() {
                         {currentCartItem.blocksCount !== undefined &&
                           currentCartItem.blocksCount > 0 && (
                             <div className="col-span-2 sm:col-span-1">
-                              <label className="text-slate-400 mb-1 block">
+                              <label className="text-slate-700 dark:text-slate-300 mb-1 block">
                                 Blocks (per unit)
                               </label>
                               <input
@@ -1176,7 +1177,7 @@ export default function ConstructionMaterialEstimator() {
                           )}
                         {currentCartItem.waterLiters > 0 && (
                           <div className="col-span-2 sm:col-span-1">
-                            <label className="text-slate-400 mb-1 block">
+                            <label className="text-slate-700 dark:text-slate-300 mb-1 block">
                               Water (per L)
                             </label>
                             <input
@@ -1239,7 +1240,7 @@ export default function ConstructionMaterialEstimator() {
 
                         return (
                           <div className="mt-4 pt-4 border-t border-slate-700/50">
-                            <h4 className="text-xs font-bold text-slate-400 text-center mb-2 uppercase tracking-wide">Cost Breakdown</h4>
+                            <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300 text-center mb-2 uppercase tracking-wide">Cost Breakdown</h4>
                             <div className="h-48 w-full">
                               <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
@@ -1287,7 +1288,7 @@ export default function ConstructionMaterialEstimator() {
           {currentCartItem && (
             <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row gap-4 items-end pb-12 sm:pb-0">
               <div className="flex-1 w-full">
-                <label className="text-[10px] font-bold text-gray-500 uppercase">
+                <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
                   Element Name (Optional)
                 </label>
                 <input
@@ -1324,7 +1325,7 @@ export default function ConstructionMaterialEstimator() {
                       <div className="font-bold text-lg">
                         {item.name}
                       </div>
-                      <div className="text-xs font-semibold text-slate-400 mt-1 uppercase tracking-wider">
+                      <div className="text-xs font-semibold text-slate-700 dark:text-slate-300 mt-1 uppercase tracking-wider">
                         {item.type}
                       </div>
                     </div>

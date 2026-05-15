@@ -9,7 +9,7 @@ import { useSettings } from "../../context/SettingsContext";
 
 const Tooltip = ({ content }: { content: string }) => (
   <div className="relative group inline-flex ml-1.5 align-middle">
-    <Info className="w-4 h-4 text-slate-400 hover:text-indigo-500 transition-colors cursor-help" />
+    <Info className="w-4 h-4 text-slate-500 dark:text-slate-400 hover:text-indigo-500 transition-colors cursor-help" />
     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[200px] p-2 bg-slate-900 text-white text-[11px] font-normal rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center shadow-xl">
       {content}
       <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-[5px] border-transparent border-t-slate-900"></div>
@@ -142,7 +142,7 @@ export default function SlabSteelModule({
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
                   Diameter ({isSI ? "mm" : "in"})
                   <Tooltip content={`Standard unit is ${isSI ? "mm" : "in"}. Larger diameter exponentially increases total steel weight.`} />
                 </label>
@@ -154,7 +154,7 @@ export default function SlabSteelModule({
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
                   Spacing c/c ({isSI ? "mm" : "in"})
                   <Tooltip content={`Center-to-center distance (${isSI ? "mm" : "in"}). Smaller spacing requires more bars, increasing total weight.`} />
                 </label>
@@ -173,7 +173,7 @@ export default function SlabSteelModule({
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
                   Diameter ({isSI ? "mm" : "in"})
                   <Tooltip content={`Standard unit is ${isSI ? "mm" : "in"}. Larger diameter exponentially increases total steel weight.`} />
                 </label>
@@ -185,7 +185,7 @@ export default function SlabSteelModule({
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
                   Spacing c/c ({isSI ? "mm" : "in"})
                   <Tooltip content={`Center-to-center distance (${isSI ? "mm" : "in"}). Smaller spacing requires more bars, increasing total weight.`} />
                 </label>
@@ -200,7 +200,7 @@ export default function SlabSteelModule({
           </div>
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 ml-1">
                 Top Cover ({isSI ? "mm" : "in"})
               </label>
               <input
@@ -211,7 +211,7 @@ export default function SlabSteelModule({
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 ml-1">
                 Bot Cover ({isSI ? "mm" : "in"})
               </label>
               <input
@@ -222,7 +222,7 @@ export default function SlabSteelModule({
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 ml-1">
                 Side Cover ({isSI ? "mm" : "in"})
               </label>
               <input
@@ -235,113 +235,180 @@ export default function SlabSteelModule({
           </div>
         </div>
         <div className="flex flex-col">
-          <div className="flex-1 bg-transparent dark:bg-slate-800 rounded-2xl flex flex-col items-center justify-center px-4 py-3 border border-slate-100 dark:border-slate-700 relative min-h-[250px]">
-            {/* SVG Visual representing cross section */}
+          <div className="flex-1 bg-transparent dark:bg-slate-800 rounded-2xl flex flex-col items-center justify-center px-4 py-3 border border-slate-100 dark:border-slate-700 relative min-h-[300px]">
+            {/* SVG Visual representing top-down view */}
             <svg
-              viewBox="0 0 400 150"
-              className="w-full max-w-[300px] h-full object-contain"
+              viewBox="0 0 400 300"
+              className="w-full max-w-[400px] h-full object-contain overflow-visible"
             >
-              {/* Slab Outline */}
-              <rect
-                x="20"
-                y="20"
-                width="360"
-                height="110"
-                className="fill-slate-200 dark:fill-slate-700 stroke-slate-300 dark:stroke-slate-600"
-                strokeWidth="2"
-              />
-              {/* Main Bars (Bottom) */}
-              <line
-                x1="45"
-                y1="105"
-                x2="355"
-                y2="105"
-                className="stroke-indigo-600 dark:stroke-indigo-400"
-                strokeWidth="6"
-                strokeLinecap="round"
-              />
-              <circle
-                cx="355"
-                cy="105"
-                r="4"
-                className="fill-indigo-600 dark:fill-indigo-400"
-              />
-              <circle
-                cx="45"
-                cy="105"
-                r="4"
-                className="fill-indigo-600 dark:fill-indigo-400"
-              />
-              {/* Dist Bars (Top perpendicular) */}
-              {[60, 100, 140, 180, 220, 260, 300, 340].map((cx, i) => (
-                <circle
-                  key={i}
-                  cx={cx}
-                  cy="95"
-                  r="5"
-                  className="fill-rose-500 dark:fill-rose-400"
-                />
-              ))}
-              {/* Labels */}
-              <text
-                x="200"
-                y="85"
-                fontSize="12"
-                className="fill-rose-600 dark:fill-rose-400"
-                textAnchor="middle"
-                fontWeight="bold"
-              >
-                Dist. Bars
-              </text>
-              <text
-                x="200"
-                y="125"
-                fontSize="12"
-                className="fill-indigo-600 dark:fill-indigo-400"
-                textAnchor="middle"
-                fontWeight="bold"
-              >
-                Main Bars
-              </text>
-              {/* Cover lines */}
-              <line
-                x1="200"
-                y1="20"
-                x2="200"
-                y2="35"
-                className="stroke-slate-500 dark:stroke-slate-400"
-                strokeWidth="1"
-                strokeDasharray="2"
-              />
-              <text
-                x="205"
-                y="32"
-                fontSize="10"
-                className="fill-slate-500 dark:fill-slate-400"
-              >
-                {topCover}{isSI ? "mm" : "in"} Cover
-              </text>
-              <line
-                x1="200"
-                y1="115"
-                x2="200"
-                y2="130"
-                className="stroke-slate-500 dark:stroke-slate-400"
-                strokeWidth="1"
-                strokeDasharray="2"
-              />
-              <text
-                x="205"
-                y="125"
-                fontSize="10"
-                className="fill-slate-500 dark:fill-slate-400"
-              >
-                {bottomCover}{isSI ? "mm" : "in"}
-              </text>
+              {(() => {
+                const viewboxW = 400;
+                const viewboxH = 300;
+                const pad = 50; 
+                const maxW = viewboxW - 2 * pad;
+                const maxH = viewboxH - 2 * pad;
+
+                const L_val = L > 0 ? L : 1;
+                const W_val = W > 0 ? W : 1;
+
+                const scaleX = maxW / L_val;
+                const scaleY = maxH / W_val;
+                const vScale = Math.min(scaleX, scaleY);
+
+                const slabPxW = L_val * vScale;
+                const slabPxH = W_val * vScale;
+
+                const startX = (viewboxW - slabPxW) / 2;
+                const startY = (viewboxH - slabPxH) / 2;
+                
+                const isLLong = L_val >= W_val;
+                const mainIsVertical = isLLong; 
+                
+                const mainThick = Math.max(1.5, Math.min(4, mDia / 4));
+                const distThick = Math.max(1, Math.min(3, dDia / 4));
+
+                const renderBars = (
+                  isMain: boolean, 
+                  count: number, 
+                  isVertical: boolean, 
+                  actualSpacing: number,
+                  thickness: number,
+                  className: string
+                ) => {
+                  if(count === 0) return { lines: null, isSimplified: false };
+                  const lines = [];
+                  const cSidePx = cSide * vScale;
+                  const startBase = isVertical ? startX : startY;
+                  const extent = isVertical ? slabPxW : slabPxH;
+                  const orthoStart = isVertical ? startY : startX;
+                  const orthoExtent = isVertical ? slabPxH : slabPxW;
+                  
+                  const drawLimit = 40;
+                  let stepPx = actualSpacing * vScale;
+                  let drawCount = count;
+                  let isSimplified = false;
+
+                  if (count > drawLimit) {
+                    drawCount = drawLimit;
+                    stepPx = (extent - 2 * cSidePx) / (drawCount - 1);
+                    isSimplified = true;
+                  }
+                  
+                  for (let i = 0; i < drawCount; i++) {
+                    let pos = startBase + cSidePx + i * stepPx;
+                    if (pos > startBase + extent - cSidePx) {
+                       pos = startBase + extent - cSidePx;
+                    }
+                    const ortho1 = orthoStart + cSidePx;
+                    const ortho2 = orthoStart + orthoExtent - cSidePx;
+                    lines.push(
+                      <line
+                        key={`${isMain ? "m" : "d"}-${i}`}
+                        x1={isVertical ? pos : ortho1}
+                        y1={isVertical ? ortho1 : pos}
+                        x2={isVertical ? pos : ortho2}
+                        y2={isVertical ? ortho2 : pos}
+                        strokeWidth={thickness}
+                        className={className}
+                        strokeLinecap="round"
+                      />
+                    );
+                  }
+                  return { lines, isSimplified };
+                };
+
+                const { lines: mainLines, isSimplified: mSimp } = renderBars(
+                  true, mainBarsCount, mainIsVertical, mSpc, mainThick, "stroke-indigo-600 dark:stroke-indigo-400"
+                );
+                
+                const { lines: distLines, isSimplified: dSimp } = renderBars(
+                  false, distBarsCount, !mainIsVertical, dSpc, distThick, "stroke-rose-500 dark:stroke-rose-400 opacity-80"
+                );
+
+                return (
+                  <>
+                    <rect
+                      x={startX}
+                      y={startY}
+                      width={slabPxW}
+                      height={slabPxH}
+                      className="fill-slate-200/50 dark:fill-slate-700/50 stroke-slate-300 dark:stroke-slate-600"
+                      strokeWidth="2"
+                      rx="2"
+                    />
+                    
+                    {/* Main Bars */}
+                    {mainLines}
+                    
+                    {/* Dist Bars */}
+                    {distLines}
+
+                    {/* L Dimension */}
+                    <line
+                      x1={startX}
+                      y1={startY - 15}
+                      x2={startX + slabPxW}
+                      y2={startY - 15}
+                      className="stroke-slate-400 dark:stroke-slate-500"
+                      strokeWidth="1"
+                    />
+                    <line x1={startX} y1={startY - 20} x2={startX} y2={startY - 10} className="stroke-slate-400 dark:stroke-slate-500" strokeWidth="1" />
+                    <line x1={startX + slabPxW} y1={startY - 20} x2={startX + slabPxW} y2={startY - 10} className="stroke-slate-400 dark:stroke-slate-500" strokeWidth="1" />
+                    <text
+                      x={startX + slabPxW / 2}
+                      y={startY - 25}
+                      fontSize="11"
+                      className="fill-slate-600 dark:fill-slate-300"
+                      textAnchor="middle"
+                      fontWeight="bold"
+                    >
+                      L = {L} {isSI ? "m" : "ft"}
+                    </text>
+
+                    {/* W Dimension */}
+                    <line
+                      x1={startX - 15}
+                      y1={startY}
+                      x2={startX - 15}
+                      y2={startY + slabPxH}
+                      className="stroke-slate-400 dark:stroke-slate-500"
+                      strokeWidth="1"
+                    />
+                    <line x1={startX - 20} y1={startY} x2={startX - 10} y2={startY} className="stroke-slate-400 dark:stroke-slate-500" strokeWidth="1" />
+                    <line x1={startX - 20} y1={startY + slabPxH} x2={startX - 10} y2={startY + slabPxH} className="stroke-slate-400 dark:stroke-slate-500" strokeWidth="1" />
+                    <text
+                      x={startX - 25}
+                      y={startY + slabPxH / 2 + 4}
+                      fontSize="11"
+                      className="fill-slate-600 dark:fill-slate-300"
+                      textAnchor="end"
+                      fontWeight="bold"
+                    >
+                      W = {W} {isSI ? "m" : "ft"}
+                    </text>
+                    
+                    {/* Legend */}
+                    <g transform="translate(10, 280)">
+                      <line x1="0" y1="0" x2="20" y2="0" strokeWidth="3" className="stroke-indigo-600 dark:stroke-indigo-400" />
+                      <text x="25" y="4" fontSize="10" className="fill-slate-600 dark:fill-slate-400">Main: {mainBarsCount} no's (dia {mainDia})</text>
+                    </g>
+                    <g transform="translate(200, 280)">
+                      <line x1="0" y1="0" x2="20" y2="0" strokeWidth="3" className="stroke-rose-500 dark:stroke-rose-400" />
+                      <text x="25" y="4" fontSize="10" className="fill-slate-600 dark:fill-slate-400">Dist: {distBarsCount} no's (dia {distDia})</text>
+                    </g>
+                    
+                    {(mSimp || dSimp) && (
+                      <text x={viewboxW / 2} y="260" fontSize="9" className="fill-slate-400 text-center" textAnchor="middle">
+                        *Visualization simplified for large number of bars
+                      </text>
+                    )}
+                  </>
+                );
+              })()}
             </svg>
             <div className="mt-4 text-center">
-              <span className="text-xs text-slate-400 font-medium tracking-wide uppercase">
-                Cross Section View
+              <span className="text-xs text-slate-700 dark:text-slate-300 font-medium tracking-wide uppercase">
+                Slab Top-Down View
               </span>
             </div>
           </div>

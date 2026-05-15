@@ -8,7 +8,7 @@ export default function Contact() {
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white tracking-tight">
           Get in Touch
         </h1>
-        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+        <p className="text-lg text-slate-500 dark:text-slate-400 dark:text-slate-700 dark:text-slate-300 max-w-2xl mx-auto">
           Have questions about our tools, pricing, or need technical support? Our team is ready to help.
         </p>
       </div>
@@ -21,7 +21,7 @@ export default function Contact() {
              </div>
              <div>
                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Chat to Sales</h3>
-               <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">Speak to our friendly team.</p>
+               <p className="text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-3">Speak to our friendly team.</p>
                <a href="mailto:sales@civilpro.com" className="text-sm font-bold text-blue-600 dark:text-blue-400 hover:underline">sales@civilpro.com</a>
              </div>
           </div>
@@ -32,7 +32,7 @@ export default function Contact() {
              </div>
              <div>
                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Visit Us</h3>
-               <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">Visit our office HQ.</p>
+               <p className="text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-3">Visit our office HQ.</p>
                <address className="text-sm font-semibold text-slate-700 dark:text-slate-300 not-italic">
                  100 Civil Way<br/>San Francisco, CA 94107
                </address>
@@ -45,7 +45,7 @@ export default function Contact() {
              </div>
              <div>
                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Call Us</h3>
-               <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">Mon-Fri from 8am to 5pm.</p>
+               <p className="text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-3">Mon-Fri from 8am to 5pm.</p>
                <a href="tel:+15550000000" className="text-sm font-bold text-blue-600 dark:text-blue-400 hover:underline">+1 (555) 000-0000</a>
              </div>
           </div>

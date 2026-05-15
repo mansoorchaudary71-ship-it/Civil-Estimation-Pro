@@ -8,7 +8,7 @@ export default function AboutUs() {
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white tracking-tight">
           About Civil Estimation Pro
         </h1>
-        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+        <p className="text-lg text-slate-500 dark:text-slate-400 dark:text-slate-700 dark:text-slate-300 max-w-2xl mx-auto">
           We are building the next generation of estimation and takeoff tools for the modern construction professional.
         </p>
       </div>
@@ -19,7 +19,7 @@ export default function AboutUs() {
             <Target className="w-6 h-6 text-blue-600 dark:text-blue-400" />
           </div>
           <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-4">Our Mission</h2>
-          <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-700 dark:text-slate-300 leading-relaxed">
             To empower civil engineers, contractors, and estimators with intuitive, precise, and fast software that eliminates manual errors and saves hours of calculation time.
           </p>
         </div>
@@ -29,7 +29,7 @@ export default function AboutUs() {
             <Building2 className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
           </div>
           <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-4">Our Vision</h2>
-          <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-700 dark:text-slate-300 leading-relaxed">
             We envision a construction industry where digital tools seamlessly bridge the gap between design and execution, bringing unprecedented accuracy to every project.
           </p>
         </div>
@@ -40,19 +40,19 @@ export default function AboutUs() {
         <div className="relative z-10 grid md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-slate-700/50">
           <div className="pt-4 md:pt-0">
             <div className="text-4xl font-extrabold text-white mb-2">10k+</div>
-            <div className="text-slate-400 font-medium">Active Users</div>
+            <div className="text-slate-700 dark:text-slate-300 font-medium">Active Users</div>
           </div>
           <div className="pt-8 md:pt-0">
              <div className="text-4xl font-extrabold text-white mb-2">1M+</div>
-             <div className="text-slate-400 font-medium">Estimates Generated</div>
+             <div className="text-slate-700 dark:text-slate-300 font-medium">Estimates Generated</div>
           </div>
           <div className="pt-8 md:pt-0">
              <div className="text-4xl font-extrabold text-white mb-2">15+</div>
-             <div className="text-slate-400 font-medium">Years Experience</div>
+             <div className="text-slate-700 dark:text-slate-300 font-medium">Years Experience</div>
           </div>
           <div className="pt-8 md:pt-0">
              <div className="text-4xl font-extrabold text-white mb-2">24/7</div>
-             <div className="text-slate-400 font-medium">Expert Support</div>
+             <div className="text-slate-700 dark:text-slate-300 font-medium">Expert Support</div>
           </div>
         </div>
       </div>
