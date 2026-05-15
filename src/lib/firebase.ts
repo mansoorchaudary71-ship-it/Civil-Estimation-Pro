@@ -1,18 +1,24 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore, doc, getDocFromServer } from 'firebase/firestore';
+import { getFirestore, doc, getDocFromServer, initializeFirestore } from 'firebase/firestore';
 import firebaseConfig from '../../firebase-applet-config.json';
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+export const db = initializeFirestore(app, {
+  experimentalForceLongPolling: true
+}, (firebaseConfig as any).firestoreDatabaseId);
 
 async function testConnection() {
   try {
     await getDocFromServer(doc(db, 'test', 'connection'));
   } catch (error) {
-    if(error instanceof Error && error.message.includes('the client is offline')) {
-      console.error("Please check your Firebase configuration.");
+    if(error instanceof Error && (error.message.includes('the client is offline') || error.message.includes('unavailable') || error.message.includes('The operation could not be completed'))) {
+      console.warn("Firestore may be offline or blocked by corporate firewall. Operating in offline mode.");
+    } else if (error instanceof Error && (error.message.includes('Missing or insufficient permissions') || error.message.includes('permission'))) {
+      console.log("Firebase connection established (permission denied to test doc, but online).");
+    } else {
+      console.error("Firebase connection test failed:", error);
     }
   }
 }

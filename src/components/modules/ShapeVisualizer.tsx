@@ -207,7 +207,7 @@ export const SVGShapeVisualizer: React.FC<SVGShapeVisualizerProps> = ({ shape, d
         const sL = length * scale;
         const sR = radius * scale;
         return (
-          <path d={`M ${cx - sR} ${cy - sL/2} v ${sL} a ${sR} ${sR} 0 0 1 ${sR * 2} 0 v ${sL} a ${sR} ${sR} 0 0 1 -${sR * 2} 0 Z`} fill="rgba(217, 70, 239, 0.2)" stroke="#d946ef" strokeWidth="2" />
+          <path d={`M ${cx - sR} ${cy - sL/2} v ${sL} a ${sR} ${sR} 0 0 0 ${sR * 2} 0 v -${sL} a ${sR} ${sR} 0 0 0 -${sR * 2} 0 Z`} fill="rgba(217, 70, 239, 0.2)" stroke="#d946ef" strokeWidth="2" />
         );
       }
       case 'Parallelogram': {

@@ -39,7 +39,20 @@ export type Category =
   | "Time"
   | "Fuel"
   | "Voltage"
-  | "Data";
+  | "Data"
+  | "Current"
+  | "Resistance"
+  | "Capacitance"
+  | "Frequency"
+  | "Acceleration"
+  | "Torque"
+  | "Density"
+  | "Volumetric Flow"
+  | "Mass Flow"
+  | "Dynamic Viscosity"
+  | "Typography"
+  | "Resolution"
+  | "Currency";
 
 export interface Unit {
   id: string;
@@ -50,13 +63,15 @@ export interface Unit {
 export const unitsData: Record<Category, Unit[]> = {
   Length: [
     { id: "m", label: "Meter (m)", factor: 1 },
-    { id: "mm", label: "Millimeter (mm)", factor: 0.001 },
-    { id: "cm", label: "Centimeter (cm)", factor: 0.01 },
     { id: "km", label: "Kilometer (km)", factor: 1000 },
-    { id: "in", label: "Inch (in)", factor: 0.0254 },
-    { id: "ft", label: "Foot (ft)", factor: CIVIL_CONSTANTS.FT_TO_M },
-    { id: "yd", label: "Yard (yd)", factor: 0.9144 },
+    { id: "cm", label: "Centimeter (cm)", factor: 0.01 },
+    { id: "mm", label: "Millimeter (mm)", factor: 0.001 },
+    { id: "um", label: "Micrometer (μm)", factor: 0.000001 },
+    { id: "nm", label: "Nanometer (nm)", factor: 0.000000001 },
     { id: "mi", label: "Mile (mi)", factor: 1609.344 },
+    { id: "yd", label: "Yard (yd)", factor: 0.9144 },
+    { id: "ft", label: "Foot (ft)", factor: 0.3048 },
+    { id: "in", label: "Inch (in)", factor: 0.0254 },
     { id: "nmi", label: "Nautical Mile (nmi)", factor: 1852 },
   ],
   Area: [
@@ -187,6 +202,90 @@ export const unitsData: Record<Category, Unit[]> = {
     { id: "gb", label: "Gigabyte (GB)", factor: 1073741824 },
     { id: "tb", label: "Terabyte (TB)", factor: 1099511627776 },
     { id: "pb", label: "Petabyte (PB)", factor: 1125899906842624 },
+  ],
+  Current: [
+    { id: "a", label: "Ampere (A)", factor: 1 },
+    { id: "ma", label: "Milliampere (mA)", factor: 0.001 },
+    { id: "ua", label: "Microampere (μA)", factor: 0.000001 },
+    { id: "ka", label: "Kiloampere (kA)", factor: 1000 },
+  ],
+  Resistance: [
+    { id: "ohm", label: "Ohm (Ω)", factor: 1 },
+    { id: "mohm", label: "Milliohm (mΩ)", factor: 0.001 },
+    { id: "kohm", label: "Kilo-ohm (kΩ)", factor: 1000 },
+    { id: "megaohm", label: "Mega-ohm (MΩ)", factor: 1000000 },
+  ],
+  Capacitance: [
+    { id: "f", label: "Farad (F)", factor: 1 },
+    { id: "mf", label: "Millifarad (mF)", factor: 0.001 },
+    { id: "uf", label: "Microfarad (μF)", factor: 0.000001 },
+    { id: "nf", label: "Nanofarad (nF)", factor: 0.000000001 },
+    { id: "pf", label: "Picofarad (pF)", factor: 0.000000000001 },
+  ],
+  Frequency: [
+    { id: "hz", label: "Hertz (Hz)", factor: 1 },
+    { id: "khz", label: "Kilohertz (kHz)", factor: 1000 },
+    { id: "mhz", label: "Megahertz (MHz)", factor: 1000000 },
+    { id: "ghz", label: "Gigahertz (GHz)", factor: 1000000000 },
+  ],
+  Acceleration: [
+    { id: "m_s2", label: "Meter per square second (m/s²)", factor: 1 },
+    { id: "g_force", label: "G-force (g)", factor: 9.80665 },
+    { id: "ft_s2", label: "Foot per square second (ft/s²)", factor: 0.3048 },
+    { id: "cm_s2", label: "Centimeter per square second (cm/s²)", factor: 0.01 },
+  ],
+  Torque: [
+    { id: "nm", label: "Newton-meter (N·m)", factor: 1 },
+    { id: "lbf_ft", label: "Pound-force foot (lbf·ft)", factor: 1.3558179483314 },
+    { id: "lbf_in", label: "Pound-force inch (lbf·in)", factor: 0.1129848290276167 },
+    { id: "kgf_m", label: "Kilogram-force meter (kgf·m)", factor: 9.80665 },
+  ],
+  Density: [
+    { id: "kg_m3", label: "Kilogram per cubic meter (kg/m³)", factor: 1 },
+    { id: "g_cm3", label: "Gram per cubic centimeter (g/cm³)", factor: 1000 },
+    { id: "lb_ft3", label: "Pound per cubic foot (lb/ft³)", factor: 16.01846337396014 },
+    { id: "lb_in3", label: "Pound per cubic inch (lb/in³)", factor: 27679.904710203105 },
+  ],
+  "Volumetric Flow": [
+    { id: "cm_s", label: "Cubic meter per second (m³/s)", factor: 1 },
+    { id: "l_s", label: "Liter per second (L/s)", factor: 0.001 },
+    { id: "l_min", label: "Liter per minute (L/min)", factor: 0.000016666666666666667 },
+    { id: "gal_min", label: "Gallon per minute (US, GPM)", factor: 0.0000630901964 },
+    { id: "cfm", label: "Cubic foot per minute (CFM)", factor: 0.0004719474432 },
+  ],
+  "Mass Flow": [
+    { id: "kg_s", label: "Kilogram per second (kg/s)", factor: 1 },
+    { id: "g_s", label: "Gram per second (g/s)", factor: 0.001 },
+    { id: "kg_h", label: "Kilogram per hour (kg/h)", factor: 0.0002777777777777778 },
+    { id: "lb_s", label: "Pound per second (lb/s)", factor: 0.45359237 },
+    { id: "lb_h", label: "Pound per hour (lb/h)", factor: 0.0001259978805555555 },
+  ],
+  "Dynamic Viscosity": [
+    { id: "pa_s", label: "Pascal-second (Pa·s)", factor: 1 },
+    { id: "p", label: "Poise (P)", factor: 0.1 },
+    { id: "cp", label: "Centipoise (cP)", factor: 0.001 },
+  ],
+  Typography: [
+    { id: "px", label: "Pixel (px)", factor: 1 },
+    { id: "pt", label: "Point (pt)", factor: 1.3333333333333333 },
+    { id: "pc", label: "Pica (pc)", factor: 16 },
+    { id: "em", label: "Em (em)", factor: 16 },
+    { id: "rem", label: "Rem (rem)", factor: 16 },
+  ],
+  Resolution: [
+    { id: "dpi", label: "Dots per inch (DPI)", factor: 1 },
+    { id: "ppi", label: "Pixels per inch (PPI)", factor: 1 },
+    { id: "ppcm", label: "Pixels per centimeter (PPCM)", factor: 2.54 },
+  ],
+  Currency: [
+    { id: "usd", label: "US Dollar (USD)", factor: 1 },
+    { id: "eur", label: "Euro (EUR)", factor: 1.08 },
+    { id: "gbp", label: "British Pound (GBP)", factor: 1.25 },
+    { id: "jpy", label: "Japanese Yen (JPY)", factor: 0.0066 },
+    { id: "cad", label: "Canadian Dollar (CAD)", factor: 0.73 },
+    { id: "aud", label: "Australian Dollar (AUD)", factor: 0.65 },
+    { id: "inr", label: "Indian Rupee (INR)", factor: 0.012 },
+    { id: "cny", label: "Chinese Yuan (CNY)", factor: 0.14 },
   ],
 };
 

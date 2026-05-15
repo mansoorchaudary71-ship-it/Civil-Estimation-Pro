@@ -955,16 +955,16 @@ export default function AreaCalculator() {
                 />
               )}
               {activeShape === "Circle" && (
-                <SVGShapeVisualizer shape="Circle" dimensions={{ radius: Number(circRad) }} />
+                <SVGShapeVisualizer shape="Circle" dimensions={{ radius: Number(radius) }} />
               )}
               {activeShape === "Square" && (
-                <SVGShapeVisualizer shape="Square" dimensions={{ side: Number(sqSide) }} />
+                <SVGShapeVisualizer shape="Square" dimensions={{ side: Number(side) }} />
               )}
               {activeShape === "Rectangle" && (
-                <SVGShapeVisualizer shape="Rectangle" dimensions={{ length: Number(rectLen), width: Number(rectW) }} />
+                <SVGShapeVisualizer shape="Rectangle" dimensions={{ length: Number(length), width: Number(width) }} />
               )}
               {activeShape === "Triangle" && (
-                <SVGShapeVisualizer shape="Triangle" dimensions={{ a: Number(triA), b: Number(triB), c: Number(triC) }} />
+                <SVGShapeVisualizer shape="Triangle" dimensions={{ a: Number(triBase), b: Number(triSide2), c: Number(triSide3) }} />
               )}
               {activeShape === "Ellipse" && (
                 <SVGShapeVisualizer shape="Ellipse" dimensions={{ major: Number(ellMajor), minor: Number(ellMinor) }} />
