@@ -25,7 +25,7 @@ const STANDARD_BRICK = { l: 0.23, w: 0.11, h: 0.075 };
   "1:6": { c: 1, s: 6 },
 };
 
-export default function Brickwork9InchModule() {
+export default function Brickwork9InchModule({ hideHistory = false }: { hideHistory?: boolean }) {
   const { currentUnit } = useGlobalSettings();
   const isSI = currentUnit === "Metric";
 
@@ -364,20 +364,22 @@ export default function Brickwork9InchModule() {
           </div>
         </div>
       </div>
-      <CalculationHistory
-        calculatorId="brickwork_9inch_v1"
-        currentInputs={{ brickType, wallLength, wallHeight, deductions, mixRatio, includeWastage }}
-        currentResults={{ noOfBricks: results.noOfBricks, cementBags: results.cementBags, sandCft: results.sandCft }}
-        summaryGeneration={(inputs, res) => `9in Brickwork Area ${inputs.wallLength}x${inputs.wallHeight}`}
-        onRestore={(inputs) => {
-          if (inputs.brickType) setBrickType(inputs.brickType);
-          if (inputs.wallLength !== undefined) setWallLength(inputs.wallLength);
-          if (inputs.wallHeight !== undefined) setWallHeight(inputs.wallHeight);
-          if (inputs.deductions !== undefined) setDeductions(inputs.deductions);
-          if (inputs.mixRatio !== undefined) setMixRatio(inputs.mixRatio);
-          if (inputs.includeWastage !== undefined) setIncludeWastage(inputs.includeWastage);
-        }}
-      />
+      {!hideHistory && (
+        <CalculationHistory
+          calculatorId="brickwork_9inch_v1"
+          currentInputs={{ brickType, wallLength, wallHeight, deductions, mixRatio, includeWastage }}
+          currentResults={{ noOfBricks: results.noOfBricks, cementBags: results.cementBags, sandCft: results.sandCft }}
+          summaryGeneration={(inputs, res) => `9in Brickwork Area ${inputs.wallLength}x${inputs.wallHeight}`}
+          onRestore={(inputs) => {
+            if (inputs.brickType) setBrickType(inputs.brickType);
+            if (inputs.wallLength !== undefined) setWallLength(inputs.wallLength);
+            if (inputs.wallHeight !== undefined) setWallHeight(inputs.wallHeight);
+            if (inputs.deductions !== undefined) setDeductions(inputs.deductions);
+            if (inputs.mixRatio !== undefined) setMixRatio(inputs.mixRatio);
+            if (inputs.includeWastage !== undefined) setIncludeWastage(inputs.includeWastage);
+          }}
+        />
+      )}
     </div>
   );
 }

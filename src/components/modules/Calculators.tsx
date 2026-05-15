@@ -369,7 +369,7 @@ export default function ConstructionMaterialEstimator() {
     } as any;
     content =
       activeTab === "bricks" ? (
-        <Brickwork9InchModule />
+        <Brickwork9InchModule hideHistory={true} />
       ) : (
         <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full">
           <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-500 dark:text-slate-400">
