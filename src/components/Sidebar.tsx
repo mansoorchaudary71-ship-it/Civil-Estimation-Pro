@@ -32,7 +32,6 @@ import {
   Weight,
   Spline,
   Columns,
-  FileSpreadsheet,
 } from "lucide-react";
 
 export type ModuleId =

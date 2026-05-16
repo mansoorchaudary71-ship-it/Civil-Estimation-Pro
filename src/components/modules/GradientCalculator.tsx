@@ -363,7 +363,9 @@ export default function GradientCalculator() {
       <CalculationHistory
         calculatorId="gradient_slope_calculator_v1"
         estimationName="Gradient & Slope Profile"
-        data={{ rise, run, slopePercent, startElevation, finalElevation, isCut }}
+        savePayload={{ rise, run, slopePercent, startElevation, finalElevation, isCut }}
+        currentInputs={{ rise, run, slopePercent, startElevation, finalElevation, isCut }}
+        onRestore={() => {}}
       />
     </div>
   );

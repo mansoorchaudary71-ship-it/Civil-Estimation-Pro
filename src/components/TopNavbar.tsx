@@ -45,16 +45,33 @@ export default function TopNavbar({
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto relative shrink-0 z-40 px-3 md:px-8 pt-4 md:pt-8 pb-2 md:pb-4">
-      <div className="w-full px-3 md:px-6 py-2 md:py-3 bg-white/70 dark:bg-slate-900/70 backdrop-blur-2xl border border-white/60 dark:border-slate-700/50 rounded-full transition-all duration-300 flex items-center justify-between shadow-[0_8px_32px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.2)]">
+    <div className="w-full max-w-7xl mx-auto relative shrink-0 z-40 px-4 md:px-8 pt-5 pb-3">
+      <div className="w-full px-4 md:px-8 py-3 transition-all duration-300 flex items-center justify-between">
         
-        {/* Left: Text navigation links */}
-        <div className="hidden lg:flex items-center gap-2 flex-1 justify-start">
-          {navLinks.map((link) => (
+        {/* Left: Logo perfectly centered */}
+        <div className="flex items-center justify-start gap-2 cursor-pointer group shrink-0 px-2 sm:px-4">
+          <div className="flex items-center justify-center transition-all duration-500 text-slate-900">
+            {/* Custom stylized 'P' icon */}
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 sm:w-8 sm:h-8">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor" />
+            </svg>
+          </div>
+          <span className="hidden sm:block font-bold text-lg md:text-xl tracking-tight text-slate-900 font-sans">
+            PreviewLinks
+          </span>
+        </div>
+
+        {/* Center: Text navigation links */}
+        <div className="hidden lg:flex items-center gap-6 flex-1 justify-start ml-8">
+          {[
+            { name: 'Integration', id: 'integration' },
+            { name: 'Pricing', id: 'pricing' },
+            { name: 'Blog', id: 'blog' },
+          ].map((link) => (
             <button 
               key={link.name} 
-              onClick={() => onNavigate?.(link.id)}
-              className="px-5 py-2.5 text-[14px] font-bold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white/60 dark:hover:bg-slate-800/60 rounded-full transition-all duration-300 whitespace-nowrap"
+              onClick={() => onNavigate?.(link.id as ModuleId)}
+              className="text-[14px] font-medium text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap"
             >
               {link.name}
             </button>
@@ -62,43 +79,32 @@ export default function TopNavbar({
         </div>
 
         {/* Mobile Left: Hamburger */}
-        <div className="lg:hidden flex items-center justify-start flex-1">
+        <div className="lg:hidden flex items-center justify-start ml-4">
           <button 
             onClick={() => onOpenSidebar?.()}
-            className="p-2.5 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            className="p-2 rounded-md text-slate-800 hover:bg-slate-200 transition-all duration-300"
           >
-            <Menu className="w-6 h-6" />
+            <Menu className="w-6 h-6 transform group-active:scale-90 transition-transform" />
           </button>
         </div>
 
-        {/* Center: Logo perfectly centered */}
-        <div className="flex items-center justify-center gap-3 cursor-pointer group shrink-0 px-2 sm:px-4">
-          <div className="w-8 h-8 flex items-center justify-center transition-all duration-300 group-hover:scale-110 text-indigo-600 dark:text-indigo-400">
-            <Logo className="w-8 h-8" />
-          </div>
-          <span className="hidden sm:block font-black text-[19px] tracking-tight text-slate-800 dark:text-slate-100 whitespace-nowrap">
-            Civil Estimation Pro
-          </span>
-        </div>
-
         {/* Right: Action Buttons */}
-        <div className="flex items-center justify-end gap-3 shrink-0 flex-1">
+        <div className="flex items-center justify-end gap-4 shrink-0 flex-1">
           <div className="hidden sm:block">
             <GlobalSettingsToggle />
           </div>
-          <div className="h-5 w-px bg-slate-200/50 dark:bg-slate-700/50 hidden lg:block mx-1" />
           
           {!isAuthenticated ? (
             <>
               <button 
                 onClick={onOpenAuth}
-                className="hidden md:block px-5 py-2.5 rounded-full text-[14px] font-bold text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white/60 dark:hover:bg-slate-800/60 transition-all duration-300 whitespace-nowrap"
+                className="hidden md:block px-5 py-2.5 rounded-full text-[14px] font-semibold text-slate-800 border border-slate-300 hover:bg-slate-50 transition-all duration-300 whitespace-nowrap"
               >
-                Sign In
+                Sign in
               </button>
               <button 
                 onClick={onOpenAuth}
-                className="px-6 py-2.5 rounded-full text-[14px] font-bold text-white bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/30 active:scale-95 transition-all duration-300 whitespace-nowrap"
+                className="px-6 py-2.5 rounded-full text-[14px] font-semibold text-white bg-slate-900 hover:bg-slate-800 transition-all duration-300 whitespace-nowrap"
               >
                 Get Started
               </button>
@@ -107,7 +113,7 @@ export default function TopNavbar({
             <div className="relative flex items-center gap-2 sm:gap-3">
               <div className="lg:hidden">
                 {user?.photoURL && (
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 overflow-hidden text-slate-600 dark:text-slate-400">
+                  <div className="w-8 h-8 rounded-full bg-[rgba(255,255,255,0.05)] flex items-center justify-center border border-[rgba(255,255,255,0.1)] overflow-hidden">
                     <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
                   </div>
                 )}
@@ -115,35 +121,35 @@ export default function TopNavbar({
               <div ref={profileRef} className="hidden lg:block relative">
                 <button 
                   onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                  className="flex items-center gap-1.5 p-1.5 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 transition-all group"
+                  className="flex items-center gap-1.5 p-1 rounded-full hover:bg-slate-100 transition-all group focus:outline-none"
                 >
-                  <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700 overflow-hidden text-slate-600 dark:text-slate-400 group-hover:text-amber-600">
+                  <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center border border-slate-300 overflow-hidden text-slate-500 transition-all">
                     {user?.photoURL ? (
                       <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
                     ) : (
                       <User className="w-4 h-4" />
                     )}
                   </div>
-                  <ChevronDown className={`w-4 h-4 text-slate-400 group-hover:text-amber-600 transition-transform ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 text-slate-500 group-hover:text-slate-900 transition-transform duration-300 ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {isProfileMenuOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-56 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border border-slate-200/80 dark:border-slate-700/80 rounded-3xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 z-50 ring-1 ring-slate-900/5 dark:ring-white/10">
-                    <div className="px-4 py-3 border-b border-slate-200/50 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-800/20">
-                      <p className="text-sm font-bold text-slate-800 dark:text-white truncate">{user?.displayName || 'User'}</p>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
+                  <div className="absolute right-0 top-[120%] w-56 bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-4 z-50">
+                    <div className="px-4 py-3 border-b border-slate-100 bg-slate-50">
+                      <p className="text-sm font-bold text-slate-900 truncate">{user?.displayName || 'User'}</p>
+                      <p className="text-xs text-slate-500 truncate">{user?.email}</p>
                     </div>
                     <div className="p-2 space-y-1">
-                      <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-colors">
+                      <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors">
                         <User className="w-4 h-4" /> My Profile
                       </button>
-                      <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-colors">
+                      <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors">
                         <Settings className="w-4 h-4" /> Account Settings
                       </button>
-                      <div className="h-px bg-slate-200 dark:bg-slate-800 my-1" />
+                      <div className="h-px bg-slate-100 my-1" />
                       <button 
                         onClick={handleSignOut}
-                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-bold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
+                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50 transition-colors"
                       >
                         <LogOut className="w-4 h-4" /> Sign Out
                       </button>
@@ -158,4 +164,3 @@ export default function TopNavbar({
     </div>
   );
 }
-

@@ -3,9 +3,6 @@ import { createServer as createViteServer } from "vite";
 import cron from "node-cron";
 import Database from "better-sqlite3";
 import path from "path";
-import { fileURLToPath } from 'url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 async function startServer() {
   const app = express();
@@ -14,7 +11,7 @@ async function startServer() {
   app.use(express.json());
 
   // Database setup
-  const dbPath = path.join(process.cwd(), 'market_rates.sqlite');
+  const dbPath = process.env.NODE_ENV === "production" ? path.join("/tmp", "market_rates.sqlite") : path.join(process.cwd(), 'market_rates.sqlite');
   const db = new Database(dbPath);
 
   db.pragma('journal_mode = WAL');

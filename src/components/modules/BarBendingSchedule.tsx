@@ -399,7 +399,9 @@ export default function BarBendingSchedule() {
       <CalculationHistory
         calculatorId="bbs_generator_v1"
         estimationName="Bar Bending Schedule"
-        data={{ rows, totalProjectWeight }}
+        savePayload={{ rows, totalProjectWeight }}
+        currentInputs={{}}
+        onRestore={() => {}}
       />
     </div>
   );

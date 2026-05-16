@@ -81,7 +81,7 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
               date: new Date(d.createdAt).toLocaleDateString(),
               type: modId,
               typeLabel: modInfo.category,
-              color: theme.blob,
+              color: theme.bg,
               icon: modInfo.icon,
               progress: 100,
               status: d.status || 'To Do',

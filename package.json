@@ -7,7 +7,7 @@
     "dev": "tsx server.ts",
     "replace": "node /app/applet/replace.js",
     "start": "NODE_ENV=production node dist/server.cjs",
-    "build": "vite build && npx esbuild server.ts --bundle --platform=node --target=node18 --outfile=dist/server.cjs --external:better-sqlite3",
+    "build": "vite build && npx esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
     "preview": "NODE_ENV=production node dist/server.cjs",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit"

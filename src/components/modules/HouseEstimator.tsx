@@ -739,7 +739,7 @@ export default function HouseEstimator() {
                         <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">
                           Total Area
                         </label>
-                        <div className="flex gap-2">
+                        <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
                           <input
                             type="number"
                             value={geoState.plotSizeValue}
@@ -930,7 +930,7 @@ export default function HouseEstimator() {
                     </div>
                   </div>
                   <div className="pt-4 border-t border-slate-100 space-y-4">
-                    <div className="flex justify-between items-center">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
                       <h3 className="text-sm font-bold text-gray-600">
                         Room Configuration
                       </h3>

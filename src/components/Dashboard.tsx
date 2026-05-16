@@ -2,224 +2,42 @@ import React, { useState, useEffect } from "react";
 import { ModuleId } from "../App";
 import { useAuth } from "../contexts/AuthContext";
 import {
-  Calculator,
-  Sparkles,
-  Truck,
-  Route,
-  Waves,
-  Paintbrush,
-  Home,
-  TrendingUp,
-  Hammer,
-  Layers,
-  BoxSelect,
-  Search,
-  Menu,
-  CheckSquare,
-  Map,
-  Grid2X2,
-  Box,
-  ArrowRightLeft,
-  Weight,
-  Spline,
-  ArrowRight,
-  ChevronRight,
-  HardHat,
-  Scaling,
-  Container,
-  Repeat,
-  Anvil,
-  Building2,
-  Blocks,
-  Shovel,
-  Pickaxe,
-  Cone,
-  Droplet,
-  PaintBucket,
-  Ruler,
-  Columns,
-  ClipboardList,
-  Maximize2,
-  FileSpreadsheet,
+  Calculator, Sparkles, Truck, Route, Waves, Paintbrush, Home, 
+  TrendingUp, Hammer, Layers, BoxSelect, Search, Menu, CheckSquare, 
+  Map, Grid2X2, Box, ArrowRightLeft, Weight, Spline, ArrowRight, 
+  ChevronRight, HardHat, Scaling, Container, Repeat, Anvil, Building2, 
+  Blocks, Shovel, Pickaxe, Cone, Droplet, PaintBucket, Ruler, Columns, 
+  ClipboardList, Maximize2, FileSpreadsheet,
 } from "lucide-react";
 import { SEO } from "./SEO";
-
 import Logo from "./Logo";
 import RecentEstimates from "./RecentEstimates";
 
 export const ALL_MODULES = [
-  {
-    id: "calculators",
-    title: "Construction Material",
-    desc: "Accurate estimations for concrete, bricks, steel, blocks, mortar.",
-    category: "TOOLS",
-    icon: HardHat,
-  },
-  {
-    id: "house",
-    title: "House Estimator",
-    desc: "Complete residential cost breakdown from grey structure to finishing.",
-    category: "RESIDENTIAL",
-    icon: Home,
-    premium: true,
-    color: "navy",
-  },
-  {
-    id: "area-calculator",
-    title: "Area Calculator",
-    desc: "Calculate area & perimeter for multiple 2D shapes.",
-    category: "TOOLS",
-    icon: Scaling,
-  },
-  {
-    id: "volume-estimator",
-    title: "Volume Estimator",
-    desc: "Calculate volumes, capacity & surface area.",
-    category: "TOOLS",
-    icon: Container,
-  },
-  {
-    id: "unit-converter",
-    title: "Unit Converter",
-    desc: "Convert units across 15 engineering categories.",
-    category: "TOOLS",
-    icon: Repeat,
-  },
-  {
-    id: "metal-weight",
-    title: "Metal Weight",
-    desc: "Calculate section weights of steel profiles.",
-    category: "TOOLS",
-    icon: Anvil,
-  },
-  {
-    id: "rcc-calculator",
-    title: "RCC Structure",
-    desc: "Calculate concrete & steel for slabs, columns.",
-    category: "TOOLS",
-    icon: Building2,
-  },
-  {
-    id: "bbs-generator",
-    title: "BBS Generator",
-    desc: "Bar Bending Schedule with precise cut lengths.",
-    category: "TOOLS",
-    icon: FileSpreadsheet,
-  },
-  {
-    id: "staircase-calculator",
-    title: "Staircase Calculator",
-    desc: "Concrete & steel quantity for RCC staircases.",
-    category: "TOOLS",
-    icon: Layers,
-  },
-  {
-    id: "master-quantity",
-    title: "Master Quantity & Estimation",
-    desc: "23 comprehensive calculators for specialized construction items.",
-    category: "TOOLS",
-    icon: ClipboardList,
-  },
-  {
-    id: "column-estimator",
-    title: "Column Estimator",
-    desc: "Detailed concrete volume and material breakdown for columns.",
-    category: "TOOLS",
-    icon: Columns,
-  },
-  {
-    id: "earthworks",
-    title: "Earthworks",
-    desc: "Calculate site preparation, excavation and hauling volumes.",
-    category: "SITE PREP",
-    icon: Shovel,
-  },
-  {
-    id: "trench",
-    title: "Trench Excavation",
-    desc: "Pipe trenching and bedding volume estimations.",
-    category: "SITE PREP",
-    icon: Pickaxe,
-  },
-  {
-    id: "gridEarthwork",
-    title: "Grid Method Volume",
-    desc: "Leveling volume estimation using the grid method.",
-    category: "SITE PREP",
-    icon: Grid2X2,
-  },
-  {
-    id: "road",
-    title: "Flexible Pavement",
-    desc: "Asphalt road layer estimations and material costs.",
-    category: "INFRA",
-    icon: Cone,
-  },
-  {
-    id: "rigid-pavement",
-    title: "Rigid Pavement",
-    desc: "Concrete road design material estimations.",
-    category: "INFRA",
-    icon: Route,
-  },
-  {
-    id: "chainage",
-    title: "Chainage Volume",
-    desc: "Road highway chainage extraction calculations.",
-    category: "INFRA",
-    icon: Map,
-  },
-  {
-    id: "sewerage",
-    title: "Sewerage & Drainage",
-    desc: "Pipes, manholes, and septic tank estimations.",
-    category: "INFRA",
-    icon: Droplet,
-  },
-  {
-    id: "formwork",
-    title: "Formwork & Scaffold",
-    desc: "Shuttering and scaffolding material computations.",
-    category: "STRUCTURAL",
-    icon: Hammer,
-  },
-  {
-    id: "gradient-calculator",
-    title: "Gradient & Slope",
-    desc: "Dynamic bidirectional slope and elevation calculator.",
-    category: "SITE_PREP",
-    icon: Maximize2,
-  },
-  {
-    id: "finishing",
-    title: "Finishing Works",
-    desc: "Tiles, paint, doors, and window estimations.",
-    category: "INTERIORS",
-    icon: PaintBucket,
-  },
-  {
-    id: "takeoff",
-    title: "Plan Measure",
-    desc: "Area & linear extraction.",
-    category: "2D TAKEOFF",
-    icon: Ruler,
-  },
-  {
-    id: "rates",
-    title: "Live DB Rates",
-    desc: "Centralized database for local market prices.",
-    category: "DATA",
-    icon: TrendingUp,
-  },
-  {
-    id: "ai",
-    title: "AI Assistant",
-    desc: "Ask anything about construction",
-    category: "GEMINI PRO",
-    icon: Sparkles,
-    premium: true,
-    color: "electric",
-  },
+  { id: "calculators", title: "Construction Material", desc: "Accurate estimations for concrete, bricks, steel, blocks, mortar.", category: "TOOLS", icon: HardHat },
+  { id: "house", title: "House Estimator", desc: "Complete residential cost breakdown from grey structure to finishing.", category: "RESIDENTIAL", icon: Home, premium: true, color: "navy" },
+  { id: "area-calculator", title: "Area Calculator", desc: "Calculate area & perimeter for multiple 2D shapes.", category: "TOOLS", icon: Scaling },
+  { id: "volume-estimator", title: "Volume Estimator", desc: "Calculate volumes, capacity & surface area.", category: "TOOLS", icon: Container },
+  { id: "unit-converter", title: "Unit Converter", desc: "Convert units across 15 engineering categories.", category: "TOOLS", icon: Repeat },
+  { id: "metal-weight", title: "Metal Weight", desc: "Calculate section weights of steel profiles.", category: "TOOLS", icon: Anvil },
+  { id: "rcc-calculator", title: "RCC Structure", desc: "Calculate concrete & steel for slabs, columns.", category: "TOOLS", icon: Building2 },
+  { id: "bbs-generator", title: "BBS Generator", desc: "Bar Bending Schedule with precise cut lengths.", category: "TOOLS", icon: FileSpreadsheet },
+  { id: "staircase-calculator", title: "Staircase Calculator", desc: "Concrete & steel quantity for RCC staircases.", category: "TOOLS", icon: Layers },
+  { id: "master-quantity", title: "Master Quantity & Estimation", desc: "23 comprehensive calculators for specialized construction items.", category: "TOOLS", icon: ClipboardList },
+  { id: "column-estimator", title: "Column Estimator", desc: "Detailed concrete volume and material breakdown for columns.", category: "TOOLS", icon: Columns },
+  { id: "earthworks", title: "Earthworks", desc: "Calculate site preparation, excavation and hauling volumes.", category: "SITE PREP", icon: Shovel },
+  { id: "trench", title: "Trench Excavation", desc: "Pipe trenching and bedding volume estimations.", category: "SITE PREP", icon: Pickaxe },
+  { id: "gridEarthwork", title: "Grid Method Volume", desc: "Leveling volume estimation using the grid method.", category: "SITE PREP", icon: Grid2X2 },
+  { id: "road", title: "Flexible Pavement", desc: "Asphalt road layer estimations and material costs.", category: "INFRA", icon: Cone },
+  { id: "rigid-pavement", title: "Rigid Pavement", desc: "Concrete road design material estimations.", category: "INFRA", icon: Route },
+  { id: "chainage", title: "Chainage Volume", desc: "Road highway chainage extraction calculations.", category: "INFRA", icon: Map },
+  { id: "sewerage", title: "Sewerage & Drainage", desc: "Pipes, manholes, and septic tank estimations.", category: "INFRA", icon: Droplet },
+  { id: "formwork", title: "Formwork & Scaffold", desc: "Shuttering and scaffolding material computations.", category: "STRUCTURAL", icon: Hammer },
+  { id: "gradient-calculator", title: "Gradient & Slope", desc: "Dynamic bidirectional slope and elevation calculator.", category: "SITE_PREP", icon: Maximize2 },
+  { id: "finishing", title: "Finishing Works", desc: "Tiles, paint, doors, and window estimations.", category: "INTERIORS", icon: PaintBucket },
+  { id: "takeoff", title: "Plan Measure", desc: "Area & linear extraction.", category: "2D TAKEOFF", icon: Ruler },
+  { id: "rates", title: "Live DB Rates", desc: "Centralized database for local market prices.", category: "DATA", icon: TrendingUp },
+  { id: "ai", title: "AI Assistant", desc: "Ask anything about construction", category: "GEMINI PRO", icon: Sparkles, premium: true, color: "electric" },
 ];
 
 interface DashboardProps {
@@ -231,103 +49,26 @@ interface DashboardProps {
 }
 
 export const getCategoryTheme = (category: string, id: string) => {
-  if (id === "calculators")
-    return {
-      text: "text-[#ef4444]",
-      blob: "bg-gradient-to-br from-[#ef4444]/40 to-transparent",
-      border: "border-[#ef4444]/30 dark:border-[#ef4444]/30",
-    };
-  if (id === "area-calculator")
-    return {
-      text: "text-[#f97316]",
-      blob: "bg-gradient-to-br from-[#f97316]/40 to-transparent",
-      border: "border-[#f97316]/30 dark:border-[#f97316]/30",
-    };
-  if (id === "volume-estimator")
-    return {
-      text: "text-[#0ea5e9]",
-      blob: "bg-gradient-to-br from-[#0ea5e9]/40 to-transparent",
-      border: "border-[#0ea5e9]/30 dark:border-[#0ea5e9]/30",
-    };
-  if (id === "unit-converter")
-    return {
-      text: "text-[#a855f7]",
-      blob: "bg-gradient-to-br from-[#a855f7]/40 to-transparent",
-      border: "border-[#a855f7]/30 dark:border-[#a855f7]/30",
-    };
-  if (id === "metal-weight")
-    return {
-      text: "text-[#475569]",
-      blob: "bg-gradient-to-br from-[#475569]/40 to-transparent",
-      border: "border-[#475569]/30 dark:border-[#475569]/30",
-    };
-  if (id === "rcc-calculator")
-    return {
-      text: "text-[#6366f1]",
-      blob: "bg-gradient-to-br from-[#6366f1]/40 to-transparent",
-      border: "border-[#6366f1]/30 dark:border-[#6366f1]/30",
-    };
-  if (id === "master-quantity")
-    return {
-      text: "text-[#3b82f6]",
-      blob: "bg-gradient-to-br from-[#3b82f6]/40 to-transparent",
-      border: "border-[#3b82f6]/30 dark:border-[#3b82f6]/30",
-    };
-  if (id === "column-estimator")
-    return {
-      text: "text-[#8b5cf6]",
-      blob: "bg-gradient-to-br from-[#8b5cf6]/40 to-transparent",
-      border: "border-[#8b5cf6]/30 dark:border-[#8b5cf6]/30",
-    };
-  if (id === "takeoff")
-    return {
-      text: "text-[#10b981]",
-      blob: "bg-gradient-to-br from-[#10b981]/40 to-transparent",
-      border: "border-[#10b981]/30 dark:border-[#10b981]/30",
-    };
+  const colors = [
+    { text: "text-indigo-600", bg: "bg-indigo-50", fill: "bg-indigo-100", border: "border-indigo-100" },
+    { text: "text-orange-600", bg: "bg-orange-50", fill: "bg-orange-100", border: "border-orange-100" },
+    { text: "text-sky-600", bg: "bg-sky-50", fill: "bg-sky-100", border: "border-sky-100" },
+    { text: "text-emerald-600", bg: "bg-emerald-50", fill: "bg-emerald-100", border: "border-emerald-100" },
+    { text: "text-purple-600", bg: "bg-purple-50", fill: "bg-purple-100", border: "border-purple-100" },
+    { text: "text-rose-600", bg: "bg-rose-50", fill: "bg-rose-100", border: "border-rose-100" },
+  ];
+  
+  // Deterministic color based on id
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) {
+    hash = id.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash) % colors.length;
+  
+  if (id === 'ai') return colors[0]; // Primary purple
+  if (id === 'house') return colors[1]; // Accent orange
 
-  if (category === "SITE PREP")
-    return {
-      text: "text-[#f97316]",
-      blob: "bg-gradient-to-br from-[#f97316]/40 to-transparent",
-      border: "border-[#f97316]/30 dark:border-[#f97316]/30",
-    };
-  if (category === "INFRA")
-    return {
-      text: "text-[#3b82f6]",
-      blob: "bg-gradient-to-br from-[#3b82f6]/40 to-transparent",
-      border: "border-[#3b82f6]/30 dark:border-[#3b82f6]/30",
-    };
-  if (category === "INTERIORS")
-    return {
-      text: "text-[#d946ef]",
-      blob: "bg-gradient-to-br from-[#d946ef]/40 to-transparent",
-      border: "border-[#d946ef]/30 dark:border-[#d946ef]/30",
-    };
-  if (category === "STRUCTURAL")
-    return {
-      text: "text-[#ef4444]",
-      blob: "bg-gradient-to-br from-[#ef4444]/40 to-transparent",
-      border: "border-[#ef4444]/30 dark:border-[#ef4444]/30",
-    };
-  if (category === "DATA")
-    return {
-      text: "text-[#0ea5e9]",
-      blob: "bg-gradient-to-br from-[#0ea5e9]/40 to-transparent",
-      border: "border-[#0ea5e9]/30 dark:border-[#0ea5e9]/30",
-    };
-  if (category === "GEMINI PRO")
-    return {
-      text: "text-[#6366f1]",
-      blob: "bg-gradient-to-br from-[#6366f1]/40 to-transparent",
-      border: "border-[#6366f1]/30 dark:border-[#6366f1]/30",
-    };
-
-  return {
-    text: "text-[#64748b]",
-    blob: "bg-gradient-to-br from-[#64748b]/40 to-transparent",
-    border: "border-[#64748b]/30 dark:border-[#64748b]/30",
-  };
+  return colors[index];
 };
 
 export default function Dashboard({
@@ -415,181 +156,155 @@ export default function Dashboard({
     groupedModules[groupName].push(mod);
   });
 
+  // Handle particle creation purely via CSS in a style tag directly
   return (
-    <div className="flex-1 px-4 md:px-8 py-6 pb-12 w-full max-w-7xl mx-auto flex flex-col font-sans">
+    <div className="relative flex-1 w-full flex flex-col font-sans mb-12">
       <SEO 
         title="Dashboard" 
         description="Civil Estimation Pro: Advanced estimators for live construction rate analysis, house estimating, and comprehensive BOQ calculators." 
         canonicalUrl="https://civilestimationpro.com" 
       />
-      <div className="mb-6 flex items-center justify-between gap-3 md:hidden">
-        <div className="flex items-center gap-2">
-          <Logo className="w-8 h-8" />
-          <span className="font-bold text-[1.1rem] tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300">
-            Civil Estimation Pro
-          </span>
-        </div>
-        <button
-          onClick={onOpenSidebar}
-          className="p-2 -mr-2 text-slate-700 transition-colors"
-        >
-          <Menu className="w-6 h-6" />
-        </button>
-      </div>
 
-      <div className="mb-8 flex flex-col items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500 text-center mt-6">
-        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-[#0f172a] dark:text-white flex items-center justify-center gap-2 flex-wrap">
-          {user ? (
-            <>Welcome back, <span className="relative"><span className="relative z-10 text-indigo-600 dark:text-indigo-400">{user.displayName || "User"}</span><svg className="absolute w-full h-3 -bottom-1 left-0 text-indigo-200 dark:text-indigo-900/50 -z-0" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0,15 Q50,0 100,15" stroke="currentColor" strokeWidth="8" fill="none" strokeLinecap="round" /></svg></span></>
-          ) : (
-            <>Welcome to Civil <span className="relative whitespace-nowrap"><span className="relative z-10 text-indigo-600 dark:text-indigo-400">Estimation Pro</span><svg className="absolute w-full h-3 -bottom-1 left-0 text-indigo-200 dark:text-indigo-900/50 -z-0" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0,15 Q30,5 100,15" stroke="currentColor" strokeWidth="8" fill="none" strokeLinecap="round" /></svg></span></>
-          )}{" "}
-          <span
-            className="text-3xl md:text-5xl animate-bounce origin-bottom hover:animate-none cursor-default inline-block"
-            style={{ animationDuration: "2s", animationIterationCount: 2 }}
-          >
-            👋
-          </span>
-        </h1>
-        <div className="text-slate-500 dark:text-slate-400 mt-1 flex flex-col items-center gap-1 font-medium text-base">
-          <p>
-            {user ? "Ready to continue your estimates?" : "What would you like to estimate today?"}
-          </p>
-          {!user && (
-            <p className="text-sm font-normal">
-              <button 
-                onClick={onOpenAuth}
-                className="text-amber-600 hover:text-amber-700 hover:underline font-semibold"
-              >
-                Sign In
-              </button>{" "}
-              to save your estimates and access more features.
-            </p>
-          )}
-        </div>
-      </div>
+      <style>{`
+        @keyframes custom-bounce {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-15px) rotate(15deg); }
+        }
+        .waving-hand {
+          display: inline-block;
+          animation: custom-bounce 1.5s ease-in-out infinite;
+          transform-origin: bottom right;
+        }
+        @keyframes float-up {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .stagger-in {
+          animation: float-up 0.5s ease backwards;
+        }
+      `}</style>
 
-      <div className="mb-8 md:mb-10 flex flex-col justify-center animate-in fade-in slide-in-from-bottom-4 duration-500 delay-75">
-        <div className="relative group w-full max-w-2xl mx-auto drop-shadow-md">
-          <div className="absolute inset-y-0 left-[20px] md:left-[24px] flex items-center pointer-events-none z-10">
-            <Search className="text-slate-400 dark:text-slate-500 w-5 h-5 md:w-6 md:h-6 transition-colors group-focus-within:text-indigo-500" />
+      <div className="flex-1 px-4 md:px-8 py-6 pb-24 w-full max-w-7xl mx-auto flex flex-col relative z-0">
+        
+        {/* Mobile Header */}
+        <div className="mb-6 flex items-center justify-between gap-3 md:hidden">
+          <div className="flex items-center gap-2 group">
+            <div className="w-8 h-8 flex items-center justify-center transition-all duration-500 text-orange-500">
+              <Logo className="w-8 h-8" />
+            </div>
+            <span className="font-bold text-[1.1rem] tracking-tight text-slate-800">
+              Civil Estimation Pro
+            </span>
           </div>
-          <input
-            type="text"
-            placeholder="Search tools, materials, or projects."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-white/80 backdrop-blur-xl dark:bg-slate-900/80 rounded-full py-3 md:py-4 pl-[50px] md:pl-[60px] pr-5 md:pr-6 text-base md:text-lg font-medium text-slate-800 dark:text-white outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500 border border-white/50 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 shadow-[0_8px_32px_rgba(0,0,0,0.05)] focus:shadow-[0_10px_40px_rgba(99,102,241,0.15)]"
-          />
+          <button
+            onClick={onOpenSidebar}
+            className="p-2.5 -mr-2 rounded-full text-slate-500 bg-white/50 hover:bg-white/80 transition-all border border-slate-200/50"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
         </div>
 
-        <div className="mt-6 md:mt-8 px-2 md:px-0">
-          <div className="flex flex-row overflow-x-auto md:flex-wrap items-center md:justify-center gap-2 md:gap-3 w-full max-w-5xl mx-auto pb-2 md:pb-0 scrollbar-hide">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`flex-shrink-0 px-4 md:px-5 py-2 md:py-2.5 rounded-full whitespace-nowrap text-[13px] md:text-[15px] font-semibold transition-all duration-300 ${
-                  activeCategory === category
-                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 transform scale-105"
-                    : "bg-white/60 backdrop-blur-md text-slate-600 border border-white/50 hover:bg-white hover:shadow-md dark:bg-slate-800/60 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
-                }`}
-              >
-                {category}
+        {/* HERO SECTION */}
+        <div className="mb-12 md:mb-16 flex flex-col items-center justify-center text-center mt-10 sm:mt-16 px-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-[4.5rem] leading-[1.1] font-bold tracking-tight text-slate-900 mb-6 max-w-[900px] mx-auto font-sans">
+            Check your Open Graph or <br className="hidden md:block" /> <span className="text-orange-500">Social card</span> preview.
+          </h1>
+          <p className="text-gray-500 font-medium text-base md:text-xl max-w-2xl mx-auto leading-relaxed mt-6 mb-8 text-balance">
+            Test your link preview for free and see how your links would look like on Facebook, LinkedIn, Twitter and Imessage.
+          </p>
+        </div>
+
+        {/* SEARCH BAR */}
+        <div className="mb-10 lg:mb-14 flex flex-col justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 mt-8 px-4">
+          <div className="relative w-full max-w-lg mx-auto group">
+            {/* Animated glowing backdrop */}
+            <div className="absolute -inset-1.5 bg-gradient-to-r from-orange-400 via-pink-500 to-indigo-500 rounded-full blur-md opacity-30 group-hover:opacity-75 transition duration-700 animate-pulse"></div>
+            
+            {/* Main Bar */}
+            <div className="relative w-full shadow-2xl rounded-full bg-white/95 flex items-center p-2 pl-6 md:pl-8 border-2 border-white/80 focus-within:border-pink-400/50 transition-all duration-300">
+              <input
+                type="text"
+                placeholder="businessboost.com"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="flex-1 bg-transparent text-lg md:text-xl text-slate-800 font-bold outline-none transition-all placeholder:text-slate-400 placeholder:font-medium font-sans border-0 focus:ring-0 py-2 md:py-4 w-full min-w-0"
+              />
+              <button className="h-12 w-12 md:h-14 md:w-14 bg-gradient-to-tr from-pink-500 to-orange-400 text-white rounded-full flex items-center justify-center hover:scale-105 active:scale-95 shadow-md shadow-pink-500/30 transition-all shrink-0 ml-2 group-hover:rotate-12 duration-300 border-none outline-none">
+                <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
               </button>
+            </div>
+          </div>
+        </div>
+
+        {/* CATEGORY TABS AND TOOL CARDS */}
+        <div className="flex flex-col w-full animate-in fade-in slide-in-from-bottom-6 duration-700 delay-150">
+          {/* CATEGORY TABS */}
+          <div className="mt-4 px-1 md:px-0 relative mb-12">
+            <div className="flex flex-row overflow-x-auto md:flex-wrap items-center md:justify-center gap-2 w-full max-w-5xl mx-auto pb-4 md:pb-0 scrollbar-hide snap-x">
+              {categories.map((category, idx) => (
+                <button
+                  key={category}
+                  onClick={() => setActiveCategory(category)}
+                  className={`stagger-in flex-shrink-0 relative px-5 py-2.5 rounded-full whitespace-nowrap text-sm md:text-[15px] font-bold transition-all duration-300 snap-center overflow-hidden border ${
+                    activeCategory === category
+                      ? "text-slate-900 border-slate-200 bg-white shadow-sm"
+                      : "text-slate-500 border-transparent hover:bg-slate-100/50 hover:text-slate-800"
+                  }`}
+                  style={{ animationDelay: `${idx * 50}ms` }}
+                >
+                  <span className="relative z-10">{category}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* MODULAR CARDS GRID */}
+          <div className="flex flex-col gap-12 w-full">
+            {groupsToDisplay.map((groupName) => (
+              <div key={groupName} className="flex flex-col gap-6">
+                <h2 className="text-lg md:text-xl font-bold text-slate-800 pl-2 tracking-widest uppercase flex items-center gap-3">
+                  <span className="w-8 h-[2px] bg-slate-900 block"></span>
+                  {groupName}
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6 w-full">
+                  {groupedModules[groupName].map((mod, idx) => {
+                    const theme = getCategoryTheme(mod.category, mod.id);
+                    
+                    return (
+                      <button
+                        key={mod.id}
+                        id={`module-card-${mod.id}`}
+                        onClick={() => onSelectModule(mod.id as ModuleId)}
+                        className={`stagger-in col-span-1 border p-6 rounded-[24px] transition-all duration-300 flex flex-col relative text-left group min-h-[180px] overflow-hidden bg-white hover:bg-slate-50 border-slate-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(0,0,0,0.06)]`}
+                        style={{ animationDelay: `${idx * 50}ms` }}
+                      >
+                        {/* Card Content */}
+                        <div className="relative z-10 w-full flex-1 flex flex-col">
+                          <div className="flex justify-between items-start mb-4">
+                            <div className={`w-12 h-12 rounded-[16px] ${theme.fill} border ${theme.border} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300 ${theme.text}`}>
+                              <mod.icon className="w-6 h-6" strokeWidth={2.5} />
+                            </div>
+                            
+                            <div className={`inline-flex items-center px-3 py-1 rounded-full border ${theme.border} ${theme.bg} text-[10px] font-bold tracking-widest uppercase ${theme.text}`}>
+                              {mod.category}
+                            </div>
+                          </div>
+
+                          <h3 className="text-[17px] font-bold text-slate-900 mb-2 leading-tight transition-colors font-sans group-hover:text-cyan-600">
+                            {mod.title}
+                          </h3>
+                          <p className="text-[13px] text-slate-500 font-medium leading-relaxed mt-auto">
+                            {mod.desc}
+                          </p>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             ))}
           </div>
         </div>
-      </div>
-
-      <div className="flex flex-col gap-10 w-full animate-in fade-in slide-in-from-bottom-4 duration-500 delay-150">
-        {groupsToDisplay.map((groupName) => (
-          <div key={groupName} className="flex flex-col gap-6">
-            <h2 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-100 pl-2 text-center md:text-left">
-              {groupName}
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6 w-full">
-              {groupedModules[groupName].map((mod) => {
-                if (mod.id === "house") {
-                  return (
-                    <button
-                      key={mod.id}
-                      id={`module-card-${mod.id}`}
-                      onClick={() => onSelectModule(mod.id as ModuleId)}
-                      className="col-span-1 bg-gradient-to-br from-indigo-600 via-purple-600 to-purple-800 p-3 md:p-4 rounded-[20px] transition-all duration-300 flex flex-col items-center relative text-center group hover:-translate-y-1.5 shadow-[0_12px_40px_rgba(79,70,229,0.25)] hover:shadow-[0_20px_50px_rgba(79,70,229,0.4)] min-h-[110px] overflow-hidden"
-                    >
-                      <div className="absolute right-[-10%] bottom-[-5%] text-indigo-300/10 group-hover:text-indigo-300/20 transition-all duration-500 pointer-events-none group-active:scale-95 group-active:-rotate-6">
-                        <Home
-                          className="w-[120px] h-[120px] md:w-[140px] md:h-[140px]"
-                          strokeWidth={1}
-                        />
-                      </div>
-
-                      <div className="relative z-10 w-full flex-1 flex flex-col items-center">
-                        <div className="relative w-10 h-10 flex items-center justify-center mb-2 shrink-0">
-                          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-400/40 to-transparent blur-[12px] transition-transform duration-500 group-hover:scale-150"></div>
-                          <mod.icon className="relative z-10 w-5 h-5 text-indigo-50 transition-transform duration-300 group-hover:scale-110" strokeWidth={2.5} />
-                        </div>
-
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-indigo-300/30 bg-white/10 backdrop-blur-md text-[9px] font-bold tracking-widest uppercase text-indigo-50 shadow-sm mb-2.5">
-                          <span className="truncate">{mod.category}</span>
-                        </div>
-
-                        <h3 className="text-[16px] font-bold text-white mb-2 leading-tight">
-                          {mod.title}
-                        </h3>
-
-                        <div className="flex flex-row flex-wrap justify-center gap-1.5 mt-auto pt-1 w-full">
-                          <div className="inline-flex items-center px-1.5 py-0.5 rounded-full border border-indigo-300/40 bg-white/10 backdrop-blur-md text-[10px] font-medium text-indigo-50 transition-colors group-hover:bg-white/20">
-                            Grey Structure
-                          </div>
-                          <div className="inline-flex items-center px-1.5 py-0.5 rounded-full border border-indigo-300/40 bg-white/10 backdrop-blur-md text-[10px] font-medium text-indigo-50 transition-colors group-hover:bg-white/20">
-                            Finishing
-                          </div>
-                        </div>
-                      </div>
-                    </button>
-                  );
-                }
-
-                const theme = getCategoryTheme(mod.category, mod.id);
-                return (
-                  <button
-                    key={mod.id}
-                    id={`module-card-${mod.id}`}
-                    onClick={() => onSelectModule(mod.id as ModuleId)}
-                    className="col-span-1 bg-white/70 backdrop-blur-xl dark:bg-slate-900/70 p-3 md:p-4 rounded-[20px] transition-all duration-300 flex flex-col items-center relative text-center group hover:-translate-y-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.04)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.2)] dark:hover:shadow-[0_16px_48px_rgba(0,0,0,0.4)] border border-white/60 hover:border-white dark:border-slate-700/50 dark:hover:border-slate-600 min-h-[110px] overflow-hidden"
-                  >
-                    <div className="relative z-10 w-full flex-1 flex flex-col items-center">
-                      <div className="relative w-10 h-10 flex items-center justify-center mb-2 shrink-0">
-                        <div
-                          className={`absolute inset-0 rounded-full ${theme.blob} blur-[12px] transition-transform duration-500 group-hover:scale-150`}
-                        ></div>
-                        <mod.icon
-                          className={`relative z-10 w-5 h-5 ${theme.text} transition-transform duration-300 group-hover:scale-110`}
-                          strokeWidth={2.5}
-                        />
-                      </div>
-
-                      <div
-                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full border ${theme.border} bg-white/50 backdrop-blur-sm dark:bg-slate-800/80 shadow-sm text-[9px] font-bold tracking-widest uppercase ${theme.text} mb-1.5`}
-                      >
-                        <span className="truncate">{mod.category}</span>
-                      </div>
-
-                      <h3 className="text-[15px] font-bold text-slate-800 dark:text-white mb-1.5 leading-tight">
-                        {mod.title}
-                      </h3>
-                      <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium leading-snug line-clamp-2 mt-auto">
-                        {mod.desc}
-                      </p>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   );

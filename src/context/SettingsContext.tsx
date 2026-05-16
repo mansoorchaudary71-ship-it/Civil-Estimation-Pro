@@ -94,16 +94,9 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('app-settings', JSON.stringify(settings));
     
     // Apply theme to document
-    const isDark = 
-      settings.theme === 'dark' || 
-      (settings.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      
+    // Always force light mode as requested
     const root = window.document.documentElement;
-    if (isDark) {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
+    root.classList.remove('dark');
   }, [settings]);
 
   const updateSettings = (newSettings: Partial<SettingsState>) => {

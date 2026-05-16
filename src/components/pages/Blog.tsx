@@ -85,7 +85,6 @@ export default function Blog() {
         <SEO 
           title={`${selectedPost.title} | Civil Estimation Pro Blog`} 
           description={selectedPost.excerpt} 
-          image={selectedPost.image}
         />
         
         <button 

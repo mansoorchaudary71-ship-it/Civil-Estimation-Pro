@@ -15,7 +15,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
   };
 
   return (
-    <footer className="w-full max-w-7xl mx-auto px-4 sm:px-6 mb-8 mt-12">
+    <footer className="w-full max-w-7xl mx-auto px-4 sm:px-6 mb-8 mt-auto shrink-0 z-10 relative">
       <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border border-white/40 dark:border-slate-800/40 rounded-[2.5rem] p-8 md:p-12 shadow-sm">
         
         {/* Top Section: Branding and Columns */}
