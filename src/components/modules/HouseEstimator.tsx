@@ -37,7 +37,7 @@ import { useSettings } from "../../context/SettingsContext";
 
 import AdvancedSpecs, { SpecsState, initialSpecs } from "./AdvancedSpecs";
 import GlobalSettingsModal from "./GlobalSettingsModal";
-import RccStructureCalculator from "./RccStructureCalculator";
+import MasterRccStructure from "./MasterRccStructure";
 import MasterQuantityEstimator from "./MasterQuantityEstimator";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { SEO } from "../SEO";

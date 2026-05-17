@@ -27,7 +27,6 @@ import {
 import ColorfulTab from "../ui/ColorfulTab";
 import UnitToggleGroup from "../ui/UnitToggleGroup";
 import { CalculationHistory } from "../ui/CalculationHistory";
-import RccStructureCalculator from "./RccStructureCalculator";
 import MasterQuantityEstimator from "./MasterQuantityEstimator";
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
@@ -60,7 +59,6 @@ export default function ConstructionMaterialEstimator() {
     { id: "blocks", label: "Blocks", icon: Container },
     { id: "plaster", label: "Plaster", icon: PaintBucket },
     { id: "steel", label: "Steel", icon: Layers },
-    { id: "rcc", label: "RCC Structure", icon: Spline },
     { id: "water", label: "Water", icon: Droplet },
   ] as const;
   const [showCost, setShowCost] = useState(false);
@@ -884,12 +882,6 @@ export default function ConstructionMaterialEstimator() {
         </div>
       </div>
     );
-  } else if (activeTab === "rcc") {
-    content = (
-      <div className="w-full relative col-span-1 lg:col-span-2 space-y-4">
-        <RccStructureCalculator isEmbedded={true} />
-      </div>
-    );
   } else if (activeTab === "master") {
     content = (
       <div className="w-full relative col-span-1 lg:col-span-2 space-y-4">
@@ -987,7 +979,6 @@ export default function ConstructionMaterialEstimator() {
             {content}
             {activeTab !== "cement" &&
               activeTab !== "sand" &&
-              activeTab !== "rcc" &&
               activeTab !== "master" && (
                 <div className="bg-slate-900 rounded-3xl px-4 py-3 md:px-4 py-3 text-white space-y-4 shadow-xl sticky top-6 self-start z-10">
                   <div className="flex justify-between items-center mb-4">
@@ -1386,7 +1377,7 @@ export default function ConstructionMaterialEstimator() {
           </div>
         )}
       </div>
-      {(activeTab !== 'master' && activeTab !== 'rcc') && (
+      {(activeTab !== 'master') && (
         <CalculationHistory
           calculatorId={`material_calc_${activeTab}`}
           currentInputs={currentExportInputs}

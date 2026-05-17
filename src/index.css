@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Montserrat", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
   /* Update shadows to be softer, more diffused (glassmorphism style) */
@@ -21,7 +22,7 @@
 @layer base {
   :root {
     --background: 210 40% 98%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 0 0% 7%;
   }
 
   .dark {
@@ -30,16 +31,22 @@
   }
 
   body {
-    background-color: #fcfbf9;
-    background-image: 
-      radial-gradient(ellipse at 10% 30%, rgba(255, 218, 196, 0.4) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 30%, rgba(255, 235, 185, 0.3) 0%, transparent 60%),
-      radial-gradient(ellipse at 50% 80%, rgba(210, 225, 255, 0.4) 0%, transparent 60%),
-      radial-gradient(ellipse at 10% 70%, rgba(240, 210, 255, 0.3) 0%, transparent 60%);
+    background: linear-gradient(110deg, #FFDF70 0%, #F0F4FA 100%);
     background-attachment: fixed;
-    color: hsl(var(--foreground));
+    color: #111111;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .dark body {
+    background: linear-gradient(110deg, #1A1A1A 0%, #2D3748 100%);
+    color: #F8FAFC;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
   }
 }
 

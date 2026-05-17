@@ -23,7 +23,6 @@ export type ModuleId =
   | "eight-bar-column"
   | "ten-bar-column"
   | "beam-calculator"
-  | "rcc-calculator"
   | "staircase-calculator"
   | "column-estimator"
   | "master-rcc"
@@ -91,8 +90,7 @@ export default function Sidebar({
   ];
 
   const structuralTools: { id: ModuleId; label: string }[] = [
-    { id: "master-rcc", label: "Master RCC Structure" },
-    { id: "rcc-calculator", label: "Quick RCC Estimator" },
+    { id: "master-rcc", label: "Master RCC Estimator" },
     { id: "formwork", label: "Formwork & Scaffold" },
     { id: "interiors-finishes", label: "Interiors & Finishes" },
   ];
