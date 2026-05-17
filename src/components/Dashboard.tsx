@@ -233,27 +233,38 @@ export default function Dashboard({
                 />
               </div>
 
-              {/* Popular Tools Preview (to give the widget some body) */}
+              {/* Popular Tools Stack */}
               <div className="flex-1 flex flex-col justify-center">
-                <div className="flex items-center justify-between mb-4 px-2">
-                  <span className="text-[13px] font-bold text-[#111111]/50 dark:text-white/50 tracking-widest uppercase">Popular</span>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="flex flex-col gap-1">
                   {[
-                    { id: "calculators", title: "Materials", icon: Box },
-                    { id: "house", title: "House", icon: Home },
-                    { id: "takeoff", title: "2D Takeoff", icon: Ruler },
-                    { id: "master-rcc", title: "RCC Master", icon: Building2 }
+                    { id: "house", title: "House Estimator", subtitle: "Full residential quantities", icon: Home, action: "Open", status: "active" },
+                    { id: "calculators", title: "Material Splits", subtitle: "Cement, sand & aggregate", icon: Box, action: "Calculate", status: "active" },
+                    { id: "takeoff", title: "2D Takeoff", subtitle: "Blueprint PDF measurements", icon: Ruler, action: "Beta", status: "beta" },
+                    { id: "master-rcc", title: "RCC Master", subtitle: "Structural steel & concrete", icon: Building2, action: "Open", status: "active" }
                   ].map((tool) => (
                     <button
                       key={tool.id}
                       onClick={() => onSelectModule(tool.id as ModuleId)}
-                      className="flex items-center gap-3 p-4 rounded-3xl bg-white/50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 transition-all border border-transparent hover:border-white/80 dark:hover:border-white/10 shadow-sm hover:shadow-md text-left group"
+                      className="group flex flex-row items-center justify-between w-full p-3 rounded-[1.5rem] bg-transparent hover:bg-[#111111] dark:hover:bg-white transition-colors duration-150 ease-in-out text-left"
                     >
-                      <div className="w-10 h-10 rounded-2xl bg-[#111111]/5 dark:bg-white/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                        <tool.icon className="w-5 h-5 text-[#111111] dark:text-white" strokeWidth={2} />
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-2xl bg-[#111111]/5 dark:bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-white/10 dark:group-hover:bg-black/10 transition-colors duration-150 ease-in-out">
+                          <tool.icon className="w-6 h-6 text-[#111111] dark:text-white group-hover:text-white dark:group-hover:text-[#111111] transition-colors duration-150 ease-in-out" strokeWidth={2} />
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="font-bold text-[16px] text-[#111111] dark:text-white group-hover:text-white dark:group-hover:text-[#111111] transition-colors duration-150 ease-in-out">{tool.title}</span>
+                          <span className="font-medium text-[13px] text-[#111111]/50 dark:text-white/50 group-hover:text-white/60 dark:group-hover:text-[#111111]/60 transition-colors duration-150 ease-in-out">{tool.subtitle}</span>
+                        </div>
                       </div>
-                      <span className="font-semibold text-[15px] text-[#111111] dark:text-white">{tool.title}</span>
+                      
+                      <div className={`px-5 py-2 rounded-full text-[13px] font-bold tracking-wide transition-all duration-150 ease-in-out
+                        ${tool.status === 'beta' 
+                          ? 'bg-[#111111]/5 text-[#111111] group-hover:bg-black group-hover:text-white group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2)] dark:bg-white/10 dark:text-white dark:group-hover:bg-black dark:group-hover:text-white' 
+                          : 'bg-[#111111]/5 text-[#111111] group-hover:bg-[#FFDF70] group-hover:text-[#111111] dark:bg-white/10 dark:text-white dark:group-hover:bg-[#FFDF70] dark:group-hover:text-[#111111]'
+                        }`}
+                      >
+                        {tool.action}
+                      </div>
                     </button>
                   ))}
                 </div>
