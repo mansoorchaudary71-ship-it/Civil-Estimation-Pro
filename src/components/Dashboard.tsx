@@ -5,7 +5,7 @@ import {
   Calculator, Sparkles, Truck, Route, Waves, Paintbrush, Home, 
   TrendingUp, Hammer, Layers, BoxSelect, Search, Menu, CheckSquare, 
   Map, Grid2X2, Box, ArrowRightLeft, Weight, Spline, ArrowRight,
-  ChevronRight, HardHat, Scaling, Container, Repeat, Anvil, Building2, 
+  ChevronRight, ChevronDown, HardHat, Scaling, Container, Repeat, Anvil, Building2, 
   Blocks, Shovel, Pickaxe, Cone, Droplet, PaintBucket, Ruler, Columns, 
   ClipboardList, Maximize2, FileSpreadsheet, Zap
 } from "lucide-react";
@@ -75,6 +75,22 @@ export default function Dashboard({
   const { user } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
+
+  const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
+  const searchPlaceholders = [
+    "Search 'cement for 5 marla'...",
+    "Search 'steel quantity slab'...",
+    "Search 'brickwork calculation'...",
+    "Search 'paint for interior wall'...",
+    "Search 'excavation volume'..."
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentPlaceholder((prev) => (prev + 1) % searchPlaceholders.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     if (previousModule && !["home", "my-estimates", "pricing", "about", "careers", "contact", "blog"].includes(previousModule)) {
@@ -215,22 +231,91 @@ export default function Dashboard({
             <h1 className="font-heading text-[3.5rem] md:text-[5rem] lg:text-[5.5rem] leading-[0.95] font-black tracking-tighter text-[#111111] dark:text-white uppercase">
               ACCURATE<br/>ESTIMATES<br/>IN SECONDS
             </h1>
+
+            {/* Social Proof Strip */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-8 pt-8 border-t border-[#111111]/10 dark:border-white/10 w-full">
+              {/* Trust Signal 1 */}
+              <div className="flex items-center gap-2">
+                <span className="text-[14px] font-bold text-[#B89B5E] dark:text-[#CBB576]">12,400+</span>
+                <span className="text-[13px] font-medium text-[#111111]/60 dark:text-white/60">estimates created</span>
+              </div>
+              
+              <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-[#111111]/10 dark:bg-white/10"></div>
+              
+              {/* Trust Signal 2 */}
+              <div className="flex items-center gap-2">
+                <div className="flex items-center text-[#B89B5E] dark:text-[#CBB576]">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <span className="text-[14px] font-bold text-[#B89B5E] dark:text-[#CBB576]">4.8</span>
+                <span className="text-[13px] font-medium text-[#111111]/60 dark:text-white/60">from engineers</span>
+              </div>
+
+              <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-[#111111]/10 dark:bg-white/10"></div>
+              
+              {/* Trust Signal 3 */}
+              <div className="flex items-center gap-2">
+                <Map className="w-4 h-4 text-[#B89B5E] dark:text-[#CBB576]" strokeWidth={2.5} />
+                <span className="text-[13px] font-medium text-[#111111]/60 dark:text-white/60">Used across PK &amp; Middle East</span>
+              </div>
+            </div>
           </div>
 
           {/* RIGHT COLUMN: INTERACTIVE WIDGET */}
           <div className="w-full max-w-xl mx-auto lg:max-w-none animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
             <div className="w-full bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl border border-white/60 dark:border-white/10 rounded-[2.5rem] p-8 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.08)] dark:shadow-[0_32px_64px_-12px_rgba(0,0,0,0.3)] flex flex-col min-h-[300px]">
               
-              {/* Minimalist Search Input */}
-              <div className="flex items-center w-full border-b border-[#111111]/10 dark:border-white/10 pb-6 mb-6">
-                <Search className="w-7 h-7 text-[#111111]/40 dark:text-white/40 mr-4 shrink-0" strokeWidth={2.5} />
-                <input
-                  type="text"
-                  placeholder="Search materials or calculators..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="flex-1 bg-transparent text-xl md:text-2xl text-[#111111] dark:text-white font-semibold outline-none placeholder:text-[#111111]/30 dark:placeholder:text-white/30 border-0 focus:ring-0 p-0 caret-[#111111] dark:caret-white w-full min-w-0"
-                />
+              {/* Enhanced Search Input */}
+              <div className="flex flex-col mb-8 relative z-20">
+                {/* Category Filter */}
+                <div className="flex items-center gap-2 mb-3 px-1">
+                  <span className="text-[12px] font-bold text-[#111111]/40 dark:text-white/40 tracking-widest uppercase">In</span>
+                  <div className="relative group">
+                    <select 
+                      className="appearance-none bg-[#111111]/5 dark:bg-white/5 hover:bg-[#111111]/10 dark:hover:bg-white/10 border border-transparent rounded-full pl-3 pr-7 py-1 text-[13px] font-semibold text-[#111111] dark:text-white outline-none cursor-pointer transition-colors"
+                      value={activeCategory}
+                      onChange={(e) => setActiveCategory(e.target.value)}
+                    >
+                      <option value="All">Everything</option>
+                      <option value="POPULAR">Materials</option>
+                      <option value="TOOLS">Calculators</option>
+                      <option value="REPORTS">Reports</option>
+                    </select>
+                    <ChevronDown className="w-3.5 h-3.5 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#111111]/50 dark:text-white/50 cursor-pointer" />
+                  </div>
+                </div>
+                
+                {/* Frosted Glass Search Bar */}
+                <div className="relative flex items-center w-full bg-white/50 dark:bg-[#111111]/50 backdrop-blur-xl border border-white/80 dark:border-white/10 rounded-2xl p-4 shadow-[0_8px_16px_-6px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_16px_-6px_rgba(0,0,0,0.3)] focus-within:ring-2 focus-within:ring-[#111111]/20 dark:focus-within:ring-white/20 focus-within:bg-white dark:focus-within:bg-slate-900 transition-all duration-300">
+                  <Search className="w-6 h-6 text-[#111111]/40 dark:text-white/40 mr-3 shrink-0" strokeWidth={2.5} />
+                  
+                  <div className="relative flex-1 h-8 flex items-center overflow-hidden">
+                    {!searchTerm && (
+                      <div className="absolute inset-0 flex flex-col pointer-events-none w-full">
+                        {searchPlaceholders.map((text, idx) => (
+                          <div 
+                            key={idx}
+                            className={`absolute inset-0 flex items-center w-full text-[17px] md:text-xl font-semibold text-[#111111]/30 dark:text-white/30 truncate transition-all duration-500 ease-in-out
+                              ${idx === currentPlaceholder 
+                                ? 'opacity-100 translate-y-0' 
+                                : idx < currentPlaceholder 
+                                  ? 'opacity-0 -translate-y-8' 
+                                  : 'opacity-0 translate-y-8'
+                              }`}
+                          >
+                            {text}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <input
+                      type="text"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="absolute inset-0 bg-transparent text-[17px] md:text-xl text-[#111111] dark:text-white font-semibold outline-none border-0 focus:ring-0 p-0 caret-[#111111] dark:caret-white w-full h-full"
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* Popular Tools Stack */}
@@ -313,27 +398,39 @@ export default function Dashboard({
                         key={mod.id}
                         id={`module-card-${mod.id}`}
                         onClick={() => onSelectModule(mod.id as ModuleId)}
-                        className={`stagger-in col-span-1 border p-6 rounded-[24px] transition-all duration-300 flex flex-col relative text-left group min-h-[180px] overflow-hidden bg-white hover:bg-slate-50 border-slate-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(0,0,0,0.06)]`}
+                        className="stagger-in col-span-1 border border-slate-200/80 dark:border-white/10 hover:border-transparent p-6 rounded-[24px] bg-white dark:bg-[#1A1A1A] transition-all duration-300 ease-out flex flex-col relative text-left group min-h-[220px] overflow-hidden shadow-sm hover:shadow-[0_20px_40px_-16px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_20px_40px_-16px_rgba(255,255,255,0.05)] hover:-translate-y-1.5"
                         style={{ animationDelay: `${idx * 50}ms` }}
                       >
+                        {/* Colored Accent Top Bar */}
+                        <div className={`absolute top-0 left-0 w-full h-1.5 ${theme.bg} transition-transform origin-left group-hover:scale-x-105`}></div>
+                        
                         {/* Card Content */}
-                        <div className="relative z-10 w-full flex-1 flex flex-col">
-                          <div className="flex justify-between items-start mb-4">
-                            <div className={`w-12 h-12 rounded-[16px] ${theme.fill} border ${theme.border} flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300 ${theme.text}`}>
-                              <mod.icon className="w-6 h-6" strokeWidth={2.5} />
+                        <div className="relative z-10 w-full flex-1 flex flex-col pt-1">
+                          <div className="flex justify-between items-start mb-6">
+                            <div className={`w-14 h-14 rounded-[18px] ${theme.bg} ${theme.text} flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-300 ease-out shadow-sm`}>
+                              <mod.icon className="w-7 h-7" strokeWidth={2} />
                             </div>
                             
-                            <div className={`inline-flex items-center px-3 py-1 rounded-full border ${theme.border} ${theme.bg} text-[10px] font-bold tracking-widest uppercase ${theme.text}`}>
+                            <div className="inline-flex items-center px-2.5 py-1 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 text-[10px] font-bold tracking-widest uppercase text-slate-400 dark:text-white/40">
                               {mod.category}
                             </div>
                           </div>
 
-                          <h3 className="text-[17px] font-bold text-slate-900 mb-2 leading-tight transition-colors font-sans group-hover:text-cyan-600">
+                          <h3 className="text-[18px] font-bold text-[#111111] dark:text-white mb-1.5 leading-tight tracking-tight font-sans group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                             {mod.title}
                           </h3>
-                          <p className="text-[13px] text-slate-500 font-medium leading-relaxed mt-auto">
+                          <p className="text-[13px] text-[#111111]/50 dark:text-white/50 font-medium leading-relaxed mb-6 line-clamp-2">
                             {mod.desc}
                           </p>
+
+                          <div className="mt-auto flex items-center justify-between pt-4 border-t border-slate-100 dark:border-white/5">
+                            <span className="text-[12px] font-bold uppercase tracking-widest text-[#111111]/30 dark:text-white/30 group-hover:text-[#111111] dark:group-hover:text-white transition-colors">
+                              Calculate now
+                            </span>
+                            <div className="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 dark:bg-white/5 group-hover:bg-[#111111] dark:group-hover:bg-white transition-colors duration-300">
+                              <ArrowRight className="w-4 h-4 text-slate-400 dark:text-white/40 group-hover:text-white dark:group-hover:text-[#111111] group-hover:translate-x-0.5 transition-all duration-300" strokeWidth={2.5} />
+                            </div>
+                          </div>
                         </div>
                       </button>
                     );
