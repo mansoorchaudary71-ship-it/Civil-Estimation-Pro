@@ -305,7 +305,6 @@ export default function SlabEstimator() {
                     </span>
                  </p>
               </div>
-              <CalculationHistory />
             </div>
           ) : (
             <div className="flex-1 flex items-center justify-center text-slate-500 py-12 text-center h-full">

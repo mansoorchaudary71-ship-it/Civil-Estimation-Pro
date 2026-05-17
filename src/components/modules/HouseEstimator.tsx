@@ -1918,7 +1918,7 @@ export default function HouseEstimator() {
                   )}
                   {activeTab === "rcc" && (
                     <div className="animate-in fade-in slide-in-from-bottom-8 duration-500 h-full flex flex-col pt-4">
-                      <RccStructureCalculator isEmbedded={true} />
+                      <MasterRccStructure isEmbedded={true} />
                     </div>
                   )}
                   {activeTab === "master" && (

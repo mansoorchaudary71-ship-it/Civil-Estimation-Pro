@@ -12,7 +12,6 @@ import GridEarthworkEstimator from "./components/modules/GridEarthwork";
 import TrenchExcavationEstimator from "./components/modules/TrenchExcavation";
 import ChainageVolumeEstimator from "./components/modules/ChainageVolume";
 import SewerageEstimator from "./components/modules/SewerageEstimator";
-import FinishingEstimator from "./components/modules/FinishingEstimator";
 import HouseEstimator from "./components/modules/HouseEstimator";
 import RateAnalysis from "./components/modules/RateAnalysis";
 import FormworkEstimator from "./components/modules/FormworkEstimator";
@@ -56,6 +55,7 @@ import Blog from "./components/pages/Blog";
 import LegalPages from "./components/pages/LegalPages";
 import { Menu, Settings as SettingsIcon } from "lucide-react";
 import { GlobalSettingsToggle } from "./components/ui/GlobalSettingsToggle";
+import { OnboardingModal } from "./components/ui/OnboardingModal";
 
 export default function App() {
   const [activeModule, setActiveModule] = useState<ModuleId>("home");
@@ -160,6 +160,7 @@ export default function App() {
         <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
         <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
         <ProfileSettings isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
+        <OnboardingModal onNavigate={handleSelectModule} />
       </div>
       </TakeoffProvider>
     </MarketRatesProvider>

@@ -214,61 +214,118 @@ export default function Dashboard({
           </button>
         </div>
 
-        {/* SPLIT HERO SECTION */}
-        <div className="w-full max-w-[1400px] mx-auto mt-8 md:mt-16 mb-24 px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* LEFT COLUMN: TEXT */}
-          <div className="flex flex-col items-start justify-center text-left animate-in fade-in slide-in-from-bottom-8 duration-700">
-            {/* Tag */}
-            <div className="inline-flex items-center rounded-full bg-[#111111] dark:bg-white pl-1.5 pr-5 py-1.5 mb-8 shadow-sm">
-              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-[#2A2A2A] dark:bg-slate-200 mr-2.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#FFDF70] dark:text-[#FFA000]" strokeWidth={2.5} />
-              </div>
-              <span className="text-[11px] md:text-xs font-bold tracking-widest uppercase text-white dark:text-[#111111]">
-                / For Quantity Surveyors & Engineers
-              </span>
+        {/* FULL-WIDTH HERO SECTION */}
+        <div className="relative w-full max-w-[1400px] mx-auto mt-8 md:mt-16 mb-20 px-4 lg:px-8 flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-bottom-8 duration-700 z-10">
+          
+          {/* Subtle Isometric Grid Background */}
+          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 -z-10 h-[200%] pointer-events-none overflow-hidden opacity-[0.05] dark:opacity-[0.08]" style={{ maskImage: "radial-gradient(ellipse at center, white, transparent 70%)", WebkitMaskImage: "radial-gradient(ellipse at center, white, transparent 70%)" }}>
+             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <pattern id="isometric-grid" width="60" height="34.641" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
+                    <path d="M30 0 L60 17.32 L30 34.641 L0 17.32 Z" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+                    <path d="M30 0 L30 34.641" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#isometric-grid)" className="text-slate-900 dark:text-white" />
+             </svg>
+          </div>
+
+          {/* Tag */}
+          <div className="inline-flex items-center rounded-full bg-[#111111] dark:bg-white pl-1.5 pr-5 py-1.5 mb-8 shadow-sm">
+            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-[#2A2A2A] dark:bg-slate-200 mr-2.5">
+              <Sparkles className="w-3.5 h-3.5 text-[#FFDF70] dark:text-[#FFA000]" strokeWidth={2.5} />
+            </div>
+            <span className="text-[11px] md:text-xs font-bold tracking-widest uppercase text-white dark:text-[#111111]">
+              / For Quantity Surveyors & Engineers
+            </span>
+          </div>
+          
+          <h1 className="font-heading text-[3.5rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[6.5rem] leading-[0.95] font-black tracking-tighter text-[#111111] dark:text-white uppercase mb-8 max-w-5xl mx-auto">
+            ACCURATE<br/>ESTIMATES<br/>IN SECONDS
+          </h1>
+
+          {/* Social Proof Strip - Centered */}
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-16 px-4">
+            {/* Trust Signal 1 */}
+            <div className="flex items-center gap-2">
+              <span className="text-[14px] font-bold text-[#B89B5E] dark:text-[#CBB576]">12,400+</span>
+              <span className="text-[13px] font-medium text-[#111111]/60 dark:text-white/60">estimates created</span>
             </div>
             
-            <h1 className="font-heading text-[3.5rem] md:text-[5rem] lg:text-[5.5rem] leading-[0.95] font-black tracking-tighter text-[#111111] dark:text-white uppercase">
-              ACCURATE<br/>ESTIMATES<br/>IN SECONDS
-            </h1>
+            <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-[#111111]/10 dark:bg-white/10"></div>
+            
+            {/* Trust Signal 2 */}
+            <div className="flex items-center gap-2">
+              <div className="flex items-center text-[#B89B5E] dark:text-[#CBB576]">
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+              </div>
+              <span className="text-[14px] font-bold text-[#B89B5E] dark:text-[#CBB576]">4.8</span>
+              <span className="text-[13px] font-medium text-[#111111]/60 dark:text-white/60">from engineers</span>
+            </div>
 
-            {/* Social Proof Strip */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-8 pt-8 border-t border-[#111111]/10 dark:border-white/10 w-full">
-              {/* Trust Signal 1 */}
-              <div className="flex items-center gap-2">
-                <span className="text-[14px] font-bold text-[#B89B5E] dark:text-[#CBB576]">12,400+</span>
-                <span className="text-[13px] font-medium text-[#111111]/60 dark:text-white/60">estimates created</span>
-              </div>
-              
-              <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-[#111111]/10 dark:bg-white/10"></div>
-              
-              {/* Trust Signal 2 */}
-              <div className="flex items-center gap-2">
-                <div className="flex items-center text-[#B89B5E] dark:text-[#CBB576]">
-                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                </div>
-                <span className="text-[14px] font-bold text-[#B89B5E] dark:text-[#CBB576]">4.8</span>
-                <span className="text-[13px] font-medium text-[#111111]/60 dark:text-white/60">from engineers</span>
-              </div>
-
-              <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-[#111111]/10 dark:bg-white/10"></div>
-              
-              {/* Trust Signal 3 */}
-              <div className="flex items-center gap-2">
-                <Map className="w-4 h-4 text-[#B89B5E] dark:text-[#CBB576]" strokeWidth={2.5} />
-                <span className="text-[13px] font-medium text-[#111111]/60 dark:text-white/60">Used across PK &amp; Middle East</span>
-              </div>
+            <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-[#111111]/10 dark:bg-white/10"></div>
+            
+            {/* Trust Signal 3 */}
+            <div className="flex items-center gap-2">
+              <Map className="w-4 h-4 text-[#B89B5E] dark:text-[#CBB576]" strokeWidth={2.5} />
+              <span className="text-[13px] font-medium text-[#111111]/60 dark:text-white/60">Used across PK & Middle East</span>
             </div>
           </div>
 
-          {/* RIGHT COLUMN: INTERACTIVE WIDGET */}
-          <div className="w-full max-w-xl mx-auto lg:max-w-none animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
-            <div className="w-full bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl border border-white/60 dark:border-white/10 rounded-[2.5rem] p-8 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.08)] dark:shadow-[0_32px_64px_-12px_rgba(0,0,0,0.3)] flex flex-col min-h-[300px]">
-              
+          {/* Quick-Access Tool Cards: Row of 4 */}
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 z-20 mx-auto max-w-6xl">
+            {[
+              { id: "house", title: "House Estimator", subtitle: "Full residential quantities", desc: "Complete A-Z calculation for homes", icon: Home },
+              { id: "calculators", title: "Material Splits", subtitle: "Cement, sand & aggregate", desc: "Ratio-based mortar & concrete", icon: Box },
+              { id: "takeoff", title: "2D Takeoff", subtitle: "Blueprint PDF measurements", desc: "Extract areas and lengths directly", icon: Ruler },
+              { id: "master-rcc", title: "RCC Master", subtitle: "Structural steel & concrete", desc: "Detailed rebar & slab volume", icon: Building2 }
+            ].map((tool, idx) => (
+              <button
+                key={tool.id}
+                onClick={() => onSelectModule(tool.id as ModuleId)}
+                className="group flex flex-col text-left w-full p-6 rounded-[24px] bg-white dark:bg-[#1A1A1A] border border-[#111111]/5 dark:border-white/10 hover:border-transparent transition-all duration-300 shadow-sm hover:shadow-[0_20px_40px_-16px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_20px_40px_-16px_rgba(255,255,255,0.05)] hover:-translate-y-1 relative overflow-hidden"
+              >
+                {/* Colored Accent Top Bar */}
+                {idx === 0 && <div className="absolute top-0 left-0 w-full h-1.5 bg-blue-500 transition-transform origin-left group-hover:scale-x-105"></div>}
+                {idx === 1 && <div className="absolute top-0 left-0 w-full h-1.5 bg-orange-500 transition-transform origin-left group-hover:scale-x-105"></div>}
+                {idx === 2 && <div className="absolute top-0 left-0 w-full h-1.5 bg-purple-500 transition-transform origin-left group-hover:scale-x-105"></div>}
+                {idx === 3 && <div className="absolute top-0 left-0 w-full h-1.5 bg-emerald-500 transition-transform origin-left group-hover:scale-x-105"></div>}
+
+                <div className={`w-14 h-14 rounded-[18px] flex items-center justify-center shrink-0 mb-5 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-300 shadow-sm ${
+                  idx === 0 ? "bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400" :
+                  idx === 1 ? "bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400" :
+                  idx === 2 ? "bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400" :
+                  "bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400"
+                }`}>
+                  <tool.icon className="w-7 h-7" strokeWidth={2} />
+                </div>
+                
+                <h3 className="text-[18px] font-bold text-[#111111] dark:text-white mb-1.5 leading-tight tracking-tight font-sans">
+                  {tool.title}
+                </h3>
+                <p className="text-[13px] text-[#111111]/50 dark:text-white/50 font-medium leading-relaxed mb-6 line-clamp-2">
+                  {tool.desc}
+                </p>
+
+                <div className="mt-auto flex items-center justify-between pt-4 border-t border-[#111111]/5 dark:border-white/5 w-full">
+                  <span className="text-[12px] font-bold uppercase tracking-widest text-[#111111]/30 dark:text-white/30 group-hover:text-[#111111] dark:group-hover:text-white transition-colors">
+                    Start tool
+                  </span>
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center bg-[#111111]/5 dark:bg-white/5 group-hover:bg-[#111111] dark:group-hover:bg-white transition-colors duration-300">
+                    <ArrowRight className="w-4 h-4 text-[#111111]/40 dark:text-white/40 group-hover:text-white dark:group-hover:text-[#111111] group-hover:translate-x-0.5 transition-all duration-300" strokeWidth={2.5} />
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* Frosted Glass Search Bar Container */}
+          <div className="w-full max-w-3xl mx-auto mt-12 relative z-20">
+            <div className="w-full bg-white/40 dark:bg-[#111111]/40 backdrop-blur-2xl border border-white/60 dark:border-white/10 rounded-[2rem] p-4 md:p-6 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.08)] dark:shadow-[0_32px_64px_-12px_rgba(0,0,0,0.3)]">
               {/* Enhanced Search Input */}
-              <div className="flex flex-col mb-8 relative z-20">
+              <div className="flex flex-col relative z-20">
                 {/* Category Filter */}
-                <div className="flex items-center gap-2 mb-3 px-1">
+                <div className="flex items-center gap-2 mb-3 px-1 text-left">
                   <span className="text-[12px] font-bold text-[#111111]/40 dark:text-white/40 tracking-widest uppercase">In</span>
                   <div className="relative group">
                     <select 
@@ -286,12 +343,12 @@ export default function Dashboard({
                 </div>
                 
                 {/* Frosted Glass Search Bar */}
-                <div className="relative flex items-center w-full bg-white/50 dark:bg-[#111111]/50 backdrop-blur-xl border border-white/80 dark:border-white/10 rounded-2xl p-4 shadow-[0_8px_16px_-6px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_16px_-6px_rgba(0,0,0,0.3)] focus-within:ring-2 focus-within:ring-[#111111]/20 dark:focus-within:ring-white/20 focus-within:bg-white dark:focus-within:bg-slate-900 transition-all duration-300">
+                <div className="relative flex items-center w-full bg-white/50 dark:bg-black/50 backdrop-blur-xl border border-white/80 dark:border-white/10 rounded-2xl p-4 md:p-5 shadow-[0_8px_16px_-6px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_16px_-6px_rgba(0,0,0,0.3)] focus-within:ring-2 focus-within:ring-[#111111]/20 dark:focus-within:ring-white/20 focus-within:bg-white dark:focus-within:bg-[#1A1A1A] transition-all duration-300">
                   <Search className="w-6 h-6 text-[#111111]/40 dark:text-white/40 mr-3 shrink-0" strokeWidth={2.5} />
                   
                   <div className="relative flex-1 h-8 flex items-center overflow-hidden">
                     {!searchTerm && (
-                      <div className="absolute inset-0 flex flex-col pointer-events-none w-full">
+                      <div className="absolute inset-0 flex flex-col pointer-events-none w-full text-left">
                         {searchPlaceholders.map((text, idx) => (
                           <div 
                             key={idx}
@@ -312,49 +369,11 @@ export default function Dashboard({
                       type="text"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="absolute inset-0 bg-transparent text-[17px] md:text-xl text-[#111111] dark:text-white font-semibold outline-none border-0 focus:ring-0 p-0 caret-[#111111] dark:caret-white w-full h-full"
+                      className="absolute inset-0 bg-transparent text-[17px] md:text-xl text-[#111111] dark:text-white font-semibold outline-none border-0 focus:ring-0 p-0 caret-[#111111] dark:caret-white w-full h-full text-left"
                     />
                   </div>
                 </div>
               </div>
-
-              {/* Popular Tools Stack */}
-              <div className="flex-1 flex flex-col justify-center">
-                <div className="flex flex-col gap-1">
-                  {[
-                    { id: "house", title: "House Estimator", subtitle: "Full residential quantities", icon: Home, action: "Open", status: "active" },
-                    { id: "calculators", title: "Material Splits", subtitle: "Cement, sand & aggregate", icon: Box, action: "Calculate", status: "active" },
-                    { id: "takeoff", title: "2D Takeoff", subtitle: "Blueprint PDF measurements", icon: Ruler, action: "Beta", status: "beta" },
-                    { id: "master-rcc", title: "RCC Master", subtitle: "Structural steel & concrete", icon: Building2, action: "Open", status: "active" }
-                  ].map((tool) => (
-                    <button
-                      key={tool.id}
-                      onClick={() => onSelectModule(tool.id as ModuleId)}
-                      className="group flex flex-row items-center justify-between w-full p-3 rounded-[1.5rem] bg-transparent hover:bg-[#111111] dark:hover:bg-white transition-colors duration-150 ease-in-out text-left"
-                    >
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-[#111111]/5 dark:bg-white/10 flex items-center justify-center shrink-0 group-hover:bg-white/10 dark:group-hover:bg-black/10 transition-colors duration-150 ease-in-out">
-                          <tool.icon className="w-6 h-6 text-[#111111] dark:text-white group-hover:text-white dark:group-hover:text-[#111111] transition-colors duration-150 ease-in-out" strokeWidth={2} />
-                        </div>
-                        <div className="flex flex-col">
-                          <span className="font-bold text-[16px] text-[#111111] dark:text-white group-hover:text-white dark:group-hover:text-[#111111] transition-colors duration-150 ease-in-out">{tool.title}</span>
-                          <span className="font-medium text-[13px] text-[#111111]/50 dark:text-white/50 group-hover:text-white/60 dark:group-hover:text-[#111111]/60 transition-colors duration-150 ease-in-out">{tool.subtitle}</span>
-                        </div>
-                      </div>
-                      
-                      <div className={`px-5 py-2 rounded-full text-[13px] font-bold tracking-wide transition-all duration-150 ease-in-out
-                        ${tool.status === 'beta' 
-                          ? 'bg-[#111111]/5 text-[#111111] group-hover:bg-black group-hover:text-white group-hover:shadow-[0_0_0_1px_rgba(255,255,255,0.2)] dark:bg-white/10 dark:text-white dark:group-hover:bg-black dark:group-hover:text-white' 
-                          : 'bg-[#111111]/5 text-[#111111] group-hover:bg-[#FFDF70] group-hover:text-[#111111] dark:bg-white/10 dark:text-white dark:group-hover:bg-[#FFDF70] dark:group-hover:text-[#111111]'
-                        }`}
-                      >
-                        {tool.action}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
             </div>
           </div>
         </div>

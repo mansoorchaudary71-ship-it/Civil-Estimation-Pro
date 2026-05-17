@@ -406,7 +406,6 @@ export default function BeamCalculator() {
                   </ul>
                 </div>
               </div>
-              <CalculationHistory />
             </div>
           ) : (
             <div className="flex-1 flex items-center justify-center text-slate-500 py-12 text-center h-full">
