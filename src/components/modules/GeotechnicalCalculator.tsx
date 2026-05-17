@@ -1,0 +1,317 @@
+import React, { useState } from "react";
+import { SEO } from "../SEO";
+import { useGlobalSettings } from "../../context/SettingsContext";
+import { Droplet, Layers, Beaker, ArrowDownToLine, Flame, Download } from "lucide-react";
+import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
+import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
+
+// Sub-components for each Geotechnical test
+export default function GeotechnicalCalculator() {
+  const { isProcessing, hasData, processEstimate, resetEstimate } = useEstimateProcessing();
+  const { currentUnit } = useGlobalSettings();
+  const [activeTab, setActiveTab] = useState<"water-content" | "specific-gravity" | "sieve" | "liquid-limit" | "cbr">("water-content");
+  
+  // States for Water Content
+  const [wcW1, setWcW1] = useState("");
+  const [wcW2, setWcW2] = useState("");
+  const [wcW3, setWcW3] = useState("");
+
+  // States for Specific Gravity
+  const [sgW1, setSgW1] = useState("");
+  const [sgW2, setSgW2] = useState("");
+  const [sgW3, setSgW3] = useState("");
+  const [sgW4, setSgW4] = useState("");
+
+  // States for Sieve Analysis (Simplified - % passing)
+  const [sieveTotal, setSieveTotal] = useState("");
+  const [sieveRetainedGravel, setSieveRetainedGravel] = useState(""); // Retained on 4.75mm
+  const [sieveRetainedSand, setSieveRetainedSand] = useState(""); // Retained on 75 microns (Sand)
+  // Passing 75 microns goes to Silt/Clay implicitly
+
+  // States for Liquid Limit
+  const [llBlows, setLlBlows] = useState("");
+  const [llWaterContent, setLlWaterContent] = useState("");
+
+  // States for CBR
+  const [cbrLoad25, setCbrLoad25] = useState("");
+  const [cbrLoad50, setCbrLoad50] = useState("");
+
+  let currentExportData: Record<string, string> = {};
+  
+  const parseNum = (val: string) => Math.max(0, parseFloat(val) || 0);
+
+  // Math Logic Processing
+  if (activeTab === "water-content") {
+    const W1 = parseNum(wcW1);
+    const W2 = parseNum(wcW2);
+    const W3 = parseNum(wcW3);
+    
+    let w = 0;
+    if (W3 - W1 > 0 && W2 >= W3) {
+      w = ((W2 - W3) / (W3 - W1)) * 100;
+    }
+    
+    currentExportData = {
+      "Test Type": "Water Content",
+      "Weight of Dry Soil": `${(W3 - W1).toFixed(2)} g`,
+      "Weight of Water": `${(W2 - W3).toFixed(2)} g`,
+      "Water Content (w)": `${w.toFixed(2)}%`,
+    };
+  } else if (activeTab === "specific-gravity") {
+    const W1 = parseNum(sgW1);
+    const W2 = parseNum(sgW2);
+    const W3 = parseNum(sgW3);
+    const W4 = parseNum(sgW4);
+    
+    let G = 0;
+    const Ws = W2 - W1;
+    const denom = (W2 - W1) - (W3 - W4);
+    if (denom > 0 && Ws > 0) {
+      G = Ws / denom;
+    }
+
+    currentExportData = {
+      "Test Type": "Specific Gravity",
+      "Weight of Soil Solids": `${Ws.toFixed(2)} g`,
+      "Specific Gravity (G)": G > 0 && G < 5 ? `${G.toFixed(3)}` : "Invalid Input (G typically 2.5 - 2.8)",
+    };
+  } else if (activeTab === "sieve") {
+    const total = parseNum(sieveTotal);
+    const gravel = parseNum(sieveRetainedGravel);
+    const sand = parseNum(sieveRetainedSand);
+    const fines = Math.max(0, total - (gravel + sand));
+
+    let gravelPct = 0, sandPct = 0, finesPct = 0;
+    if (total > 0) {
+      gravelPct = (gravel / total) * 100;
+      sandPct = (sand / total) * 100;
+      finesPct = (fines / total) * 100;
+    }
+
+    currentExportData = {
+      "Test Type": "Simplified Sieve Analysis",
+      "Gravel Content (>4.75mm)": `${gravelPct.toFixed(1)}%`,
+      "Sand Content (0.075-4.75mm)": `${sandPct.toFixed(1)}%`,
+      "Fines Content (<0.075mm)": `${finesPct.toFixed(1)}%`,
+    };
+  } else if (activeTab === "liquid-limit") {
+    const N = parseNum(llBlows);
+    const w = parseNum(llWaterContent);
+    let LL = 0;
+    if (N > 0 && w > 0) {
+      LL = w * Math.pow(N / 25, 0.121);
+    }
+
+    currentExportData = {
+      "Test Type": "Liquid Limit (One-Point)",
+      "Number of Blows (N)": `${N}`,
+      "Calculated Liquid Limit (LL)": `${LL.toFixed(2)}%`,
+    };
+  } else if (activeTab === "cbr") {
+    const L25 = parseNum(cbrLoad25);
+    const L50 = parseNum(cbrLoad50);
+    let CBR25 = (L25 / 1370) * 100;
+    let CBR50 = (L50 / 2055) * 100;
+    let CBR_Final = Math.max(CBR25, CBR50);
+
+    currentExportData = {
+      "Test Type": "California Bearing Ratio (CBR)",
+      "CBR @ 2.5mm Penetration": `${CBR25.toFixed(2)}%`,
+      "CBR @ 5.0mm Penetration": `${CBR50.toFixed(2)}%`,
+      "Final CBR Value": `${CBR_Final.toFixed(2)}%`,
+    };
+  }
+
+  const tabs = [
+    { id: "water-content", label: "Water Content", icon: Droplet },
+    { id: "specific-gravity", label: "Specific Gravity", icon: Beaker },
+    { id: "sieve", label: "Sieve Analysis", icon: Layers },
+    { id: "liquid-limit", label: "Liquid Limit", icon: Flame },
+    { id: "cbr", label: "CBR Test", icon: ArrowDownToLine },
+  ] as const;
+
+  return (
+    <div className="w-full h-full overflow-y-auto bg-transparent text-slate-900 p-6 md:p-8">
+      <SEO 
+        title="Geotechnical & Soil Test Calculators" 
+        description="Calculate soil mechanics properties like water content, specific gravity, sieve analysis, liquid limit, and CBR." 
+      />
+      
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
+          <div>
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+              <Beaker className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
+              Geotechnical & Soil Test Calculators
+            </h1>
+            <p className="text-slate-500 mt-2">
+              Process standard laboratory data into professional soil reports.
+            </p>
+          </div>
+        </div>
+
+        {/* Tab Navigation */}
+        <div className="flex bg-white dark:bg-slate-900 p-2 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 mb-6 overflow-x-auto custom-scrollbar">
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => { setActiveTab(tab.id); resetEstimate(); }}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm whitespace-nowrap transition-all ${
+                  isActive 
+                    ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 shadow-sm" 
+                    : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800"
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Calculator Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative items-start">
+          
+          {/* Inputs Section */}
+          <div 
+            className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-xl shadow-md border border-slate-200 dark:border-slate-800 flex flex-col gap-6"
+            onChange={(e) => {
+              if ((e.target as HTMLElement).tagName === 'INPUT') {
+                if (hasData) resetEstimate();
+              }
+            }}
+          >
+            <h3 className="font-bold text-lg border-b border-slate-200 dark:border-slate-800 pb-3 text-slate-800 dark:text-white">
+              Laboratory Data Inputs
+            </h3>
+
+            {activeTab === "water-content" && (
+              <div className="grid gap-4">
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Weight of empty container (W1) in g</label>
+                  <input type="number" min="0" value={wcW1} onChange={e => setWcW1(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Weight of container + wet soil (W2) in g</label>
+                  <input type="number" min="0" value={wcW2} onChange={e => setWcW2(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Weight of container + dry soil (W3) in g</label>
+                  <input type="number" min="0" value={wcW3} onChange={e => setWcW3(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                </div>
+              </div>
+            )}
+
+            {activeTab === "specific-gravity" && (
+              <div className="grid gap-4">
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Empty weight of Pycnometer (W1) in g</label>
+                  <input type="number" min="0" value={sgW1} onChange={e => setSgW1(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Weight of Pycnometer + Soil (W2) in g</label>
+                  <input type="number" min="0" value={sgW2} onChange={e => setSgW2(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Weight of Pycnometer + Soil + Water (W3) in g</label>
+                  <input type="number" min="0" value={sgW3} onChange={e => setSgW3(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Weight of Pycnometer + Water (W4) in g</label>
+                  <input type="number" min="0" value={sgW4} onChange={e => setSgW4(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                </div>
+              </div>
+            )}
+
+            {activeTab === "sieve" && (
+              <div className="grid gap-4">
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Total Weight of Sample (g)</label>
+                  <input type="number" min="0" value={sieveTotal} onChange={e => setSieveTotal(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Weight Retained on 4.75mm Sieve (g)</label>
+                  <input type="number" min="0" max={sieveTotal} value={sieveRetainedGravel} onChange={e => setSieveRetainedGravel(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Weight Retained on 75μm Sieve (g)</label>
+                  <input type="number" min="0" max={sieveTotal} value={sieveRetainedSand} onChange={e => setSieveRetainedSand(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                </div>
+              </div>
+            )}
+
+            {activeTab === "liquid-limit" && (
+              <div className="grid gap-4">
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Number of Blows (N)</label>
+                  <input type="number" min="1" value={llBlows} onChange={e => setLlBlows(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Water Content (%)</label>
+                  <input type="number" min="0" value={llWaterContent} onChange={e => setLlWaterContent(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                </div>
+              </div>
+            )}
+
+            {activeTab === "cbr" && (
+              <div className="grid gap-4">
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Load at 2.5mm Penetration (kg)</label>
+                  <input type="number" min="0" value={cbrLoad25} onChange={e => setCbrLoad25(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Load at 5.0mm Penetration (kg)</label>
+                  <input type="number" min="0" value={cbrLoad50} onChange={e => setCbrLoad50(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                </div>
+              </div>
+            )}
+
+            <button
+              onClick={() => processEstimate(() => {})}
+              disabled={isProcessing}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-2xl shadow-md transition-all mt-2"
+            >
+              {isProcessing ? "Generating Report..." : "Generate Lab Report"}
+            </button>
+          </div>
+
+          {/* Results Section */}
+          {isProcessing ? (
+            <div className="w-full">
+              <ProcessingSkeleton count={4} />
+            </div>
+          ) : hasData ? (
+            <div className="bg-slate-900 dark:bg-slate-950 p-6 md:p-8 rounded-xl shadow-xl sticky top-6 z-10 w-full text-white">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest">
+                  Lab Report Summary
+                </h3>
+                <Download className="w-5 h-5 text-indigo-400 cursor-pointer hover:text-indigo-300 transition-colors" />
+              </div>
+              <div className="space-y-4">
+                {Object.entries(currentExportData).map(([key, val]) => (
+                  <div key={key} className="flex justify-between border-b border-slate-800 pb-3 items-center">
+                    <span className="text-slate-400 font-semibold">{key}</span>
+                    <span className="font-mono font-bold text-white bg-slate-800 py-1 px-3 rounded-lg">{val}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-8 border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center sticky top-6 self-start h-full min-h-[300px] w-full">
+              <Beaker className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
+              <h3 className="font-bold text-slate-700 dark:text-slate-300 text-lg">Waiting for Input</h3>
+              <p className="text-slate-500 text-sm mt-2 max-w-sm">
+                Enter your test values on the left and generate a summarized lab report.
+              </p>
+            </div>
+          )}
+          
+        </div>
+      </div>
+    </div>
+  );
+}

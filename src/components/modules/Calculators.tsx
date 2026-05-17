@@ -17,6 +17,8 @@ import {
   Save,
 } from "lucide-react";
 import { useGlobalSettings } from "../../context/SettingsContext";
+import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
+import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
 import {
   ConcreteMortarCalculator,
   BrickworkCalculator,
@@ -37,6 +39,7 @@ import { SEO } from "../SEO";
 export default function ConstructionMaterialEstimator() {
   const { formatCurrency, currentUnit, currentCurrency } = useGlobalSettings();
   const { user } = useAuth();
+  const { isProcessing, hasData, processEstimate, resetEstimate } = useEstimateProcessing();
   
   const schema = {
     "@context": "https://schema.org",
@@ -57,7 +60,7 @@ export default function ConstructionMaterialEstimator() {
     { id: "concrete", label: "Concrete", icon: Box },
     { id: "bricks", label: "Bricks", icon: Columns },
     { id: "blocks", label: "Blocks", icon: Container },
-    { id: "plaster", label: "Plaster", icon: PaintBucket },
+    { id: "plaster", label: "Finishes", icon: PaintBucket },
     { id: "steel", label: "Steel", icon: Layers },
     { id: "water", label: "Water", icon: Droplet },
   ] as const;
@@ -78,6 +81,9 @@ export default function ConstructionMaterialEstimator() {
   ] as const;
   type TabId = (typeof fullTabs)[number]["id"];
   const [activeTab, setActiveTab] = useState<TabId>("master");
+  const [concreteType, setConcreteType] = useState<"slab" | "column" | "staircase">("slab");
+  const [finishesType, setFinishesType] = useState<"plaster" | "paint" | "antitermite">("plaster");
+
   /* Project Cart state */ interface CartItem {
     id: string;
     name: string;
@@ -95,9 +101,16 @@ export default function ConstructionMaterialEstimator() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [elementName, setElementName] = useState<string>("");
   /* Global inputs */ const [wastage, setWastage] = useState("5");
-  /* Concrete */ const [cLength, setCLength] = useState("10");
+  /* Concrete - Slab */ const [cLength, setCLength] = useState("10");
   const [cWidth, setCWidth] = useState("10");
   const [cDepth, setCDepth] = useState(isSI ? "0.15" : "0.5");
+  /* Concrete - Column */ const [cColDia, setCColDia] = useState(isSI ? "0.3" : "1");
+  const [cColHeight, setCColHeight] = useState(isSI ? "3" : "10");
+  /* Concrete - Staircase */ const [cStairSteps, setCStairSteps] = useState("15");
+  const [cStairTread, setCStairTread] = useState(isSI ? "0.25" : "0.82");
+  const [cStairRiser, setCStairRiser] = useState(isSI ? "0.15" : "0.5");
+  const [cStairWidth, setCStairWidth] = useState(isSI ? "1.2" : "4");
+  const [cStairWaist, setCStairWaist] = useState(isSI ? "0.15" : "0.5");
   const [cMix, setCMix] = useState("1:2:4");
   const [cWcRatio, setCWcRatio] = useState("0.5");
   /* Bricks */ const [bWallL, setBWallL] = useState("20");
@@ -131,6 +144,9 @@ export default function ConstructionMaterialEstimator() {
   /* Plaster */ const [pArea, setPArea] = useState("200");
   const [pThick, setPThick] = useState(isSI ? "1.2" : "0.5");
   /* cm or in */ const [pMix, setPMix] = useState("1:4");
+  /* Paint */ const [paintArea, setPaintArea] = useState("500");
+  const [paintCoats, setPaintCoats] = useState("2");
+  /* Anti-Termite */ const [termiteArea, setTermiteArea] = useState("1000");
   /* Steel */ const [sDia, setSDia] = useState("12");
   /* mm */ const [sSpan, setSSpan] = useState("10");
   /* m or ft */ const [sSpace, setSSpace] = useState("150");
@@ -181,23 +197,55 @@ export default function ConstructionMaterialEstimator() {
   let currentExportInputs: Record<string, any> = {};
   let currentCartItem: Omit<CartItem, "id" | "name"> | null = null;
   if (activeTab === "concrete") {
+    let volume = 0;
+    
+    if (concreteType === "slab") {
+      volume = parseNum(cLength) * parseNum(cWidth) * parseNum(cDepth);
+    } else if (concreteType === "column") {
+      const r = parseNum(cColDia) / 2;
+      volume = Math.PI * r * r * parseNum(cColHeight);
+    } else if (concreteType === "staircase") {
+      const steps = parseNum(cStairSteps);
+      const tread = parseNum(cStairTread);
+      const riser = parseNum(cStairRiser);
+      const width = parseNum(cStairWidth);
+      const waist = parseNum(cStairWaist);
+      
+      const stepVol = steps * (0.5 * tread * riser * width);
+      const flightLen = steps * Math.sqrt(tread * tread + riser * riser);
+      const waistVol = flightLen * waist * width;
+      volume = stepVol + waistVol;
+    }
+    
+    // Fake L=volume, W=1, D=1 to reuse the calculator
     const calc = new ConcreteMortarCalculator(
-      parseNum(cLength),
-      parseNum(cWidth),
-      parseNum(cDepth),
+      volume,
+      1,
+      1,
       cMix,
       parseNum(wastage),
       parseNum(cWcRatio),
       isSI,
     );
     const res = calc.calculate();
+
+    const titlePrefix = concreteType === "column" ? "Round Column" : concreteType === "staircase" ? "Stair Case" : "Standard Slab";
+
     currentExportInputs = {
-      Dimensions: `Length: ${cLength} ${unitFt} | Width: ${cWidth} ${unitFt} | Depth: ${cDepth} ${unitFt}`,
+      Type: titlePrefix,
       "Mix Ratio": cMix,
       "W/C Ratio": cWcRatio,
       "Wastage Allowed": `${wastage}%`,
+      ...(concreteType === "slab" ? {
+        Dimensions: `Length: ${cLength} ${unitFt} | Width: ${cWidth} ${unitFt} | Depth: ${cDepth} ${unitFt}`,
+      } : concreteType === "column" ? {
+        Dimensions: `Diameter: ${cColDia} ${unitFt} | Height: ${cColHeight} ${unitFt}`
+      } : {
+        Dimensions: `Steps: ${cStairSteps} | Width: ${cStairWidth} ${unitFt} | Tread: ${cStairTread} ${unitFt} | Riser: ${cStairRiser} ${unitFt} | Waist: ${cStairWaist} ${unitFt}`
+      })
     };
     currentExportData = {
+      "Type": titlePrefix,
       "Concrete Mixed Volume": `${res.totalWetVolume.toFixed(2)} ${unitVol}`,
       [`Dry Volume (+${wastage}% waste)`]: `${(res.totalWetVolume * CIVIL_CONSTANTS.DRY_CONCRETE_FACTOR * (1 + parseNum(wastage) / 100)).toFixed(2)} ${unitVol}`,
       "Cement Required": `${res.cementBags.toFixed(2)} Bags`,
@@ -216,44 +264,151 @@ export default function ConstructionMaterialEstimator() {
     };
     content = (
       <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full">
-        <h3 className="font-bold border-b pb-2">
-          Concrete Slab / Footing
-        </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div>
-            <label className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase">
-              Length ({unitFt})
-            </label>
-            <input
-              type="number"
-              value={cLength}
-              onChange={(e) => setCLength(e.target.value)}
-              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
-            />
-          </div>
-          <div>
-            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
-              Width ({unitFt})
-            </label>
-            <input
-              type="number"
-              value={cWidth}
-              onChange={(e) => setCWidth(e.target.value)}
-              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
-            />
-          </div>
-          <div>
-            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
-              Depth ({unitFt})
-            </label>
-            <input
-              type="number"
-              value={cDepth}
-              onChange={(e) => setCDepth(e.target.value)}
-              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
-            />
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 mb-4 gap-4">
+          <h3 className="font-bold text-lg text-slate-800 dark:text-white">
+            Concrete Estimator
+          </h3>
+          <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl w-full sm:w-auto">
+            {(["slab", "column", "staircase"] as const).map((type) => (
+              <button
+                key={type}
+                onClick={() => { setConcreteType(type); if(hasData) resetEstimate(); }}
+                className={`flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+                  concreteType === type 
+                    ? "bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400" 
+                    : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                }`}
+              >
+                {type === "slab" ? "Slab" : type === "column" ? "Round Column" : "Staircase"}
+              </button>
+            ))}
           </div>
         </div>
+
+        {concreteType === "slab" && (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase">
+                Length ({unitFt})
+              </label>
+              <input
+                type="number"
+                value={cLength}
+                onChange={(e) => setCLength(e.target.value)}
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
+                Width ({unitFt})
+              </label>
+              <input
+                type="number"
+                value={cWidth}
+                onChange={(e) => setCWidth(e.target.value)}
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
+                Depth ({unitFt})
+              </label>
+              <input
+                type="number"
+                value={cDepth}
+                onChange={(e) => setCDepth(e.target.value)}
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+          </div>
+        )}
+
+        {concreteType === "column" && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase">
+                Diameter ({unitFt})
+              </label>
+              <input
+                type="number"
+                value={cColDia}
+                onChange={(e) => setCColDia(e.target.value)}
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
+                Height ({unitFt})
+              </label>
+              <input
+                type="number"
+                value={cColHeight}
+                onChange={(e) => setCColHeight(e.target.value)}
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+          </div>
+        )}
+
+        {concreteType === "staircase" && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div>
+              <label className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase">
+                Number of Steps
+              </label>
+              <input
+                type="number"
+                value={cStairSteps}
+                onChange={(e) => setCStairSteps(e.target.value)}
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
+                Stair Width ({unitFt})
+              </label>
+              <input
+                type="number"
+                value={cStairWidth}
+                onChange={(e) => setCStairWidth(e.target.value)}
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
+                Tread Length ({unitFt})
+              </label>
+              <input
+                type="number"
+                value={cStairTread}
+                onChange={(e) => setCStairTread(e.target.value)}
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
+                Riser Height ({unitFt})
+              </label>
+              <input
+                type="number"
+                value={cStairRiser}
+                onChange={(e) => setCStairRiser(e.target.value)}
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
+                Waist Slab Thick ({unitFt})
+              </label>
+              <input
+                type="number"
+                value={cStairWaist}
+                onChange={(e) => setCStairWaist(e.target.value)}
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+          </div>
+        )}
         <div className="bg-blue-50/50 rounded-xl px-4 py-3 border border-blue-100 flex items-center justify-center min-h-[8rem] relative text-[10px] font-bold text-blue-500/80 overflow-hidden">
           <svg
             viewBox="0 0 120 80"
@@ -741,92 +896,206 @@ export default function ConstructionMaterialEstimator() {
       </div>
     );
   } else if (activeTab === "plaster") {
-    const conv = isSI ? 100 : 12;
-    const calc = new PlasterCalculator(
-      parseNum(pArea),
-      parseNum(pThick) / conv,
-      pMix,
-      parseNum(wastage),
-      isSI,
-    );
-    const res = calc.calculate();
-    currentExportInputs = {
-      "Surface Area": `${pArea} ${unitArea}`,
-      Thickness: `${pThick} ${unitIn}`,
-      "Mix Ratio": pMix,
-      "Wastage Allowed": `${wastage}%`,
-    };
-    currentExportData = {
-      "Total Wet Volume": `${res.totalWetVolume.toFixed(2)} ${unitVol}`,
-      "Cement Required": `${res.cementBags.toFixed(2)} Bags`,
-      "Sand Required": `${res.sandVol.toFixed(2)} ${unitVol}`,
-    };
-    currentCartItem = {
-      type: "Plaster",
-      cementBags: res.cementBags,
-      sandVol: res.sandVol,
-      aggregateVol: 0,
-      waterLiters: 0,
-      unitVol,
-      rawExport: currentExportData,
-    };
+    if (finishesType === "plaster") {
+      const conv = isSI ? 100 : 12;
+      const calc = new PlasterCalculator(
+        parseNum(pArea),
+        parseNum(pThick) / conv,
+        pMix,
+        parseNum(wastage),
+        isSI,
+      );
+      const res = calc.calculate();
+      currentExportInputs = {
+        Type: "Plastering",
+        "Surface Area": `${pArea} ${unitArea}`,
+        Thickness: `${pThick} ${unitIn}`,
+        "Mix Ratio": pMix,
+        "Wastage Allowed": `${wastage}%`,
+      };
+      currentExportData = {
+        "Type": "Plaster",
+        "Total Wet Volume": `${res.totalWetVolume.toFixed(2)} ${unitVol}`,
+        "Cement Required": `${res.cementBags.toFixed(2)} Bags`,
+        "Sand Required": `${res.sandVol.toFixed(2)} ${unitVol}`,
+      };
+      currentCartItem = {
+        type: "Plaster",
+        cementBags: res.cementBags,
+        sandVol: res.sandVol,
+        aggregateVol: 0,
+        waterLiters: 0,
+        unitVol,
+        rawExport: currentExportData,
+      };
+    } else if (finishesType === "paint") {
+      const area = parseNum(paintArea);
+      const coats = parseNum(paintCoats);
+      // Rough industry averages
+      const paintCovSqM = 10;
+      const primerCovSqM = 12;
+      const paintCovSqFt = 107.6;
+      const primerCovSqFt = 129.1;
+
+      const paintLiters = isSI 
+        ? (area * coats) / paintCovSqM
+        : (area * coats) / paintCovSqFt;
+
+      const primerLiters = isSI
+        ? area / primerCovSqM
+        : area / primerCovSqFt;
+
+      currentExportInputs = {
+        Type: "Paint Work",
+        "Wall Area": `${paintArea} ${unitArea}`,
+        "Number of Coats": paintCoats,
+      };
+      currentExportData = {
+        "Type": "Paint",
+        "Paint Required": `${paintLiters.toFixed(2)} Liters`,
+        "Primer Required": `${primerLiters.toFixed(2)} Liters`,
+      };
+      currentCartItem = {
+        type: "Paint",
+        cementBags: 0,
+        sandVol: 0,
+        aggregateVol: 0,
+        waterLiters: 0,
+        unitVol,
+        rawExport: currentExportData,
+        // For custom inputs, we omit them from the cart standard cement/sand etc. 
+      };
+    } else if (finishesType === "antitermite") {
+      const area = parseNum(termiteArea);
+      // IS 6313 / BS standard approximations for pre-construction soil treatment
+      const chemLiters = isSI 
+        ? area * 5 
+        : area * 0.4645; // 5L per 10.76 sqft
+      currentExportInputs = {
+        Type: "Anti-Termite Treatment",
+        "Plinth Area": `${termiteArea} ${unitArea}`,
+      };
+      currentExportData = {
+        "Type": "Anti-Termite",
+        "Chemical Emulsion Required": `${chemLiters.toFixed(2)} Liters`,
+      };
+      currentCartItem = {
+        type: "Anti-Termite",
+        cementBags: 0,
+        sandVol: 0,
+        aggregateVol: 0,
+        waterLiters: 0,
+        unitVol,
+        rawExport: currentExportData,
+      };
+    }
+
     content = (
       <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full">
-        <h3 className="font-bold border-b pb-2 uppercase text-sm tracking-widest text-slate-700 dark:text-slate-300">
-          Plaster / Mortar
-        </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
-              Surface Area ({unitArea})
-            </label>
-            <input
-              type="number"
-              value={pArea}
-              onChange={(e) => setPArea(e.target.value)}
-              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
-            />
-          </div>
-          <div>
-            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
-              Thickness ({unitIn})
-            </label>
-            <input
-              type="number"
-              value={pThick}
-              onChange={(e) => setPThick(e.target.value)}
-              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
-            />
-          </div>
-          <div>
-            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
-              Mix Ratio
-            </label>
-            <select
-              value={pMix}
-              onChange={(e) => setPMix(e.target.value)}
-              className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
-            >
-              <option value="1:3">1:3</option> <option value="1:4">1:4</option>
-              <option value="1:5">1:5</option>
-              <option value="1:6">1:6</option>
-            </select>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 mb-4 gap-4">
+          <h3 className="font-bold text-lg text-slate-800 dark:text-white">
+            Finishes Estimator
+          </h3>
+          <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl w-full sm:w-auto">
+            {(["plaster", "paint", "antitermite"] as const).map((type) => (
+              <button
+                key={type}
+                onClick={() => { setFinishesType(type); if(hasData) resetEstimate(); }}
+                className={`flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+                  finishesType === type 
+                    ? "bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400" 
+                    : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                }`}
+              >
+                {type === "plaster" ? "Plastering" : type === "paint" ? "Paint Work" : "Anti-Termite"}
+              </button>
+            ))}
           </div>
         </div>
-        <div className="bg-slate-100/50 rounded-xl px-4 py-3 border border-slate-200 flex items-center justify-center min-h-[8rem] relative text-[10px] font-bold text-slate-700 dark:text-slate-300 overflow-hidden">
-          <svg
-            viewBox="0 0 120 80"
-            className="w-full h-full absolute inset-0 opacity-20 pointer-events-none"
-          >
-            <path d="M30,70 L90,60 L90,20 L30,30 Z" fill="currentColor" />
-          </svg>
-          <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-2 bg-transparent">
-            Area: {pArea} {unitArea}
-          </span>
-          <span className="absolute bottom-4 right-10 px-2 bg-transparent">
-            T: {pThick} {unitIn}
-          </span>
-        </div>
+
+        {finishesType === "plaster" && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
+                Surface Area ({unitArea})
+              </label>
+              <input
+                type="number"
+                value={pArea}
+                onChange={(e) => setPArea(e.target.value)}
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
+                Thickness ({unitIn})
+              </label>
+              <input
+                type="number"
+                value={pThick}
+                onChange={(e) => setPThick(e.target.value)}
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
+                Mix Ratio
+              </label>
+              <select
+                value={pMix}
+                onChange={(e) => setPMix(e.target.value)}
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              >
+                <option value="1:3">1:3</option> <option value="1:4">1:4</option>
+                <option value="1:5">1:5</option>
+                <option value="1:6">1:6</option>
+              </select>
+            </div>
+          </div>
+        )}
+
+        {finishesType === "paint" && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
+                Wall Area ({unitArea})
+              </label>
+              <input
+                type="number"
+                value={paintArea}
+                onChange={(e) => setPaintArea(e.target.value)}
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
+                Number of Coats
+              </label>
+              <input
+                type="number"
+                value={paintCoats}
+                onChange={(e) => setPaintCoats(e.target.value)}
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+          </div>
+        )}
+
+        {finishesType === "antitermite" && (
+          <div className="grid grid-cols-1 gap-4">
+            <div>
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
+                Plinth Area ({unitArea})
+              </label>
+              <input
+                type="number"
+                value={termiteArea}
+                onChange={(e) => setTermiteArea(e.target.value)}
+                className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm transition-all shadow-sm"
+              />
+            </div>
+          </div>
+        )}
       </div>
     );
   } else if (activeTab === "water") {
@@ -968,7 +1237,7 @@ export default function ConstructionMaterialEstimator() {
                 label={tab.label}
                 icon={<tab.icon className="w-4 h-4" />}
                 isActive={activeTab === tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => { setActiveTab(tab.id); resetEstimate(); }}
                 colorTheme={color}
               />
             );
@@ -976,25 +1245,51 @@ export default function ConstructionMaterialEstimator() {
         </div>
         <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-xl shadow-md border border-slate-200 dark:border-slate-800 transition-all duration-300 relative">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative">
-            {content}
+            <div 
+              className="flex flex-col gap-4"
+              onChange={(e) => {
+                if ((e.target as HTMLElement).tagName === 'INPUT' || (e.target as HTMLElement).tagName === 'SELECT') {
+                  if (hasData) resetEstimate();
+                }
+              }}
+            >
+              {content}
+              {activeTab !== "cement" &&
+                activeTab !== "sand" &&
+                activeTab !== "master" && (
+                  <button
+                    onClick={() => processEstimate(() => {})}
+                    disabled={isProcessing}
+                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition-all mt-4"
+                  >
+                    {isProcessing ? "Computing Estimate..." : "Compute Estimate"}
+                  </button>
+              )}
+            </div>
+            
             {activeTab !== "cement" &&
               activeTab !== "sand" &&
               activeTab !== "master" && (
-                <div className="bg-slate-900 rounded-3xl px-4 py-3 md:px-4 py-3 text-white space-y-4 shadow-xl sticky top-6 self-start z-10">
-                  <div className="flex justify-between items-center mb-4">
-                    <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest">
-                      Material Breakdown
-                    </h3>
-                    <label className="flex items-center gap-2 cursor-pointer text-xs bg-slate-800 p-2 rounded-lg hover:bg-slate-700 transition">
-                      <input
-                        type="checkbox"
-                        checked={showCost}
-                        onChange={(e) => setShowCost(e.target.checked)}
-                        className="accent-indigo-500 w-4 h-4 rounded"
-                      />
-                      Cost Est.
-                    </label>
+                isProcessing ? (
+                  <div className="sticky top-6 self-start z-10 w-full">
+                    <ProcessingSkeleton count={4} />
                   </div>
+                ) : hasData ? (
+                  <div className="bg-slate-900 rounded-3xl px-4 py-3 md:px-4 md:py-3 text-white space-y-4 shadow-xl sticky top-6 self-start z-10 w-full">
+                    <div className="flex justify-between items-center mb-4">
+                      <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest">
+                        Material Breakdown
+                      </h3>
+                      <label className="flex items-center gap-2 cursor-pointer text-xs bg-slate-800 p-2 rounded-lg hover:bg-slate-700 transition">
+                        <input
+                          type="checkbox"
+                          checked={showCost}
+                          onChange={(e) => setShowCost(e.target.checked)}
+                          className="accent-indigo-500 w-4 h-4 rounded"
+                        />
+                        Cost Est.
+                      </label>
+                    </div>
                   {Object.entries(currentExportData).map(([key, val]) => {
                     let colorClass = "text-slate-700 dark:text-slate-300";
                     if (key.includes("Cement"))
@@ -1274,9 +1569,16 @@ export default function ConstructionMaterialEstimator() {
                     </div>
                   )}
                 </div>
+                ) : (
+                  <div className="bg-slate-50 dark:bg-slate-900/50 rounded-3xl p-8 border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center sticky top-6 self-start h-full min-h-[300px] w-full">
+                    <Calculator className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
+                    <h3 className="font-bold text-slate-700 dark:text-slate-300 text-lg">Waiting to Compute</h3>
+                    <p className="text-slate-500 text-sm mt-2">Enter your dimensions on the left and click the Compute Estimate button to see the detailed material breakdown.</p>
+                  </div>
+                )
               )}
           </div>
-          {currentCartItem && (
+          {hasData && currentCartItem && (
             <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row gap-4 items-end pb-12 sm:pb-0">
               <div className="flex-1 w-full">
                 <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">

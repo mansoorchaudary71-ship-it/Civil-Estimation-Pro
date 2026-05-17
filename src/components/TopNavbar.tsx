@@ -62,15 +62,15 @@ export default function TopNavbar({
 
   return (
     <>
-      <div className="w-full relative shrink-0 z-40 bg-transparent px-5 py-4 md:px-12 md:py-6">
+      <nav className="w-full relative shrink-0 z-40 bg-slate-900 border-b border-slate-800 px-5 py-4 md:px-8 md:py-4 shadow-sm">
         <div className="w-full flex items-center justify-between mx-auto max-w-[1400px]">
           
           {/* Left: Logo */}
-          <div className="flex items-center gap-2.5 justify-start cursor-pointer group shrink-0" onClick={() => onNavigate?.('home' as ModuleId)}>
-            <div className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center transition-all duration-300 text-orange-500">
+          <div className="flex items-center gap-3 justify-start cursor-pointer group shrink-0" onClick={() => onNavigate?.('home' as ModuleId)}>
+            <div className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center transition-all duration-300 text-indigo-400 group-hover:scale-105">
               <Logo className="w-full h-full" />
             </div>
-            <span className="font-heading font-black text-xl md:text-2xl tracking-tighter text-[#111111] dark:text-white">
+            <span className="font-sans font-bold text-xl md:text-xl text-white tracking-tight">
               Civil Estimation Pro
             </span>
           </div>
@@ -81,12 +81,12 @@ export default function TopNavbar({
               <React.Fragment key={link.name}>
                 <button 
                   onClick={() => onNavigate?.(link.id)}
-                  className="text-[15px] font-medium text-[#111111]/60 dark:text-white/60 hover:text-[#111111] dark:hover:text-white transition-colors tracking-tight"
+                  className="text-[14px] font-medium text-slate-300 hover:text-white transition-colors tracking-tight"
                 >
                   {link.name}
                 </button>
                 {index < navItems.length - 1 && (
-                  <span className="mx-4 text-[#111111]/20 dark:text-white/20 font-light select-none">/</span>
+                  <span className="mx-4 text-slate-600 font-light select-none">/</span>
                 )}
               </React.Fragment>
             ))}
@@ -96,9 +96,9 @@ export default function TopNavbar({
           <div className="md:hidden flex items-center justify-end">
             <button 
               onClick={() => setIsMobileMenuOpen(true)}
-              className="p-2 -mr-2 rounded-xl text-[#111111] dark:text-white hover:bg-[#111111]/5 dark:hover:bg-white/5 transition-all duration-300"
+              className="p-2 -mr-2 rounded-xl text-white hover:bg-slate-800 transition-all duration-300"
             >
-              <Menu className="w-6 h-6" strokeWidth={2.5} />
+              <Menu className="w-6 h-6" strokeWidth={2} />
             </button>
           </div>
 
@@ -109,7 +109,7 @@ export default function TopNavbar({
             <div className="flex items-center gap-6">
               <button 
                 onClick={() => onNavigate?.('contact' as ModuleId)}
-                className="text-[15px] font-medium text-[#111111]/60 dark:text-white/60 hover:text-[#111111] dark:hover:text-white transition-colors"
+                className="text-[14px] font-medium text-slate-300 hover:text-white transition-colors"
               >
                 Support
               </button>
@@ -117,7 +117,7 @@ export default function TopNavbar({
               {!isAuthenticated ? (
                 <button 
                   onClick={onOpenAuth}
-                  className="text-[15px] font-medium text-[#111111]/60 dark:text-white/60 hover:text-[#111111] dark:hover:text-white transition-colors"
+                  className="text-[14px] font-medium text-slate-300 hover:text-white transition-colors"
                 >
                   Login
                 </button>
@@ -125,29 +125,29 @@ export default function TopNavbar({
                 <div ref={profileRef} className="relative">
                   <button 
                     onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                    className="flex items-center gap-2 text-[15px] font-medium text-[#111111]/60 dark:text-white/60 hover:text-[#111111] dark:hover:text-white transition-colors"
+                    className="flex items-center gap-2 text-[14px] font-medium text-slate-300 hover:text-white transition-colors"
                   >
                     <span className="truncate max-w-[100px]">{user?.displayName?.split(' ')[0] || 'Account'}</span>
                     <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   {isProfileMenuOpen && (
-                    <div className="absolute right-0 top-[140%] w-56 bg-white dark:bg-[#1A1A1A] border border-[#111111]/10 dark:border-white/10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgba(255,255,255,0.02)] overflow-hidden animate-in fade-in slide-in-from-top-2 z-50">
-                      <div className="px-4 py-3 border-b border-[#111111]/10 dark:border-white/10 bg-[#111111]/5 dark:bg-white/5">
-                        <p className="text-sm font-bold text-[#111111] dark:text-white truncate">{user?.displayName || 'User'}</p>
-                        <p className="text-xs text-[#111111]/60 dark:text-white/60 truncate">{user?.email}</p>
+                    <div className="absolute right-0 top-[140%] w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 z-50">
+                      <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
+                        <p className="text-sm font-bold text-slate-900 dark:text-white truncate">{user?.displayName || 'User'}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
                       </div>
                       <div className="p-2 space-y-1">
-                        <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-[#111111]/70 dark:text-white/70 hover:bg-[#111111]/5 dark:hover:bg-white/5 transition-colors">
+                        <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                           <User className="w-4 h-4" /> My Profile
                         </button>
-                        <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-[#111111]/70 dark:text-white/70 hover:bg-[#111111]/5 dark:hover:bg-white/5 transition-colors">
+                        <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                           <Settings className="w-4 h-4" /> Account Settings
                         </button>
-                        <div className="h-px bg-[#111111]/10 dark:bg-white/10 my-1" />
+                        <div className="h-px bg-slate-200 dark:bg-slate-800 my-1" />
                         <button 
                           onClick={handleSignOut}
-                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                         >
                           <LogOut className="w-4 h-4" /> Sign Out
                         </button>
@@ -160,13 +160,13 @@ export default function TopNavbar({
             
             <button 
               onClick={() => onNavigate?.('house' as ModuleId)}
-              className="px-6 py-2.5 rounded-full text-[15px] font-bold text-white dark:text-[#111111] bg-[#111111] dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors duration-300 whitespace-nowrap shadow-md"
+              className="px-5 py-2 rounded-lg text-[14px] font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300 whitespace-nowrap shadow-sm"
             >
               Start Estimating
             </button>
           </div>
         </div>
-      </div>
+      </nav>
 
       {/* ------------------------------------------- */}
       {/* FULL-WIDTH STICKY CTA FOR MOBILE (< 768px)  */}

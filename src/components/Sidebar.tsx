@@ -30,6 +30,7 @@ export type ModuleId =
   | "gradient-calculator"
   | "mep-calculator"
   | "interiors-finishes"
+  | "geotechnical"
   | "bbs-generator"
   | "about"
   | "careers"
@@ -98,6 +99,7 @@ export default function Sidebar({
   const earthworksTools: { id: ModuleId; label: string }[] = [
     { id: "earthworks", label: "Earthworks Estimator" },
     { id: "chainage", label: "Road Earthworks" },
+    { id: "geotechnical", label: "Geotechnical & Soil Tests" },
   ];
 
   const quickCalculators: { id: ModuleId; label: string }[] = [
@@ -120,7 +122,7 @@ export default function Sidebar({
       )}
 
       {/* Main Drawer */}
-      <div
+      <aside
         className={cn(
           "fixed inset-y-0 left-0 z-[110] transform transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col w-[75vw] max-w-[300px] bg-white h-[100dvh] shadow-2xl",
           isOpen ? "translate-x-0" : "-translate-x-full"
@@ -142,7 +144,7 @@ export default function Sidebar({
         </div>
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto w-full px-5 py-5 scrollbar-hide bg-white">
+        <nav className="flex-1 overflow-y-auto w-full px-5 py-5 scrollbar-hide bg-white">
           
           {/* Main Categories */}
           <div className="flex flex-col space-y-4 mb-6">
@@ -260,7 +262,7 @@ export default function Sidebar({
             )}
           </div>
 
-        </div>
+        </nav>
 
         {/* Footer actions */}
         <div className="p-4 border-t border-slate-100 bg-slate-50 shrink-0">
@@ -312,7 +314,7 @@ export default function Sidebar({
           )}
         </div>
 
-      </div>
+      </aside>
     </>
   );
 }

@@ -16,7 +16,7 @@ export default function BottomNavBar({ activeModule, onSelectModule, onOpenProfi
 
   // Make the bottom nav an ultra-modern frosted glass element.
   return (
-    <div className="fixed bottom-6 left-6 right-6 z-40 bg-[rgba(10,15,30,0.65)] backdrop-blur-[20px] border border-[rgba(255,255,255,0.08)] rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex items-center justify-around px-2 py-3 md:hidden overflow-visible" style={{ WebkitBackdropFilter: "blur(20px)" }}>
+    <nav className="fixed bottom-6 left-6 right-6 z-40 bg-slate-900/90 backdrop-blur-[20px] border border-slate-700/50 rounded-full shadow-lg flex items-center justify-around px-2 py-3 md:hidden overflow-visible" style={{ WebkitBackdropFilter: "blur(20px)" }}>
       <NavItem 
         icon={<Home strokeWidth={2.5} />} 
         label="Home" 
@@ -47,7 +47,7 @@ export default function BottomNavBar({ activeModule, onSelectModule, onOpenProfi
         isActive={false} 
         onClick={onOpenProfile} 
       />
-    </div>
+    </nav>
   );
 }
 

@@ -16,24 +16,25 @@ import RecentEstimates from "./RecentEstimates";
 import PostLoginDashboard from "./PostLoginDashboard";
 
 export const ALL_MODULES = [
-  { id: "calculators", title: "Construction Material", desc: "Accurate estimations for concrete, bricks, steel, blocks, mortar.", category: "TOOLS", icon: HardHat },
-  { id: "house", title: "House Estimator", desc: "Complete residential cost breakdown from grey structure to finishing.", category: "RESIDENTIAL", icon: Home, premium: true, color: "navy" },
-  { id: "area-calculator", title: "Area Calculator", desc: "Calculate area & perimeter for multiple 2D shapes.", category: "TOOLS", icon: Scaling },
-  { id: "volume-estimator", title: "Volume Estimator", desc: "Calculate volumes, capacity & surface area.", category: "TOOLS", icon: Container },
-  { id: "unit-converter", title: "Unit Converter", desc: "Convert units across 15 engineering categories.", category: "TOOLS", icon: Repeat },
-  { id: "metal-weight", title: "Metal Weight", desc: "Calculate section weights of steel profiles.", category: "TOOLS", icon: Anvil },
-  { id: "mep-calculator", title: "Energy & MEP Calculators", desc: "Estimate solar capacity, water heating, and AC sizing.", category: "TOOLS", icon: Zap },
-  { id: "master-rcc", title: "Master RCC Estimator", desc: "Unified hub for Slab, Column, Beam, Staircase, and BBS calculations.", category: "STRUCTURAL", icon: Building2 },
-  { id: "master-quantity", title: "Master Quantity & Estimation", desc: "23 comprehensive calculators for specialized construction items.", category: "TOOLS", icon: ClipboardList },
-  { id: "earthworks", title: "Earthworks", desc: "Calculate site preparation, excavation and hauling volumes.", category: "SITE PREP", icon: Shovel },
-  { id: "road-pavement", title: "Road & Pavement Estimator", desc: "Comprehensive tool for flexible, rigid, pavement & sewerage calculations.", category: "INFRA", icon: Route },
-  { id: "chainage", title: "Chainage Volume", desc: "Road highway chainage extraction calculations.", category: "INFRA", icon: Map },
-  { id: "interiors-finishes", title: "Interiors & Finishes", desc: "Tiles, painting, doors, wood framing, and termite treatments.", category: "INTERIORS", icon: Paintbrush },
-  { id: "formwork", title: "Formwork & Scaffold", desc: "Shuttering and scaffolding material computations.", category: "STRUCTURAL", icon: Hammer },
-  { id: "gradient-calculator", title: "Gradient & Slope", desc: "Dynamic bidirectional slope and elevation calculator.", category: "SITE_PREP", icon: Maximize2 },
-  { id: "takeoff", title: "Plan Measure", desc: "Area & linear extraction.", category: "2D TAKEOFF", icon: Ruler },
-  { id: "rates", title: "Live DB Rates", desc: "Centralized database for local market prices.", category: "DATA", icon: TrendingUp },
-  { id: "ai", title: "AI Assistant", desc: "Ask anything about construction", category: "GEMINI PRO", icon: Sparkles, premium: true, color: "electric" },
+  { id: "calculators", title: "Construction Material", desc: "Accurate estimations for concrete, bricks, steel, blocks, mortar.", category: "Concrete Tech", icon: HardHat },
+  { id: "house", title: "House Estimator", desc: "Complete residential cost breakdown from grey structure to finishing.", category: "Quantity Estimator", icon: Home, premium: true, color: "navy" },
+  { id: "area-calculator", title: "Area Calculator", desc: "Calculate area & perimeter for multiple 2D shapes.", category: "Quantity Estimator", icon: Scaling },
+  { id: "volume-estimator", title: "Volume Estimator", desc: "Calculate volumes, capacity & surface area.", category: "Quantity Estimator", icon: Container },
+  { id: "unit-converter", title: "Unit Converter", desc: "Convert units across 15 engineering categories.", category: "Quantity Estimator", icon: Repeat },
+  { id: "metal-weight", title: "Metal Weight", desc: "Calculate section weights of steel profiles.", category: "Quantity Estimator", icon: Anvil },
+  { id: "mep-calculator", title: "Energy & MEP Calculators", desc: "Estimate solar capacity, water heating, and AC sizing.", category: "MEP", icon: Zap },
+  { id: "master-rcc", title: "Master RCC Estimator", desc: "Unified hub for Slab, Column, Beam, Staircase, and BBS calculations.", category: "Concrete Tech", icon: Building2 },
+  { id: "master-quantity", title: "Master Quantity & Estimation", desc: "23 comprehensive calculators for specialized construction items.", category: "Quantity Estimator", icon: ClipboardList },
+  { id: "earthworks", title: "Earthworks", desc: "Calculate site preparation, excavation and hauling volumes.", category: "Road Construction", icon: Shovel },
+  { id: "road-pavement", title: "Road & Pavement Estimator", desc: "Comprehensive tool for flexible, rigid, pavement & sewerage calculations.", category: "Road Construction", icon: Route },
+  { id: "chainage", title: "Chainage Volume", desc: "Road highway chainage extraction calculations.", category: "Road Construction", icon: Map },
+  { id: "interiors-finishes", title: "Interiors & Finishes", desc: "Tiles, painting, doors, wood framing, and termite treatments.", category: "Quantity Estimator", icon: Paintbrush },
+  { id: "formwork", title: "Formwork & Scaffold", desc: "Shuttering and scaffolding material computations.", category: "Concrete Tech", icon: Hammer },
+  { id: "gradient-calculator", title: "Gradient & Slope", desc: "Dynamic bidirectional slope and elevation calculator.", category: "Road Construction", icon: Maximize2 },
+  { id: "takeoff", title: "Plan Measure", desc: "Area & linear extraction.", category: "Quantity Estimator", icon: Ruler },
+  { id: "rates", title: "Live DB Rates", desc: "Centralized database for local market prices.", category: "Quantity Estimator", icon: TrendingUp },
+  { id: "ai", title: "AI Assistant", desc: "Ask anything about construction", category: "Quantity Estimator", icon: Sparkles, premium: true, color: "electric" },
+  { id: "geotechnical", title: "Geotechnical & Soil Tests", desc: "Process lab data for water content, Specific Gravity, Sieve, LL, and CBR.", category: "Soil Tests", icon: Cone },
 ];
 
 interface DashboardProps {
@@ -76,29 +77,13 @@ export default function Dashboard({
 }: DashboardProps) {
   const { user } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeCategory, setActiveCategory] = useState("All");
-
-  const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
-  const searchPlaceholders = [
-    "Search 'cement for 5 marla'...",
-    "Search 'steel quantity slab'...",
-    "Search 'brickwork calculation'...",
-    "Search 'paint for interior wall'...",
-    "Search 'excavation volume'..."
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentPlaceholder((prev) => (prev + 1) % searchPlaceholders.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+  const [activeCategory, setActiveCategory] = useState("All Tools");
 
   useEffect(() => {
     if (previousModule && !["home", "my-estimates", "pricing", "about", "careers", "contact", "blog"].includes(previousModule)) {
       const prevMod = ALL_MODULES.find((m) => m.id === previousModule);
       if (prevMod) {
-        setActiveCategory("All");
+        setActiveCategory("All Tools");
         setTimeout(() => {
           const elm = document.getElementById(`module-card-${previousModule}`);
           if (elm) {
@@ -110,20 +95,12 @@ export default function Dashboard({
   }, [previousModule]);
 
   const categories = [
-    "All",
-    ...Array.from(
-      new Set(
-        ALL_MODULES.map((m) => {
-          if (
-            m.id === "calculators" ||
-            m.id === "house" ||
-            m.id === "master-quantity"
-          )
-            return "POPULAR";
-          return m.category;
-        }),
-      ),
-    ),
+    "All Tools",
+    "Quantity Estimator",
+    "Concrete Tech",
+    "Road Construction",
+    "Soil Tests",
+    "MEP"
   ];
 
   const filteredModules = ALL_MODULES.filter((m) => {
@@ -133,17 +110,8 @@ export default function Dashboard({
       m.desc.toLowerCase().includes(searchTerm.toLowerCase()) ||
       m.category.toLowerCase().includes(searchTerm.toLowerCase());
 
-    let groupName = m.category;
-    if (
-      m.id === "calculators" ||
-      m.id === "house" ||
-      m.id === "master-quantity"
-    ) {
-      groupName = "POPULAR";
-    }
-
     const matchesCategory =
-      activeCategory === "All" || groupName === activeCategory;
+      activeCategory === "All Tools" || m.category === activeCategory;
 
     return matchesSearch && matchesCategory;
   });
@@ -152,15 +120,8 @@ export default function Dashboard({
   const groupedModules: Record<string, typeof ALL_MODULES> = {};
 
   filteredModules.forEach((mod) => {
-    let groupName = mod.category;
-    if (
-      mod.id === "calculators" ||
-      mod.id === "house" ||
-      mod.id === "master-quantity"
-    ) {
-      groupName = "POPULAR";
-    }
-
+    const groupName = mod.category;
+    
     if (!groupedModules[groupName]) {
       groupedModules[groupName] = [];
       groupsToDisplay.push(groupName);
@@ -222,18 +183,21 @@ export default function Dashboard({
           </div>
 
           {/* Tag */}
-          <div className="inline-flex items-center rounded-full bg-[#111111] dark:bg-white pl-1.5 pr-5 py-1.5 mb-8 shadow-sm">
-            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-[#2A2A2A] dark:bg-slate-200 mr-2.5">
-              <Sparkles className="w-3.5 h-3.5 text-[#FFDF70] dark:text-[#FFA000]" strokeWidth={2.5} />
+          <div className="inline-flex items-center rounded-full bg-indigo-50 dark:bg-indigo-900/30 pl-2 pr-5 py-1.5 mb-6 shadow-sm border border-indigo-100 dark:border-indigo-800">
+            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-800 mr-2.5">
+              <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-300" strokeWidth={2.5} />
             </div>
-            <span className="text-[11px] md:text-xs font-bold tracking-widest uppercase text-white dark:text-[#111111]">
-              / For Quantity Surveyors & Engineers
+            <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 tracking-wide uppercase">
+              For Quantity Surveyors & Engineers
             </span>
           </div>
           
-          <h1 className="font-heading text-[3.5rem] sm:text-[4.5rem] md:text-[5rem] lg:text-[6.5rem] leading-[0.95] font-black tracking-tighter text-[#111111] dark:text-white uppercase mb-8 max-w-5xl mx-auto">
-            ACCURATE<br/>ESTIMATES<br/>IN SECONDS
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white mb-6 max-w-4xl mx-auto">
+            Accurate Estimates in Seconds
           </h1>
+          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
+             The complete toolkit for civil engineers and quantity surveyors to calculate precise quantities, analyze rates, and generate professional reports.
+          </p>
 
           {/* Social Proof Strip - Centered */}
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-16 px-4">
@@ -269,197 +233,56 @@ export default function Dashboard({
     )}
 
     {/* SEARCH AND TOOLS - ALWAYS VISIBLE */}
-    <div className="relative w-full max-w-[1400px] mx-auto z-10 flex flex-col items-center">
+    <div className="relative w-full max-w-[1400px] mx-auto z-20 flex flex-col items-center">
       
-      {/* Frosted Glass Search Bar Container */}
-      <div className="w-full relative z-20 flex justify-end mt-4 md:mt-8 px-0">
-            <style>{`
-              input.civil-search-input[type="text"] {
-                  background: transparent !important;
-                  background-color: transparent !important;
-                  border: none !important;
-                  box-shadow: none !important;
-                  padding: 0 !important;
-                  outline: none !important;
-                  -webkit-appearance: none !important;
-              }
-              input.civil-search-input[type="text"]:focus {
-                  background: transparent !important;
-                  background-color: transparent !important;
-                  border: none !important;
-                  box-shadow: none !important;
-                  outline: none !important;
-                  -webkit-appearance: none !important;
-                  outline-offset: 0 !important;
-              }
-              input.civil-search-input[type="text"]:-webkit-autofill,
-              input.civil-search-input[type="text"]:-webkit-autofill:hover, 
-              input.civil-search-input[type="text"]:-webkit-autofill:focus, 
-              input.civil-search-input[type="text"]:-webkit-autofill:active {
-                  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
-                  transition: background-color 5000s ease-in-out 0s;
-                  -webkit-text-fill-color: rgba(255,255,255,0.8) !important;
-              }
-            `}</style>
-
-            <div className="w-full md:w-[70%] flex flex-col gap-3">
-              {/* Search Bar Outer Wrapper */}
-              <div 
-                className="group relative flex items-center w-full h-[56px] rounded-[100px] border-2 bg-gradient-to-r from-yellow-200/20 to-yellow-100/10 backdrop-blur-md transition-all duration-300 pl-[20px] pr-[6px]"
-                style={{ 
-                  borderColor: 'rgba(239,159,39,0.3)',
-                }}
-                onFocus={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(239,159,39,0.7)';
-                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(239,159,39,0.15)';
-                }}
-                onBlur={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(239,159,39,0.3)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              >
-                
-                {/* Search Icon */}
-                <Search className="w-5 h-5 shrink-0" style={{ color: 'rgba(239,159,39,0.7)' }} strokeWidth={2.5} />
-                
-                {/* Input Area */}
-                <div className="relative flex-1 h-full mx-3 flex items-center overflow-hidden">
-                  {!searchTerm && (
-                     <div className="absolute inset-0 flex flex-col pointer-events-none w-full text-left font-medium" style={{ color: 'rgba(0,0,0,0.4)' }}>
-                        {searchPlaceholders.map((text, idx) => (
-                          <div 
-                            key={idx}
-                            className={`absolute inset-0 flex items-center w-full text-[16px] truncate transition-all duration-500 ease-in-out
-                              ${idx === currentPlaceholder 
-                                ? 'opacity-100 translate-y-0' 
-                                : idx < currentPlaceholder 
-                                  ? 'opacity-0 -translate-y-8' 
-                                  : 'opacity-0 translate-y-8'
-                              }`}
-                          >
-                            {text}
-                          </div>
-                        ))}
-                     </div>
-                  )}
-                  <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="civil-search-input absolute inset-0 w-full h-full border-0 focus:ring-0 focus:outline-none focus:border-0 p-0 text-[16px] font-medium outline-none bg-transparent"
-                    style={{ 
-                      color: 'rgba(0,0,0,0.8)',
-                      backgroundColor: 'transparent',
-                      boxShadow: 'none'
-                    }}
-                    placeholder=""
-                  />
-                </div>
-                
-                {/* AI Search Pill Button */}
-                <button className="flex items-center justify-center gap-1 rounded-[100px] shrink-0 transition-transform hover:scale-105 active:scale-95"
-                  style={{
-                    background: '#EF9F27',
-                    color: '#1a1208',
-                    padding: '6px 10px',
-                    fontWeight: 600,
-                    fontSize: '13px'
-                  }}
-                >
-                  <Wand2 className="w-4 h-4" strokeWidth={2.5} />
-                  <span>Search</span>
-                </button>
-
-              </div>
-              
-              {/* Quick Chips Below */}
-              <div className="flex justify-end gap-2 flex-wrap text-sm">
-                <button 
-                  onClick={() => setActiveCategory("TOOLS")}
-                  className={`px-3 py-1.5 rounded-full text-[12px] font-bold transition-all border ${
-                    activeCategory === "TOOLS" 
-                      ? 'bg-[#14b8a6]/20 text-[#2dd4bf] border-[#14b8a6]/30' 
-                      : 'bg-transparent text-white/50 border-white/10 hover:border-white/20'
-                  }`}
-                >
-                  Calculators
-                </button>
-
-                <button 
-                  onClick={() => setActiveCategory("POPULAR")}
-                  className={`px-3 py-1.5 rounded-full text-[12px] font-bold transition-all border ${
-                    activeCategory === "POPULAR" 
-                      ? 'bg-[#f59e0b]/20 text-[#fbbf24] border-[#f59e0b]/30' 
-                      : 'bg-transparent text-white/50 border-white/10 hover:border-white/20'
-                  }`}
-                >
-                  Materials
-                </button>
-
-                <button 
-                  onClick={() => setActiveCategory("REPORTS")}
-                  className={`px-3 py-1.5 rounded-full text-[12px] font-bold transition-all border ${
-                    activeCategory === "REPORTS" 
-                      ? 'bg-[#f43f5e]/20 text-[#fb7185] border-[#f43f5e]/30' 
-                      : 'bg-transparent text-white/50 border-white/10 hover:border-white/20'
-                  }`}
-                >
-                  Reports
-                </button>
-
-                <button 
-                  onClick={() => setActiveCategory("INDIGO")}
-                  className={`px-3 py-1.5 rounded-full text-[12px] font-bold transition-all border ${
-                    activeCategory === "INDIGO" 
-                      ? 'bg-[#6366f1]/20 text-[#818cf8] border-[#6366f1]/30' 
-                      : 'bg-transparent text-white/50 border-white/10 hover:border-white/20'
-                  }`}
-                >
-                  Insights
-                </button>
-
-                {activeCategory !== "All" && (
-                  <button 
-                    onClick={() => setActiveCategory("All")}
-                    className="ml-2 text-[12px] text-white/40 hover:text-white/80 uppercase font-bold tracking-wider underline decoration-white/20 underline-offset-4 transition-colors"
-                  >
-                    Clear
-                  </button>
-                )}
-              </div>
-
-            </div>
+      {/* STICKY SEARCH AND CATEGORIES CONTAINER */}
+      <div className="sticky top-[70px] md:top-[88px] w-full z-30 pt-4 pb-2 bg-[#f8fafc]/95 dark:bg-[#0f172a]/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        
+        {/* Search Bar */}
+        <div className="w-full max-w-2xl mx-auto px-4 mb-4">
+          <div className="relative flex items-center w-full h-[52px] rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 transition-all duration-200">
+            <Search className="w-5 h-5 ml-4 shrink-0 text-slate-400" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full h-full border-0 focus:ring-0 focus:outline-none p-0 text-[15px] font-medium outline-none bg-transparent mx-3 text-slate-900 dark:text-white"
+              placeholder="Search estimators, materials, tests..."
+            />
+            {searchTerm && (
+              <button onClick={() => setSearchTerm("")} className="mr-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                Cancel
+              </button>
+            )}
           </div>
         </div>
-
-        {/* CATEGORY TABS AND TOOL CARDS */}
-        <div className="flex flex-col w-full animate-in fade-in slide-in-from-bottom-6 duration-700 delay-150 relative z-10 mt-8">
-          {/* CATEGORY TABS */}
-          <div className="mt-4 px-1 md:px-0 relative mb-12">
-            <div className="flex flex-row overflow-x-auto md:flex-wrap items-center md:justify-center gap-2 w-full max-w-5xl mx-auto pb-4 md:pb-0 scrollbar-hide snap-x">
-              {categories.map((category, idx) => (
-                <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={`stagger-in flex-shrink-0 relative px-5 py-2.5 rounded-full whitespace-nowrap text-sm md:text-[15px] font-bold transition-all duration-300 snap-center overflow-hidden border ${
-                    activeCategory === category
-                      ? "text-slate-900 border-slate-200 bg-white shadow-sm"
-                      : "text-slate-500 border-transparent hover:bg-slate-100/50 hover:text-slate-800"
-                  }`}
-                  style={{ animationDelay: `${idx * 50}ms` }}
-                >
-                  <span className="relative z-10">{category}</span>
-                </button>
-              ))}
-            </div>
+        
+        {/* CATEGORY TABS */}
+        <div className="w-full px-4 overflow-x-auto scrollbar-hide py-2">
+          <div className="flex flex-row items-center gap-2 w-full max-w-6xl mx-auto md:justify-center">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`flex-shrink-0 px-5 py-2 rounded-full whitespace-nowrap text-sm font-bold transition-all duration-200 ${
+                  activeCategory === category
+                    ? "bg-indigo-600 text-white shadow-md border border-indigo-600"
+                    : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700"
+                }`}
+              >
+                {category}
+              </button>
+            ))}
           </div>
+        </div>
+      </div>
 
-          {/* MODULAR CARDS GRID */}
-          <div className="flex flex-col gap-12 w-full">
+      {/* MODULAR CARDS GRID */}
+      <div className="flex flex-col w-full px-4 lg:px-8 mt-10">
             {groupsToDisplay.map((groupName) => (
               <div key={groupName} className="flex flex-col gap-6">
-                <h2 className="text-lg md:text-xl font-bold text-slate-800 pl-2 tracking-widest uppercase flex items-center gap-3">
-                  <span className="w-8 h-[2px] bg-slate-900 block"></span>
+                <h2 className="text-lg md:text-xl font-bold text-slate-800 dark:text-slate-200 pl-2 tracking-widest uppercase flex items-center gap-3">
+                  <span className="w-8 h-[2px] bg-slate-900 dark:bg-slate-300 block"></span>
                   {groupName}
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6 w-full">

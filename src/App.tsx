@@ -16,6 +16,7 @@ import HouseEstimator from "./components/modules/HouseEstimator";
 import RateAnalysis from "./components/modules/RateAnalysis";
 import FormworkEstimator from "./components/modules/FormworkEstimator";
 import AreaCalculator from "./components/modules/AreaCalculator";
+import GeotechnicalCalculator from "./components/modules/GeotechnicalCalculator";
 import VolumeEstimator from "./components/modules/VolumeEstimator";
 import UnitConverter from "./components/modules/UnitConverter";
 import MetalWeightCalculator from "./components/modules/MetalWeightCalculator";
@@ -143,6 +144,7 @@ export default function App() {
               {activeModule === "ai" && <ModuleWrapper title="AI Assistant" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AIAssistant /></ModuleWrapper>}
               {activeModule === "earthworks" && <ModuleWrapper title="Earthworks" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><EarthworksEstimator /></ModuleWrapper>}
               {activeModule === "chainage" && <ModuleWrapper title="Road Earthworks" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ChainageVolumeEstimator /></ModuleWrapper>}
+              {activeModule === "geotechnical" && <ModuleWrapper title="Geotechnical & Soil Tests" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><GeotechnicalCalculator /></ModuleWrapper>}
               {activeModule === "road-pavement" && <ModuleWrapper title="Road & Pavement Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RoadPavementEstimator /></ModuleWrapper>}
               {activeModule === "interiors-finishes" && <ModuleWrapper title="Interiors & Finishes" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><InteriorsFinishesEstimator /></ModuleWrapper>}
               {activeModule === "house" && <ModuleWrapper title="House Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><HouseEstimator /></ModuleWrapper>}
@@ -180,8 +182,8 @@ function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: 
   ];
 
   return (
-    <div className="flex items-center px-4 md:px-6 py-2.5 mx-2 md:mx-4 mt-3 md:mt-6 mb-3 md:mb-4 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/50 dark:border-slate-700/50 rounded-full shadow-[0_4px_24px_rgba(0,0,0,0.04)] sticky top-3 md:top-6 z-30 shrink-0 min-h-[50px] md:min-h-[56px] transition-all duration-300">
-      <button onClick={onOpenSidebar} className="p-2 mr-3 -ml-2 rounded-full hover:bg-white/80 dark:hover:bg-slate-800/80 text-slate-500 dark:text-slate-400 hidden md:block transition-all">
+    <header className="flex items-center px-4 md:px-6 py-2.5 mx-2 md:mx-4 mt-3 md:mt-6 mb-3 md:mb-4 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/50 dark:border-slate-700/50 rounded-2xl shadow-sm sticky top-3 md:top-6 z-30 shrink-0 min-h-[50px] md:min-h-[56px] transition-all duration-300">
+      <button onClick={onOpenSidebar} className="p-2 mr-3 -ml-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hidden md:block transition-all">
         <Menu className="w-5 h-5" />
       </button>
 
@@ -194,17 +196,17 @@ function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: 
           <Breadcrumb items={breadcrumbItems} />
         </div>
       ) : (
-        <h1 className="text-[17px] font-bold text-slate-800 dark:text-white flex-1 min-w-0 truncate pr-2">{title}</h1>
+        <h1 className="text-base font-bold text-slate-800 dark:text-white flex-1 min-w-0 truncate pr-2">{title}</h1>
       )}
 
       <div className="hidden sm:flex mx-3">
         <GlobalSettingsToggle />
       </div>
 
-      <button onClick={onOpenSettings} className="p-2 -mr-2 rounded-full hover:bg-white/80 dark:hover:bg-slate-800/80 text-slate-500 dark:text-slate-400 transition-all">
+      <button onClick={onOpenSettings} className="p-2 -mr-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-all">
         <SettingsIcon className="w-5 h-5" />
       </button>
-    </div>
+    </header>
   );
 }
 
