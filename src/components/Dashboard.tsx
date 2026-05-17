@@ -7,7 +7,7 @@ import {
   Map, Grid2X2, Box, ArrowRightLeft, Weight, Spline, ArrowRight,
   ChevronRight, ChevronDown, HardHat, Scaling, Container, Repeat, Anvil, Building2, 
   Blocks, Shovel, Pickaxe, Cone, Droplet, PaintBucket, Ruler, Columns, 
-  ClipboardList, Maximize2, FileSpreadsheet, Zap
+  ClipboardList, Maximize2, FileSpreadsheet, Zap, Wand2
 } from "lucide-react";
 import { SEO } from "./SEO";
 import Logo from "./Logo";
@@ -326,68 +326,45 @@ export default function Dashboard({
           </div>
 
           {/* Frosted Glass Search Bar Container */}
-          <div className="w-full max-w-3xl mx-auto mt-12 relative z-20">
-            <div className="relative w-full rounded-3xl p-1 bg-gradient-to-b from-[#111111]/20 to-transparent dark:from-white/10">
-              <div className="w-full bg-[#1A1A1A]/90 dark:bg-[#111111]/90 backdrop-blur-2xl border border-[#111111]/10 dark:border-white/10 rounded-[2rem] p-4 md:p-6 shadow-2xl">
-                
-                {/* Category Filter Pills */}
-                <div className="flex flex-wrap items-center gap-2 mb-4 text-left">
-                  <span className="text-[12px] font-bold text-white/40 tracking-widest uppercase ml-2 mr-1">Filter</span>
-                  
-                  <button 
-                    onClick={() => setActiveCategory("POPULAR")}
-                    className={`px-4 py-1.5 rounded-full text-[13px] font-bold transition-all ${
-                      activeCategory === "POPULAR" 
-                        ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.15)] ring-1 ring-amber-500/20' 
-                        : 'bg-white/5 text-white/60 hover:bg-white/10 border border-transparent'
-                    }`}
-                  >
-                    Materials
-                  </button>
-                  
-                  <button 
-                    onClick={() => setActiveCategory("TOOLS")}
-                    className={`px-4 py-1.5 rounded-full text-[13px] font-bold transition-all ${
-                      activeCategory === "TOOLS" 
-                        ? 'bg-teal-500/20 text-teal-400 border border-teal-500/30 shadow-[0_0_15px_rgba(20,184,166,0.15)] ring-1 ring-teal-500/20' 
-                        : 'bg-white/5 text-white/60 hover:bg-white/10 border border-transparent'
-                    }`}
-                  >
-                    Calculators
-                  </button>
+          <div className="w-full relative z-20 flex justify-end mt-12 px-4 md:px-0">
+            <style>{`
+              .civil-search-input:-webkit-autofill,
+              .civil-search-input:-webkit-autofill:hover, 
+              .civil-search-input:-webkit-autofill:focus, 
+              .civil-search-input:-webkit-autofill:active {
+                  -webkit-box-shadow: 0 0 0 1000px #111008 inset !important;
+                  -webkit-text-fill-color: rgba(255,255,255,0.8) !important;
+              }
+            `}</style>
 
-                  <button 
-                    onClick={() => setActiveCategory("REPORTS")}
-                    className={`px-4 py-1.5 rounded-full text-[13px] font-bold transition-all ${
-                      activeCategory === "REPORTS" 
-                        ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30 shadow-[0_0_15px_rgba(244,63,94,0.15)] ring-1 ring-rose-500/20' 
-                        : 'bg-white/5 text-white/60 hover:bg-white/10 border border-transparent'
-                    }`}
-                  >
-                    Reports
-                  </button>
-                  
-                  {activeCategory !== "All" && (
-                    <button 
-                      onClick={() => setActiveCategory("All")}
-                      className="ml-auto text-[12px] text-white/40 hover:text-white/80 uppercase font-bold tracking-wider underline decoration-white/20 underline-offset-4 transition-colors"
-                    >
-                      Clear
-                    </button>
-                  )}
-                </div>
+            <div className="w-full md:w-[70%] flex flex-col gap-3">
+              {/* Search Bar Outer Wrapper */}
+              <div 
+                className="group relative flex items-center w-full h-[56px] rounded-[100px] border-2 bg-black/40 transition-all duration-300 pl-[20px] pr-[6px]"
+                style={{ 
+                  borderColor: 'rgba(0,0,0,0.8)',
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = '#000000';
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,0,0,0.2)';
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(0,0,0,0.8)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
                 
-                {/* Search Input Container */}
-                <div className="relative flex items-center w-full bg-black/50 backdrop-blur-3xl border border-white/5 rounded-2xl p-4 md:p-5 shadow-inner focus-within:ring-2 focus-within:ring-amber-500/40 focus-within:border-amber-500/50 focus-within:shadow-[0_0_30px_rgba(245,158,11,0.2)] transition-all duration-300 group">
-                  <Search className="w-6 h-6 text-white/40 group-focus-within:text-amber-400 transition-colors mr-3 shrink-0" strokeWidth={2.5} />
-                  
-                  <div className="relative flex-1 h-8 flex items-center overflow-hidden">
-                    {!searchTerm && (
-                      <div className="absolute inset-0 flex flex-col pointer-events-none w-full text-left">
+                {/* Search Icon */}
+                <Search className="w-5 h-5 shrink-0" style={{ color: 'rgba(239,159,39,0.7)' }} strokeWidth={2.5} />
+                
+                {/* Input Area */}
+                <div className="relative flex-1 h-full mx-3 flex items-center overflow-hidden" style={{ background: 'transparent !important' }}>
+                  {!searchTerm && (
+                     <div className="absolute inset-0 flex flex-col pointer-events-none w-full text-left font-medium" style={{ color: 'rgba(255,255,255,0.28)' }}>
                         {searchPlaceholders.map((text, idx) => (
                           <div 
                             key={idx}
-                            className={`absolute inset-0 flex items-center w-full text-[17px] md:text-xl font-semibold text-white/30 truncate transition-all duration-500 ease-in-out
+                            className={`absolute inset-0 flex items-center w-full text-[16px] truncate transition-all duration-500 ease-in-out
                               ${idx === currentPlaceholder 
                                 ? 'opacity-100 translate-y-0' 
                                 : idx < currentPlaceholder 
@@ -398,21 +375,92 @@ export default function Dashboard({
                             {text}
                           </div>
                         ))}
-                      </div>
-                    )}
-                    <input
-                      type="text"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="absolute inset-0 bg-transparent text-[17px] md:text-xl text-white font-semibold outline-none border-0 focus:ring-0 p-0 caret-amber-400 w-full h-full text-left placeholder:text-transparent"
-                      placeholder=" "
-                    />
-                  </div>
-                  
-                  {/* Glow outline inside input on focus */}
-                  <div className="absolute inset-0 -z-10 bg-gradient-to-r from-amber-500/0 via-amber-500/5 to-amber-500/0 opacity-0 group-focus-within:opacity-100 rounded-2xl transition-opacity duration-500 pointer-events-none"></div>
+                     </div>
+                  )}
+                  <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="civil-search-input absolute inset-0 w-full h-full border-0 focus:ring-0 p-0 text-[16px] font-medium outline-none bg-transparent"
+                    style={{ 
+                      color: 'rgba(255,255,255,0.8)',
+                    }}
+                    placeholder=""
+                  />
                 </div>
+                
+                {/* AI Search Pill Button */}
+                <button className="flex items-center justify-center gap-1.5 rounded-[100px] shrink-0 transition-transform hover:scale-105 active:scale-95"
+                  style={{
+                    background: '#EF9F27',
+                    color: '#1a1208',
+                    padding: '8px 18px',
+                    fontWeight: 600,
+                    fontSize: '14px'
+                  }}
+                >
+                  <Wand2 className="w-4 h-4" strokeWidth={2.5} />
+                  <span>Search</span>
+                </button>
+
               </div>
+              
+              {/* Quick Chips Below */}
+              <div className="flex justify-end gap-2 flex-wrap text-sm">
+                <button 
+                  onClick={() => setActiveCategory("TOOLS")}
+                  className={`px-3 py-1.5 rounded-full text-[12px] font-bold transition-all border ${
+                    activeCategory === "TOOLS" 
+                      ? 'bg-[#14b8a6]/20 text-[#2dd4bf] border-[#14b8a6]/30' 
+                      : 'bg-transparent text-white/50 border-white/10 hover:border-white/20'
+                  }`}
+                >
+                  Calculators
+                </button>
+
+                <button 
+                  onClick={() => setActiveCategory("POPULAR")}
+                  className={`px-3 py-1.5 rounded-full text-[12px] font-bold transition-all border ${
+                    activeCategory === "POPULAR" 
+                      ? 'bg-[#f59e0b]/20 text-[#fbbf24] border-[#f59e0b]/30' 
+                      : 'bg-transparent text-white/50 border-white/10 hover:border-white/20'
+                  }`}
+                >
+                  Materials
+                </button>
+
+                <button 
+                  onClick={() => setActiveCategory("REPORTS")}
+                  className={`px-3 py-1.5 rounded-full text-[12px] font-bold transition-all border ${
+                    activeCategory === "REPORTS" 
+                      ? 'bg-[#f43f5e]/20 text-[#fb7185] border-[#f43f5e]/30' 
+                      : 'bg-transparent text-white/50 border-white/10 hover:border-white/20'
+                  }`}
+                >
+                  Reports
+                </button>
+
+                <button 
+                  onClick={() => setActiveCategory("INDIGO")}
+                  className={`px-3 py-1.5 rounded-full text-[12px] font-bold transition-all border ${
+                    activeCategory === "INDIGO" 
+                      ? 'bg-[#6366f1]/20 text-[#818cf8] border-[#6366f1]/30' 
+                      : 'bg-transparent text-white/50 border-white/10 hover:border-white/20'
+                  }`}
+                >
+                  Insights
+                </button>
+
+                {activeCategory !== "All" && (
+                  <button 
+                    onClick={() => setActiveCategory("All")}
+                    className="ml-2 text-[12px] text-white/40 hover:text-white/80 uppercase font-bold tracking-wider underline decoration-white/20 underline-offset-4 transition-colors"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+
             </div>
           </div>
         </div>
