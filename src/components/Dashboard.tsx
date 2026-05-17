@@ -198,30 +198,67 @@ export default function Dashboard({
           </button>
         </div>
 
-        {/* HERO SECTION */}
-        <div className="flex flex-col items-center justify-center text-center mt-10 sm:mt-16 px-4 mb-4">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-[4.5rem] leading-[1.1] font-bold tracking-tight text-slate-900 mb-4 max-w-[900px] mx-auto font-sans">
-            Estimate Smarter &amp; <span className="text-blue-600">Faster.</span>
-          </h1>
-          <p className="text-slate-500 font-medium text-base md:text-xl max-w-2xl mx-auto leading-relaxed mb-6 text-balance">
-            Access powerful, precise calculators for brickwork, concrete, plastering, and infrastructure projects.
-          </p>
-        </div>
+        {/* SPLIT HERO SECTION */}
+        <div className="w-full max-w-[1400px] mx-auto mt-8 md:mt-16 mb-24 px-4 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* LEFT COLUMN: TEXT */}
+          <div className="flex flex-col items-start justify-center text-left animate-in fade-in slide-in-from-bottom-8 duration-700">
+            {/* Tag */}
+            <div className="inline-flex items-center rounded-full bg-[#111111] dark:bg-white pl-1.5 pr-5 py-1.5 mb-8 shadow-sm">
+              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-[#2A2A2A] dark:bg-slate-200 mr-2.5">
+                <Sparkles className="w-3.5 h-3.5 text-[#FFDF70] dark:text-[#FFA000]" strokeWidth={2.5} />
+              </div>
+              <span className="text-[11px] md:text-xs font-bold tracking-widest uppercase text-white dark:text-[#111111]">
+                / For Quantity Surveyors & Engineers
+              </span>
+            </div>
+            
+            <h1 className="font-heading text-[3.5rem] md:text-[5rem] lg:text-[5.5rem] leading-[0.95] font-black tracking-tighter text-[#111111] dark:text-white uppercase">
+              ACCURATE<br/>ESTIMATES<br/>IN SECONDS
+            </h1>
+          </div>
 
-        {/* SEARCH BAR WIDGET */}
-        <div className="mb-10 lg:mb-14 flex flex-col justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 px-4">
-          <div className="relative w-full max-w-2xl mx-auto">
-            <div className="relative w-full shadow-[0_4px_24px_rgba(0,0,0,0.06)] rounded-full bg-white flex items-center p-1.5 md:p-2 pl-6 md:pl-8">
-              <input
-                type="text"
-                placeholder="Search materials or calculators..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="flex-1 bg-transparent text-lg text-slate-800 font-medium outline-none transition-all placeholder:text-slate-400 font-sans border-0 focus:ring-0 py-2 md:py-3 w-full min-w-0"
-              />
-              <button className="h-10 w-10 md:h-12 md:w-12 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 active:scale-95 transition-all shrink-0 ml-2 border-none outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2">
-                <Search className="w-5 h-5 md:w-6 md:h-6" strokeWidth={2.5} />
-              </button>
+          {/* RIGHT COLUMN: INTERACTIVE WIDGET */}
+          <div className="w-full max-w-xl mx-auto lg:max-w-none animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
+            <div className="w-full bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl border border-white/60 dark:border-white/10 rounded-[2.5rem] p-8 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.08)] dark:shadow-[0_32px_64px_-12px_rgba(0,0,0,0.3)] flex flex-col min-h-[300px]">
+              
+              {/* Minimalist Search Input */}
+              <div className="flex items-center w-full border-b border-[#111111]/10 dark:border-white/10 pb-6 mb-6">
+                <Search className="w-7 h-7 text-[#111111]/40 dark:text-white/40 mr-4 shrink-0" strokeWidth={2.5} />
+                <input
+                  type="text"
+                  placeholder="Search materials or calculators..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="flex-1 bg-transparent text-xl md:text-2xl text-[#111111] dark:text-white font-semibold outline-none placeholder:text-[#111111]/30 dark:placeholder:text-white/30 border-0 focus:ring-0 p-0 caret-[#111111] dark:caret-white w-full min-w-0"
+                />
+              </div>
+
+              {/* Popular Tools Preview (to give the widget some body) */}
+              <div className="flex-1 flex flex-col justify-center">
+                <div className="flex items-center justify-between mb-4 px-2">
+                  <span className="text-[13px] font-bold text-[#111111]/50 dark:text-white/50 tracking-widest uppercase">Popular</span>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { id: "calculators", title: "Materials", icon: Box },
+                    { id: "house", title: "House", icon: Home },
+                    { id: "takeoff", title: "2D Takeoff", icon: Ruler },
+                    { id: "master-rcc", title: "RCC Master", icon: Building2 }
+                  ].map((tool) => (
+                    <button
+                      key={tool.id}
+                      onClick={() => onSelectModule(tool.id as ModuleId)}
+                      className="flex items-center gap-3 p-4 rounded-3xl bg-white/50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 transition-all border border-transparent hover:border-white/80 dark:hover:border-white/10 shadow-sm hover:shadow-md text-left group"
+                    >
+                      <div className="w-10 h-10 rounded-2xl bg-[#111111]/5 dark:bg-white/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <tool.icon className="w-5 h-5 text-[#111111] dark:text-white" strokeWidth={2} />
+                      </div>
+                      <span className="font-semibold text-[15px] text-[#111111] dark:text-white">{tool.title}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
