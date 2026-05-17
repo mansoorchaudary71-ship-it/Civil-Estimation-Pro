@@ -64,22 +64,14 @@ export default function TrenchExcavationEstimator() {
   }
 
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <header className="mb-10 block">
-          <div>
-            <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-teal-600 to-emerald-500 bg-clip-text text-transparent pb-1">
-              Trench Excavation Estimator
-            </h1>
-            <p className="text-gray-700 dark:text-gray-300 mt-2 font-medium">
-              Calculate total excavated volume and bedding material using a
-              trapezoidal cross-section.
-            </p>
-            <div className="mt-5 w-fit">
-              <GlobalSettingsToggle align="left" showCurrency={false} />
-            </div>
-          </div>
-        </header>
+    <div className="w-full bg-transparent text-gray-900 font-sans mt-4">
+      <div className="space-y-8">
+        <div className="mb-4">
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-emerald-500 bg-clip-text text-transparent pb-1">
+            Trench Excavation
+          </h2>
+          <GlobalSettingsToggle align="left" showCurrency={false} />
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <section className="space-y-6">

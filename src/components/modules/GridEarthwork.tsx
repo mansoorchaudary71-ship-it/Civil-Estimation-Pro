@@ -60,22 +60,14 @@ export default function GridEarthworkEstimator() {
   const isCut = avgDepth > 0;
   const isFill = avgDepth < 0;
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
-      <div className="max-w-5xl mx-auto space-y-8">
-        <header className="mb-10 block">
-          <div>
-            <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent pb-1">
-              Grid Method Earthwork
-            </h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-2 font-medium">
-              Calculate leveling volume by comparing existing and proposed
-              elevations at grid corners.
-            </p>
-            <div className="mt-5 w-fit">
-              <GlobalSettingsToggle align="left" showCurrency={false} />
-            </div>
-          </div>
-        </header>
+    <div className="w-full bg-transparent text-gray-900 font-sans mt-4">
+      <div className="space-y-8">
+        <div className="mb-4">
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent pb-1">
+            Grid Method Volume
+          </h2>
+          <GlobalSettingsToggle align="left" showCurrency={false} />
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <section className="space-y-6">
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">

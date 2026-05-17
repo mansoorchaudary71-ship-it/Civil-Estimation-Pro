@@ -163,26 +163,8 @@ export default function RoadEstimator() {
   const pathSb = `M ${500 - dxWbmBot},${y2_S} L ${500 - dxCarriageway},${y2_Carriage} L 500,${y2_C} L ${500 + dxCarriageway},${y2_Carriage} L ${500 + dxWbmBot},${y2_S} L ${500 + dxSbBot},${y3_S} L ${500 + dxCarriageway},${y3_Carriage} L 500,${y3_C} L ${500 - dxCarriageway},${y3_Carriage} L ${500 - dxSbBot},${y3_S} Z`;
   const pathSg = `M ${500 - dxSbBot},${y3_S} L ${500 - dxCarriageway},${y3_Carriage} L 500,${y3_C} L ${500 + dxCarriageway},${y3_Carriage} L ${500 + dxSbBot},${y3_S} L ${500 + dxSgBot},${y4_S} L ${500 + dxCarriageway},${y4_Carriage} L 500,${y4_C} L ${500 - dxCarriageway},${y4_Carriage} L ${500 - dxSgBot},${y4_S} Z`;
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
-      <SEO 
-        title="Flexible Pavement Estimator" 
-        description="Calculate materials, volumes, and costs for flexible pavement layer by layer including Subgrade, Sub-base, WBM, and Asphalt." 
-        keywords="flexible pavement, road estimator, subgrade, sub-base, asphalt, highway engineering"
-        schema={roadSchema}
-      />
-      <div className="max-w-5xl mx-auto space-y-8">
-        <header className="mb-10">
-          <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent pb-1">
-            Flexible Pavement Road Estimator
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-2 font-medium">
-            Calculate material volumes, coat litrages, and visualize
-            cross-sections for multi-layer road construction.
-          </p>
-          <div className="mt-5 w-fit">
-            <GlobalSettingsToggle align="left" />
-          </div>
-        </header>
+    <div className="w-full text-gray-900 font-sans md:p-4">
+      <div className="max-w-7xl mx-auto space-y-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Inputs Section */}
           <section className="lg:col-span-5 space-y-6">

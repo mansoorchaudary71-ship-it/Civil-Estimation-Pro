@@ -94,31 +94,10 @@ export default function RigidPavementEstimator() {
   const tieWtPerBar = ((d_tie * d_tie) / 162.28) * (len_tie / 1000);
   const totalTieWeight = totalTies * tieWtPerBar;
   /* kg */ return (
-    <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
+    <div className="w-full text-gray-900 font-sans md:p-4">
       {" "}
-      <div className="max-w-6xl mx-auto space-y-6">
+      <div className="max-w-7xl mx-auto space-y-6">
         {" "}
-        {/* Header content */}{" "}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 bg-white p-6 rounded-[2rem] shadow-sm border border-gray-100">
-          {" "}
-          <div>
-            {" "}
-            <div className="flex items-center gap-3 mb-2">
-              {" "}
-              <div className="p-2.5 bg-blue-600 rounded-xl shadow-lg shadow-blue-500/30 text-white">
-                {" "}
-                <Route className="w-6 h-6" />{" "}
-              </div>{" "}
-              <h1 className="text-3xl font-bold tracking-tight text-slate-800">
-                Rigid Pavement
-              </h1>{" "}
-            </div>{" "}
-            <p className="text-gray-500 dark:text-gray-400 ml-1">
-              Concrete & Joint Steel Parameter Calculation
-            </p>{" "}
-          </div>{" "}
-          <div className="mt-6 flex flex-wrap gap-4 items-center"> </div>{" "}
-        </div>{" "}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {" "}
           {/* Inputs Section */}{" "}

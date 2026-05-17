@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import {
   Waves,
   Ruler,
@@ -199,20 +198,8 @@ export default function SewerageEstimator() {
     }
   }, [pipeCount, pipeSectionLen]);
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <header className="mb-10">
-          <h1 className="text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-teal-500 to-cyan-500 bg-clip-text text-transparent pb-1">
-            Sewerage & Drainage Calculator
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-2 font-medium">
-            Calculate excavation volumes, manhole material, pipe sections, and
-            invert levels for municipal infrastructure.
-          </p>
-          <div className="mt-5 w-fit">
-            <GlobalSettingsToggle align="left" showCurrency={false} />
-          </div>
-        </header>
+    <div className="w-full text-gray-900 font-sans md:p-4">
+      <div className="max-w-7xl mx-auto space-y-8">
         <div className="space-y-4">
           {/* Manhole Material Accordion */}
           <div className="bg-white rounded-[1.5rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden">

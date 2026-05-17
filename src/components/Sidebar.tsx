@@ -1,38 +1,7 @@
 import { useState } from "react";
 import { cn } from "../lib/utils";
 import { useAuth } from "../contexts/AuthContext";
-import {
-  Calculator,
-  FileSpreadsheet,
-  PencilRuler,
-  Sparkles,
-  Settings,
-  HardHat,
-  Truck,
-  Route,
-  Waves,
-  Paintbrush,
-  Home,
-  TrendingUp,
-  Hammer,
-  ClipboardList,
-  LayoutDashboard,
-  Layers,
-  Maximize2,
-  Grid2X2,
-  ArrowUp,
-  Triangle,
-  Box,
-  ChevronDown,
-  CheckSquare,
-  Map,
-  User,
-  LogOut,
-  ArrowRightLeft,
-  Weight,
-  Spline,
-  Columns,
-} from "lucide-react";
+import { Search, Settings, X, ChevronDown, User, LogOut } from "lucide-react";
 
 export type ModuleId =
   | "home"
@@ -40,13 +9,8 @@ export type ModuleId =
   | "calculators"
   | "ai"
   | "earthworks"
-  | "gridEarthwork"
-  | "trench"
   | "chainage"
-  | "road"
-  | "rigid-pavement"
-  | "sewerage"
-  | "finishing"
+  | "road-pavement"
   | "house"
   | "rates"
   | "formwork"
@@ -54,11 +18,19 @@ export type ModuleId =
   | "volume-estimator"
   | "unit-converter"
   | "metal-weight"
+  | "slab-estimator"
+  | "beam-calculator"
+  | "eight-bar-column"
+  | "ten-bar-column"
+  | "beam-calculator"
   | "rcc-calculator"
   | "staircase-calculator"
   | "column-estimator"
+  | "master-rcc"
   | "master-quantity"
   | "gradient-calculator"
+  | "mep-calculator"
+  | "interiors-finishes"
   | "bbs-generator"
   | "about"
   | "careers"
@@ -89,92 +61,54 @@ export default function Sidebar({
 }: SidebarProps) {
   const { user, logOut } = useAuth();
   const isAuthenticated = !!user;
-
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({
-    house: false,
-    road: false,
+  
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
+    structural: false,
+    earthworks: false,
+    calculators: false
   });
 
-  const toggleExpand = (id: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
+  const toggleSection = (section: string) => {
+    setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  const navItems = [
-    { id: "home" as const, label: "Dashboard", icon: LayoutDashboard },
-    { id: "rates" as const, label: "Market Rates", icon: TrendingUp },
-    {
-      id: "house" as const,
-      label: "House Estimator",
-      icon: Home,
-      subItems: [
-        { label: "Ground Floor", icon: Grid2X2 },
-        { label: "First Floor", icon: ArrowUp },
-        { label: "Roof", icon: Triangle },
-      ],
-    },
-    { id: "formwork" as const, label: "Formwork & Scaffold", icon: Hammer },
-    { id: "earthworks" as const, label: "Earthworks", icon: Truck },
-    {
-      id: "gridEarthwork" as const,
-      label: "Grid Method Earthwork",
-      icon: Grid2X2,
-    },
-    { id: "trench" as const, label: "Trench Excavation", icon: CheckSquare },
-    { id: "chainage" as const, label: "Road Earthworks", icon: Map },
-    {
-      id: "road" as const,
-      label: "Road Estimator",
-      icon: Route,
-      subItems: [
-        { label: "Layer Thickness", icon: Layers },
-        { label: "Cross Section", icon: Maximize2 },
-      ],
-    },
-    { id: "rigid-pavement" as const, label: "Rigid Pavement", icon: Route },
-    { id: "sewerage" as const, label: "Sewerage & Drainage", icon: Waves },
-    { id: "finishing" as const, label: "Finishing Works", icon: Paintbrush },
-    { id: "takeoff" as const, label: "2D Takeoff", icon: PencilRuler },
-    {
-      id: "area-calculator" as const,
-      label: "Area Calculator",
-      icon: Triangle,
-    },
-    { id: "volume-estimator" as const, label: "Volume Estimator", icon: Box },
-    {
-      id: "unit-converter" as const,
-      label: "Unit Converter",
-      icon: ArrowRightLeft,
-    },
-    { id: "metal-weight" as const, label: "Metal Weight", icon: Weight },
-    { id: "rcc-calculator" as const, label: "RCC Structure", icon: Spline },
-    { id: "staircase-calculator" as const, label: "Staircase", icon: Layers },
-    {
-      id: "gradient-calculator" as const,
-      label: "Gradient & Slope",
-      icon: Maximize2,
-    },
-    {
-      id: "bbs-generator" as const,
-      label: "BBS Generator",
-      icon: FileSpreadsheet,
-    },
-    {
-      id: "column-estimator" as const,
-      label: "Column Estimator",
-      icon: Columns,
-    },
-    {
-      id: "master-quantity" as const,
-      label: "Master Quantity & Estimation",
-      icon: Calculator,
-    },
-    {
-      id: "calculators" as const,
-      label: "Material Estimator",
-      icon: Calculator,
-    },
-    { id: "ai" as const, label: "AI Assistant", icon: Sparkles },
+  const handleSelect = (id: ModuleId) => {
+    onSelectModule(id);
+    onClose?.();
+  };
+
+  const mainCategories: { id: ModuleId; label: string }[] = [
+    { id: "home", label: "Dashboard" },
+    { id: "takeoff", label: "2D Takeoff" },
+    { id: "house", label: "House Estimator" },
+    { id: "road-pavement", label: "Road & Pavement" },
+    { id: "rates", label: "Market Rates" },
+  ];
+
+  const highlights: { id: ModuleId; label: string }[] = [
+    { id: "ai", label: "AI Civil Assistant" },
+    { id: "master-quantity", label: "Master Quantity Estimator" },
+  ];
+
+  const structuralTools: { id: ModuleId; label: string }[] = [
+    { id: "master-rcc", label: "Master RCC Structure" },
+    { id: "rcc-calculator", label: "Quick RCC Estimator" },
+    { id: "formwork", label: "Formwork & Scaffold" },
+    { id: "interiors-finishes", label: "Interiors & Finishes" },
+  ];
+
+  const earthworksTools: { id: ModuleId; label: string }[] = [
+    { id: "earthworks", label: "Earthworks Estimator" },
+    { id: "chainage", label: "Road Earthworks" },
+  ];
+
+  const quickCalculators: { id: ModuleId; label: string }[] = [
+    { id: "mep-calculator", label: "Energy & MEP" },
+    { id: "area-calculator", label: "Area & Perimeter" },
+    { id: "volume-estimator", label: "Volume Estimator" },
+    { id: "unit-converter", label: "Unit Converter" },
+    { id: "metal-weight", label: "Metal Weight" },
+    { id: "gradient-calculator", label: "Gradient & Slope" },
   ];
 
   return (
@@ -182,77 +116,197 @@ export default function Sidebar({
       {/* Mobile Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 transition-opacity"
+          className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[100] transition-opacity"
           onClick={onClose}
         />
       )}
 
-      {/* Sidebar Content */}
+      {/* Main Drawer */}
       <div
         className={cn(
-          "fixed inset-y-0 left-0 z-[60] transform transition-all duration-300 ease-in-out flex flex-col w-[280px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl border-r border-slate-200/50 dark:border-slate-800/50 shadow-[4px_0_24px_rgba(0,0,0,0.02)] h-[100dvh] shrink-0",
-          isOpen ? "translate-x-0" : "-translate-x-full",
+          "fixed inset-y-0 left-0 z-[110] transform transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col w-[75vw] max-w-[300px] bg-white h-[100dvh] shadow-2xl",
+          isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
-        {/* Profile Header section (acts as Profile tab on mobile) */}
-        <div className="p-5 border-b border-slate-200/50 dark:border-slate-800/50 shrink-0">
+        {/* Header Row */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 shrink-0">
+          <div className="text-[18px] font-black tracking-tighter text-slate-900 uppercase">
+            Esti<span className="text-blue-600">Pro</span>
+          </div>
+          <div className="flex items-center space-x-6 text-slate-900">
+            <button aria-label="Search" className="hover:text-slate-500 transition-colors">
+              <Search className="w-5 h-5 stroke-[2.5]" />
+            </button>
+            <button onClick={onClose} aria-label="Close menu" className="hover:text-slate-500 transition-colors bg-slate-100 p-1.5 rounded-full">
+              <X className="w-5 h-5 stroke-[2]" />
+            </button>
+          </div>
+        </div>
+
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto w-full px-5 py-5 scrollbar-hide bg-white">
+          
+          {/* Main Categories */}
+          <div className="flex flex-col space-y-4 mb-6">
+            {mainCategories.map((item) => (
+              <button 
+                key={item.id}
+                onClick={() => handleSelect(item.id)}
+                className={`flex justify-between items-center w-full group text-left ${activeModule === item.id ? 'text-blue-600' : 'text-slate-900'}`}
+              >
+                <span className="text-[16px] font-bold tracking-tight group-hover:text-slate-600 transition-colors">
+                  {item.label}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {/* Special Highlights */}
+          <div className="flex flex-col space-y-3 mb-6">
+            {highlights.map((item) => (
+              <button 
+                key={item.id}
+                onClick={() => handleSelect(item.id)}
+                className={`text-left text-[14px] font-bold transition-colors ${activeModule === item.id ? 'text-rose-600' : 'text-rose-500 hover:text-rose-600'}`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Divider */}
+          <div className="w-full h-px bg-slate-100 mb-4" />
+
+          {/* Structural Tools */}
+          <div className="mb-3">
+            <button 
+              onClick={() => toggleSection('structural')}
+              className="flex items-center justify-between w-full py-1.5 group"
+            >
+              <h3 className="text-[12px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-slate-600 transition-colors">
+                Structural & Finishings
+              </h3>
+              <ChevronDown className={cn("w-4 h-4 text-slate-300 transition-transform", expandedSections.structural && "rotate-180")} />
+            </button>
+            
+            {expandedSections.structural && (
+              <div className="flex flex-col space-y-3 mt-3 mb-2 animate-in slide-in-from-top-2 fade-in duration-200">
+                {structuralTools.map((item) => (
+                  <button 
+                    key={item.id}
+                    onClick={() => handleSelect(item.id)}
+                    className={`text-left text-[14px] transition-colors font-medium ${activeModule === item.id ? 'text-blue-600 font-bold' : 'text-slate-600 hover:text-slate-900'}`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="w-full h-px bg-slate-50 mb-3" />
+
+          {/* Earthworks Tools */}
+          <div className="mb-3">
+            <button 
+              onClick={() => toggleSection('earthworks')}
+              className="flex items-center justify-between w-full py-1.5 group"
+            >
+              <h3 className="text-[12px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-slate-600 transition-colors">
+                Earthworks & Roads
+              </h3>
+              <ChevronDown className={cn("w-4 h-4 text-slate-300 transition-transform", expandedSections.earthworks && "rotate-180")} />
+            </button>
+            
+            {expandedSections.earthworks && (
+              <div className="flex flex-col space-y-3 mt-3 mb-2 animate-in slide-in-from-top-2 fade-in duration-200">
+                {earthworksTools.map((item) => (
+                  <button 
+                    key={item.id}
+                    onClick={() => handleSelect(item.id)}
+                    className={`text-left text-[14px] transition-colors font-medium ${activeModule === item.id ? 'text-blue-600 font-bold' : 'text-slate-600 hover:text-slate-900'}`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="w-full h-px bg-slate-50 mb-3" />
+
+          {/* Quick Calculators */}
+          <div className="mb-4">
+            <button 
+              onClick={() => toggleSection('calculators')}
+              className="flex items-center justify-between w-full py-1.5 group"
+            >
+              <h3 className="text-[12px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-slate-600 transition-colors">
+                Quick Calculators
+              </h3>
+              <ChevronDown className={cn("w-4 h-4 text-slate-300 transition-transform", expandedSections.calculators && "rotate-180")} />
+            </button>
+            
+            {expandedSections.calculators && (
+              <div className="flex flex-col space-y-3 mt-3 mb-2 animate-in slide-in-from-top-2 fade-in duration-200">
+                {quickCalculators.map((item) => (
+                  <button 
+                    key={item.id}
+                    onClick={() => handleSelect(item.id)}
+                    className={`text-left text-[14px] transition-colors font-medium ${activeModule === item.id ? 'text-blue-600 font-bold' : 'text-slate-600 hover:text-slate-900'}`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+        </div>
+
+        {/* Footer actions */}
+        <div className="p-4 border-t border-slate-100 bg-slate-50 shrink-0">
           {isAuthenticated ? (
-            <>
-              <div className="flex items-center gap-3 overflow-hidden">
-                <div className="w-12 h-12 shrink-0 rounded-full bg-gradient-to-tr from-indigo-100 to-white dark:from-slate-700 dark:to-slate-800 flex items-center justify-center border border-indigo-200 dark:border-slate-600 font-bold overflow-hidden text-indigo-600 dark:text-indigo-400">
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-3 mb-2 px-2">
+                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold overflow-hidden border border-blue-200">
                   {user?.photoURL ? (
-                    <img
-                      src={user.photoURL}
-                      alt="Profile"
-                      className="w-full h-full object-cover"
-                    />
+                    <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
-                    <span>
-                      {user?.displayName?.[0]?.toUpperCase() || (
-                        <User className="w-5 h-5" />
-                      )}
-                    </span>
+                    <span>{user?.displayName?.[0]?.toUpperCase() || <User className="w-5 h-5" />}</span>
                   )}
                 </div>
-                <div className="min-w-0">
-                  <p className="text-[15px] font-bold text-slate-800 dark:text-white truncate">
-                    {user?.displayName || "User"}
-                  </p>
-                  <p className="text-[13px] text-slate-500 dark:text-slate-400 truncate">
-                    {user?.email}
-                  </p>
+                <div className="min-w-0 flex-1">
+                  <p className="text-[14px] font-bold text-slate-800 truncate">{user?.displayName || "User"}</p>
+                  <p className="text-[12px] text-slate-500 truncate">{user?.email}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 mt-4 w-full">
+              <div className="flex gap-2">
                 <button
-                  onClick={onOpenProfile}
-                  className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-full text-[13px] font-semibold text-slate-600 dark:text-slate-300 bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-white dark:hover:bg-slate-700 transition-colors"
+                  onClick={() => { onClose?.(); onOpenProfile?.(); }}
+                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-[13px] font-bold text-slate-700 bg-white border border-slate-200 shadow-sm hover:bg-slate-50 transition-colors"
                 >
                   <Settings className="w-4 h-4" /> Account
                 </button>
                 <button
-                  onClick={async () => {
-                    await logOut();
-                    onClose?.();
-                  }}
-                  className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-full text-[13px] font-semibold text-red-600 dark:text-red-400 bg-white/50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-white hover:text-red-700 dark:hover:bg-slate-700 transition-colors"
-                  title="Sign Out"
+                  onClick={async () => { await logOut(); onClose?.(); }}
+                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-[13px] font-bold text-red-600 bg-white border border-slate-200 shadow-sm hover:bg-red-50 hover:border-red-100 transition-colors"
                 >
-                  <LogOut className="w-4 h-4" />
+                  <LogOut className="w-4 h-4" /> Sign Out
                 </button>
               </div>
-            </>
+            </div>
           ) : (
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2">
               <button
-                onClick={onOpenAuth}
-                className="w-full flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-[14px] font-semibold text-slate-700 dark:text-slate-200 bg-white/60 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60 shadow-sm hover:bg-white dark:hover:bg-slate-700 transition-colors"
+                onClick={() => { onClose?.(); onOpenAuth?.(); }}
+                className="w-full py-3 rounded-xl text-[14px] font-bold text-slate-700 bg-white border border-slate-200 shadow-sm hover:bg-slate-50 transition-colors"
               >
                 Sign In
               </button>
               <button
-                onClick={onOpenAuth}
-                className="w-full flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-[14px] font-bold text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 transition-all font-sans tracking-wide"
+                onClick={() => { onClose?.(); onOpenAuth?.(); }}
+                className="w-full py-3 rounded-xl text-[14px] font-bold text-white bg-blue-600 shadow-sm hover:bg-blue-700 transition-colors"
               >
                 Get Started
               </button>
@@ -260,72 +314,6 @@ export default function Sidebar({
           )}
         </div>
 
-        {/* Navigation */}
-        <div className="flex-1 px-3 py-4 space-y-1 overflow-y-auto pb-24 md:pb-4 scrollbar-hide">
-          <div className="px-4 py-2 text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.15em] mb-2">
-            Navigation
-          </div>
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeModule === item.id;
-            const isExpanded = expanded[item.id];
-
-            return (
-              <div key={item.id} className="flex flex-col mb-1.5 px-1">
-                <button
-                  onClick={() => onSelectModule(item.id)}
-                  className={cn(
-                    "w-full flex items-center gap-3 px-4 py-2.5 text-[14px] transition-all duration-200",
-                    isActive
-                      ? "bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 font-bold rounded-full shadow-[inset_0_1px_4px_rgba(0,0,0,0.02)] border border-indigo-100 dark:border-indigo-500/20"
-                      : "text-slate-500 dark:text-slate-400 hover:bg-slate-100/60 dark:hover:bg-slate-800/40 hover:text-slate-900 dark:hover:text-white font-medium rounded-full",
-                  )}
-                >
-                  <Icon className={cn("w-[18px] h-[18px]")} />
-                  {item.label}
-
-                  {item.id === "ai" && (
-                    <span className="ml-auto bg-purple-500/10 dark:bg-purple-500/20 border border-purple-500/20 text-purple-500 text-[10px] px-2 py-0.5 rounded font-bold">
-                      Beta
-                    </span>
-                  )}
-
-                  {item.subItems && (
-                    <div
-                      className={`ml-auto p-1 rounded-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-transform ${isExpanded ? "rotate-180" : ""}`}
-                      onClick={(e) => toggleExpand(item.id, e)}
-                    >
-                      <ChevronDown className="w-3.5 h-3.5" />
-                    </div>
-                  )}
-                </button>
-
-                {item.subItems && isExpanded && (
-                  <div className="ml-7 border-l border-slate-200 dark:border-slate-800 pl-3 mt-1.5 mb-1 space-y-1.5 relative">
-                    <div className="absolute top-0 -left-[1px] w-0.5 h-full bg-gradient-to-b from-slate-200 to-transparent dark:from-slate-800 transition-all opacity-50" />
-                    {item.subItems.map((sub, idx) => (
-                      <button
-                        key={idx}
-                        className="w-full flex items-center gap-2.5 px-3 py-1.5 rounded-md text-[13px] font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors"
-                      >
-                        <sub.icon className="w-[15px] h-[15px]" />
-                        {sub.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Settings / Footer */}
-        <div className="p-4 border-t border-slate-200 dark:border-slate-800 shrink-0">
-          <button className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white transition-colors font-medium">
-            <Settings className="w-[18px] h-[18px]" />
-            Workspace Settings
-          </button>
-        </div>
       </div>
     </>
   );

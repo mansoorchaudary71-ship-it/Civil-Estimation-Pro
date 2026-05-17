@@ -1,0 +1,429 @@
+import React, { useState } from "react";
+import { CopySlash, Settings2, Columns } from "lucide-react";
+import { SEO } from "../SEO";
+import { CalculationHistory } from "../ui/CalculationHistory";
+
+export default function BeamCalculator() {
+  const [beamWidth, setBeamWidth] = useState("300"); // mm
+  const [beamDepth, setBeamDepth] = useState("450"); // mm
+  const [beamSpan, setBeamSpan] = useState("5"); // meters
+  const [clearCover, setClearCover] = useState("30"); // mm
+  
+  const [longitudinalBarsCount, setLongitudinalBarsCount] = useState("4"); // 4, 6, 8, 10
+  const [longitudinalBarDia, setLongitudinalBarDia] = useState("16"); // mm
+  
+  const [tensionBarsCount, setTensionBarsCount] = useState("3");
+  const [compressionBarsCount, setCompressionBarsCount] = useState("3");
+  const [tensionBarDia, setTensionBarDia] = useState("16");
+  const [compressionBarDia, setCompressionBarDia] = useState("12");
+
+  React.useEffect(() => {
+    const total = parseInt(longitudinalBarsCount);
+    if (total > 4) {
+      setTensionBarsCount(Math.ceil(total / 2).toString());
+      setCompressionBarsCount(Math.floor(total / 2).toString());
+    }
+  }, [longitudinalBarsCount]);
+
+  const handleTensionBarsChange = (val: string) => {
+    const t = parseInt(val);
+    const total = parseInt(longitudinalBarsCount);
+    setTensionBarsCount(val);
+    if (!isNaN(t) && t > 0 && t < total) {
+      setCompressionBarsCount((total - t).toString());
+    }
+  };
+
+  const handleCompressionBarsChange = (val: string) => {
+    const c = parseInt(val);
+    const total = parseInt(longitudinalBarsCount);
+    setCompressionBarsCount(val);
+    if (!isNaN(c) && c > 0 && c < total) {
+      setTensionBarsCount((total - c).toString());
+    }
+  };
+
+  const [stirrupDia, setStirrupDia] = useState("8"); // mm
+  const [stirrupSpacing, setStirrupSpacing] = useState("150"); // mm
+  const [stirrupLegs, setStirrupLegs] = useState("2"); // 2, 4
+
+  const [results, setResults] = useState<{
+    concreteVolumeDry: number;
+    concreteVolumeWet: number;
+    longitudinalSteelWeight: number;
+    stirrupSteelWeight: number;
+    totalSteelWeight: number;
+    stirrupsCount: number;
+    stirrupTypes: { name: string; length: number; countPerSet: number }[];
+  } | null>(null);
+
+  const calculateBeam = () => {
+    const w = parseFloat(beamWidth);
+    const d = parseFloat(beamDepth);
+    const span = parseFloat(beamSpan);
+    const c = parseFloat(clearCover);
+    const barsCount = parseInt(longitudinalBarsCount);
+    const mainDia = parseFloat(longitudinalBarDia);
+    const sDia = parseFloat(stirrupDia);
+    const spacing = parseFloat(stirrupSpacing);
+    const legs = parseInt(stirrupLegs);
+
+    if (
+      isNaN(w) || isNaN(d) || isNaN(span) || isNaN(c) ||
+      isNaN(barsCount) || isNaN(mainDia) || isNaN(sDia) || isNaN(spacing) || isNaN(legs) ||
+      w <= 0 || d <= 0 || span <= 0 || spacing <= 0
+    ) {
+      return;
+    }
+
+    // Concrete Volume
+    const concreteVolumeWet = (w / 1000) * (d / 1000) * span;
+    const concreteVolumeDry = concreteVolumeWet * 1.54; // RULE: CONCRETE_DRY_VOLUME
+
+    // Core dimensions for stirrups
+    const A = w - 2 * c;
+    const B = d - 2 * c;
+
+    // Number of stirrups
+    const stirrupsCount = Math.ceil((span * 1000) / spacing) + 1; // RULE: REBAR_SPACING_COUNT
+
+    const stirrupTypes: { name: string; length: number; countPerSet: number }[] = [];
+
+    // Outer Stirrup (2-Legged)
+    const outerStirrupLength = 2 * (A + B) + 24 * sDia; // RULE: RECTANGULAR_STIRRUP_LENGTH
+    stirrupTypes.push({ name: "Outer Rectangular Stirrup (2-Legged)", length: outerStirrupLength, countPerSet: 1 });
+
+    if (legs === 4) {
+      // Assuming 4-legged stirrup means 1 outer + 1 inner rectangular stirrup
+      // Inner stirrup width could be roughly A/3 if there are multiple bars, but for beam usually smaller.
+      const innerA = A / 2;
+      const innerB = B;
+      const innerStirrupLength = 2 * (innerA + innerB) + 24 * sDia;
+      stirrupTypes.push({ name: "Inner Rectangular Stirrup (2-Legged)", length: innerStirrupLength, countPerSet: 1 });
+    }
+
+    // Longitudinal Bars Weight
+    const totalBars = parseInt(longitudinalBarsCount);
+    let topBars = 2;
+    let bottomBars = 2;
+    let topDia = parseFloat(longitudinalBarDia);
+    let bottomDia = parseFloat(longitudinalBarDia);
+
+    if (totalBars > 4) {
+      topBars = parseInt(compressionBarsCount);
+      bottomBars = parseInt(tensionBarsCount);
+      topDia = parseFloat(compressionBarDia);
+      bottomDia = parseFloat(tensionBarDia);
+
+      if (topBars + bottomBars !== totalBars || isNaN(topBars) || isNaN(bottomBars) || isNaN(topDia) || isNaN(bottomDia)) {
+         return; // Invalid distribution or diameter
+      }
+    } else {
+      topBars = totalBars / 2;
+      bottomBars = totalBars / 2;
+    }
+
+    const LdTop = 50 * topDia; // Assuming standard 50d Ld each side
+    const LdBottom = 50 * bottomDia;
+
+    const topTotalLengthPerBar = (span * 1000) + 2 * LdTop; // Total length in mm
+    const bottomTotalLengthPerBar = (span * 1000) + 2 * LdBottom; // Total length in mm
+    
+    // Weight calculations
+    const topUnitWeight = Math.pow(topDia, 2) / 162.28; // RULE: STEEL_WEIGHT_ESTIMATION
+    const bottomUnitWeight = Math.pow(bottomDia, 2) / 162.28; 
+
+    const topSteelWeight = (topTotalLengthPerBar / 1000) * topBars * topUnitWeight;
+    const bottomSteelWeight = (bottomTotalLengthPerBar / 1000) * bottomBars * bottomUnitWeight;
+
+    const longitudinalSteelWeight = topSteelWeight + bottomSteelWeight;
+
+    // Stirrups Weight
+    const stirrupUnitWeight = Math.pow(sDia, 2) / 162.28;
+    let stirrupSteelWeight = 0;
+    
+    stirrupTypes.forEach(tie => {
+      const totalLengthM = (tie.length / 1000) * tie.countPerSet * stirrupsCount;
+      stirrupSteelWeight += totalLengthM * stirrupUnitWeight;
+    });
+
+    const totalSteelWeight = longitudinalSteelWeight + stirrupSteelWeight;
+
+    setResults({
+      concreteVolumeDry,
+      concreteVolumeWet,
+      longitudinalSteelWeight,
+      stirrupSteelWeight,
+      totalSteelWeight,
+      stirrupsCount,
+      stirrupTypes,
+    });
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto pb-20">
+      <SEO 
+        title="Comprehensive Beam Calculator | EstiPro"
+        description="Calculate concrete volume and longitudinal/stirrup steel weights for reinforced concrete beams."
+      />
+      <div className="mb-8">
+        <h1 className="text-3xl font-extrabold text-slate-900 mb-2 flex items-center gap-3">
+          <Columns className="w-8 h-8 text-blue-600 rotate-90" />
+          Beam Calculator
+        </h1>
+        <p className="text-slate-500 font-medium">
+          Comprehensive calculation for RCC beams including concrete volume, main longitudinal reinforcement, and stirrups.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 md:p-8">
+          <div className="flex items-center gap-2 mb-6">
+            <Settings2 className="w-5 h-5 text-blue-600" />
+            <h2 className="text-lg font-bold text-slate-800">Beam Dimensions</h2>
+          </div>
+
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <InputGroup label="Width (b) (mm)">
+                <input
+                  type="number"
+                  min="0"
+                  value={beamWidth}
+                  onChange={(e) => setBeamWidth(e.target.value)}
+                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                />
+              </InputGroup>
+              <InputGroup label="Depth (D) (mm)">
+                <input
+                  type="number"
+                  min="0"
+                  value={beamDepth}
+                  onChange={(e) => setBeamDepth(e.target.value)}
+                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                />
+              </InputGroup>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <InputGroup label="Clear Span (L) (m)">
+                <input
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  value={beamSpan}
+                  onChange={(e) => setBeamSpan(e.target.value)}
+                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                />
+              </InputGroup>
+              <InputGroup label="Clear Cover (mm)">
+                <input
+                  type="number"
+                  min="0"
+                  value={clearCover}
+                  onChange={(e) => setClearCover(e.target.value)}
+                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                />
+              </InputGroup>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 mb-6 mt-8">
+            <CopySlash className="w-5 h-5 text-blue-600" />
+            <h2 className="text-lg font-bold text-slate-800">Reinforcement</h2>
+          </div>
+
+          <div className="space-y-4">
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 mb-4">
+              <h3 className="text-sm font-bold text-slate-600 uppercase tracking-wider mb-3">Longitudinal Bars</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <InputGroup label="Total Num of Bars">
+                  <select
+                    value={longitudinalBarsCount}
+                    onChange={(e) => setLongitudinalBarsCount(e.target.value)}
+                    className="w-full h-11 bg-white border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  >
+                    <option value="4">4 Bars</option>
+                    <option value="6">6 Bars</option>
+                    <option value="8">8 Bars</option>
+                    <option value="10">10 Bars</option>
+                  </select>
+                </InputGroup>
+                
+                {parseInt(longitudinalBarsCount) <= 4 && (
+                  <InputGroup label="Bar Diameter (mm)">
+                    <select
+                      value={longitudinalBarDia}
+                      onChange={(e) => setLongitudinalBarDia(e.target.value)}
+                      className="w-full h-11 bg-white border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    >
+                      {[12, 16, 20, 25, 32].map(d => (
+                        <option key={d} value={d}>{d} mm</option>
+                      ))}
+                    </select>
+                  </InputGroup>
+                )}
+              </div>
+
+              {parseInt(longitudinalBarsCount) > 4 && (
+                <div className="grid grid-cols-2 gap-4 pt-4 mt-2 border-t border-slate-200/60">
+                  <InputGroup label="Bottom (Tension) Bars">
+                    <input 
+                      type="number"
+                      value={tensionBarsCount}
+                      min="1"
+                      max={parseInt(longitudinalBarsCount) - 1}
+                      onChange={e => handleTensionBarsChange(e.target.value)}
+                      className="w-full h-11 bg-white border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    />
+                  </InputGroup>
+                  <InputGroup label="Bottom Bar Dia (mm)">
+                    <select
+                      value={tensionBarDia}
+                      onChange={e => setTensionBarDia(e.target.value)}
+                      className="w-full h-11 bg-white border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    >
+                      {[12, 16, 20, 25, 32].map(d => (
+                        <option key={d} value={d}>{d} mm</option>
+                      ))}
+                    </select>
+                  </InputGroup>
+                  <InputGroup label="Top (Compression) Bars">
+                    <input 
+                      type="number"
+                      value={compressionBarsCount}
+                      min="1"
+                      max={parseInt(longitudinalBarsCount) - 1}
+                      onChange={e => handleCompressionBarsChange(e.target.value)}
+                      className="w-full h-11 bg-white border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    />
+                  </InputGroup>
+                  <InputGroup label="Top Bar Dia (mm)">
+                    <select
+                      value={compressionBarDia}
+                      onChange={e => setCompressionBarDia(e.target.value)}
+                      className="w-full h-11 bg-white border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    >
+                      {[12, 16, 20, 25, 32].map(d => (
+                        <option key={d} value={d}>{d} mm</option>
+                      ))}
+                    </select>
+                  </InputGroup>
+                </div>
+              )}
+            </div>
+
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+              <h3 className="text-sm font-bold text-slate-600 uppercase tracking-wider mb-3">Shear Reinforcement (Stirrups)</h3>
+              <div className="space-y-4">
+                <InputGroup label="Stirrup Legs">
+                  <select
+                    value={stirrupLegs}
+                    onChange={(e) => setStirrupLegs(e.target.value)}
+                    className="w-full h-11 bg-white border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  >
+                    <option value="2">2-Legged Stirrup</option>
+                    <option value="4">4-Legged Stirrups</option>
+                  </select>
+                </InputGroup>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <InputGroup label="Diameter (mm)">
+                    <select
+                      value={stirrupDia}
+                      onChange={(e) => setStirrupDia(e.target.value)}
+                      className="w-full h-11 bg-white border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    >
+                      {[8, 10, 12, 16].map(d => (
+                        <option key={d} value={d}>{d} mm</option>
+                      ))}
+                    </select>
+                  </InputGroup>
+                  <InputGroup label="Spacing c/c (mm)">
+                    <input
+                      type="number"
+                      min="0"
+                      value={stirrupSpacing}
+                      onChange={(e) => setStirrupSpacing(e.target.value)}
+                      className="w-full h-11 bg-white border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    />
+                  </InputGroup>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button
+            onClick={calculateBeam}
+            className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-colors mt-8"
+          >
+            Calculate Beam Quantities
+          </button>
+        </div>
+
+        <div className="bg-slate-900 rounded-3xl p-6 md:p-8 text-white flex flex-col">
+          <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Calculation Results</h3>
+          
+          {results ? (
+            <div className="space-y-6 flex-1">
+              <div className="bg-slate-800/80 p-5 rounded-2xl border border-slate-700">
+                <p className="text-slate-400 text-sm mb-1">Concrete Dry Volume</p>
+                <div className="text-3xl font-black text-white mb-2">
+                  {results.concreteVolumeDry.toFixed(3)} <span className="text-lg text-slate-400 font-normal">m³</span>
+                </div>
+                <p className="text-slate-400 text-sm">Wet Volume: {results.concreteVolumeWet.toFixed(3)} m³</p>
+              </div>
+              
+              <div className="bg-slate-800/80 p-5 rounded-2xl border border-slate-700">
+                <p className="text-slate-400 text-sm mb-1">Total Steel Weight</p>
+                <div className="text-3xl font-black text-blue-400 mb-4">
+                  {results.totalSteelWeight.toFixed(2)} <span className="text-lg text-slate-400 font-normal">kg</span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 mt-2 mb-4">
+                  <div>
+                    <p className="text-slate-400 text-xs uppercase tracking-wider mb-1">Longitudinal ({longitudinalBarsCount} Bars)</p>
+                    <p className="text-xl font-bold text-white">{results.longitudinalSteelWeight.toFixed(2)} kg</p>
+                  </div>
+                  <div>
+                    <p className="text-slate-400 text-xs uppercase tracking-wider mb-1">Stirrups</p>
+                    <p className="text-xl font-bold text-white">{results.stirrupSteelWeight.toFixed(2)} kg</p>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-slate-700">
+                  <p className="text-slate-400 text-xs uppercase tracking-wider mb-3">Stirrup Cut Length Breakdown ({results.stirrupsCount} sets)</p>
+                  <ul className="space-y-3">
+                    {results.stirrupTypes.map((tie, index) => (
+                      <li key={index} className="flex justify-between items-end border-b border-slate-700/50 pb-2">
+                        <div>
+                          <p className="text-sm font-medium text-slate-200">{tie.name}</p>
+                          <p className="text-xs text-slate-500">{tie.countPerSet} per set</p>
+                        </div>
+                        <p className="font-bold text-slate-300">{tie.length.toFixed(0)} mm</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <CalculationHistory />
+            </div>
+          ) : (
+            <div className="flex-1 flex items-center justify-center text-slate-500 py-12 text-center h-full">
+              Enter beam dimensions and reinforcement details to calculate material requirements.
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function InputGroup({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="flex flex-col gap-2">
+      <label className="text-sm font-bold text-slate-700">{label}</label>
+      {children}
+    </div>
+  );
+}

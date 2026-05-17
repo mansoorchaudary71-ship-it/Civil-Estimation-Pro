@@ -3,7 +3,7 @@ import { Printer, Plus, Trash2, LayoutList, GripHorizontal, FileSpreadsheet } fr
 import { SEO } from "../SEO";
 import { CalculationHistory } from "../ui/CalculationHistory";
 
-type ShapeType = "straight" | "u-hook" | "cranked" | "rect-stirrup";
+type ShapeType = "straight" | "u-hook" | "cranked" | "rect-stirrup" | "l-hook" | "u-stirrup" | "spiral";
 
 interface BBSRow {
   id: string;
@@ -35,6 +35,10 @@ export default function BarBendingSchedule() {
   const [slabThick, setSlabThick] = useState<string>("150"); // for cranked
   const [cranks, setCranks] = useState<string>("2"); // for cranked
 
+  const [spiralDia, setSpiralDia] = useState<string>("300"); // for spiral
+  const [spiralPitch, setSpiralPitch] = useState<string>("150"); // for spiral
+  const [spiralHeight, setSpiralHeight] = useState<string>("3000"); // for spiral
+
   const printRef = useRef<HTMLDivElement>(null);
 
   const calculateBBS = () => {
@@ -56,6 +60,17 @@ export default function BarBendingSchedule() {
       inputsUsed.D = D;
       inputsUsed.A = A;
       inputsUsed.B = B;
+    } else if (shape === "u-stirrup") {
+      const W = parseFloat(width) || 0;
+      const D = parseFloat(depth) || 0;
+      const A = W - 2 * c;
+      const B = D - 2 * c;
+      // U-stirrup: 1 horizontal leg, 2 vertical legs + 2 hooks
+      cutLengthMm = A + 2 * B + 24 * d;
+      inputsUsed.W = W;
+      inputsUsed.D = D;
+      inputsUsed.A = A;
+      inputsUsed.B = B;
     } else if (shape === "straight") {
       const S = parseFloat(span) || 0;
       cutLengthMm = S; // Assuming span is cut length, or span - 2c? Let's say it's clear span of bar
@@ -64,6 +79,11 @@ export default function BarBendingSchedule() {
       const S = parseFloat(span) || 0;
       // Hook length = 9d on each side => 18d total
       cutLengthMm = S + 18 * d;
+      inputsUsed.Span = S;
+    } else if (shape === "l-hook") {
+      const S = parseFloat(span) || 0;
+      // L-book (90 deg bends) = 12d on each side => 24d total
+      cutLengthMm = S + 24 * d;
       inputsUsed.Span = S;
     } else if (shape === "cranked") {
       const S = parseFloat(span) || 0;
@@ -75,6 +95,19 @@ export default function BarBendingSchedule() {
       inputsUsed.Span = S;
       inputsUsed.Thick = T;
       inputsUsed.Cranks = C;
+    } else if (shape === "spiral") {
+      const sDia = parseFloat(spiralDia) || 0;
+      const p = parseFloat(spiralPitch) || 0;
+      const H = parseFloat(spiralHeight) || 0;
+      
+      const coreD = sDia - 2 * c - d; // Core diameter
+      const nTurns = Math.floor(H / p) + 1;
+      const turnLength = Math.sqrt(Math.pow(Math.PI * coreD, 2) + Math.pow(p, 2));
+      
+      cutLengthMm = nTurns * turnLength + 24 * d; // Plus hooks at ends
+      inputsUsed.ColDia = sDia;
+      inputsUsed.Pitch = p;
+      inputsUsed.Height = H;
     }
 
     const cutLengthM = cutLengthMm / 1000;
@@ -168,9 +201,12 @@ export default function BarBendingSchedule() {
                      onChange={(e) => setShape(e.target.value as ShapeType)}
                    >
                      <option value="straight">Straight Bar</option>
-                     <option value="u-hook">U-Hook Bar</option>
+                     <option value="l-hook">L-Hook Bar (90°)</option>
+                     <option value="u-hook">U-Hook Bar (180°)</option>
                      <option value="cranked">Cranked Slab Bar</option>
                      <option value="rect-stirrup">Rectangular Stirrup</option>
+                     <option value="u-stirrup">U-Stirrup</option>
+                     <option value="spiral">Spiral Reinforcement</option>
                    </select>
                  </div>
                  
@@ -214,7 +250,7 @@ export default function BarBendingSchedule() {
                  </div>
                  
                  {/* Conditional Inputs */}
-                 {shape === "rect-stirrup" && (
+                 {(shape === "rect-stirrup" || shape === "u-stirrup") && (
                    <div className="grid grid-cols-2 gap-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
                      <div>
                        <label className="block text-xs font-bold text-blue-800 uppercase tracking-wider mb-1.5 ml-1">Sect Width (mm)</label>
@@ -236,8 +272,40 @@ export default function BarBendingSchedule() {
                      </div>
                    </div>
                  )}
+
+                 {shape === "spiral" && (
+                   <div className="grid grid-cols-2 gap-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
+                     <div className="col-span-2">
+                       <label className="block text-xs font-bold text-blue-800 uppercase tracking-wider mb-1.5 ml-1">Col Dia (mm)</label>
+                       <input
+                         type="number"
+                         className="w-full bg-white border border-blue-200 text-slate-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all"
+                         value={spiralDia}
+                         onChange={(e) => setSpiralDia(e.target.value)}
+                       />
+                     </div>
+                     <div>
+                       <label className="block text-xs font-bold text-blue-800 uppercase tracking-wider mb-1.5 ml-1">Pitch (mm)</label>
+                       <input
+                         type="number"
+                         className="w-full bg-white border border-blue-200 text-slate-800 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all"
+                         value={spiralPitch}
+                         onChange={(e) => setSpiralPitch(e.target.value)}
+                       />
+                     </div>
+                     <div>
+                       <label className="block text-xs font-bold text-blue-800 uppercase tracking-wider mb-1.5 ml-1">Height (mm)</label>
+                       <input
+                         type="number"
+                         className="w-full bg-white border border-blue-200 text-slate-800 rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all"
+                         value={spiralHeight}
+                         onChange={(e) => setSpiralHeight(e.target.value)}
+                       />
+                     </div>
+                   </div>
+                 )}
                  
-                 {(shape === "straight" || shape === "u-hook" || shape === "cranked") && (
+                 {(shape === "straight" || shape === "u-hook" || shape === "l-hook" || shape === "cranked") && (
                    <div className="space-y-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
                      <div>
                        <label className="block text-xs font-bold text-blue-800 uppercase tracking-wider mb-1.5 ml-1">Length/Span (mm)</label>
@@ -322,8 +390,9 @@ export default function BarBendingSchedule() {
                              <td className="px-4 py-3 text-slate-600">
                                 <div className="capitalize">{r.shape.replace('-', ' ')}</div>
                                 <div className="text-[10px] text-slate-400">
-                                   {r.shape === 'rect-stirrup' && `A:${r.inputs.A} B:${r.inputs.B}`}
+                                   {(r.shape === 'rect-stirrup' || r.shape === 'u-stirrup') && `A:${r.inputs.A} B:${r.inputs.B}`}
                                    {r.shape === 'cranked' && `S:${r.inputs.Span} T:${r.inputs.Thick}`}
+                                   {r.shape === 'spiral' && `D:${r.inputs.ColDia} P:${r.inputs.Pitch} H:${r.inputs.Height}`}
                                 </div>
                              </td>
                              <td className="px-4 py-3 font-medium">Ø{r.dia}</td>
@@ -375,10 +444,11 @@ export default function BarBendingSchedule() {
                  <td className="px-3 py-2 border border-slate-300">
                     <div className="capitalize font-medium">{r.shape.replace('-', ' ')}</div>
                     <div className="text-xs text-slate-500 mt-0.5">
-                       {r.shape === 'rect-stirrup' && `Inner Dim: A=${r.inputs.A}mm, B=${r.inputs.B}mm`}
+                       {(r.shape === 'rect-stirrup' || r.shape === 'u-stirrup') && `Inner Dim: A=${r.inputs.A}mm, B=${r.inputs.B}mm`}
                        {r.shape === 'cranked' && `Span=${r.inputs.Span}mm, Slab=${r.inputs.Thick}mm`}
-                       {r.shape === 'u-hook' && `Clear Span=${r.inputs.Span}mm`}
+                       {(r.shape === 'u-hook' || r.shape === 'l-hook') && `Clear Span=${r.inputs.Span}mm`}
                        {r.shape === 'straight' && `Length=${r.inputs.Span}mm`}
+                       {r.shape === 'spiral' && `Col Dia=${r.inputs.ColDia}mm, Pitch=${r.inputs.Pitch}mm, Height=${r.inputs.Height}mm`}
                     </div>
                  </td>
                  <td className="px-3 py-2 border border-slate-300 text-center font-medium">Ø{r.dia}</td>

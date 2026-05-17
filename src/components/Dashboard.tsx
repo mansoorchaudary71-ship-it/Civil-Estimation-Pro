@@ -4,10 +4,10 @@ import { useAuth } from "../contexts/AuthContext";
 import {
   Calculator, Sparkles, Truck, Route, Waves, Paintbrush, Home, 
   TrendingUp, Hammer, Layers, BoxSelect, Search, Menu, CheckSquare, 
-  Map, Grid2X2, Box, ArrowRightLeft, Weight, Spline, ArrowRight, 
+  Map, Grid2X2, Box, ArrowRightLeft, Weight, Spline, ArrowRight,
   ChevronRight, HardHat, Scaling, Container, Repeat, Anvil, Building2, 
   Blocks, Shovel, Pickaxe, Cone, Droplet, PaintBucket, Ruler, Columns, 
-  ClipboardList, Maximize2, FileSpreadsheet,
+  ClipboardList, Maximize2, FileSpreadsheet, Zap
 } from "lucide-react";
 import { SEO } from "./SEO";
 import Logo from "./Logo";
@@ -20,21 +20,16 @@ export const ALL_MODULES = [
   { id: "volume-estimator", title: "Volume Estimator", desc: "Calculate volumes, capacity & surface area.", category: "TOOLS", icon: Container },
   { id: "unit-converter", title: "Unit Converter", desc: "Convert units across 15 engineering categories.", category: "TOOLS", icon: Repeat },
   { id: "metal-weight", title: "Metal Weight", desc: "Calculate section weights of steel profiles.", category: "TOOLS", icon: Anvil },
-  { id: "rcc-calculator", title: "RCC Structure", desc: "Calculate concrete & steel for slabs, columns.", category: "TOOLS", icon: Building2 },
-  { id: "bbs-generator", title: "BBS Generator", desc: "Bar Bending Schedule with precise cut lengths.", category: "TOOLS", icon: FileSpreadsheet },
-  { id: "staircase-calculator", title: "Staircase Calculator", desc: "Concrete & steel quantity for RCC staircases.", category: "TOOLS", icon: Layers },
+  { id: "mep-calculator", title: "Energy & MEP Calculators", desc: "Estimate solar capacity, water heating, and AC sizing.", category: "TOOLS", icon: Zap },
+  { id: "rcc-calculator", title: "Quick RCC Estimator", desc: "Calculate concrete & steel for slabs, columns.", category: "TOOLS", icon: Building2 },
+  { id: "master-rcc", title: "Master RCC Structure", desc: "Central hub for Slab, Column, Beam, Staircase, and BBS calculations.", category: "STRUCTURAL", icon: Building2 },
   { id: "master-quantity", title: "Master Quantity & Estimation", desc: "23 comprehensive calculators for specialized construction items.", category: "TOOLS", icon: ClipboardList },
-  { id: "column-estimator", title: "Column Estimator", desc: "Detailed concrete volume and material breakdown for columns.", category: "TOOLS", icon: Columns },
   { id: "earthworks", title: "Earthworks", desc: "Calculate site preparation, excavation and hauling volumes.", category: "SITE PREP", icon: Shovel },
-  { id: "trench", title: "Trench Excavation", desc: "Pipe trenching and bedding volume estimations.", category: "SITE PREP", icon: Pickaxe },
-  { id: "gridEarthwork", title: "Grid Method Volume", desc: "Leveling volume estimation using the grid method.", category: "SITE PREP", icon: Grid2X2 },
-  { id: "road", title: "Flexible Pavement", desc: "Asphalt road layer estimations and material costs.", category: "INFRA", icon: Cone },
-  { id: "rigid-pavement", title: "Rigid Pavement", desc: "Concrete road design material estimations.", category: "INFRA", icon: Route },
+  { id: "road-pavement", title: "Road & Pavement Estimator", desc: "Comprehensive tool for flexible, rigid, pavement & sewerage calculations.", category: "INFRA", icon: Route },
   { id: "chainage", title: "Chainage Volume", desc: "Road highway chainage extraction calculations.", category: "INFRA", icon: Map },
-  { id: "sewerage", title: "Sewerage & Drainage", desc: "Pipes, manholes, and septic tank estimations.", category: "INFRA", icon: Droplet },
+  { id: "interiors-finishes", title: "Interiors & Finishes", desc: "Tiles, painting, doors, wood framing, and termite treatments.", category: "INTERIORS", icon: Paintbrush },
   { id: "formwork", title: "Formwork & Scaffold", desc: "Shuttering and scaffolding material computations.", category: "STRUCTURAL", icon: Hammer },
   { id: "gradient-calculator", title: "Gradient & Slope", desc: "Dynamic bidirectional slope and elevation calculator.", category: "SITE_PREP", icon: Maximize2 },
-  { id: "finishing", title: "Finishing Works", desc: "Tiles, paint, doors, and window estimations.", category: "INTERIORS", icon: PaintBucket },
   { id: "takeoff", title: "Plan Measure", desc: "Area & linear extraction.", category: "2D TAKEOFF", icon: Ruler },
   { id: "rates", title: "Live DB Rates", desc: "Centralized database for local market prices.", category: "DATA", icon: TrendingUp },
   { id: "ai", title: "AI Assistant", desc: "Ask anything about construction", category: "GEMINI PRO", icon: Sparkles, premium: true, color: "electric" },
@@ -205,32 +200,28 @@ export default function Dashboard({
         </div>
 
         {/* HERO SECTION */}
-        <div className="mb-12 md:mb-16 flex flex-col items-center justify-center text-center mt-10 sm:mt-16 px-4">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-[4.5rem] leading-[1.1] font-bold tracking-tight text-slate-900 mb-6 max-w-[900px] mx-auto font-sans">
-            Check your Open Graph or <br className="hidden md:block" /> <span className="text-orange-500">Social card</span> preview.
+        <div className="flex flex-col items-center justify-center text-center mt-10 sm:mt-16 px-4 mb-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-[4.5rem] leading-[1.1] font-bold tracking-tight text-slate-900 mb-4 max-w-[900px] mx-auto font-sans">
+            Estimate Smarter &amp; <span className="text-blue-600">Faster.</span>
           </h1>
-          <p className="text-gray-500 font-medium text-base md:text-xl max-w-2xl mx-auto leading-relaxed mt-6 mb-8 text-balance">
-            Test your link preview for free and see how your links would look like on Facebook, LinkedIn, Twitter and Imessage.
+          <p className="text-slate-500 font-medium text-base md:text-xl max-w-2xl mx-auto leading-relaxed mb-6 text-balance">
+            Access powerful, precise calculators for brickwork, concrete, plastering, and infrastructure projects.
           </p>
         </div>
 
-        {/* SEARCH BAR */}
-        <div className="mb-10 lg:mb-14 flex flex-col justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 mt-8 px-4">
-          <div className="relative w-full max-w-lg mx-auto group">
-            {/* Animated glowing backdrop */}
-            <div className="absolute -inset-1.5 bg-gradient-to-r from-orange-400 via-pink-500 to-indigo-500 rounded-full blur-md opacity-30 group-hover:opacity-75 transition duration-700 animate-pulse"></div>
-            
-            {/* Main Bar */}
-            <div className="relative w-full shadow-2xl rounded-full bg-white/95 flex items-center p-2 pl-6 md:pl-8 border-2 border-white/80 focus-within:border-pink-400/50 transition-all duration-300">
+        {/* SEARCH BAR WIDGET */}
+        <div className="mb-10 lg:mb-14 flex flex-col justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 px-4">
+          <div className="relative w-full max-w-2xl mx-auto">
+            <div className="relative w-full shadow-[0_4px_24px_rgba(0,0,0,0.06)] rounded-full bg-white flex items-center p-1.5 md:p-2 pl-6 md:pl-8">
               <input
                 type="text"
-                placeholder="businessboost.com"
+                placeholder="Search materials or calculators..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="flex-1 bg-transparent text-lg md:text-xl text-slate-800 font-bold outline-none transition-all placeholder:text-slate-400 placeholder:font-medium font-sans border-0 focus:ring-0 py-2 md:py-4 w-full min-w-0"
+                className="flex-1 bg-transparent text-lg text-slate-800 font-medium outline-none transition-all placeholder:text-slate-400 font-sans border-0 focus:ring-0 py-2 md:py-3 w-full min-w-0"
               />
-              <button className="h-12 w-12 md:h-14 md:w-14 bg-gradient-to-tr from-pink-500 to-orange-400 text-white rounded-full flex items-center justify-center hover:scale-105 active:scale-95 shadow-md shadow-pink-500/30 transition-all shrink-0 ml-2 group-hover:rotate-12 duration-300 border-none outline-none">
-                <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
+              <button className="h-10 w-10 md:h-12 md:w-12 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 active:scale-95 transition-all shrink-0 ml-2 border-none outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2">
+                <Search className="w-5 h-5 md:w-6 md:h-6" strokeWidth={2.5} />
               </button>
             </div>
           </div>

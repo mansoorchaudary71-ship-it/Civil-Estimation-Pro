@@ -430,7 +430,7 @@ export default function AreaCalculator() {
           <Calculator className="w-8 h-8 text-indigo-500" /> Area
           Calculator{" "}
         </h1>{" "}
-        <p className="text-slate-500 dark:text-slate-400 dark:text-slate-700 dark:text-slate-300 mb-8 font-medium">
+        <p className="text-slate-500 dark:text-slate-400 mb-8 font-medium">
           Calculate area and perimeter for any 2D shape with unit conversions.
         </p>{" "}
         {/* Global Settings */}{" "}
