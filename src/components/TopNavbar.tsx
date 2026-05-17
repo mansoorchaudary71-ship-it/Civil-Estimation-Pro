@@ -3,6 +3,7 @@ import { Menu, X, User, LogOut, Settings, ChevronDown, ArrowRight } from 'lucide
 import { GlobalSettingsToggle } from './ui/GlobalSettingsToggle';
 import { useAuth } from '../contexts/AuthContext';
 import { ModuleId } from './Sidebar';
+import Logo from './Logo';
 
 export default function TopNavbar({ 
   onOpenSidebar, 
@@ -65,9 +66,12 @@ export default function TopNavbar({
         <div className="w-full flex items-center justify-between mx-auto max-w-[1400px]">
           
           {/* Left: Logo */}
-          <div className="flex items-center justify-start cursor-pointer group shrink-0" onClick={() => onNavigate?.('home' as ModuleId)}>
-            <span className="font-heading font-black text-2xl md:text-3xl tracking-tighter text-[#111111] dark:text-white">
-              Civil Pro.
+          <div className="flex items-center gap-2.5 justify-start cursor-pointer group shrink-0" onClick={() => onNavigate?.('home' as ModuleId)}>
+            <div className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center transition-all duration-300 text-orange-500">
+              <Logo className="w-full h-full" />
+            </div>
+            <span className="font-heading font-black text-xl md:text-2xl tracking-tighter text-[#111111] dark:text-white">
+              Civil Estimation Pro
             </span>
           </div>
 
@@ -194,9 +198,14 @@ export default function TopNavbar({
           <div className="absolute top-0 right-0 bottom-0 w-[85vw] max-w-[340px] bg-white dark:bg-[#111111] shadow-2xl flex flex-col animate-in slide-in-from-right duration-300 ease-out">
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-[#111111]/10 dark:border-white/10 shrink-0">
-              <span className="font-heading font-black text-xl tracking-tighter text-[#111111] dark:text-white">
-                Civil Pro.
-              </span>
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 flex items-center justify-center text-orange-500">
+                  <Logo className="w-full h-full" />
+                </div>
+                <span className="font-heading font-black text-xl tracking-tighter text-[#111111] dark:text-white">
+                  Civil Estimation Pro
+                </span>
+              </div>
               <button 
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="p-2 -mr-2 rounded-full text-[#111111]/60 dark:text-white/60 hover:text-[#111111] dark:hover:text-white hover:bg-[#111111]/5 dark:hover:bg-white/5 transition-colors"

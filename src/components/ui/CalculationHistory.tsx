@@ -37,6 +37,9 @@ export function CalculationHistory({
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [isSavingLocal, setIsSavingLocal] = useState(false);
   const [isSavingCloud, setIsSavingCloud] = useState(false);
+  const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
+  const [saveName, setSaveName] = useState("");
+  const [saveType, setSaveType] = useState("General");
   const { user } = useAuth();
 
   useEffect(() => {
@@ -85,6 +88,16 @@ export function CalculationHistory({
       toast.error("Please login to save to cloud");
       return;
     }
+    setSaveName(`My ${estimationName}`);
+    setSaveType("General");
+    setIsSaveModalOpen(true);
+  };
+
+  const confirmCloudSave = async () => {
+    if (!saveName.trim()) {
+      toast.error("Please enter a name");
+      return;
+    }
     
     const payloadToSave = savePayload || {
       inputs: currentInputs,
@@ -93,11 +106,9 @@ export function CalculationHistory({
     
     setIsSavingCloud(true);
     try {
-      const projName = prompt("Enter a name for this estimate:", `My ${estimationName}`);
-      if (projName) {
-        await saveEstimate(projName, payloadToSave);
-        toast.success("Saved to cloud Profile successfully!");
-      }
+      await saveEstimate(saveName, payloadToSave, saveType);
+      toast.success("Saved to cloud Profile successfully!");
+      setIsSaveModalOpen(false);
     } catch (e) {
       toast.error("Failed to save to cloud.");
     } finally {
@@ -265,6 +276,94 @@ export function CalculationHistory({
                 </button>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {isSaveModalOpen && (
+        <div className="fixed inset-0 z-[60] overflow-hidden flex items-center justify-center font-sans px-4">
+          <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" onClick={() => setIsSaveModalOpen(false)} />
+          <div className="relative w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col transform transition-transform duration-300 ease-in-out p-6 pt-7 animate-in zoom-in-95">
+            <button 
+              onClick={() => setIsSaveModalOpen(false)}
+              className="absolute top-4 right-4 p-2 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center shrink-0">
+                <CloudUpload className="w-6 h-6 text-indigo-500" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Save Estimate</h2>
+                <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Save to your cloud profile</p>
+              </div>
+            </div>
+
+            <div className="space-y-4 mb-8">
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5 ml-0.5">Project Name</label>
+                <input
+                  type="text"
+                  value={saveName}
+                  onChange={(e) => setSaveName(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium"
+                  placeholder="e.g. Dream House Ground Floor"
+                  autoFocus
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5 ml-0.5">Estimate Type</label>
+                <div className="relative">
+                  <select
+                    value={saveType}
+                    onChange={(e) => setSaveType(e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium appearance-none"
+                  >
+                    <option value="General">General</option>
+                    <option value="House">House</option>
+                    <option value="Slab">Slab</option>
+                    <option value="Beam">Beam</option>
+                    <option value="Column">Column</option>
+                    <option value="Blockwork">Block/Brickwork</option>
+                    <option value="Plastering">Plastering</option>
+                    <option value="Plumbing">Plumbing</option>
+                    <option value="Electrical">Electrical</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <ChevronRight className="w-4 h-4 text-slate-400 rotate-90" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setIsSaveModalOpen(false)}
+                className="flex-1 px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                disabled={isSavingCloud}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmCloudSave}
+                disabled={isSavingCloud || !saveName.trim()}
+                className="flex-[2] flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSavingCloud ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    Saving...
+                  </>
+                ) : (
+                  <>
+                    <Save className="w-5 h-5" />
+                    Save Estimate
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       )}

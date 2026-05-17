@@ -1,14 +1,14 @@
 import { collection, addDoc, getDocs, query, where, documentId, doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db, handleFirestoreError, OperationType, auth } from './firebase';
 
-export async function saveEstimate(name: string, payload: any) {
+export async function saveEstimate(name: string, payload: any, type: string = 'material_calculation') {
   if (!auth.currentUser) throw new Error("User not authenticated");
   try {
     const estimatesRef = collection(db, 'estimates');
     await addDoc(estimatesRef, {
       userId: auth.currentUser.uid,
       name,
-      type: 'material_calculation',
+      type,
       payload,
       createdAt: Date.now(),
       status: 'To Do'

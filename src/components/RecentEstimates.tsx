@@ -77,7 +77,7 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
             return {
               id: d.id,
               title: d.name,
-              desc: modInfo.title,
+              desc: d.type && d.type !== 'material_calculation' ? d.type : modInfo.title,
               date: new Date(d.createdAt).toLocaleDateString(),
               type: modId,
               typeLabel: modInfo.category,

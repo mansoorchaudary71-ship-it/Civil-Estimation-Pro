@@ -196,25 +196,10 @@ export default function Dashboard({
         }
       `}</style>
 
-      <div className="flex-1 px-4 md:px-8 py-6 pb-24 w-full max-w-7xl mx-auto flex flex-col relative z-0">
+      <div className="flex-1 px-4 md:px-8 py-6 pb-32 md:pb-32 w-full max-w-7xl mx-auto flex flex-col relative z-0">
         
-        {/* Mobile Header */}
-        <div className="mb-6 flex items-center justify-between gap-3 md:hidden">
-          <div className="flex items-center gap-2 group">
-            <div className="w-8 h-8 flex items-center justify-center transition-all duration-500 text-orange-500">
-              <Logo className="w-8 h-8" />
-            </div>
-            <span className="font-bold text-[1.1rem] tracking-tight text-slate-800">
-              Civil Estimation Pro
-            </span>
-          </div>
-          <button
-            onClick={onOpenSidebar}
-            className="p-2.5 -mr-2 rounded-full text-slate-500 bg-white/50 hover:bg-white/80 transition-all border border-slate-200/50"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
-        </div>
+        {/* Removed Mobile Header per top navigation consolidation request */}
+
 
         {user ? (
           <PostLoginDashboard onSelectModule={onSelectModule} />
@@ -278,61 +263,41 @@ export default function Dashboard({
             </div>
           </div>
 
-          {/* Quick-Access Tool Cards: Row of 4 */}
-          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 z-20 mx-auto max-w-6xl">
-            {[
-              { id: "house", title: "House Estimator", subtitle: "Full residential quantities", desc: "Complete A-Z calculation for homes", icon: Home },
-              { id: "calculators", title: "Material Splits", subtitle: "Cement, sand & aggregate", desc: "Ratio-based mortar & concrete", icon: Box },
-              { id: "takeoff", title: "2D Takeoff", subtitle: "Blueprint PDF measurements", desc: "Extract areas and lengths directly", icon: Ruler },
-              { id: "master-rcc", title: "RCC Master", subtitle: "Structural steel & concrete", desc: "Detailed rebar & slab volume", icon: Building2 }
-            ].map((tool, idx) => (
-              <button
-                key={tool.id}
-                onClick={() => onSelectModule(tool.id as ModuleId)}
-                className="group flex flex-col text-left w-full p-6 rounded-[24px] bg-white dark:bg-[#1A1A1A] border border-[#111111]/5 dark:border-white/10 hover:border-transparent transition-all duration-300 shadow-sm hover:shadow-[0_20px_40px_-16px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_20px_40px_-16px_rgba(255,255,255,0.05)] hover:-translate-y-1 relative overflow-hidden"
-              >
-                {/* Colored Accent Top Bar */}
-                {idx === 0 && <div className="absolute top-0 left-0 w-full h-1.5 bg-blue-500 transition-transform origin-left group-hover:scale-x-105"></div>}
-                {idx === 1 && <div className="absolute top-0 left-0 w-full h-1.5 bg-orange-500 transition-transform origin-left group-hover:scale-x-105"></div>}
-                {idx === 2 && <div className="absolute top-0 left-0 w-full h-1.5 bg-purple-500 transition-transform origin-left group-hover:scale-x-105"></div>}
-                {idx === 3 && <div className="absolute top-0 left-0 w-full h-1.5 bg-emerald-500 transition-transform origin-left group-hover:scale-x-105"></div>}
 
-                <div className={`w-14 h-14 rounded-[18px] flex items-center justify-center shrink-0 mb-5 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-300 shadow-sm ${
-                  idx === 0 ? "bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400" :
-                  idx === 1 ? "bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400" :
-                  idx === 2 ? "bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400" :
-                  "bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400"
-                }`}>
-                  <tool.icon className="w-7 h-7" strokeWidth={2} />
-                </div>
-                
-                <h3 className="text-[18px] font-bold text-[#111111] dark:text-white mb-1.5 leading-tight tracking-tight font-sans">
-                  {tool.title}
-                </h3>
-                <p className="text-[13px] text-[#111111]/50 dark:text-white/50 font-medium leading-relaxed mb-6 line-clamp-2">
-                  {tool.desc}
-                </p>
+        </div>
+      </>
+    )}
 
-                <div className="mt-auto flex items-center justify-between pt-4 border-t border-[#111111]/5 dark:border-white/5 w-full">
-                  <span className="text-[12px] font-bold uppercase tracking-widest text-[#111111]/30 dark:text-white/30 group-hover:text-[#111111] dark:group-hover:text-white transition-colors">
-                    Start tool
-                  </span>
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center bg-[#111111]/5 dark:bg-white/5 group-hover:bg-[#111111] dark:group-hover:bg-white transition-colors duration-300">
-                    <ArrowRight className="w-4 h-4 text-[#111111]/40 dark:text-white/40 group-hover:text-white dark:group-hover:text-[#111111] group-hover:translate-x-0.5 transition-all duration-300" strokeWidth={2.5} />
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
-
-          {/* Frosted Glass Search Bar Container */}
-          <div className="w-full relative z-20 flex justify-end mt-12 px-4 md:px-0">
+    {/* SEARCH AND TOOLS - ALWAYS VISIBLE */}
+    <div className="relative w-full max-w-[1400px] mx-auto z-10 flex flex-col items-center">
+      
+      {/* Frosted Glass Search Bar Container */}
+      <div className="w-full relative z-20 flex justify-end mt-4 md:mt-8 px-0">
             <style>{`
-              .civil-search-input:-webkit-autofill,
-              .civil-search-input:-webkit-autofill:hover, 
-              .civil-search-input:-webkit-autofill:focus, 
-              .civil-search-input:-webkit-autofill:active {
-                  -webkit-box-shadow: 0 0 0 1000px #111008 inset !important;
+              input.civil-search-input[type="text"] {
+                  background: transparent !important;
+                  background-color: transparent !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                  padding: 0 !important;
+                  outline: none !important;
+                  -webkit-appearance: none !important;
+              }
+              input.civil-search-input[type="text"]:focus {
+                  background: transparent !important;
+                  background-color: transparent !important;
+                  border: none !important;
+                  box-shadow: none !important;
+                  outline: none !important;
+                  -webkit-appearance: none !important;
+                  outline-offset: 0 !important;
+              }
+              input.civil-search-input[type="text"]:-webkit-autofill,
+              input.civil-search-input[type="text"]:-webkit-autofill:hover, 
+              input.civil-search-input[type="text"]:-webkit-autofill:focus, 
+              input.civil-search-input[type="text"]:-webkit-autofill:active {
+                  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+                  transition: background-color 5000s ease-in-out 0s;
                   -webkit-text-fill-color: rgba(255,255,255,0.8) !important;
               }
             `}</style>
@@ -340,16 +305,16 @@ export default function Dashboard({
             <div className="w-full md:w-[70%] flex flex-col gap-3">
               {/* Search Bar Outer Wrapper */}
               <div 
-                className="group relative flex items-center w-full h-[56px] rounded-[100px] border-2 bg-black/40 transition-all duration-300 pl-[20px] pr-[6px]"
+                className="group relative flex items-center w-full h-[56px] rounded-[100px] border-2 bg-gradient-to-r from-yellow-200/20 to-yellow-100/10 backdrop-blur-md transition-all duration-300 pl-[20px] pr-[6px]"
                 style={{ 
-                  borderColor: 'rgba(0,0,0,0.8)',
+                  borderColor: 'rgba(239,159,39,0.3)',
                 }}
                 onFocus={(e) => {
-                  e.currentTarget.style.borderColor = '#000000';
-                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(0,0,0,0.2)';
+                  e.currentTarget.style.borderColor = 'rgba(239,159,39,0.7)';
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(239,159,39,0.15)';
                 }}
                 onBlur={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(0,0,0,0.8)';
+                  e.currentTarget.style.borderColor = 'rgba(239,159,39,0.3)';
                   e.currentTarget.style.boxShadow = 'none';
                 }}
               >
@@ -358,9 +323,9 @@ export default function Dashboard({
                 <Search className="w-5 h-5 shrink-0" style={{ color: 'rgba(239,159,39,0.7)' }} strokeWidth={2.5} />
                 
                 {/* Input Area */}
-                <div className="relative flex-1 h-full mx-3 flex items-center overflow-hidden" style={{ background: 'transparent !important' }}>
+                <div className="relative flex-1 h-full mx-3 flex items-center overflow-hidden">
                   {!searchTerm && (
-                     <div className="absolute inset-0 flex flex-col pointer-events-none w-full text-left font-medium" style={{ color: 'rgba(255,255,255,0.28)' }}>
+                     <div className="absolute inset-0 flex flex-col pointer-events-none w-full text-left font-medium" style={{ color: 'rgba(0,0,0,0.4)' }}>
                         {searchPlaceholders.map((text, idx) => (
                           <div 
                             key={idx}
@@ -381,22 +346,24 @@ export default function Dashboard({
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="civil-search-input absolute inset-0 w-full h-full border-0 focus:ring-0 p-0 text-[16px] font-medium outline-none bg-transparent"
+                    className="civil-search-input absolute inset-0 w-full h-full border-0 focus:ring-0 focus:outline-none focus:border-0 p-0 text-[16px] font-medium outline-none bg-transparent"
                     style={{ 
-                      color: 'rgba(255,255,255,0.8)',
+                      color: 'rgba(0,0,0,0.8)',
+                      backgroundColor: 'transparent',
+                      boxShadow: 'none'
                     }}
                     placeholder=""
                   />
                 </div>
                 
                 {/* AI Search Pill Button */}
-                <button className="flex items-center justify-center gap-1.5 rounded-[100px] shrink-0 transition-transform hover:scale-105 active:scale-95"
+                <button className="flex items-center justify-center gap-1 rounded-[100px] shrink-0 transition-transform hover:scale-105 active:scale-95"
                   style={{
                     background: '#EF9F27',
                     color: '#1a1208',
-                    padding: '8px 18px',
+                    padding: '6px 10px',
                     fontWeight: 600,
-                    fontSize: '14px'
+                    fontSize: '13px'
                   }}
                 >
                   <Wand2 className="w-4 h-4" strokeWidth={2.5} />
@@ -466,7 +433,7 @@ export default function Dashboard({
         </div>
 
         {/* CATEGORY TABS AND TOOL CARDS */}
-        <div className="flex flex-col w-full animate-in fade-in slide-in-from-bottom-6 duration-700 delay-150">
+        <div className="flex flex-col w-full animate-in fade-in slide-in-from-bottom-6 duration-700 delay-150 relative z-10 mt-8">
           {/* CATEGORY TABS */}
           <div className="mt-4 px-1 md:px-0 relative mb-12">
             <div className="flex flex-row overflow-x-auto md:flex-wrap items-center md:justify-center gap-2 w-full max-w-5xl mx-auto pb-4 md:pb-0 scrollbar-hide snap-x">
@@ -545,9 +512,7 @@ export default function Dashboard({
               </div>
             ))}
           </div>
-          </div>
-          </>
-        )}
+        </div>
       </div>
     </div>
   );
