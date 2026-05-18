@@ -33,8 +33,8 @@ content = content.replace(
 
 // Update HOUSE ESTIMATOR
 content = content.replace(
-  'className="col-span-2 relative bg-gradient-to-br from-blue-600 to-indigo-700 p-5 rounded-[32px] border border-blue-500 flex flex-col text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(37,99,235,0.4)] transition-all overflow-hidden group min-h-[140px]"',
-  'className="col-span-2 lg:col-span-2 relative bg-gradient-to-br from-blue-600 to-indigo-700 p-6 md:p-8 rounded-[32px] border border-blue-500 flex flex-col text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(37,99,235,0.4)] transition-all overflow-hidden group min-h-[160px]"'
+  'className="col-span-2 relative bg-gradient-to-br   p-5 rounded-[32px] border border-blue-500 flex flex-col text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(37,99,235,0.4)] transition-all overflow-hidden group min-h-[140px]"',
+  'className="col-span-2 lg:col-span-2 relative bg-gradient-to-br   p-6 md:p-8 rounded-[32px] border border-blue-500 flex flex-col text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(37,99,235,0.4)] transition-all overflow-hidden group min-h-[160px]"'
 );
 
 // Update 2D TAKEOFF

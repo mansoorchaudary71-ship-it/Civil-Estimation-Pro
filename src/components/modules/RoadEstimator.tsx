@@ -324,7 +324,7 @@ export default function RoadEstimator() {
             </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-blue-50 text-blue-600 rounded-xl">
+                <div className="p-2.5 bg-blue-50 text-[#1A1A1A] rounded-xl">
                   <Droplets className="w-5 h-5" />
                 </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800">
@@ -818,7 +818,7 @@ export default function RoadEstimator() {
             </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-indigo-200 transition-colors mb-6 mt-6">
               <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-4 flex items-center gap-2">
-                <Layers className="w-4 h-4 text-indigo-500" /> Granular Material
+                <Layers className="w-4 h-4 text-[#1A1A1A]" /> Granular Material
                 Breakdown (Loose)
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-sm">

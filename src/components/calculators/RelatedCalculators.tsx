@@ -137,7 +137,7 @@ export function RelatedCalculators({ category, currentSlug }: RelatedCalculators
 
         {/* Render Category Hubs (exact 2) */}
         {categoryHubLinks.map((link, idx) => (
-          <a key={`hub-${idx}`} href={link.url} className="group p-5 bg-indigo-600 rounded-xl border border-indigo-500 hover:bg-indigo-500 hover:border-indigo-400 shadow-lg shadow-indigo-900/20 transition-all flex flex-col justify-center items-start">
+          <a key={`hub-${idx}`} href={link.url} className="group p-5 bg-[#EDED78] rounded-xl border border-indigo-500 hover:bg-[#F0F0C0]0 hover:border-indigo-400 shadow-lg shadow-indigo-900/20 transition-all flex flex-col justify-center items-start">
             <span className="text-xs font-bold text-indigo-200 uppercase tracking-wider mb-2">{link.label}</span>
             <span className="text-sm font-bold text-white capitalize leading-snug">{link.title}</span>
           </a>

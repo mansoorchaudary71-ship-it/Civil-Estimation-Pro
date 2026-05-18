@@ -54,7 +54,7 @@ export default function SettingsModal({
         {/* Sidebar */}
         <div className="w-full md:w-64 bg-transparent/50 dark:bg-slate-950/50 border-r border-slate-200/50 dark:border-slate-800/50 p-6 flex flex-col shrink-0 overflow-y-auto">
           <div className="flex items-center gap-3 mb-10 pt-2">
-            <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-2xl flex items-center justify-center shadow-md shadow-blue-500/20">
+            <div className="w-10 h-10 bg-gradient-to-tr   rounded-2xl flex items-center justify-center shadow-md shadow-blue-500/20">
               <SettingsIcon className="w-5 h-5 text-white" />
             </div>
             <div>
@@ -71,10 +71,10 @@ export default function SettingsModal({
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-3 w-full px-4 py-3.5 rounded-2xl font-semibold transition-all ${isActive ? "bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-sm border border-slate-100 dark:border-slate-700/50" : "text-slate-700 dark:text-slate-300 hover:bg-slate-100/50 dark:hover:bg-slate-800/30 hover:text-slate-900 dark:hover:text-slate-100 border border-transparent"}`}
+                  className={`flex items-center gap-3 w-full px-4 py-3.5 rounded-2xl font-semibold transition-all ${isActive ? "bg-white dark:bg-slate-800 text-[#1A1A1A] dark:text-blue-400 shadow-sm border border-slate-100 dark:border-slate-700/50" : "text-slate-700 dark:text-slate-300 hover:bg-slate-100/50 dark:hover:bg-slate-800/30 hover:text-slate-900 dark:hover:text-slate-100 border border-transparent"}`}
                 >
                   <Icon
-                    className={`w-5 h-5 ${isActive ? "text-blue-600 dark:text-blue-400" : "text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300"}`}
+                    className={`w-5 h-5 ${isActive ? "text-[#1A1A1A] dark:text-blue-400" : "text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300"}`}
                   />
                   {tab.label}
                 </button>
@@ -112,7 +112,7 @@ export default function SettingsModal({
                 <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
                   <div className="flex items-center gap-6">
                     <div className="relative group">
-                      <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-sky-400 to-indigo-500 flex items-center justify-center text-3xl font-bold text-white shadow-lg overflow-hidden relative">
+                      <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-sky-400  flex items-center justify-center text-3xl font-bold text-white shadow-lg overflow-hidden relative">
                         <span className="relative z-10 w-full h-full flex items-center justify-center">
                           {name.charAt(0)}
                         </span>
@@ -252,7 +252,7 @@ export default function SettingsModal({
                             className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border-2 transition-all ${isActive ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900"}`}
                           >
                             <div
-                              className={`p-3 rounded-full ${isActive ? "bg-blue-100 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400" : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"}`}
+                              className={`p-3 rounded-full ${isActive ? "bg-blue-100 dark:bg-blue-500/20 text-[#1A1A1A] dark:text-blue-400" : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"}`}
                             >
                               <Icon className="w-6 h-6" />
                             </div>
@@ -283,7 +283,7 @@ export default function SettingsModal({
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" className="sr-only peer" />
-                        <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-slate-600 peer-checked:bg-blue-600"></div>
+                        <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-slate-600 peer-checked:bg-[#EDED78]"></div>
                       </label>
                     </div>
                     <div className="flex items-center justify-between px-4 py-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
@@ -301,7 +301,7 @@ export default function SettingsModal({
                           className="sr-only peer"
                           defaultChecked
                         />
-                        <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-slate-600 peer-checked:bg-blue-600"></div>
+                        <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-slate-600 peer-checked:bg-[#EDED78]"></div>
                       </label>
                     </div>
                   </div>
@@ -311,7 +311,7 @@ export default function SettingsModal({
             <div className="mt-12 max-w-xl mx-auto md:mx-0 flex justify-end">
               <button
                 onClick={onClose}
-                className="px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-md hover:shadow-lg transition-all"
+                className="px-8 py-3.5 bg-gradient-to-r   hover:from-blue-700 hover: text-white font-bold rounded-2xl shadow-md hover:shadow-lg transition-all"
               >
                 Save Changes
               </button>

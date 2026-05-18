@@ -859,7 +859,7 @@ export default function Takeoff() {
                           </button>
                           <button
                             onClick={handleCreateAssembly}
-                            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded transition-colors"
+                            className="px-4 py-2 bg-[#1A1A1A] hover:bg-black text-[#EDED78] rounded-full font-medium rounded transition-colors"
                           >
                             Generate BOQ
                           </button>

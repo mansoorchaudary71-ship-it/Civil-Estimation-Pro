@@ -25,7 +25,7 @@ export default function RelatedCalculators({ diameter_mm, isMetric = true }: Rel
             href={`/steel-weight/weight-of-${prevSize}mm-steel-bar-${isMetric ? 'per-meter' : 'per-foot'}`}
             className="group flex flex-col p-5 bg-white rounded-xl border border-slate-200 hover:border-indigo-400 hover:shadow-md hover:bg-slate-50 transition-all"
           >
-            <span className="text-xs font-bold text-indigo-500 uppercase tracking-wider mb-1 group-hover:text-indigo-600">Smaller Bar</span>
+            <span className="text-xs font-bold text-[#1A1A1A] uppercase tracking-wider mb-1 group-hover:text-[#1A1A1A]">Smaller Bar</span>
             <span className="text-lg font-bold text-slate-800 leading-tight">Calculate {prevSize}mm Steel Weight</span>
           </a>
         ) : (
@@ -40,7 +40,7 @@ export default function RelatedCalculators({ diameter_mm, isMetric = true }: Rel
             href={`/steel-weight/weight-of-${nextSize}mm-steel-bar-${isMetric ? 'per-meter' : 'per-foot'}`}
             className="group flex flex-col p-5 bg-white rounded-xl border border-slate-200 hover:border-indigo-400 hover:shadow-md hover:bg-slate-50 transition-all"
           >
-            <span className="text-xs font-bold text-indigo-500 uppercase tracking-wider mb-1 group-hover:text-indigo-600">Larger Bar</span>
+            <span className="text-xs font-bold text-[#1A1A1A] uppercase tracking-wider mb-1 group-hover:text-[#1A1A1A]">Larger Bar</span>
             <span className="text-lg font-bold text-slate-800 leading-tight">Calculate {nextSize}mm Steel Weight</span>
           </a>
         ) : (

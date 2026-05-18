@@ -12,7 +12,7 @@ export default function AboutUs() {
 
       {/* Hero Section */}
       <div className="text-center space-y-6 bg-white/50 dark:bg-slate-900/50 p-10 md:p-16 rounded-[3rem] border border-slate-200/50 dark:border-slate-800/50">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-blue-100/50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 mb-2 shadow-[0_8px_16px_-6px_rgba(37,99,235,0.2)]">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-blue-100/50 dark:bg-blue-900/30 text-[#1A1A1A] dark:text-blue-400 mb-2 shadow-[0_8px_16px_-6px_rgba(37,99,235,0.2)]">
           <Target className="w-8 h-8" strokeWidth={1.5} />
         </div>
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 dark:text-white tracking-tight leading-tight">
@@ -56,7 +56,7 @@ export default function AboutUs() {
         
         <div className="bg-gradient-to-b from-indigo-50 to-white dark:from-indigo-950/20 dark:to-slate-900 rounded-3xl p-6 md:p-8 text-center border border-indigo-100 dark:border-indigo-900/30 shadow-sm flex flex-col items-center justify-center transition-transform hover:-translate-y-1 duration-300">
           <div className="w-12 h-12 bg-white dark:bg-slate-800 rounded-2xl shadow-sm flex items-center justify-center mb-5 border border-indigo-100 dark:border-slate-700">
-            <svg className="w-6 h-6 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            <svg className="w-6 h-6 text-[#1A1A1A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
           </div>
           <div className="text-4xl font-extrabold text-slate-800 dark:text-white mb-2">1000+</div>
           <div className="text-xs md:text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Estimates Gen.</div>

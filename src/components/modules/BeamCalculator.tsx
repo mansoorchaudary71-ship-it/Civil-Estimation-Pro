@@ -168,7 +168,7 @@ export default function BeamCalculator() {
       />
       <div className="mb-8">
         <h1 className="text-3xl font-extrabold text-slate-900 mb-2 flex items-center gap-3">
-          <Columns className="w-8 h-8 text-blue-600 rotate-90" />
+          <Columns className="w-8 h-8 text-[#1A1A1A] rotate-90" />
           Beam Calculator
         </h1>
         <p className="text-slate-500 font-medium">
@@ -179,7 +179,7 @@ export default function BeamCalculator() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 md:p-8">
           <div className="flex items-center gap-2 mb-6">
-            <Settings2 className="w-5 h-5 text-blue-600" />
+            <Settings2 className="w-5 h-5 text-[#1A1A1A]" />
             <h2 className="text-lg font-bold text-slate-800">Beam Dimensions</h2>
           </div>
 
@@ -229,7 +229,7 @@ export default function BeamCalculator() {
           </div>
 
           <div className="flex items-center gap-2 mb-6 mt-8">
-            <CopySlash className="w-5 h-5 text-blue-600" />
+            <CopySlash className="w-5 h-5 text-[#1A1A1A]" />
             <h2 className="text-lg font-bold text-slate-800">Reinforcement</h2>
           </div>
 
@@ -355,7 +355,7 @@ export default function BeamCalculator() {
 
           <button
             onClick={calculateBeam}
-            className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-colors mt-8"
+            className="w-full mt-6 bg-[#EDED78] hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-colors mt-8"
           >
             Calculate Beam Quantities
           </button>

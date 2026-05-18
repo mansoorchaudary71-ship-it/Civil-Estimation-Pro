@@ -37,13 +37,17 @@
   }
 
   body {
-    background: linear-gradient(135deg, #e0f2f1 0%, #f1f5f9 50%, #e2e8f0 100%);
-    background-color: #f8fafc; /* fallback */
+    background: #F4F3EE;
     color: #0f172a;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
+  }
+
+  *:focus-visible {
+    outline: 2px solid #EDED78 !important;
+    outline-offset: 2px !important;
   }
 
   .dark body {

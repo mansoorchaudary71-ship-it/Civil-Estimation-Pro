@@ -9,7 +9,7 @@ export function MetalWeightCalculator({ initialData }: { initialData: any }) {
         {JSON.stringify(initialData, null, 2)}
       </pre>
       {/* Real interactive logic would go here */}
-      <div className="mt-4 p-4 bg-indigo-50 text-indigo-900 rounded">
+      <div className="mt-4 p-4 bg-[#F0F0C0] text-indigo-900 rounded">
         <strong>Initial Weight:</strong> {initialData.weight_kg} kg
       </div>
     </div>

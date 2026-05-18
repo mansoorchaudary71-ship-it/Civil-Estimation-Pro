@@ -90,7 +90,7 @@ export default function AdvancedSpecs({
         <select
           value={specs[specKey] as string}
           onChange={(e) => updateSpec(specKey, e.target.value)}
-          className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium appearance-none text-sm"
+          className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 font-medium appearance-none text-sm"
         >
           {options.map((opt) => (
             <option key={opt} value={opt}>
@@ -116,7 +116,7 @@ export default function AdvancedSpecs({
         value={specs[specKey] as string}
         onChange={(e) => updateSpec(specKey, e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium text-sm"
+        className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 font-medium text-sm"
       />
     </div>
   );
@@ -130,7 +130,7 @@ export default function AdvancedSpecs({
           onChange={(e) => updateSpec(specKey, e.target.checked)}
           className="sr-only peer"
         />
-        <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+        <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#EDED78]"></div>
       </label>
     </div>
   );

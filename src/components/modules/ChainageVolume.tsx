@@ -151,7 +151,7 @@ export default function ChainageVolumeEstimator() {
             {/* Global Parameters */}
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                <div className="p-2.5 bg-[#F0F0C0] text-[#5C5C00] rounded-xl">
                   <Layers className="w-5 h-5" />
                 </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800">
@@ -281,7 +281,7 @@ export default function ChainageVolumeEstimator() {
                               </span>
                             )}
                             {st.depthFill > 0 && (
-                              <span className="text-indigo-600">
+                              <span className="text-[#1A1A1A]">
                                 F: {st.depthFill.toFixed(2)}
                               </span>
                             )}
@@ -334,7 +334,7 @@ export default function ChainageVolumeEstimator() {
                       <th className="py-3 px-4 text-amber-900 bg-amber-50/50">
                         Cum C
                       </th>
-                      <th className="py-3 px-4 text-indigo-900 bg-indigo-50/50">
+                      <th className="py-3 px-4 text-indigo-900 bg-[#F0F0C0]/50">
                         Cum F
                       </th>
                       <th className="py-3 px-4 bg-gray-100/50 rounded-tr-lg">
@@ -357,23 +357,23 @@ export default function ChainageVolumeEstimator() {
                         <td className="py-3 px-4 text-amber-600/70">
                           {r.cutArea > 0 ? r.cutArea.toFixed(2) : "-"}
                         </td>
-                        <td className="py-3 px-4 text-indigo-600/70">
+                        <td className="py-3 px-4 text-[#1A1A1A]/70">
                           {r.fillArea > 0 ? r.fillArea.toFixed(2) : "-"}
                         </td>
                         <td className="py-3 px-4 text-amber-600 font-semibold bg-amber-50/10">
                           {r.intCut > 0 ? r.intCut.toFixed(2) : "-"}
                         </td>
-                        <td className="py-3 px-4 text-indigo-600 font-semibold bg-indigo-50/10">
+                        <td className="py-3 px-4 text-[#1A1A1A] font-semibold bg-[#F0F0C0]/10">
                           {r.intFill > 0 ? r.intFill.toFixed(2) : "-"}
                         </td>
                         <td className="py-3 px-4 text-amber-800 bg-amber-50/40 font-bold">
                           {r.cumCut.toFixed(2)}
                         </td>
-                        <td className="py-3 px-4 text-indigo-800 bg-indigo-50/40 font-bold">
+                        <td className="py-3 px-4 text-indigo-800 bg-[#F0F0C0]/40 font-bold">
                           {r.cumFill.toFixed(2)}
                         </td>
                         <td
-                          className={`py-3 px-4 font-bold bg-gray-50/60 ${r.netVolume > 0 ? "text-amber-600" : r.netVolume < 0 ? "text-indigo-600" : "text-gray-700 dark:text-gray-300"}`}
+                          className={`py-3 px-4 font-bold bg-gray-50/60 ${r.netVolume > 0 ? "text-amber-600" : r.netVolume < 0 ? "text-[#1A1A1A]" : "text-gray-700 dark:text-gray-300"}`}
                         >
                           {r.netVolume > 0 ? "C " : r.netVolume < 0 ? "F " : ""}
                           {Math.abs(r.netVolume).toFixed(2)}
@@ -386,7 +386,7 @@ export default function ChainageVolumeEstimator() {
             </div>
           </section>
           <section className="lg:col-span-4 space-y-6">
-            <div className="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-[2rem] p-8 shadow-2xl relative overflow-hidden sticky top-6">
+            <div className="bg-gradient-to-br from-slate-900  rounded-[2rem] p-8 shadow-2xl relative overflow-hidden sticky top-6">
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl -ml-10 -mb-10"></div>
               <div className="relative z-10">
@@ -422,7 +422,7 @@ export default function ChainageVolumeEstimator() {
                     </div>
                   </div>
                   <div
-                    className={`p-5 rounded-[1.25rem] border backdrop-blur-sm mt-6 ${finalNet >= 0 ? "bg-amber-500/20 border-amber-500/30" : "bg-indigo-500/20 border-indigo-500/30"}`}
+                    className={`p-5 rounded-[1.25rem] border backdrop-blur-sm mt-6 ${finalNet >= 0 ? "bg-amber-500/20 border-amber-500/30" : "bg-[#F0F0C0]0/20 border-indigo-500/30"}`}
                   >
                     <div
                       className={`text-xs font-bold mb-1 uppercase tracking-widest ${finalNet >= 0 ? "text-amber-200/80" : "text-indigo-200/80"}`}

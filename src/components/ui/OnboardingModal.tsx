@@ -175,7 +175,7 @@ export function OnboardingModal({ onNavigate }: OnboardingModalProps) {
         return (
           <div className={`space-y-6 transition-all duration-300 ${isTransitioning ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'}`}>
             <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/40 text-[#1A1A1A] dark:text-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
                  <CheckCircle2 className="w-8 h-8" />
               </div>
               <h2 className="text-2xl font-bold text-[#111111] dark:text-white mb-2">You're all set!</h2>
@@ -187,10 +187,10 @@ export function OnboardingModal({ onNavigate }: OnboardingModalProps) {
                  <button
                     key={t.id}
                     onClick={() => finish(t.id as ModuleId)}
-                    className="flex flex-col items-start p-4 bg-slate-50 dark:bg-[#1A1A1A] border border-slate-100 dark:border-white/5 hover:border-blue-500 dark:hover:border-blue-400 rounded-xl transition-all shadow-sm hover:shadow"
+                    className="flex flex-col items-start p-4 bg-slate-50 dark:bg-[#1A1A1A] border border-slate-100 dark:border-white/5 hover:border-blue-500 dark:hover:border-blue-400  rounded-full transition-all shadow-sm hover:shadow"
                  >
                     <div className="flex items-center gap-3 mb-1">
-                       <div className="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg">
+                       <div className="p-2 bg-blue-100 dark:bg-blue-900/30 text-[#1A1A1A] dark:text-blue-400 rounded-lg">
                           <t.icon className="w-5 h-5" />
                        </div>
                        <span className="font-bold text-[#111111] dark:text-white text-[16px]">{t.title}</span>

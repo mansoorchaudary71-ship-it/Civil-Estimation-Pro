@@ -89,7 +89,7 @@ const categories: { id: Category; label: string; icon: any; color: string }[] =
       id: "Work",
       label: "Work",
       icon: Wrench,
-      color: "text-indigo-500 bg-indigo-100 dark:bg-indigo-500/20",
+      color: "text-[#1A1A1A] bg-[#F0F0C0] dark:bg-[#F0F0C0]0/20",
     },
     {
       id: "Temperature",
@@ -161,7 +161,7 @@ const categories: { id: Category; label: string; icon: any; color: string }[] =
       id: "Torque",
       label: "Torque",
       icon: RotateCcw,
-      color: "text-indigo-500 bg-indigo-100 dark:bg-indigo-500/20",
+      color: "text-[#1A1A1A] bg-[#F0F0C0] dark:bg-[#F0F0C0]0/20",
     },
     {
       id: "Density",

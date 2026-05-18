@@ -141,7 +141,7 @@ export default function GeotechnicalCalculator() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
           <div>
             <h1 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
-              <Beaker className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
+              <Beaker className="w-8 h-8 text-[#1A1A1A] dark:text-indigo-400" />
               Geotechnical & Soil Test Calculators
             </h1>
             <p className="text-slate-500 mt-2">
@@ -161,7 +161,7 @@ export default function GeotechnicalCalculator() {
                 onClick={() => { setActiveTab(tab.id); resetEstimate(); }}
                 className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm whitespace-nowrap transition-all ${
                   isActive 
-                    ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 shadow-sm" 
+                    ? "bg-[#F0F0C0] dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 shadow-sm" 
                     : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800"
                 }`}
               >
@@ -192,15 +192,15 @@ export default function GeotechnicalCalculator() {
               <div className="grid gap-4">
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Weight of empty container (W1) in g</label>
-                  <input type="number" min="0" value={wcW1} onChange={e => setWcW1(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                  <input type="number" min="0" value={wcW1} onChange={e => setWcW1(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Weight of container + wet soil (W2) in g</label>
-                  <input type="number" min="0" value={wcW2} onChange={e => setWcW2(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                  <input type="number" min="0" value={wcW2} onChange={e => setWcW2(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Weight of container + dry soil (W3) in g</label>
-                  <input type="number" min="0" value={wcW3} onChange={e => setWcW3(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                  <input type="number" min="0" value={wcW3} onChange={e => setWcW3(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50" />
                 </div>
               </div>
             )}
@@ -209,19 +209,19 @@ export default function GeotechnicalCalculator() {
               <div className="grid gap-4">
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Empty weight of Pycnometer (W1) in g</label>
-                  <input type="number" min="0" value={sgW1} onChange={e => setSgW1(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                  <input type="number" min="0" value={sgW1} onChange={e => setSgW1(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Weight of Pycnometer + Soil (W2) in g</label>
-                  <input type="number" min="0" value={sgW2} onChange={e => setSgW2(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                  <input type="number" min="0" value={sgW2} onChange={e => setSgW2(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Weight of Pycnometer + Soil + Water (W3) in g</label>
-                  <input type="number" min="0" value={sgW3} onChange={e => setSgW3(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                  <input type="number" min="0" value={sgW3} onChange={e => setSgW3(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Weight of Pycnometer + Water (W4) in g</label>
-                  <input type="number" min="0" value={sgW4} onChange={e => setSgW4(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                  <input type="number" min="0" value={sgW4} onChange={e => setSgW4(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50" />
                 </div>
               </div>
             )}
@@ -230,15 +230,15 @@ export default function GeotechnicalCalculator() {
               <div className="grid gap-4">
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Total Weight of Sample (g)</label>
-                  <input type="number" min="0" value={sieveTotal} onChange={e => setSieveTotal(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                  <input type="number" min="0" value={sieveTotal} onChange={e => setSieveTotal(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Weight Retained on 4.75mm Sieve (g)</label>
-                  <input type="number" min="0" max={sieveTotal} value={sieveRetainedGravel} onChange={e => setSieveRetainedGravel(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                  <input type="number" min="0" max={sieveTotal} value={sieveRetainedGravel} onChange={e => setSieveRetainedGravel(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Weight Retained on 75μm Sieve (g)</label>
-                  <input type="number" min="0" max={sieveTotal} value={sieveRetainedSand} onChange={e => setSieveRetainedSand(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                  <input type="number" min="0" max={sieveTotal} value={sieveRetainedSand} onChange={e => setSieveRetainedSand(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50" />
                 </div>
               </div>
             )}
@@ -247,11 +247,11 @@ export default function GeotechnicalCalculator() {
               <div className="grid gap-4">
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Number of Blows (N)</label>
-                  <input type="number" min="1" value={llBlows} onChange={e => setLlBlows(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                  <input type="number" min="1" value={llBlows} onChange={e => setLlBlows(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Water Content (%)</label>
-                  <input type="number" min="0" value={llWaterContent} onChange={e => setLlWaterContent(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                  <input type="number" min="0" value={llWaterContent} onChange={e => setLlWaterContent(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50" />
                 </div>
               </div>
             )}
@@ -260,11 +260,11 @@ export default function GeotechnicalCalculator() {
               <div className="grid gap-4">
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Load at 2.5mm Penetration (kg)</label>
-                  <input type="number" min="0" value={cbrLoad25} onChange={e => setCbrLoad25(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                  <input type="number" min="0" value={cbrLoad25} onChange={e => setCbrLoad25(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Load at 5.0mm Penetration (kg)</label>
-                  <input type="number" min="0" value={cbrLoad50} onChange={e => setCbrLoad50(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/20" />
+                  <input type="number" min="0" value={cbrLoad50} onChange={e => setCbrLoad50(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50" />
                 </div>
               </div>
             )}
@@ -272,7 +272,7 @@ export default function GeotechnicalCalculator() {
             <button
               onClick={() => processEstimate(() => {})}
               disabled={isProcessing}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-2xl shadow-md transition-all mt-2"
+              className="w-full bg-[#1A1A1A] hover:bg-black text-[#EDED78] rounded-full font-bold py-4 px-6  rounded-full shadow-md transition-all mt-2"
             >
               {isProcessing ? "Generating Report..." : "Generate Lab Report"}
             </button>

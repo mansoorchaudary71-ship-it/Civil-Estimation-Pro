@@ -81,18 +81,18 @@ export default function Contact() {
         <div className="lg:col-span-1 space-y-6">
           <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
              <div className="w-12 h-12 bg-blue-50 dark:bg-blue-500/10 rounded-2xl flex items-center justify-center shrink-0">
-               <MessageSquare className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+               <MessageSquare className="w-6 h-6 text-[#1A1A1A] dark:text-blue-400" />
              </div>
              <div>
                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Chat to Sales</h3>
                <p className="text-sm text-slate-700 dark:text-slate-300 mb-3">Speak to our friendly team.</p>
-               <a href="mailto:sales@civilpro.com" className="text-sm font-bold text-blue-600 dark:text-blue-400 hover:underline">sales@civilpro.com</a>
+               <a href="mailto:sales@civilpro.com" className="text-sm font-bold text-[#1A1A1A] dark:text-blue-400 hover:underline">sales@civilpro.com</a>
              </div>
           </div>
 
           <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-800 shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
-             <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-500/10 rounded-2xl flex items-center justify-center shrink-0">
-               <MapPin className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+             <div className="w-12 h-12 bg-[#F0F0C0] dark:bg-[#F0F0C0]0/10 rounded-2xl flex items-center justify-center shrink-0">
+               <MapPin className="w-6 h-6 text-[#1A1A1A] dark:text-indigo-400" />
              </div>
              <div>
                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Visit Us</h3>
@@ -110,7 +110,7 @@ export default function Contact() {
              <div>
                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">Call Us</h3>
                <p className="text-sm text-slate-700 dark:text-slate-300 mb-3">Mon-Fri from 8am to 5pm.</p>
-               <a href="tel:+15550000000" className="text-sm font-bold text-blue-600 dark:text-blue-400 hover:underline">+1 (555) 000-0000</a>
+               <a href="tel:+15550000000" className="text-sm font-bold text-[#1A1A1A] dark:text-blue-400 hover:underline">+1 (555) 000-0000</a>
              </div>
           </div>
         </div>
@@ -187,7 +187,7 @@ export default function Contact() {
             <button 
               type="submit" 
               disabled={status === 'loading'}
-              className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:opacity-75 text-white font-bold rounded-2xl shadow-[0_4px_24px_rgba(37,99,235,0.25)] transition-all"
+              className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r   hover:from-blue-700 hover: disabled:opacity-75 text-white font-bold rounded-2xl shadow-[0_4px_24px_rgba(37,99,235,0.25)] transition-all"
             >
               {status === 'loading' ? (
                 <>

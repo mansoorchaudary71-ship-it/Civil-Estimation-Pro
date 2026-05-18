@@ -160,7 +160,7 @@ export default function TopNavbar({
             
             <button 
               onClick={() => onNavigate?.('house' as ModuleId)}
-              className="px-5 py-2 rounded-lg text-[14px] font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300 whitespace-nowrap shadow-sm"
+              className="px-5 py-2 rounded-lg text-[14px] font-bold text-white bg-[#EDED78] hover:bg-indigo-700 transition-colors duration-300 whitespace-nowrap shadow-sm"
             >
               Start Estimating
             </button>

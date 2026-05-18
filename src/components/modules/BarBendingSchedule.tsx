@@ -154,7 +154,7 @@ export default function BarBendingSchedule() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 bg-white p-6 rounded-[2rem] shadow-sm border border-slate-200 print:hidden">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-2.5 bg-blue-600 rounded-xl shadow-lg shadow-blue-500/30 text-white">
+              <div className="p-2.5 bg-[#EDED78] rounded-xl shadow-lg shadow-blue-500/30 text-white">
                 <FileSpreadsheet className="w-6 h-6" />
               </div>
               <h1 className="text-3xl font-bold tracking-tight text-slate-800">BBS Generator</h1>
@@ -164,7 +164,7 @@ export default function BarBendingSchedule() {
           <div className="mt-6 flex flex-wrap gap-4 items-center">
              <button
                 onClick={handlePrint}
-                className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold rounded-xl bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-200 transition-all"
+                className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold rounded-xl bg-[#EDED78] hover:bg-blue-700 text-white shadow-md shadow-blue-200 transition-all"
              >
                 <Printer className="w-4 h-4" />
                 Print Schedule

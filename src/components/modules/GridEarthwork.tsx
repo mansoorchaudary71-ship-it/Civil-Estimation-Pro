@@ -63,7 +63,7 @@ export default function GridEarthworkEstimator() {
     <div className="w-full bg-transparent text-gray-900 font-sans mt-4">
       <div className="space-y-8">
         <div className="mb-4">
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent pb-1">
+          <h2 className="text-2xl font-bold bg-gradient-to-r   bg-clip-text text-transparent pb-1">
             Grid Method Volume
           </h2>
           <GlobalSettingsToggle align="left" showCurrency={false} />
@@ -72,7 +72,7 @@ export default function GridEarthworkEstimator() {
           <section className="space-y-6">
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-blue-50 text-blue-600 rounded-xl">
+                <div className="p-2.5 bg-blue-50 text-[#1A1A1A] rounded-xl">
                   <Grid2X2 className="w-5 h-5" />
                 </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800">
@@ -112,7 +112,7 @@ export default function GridEarthworkEstimator() {
             </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                <div className="p-2.5 bg-[#F0F0C0] text-[#5C5C00] rounded-xl">
                   <Layers className="w-5 h-5" />
                 </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800">

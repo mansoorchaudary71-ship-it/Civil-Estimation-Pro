@@ -545,7 +545,7 @@ export default function SewerageEstimator() {
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-blue-50 text-blue-600 rounded-xl">
+                <div className="p-2 bg-blue-50 text-[#1A1A1A] rounded-xl">
                   <ArrowDownRight className="w-5 h-5" />
                 </div>
                 <h2 className="text-xl font-bold text-gray-800">
@@ -608,14 +608,14 @@ export default function SewerageEstimator() {
                       Ending Invert Level
                     </div>
                     <div className="flex items-end gap-2">
-                      <span className="text-5xl font-black text-blue-600 tracking-tighter">
+                      <span className="text-5xl font-black text-[#1A1A1A] tracking-tighter">
                         {endIL.toFixed(3)}
                       </span>
                       <span className="text-xl font-medium text-blue-500 mb-1">
                         m
                       </span>
                     </div>
-                    <div className="text-blue-600/70 text-sm mt-3 font-medium">
+                    <div className="text-[#1A1A1A]/70 text-sm mt-3 font-medium">
                       Drop:
                       <strong className="text-blue-700">
                         {drop.toFixed(3)} m
@@ -633,7 +633,7 @@ export default function SewerageEstimator() {
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-indigo-50 text-indigo-600 rounded-xl">
+                <div className="p-2 bg-[#F0F0C0] text-[#5C5C00] rounded-xl">
                   <Waves className="w-5 h-5" />
                 </div>
                 <h2 className="text-xl font-bold text-gray-800">
@@ -656,7 +656,7 @@ export default function SewerageEstimator() {
                       </label>
                       <input
                         type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50"
                         value={pipeLength}
                         onChange={(e) => setPipeLength(e.target.value)}
                       />
@@ -667,28 +667,28 @@ export default function SewerageEstimator() {
                       </label>
                       <input
                         type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50"
                         value={pipeSectionLen}
                         onChange={(e) => setPipeSectionLen(e.target.value)}
                       />
                     </div>
                   </div>
-                  <div className="bg-indigo-50 px-4 py-3 rounded-2xl border border-indigo-100 flex flex-col justify-center">
+                  <div className="bg-[#F0F0C0] px-4 py-3 rounded-2xl border border-indigo-100 flex flex-col justify-center">
                     <div className="text-indigo-800 text-sm font-semibold mb-1">
                       Required Pipes
                     </div>
                     <div className="flex items-center justify-between mt-1">
                       <div className="flex items-baseline gap-2">
-                        <span className="text-6xl font-black text-indigo-600 tracking-tighter leading-none">
+                        <span className="text-6xl font-black text-[#1A1A1A] tracking-tighter leading-none">
                           {pipeCount}
                         </span>
-                        <span className="text-lg font-medium text-indigo-500">
+                        <span className="text-lg font-medium text-[#1A1A1A]">
                           sections
                         </span>
                       </div>
                       <button
                         onClick={handleAddPipesToBOQ}
-                        className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-95"
+                        className="flex items-center gap-2 bg-[#1A1A1A] hover:bg-black text-[#EDED78] rounded-full px-4 py-2  rounded-full transition-all shadow-md hover:shadow-lg active:scale-95"
                       >
                         <Plus className="w-5 h-5" />
                         <span className="font-semibold">Add to BOQ</span>
@@ -857,7 +857,7 @@ export default function SewerageEstimator() {
                         </div>
                       )}
                     {beddingType === "classA" && (
-                      <div className="flex items-start gap-2 bg-indigo-50 border border-indigo-200 p-3 rounded-xl mt-1">
+                      <div className="flex items-start gap-2 bg-[#F0F0C0] border border-indigo-200 p-3 rounded-xl mt-1">
                         <p className="text-xs font-medium text-indigo-700">
                           For Class A (Concrete), you typically use low-strength
                           concrete (e.g., M10 or M15).

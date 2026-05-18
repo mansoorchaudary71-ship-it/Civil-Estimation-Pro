@@ -6,8 +6,8 @@ export default function Footer({ onNavigate }: { activeModule?: ModuleId, onNavi
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full relative shrink-0 z-10 px-6 md:px-12 mt-12 bg-transparent">
-      <div className="w-full max-w-[1400px] mx-auto py-8 md:py-12 border-t border-[#111111]/10 dark:border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
+    <footer className="w-full relative shrink-0 z-20 px-6 md:px-12 mt-auto bg-white/50 dark:bg-slate-900/50 backdrop-blur-md border-t border-[#111111]/10 dark:border-white/10 pb-[120px] md:pb-8">
+      <div className="w-full max-w-[1400px] mx-auto pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
         
         {/* Left: Logo */}
         <div 

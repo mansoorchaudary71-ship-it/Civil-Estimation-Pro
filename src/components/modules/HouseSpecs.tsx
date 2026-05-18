@@ -17,7 +17,7 @@ export default function HouseSpecs() {
     <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         <header className="mb-10">
-          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent pb-2">
+          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r   bg-clip-text text-transparent pb-2">
             Material Specs & Finishing
           </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-2 text-lg font-medium">
@@ -150,7 +150,7 @@ export default function HouseSpecs() {
           {/* Ceiling */}
           <GlassCard
             title="Ceiling Finish"
-            icon={<ArrowUpRight className="w-5 h-5 text-indigo-500" />}
+            icon={<ArrowUpRight className="w-5 h-5 text-[#1A1A1A]" />}
             color="indigo"
           >
             <div className="space-y-4 pb-4">
@@ -281,7 +281,7 @@ function GlassCard({
     gray: "bg-gray-500/10 border-gray-500/20 text-gray-600",
     teal: "bg-teal-500/10 border-teal-500/20 text-teal-600",
     amber: "bg-amber-500/10 border-amber-500/20 text-amber-600",
-    indigo: "bg-indigo-500/10 border-indigo-500/20 text-indigo-600",
+    indigo: "bg-[#F0F0C0]0/10 border-indigo-500/20 text-[#1A1A1A]",
     sky: "bg-sky-500/10 border-sky-500/20 text-sky-600",
     fuchsia: "bg-fuchsia-500/10 border-fuchsia-500/20 text-fuchsia-600",
   };

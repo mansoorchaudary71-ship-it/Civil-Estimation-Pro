@@ -10,8 +10,8 @@ interface ColorfulTabProps {
 }
 
 const activeBgStyles: Record<string, string> = {
-  blue: 'text-blue-600 border-b-[4px] border-blue-600 bg-white dark:bg-slate-800 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-xl rounded-b-none',
-  indigo: 'text-indigo-600 border-b-[4px] border-indigo-600 bg-white dark:bg-slate-800 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-xl rounded-b-none',
+  blue: 'text-[#1A1A1A] border-b-[4px] border-blue-600 bg-white dark:bg-slate-800 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-xl rounded-b-none',
+  indigo: 'text-[#1A1A1A] border-b-[4px] border-indigo-600 bg-white dark:bg-slate-800 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-xl rounded-b-none',
   orange: 'text-orange-600 border-b-[4px] border-orange-600 bg-white dark:bg-slate-800 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-xl rounded-b-none',
   teal: 'text-teal-600 border-b-[4px] border-teal-600 bg-white dark:bg-slate-800 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-xl rounded-b-none',
   rose: 'text-rose-600 border-b-[4px] border-rose-600 bg-white dark:bg-slate-800 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] rounded-t-xl rounded-b-none',

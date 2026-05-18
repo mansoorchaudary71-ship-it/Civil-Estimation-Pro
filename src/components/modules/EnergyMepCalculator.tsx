@@ -11,7 +11,7 @@ export default function EnergyMepCalculator() {
     <div className="max-w-4xl mx-auto pb-20">
       <div className="mb-8">
         <h1 className="text-3xl font-extrabold text-slate-900 mb-2 flex items-center gap-3">
-          <Zap className="w-8 h-8 text-blue-600" />
+          <Zap className="w-8 h-8 text-[#1A1A1A]" />
           Energy & MEP Calculators
         </h1>
         <p className="text-slate-500 font-medium">
@@ -27,7 +27,7 @@ export default function EnergyMepCalculator() {
             className={cn(
               "flex-1 flex items-center justify-center gap-2 py-4 px-6 font-bold text-[14px] transition-colors whitespace-nowrap",
               activeTab === "solar"
-                ? "text-blue-600 border-b-2 border-blue-600 bg-blue-50/50"
+                ? "text-[#1A1A1A] border-b-2 border-blue-600 bg-blue-50/50"
                 : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"
             )}
           >
@@ -38,7 +38,7 @@ export default function EnergyMepCalculator() {
             className={cn(
               "flex-1 flex items-center justify-center gap-2 py-4 px-6 font-bold text-[14px] transition-colors whitespace-nowrap",
               activeTab === "water"
-                ? "text-blue-600 border-b-2 border-blue-600 bg-blue-50/50"
+                ? "text-[#1A1A1A] border-b-2 border-blue-600 bg-blue-50/50"
                 : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"
             )}
           >
@@ -49,7 +49,7 @@ export default function EnergyMepCalculator() {
             className={cn(
               "flex-1 flex items-center justify-center gap-2 py-4 px-6 font-bold text-[14px] transition-colors whitespace-nowrap",
               activeTab === "ac"
-                ? "text-blue-600 border-b-2 border-blue-600 bg-blue-50/50"
+                ? "text-[#1A1A1A] border-b-2 border-blue-600 bg-blue-50/50"
                 : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"
             )}
           >
@@ -234,7 +234,7 @@ function WaterHeaterCalculator() {
                   className={cn(
                     "py-3 rounded-xl text-sm font-bold capitalize transition-all border",
                     usageType === type 
-                      ? "bg-blue-600 text-white border-blue-600 shadow-md"
+                      ? "bg-[#EDED78] text-white border-blue-600 shadow-md"
                       : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"
                   )}
                 >

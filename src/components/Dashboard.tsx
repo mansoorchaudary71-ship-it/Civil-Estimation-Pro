@@ -7,7 +7,7 @@ import {
   Map, Grid2X2, Box, ArrowRightLeft, Weight, Spline, ArrowRight,
   ChevronRight, ChevronDown, HardHat, Scaling, Container, Repeat, Anvil, Building2, 
   Blocks, Shovel, Pickaxe, Cone, Droplet, PaintBucket, Ruler, Columns, 
-  ClipboardList, Maximize2, FileSpreadsheet, Zap, Wand2
+  ClipboardList, Maximize2, FileSpreadsheet, Zap, Wand2, ArrowUpRight
 } from "lucide-react";
 import { SEO } from "./SEO";
 import Logo from "./Logo";
@@ -47,7 +47,7 @@ interface DashboardProps {
 
 export const getCategoryTheme = (category: string, id: string) => {
   const colors = [
-    { text: "text-indigo-600", bg: "bg-indigo-50", fill: "bg-indigo-100", border: "border-indigo-100" },
+    { text: "text-[#1A1A1A]", bg: "bg-[#F0F0C0]", fill: "bg-[#F0F0C0]", border: "border-indigo-100" },
     { text: "text-orange-600", bg: "bg-orange-50", fill: "bg-orange-100", border: "border-orange-100" },
     { text: "text-sky-600", bg: "bg-sky-50", fill: "bg-sky-100", border: "border-sky-100" },
     { text: "text-emerald-600", bg: "bg-emerald-50", fill: "bg-emerald-100", border: "border-emerald-100" },
@@ -182,17 +182,17 @@ export default function Dashboard({
              Generate highly accurate engineering estimates in seconds. The complete toolkit for civil engineers and quantity surveyors.
           </p>
 
-          {/* CATEGORY TABS (Glassy Pills) */}
+          {/* CATEGORY TABS */}
           <div className="w-full flex justify-start sm:justify-center overflow-x-auto scrollbar-hide pb-2 px-2">
-            <div className="flex flex-row items-center gap-3 md:gap-4 shrink-0">
+            <div className="inline-flex flex-row items-center bg-[#1A1A1A] p-1 rounded-full shrink-0 shadow-lg">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`flex-shrink-0 px-6 py-3 rounded-full text-sm md:text-base font-semibold transition-all duration-300 backdrop-blur-md ${
+                  className={`flex-shrink-0 px-[18px] py-[8px] rounded-full text-[13px] transition-all duration-200 ${
                     activeCategory === category
-                      ? "bg-slate-800 dark:bg-slate-100 text-white dark:text-slate-900 shadow-md transform scale-105"
-                      : "bg-white/40 dark:bg-slate-800/40 text-slate-700 dark:text-slate-300 border border-white/60 dark:border-slate-700/60 hover:bg-white/60 dark:hover:bg-slate-800/60"
+                      ? "bg-[#EDED78] text-[#1A1A1A] font-semibold shadow-sm"
+                      : "bg-transparent text-[#888888] hover:bg-white/10 hover:text-[#F5F5F0]"
                   }`}
                 >
                   {category}
@@ -215,63 +215,62 @@ export default function Dashboard({
       <div className="lg:col-span-4 xl:col-span-3 flex flex-col gap-6">
         
         {/* Quick Info Widget 1: Stats */}
-        <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl border border-white/60 dark:border-slate-700/60 rounded-[28px] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:bg-white/80 dark:hover:bg-slate-800/80 transition-colors">
+        <div className="bg-[#1A1A1A] rounded-[16px] px-[22px] py-[20px] border-none flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-slate-500 dark:text-slate-400 font-semibold text-sm">Community Pulse</span>
-            <TrendingUp className="w-5 h-5 text-indigo-500" />
+            <span className="text-[#666666] text-[11px] font-medium tracking-[0.06em] uppercase">Community Pulse</span>
+            <div className="bg-[#EDED78]/12 p-[6px] rounded-[8px]">
+              <ArrowUpRight className="w-4 h-4 text-[#EDED78]" />
+            </div>
           </div>
           <div>
-            <div className="text-3xl font-black tracking-tight text-slate-800 dark:text-white mb-1">12,400+</div>
-            <p className="text-slate-500 dark:text-slate-400 text-sm font-medium leading-snug">Detailed estimates generated this month.</p>
+            <div className="text-[#EDED78] text-[32px] font-bold leading-none tracking-tight">12,400+</div>
+            <p className="text-[#888888] text-[12px] mt-1.5 font-medium">Detailed estimates generated this month</p>
           </div>
         </div>
 
         {/* Quick Info Widget 2: Unit Converter */}
         <div 
-          className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl border border-white/60 dark:border-slate-700/60 rounded-[28px] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.03)] flex items-center justify-between cursor-pointer hover:bg-white/80 dark:hover:bg-slate-800/80 transition-colors group"
+          className="bg-[#FFFFFF] border border-black/5 rounded-[12px] p-[16px] shadow-[0_2px_10px_rgba(0,0,0,0.02)] flex items-center justify-between cursor-pointer hover:border-[#EDED78] transition-colors group"
           onClick={() => onSelectModule('unit-converter')}
         >
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:-rotate-3 transition-transform">
-               <Repeat className="w-6 h-6" />
+            <div className="w-[36px] h-[36px] bg-[#F0F0C0] text-[#5C5C00] rounded-[10px] flex items-center justify-center group-hover:scale-105 transition-transform">
+               <Repeat className="w-[18px] h-[18px]" strokeWidth={2.5} />
             </div>
             <div>
-              <h4 className="font-bold text-slate-800 dark:text-white">Unit Converter</h4>
-              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">15 engineering metrics</span>
+              <h4 className="font-semibold text-[15px] leading-tight text-[#1A1A1A] mb-1">Unit Converter</h4>
+              <span className="text-[12px] font-medium text-[#888888]">15 engineering metrics</span>
             </div>
           </div>
-          <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-indigo-600 transition-colors group-hover:translate-x-1" />
+          <ArrowRight className="w-5 h-5 text-[#EDED78] transition-transform group-hover:translate-x-1" />
         </div>
 
         {/* AI Assistant Card (Accent Card) */}
         <div 
-          className="mt-auto bg-gradient-to-br from-[#e1f579] to-[#c5e14d] rounded-[32px] p-8 shadow-sm relative overflow-hidden flex flex-col group cursor-pointer hover:shadow-md hover:-translate-y-1 transition-all duration-300 min-h-[340px]"
+          className="mt-auto bg-[#1A1A1A] rounded-[20px] p-[24px] relative overflow-hidden flex flex-col group cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all duration-300 min-h-[auto]"
           onClick={() => onSelectModule('ai')}
         >
-          <div className="absolute top-0 right-0 -mr-8 -mt-8 w-40 h-40 bg-white/40 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 -ml-12 -mb-12 w-48 h-48 bg-lime-300/40 rounded-full blur-3xl"></div>
-          
-          <div className="w-14 h-14 bg-white/50 rounded-2xl flex items-center justify-center mb-6 shadow-sm backdrop-blur-sm group-hover:scale-110 group-hover:rotate-3 transition-transform">
-             <Sparkles className="w-7 h-7 text-lime-900" />
+          <div className="w-10 h-10 bg-[#EDED78] rounded-full flex items-center justify-center mb-6 shrink-0 shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-transform">
+             <Sparkles className="w-5 h-5 text-[#1A1A1A]" />
           </div>
           
-          <h3 className="text-2xl font-black text-lime-950 mb-3 leading-tight tracking-tight drop-shadow-sm">
+          <h3 className="text-[20px] font-bold text-[#F5F5F0] mb-3 leading-tight tracking-tight">
             Ready to start a new takeoff or need AI assistance?
           </h3>
-          <p className="text-lime-900/80 mb-8 font-semibold text-sm leading-relaxed">
+          <p className="text-[#888888] mb-8 text-[13px] leading-relaxed">
             Use AI to instantly extract quantities from plans or ask complex engineering queries.
           </p>
           
           <div className="flex flex-col sm:flex-row xl:flex-col gap-2.5 mt-auto relative z-10 w-full">
             <button 
               onClick={(e) => { e.stopPropagation(); onSelectModule('takeoff'); }} 
-              className="w-full px-5 py-3 bg-white/60 hover:bg-white/80 backdrop-blur-sm text-lime-950 text-sm font-extrabold rounded-full transition-colors flex items-center justify-center gap-2 shadow-sm"
+              className="w-full px-[24px] py-[10px] bg-white/[0.08] hover:bg-white/[0.12] border border-white/[0.15] text-[#F5F5F0] text-sm font-medium rounded-full transition-colors flex items-center justify-center gap-2 shadow-sm"
             >
               <Ruler className="w-4 h-4" /> 2D Takeoff
             </button>
             <button 
               onClick={(e) => { e.stopPropagation(); onSelectModule('ai'); }} 
-              className="w-full px-5 py-3 bg-lime-900 hover:bg-lime-950 text-lime-50 text-sm font-extrabold rounded-full transition-colors flex items-center justify-center gap-2 shadow-sm"
+              className="w-full px-[28px] py-[10px] bg-[#EDED78] hover:bg-[#e4e466] text-[#1A1A1A] text-sm font-bold rounded-full transition-colors flex items-center justify-center gap-2 shadow-sm"
             >
                Ask AI <ArrowRight className="w-4 h-4" />
             </button>
@@ -281,29 +280,29 @@ export default function Dashboard({
       </div>
 
       {/* RIGHT COLUMN: Main Tool Container */}
-      <div className="lg:col-span-8 xl:col-span-9 bg-white/50 dark:bg-slate-800/40 backdrop-blur-2xl border border-white/60 dark:border-slate-700/60 rounded-[40px] p-6 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.04)] flex flex-col min-h-[700px]">
+      <div className="lg:col-span-8 xl:col-span-9 bg-[#FFFFFF] border border-black/5 rounded-[40px] p-6 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.04)] flex flex-col min-h-[700px]">
         
         {/* Header and Search */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
           <div>
-            <h2 className="text-2xl md:text-3xl font-black text-slate-800 dark:text-white tracking-tight flex items-center gap-3">
+            <h2 className="text-2xl md:text-3xl font-black text-[#1A1A1A] tracking-tight flex items-center gap-3">
               {activeCategory}
             </h2>
-            <p className="text-slate-500 dark:text-slate-400 font-medium mt-1">Select a calculator to initiate a new estimate.</p>
+            <p className="text-[#888888] font-medium mt-1">Select a calculator to initiate a new estimate.</p>
           </div>
           
           <div className="w-full md:max-w-xs shrink-0">
-            <div className="relative flex items-center w-full h-[48px] rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 transition-all duration-200">
-              <Search className="w-5 h-5 ml-4 shrink-0 text-slate-400" />
+            <div className="relative flex items-center w-full h-[48px] rounded-full border border-black/10 bg-[#FFFFFF] shadow-sm focus-within:outline focus-within:outline-2 focus-within:outline-[#EDED78] focus-within:border-transparent transition-all duration-200">
+              <Search className="w-5 h-5 ml-4 shrink-0 text-[#888888]" />
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full h-full border-0 focus:ring-0 focus:outline-none p-0 text-sm font-medium outline-none bg-transparent mx-3 text-slate-900 dark:text-white placeholder:text-slate-400"
                 placeholder="Search tools..."
+                className="w-full h-full bg-transparent border-none outline-none text-sm text-[#1A1A1A] placeholder:text-[#888888] pl-3 pr-4 rounded-full"
               />
               {searchTerm && (
-                <button onClick={() => setSearchTerm("")} className="mr-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs font-bold">
+                <button onClick={() => setSearchTerm("")} className="mr-4 text-[#888888] hover:text-[#1A1A1A] text-xs font-bold">
                   Clear
                 </button>
               )}
@@ -323,41 +322,43 @@ export default function Dashboard({
               groupsToDisplay.map((groupName) => (
                 <div key={groupName} className="flex flex-col gap-6 mb-10 last:mb-0">
                    {activeCategory === "All Tools" && (
-                     <h3 className="text-base font-bold text-slate-800 dark:text-slate-200 tracking-widest uppercase flex items-center gap-3">
-                       <span className="w-4 h-4 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center">
-                         <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400"></span>
+                     <h3 className="text-[13px] font-bold text-[#1A1A1A] tracking-wider uppercase flex items-center gap-2">
+                       <span className="w-[18px] h-[18px] rounded-full bg-[#EDED78] text-[#1A1A1A] flex items-center justify-center text-[14px]">
+                         +
                        </span>
                        {groupName}
                      </h3>
                    )}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
                     {groupedModules[groupName].map((mod, idx) => {
-                      const theme = getCategoryTheme(mod.category, mod.id);
-                      
                       return (
                         <button
                           key={mod.id}
                           id={`module-card-${mod.id}`}
                           onClick={() => onSelectModule(mod.id as ModuleId)}
-                          className="stagger-in p-5 rounded-[28px] bg-white dark:bg-slate-800/80 transition-all duration-300 ease-out flex flex-col relative text-left group min-h-[160px] overflow-hidden shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.03)] hover:-translate-y-1 block w-full"
+                          className="stagger-in p-[16px] px-[18px] rounded-[14px] bg-[#FFFFFF] border border-black/5 transition-all duration-300 ease-out flex flex-col relative text-left group min-h-[140px] overflow-hidden hover:border-[#EDED78] hover:shadow-[0_4px_16px_rgba(237,237,120,0.15)] block w-full"
                           style={{ animationDelay: `${idx * 50}ms` }}
                         >
                           <div className="relative z-10 w-full flex-1 flex flex-col">
-                            <div className="flex items-start gap-4 mb-3">
-                              <div className={`w-12 h-12 rounded-[20px] ${theme.bg} ${theme.text} flex items-center justify-center shrink-0 group-hover:scale-105 transition-all duration-300 ease-out shadow-sm`}>
-                                <mod.icon className="w-6 h-6" strokeWidth={2} />
+                            <div className="flex justify-between items-start mb-3">
+                              <div className="inline-flex items-center px-[8px] py-[2px] rounded-[4px] bg-[#F0F0C0] text-[#5C5C00] text-[10px] font-semibold tracking-widest uppercase w-fit">
+                                {mod.category}
                               </div>
-                              <div className="flex flex-col pt-1">
-                                <h4 className="text-base font-bold text-slate-800 dark:text-white leading-tight tracking-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mb-1">
-                                  {mod.title}
-                                </h4>
-                                <div className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 text-[9px] font-bold tracking-widest uppercase text-slate-500 dark:text-white/40 w-fit">
-                                  {mod.category}
-                                </div>
+                              <div className="w-[28px] h-[28px] rounded-full bg-[#1A1A1A] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <ArrowRight className="w-4 h-4 text-[#EDED78]" />
                               </div>
                             </div>
 
-                            <p className="text-[13px] text-slate-500 dark:text-slate-400 font-medium leading-relaxed line-clamp-2 mt-auto">
+                            <div className="flex items-center gap-3 mb-2">
+                              <div className="w-[36px] h-[36px] rounded-[10px] bg-[#F0F0C0] text-[#5C5C00] flex items-center justify-center shrink-0">
+                                <mod.icon className="w-[18px] h-[18px]" strokeWidth={2.5} />
+                              </div>
+                              <h4 className="text-[15px] font-semibold text-[#1A1A1A] leading-tight tracking-tight">
+                                {mod.title}
+                              </h4>
+                            </div>
+
+                            <p className="text-[12px] text-[#888888] font-medium leading-[1.5] line-clamp-2 mt-auto">
                               {mod.desc}
                             </p>
                           </div>

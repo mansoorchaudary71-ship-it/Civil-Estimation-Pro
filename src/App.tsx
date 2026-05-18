@@ -100,44 +100,46 @@ export default function App() {
       <div className="flex flex-col h-[100dvh] w-full bg-transparent overflow-hidden font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
         <Toaster position="bottom-right" />
         
-        {/* Floating Desktop Sidebar */}
-        <div className="hidden md:flex flex-col gap-4 fixed left-6 top-1/2 -translate-y-1/2 z-50">
-             <div className="flex flex-col items-center gap-6 py-6 px-3 bg-white/70 dark:bg-slate-900/70 backdrop-blur-[10px] rounded-3xl border border-white/50 dark:border-slate-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.04)]">
-               <button onClick={() => handleSelectModule("home")} className={`p-3 rounded-full transition-colors ${activeModule === "home" ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30" : "text-slate-500 hover:bg-white/80 dark:hover:bg-slate-800"}`} title="Home">
-                 <Home className="w-5 h-5" />
+        {/* Left Icon Sidebar */}
+        <div className="hidden md:flex flex-col fixed left-0 top-0 bottom-0 w-[80px] bg-[#1A1A1A] z-50 py-6 items-center border-r border-[#222]">
+             {/* Top Logo Circle */}
+             <div className="w-[42px] h-[42px] rounded-full bg-[#111111] flex items-center justify-center mb-8 cursor-pointer shrink-0 shadow-sm" onClick={() => handleSelectModule("home")}>
+               <Logo className="w-5 h-5 text-[#EDED78]" />
+             </div>
+
+             <div className="flex flex-col items-center gap-3 w-full px-3">
+               <button onClick={() => handleSelectModule("home")} className={`w-full aspect-square flex items-center justify-center rounded-[10px] transition-colors ${activeModule === "home" ? "bg-[#EDED78] text-[#1A1A1A]" : "text-[#555555] hover:bg-white/[0.07] hover:text-[#CCCCCC]"}`} title="Home">
+                 <Home className="w-5 h-5" strokeWidth={2.5} />
                </button>
-               <button onClick={() => handleSelectModule("my-estimates")} className={`p-3 rounded-full transition-colors ${activeModule === "my-estimates" ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30" : "text-slate-500 hover:bg-white/80 dark:hover:bg-slate-800"}`} title="Estimates">
-                 <FileText className="w-5 h-5" />
+               <button onClick={() => handleSelectModule("my-estimates")} className={`w-full aspect-square flex items-center justify-center rounded-[10px] transition-colors ${activeModule === "my-estimates" ? "bg-[#EDED78] text-[#1A1A1A]" : "text-[#555555] hover:bg-white/[0.07] hover:text-[#CCCCCC]"}`} title="Estimates">
+                 <FileText className="w-5 h-5" strokeWidth={2.5} />
                </button>
-               <button onClick={() => setIsProfileOpen(true)} className="p-3 rounded-full text-slate-500 hover:bg-white/80 dark:hover:bg-slate-800 transition-colors" title="Profile">
-                 <UserIcon className="w-5 h-5" />
+             </div>
+
+             <div className="flex flex-col items-center gap-3 mt-auto w-full px-3">
+               <button onClick={() => setIsProfileOpen(true)} className="w-full aspect-square flex items-center justify-center rounded-[10px] text-[#555555] hover:bg-white/[0.07] hover:text-[#CCCCCC] transition-colors" title="Profile">
+                 <UserIcon className="w-5 h-5" strokeWidth={2.5} />
                </button>
-               <button onClick={() => setIsSettingsOpen(true)} className="p-3 rounded-full text-slate-500 hover:bg-white/80 dark:hover:bg-slate-800 transition-colors" title="Settings">
-                 <SettingsIcon className="w-5 h-5" />
+               <button onClick={() => setIsSettingsOpen(true)} className="w-full aspect-square flex items-center justify-center rounded-[10px] text-[#555555] hover:bg-white/[0.07] hover:text-[#CCCCCC] transition-colors" title="Settings">
+                 <SettingsIcon className="w-5 h-5" strokeWidth={2.5} />
                </button>
              </div>
         </div>
 
         {/* Global Header */}
-        <header className="hidden md:flex items-center justify-between pointer-events-none px-6 py-5 absolute top-0 left-0 right-0 z-40 md:pl-[120px]">
-           {/* Logo Pill */}
-           <div className="pointer-events-auto flex items-center justify-center gap-2.5 px-5 py-2.5 bg-white/70 dark:bg-slate-900/70 backdrop-blur-[10px] rounded-full border border-white/50 dark:border-slate-700/50 shadow-sm cursor-pointer hover:shadow-md transition-shadow" onClick={() => handleSelectModule("home")}>
-              <Logo className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-              <span className="font-extrabold text-[15px] tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300">EstiPro</span>
-           </div>
-
+        <header className="hidden md:flex items-center justify-end pointer-events-none px-6 py-5 absolute top-0 left-0 right-0 z-40 md:pl-[100px]">
            {/* Central / Right Control Bar */}
-           <div className="pointer-events-auto flex items-center gap-3 px-3 py-2 bg-white/70 dark:bg-slate-900/70 backdrop-blur-[10px] rounded-full border border-white/50 dark:border-slate-700/50 shadow-sm">
-               <button className="flex items-center gap-2 text-[14px] font-semibold text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 px-3 py-1.5 transition-colors">
+           <div className="pointer-events-auto flex items-center gap-3 px-3 py-2 bg-[#FFFFFF] rounded-full border border-black/5 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+               <button className="flex items-center gap-2 text-[14px] font-semibold text-[#888888] hover:text-[#1A1A1A] px-3 py-1.5 transition-colors">
                   <Search className="w-4 h-4"/>
                   <span>Search</span>
                </button>
-               <div className="w-px h-5 bg-slate-200 dark:bg-slate-700" />
+               <div className="w-px h-5 bg-black/10" />
                <div className="px-2">
                  <GlobalSettingsToggle />
                </div>
-               <div className="w-px h-5 bg-slate-200 dark:bg-slate-700" />
-               <button onClick={() => handleSelectModule("house")} className="flex items-center gap-2 text-[14px] font-semibold text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full shadow-md shadow-indigo-600/30 transition-all active:scale-95">
+               <div className="w-px h-5 bg-black/10" />
+               <button onClick={() => handleSelectModule("house")} className="flex items-center gap-2 text-[14px] font-semibold text-[#EDED78] bg-[#1A1A1A] hover:bg-black px-4 py-2 rounded-full transition-all active:scale-95 shadow-sm">
                   <Plus className="w-4 h-4"/>
                   <span>New Estimate</span>
                </button>
@@ -159,7 +161,7 @@ export default function App() {
           
           {["home", "my-estimates", "about", "careers", "contact", "blog", "privacy", "terms", "cookies"].includes(activeModule) ? (
             <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-y-auto">
-              <div className="flex flex-col min-h-full relative w-full pb-[130px] md:pb-6">
+              <div className="flex flex-col min-h-full relative w-full">
                 <div className="md:hidden">
                   <TopNavbar 
                     onOpenSidebar={() => setIsSidebarOpen(true)} 
@@ -237,13 +239,13 @@ function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: 
   ];
 
   return (
-    <header className="md:hidden flex items-center px-4 py-2.5 mx-2 mt-3 mb-3 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/50 dark:border-slate-700/50 rounded-2xl shadow-sm sticky top-3 z-30 shrink-0 min-h-[50px] transition-all duration-300">
-      <button onClick={onOpenSidebar} className="p-2 mr-3 -ml-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-all">
+    <header className="md:hidden flex items-center px-4 py-2.5 mx-2 mt-3 mb-3 bg-[#FFFFFF] border border-black/5 rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.02)] sticky top-3 z-30 shrink-0 min-h-[50px] transition-all duration-300">
+      <button onClick={onOpenSidebar} className="p-2 mr-3 -ml-2 rounded-lg hover:bg-black/5 text-[#888888] transition-all">
         <Menu className="w-5 h-5" />
       </button>
 
       <div className="flex items-center gap-2 mr-5 shrink-0 hidden cursor-pointer transition-transform hover:scale-105" onClick={onGoHome}>
-         <Logo className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+         <Logo className="w-6 h-6 text-[#1A1A1A]" />
       </div>
       
       {onGoHome ? (
@@ -251,10 +253,10 @@ function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: 
           <Breadcrumb items={breadcrumbItems} />
         </div>
       ) : (
-        <h1 className="text-base font-bold text-slate-800 dark:text-white flex-1 min-w-0 truncate pr-2">{title}</h1>
+        <h1 className="text-base font-bold text-[#1A1A1A] flex-1 min-w-0 truncate pr-2">{title}</h1>
       )}
 
-      <button onClick={onOpenSettings} className="p-2 -mr-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-all">
+      <button onClick={onOpenSettings} className="p-2 -mr-2 rounded-lg hover:bg-black/5 text-[#888888] transition-all">
         <SettingsIcon className="w-5 h-5" />
       </button>
     </header>

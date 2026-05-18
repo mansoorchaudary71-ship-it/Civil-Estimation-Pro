@@ -228,7 +228,7 @@ export default function ColumnEstimator() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-black mb-2 flex items-center gap-3 text-slate-800 dark:text-white">
-              <Columns className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              <Columns className="w-8 h-8 text-[#1A1A1A] dark:text-blue-400" />
               Column Concrete Estimator
             </h1>
             <p className="text-slate-500 dark:text-slate-400 dark:text-slate-700 dark:text-slate-300 font-medium">
@@ -335,7 +335,7 @@ export default function ColumnEstimator() {
                   }}
                 >
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-blue-400 dark:bg-blue-600" />
+                    <div className="w-2 h-2 rounded-full bg-blue-400 dark:bg-[#EDED78]" />
                     <div className="absolute top-2 w-1 h-3 rounded-full bg-blue-300 dark:bg-blue-700" />
                     <div className="absolute bottom-2 w-1 h-3 rounded-full bg-blue-300 dark:bg-blue-700" />
                     <div className="absolute left-2 w-3 h-1 rounded-full bg-blue-300 dark:bg-blue-700" />
@@ -361,7 +361,7 @@ export default function ColumnEstimator() {
             {/* Reinforcement Configuration */}
             <div className="pt-6 border-t border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-2 mb-6">
-                <CopySlash className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <CopySlash className="w-5 h-5 text-[#1A1A1A] dark:text-blue-400" />
                 <h2 className="text-lg font-bold text-slate-800 dark:text-white">Reinforcement Details</h2>
               </div>
 
@@ -465,7 +465,7 @@ export default function ColumnEstimator() {
             <div className="flex flex-wrap  gap-6 pt-6 border-t border-slate-100 dark:border-slate-800 items-center w-full">
               <div className="bg-blue-50 dark:bg-blue-900/20 px-4 py-3 rounded-2xl border border-blue-100 dark:border-blue-800/50">
                 <div className="flex items-center gap-2 mb-4">
-                  <Droplets className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  <Droplets className="w-5 h-5 text-[#1A1A1A] dark:text-blue-400" />
                   <h4 className="font-bold text-blue-800 dark:text-blue-300">
                     Concrete Volume
                   </h4>
@@ -479,7 +479,7 @@ export default function ColumnEstimator() {
                       <span className="text-3xl font-black text-blue-700 dark:text-blue-200">
                         {vol.toFixed(3)}
                       </span>
-                      <span className="text-blue-600 dark:text-blue-400 font-medium">
+                      <span className="text-[#1A1A1A] dark:text-blue-400 font-medium">
                         m³
                       </span>
                     </div>
@@ -492,7 +492,7 @@ export default function ColumnEstimator() {
                       <span className="text-3xl font-black text-blue-700 dark:text-blue-200">
                         {dryVol.toFixed(3)}
                       </span>
-                      <span className="text-blue-600 dark:text-blue-400 font-medium">
+                      <span className="text-[#1A1A1A] dark:text-blue-400 font-medium">
                         m³
                       </span>
                     </div>

@@ -9,7 +9,7 @@ content = content.replace(
   `<div className="w-full h-full overflow-y-auto bg-slate-50 text-slate-900 font-sans p-6 md:p-8">
       <div className="max-w-7xl mx-auto h-full flex flex-col">
         <div className="mb-6">
-          <h1 className="text-3xl lg:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent pb-2">
+          <h1 className="text-3xl lg:text-4xl font-extrabold tracking-tight bg-[#1A1A1A] text-[#EDED78] bg-clip-text text-transparent pb-2">
             Core Calculators
           </h1>
           <p className="text-slate-500 mt-2 text-base font-medium">
