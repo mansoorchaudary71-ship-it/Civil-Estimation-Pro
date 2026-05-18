@@ -161,6 +161,47 @@ export default function Dashboard({
         
         {/* Removed Mobile Header per top navigation consolidation request */}
 
+        {/* STICKY SEARCH AND CATEGORIES CONTAINER - MOVED TO TOP */}
+        <div className="sticky top-[70px] md:top-[88px] w-full z-30 pt-4 pb-2 bg-[#f8fafc]/95 dark:bg-[#0f172a]/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 mb-8 rounded-xl shadow-sm">
+          
+          {/* Search Bar */}
+          <div className="w-full max-w-2xl mx-auto px-4 mb-4">
+            <div className="relative flex items-center w-full h-[52px] rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 transition-all duration-200">
+              <Search className="w-5 h-5 ml-4 shrink-0 text-slate-400" />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full h-full border-0 focus:ring-0 focus:outline-none p-0 text-[15px] font-medium outline-none bg-transparent mx-3 text-slate-900 dark:text-white"
+                placeholder="Search estimators, materials, tests..."
+              />
+              {searchTerm && (
+                <button onClick={() => setSearchTerm("")} className="mr-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                  Cancel
+                </button>
+              )}
+            </div>
+          </div>
+          
+          {/* CATEGORY TABS */}
+          <div className="w-full px-4 overflow-x-auto scrollbar-hide py-2">
+            <div className="flex flex-row items-center gap-2 w-full max-w-6xl mx-auto md:justify-center">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setActiveCategory(category)}
+                  className={`flex-shrink-0 px-5 py-2 rounded-full whitespace-nowrap text-sm font-bold transition-all duration-200 ${
+                    activeCategory === category
+                      ? "bg-indigo-600 text-white shadow-md border border-indigo-600"
+                      : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700"
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
 
         {user ? (
           <PostLoginDashboard onSelectModule={onSelectModule} />
@@ -235,48 +276,6 @@ export default function Dashboard({
     {/* SEARCH AND TOOLS - ALWAYS VISIBLE */}
     <div className="relative w-full max-w-[1400px] mx-auto z-20 flex flex-col items-center">
       
-      {/* STICKY SEARCH AND CATEGORIES CONTAINER */}
-      <div className="sticky top-[70px] md:top-[88px] w-full z-30 pt-4 pb-2 bg-[#f8fafc]/95 dark:bg-[#0f172a]/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-        
-        {/* Search Bar */}
-        <div className="w-full max-w-2xl mx-auto px-4 mb-4">
-          <div className="relative flex items-center w-full h-[52px] rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 transition-all duration-200">
-            <Search className="w-5 h-5 ml-4 shrink-0 text-slate-400" />
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full h-full border-0 focus:ring-0 focus:outline-none p-0 text-[15px] font-medium outline-none bg-transparent mx-3 text-slate-900 dark:text-white"
-              placeholder="Search estimators, materials, tests..."
-            />
-            {searchTerm && (
-              <button onClick={() => setSearchTerm("")} className="mr-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-                Cancel
-              </button>
-            )}
-          </div>
-        </div>
-        
-        {/* CATEGORY TABS */}
-        <div className="w-full px-4 overflow-x-auto scrollbar-hide py-2">
-          <div className="flex flex-row items-center gap-2 w-full max-w-6xl mx-auto md:justify-center">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`flex-shrink-0 px-5 py-2 rounded-full whitespace-nowrap text-sm font-bold transition-all duration-200 ${
-                  activeCategory === category
-                    ? "bg-indigo-600 text-white shadow-md border border-indigo-600"
-                    : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* MODULAR CARDS GRID */}
       <div className="flex flex-col w-full px-4 lg:px-8 mt-10">
             {groupsToDisplay.map((groupName) => (

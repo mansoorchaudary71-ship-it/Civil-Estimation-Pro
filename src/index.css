@@ -23,6 +23,12 @@
   :root {
     --background: 210 40% 98%;
     --foreground: 0 0% 7%;
+    --civil-dark-bg: #0e0d07;
+    --civil-amber: #EF9F27;
+    --civil-teal: #1D9E75;
+    --civil-coral: #D85A30;
+    --civil-indigo: #7F77DD;
+    --civil-white-text: rgba(255,255,255,0.85);
   }
 
   .dark {
