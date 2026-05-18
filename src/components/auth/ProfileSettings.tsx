@@ -88,7 +88,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:border-[#EDED78] focus:ring-2 focus:ring-[#EDED78]/50 transition-all dark:text-white"
+                    className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
                   />
                 </div>
               </div>
@@ -102,7 +102,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
                      value={photoURL}
                      onChange={(e) => setPhotoURL(e.target.value)}
                      placeholder="https://example.com/avatar.png"
-                     className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:border-[#EDED78] focus:ring-2 focus:ring-[#EDED78]/50 transition-all dark:text-white"
+                     className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
                   />
                 </div>
               </div>
@@ -117,7 +117,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
             <button
                type="submit"
                disabled={isLoading}
-               className="w-full py-3.5 px-4 bg-[#1A1A1A] hover:bg-black text-[#EDED78] rounded-full font-semibold  rounded-full shadow-sm text-sm transition-all focus:ring-4 focus:ring-[#EDED78]/50 flex justify-center items-center h-12"
+               className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold  rounded-full shadow-sm text-sm transition-all focus:ring-4 focus:ring-indigo-500/50 flex justify-center items-center h-12"
             >
                {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Save Changes'}
             </button>

@@ -53,7 +53,7 @@ export default function AIAssistant() {
     <div className="flex flex-col h-full bg-transparent text-slate-900 p-8">
       <div className="flex-1 bg-white border border-slate-200 rounded-xl flex flex-col overflow-hidden relative shadow-sm">
         <div className="px-6 py-4 border-b border-slate-200 bg-transparent flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-[#F0F0C0]0 animate-pulse"></div>
+          <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></div>
           <h2 className="text-sm font-bold uppercase tracking-widest text-slate-700">
             AI Assistant
           </h2>
@@ -68,20 +68,20 @@ export default function AIAssistant() {
               )}
             >
               {msg.role === "model" && (
-                <div className="w-8 h-8 rounded-full bg-[#F0F0C0] border border-indigo-100 flex items-center justify-center shrink-0 mt-1">
-                  <Bot className="w-[18px] h-[18px] text-[#1A1A1A]" />
+                <div className="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center shrink-0 mt-1">
+                  <Bot className="w-[18px] h-[18px] text-indigo-600" />
                 </div>
               )}
               <div
                 className={cn(
                   "rounded-2xl px-5 py-3 max-w-[85%] text-sm shadow-sm",
                   msg.role === "user"
-                    ? "bg-[#1A1A1A] text-[#EDED78] rounded-full font-medium"
+                    ? "bg-indigo-600 text-white font-medium"
                     : "bg-transparent text-slate-700 border border-slate-100 leading-relaxed",
                 )}
               >
                 {msg.role === "model" ? (
-                  <div className="prose prose-sm max-w-none prose-p:leading-relaxed prose-headings:text-slate-800 prose-a:text-[#1A1A1A] prose-th:bg-slate-100 prose-td:border-slate-200">
+                  <div className="prose prose-sm max-w-none prose-p:leading-relaxed prose-headings:text-slate-800 prose-a:text-indigo-600 prose-th:bg-slate-100 prose-td:border-slate-200">
                     <Markdown>{msg.content}</Markdown>
                   </div>
                 ) : (
@@ -92,8 +92,8 @@ export default function AIAssistant() {
           ))}
           {isLoading && (
             <div className="flex gap-4 max-w-4xl mx-auto justify-start">
-              <div className="w-8 h-8 rounded-full bg-[#F0F0C0] border border-indigo-100 flex items-center justify-center shrink-0 mt-1">
-                <Loader2 className="w-[18px] h-[18px] text-[#1A1A1A] animate-spin" />
+              <div className="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center shrink-0 mt-1">
+                <Loader2 className="w-[18px] h-[18px] text-indigo-600 animate-spin" />
               </div>
               <div className="rounded-2xl px-5 py-4 bg-transparent border border-slate-100 flex items-center gap-2 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce"></span>
@@ -115,13 +115,13 @@ export default function AIAssistant() {
                 }
               }}
               placeholder="Ask about cost optimization or estimation..."
-              className="w-full bg-transparent border border-slate-200 rounded-xl py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-[#EDED78] resize-none min-h-[44px] max-h-[120px] text-slate-800 shadow-sm transition-all"
+              className="w-full bg-transparent border border-slate-200 rounded-xl py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 resize-none min-h-[44px] max-h-[120px] text-slate-800 shadow-sm transition-all"
               rows={1}
             />
             <button
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="absolute right-3 top-2.5 p-1.5 text-[#1A1A1A] bg-[#F0F0C0] hover:bg-[#F0F0C0] rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="absolute right-3 top-2.5 p-1.5 text-indigo-600 bg-indigo-50 hover:bg-indigo-50 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               <Send className="w-[16px] h-[16px]" />
             </button>

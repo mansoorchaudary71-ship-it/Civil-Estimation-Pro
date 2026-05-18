@@ -131,7 +131,7 @@ export default function Sidebar({
         {/* Header Row */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 shrink-0">
           <div className="text-[18px] font-black tracking-tighter text-slate-900 uppercase">
-            Esti<span className="text-[#1A1A1A]">Pro</span>
+            Esti<span className="text-indigo-600">Pro</span>
           </div>
           <div className="flex items-center space-x-6 text-slate-900">
             <button aria-label="Search" className="hover:text-slate-500 transition-colors">
@@ -152,7 +152,7 @@ export default function Sidebar({
               <button 
                 key={item.id}
                 onClick={() => handleSelect(item.id)}
-                className={`flex justify-between items-center w-full group text-left ${activeModule === item.id ? 'text-[#1A1A1A]' : 'text-slate-900'}`}
+                className={`flex justify-between items-center w-full group text-left ${activeModule === item.id ? 'text-indigo-600' : 'text-slate-900'}`}
               >
                 <span className="text-[16px] font-bold tracking-tight group-hover:text-slate-600 transition-colors">
                   {item.label}
@@ -195,7 +195,7 @@ export default function Sidebar({
                   <button 
                     key={item.id}
                     onClick={() => handleSelect(item.id)}
-                    className={`text-left text-[14px] transition-colors font-medium ${activeModule === item.id ? 'text-[#1A1A1A] font-bold' : 'text-slate-600 hover:text-slate-900'}`}
+                    className={`text-left text-[14px] transition-colors font-medium ${activeModule === item.id ? 'text-indigo-600 font-bold' : 'text-slate-600 hover:text-slate-900'}`}
                   >
                     {item.label}
                   </button>
@@ -224,7 +224,7 @@ export default function Sidebar({
                   <button 
                     key={item.id}
                     onClick={() => handleSelect(item.id)}
-                    className={`text-left text-[14px] transition-colors font-medium ${activeModule === item.id ? 'text-[#1A1A1A] font-bold' : 'text-slate-600 hover:text-slate-900'}`}
+                    className={`text-left text-[14px] transition-colors font-medium ${activeModule === item.id ? 'text-indigo-600 font-bold' : 'text-slate-600 hover:text-slate-900'}`}
                   >
                     {item.label}
                   </button>
@@ -253,7 +253,7 @@ export default function Sidebar({
                   <button 
                     key={item.id}
                     onClick={() => handleSelect(item.id)}
-                    className={`text-left text-[14px] transition-colors font-medium ${activeModule === item.id ? 'text-[#1A1A1A] font-bold' : 'text-slate-600 hover:text-slate-900'}`}
+                    className={`text-left text-[14px] transition-colors font-medium ${activeModule === item.id ? 'text-indigo-600 font-bold' : 'text-slate-600 hover:text-slate-900'}`}
                   >
                     {item.label}
                   </button>
@@ -269,7 +269,7 @@ export default function Sidebar({
           {isAuthenticated ? (
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-3 mb-2 px-2">
-                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-[#1A1A1A] font-bold overflow-hidden border border-blue-200">
+                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-indigo-600 font-bold overflow-hidden border border-blue-200">
                   {user?.photoURL ? (
                     <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
@@ -300,13 +300,13 @@ export default function Sidebar({
             <div className="flex flex-col gap-2">
               <button
                 onClick={() => { onClose?.(); onOpenAuth?.(); }}
-                className="w-full py-3 rounded-full text-[14px] font-bold text-[#888888] bg-transparent border border-black/5 shadow-none hover:text-[#1A1A1A] transition-colors"
+                className="w-full py-3 rounded-xl text-[14px] font-bold text-slate-700 bg-white border border-slate-200 shadow-sm hover:bg-slate-50 transition-colors"
               >
                 Sign In
               </button>
               <button
                 onClick={() => { onClose?.(); onOpenAuth?.(); }}
-                className="w-full py-3 rounded-full text-[14px] font-bold text-[#EDED78] bg-[#1A1A1A] shadow-sm hover:bg-black transition-colors"
+                className="w-full py-3 rounded-xl text-[14px] font-bold text-white bg-blue-600 shadow-sm hover:bg-blue-700 transition-colors"
               >
                 Get Started
               </button>

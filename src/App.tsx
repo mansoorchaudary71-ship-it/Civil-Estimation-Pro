@@ -101,17 +101,17 @@ export default function App() {
         <Toaster position="bottom-right" />
         
         {/* Left Icon Sidebar */}
-        <div className="hidden md:flex flex-col fixed left-0 top-0 bottom-0 w-[80px] bg-[#1A1A1A] z-50 py-6 items-center border-r border-[#222]">
+        <div className="hidden md:flex flex-col fixed left-0 top-0 bottom-0 w-[80px]  z-50 py-6 items-center border-r border-[#222]">
              {/* Top Logo Circle */}
              <div className="w-[42px] h-[42px] rounded-full bg-[#111111] flex items-center justify-center mb-8 cursor-pointer shrink-0 shadow-sm" onClick={() => handleSelectModule("home")}>
-               <Logo className="w-5 h-5 text-[#EDED78]" />
+               <Logo className="w-5 h-5 text-white" />
              </div>
 
              <div className="flex flex-col items-center gap-3 w-full px-3">
-               <button onClick={() => handleSelectModule("home")} className={`w-full aspect-square flex items-center justify-center rounded-[10px] transition-colors ${activeModule === "home" ? "bg-[#EDED78] text-[#1A1A1A]" : "text-[#555555] hover:bg-white/[0.07] hover:text-[#CCCCCC]"}`} title="Home">
+               <button onClick={() => handleSelectModule("home")} className={`w-full aspect-square flex items-center justify-center rounded-[10px] transition-colors ${activeModule === "home" ? "bg-indigo-600 text-indigo-600" : "text-[#555555] hover:bg-white/[0.07] hover:text-[#CCCCCC]"}`} title="Home">
                  <Home className="w-5 h-5" strokeWidth={2.5} />
                </button>
-               <button onClick={() => handleSelectModule("my-estimates")} className={`w-full aspect-square flex items-center justify-center rounded-[10px] transition-colors ${activeModule === "my-estimates" ? "bg-[#EDED78] text-[#1A1A1A]" : "text-[#555555] hover:bg-white/[0.07] hover:text-[#CCCCCC]"}`} title="Estimates">
+               <button onClick={() => handleSelectModule("my-estimates")} className={`w-full aspect-square flex items-center justify-center rounded-[10px] transition-colors ${activeModule === "my-estimates" ? "bg-indigo-600 text-indigo-600" : "text-[#555555] hover:bg-white/[0.07] hover:text-[#CCCCCC]"}`} title="Estimates">
                  <FileText className="w-5 h-5" strokeWidth={2.5} />
                </button>
              </div>
@@ -130,7 +130,7 @@ export default function App() {
         <header className="hidden md:flex items-center justify-end pointer-events-none px-6 py-5 absolute top-0 left-0 right-0 z-40 md:pl-[100px]">
            {/* Central / Right Control Bar */}
            <div className="pointer-events-auto flex items-center gap-3 px-3 py-2 bg-[#FFFFFF] rounded-full border border-black/5 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
-               <button className="flex items-center gap-2 text-[14px] font-semibold text-[#888888] hover:text-[#1A1A1A] px-3 py-1.5 transition-colors">
+               <button className="flex items-center gap-2 text-[14px] font-semibold text-[#888888] hover:text-indigo-600 px-3 py-1.5 transition-colors">
                   <Search className="w-4 h-4"/>
                   <span>Search</span>
                </button>
@@ -139,7 +139,7 @@ export default function App() {
                  <GlobalSettingsToggle />
                </div>
                <div className="w-px h-5 bg-black/10" />
-               <button onClick={() => handleSelectModule("house")} className="flex items-center gap-2 text-[14px] font-semibold text-[#EDED78] bg-[#1A1A1A] hover:bg-black px-4 py-2 rounded-full transition-all active:scale-95 shadow-sm">
+               <button onClick={() => handleSelectModule("house")} className="flex items-center gap-2 text-[14px] font-semibold text-white bg-indigo-600 hover:bg-black px-4 py-2 rounded-xl transition-all active:scale-95 shadow-sm">
                   <Plus className="w-4 h-4"/>
                   <span>New Estimate</span>
                </button>
@@ -245,7 +245,7 @@ function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: 
       </button>
 
       <div className="flex items-center gap-2 mr-5 shrink-0 hidden cursor-pointer transition-transform hover:scale-105" onClick={onGoHome}>
-         <Logo className="w-6 h-6 text-[#1A1A1A]" />
+         <Logo className="w-6 h-6 text-indigo-600" />
       </div>
       
       {onGoHome ? (
@@ -253,7 +253,7 @@ function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: 
           <Breadcrumb items={breadcrumbItems} />
         </div>
       ) : (
-        <h1 className="text-base font-bold text-[#1A1A1A] flex-1 min-w-0 truncate pr-2">{title}</h1>
+        <h1 className="text-base font-bold text-indigo-600 flex-1 min-w-0 truncate pr-2">{title}</h1>
       )}
 
       <button onClick={onOpenSettings} className="p-2 -mr-2 rounded-lg hover:bg-black/5 text-[#888888] transition-all">

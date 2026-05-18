@@ -73,7 +73,7 @@ export default function StandardEarthworks() {
           <section className="space-y-6">
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-blue-50 text-[#1A1A1A] rounded-xl">
+                <div className="p-2.5 bg-blue-50 text-indigo-600 rounded-xl">
                   <Ruler className="w-5 h-5" />
                 </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800">
@@ -88,13 +88,13 @@ export default function StandardEarthworks() {
                   <div className="flex bg-gray-100/80 p-1 rounded-xl">
                     <button
                       onClick={() => setCalcMethod("prismoidal")}
-                      className={`flex-1 py-1.5 text-sm font-semibold rounded-lg transition-all ${calcMethod === "prismoidal" ? "bg-white shadow-[0_2px_10px_rgb(0,0,0,0.05)] text-[#1A1A1A]" : "text-gray-700 dark:text-gray-300 hover:text-gray-700"}`}
+                      className={`flex-1 py-1.5 text-sm font-semibold rounded-lg transition-all ${calcMethod === "prismoidal" ? "bg-white shadow-[0_2px_10px_rgb(0,0,0,0.05)] text-indigo-600" : "text-gray-700 dark:text-gray-300 hover:text-gray-700"}`}
                     >
                       Prismoidal Formula
                     </button>
                     <button
                       onClick={() => setCalcMethod("averageEnd")}
-                      className={`flex-1 py-1.5 text-sm font-semibold rounded-lg transition-all ${calcMethod === "averageEnd" ? "bg-white shadow-[0_2px_10px_rgb(0,0,0,0.05)] text-[#1A1A1A]" : "text-gray-700 dark:text-gray-300 hover:text-gray-700"}`}
+                      className={`flex-1 py-1.5 text-sm font-semibold rounded-lg transition-all ${calcMethod === "averageEnd" ? "bg-white shadow-[0_2px_10px_rgb(0,0,0,0.05)] text-indigo-600" : "text-gray-700 dark:text-gray-300 hover:text-gray-700"}`}
                     >
                       Average End Area
                     </button>
@@ -147,7 +147,7 @@ export default function StandardEarthworks() {
                           type="checkbox"
                           checked={autoCalcAm}
                           onChange={(e) => setAutoCalcAm(e.target.checked)}
-                          className="w-3.5 h-3.5 text-[#1A1A1A] rounded border-gray-300 focus:ring-blue-500"
+                          className="w-3.5 h-3.5 text-indigo-600 rounded border-gray-300 focus:ring-blue-500"
                         />
                         <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
                           Calculate Aₘ Automatically
@@ -175,7 +175,7 @@ export default function StandardEarthworks() {
             </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-[#F0F0C0] text-[#5C5C00] rounded-xl">
+                <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
                   <Truck className="w-5 h-5" />
                 </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800">
@@ -190,7 +190,7 @@ export default function StandardEarthworks() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-[#EDED78] transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow"
                       value={bulkingFactor}
                       onChange={(e) => setBulkingFactor(e.target.value)}
                     />
@@ -201,7 +201,7 @@ export default function StandardEarthworks() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-[#EDED78] transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow"
                       value={shrinkageFactor}
                       onChange={(e) => setShrinkageFactor(e.target.value)}
                     />
@@ -213,7 +213,7 @@ export default function StandardEarthworks() {
                   </label>
                   <input
                     type="number"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-[#EDED78] transition-shadow"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow"
                     value={truckCapacity}
                     onChange={(e) => setTruckCapacity(e.target.value)}
                   />
@@ -302,7 +302,7 @@ export default function StandardEarthworks() {
           </section>
           {/* Results Section */}
           <section className="space-y-6">
-            <div className="bg-[#1A1A1A] text-white p-8 rounded-[2rem] shadow-[0_20px_40px_rgba(79,70,229,0.2)] relative overflow-hidden">
+            <div className=" text-white p-8 rounded-[2rem] shadow-[0_20px_40px_rgba(79,70,229,0.2)] relative overflow-hidden">
               {/* Decorative background shapes */}
               <div className="absolute -top-24 -right-24 w-48 h-48 bg-white/10 rounded-full blur-2xl"></div>
               <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-indigo-900/40 rounded-full blur-3xl"></div>
@@ -365,7 +365,7 @@ export default function StandardEarthworks() {
                 </p>
               </div>
               <div className="flex items-center gap-2">
-                <div className="text-4xl font-black text-[#1A1A1A] tracking-tighter">
+                <div className="text-4xl font-black text-indigo-600 tracking-tighter">
                   {truckTrips}
                 </div>
                 <div className="text-gray-700 dark:text-gray-300 mt-2">trips</div>
@@ -418,7 +418,7 @@ export default function StandardEarthworks() {
               <tbody className="divide-y divide-gray-100 text-sm font-medium text-gray-700">
                 <tr className="hover:bg-gray-50/50 transition-colors">
                   <td className="px-6 py-4">Length</td>
-                  <td className="px-6 py-4 font-mono text-[#1A1A1A]">
+                  <td className="px-6 py-4 font-mono text-indigo-600">
                     {l.toFixed(2)} {unitL}
                   </td>
                   <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
@@ -427,7 +427,7 @@ export default function StandardEarthworks() {
                 </tr>
                 <tr className="hover:bg-gray-50/50 transition-colors">
                   <td className="px-6 py-4">End Areas</td>
-                  <td className="px-6 py-4 font-mono text-[#1A1A1A]">
+                  <td className="px-6 py-4 font-mono text-indigo-600">
                     {a1.toFixed(2)} / {a2.toFixed(2)} {unitA}
                   </td>
                   <td className="px-6 py-4 text-gray-700 dark:text-gray-300">A1 and A2</td>
@@ -435,7 +435,7 @@ export default function StandardEarthworks() {
                 {calcMethod === "prismoidal" && (
                   <tr className="hover:bg-gray-50/50 transition-colors">
                     <td className="px-6 py-4">Middle Area</td>
-                    <td className="px-6 py-4 font-mono text-[#1A1A1A]">
+                    <td className="px-6 py-4 font-mono text-indigo-600">
                       {am.toFixed(2)} {unitA}
                     </td>
                     <td className="px-6 py-4 text-gray-700 dark:text-gray-300">
@@ -458,7 +458,7 @@ export default function StandardEarthworks() {
                   <td className="px-6 py-4 font-bold text-gray-900 border-l-2 border-indigo-500">
                     Hauling Trips
                   </td>
-                  <td className="px-6 py-4 font-mono font-bold text-[#1A1A1A]">
+                  <td className="px-6 py-4 font-mono font-bold text-indigo-600">
                     {truckTrips} trips
                   </td>
                   <td className="px-6 py-4 text-gray-700 dark:text-gray-300">

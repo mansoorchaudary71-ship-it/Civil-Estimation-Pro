@@ -108,7 +108,7 @@ export default function RigidPavementEstimator() {
               {" "}
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
                 {" "}
-                <div className="p-2.5 bg-blue-50 text-[#1A1A1A] rounded-xl">
+                <div className="p-2.5 bg-blue-50 text-indigo-600 rounded-xl">
                   {" "}
                   <Layers className="w-5 h-5" />{" "}
                 </div>{" "}
@@ -505,7 +505,7 @@ export default function RigidPavementEstimator() {
                     </span>{" "}
                     <span className="font-bold text-blue-900 text-lg">
                       {volPQC.toFixed(2)}{" "}
-                      <span className="text-sm text-[#1A1A1A]/60 font-normal">
+                      <span className="text-sm text-indigo-600/60 font-normal">
                         m³
                       </span>
                     </span>{" "}

@@ -74,7 +74,7 @@ export default function Blog() {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-24">
-        <Loader2 className="w-8 h-8 text-[#1A1A1A] animate-spin" />
+        <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
       </div>
     );
   }
@@ -89,7 +89,7 @@ export default function Blog() {
         
         <button 
           onClick={() => window.location.hash = '#/blog'}
-          className="flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-[#1A1A1A] transition-colors"
+          className="flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to all posts
@@ -128,7 +128,7 @@ export default function Blog() {
               </span>
             </div>
 
-            <div className="prose prose-lg prose-slate dark:prose-invert max-w-none prose-headings:font-bold prose-a:text-[#1A1A1A] dark:prose-a:text-blue-400 prose-img:rounded-2xl">
+            <div className="prose prose-lg prose-slate dark:prose-invert max-w-none prose-headings:font-bold prose-a:text-indigo-600 dark:prose-a:text-blue-400 prose-img:rounded-2xl">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {selectedPost.content || ''}
               </ReactMarkdown>
@@ -175,7 +175,7 @@ export default function Blog() {
                  </div>
               </div>
               <div className="p-6 flex flex-col flex-1">
-                <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-3 leading-tight group-hover:text-[#1A1A1A] dark:group-hover:text-blue-400 transition-colors">
+                <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-3 leading-tight group-hover:text-indigo-600 dark:group-hover:text-blue-400 transition-colors">
                   {post.title}
                 </h3>
                 <p className="text-slate-500 text-sm leading-relaxed mb-6 flex-1 line-clamp-3">

@@ -107,7 +107,7 @@ export default function MetalWeightCalculator() {
       id: "Angle shape",
       label: "Angle (L)",
       icon: CornerDownRight,
-      color: "text-[#1A1A1A] bg-[#F0F0C0] dark:bg-[#F0F0C0]0/20",
+      color: "text-indigo-600 bg-indigo-50 dark:bg-indigo-500/20",
     },
     {
       id: "Flat shape",

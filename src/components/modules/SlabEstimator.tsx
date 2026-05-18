@@ -112,7 +112,7 @@ export default function SlabEstimator() {
       />
       <div className="mb-8">
         <h1 className="text-3xl font-extrabold text-slate-900 mb-2 flex items-center gap-3">
-          <Grid2X2 className="w-8 h-8 text-[#1A1A1A]" />
+          <Grid2X2 className="w-8 h-8 text-indigo-600" />
           Slab Estimator
         </h1>
         <p className="text-slate-500 font-medium">
@@ -126,20 +126,20 @@ export default function SlabEstimator() {
           <div className="mb-6 p-1 bg-slate-100 rounded-xl flex gap-1">
             <button
               onClick={() => setSlabType("one-way")}
-              className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${slabType === "one-way" ? "bg-white shadow-sm text-[#1A1A1A]" : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"}`}
+              className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${slabType === "one-way" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"}`}
             >
               One-Way Slab
             </button>
             <button
               onClick={() => setSlabType("two-way")}
-              className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${slabType === "two-way" ? "bg-white shadow-sm text-[#1A1A1A]" : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"}`}
+              className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${slabType === "two-way" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"}`}
             >
               Two-Way Slab
             </button>
           </div>
 
           <div className="flex items-center gap-2 mb-6">
-            <Settings2 className="w-5 h-5 text-[#1A1A1A]" />
+            <Settings2 className="w-5 h-5 text-indigo-600" />
             <h2 className="text-lg font-bold text-slate-800">Slab Dimensions</h2>
           </div>
 
@@ -188,7 +188,7 @@ export default function SlabEstimator() {
           </div>
 
           <div className="flex items-center gap-2 mb-6 mt-8">
-            <Grid2X2 className="w-5 h-5 text-[#1A1A1A]" />
+            <Grid2X2 className="w-5 h-5 text-indigo-600" />
             <h2 className="text-lg font-bold text-slate-800">Reinforcement Details</h2>
           </div>
 
@@ -252,7 +252,7 @@ export default function SlabEstimator() {
 
           <button
             onClick={calculateSlab}
-            className="w-full mt-6 bg-[#EDED78] hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-colors mt-8"
+            className="w-full mt-6 bg-indigo-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-colors mt-8"
           >
             Calculate Slab Quantities
           </button>

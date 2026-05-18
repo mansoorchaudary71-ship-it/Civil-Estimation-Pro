@@ -380,7 +380,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
                 {" "}
                 <div>
                   {" "}
-                  <span className="block text-xs font-semibold text-[#1A1A1A] mb-1">
+                  <span className="block text-xs font-semibold text-indigo-600 mb-1">
                     Cement
                   </span>{" "}
                   <span className="block text-2xl font-black text-indigo-700">
@@ -390,7 +390,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
                 </div>{" "}
                 <div>
                   {" "}
-                  <span className="block text-xs font-semibold text-[#1A1A1A] mb-1">
+                  <span className="block text-xs font-semibold text-indigo-600 mb-1">
                     Sand
                   </span>{" "}
                   <span className="block text-2xl font-black text-indigo-700">
@@ -400,7 +400,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
                 </div>{" "}
                 <div>
                   {" "}
-                  <span className="block text-xs font-semibold text-[#1A1A1A] mb-1">
+                  <span className="block text-xs font-semibold text-indigo-600 mb-1">
                     Aggregate
                   </span>{" "}
                   <span className="block text-2xl font-black text-indigo-700">

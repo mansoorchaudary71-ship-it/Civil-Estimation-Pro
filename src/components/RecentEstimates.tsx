@@ -172,7 +172,7 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
   if (loading) {
     return (
       <div className="flex-1 py-20 w-full flex justify-center items-center">
-        <Loader2 className="w-8 h-8 animate-spin text-[#1A1A1A]" />
+        <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
       </div>
     );
   }
@@ -223,7 +223,7 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
                     value={est.status}
                     onClick={(e) => e.stopPropagation()}
                     onChange={(e) => handleStatusChange(e, est.id)}
-                    className={`text-[11px] font-bold rounded-lg px-2 py-1.5 border-none focus:ring-2 focus:ring-[#EDED78]/50 cursor-pointer shadow-sm transition-colors ${
+                    className={`text-[11px] font-bold rounded-lg px-2 py-1.5 border-none focus:ring-2 focus:ring-indigo-500/50 cursor-pointer shadow-sm transition-colors ${
                       est.status === 'Completed' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
                       est.status === 'In Progress' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
                       'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'

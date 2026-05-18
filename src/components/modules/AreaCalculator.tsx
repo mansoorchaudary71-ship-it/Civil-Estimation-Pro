@@ -183,7 +183,7 @@ export default function AreaCalculator() {
       id: "IrregularQuad",
       label: "Irregular Quad",
       icon: Hexagon,
-      color: "text-[#1A1A1A] bg-[#F0F0C0] dark:bg-[#F0F0C0]0/20",
+      color: "text-indigo-600 bg-indigo-50 dark:bg-indigo-500/20",
     },
   ];
   /* Convert input value built in input unit to meters */ const toMeters = (
@@ -427,7 +427,7 @@ export default function AreaCalculator() {
         {" "}
         <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
           {" "}
-          <Calculator className="w-8 h-8 text-[#1A1A1A]" /> Area
+          <Calculator className="w-8 h-8 text-indigo-600" /> Area
           Calculator{" "}
         </h1>{" "}
         <p className="text-slate-500 dark:text-slate-400 mb-8 font-medium">
@@ -527,7 +527,7 @@ export default function AreaCalculator() {
                     type="number"
                     value={radius}
                     onChange={(e) => setRadius(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                   />{" "}
                 </div>
               )}{" "}
@@ -541,7 +541,7 @@ export default function AreaCalculator() {
                     type="number"
                     value={side}
                     onChange={(e) => setSide(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                   />{" "}
                 </div>
               )}{" "}
@@ -557,7 +557,7 @@ export default function AreaCalculator() {
                       type="number"
                       value={length}
                       onChange={(e) => setLength(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                   <div>
@@ -569,7 +569,7 @@ export default function AreaCalculator() {
                       type="number"
                       value={width}
                       onChange={(e) => setWidth(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                 </>
@@ -588,7 +588,7 @@ export default function AreaCalculator() {
                         type="number"
                         value={triBase}
                         onChange={(e) => setTriBase(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                     <div>
@@ -600,7 +600,7 @@ export default function AreaCalculator() {
                         type="number"
                         value={triHeight}
                         onChange={(e) => setTriHeight(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                   </div>{" "}
@@ -615,7 +615,7 @@ export default function AreaCalculator() {
                         type="number"
                         value={triSide2}
                         onChange={(e) => setTriSide2(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                     <div>
@@ -627,7 +627,7 @@ export default function AreaCalculator() {
                         type="number"
                         value={triSide3}
                         onChange={(e) => setTriSide3(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                   </div>{" "}
@@ -647,7 +647,7 @@ export default function AreaCalculator() {
                         type="number"
                         value={trapBase1}
                         onChange={(e) => setTrapBase1(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                     <div>
@@ -659,7 +659,7 @@ export default function AreaCalculator() {
                         type="number"
                         value={trapBase2}
                         onChange={(e) => setTrapBase2(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                   </div>{" "}
@@ -672,7 +672,7 @@ export default function AreaCalculator() {
                       type="number"
                       value={trapHeight}
                       onChange={(e) => setTrapHeight(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -686,7 +686,7 @@ export default function AreaCalculator() {
                         type="number"
                         value={trapSide1}
                         onChange={(e) => setTrapSide1(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                     <div>
@@ -698,7 +698,7 @@ export default function AreaCalculator() {
                         type="number"
                         value={trapSide2}
                         onChange={(e) => setTrapSide2(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                   </div>{" "}
@@ -716,7 +716,7 @@ export default function AreaCalculator() {
                       type="number"
                       value={ellMajor}
                       onChange={(e) => setEllMajor(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                   <div>
@@ -728,7 +728,7 @@ export default function AreaCalculator() {
                       type="number"
                       value={ellMinor}
                       onChange={(e) => setEllMinor(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                 </>
@@ -745,7 +745,7 @@ export default function AreaCalculator() {
                       type="number"
                       value={rtBase}
                       onChange={(e) => setRtBase(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                   <div>
@@ -757,7 +757,7 @@ export default function AreaCalculator() {
                       type="number"
                       value={rtHeight}
                       onChange={(e) => setRtHeight(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                 </div>
@@ -774,7 +774,7 @@ export default function AreaCalculator() {
                       type="number"
                       value={capLength}
                       onChange={(e) => setCapLength(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                   <div>
@@ -786,7 +786,7 @@ export default function AreaCalculator() {
                       type="number"
                       value={capRadius}
                       onChange={(e) => setCapRadius(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                 </div>
@@ -803,7 +803,7 @@ export default function AreaCalculator() {
                       type="number"
                       value={vCapLength}
                       onChange={(e) => setVCapLength(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                   <div>
@@ -815,7 +815,7 @@ export default function AreaCalculator() {
                       type="number"
                       value={vCapRadius}
                       onChange={(e) => setVCapRadius(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                 </div>
@@ -834,7 +834,7 @@ export default function AreaCalculator() {
                         type="number"
                         value={paraBase}
                         onChange={(e) => setParaBase(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                     <div>
@@ -846,7 +846,7 @@ export default function AreaCalculator() {
                         type="number"
                         value={paraSide}
                         onChange={(e) => setParaSide(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                   </div>{" "}
@@ -859,7 +859,7 @@ export default function AreaCalculator() {
                       type="number"
                       value={paraHeight}
                       onChange={(e) => setParaHeight(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                 </>
@@ -878,7 +878,7 @@ export default function AreaCalculator() {
                         type="number"
                         value={quadA}
                         onChange={(e) => setQuadA(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                     <div>
@@ -890,7 +890,7 @@ export default function AreaCalculator() {
                         type="number"
                         value={quadB}
                         onChange={(e) => setQuadB(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                   </div>{" "}
@@ -905,7 +905,7 @@ export default function AreaCalculator() {
                         type="number"
                         value={quadC}
                         onChange={(e) => setQuadC(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                     <div>
@@ -917,7 +917,7 @@ export default function AreaCalculator() {
                         type="number"
                         value={quadD}
                         onChange={(e) => setQuadD(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                   </div>{" "}
@@ -930,7 +930,7 @@ export default function AreaCalculator() {
                       type="number"
                       value={quadDiag}
                       onChange={(e) => setQuadDiag(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl mt-1 font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                 </>
@@ -1010,7 +1010,7 @@ export default function AreaCalculator() {
               <button
                 onClick={handleSaveCalculation}
                 disabled={calcAreaSqM === 0 && calcPerimeterM === 0}
-                className="w-full flex items-center justify-center gap-2 bg-[#EDED78] hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-3 rounded-xl font-bold transition-colors shadow-md shadow-indigo-600/20"
+                className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-3 rounded-xl font-bold transition-colors shadow-md shadow-indigo-600/20"
               >
                 <Save className="w-5 h-5" />
                 Save Calculation to List
@@ -1050,7 +1050,7 @@ export default function AreaCalculator() {
                       </div>
                       <button
                         onClick={() => restoreCalculation(calc)}
-                        className="w-full mt-1 bg-slate-700/50 hover:bg-[#F0F0C0]0/20 text-slate-300 hover:text-indigo-300 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-1"
+                        className="w-full mt-1 bg-slate-700/50 hover:bg-indigo-500/20 text-slate-300 hover:text-indigo-300 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-1"
                       >
                         <PlaySquare className="w-3 h-3" /> Recall Inputs
                       </button>

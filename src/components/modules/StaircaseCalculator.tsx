@@ -229,14 +229,14 @@ export default function StaircaseCalculator({
             {" "}
             <button
               onClick={() => setUnitSystem("metric")}
-              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${unitSystem === "metric" ? "bg-white dark:bg-slate-700 text-[#1A1A1A] shadow-sm" : "text-slate-700 dark:text-slate-300 hover:text-slate-700 dark:text-slate-700 dark:text-slate-300 dark:hover:text-slate-300"}`}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${unitSystem === "metric" ? "bg-white dark:bg-slate-700 text-indigo-600 shadow-sm" : "text-slate-700 dark:text-slate-300 hover:text-slate-700 dark:text-slate-700 dark:text-slate-300 dark:hover:text-slate-300"}`}
             >
               {" "}
               Metric{" "}
             </button>{" "}
             <button
               onClick={() => setUnitSystem("imperial")}
-              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${unitSystem === "imperial" ? "bg-white dark:bg-slate-700 text-[#1A1A1A] shadow-sm" : "text-slate-700 dark:text-slate-300 hover:text-slate-700 dark:text-slate-700 dark:text-slate-300 dark:hover:text-slate-300"}`}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${unitSystem === "imperial" ? "bg-white dark:bg-slate-700 text-indigo-600 shadow-sm" : "text-slate-700 dark:text-slate-300 hover:text-slate-700 dark:text-slate-700 dark:text-slate-300 dark:hover:text-slate-300"}`}
             >
               {" "}
               Imperial{" "}
@@ -267,7 +267,7 @@ export default function StaircaseCalculator({
             {" "}
             <div className="flex items-center gap-3 mb-6">
               {" "}
-              <div className="p-2.5 bg-blue-50 dark:bg-blue-900/40 rounded-xl text-[#1A1A1A] dark:text-blue-400">
+              <div className="p-2.5 bg-blue-50 dark:bg-blue-900/40 rounded-xl text-indigo-600 dark:text-blue-400">
                 {" "}
                 <Ruler className="w-5 h-5" />{" "}
               </div>{" "}

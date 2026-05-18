@@ -337,7 +337,7 @@ export default function LiveBOQ() {
             >
               <Download className="w-[14px] h-[14px]" /> Export Report
             </button>
-            <button className="px-3 py-1.5 text-xs bg-[#EDED78] font-medium text-white rounded hover:bg-[#F0F0C0]0 transition-colors flex items-center gap-1.5 shadow-sm">
+            <button className="px-3 py-1.5 text-xs bg-indigo-600 font-medium text-white rounded hover:bg-indigo-500 transition-colors flex items-center gap-1.5 shadow-sm">
               <Plus className="w-[14px] h-[14px]" /> Add Item
             </button>
           </div>

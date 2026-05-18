@@ -41,9 +41,9 @@ export default function InteractiveSteelCalculator({
         {/* Calculator Settings UI */}
         <div className="p-6 sm:p-10 lg:col-span-3 bg-white border-b lg:border-b-0 lg:border-r border-slate-200">
           <div className="flex items-center mb-8 pb-4 border-b border-slate-100">
-            <div className="bg-[#F0F0C0] p-3 rounded-lg mr-4">
+            <div className="bg-indigo-50 p-3 rounded-lg mr-4">
               <svg
-                className="w-6 h-6 text-[#1A1A1A]"
+                className="w-6 h-6 text-indigo-600"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -141,7 +141,7 @@ export default function InteractiveSteelCalculator({
 
         {/* Results UI */}
         <div className="p-6 sm:p-10 lg:col-span-2 flex flex-col justify-center bg-slate-900 text-white relative overflow-hidden">
-          <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-[#EDED78] opacity-20 blur-3xl mix-blend-screen pointer-events-none"></div>
+          <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-indigo-600 opacity-20 blur-3xl mix-blend-screen pointer-events-none"></div>
           <div className="absolute -bottom-24 -left-24 w-64 h-64 rounded-full bg-blue-500 opacity-20 blur-3xl mix-blend-screen pointer-events-none"></div>
 
           <div className="relative z-10">

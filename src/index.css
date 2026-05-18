@@ -37,17 +37,12 @@
   }
 
   body {
-    background: #F4F3EE;
+    background: #ffffff;
     color: #0f172a;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
-  }
-
-  *:focus-visible {
-    outline: 2px solid #EDED78 !important;
-    outline-offset: 2px !important;
   }
 
   .dark body {

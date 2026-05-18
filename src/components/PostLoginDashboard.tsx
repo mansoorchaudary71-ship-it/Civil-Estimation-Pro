@@ -68,7 +68,7 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
       <div className="w-full flex gap-4 flex-col">
         
         {/* Welcome & Button */}
-        <div className="flex-1 flex flex-col items-center text-center gap-5 bg-white dark:bg-[#1A1A1A] border border-[#111111]/5 dark:border-white/10  rounded-full p-6 md:p-10 shadow-sm relative overflow-hidden">
+        <div className="flex-1 flex flex-col items-center text-center gap-5 bg-white dark:bg-indigo-600 border border-[#111111]/5 dark:border-white/10  rounded-xl p-6 md:p-10 shadow-sm relative overflow-hidden">
           {/* Decorative background effects could go here */}
           <div className="z-10 relative">
             <h1 className="text-3xl md:text-4xl font-black text-[#111111] dark:text-white tracking-tight mb-3">
@@ -100,7 +100,7 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
         {estimates.length > 0 && (
           <button 
             onClick={() => onSelectModule('my-estimates')}
-            className="text-[13px] font-bold text-[#1A1A1A] dark:text-blue-400 hover:underline"
+            className="text-[13px] font-bold text-indigo-600 dark:text-blue-400 hover:underline"
           >
             View All
           </button>
@@ -112,7 +112,7 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#111111] dark:border-white"></div>
         </div>
       ) : estimates.length > 0 ? (
-        <div className="flex flex-col bg-white dark:bg-[#1A1A1A] border border-[#111111]/5 dark:border-white/10  rounded-full overflow-hidden shadow-sm">
+        <div className="flex flex-col bg-white dark:bg-indigo-600 border border-[#111111]/5 dark:border-white/10  rounded-xl overflow-hidden shadow-sm">
           {recentEstimates.map((est, index) => (
             <div key={est.id} className={`flex items-center justify-between p-4 px-6 ${index !== recentEstimates.length - 1 ? 'border-b border-[#111111]/5 dark:border-white/5' : ''} hover:bg-[#111111]/[0.02] dark:hover:bg-white/[0.02] transition-colors`}>
               <div className="flex items-center gap-4">

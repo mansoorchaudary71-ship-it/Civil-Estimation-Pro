@@ -122,7 +122,7 @@ export default function VolumeEstimator() {
       id: "Rectangle Tank",
       label: "Rect Tank",
       icon: Container,
-      color: "text-[#1A1A1A] bg-[#F0F0C0] dark:bg-[#F0F0C0]0/20",
+      color: "text-indigo-600 bg-indigo-50 dark:bg-indigo-500/20",
     },
     {
       id: "Prism",
@@ -283,13 +283,13 @@ export default function VolumeEstimator() {
             <div className="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1 w-fit">
               <button
                 onClick={() => setCurrentUnit("Metric")}
-                className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all ${system === "Metric" ? "bg-white dark:bg-slate-700 shadow-sm text-[#1A1A1A]" : "text-slate-700 dark:text-slate-300"}`}
+                className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all ${system === "Metric" ? "bg-white dark:bg-slate-700 shadow-sm text-indigo-600" : "text-slate-700 dark:text-slate-300"}`}
               >
                 Metric (m)
               </button>
               <button
                 onClick={() => setCurrentUnit("Imperial")}
-                className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all ${system === "Imperial" ? "bg-white dark:bg-slate-700 shadow-sm text-[#1A1A1A]" : "text-slate-700 dark:text-slate-300"}`}
+                className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all ${system === "Imperial" ? "bg-white dark:bg-slate-700 shadow-sm text-indigo-600" : "text-slate-700 dark:text-slate-300"}`}
               >
                 Imperial (ft)
               </button>
@@ -317,7 +317,7 @@ export default function VolumeEstimator() {
           {/* Inputs */}
           <div className="lg:col-span-7 bg-white dark:bg-slate-900 p-6 rounded-[2rem] border border-slate-200 dark:border-slate-800">
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 rounded-xl flex items-center justify-center text-[#1A1A1A]">
+              <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 rounded-xl flex items-center justify-center text-indigo-600">
                 {(() => {
                   const ShapeIcon =
                     shapes.find((s) => s.id === activeShape)?.icon || Box;

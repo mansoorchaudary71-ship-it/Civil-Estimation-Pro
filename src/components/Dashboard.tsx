@@ -47,7 +47,7 @@ interface DashboardProps {
 
 export const getCategoryTheme = (category: string, id: string) => {
   const colors = [
-    { text: "text-[#1A1A1A]", bg: "bg-[#F0F0C0]", fill: "bg-[#F0F0C0]", border: "border-indigo-100" },
+    { text: "text-indigo-600", bg: "bg-indigo-50", fill: "bg-indigo-50", border: "border-indigo-100" },
     { text: "text-orange-600", bg: "bg-orange-50", fill: "bg-orange-100", border: "border-orange-100" },
     { text: "text-sky-600", bg: "bg-sky-50", fill: "bg-sky-100", border: "border-sky-100" },
     { text: "text-emerald-600", bg: "bg-emerald-50", fill: "bg-emerald-100", border: "border-emerald-100" },
@@ -184,14 +184,14 @@ export default function Dashboard({
 
           {/* CATEGORY TABS */}
           <div className="w-full flex justify-start sm:justify-center overflow-x-auto scrollbar-hide pb-2 px-2">
-            <div className="inline-flex flex-row items-center bg-[#1A1A1A] p-1 rounded-full shrink-0 shadow-lg">
+            <div className="inline-flex flex-row items-center bg-indigo-600 p-1 rounded-xl shrink-0 shadow-lg">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
                   className={`flex-shrink-0 px-[18px] py-[8px] rounded-full text-[13px] transition-all duration-200 ${
                     activeCategory === category
-                      ? "bg-[#EDED78] text-[#1A1A1A] font-semibold shadow-sm"
+                      ? "bg-indigo-600 text-indigo-600 font-semibold shadow-sm"
                       : "bg-transparent text-[#888888] hover:bg-white/10 hover:text-[#F5F5F0]"
                   }`}
                 >
@@ -215,43 +215,43 @@ export default function Dashboard({
       <div className="lg:col-span-4 xl:col-span-3 flex flex-col gap-6">
         
         {/* Quick Info Widget 1: Stats */}
-        <div className="bg-[#1A1A1A] rounded-[16px] px-[22px] py-[20px] border-none flex flex-col justify-between">
+        <div className=" rounded-[16px] px-[22px] py-[20px] border-none flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <span className="text-[#666666] text-[11px] font-medium tracking-[0.06em] uppercase">Community Pulse</span>
-            <div className="bg-[#EDED78]/12 p-[6px] rounded-[8px]">
-              <ArrowUpRight className="w-4 h-4 text-[#EDED78]" />
+            <div className="bg-indigo-600/12 p-[6px] rounded-[8px]">
+              <ArrowUpRight className="w-4 h-4 text-white" />
             </div>
           </div>
           <div>
-            <div className="text-[#EDED78] text-[32px] font-bold leading-none tracking-tight">12,400+</div>
+            <div className="text-white text-[32px] font-bold leading-none tracking-tight">12,400+</div>
             <p className="text-[#888888] text-[12px] mt-1.5 font-medium">Detailed estimates generated this month</p>
           </div>
         </div>
 
         {/* Quick Info Widget 2: Unit Converter */}
         <div 
-          className="bg-[#FFFFFF] border border-black/5 rounded-[12px] p-[16px] shadow-[0_2px_10px_rgba(0,0,0,0.02)] flex items-center justify-between cursor-pointer hover:border-[#EDED78] transition-colors group"
+          className="bg-white border border-slate-200 rounded-xl p-[16px] shadow-sm flex items-center justify-between cursor-pointer hover:border-indigo-500 transition-colors group"
           onClick={() => onSelectModule('unit-converter')}
         >
           <div className="flex items-center gap-4">
-            <div className="w-[36px] h-[36px] bg-[#F0F0C0] text-[#5C5C00] rounded-[10px] flex items-center justify-center group-hover:scale-105 transition-transform">
+            <div className="w-[36px] h-[36px] bg-indigo-50 text-indigo-600 rounded-[10px] flex items-center justify-center group-hover:scale-105 transition-transform">
                <Repeat className="w-[18px] h-[18px]" strokeWidth={2.5} />
             </div>
             <div>
-              <h4 className="font-semibold text-[15px] leading-tight text-[#1A1A1A] mb-1">Unit Converter</h4>
+              <h4 className="font-semibold text-[15px] leading-tight text-indigo-600 mb-1">Unit Converter</h4>
               <span className="text-[12px] font-medium text-[#888888]">15 engineering metrics</span>
             </div>
           </div>
-          <ArrowRight className="w-5 h-5 text-[#EDED78] transition-transform group-hover:translate-x-1" />
+          <ArrowRight className="w-5 h-5 text-white transition-transform group-hover:translate-x-1" />
         </div>
 
         {/* AI Assistant Card (Accent Card) */}
         <div 
-          className="mt-auto bg-[#1A1A1A] rounded-[20px] p-[24px] relative overflow-hidden flex flex-col group cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all duration-300 min-h-[auto]"
+          className="mt-auto  rounded-[20px] p-[24px] relative overflow-hidden flex flex-col group cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all duration-300 min-h-[auto]"
           onClick={() => onSelectModule('ai')}
         >
-          <div className="w-10 h-10 bg-[#EDED78] rounded-full flex items-center justify-center mb-6 shrink-0 shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-transform">
-             <Sparkles className="w-5 h-5 text-[#1A1A1A]" />
+          <div className="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center mb-6 shrink-0 shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-transform">
+             <Sparkles className="w-5 h-5 text-indigo-600" />
           </div>
           
           <h3 className="text-[20px] font-bold text-[#F5F5F0] mb-3 leading-tight tracking-tight">
@@ -270,7 +270,7 @@ export default function Dashboard({
             </button>
             <button 
               onClick={(e) => { e.stopPropagation(); onSelectModule('ai'); }} 
-              className="w-full px-[28px] py-[10px] bg-[#EDED78] hover:bg-[#e4e466] text-[#1A1A1A] text-sm font-bold rounded-full transition-colors flex items-center justify-center gap-2 shadow-sm"
+              className="w-full px-[28px] py-[10px] bg-indigo-600 hover:bg-[#e4e466] text-indigo-600 text-sm font-bold rounded-full transition-colors flex items-center justify-center gap-2 shadow-sm"
             >
                Ask AI <ArrowRight className="w-4 h-4" />
             </button>
@@ -280,29 +280,29 @@ export default function Dashboard({
       </div>
 
       {/* RIGHT COLUMN: Main Tool Container */}
-      <div className="lg:col-span-8 xl:col-span-9 bg-[#FFFFFF] border border-black/5 rounded-[40px] p-6 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.04)] flex flex-col min-h-[700px]">
+      <div className="lg:col-span-8 xl:col-span-9 bg-white border border-slate-200 rounded-[40px] p-6 lg:p-10 shadow-sm flex flex-col min-h-[700px]">
         
         {/* Header and Search */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
           <div>
-            <h2 className="text-2xl md:text-3xl font-black text-[#1A1A1A] tracking-tight flex items-center gap-3">
+            <h2 className="text-2xl md:text-3xl font-black text-indigo-600 tracking-tight flex items-center gap-3">
               {activeCategory}
             </h2>
             <p className="text-[#888888] font-medium mt-1">Select a calculator to initiate a new estimate.</p>
           </div>
           
           <div className="w-full md:max-w-xs shrink-0">
-            <div className="relative flex items-center w-full h-[48px] rounded-full border border-black/10 bg-[#FFFFFF] shadow-sm focus-within:outline focus-within:outline-2 focus-within:outline-[#EDED78] focus-within:border-transparent transition-all duration-200">
+            <div className="relative flex items-center w-full h-[48px] rounded-full border border-slate-200 bg-white shadow-sm focus-within:outline focus-within:outline-2 focus-within:outline-indigo-500 focus-within:border-transparent transition-all duration-200">
               <Search className="w-5 h-5 ml-4 shrink-0 text-[#888888]" />
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search tools..."
-                className="w-full h-full bg-transparent border-none outline-none text-sm text-[#1A1A1A] placeholder:text-[#888888] pl-3 pr-4 rounded-full"
+                className="w-full h-full bg-transparent border-none outline-none text-sm text-indigo-600 placeholder:text-[#888888] pl-3 pr-4 rounded-full"
               />
               {searchTerm && (
-                <button onClick={() => setSearchTerm("")} className="mr-4 text-[#888888] hover:text-[#1A1A1A] text-xs font-bold">
+                <button onClick={() => setSearchTerm("")} className="mr-4 text-[#888888] hover:text-indigo-600 text-xs font-bold">
                   Clear
                 </button>
               )}
@@ -322,8 +322,8 @@ export default function Dashboard({
               groupsToDisplay.map((groupName) => (
                 <div key={groupName} className="flex flex-col gap-6 mb-10 last:mb-0">
                    {activeCategory === "All Tools" && (
-                     <h3 className="text-[13px] font-bold text-[#1A1A1A] tracking-wider uppercase flex items-center gap-2">
-                       <span className="w-[18px] h-[18px] rounded-full bg-[#EDED78] text-[#1A1A1A] flex items-center justify-center text-[14px]">
+                     <h3 className="text-[13px] font-bold text-indigo-600 tracking-wider uppercase flex items-center gap-2">
+                       <span className="w-[18px] h-[18px] rounded-full bg-indigo-600 text-indigo-600 flex items-center justify-center text-[14px]">
                          +
                        </span>
                        {groupName}
@@ -336,24 +336,24 @@ export default function Dashboard({
                           key={mod.id}
                           id={`module-card-${mod.id}`}
                           onClick={() => onSelectModule(mod.id as ModuleId)}
-                          className="stagger-in p-[16px] px-[18px] rounded-[14px] bg-[#FFFFFF] border border-black/5 transition-all duration-300 ease-out flex flex-col relative text-left group min-h-[140px] overflow-hidden hover:border-[#EDED78] hover:shadow-[0_4px_16px_rgba(237,237,120,0.15)] block w-full"
+                          className="stagger-in p-[16px] px-[18px] rounded-[14px] bg-white border border-slate-200 transition-all duration-300 ease-out flex flex-col relative text-left group min-h-[140px] overflow-hidden hover:border-indigo-500 hover:shadow-lg block w-full"
                           style={{ animationDelay: `${idx * 50}ms` }}
                         >
                           <div className="relative z-10 w-full flex-1 flex flex-col">
                             <div className="flex justify-between items-start mb-3">
-                              <div className="inline-flex items-center px-[8px] py-[2px] rounded-[4px] bg-[#F0F0C0] text-[#5C5C00] text-[10px] font-semibold tracking-widest uppercase w-fit">
+                              <div className="inline-flex items-center px-[8px] py-[2px] rounded-[4px] bg-indigo-50 text-indigo-600 text-[10px] font-semibold tracking-widest uppercase w-fit">
                                 {mod.category}
                               </div>
-                              <div className="w-[28px] h-[28px] rounded-full bg-[#1A1A1A] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                <ArrowRight className="w-4 h-4 text-[#EDED78]" />
+                              <div className="w-[28px] h-[28px] rounded-full  flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <ArrowRight className="w-4 h-4 text-white" />
                               </div>
                             </div>
 
                             <div className="flex items-center gap-3 mb-2">
-                              <div className="w-[36px] h-[36px] rounded-[10px] bg-[#F0F0C0] text-[#5C5C00] flex items-center justify-center shrink-0">
+                              <div className="w-[36px] h-[36px] rounded-[10px] bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
                                 <mod.icon className="w-[18px] h-[18px]" strokeWidth={2.5} />
                               </div>
-                              <h4 className="text-[15px] font-semibold text-[#1A1A1A] leading-tight tracking-tight">
+                              <h4 className="text-[15px] font-semibold text-indigo-600 leading-tight tracking-tight">
                                 {mod.title}
                               </h4>
                             </div>

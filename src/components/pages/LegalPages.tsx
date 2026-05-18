@@ -41,7 +41,7 @@ export default function LegalPages({ page, onNavigate }: LegalPageProps) {
       
       {/* Header */}
       <div className="text-center space-y-4 pt-4 md:pt-8 bg-white/50 dark:bg-slate-900/50 p-8 md:p-12 rounded-[3rem]">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-blue-100/50 dark:bg-blue-900/30 text-[#1A1A1A] dark:text-blue-400 mb-4 shadow-[0_8px_16px_-6px_rgba(37,99,235,0.2)]">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-blue-100/50 dark:bg-blue-900/30 text-indigo-600 dark:text-blue-400 mb-4 shadow-[0_8px_16px_-6px_rgba(37,99,235,0.2)]">
           <current.icon className="w-8 h-8" strokeWidth={1.5} />
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white tracking-tight">
@@ -113,7 +113,7 @@ export default function LegalPages({ page, onNavigate }: LegalPageProps) {
             </p>
             <button 
               onClick={() => onNavigate('contact')}
-              className="text-[#1A1A1A] dark:text-blue-400 font-bold hover:underline mt-2 inline-flex items-center gap-1.5"
+              className="text-indigo-600 dark:text-blue-400 font-bold hover:underline mt-2 inline-flex items-center gap-1.5"
             >
               Contact Support <ArrowRight className="w-3.5 h-3.5" />
             </button>
@@ -122,7 +122,7 @@ export default function LegalPages({ page, onNavigate }: LegalPageProps) {
 
         {/* Content Area */}
         <main className="flex-1 bg-white dark:bg-slate-900 p-8 md:p-12 lg:p-16 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-sm min-w-0">
-          <div className="prose prose-slate dark:prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-[#1A1A1A] dark:prose-a:text-blue-400 transition-colors">
+          <div className="prose prose-slate dark:prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-indigo-600 dark:prose-a:text-blue-400 transition-colors">
             {page === 'privacy' && <PrivacyContent />}
             {page === 'terms' && <TermsContent />}
             {page === 'cookies' && <CookiesContent />}

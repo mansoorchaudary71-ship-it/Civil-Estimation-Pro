@@ -462,7 +462,7 @@ export default function MasterQuantityEstimator({
           <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
             <div>
               <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
-                <Calculator className="w-8 h-8 text-[#1A1A1A] dark:text-blue-400" />
+                <Calculator className="w-8 h-8 text-indigo-600 dark:text-blue-400" />
                 Master Quantity Estimator
               </h1>
               <p className="text-slate-500 dark:text-slate-400 dark:text-slate-700 dark:text-slate-300 font-medium">
@@ -528,11 +528,11 @@ export default function MasterQuantityEstimator({
                               onClick={() => setActiveCalc(calc.id)}
                               className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all text-left ${
                                 isActive 
-                                ? 'bg-[#F0F0C0]0/10 text-indigo-700 dark:text-indigo-400 font-bold' 
+                                ? 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 font-bold' 
                                 : 'text-slate-600 dark:text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 font-medium'
                               }`}
                             >
-                              <Icon className={`w-4 h-4 flex-shrink-0 ${isActive ? "text-[#1A1A1A] dark:text-indigo-400" : "text-slate-700 dark:text-slate-300"}`} />
+                              <Icon className={`w-4 h-4 flex-shrink-0 ${isActive ? "text-indigo-600 dark:text-indigo-400" : "text-slate-700 dark:text-slate-300"}`} />
                               <span className="text-sm truncate">{calc.label}</span>
                             </button>
                           );

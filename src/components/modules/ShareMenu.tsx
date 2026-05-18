@@ -624,9 +624,9 @@ export default function ShareButtonWithPopup({
               
               <button
                 onClick={handleDownloadText}
-                className="group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl transition-all duration-200 text-sm font-semibold bg-[#F0F0C0] text-indigo-700 hover:bg-[#F0F0C0] hover:text-indigo-900 dark:bg-[#F0F0C0]0/10 dark:text-indigo-300 dark:hover:bg-[#F0F0C0]0/20 dark:hover:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 hover:scale-[1.02] active:scale-[0.98]"
+                className="group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl transition-all duration-200 text-sm font-semibold bg-indigo-50 text-indigo-700 hover:bg-indigo-50 hover:text-indigo-900 dark:bg-indigo-500/10 dark:text-indigo-300 dark:hover:bg-indigo-500/20 dark:hover:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:scale-[1.02] active:scale-[0.98]"
               >
-                <div className="p-2 rounded-xl bg-white dark:bg-[#F0F0C0]0/20 text-[#1A1A1A] dark:text-indigo-400 shadow-sm shadow-indigo-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
+                <div className="p-2 rounded-xl bg-white dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 shadow-sm shadow-indigo-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
                   <Download className="w-4 h-4" />
                 </div>
                 Download as Text

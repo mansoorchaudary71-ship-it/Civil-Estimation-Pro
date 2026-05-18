@@ -147,13 +147,13 @@ export function CalculationHistory({
           {/* History Button: Indigo */}
           <button
             onClick={() => setIsOpen(true)}
-            className={`${baseBtnClass} bg-[#F0F0C0] text-indigo-700 hover:bg-[#F0F0C0] border-indigo-300 hover:border-indigo-400 dark:bg-[#F0F0C0]0/10 dark:text-indigo-300 dark:hover:bg-[#F0F0C0]0/20 dark:border-indigo-500/40 dark:hover:border-indigo-500/50 focus:ring-[#EDED78]/50`}
+            className={`${baseBtnClass} bg-indigo-50 text-indigo-700 hover:bg-indigo-50 border-indigo-300 hover:border-indigo-400 dark:bg-indigo-500/10 dark:text-indigo-300 dark:hover:bg-indigo-500/20 dark:border-indigo-500/40 dark:hover:border-indigo-500/50 focus:ring-indigo-500/50`}
             title="View History"
           >
             <History className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
             <span className="truncate">History</span>
             {history.length > 0 && (
-              <span className="absolute top-0 right-0 -mt-1 -mr-1 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-[#F0F0C0]0 text-[9px] sm:text-[10px] font-bold text-white shadow-sm ring-2 ring-white dark:ring-slate-900">
+              <span className="absolute top-0 right-0 -mt-1 -mr-1 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-indigo-500 text-[9px] sm:text-[10px] font-bold text-white shadow-sm ring-2 ring-white dark:ring-slate-900">
                 {history.length > 9 ? '9+' : history.length}
               </span>
             )}
@@ -209,7 +209,7 @@ export function CalculationHistory({
           <div className="fixed inset-y-0 right-0 max-w-sm w-full bg-white dark:bg-slate-900 shadow-2xl border-l border-slate-200 dark:border-slate-800 flex flex-col transform transition-transform duration-300 ease-in-out">
             <div className="flex items-center justify-between p-5 border-b border-slate-200 dark:border-slate-700/50">
               <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                <History className="w-5 h-5 text-[#1A1A1A]" />
+                <History className="w-5 h-5 text-indigo-600" />
                 Calculation History
               </h2>
               <button 
@@ -252,7 +252,7 @@ export function CalculationHistory({
                         onRestore(item.inputs);
                         setIsOpen(false);
                       }}
-                      className="w-full py-2 bg-white dark:bg-slate-800 border border-indigo-200 dark:border-indigo-500/30 text-[#1A1A1A] dark:text-indigo-400 rounded-lg text-sm font-medium transition-all hover:bg-[#F0F0C0] dark:hover:bg-[#F0F0C0]0/10 flex items-center justify-center gap-1"
+                      className="w-full py-2 bg-white dark:bg-slate-800 border border-indigo-200 dark:border-indigo-500/30 text-indigo-600 dark:text-indigo-400 rounded-lg text-sm font-medium transition-all hover:bg-indigo-50 dark:hover:bg-indigo-500/10 flex items-center justify-center gap-1"
                     >
                       Restore Inputs <ChevronRight className="w-4 h-4" />
                     </button>
@@ -291,8 +291,8 @@ export function CalculationHistory({
               <X className="w-5 h-5" />
             </button>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-[#F0F0C0] dark:bg-[#F0F0C0]0/10 flex items-center justify-center shrink-0">
-                <CloudUpload className="w-6 h-6 text-[#1A1A1A]" />
+              <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center shrink-0">
+                <CloudUpload className="w-6 h-6 text-indigo-600" />
               </div>
               <div>
                 <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Save Estimate</h2>
@@ -307,7 +307,7 @@ export function CalculationHistory({
                   type="text"
                   value={saveName}
                   onChange={(e) => setSaveName(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#EDED78]/50 focus:border-[#EDED78] transition-all font-medium"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium"
                   placeholder="e.g. Dream House Ground Floor"
                   autoFocus
                 />
@@ -319,7 +319,7 @@ export function CalculationHistory({
                   <select
                     value={saveType}
                     onChange={(e) => setSaveType(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#EDED78]/50 focus:border-[#EDED78] transition-all font-medium appearance-none"
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium appearance-none"
                   >
                     <option value="General">General</option>
                     <option value="House">House</option>
@@ -349,7 +349,7 @@ export function CalculationHistory({
               <button
                 onClick={confirmCloudSave}
                 disabled={isSavingCloud || !saveName.trim()}
-                className="flex-[2] flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#1A1A1A] text-[#EDED78] rounded-full font-bold hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-[2] flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSavingCloud ? (
                   <>

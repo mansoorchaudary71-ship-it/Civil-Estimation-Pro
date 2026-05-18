@@ -150,7 +150,7 @@ export default function HouseSpecs() {
           {/* Ceiling */}
           <GlassCard
             title="Ceiling Finish"
-            icon={<ArrowUpRight className="w-5 h-5 text-[#1A1A1A]" />}
+            icon={<ArrowUpRight className="w-5 h-5 text-indigo-600" />}
             color="indigo"
           >
             <div className="space-y-4 pb-4">
@@ -281,7 +281,7 @@ function GlassCard({
     gray: "bg-gray-500/10 border-gray-500/20 text-gray-600",
     teal: "bg-teal-500/10 border-teal-500/20 text-teal-600",
     amber: "bg-amber-500/10 border-amber-500/20 text-amber-600",
-    indigo: "bg-[#F0F0C0]0/10 border-indigo-500/20 text-[#1A1A1A]",
+    indigo: "bg-indigo-500/10 border-indigo-500/20 text-indigo-600",
     sky: "bg-sky-500/10 border-sky-500/20 text-sky-600",
     fuchsia: "bg-fuchsia-500/10 border-fuchsia-500/20 text-fuchsia-600",
   };

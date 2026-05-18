@@ -165,7 +165,7 @@ export default function TrenchExcavationEstimator() {
                 className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors focus:outline-none"
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 bg-[#F0F0C0] text-[#5C5C00] rounded-xl">
+                  <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
                     <Activity className="w-5 h-5" />
                   </div>
                   <h2 className="text-xl font-bold tracking-tight text-gray-800">
@@ -189,7 +189,7 @@ export default function TrenchExcavationEstimator() {
                       </label>
                       <input
                         type="number"
-                        className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-[#EDED78] transition-shadow"
+                        className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow"
                         value={pipeDiameter}
                         onChange={(e) => setPipeDiameter(e.target.value)}
                         placeholder={`e.g. 0.3`}
@@ -202,7 +202,7 @@ export default function TrenchExcavationEstimator() {
                       </label>
                       <input
                         type="number"
-                        className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#EDED78]/50 focus:border-[#EDED78] transition-shadow"
+                        className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow"
                         value={beddingDepth}
                         onChange={(e) => setBeddingDepth(e.target.value)}
                         placeholder={`e.g. 0.5`}

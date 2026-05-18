@@ -325,7 +325,7 @@ export default function FormworkEstimator() {
                 {" "}
                 <div className="flex items-center gap-2 mb-2">
                   {" "}
-                  <RefreshCw className="w-5 h-5 text-[#1A1A1A]" />{" "}
+                  <RefreshCw className="w-5 h-5 text-indigo-600" />{" "}
                   <h3 className="text-lg font-bold text-gray-800">
                     Repetition Factor
                   </h3>{" "}
@@ -341,7 +341,7 @@ export default function FormworkEstimator() {
                   <button
                     key={factor}
                     onClick={() => setRepetitionFactor(factor)}
-                    className={`w-12 h-12 rounded-2xl font-black transition-all ${repetitionFactor === factor ? "bg-[#1A1A1A] text-[#EDED78] rounded-full shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200"}`}
+                    className={`w-12 h-12 rounded-2xl font-black transition-all ${repetitionFactor === factor ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200"}`}
                   >
                     {" "}
                     x{factor}{" "}
@@ -483,7 +483,7 @@ export default function FormworkEstimator() {
                       Slabs
                     </span>{" "}
                     <span className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#F0F0C0]0" />{" "}
+                      <span className="w-2.5 h-2.5 rounded-full bg-indigo-500" />{" "}
                       Beams
                     </span>{" "}
                   </div>{" "}

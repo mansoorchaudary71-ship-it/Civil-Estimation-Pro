@@ -160,7 +160,7 @@ export default function TopNavbar({
             
             <button 
               onClick={() => onNavigate?.('house' as ModuleId)}
-              className="px-5 py-2 rounded-lg text-[14px] font-bold text-white bg-[#EDED78] hover:bg-indigo-700 transition-colors duration-300 whitespace-nowrap shadow-sm"
+              className="px-5 py-2 rounded-lg text-[14px] font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300 whitespace-nowrap shadow-sm"
             >
               Start Estimating
             </button>
@@ -284,7 +284,7 @@ export default function TopNavbar({
               ) : (
                 <button
                   onClick={() => { setIsMobileMenuOpen(false); onOpenAuth?.(); }}
-                  className="w-full py-3 rounded-xl text-[15px] font-bold text-[#111111] dark:text-white bg-white dark:bg-[#1A1A1A] border border-[#111111]/10 dark:border-white/10 shadow-sm transition-colors"
+                  className="w-full py-3 rounded-xl text-[15px] font-bold text-[#111111] dark:text-white bg-white dark: border border-[#111111]/10 dark:border-white/10 shadow-sm transition-colors"
                 >
                   Sign In / Create Account
                 </button>
