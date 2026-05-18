@@ -220,76 +220,8 @@ export default function Dashboard({
     {/* BENTO BOX GRID LAYOUT */}
     <div className="w-full max-w-[1400px] mx-auto px-4 lg:px-8 mt-6 md:mt-10 grid grid-cols-1 lg:grid-cols-12 gap-6 z-20 relative">
       
-      {/* LEFT COLUMN: Widgets & AI Assistant */}
-      <div className="lg:col-span-4 xl:col-span-3 flex flex-col gap-6">
-        
-        {/* Quick Info Widget 1: Stats */}
-        <div className=" rounded-[16px] px-[22px] py-[20px] border-none flex flex-col justify-between">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-[#666666] text-[11px] font-medium tracking-[0.06em] uppercase">Community Pulse</span>
-            <div className="bg-indigo-600/12 p-[6px] rounded-[8px]">
-              <ArrowUpRight className="w-4 h-4 text-white" />
-            </div>
-          </div>
-          <div>
-            <div className="text-white text-[32px] font-bold leading-none tracking-tight">12,400+</div>
-            <p className="text-[#888888] text-[12px] mt-1.5 font-medium">Detailed estimates generated this month</p>
-          </div>
-        </div>
-
-        {/* Quick Info Widget 2: Unit Converter */}
-        <div 
-          className="bg-white border border-slate-200 rounded-xl p-[16px] shadow-sm flex items-center justify-between cursor-pointer hover:border-indigo-500 transition-colors group"
-          onClick={() => onSelectModule('unit-converter')}
-        >
-          <div className="flex items-center gap-4">
-            <div className="w-[36px] h-[36px] bg-indigo-50 text-indigo-600 rounded-[10px] flex items-center justify-center group-hover:scale-105 transition-transform">
-               <Repeat className="w-[18px] h-[18px]" strokeWidth={2.5} />
-            </div>
-            <div>
-              <h4 className="font-semibold text-[15px] leading-tight text-indigo-600 mb-1">Unit Converter</h4>
-              <span className="text-[12px] font-medium text-[#888888]">15 engineering metrics</span>
-            </div>
-          </div>
-          <ArrowRight className="w-5 h-5 text-white transition-transform group-hover:translate-x-1" />
-        </div>
-
-        {/* AI Assistant Card (Accent Card) */}
-        <div 
-          className="mt-auto  rounded-[20px] p-[24px] relative overflow-hidden flex flex-col group cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all duration-300 min-h-[auto]"
-          onClick={() => onSelectModule('ai')}
-        >
-          <div className="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center mb-6 shrink-0 shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-transform">
-             <Sparkles className="w-5 h-5 text-indigo-600" />
-          </div>
-          
-          <h3 className="text-[20px] font-bold text-[#F5F5F0] mb-3 leading-tight tracking-tight">
-            Ready to start a new takeoff or need AI assistance?
-          </h3>
-          <p className="text-[#888888] mb-8 text-[13px] leading-relaxed">
-            Use AI to instantly extract quantities from plans or ask complex engineering queries.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row xl:flex-col gap-2.5 mt-auto relative z-10 w-full">
-            <button 
-              onClick={(e) => { e.stopPropagation(); onSelectModule('takeoff'); }} 
-              className="w-full px-[24px] py-[10px] bg-white/[0.08] hover:bg-white/[0.12] border border-white/[0.15] text-[#F5F5F0] text-sm font-medium rounded-full transition-colors flex items-center justify-center gap-2 shadow-sm"
-            >
-              <Ruler className="w-4 h-4" /> 2D Takeoff
-            </button>
-            <button 
-              onClick={(e) => { e.stopPropagation(); onSelectModule('ai'); }} 
-              className="w-full px-[28px] py-[10px] bg-indigo-600 hover:bg-[#e4e466] text-indigo-600 text-sm font-bold rounded-full transition-colors flex items-center justify-center gap-2 shadow-sm"
-            >
-               Ask AI <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-
-      </div>
-
       {/* RIGHT COLUMN: Main Tool Container */}
-      <div className="lg:col-span-8 xl:col-span-9 bg-transparent p-2 lg:p-6 flex flex-col min-h-[700px]">
+      <div className="lg:col-span-12 xl:col-span-12 bg-transparent p-2 lg:p-6 flex flex-col min-h-[700px]">
         
         {/* Header and Search */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
@@ -300,22 +232,24 @@ export default function Dashboard({
             <p className="text-slate-500 font-medium mt-2">Select a calculator to initiate a new estimate.</p>
           </div>
           
-          <div className="w-full md:max-w-md shrink-0">
-            <div className="relative flex items-center w-full h-[54px] rounded-[50px] bg-white dark:bg-slate-800 shadow-[0_8px_30px_rgba(0,0,0,0.04)] focus-within:shadow-[0_8px_30px_rgba(255,159,67,0.12)] transition-all duration-300 group overflow-hidden">
-              <Search className="w-5 h-5 ml-6 shrink-0 text-slate-400 group-focus-within:text-[var(--accent-vibrant)] transition-colors" />
+          <div className="w-full md:max-w-md shrink-0 flex items-center gap-2">
+            <div className="relative flex items-center flex-1 h-[54px] rounded-[50px] bg-transparent border-2 border-[var(--accent-vibrant)] transition-all duration-300 group overflow-hidden">
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search tools & calculations..."
-                className="w-full h-full bg-transparent border-none outline-none text-[15px] font-medium text-[var(--primary-dark)] dark:text-white placeholder:text-slate-400 pl-4 pr-5"
+                className="w-full h-full bg-transparent border-none outline-none text-[15px] font-medium text-[var(--primary-dark)] dark:text-white placeholder:text-slate-400 pl-6 pr-5"
               />
               {searchTerm && (
-                <button onClick={() => setSearchTerm("")} className="mr-5 text-slate-400 hover:text-[var(--primary-dark)] dark:hover:text-white transition-colors text-xs font-bold uppercase tracking-wide">
+                <button onClick={() => setSearchTerm("")} className="mr-5 text-[var(--accent-vibrant)] hover:text-[#e68a35] transition-colors text-xs font-bold uppercase tracking-wide">
                   Clear
                 </button>
               )}
             </div>
+            <button className="w-[54px] h-[54px] rounded-full flex items-center justify-center border-2 border-[var(--accent-vibrant)] bg-transparent text-[var(--accent-vibrant)] hover:bg-[var(--accent-vibrant)] hover:text-white transition-colors shrink-0">
+               <Search className="w-5 h-5" strokeWidth={2.5} />
+            </button>
           </div>
         </div>
 
@@ -347,6 +281,19 @@ export default function Dashboard({
                           className={`stagger-in p-6 rounded-[24px] transition-all duration-300 ease-out flex flex-col relative text-left group min-h-[160px] overflow-hidden block w-full hover:-translate-y-1 hover:shadow-lg ${mod.colorClass || 'bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white shadow-sm'}`}
                           style={{ animationDelay: `${idx * 50}ms` }}
                         >
+                          {/* Border Draw SVG Effect */}
+                          <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+                            <rect 
+                              x="2" y="2" 
+                              width="calc(100% - 4px)" height="calc(100% - 4px)" 
+                              rx="22" ry="22" 
+                              fill="none" 
+                              strokeWidth="3"
+                              strokeLinecap="round"
+                              className={`transition-all duration-700 ease-out [stroke-dasharray:2500] [stroke-dashoffset:2500] group-hover:[stroke-dashoffset:0] group-active:[stroke-dashoffset:0] opacity-0 group-hover:opacity-100 group-active:opacity-100 ${isSolid ? 'stroke-white/70' : 'stroke-[var(--accent-vibrant)]'}`}
+                            />
+                          </svg>
+
                           <div className="relative z-10 w-full flex-1 flex flex-col">
                             {/* Icon at top left */}
                             <div className="flex justify-between items-start mb-4">

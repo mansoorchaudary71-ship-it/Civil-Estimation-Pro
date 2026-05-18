@@ -252,15 +252,19 @@ export default function App() {
                 {/* Sticky Search Bar */}
                 <div className="sticky top-0 z-10 mb-6 bg-transparent pt-2 -mt-2">
                   <div className="absolute -inset-x-6 -top-6 bottom-[-24px] bg-gradient-to-b from-[#F4F7FE]/95 via-[#F4F7FE]/80 to-transparent dark:from-[#0B1437]/95 dark:via-[#0B1437]/80 dark:to-transparent backdrop-blur-[2px] z-[-1] pointer-events-none"></div>
-                  <div className="relative flex items-center w-full h-[52px] bg-white dark:bg-slate-800/80 rounded-[50px] shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden transition-all focus-within:ring-2 focus-within:ring-[#FF9F43]/40 focus-within:shadow-[0_4px_20px_rgba(255,159,67,0.15)] group">
-                    <Search className="w-5 h-5 ml-5 mr-3 text-slate-400 group-focus-within:text-[#FF9F43] shrink-0 transition-colors" />
-                    <input 
-                      type="text" 
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      placeholder="Search tools & calculations..." 
-                      className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[15px] font-medium text-[var(--primary-dark)] dark:text-white placeholder:text-slate-400"
-                    />
+                  <div className="flex items-center gap-2">
+                    <div className="relative flex items-center flex-1 h-[52px] bg-transparent rounded-[50px] border-2 border-[var(--accent-vibrant)] transition-all group overflow-hidden">
+                      <input 
+                        type="text" 
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        placeholder="Search tools & calculations..." 
+                        className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[15px] font-medium text-[var(--primary-dark)] dark:text-white placeholder:text-slate-400 pl-5 pr-3"
+                      />
+                    </div>
+                    <button className="w-[52px] h-[52px] flex items-center justify-center shrink-0 rounded-full border-2 border-[var(--accent-vibrant)] text-[var(--accent-vibrant)] hover:bg-[var(--accent-vibrant)] hover:text-white transition-colors cursor-default md:cursor-pointer">
+                      <Search className="w-5 h-5" strokeWidth={2.5} />
+                    </button>
                   </div>
                 </div>
 

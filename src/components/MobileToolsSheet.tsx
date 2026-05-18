@@ -81,15 +81,19 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
             </div>
 
             <div className="px-6 pb-4 pt-2">
-              <div className="relative flex items-center w-full h-[52px] bg-white dark:bg-slate-800/80 rounded-[50px] shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden transition-all focus-within:ring-2 focus-within:ring-[#FF9F43]/40 focus-within:shadow-[0_4px_20px_rgba(255,159,67,0.15)] group">
-                <Search className="w-5 h-5 ml-5 mr-3 text-slate-400 group-focus-within:text-[#FF9F43] shrink-0 transition-colors" />
-                <input 
-                  type="text" 
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Search tools & calculations..." 
-                  className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[15px] font-medium text-[var(--primary-dark)] dark:text-white placeholder:text-slate-400"
-                />
+              <div className="flex items-center gap-2">
+                <div className="relative flex flex-1 items-center h-[52px] bg-transparent rounded-[50px] border-2 border-[var(--accent-vibrant)] transition-all overflow-hidden group">
+                  <input 
+                    type="text" 
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Search tools & calculations..." 
+                    className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[15px] font-medium text-[var(--primary-dark)] dark:text-white placeholder:text-slate-400 pl-5 pr-3"
+                  />
+                </div>
+                <button className="w-[52px] h-[52px] flex items-center justify-center shrink-0 rounded-full border-2 border-[var(--accent-vibrant)] text-[var(--accent-vibrant)] hover:bg-[var(--accent-vibrant)] hover:text-white transition-colors">
+                  <Search className="w-5 h-5" strokeWidth={2.5} />
+                </button>
               </div>
             </div>
 
@@ -102,13 +106,26 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
                       onSelectModule(tool.id as ModuleId);
                       onClose();
                     }}
-                    className="group flex items-center gap-4 w-full p-3.5 bg-white dark:bg-slate-800/80 rounded-2xl border border-slate-100 dark:border-slate-700/50 shadow-sm hover:shadow-md hover:border-[#FF6B00]/30 hover:scale-[1.02] transition-all duration-200 text-left active:scale-95"
+                    className="group relative flex items-center gap-4 w-full p-3.5 bg-white dark:bg-slate-800/80 rounded-2xl border border-transparent shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-200 text-left active:scale-95"
                   >
-                    <div className="flex-shrink-0 w-12 h-12 rounded-[14px] bg-slate-50 dark:bg-slate-900 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-[#FF6B00] group-hover:bg-orange-50 dark:group-hover:bg-orange-900/20 transition-colors">
+                    {/* Border Draw SVG Effect */}
+                    <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+                      <rect 
+                        x="1" y="1" 
+                        width="calc(100% - 2px)" height="calc(100% - 2px)" 
+                        rx="15" ry="15" 
+                        fill="none" 
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        className="transition-all duration-700 ease-out [stroke-dasharray:1500] [stroke-dashoffset:1500] group-hover:[stroke-dashoffset:0] group-active:[stroke-dashoffset:0] opacity-0 group-hover:opacity-100 group-active:opacity-100 stroke-[var(--accent-vibrant)]"
+                      />
+                    </svg>
+
+                    <div className="flex-shrink-0 w-12 h-12 rounded-[14px] bg-slate-50 dark:bg-slate-900 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-[var(--accent-vibrant)] group-hover:bg-orange-50 dark:group-hover:bg-orange-900/20 transition-colors relative z-10">
                       {React.cloneElement(tool.icon as React.ReactElement, { className: "w-6 h-6" })}
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-base text-slate-800 dark:text-slate-200 truncate group-hover:text-[#FF6B00] transition-colors">{tool.title}</h4>
+                    <div className="flex-1 min-w-0 relative z-10">
+                      <h4 className="font-semibold text-base text-[var(--primary-dark)] dark:text-slate-200 truncate group-hover:text-[var(--accent-vibrant)] transition-colors">{tool.title}</h4>
                     </div>
                   </button>
                 ))}
