@@ -37,16 +37,20 @@
   }
 
   body {
-    background-color: #f8fafc; /* light slate gray */
+    background: linear-gradient(135deg, #e0f2f1 0%, #f1f5f9 50%, #e2e8f0 100%);
+    background-color: #f8fafc; /* fallback */
     color: #0f172a;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
   }
 
   .dark body {
+    background: linear-gradient(135deg, #022c22 0%, #0f172a 50%, #020617 100%);
     background-color: #0f172a;
     color: #f8fafc;
+    min-height: 100vh;
   }
 
   h1, h2, h3, h4, h5, h6 {

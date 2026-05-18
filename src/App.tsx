@@ -54,7 +54,7 @@ import Careers from "./components/pages/Careers";
 import Contact from "./components/pages/Contact";
 import Blog from "./components/pages/Blog";
 import LegalPages from "./components/pages/LegalPages";
-import { Menu, Settings as SettingsIcon } from "lucide-react";
+import { Menu, Settings as SettingsIcon, Home, FileText, User as UserIcon, Plus, Search } from "lucide-react";
 import { GlobalSettingsToggle } from "./components/ui/GlobalSettingsToggle";
 import { OnboardingModal } from "./components/ui/OnboardingModal";
 
@@ -97,8 +97,54 @@ export default function App() {
     <HouseSpecsProvider>
     <MarketRatesProvider>
       <TakeoffProvider>
-      <div className="flex flex-col md:flex-row h-[100dvh] w-full bg-transparent overflow-hidden font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
+      <div className="flex flex-col h-[100dvh] w-full bg-transparent overflow-hidden font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
         <Toaster position="bottom-right" />
+        
+        {/* Floating Desktop Sidebar */}
+        <div className="hidden md:flex flex-col gap-4 fixed left-6 top-1/2 -translate-y-1/2 z-50">
+             <div className="flex flex-col items-center gap-6 py-6 px-3 bg-white/70 dark:bg-slate-900/70 backdrop-blur-[10px] rounded-3xl border border-white/50 dark:border-slate-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.04)]">
+               <button onClick={() => handleSelectModule("home")} className={`p-3 rounded-full transition-colors ${activeModule === "home" ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30" : "text-slate-500 hover:bg-white/80 dark:hover:bg-slate-800"}`} title="Home">
+                 <Home className="w-5 h-5" />
+               </button>
+               <button onClick={() => handleSelectModule("my-estimates")} className={`p-3 rounded-full transition-colors ${activeModule === "my-estimates" ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30" : "text-slate-500 hover:bg-white/80 dark:hover:bg-slate-800"}`} title="Estimates">
+                 <FileText className="w-5 h-5" />
+               </button>
+               <button onClick={() => setIsProfileOpen(true)} className="p-3 rounded-full text-slate-500 hover:bg-white/80 dark:hover:bg-slate-800 transition-colors" title="Profile">
+                 <UserIcon className="w-5 h-5" />
+               </button>
+               <button onClick={() => setIsSettingsOpen(true)} className="p-3 rounded-full text-slate-500 hover:bg-white/80 dark:hover:bg-slate-800 transition-colors" title="Settings">
+                 <SettingsIcon className="w-5 h-5" />
+               </button>
+             </div>
+        </div>
+
+        {/* Global Header */}
+        <header className="hidden md:flex items-center justify-between pointer-events-none px-6 py-5 absolute top-0 left-0 right-0 z-40 md:pl-[120px]">
+           {/* Logo Pill */}
+           <div className="pointer-events-auto flex items-center justify-center gap-2.5 px-5 py-2.5 bg-white/70 dark:bg-slate-900/70 backdrop-blur-[10px] rounded-full border border-white/50 dark:border-slate-700/50 shadow-sm cursor-pointer hover:shadow-md transition-shadow" onClick={() => handleSelectModule("home")}>
+              <Logo className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+              <span className="font-extrabold text-[15px] tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300">EstiPro</span>
+           </div>
+
+           {/* Central / Right Control Bar */}
+           <div className="pointer-events-auto flex items-center gap-3 px-3 py-2 bg-white/70 dark:bg-slate-900/70 backdrop-blur-[10px] rounded-full border border-white/50 dark:border-slate-700/50 shadow-sm">
+               <button className="flex items-center gap-2 text-[14px] font-semibold text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 px-3 py-1.5 transition-colors">
+                  <Search className="w-4 h-4"/>
+                  <span>Search</span>
+               </button>
+               <div className="w-px h-5 bg-slate-200 dark:bg-slate-700" />
+               <div className="px-2">
+                 <GlobalSettingsToggle />
+               </div>
+               <div className="w-px h-5 bg-slate-200 dark:bg-slate-700" />
+               <button onClick={() => handleSelectModule("house")} className="flex items-center gap-2 text-[14px] font-semibold text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full shadow-md shadow-indigo-600/30 transition-all active:scale-95">
+                  <Plus className="w-4 h-4"/>
+                  <span>New Estimate</span>
+               </button>
+           </div>
+        </header>
+
+        {/* Existing Mobile Sidebar Menu overlay */}
         <Sidebar 
           activeModule={activeModule} 
           onSelectModule={handleSelectModule} 
@@ -108,16 +154,20 @@ export default function App() {
           onOpenProfile={() => { setIsSidebarOpen(false); setIsProfileOpen(true); }}
         />
 
-        <main id="main-content" className="flex-1 flex flex-col bg-transparent overflow-hidden relative w-full h-full transition-colors duration-300">
+        <main id="main-content" className="flex-1 flex flex-col bg-transparent overflow-hidden relative w-full h-full md:pl-[110px] md:pt-24 transition-all duration-300">
+          <div className="md:border md:border-white/40 dark:md:border-slate-700/40 md:shadow-[0_8px_32px_rgba(0,0,0,0.04)] md:bg-white/50 dark:md:bg-slate-900/50 md:backdrop-blur-sm md:rounded-[32px] md:mr-6 md:mb-6 flex-1 flex flex-col min-h-0 overflow-hidden relative w-full transition-colors duration-300">
+          
           {["home", "my-estimates", "about", "careers", "contact", "blog", "privacy", "terms", "cookies"].includes(activeModule) ? (
             <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-y-auto">
               <div className="flex flex-col min-h-full relative w-full pb-[130px] md:pb-6">
-                <TopNavbar 
-                  onOpenSidebar={() => setIsSidebarOpen(true)} 
-                  onOpenAuth={() => setIsAuthOpen(true)}
-                  onOpenProfile={() => setIsProfileOpen(true)}
-                  onNavigate={handleSelectModule} 
-                />
+                <div className="md:hidden">
+                  <TopNavbar 
+                    onOpenSidebar={() => setIsSidebarOpen(true)} 
+                    onOpenAuth={() => setIsAuthOpen(true)}
+                    onOpenProfile={() => setIsProfileOpen(true)}
+                    onNavigate={handleSelectModule} 
+                  />
+                </div>
                 {activeModule === "home" && <Dashboard previousModule={previousModule} onSelectModule={handleSelectModule} onOpenSidebar={() => setIsSidebarOpen(true)} onOpenSettings={() => setIsSettingsOpen(true)} onOpenAuth={() => setIsAuthOpen(true)} />}
                 {activeModule === "my-estimates" && <RecentEstimates onSelectModule={handleSelectModule} />}
                 {activeModule === "pricing" && <div className="p-8 pt-12 text-center text-slate-500">Pricing options coming soon.</div>}
@@ -132,7 +182,8 @@ export default function App() {
               </div>
             </div>
           ) : (
-            <div className="flex-1 flex flex-col min-h-0 relative w-full">
+            <div className="flex-1 flex flex-col min-h-0 relative w-full bg-white dark:bg-[#0e0d07] md:bg-transparent dark:md:bg-transparent">
+               {/* We remove AppHeader for Desktop, handle differently inside module wrappers if needed, but for now we keep ModuleWrapper and conditionally hide AppHeader inside it on desktop */}
               {activeModule === "takeoff" && <ModuleWrapper title="2D Takeoff" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><Takeoff /></ModuleWrapper>}
               {activeModule === "area-calculator" && <ModuleWrapper title="Area Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AreaCalculator /></ModuleWrapper>}
               {activeModule === "volume-estimator" && <ModuleWrapper title="Volume Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSettingsOpen} setIsSettingsOpen={setIsSettingsOpen}><VolumeEstimator /></ModuleWrapper>}
@@ -154,6 +205,8 @@ export default function App() {
               {activeModule === "rates" && <ModuleWrapper title="Market Rates" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RateAnalysis /></ModuleWrapper>}
             </div>
           )}
+          
+          </div>
           <BottomNavBar 
             activeModule={activeModule} 
             onSelectModule={handleSelectModule} 
@@ -184,12 +237,12 @@ function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: 
   ];
 
   return (
-    <header className="flex items-center px-4 md:px-6 py-2.5 mx-2 md:mx-4 mt-3 md:mt-6 mb-3 md:mb-4 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/50 dark:border-slate-700/50 rounded-2xl shadow-sm sticky top-3 md:top-6 z-30 shrink-0 min-h-[50px] md:min-h-[56px] transition-all duration-300">
-      <button onClick={onOpenSidebar} className="p-2 mr-3 -ml-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hidden md:block transition-all">
+    <header className="md:hidden flex items-center px-4 py-2.5 mx-2 mt-3 mb-3 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-white/50 dark:border-slate-700/50 rounded-2xl shadow-sm sticky top-3 z-30 shrink-0 min-h-[50px] transition-all duration-300">
+      <button onClick={onOpenSidebar} className="p-2 mr-3 -ml-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-all">
         <Menu className="w-5 h-5" />
       </button>
 
-      <div className="flex items-center gap-2 mr-5 shrink-0 hidden md:flex cursor-pointer transition-transform hover:scale-105" onClick={onGoHome}>
+      <div className="flex items-center gap-2 mr-5 shrink-0 hidden cursor-pointer transition-transform hover:scale-105" onClick={onGoHome}>
          <Logo className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
       </div>
       
@@ -200,10 +253,6 @@ function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: 
       ) : (
         <h1 className="text-base font-bold text-slate-800 dark:text-white flex-1 min-w-0 truncate pr-2">{title}</h1>
       )}
-
-      <div className="hidden sm:flex mx-3">
-        <GlobalSettingsToggle />
-      </div>
 
       <button onClick={onOpenSettings} className="p-2 -mr-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-all">
         <SettingsIcon className="w-5 h-5" />
@@ -228,7 +277,7 @@ function ModuleWrapper({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-full flex flex-col min-h-0">
+    <div className="h-full flex flex-col min-h-0 bg-transparent">
       <AppHeader 
         title={title} 
         onOpenSidebar={() => setIsSidebarOpen(true)} 
@@ -236,10 +285,20 @@ function ModuleWrapper({
         onGoHome={() => setActiveModule("home")}
       />
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto w-full max-w-full">
         <div className="min-h-full flex flex-col items-center pb-[130px] md:pb-6">
-          <div className="flex-1 shrink-0 p-4 md:p-6 pb-6 w-full max-w-7xl">
-            {children}
+          <div className="w-full max-w-full">
+            {/* Added breadcrumb for desktop */}
+            <div className="hidden md:flex ml-8 mt-6 mb-2">
+              <Breadcrumb items={[
+                { label: "Home", isHome: true, onClick: () => setActiveModule("home") },
+                { label: "Tools", onClick: () => setActiveModule("home") },
+                { label: title }
+              ]} />
+            </div>
+            <div className="flex-1 shrink-0 px-4 md:px-8 pb-6 w-full">
+              {children}
+            </div>
           </div>
         </div>
       </div>

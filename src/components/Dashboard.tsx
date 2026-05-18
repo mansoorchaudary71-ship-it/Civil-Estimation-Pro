@@ -157,58 +157,10 @@ export default function Dashboard({
         }
       `}</style>
 
-      <div className="flex-1 px-4 md:px-8 py-6 w-full max-w-7xl mx-auto flex flex-col relative z-0">
+      <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col relative z-0">
         
-        {/* Removed Mobile Header per top navigation consolidation request */}
-
-        {/* STICKY SEARCH AND CATEGORIES CONTAINER - MOVED TO TOP */}
-        <div className="sticky top-0 -mx-4 px-4 md:-mx-8 md:px-8 -mt-6 pt-6 pb-4 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 mb-8 z-50 shadow-md">
-          
-          {/* Search Bar */}
-          <div className="w-full max-w-2xl mx-auto px-4 mb-4">
-            <div className="relative flex items-center w-full h-[52px] rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 transition-all duration-200">
-              <Search className="w-5 h-5 ml-4 shrink-0 text-slate-400" />
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full h-full border-0 focus:ring-0 focus:outline-none p-0 text-[15px] font-medium outline-none bg-transparent mx-3 text-slate-900 dark:text-white"
-                placeholder="Search estimators, materials, tests..."
-              />
-              {searchTerm && (
-                <button onClick={() => setSearchTerm("")} className="mr-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
-                  Cancel
-                </button>
-              )}
-            </div>
-          </div>
-          
-          {/* CATEGORY TABS */}
-          <div className="w-full px-4 overflow-x-auto scrollbar-hide py-2">
-            <div className="flex flex-row items-center gap-2 w-full max-w-6xl mx-auto md:justify-center">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={`flex-shrink-0 px-5 py-2 rounded-full whitespace-nowrap text-sm font-bold transition-all duration-200 ${
-                    activeCategory === category
-                      ? "bg-indigo-600 text-white shadow-md border border-indigo-600"
-                      : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700"
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {user ? (
-          <PostLoginDashboard onSelectModule={onSelectModule} />
-        ) : (
-          <>
-            {/* FULL-WIDTH HERO SECTION */}
-            <div className="relative w-full max-w-[1400px] mx-auto mt-8 md:mt-16 mb-20 px-4 lg:px-8 flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-bottom-8 duration-700 z-10">
+        {/* MASSIVE HERO SECTION */}
+        <div className="relative w-full max-w-[1400px] mx-auto mt-8 md:mt-16 mb-16 px-4 lg:px-8 flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-bottom-8 duration-700 z-10">
           
           {/* Subtle Isometric Grid Background */}
           <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 -z-10 h-[200%] pointer-events-none overflow-hidden opacity-[0.05] dark:opacity-[0.08]" style={{ maskImage: "radial-gradient(ellipse at center, white, transparent 70%)", WebkitMaskImage: "radial-gradient(ellipse at center, white, transparent 70%)" }}>
@@ -222,119 +174,203 @@ export default function Dashboard({
                 <rect width="100%" height="100%" fill="url(#isometric-grid)" className="text-slate-900 dark:text-white" />
              </svg>
           </div>
-
-          {/* Tag */}
-          <div className="inline-flex items-center rounded-full bg-indigo-50 dark:bg-indigo-900/30 pl-2 pr-5 py-1.5 mb-6 shadow-sm border border-indigo-100 dark:border-indigo-800">
-            <div className="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-800 mr-2.5">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-300" strokeWidth={2.5} />
-            </div>
-            <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 tracking-wide uppercase">
-              For Quantity Surveyors & Engineers
-            </span>
-          </div>
           
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white mb-6 max-w-4xl mx-auto">
-            Accurate Estimates in Seconds
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-sans font-black tracking-tight text-slate-900 dark:text-white mb-6 max-w-4xl mx-auto drop-shadow-sm">
+            Civil Estimation Pro
           </h1>
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed font-medium">
-             The complete toolkit for civil engineers and quantity surveyors to calculate precise quantities, analyze rates, and generate professional reports.
+          <p className="text-lg md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-12 leading-relaxed font-medium">
+             Generate highly accurate engineering estimates in seconds. The complete toolkit for civil engineers and quantity surveyors.
           </p>
 
-          {/* Social Proof Strip - Centered */}
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-16 px-4">
-            {/* Trust Signal 1 */}
-            <div className="flex items-center gap-2">
-              <span className="text-[14px] font-bold text-[#B89B5E] dark:text-[#CBB576]">12,400+</span>
-              <span className="text-[13px] font-medium text-[#111111]/60 dark:text-white/60">estimates created</span>
-            </div>
-            
-            <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-[#111111]/10 dark:bg-white/10"></div>
-            
-            {/* Trust Signal 2 */}
-            <div className="flex items-center gap-2">
-              <div className="flex items-center text-[#B89B5E] dark:text-[#CBB576]">
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-              </div>
-              <span className="text-[14px] font-bold text-[#B89B5E] dark:text-[#CBB576]">4.8</span>
-              <span className="text-[13px] font-medium text-[#111111]/60 dark:text-white/60">from engineers</span>
-            </div>
-
-            <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-[#111111]/10 dark:bg-white/10"></div>
-            
-            {/* Trust Signal 3 */}
-            <div className="flex items-center gap-2">
-              <Map className="w-4 h-4 text-[#B89B5E] dark:text-[#CBB576]" strokeWidth={2.5} />
-              <span className="text-[13px] font-medium text-[#111111]/60 dark:text-white/60">Used across PK & Middle East</span>
+          {/* CATEGORY TABS (Glassy Pills) */}
+          <div className="w-full flex justify-start sm:justify-center overflow-x-auto scrollbar-hide pb-2 px-2">
+            <div className="flex flex-row items-center gap-3 md:gap-4 shrink-0">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setActiveCategory(category)}
+                  className={`flex-shrink-0 px-6 py-3 rounded-full text-sm md:text-base font-semibold transition-all duration-300 backdrop-blur-md ${
+                    activeCategory === category
+                      ? "bg-slate-800 dark:bg-slate-100 text-white dark:text-slate-900 shadow-md transform scale-105"
+                      : "bg-white/40 dark:bg-slate-800/40 text-slate-700 dark:text-slate-300 border border-white/60 dark:border-slate-700/60 hover:bg-white/60 dark:hover:bg-slate-800/60"
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
             </div>
           </div>
-
-
         </div>
-      </>
-    )}
 
-    {/* SEARCH AND TOOLS - ALWAYS VISIBLE */}
-    <div className="relative w-full max-w-[1400px] mx-auto z-20 flex flex-col items-center">
+        {user && (
+          <div className="w-full mb-12">
+            <PostLoginDashboard onSelectModule={onSelectModule} />
+          </div>
+        )}
+
+    {/* BENTO BOX GRID LAYOUT */}
+    <div className="w-full max-w-[1400px] mx-auto px-4 lg:px-8 mt-6 md:mt-10 grid grid-cols-1 lg:grid-cols-12 gap-6 z-20 relative">
       
-      {/* MODULAR CARDS GRID */}
-      <div className="flex flex-col w-full px-4 lg:px-8 mt-10">
-            {groupsToDisplay.map((groupName) => (
-              <div key={groupName} className="flex flex-col gap-6">
-                <h2 className="text-lg md:text-xl font-bold text-slate-800 dark:text-slate-200 pl-2 tracking-widest uppercase flex items-center gap-3">
-                  <span className="w-8 h-[2px] bg-slate-900 dark:bg-slate-300 block"></span>
-                  {groupName}
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6 w-full">
-                  {groupedModules[groupName].map((mod, idx) => {
-                    const theme = getCategoryTheme(mod.category, mod.id);
-                    
-                    return (
-                      <button
-                        key={mod.id}
-                        id={`module-card-${mod.id}`}
-                        onClick={() => onSelectModule(mod.id as ModuleId)}
-                        className="stagger-in col-span-1 border border-slate-200/80 dark:border-white/10 hover:border-transparent p-5 rounded-2xl bg-white dark:bg-[#1A1A1A] transition-all duration-300 ease-out flex flex-col relative text-left group min-h-[220px] overflow-hidden shadow-sm hover:shadow-[0_20px_40px_-16px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_20px_40px_-16px_rgba(255,255,255,0.05)] hover:-translate-y-1.5"
-                        style={{ animationDelay: `${idx * 50}ms` }}
-                      >
-                        {/* Colored Accent Top Bar */}
-                        <div className={`absolute top-0 left-0 w-full h-1.5 ${theme.bg} transition-transform origin-left group-hover:scale-x-105`}></div>
-                        
-                        {/* Card Content */}
-                        <div className="relative z-10 w-full flex-1 flex flex-col pt-1">
-                          <div className="flex justify-between items-start mb-5">
-                            <div className={`w-12 h-12 rounded-xl ${theme.bg} ${theme.text} flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-300 ease-out shadow-sm`}>
-                              <mod.icon className="w-6 h-6" strokeWidth={2} />
-                            </div>
-                            
-                            <div className="inline-flex items-center px-2.5 py-1 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 text-[10px] font-bold tracking-widest uppercase text-slate-400 dark:text-white/40">
-                              {mod.category}
-                            </div>
-                          </div>
-
-                          <h3 className="text-[17px] font-bold text-[#111111] dark:text-white mb-1.5 leading-tight tracking-tight font-sans group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                            {mod.title}
-                          </h3>
-                          <p className="text-[13px] text-[#111111]/50 dark:text-white/50 font-medium leading-relaxed mb-5 line-clamp-2">
-                            {mod.desc}
-                          </p>
-
-                          <div className="mt-auto w-full flex flex-row items-center justify-between pt-4 border-t border-slate-100 dark:border-white/5">
-                            <span className="text-[12px] font-bold uppercase tracking-widest text-[#111111]/30 dark:text-white/30 group-hover:text-[#111111] dark:group-hover:text-white transition-colors">
-                              Calculate now
-                            </span>
-                            <div className="w-8 h-8 rounded-full flex items-center justify-center bg-slate-50 dark:bg-white/5 group-hover:bg-[#111111] dark:group-hover:bg-white transition-colors duration-300">
-                              <ArrowRight className="w-4 h-4 text-slate-400 dark:text-white/40 group-hover:text-white dark:group-hover:text-[#111111] group-hover:translate-x-0.5 transition-all duration-300" strokeWidth={2.5} />
-                            </div>
-                          </div>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
+      {/* LEFT COLUMN: Widgets & AI Assistant */}
+      <div className="lg:col-span-4 xl:col-span-3 flex flex-col gap-6">
+        
+        {/* Quick Info Widget 1: Stats */}
+        <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl border border-white/60 dark:border-slate-700/60 rounded-[28px] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:bg-white/80 dark:hover:bg-slate-800/80 transition-colors">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-slate-500 dark:text-slate-400 font-semibold text-sm">Community Pulse</span>
+            <TrendingUp className="w-5 h-5 text-indigo-500" />
+          </div>
+          <div>
+            <div className="text-3xl font-black tracking-tight text-slate-800 dark:text-white mb-1">12,400+</div>
+            <p className="text-slate-500 dark:text-slate-400 text-sm font-medium leading-snug">Detailed estimates generated this month.</p>
           </div>
         </div>
+
+        {/* Quick Info Widget 2: Unit Converter */}
+        <div 
+          className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl border border-white/60 dark:border-slate-700/60 rounded-[28px] p-6 shadow-[0_8px_32px_rgba(0,0,0,0.03)] flex items-center justify-between cursor-pointer hover:bg-white/80 dark:hover:bg-slate-800/80 transition-colors group"
+          onClick={() => onSelectModule('unit-converter')}
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:-rotate-3 transition-transform">
+               <Repeat className="w-6 h-6" />
+            </div>
+            <div>
+              <h4 className="font-bold text-slate-800 dark:text-white">Unit Converter</h4>
+              <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">15 engineering metrics</span>
+            </div>
+          </div>
+          <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-indigo-600 transition-colors group-hover:translate-x-1" />
+        </div>
+
+        {/* AI Assistant Card (Accent Card) */}
+        <div 
+          className="mt-auto bg-gradient-to-br from-[#e1f579] to-[#c5e14d] rounded-[32px] p-8 shadow-sm relative overflow-hidden flex flex-col group cursor-pointer hover:shadow-md hover:-translate-y-1 transition-all duration-300 min-h-[340px]"
+          onClick={() => onSelectModule('ai')}
+        >
+          <div className="absolute top-0 right-0 -mr-8 -mt-8 w-40 h-40 bg-white/40 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 -ml-12 -mb-12 w-48 h-48 bg-lime-300/40 rounded-full blur-3xl"></div>
+          
+          <div className="w-14 h-14 bg-white/50 rounded-2xl flex items-center justify-center mb-6 shadow-sm backdrop-blur-sm group-hover:scale-110 group-hover:rotate-3 transition-transform">
+             <Sparkles className="w-7 h-7 text-lime-900" />
+          </div>
+          
+          <h3 className="text-2xl font-black text-lime-950 mb-3 leading-tight tracking-tight drop-shadow-sm">
+            Ready to start a new takeoff or need AI assistance?
+          </h3>
+          <p className="text-lime-900/80 mb-8 font-semibold text-sm leading-relaxed">
+            Use AI to instantly extract quantities from plans or ask complex engineering queries.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row xl:flex-col gap-2.5 mt-auto relative z-10 w-full">
+            <button 
+              onClick={(e) => { e.stopPropagation(); onSelectModule('takeoff'); }} 
+              className="w-full px-5 py-3 bg-white/60 hover:bg-white/80 backdrop-blur-sm text-lime-950 text-sm font-extrabold rounded-full transition-colors flex items-center justify-center gap-2 shadow-sm"
+            >
+              <Ruler className="w-4 h-4" /> 2D Takeoff
+            </button>
+            <button 
+              onClick={(e) => { e.stopPropagation(); onSelectModule('ai'); }} 
+              className="w-full px-5 py-3 bg-lime-900 hover:bg-lime-950 text-lime-50 text-sm font-extrabold rounded-full transition-colors flex items-center justify-center gap-2 shadow-sm"
+            >
+               Ask AI <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      {/* RIGHT COLUMN: Main Tool Container */}
+      <div className="lg:col-span-8 xl:col-span-9 bg-white/50 dark:bg-slate-800/40 backdrop-blur-2xl border border-white/60 dark:border-slate-700/60 rounded-[40px] p-6 lg:p-10 shadow-[0_8px_32px_rgba(0,0,0,0.04)] flex flex-col min-h-[700px]">
+        
+        {/* Header and Search */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-black text-slate-800 dark:text-white tracking-tight flex items-center gap-3">
+              {activeCategory}
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400 font-medium mt-1">Select a calculator to initiate a new estimate.</p>
+          </div>
+          
+          <div className="w-full md:max-w-xs shrink-0">
+            <div className="relative flex items-center w-full h-[48px] rounded-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 transition-all duration-200">
+              <Search className="w-5 h-5 ml-4 shrink-0 text-slate-400" />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full h-full border-0 focus:ring-0 focus:outline-none p-0 text-sm font-medium outline-none bg-transparent mx-3 text-slate-900 dark:text-white placeholder:text-slate-400"
+                placeholder="Search tools..."
+              />
+              {searchTerm && (
+                <button onClick={() => setSearchTerm("")} className="mr-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs font-bold">
+                  Clear
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Tools Grid */}
+        <div className="flex flex-col w-full">
+            {groupsToDisplay.length === 0 ? (
+              <div className="py-20 text-center flex flex-col items-center">
+                <Search className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
+                <h3 className="text-xl font-bold text-slate-600 dark:text-slate-400">No calculators found</h3>
+                <p className="text-slate-500 dark:text-slate-500">Try adjusting your search term or category.</p>
+              </div>
+            ) : (
+              groupsToDisplay.map((groupName) => (
+                <div key={groupName} className="flex flex-col gap-6 mb-10 last:mb-0">
+                   {activeCategory === "All Tools" && (
+                     <h3 className="text-base font-bold text-slate-800 dark:text-slate-200 tracking-widest uppercase flex items-center gap-3">
+                       <span className="w-4 h-4 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center">
+                         <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400"></span>
+                       </span>
+                       {groupName}
+                     </h3>
+                   )}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
+                    {groupedModules[groupName].map((mod, idx) => {
+                      const theme = getCategoryTheme(mod.category, mod.id);
+                      
+                      return (
+                        <button
+                          key={mod.id}
+                          id={`module-card-${mod.id}`}
+                          onClick={() => onSelectModule(mod.id as ModuleId)}
+                          className="stagger-in p-5 rounded-[28px] bg-white dark:bg-slate-800/80 transition-all duration-300 ease-out flex flex-col relative text-left group min-h-[160px] overflow-hidden shadow-[0_2px_10px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.03)] hover:-translate-y-1 block w-full"
+                          style={{ animationDelay: `${idx * 50}ms` }}
+                        >
+                          <div className="relative z-10 w-full flex-1 flex flex-col">
+                            <div className="flex items-start gap-4 mb-3">
+                              <div className={`w-12 h-12 rounded-[20px] ${theme.bg} ${theme.text} flex items-center justify-center shrink-0 group-hover:scale-105 transition-all duration-300 ease-out shadow-sm`}>
+                                <mod.icon className="w-6 h-6" strokeWidth={2} />
+                              </div>
+                              <div className="flex flex-col pt-1">
+                                <h4 className="text-base font-bold text-slate-800 dark:text-white leading-tight tracking-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mb-1">
+                                  {mod.title}
+                                </h4>
+                                <div className="inline-flex items-center px-2 py-0.5 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 text-[9px] font-bold tracking-widest uppercase text-slate-500 dark:text-white/40 w-fit">
+                                  {mod.category}
+                                </div>
+                              </div>
+                            </div>
+
+                            <p className="text-[13px] text-slate-500 dark:text-slate-400 font-medium leading-relaxed line-clamp-2 mt-auto">
+                              {mod.desc}
+                            </p>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))
+            )}
+        </div>
+      </div>
+    </div>
       </div>
     </div>
   );
