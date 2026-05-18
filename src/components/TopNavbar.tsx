@@ -62,31 +62,31 @@ export default function TopNavbar({
 
   return (
     <>
-      <nav className="w-full relative shrink-0 z-40 bg-slate-900 border-b border-slate-800 px-5 py-4 md:px-8 md:py-4 shadow-sm">
+      <nav className="w-full relative shrink-0 z-40 bg-transparent px-5 py-4 md:px-8 shadow-sm">
         <div className="w-full flex items-center justify-between mx-auto max-w-[1400px]">
           
           {/* Left: Logo */}
           <div className="flex items-center gap-3 justify-start cursor-pointer group shrink-0" onClick={() => onNavigate?.('home' as ModuleId)}>
-            <div className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center transition-all duration-300 text-indigo-400 group-hover:scale-105">
+            <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center transition-all duration-300 text-[var(--accent-vibrant)] group-hover:scale-105 group-hover:rotate-3 shadow-glass bg-white dark:bg-slate-800 rounded-xl p-1.5">
               <Logo className="w-full h-full" />
             </div>
-            <span className="font-sans font-bold text-xl md:text-xl text-white tracking-tight">
+            <span className="font-sans font-extrabold text-[22px] text-[var(--primary-dark)] dark:text-white tracking-tight">
               Civil Estimation Pro
             </span>
           </div>
 
           {/* Center: Slash navigation links (Desktop/Tablet >= 768px) */}
-          <div className="hidden md:flex items-center justify-start ml-12">
+          <div className="hidden md:flex items-center justify-start ml-12 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md px-6 py-2.5 rounded-full shadow-sm border border-white/80 dark:border-slate-700/50">
             {navItems.map((link, index) => (
               <React.Fragment key={link.name}>
                 <button 
                   onClick={() => onNavigate?.(link.id)}
-                  className="text-[14px] font-medium text-slate-300 hover:text-white transition-colors tracking-tight"
+                  className="text-[14px] font-semibold text-slate-500 hover:text-[var(--primary-dark)] dark:text-slate-400 dark:hover:text-white transition-colors tracking-tight"
                 >
                   {link.name}
                 </button>
                 {index < navItems.length - 1 && (
-                  <span className="mx-4 text-slate-600 font-light select-none">/</span>
+                  <span className="mx-4 text-slate-300 dark:text-slate-600 font-light select-none">/</span>
                 )}
               </React.Fragment>
             ))}
@@ -96,39 +96,43 @@ export default function TopNavbar({
           <div className="md:hidden flex items-center justify-end">
             <button 
               onClick={() => setIsMobileMenuOpen(true)}
-              className="p-2 -mr-2 rounded-xl text-white hover:bg-slate-800 transition-all duration-300"
+              className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-300"
             >
-              <Menu className="w-6 h-6" strokeWidth={2} />
+              <Menu className="w-5 h-5" strokeWidth={2} />
             </button>
           </div>
 
           {/* Right: Action Buttons (Desktop >= 768px) */}
-          <div className="hidden md:flex items-center justify-end flex-1 gap-6">
+          <div className="hidden md:flex items-center justify-end flex-1 gap-4">
             <GlobalSettingsToggle />
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3">
               <button 
                 onClick={() => onNavigate?.('contact' as ModuleId)}
-                className="text-[14px] font-medium text-slate-300 hover:text-white transition-colors"
+                className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-center text-slate-500 hover:text-[var(--accent-vibrant)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                title="Support"
               >
-                Support
+                <div className="font-bold text-lg">?</div>
               </button>
               
               {!isAuthenticated ? (
                 <button 
                   onClick={onOpenAuth}
-                  className="text-[14px] font-medium text-slate-300 hover:text-white transition-colors"
+                  className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-center text-slate-500 hover:text-[var(--primary-dark)] dark:hover:text-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                  title="Login"
                 >
-                  Login
+                  <User className="w-5 h-5" />
                 </button>
               ) : (
                 <div ref={profileRef} className="relative">
                   <button 
                     onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                    className="flex items-center gap-2 text-[14px] font-medium text-slate-300 hover:text-white transition-colors"
+                    className="h-10 pl-3 pr-2 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center gap-2 text-[14px] font-semibold text-slate-700 dark:text-slate-200 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
                   >
                     <span className="truncate max-w-[100px]">{user?.displayName?.split(' ')[0] || 'Account'}</span>
-                    <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
+                    <div className="w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center">
+                      <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
+                    </div>
                   </button>
 
                   {isProfileMenuOpen && (
@@ -160,7 +164,7 @@ export default function TopNavbar({
             
             <button 
               onClick={() => onNavigate?.('house' as ModuleId)}
-              className="px-5 py-2 rounded-lg text-[14px] font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300 whitespace-nowrap shadow-sm"
+              className="px-6 py-2.5 rounded-full text-[14px] font-bold text-white bg-[var(--accent-vibrant)] hover:bg-[#FF8A1F] transition-all duration-300 whitespace-nowrap shadow-[0_4px_14px_rgba(255,159,67,0.3)] hover:shadow-[0_6px_20px_rgba(255,159,67,0.4)] hover:-translate-y-0.5"
             >
               Start Estimating
             </button>

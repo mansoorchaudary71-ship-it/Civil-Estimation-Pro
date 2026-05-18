@@ -1,0 +1,127 @@
+import React, { useState } from 'react';
+import { Search, X, Hammer, Sparkles, Map as MapIcon, Square, Box, ArrowRightLeft, Weight, Zap, LineChart, Layers, Calculator, Mountain, Route, Droplet, Home } from 'lucide-react';
+import { ModuleId } from './Sidebar';
+import { motion, AnimatePresence } from 'motion/react';
+
+export const ALL_TOOLS = [
+  { id: "ai", title: "AI Assistant", icon: <Sparkles className="w-4 h-4" /> },
+  { id: "takeoff", title: "2D Takeoff", icon: <MapIcon className="w-4 h-4" /> },
+  { id: "area-calculator", title: "Area Calculator", icon: <Square className="w-4 h-4" /> },
+  { id: "volume-estimator", title: "Volume Estimator", icon: <Box className="w-4 h-4" /> },
+  { id: "unit-converter", title: "Universal Unit Converter", icon: <ArrowRightLeft className="w-4 h-4" /> },
+  { id: "metal-weight", title: "Metal Weight Calculator", icon: <Weight className="w-4 h-4" /> },
+  { id: "mep-calculator", title: "Energy & MEP Calculators", icon: <Zap className="w-4 h-4" /> },
+  { id: "gradient-calculator", title: "Gradient & Slope Calculator", icon: <LineChart className="w-4 h-4" /> },
+  { id: "master-rcc", title: "Master RCC Estimator", icon: <Layers className="w-4 h-4" /> },
+  { id: "master-quantity", title: "Master Quantity Estimator", icon: <Calculator className="w-4 h-4" /> },
+  { id: "calculators", title: "Construction Material Estimator", icon: <Hammer className="w-4 h-4" /> },
+  { id: "earthworks", title: "Earthworks", icon: <Mountain className="w-4 h-4" /> },
+  { id: "chainage", title: "Road Earthworks", icon: <Route className="w-4 h-4" /> },
+  { id: "geotechnical", title: "Geotechnical & Soil Tests", icon: <Droplet className="w-4 h-4" /> },
+  { id: "road-pavement", title: "Road & Pavement Estimator", icon: <Route className="w-4 h-4" /> },
+  { id: "interiors-finishes", title: "Interiors & Finishes", icon: <Box className="w-4 h-4" /> },
+  { id: "house", title: "House Estimator", icon: <Home className="w-4 h-4" /> },
+  { id: "formwork", title: "Formwork & Scaffold", icon: <Layers className="w-4 h-4" /> },
+  { id: "rates", title: "Market Rates", icon: <LineChart className="w-4 h-4" /> },
+];
+
+interface MobileToolsSheetProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSelectModule: (id: ModuleId) => void;
+}
+
+export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: MobileToolsSheetProps) {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredTools = ALL_TOOLS.filter(tool => 
+    tool.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[60] md:hidden"
+            onClick={onClose}
+          />
+          
+          <motion.div 
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            drag="y"
+            dragConstraints={{ top: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(e, { offset, velocity }) => {
+              if (offset.y > 100 || velocity.y > 500) {
+                onClose();
+              }
+            }}
+            className="fixed bottom-0 left-0 right-0 z-[70] md:hidden flex flex-col bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border-t border-slate-200 dark:border-slate-700/50 shadow-[0_-8px_30px_rgba(0,0,0,0.12)] rounded-t-[32px] will-change-transform"
+            style={{ maxHeight: '85vh' }}
+          >
+            <div className="flex justify-center pt-3 pb-2 w-full touch-none cursor-grab active:cursor-grabbing">
+              <div className="w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full" />
+            </div>
+
+            <div className="px-6 pb-2 pt-1 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Tools Directory</h2>
+              <button 
+                className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-slate-800 transition-colors"
+                onClick={onClose}
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="px-6 pb-4 pt-2">
+              <div className="relative flex items-center w-full h-[52px] bg-white dark:bg-slate-800/80 rounded-[50px] shadow-[0_4px_20px_rgba(0,0,0,0.04)] overflow-hidden transition-all focus-within:ring-2 focus-within:ring-[#FF9F43]/40 focus-within:shadow-[0_4px_20px_rgba(255,159,67,0.15)] group">
+                <Search className="w-5 h-5 ml-5 mr-3 text-slate-400 group-focus-within:text-[#FF9F43] shrink-0 transition-colors" />
+                <input 
+                  type="text" 
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Search tools & calculations..." 
+                  className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[15px] font-medium text-[var(--primary-dark)] dark:text-white placeholder:text-slate-400"
+                />
+              </div>
+            </div>
+
+            <div className="flex-1 overflow-y-auto px-6 pb-8 pt-2 max-h-[60vh]">
+              <div className="flex flex-col gap-2">
+                {filteredTools.map(tool => (
+                  <button
+                    key={tool.id}
+                    onClick={() => {
+                      onSelectModule(tool.id as ModuleId);
+                      onClose();
+                    }}
+                    className="group flex items-center gap-4 w-full p-3.5 bg-white dark:bg-slate-800/80 rounded-2xl border border-slate-100 dark:border-slate-700/50 shadow-sm hover:shadow-md hover:border-[#FF6B00]/30 hover:scale-[1.02] transition-all duration-200 text-left active:scale-95"
+                  >
+                    <div className="flex-shrink-0 w-12 h-12 rounded-[14px] bg-slate-50 dark:bg-slate-900 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-[#FF6B00] group-hover:bg-orange-50 dark:group-hover:bg-orange-900/20 transition-colors">
+                      {React.cloneElement(tool.icon as React.ReactElement, { className: "w-6 h-6" })}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-base text-slate-800 dark:text-slate-200 truncate group-hover:text-[#FF6B00] transition-colors">{tool.title}</h4>
+                    </div>
+                  </button>
+                ))}
+                {filteredTools.length === 0 && (
+                  <div className="text-center py-8 text-slate-500 font-medium">
+                    No tools found matching "{searchTerm}"
+                  </div>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
