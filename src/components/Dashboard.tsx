@@ -157,12 +157,12 @@ export default function Dashboard({
         }
       `}</style>
 
-      <div className="flex-1 px-4 md:px-8 py-6 pb-32 md:pb-32 w-full max-w-7xl mx-auto flex flex-col relative z-0">
+      <div className="flex-1 px-4 md:px-8 py-6 w-full max-w-7xl mx-auto flex flex-col relative z-0">
         
         {/* Removed Mobile Header per top navigation consolidation request */}
 
         {/* STICKY SEARCH AND CATEGORIES CONTAINER - MOVED TO TOP */}
-        <div className="sticky top-[70px] md:top-[88px] w-full z-30 pt-4 pb-2 bg-[#f8fafc]/95 dark:bg-[#0f172a]/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 mb-8 rounded-xl shadow-sm">
+        <div className="sticky top-0 -mx-4 px-4 md:-mx-8 md:px-8 -mt-6 pt-6 pb-4 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 mb-8 z-50 shadow-md">
           
           {/* Search Bar */}
           <div className="w-full max-w-2xl mx-auto px-4 mb-4">
@@ -293,7 +293,7 @@ export default function Dashboard({
                         key={mod.id}
                         id={`module-card-${mod.id}`}
                         onClick={() => onSelectModule(mod.id as ModuleId)}
-                        className="stagger-in col-span-1 border border-slate-200/80 dark:border-white/10 hover:border-transparent p-6 rounded-[24px] bg-white dark:bg-[#1A1A1A] transition-all duration-300 ease-out flex flex-col relative text-left group min-h-[220px] overflow-hidden shadow-sm hover:shadow-[0_20px_40px_-16px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_20px_40px_-16px_rgba(255,255,255,0.05)] hover:-translate-y-1.5"
+                        className="stagger-in col-span-1 border border-slate-200/80 dark:border-white/10 hover:border-transparent p-5 rounded-2xl bg-white dark:bg-[#1A1A1A] transition-all duration-300 ease-out flex flex-col relative text-left group min-h-[220px] overflow-hidden shadow-sm hover:shadow-[0_20px_40px_-16px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_20px_40px_-16px_rgba(255,255,255,0.05)] hover:-translate-y-1.5"
                         style={{ animationDelay: `${idx * 50}ms` }}
                       >
                         {/* Colored Accent Top Bar */}
@@ -301,9 +301,9 @@ export default function Dashboard({
                         
                         {/* Card Content */}
                         <div className="relative z-10 w-full flex-1 flex flex-col pt-1">
-                          <div className="flex justify-between items-start mb-6">
-                            <div className={`w-14 h-14 rounded-[18px] ${theme.bg} ${theme.text} flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-300 ease-out shadow-sm`}>
-                              <mod.icon className="w-7 h-7" strokeWidth={2} />
+                          <div className="flex justify-between items-start mb-5">
+                            <div className={`w-12 h-12 rounded-xl ${theme.bg} ${theme.text} flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:-rotate-3 transition-all duration-300 ease-out shadow-sm`}>
+                              <mod.icon className="w-6 h-6" strokeWidth={2} />
                             </div>
                             
                             <div className="inline-flex items-center px-2.5 py-1 rounded-md bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 text-[10px] font-bold tracking-widest uppercase text-slate-400 dark:text-white/40">
@@ -311,14 +311,14 @@ export default function Dashboard({
                             </div>
                           </div>
 
-                          <h3 className="text-[18px] font-bold text-[#111111] dark:text-white mb-1.5 leading-tight tracking-tight font-sans group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                          <h3 className="text-[17px] font-bold text-[#111111] dark:text-white mb-1.5 leading-tight tracking-tight font-sans group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                             {mod.title}
                           </h3>
-                          <p className="text-[13px] text-[#111111]/50 dark:text-white/50 font-medium leading-relaxed mb-6 line-clamp-2">
+                          <p className="text-[13px] text-[#111111]/50 dark:text-white/50 font-medium leading-relaxed mb-5 line-clamp-2">
                             {mod.desc}
                           </p>
 
-                          <div className="mt-auto flex items-center justify-between pt-4 border-t border-slate-100 dark:border-white/5">
+                          <div className="mt-auto w-full flex flex-row items-center justify-between pt-4 border-t border-slate-100 dark:border-white/5">
                             <span className="text-[12px] font-bold uppercase tracking-widest text-[#111111]/30 dark:text-white/30 group-hover:text-[#111111] dark:group-hover:text-white transition-colors">
                               Calculate now
                             </span>

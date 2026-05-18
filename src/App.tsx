@@ -110,24 +110,26 @@ export default function App() {
 
         <main id="main-content" className="flex-1 flex flex-col bg-transparent overflow-hidden relative w-full h-full transition-colors duration-300">
           {["home", "my-estimates", "about", "careers", "contact", "blog", "privacy", "terms", "cookies"].includes(activeModule) ? (
-            <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-y-auto pb-[130px] md:pb-6">
-              <TopNavbar 
-                onOpenSidebar={() => setIsSidebarOpen(true)} 
-                onOpenAuth={() => setIsAuthOpen(true)}
-                onOpenProfile={() => setIsProfileOpen(true)}
-                onNavigate={handleSelectModule} 
-              />
-              {activeModule === "home" && <Dashboard previousModule={previousModule} onSelectModule={handleSelectModule} onOpenSidebar={() => setIsSidebarOpen(true)} onOpenSettings={() => setIsSettingsOpen(true)} onOpenAuth={() => setIsAuthOpen(true)} />}
-              {activeModule === "my-estimates" && <RecentEstimates onSelectModule={handleSelectModule} />}
-              {activeModule === "pricing" && <div className="p-8 pt-12 text-center text-slate-500">Pricing options coming soon.</div>}
-              {activeModule === "about" && <div className="p-8 pt-12"><AboutUs /></div>}
-              {activeModule === "careers" && <div className="p-8 pt-12"><Careers /></div>}
-              {activeModule === "contact" && <div className="p-8 pt-12"><Contact /></div>}
-              {activeModule === "blog" && <div className="p-8 pt-12"><Blog /></div>}
-              {activeModule === "privacy" && <LegalPages page="privacy" onNavigate={handleSelectModule} />}
-              {activeModule === "terms" && <LegalPages page="terms" onNavigate={handleSelectModule} />}
-              {activeModule === "cookies" && <LegalPages page="cookies" onNavigate={handleSelectModule} />}
-              <Footer activeModule={activeModule} onNavigate={handleSelectModule} />
+            <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-y-auto">
+              <div className="flex flex-col min-h-full relative w-full pb-[130px] md:pb-6">
+                <TopNavbar 
+                  onOpenSidebar={() => setIsSidebarOpen(true)} 
+                  onOpenAuth={() => setIsAuthOpen(true)}
+                  onOpenProfile={() => setIsProfileOpen(true)}
+                  onNavigate={handleSelectModule} 
+                />
+                {activeModule === "home" && <Dashboard previousModule={previousModule} onSelectModule={handleSelectModule} onOpenSidebar={() => setIsSidebarOpen(true)} onOpenSettings={() => setIsSettingsOpen(true)} onOpenAuth={() => setIsAuthOpen(true)} />}
+                {activeModule === "my-estimates" && <RecentEstimates onSelectModule={handleSelectModule} />}
+                {activeModule === "pricing" && <div className="p-8 pt-12 text-center text-slate-500">Pricing options coming soon.</div>}
+                {activeModule === "about" && <div className="p-8 pt-12"><AboutUs /></div>}
+                {activeModule === "careers" && <div className="p-8 pt-12"><Careers /></div>}
+                {activeModule === "contact" && <div className="p-8 pt-12"><Contact /></div>}
+                {activeModule === "blog" && <div className="p-8 pt-12"><Blog /></div>}
+                {activeModule === "privacy" && <LegalPages page="privacy" onNavigate={handleSelectModule} />}
+                {activeModule === "terms" && <LegalPages page="terms" onNavigate={handleSelectModule} />}
+                {activeModule === "cookies" && <LegalPages page="cookies" onNavigate={handleSelectModule} />}
+                <Footer activeModule={activeModule} onNavigate={handleSelectModule} />
+              </div>
             </div>
           ) : (
             <div className="flex-1 flex flex-col min-h-0 relative w-full">
@@ -234,8 +236,8 @@ function ModuleWrapper({
         onGoHome={() => setActiveModule("home")}
       />
 
-      <div className="flex-1 overflow-y-auto pb-[130px] md:pb-6">
-        <div className="min-h-full flex flex-col items-center">
+      <div className="flex-1 overflow-y-auto">
+        <div className="min-h-full flex flex-col items-center pb-[130px] md:pb-6">
           <div className="flex-1 shrink-0 p-4 md:p-6 pb-6 w-full max-w-7xl">
             {children}
           </div>
