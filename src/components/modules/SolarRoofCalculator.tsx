@@ -18,6 +18,7 @@ export default function SolarRoofCalculator() {
     paybackPeriod: number;
     areaRequired: number;
     fitsOnRoof: boolean;
+    roi: number;
   } | null>(null);
 
   useEffect(() => {
@@ -61,6 +62,7 @@ export default function SolarRoofCalculator() {
     const annualSavings = annualGenerationKwh * electricityRate;
     const systemCost = recSystemSizeKw * 1000 * costPerWatt;
     const paybackPeriod = annualSavings > 0 ? systemCost / annualSavings : 0;
+    const roi = systemCost > 0 ? ((annualSavings * 25 - systemCost) / systemCost) * 100 : 0;
 
     setResults({
       reqSystemSize: reqSystemSizeKw,
@@ -71,7 +73,8 @@ export default function SolarRoofCalculator() {
       systemCost,
       paybackPeriod,
       areaRequired: areaRequiredSqm,
-      fitsOnRoof
+      fitsOnRoof,
+      roi
     });
   };
 
@@ -237,7 +240,7 @@ export default function SolarRoofCalculator() {
                   <Battery className="w-5 h-5 text-amber-400" /> ROI & Financials
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
                   <div>
                     <p className="text-slate-400 font-medium mb-1">Estimated System Cost</p>
                     <p className="text-4xl font-black">${results.systemCost.toLocaleString(undefined, {maximumFractionDigits: 0})}</p>
@@ -251,6 +254,15 @@ export default function SolarRoofCalculator() {
                       <span className="text-lg font-bold text-amber-400/80">Years</span>
                     </div>
                     <p className="text-xs text-slate-500 mt-2">Time to recover the initial investment</p>
+                  </div>
+
+                  <div>
+                    <p className="text-slate-400 font-medium mb-1">Lifetime ROI (25 yrs)</p>
+                    <div className="flex items-baseline gap-2">
+                      <p className="text-4xl font-black text-emerald-400">{results.roi.toFixed(0)}</p>
+                      <span className="text-lg font-bold text-emerald-400/80">%</span>
+                    </div>
+                    <p className="text-xs text-slate-500 mt-2">Total return on investment over 25 years</p>
                   </div>
                 </div>
               </div>
