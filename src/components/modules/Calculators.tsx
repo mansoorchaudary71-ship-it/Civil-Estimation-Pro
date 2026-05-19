@@ -35,6 +35,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import Brickwork9InchModule from "./Brickwork9InchModule";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from "recharts";
 import { SEO } from "../SEO";
+import { StyledChart } from "../ui/EstimateVisualizer";
 
 export default function ConstructionMaterialEstimator() {
   const { formatCurrency, currentUnit, currentCurrency } = useGlobalSettings();
@@ -1189,6 +1190,33 @@ export default function ConstructionMaterialEstimator() {
   const totalSand = cart.reduce((acc, item) => acc + item.sandVol, 0);
   const totalAgg = cart.reduce((acc, item) => acc + item.aggregateVol, 0);
   const totalWater = cart.reduce((acc, item) => acc + item.waterLiters, 0);
+
+  let explanationOpts: any = {
+    hasInputs: false,
+    genericFormula: [],
+    activeBreakdown: [],
+    notes: []
+  };
+
+  const hasConcreteInputs = !!(parseNum(cLength) || parseNum(cWidth) || parseNum(cDepth) || parseNum(cColDia) || parseNum(cStairSteps));
+  const hasBrickInputs = !!(parseNum(bWallL) || parseNum(bWallH));
+  
+  if (activeTab === "concrete") {
+    explanationOpts.hasInputs = hasConcreteInputs;
+    explanationOpts.genericFormula = [
+      { label: "Wet Volume", formula: "Length × Width × Depth" },
+      { label: "Dry Volume", formula: "Wet Volume × 1.54 × (1 + Wastage)" },
+      { label: "Cement", formula: "(Ratio of Cement / Sum of Ratios) × Dry Volume" }
+    ];
+    if (hasConcreteInputs && currentExportData["Concrete Mixed Volume"]) {
+      explanationOpts.activeBreakdown = [
+        { label: "Dry Volume", formula: `${parseFloat(currentExportData["Concrete Mixed Volume"])} × 1.54 × (1 + ${wastage || 0}%)`, result: currentExportData[`Dry Volume (+${wastage}% waste)`] },
+        { label: "Cement", formula: `Dry Volume × Ratio`, result: currentExportData["Cement Required"] },
+      ];
+    }
+    explanationOpts.notes = ["1 bag of cement = 50 kg", "Dry volume coefficient for concrete is 1.54"];
+  }
+
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-slate-900 p-6 md:p-8">
       <SEO 
@@ -1484,11 +1512,11 @@ export default function ConstructionMaterialEstimator() {
                           </div>
                         )}
                       </div>
-                      <div className="flex justify-between items-center pt-2">
-                        <span className="text-slate-300 font-bold uppercase tracking-wider text-sm">
+                      <div className="flex justify-between items-center pt-6 pb-2 border-t mt-4 border-slate-200 dark:border-slate-800">
+                        <span className="text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider text-sm flex items-center gap-2">
                           Estimated Cost
                         </span>
-                        <span className="text-2xl font-black text-green-400">
+                        <div className="bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 px-5 py-2 rounded-full text-2xl font-black">
                           {formatCurrency(
                             currentCartItem.cementBags * rates.cement +
                               currentCartItem.sandVol * rates.sand +
@@ -1500,7 +1528,7 @@ export default function ConstructionMaterialEstimator() {
                                 rates.bricks +
                               (currentCartItem.blocksCount || 0) * rates.blocks,
                           )}
-                        </span>
+                        </div>
                       </div>
                       
                       {/* Pie Chart for Cost Breakdown */}
@@ -1514,55 +1542,24 @@ export default function ConstructionMaterialEstimator() {
                         const bkCost = (currentCartItem.bricksCount || 0) * rates.bricks;
                         const blCost = (currentCartItem.blocksCount || 0) * rates.blocks;
 
-                        if (cCost > 0) pieData.push({ name: 'Cement', value: cCost, fill: '#60a5fa' });
-                        if (sCost > 0) pieData.push({ name: 'Sand', value: sCost, fill: '#fbbf24' });
-                        if (aCost > 0) pieData.push({ name: 'Aggregate', value: aCost, fill: '#9ca3af' });
-                        if (wCost > 0) pieData.push({ name: 'Water', value: wCost, fill: '#22d3ee' });
-                        if (stCost > 0) pieData.push({ name: 'Steel', value: stCost, fill: '#818cf8' });
-                        if (bkCost > 0) pieData.push({ name: 'Bricks', value: bkCost, fill: '#fb7185' });
-                        if (blCost > 0) pieData.push({ name: 'Blocks', value: blCost, fill: '#a78bfa' });
+                        if (cCost > 0) pieData.push({ name: 'Cement', value: cCost, fill: '#3b82f6' }); // blue-500
+                        if (sCost > 0) pieData.push({ name: 'Sand', value: sCost, fill: '#f59e0b' }); // amber-500
+                        if (aCost > 0) pieData.push({ name: 'Aggregate', value: aCost, fill: '#64748b' }); // slate-500
+                        if (wCost > 0) pieData.push({ name: 'Water', value: wCost, fill: '#06b6d4' }); // cyan-500
+                        if (stCost > 0) pieData.push({ name: 'Steel', value: stCost, fill: '#6366f1' }); // indigo-500
+                        if (bkCost > 0) pieData.push({ name: 'Bricks', value: bkCost, fill: '#f43f5e' }); // rose-500
+                        if (blCost > 0) pieData.push({ name: 'Blocks', value: blCost, fill: '#8b5cf6' }); // violet-500
 
                         if (pieData.length === 0) return null;
 
                         return (
-                          <div className="mt-4 pt-4 border-t border-slate-700/50">
-                            <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300 text-center mb-2 uppercase tracking-wide">Cost Breakdown</h4>
-                            <div className="h-48 w-full">
-                              <ResponsiveContainer width="100%" height="100%">
-                                <PieChart>
-                                  <Pie
-                                    data={pieData}
-                                    cx="50%"
-                                    cy="50%"
-                                    innerRadius={45}
-                                    outerRadius={70}
-                                    paddingAngle={3}
-                                    dataKey="value"
-                                    stroke="none"
-                                  >
-                                    {pieData.map((entry, index) => (
-                                      <Cell key={`cell-${index}`} fill={entry.fill} />
-                                    ))}
-                                  </Pie>
-                                  <RechartsTooltip 
-                                    formatter={(value: number) => formatCurrency(value)}
-                                    contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
-                                    itemStyle={{ color: '#e2e8f0' }}
-                                  />
-                                </PieChart>
-                              </ResponsiveContainer>
-                            </div>
-                            <div className="flex flex-wrap justify-center gap-2.5 mt-2">
-                              {pieData.map(entry => (
-                                <div key={entry.name} className="flex items-center gap-1.5 text-[10px] text-slate-300 font-medium">
-                                  <div className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: entry.fill }} />
-                                  {entry.name}
-                                  <span className="opacity-60 ml-0.5">
-                                    {Math.round((entry.value / pieData.reduce((acc, curr) => acc + curr.value, 0)) * 100)}%
-                                  </span>
-                                </div>
-                              ))}
-                            </div>
+                          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800">
+                            <StyledChart 
+                              data={pieData} 
+                              type="pie" 
+                              title="Cost Breakdown" 
+                              valueFormatter={(val) => formatCurrency(val)}
+                            />
                           </div>
                         );
                       })()}
@@ -1685,6 +1682,7 @@ export default function ConstructionMaterialEstimator() {
           currentInputs={currentExportInputs}
           currentResults={currentExportData}
           summaryGeneration={(inputs, results) => `${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} calculation`}
+          explanation={explanationOpts}
           onRestore={(inputs) => {
             if (activeTab === "concrete") {
               if (inputs["Dimensions"]) {

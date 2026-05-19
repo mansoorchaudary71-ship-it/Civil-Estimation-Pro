@@ -5,6 +5,8 @@ import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { Save } from "lucide-react";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { ResultCard } from "../ui/ResultCard";
+import { StyledChart } from "../ui/EstimateVisualizer";
 import {
   Columns,
   Settings,
@@ -99,6 +101,9 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
     return {
       netVolume: isSI ? netVolume : netVolume * 35.3147, // display unit volume
       netVolumeM3: netVolume,
+      volumeOfBricksM3: volumeOfBricks,
+      volumeOfBricksDisplay: isSI ? volumeOfBricks : volumeOfBricks * 35.3147,
+      wetMortarVolM3: wetMortarVol,
       noOfBricks,
       wetMortarVol: isSI ? wetMortarVol : wetMortarVol * 35.3147,
       dryMortarVol: isSI ? dryMortarVol : dryMortarVol * 35.3147,
@@ -108,6 +113,35 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
       isSI
     };
   }, [wallLength, wallHeight, deductions, brickType, mixRatio, includeWastage, isSI]);
+  const explanationOpts = useMemo(() => {
+    let l = parseFloat(wallLength) || 0;
+    let h = parseFloat(wallHeight) || 0;
+    let ded = parseFloat(deductions) || 0;
+    let hasInputs = !!(l || h);
+
+    if (!hasInputs) {
+      return {
+        hasInputs: false,
+        genericFormula: [
+          { label: "Volume of Wall", formula: "Length × Height × Thickness" },
+          { label: "No. of Bricks", formula: "Volume of Wall / Volume of 1 Brick with Mortar" },
+          { label: "Dry Mortar", formula: "Total Mortar Volume × 1.33" }
+        ],
+        notes: ["1.33 is the dry volume conversion factor for mortar", "Standard Mortar Joint is 10mm"]
+      };
+    }
+
+    return {
+      hasInputs: true,
+      activeBreakdown: [
+        { label: "Gross Wall Area", formula: `${l} × ${h}`, result: `${(l * h).toFixed(2)} ${isSI ? "m²" : "sq.ft"}` },
+        { label: "Net Volume", formula: `(Gross Area - Deductions) × ${isSI ? '0.23m' : '0.75ft'}`, result: `${results.netVolume.toFixed(2)} ${isSI ? "m³" : "cft"}` },
+        { label: "Bricks", formula: `Net Volume / Brick Vol.`, result: `${results.noOfBricks.toLocaleString()} pcs` },
+      ],
+      notes: ["1.33 is the dry volume conversion factor for mortar"]
+    };
+  }, [wallLength, wallHeight, deductions, results, isSI]);
+
   return (
     <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] overflow-hidden shadow-md mt-4">
       <div className="px-6 md:px-8 py-5 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between bg-transparent dark:bg-slate-800/50 gap-4">
@@ -370,6 +404,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
           currentInputs={{ brickType, wallLength, wallHeight, deductions, mixRatio, includeWastage }}
           currentResults={{ noOfBricks: results.noOfBricks, cementBags: results.cementBags, sandCft: results.sandCft }}
           summaryGeneration={(inputs, res) => `9in Brickwork Area ${inputs.wallLength}x${inputs.wallHeight}`}
+          explanation={explanationOpts}
           onRestore={(inputs) => {
             if (inputs.brickType) setBrickType(inputs.brickType);
             if (inputs.wallLength !== undefined) setWallLength(inputs.wallLength);

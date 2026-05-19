@@ -154,6 +154,16 @@ export default function VolumeEstimator() {
     const bp = parse(basePerimeter);
     const unit = system === "Metric" ? "m" : "ft";
     const sqUnit = system === "Metric" ? "m²" : "sq.ft";
+    
+    let explanationOpts: any = {
+      hasInputs: false,
+      genericFormula: [],
+      activeBreakdown: [],
+      notes: [
+        system === "Metric" ? "1 cubic meter = 1000 Litres" : "1 cubic foot = 7.48 Gallons"
+      ]
+    };
+
     if (activeShape === "Rectangular Prism") {
       volume = l * w * h;
       surfaceArea = 2 * (l * w + l * h + w * h);
@@ -162,6 +172,16 @@ export default function VolumeEstimator() {
         Width: `${w} ${unit}`,
         Height: `${h} ${unit}`,
       };
+      explanationOpts.genericFormula = [
+        { label: "Volume", formula: "Length × Width × Height" },
+        { label: "Surface Area", formula: "2 × (Length×Width + Length×Height + Width×Height)" }
+      ];
+      if (l || w || h) {
+        explanationOpts.hasInputs = true;
+        explanationOpts.activeBreakdown = [
+          { label: "Volume", formula: `${l} × ${w} × ${h}`, result: `${volume.toFixed(2)} ${unit}³` },
+        ];
+      }
     } else if (activeShape === "Cube") {
       volume = s * s * s;
       surfaceArea = 6 * s * s;
@@ -230,9 +250,9 @@ export default function VolumeEstimator() {
         Height: `${h} ${unit}`,
       };
     }
-    return { volume, surfaceArea, inputs };
+    return { volume, surfaceArea, inputs, explanationOpts };
   };
-  const { volume, surfaceArea, inputs } = useMemo(calculate, [
+  const { volume, surfaceArea, inputs, explanationOpts } = useMemo(calculate, [
     activeShape,
     system,
     length,
@@ -252,9 +272,11 @@ export default function VolumeEstimator() {
   let liquidCapacity = 0;
   let capacityUnit = "";
   if (system === "Metric") {
-    /* 1 m3 = 1000 Liters liquidCapacity = volume * 1000; capacityUnit = "Liters";  */
+    liquidCapacity = volume * 1000; 
+    capacityUnit = "Liters";
   } else {
-    /* 1 ft3 = 7.48052 Gallons liquidCapacity = volume * 7.48052; capacityUnit = "Gallons";  */
+    liquidCapacity = volume * 7.48052; 
+    capacityUnit = "Gallons";
   }
   const volUnit = system === "Metric" ? "m³" : "cu.ft";
   const areaUnit = system === "Metric" ? "m²" : "sq.ft";
@@ -686,6 +708,7 @@ export default function VolumeEstimator() {
         currentInputs={{ activeShape, length, width, height, side, radius, topRadius, bottomRadius, base, topWidth, bottomWidth, depth, baseArea, basePerimeter }}
         currentResults={{ volVal: volume.toFixed(2), volUnit, surfaceArea: surfaceArea.toFixed(2), liquidCapacity: liquidCapacity.toFixed(2) }}
         summaryGeneration={(inputs, res) => `${inputs.activeShape} Volume: ${res.volVal} ${res.volUnit}`}
+        explanation={explanationOpts}
         onRestore={(inputs) => {
           if (inputs.activeShape) setActiveShape(inputs.activeShape);
           if (inputs.length !== undefined) setLength(inputs.length);

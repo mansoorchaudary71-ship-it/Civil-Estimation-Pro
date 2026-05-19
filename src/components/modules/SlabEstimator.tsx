@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Grid2X2, Settings2, Replace } from "lucide-react";
 import { SEO } from "../SEO";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { StyledChart } from "../ui/EstimateVisualizer";
 
 export default function SlabEstimator() {
   const [slabType, setSlabType] = useState<"one-way" | "two-way">("two-way");
@@ -277,7 +278,7 @@ export default function SlabEstimator() {
                   {results.totalSteelWeight.toFixed(2)} <span className="text-lg text-slate-400 font-normal">kg</span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 mt-2 pt-4 border-t border-slate-700">
+                <div className="grid grid-cols-2 gap-4 mt-2 pt-4 border-t border-slate-700 mb-6">
                   <div>
                     <p className="text-slate-400 text-xs uppercase tracking-wider mb-1">
                       {results.type === "one-way" ? "Main Bars" : "Short Span Bars"}
@@ -292,6 +293,18 @@ export default function SlabEstimator() {
                     <p className="text-xl font-bold text-white">{results.longBarsCount} <span className="text-xs font-normal text-slate-400">bars</span></p>
                     <p className="text-sm text-slate-300 mt-1">{results.longBarsTotalLength.toFixed(1)}m total</p>
                   </div>
+                </div>
+
+                <div className="mt-2 text-slate-900">
+                  <StyledChart 
+                    data={[
+                      { name: results.type === "one-way" ? "Main Bars" : "Short Span", value: Math.round(results.shortBarsTotalLength), fill: '#6366f1' },
+                      { name: results.type === "one-way" ? "Dist Bars" : "Long Span", value: Math.round(results.longBarsTotalLength), fill: '#14b8a6' }
+                    ]}
+                    type="bar"
+                    title="Rebar Length Breakdown"
+                    valueFormatter={(val) => `${val} m`}
+                  />
                 </div>
               </div>
 

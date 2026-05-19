@@ -160,30 +160,33 @@ export default function Dashboard({
           animation: float-up 0.5s ease backwards;
         }
       `}</style>
+      
+      {/* Expanded Subtle Isometric Grid Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-[0.045] dark:opacity-[0.08]" style={{ maskImage: "linear-gradient(to bottom, white 0%, white 60%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, white 0%, white 60%, transparent 100%)" }}>
+         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="isometric-grid" width="60" height="34.641" patternUnits="userSpaceOnUse" patternTransform="scale(3)">
+                <path d="M30 0 L60 17.32 L30 34.641 L0 17.32 Z" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+                <path d="M30 0 L30 34.641" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#isometric-grid)" className="text-indigo-900 dark:text-indigo-100" />
+         </svg>
+      </div>
 
-      <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col relative z-0">
+      <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col relative z-10">
         
         {/* MASSIVE HERO SECTION */}
         <div className="relative w-full max-w-[1400px] mx-auto mt-8 md:mt-16 mb-16 px-4 lg:px-8 flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-bottom-8 duration-700 z-10">
           
-          {/* Subtle Isometric Grid Background */}
-          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 -z-10 h-[200%] pointer-events-none overflow-hidden opacity-[0.05] dark:opacity-[0.08]" style={{ maskImage: "radial-gradient(ellipse at center, white, transparent 70%)", WebkitMaskImage: "radial-gradient(ellipse at center, white, transparent 70%)" }}>
-             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <pattern id="isometric-grid" width="60" height="34.641" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
-                    <path d="M30 0 L60 17.32 L30 34.641 L0 17.32 Z" fill="none" stroke="currentColor" strokeWidth="0.5"/>
-                    <path d="M30 0 L30 34.641" fill="none" stroke="currentColor" strokeWidth="0.5"/>
-                  </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#isometric-grid)" className="text-slate-900 dark:text-white" />
-             </svg>
-          </div>
-          
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-sans font-black tracking-tight text-slate-900 dark:text-white mb-6 max-w-4xl mx-auto drop-shadow-sm">
-            Civil Estimation Pro
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-sans font-black tracking-tight text-slate-900 dark:text-white mb-6 max-w-4xl mx-auto drop-shadow-sm flex flex-wrap justify-center items-center gap-x-4">
+            <span className="text-slate-900 dark:text-white">Civil Estimation</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-orange-500 font-extrabold drop-shadow-sm">
+              Pro
+            </span>
           </h1>
-          <p className="text-lg md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-12 leading-relaxed font-medium">
-             Generate highly accurate engineering estimates in seconds. The complete toolkit for civil engineers and quantity surveyors.
+          <p className="text-lg md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-12 leading-relaxed font-medium capitalize">
+             Generate <span className="text-indigo-600 dark:text-indigo-400 font-semibold border-b-2 border-indigo-200 dark:border-indigo-800 border-dashed">highly accurate</span> engineering estimates in seconds. The complete toolkit for <span className="text-slate-900 dark:text-slate-200 font-semibold">civil engineers</span> and <span className="text-slate-900 dark:text-slate-200 font-semibold">quantity surveyors</span>.
           </p>
 
           {/* CATEGORY TABS */}

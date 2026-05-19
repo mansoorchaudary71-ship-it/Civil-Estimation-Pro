@@ -4,6 +4,7 @@ import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
 import ShareButtonWithPopup from "../modules/ShareMenu";
+import { CalculationExplanation, CalculationExplanationOptions } from "./CalculationExplanation";
 
 interface HistoryItem {
   id: string;
@@ -22,6 +23,60 @@ interface CalculationHistoryProps {
   onRestore: (inputs: Record<string, any>) => void;
   savePayload?: any;
   estimationName?: string;
+  explanation?: CalculationExplanationOptions;
+}
+
+function getDefaultExplanation(calculatorId: string, currentInputs: any, currentResults: any): CalculationExplanationOptions | undefined {
+  const hasInputs = currentInputs && Object.values(currentInputs).some((v: any) => v && v !== "0" && v !== 0);
+  
+  switch(true) {
+    case calculatorId.includes("area_calculator"):
+      if (!hasInputs) return { hasInputs, genericFormula: [{ label: "Area", formula: "Length × Width" }] };
+      return { hasInputs, activeBreakdown: [{ label: "Area", formula: "Base × Height", result: currentResults?.Area || "" }] };
+      
+    case calculatorId.includes("volume_estimator"):
+      // Handled manually in VolumeEstimator
+      return undefined;
+      
+    case calculatorId.includes("metal_weight"):
+      if (!hasInputs) return { hasInputs, genericFormula: [{ label: "Weight", formula: "(Diameter² / 162) × Length" }], notes: ["Rule of Thumb: Weight of Steel = D²/162 kg/m"] };
+      return { hasInputs, activeBreakdown: [{ label: "Weight", formula: `(d² / 162.28) × L`, result: currentResults?.["Total Weight"] || "" }], notes: ["Rule of Thumb: Weight of Steel = D²/162 kg/m"] };
+      
+    case calculatorId.includes("brickwork"):
+    case calculatorId.includes("material_calc_bricks"):
+      if (!hasInputs) return { 
+        hasInputs, 
+        genericFormula: [
+          { label: "Volume of Wall", formula: "Length × Height × Thickness" },
+          { label: "No. of Bricks", formula: "Volume of Wall / Volume of 1 Brick with Mortar" },
+          { label: "Dry Mortar", formula: "Total Mortar Volume × 1.33" }
+        ],
+        notes: ["1.33 is the dry volume conversion factor for mortar", "Standard Mortar Joint is 10mm"]
+      };
+      return { 
+        hasInputs, 
+        activeBreakdown: [
+          { label: "Bricks", formula: `Wall Vol / Brick Vol`, result: currentResults?.["Bricks Required"] || "" },
+        ],
+        notes: ["1.33 is the dry volume conversion factor for mortar"]
+      };
+
+    default:
+      // Fallback
+      if (!hasInputs) return { 
+        hasInputs, 
+        genericFormula: [{ label: "Calculation", formula: "Input × Factor" }] 
+      };
+      const breakdowns = [];
+      if (currentResults && Object.keys(currentResults).length > 0) {
+        breakdowns.push({
+          label: "Result",
+          formula: "Calculated from inputs",
+          result: Object.values(currentResults)[0] as string
+        });
+      }
+      return { hasInputs, activeBreakdown: breakdowns };
+  }
 }
 
 export function CalculationHistory({
@@ -31,7 +86,8 @@ export function CalculationHistory({
   summaryGeneration,
   onRestore,
   savePayload,
-  estimationName = "Estimate"
+  estimationName = "Estimate",
+  explanation
 }: CalculationHistoryProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [history, setHistory] = useState<HistoryItem[]>([]);
@@ -41,6 +97,9 @@ export function CalculationHistory({
   const [saveName, setSaveName] = useState("");
   const [saveType, setSaveType] = useState("General");
   const { user } = useAuth();
+
+  const finalExplanationOpts = explanation || getDefaultExplanation(calculatorId, currentInputs, currentResults);
+
 
   useEffect(() => {
     const saved = localStorage.getItem(`calc_history_${calculatorId}`);
@@ -201,6 +260,12 @@ export function CalculationHistory({
 
         </div>
       </div>
+      
+      {finalExplanationOpts && (
+        <div className="w-full flex justify-center mt-2 mb-4 px-4 sm:px-0">
+          <CalculationExplanation {...finalExplanationOpts} />
+        </div>
+      )}
 
       {isOpen && (
         <div className="fixed inset-0 z-50 overflow-hidden">
