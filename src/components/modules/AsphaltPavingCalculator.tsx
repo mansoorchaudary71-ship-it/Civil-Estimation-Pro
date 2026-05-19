@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Route, Droplet, ArrowRight, Layers, Calculator } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import ColorfulTab from "../ui/ColorfulTab";
 
 type Tab = "asphalt" | "prime" | "tack";
 
@@ -11,44 +12,34 @@ export default function AsphaltPavingCalculator() {
   return (
     <div className="w-full text-gray-900 font-sans md:p-4">
       <div className="max-w-7xl mx-auto pb-4">
-      <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
-        {/* Tabs */}
-        <div className="flex border-b border-slate-100 overflow-x-auto hide-scrollbar">
-          <button
-            onClick={() => setActiveTab("asphalt")}
-            className={cn(
-              "flex-1 flex items-center justify-center gap-2 py-4 px-6 font-bold text-[14px] transition-colors whitespace-nowrap",
-              activeTab === "asphalt"
-                ? "text-slate-800 border-b-2 border-slate-800 bg-slate-50"
-                : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"
-            )}
-          >
-            <Layers className="w-4 h-4" /> Asphalt
-          </button>
-          <button
-            onClick={() => setActiveTab("prime")}
-            className={cn(
-              "flex-1 flex items-center justify-center gap-2 py-4 px-6 font-bold text-[14px] transition-colors whitespace-nowrap",
-              activeTab === "prime"
-                ? "text-slate-800 border-b-2 border-slate-800 bg-slate-50"
-                : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"
-            )}
-          >
-            <Droplet className="w-4 h-4" /> Prime Coat
-          </button>
-          <button
-            onClick={() => setActiveTab("tack")}
-            className={cn(
-              "flex-1 flex items-center justify-center gap-2 py-4 px-6 font-bold text-[14px] transition-colors whitespace-nowrap",
-              activeTab === "tack"
-                ? "text-slate-800 border-b-2 border-slate-800 bg-slate-50"
-                : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"
-            )}
-          >
-            <Droplet className="w-4 h-4" /> Tack Coat
-          </button>
-        </div>
+      <div className="flex overflow-x-auto pb-4 gap-2 mb-8 p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <ColorfulTab
+          id="asphalt"
+          label="Asphalt"
+          icon={<Layers className="w-5 h-5" />}
+          isActive={activeTab === "asphalt"}
+          onClick={() => setActiveTab("asphalt")}
+          colorTheme="slate"
+        />
+        <ColorfulTab
+          id="prime"
+          label="Prime Coat"
+          icon={<Droplet className="w-5 h-5" />}
+          isActive={activeTab === "prime"}
+          onClick={() => setActiveTab("prime")}
+          colorTheme="amber"
+        />
+        <ColorfulTab
+          id="tack"
+          label="Tack Coat"
+          icon={<Droplet className="w-5 h-5" />}
+          isActive={activeTab === "tack"}
+          onClick={() => setActiveTab("tack")}
+          colorTheme="blue"
+        />
+      </div>
 
+      <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
         <div className="p-6 md:p-8">
           {activeTab === "asphalt" && <AsphaltCalculator />}
           {activeTab === "prime" && <PrimeCoatCalculator />}

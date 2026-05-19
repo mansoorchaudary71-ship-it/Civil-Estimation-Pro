@@ -4,6 +4,7 @@ import { Hammer, Weight, Circle, Droplets, Download, Box } from "lucide-react";
 import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
 import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import ColorfulTab from "../ui/ColorfulTab";
 
 export default function AggregateTestsCalculator() {
   const { isProcessing, hasData, processEstimate, resetEstimate } = useEstimateProcessing();
@@ -136,23 +137,19 @@ export default function AggregateTestsCalculator() {
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex bg-white dark:bg-slate-900 p-2 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 mb-6 overflow-x-auto custom-scrollbar">
+        <div className="flex overflow-x-auto gap-2 pb-2 mb-6 px-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           {tabs.map((tab) => {
             const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
             return (
-              <button
+              <ColorfulTab
                 key={tab.id}
-                onClick={() => { setActiveTab(tab.id); resetEstimate(); }}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm whitespace-nowrap transition-all ${
-                  isActive 
-                    ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 shadow-sm" 
-                    : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800"
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                {tab.label}
-              </button>
+                id={tab.id}
+                label={tab.label}
+                icon={<Icon className="w-5 h-5" />}
+                isActive={activeTab === tab.id}
+                onClick={() => { setActiveTab(tab.id as any); resetEstimate(); }}
+                colorTheme="amber"
+              />
             );
           })}
         </div>

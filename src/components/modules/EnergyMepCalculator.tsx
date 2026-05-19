@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Zap, Droplet, Wind, ArrowRight } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import ColorfulTab from "../ui/ColorfulTab";
 
 type Tab = "solar" | "water" | "ac";
 
@@ -20,44 +21,34 @@ export default function EnergyMepCalculator() {
         </p>
       </div>
 
-      <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
-        {/* Tabs */}
-        <div className="flex border-b border-slate-100 overflow-x-auto hide-scrollbar">
-          <button
-            onClick={() => setActiveTab("solar")}
-            className={cn(
-              "flex-1 flex items-center justify-center gap-2 py-4 px-6 font-bold text-[14px] transition-colors whitespace-nowrap",
-              activeTab === "solar"
-                ? "text-indigo-600 border-b-2 border-blue-600 bg-blue-50/50"
-                : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"
-            )}
-          >
-            <Zap className="w-4 h-4" /> Solar Rooftop
-          </button>
-          <button
-            onClick={() => setActiveTab("water")}
-            className={cn(
-              "flex-1 flex items-center justify-center gap-2 py-4 px-6 font-bold text-[14px] transition-colors whitespace-nowrap",
-              activeTab === "water"
-                ? "text-indigo-600 border-b-2 border-blue-600 bg-blue-50/50"
-                : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"
-            )}
-          >
-            <Droplet className="w-4 h-4" /> Solar Water Heater
-          </button>
-          <button
-            onClick={() => setActiveTab("ac")}
-            className={cn(
-              "flex-1 flex items-center justify-center gap-2 py-4 px-6 font-bold text-[14px] transition-colors whitespace-nowrap",
-              activeTab === "ac"
-                ? "text-indigo-600 border-b-2 border-blue-600 bg-blue-50/50"
-                : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"
-            )}
-          >
-            <Wind className="w-4 h-4" /> AC Initial Sizing
-          </button>
-        </div>
+      <div className="flex overflow-x-auto pb-4 gap-2 mb-8 p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <ColorfulTab
+          id="solar"
+          label="Solar Rooftop"
+          icon={<Zap className="w-5 h-5" />}
+          isActive={activeTab === "solar"}
+          onClick={() => setActiveTab("solar")}
+          colorTheme="amber"
+        />
+        <ColorfulTab
+          id="water"
+          label="Solar Water Heater"
+          icon={<Droplet className="w-5 h-5" />}
+          isActive={activeTab === "water"}
+          onClick={() => setActiveTab("water")}
+          colorTheme="blue"
+        />
+        <ColorfulTab
+          id="ac"
+          label="AC Initial Sizing"
+          icon={<Wind className="w-5 h-5" />}
+          isActive={activeTab === "ac"}
+          onClick={() => setActiveTab("ac")}
+          colorTheme="teal"
+        />
+      </div>
 
+      <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
         <div className="p-6 md:p-8">
           {activeTab === "solar" && <SolarCalculator />}
           {activeTab === "water" && <WaterHeaterCalculator />}

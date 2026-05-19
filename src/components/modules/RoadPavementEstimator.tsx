@@ -5,6 +5,7 @@ import RoadEstimator from "./RoadEstimator";
 import RigidPavementEstimator from "./RigidPavementEstimator";
 import AsphaltPavingCalculator from "./AsphaltPavingCalculator";
 import SewerageEstimator from "./SewerageEstimator";
+import ColorfulTab from "../ui/ColorfulTab";
 
 type Tab = "flexible" | "rigid" | "asphalt" | "sewerage";
 
@@ -35,23 +36,21 @@ export default function RoadPavementEstimator() {
         </p>
       </div>
 
-      <div className="flex overflow-x-auto gap-2 pb-2 mb-6 px-4 md:px-0 scrollbar-hide">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-5 py-3 rounded-xl font-bold whitespace-nowrap transition-all flex-shrink-0 border shadow-sm
-              ${
-                activeTab === tab.id
-                  ? "bg-amber-600 text-white border-amber-600 shadow-amber-200 dark:shadow-none"
-                  : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800"
-              }
-            `}
-          >
-            <tab.icon className={`w-4 h-4 ${activeTab === tab.id ? "text-amber-100" : "text-slate-400 dark:text-slate-500"}`} />
-            {tab.label}
-          </button>
-        ))}
+      <div className="flex overflow-x-auto gap-2 pb-2 mb-6 px-4 md:px-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        {tabs.map((tab) => {
+          const Icon = tab.icon;
+          return (
+            <ColorfulTab
+              key={tab.id}
+              id={tab.id}
+              label={tab.label}
+              icon={<Icon className="w-5 h-5" />}
+              isActive={activeTab === tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              colorTheme="amber"
+            />
+          );
+        })}
       </div>
 
       <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">

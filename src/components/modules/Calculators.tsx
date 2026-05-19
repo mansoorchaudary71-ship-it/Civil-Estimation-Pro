@@ -1254,7 +1254,7 @@ export default function ConstructionMaterialEstimator() {
             </div>
           </div>
         </div>
-        <div className="flex overflow-x-auto pb-4 gap-2 mb-4 p-1 snap-x snap-mandatory scroll-smooth scrollbar-hide">
+        <div className="flex overflow-x-auto pb-4 gap-2 mb-4 p-1 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           {fullTabs.map((tab, idx) => {
             const colors = ["indigo", "rose", "emerald", "amber", "cyan", "fuchsia", "teal"];
             const color = colors[idx % colors.length] as any;

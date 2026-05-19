@@ -7,6 +7,7 @@ import ColumnEstimator from "./ColumnEstimator";
 import BeamCalculator from "./BeamCalculator";
 import BarBendingSchedule from "./BarBendingSchedule";
 import StaircaseCalculator from "./StaircaseCalculator";
+import ColorfulTab from "../ui/ColorfulTab";
 
 type RccTab = "slab" | "column" | "beam" | "staircase" | "bbs";
 
@@ -47,35 +48,26 @@ export default function MasterRccStructure({ isEmbedded = false, onNavigate }: M
         </>
       )}
 
-      <div className="flex flex-col lg:flex-row gap-8 px-4 md:px-0">
-        {/* Sidebar Navigation */}
-        <div className="lg:w-64 flex-shrink-0">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden flex lg:flex-col overflow-x-auto lg:overflow-visible">
-            {tabs.map((tab) => {
-              const Icon = tab.icon;
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-3 px-5 py-4 font-bold whitespace-nowrap transition-all text-left flex-shrink-0
-                    ${
-                      isActive
-                        ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-b-2 lg:border-b-0 lg:border-l-4 border-blue-600"
-                        : "text-slate-600 dark:text-slate-400 border-b-2 lg:border-b-0 lg:border-l-4 border-transparent hover:bg-slate-50 dark:hover:bg-slate-800/50"
-                    }
-                  `}
-                >
-                  <Icon className={`w-5 h-5 ${isActive ? "text-indigo-600 dark:text-blue-400" : "text-slate-400 dark:text-slate-500"}`} />
-                  {tab.label}
-                </button>
-              );
-            })}
-          </div>
+      <div className="flex flex-col gap-4 px-1 md:px-0">
+        <div className="flex overflow-x-auto gap-2 pb-2 p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            return (
+              <ColorfulTab
+                key={tab.id}
+                id={tab.id}
+                label={tab.label}
+                icon={<Icon className="w-5 h-5" />}
+                isActive={activeTab === tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                colorTheme="slate"
+              />
+            );
+          })}
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 animate-in fade-in slide-in-from-right-2 duration-300">
+        <div className="animate-in fade-in slide-in-from-right-2 duration-300">
           {activeTab === "slab" && <SlabEstimator />}
           {activeTab === "column" && <ColumnEstimator />}
           {activeTab === "beam" && <BeamCalculator />}

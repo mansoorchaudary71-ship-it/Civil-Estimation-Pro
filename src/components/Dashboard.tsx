@@ -8,7 +8,7 @@ import {
   Map, Grid2X2, Box, ArrowRightLeft, Weight, Spline, ArrowRight,
   ChevronRight, ChevronDown, HardHat, Scaling, Container, Repeat, Anvil, Building2, Building, 
   Blocks, Shovel, Pickaxe, Cone, Droplet, PaintBucket, Ruler, Columns, 
-  ClipboardList, Maximize2, FileSpreadsheet, Zap, Wand2, ArrowUpRight, LineChart, Sun
+  ClipboardList, Maximize2, FileSpreadsheet, Zap, Wand2, ArrowUpRight, LineChart, Sun, X
 } from "lucide-react";
 import { SEO } from "./SEO";
 import Logo from "./Logo";
@@ -53,22 +53,22 @@ interface DashboardProps {
 
 export const getCategoryTheme = (category: string, id: string) => {
   if (id === 'ai') {
-    return { text: "text-indigo-600 dark:text-indigo-400", bg: "bg-indigo-100 dark:bg-indigo-900/40", stroke: "stroke-indigo-500" };
+    return { text: "text-white", bg: "bg-[#8b6cff] dark:bg-[#7158e2]", stroke: "stroke-[#8b6cff]" };
   }
   
   switch (category) {
     case "Concrete Tech":
-      return { text: "text-orange-600 dark:text-orange-400", bg: "bg-orange-100 dark:bg-orange-900/40", stroke: "stroke-orange-500" };
+      return { text: "text-white", bg: "bg-[#ff6b6b] dark:bg-[#ee5253]", stroke: "stroke-[#ff6b6b]" };
     case "Quantity Estimator":
-      return { text: "text-sky-600 dark:text-sky-400", bg: "bg-sky-100 dark:bg-sky-900/40", stroke: "stroke-sky-500" };
+      return { text: "text-white", bg: "bg-[#54a0ff] dark:bg-[#2e86de]", stroke: "stroke-[#54a0ff]" };
     case "Road Construction":
-      return { text: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-100 dark:bg-emerald-900/40", stroke: "stroke-emerald-500" };
+      return { text: "text-white", bg: "bg-[#1dd1a1] dark:bg-[#10ac84]", stroke: "stroke-[#1dd1a1]" };
     case "Soil Tests":
-      return { text: "text-rose-600 dark:text-rose-400", bg: "bg-rose-100 dark:bg-rose-900/40", stroke: "stroke-rose-500" };
+      return { text: "text-white", bg: "bg-[#ff9f43] dark:bg-[#ff7f50]", stroke: "stroke-[#ff9f43]" };
     case "MEP":
-      return { text: "text-purple-600 dark:text-purple-400", bg: "bg-purple-100 dark:bg-purple-900/40", stroke: "stroke-purple-500" };
+      return { text: "text-white", bg: "bg-[#c6e33e] dark:bg-[#a3cb38]", stroke: "stroke-[#c6e33e]" };
     default:
-      return { text: "text-indigo-600 dark:text-indigo-400", bg: "bg-indigo-100 dark:bg-indigo-900/40", stroke: "stroke-indigo-500" };
+      return { text: "text-white", bg: "bg-[#8b6cff] dark:bg-[#7158e2]", stroke: "stroke-[#8b6cff]" };
   }
 };
 
@@ -230,24 +230,22 @@ export default function Dashboard({
             <p className="text-slate-500 font-medium mt-2">Select a calculator to initiate a new estimate.</p>
           </div>
           
-          <div className="w-full md:max-w-md shrink-0 flex items-center gap-2">
-            <div className="relative flex items-center flex-1 h-[54px] rounded-[50px] bg-transparent border-2 border-[var(--accent-vibrant)] transition-all duration-300 group overflow-hidden">
+          <div className="w-full md:max-w-xs shrink-0 flex items-center">
+            <div className="relative flex items-center w-full h-12 rounded-full bg-slate-100 dark:bg-slate-800 transition-all duration-300 focus-within:ring-2 focus-within:ring-slate-300 dark:focus-within:ring-slate-600">
+              <Search className="w-[18px] h-[18px] ml-4 text-slate-400 dark:text-slate-500" strokeWidth={2.5} />
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search tools & calculations..."
-                className="w-full h-full bg-transparent border-none outline-none text-[15px] font-medium text-[var(--primary-dark)] dark:text-white placeholder:text-slate-400 pl-6 pr-5"
+                placeholder="Search..."
+                className="w-full h-full bg-transparent border-none outline-none text-[15px] font-medium text-slate-800 dark:text-white placeholder:text-slate-500 px-3"
               />
               {searchTerm && (
-                <button onClick={() => setSearchTerm("")} className="mr-5 text-[var(--accent-vibrant)] hover:text-[#e68a35] transition-colors text-xs font-bold uppercase tracking-wide">
-                  Clear
+                <button onClick={() => setSearchTerm("")} className="mr-3 p-1 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors">
+                  <X className="w-3.5 h-3.5" strokeWidth={2.5} />
                 </button>
               )}
             </div>
-            <button className="w-[54px] h-[54px] rounded-[50px] flex items-center justify-center border-2 border-[var(--accent-vibrant)] bg-[var(--accent-vibrant)] text-white hover:bg-transparent hover:text-[var(--accent-vibrant)] transition-colors shrink-0">
-               <Search className="w-5 h-5" strokeWidth={2.5} />
-            </button>
           </div>
         </div>
 
@@ -261,58 +259,44 @@ export default function Dashboard({
               </div>
             ) : (
               groupsToDisplay.map((groupName) => (
-                <div key={groupName} className="flex flex-col gap-6 mb-12 last:mb-0">
+                <div key={groupName} className="flex flex-col mb-8 sm:mb-10 last:mb-0">
                    {activeCategory === "All Tools" && (
-                     <h3 className="text-[14px] font-extrabold text-slate-400 dark:text-slate-500 tracking-[0.2em] uppercase flex items-center gap-4">
-                       <span className="w-8 h-px bg-slate-200 dark:bg-slate-700"></span>
+                     <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400 pl-4 sm:pl-6 mb-3 uppercase tracking-wider">
                        {groupName}
-                       <span className="flex-1 h-px bg-slate-200 dark:bg-slate-700"></span>
                      </h3>
                    )}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 w-full auto-rows-max">
+                  <div className="bg-white dark:bg-[#1a1a1a] rounded-[28px] sm:rounded-[32px] overflow-hidden shadow-[0_2px_12px_-4px_rgba(0,0,0,0.04)] dark:shadow-none border border-slate-100 dark:border-slate-800/60 w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
                     {groupedModules[groupName].map((mod, idx) => {
                       const theme = getCategoryTheme(mod.category, mod.id);
+                      const isLast = idx === groupedModules[groupName].length - 1;
                       return (
-                        <button
-                          key={mod.id}
-                          id={`module-card-${mod.id}`}
-                          onClick={() => onSelectModule(mod.id as ModuleId)}
-                          className={`stagger-in p-6 rounded-[24px] transition-all duration-300 ease-out flex flex-col relative text-left group min-h-[160px] overflow-hidden block w-full hover:-translate-y-1 hover:shadow-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50 shadow-sm`}
-                          style={{ animationDelay: `${idx * 50}ms` }}
-                        >
-                          {/* Border Draw SVG Effect */}
-                          <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
-                            <rect 
-                              x="2" y="2" 
-                              width="calc(100% - 4px)" height="calc(100% - 4px)" 
-                              rx="22" ry="22" 
-                              fill="none" 
-                              strokeWidth="3"
-                              strokeLinecap="round"
-                              className={`transition-all duration-700 ease-out [stroke-dasharray:2500] [stroke-dashoffset:2500] group-hover:[stroke-dashoffset:0] group-active:[stroke-dashoffset:0] opacity-0 group-hover:opacity-100 group-active:opacity-100 ${theme.text.replace('text-', 'stroke-')}`}
-                            />
-                          </svg>
-
-                          <div className="relative z-10 w-full flex-1 flex flex-col">
-                            {/* Icon at top left */}
-                            <div className="flex justify-between items-start mb-4">
-                              <div className={`w-12 h-12 rounded-[16px] flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 ${theme.bg}`}>
-                                <mod.icon className={`w-6 h-6 ${theme.text}`} strokeWidth={2} />
-                              </div>
-                              <div className={`w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1 ${theme.bg}`}>
-                                <ArrowRight className={`w-4 h-4 ${theme.text}`} />
-                              </div>
-                            </div>
-
-                            <h4 className={`text-[17px] font-extrabold leading-tight tracking-tight mb-2 text-slate-800 dark:text-white`}>
-                              {mod.title}
-                            </h4>
-
-                            <p className={`text-[13px] font-medium leading-[1.6] line-clamp-2 mt-auto text-slate-500 dark:text-slate-400`}>
-                              {mod.desc}
-                            </p>
-                          </div>
-                        </button>
+                        <div key={mod.id} className="relative group">
+                          <button
+                            id={`module-card-${mod.id}`}
+                            onClick={() => onSelectModule(mod.id as ModuleId)}
+                            className={`w-full flex items-center p-4 sm:p-5 text-left transition-colors hover:bg-slate-50/80 dark:hover:bg-slate-800/40 outline-none`}
+                          >
+                             <div className={`w-11 h-11 sm:w-[46px] sm:h-[46px] rounded-full flex items-center justify-center shrink-0 ${theme.bg}`}>
+                               <mod.icon className={`w-5 h-5 sm:w-[22px] sm:h-[22px] ${theme.text}`} strokeWidth={2} />
+                             </div>
+                             
+                             <div className="ml-4 sm:ml-5 flex-1 pr-2">
+                               <h4 className="text-[17px] sm:text-[18px] font-medium text-slate-800 dark:text-slate-100 tracking-tight">
+                                 {mod.title}
+                               </h4>
+                               <p className="text-[13px] sm:text-[14px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1 leading-snug">
+                                 {mod.desc}
+                               </p>
+                             </div>
+                             
+                             <div className="text-slate-300 dark:text-slate-600 pr-2">
+                               <ChevronRight className="w-5 h-5" />
+                             </div>
+                          </button>
+                          {!isLast && (
+                            <div className="ml-20 sm:ml-[86px] h-[1px] bg-slate-100 dark:bg-slate-800/60 transition-colors"></div>
+                          )}
+                        </div>
                       );
                     })}
                   </div>

@@ -1306,7 +1306,7 @@ export default function HouseEstimator() {
               <>
                 {/* Segmented Control & Actions */}
                 <div className="flex flex-col sm:flex-row gap-4 items-center justify-between relative">
-                  <div className="flex overflow-x-auto p-1.5 bg-white border border-slate-200 shadow-sm rounded-2xl w-full sm:w-fit space-x-1">
+                  <div className="flex overflow-x-auto gap-2 p-1 border-b border-slate-100 sm:w-fit [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                     <ColorfulTab
                       id="summary"
                       label="Summary"

@@ -68,20 +68,20 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
       <div className="w-full flex gap-4 flex-col">
         
         {/* Welcome & Button */}
-        <div className="flex-1 flex flex-col items-center text-center gap-5 bg-white dark:bg-indigo-600 border border-[#111111]/5 dark:border-white/10  rounded-xl p-6 md:p-10 shadow-sm relative overflow-hidden">
+        <div className="flex-1 flex flex-col items-center text-center gap-5 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-800/60 rounded-[32px] p-6 md:p-10 shadow-sm relative overflow-hidden">
           {/* Decorative background effects could go here */}
           <div className="z-10 relative">
-            <h1 className="text-3xl md:text-4xl font-black text-[#111111] dark:text-white tracking-tight mb-3">
+            <h1 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-3">
               Welcome back{user?.displayName ? `, ${user.displayName.split(' ')[0]}` : ''}
             </h1>
-            <p className="text-[#111111]/70 dark:text-white/70 font-medium text-lg max-w-xl mx-auto">
+            <p className="text-slate-600 dark:text-slate-300 font-medium text-lg max-w-xl mx-auto">
               Ready to calculate your next project? Pick up where you left off or start a new estimate.
             </p>
           </div>
           
           <button 
             onClick={() => onSelectModule('calculators')}
-            className="z-10 flex items-center justify-center gap-3 bg-[#111111] dark:bg-white text-white dark:text-[#111111] px-8 py-4 rounded-2xl font-bold hover:scale-[1.02] active:scale-[0.98] transition-all text-[16px] shadow-lg mt-2 w-full md:w-auto min-w-[280px]"
+            className="z-10 flex items-center justify-center gap-3 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-8 py-4 rounded-full font-bold hover:scale-[1.02] active:scale-[0.98] transition-all text-[16px] shadow-lg mt-2 w-full md:w-auto min-w-[280px]"
           >
             <Plus className="w-6 h-6" strokeWidth={3} />
             Create New Estimate
@@ -109,31 +109,27 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
 
       {loading ? (
         <div className="flex-1 flex items-center justify-center min-h-[200px]">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#111111] dark:border-white"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-900 dark:border-white"></div>
         </div>
       ) : estimates.length > 0 ? (
-        <div className="flex flex-col bg-white dark:bg-indigo-600 border border-[#111111]/5 dark:border-white/10  rounded-xl overflow-hidden shadow-sm">
+        <div className="flex flex-col bg-white dark:bg-[#1a1a1a] border border-slate-100 dark:border-slate-800/60 rounded-[32px] overflow-hidden shadow-sm">
           {recentEstimates.map((est, index) => (
-            <div key={est.id} className={`flex items-center justify-between p-4 px-6 ${index !== recentEstimates.length - 1 ? 'border-b border-[#111111]/5 dark:border-white/5' : ''} hover:bg-[#111111]/[0.02] dark:hover:bg-white/[0.02] transition-colors`}>
+            <div key={est.id} className={`flex items-center justify-between p-4 sm:p-5 ${index !== recentEstimates.length - 1 ? 'border-b border-slate-100 dark:border-slate-800/60' : ''} hover:bg-slate-50/80 dark:hover:bg-slate-800/40 transition-colors`}>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-orange-50 dark:bg-orange-500/10 flex items-center justify-center shrink-0">
-                  <FileText className="w-6 h-6 text-orange-500" />
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#ff9f43] dark:bg-[#ff7f50] flex items-center justify-center shrink-0">
+                  <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-bold text-[16px] text-[#111111] dark:text-white leading-tight mb-0.5">{est.name}</span>
-                  <div className="flex items-center gap-2 text-[13px] text-[#111111]/60 dark:text-white/60 font-medium">
-                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase bg-orange-100 text-orange-700 dark:bg-orange-500/20 dark:text-orange-400">
-                      {est.type}
-                    </span>
-                    <span>•</span>
+                  <span className="font-semibold text-[16px] sm:text-[17px] text-slate-900 dark:text-slate-100 leading-tight mb-0.5">{est.name}</span>
+                  <div className="flex items-center gap-2 text-[13px] sm:text-[14px] text-slate-500 dark:text-slate-400">
                     <span>{est.date}</span>
                     <span>•</span>
-                    <span className="text-[#111111] dark:text-white font-bold">{est.totalCost > 0 ? formatCurrency(est.totalCost) : '-'}</span>
+                    <span className="text-slate-800 dark:text-slate-300 font-medium">{est.totalCost > 0 ? formatCurrency(est.totalCost) : '-'}</span>
                   </div>
                 </div>
               </div>
               <button 
-                className="px-5 py-2.5 bg-[#111111]/5 dark:bg-white/5 hover:bg-[#111111]/10 dark:hover:bg-white/10 text-[#111111] dark:text-white text-sm font-bold rounded-xl transition-all hover:scale-105 active:scale-95"
+                className="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-white text-sm font-bold rounded-full transition-all"
               >
                 Resume
               </button>
