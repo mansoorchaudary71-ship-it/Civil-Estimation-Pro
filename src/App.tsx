@@ -58,7 +58,7 @@ import {
   Menu, Settings as SettingsIcon, Home, FileText, User as UserIcon, Plus, Search, 
   Calculator, Square, Box, ArrowRightLeft, Weight, Zap, 
   Map as MapIcon, Layers, Hammer, Sparkles, Mountain, Route, Droplet, 
-  LineChart 
+  LineChart, ChevronDown, ChevronUp
 } from "lucide-react";
 import { GlobalSettingsToggle } from "./components/ui/GlobalSettingsToggle";
 import { OnboardingModal } from "./components/ui/OnboardingModal";
@@ -66,25 +66,25 @@ import { OnboardingModal } from "./components/ui/OnboardingModal";
 import MobileToolsSheet from "./components/MobileToolsSheet";
 
 export const ALL_TOOLS = [
-  { id: "ai", title: "AI Assistant", icon: <Sparkles className="w-4 h-4" /> },
-  { id: "takeoff", title: "2D Takeoff", icon: <MapIcon className="w-4 h-4" /> },
-  { id: "area-calculator", title: "Area Calculator", icon: <Square className="w-4 h-4" /> },
-  { id: "volume-estimator", title: "Volume Estimator", icon: <Box className="w-4 h-4" /> },
-  { id: "unit-converter", title: "Universal Unit Converter", icon: <ArrowRightLeft className="w-4 h-4" /> },
-  { id: "metal-weight", title: "Metal Weight Calculator", icon: <Weight className="w-4 h-4" /> },
-  { id: "mep-calculator", title: "Energy & MEP Calculators", icon: <Zap className="w-4 h-4" /> },
-  { id: "gradient-calculator", title: "Gradient & Slope Calculator", icon: <LineChart className="w-4 h-4" /> },
-  { id: "master-rcc", title: "Master RCC Estimator", icon: <Layers className="w-4 h-4" /> },
-  { id: "master-quantity", title: "Master Quantity Estimator", icon: <Calculator className="w-4 h-4" /> },
-  { id: "calculators", title: "Construction Material Estimator", icon: <Hammer className="w-4 h-4" /> },
-  { id: "earthworks", title: "Earthworks", icon: <Mountain className="w-4 h-4" /> },
-  { id: "chainage", title: "Road Earthworks", icon: <Route className="w-4 h-4" /> },
-  { id: "geotechnical", title: "Geotechnical & Soil Tests", icon: <Droplet className="w-4 h-4" /> },
-  { id: "road-pavement", title: "Road & Pavement Estimator", icon: <Route className="w-4 h-4" /> },
-  { id: "interiors-finishes", title: "Interiors & Finishes", icon: <Box className="w-4 h-4" /> },
-  { id: "house", title: "House Estimator", icon: <Home className="w-4 h-4" /> },
-  { id: "formwork", title: "Formwork & Scaffold", icon: <Layers className="w-4 h-4" /> },
-  { id: "rates", title: "Market Rates", icon: <LineChart className="w-4 h-4" /> },
+  { id: "ai", title: "AI Assistant", category: "AI & Automation", icon: <Sparkles className="w-4 h-4" /> },
+  { id: "takeoff", title: "2D Takeoff", category: "AI & Automation", icon: <MapIcon className="w-4 h-4" /> },
+  { id: "house", title: "House Estimator", category: "Core Estimators", icon: <Home className="w-4 h-4" /> },
+  { id: "master-quantity", title: "Master Quantity", category: "Core Estimators", icon: <Calculator className="w-4 h-4" /> },
+  { id: "master-rcc", title: "Master RCC Structure", category: "Core Estimators", icon: <Layers className="w-4 h-4" /> },
+  { id: "calculators", title: "Material Estimator", category: "Core Estimators", icon: <Hammer className="w-4 h-4" /> },
+  { id: "earthworks", title: "Earthworks", category: "Site & Infrastructure", icon: <Mountain className="w-4 h-4" /> },
+  { id: "chainage", title: "Road Earthworks", category: "Site & Infrastructure", icon: <Route className="w-4 h-4" /> },
+  { id: "geotechnical", title: "Geotechnical & Soil Tests", category: "Site & Infrastructure", icon: <Droplet className="w-4 h-4" /> },
+  { id: "road-pavement", title: "Road & Pavement", category: "Site & Infrastructure", icon: <Route className="w-4 h-4" /> },
+  { id: "interiors-finishes", title: "Interiors & Finishes", category: "Finishes & Specs", icon: <Box className="w-4 h-4" /> },
+  { id: "formwork", title: "Formwork & Scaffold", category: "Finishes & Specs", icon: <Layers className="w-4 h-4" /> },
+  { id: "metal-weight", title: "Metal Weight Calculator", category: "Finishes & Specs", icon: <Weight className="w-4 h-4" /> },
+  { id: "area-calculator", title: "Area Calculator", category: "Analysis & Tools", icon: <Square className="w-4 h-4" /> },
+  { id: "volume-estimator", title: "Volume Estimator", category: "Analysis & Tools", icon: <Box className="w-4 h-4" /> },
+  { id: "unit-converter", title: "Universal Unit Converter", category: "Analysis & Tools", icon: <ArrowRightLeft className="w-4 h-4" /> },
+  { id: "mep-calculator", title: "Energy & MEP", category: "Analysis & Tools", icon: <Zap className="w-4 h-4" /> },
+  { id: "gradient-calculator", title: "Gradient & Slope", category: "Analysis & Tools", icon: <LineChart className="w-4 h-4" /> },
+  { id: "rates", title: "Market Rates", category: "Analysis & Tools", icon: <LineChart className="w-4 h-4" /> },
 ];
 
 export default function App() {
@@ -96,7 +96,15 @@ export default function App() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [expandedCategory, setExpandedCategory] = useState<string | null>("Core Estimators");
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const toolsByCategory = ALL_TOOLS.reduce((acc, tool) => {
+    const cat = tool.category || "Uncategorized";
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(tool);
+    return acc;
+  }, {} as Record<string, typeof ALL_TOOLS[0][]>);
   
   const { user, logOut } = useAuth();
 
@@ -131,51 +139,12 @@ export default function App() {
       <div className="flex flex-col h-[100dvh] w-full bg-transparent overflow-hidden font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
         <Toaster position="bottom-right" />
         
-        {/* Left Icon Sidebar */}
-        <div className="hidden md:flex flex-col fixed left-0 top-0 bottom-0 w-[80px]  z-50 py-6 items-center border-r border-[#222]">
-             {/* Top Logo Circle */}
-             <div className="w-[42px] h-[42px] rounded-full bg-[#111111] flex items-center justify-center mb-8 cursor-pointer shrink-0 shadow-sm" onClick={() => handleSelectModule("home")}>
-               <Logo className="w-5 h-5 text-white" />
-             </div>
-
-             <div className="flex flex-col items-center gap-3 w-full px-3">
-               <button onClick={() => handleSelectModule("home")} className={`w-full aspect-square flex items-center justify-center rounded-[10px] transition-colors ${activeModule === "home" ? "bg-indigo-600 text-indigo-600" : "text-[#555555] hover:bg-white/[0.07] hover:text-[#CCCCCC]"}`} title="Home">
-                 <Home className="w-5 h-5" strokeWidth={2.5} />
-               </button>
-               <button onClick={() => handleSelectModule("my-estimates")} className={`w-full aspect-square flex items-center justify-center rounded-[10px] transition-colors ${activeModule === "my-estimates" ? "bg-indigo-600 text-indigo-600" : "text-[#555555] hover:bg-white/[0.07] hover:text-[#CCCCCC]"}`} title="Estimates">
-                 <FileText className="w-5 h-5" strokeWidth={2.5} />
-               </button>
-             </div>
-
-             <div className="flex flex-col items-center gap-3 mt-auto w-full px-3">
-               <button onClick={() => setIsProfileOpen(true)} className="w-full aspect-square flex items-center justify-center rounded-[10px] text-[#555555] hover:bg-white/[0.07] hover:text-[#CCCCCC] transition-colors" title="Profile">
-                 <UserIcon className="w-5 h-5" strokeWidth={2.5} />
-               </button>
-               <button onClick={() => setIsSettingsOpen(true)} className="w-full aspect-square flex items-center justify-center rounded-[10px] text-[#555555] hover:bg-white/[0.07] hover:text-[#CCCCCC] transition-colors" title="Settings">
-                 <SettingsIcon className="w-5 h-5" strokeWidth={2.5} />
-               </button>
-             </div>
-        </div>
-
-        {/* Global Header */}
-        <header className="hidden md:flex items-center justify-end pointer-events-none px-6 py-5 absolute top-0 left-0 right-0 z-40 md:pl-[100px]">
-           {/* Central / Right Control Bar */}
-           <div className="pointer-events-auto flex items-center gap-3 px-3 py-2 bg-[#FFFFFF] rounded-full border border-black/5 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
-               <button className="flex items-center gap-2 text-[14px] font-semibold text-[#888888] hover:text-indigo-600 px-3 py-1.5 transition-colors">
-                  <Search className="w-4 h-4"/>
-                  <span>Search</span>
-               </button>
-               <div className="w-px h-5 bg-black/10" />
-               <div className="px-2">
-                 <GlobalSettingsToggle />
-               </div>
-               <div className="w-px h-5 bg-black/10" />
-               <button onClick={() => handleSelectModule("house")} className="flex items-center gap-2 text-[14px] font-semibold text-white bg-indigo-600 hover:bg-black px-4 py-2 rounded-xl transition-all active:scale-95 shadow-sm">
-                  <Plus className="w-4 h-4"/>
-                  <span>New Estimate</span>
-               </button>
-           </div>
-        </header>
+        <TopNavbar 
+          onOpenSidebar={() => setIsSidebarOpen(true)} 
+          onOpenAuth={() => setIsAuthOpen(true)}
+          onOpenProfile={() => setIsProfileOpen(true)}
+          onNavigate={handleSelectModule} 
+        />
 
         {/* Existing Mobile Sidebar Menu overlay */}
         <Sidebar 
@@ -187,8 +156,80 @@ export default function App() {
           onOpenProfile={() => { setIsSidebarOpen(false); setIsProfileOpen(true); }}
         />
 
-        <main id="main-content" className="flex-1 flex flex-col md:flex-row gap-6 bg-transparent overflow-hidden relative w-full h-full md:pl-[110px] md:pt-24 md:pr-6 md:pb-6 transition-all duration-300">
+        <main id="main-content" className="flex-1 flex flex-col md:flex-row gap-6 bg-transparent overflow-hidden relative w-full h-full md:px-6 md:pb-6 md:pt-4 transition-all duration-300">
           
+          {/* Left Navigation Hub (Tools Sidebar, 25% on tablet/desktop) */}
+          <div className="hidden md:flex w-1/4 flex-col min-h-0 overflow-hidden relative transition-all duration-300">
+             <div className="md:border md:border-slate-200 dark:md:border-slate-700/40 md:bg-white/60 dark:md:bg-slate-900/60 md:backdrop-blur-xl md:rounded-[32px] md:shadow-sm flex-1 flex flex-col min-h-0 overflow-hidden w-full transition-colors duration-300 relative">
+                
+                {/* Sticky Search Bar */}
+                <div className="shrink-0 p-6 pb-4 bg-transparent">
+                  <div className="flex items-center gap-2">
+                    <div className="relative flex items-center flex-1 h-[48px] bg-transparent rounded-[50px] border-2 border-[var(--accent-vibrant)] transition-all group overflow-hidden">
+                      <input 
+                        type="text" 
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        placeholder="Search tools..." 
+                        className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[14px] font-medium text-[var(--primary-dark)] dark:text-white placeholder:text-slate-400 pl-4 pr-3"
+                      />
+                    </div>
+                    <button className="w-[48px] h-[48px] flex items-center justify-center shrink-0 rounded-full border-2 border-[var(--accent-vibrant)] text-[var(--accent-vibrant)] hover:bg-[var(--accent-vibrant)] hover:text-white transition-colors cursor-default md:cursor-pointer">
+                      <Search className="w-4 h-4" strokeWidth={2.5} />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex-1 overflow-y-auto px-4 pb-6 custom-scrollbar">
+                  {Object.entries(toolsByCategory).map(([category, tools]) => {
+                     const filteredTools = tools.filter(tool => tool.title.toLowerCase().includes(searchTerm.toLowerCase()) || tool.category?.toLowerCase().includes(searchTerm.toLowerCase()));
+                     if (searchTerm && filteredTools.length === 0) return null;
+                     
+                     const isExpanded = expandedCategory === category || searchTerm !== "";
+                     
+                     return (
+                       <div key={category} className="mb-3">
+                         <button
+                           onClick={() => setExpandedCategory(isExpanded && !searchTerm ? null : category)}
+                           className="flex items-center justify-between w-full px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors group"
+                         >
+                           <span className="font-bold text-[13px] uppercase tracking-wider text-slate-500 dark:text-slate-400 group-hover:text-[var(--primary-dark)] dark:group-hover:text-white transition-colors">{category}</span>
+                           {isExpanded ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+                         </button>
+                         
+                         {isExpanded && (
+                           <div className="mt-1 space-y-1 pl-2 pr-2">
+                             {(searchTerm ? filteredTools : tools).map(tool => (
+                               <button
+                                 key={tool.id}
+                                 onClick={() => handleSelectModule(tool.id as ModuleId)}
+                                 className={`group flex items-center gap-3 w-full p-2.5 rounded-xl border border-transparent transition-all duration-200 text-left relative ${activeModule === tool.id ? 'bg-indigo-50/50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300' : 'hover:bg-white dark:hover:bg-slate-800 hover:shadow-sm hover:scale-[1.01] hover:border-slate-100 dark:hover:border-slate-700'}`}
+                               >
+                                 <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${activeModule === tool.id ? 'bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600' : 'bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 group-hover:text-[var(--accent-vibrant)] group-hover:bg-orange-50 dark:group-hover:bg-orange-900/20'}`}>
+                                   {tool.icon}
+                                 </div>
+                                 <div className="flex-1 min-w-0">
+                                   <h4 className={`font-semibold text-[13px] truncate transition-colors ${activeModule === tool.id ? 'text-indigo-700 dark:text-indigo-300' : 'text-slate-700 dark:text-slate-300 group-hover:text-[var(--primary-dark)] dark:group-hover:text-white'}`}>{tool.title}</h4>
+                                 </div>
+                                 {activeModule === tool.id && (
+                                   <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-indigo-600 rounded-r-full"></div>
+                                 )}
+                               </button>
+                             ))}
+                           </div>
+                         )}
+                       </div>
+                     );
+                  })}
+                  {searchTerm && Object.values(toolsByCategory).flat().filter(tool => tool.title.toLowerCase().includes(searchTerm.toLowerCase()) || tool.category?.toLowerCase().includes(searchTerm.toLowerCase())).length === 0 && (
+                    <div className="text-center py-8 text-slate-500 text-sm">
+                      No tools found matching "{searchTerm}"
+                    </div>
+                  )}
+                </div>
+             </div>
+          </div>
+
           {/* Main Content Area (75% on tablet/desktop) */}
           <div className="w-full md:w-3/4 flex flex-col min-h-0 overflow-hidden relative transition-all duration-300">
             <div className="md:border md:border-slate-200 dark:md:border-slate-700/40 md:shadow-sm md:bg-white/50 dark:md:bg-slate-900/50 md:backdrop-blur-sm md:rounded-[32px] flex-1 flex flex-col min-h-0 overflow-hidden relative w-full transition-colors duration-300">
@@ -196,14 +237,6 @@ export default function App() {
             {["home", "my-estimates", "about", "careers", "contact", "blog", "privacy", "terms", "cookies"].includes(activeModule) ? (
             <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-y-auto">
               <div className="flex flex-col min-h-full relative w-full">
-                <div className="md:hidden">
-                  <TopNavbar 
-                    onOpenSidebar={() => setIsSidebarOpen(true)} 
-                    onOpenAuth={() => setIsAuthOpen(true)}
-                    onOpenProfile={() => setIsProfileOpen(true)}
-                    onNavigate={handleSelectModule} 
-                  />
-                </div>
                 {activeModule === "home" && <Dashboard previousModule={previousModule} onSelectModule={handleSelectModule} onOpenSidebar={() => setIsSidebarOpen(true)} onOpenSettings={() => setIsSettingsOpen(true)} onOpenAuth={() => setIsAuthOpen(true)} />}
                 {activeModule === "my-estimates" && <RecentEstimates onSelectModule={handleSelectModule} />}
                 {activeModule === "pricing" && <div className="p-8 pt-12 text-center text-slate-500">Pricing options coming soon.</div>}
@@ -243,54 +276,6 @@ export default function App() {
           )}
           
           </div>
-          </div>
-
-          {/* Right Sidebar Area (25% on tablet/desktop) */}
-          <div className="hidden md:flex w-1/4 flex-col min-h-0 overflow-hidden relative transition-all duration-300">
-             <div className="md:border md:border-slate-200 dark:md:border-slate-700/40 md:bg-white/60 dark:md:bg-slate-900/60 md:backdrop-blur-xl md:rounded-[32px] md:shadow-sm flex-1 flex flex-col min-h-0 overflow-y-auto w-full transition-colors duration-300 p-6 relative">
-                
-                {/* Sticky Search Bar */}
-                <div className="sticky top-0 z-10 mb-6 bg-transparent pt-2 -mt-2">
-                  <div className="absolute -inset-x-6 -top-6 bottom-[-24px] bg-gradient-to-b from-[#F4F7FE]/95 via-[#F4F7FE]/80 to-transparent dark:from-[#0B1437]/95 dark:via-[#0B1437]/80 dark:to-transparent backdrop-blur-[2px] z-[-1] pointer-events-none"></div>
-                  <div className="flex items-center gap-2">
-                    <div className="relative flex items-center flex-1 h-[52px] bg-transparent rounded-[50px] border-2 border-[var(--accent-vibrant)] transition-all group overflow-hidden">
-                      <input 
-                        type="text" 
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="Search tools & calculations..." 
-                        className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[15px] font-medium text-[var(--primary-dark)] dark:text-white placeholder:text-slate-400 pl-5 pr-3"
-                      />
-                    </div>
-                    <button className="w-[52px] h-[52px] flex items-center justify-center shrink-0 rounded-full border-2 border-[var(--accent-vibrant)] text-[var(--accent-vibrant)] hover:bg-[var(--accent-vibrant)] hover:text-white transition-colors cursor-default md:cursor-pointer">
-                      <Search className="w-5 h-5" strokeWidth={2.5} />
-                    </button>
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-2 pb-6">
-                  {ALL_TOOLS.filter(tool => tool.title.toLowerCase().includes(searchTerm.toLowerCase()) || tool.category?.toLowerCase().includes(searchTerm.toLowerCase())).map(tool => (
-                    <button
-                      key={tool.id}
-                      onClick={() => handleSelectModule(tool.id as ModuleId)}
-                      className="group flex items-center gap-3 w-full p-3 bg-white dark:bg-slate-800 rounded-[16px] border border-slate-100 dark:border-slate-700/50 shadow-sm hover:shadow-md hover:border-[#FF6B00]/30 hover:-translate-y-0.5 transition-all duration-200 text-left"
-                    >
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-900 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-[#FF6B00] group-hover:bg-orange-50 dark:group-hover:bg-orange-900/20 transition-colors">
-                        {tool.icon}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold text-sm text-slate-700 dark:text-slate-200 truncate group-hover:text-[#FF6B00] transition-colors">{tool.title}</h4>
-                        {tool.category && <p className="text-[10px] text-slate-400 uppercase tracking-wider font-bold mt-0.5 truncate">{tool.category}</p>}
-                      </div>
-                    </button>
-                  ))}
-                  {ALL_TOOLS.filter(tool => tool.title.toLowerCase().includes(searchTerm.toLowerCase()) || tool.category?.toLowerCase().includes(searchTerm.toLowerCase())).length === 0 && (
-                    <div className="text-center py-8 text-slate-500 text-sm">
-                      No tools found matching "{searchTerm}"
-                    </div>
-                  )}
-                </div>
-             </div>
           </div>
 
           <BottomNavBar 

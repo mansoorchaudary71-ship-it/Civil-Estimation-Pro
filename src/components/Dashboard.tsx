@@ -218,10 +218,10 @@ export default function Dashboard({
         )}
 
     {/* BENTO BOX GRID LAYOUT */}
-    <div className="w-full max-w-[1400px] mx-auto px-4 lg:px-8 mt-6 md:mt-10 grid grid-cols-1 lg:grid-cols-12 gap-6 z-20 relative">
+    <div className="w-full max-w-[1400px] mx-auto px-4 lg:px-8 mt-4 grid grid-cols-1 lg:grid-cols-12 gap-8 z-20 relative">
       
       {/* RIGHT COLUMN: Main Tool Container */}
-      <div className="lg:col-span-12 xl:col-span-12 bg-transparent p-2 lg:p-6 flex flex-col min-h-[700px]">
+      <div className="lg:col-span-12 xl:col-span-12 bg-transparent lg:p-4 flex flex-col min-h-[700px]">
         
         {/* Header and Search */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
@@ -247,7 +247,7 @@ export default function Dashboard({
                 </button>
               )}
             </div>
-            <button className="w-[54px] h-[54px] rounded-full flex items-center justify-center border-2 border-[var(--accent-vibrant)] bg-transparent text-[var(--accent-vibrant)] hover:bg-[var(--accent-vibrant)] hover:text-white transition-colors shrink-0">
+            <button className="w-[54px] h-[54px] rounded-[50px] flex items-center justify-center border-2 border-[var(--accent-vibrant)] bg-[var(--accent-vibrant)] text-white hover:bg-transparent hover:text-[var(--accent-vibrant)] transition-colors shrink-0">
                <Search className="w-5 h-5" strokeWidth={2.5} />
             </button>
           </div>
@@ -265,9 +265,10 @@ export default function Dashboard({
               groupsToDisplay.map((groupName) => (
                 <div key={groupName} className="flex flex-col gap-6 mb-12 last:mb-0">
                    {activeCategory === "All Tools" && (
-                     <h3 className="text-[13px] font-bold text-slate-500 dark:text-slate-400 tracking-[0.15em] uppercase flex items-center gap-3">
-                       <span className="w-2 h-2 rounded-full bg-[var(--accent-vibrant)]"></span>
+                     <h3 className="text-[14px] font-extrabold text-slate-400 dark:text-slate-500 tracking-[0.2em] uppercase flex items-center gap-4">
+                       <span className="w-8 h-px bg-slate-200 dark:bg-slate-700"></span>
                        {groupName}
+                       <span className="flex-1 h-px bg-slate-200 dark:bg-slate-700"></span>
                      </h3>
                    )}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 w-full auto-rows-max">
