@@ -42,6 +42,10 @@ import { MarketRatesProvider } from "./context/MarketRatesContext";
 import { HouseSpecsProvider } from "./context/HouseSpecsContext";
 import { SettingsProvider } from "./context/SettingsContext";
 
+import MasterSieveAnalysis from "./components/modules/MasterSieveAnalysis";
+import AggregateBlendingCalculator from "./components/modules/AggregateBlendingCalculator";
+import SolarRoofCalculator from "./components/modules/SolarRoofCalculator";
+
 import Dashboard from "./components/Dashboard";
 import RecentEstimates from "./components/RecentEstimates";
 import Sidebar, { ModuleId } from "./components/Sidebar";
@@ -58,7 +62,7 @@ import {
   Menu, Settings as SettingsIcon, Home, FileText, User as UserIcon, Plus, Search, 
   Calculator, Square, Box, ArrowRightLeft, Weight, Zap, 
   Map as MapIcon, Layers, Hammer, Sparkles, Mountain, Route, Droplet, 
-  LineChart, ChevronDown, ChevronUp
+  LineChart, ChevronDown, ChevronUp, Sun
 } from "lucide-react";
 import { GlobalSettingsToggle } from "./components/ui/GlobalSettingsToggle";
 import { OnboardingModal } from "./components/ui/OnboardingModal";
@@ -75,6 +79,9 @@ export const ALL_TOOLS = [
   { id: "earthworks", title: "Earthworks", category: "Site & Infrastructure", icon: <Mountain className="w-4 h-4" /> },
   { id: "chainage", title: "Road Earthworks", category: "Site & Infrastructure", icon: <Route className="w-4 h-4" /> },
   { id: "geotechnical", title: "Geotechnical & Soil Tests", category: "Site & Infrastructure", icon: <Droplet className="w-4 h-4" /> },
+  { id: "master-sieve", title: "Master Sieve Analysis", category: "Site & Infrastructure", icon: <LineChart className="w-4 h-4" /> },
+  { id: "aggregate-blending", title: "Aggregate Blending Calculator", category: "Site & Infrastructure", icon: <Layers className="w-4 h-4" /> },
+  { id: "solar-roof", title: "Solar Roof Calculator", category: "Site & Infrastructure", icon: <Sun className="w-4 h-4" /> },
   { id: "road-pavement", title: "Road & Pavement", category: "Site & Infrastructure", icon: <Route className="w-4 h-4" /> },
   { id: "interiors-finishes", title: "Interiors & Finishes", category: "Finishes & Specs", icon: <Box className="w-4 h-4" /> },
   { id: "formwork", title: "Formwork & Scaffold", category: "Finishes & Specs", icon: <Layers className="w-4 h-4" /> },
@@ -267,6 +274,9 @@ export default function App() {
               {activeModule === "earthworks" && <ModuleWrapper title="Earthworks" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><EarthworksEstimator /></ModuleWrapper>}
               {activeModule === "chainage" && <ModuleWrapper title="Road Earthworks" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ChainageVolumeEstimator /></ModuleWrapper>}
               {activeModule === "geotechnical" && <ModuleWrapper title="Geotechnical & Soil Tests" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><GeotechnicalCalculator /></ModuleWrapper>}
+              {activeModule === "master-sieve" && <ModuleWrapper title="Master Sieve Analysis" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MasterSieveAnalysis /></ModuleWrapper>}
+              {activeModule === "aggregate-blending" && <ModuleWrapper title="Aggregate Blending Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AggregateBlendingCalculator /></ModuleWrapper>}
+              {activeModule === "solar-roof" && <ModuleWrapper title="Solar Roof Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><SolarRoofCalculator /></ModuleWrapper>}
               {activeModule === "road-pavement" && <ModuleWrapper title="Road & Pavement Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RoadPavementEstimator /></ModuleWrapper>}
               {activeModule === "interiors-finishes" && <ModuleWrapper title="Interiors & Finishes" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><InteriorsFinishesEstimator /></ModuleWrapper>}
               {activeModule === "house" && <ModuleWrapper title="House Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><HouseEstimator /></ModuleWrapper>}

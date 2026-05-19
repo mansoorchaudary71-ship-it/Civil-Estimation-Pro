@@ -74,6 +74,82 @@ async function startServer() {
     }
   });
 
+  app.get("/api/sieve-specs", (req, res) => {
+    try {
+      const specifications = {
+        categories: [
+          {
+            name: "Sub-base & Base Course",
+            gradings: [
+              {
+                name: "GSB Grading I",
+                sieves: [
+                  { size: 75, minPassing: 100, maxPassing: 100 },
+                  { size: 53, minPassing: 80, maxPassing: 100 },
+                  { size: 26.5, minPassing: 55, maxPassing: 90 },
+                  { size: 9.5, minPassing: 35, maxPassing: 65 },
+                  { size: 4.75, minPassing: 25, maxPassing: 55 },
+                  { size: 2.36, minPassing: 20, maxPassing: 40 },
+                  { size: 0.425, minPassing: 10, maxPassing: 25 },
+                  { size: 0.075, minPassing: 3, maxPassing: 10 }
+                ]
+              },
+              {
+                name: "WMM",
+                sieves: [
+                  { size: 53, minPassing: 100, maxPassing: 100 },
+                  { size: 45, minPassing: 95, maxPassing: 100 },
+                  { size: 22.4, minPassing: 60, maxPassing: 80 },
+                  { size: 11.2, minPassing: 40, maxPassing: 60 },
+                  { size: 4.75, minPassing: 25, maxPassing: 40 },
+                  { size: 2.36, minPassing: 15, maxPassing: 30 },
+                  { size: 0.6, minPassing: 8, maxPassing: 22 },
+                  { size: 0.075, minPassing: 0, maxPassing: 8 }
+                ]
+              }
+            ]
+          },
+          {
+            name: "Bituminous",
+            gradings: [
+              {
+                name: "DBM Grading I",
+                sieves: [
+                  { size: 37.5, minPassing: 100, maxPassing: 100 },
+                  { size: 26.5, minPassing: 90, maxPassing: 100 },
+                  { size: 19, minPassing: 71, maxPassing: 95 },
+                  { size: 13.2, minPassing: 56, maxPassing: 80 },
+                  { size: 4.75, minPassing: 38, maxPassing: 54 },
+                  { size: 2.36, minPassing: 28, maxPassing: 42 },
+                  { size: 0.3, minPassing: 7, maxPassing: 21 },
+                  { size: 0.075, minPassing: 2, maxPassing: 8 }
+                ]
+              },
+              {
+                name: "Bituminous Concrete Grading-II",
+                sieves: [
+                  { size: 19, minPassing: 100, maxPassing: 100 },
+                  { size: 13.2, minPassing: 90, maxPassing: 100 },
+                  { size: 9.5, minPassing: 70, maxPassing: 88 },
+                  { size: 4.75, minPassing: 53, maxPassing: 71 },
+                  { size: 2.36, minPassing: 42, maxPassing: 58 },
+                  { size: 1.18, minPassing: 34, maxPassing: 48 },
+                  { size: 0.6, minPassing: 26, maxPassing: 38 },
+                  { size: 0.3, minPassing: 18, maxPassing: 28 },
+                  { size: 0.15, minPassing: 12, maxPassing: 20 },
+                  { size: 0.075, minPassing: 4, maxPassing: 10 }
+                ]
+              }
+            ]
+          }
+        ]
+      };
+      res.json(specifications);
+    } catch (e) {
+      res.status(500).json({ status: "error", message: "Failed to fetch specs" });
+    }
+  });
+
   // Contact API route
   app.post("/api/contact", async (req, res) => {
     try {
