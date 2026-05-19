@@ -248,8 +248,7 @@ export default function StaircaseCalculator({
         {" "}
         {(["straight", "l-shape", "u-shape", "spiral"] as const).map(
           (shape) => (
-            <ColorfulTab
-              key={shape}
+            <ColorfulTab index={0} key={shape}
               id={shape}
               label={shape.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
               isActive={stairShape === shape}

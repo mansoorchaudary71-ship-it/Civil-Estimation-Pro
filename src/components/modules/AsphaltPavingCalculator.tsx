@@ -13,24 +13,21 @@ export default function AsphaltPavingCalculator() {
     <div className="w-full text-gray-900 font-sans md:p-4">
       <div className="max-w-7xl mx-auto pb-4">
       <div className="flex overflow-x-auto pb-4 gap-2 mb-8 p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-        <ColorfulTab
-          id="asphalt"
+        <ColorfulTab index={0} id="asphalt"
           label="Asphalt"
           icon={<Layers className="w-5 h-5" />}
           isActive={activeTab === "asphalt"}
           onClick={() => setActiveTab("asphalt")}
           colorTheme="slate"
         />
-        <ColorfulTab
-          id="prime"
+        <ColorfulTab index={1} id="prime"
           label="Prime Coat"
           icon={<Droplet className="w-5 h-5" />}
           isActive={activeTab === "prime"}
           onClick={() => setActiveTab("prime")}
           colorTheme="amber"
         />
-        <ColorfulTab
-          id="tack"
+        <ColorfulTab index={2} id="tack"
           label="Tack Coat"
           icon={<Droplet className="w-5 h-5" />}
           isActive={activeTab === "tack"}

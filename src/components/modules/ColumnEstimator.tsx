@@ -246,9 +246,8 @@ export default function ColumnEstimator() {
               </label>
               <div className="flex overflow-x-auto pb-4 gap-2 mb-6 p-1">
                 {(["rectangular", "square", "circular"] as const).map(
-                  (s) => (
-                    <ColorfulTab
-                      key={s}
+                  (s, idx) => (
+                    <ColorfulTab index={idx} key={s}
                       id={s}
                       label={s.charAt(0).toUpperCase() + s.slice(1)}
                       isActive={shape === s}

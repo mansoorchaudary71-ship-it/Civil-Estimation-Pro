@@ -138,11 +138,10 @@ export default function AggregateTestsCalculator() {
 
         {/* Tab Navigation */}
         <div className="flex overflow-x-auto gap-2 pb-2 mb-6 px-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          {tabs.map((tab) => {
+          {tabs.map((tab, idx) => {
             const Icon = tab.icon;
             return (
-              <ColorfulTab
-                key={tab.id}
+              <ColorfulTab index={idx} key={tab.id}
                 id={tab.id}
                 label={tab.label}
                 icon={<Icon className="w-5 h-5" />}

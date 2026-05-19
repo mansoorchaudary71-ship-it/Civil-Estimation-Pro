@@ -153,16 +153,14 @@ export default function GlobalSettingsModal({
         {/* Tabs */}{" "}
         <div className="flex overflow-x-auto px-6 py-4 border-b border-slate-200/50 dark:border-slate-800/50 shrink-0 gap-2 p-1">
           {" "}
-          <ColorfulTab
-            id="rates"
+          <ColorfulTab index={0} id="rates"
             label="Market Rates"
             icon={<Database className="w-4 h-4" />}
             isActive={activeTab === "rates"}
             onClick={() => setActiveTab("rates")}
             colorTheme="indigo"
           />
-          <ColorfulTab
-            id="prefs"
+          <ColorfulTab index={1} id="prefs"
             label="Module Preferences"
             icon={<Ruler className="w-4 h-4" />}
             isActive={activeTab === "prefs"}

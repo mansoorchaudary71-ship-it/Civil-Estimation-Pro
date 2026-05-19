@@ -1307,40 +1307,35 @@ export default function HouseEstimator() {
                 {/* Segmented Control & Actions */}
                 <div className="flex flex-col sm:flex-row gap-4 items-center justify-between relative">
                   <div className="flex overflow-x-auto gap-2 p-1 border-b border-slate-100 sm:w-fit [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                    <ColorfulTab
-                      id="summary"
+                    <ColorfulTab index={0} id="summary"
                       label="Summary"
                       icon={<LayoutDashboard className="w-[18px] h-[18px]" />}
                       isActive={activeTab === "summary"}
                       onClick={() => setActiveTab("summary")}
                       colorTheme="indigo"
                     />
-                    <ColorfulTab
-                      id="grey"
+                    <ColorfulTab index={1} id="grey"
                       label="Grey Structure"
                       icon={<Layers className="w-[18px] h-[18px]" />}
                       isActive={activeTab === "grey"}
                       onClick={() => setActiveTab("grey")}
                       colorTheme="slate"
                     />
-                    <ColorfulTab
-                      id="finishing"
+                    <ColorfulTab index={2} id="finishing"
                       label="Finishing"
                       icon={<PaintRoller className="w-[18px] h-[18px]" />}
                       isActive={activeTab === "finishing"}
                       onClick={() => setActiveTab("finishing")}
                       colorTheme="rose"
                     />
-                    <ColorfulTab
-                      id="rcc"
+                    <ColorfulTab index={3} id="rcc"
                       label="RCC Detailed"
                       icon={<Spline className="w-[18px] h-[18px]" />}
                       isActive={activeTab === "rcc"}
                       onClick={() => setActiveTab("rcc")}
                       colorTheme="amber"
                     />
-                    <ColorfulTab
-                      id="master"
+                    <ColorfulTab index={4} id="master"
                       label="Master Quantities"
                       icon={<Calculator className="w-[18px] h-[18px]" />}
                       isActive={activeTab === "master"}

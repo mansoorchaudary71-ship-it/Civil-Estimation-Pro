@@ -22,24 +22,21 @@ export default function EnergyMepCalculator() {
       </div>
 
       <div className="flex overflow-x-auto pb-4 gap-2 mb-8 p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-        <ColorfulTab
-          id="solar"
+        <ColorfulTab index={0} id="solar"
           label="Solar Rooftop"
           icon={<Zap className="w-5 h-5" />}
           isActive={activeTab === "solar"}
           onClick={() => setActiveTab("solar")}
           colorTheme="amber"
         />
-        <ColorfulTab
-          id="water"
+        <ColorfulTab index={1} id="water"
           label="Solar Water Heater"
           icon={<Droplet className="w-5 h-5" />}
           isActive={activeTab === "water"}
           onClick={() => setActiveTab("water")}
           colorTheme="blue"
         />
-        <ColorfulTab
-          id="ac"
+        <ColorfulTab index={2} id="ac"
           label="AC Initial Sizing"
           icon={<Wind className="w-5 h-5" />}
           isActive={activeTab === "ac"}

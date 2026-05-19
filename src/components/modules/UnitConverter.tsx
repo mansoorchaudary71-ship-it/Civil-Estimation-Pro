@@ -270,13 +270,12 @@ export default function UnitConverter() {
         </p>{" "}
         {/* Categories Tabs */}
         <div className="flex overflow-x-auto pb-4 gap-2 mb-10 p-1">
-          {categories.map((c) => {
+          {categories.map((c, idx) => {
             const Icon = c.icon;
             const isActive = activeCategory === c.id;
             const baseColor = c.color.split("-")[1];
             return (
-              <ColorfulTab
-                key={c.id}
+              <ColorfulTab index={idx} key={c.id}
                 id={c.id}
                 label={c.label}
                 icon={<Icon className="w-5 h-5" />}

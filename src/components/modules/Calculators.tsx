@@ -1259,8 +1259,7 @@ export default function ConstructionMaterialEstimator() {
             const colors = ["indigo", "rose", "emerald", "amber", "cyan", "fuchsia", "teal"];
             const color = colors[idx % colors.length] as any;
             return (
-              <ColorfulTab
-                key={tab.id}
+              <ColorfulTab index={idx} key={tab.id}
                 id={tab.id}
                 label={tab.label}
                 icon={<tab.icon className="w-4 h-4" />}

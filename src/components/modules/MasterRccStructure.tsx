@@ -50,11 +50,10 @@ export default function MasterRccStructure({ isEmbedded = false, onNavigate }: M
 
       <div className="flex flex-col gap-4 px-1 md:px-0">
         <div className="flex overflow-x-auto gap-2 pb-2 p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          {tabs.map((tab) => {
+          {tabs.map((tab, idx) => {
             const Icon = tab.icon;
             return (
-              <ColorfulTab
-                key={tab.id}
+              <ColorfulTab index={idx} key={tab.id}
                 id={tab.id}
                 label={tab.label}
                 icon={<Icon className="w-5 h-5" />}

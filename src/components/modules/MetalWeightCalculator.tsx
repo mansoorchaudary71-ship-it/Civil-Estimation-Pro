@@ -283,12 +283,11 @@ export default function MetalWeightCalculator() {
         </div>
         {/* Profiles Grid */}
         <div className="flex overflow-x-auto pb-4 gap-2 mb-8 p-1">
-          {profiles.map((p) => {
+          {profiles.map((p, idx) => {
             const Icon = p.icon;
             const baseColor = p.color.split("-")[1];
             return (
-              <ColorfulTab
-                key={p.id}
+              <ColorfulTab index={idx} key={p.id}
                 id={p.id}
                 label={p.label}
                 icon={<Icon className="w-5 h-5" />}

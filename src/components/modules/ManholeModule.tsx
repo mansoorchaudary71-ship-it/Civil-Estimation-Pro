@@ -178,16 +178,14 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
           </label>{" "}
           <div className="flex overflow-x-auto pb-4 gap-2 mb-2 p-1 w-full max-w-sm">
             {" "}
-            <ColorfulTab
-              id="circular"
+            <ColorfulTab index={0} id="circular"
               label="Circular"
               icon={<CircleDashed className="w-4 h-4" />}
               isActive={mhType === "circular"}
               onClick={() => setMhType("circular")}
               colorTheme="teal"
             />
-            <ColorfulTab
-              id="rectangular"
+            <ColorfulTab index={1} id="rectangular"
               label="Rectangular"
               icon={<Square className="w-4 h-4" />}
               isActive={mhType === "rectangular"}

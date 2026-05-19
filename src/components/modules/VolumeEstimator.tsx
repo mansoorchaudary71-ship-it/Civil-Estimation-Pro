@@ -319,12 +319,11 @@ export default function VolumeEstimator() {
           </div>
         </div>
         <div className="flex overflow-x-auto pb-4 gap-2 mb-8 p-1">
-          {shapes.map((s) => {
+          {shapes.map((s, idx) => {
             const Icon = s.icon;
             const baseColor = s.color.split("-")[1];
             return (
-              <ColorfulTab
-                key={s.id}
+              <ColorfulTab index={idx} key={s.id}
                 id={s.id}
                 label={s.label}
                 icon={<Icon className="w-5 h-5" />}

@@ -173,19 +173,19 @@ export default function App() {
              <div className="md:border md:border-slate-200 dark:md:border-slate-700/40 md:bg-white/60 dark:md:bg-slate-900/60 md:backdrop-blur-xl md:rounded-[32px] md:shadow-sm flex-1 flex flex-col min-h-0 overflow-hidden w-full transition-colors duration-300 relative">
                 
                 {/* Sticky Search Bar */}
-                <div className="shrink-0 p-6 pb-4 bg-transparent">
-                  <div className="flex items-center gap-2">
-                    <div className="relative flex items-center flex-1 h-[48px] bg-transparent rounded-[50px] border-2 border-[var(--accent-vibrant)] transition-all group overflow-hidden">
+                <div className="shrink-0 p-6 pb-2 bg-transparent">
+                  <div className="flex items-center gap-3">
+                    <div className="relative flex items-center flex-1 h-[46px] bg-transparent rounded-[24px] border border-[#ff9f43] dark:border-[#ff7f50] transition-colors focus-within:bg-[#ff9f43]/5 dark:focus-within:bg-[#ff7f50]/10 overflow-hidden">
                       <input 
                         type="text" 
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="Search tools..." 
-                        className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[14px] font-medium text-[var(--primary-dark)] dark:text-white placeholder:text-slate-400 pl-4 pr-3"
+                        placeholder="Search tools." 
+                        className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[14px] font-medium text-slate-800 dark:text-white placeholder:text-[#ff9f43] dark:placeholder:text-[#ff7f50] placeholder:opacity-80 pl-5 pr-3"
                       />
                     </div>
-                    <button className="w-[48px] h-[48px] flex items-center justify-center shrink-0 rounded-full border-2 border-[var(--accent-vibrant)] text-[var(--accent-vibrant)] hover:bg-[var(--accent-vibrant)] hover:text-white transition-colors cursor-default md:cursor-pointer">
-                      <Search className="w-4 h-4" strokeWidth={2.5} />
+                    <button className="w-[46px] h-[46px] flex items-center justify-center shrink-0 rounded-full border border-[#ff9f43] dark:border-[#ff7f50] text-[#ff9f43] dark:text-[#ff7f50] hover:bg-[#ff9f43]/5 dark:hover:bg-[#ff7f50]/10 transition-colors cursor-default md:cursor-pointer">
+                      <Search className="w-5 h-5" strokeWidth={2.5} />
                     </button>
                   </div>
                 </div>
@@ -209,23 +209,26 @@ export default function App() {
                          
                          {isExpanded && (
                            <div className="mt-1 space-y-1 pl-2 pr-2">
-                             {(searchTerm ? filteredTools : tools).map(tool => (
+                             {(searchTerm ? filteredTools : tools).map((tool, tIdx) => {
+                               const colors = ['bg-[#8b6cff]', 'bg-[#ff6b6b]', 'bg-[#54a0ff]', 'bg-[#1dd1a1]', 'bg-[#ff9f43]', 'bg-[#c6e33e]'];
+                               const iconBgColor = colors[tIdx % colors.length];
+                               return (
                                <button
                                  key={tool.id}
                                  onClick={() => handleSelectModule(tool.id as ModuleId)}
-                                 className={`group flex items-center gap-3 w-full p-2.5 rounded-xl border border-transparent transition-all duration-200 text-left relative ${activeModule === tool.id ? 'bg-indigo-50/50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300' : 'hover:bg-white dark:hover:bg-slate-800 hover:shadow-sm hover:scale-[1.01] hover:border-slate-100 dark:hover:border-slate-700'}`}
+                                 className={`group flex items-center gap-4 w-full p-2.5 rounded-[20px] transition-all duration-200 text-left relative outline-none ${activeModule === tool.id ? 'bg-slate-50 dark:bg-slate-800/60' : 'hover:bg-slate-50/50 dark:hover:bg-slate-800/40 hover:scale-[1.01]'}`}
                                >
-                                 <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${activeModule === tool.id ? 'bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600' : 'bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 group-hover:text-[var(--accent-vibrant)] group-hover:bg-orange-50 dark:group-hover:bg-orange-900/20'}`}>
-                                   {tool.icon}
+                                 <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-white shadow-sm transition-transform group-hover:-translate-y-0.5 ${iconBgColor}`}>
+                                   {React.isValidElement(tool.icon) ? React.cloneElement(tool.icon as React.ReactElement<any>, { className: 'w-5 h-5', style: { width: '20px', height: '20px' }, strokeWidth: 2 }) : tool.icon}
                                  </div>
                                  <div className="flex-1 min-w-0">
-                                   <h4 className={`font-semibold text-[13px] truncate transition-colors ${activeModule === tool.id ? 'text-indigo-700 dark:text-indigo-300' : 'text-slate-700 dark:text-slate-300 group-hover:text-[var(--primary-dark)] dark:group-hover:text-white'}`}>{tool.title}</h4>
+                                   <h4 className={`font-semibold text-[15px] truncate transition-colors ${activeModule === tool.id ? 'text-slate-900 dark:text-white font-bold tracking-tight' : 'text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white tracking-tight'}`}>{tool.title}</h4>
                                  </div>
                                  {activeModule === tool.id && (
-                                   <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-indigo-600 rounded-r-full"></div>
+                                   <div className="absolute left-[-4px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-slate-800 dark:bg-slate-200 rounded-full"></div>
                                  )}
                                </button>
-                             ))}
+                             )})}
                            </div>
                          )}
                        </div>
