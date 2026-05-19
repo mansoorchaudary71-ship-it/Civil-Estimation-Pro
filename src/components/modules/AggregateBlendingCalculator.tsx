@@ -29,6 +29,8 @@ interface BinData {
   binD: number | "";
 }
 
+import { CalculationHistory } from "../ui/CalculationHistory";
+
 export default function AggregateBlendingCalculator() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
@@ -377,6 +379,17 @@ export default function AggregateBlendingCalculator() {
           </div>
 
         </div>
+        
+        <CalculationHistory
+          calculatorId="aggregate_blending_v1"
+          currentInputs={{ proportions, binNames, selectedCategory, selectedGrading }}
+          onRestore={(ins) => {
+            if (ins.proportions) setProportions(ins.proportions);
+            if (ins.binNames) setBinNames(ins.binNames);
+            if (ins.selectedCategory) setSelectedCategory(ins.selectedCategory);
+            if (ins.selectedGrading) setSelectedGrading(ins.selectedGrading);
+          }}
+        />
 
       </div>
     </div>

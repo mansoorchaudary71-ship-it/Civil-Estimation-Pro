@@ -3,6 +3,7 @@ import { Paintbrush, Hammer, LayoutGrid, Bug, AppWindow, PaintBucket, ChevronDow
 import { cn } from "../../lib/utils";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { useSettings } from "../../context/SettingsContext";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 export default function InteriorsFinishesEstimator() {
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
@@ -215,6 +216,18 @@ function TilesCalculator() {
           </div>
         )}
       </div>
+      <div className="col-span-1 md:col-span-2">
+        <CalculationHistory
+          calculatorId="tiles_calc_v1"
+          currentInputs={{ area, tileWidth, tileLength, tilesPerBox }}
+          onRestore={(ins) => {
+            if (ins.area) setArea(ins.area);
+            if (ins.tileWidth) setTileWidth(ins.tileWidth);
+            if (ins.tileLength) setTileLength(ins.tileLength);
+            if (ins.tilesPerBox) setTilesPerBox(ins.tilesPerBox);
+          }}
+        />
+      </div>
     </div>
   );
 }
@@ -323,6 +336,18 @@ function PaintCalculator() {
             Enter wall/ceiling area and coats to calculate.
           </div>
         )}
+      </div>
+      <div className="col-span-1 md:col-span-2">
+        <CalculationHistory
+          calculatorId="paint_calc_v1"
+          currentInputs={{ area, coats, coverage, wastage }}
+          onRestore={(ins) => {
+            if (ins.area) setArea(ins.area);
+            if (ins.coats) setCoats(ins.coats);
+            if (ins.coverage) setCoverage(ins.coverage);
+            if (ins.wastage) setWastage(ins.wastage);
+          }}
+        />
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { useGlobalSettings } from "../../context/SettingsContext";
 import { Droplet, Layers, Beaker, ArrowDownToLine, Flame, Download } from "lucide-react";
 import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
 import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 // Sub-components for each Geotechnical test
 export default function GeotechnicalCalculator() {
@@ -309,6 +310,35 @@ export default function GeotechnicalCalculator() {
               </p>
             </div>
           )}
+          
+          <CalculationHistory
+            calculatorId="geotechnical_v1"
+            currentInputs={{ 
+              activeTab,
+              wcW1, wcW2, wcW3,
+              sgW1, sgW2, sgW3, sgW4,
+              sieveTotal, sieveRetainedGravel, sieveRetainedSand,
+              llBlows, llWaterContent,
+              cbrLoad25, cbrLoad50
+            }}
+            onRestore={(ins) => {
+              if (ins.activeTab) setActiveTab(ins.activeTab);
+              if (ins.wcW1) setWcW1(ins.wcW1);
+              if (ins.wcW2) setWcW2(ins.wcW2);
+              if (ins.wcW3) setWcW3(ins.wcW3);
+              if (ins.sgW1) setSgW1(ins.sgW1);
+              if (ins.sgW2) setSgW2(ins.sgW2);
+              if (ins.sgW3) setSgW3(ins.sgW3);
+              if (ins.sgW4) setSgW4(ins.sgW4);
+              if (ins.sieveTotal) setSieveTotal(ins.sieveTotal);
+              if (ins.sieveRetainedGravel) setSieveRetainedGravel(ins.sieveRetainedGravel);
+              if (ins.sieveRetainedSand) setSieveRetainedSand(ins.sieveRetainedSand);
+              if (ins.llBlows) setLlBlows(ins.llBlows);
+              if (ins.llWaterContent) setLlWaterContent(ins.llWaterContent);
+              if (ins.cbrLoad25) setCbrLoad25(ins.cbrLoad25);
+              if (ins.cbrLoad50) setCbrLoad50(ins.cbrLoad50);
+            }}
+          />
           
         </div>
       </div>

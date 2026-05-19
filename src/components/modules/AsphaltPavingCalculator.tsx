@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Route, Droplet, ArrowRight, Layers, Calculator } from "lucide-react";
 import { cn } from "../../lib/utils";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 type Tab = "asphalt" | "prime" | "tack";
 
@@ -194,6 +195,17 @@ function AsphaltCalculator() {
           )}
         </div>
       </div>
+      
+      <CalculationHistory
+        calculatorId="asphalt_calc_v1"
+        currentInputs={{ length, width, thickness, thicknessUnit }}
+        onRestore={(ins) => {
+          if (ins.length) setLength(ins.length);
+          if (ins.width) setWidth(ins.width);
+          if (ins.thickness) setThickness(ins.thickness);
+          if (ins.thicknessUnit) setThicknessUnit(ins.thicknessUnit);
+        }}
+      />
     </div>
   );
 }
@@ -270,6 +282,14 @@ function PrimeCoatCalculator() {
           )}
         </div>
       </div>
+      <CalculationHistory
+        calculatorId="prime_coat_calc_v1"
+        currentInputs={{ area, rate }}
+        onRestore={(ins) => {
+          if (ins.area) setArea(ins.area);
+          if (ins.rate) setRate(ins.rate);
+        }}
+      />
     </div>
   );
 }
@@ -346,6 +366,14 @@ function TackCoatCalculator() {
           )}
         </div>
       </div>
+      <CalculationHistory
+        calculatorId="tack_coat_calc_v1"
+        currentInputs={{ area, rate }}
+        onRestore={(ins) => {
+          if (ins.area) setArea(ins.area);
+          if (ins.rate) setRate(ins.rate);
+        }}
+      />
     </div>
   );
 }

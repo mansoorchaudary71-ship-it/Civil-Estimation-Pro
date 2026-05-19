@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { Download, Calculator, FileSpreadsheet, RefreshCw, AlertCircle } from "lucide-react";
 import toast from "react-hot-toast";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 interface SieveSpec {
   size: number;
@@ -305,6 +306,20 @@ export default function MasterSieveAnalysis() {
             </button>
           </div>
         </div>
+        
+        <div className="mt-8">
+          <CalculationHistory
+            calculatorId="master_sieve_v1"
+            currentInputs={{ totalWeight, selectedCategory, selectedGrading, sieveData }}
+            onRestore={(ins) => {
+              if (ins.totalWeight) setTotalWeight(ins.totalWeight);
+              if (ins.selectedCategory) setSelectedCategory(ins.selectedCategory);
+              if (ins.selectedGrading) setSelectedGrading(ins.selectedGrading);
+              if (ins.sieveData) setSieveData(ins.sieveData);
+            }}
+          />
+        </div>
+
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Sun, Battery, Zap, DollarSign, Home, AlertCircle, Calculator } from "lucide-react";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 export default function SolarRoofCalculator() {
   const [roofArea, setRoofArea] = useState<number | "">(50);
@@ -276,7 +277,19 @@ export default function SolarRoofCalculator() {
             </div>
           )}
         </div>
-
+        
+        <CalculationHistory
+          calculatorId="solar_roof_calc_v1"
+          currentInputs={{ roofArea, areaUnit, monthlyBill, electricityRate, peakSunHours }}
+          onRestore={(ins) => {
+            if (ins.roofArea) setRoofArea(ins.roofArea);
+            if (ins.areaUnit) setAreaUnit(ins.areaUnit);
+            if (ins.monthlyBill) setMonthlyBill(ins.monthlyBill);
+            if (ins.electricityRate) setElectricityRate(ins.electricityRate);
+            if (ins.peakSunHours) setPeakSunHours(ins.peakSunHours);
+          }}
+        />
+        
       </div>
     </div>
   );
