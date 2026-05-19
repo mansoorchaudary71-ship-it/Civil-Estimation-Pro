@@ -1,0 +1,309 @@
+import React, { useState } from "react";
+import { SEO } from "../SEO";
+import { Hammer, Weight, Circle, Droplets, Download, Box } from "lucide-react";
+import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
+import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
+import { CalculationHistory } from "../ui/CalculationHistory";
+
+export default function AggregateTestsCalculator() {
+  const { isProcessing, hasData, processEstimate, resetEstimate } = useEstimateProcessing();
+  const [activeTab, setActiveTab] = useState<"impact" | "crushing" | "abrasion" | "water-absorption">("impact");
+  
+  // States for Impact Value
+  const [aivW1, setAivW1] = useState("");
+  const [aivW2, setAivW2] = useState("");
+  const [aivW3, setAivW3] = useState("");
+
+  // States for Crushing Value
+  const [acvW1, setAcvW1] = useState("");
+  const [acvW2, setAcvW2] = useState("");
+  const [acvW3, setAcvW3] = useState("");
+
+  // States for Abrasion Value
+  const [laW1, setLaW1] = useState("");
+  const [laW2, setLaW2] = useState("");
+
+  // States for Water Absorption
+  const [waW1, setWaW1] = useState(""); // SSD weight
+  const [waW2, setWaW2] = useState(""); // Weight in water
+  const [waW3, setWaW3] = useState(""); // Oven dry weight
+  
+  let currentExportData: Record<string, string> = {};
+  
+  const parseNum = (val: string) => Math.max(0, parseFloat(val) || 0);
+
+  if (activeTab === "impact") {
+    const W1 = parseNum(aivW1);
+    const W2 = parseNum(aivW2);
+    const W3 = parseNum(aivW3);
+    const totalW = W2 - W1;
+    
+    let aiv = 0;
+    if (totalW > 0) {
+      aiv = (W3 / totalW) * 100;
+    }
+    
+    currentExportData = {
+      "Test Type": "Aggregate Impact Value",
+      "Total Sample Weight (W2-W1)": `${totalW.toFixed(2)} g`,
+      "Weight Passing 2.36mm (W3)": `${W3.toFixed(2)} g`,
+      "Impact Value": totalW > 0 ? `${aiv.toFixed(2)}%` : "-",
+      "Suitability": aiv > 0 && aiv <= 30 ? "Suitable for concrete" : aiv > 30 ? "Weak aggregate" : "-",
+    };
+  } else if (activeTab === "crushing") {
+    const W1 = parseNum(acvW1);
+    const W2 = parseNum(acvW2);
+    const W3 = parseNum(acvW3);
+    const totalW = W2 - W1;
+    
+    let acv = 0;
+    if (totalW > 0) {
+      acv = (W3 / totalW) * 100;
+    }
+    
+    currentExportData = {
+      "Test Type": "Aggregate Crushing Value",
+      "Total Sample Weight (W2-W1)": `${totalW.toFixed(2)} g`,
+      "Weight Passing 2.36mm (W3)": `${W3.toFixed(2)} g`,
+      "Crushing Value": totalW > 0 ? `${acv.toFixed(2)}%` : "-",
+    };
+  } else if (activeTab === "abrasion") {
+    const W1 = parseNum(laW1);
+    const W2 = parseNum(laW2);
+    
+    let la = 0;
+    if (W1 > 0) {
+      la = (W2 / W1) * 100;
+    }
+    
+    currentExportData = {
+      "Test Type": "Los Angeles Abrasion Value",
+      "Original Weight (W1)": `${W1.toFixed(2)} g`,
+      "Passing 1.7mm (W2)": `${W2.toFixed(2)} g`,
+      "Abrasion Value": W1 > 0 ? `${la.toFixed(2)}%` : "-",
+    };
+  } else if (activeTab === "water-absorption") {
+    const W1 = parseNum(waW1); // SSD
+    const W2 = parseNum(waW2); // in water
+    const W3 = parseNum(waW3); // oven dry
+    
+    let wa = 0;
+    let sgApparent = 0;
+    let sgBulkData = 0;
+    
+    if (W3 > 0) {
+      wa = ((W1 - W3) / W3) * 100;
+    }
+    
+    if (W1 - W2 > 0) {
+      sgApparent = W3 / (W3 - W2);
+      sgBulkData = W3 / (W1 - W2);
+    }
+    
+    currentExportData = {
+      "Test Type": "Water Absorption & Specific Gravity",
+      "Water Absorption": W3 > 0 ? `${wa.toFixed(2)}%` : "-",
+      "Bulk Specific Gravity": sgBulkData > 0 ? `${sgBulkData.toFixed(3)}` : "-",
+      "Apparent Specific Gravity": sgApparent > 0 ? `${sgApparent.toFixed(3)}` : "-",
+    };
+  }
+
+  const tabs = [
+    { id: "impact", label: "Impact Value", icon: Hammer },
+    { id: "crushing", label: "Crushing Value", icon: Weight },
+    { id: "abrasion", label: "Abrasion Value", icon: Circle },
+    { id: "water-absorption", label: "Water Absorption", icon: Droplets },
+  ] as const;
+
+  return (
+    <div className="w-full h-full overflow-y-auto bg-transparent text-slate-900 p-6 md:p-8">
+      <SEO 
+        title="Aggregate Tests Calculator" 
+        description="Calculate aggregate impact value, crushing value, abrasion, and water absorption." 
+      />
+      
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
+          <div>
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+              <Box className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
+              Aggregate Tests Calculator
+            </h1>
+            <p className="text-slate-500 mt-2">
+              Calculate Impact, Crushing, Abrasion values and Water Absorption properties.
+            </p>
+          </div>
+        </div>
+
+        {/* Tab Navigation */}
+        <div className="flex bg-white dark:bg-slate-900 p-2 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 mb-6 overflow-x-auto custom-scrollbar">
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => { setActiveTab(tab.id); resetEstimate(); }}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm whitespace-nowrap transition-all ${
+                  isActive 
+                    ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 shadow-sm" 
+                    : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800"
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative items-start">
+          <div 
+            className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-xl shadow-md border border-slate-200 dark:border-slate-800 flex flex-col gap-6"
+            onChange={(e) => {
+              if ((e.target as HTMLElement).tagName === 'INPUT') {
+                if (hasData) resetEstimate();
+              }
+            }}
+          >
+            <h3 className="font-bold text-lg border-b border-slate-200 dark:border-slate-800 pb-3 text-slate-800 dark:text-white">
+              Laboratory Data Inputs
+            </h3>
+
+            {activeTab === "impact" && (
+              <div className="grid gap-4">
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase">Weight of empty container (W1) in g</label>
+                  <input type="number" min="0" value={aivW1} onChange={e => setAivW1(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase">Weight of container + aggregate (W2) in g</label>
+                  <input type="number" min="0" value={aivW2} onChange={e => setAivW2(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase">Weight passing 2.36mm sieve (W3) in g</label>
+                  <input type="number" min="0" value={aivW3} onChange={e => setAivW3(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                </div>
+              </div>
+            )}
+
+            {activeTab === "crushing" && (
+              <div className="grid gap-4">
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase">Weight of empty container (W1) in g</label>
+                  <input type="number" min="0" value={acvW1} onChange={e => setAcvW1(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase">Weight of container + aggregate (W2) in g</label>
+                  <input type="number" min="0" value={acvW2} onChange={e => setAcvW2(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase">Weight passing 2.36mm sieve limit (W3) in g</label>
+                  <input type="number" min="0" value={acvW3} onChange={e => setAcvW3(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                </div>
+              </div>
+            )}
+
+            {activeTab === "abrasion" && (
+              <div className="grid gap-4">
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase">Original Weight of sample (W1) in g</label>
+                  <input type="number" min="0" value={laW1} onChange={e => setLaW1(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase">Weight passing 1.7mm sieve (W2) in g</label>
+                  <input type="number" min="0" value={laW2} onChange={e => setLaW2(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                </div>
+              </div>
+            )}
+
+            {activeTab === "water-absorption" && (
+              <div className="grid gap-4">
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase">Weight of SSD aggregate in air (W1) in g</label>
+                  <input type="number" min="0" value={waW1} onChange={e => setWaW1(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase">Weight of aggregate in water (W2) in g</label>
+                  <input type="number" min="0" value={waW2} onChange={e => setWaW2(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold text-slate-500 uppercase">Oven dry weight in air (W3) in g</label>
+                  <input type="number" min="0" value={waW3} onChange={e => setWaW3(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                </div>
+              </div>
+            )}
+
+            <button
+              onClick={() => processEstimate(() => {})}
+              disabled={isProcessing}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-full shadow-md transition-all mt-2"
+            >
+              {isProcessing ? "Generating Report..." : "Generate Lab Report"}
+            </button>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            {isProcessing ? (
+              <div className="w-full">
+                <ProcessingSkeleton count={3} />
+              </div>
+            ) : hasData ? (
+              <div className="bg-slate-900 dark:bg-slate-950 p-6 md:p-8 rounded-xl shadow-xl w-full text-white">
+                <div className="flex justify-between items-center mb-6">
+                  <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest">
+                    Lab Report Summary
+                  </h3>
+                  <Download className="w-5 h-5 text-indigo-400 cursor-pointer hover:text-indigo-300 transition-colors" />
+                </div>
+                <div className="space-y-4">
+                  {Object.entries(currentExportData).map(([key, val]) => (
+                    <div key={key} className="flex justify-between border-b border-slate-800 pb-3 items-center">
+                      <span className="text-slate-400 font-semibold text-sm">{key}</span>
+                      <span className="font-mono font-bold text-white bg-slate-800 py-1 px-3 rounded-lg text-sm">{val}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-8 border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center h-full min-h-[300px] w-full">
+                <Box className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
+                <h3 className="font-bold text-slate-700 dark:text-slate-300 text-lg">Waiting for Input</h3>
+                <p className="text-slate-500 text-sm mt-2 max-w-sm">
+                  Enter your test values on the left and generate a summarized lab report.
+                </p>
+              </div>
+            )}
+            
+            <CalculationHistory
+              calculatorId="aggregate_tests_v1"
+              currentInputs={{ 
+                activeTab,
+                aivW1, aivW2, aivW3,
+                acvW1, acvW2, acvW3,
+                laW1, laW2,
+                waW1, waW2, waW3
+              }}
+              currentResults={currentExportData}
+              summaryGeneration={(ins, res) => `Aggregate Test: ${res["Test Type"]}`}
+              onRestore={(ins) => {
+                if (ins.activeTab) setActiveTab(ins.activeTab);
+                if (ins.aivW1) setAivW1(ins.aivW1);
+                if (ins.aivW2) setAivW2(ins.aivW2);
+                if (ins.aivW3) setAivW3(ins.aivW3);
+                if (ins.acvW1) setAcvW1(ins.acvW1);
+                if (ins.acvW2) setAcvW2(ins.acvW2);
+                if (ins.acvW3) setAcvW3(ins.acvW3);
+                if (ins.laW1) setLaW1(ins.laW1);
+                if (ins.laW2) setLaW2(ins.laW2);
+                if (ins.waW1) setWaW1(ins.waW1);
+                if (ins.waW2) setWaW2(ins.waW2);
+                if (ins.waW3) setWaW3(ins.waW3);
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

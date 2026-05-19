@@ -16,7 +16,9 @@ import HouseEstimator from "./components/modules/HouseEstimator";
 import RateAnalysis from "./components/modules/RateAnalysis";
 import FormworkEstimator from "./components/modules/FormworkEstimator";
 import AreaCalculator from "./components/modules/AreaCalculator";
+import PropertyAreaCalculator from "./components/modules/PropertyAreaCalculator";
 import GeotechnicalCalculator from "./components/modules/GeotechnicalCalculator";
+import AggregateTestsCalculator from "./components/modules/AggregateTestsCalculator";
 import VolumeEstimator from "./components/modules/VolumeEstimator";
 import UnitConverter from "./components/modules/UnitConverter";
 import MetalWeightCalculator from "./components/modules/MetalWeightCalculator";
@@ -62,7 +64,7 @@ import {
   Menu, Settings as SettingsIcon, Home, FileText, User as UserIcon, Plus, Search, 
   Calculator, Square, Box, ArrowRightLeft, Weight, Zap, 
   Map as MapIcon, Layers, Hammer, Sparkles, Mountain, Route, Droplet, 
-  LineChart, ChevronDown, ChevronUp, Sun
+  LineChart, ChevronDown, ChevronUp, Sun, Building
 } from "lucide-react";
 import { GlobalSettingsToggle } from "./components/ui/GlobalSettingsToggle";
 import { OnboardingModal } from "./components/ui/OnboardingModal";
@@ -87,7 +89,8 @@ export const ALL_TOOLS = [
   { id: "formwork", title: "Formwork & Scaffold", category: "Finishes & Specs", icon: <Layers className="w-4 h-4" /> },
   { id: "metal-weight", title: "Metal Weight Calculator", category: "Finishes & Specs", icon: <Weight className="w-4 h-4" /> },
   { id: "area-calculator", title: "Area Calculator", category: "Analysis & Tools", icon: <Square className="w-4 h-4" /> },
-  { id: "volume-estimator", title: "Volume Estimator", category: "Analysis & Tools", icon: <Box className="w-4 h-4" /> },
+  { id: "property-area", title: "Property Area Calculator", category: "Analysis & Tools", icon: <Building className="w-4 h-4" /> },
+  { id: "volume-estimator", title: "Volume & Tank Capacity", category: "Analysis & Tools", icon: <Box className="w-4 h-4" /> },
   { id: "unit-converter", title: "Universal Unit Converter", category: "Analysis & Tools", icon: <ArrowRightLeft className="w-4 h-4" /> },
   { id: "mep-calculator", title: "Energy & MEP", category: "Analysis & Tools", icon: <Zap className="w-4 h-4" /> },
   { id: "gradient-calculator", title: "Gradient & Slope", category: "Analysis & Tools", icon: <LineChart className="w-4 h-4" /> },
@@ -262,7 +265,8 @@ export default function App() {
                {/* We remove AppHeader for Desktop, handle differently inside module wrappers if needed, but for now we keep ModuleWrapper and conditionally hide AppHeader inside it on desktop */}
               {activeModule === "takeoff" && <ModuleWrapper title="2D Takeoff" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><Takeoff /></ModuleWrapper>}
               {activeModule === "area-calculator" && <ModuleWrapper title="Area Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AreaCalculator /></ModuleWrapper>}
-              {activeModule === "volume-estimator" && <ModuleWrapper title="Volume Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSettingsOpen} setIsSettingsOpen={setIsSettingsOpen}><VolumeEstimator /></ModuleWrapper>}
+              {activeModule === "property-area" && <ModuleWrapper title="Property Area" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><PropertyAreaCalculator /></ModuleWrapper>}
+              {activeModule === "volume-estimator" && <ModuleWrapper title="Volume & Tank Capacity" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSettingsOpen} setIsSettingsOpen={setIsSettingsOpen}><VolumeEstimator /></ModuleWrapper>}
               {activeModule === "unit-converter" && <ModuleWrapper title="Universal Unit Converter" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><UnitConverter /></ModuleWrapper>}
               {activeModule === "metal-weight" && <ModuleWrapper title="Metal Weight Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MetalWeightCalculator /></ModuleWrapper>}
               {activeModule === "mep-calculator" && <ModuleWrapper title="Energy & MEP Calculators" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><EnergyMepCalculator /></ModuleWrapper>}
@@ -276,6 +280,7 @@ export default function App() {
               {activeModule === "geotechnical" && <ModuleWrapper title="Geotechnical & Soil Tests" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><GeotechnicalCalculator /></ModuleWrapper>}
               {activeModule === "master-sieve" && <ModuleWrapper title="Master Sieve Analysis" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MasterSieveAnalysis /></ModuleWrapper>}
               {activeModule === "aggregate-blending" && <ModuleWrapper title="Aggregate Blending Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AggregateBlendingCalculator /></ModuleWrapper>}
+              {activeModule === "aggregate-tests" && <ModuleWrapper title="Aggregate Tests" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AggregateTestsCalculator /></ModuleWrapper>}
               {activeModule === "solar-roof" && <ModuleWrapper title="Solar Roof Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><SolarRoofCalculator /></ModuleWrapper>}
               {activeModule === "road-pavement" && <ModuleWrapper title="Road & Pavement Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RoadPavementEstimator /></ModuleWrapper>}
               {activeModule === "interiors-finishes" && <ModuleWrapper title="Interiors & Finishes" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><InteriorsFinishesEstimator /></ModuleWrapper>}

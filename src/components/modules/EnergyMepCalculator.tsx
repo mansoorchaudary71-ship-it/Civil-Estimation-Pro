@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Zap, Droplet, Wind, ArrowRight } from "lucide-react";
 import { cn } from "../../lib/utils";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 type Tab = "solar" | "water" | "ac";
 
@@ -182,6 +183,19 @@ function SolarCalculator() {
           )}
         </div>
       </div>
+      <div className="mt-8">
+        <CalculationHistory
+          calculatorId="solar_roof_v1"
+          currentInputs={{ area, areaUnit, dailyPower }}
+          currentResults={results || {}}
+          summaryGeneration={(ins, res) => `Solar Rooftop: ${res.requiredKw ? res.requiredKw + ' kW' : 'N/A'}`}
+          onRestore={(ins) => {
+            if (ins.area !== undefined) setArea(ins.area);
+            if (ins.areaUnit !== undefined) setAreaUnit(ins.areaUnit);
+            if (ins.dailyPower !== undefined) setDailyPower(ins.dailyPower);
+          }}
+        />
+      </div>
     </div>
   );
 }
@@ -274,6 +288,18 @@ function WaterHeaterCalculator() {
             </div>
           )}
         </div>
+      </div>
+      <div className="mt-8">
+        <CalculationHistory
+          calculatorId="solar_water_heater_v1"
+          currentInputs={{ members, usageType }}
+          currentResults={results || {}}
+          summaryGeneration={(ins, res) => `Water Heater: ${res.recommended ? res.recommended + ' LPD' : 'N/A'}`}
+          onRestore={(ins) => {
+            if (ins.members !== undefined) setMembers(ins.members);
+            if (ins.usageType !== undefined) setUsageType(ins.usageType);
+          }}
+        />
       </div>
     </div>
   );
@@ -400,6 +426,20 @@ function AcCalculator() {
             </div>
           )}
         </div>
+      </div>
+      <div className="mt-8">
+        <CalculationHistory
+          calculatorId="ac_calculator_v1"
+          currentInputs={{ length, width, height, unit }}
+          currentResults={results || {}}
+          summaryGeneration={(ins, res) => `AC Size: ${res.recommended ? res.recommended + ' Tons' : 'N/A'}`}
+          onRestore={(ins) => {
+            if (ins.length !== undefined) setLength(ins.length);
+            if (ins.width !== undefined) setWidth(ins.width);
+            if (ins.height !== undefined) setHeight(ins.height);
+            if (ins.unit !== undefined) setUnit(ins.unit);
+          }}
+        />
       </div>
     </div>
   );

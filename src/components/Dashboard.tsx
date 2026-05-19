@@ -6,7 +6,7 @@ import {
   Calculator, Sparkles, Truck, Route, Waves, Paintbrush, Home, 
   TrendingUp, Hammer, Layers, BoxSelect, Search, Menu, CheckSquare, 
   Map, Grid2X2, Box, ArrowRightLeft, Weight, Spline, ArrowRight,
-  ChevronRight, ChevronDown, HardHat, Scaling, Container, Repeat, Anvil, Building2, 
+  ChevronRight, ChevronDown, HardHat, Scaling, Container, Repeat, Anvil, Building2, Building, 
   Blocks, Shovel, Pickaxe, Cone, Droplet, PaintBucket, Ruler, Columns, 
   ClipboardList, Maximize2, FileSpreadsheet, Zap, Wand2, ArrowUpRight, LineChart, Sun
 } from "lucide-react";
@@ -20,7 +20,8 @@ export const ALL_MODULES = [
   { id: "calculators", title: "Construction Material", desc: "Accurate estimations for concrete, bricks, steel, blocks, mortar.", category: "Concrete Tech", icon: HardHat, styleStyle: "solid", colorClass: "bg-[var(--accent-vibrant)] text-white shadow-[0_8px_30px_rgba(255,159,67,0.3)]", iconClass: "text-white opacity-90" },
   { id: "house", title: "House Estimator", desc: "Complete residential cost breakdown from grey structure to finishing.", category: "Quantity Estimator", icon: Home, premium: true, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white" },
   { id: "area-calculator", title: "Area Calculator", desc: "Calculate area & perimeter for multiple 2D shapes.", category: "Quantity Estimator", icon: Scaling, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white" },
-  { id: "volume-estimator", title: "Volume Estimator", desc: "Calculate volumes, capacity & surface area.", category: "Quantity Estimator", icon: Container, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white" },
+  { id: "property-area", title: "Property Area Calculator", desc: "Calculate Carpet Area, Built-up Area and Super Built-up Area.", category: "Quantity Estimator", icon: Building, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white" },
+  { id: "volume-estimator", title: "Volume & Tank Capacity", desc: "Calculate volumes, tank capacity & surface area.", category: "Quantity Estimator", icon: Container, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white" },
   { id: "unit-converter", title: "Unit Converter", desc: "Convert units across 15 engineering categories.", category: "Quantity Estimator", icon: Repeat, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white" },
   { id: "metal-weight", title: "Metal Weight", desc: "Calculate section weights of steel profiles.", category: "Quantity Estimator", icon: Anvil, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white" },
   { id: "mep-calculator", title: "Energy & MEP Calculators", desc: "Estimate solar capacity, water heating, and AC sizing.", category: "MEP", icon: Zap, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white" },
@@ -38,6 +39,7 @@ export const ALL_MODULES = [
   { id: "geotechnical", title: "Geotechnical & Soil Tests", desc: "Process lab data for water content, Specific Gravity, LL, and CBR.", category: "Soil Tests", icon: Cone, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white" },
   { id: "master-sieve", title: "Master Sieve Analysis", desc: "Dynamic gradation validator driven by specification databases.", category: "Soil Tests", icon: LineChart, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white" },
   { id: "aggregate-blending", title: "Aggregate Blending", desc: "Blend 2 to 4 stockpiles to meet target grading specifications.", category: "Soil Tests", icon: Layers, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white" },
+  { id: "aggregate-tests", title: "Aggregate Tests", desc: "Calculate impact, crushing, abrasion values and water absorption.", category: "Concrete Tech", icon: Box, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white" },
   { id: "solar-roof", title: "Solar Roof Calculator", desc: "Estimate required solar system size, panels, and ROI.", category: "MEP", icon: Sun, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white" }
 ];
 
@@ -50,26 +52,24 @@ interface DashboardProps {
 }
 
 export const getCategoryTheme = (category: string, id: string) => {
-  const colors = [
-    { text: "text-indigo-600", bg: "bg-indigo-50", fill: "bg-indigo-50", border: "border-indigo-100" },
-    { text: "text-orange-600", bg: "bg-orange-50", fill: "bg-orange-100", border: "border-orange-100" },
-    { text: "text-sky-600", bg: "bg-sky-50", fill: "bg-sky-100", border: "border-sky-100" },
-    { text: "text-emerald-600", bg: "bg-emerald-50", fill: "bg-emerald-100", border: "border-emerald-100" },
-    { text: "text-purple-600", bg: "bg-purple-50", fill: "bg-purple-100", border: "border-purple-100" },
-    { text: "text-rose-600", bg: "bg-rose-50", fill: "bg-rose-100", border: "border-rose-100" },
-  ];
-  
-  // Deterministic color based on id
-  let hash = 0;
-  for (let i = 0; i < id.length; i++) {
-    hash = id.charCodeAt(i) + ((hash << 5) - hash);
+  if (id === 'ai') {
+    return { text: "text-indigo-600 dark:text-indigo-400", bg: "bg-indigo-100 dark:bg-indigo-900/40", stroke: "stroke-indigo-500" };
   }
-  const index = Math.abs(hash) % colors.length;
   
-  if (id === 'ai') return colors[0]; // Primary purple
-  if (id === 'house') return colors[1]; // Accent orange
-
-  return colors[index];
+  switch (category) {
+    case "Concrete Tech":
+      return { text: "text-orange-600 dark:text-orange-400", bg: "bg-orange-100 dark:bg-orange-900/40", stroke: "stroke-orange-500" };
+    case "Quantity Estimator":
+      return { text: "text-sky-600 dark:text-sky-400", bg: "bg-sky-100 dark:bg-sky-900/40", stroke: "stroke-sky-500" };
+    case "Road Construction":
+      return { text: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-100 dark:bg-emerald-900/40", stroke: "stroke-emerald-500" };
+    case "Soil Tests":
+      return { text: "text-rose-600 dark:text-rose-400", bg: "bg-rose-100 dark:bg-rose-900/40", stroke: "stroke-rose-500" };
+    case "MEP":
+      return { text: "text-purple-600 dark:text-purple-400", bg: "bg-purple-100 dark:bg-purple-900/40", stroke: "stroke-purple-500" };
+    default:
+      return { text: "text-indigo-600 dark:text-indigo-400", bg: "bg-indigo-100 dark:bg-indigo-900/40", stroke: "stroke-indigo-500" };
+  }
 };
 
 export default function Dashboard({
@@ -190,27 +190,19 @@ export default function Dashboard({
           </p>
 
           {/* CATEGORY TABS */}
-          <div className="w-full flex justify-start sm:justify-center overflow-x-auto scrollbar-hide pb-2 px-2">
-            <div className="inline-flex flex-row items-center gap-1 shrink-0">
+          <div className="w-full overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden mb-8">
+            <div className="flex flex-row items-center justify-start sm:justify-center gap-3 shrink-0 mx-auto px-4 w-max min-w-full">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`relative flex-shrink-0 px-[24px] py-[10px] rounded-[50px] text-[14px] font-semibold transition-all duration-300 outline-none ${
+                  className={`flex-shrink-0 px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 outline-none ${
                     activeCategory === category
-                      ? "text-white"
-                      : "bg-transparent text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white"
+                      ? "bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 shadow-md"
+                      : "bg-slate-100/80 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-300"
                   }`}
                 >
-                  {activeCategory === category && (
-                    <motion.div
-                      layoutId="activeCategory"
-                      className="absolute inset-0 bg-[#1E293B] shadow-sm rounded-[50px] z-[-1]"
-                      initial={false}
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10">{category}</span>
+                  {category}
                 </button>
               ))}
             </div>
@@ -279,13 +271,13 @@ export default function Dashboard({
                    )}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6 w-full auto-rows-max">
                     {groupedModules[groupName].map((mod, idx) => {
-                      const isSolid = mod.styleStyle === "solid";
+                      const theme = getCategoryTheme(mod.category, mod.id);
                       return (
                         <button
                           key={mod.id}
                           id={`module-card-${mod.id}`}
                           onClick={() => onSelectModule(mod.id as ModuleId)}
-                          className={`stagger-in p-6 rounded-[24px] transition-all duration-300 ease-out flex flex-col relative text-left group min-h-[160px] overflow-hidden block w-full hover:-translate-y-1 hover:shadow-lg ${mod.colorClass || 'bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white shadow-sm'}`}
+                          className={`stagger-in p-6 rounded-[24px] transition-all duration-300 ease-out flex flex-col relative text-left group min-h-[160px] overflow-hidden block w-full hover:-translate-y-1 hover:shadow-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50 shadow-sm`}
                           style={{ animationDelay: `${idx * 50}ms` }}
                         >
                           {/* Border Draw SVG Effect */}
@@ -297,26 +289,26 @@ export default function Dashboard({
                               fill="none" 
                               strokeWidth="3"
                               strokeLinecap="round"
-                              className={`transition-all duration-700 ease-out [stroke-dasharray:2500] [stroke-dashoffset:2500] group-hover:[stroke-dashoffset:0] group-active:[stroke-dashoffset:0] opacity-0 group-hover:opacity-100 group-active:opacity-100 ${isSolid ? 'stroke-white/70' : 'stroke-[var(--accent-vibrant)]'}`}
+                              className={`transition-all duration-700 ease-out [stroke-dasharray:2500] [stroke-dashoffset:2500] group-hover:[stroke-dashoffset:0] group-active:[stroke-dashoffset:0] opacity-0 group-hover:opacity-100 group-active:opacity-100 ${theme.text.replace('text-', 'stroke-')}`}
                             />
                           </svg>
 
                           <div className="relative z-10 w-full flex-1 flex flex-col">
                             {/* Icon at top left */}
                             <div className="flex justify-between items-start mb-4">
-                              <div className={`w-12 h-12 rounded-[16px] flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 ${isSolid ? 'bg-black/10' : 'bg-slate-100 dark:bg-slate-700/50'}`}>
-                                <mod.icon className={`w-6 h-6 ${mod.iconClass || (isSolid ? 'text-white' : 'text-[var(--accent-vibrant)]')}`} strokeWidth={2} />
+                              <div className={`w-12 h-12 rounded-[16px] flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 ${theme.bg}`}>
+                                <mod.icon className={`w-6 h-6 ${theme.text}`} strokeWidth={2} />
                               </div>
-                              <div className="w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
-                                <ArrowRight className={`w-5 h-5 ${isSolid ? 'text-white' : 'text-[var(--accent-vibrant)]'}`} />
+                              <div className={`w-8 h-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1 ${theme.bg}`}>
+                                <ArrowRight className={`w-4 h-4 ${theme.text}`} />
                               </div>
                             </div>
 
-                            <h4 className={`text-[17px] font-extrabold leading-tight tracking-tight mb-2 ${isSolid ? 'text-white' : 'text-[var(--primary-dark)] dark:text-white'}`}>
+                            <h4 className={`text-[17px] font-extrabold leading-tight tracking-tight mb-2 text-slate-800 dark:text-white`}>
                               {mod.title}
                             </h4>
 
-                            <p className={`text-[13px] font-medium leading-[1.6] line-clamp-2 mt-auto ${isSolid ? 'text-white/80' : 'text-slate-500 dark:text-slate-400'}`}>
+                            <p className={`text-[13px] font-medium leading-[1.6] line-clamp-2 mt-auto text-slate-500 dark:text-slate-400`}>
                               {mod.desc}
                             </p>
                           </div>

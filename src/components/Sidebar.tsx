@@ -40,7 +40,12 @@ export type ModuleId =
   | "pricing"
   | "privacy"
   | "terms"
-  | "cookies";
+  | "cookies"
+  | "property-area"
+  | "master-sieve"
+  | "aggregate-blending"
+  | "aggregate-tests"
+  | "solar-roof";
 
 interface SidebarProps {
   activeModule: ModuleId;

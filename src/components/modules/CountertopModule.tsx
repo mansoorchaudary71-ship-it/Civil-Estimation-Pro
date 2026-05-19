@@ -1,0 +1,239 @@
+import React, { useState } from "react";
+import { Calculator, Square } from "lucide-react";
+import { useSettings } from "../../context/SettingsContext";
+import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
+import { CalculationHistory } from "../ui/CalculationHistory";
+
+export default function CountertopModule() {
+  const { settings } = useSettings();
+  const isMetric = settings.measurement === "SI";
+
+  const [shape, setShape] = useState<"L-Shape" | "U-Shape" | "Straight">("Straight");
+  const [lengthA, setLengthA] = useState<string>("3");
+  const [lengthB, setLengthB] = useState<string>("2");
+  const [lengthC, setLengthC] = useState<string>("2");
+  const [depth, setDepth] = useState<string>("0.6");
+  
+  const [hasSink, setHasSink] = useState(true);
+  const [sinkLength, setSinkLength] = useState<string>("0.6");
+  const [sinkWidth, setSinkWidth] = useState<string>("0.45");
+
+  const [hasHob, setHasHob] = useState(true);
+  const [hobLength, setHobLength] = useState<string>("0.6");
+  const [hobWidth, setHobWidth] = useState<string>("0.5");
+
+  const [skirtingHeight, setSkirtingHeight] = useState<string>("0.1");
+  const [slabThickness, setSlabThickness] = useState<string>("0.02");
+
+  const parse = (v: string) => isNaN(parseFloat(v)) ? 0 : parseFloat(v);
+  const lA = parse(lengthA);
+  const lB = parse(lengthB);
+  const lC = parse(lengthC);
+  const d = parse(depth);
+  const sL = parse(sinkLength);
+  const sW = parse(sinkWidth);
+  const hL = parse(hobLength);
+  const hW = parse(hobWidth);
+  const skH = parse(skirtingHeight);
+  const sT = parse(slabThickness);
+
+  let grossArea = 0;
+  let skirtingLength = 0;
+  let frontEdgePolish = 0;
+
+  if (shape === "Straight") {
+    grossArea = lA * d;
+    skirtingLength = lA + (d * 2);
+    frontEdgePolish = lA + (d * 2);
+  } else if (shape === "L-Shape") {
+    grossArea = (lA * d) + ((lB - d) * d);
+    skirtingLength = lA + lB + d;
+    frontEdgePolish = lA + lB;
+  } else if (shape === "U-Shape") {
+    grossArea = (lA * d) + ((lB - d) * d) + ((lC - d) * d);
+    skirtingLength = lA + lB + lC;
+    frontEdgePolish = lA + lB + lC;
+  }
+
+  let deductions = 0;
+  if (hasSink) deductions += (sL * sW);
+  if (hasHob) deductions += (hL * hW);
+
+  const netArea = Math.max(0, grossArea - deductions);
+  const skirtingArea = skirtingLength * skH;
+  const totalMaterialArea = grossArea + skirtingArea; // we usually buy stock for gross before cutout, plus skirting
+
+  const uL = isMetric ? "m" : "ft";
+  const uA = isMetric ? "m²" : "sq.ft";
+
+  return (
+    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
+      <div className="flex items-center gap-3 mb-6">
+        <Square className="w-6 h-6 text-indigo-600" />
+        <h2 className="text-xl font-bold tracking-tight text-gray-800 dark:text-white">Countertop (Platform) Estimator</h2>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="space-y-6">
+          <div>
+            <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-2 block">Layout Shape</label>
+            <div className="flex gap-2">
+              {(["Straight", "L-Shape", "U-Shape"] as const).map(s => (
+                <button
+                  key={s}
+                  onClick={() => setShape(s)}
+                  className={`px-4 py-2 rounded-xl text-sm font-bold transition-all border ${shape === s ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100'}`}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1">
+                Main Length ({uL})
+              </label>
+              <input
+                type="number"
+                value={lengthA}
+                onChange={(e) => setLengthA(e.target.value)}
+                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+              />
+            </div>
+            {(shape === "L-Shape" || shape === "U-Shape") && (
+              <div>
+                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1">
+                  Side Length B ({uL})
+                </label>
+                <input
+                  type="number"
+                  value={lengthB}
+                  onChange={(e) => setLengthB(e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                />
+              </div>
+            )}
+            {shape === "U-Shape" && (
+              <div>
+                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1">
+                  Side Length C ({uL})
+                </label>
+                <input
+                  type="number"
+                  value={lengthC}
+                  onChange={(e) => setLengthC(e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                />
+              </div>
+            )}
+            <div>
+              <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1">
+                Platform Depth ({uL})
+              </label>
+              <input
+                type="number"
+                value={depth}
+                onChange={(e) => setDepth(e.target.value)}
+                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1">
+                Skirting Height ({uL})
+              </label>
+              <input
+                type="number"
+                value={skirtingHeight}
+                onChange={(e) => setSkirtingHeight(e.target.value)}
+                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-4 border-t border-slate-100 dark:border-slate-800 pt-4">
+            <h4 className="font-bold text-sm text-slate-800 dark:text-white">Cutout Deductions</h4>
+            <div className="flex items-center gap-2 mb-2">
+              <input type="checkbox" id="hasSink" checked={hasSink} onChange={e => setHasSink(e.target.checked)} className="rounded text-indigo-600 w-4 h-4" />
+              <label htmlFor="hasSink" className="text-sm font-bold text-slate-700 dark:text-slate-300">Include Sink Cutout</label>
+            </div>
+            {hasSink && (
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-[10px] font-bold text-gray-500 uppercase block mb-1">Length ({uL})</label>
+                  <input type="number" value={sinkLength} onChange={e => setSinkLength(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 p-2 rounded-lg text-sm" />
+                </div>
+                <div>
+                  <label className="text-[10px] font-bold text-gray-500 uppercase block mb-1">Width ({uL})</label>
+                  <input type="number" value={sinkWidth} onChange={e => setSinkWidth(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 p-2 rounded-lg text-sm" />
+                </div>
+              </div>
+            )}
+
+            <div className="flex items-center gap-2 mb-2 mt-4">
+              <input type="checkbox" id="hasHob" checked={hasHob} onChange={e => setHasHob(e.target.checked)} className="rounded text-indigo-600 w-4 h-4" />
+              <label htmlFor="hasHob" className="text-sm font-bold text-slate-700 dark:text-slate-300">Include Stove/Hob Cutout</label>
+            </div>
+            {hasHob && (
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-[10px] font-bold text-gray-500 uppercase block mb-1">Length ({uL})</label>
+                  <input type="number" value={hobLength} onChange={e => setHobLength(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 p-2 rounded-lg text-sm" />
+                </div>
+                <div>
+                  <label className="text-[10px] font-bold text-gray-500 uppercase block mb-1">Width ({uL})</label>
+                  <input type="number" value={hobWidth} onChange={e => setHobWidth(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 p-2 rounded-lg text-sm" />
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="bg-slate-900 rounded-3xl p-6 text-white flex flex-col justify-center">
+          <h3 className="font-bold text-slate-400 text-sm uppercase tracking-widest mb-6">Quantity Summary</h3>
+          <div className="space-y-4">
+            <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+              <span className="block text-slate-400 text-xs font-bold uppercase mb-1">Total Material Required (Slab/Granite)</span>
+              <span className="text-3xl font-black text-indigo-400">{totalMaterialArea.toFixed(2)} {uA}</span>
+              <p className="text-[10px] text-slate-500 mt-1">Platform gross area + Skirting area</p>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                <span className="block text-slate-400 text-xs font-bold uppercase mb-1">Net Usable Area</span>
+                <span className="text-xl font-bold flex items-baseline gap-1">{netArea.toFixed(2)} <span className="text-sm">{uA}</span></span>
+                <p className="text-[10px] text-slate-500 mt-1">Gross minus deductions</p>
+              </div>
+              <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
+                <span className="block text-slate-400 text-xs font-bold uppercase mb-1">Edge Polishing</span>
+                <span className="text-xl font-bold flex items-baseline gap-1">{frontEdgePolish.toFixed(2)} <span className="text-sm">{uL}</span></span>
+                <p className="text-[10px] text-slate-500 mt-1">Front edges</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <CalculationHistory
+        calculatorId="countertop_module_v1"
+        currentInputs={{ shape, lengthA, lengthB, lengthC, depth, skirtingHeight, hasSink, sinkLength, sinkWidth, hasHob, hobLength, hobWidth }}
+        currentResults={{ totalMaterialArea, netArea, frontEdgePolish }}
+        summaryGeneration={(ins, res) => `Countertop: ${ins.shape} - ${res.totalMaterialArea.toFixed(2)} ${uA}`}
+        onRestore={(ins) => {
+          if (ins.shape) setShape(ins.shape);
+          if (ins.lengthA) setLengthA(ins.lengthA);
+          if (ins.lengthB) setLengthB(ins.lengthB);
+          if (ins.lengthC) setLengthC(ins.lengthC);
+          if (ins.depth) setDepth(ins.depth);
+          if (ins.skirtingHeight) setSkirtingHeight(ins.skirtingHeight);
+          if (ins.hasSink !== undefined) setHasSink(ins.hasSink);
+          if (ins.sinkLength) setSinkLength(ins.sinkLength);
+          if (ins.sinkWidth) setSinkWidth(ins.sinkWidth);
+          if (ins.hasHob !== undefined) setHasHob(ins.hasHob);
+          if (ins.hobLength) setHobLength(ins.hobLength);
+          if (ins.hobWidth) setHobWidth(ins.hobWidth);
+        }}
+      />
+    </div>
+  );
+}

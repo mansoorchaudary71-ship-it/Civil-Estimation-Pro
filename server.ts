@@ -77,73 +77,1244 @@ async function startServer() {
   app.get("/api/sieve-specs", (req, res) => {
     try {
       const specifications = {
-        categories: [
-          {
-            name: "Sub-base & Base Course",
-            gradings: [
-              {
-                name: "GSB Grading I",
-                sieves: [
-                  { size: 75, minPassing: 100, maxPassing: 100 },
-                  { size: 53, minPassing: 80, maxPassing: 100 },
-                  { size: 26.5, minPassing: 55, maxPassing: 90 },
-                  { size: 9.5, minPassing: 35, maxPassing: 65 },
-                  { size: 4.75, minPassing: 25, maxPassing: 55 },
-                  { size: 2.36, minPassing: 20, maxPassing: 40 },
-                  { size: 0.425, minPassing: 10, maxPassing: 25 },
-                  { size: 0.075, minPassing: 3, maxPassing: 10 }
-                ]
-              },
-              {
-                name: "WMM",
-                sieves: [
-                  { size: 53, minPassing: 100, maxPassing: 100 },
-                  { size: 45, minPassing: 95, maxPassing: 100 },
-                  { size: 22.4, minPassing: 60, maxPassing: 80 },
-                  { size: 11.2, minPassing: 40, maxPassing: 60 },
-                  { size: 4.75, minPassing: 25, maxPassing: 40 },
-                  { size: 2.36, minPassing: 15, maxPassing: 30 },
-                  { size: 0.6, minPassing: 8, maxPassing: 22 },
-                  { size: 0.075, minPassing: 0, maxPassing: 8 }
-                ]
-              }
-            ]
-          },
-          {
-            name: "Bituminous",
-            gradings: [
-              {
-                name: "DBM Grading I",
-                sieves: [
-                  { size: 37.5, minPassing: 100, maxPassing: 100 },
-                  { size: 26.5, minPassing: 90, maxPassing: 100 },
-                  { size: 19, minPassing: 71, maxPassing: 95 },
-                  { size: 13.2, minPassing: 56, maxPassing: 80 },
-                  { size: 4.75, minPassing: 38, maxPassing: 54 },
-                  { size: 2.36, minPassing: 28, maxPassing: 42 },
-                  { size: 0.3, minPassing: 7, maxPassing: 21 },
-                  { size: 0.075, minPassing: 2, maxPassing: 8 }
-                ]
-              },
-              {
-                name: "Bituminous Concrete Grading-II",
-                sieves: [
-                  { size: 19, minPassing: 100, maxPassing: 100 },
-                  { size: 13.2, minPassing: 90, maxPassing: 100 },
-                  { size: 9.5, minPassing: 70, maxPassing: 88 },
-                  { size: 4.75, minPassing: 53, maxPassing: 71 },
-                  { size: 2.36, minPassing: 42, maxPassing: 58 },
-                  { size: 1.18, minPassing: 34, maxPassing: 48 },
-                  { size: 0.6, minPassing: 26, maxPassing: 38 },
-                  { size: 0.3, minPassing: 18, maxPassing: 28 },
-                  { size: 0.15, minPassing: 12, maxPassing: 20 },
-                  { size: 0.075, minPassing: 4, maxPassing: 10 }
-                ]
-              }
-            ]
-          }
+        "categories": [
+                {
+                        "name": "Granular Sub-base (GSB)",
+                        "gradings": [
+                                {
+                                        "name": "Grading for Granular Sub-base Materials (GSB) (Grading - I)",
+                                        "sieves": [
+                                                {
+                                                        "size": 75,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 53,
+                                                        "minPassing": 80,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 26.5,
+                                                        "minPassing": 55,
+                                                        "maxPassing": 90
+                                                },
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 35,
+                                                        "maxPassing": 65
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 25,
+                                                        "maxPassing": 55
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 20,
+                                                        "maxPassing": 40
+                                                },
+                                                {
+                                                        "size": 0.425,
+                                                        "minPassing": 10,
+                                                        "maxPassing": 25
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 3,
+                                                        "maxPassing": 10
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Grading for Granular Sub-base Materials (GSB) (Grading - II)",
+                                        "sieves": [
+                                                {
+                                                        "size": 53,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 26.5,
+                                                        "minPassing": 70,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 40,
+                                                        "maxPassing": 65
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 30,
+                                                        "maxPassing": 50
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 20,
+                                                        "maxPassing": 40
+                                                },
+                                                {
+                                                        "size": 0.425,
+                                                        "minPassing": 10,
+                                                        "maxPassing": 25
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 3,
+                                                        "maxPassing": 10
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Grading for Granular Sub-base Materials (GSB) (Grading - III)",
+                                        "sieves": [
+                                                {
+                                                        "size": 26.5,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 65,
+                                                        "maxPassing": 95
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 50,
+                                                        "maxPassing": 80
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 40,
+                                                        "maxPassing": 65
+                                                },
+                                                {
+                                                        "size": 0.425,
+                                                        "minPassing": 15,
+                                                        "maxPassing": 30
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 3,
+                                                        "maxPassing": 10
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Grading for Granular Sub-base Materials (GSB) (Grading - IV)",
+                                        "sieves": [
+                                                {
+                                                        "size": 26.5,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 50,
+                                                        "maxPassing": 80
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 35,
+                                                        "maxPassing": 65
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 25,
+                                                        "maxPassing": 50
+                                                },
+                                                {
+                                                        "size": 0.425,
+                                                        "minPassing": 10,
+                                                        "maxPassing": 20
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 3,
+                                                        "maxPassing": 10
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Grading for Granular Sub-base Materials (GSB) (Grading - V)",
+                                        "sieves": [
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 80,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 55,
+                                                        "maxPassing": 90
+                                                },
+                                                {
+                                                        "size": 0.425,
+                                                        "minPassing": 25,
+                                                        "maxPassing": 50
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 3,
+                                                        "maxPassing": 10
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Grading for Granular Sub-base Materials (GSB) (Grading - VI)",
+                                        "sieves": [
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 65,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 50,
+                                                        "maxPassing": 80
+                                                },
+                                                {
+                                                        "size": 0.425,
+                                                        "minPassing": 15,
+                                                        "maxPassing": 30
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 3,
+                                                        "maxPassing": 10
+                                                }
+                                        ]
+                                }
+                        ]
+                },
+                {
+                        "name": "Water Bound Macadam (WBM) & Wet Mix Macadam (WMM)",
+                        "gradings": [
+                                {
+                                        "name": "Water Bound Macadam Sub-Base / Base (WBM) (Coarse Aggregates (63 mm to 42 mm))",
+                                        "sieves": [
+                                                {
+                                                        "size": 90,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 63,
+                                                        "minPassing": 90,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 53,
+                                                        "minPassing": 25,
+                                                        "maxPassing": 75
+                                                },
+                                                {
+                                                        "size": 45,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 15
+                                                },
+                                                {
+                                                        "size": 22.4,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 5
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Water Bound Macadam Sub-Base / Base (WBM) (Coarse Aggregates (53 mm to 22.4 mm))",
+                                        "sieves": [
+                                                {
+                                                        "size": 63,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 53,
+                                                        "minPassing": 95,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 45,
+                                                        "minPassing": 65,
+                                                        "maxPassing": 90
+                                                },
+                                                {
+                                                        "size": 22.4,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 10
+                                                },
+                                                {
+                                                        "size": 11.2,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 5
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Water Bound Macadam Sub-Base / Base (WBM) (Grading For Screenings - Grade A (13.2 mm))",
+                                        "sieves": [
+                                                {
+                                                        "size": 13.2,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 11.2,
+                                                        "minPassing": 95,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 5.6,
+                                                        "minPassing": 15,
+                                                        "maxPassing": 35
+                                                },
+                                                {
+                                                        "size": 0.09,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 10
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Water Bound Macadam Sub-Base / Base (WBM) (Grading For Screenings - Grade B (11.2 mm))",
+                                        "sieves": [
+                                                {
+                                                        "size": 11.2,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 80,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 5.6,
+                                                        "minPassing": 10,
+                                                        "maxPassing": 30
+                                                },
+                                                {
+                                                        "size": 0.09,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 10
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Wet Mix Macadam (WMM)",
+                                        "sieves": [
+                                                {
+                                                        "size": 53,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 45,
+                                                        "minPassing": 95,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 22.4,
+                                                        "minPassing": 60,
+                                                        "maxPassing": 80
+                                                },
+                                                {
+                                                        "size": 11.2,
+                                                        "minPassing": 40,
+                                                        "maxPassing": 60
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 25,
+                                                        "maxPassing": 40
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 15,
+                                                        "maxPassing": 30
+                                                },
+                                                {
+                                                        "size": 0.6,
+                                                        "minPassing": 8,
+                                                        "maxPassing": 22
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 8
+                                                }
+                                        ]
+                                }
+                        ]
+                },
+                {
+                        "name": "Bituminous Base Courses",
+                        "gradings": [
+                                {
+                                        "name": "Bituminous Macadam (Grading - I (Nominal maximum aggregate size (40 mm)))",
+                                        "sieves": [
+                                                {
+                                                        "size": 45,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 37.5,
+                                                        "minPassing": 90,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 26.5,
+                                                        "minPassing": 75,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 19,
+                                                        "minPassing": 71,
+                                                        "maxPassing": 95
+                                                },
+                                                {
+                                                        "size": 13.2,
+                                                        "minPassing": 35,
+                                                        "maxPassing": 61
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 10,
+                                                        "maxPassing": 22
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 4,
+                                                        "maxPassing": 14
+                                                },
+                                                {
+                                                        "size": 0.3,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 5
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 2
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Bituminous Macadam (Grading-II (Nominal maximum aggregate size (19 mm)))",
+                                        "sieves": [
+                                                {
+                                                        "size": 26.5,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 19,
+                                                        "minPassing": 90,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 13.2,
+                                                        "minPassing": 56,
+                                                        "maxPassing": 88
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 16,
+                                                        "maxPassing": 36
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 4,
+                                                        "maxPassing": 19
+                                                },
+                                                {
+                                                        "size": 0.3,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 8
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 2
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Dense Bituminous Macadam (DBM) (Grading - I (Nominal maximum aggregate size (37.5 mm)))",
+                                        "sieves": [
+                                                {
+                                                        "size": 45,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 37.5,
+                                                        "minPassing": 95,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 26.5,
+                                                        "minPassing": 63,
+                                                        "maxPassing": 93
+                                                },
+                                                {
+                                                        "size": 19,
+                                                        "minPassing": 71,
+                                                        "maxPassing": 95
+                                                },
+                                                {
+                                                        "size": 13.2,
+                                                        "minPassing": 56,
+                                                        "maxPassing": 80
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 38,
+                                                        "maxPassing": 54
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 28,
+                                                        "maxPassing": 42
+                                                },
+                                                {
+                                                        "size": 1.18,
+                                                        "minPassing": 20,
+                                                        "maxPassing": 32
+                                                },
+                                                {
+                                                        "size": 0.6,
+                                                        "minPassing": 15,
+                                                        "maxPassing": 26
+                                                },
+                                                {
+                                                        "size": 0.3,
+                                                        "minPassing": 10,
+                                                        "maxPassing": 21
+                                                },
+                                                {
+                                                        "size": 0.15,
+                                                        "minPassing": 5,
+                                                        "maxPassing": 14
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 2,
+                                                        "maxPassing": 8
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Dense Bituminous Macadam (DBM) (Grading - II (Nominal maximum aggregate size (26.5 mm)))",
+                                        "sieves": [
+                                                {
+                                                        "size": 37.5,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 26.5,
+                                                        "minPassing": 90,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 19,
+                                                        "minPassing": 71,
+                                                        "maxPassing": 95
+                                                },
+                                                {
+                                                        "size": 13.2,
+                                                        "minPassing": 56,
+                                                        "maxPassing": 80
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 38,
+                                                        "maxPassing": 54
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 28,
+                                                        "maxPassing": 42
+                                                },
+                                                {
+                                                        "size": 1.18,
+                                                        "minPassing": 20,
+                                                        "maxPassing": 32
+                                                },
+                                                {
+                                                        "size": 0.6,
+                                                        "minPassing": 15,
+                                                        "maxPassing": 26
+                                                },
+                                                {
+                                                        "size": 0.3,
+                                                        "minPassing": 10,
+                                                        "maxPassing": 21
+                                                },
+                                                {
+                                                        "size": 0.15,
+                                                        "minPassing": 5,
+                                                        "maxPassing": 14
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 2,
+                                                        "maxPassing": 8
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Sand Asphalt Base Course",
+                                        "sieves": [
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 85,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 80,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 0.6,
+                                                        "minPassing": 20,
+                                                        "maxPassing": 65
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 2,
+                                                        "maxPassing": 8
+                                                }
+                                        ]
+                                }
+                        ]
+                },
+                {
+                        "name": "Bituminous Surfacing Courses",
+                        "gradings": [
+                                {
+                                        "name": "Bituminous Concrete (Grading - I (Nominal maximum aggregate size (19 mm)))",
+                                        "sieves": [
+                                                {
+                                                        "size": 26.5,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 19,
+                                                        "minPassing": 90,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 13.2,
+                                                        "minPassing": 59,
+                                                        "maxPassing": 79
+                                                },
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 52,
+                                                        "maxPassing": 72
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 35,
+                                                        "maxPassing": 55
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 28,
+                                                        "maxPassing": 44
+                                                },
+                                                {
+                                                        "size": 1.18,
+                                                        "minPassing": 21,
+                                                        "maxPassing": 34
+                                                },
+                                                {
+                                                        "size": 0.6,
+                                                        "minPassing": 15,
+                                                        "maxPassing": 27
+                                                },
+                                                {
+                                                        "size": 0.3,
+                                                        "minPassing": 11,
+                                                        "maxPassing": 21
+                                                },
+                                                {
+                                                        "size": 0.15,
+                                                        "minPassing": 7,
+                                                        "maxPassing": 15
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 2,
+                                                        "maxPassing": 8
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Bituminous Concrete (Grading - II (Nominal maximum aggregate size (13.2 mm)))",
+                                        "sieves": [
+                                                {
+                                                        "size": 19,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 13.2,
+                                                        "minPassing": 90,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 70,
+                                                        "maxPassing": 88
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 53,
+                                                        "maxPassing": 71
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 42,
+                                                        "maxPassing": 58
+                                                },
+                                                {
+                                                        "size": 1.18,
+                                                        "minPassing": 34,
+                                                        "maxPassing": 48
+                                                },
+                                                {
+                                                        "size": 0.6,
+                                                        "minPassing": 26,
+                                                        "maxPassing": 38
+                                                },
+                                                {
+                                                        "size": 0.3,
+                                                        "minPassing": 18,
+                                                        "maxPassing": 28
+                                                },
+                                                {
+                                                        "size": 0.15,
+                                                        "minPassing": 12,
+                                                        "maxPassing": 20
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 4,
+                                                        "maxPassing": 10
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Close-Graded Premix Surfacing / Mixed Seal Surfacing (MSS) (Type A)",
+                                        "sieves": [
+                                                {
+                                                        "size": 11.2,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 95,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 30,
+                                                        "maxPassing": 60
+                                                },
+                                                {
+                                                        "size": 0.6,
+                                                        "minPassing": 20,
+                                                        "maxPassing": 45
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 2,
+                                                        "maxPassing": 9
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Close-Graded Premix Surfacing / Mixed Seal Surfacing (MSS) (Type B)",
+                                        "sieves": [
+                                                {
+                                                        "size": 13.2,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 11.2,
+                                                        "minPassing": 95,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 30,
+                                                        "maxPassing": 60
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 20,
+                                                        "maxPassing": 45
+                                                },
+                                                {
+                                                        "size": 0.6,
+                                                        "minPassing": 15,
+                                                        "maxPassing": 35
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 2,
+                                                        "maxPassing": 9
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Surfacing Dressing (Nominal size - 19 mm)",
+                                        "sieves": [
+                                                {
+                                                        "size": 26.5,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 19,
+                                                        "minPassing": 85,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 13.2,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 25
+                                                },
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 7
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 2
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Surfacing Dressing (Nominal size - 13 mm)",
+                                        "sieves": [
+                                                {
+                                                        "size": 19,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 13.2,
+                                                        "minPassing": 85,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 30
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 10
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 2
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Surfacing Dressing (Nominal size - 10 mm)",
+                                        "sieves": [
+                                                {
+                                                        "size": 13.2,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 85,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 6.3,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 35
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 10
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 2
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Surfacing Dressing (Nominal size - 6 mm)",
+                                        "sieves": [
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 6.3,
+                                                        "minPassing": 85,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 30
+                                                },
+                                                {
+                                                        "size": 3.35,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 10
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 2
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Slury Seal (Type - I (Minimum Layer Thickness - 2-3 mm))",
+                                        "sieves": [
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 90,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 1.18,
+                                                        "minPassing": 65,
+                                                        "maxPassing": 90
+                                                },
+                                                {
+                                                        "size": 0.6,
+                                                        "minPassing": 40,
+                                                        "maxPassing": 65
+                                                },
+                                                {
+                                                        "size": 0.3,
+                                                        "minPassing": 25,
+                                                        "maxPassing": 42
+                                                },
+                                                {
+                                                        "size": 0.15,
+                                                        "minPassing": 15,
+                                                        "maxPassing": 30
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 10,
+                                                        "maxPassing": 20
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Slury Seal (Type II (Minimum Layer Thickness - 4-6 mm))",
+                                        "sieves": [
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 90,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 65,
+                                                        "maxPassing": 90
+                                                },
+                                                {
+                                                        "size": 1.18,
+                                                        "minPassing": 45,
+                                                        "maxPassing": 70
+                                                },
+                                                {
+                                                        "size": 0.6,
+                                                        "minPassing": 30,
+                                                        "maxPassing": 50
+                                                },
+                                                {
+                                                        "size": 0.3,
+                                                        "minPassing": 18,
+                                                        "maxPassing": 30
+                                                },
+                                                {
+                                                        "size": 0.15,
+                                                        "minPassing": 10,
+                                                        "maxPassing": 21
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 5,
+                                                        "maxPassing": 15
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Slury Seal (Type III (Minimum Layer Thickness - 6-8 mm))",
+                                        "sieves": [
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 70,
+                                                        "maxPassing": 90
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 45,
+                                                        "maxPassing": 70
+                                                },
+                                                {
+                                                        "size": 1.18,
+                                                        "minPassing": 28,
+                                                        "maxPassing": 50
+                                                },
+                                                {
+                                                        "size": 0.6,
+                                                        "minPassing": 19,
+                                                        "maxPassing": 34
+                                                },
+                                                {
+                                                        "size": 0.3,
+                                                        "minPassing": 12,
+                                                        "maxPassing": 25
+                                                },
+                                                {
+                                                        "size": 0.15,
+                                                        "minPassing": 7,
+                                                        "maxPassing": 18
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 5,
+                                                        "maxPassing": 15
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Stone Matrix Asphalt (SMA) (13-mm SMA (Wearing course))",
+                                        "sieves": [
+                                                {
+                                                        "size": 19,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 13.2,
+                                                        "minPassing": 90,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 50,
+                                                        "maxPassing": 75
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 20,
+                                                        "maxPassing": 28
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 16,
+                                                        "maxPassing": 24
+                                                },
+                                                {
+                                                        "size": 1.18,
+                                                        "minPassing": 13,
+                                                        "maxPassing": 21
+                                                },
+                                                {
+                                                        "size": 0.6,
+                                                        "minPassing": 10,
+                                                        "maxPassing": 18
+                                                },
+                                                {
+                                                        "size": 0.3,
+                                                        "minPassing": 10,
+                                                        "maxPassing": 20
+                                                },
+                                                {
+                                                        "size": 0.15,
+                                                        "minPassing": 8,
+                                                        "maxPassing": 13
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 8,
+                                                        "maxPassing": 12
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Stone Matrix Asphalt (SMA) (19-mm SMA (Binder (intermediate) course))",
+                                        "sieves": [
+                                                {
+                                                        "size": 26.5,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 19,
+                                                        "minPassing": 90,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 13.2,
+                                                        "minPassing": 45,
+                                                        "maxPassing": 70
+                                                },
+                                                {
+                                                        "size": 9.5,
+                                                        "minPassing": 28,
+                                                        "maxPassing": 60
+                                                },
+                                                {
+                                                        "size": 4.75,
+                                                        "minPassing": 22,
+                                                        "maxPassing": 30
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 18,
+                                                        "maxPassing": 25
+                                                },
+                                                {
+                                                        "size": 1.18,
+                                                        "minPassing": 15,
+                                                        "maxPassing": 22
+                                                },
+                                                {
+                                                        "size": 0.6,
+                                                        "minPassing": 12,
+                                                        "maxPassing": 20
+                                                },
+                                                {
+                                                        "size": 0.3,
+                                                        "minPassing": 10,
+                                                        "maxPassing": 18
+                                                },
+                                                {
+                                                        "size": 0.15,
+                                                        "minPassing": 9,
+                                                        "maxPassing": 13
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 8,
+                                                        "maxPassing": 12
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Mastic Asphalt (Coarse Aggregate)",
+                                        "sieves": [
+                                                {
+                                                        "size": 19,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 13.2,
+                                                        "minPassing": 88,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 5
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 2
+                                                }
+                                        ]
+                                },
+                                {
+                                        "name": "Mastic Asphalt (Fine Aggregate)",
+                                        "sieves": [
+                                                {
+                                                        "size": 2.36,
+                                                        "minPassing": 100,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 0.6,
+                                                        "minPassing": 30,
+                                                        "maxPassing": 100
+                                                },
+                                                {
+                                                        "size": 0.212,
+                                                        "minPassing": 10,
+                                                        "maxPassing": 40
+                                                },
+                                                {
+                                                        "size": 0.075,
+                                                        "minPassing": 0,
+                                                        "maxPassing": 25
+                                                }
+                                        ]
+                                }
+                        ]
+                }
         ]
-      };
+};
       res.json(specifications);
     } catch (e) {
       res.status(500).json({ status: "error", message: "Failed to fetch specs" });

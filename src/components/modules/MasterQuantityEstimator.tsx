@@ -18,12 +18,14 @@ import {
   Droplet,
   Zap,
   Maximize2,
+  Shovel,
 } from "lucide-react";
 
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import Brickwork9InchModule from "./Brickwork9InchModule";
+import CountertopModule from "./CountertopModule";
 import { SEO } from "../SEO";
 
 interface CalcItem {
@@ -72,6 +74,12 @@ export const calculatorsList: CalcItem[] = [
     group: "Finishes",
     icon: Columns,
   },
+  {
+    id: "countertop",
+    label: "Countertop (Platform)",
+    group: "Finishes",
+    icon: Square,
+  },
   /* Earthworks */ {
     id: "excavation",
     label: "Excavation",
@@ -97,7 +105,37 @@ export const calculatorsList: CalcItem[] = [
     group: "Earthworks",
     icon: Droplet,
   },
+  {
+    id: "plywood",
+    label: "Plywood Sheets",
+    group: "Finishes",
+    icon: Square,
+  },
+  {
+    id: "top_soil",
+    label: "Top Soil",
+    group: "Earthworks",
+    icon: Shovel,
+  },
+  {
+    id: "concrete_tube",
+    label: "Concrete Tube",
+    group: "Concrete & Masonry",
+    icon: Box,
+  },
   /* Roads */ { id: "asphalt", label: "Asphalt", group: "Roads", icon: Layers },
+  {
+    id: "prime_coat",
+    label: "Bitumen Prime Coat",
+    group: "Roads",
+    icon: Droplet,
+  },
+  {
+    id: "tack_coat",
+    label: "Bitumen Tack Coat",
+    group: "Roads",
+    icon: Droplet,
+  },
   {
     id: "super_elevation",
     label: "Super Elevation",
@@ -210,6 +248,13 @@ export default function MasterQuantityEstimator({
         "Mortar Volume": `${(volume * 0.25).toFixed(2)} ${unitV}`,
       };
       break;
+    case "blocks":
+      results = {
+        "Total Wall Area": `${area.toFixed(2)} ${unitA}`,
+        "No. of Blocks (400x200x200mm)": `${Math.ceil(area * (unitSystem === "metric" ? 12.5 : 1.16))} pcs`,
+        "Mortar Volume": `${(volume * 0.1).toFixed(2)} ${unitV}`, // Approx 10% volume is mortar
+      };
+      break;
     case "tiles":
       results = {
         "Floor Area": `${area.toFixed(2)} ${unitA}`,
@@ -254,6 +299,63 @@ export default function MasterQuantityEstimator({
         Width: `${w.toFixed(2)} ${unitL}`,
         Length: `${l.toFixed(2)} ${unitL}`,
         "Diagonal (Hypotenuse)": `${Math.sqrt(l * l + w * w).toFixed(2)} ${unitL}`,
+      };
+      break;
+    case "prime_coat":
+      results = {
+        "Surface Area": `${area.toFixed(2)} ${unitA}`,
+        "Bitumen Required (Approx 1.0 L/sq.m)": `${(area * (unitSystem === "metric" ? 1.0 : 0.092)).toFixed(2)} Liters`,
+        "Bitumen Weight": `${((area * (unitSystem === "metric" ? 1.0 : 0.092)) * 1.01 / 1000).toFixed(3)} Tons`
+      };
+      break;
+    case "tack_coat":
+      results = {
+        "Surface Area": `${area.toFixed(2)} ${unitA}`,
+        "Bitumen Required (Approx 0.25 L/sq.m)": `${(area * (unitSystem === "metric" ? 0.25 : 0.023)).toFixed(2)} Liters`,
+        "Bitumen Weight": `${((area * (unitSystem === "metric" ? 0.25 : 0.023)) * 1.01 / 1000).toFixed(3)} Tons`
+      };
+      break;
+    case "countertop":
+      results = {
+        "Total Surface Area": `${area.toFixed(2)} ${unitA}`,
+        "Edge Polishing / Skirting Length": `${(l * 2 + w * 2).toFixed(2)} ${unitL}`,
+        "Material Req. (incl. wastage)": `${(area * 1.1).toFixed(2)} ${unitA}`
+      };
+      break;
+    case "precast_boundary":
+      results = {
+        "Total Length": `${l.toFixed(2)} ${unitL}`,
+        "Total Height": `${d.toFixed(2)} ${unitL}`,
+        "No. of Columns (Spacing Approx 2m/6ft)": `${Math.ceil(l / (unitSystem === "metric" ? 2 : 6)) + 1} pcs`,
+        "No. of Panels": `${Math.ceil(l / (unitSystem === "metric" ? 2 : 6)) * Math.ceil(d / (unitSystem === "metric" ? 0.3 : 1))} pcs`
+      };
+      break;
+    case "plywood":
+      results = {
+        "Total Surface Area": `${area.toFixed(2)} ${unitA}`,
+        "Standard Plywood Sheets (4x8 ft)": `${Math.ceil(area / (unitSystem === "metric" ? 2.97289 : 32))} sheets`,
+        "Plywood Required (incl. wastage)": `${Math.ceil((area * (1 + wst/100)) / (unitSystem === "metric" ? 2.97289 : 32))} sheets`
+      };
+      break;
+    case "top_soil":
+      results = {
+        "Total Area": `${area.toFixed(2)} ${unitA}`,
+        "Top Soil Volume": `${volume.toFixed(2)} ${unitV}`,
+        "TruckLoads (approx. 10m³ / 350cft)": `${Math.ceil(volume / (unitSystem === "metric" ? 10 : 350))} trips`
+      };
+      break;
+    case "concrete_tube":
+      const PI = Math.PI;
+      // length is L, width is outer_dia, depth is inner_dia
+      const outerR = w / 2;
+      const innerR = d / 2;
+      const tubeVolume = PI * (outerR * outerR - innerR * innerR) * l;
+      results = {
+        "Total Length": `${l.toFixed(2)} ${unitL}`,
+        "Concrete Volume": `${tubeVolume.toFixed(2)} ${unitV}`,
+        "Cement Bags (50kg)": `${Math.ceil(tubeVolume * 6)} bags`,
+        "Sand Volume": `${(tubeVolume * 0.45).toFixed(2)} ${unitV}`,
+        "Aggregate Volume": `${(tubeVolume * 0.9).toFixed(2)} ${unitV}`
       };
       break;
     case "rebar_cage":
@@ -301,7 +403,7 @@ export default function MasterQuantityEstimator({
                 </div>
                 <div>
                   <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
-                    Width ({unitL})
+                    {activeCalc === "concrete_tube" ? "Outer Diameter" : "Width"} ({unitL})
                   </label>
                   <input
                     type="number"
@@ -321,10 +423,12 @@ export default function MasterQuantityEstimator({
               "asphalt",
               "water_tank",
               "form_work",
+              "precast_boundary",
+              "concrete_tube"
             ].includes(activeCalc) && (
               <div>
                 <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
-                  {activeCalc === "form_work" ? "Height" : "Depth"} ({unitL})
+                  {["form_work", "precast_boundary"].includes(activeCalc) ? "Height" : activeCalc === "concrete_tube" ? "Inner Diameter" : "Depth"} ({unitL})
                 </label>
                 <input
                   type="number"
@@ -548,13 +652,15 @@ export default function MasterQuantityEstimator({
           <div className="flex-1">
             {activeCalc === "bricks" ? (
               <Brickwork9InchModule />
+            ) : activeCalc === "countertop" ? (
+              <CountertopModule />
             ) : (
               renderCalculatorContent()
             )}
           </div>
         </div>
       </div>
-      {activeCalc !== 'bricks' && (
+      {activeCalc !== 'bricks' && activeCalc !== 'countertop' && (
         <CalculationHistory
           calculatorId={`mqt_${activeCalc}_v1`}
           currentInputs={{ length, width, depth, wastage, totalArea, thickness, weightPerUnit, quantity, costPerTon, basePrice, grade, rooms, pointsPerRoom, wireLengthPerPoint, pipeLengthPerRoom, boardPerRoom }}
