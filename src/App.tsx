@@ -156,96 +156,20 @@ export default function App() {
           onNavigate={handleSelectModule} 
         />
 
-        {/* Existing Mobile Sidebar Menu overlay */}
-        <Sidebar 
-          activeModule={activeModule} 
-          onSelectModule={handleSelectModule} 
-          isOpen={isSidebarOpen}
-          onClose={() => setIsSidebarOpen(false)}
-          onOpenAuth={() => { setIsSidebarOpen(false); setIsAuthOpen(true); }}
-          onOpenProfile={() => { setIsSidebarOpen(false); setIsProfileOpen(true); }}
-        />
+        <div className="flex flex-1 overflow-hidden relative w-full">
+          {/* Main Sidebar (Mobile Overlay + Persistent Desktop) */}
+          <Sidebar 
+            activeModule={activeModule} 
+            onSelectModule={handleSelectModule} 
+            isOpen={isSidebarOpen}
+            onClose={() => setIsSidebarOpen(false)}
+            onOpenAuth={() => { setIsSidebarOpen(false); setIsAuthOpen(true); }}
+            onOpenProfile={() => { setIsSidebarOpen(false); setIsProfileOpen(true); }}
+          />
 
-        <main id="main-content" className="flex-1 flex flex-col md:flex-row gap-6 bg-transparent overflow-hidden relative w-full h-full md:px-6 md:pb-6 md:pt-4 transition-all duration-300">
-          
-          {/* Left Navigation Hub (Tools Sidebar, 25% on tablet/desktop) */}
-          <div className="hidden md:flex w-1/4 flex-col min-h-0 overflow-hidden relative transition-all duration-300">
-             <div className="md:border md:border-slate-200 dark:md:border-slate-700/40 md:bg-white/60 dark:md:bg-slate-900/60 md:backdrop-blur-xl md:rounded-[32px] md:shadow-sm flex-1 flex flex-col min-h-0 overflow-hidden w-full transition-colors duration-300 relative">
-                
-                {/* Sticky Search Bar */}
-                <div className="shrink-0 p-6 pb-2 bg-transparent">
-                  <div className="flex items-center gap-3">
-                    <div className="relative flex items-center flex-1 h-[46px] bg-transparent rounded-[24px] border border-[#ff9f43] dark:border-[#ff7f50] transition-colors focus-within:bg-[#ff9f43]/5 dark:focus-within:bg-[#ff7f50]/10 overflow-hidden">
-                      <input 
-                        type="text" 
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="Search tools." 
-                        className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[14px] font-medium text-slate-800 dark:text-white placeholder:text-[#ff9f43] dark:placeholder:text-[#ff7f50] placeholder:opacity-80 pl-5 pr-3"
-                      />
-                    </div>
-                    <button className="w-[46px] h-[46px] flex items-center justify-center shrink-0 rounded-full border border-[#ff9f43] dark:border-[#ff7f50] text-[#ff9f43] dark:text-[#ff7f50] hover:bg-[#ff9f43]/5 dark:hover:bg-[#ff7f50]/10 transition-colors cursor-default md:cursor-pointer">
-                      <Search className="w-5 h-5" strokeWidth={2.5} />
-                    </button>
-                  </div>
-                </div>
-
-                <div className="flex-1 overflow-y-auto px-4 pb-6 custom-scrollbar">
-                  {Object.entries(toolsByCategory).map(([category, tools]) => {
-                     const filteredTools = tools.filter(tool => tool.title.toLowerCase().includes(searchTerm.toLowerCase()) || tool.category?.toLowerCase().includes(searchTerm.toLowerCase()));
-                     if (searchTerm && filteredTools.length === 0) return null;
-                     
-                     const isExpanded = expandedCategory === category || searchTerm !== "";
-                     
-                     return (
-                       <div key={category} className="mb-3">
-                         <button
-                           onClick={() => setExpandedCategory(isExpanded && !searchTerm ? null : category)}
-                           className="flex items-center justify-between w-full px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors group"
-                         >
-                           <span className="font-bold text-[13px] uppercase tracking-wider text-slate-500 dark:text-slate-400 group-hover:text-[var(--primary-dark)] dark:group-hover:text-white transition-colors">{category}</span>
-                           {isExpanded ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
-                         </button>
-                         
-                         {isExpanded && (
-                           <div className="mt-1 space-y-1 pl-2 pr-2">
-                             {(searchTerm ? filteredTools : tools).map((tool, tIdx) => {
-                               const colors = ['bg-[#8b6cff]', 'bg-[#ff6b6b]', 'bg-[#54a0ff]', 'bg-[#1dd1a1]', 'bg-[#ff9f43]', 'bg-[#c6e33e]'];
-                               const iconBgColor = colors[tIdx % colors.length];
-                               return (
-                               <button
-                                 key={tool.id}
-                                 onClick={() => handleSelectModule(tool.id as ModuleId)}
-                                 className={`group flex items-center gap-4 w-full p-2.5 rounded-[20px] transition-all duration-200 text-left relative outline-none ${activeModule === tool.id ? 'bg-slate-50 dark:bg-slate-800/60' : 'hover:bg-slate-50/50 dark:hover:bg-slate-800/40 hover:scale-[1.01]'}`}
-                               >
-                                 <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-white shadow-sm transition-transform group-hover:-translate-y-0.5 ${iconBgColor}`}>
-                                   {React.isValidElement(tool.icon) ? React.cloneElement(tool.icon as React.ReactElement<any>, { className: 'w-5 h-5', style: { width: '20px', height: '20px' }, strokeWidth: 2 }) : tool.icon}
-                                 </div>
-                                 <div className="flex-1 min-w-0">
-                                   <h4 className={`font-semibold text-[15px] truncate transition-colors ${activeModule === tool.id ? 'text-slate-900 dark:text-white font-bold tracking-tight' : 'text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white tracking-tight'}`}>{tool.title}</h4>
-                                 </div>
-                                 {activeModule === tool.id && (
-                                   <div className="absolute left-[-4px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-slate-800 dark:bg-slate-200 rounded-full"></div>
-                                 )}
-                               </button>
-                             )})}
-                           </div>
-                         )}
-                       </div>
-                     );
-                  })}
-                  {searchTerm && Object.values(toolsByCategory).flat().filter(tool => tool.title.toLowerCase().includes(searchTerm.toLowerCase()) || tool.category?.toLowerCase().includes(searchTerm.toLowerCase())).length === 0 && (
-                    <div className="text-center py-8 text-slate-500 text-sm">
-                      No tools found matching "{searchTerm}"
-                    </div>
-                  )}
-                </div>
-             </div>
-          </div>
-
-          {/* Main Content Area (75% on tablet/desktop) */}
-          <div className="w-full md:w-3/4 flex flex-col min-h-0 overflow-hidden relative transition-all duration-300">
-            <div className="md:border md:border-slate-200 dark:md:border-slate-700/40 md:shadow-sm md:bg-white/50 dark:md:bg-slate-900/50 md:backdrop-blur-sm md:rounded-[32px] flex-1 flex flex-col min-h-0 overflow-hidden relative w-full transition-colors duration-300">
+          <main id="main-content" className="flex-1 flex flex-col bg-transparent overflow-hidden relative w-full h-full md:px-6 md:pb-6 md:pt-4 transition-all duration-300">
+            <div className="w-full flex flex-col min-h-0 overflow-hidden relative transition-all duration-300">
+              <div className="md:border md:border-slate-200 dark:md:border-slate-700/40 md:shadow-sm md:bg-white/50 dark:md:bg-slate-900/50 md:backdrop-blur-sm md:rounded-[32px] flex-1 flex flex-col min-h-0 overflow-hidden relative w-full transition-colors duration-300">
             
             {["home", "my-estimates", "about", "careers", "contact", "blog", "privacy", "terms", "cookies"].includes(activeModule) ? (
             <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto pb-24 md:pb-0">
@@ -307,6 +231,7 @@ export default function App() {
             onOpenProfile={() => setIsSidebarOpen(true)} 
           />
         </main>
+        </div>
 
         <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
         <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />

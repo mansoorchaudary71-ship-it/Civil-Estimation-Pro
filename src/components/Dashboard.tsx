@@ -234,7 +234,7 @@ export default function Dashboard({
           
           <div className="w-full md:max-w-xs shrink-0 flex items-center">
             <div className="relative flex items-center w-full h-12 rounded-full bg-slate-100 dark:bg-slate-800 transition-all duration-300 focus-within:ring-2 focus-within:ring-slate-300 dark:focus-within:ring-slate-600">
-              <Search className="w-[18px] h-[18px] ml-4 text-slate-400 dark:text-slate-500" strokeWidth={2.5} />
+              <Hammer className="w-[18px] h-[18px] ml-4 text-slate-400 dark:text-slate-500" strokeWidth={2.5} />
               <input
                 type="text"
                 value={searchTerm}
@@ -255,7 +255,7 @@ export default function Dashboard({
         <div className="flex flex-col w-full">
             {groupsToDisplay.length === 0 ? (
               <div className="py-24 text-center flex flex-col items-center">
-                <Search className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
+                <Hammer className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
                 <h3 className="text-xl font-bold text-[var(--primary-dark)] dark:text-slate-200">No calculators found</h3>
                 <p className="text-slate-500 mt-2">Try adjusting your search term or category.</p>
               </div>
