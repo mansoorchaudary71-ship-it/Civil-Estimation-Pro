@@ -326,6 +326,27 @@ export default function SlabEstimator() {
           )}
         </div>
       </div>
+      
+      <CalculationHistory
+        calculatorId="slab_estimator"
+        currentInputs={{ type: slabType, ly, lx, thickness, clearCover, mainDia, distDia, mainSpacing, distSpacing }}
+        currentResults={results ? {
+          "Concrete Dry Vol": `${results.concreteVolumeDry.toFixed(2)} m³`,
+          "Total Steel Wt": `${results.totalSteelWeight.toFixed(2)} kg`
+        } : undefined}
+        onRestore={(inputs) => {
+          setSlabType(inputs.type || "two-way");
+          setLy(inputs.ly || "5");
+          setLx(inputs.lx || "4");
+          setThickness(inputs.thickness || "150");
+          setClearCover(inputs.clearCover || "20");
+          setMainDia(inputs.mainDia || "12");
+          setDistDia(inputs.distDia || "10");
+          setMainSpacing(inputs.mainSpacing || "150");
+          setDistSpacing(inputs.distSpacing || "150");
+        }}
+        estimationName="Slab"
+      />
     </div>
   );
 }

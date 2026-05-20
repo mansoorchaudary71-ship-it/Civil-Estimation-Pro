@@ -414,6 +414,28 @@ export default function BeamCalculator() {
           )}
         </div>
       </div>
+      
+      <CalculationHistory
+        calculatorId="beam_calculator"
+        currentInputs={{ beamWidth, beamDepth, beamSpan, clearCover, longitudinalBarsCount, longitudinalBarDia, tensionBarsCount, compressionBarsCount, tensionBarDia, compressionBarDia }}
+        currentResults={results ? {
+          "Concrete Dry Vol": `${results.concreteVolumeDry.toFixed(2)} m³`,
+          "Total Steel Wt": `${results.totalSteelWeight.toFixed(2)} kg`
+        } : undefined}
+        onRestore={(inputs) => {
+          setBeamWidth(inputs.beamWidth || "300");
+          setBeamDepth(inputs.beamDepth || "450");
+          setBeamSpan(inputs.beamSpan || "5");
+          setClearCover(inputs.clearCover || "30");
+          setLongitudinalBarsCount(inputs.longitudinalBarsCount || "4");
+          setLongitudinalBarDia(inputs.longitudinalBarDia || "16");
+          setTensionBarsCount(inputs.tensionBarsCount || "3");
+          setCompressionBarsCount(inputs.compressionBarsCount || "3");
+          setTensionBarDia(inputs.tensionBarDia || "16");
+          setCompressionBarDia(inputs.compressionBarDia || "12");
+        }}
+        estimationName="Beam"
+      />
     </div>
   );
 }

@@ -55,8 +55,26 @@
     --foreground: 210 40% 98%;
   }
 
+  @keyframes dynamicGradient {
+    0% { background-position: 0% 0%; }
+    25% { background-position: 100% 50%; }
+    50% { background-position: 100% 100%; }
+    75% { background-position: 0% 50%; }
+    100% { background-position: 0% 0%; }
+  }
+
   body {
-    background: #F4F7FE;
+    background: linear-gradient(135deg, 
+      rgba(255, 230, 240, 0.4) 0%, 
+      rgba(230, 240, 255, 0.4) 25%, 
+      rgba(255, 245, 220, 0.4) 50%, 
+      rgba(240, 230, 255, 0.4) 75%, 
+      rgba(255, 230, 240, 0.4) 100%
+    );
+    background-color: #f8fafc;
+    background-size: 400% 400%;
+    animation: dynamicGradient 25s ease-in-out infinite;
+    background-attachment: fixed;
     color: #4A5568;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -65,8 +83,17 @@
   }
 
   .dark body {
-    background: #0B1437; /* Modern dark mode background matching the vibrant aesthetic */
-    background-color: #0B1437;
+    background: linear-gradient(135deg, 
+      rgba(76, 5, 25, 0.4) 0%, 
+      rgba(30, 27, 75, 0.4) 25%, 
+      rgba(66, 32, 6, 0.4) 50%, 
+      rgba(59, 7, 100, 0.4) 75%, 
+      rgba(76, 5, 25, 0.4) 100%
+    );
+    background-color: #0f172a;
+    background-size: 400% 400%;
+    animation: dynamicGradient 25s ease-in-out infinite;
+    background-attachment: fixed;
     color: #A3AED0;
     min-height: 100vh;
   }
@@ -157,6 +184,43 @@
 @layer utilities {
   .shadow-glass {
     box-shadow: var(--shadow-global);
+  }
+
+  /* Make background translucent to show animated gradients */
+  .bg-white {
+    background-color: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+  }
+
+  .bg-slate-50 {
+    background-color: rgba(248, 250, 252, 0.6) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+  }
+
+  .bg-slate-100, .bg-gray-50, .bg-gray-100 {
+    background-color: rgba(241, 245, 249, 0.6) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+  }
+  
+  .dark .dark\:bg-slate-900 {
+    background-color: rgba(15, 23, 42, 0.5) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+  }
+  
+  .dark .dark\:bg-slate-800, .dark .dark\:bg-gray-800 {
+    background-color: rgba(30, 41, 59, 0.5) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+  }
+  
+  .dark .dark\:bg-\[\#151821\], .dark .dark\:bg-\[\#0e0d07\] {
+    background-color: rgba(21, 24, 33, 0.5) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
   }
 
   .text-fluid-metric {
@@ -258,5 +322,30 @@
   }
   input[type="number"] {
     -moz-appearance: textfield;
+  }
+}
+
+@layer utilities {
+  .hide-old-headers > div > header > div > h1.text-4xl,
+  .hide-old-headers > div > header > div > h1.text-3xl,
+  .hide-old-headers > div > header > div > h1.text-5xl,
+  .hide-old-headers > div > header h1.text-4xl,
+  .hide-old-headers > div > header h1.text-3xl,
+  .hide-old-headers > div > header h1.text-5xl,
+  .hide-old-headers > div > h1.text-4xl,
+  .hide-old-headers > div > h1.text-3xl,
+  .hide-old-headers > div > h1.text-5xl {
+    display: none !important;
+  }
+
+  .hide-old-headers > div > header > div > p.text-lg,
+  .hide-old-headers > div > header > div > p.text-gray-500,
+  .hide-old-headers > div > header > p,
+  .hide-old-headers > div > p {
+    display: none !important;
+  }
+
+  .hide-old-headers > div > header {
+    margin-bottom: 0.5rem !important; 
   }
 }

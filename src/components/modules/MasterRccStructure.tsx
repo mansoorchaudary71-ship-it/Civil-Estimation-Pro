@@ -72,34 +72,6 @@ export default function MasterRccStructure({ isEmbedded = false, onNavigate }: M
           {activeTab === "beam" && <BeamCalculator />}
           {activeTab === "staircase" && <StaircaseCalculator />}
           {activeTab === "bbs" && <BarBendingSchedule />}
-
-          {/* Bottom Navigation Buttons */}
-          <div className="mt-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl flex flex-col sm:flex-row gap-4 justify-between items-center shadow-sm">
-            <button 
-              onClick={() => onNavigate?.('home')} 
-              className="flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3.5 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl transition-all border border-slate-200 dark:border-slate-700 hover:shadow-sm"
-            >
-              <LayoutDashboard className="w-5 h-5"/>
-              Back to Dashboard
-            </button>
-            
-            <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-3">
-              <button 
-                onClick={() => onNavigate?.('master-quantity')} 
-                className="flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3.5 bg-indigo-50 dark:bg-indigo-900/40 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 font-bold rounded-xl transition-all border border-indigo-100 dark:border-indigo-800/50"
-              >
-                <Calculator className="w-5 h-5" />
-                Master Quantities
-              </button>
-              <button 
-                onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} 
-                className="flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all shadow-md shadow-blue-500/20 active:scale-[0.98]"
-              >
-                <ArrowUp className="w-5 h-5"/>
-                Back to Top
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
