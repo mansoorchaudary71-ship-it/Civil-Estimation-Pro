@@ -24,6 +24,7 @@ import {
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { ResultCard } from "../ui/ResultCard";
 import Brickwork9InchModule from "./Brickwork9InchModule";
 import CountertopModule from "./CountertopModule";
 import { SEO } from "../SEO";
@@ -522,17 +523,12 @@ export default function MasterQuantityEstimator({
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {Object.entries(results).map(([key, val]) => (
-                <div
+                <ResultCard
                   key={key}
-                  className="bg-blue-900/50 p-4 rounded-xl border border-blue-800/50 flex justify-between items-center"
-                >
-                  <span className="text-blue-200 text-sm font-medium">
-                    {key}
-                  </span>
-                  <span className="text-xl font-bold text-white">
-                    {val}
-                  </span>
-                </div>
+                  title={key}
+                  value={val !== undefined && val !== null && !isNaN(Number(val)) ? Number(val).toLocaleString(undefined, { maximumFractionDigits: 2 }) : String(val)}
+                  variant="primary"
+                />
               ))}
             </div>
           </div>

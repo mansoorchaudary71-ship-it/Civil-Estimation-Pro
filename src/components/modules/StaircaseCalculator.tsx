@@ -151,19 +151,19 @@ export default function StaircaseCalculator({
     let mainBarDiaMm = isMetric ? mainBarDia : mainBarDia * CIVIL_CONSTANTS.IN_TO_MM;
     let distBarDiaMm = isMetric ? distBarDia : distBarDia * CIVIL_CONSTANTS.IN_TO_MM;
     const totalWalkLength = inclinedLength + totalLandingLength;
-    const mainBarLength = totalWalkLength - 2 * clearCoverM;
+    const mainBarLength = Math.max(0, totalWalkLength - 2 * clearCoverM);
     const numMainBars =
-      Math.floor((stairWidthM - 2 * clearCoverM) / mainBarSpacingM) + 1;
+      Math.max(0, Math.floor((stairWidthM - 2 * clearCoverM) / mainBarSpacingM) + 1);
     const totalMainBarLengthCut = numMainBars * mainBarLength;
     const mainBarWeight =
       (totalMainBarLengthCut * Math.pow(mainBarDiaMm, 2)) / 162.28;
-    const distBarLength = stairWidthM - 2 * clearCoverM;
-    const numDistBars = Math.floor(totalWalkLength / distBarSpacingM) + 1;
+    const distBarLength = Math.max(0, stairWidthM - 2 * clearCoverM);
+    const numDistBars = Math.max(0, Math.floor(totalWalkLength / distBarSpacingM) + 1);
     const totalDistBarLengthCut = numDistBars * distBarLength;
     const distBarWeight =
       (totalDistBarLengthCut * Math.pow(distBarDiaMm, 2)) / 162.28;
     const totalSteelWeight =
-      (mainBarWeight + distBarWeight) * (1 + wastage / 100);
+      Math.abs((mainBarWeight + distBarWeight) * (1 + wastage / 100));
     const results = {
       totalWetVolume,
       totalDryVolume,
@@ -751,43 +751,33 @@ export default function StaircaseCalculator({
                 
                 <div className="w-full h-px bg-slate-800/80 dark:bg-slate-700/80" />
                 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex flex-wrap gap-4 w-full justify-center">
+                  <div className="flex-shrink-0 min-w-[140px] flex-1 bg-white/5 dark:bg-slate-800/60 backdrop-blur-xl px-6 py-4 rounded-full border border-slate-700/50 flex flex-col items-center justify-center text-center shadow-lg transition-transform hover:-translate-y-1 duration-300">
+                    <span className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-1.5">CEMENT</span>
+                    <div className="flex items-baseline gap-1" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
+                      <span className="text-2xl sm:text-3xl font-black text-white">{Math.ceil(res.cementBags)}</span>
+                      <span className="text-xs font-semibold text-slate-300">bags</span>
+                    </div>
+                    <span className="text-[9px] font-semibold text-slate-500 mt-1 uppercase tracking-wider">50kg standard</span>
+                  </div>
                   
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"CEMENT"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{Math.ceil(res.cementBags)}</span>
-                  {"bags" && <span className="text-sm font-semibold text-slate-300">{"bags"}</span>}
-                </div>
-                {"50kg standard" && <p className="text-[10px] font-medium text-slate-500 mt-2">{"50kg standard"}</p>}
-              </div>
-                  {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"SAND"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{(res.sandCft || 0).toFixed(1)}</span>
-                  {"cft" && <span className="text-sm font-semibold text-slate-300">{"cft"}</span>}
-                </div>
-                {"Fine aggregate" && <p className="text-[10px] font-medium text-slate-500 mt-2">{"Fine aggregate"}</p>}
-              </div>
-                  {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"AGGREGATE"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{(res.aggCft || 0).toFixed(1)}</span>
-                  {"cft" && <span className="text-sm font-semibold text-slate-300">{"cft"}</span>}
-                </div>
-                {"Coarse material" && <p className="text-[10px] font-medium text-slate-500 mt-2">{"Coarse material"}</p>}
-              </div>
+                  <div className="flex-shrink-0 min-w-[140px] flex-1 bg-white/5 dark:bg-slate-800/60 backdrop-blur-xl px-6 py-4 rounded-full border border-slate-700/50 flex flex-col items-center justify-center text-center shadow-lg transition-transform hover:-translate-y-1 duration-300">
+                    <span className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-1.5">SAND</span>
+                    <div className="flex items-baseline gap-1" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
+                      <span className="text-2xl sm:text-3xl font-black text-white">{(res.sandCft || 0).toFixed(1)}</span>
+                      <span className="text-xs font-semibold text-slate-300">cft</span>
+                    </div>
+                    <span className="text-[9px] font-semibold text-slate-500 mt-1 uppercase tracking-wider">Fine aggregate</span>
+                  </div>
+
+                  <div className="flex-shrink-0 min-w-[140px] flex-1 bg-white/5 dark:bg-slate-800/60 backdrop-blur-xl px-6 py-4 rounded-full border border-slate-700/50 flex flex-col items-center justify-center text-center shadow-lg transition-transform hover:-translate-y-1 duration-300">
+                    <span className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-1.5">AGGREGATE</span>
+                    <div className="flex items-baseline gap-1" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
+                      <span className="text-2xl sm:text-3xl font-black text-white">{(res.aggCft || 0).toFixed(1)}</span>
+                      <span className="text-xs font-semibold text-slate-300">cft</span>
+                    </div>
+                    <span className="text-[9px] font-semibold text-slate-500 mt-1 uppercase tracking-wider">Coarse material</span>
+                  </div>
                 </div>
                 
                 <div className="w-full h-px bg-slate-800/80 dark:bg-slate-700/80" />

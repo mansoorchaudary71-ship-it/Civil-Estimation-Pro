@@ -6,6 +6,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { Save } from "lucide-react";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { StyledChart } from "../ui/EstimateVisualizer";
+import { ResultCard } from "../ui/ResultCard";
 import {
   Columns,
   Settings,
@@ -302,56 +303,36 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
           {/* Results Column */}
           <div className="relative">
             <div className="sticky top-6 flex flex-col h-full space-y-4">
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Net Wall Volume"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.netVolume.toFixed(2)}</span>
-                  {results.isSI ? 'm³' : 'cft' && <span className="text-sm font-semibold text-slate-300">{results.isSI ? 'm³' : 'cft'}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="text-blue-400">{<Box className="w-5 h-5 text-white" />}</div>
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Bricks Estimated"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.noOfBricks.toLocaleString()}</span>
-                  {"pcs" && <span className="text-sm font-semibold text-slate-300">{"pcs"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
+              <ResultCard
+                title="Net Wall Volume"
+                value={results.netVolume.toFixed(2)}
+                unit={results.isSI ? 'm³' : 'cft'}
+                variant="neutral"
+              />
+              <ResultCard
+                title="Total Bricks Estimated"
+                value={results.noOfBricks.toLocaleString()}
+                unit="pcs"
+                variant="primary"
+                icon={<Box className="w-5 h-5 text-indigo-500" />}
+              />
               
               <div className="grid grid-cols-2 gap-4">
-                {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="text-blue-400">{<Construction className="w-4 h-4 text-slate-700 dark:text-slate-300" />}</div>
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Cement"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.cementBags}</span>
-                  {"bags" && <span className="text-sm font-semibold text-slate-300">{"bags"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-                {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="text-blue-400">{<Layers className="w-4 h-4 text-slate-700 dark:text-slate-300" />}</div>
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Sand"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.sandCft.toFixed(1)}</span>
-                  {"cft" && <span className="text-sm font-semibold text-slate-300">{"cft"}</span>}
-                </div>
-                {`${((results.sandCft || 0) / 35.3147).toFixed(2)} m³` && <p className="text-[10px] font-medium text-slate-500 mt-2">{`${((results.sandCft || 0) / 35.3147).toFixed(2)} m³`}</p>}
-              </div>
+                <ResultCard
+                  title="Cement"
+                  value={results.cementBags}
+                  unit="bags"
+                  variant="secondary"
+                  icon={<Construction className="w-5 h-5 text-blue-500" />}
+                />
+                <ResultCard
+                  title="Sand"
+                  value={results.sandCft.toFixed(1)}
+                  unit="cft"
+                  variant="warning"
+                  icon={<Layers className="w-5 h-5 text-amber-500" />}
+                  description={`${((results.sandCft || 0) / 35.3147).toFixed(2)} m³`}
+                />
               </div>
 
               <div className="px-6 py-4 bg-transparent dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 rounded-2xl flex justify-center text-center mt-2">

@@ -20,63 +20,54 @@ export function ResultCard({
   className = ''
 }: ResultCardProps) {
   const variants = {
-    primary: 'bg-indigo-500/10 dark:bg-indigo-500/10 border-indigo-200/50 dark:border-indigo-800/30 text-indigo-900 dark:text-indigo-100',
-    secondary: 'bg-blue-500/10 dark:bg-blue-500/10 border-blue-200/50 dark:border-blue-800/30 text-blue-900 dark:text-blue-100',
-    success: 'bg-emerald-500/10 dark:bg-emerald-500/10 border-emerald-200/50 dark:border-emerald-800/30 text-emerald-900 dark:text-emerald-100',
-    warning: 'bg-amber-500/10 dark:bg-amber-500/10 border-amber-200/50 dark:border-amber-800/30 text-amber-900 dark:text-amber-100',
-    neutral: 'bg-slate-500/5 dark:bg-slate-500/5 border-slate-200/50 dark:border-slate-800/30 text-slate-900 dark:text-slate-100',
+    primary: 'bg-white dark:bg-slate-900 border-indigo-100 dark:border-indigo-800/50 shadow-[0_4px_24px_rgba(79,70,229,0.06)] dark:shadow-[0_4px_24px_rgba(79,70,229,0.2)] text-indigo-900 dark:text-indigo-100',
+    secondary: 'bg-white dark:bg-slate-900 border-blue-100 dark:border-blue-800/50 shadow-[0_4px_24px_rgba(59,130,246,0.06)] dark:shadow-[0_4px_24px_rgba(59,130,246,0.2)] text-blue-900 dark:text-blue-100',
+    success: 'bg-white dark:bg-slate-900 border-emerald-100 dark:border-emerald-800/50 shadow-[0_4px_24px_rgba(16,185,129,0.06)] dark:shadow-[0_4px_24px_rgba(16,185,129,0.2)] text-emerald-900 dark:text-emerald-100',
+    warning: 'bg-white dark:bg-slate-900 border-amber-100 dark:border-amber-800/50 shadow-[0_4px_24px_rgba(245,158,11,0.06)] dark:shadow-[0_4px_24px_rgba(245,158,11,0.2)] text-amber-900 dark:text-amber-100',
+    neutral: 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)] text-slate-900 dark:text-slate-100',
   };
 
   const iconColors = {
-    primary: 'text-indigo-500 dark:text-indigo-400 bg-white dark:bg-slate-900 shadow-sm',
-    secondary: 'text-blue-500 dark:text-blue-400 bg-white dark:bg-slate-900 shadow-sm',
-    success: 'text-emerald-500 dark:text-emerald-400 bg-white dark:bg-slate-900 shadow-sm',
-    warning: 'text-amber-500 dark:text-amber-400 bg-white dark:bg-slate-900 shadow-sm',
-    neutral: 'text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 shadow-sm',
-  };
-  
-  const badgeColors = {
-    primary: 'bg-indigo-500 text-white shadow-indigo-500/20',
-    secondary: 'bg-blue-500 text-white shadow-blue-500/20',
-    success: 'bg-emerald-500 text-white shadow-emerald-500/20',
-    warning: 'bg-amber-500 text-white shadow-amber-500/20',
-    neutral: 'bg-slate-700 text-white shadow-slate-500/20',
+    primary: 'text-indigo-500 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/40',
+    secondary: 'text-blue-500 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/40',
+    success: 'text-emerald-500 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/40',
+    warning: 'text-amber-500 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/40',
+    neutral: 'text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800',
   };
 
   const baseClass = variants[variant] || variants.neutral;
   const bgClass = iconColors[variant] || iconColors.neutral;
-  const badgeClass = badgeColors[variant] || badgeColors.neutral;
 
   return (
-    <div className={`p-5 rounded-[24px] border ${baseClass} flex flex-col h-full shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:hover:shadow-[0_8px_30px_rgb(0,0,0,0.15)] transition-all duration-300 min-w-0 overflow-hidden backdrop-blur-xl group relative ${className}`}>
-      {/* Decorative gradient orb */}
-      <div className="absolute -top-12 -right-12 w-32 h-32 bg-white/40 dark:bg-white/5 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-700 ease-out" />
-      
-      <div className="flex items-start justify-between gap-3 mb-5 relative z-10">
-        <h4 className="text-xs font-black opacity-80 uppercase tracking-widest leading-snug truncate">
+    <div className={`p-5 sm:p-6 min-h-[140px] rounded-[24px] border ${baseClass} flex flex-col justify-between gap-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg break-words w-full ${className}`}>
+      <div className="flex items-start justify-between gap-3 w-full">
+        <h4 className="text-xs sm:text-sm font-bold opacity-80 uppercase tracking-wider leading-relaxed text-balance">
           {title}
         </h4>
         {icon && (
-          <div className={`p-2.5 rounded-full flex-shrink-0 ${bgClass} transition-transform group-hover:scale-110 duration-300`}>
+          <div className={`p-2.5 rounded-full flex-shrink-0 ${bgClass}`}>
             {icon}
           </div>
         )}
       </div>
-      <div className="flex items-baseline gap-2 mt-auto flex-wrap sm:flex-nowrap relative z-10">
-        <span className={`text-2xl sm:text-3xl font-black tracking-tight break-all sm:break-normal px-4 py-1.5 rounded-full shadow-lg ${badgeClass}`}>
-          {value}
-        </span>
-        {unit && (
-          <span className="text-sm font-bold opacity-80 flex-shrink-0 bg-white/50 dark:bg-slate-900/50 px-2 py-1 rounded-full border border-current/10">
-            {unit}
+
+      <div className="flex flex-col gap-1.5 w-full">
+        <div className="flex flex-wrap items-baseline gap-2">
+          <span className="text-3xl sm:text-4xl font-black tracking-tight break-words" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
+            {value}
           </span>
+          {unit && (
+            <span className="text-sm font-semibold opacity-70">
+              {unit}
+            </span>
+          )}
+        </div>
+        {description && (
+          <p className="text-[11px] sm:text-xs opacity-75 font-medium leading-relaxed max-w-full break-words">
+            {description}
+          </p>
         )}
       </div>
-      {description && (
-        <p className="text-[11px] opacity-75 mt-4 font-bold line-clamp-2 leading-relaxed tracking-wide relative z-10">
-          {description}
-        </p>
-      )}
     </div>
   );
 }

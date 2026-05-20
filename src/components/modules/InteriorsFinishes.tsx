@@ -4,14 +4,13 @@ import { cn } from "../../lib/utils";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { useSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { ResultCard } from "../ui/ResultCard";
 
 export default function InteriorsFinishesEstimator() {
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
     tiles: true,
     paint: false,
     doorsWindows: false,
-    framing: false,
-    termite: false,
   });
 
   const toggleSection = (id: string) => {
@@ -77,24 +76,6 @@ export default function InteriorsFinishesEstimator() {
             {openSections["doorsWindows"] && (
                <div className="p-6 md:p-8 border-t border-slate-100 animate-in fade-in slide-in-from-top-2 duration-300">
                   <DoorsWindowsCalculator />
-               </div>
-            )}
-          </div>
-
-          <div className="bg-white rounded-3xl shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-slate-200 overflow-hidden transition-all">
-            <AccordionHeader id="framing" title="Wood Framing Calculator" icon={Hammer} />
-            {openSections["framing"] && (
-               <div className="p-6 md:p-8 border-t border-slate-100 animate-in fade-in slide-in-from-top-2 duration-300">
-                   <FramingCalculator />
-               </div>
-            )}
-          </div>
-
-          <div className="bg-white rounded-3xl shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-slate-200 overflow-hidden transition-all">
-            <AccordionHeader id="termite" title="Termite Treatment Calculator" icon={Bug} />
-            {openSections["termite"] && (
-               <div className="p-6 md:p-8 border-t border-slate-100 animate-in fade-in slide-in-from-top-2 duration-300">
-                  <TermiteCalculator />
                </div>
             )}
           </div>
@@ -196,30 +177,8 @@ function TilesCalculator() {
           
           {results ? (
             <div className="space-y-4">
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Required Tiles (inc. 5% waste)"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.numTiles}</span>
-                  {"tiles" && <span className="text-sm font-semibold text-slate-300">{"tiles"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Boxes Required"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.boxesReq}</span>
-                  {"boxes" && <span className="text-sm font-semibold text-slate-300">{"boxes"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
+              <ResultCard title="Required Tiles (inc. 5% waste)" value={results.numTiles} unit="tiles" variant="neutral" />
+              <ResultCard title="Boxes Required" value={results.boxesReq} unit="boxes" variant="primary" />
             </div>
           ) : (
             <div className="text-center text-slate-500 py-8">
@@ -330,30 +289,8 @@ function PaintCalculator() {
         
         {results ? (
           <div className="space-y-4">
-            {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Required Paint"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.liters}</span>
-                  {"Liters" && <span className="text-sm font-semibold text-slate-300">{"Liters"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-            {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"In Gallons (US)"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.gallons}</span>
-                  {"gals" && <span className="text-sm font-semibold text-slate-300">{"gals"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
+            <ResultCard title="Required Paint" value={results.liters} unit="Liters" variant="warning" />
+            <ResultCard title="In Gallons (US)" value={results.gallons} unit="gals" variant="neutral" />
           </div>
         ) : (
           <div className="text-center text-slate-500 py-8">
@@ -442,236 +379,12 @@ function DoorsWindowsCalculator() {
         
         {grossArea ? (
           <div className="space-y-4">
-            {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Net Printable / Plaster Area"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{netArea > 0 ? netArea.toFixed(2) : 0}</span>
-                  {uArea && <span className="text-sm font-semibold text-slate-300">{uArea}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-            {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Deductions"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{totalDeduction.toFixed(2)}</span>
-                  {uArea && <span className="text-sm font-semibold text-slate-300">{uArea}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
+            <ResultCard title="Net Printable / Plaster Area" value={netArea > 0 ? netArea.toFixed(2) : 0} unit={uArea} variant="primary" />
+            <ResultCard title="Total Deductions" value={totalDeduction.toFixed(2)} unit={uArea} variant="warning" />
           </div>
         ) : (
           <div className="text-center text-slate-500 py-8">
-            Enter gross wall area to calculate net dimensions.
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function FramingCalculator() {
-  const [length, setLength] = useState<number | "">("");
-  const [spacing, setSpacing] = useState<number | "">(16);
-  const { settings } = useSettings();
-  const isSI = settings.measurement === "SI";
-
-  const calculateFraming = () => {
-    if (!length || !spacing) return null;
-
-    let l = Number(length);
-    let s = Number(spacing); // In inches or cm based on unit
-
-    if (!isSI) {
-      // spacing is in inches, length is in feet
-      const lengthInches = l * 12;
-      const studs = Math.ceil(lengthInches / s) + 1; // 1 extra for the end
-      const plateLength = 8;
-      const platesReq = Math.ceil(l / plateLength) * 3;
-
-      return {
-        studs: studs,
-        plates: platesReq,
-        plateLengthDesc: "8ft",
-      };
-    } else {
-      // spacing is in cm, length is in meters
-      const lengthCm = l * 100;
-      const studs = Math.ceil(lengthCm / s) + 1;
-      const plateLength = 2.44;
-      const platesReq = Math.ceil(l / plateLength) * 3;
-
-      return {
-        studs: studs,
-        plates: platesReq,
-        plateLengthDesc: "2.44m",
-      };
-    }
-  };
-
-  const results = calculateFraming();
-
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="space-y-4">
-        <InputGroup label={`Wall Length (${!isSI ? 'Feet' : 'Meters'})`}>
-          <input
-            type="number"
-            min="0"
-            value={length}
-            onChange={(e) => setLength(e.target.value ? Number(e.target.value) : "")}
-            className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
-            placeholder="e.g. 20"
-          />
-        </InputGroup>
-        
-        <InputGroup label={`Stud Spacing (${!isSI ? 'Inches' : 'Centimeters'})`}>
-          <input
-            type="number"
-            min="0"
-            value={spacing}
-            onChange={(e) => setSpacing(e.target.value ? Number(e.target.value) : "")}
-            className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
-            placeholder={!isSI ? '16 or 24' : '40 or 60'}
-          />
-        </InputGroup>
-      </div>
-
-      <div className="bg-slate-900 rounded-2xl p-6 text-white flex flex-col justify-center">
-        <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
-        
-        {results ? (
-          <div className="space-y-4">
-            {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Studs Required"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.studs}</span>
-                  {"studs" && <span className="text-sm font-semibold text-slate-300">{"studs"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-            {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{`Top & Bottom Plates (${results.plateLengthDesc} boards)`}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.plates}</span>
-                  {"boards" && <span className="text-sm font-semibold text-slate-300">{"boards"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-            <div className="mt-2 text-slate-400 text-xs font-medium">
-              ℹ️ Assumes 1 bottom plate and 2 top plates. Extra framing needed for doors/windows.
-            </div>
-          </div>
-        ) : (
-          <div className="text-center text-slate-500 py-8">
-            Enter wall length and spacing to calculate framing.
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function TermiteCalculator() {
-  const { settings } = useSettings();
-  const isSI = settings.measurement === "SI";
-  const [area, setArea] = useState<number | "">("");
-  const [rate, setRate] = useState<number | "">(5); // liters per sq m
-  
-  const calculateTermite = () => {
-    if (!area || !rate) return null;
-
-    let sqmArea = Number(area);
-    if (!isSI) {
-      sqmArea = sqmArea / 10.764;
-    }
-
-    const liters = sqmArea * Number(rate);
-
-    return {
-      liters: liters.toFixed(1),
-      gallons: (liters / 3.78541).toFixed(1)
-    };
-  };
-
-  const results = calculateTermite();
-
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="space-y-4">
-        <InputGroup label={`Foundation Area (${isSI ? 'Sq M' : 'Sq Ft'})`}>
-          <input
-            type="number"
-            min="0"
-            value={area}
-            onChange={(e) => setArea(e.target.value ? Number(e.target.value) : "")}
-            className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
-            placeholder="e.g. 150"
-          />
-        </InputGroup>
-
-        <InputGroup label="Application Rate (Liters/m²)">
-          <input
-            type="number"
-            min="0"
-            step="0.5"
-            value={rate}
-            onChange={(e) => setRate(e.target.value ? Number(e.target.value) : "")}
-            className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
-            placeholder="e.g. 5"
-          />
-          <p className="text-xs text-slate-400 mt-1">Standard pre-construction rate is 5 Liters per sq. meter.</p>
-        </InputGroup>
-      </div>
-
-      <div className="bg-slate-900 rounded-2xl p-6 text-white flex flex-col justify-center">
-        <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
-        
-        {results ? (
-          <div className="space-y-4">
-            {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Chemical Emulsion Required"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.liters}</span>
-                  {"Liters" && <span className="text-sm font-semibold text-slate-300">{"Liters"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-            {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"In Gallons (US)"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.gallons}</span>
-                  {"gals" && <span className="text-sm font-semibold text-slate-300">{"gals"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-          </div>
-        ) : (
-          <div className="text-center text-slate-500 py-8">
-            Enter foundation area to calculate chemical emulsion.
+            Enter gross area to calculate net dimensions.
           </div>
         )}
       </div>

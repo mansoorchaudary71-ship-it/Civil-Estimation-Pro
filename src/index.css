@@ -348,4 +348,61 @@
   .themed-tool-container h1 svg {
     display: none !important;
   }
+
+  /* 
+   * SYSTEMIC LAYOUT & FLUID RESPONSIVE FIXES 
+   * Resolves text overlaps, container overflows, and scaling issues globally.
+   */
+  .fluid-container {
+    min-height: fit-content !important;
+    height: auto !important;
+    box-sizing: border-box !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    overflow: hidden !important; /* Contains spilling text */
+    padding: 1.5rem !important; /* Adequate internal padding */
+  }
+
+  /* Generic parent containers to safely wrap flex children without overlapping */
+  .flex-wrap-safe {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Utility for any custom pills */
+  .pill-shape-safe {
+    border-radius: 9999px !important;
+    min-height: fit-content !important;
+    height: auto !important;
+    box-sizing: border-box !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+}
+
+/* Global Container Rules for all calculators and standard cards */
+@layer base {
+  /* Prevent 'position: absolute' element overlaps by ensuring standard cards act as relative bounds */
+  [class*="bg-white"],
+  [class*="bg-slate-"],
+  [class*="rounded-xl"],
+  [class*="rounded-2xl"],
+  [class*="rounded-3xl"],
+  [class*="rounded-["] {
+    position: relative; 
+    box-sizing: border-box;
+  }
+
+  /* Fluid min-height and overflow protections for flex/grid children across the entire app */
+  .flex > div,
+  .grid > div {
+    min-height: min-content;
+    height: auto;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    box-sizing: border-box;
+  }
 }
