@@ -191,31 +191,42 @@ function TilesCalculator() {
         </InputGroup>
       </div>
 
-      <div className="bg-slate-900 rounded-2xl p-6 text-white flex flex-col justify-center">
-        <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
-        
-        {results ? (
-          <div className="space-y-6">
-            <div>
-              <p className="text-slate-400 text-sm mb-1">Required Tiles (inc. 5% waste)</p>
-              <div className="text-4xl font-black text-white flex items-baseline gap-2">
-                {results.numTiles} <span className="text-xl text-amber-400 font-bold">tiles</span>
+        <div className="bg-slate-900 rounded-2xl p-6 text-white flex flex-col justify-center">
+          <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
+          
+          {results ? (
+            <div className="space-y-4">
+              {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Required Tiles (inc. 5% waste)"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.numTiles}</span>
+                  {"tiles" && <span className="text-sm font-semibold text-slate-300">{"tiles"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
+              {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Boxes Required"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.boxesReq}</span>
+                  {"boxes" && <span className="text-sm font-semibold text-slate-300">{"boxes"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
               </div>
             </div>
-            
-             <div className="pt-4 border-t border-slate-700/50">
-              <p className="text-slate-400 text-sm mb-1">Boxes Required</p>
-              <div className="text-2xl font-bold text-white flex items-baseline gap-2">
-                {results.boxesReq} <span className="text-sm font-normal text-slate-400">boxes</span>
-              </div>
+          ) : (
+            <div className="text-center text-slate-500 py-8">
+              Enter area and tile size to calculate.
             </div>
-          </div>
-        ) : (
-          <div className="text-center text-slate-500 py-8">
-            Enter area and tile size to calculate.
-          </div>
-        )}
-      </div>
+          )}
+        </div>
       <div className="col-span-1 md:col-span-2">
         <CalculationHistory
           calculatorId="tiles_calc_v1"
@@ -318,18 +329,31 @@ function PaintCalculator() {
         <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
         
         {results ? (
-          <div className="space-y-6">
-            <div>
-              <p className="text-slate-400 text-sm mb-1">Required Paint</p>
-              <div className="text-4xl font-black text-white flex items-baseline gap-2">
-                {results.liters} <span className="text-xl text-amber-400 font-bold">Liters</span>
+          <div className="space-y-4">
+            {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Required Paint"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.liters}</span>
+                  {"Liters" && <span className="text-sm font-semibold text-slate-300">{"Liters"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
               </div>
-            </div>
-            
-            <div className="pt-4 border-t border-slate-700/50">
-              <p className="text-slate-400 text-sm mb-1">In Gallons (US)</p>
-              <p className="text-2xl font-bold">{results.gallons} <span className="text-sm font-normal text-slate-400">gals</span></p>
-            </div>
+            {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"In Gallons (US)"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.gallons}</span>
+                  {"gals" && <span className="text-sm font-semibold text-slate-300">{"gals"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
           </div>
         ) : (
           <div className="text-center text-slate-500 py-8">
@@ -417,18 +441,31 @@ function DoorsWindowsCalculator() {
         <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
         
         {grossArea ? (
-          <div className="space-y-6">
-            <div>
-              <p className="text-slate-400 text-sm mb-1">Net Printable / Plaster Area</p>
-              <div className="text-4xl font-black text-emerald-400 flex items-baseline gap-2">
-                {netArea > 0 ? netArea.toFixed(2) : 0} <span className="text-xl text-emerald-600 font-bold">{uArea}</span>
+          <div className="space-y-4">
+            {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Net Printable / Plaster Area"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{netArea > 0 ? netArea.toFixed(2) : 0}</span>
+                  {uArea && <span className="text-sm font-semibold text-slate-300">{uArea}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
               </div>
-            </div>
-            
-            <div className="pt-4 border-t border-slate-700/50">
-              <p className="text-slate-400 text-sm mb-1">Total Deductions</p>
-              <p className="text-2xl font-bold text-rose-400">{totalDeduction.toFixed(2)} <span className="text-sm font-normal text-rose-600">{uArea}</span></p>
-            </div>
+            {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Deductions"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{totalDeduction.toFixed(2)}</span>
+                  {uArea && <span className="text-sm font-semibold text-slate-300">{uArea}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
           </div>
         ) : (
           <div className="text-center text-slate-500 py-8">
@@ -511,19 +548,32 @@ function FramingCalculator() {
         <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
         
         {results ? (
-          <div className="space-y-6">
-            <div>
-              <p className="text-slate-400 text-sm mb-1">Total Studs Required</p>
-              <div className="text-4xl font-black text-white flex items-baseline gap-2">
-                {results.studs} <span className="text-xl text-amber-400 font-bold">studs</span>
+          <div className="space-y-4">
+            {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Studs Required"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.studs}</span>
+                  {"studs" && <span className="text-sm font-semibold text-slate-300">{"studs"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
               </div>
-            </div>
-            
-            <div className="pt-4 border-t border-slate-700/50">
-              <p className="text-slate-400 text-sm mb-1">Top & Bottom Plates ({results.plateLengthDesc} boards)</p>
-              <p className="text-2xl font-bold">{results.plates} <span className="text-sm font-normal text-slate-400">boards</span></p>
-            </div>
-            <div className="mt-2 text-slate-400 text-xs">
+            {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{`Top & Bottom Plates (${results.plateLengthDesc} boards)`}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.plates}</span>
+                  {"boards" && <span className="text-sm font-semibold text-slate-300">{"boards"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
+            <div className="mt-2 text-slate-400 text-xs font-medium">
               ℹ️ Assumes 1 bottom plate and 2 top plates. Extra framing needed for doors/windows.
             </div>
           </div>
@@ -593,18 +643,31 @@ function TermiteCalculator() {
         <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
         
         {results ? (
-          <div className="space-y-6">
-            <div>
-              <p className="text-slate-400 text-sm mb-1">Chemical Emulsion Required</p>
-              <div className="text-4xl font-black text-white flex items-baseline gap-2">
-                {results.liters} <span className="text-xl text-amber-400 font-bold">Liters</span>
+          <div className="space-y-4">
+            {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Chemical Emulsion Required"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.liters}</span>
+                  {"Liters" && <span className="text-sm font-semibold text-slate-300">{"Liters"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
               </div>
-            </div>
-            
-            <div className="pt-4 border-t border-slate-700/50">
-              <p className="text-slate-400 text-sm mb-1">In Gallons (US)</p>
-              <p className="text-xl font-bold">{results.gallons} <span className="text-sm font-normal text-slate-400">gals</span></p>
-            </div>
+            {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"In Gallons (US)"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.gallons}</span>
+                  {"gals" && <span className="text-sm font-semibold text-slate-300">{"gals"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
           </div>
         ) : (
           <div className="text-center text-slate-500 py-8">

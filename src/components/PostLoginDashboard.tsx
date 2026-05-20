@@ -65,26 +65,34 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
       
     <div className="w-full flex justify-between">
       {/* Header & Primary Action Column */}
-      <div className="w-full flex gap-4 flex-col">
+      <div className="flex flex-col gap-4 mb-4 relative z-10 w-full overflow-hidden rounded-[40px]">
         
+        {/* Gemini Colorful Background Glow */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-rose-400 blur-[40px] opacity-20 dark:opacity-40 animate-pulse pointer-events-none"></div>
+
         {/* Welcome & Button */}
-        <div className="flex-1 flex flex-col items-center text-center gap-5 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-800/60 rounded-[32px] p-6 md:p-10 shadow-sm relative overflow-hidden">
-          {/* Decorative background effects could go here */}
-          <div className="z-10 relative">
-            <h1 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-3">
+        <div className="flex flex-col items-center text-center gap-4 bg-white/70 dark:bg-slate-900/80 backdrop-blur-2xl border border-white/50 dark:border-white/10 rounded-[40px] p-6 sm:p-8 md:p-12 shadow-lg dark:shadow-2xl relative group w-full box-border">
+          {/* Subtle gradient border effect inside the card */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-white/0 dark:from-white/10 dark:to-white/0 pointer-events-none rounded-[40px]"></div>
+
+          <div className="z-10 relative flex flex-col items-center">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-3">
               Welcome back{user?.displayName ? `, ${user.displayName.split(' ')[0]}` : ''}
             </h1>
-            <p className="text-slate-600 dark:text-slate-300 font-medium text-lg max-w-xl mx-auto">
+            <p className="text-slate-600 dark:text-slate-300 font-medium text-sm md:text-base max-w-xl mx-auto leading-relaxed">
               Ready to calculate your next project? Pick up where you left off or start a new estimate.
             </p>
           </div>
           
           <button 
             onClick={() => onSelectModule('calculators')}
-            className="z-10 flex items-center justify-center gap-3 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-8 py-4 rounded-full font-bold hover:scale-[1.02] active:scale-[0.98] transition-all text-[16px] shadow-lg mt-2 w-full md:w-auto min-w-[280px]"
+            className="z-10 mt-2 relative overflow-hidden bg-[#1A1C20] dark:bg-white text-white dark:text-[#1A1C20] rounded-full px-6 py-3 sm:px-8 sm:py-4 font-bold text-sm sm:text-base transition-all duration-300 hover:scale-105 active:scale-95 shadow-xl shadow-slate-900/20 dark:shadow-white/10 w-full md:w-auto min-w-[250px] flex items-center justify-center"
           >
-            <Plus className="w-6 h-6" strokeWidth={3} />
-            Create New Estimate
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-rose-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+            <div className="flex items-center justify-center gap-2 relative z-10 w-full">
+              <Plus className="w-5 h-5 stroke-[2.5]" />
+              <span>Create New Estimate</span>
+            </div>
           </button>
         </div>
       </div>

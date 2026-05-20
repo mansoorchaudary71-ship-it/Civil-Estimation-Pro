@@ -153,27 +153,44 @@ function AsphaltCalculator() {
           <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
           
           {results ? (
-            <div className="space-y-6">
-              <div>
-                <p className="text-slate-400 text-sm mb-1">Required Asphalt</p>
-                <div className="text-4xl font-black text-white flex items-baseline gap-2">
-                  {results.tons} <span className="text-xl text-slate-300 font-bold">Metric Tons</span>
+            <div className="space-y-4">
+              {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Required Asphalt"}</span>
                 </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.tons}</span>
+                  {"Metric Tons" && <span className="text-sm font-semibold text-slate-300">{"Metric Tons"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
               </div>
-              
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-700/50">
-                <div>
-                  <p className="text-slate-400 text-sm mb-1">Volume</p>
-                  <p className="text-2xl font-bold">{results.volume} <span className="text-sm font-normal text-slate-400">m³</span></p>
+              <div className="grid grid-cols-2 gap-4">
+                {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Volume"}</span>
                 </div>
-                <div>
-                  <p className="text-slate-400 text-sm mb-1">Surface Area</p>
-                  <p className="text-2xl font-bold">{results.area} <span className="text-sm font-normal text-slate-400">m²</span></p>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.volume}</span>
+                  {"m³" && <span className="text-sm font-semibold text-slate-300">{"m³"}</span>}
                 </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
               </div>
-
-              <div className="mt-4 p-3 bg-slate-800/80 rounded-lg text-slate-300 text-sm">
-                ℹ️ Assumes a standard compacted density of 2320 kg/m³. Actual yield may vary.
+                {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Surface Area"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.area}</span>
+                  {"m²" && <span className="text-sm font-semibold text-slate-300">{"m²"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
               </div>
             </div>
           ) : (
@@ -250,17 +267,30 @@ function PrimeCoatCalculator() {
           <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
           
           {results ? (
-            <div className="space-y-6">
-              <div>
-                <p className="text-slate-400 text-sm mb-1">Total Prime Coat Emulsion</p>
-                <div className="text-4xl font-black text-white flex items-baseline gap-2">
-                  {results.liters} <span className="text-xl text-slate-300 font-bold">Liters</span>
+            <div className="space-y-4">
+              {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Prime Coat"}</span>
                 </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.liters}</span>
+                  {"Liters" && <span className="text-sm font-semibold text-slate-300">{"Liters"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
               </div>
-              
-              <div className="pt-4 border-t border-slate-700/50">
-                <p className="text-slate-400 text-sm mb-1">Standard Drums (200L)</p>
-                <p className="text-xl font-bold">{results.drums} <span className="text-sm font-normal text-slate-400">drums approx.</span></p>
+              {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Standard Drums"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.drums}</span>
+                  {"drums approx. (200L)" && <span className="text-sm font-semibold text-slate-300">{"drums approx. (200L)"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
               </div>
             </div>
           ) : (
@@ -334,17 +364,30 @@ function TackCoatCalculator() {
           <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
           
           {results ? (
-            <div className="space-y-6">
-              <div>
-                <p className="text-slate-400 text-sm mb-1">Total Tack Coat Emulsion</p>
-                <div className="text-4xl font-black text-white flex items-baseline gap-2">
-                  {results.liters} <span className="text-xl text-slate-300 font-bold">Liters</span>
+            <div className="space-y-4">
+              {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Tack Coat"}</span>
                 </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.liters}</span>
+                  {"Liters" && <span className="text-sm font-semibold text-slate-300">{"Liters"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
               </div>
-              
-              <div className="pt-4 border-t border-slate-700/50">
-                <p className="text-slate-400 text-sm mb-1">Standard Drums (200L)</p>
-                <p className="text-xl font-bold">{results.drums} <span className="text-sm font-normal text-slate-400">drums approx.</span></p>
+              {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Standard Drums"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.drums}</span>
+                  {"drums approx. (200L)" && <span className="text-sm font-semibold text-slate-300">{"drums approx. (200L)"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
               </div>
             </div>
           ) : (

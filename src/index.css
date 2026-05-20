@@ -27,7 +27,7 @@
   --shadow-xl: 0 20px 48px -5px rgba(0, 0, 0, 0.08), 0 10px 24px -8px rgba(0, 0, 0, 0.04);
 }
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   :root {
@@ -61,6 +61,17 @@
     50% { background-position: 100% 100%; }
     75% { background-position: 0% 50%; }
     100% { background-position: 0% 0%; }
+  }
+
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  #root {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
   }
 
   body {

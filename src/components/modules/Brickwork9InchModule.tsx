@@ -5,7 +5,6 @@ import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { Save } from "lucide-react";
 import { CalculationHistory } from "../ui/CalculationHistory";
-import { ResultCard } from "../ui/ResultCard";
 import { StyledChart } from "../ui/EstimateVisualizer";
 import {
   Columns,
@@ -302,90 +301,60 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
 
           {/* Results Column */}
           <div className="relative">
-            <div className="sticky top-6 bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-md overflow-hidden flex flex-col h-full">
-              <div className="px-6 py-5 bg-transparent dark:bg-slate-800/80 border-b border-slate-100 dark:border-slate-700/50 text-center">
-                <p className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5">
-                  Net Wall Volume
-                </p>
-                <div className="flex items-center justify-center gap-1.5 text-slate-800 dark:text-white">
-                  <span className="text-3xl font-black">
-                    {results.netVolume.toFixed(2)}
-                  </span>
-                  <span className="text-lg font-bold text-slate-700 dark:text-slate-300">
-                    {results.isSI ? 'm³' : 'cft'}
-                  </span>
+            <div className="sticky top-6 flex flex-col h-full space-y-4">
+              {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Net Wall Volume"}</span>
                 </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.netVolume.toFixed(2)}</span>
+                  {results.isSI ? 'm³' : 'cft' && <span className="text-sm font-semibold text-slate-300">{results.isSI ? 'm³' : 'cft'}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
+              {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-blue-400">{<Box className="w-5 h-5 text-white" />}</div>
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Bricks Estimated"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.noOfBricks.toLocaleString()}</span>
+                  {"pcs" && <span className="text-sm font-semibold text-slate-300">{"pcs"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-blue-400">{<Construction className="w-4 h-4 text-slate-700 dark:text-slate-300" />}</div>
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Cement"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.cementBags}</span>
+                  {"bags" && <span className="text-sm font-semibold text-slate-300">{"bags"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
+                {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-blue-400">{<Layers className="w-4 h-4 text-slate-700 dark:text-slate-300" />}</div>
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Sand"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.sandCft.toFixed(1)}</span>
+                  {"cft" && <span className="text-sm font-semibold text-slate-300">{"cft"}</span>}
+                </div>
+                {`${((results.sandCft || 0) / 35.3147).toFixed(2)} m³` && <p className="text-[10px] font-medium text-slate-500 mt-2">{`${((results.sandCft || 0) / 35.3147).toFixed(2)} m³`}</p>}
+              </div>
               </div>
 
-              <div className="p-6 md:p-8 space-y-6 flex-1 bg-gradient-to-b from-transparent to-slate-50/50 dark:to-slate-800/50">
-                {/* Total Bricks Highlight */}
-                <div className="bg-orange-50 dark:bg-orange-900/10 rounded-2xl p-5 border border-orange-100 dark:border-orange-900/30 text-center">
-                  <div className="flex items-center justify-center gap-2 mb-2">
-                    <Box className="w-5 h-5 text-orange-600" />
-                    <h4 className="text-[11px] font-bold text-orange-600/80 dark:text-orange-400 uppercase tracking-widest">
-                      Total Bricks Estimated
-                    </h4>
-                  </div>
-                  <div className="flex items-center justify-center gap-2">
-                    <p className="text-4xl font-black text-orange-600 dark:text-orange-400">
-                      {results.noOfBricks.toLocaleString()}
-                    </p>
-                    <span className="text-base font-bold text-orange-500/70 mt-2">
-                      pcs
-                    </span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  {/* Cement Result */}
-                  <div className="bg-white dark:bg-slate-800 px-4 py-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="p-1.5 bg-slate-100 dark:bg-slate-700 rounded-lg">
-                        <Construction className="w-4 h-4 text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300" />
-                      </div>
-                      <h4 className="text-xs font-bold text-slate-600 dark:text-slate-700 dark:text-slate-300 uppercase tracking-widest">
-                        Cement
-                      </h4>
-                    </div>
-                    <div className="flex items-end gap-1">
-                      <p className="text-2xl font-black text-slate-800 dark:text-white">
-                        {results.cementBags}
-                      </p>
-                      <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-0.5">
-                        bags
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Sand Result */}
-                  <div className="bg-white dark:bg-slate-800 px-4 py-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="p-1.5 bg-amber-100 dark:bg-amber-900/30 rounded-lg">
-                        <Layers className="w-4 h-4 text-amber-600 dark:text-amber-500" />
-                      </div>
-                      <h4 className="text-xs font-bold text-slate-600 dark:text-slate-700 dark:text-slate-300 uppercase tracking-widest">
-                        Sand
-                      </h4>
-                    </div>
-                    <div>
-                      <div className="flex items-end gap-1">
-                        <p className="text-2xl font-black text-slate-800 dark:text-white">
-                          {results.sandCft.toFixed(1)}
-                        </p>
-                        <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-0.5">
-                          cft
-                        </span>
-                      </div>
-                      <p className="text-[10px] font-bold text-slate-700 dark:text-slate-300 mt-0.5">
-                        {((results.sandCft || 0) / 35.3147).toFixed(2)} m³
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Footer info */}
-              <div className="px-6 py-4 bg-transparent dark:bg-slate-800/80 border-t border-slate-100 dark:border-slate-700 flex justify-center text-center">
+              <div className="px-6 py-4 bg-transparent dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 rounded-2xl flex justify-center text-center mt-2">
                 <span className="flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300">
                   <Droplets className="w-4 h-4 text-blue-400" />
                   Dry Mortar: {results.dryMortarVol.toFixed(3)} {results.isSI ? 'm³' : 'cft'}

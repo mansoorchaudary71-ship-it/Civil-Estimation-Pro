@@ -59,17 +59,16 @@ function NavItem({ icon, label, isActive, onClick }: { icon: React.ReactNode, la
   return (
     <button 
       onClick={onClick}
-      className={`relative flex flex-col items-center justify-center flex-1 w-0 gap-1 rounded-2xl transition-all duration-300 ease-[cubic-bezier(0.175,0.885,0.32,1.275)] ${isActive ? 'text-[#6c63ff] dark:text-[#8b85ff]' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'}`}
+      className={`group relative flex flex-col items-center justify-center flex-1 w-0 gap-1.5 rounded-2xl transition-all duration-300 ease-out ${isActive ? 'text-violet-600 dark:text-violet-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'}`}
     >
-      <div className={`flex items-center justify-center transition-all duration-500 will-change-transform ${isActive ? '-translate-y-2 scale-110 drop-shadow-[0_0_12px_rgba(108,99,255,0.4)]' : 'drop-shadow-none hover:scale-105'} [&>svg]:w-[24px] [&>svg]:h-[24px]`}>
+      <div className={`flex items-center justify-center transition-all duration-300 ease-out ${isActive ? '-translate-y-1 scale-110' : 'group-hover:scale-110 group-hover:-translate-y-0.5 group-active:scale-95'} [&>svg]:w-[22px] [&>svg]:h-[22px]`}>
         {icon}
       </div>
-      <span className={`text-[10px] font-bold tracking-wide whitespace-nowrap truncate max-w-full px-0.5 transition-all duration-300 ${isActive ? 'opacity-100 drop-shadow-[0_0_8px_rgba(108,99,255,0.8)]' : 'opacity-70'}`}>
+      <span className={`text-[10px] font-bold tracking-wide whitespace-nowrap transition-all duration-300 ${isActive ? 'opacity-100 font-extrabold' : 'opacity-70 group-hover:opacity-100'}`}>
         {label}
       </span>
-      {isActive && (
-        <div className="absolute -top-1 w-1 h-1 rounded-full bg-[#6c63ff] shadow-[0_0_10px_rgba(108,99,255,0.8)]" />
-      )}
+      {/* Active Indicator Pille */}
+      <div className={`absolute -bottom-2 w-1.5 h-1.5 rounded-full bg-violet-600 dark:bg-violet-400 transition-all duration-300 ${isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-0'}`} />
     </button>
   );
 }

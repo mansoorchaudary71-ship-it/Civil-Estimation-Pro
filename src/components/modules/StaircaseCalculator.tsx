@@ -731,150 +731,111 @@ export default function StaircaseCalculator({
                 </div>{" "}
                 Real-Time Estimate{" "}
               </h3>{" "}
-              <div className="space-y-8 relative z-10">
-                {" "}
-                <div>
-                  {" "}
-                  <div className="text-slate-700 dark:text-slate-300 text-sm font-semibold mb-2 uppercase tracking-wide flex justify-between items-center">
-                    {" "}
-                    <span>Total Wet Volume</span>{" "}
-                    <span className="text-[10px] bg-slate-800 px-2 py-0.5 rounded-full text-slate-300">
-                      CONCRETE
-                    </span>{" "}
-                  </div>{" "}
-                  <div className="flex items-baseline gap-2">
-                    {" "}
-                    <span className="text-5xl font-extrabold tracking-tight text-white">
-                      {isMetric
-                        ? (res.totalWetVolume || 0).toFixed(2)
-                        : ((res.totalWetVolume || 0) * 35.3147).toFixed(2)}
-                    </span>{" "}
-                    <span className="text-lg text-slate-700 dark:text-slate-300 font-medium">
-                      {isMetric ? "m³" : "Cu.ft"}
-                    </span>{" "}
-                  </div>{" "}
-                </div>{" "}
-                <div className="w-full h-px bg-slate-800/80 dark:bg-slate-700/80" />{" "}
-                <div className="flex flex-wrap gap-4 items-center w-full">
-                  {" "}
-                  <div className="bg-slate-800/80 dark:bg-slate-700/40 px-4 py-3 md:px-4 py-3 rounded-2xl border border-slate-700/50 dark:border-slate-600/30">
-                    {" "}
-                    <div className="text-slate-700 dark:text-slate-300 text-[11px] font-bold mb-1.5 uppercase tracking-widest">
-                      CEMENT
-                    </div>{" "}
-                    <div className="text-2xl font-bold text-white mb-1">
-                      {Math.ceil(res.cementBags)}{" "}
-                      <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">
-                        bags
-                      </span>
-                    </div>{" "}
-                    <div className="text-xs text-slate-700 dark:text-slate-300">
-                      50kg standard
-                    </div>{" "}
-                  </div>{" "}
-                  <div className="bg-slate-800/80 dark:bg-slate-700/40 px-4 py-3 md:px-4 py-3 rounded-2xl border border-slate-700/50 dark:border-slate-600/30">
-                    {" "}
-                    <div className="text-slate-700 dark:text-slate-300 text-[11px] font-bold mb-1.5 uppercase tracking-widest">
-                      SAND
-                    </div>{" "}
-                    <div className="text-2xl font-bold text-white mb-1">
-                      {(res.sandCft || 0).toFixed(1)}{" "}
-                      <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">
-                        cft
-                      </span>
-                    </div>{" "}
-                    <div className="text-xs text-slate-700 dark:text-slate-300">
-                      Fine aggregate
-                    </div>{" "}
-                  </div>{" "}
-                  <div className="bg-slate-800/80 dark:bg-slate-700/40 px-4 py-3 md:px-4 py-3 rounded-2xl border border-slate-700/50 dark:border-slate-600/30 col-span-2 flex justify-between items-center">
-                    {" "}
-                    <div>
-                      {" "}
-                      <div className="text-slate-700 dark:text-slate-300 text-[11px] font-bold mb-1.5 uppercase tracking-widest">
-                        AGGREGATE
-                      </div>{" "}
-                      <div className="text-2xl font-bold text-white mb-1">
-                        {(res.aggCft || 0).toFixed(1)}{" "}
-                        <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">
-                          cft
-                        </span>
-                      </div>{" "}
-                      <div className="text-xs text-slate-700 dark:text-slate-300">
-                        Coarse material
-                      </div>{" "}
-                    </div>{" "}
-                    <div className="w-12 h-12 rounded-full border-4 border-slate-700 flex items-center justify-center bg-slate-800">
-                      {" "}
-                      <CheckCircle2 className="w-5 h-5 text-emerald-400" />{" "}
-                    </div>{" "}
-                  </div>{" "}
-                </div>{" "}
-                <div className="w-full h-px bg-slate-800/80 dark:bg-slate-700/80" />{" "}
-                <div className="bg-gradient-to-br from-amber-500/10 to-transparent p-5 md:p-6 rounded-2xl border border-amber-500/20">
-                  {" "}
-                  <div className="flex justify-between items-start mb-5">
-                    {" "}
-                    <div>
-                      {" "}
-                      <div className="text-amber-400/80 text-[11px] font-bold uppercase tracking-widest mb-1.5">
-                        Total Steel Required
-                      </div>{" "}
-                      <div className="flex items-baseline gap-1.5">
-                        {" "}
-                        <span className="text-3xl font-bold text-amber-500">
-                          {(res.totalSteelWeight || 0).toFixed(1)}
-                        </span>{" "}
-                        <span className="text-sm font-medium text-amber-500/60">
-                          kg
-                        </span>{" "}
-                      </div>{" "}
-                    </div>{" "}
-                  </div>{" "}
-                  <div className="space-y-3 mt-2">
-                    {" "}
-                    <div className="flex justify-between items-center text-sm">
-                      {" "}
-                      <span className="text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                        {" "}
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>{" "}
-                        Main (Ø{mainBarDia}
-                        {uMm}){" "}
-                      </span>{" "}
-                      <span className="font-semibold text-white">
-                        {isMetric
-                          ? (res.totalMainBarLengthCut || 0).toFixed(1)
-                          : (
-                              (res.totalMainBarLengthCut || 0) * 3.28084
-                            ).toFixed(1)}
-                        {uM} length
-                      </span>{" "}
-                    </div>{" "}
-                    <div className="flex justify-between items-center text-sm">
-                      {" "}
-                      <span className="text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                        {" "}
-                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>{" "}
-                        Dist (Ø{distBarDia}
-                        {uMm}){" "}
-                      </span>{" "}
-                      <span className="font-semibold text-white">
-                        {isMetric
-                          ? (res.totalDistBarLengthCut || 0).toFixed(1)
-                          : (
-                              (res.totalDistBarLengthCut || 0) * 3.28084
-                            ).toFixed(1)}
-                        {uM} length
-                      </span>{" "}
-                    </div>{" "}
-                  </div>{" "}
-                  <div className="mt-5 pt-4 border-t border-amber-500/10 flex justify-between items-center">
-                    {" "}
-                    <span className="text-xs text-amber-500/60 font-medium">
-                      Includes {wastage}% wastage factor
-                    </span>{" "}
-                  </div>{" "}
-                </div>{" "}
+              <div className="space-y-6 relative z-10">
+                <div className="grid grid-cols-1 gap-4">
+                  {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Wet Volume"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{isMetric
+                      ? (res.totalWetVolume || 0).toFixed(2)
+                      : ((res.totalWetVolume || 0) * 35.3147).toFixed(2)}</span>
+                  {isMetric ? "m³" : "Cu.ft" && <span className="text-sm font-semibold text-slate-300">{isMetric ? "m³" : "Cu.ft"}</span>}
+                </div>
+                {"CONCRETE" && <p className="text-[10px] font-medium text-slate-500 mt-2">{"CONCRETE"}</p>}
+              </div>
+                </div>
+                
+                <div className="w-full h-px bg-slate-800/80 dark:bg-slate-700/80" />
+                
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"CEMENT"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{Math.ceil(res.cementBags)}</span>
+                  {"bags" && <span className="text-sm font-semibold text-slate-300">{"bags"}</span>}
+                </div>
+                {"50kg standard" && <p className="text-[10px] font-medium text-slate-500 mt-2">{"50kg standard"}</p>}
+              </div>
+                  {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"SAND"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{(res.sandCft || 0).toFixed(1)}</span>
+                  {"cft" && <span className="text-sm font-semibold text-slate-300">{"cft"}</span>}
+                </div>
+                {"Fine aggregate" && <p className="text-[10px] font-medium text-slate-500 mt-2">{"Fine aggregate"}</p>}
+              </div>
+                  {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"AGGREGATE"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{(res.aggCft || 0).toFixed(1)}</span>
+                  {"cft" && <span className="text-sm font-semibold text-slate-300">{"cft"}</span>}
+                </div>
+                {"Coarse material" && <p className="text-[10px] font-medium text-slate-500 mt-2">{"Coarse material"}</p>}
+              </div>
+                </div>
+                
+                <div className="w-full h-px bg-slate-800/80 dark:bg-slate-700/80" />
+                
+                <div className="space-y-4">
+                   {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Steel Required"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{(res.totalSteelWeight || 0).toFixed(1)}</span>
+                  {"kg" && <span className="text-sm font-semibold text-slate-300">{"kg"}</span>}
+                </div>
+                {`Includes ${wastage}% wastage factor` && <p className="text-[10px] font-medium text-slate-500 mt-2">{`Includes ${wastage}% wastage factor`}</p>}
+              </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{`Main (Ø${mainBarDia}${uMm})`}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{isMetric
+                        ? (res.totalMainBarLengthCut || 0).toFixed(1)
+                        : ((res.totalMainBarLengthCut || 0) * 3.28084).toFixed(1)}</span>
+                  {`${uM} length` && <span className="text-sm font-semibold text-slate-300">{`${uM} length`}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
+                    {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{`Dist (Ø${distBarDia}${uMm})`}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{isMetric
+                        ? (res.totalDistBarLengthCut || 0).toFixed(1)
+                        : ((res.totalDistBarLengthCut || 0) * 3.28084).toFixed(1)}</span>
+                  {`${uM} length` && <span className="text-sm font-semibold text-slate-300">{`${uM} length`}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
+                  </div>
+                </div>
               </div>{" "}
             </div>{" "}
           </div>{" "}

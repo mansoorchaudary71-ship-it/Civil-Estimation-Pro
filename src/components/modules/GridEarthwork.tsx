@@ -275,73 +275,69 @@ export default function GridEarthworkEstimator() {
             </div>
           </section>
           <section className="space-y-6">
-            <div
-              className={`bg-gradient-to-br ${isFill ? "from-indigo-600 to-purple-700" : isCut ? "from-amber-500 to-orange-600" : "from-slate-700 to-slate-800"} rounded-[1.5rem] p-8 shadow-2xl relative overflow-hidden transition-colors duration-500`}
-            >
-              <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 bg-white/20 rounded-xl backdrop-blur-md">
-                    <Calculator className="w-5 h-5 text-white" />
-                  </div>
-                  <h2 className="text-xl font-bold tracking-tight text-white">
-                    Results
-                  </h2>
+            <div className="bg-slate-900 border border-slate-800 rounded-[2rem] p-6 text-white shadow-xl flex flex-col justify-between items-center text-center">
+              <div className="w-full text-left mb-6 flex items-center gap-3">
+                <div className="p-2 bg-blue-500/20 rounded-xl">
+                  <Calculator className="w-5 h-5 text-blue-400" />
                 </div>
-                <div className="space-y-4">
-                  <div className="bg-white/10 p-5 rounded-[1.25rem] border border-white/20 backdrop-blur-sm">
-                    <div className="text-white/80 text-sm font-medium mb-1">
-                      Average Existing Elevation
-                    </div>
-                    <div className="text-2xl font-bold text-white">
-                      {avgExisting.toFixed(3)}
-                      <span className="opacity-70 text-lg">
-                        {unitL}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="bg-white/10 p-5 rounded-[1.25rem] border border-white/20 backdrop-blur-sm">
-                    <div className="text-white/80 text-sm font-medium mb-1">
-                      Average Proposed Level
-                    </div>
-                    <div className="text-2xl font-bold text-white">
-                      {avgProposed.toFixed(3)}
-                      <span className="opacity-70 text-lg">
-                        {unitL}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="p-5 rounded-[1.25rem] border bg-white/20 border-white/30 backdrop-blur-sm mt-6">
-                    <div className="flex justify-between items-end mb-2">
-                      <div className="text-sm font-medium text-white/90">
-                        {isCut
-                          ? "Average Cut Depth"
-                          : isFill
-                            ? "Average Fill Depth"
-                            : "Average Depth"}
-                      </div>
-                      <div className="text-white font-bold text-xl uppercase tracking-wider">
-                        {isCut ? "CUT" : isFill ? "FILL" : "LEVEL"}
-                      </div>
-                    </div>
-                    <div className="text-4xl font-black tracking-tight text-white mb-4">
-                      {Math.abs(avgDepth).toFixed(3)}
-                      <span className="text-xl font-medium opacity-80">
-                        {unitL}
-                      </span>
-                    </div>
-                    <div className="h-px w-full bg-white/20 my-4"></div>
-                    <div className="text-base font-medium text-white/90 mb-1">
-                      Total {isCut ? "Cut" : isFill ? "Fill" : ""} Volume
-                    </div>
-                    <div className="text-5xl font-black tracking-tighter text-white">
-                      {totalVolume.toFixed(2)}
-                      <span className="text-2xl font-medium opacity-80">
-                        {unitV}
-                      </span>
-                    </div>
-                  </div>
+                <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest">
+                  Results (Grid Leveling)
+                </h3>
+              </div>
+              
+              <div className="w-full space-y-4 mb-4">
+                 {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{`Total ${isCut ? "Cut" : isFill ? "Fill" : ""} Volume`}</span>
                 </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{totalVolume.toFixed(2)}</span>
+                  {unitV && <span className="text-sm font-semibold text-slate-300">{unitV}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
+                 
+                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                   {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Avg Existing Elev."}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{avgExisting.toFixed(3)}</span>
+                  {unitL && <span className="text-sm font-semibold text-slate-300">{unitL}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
+                   {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Avg Proposed Elev."}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{avgProposed.toFixed(3)}</span>
+                  {unitL && <span className="text-sm font-semibold text-slate-300">{unitL}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
+                 </div>
+                 
+                 {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{isCut ? "Average Cut Depth" : isFill ? "Average Fill Depth" : "Average Depth"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{Math.abs(avgDepth).toFixed(3)}</span>
+                  {unitL && <span className="text-sm font-semibold text-slate-300">{unitL}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
               </div>
             </div>
             

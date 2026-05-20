@@ -302,93 +302,66 @@ export default function StandardEarthworks() {
           </section>
           {/* Results Section */}
           <section className="space-y-6">
-            <div className="bg-gradient-to-br from-indigo-500 to-indigo-700 text-white p-8 rounded-[2rem] shadow-[0_20px_40px_rgba(79,70,229,0.2)] relative overflow-hidden">
-              {/* Decorative background shapes */}
-              <div className="absolute -top-24 -right-24 w-48 h-48 bg-white/10 rounded-full blur-2xl"></div>
-              <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-indigo-900/40 rounded-full blur-3xl"></div>
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 bg-white/20 rounded-xl backdrop-blur-md">
-                    <Calculator className="w-5 h-5 text-white" />
-                  </div>
-                  <h2 className="text-xl font-bold tracking-tight">
-                    Calculation Results
-                  </h2>
+            <h2 className="text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100 flex items-center gap-2">
+              <Calculator className="w-5 h-5 text-indigo-500" />
+              Calculation Results
+            </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-indigo-400"><Layers className="w-5 h-5" /></div>
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">Solid Volume</span>
                 </div>
-                <div className="space-y-6">
-                  <div className="bg-white/10 p-5 rounded-[1.25rem] border border-white/20 backdrop-blur-sm">
-                    <div className="text-blue-100 text-sm font-medium mb-1">
-                      Solid Volume (Bank Measure)
-                    </div>
-                    <div className="text-4xl font-extrabold tracking-tight">
-                      {solidVolume.toFixed(2)}
-                      <span className="text-xl font-medium text-blue-200">
-                        {unitV}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex flex-wrap gap-4 items-center w-full">
-                    <div className="bg-white/10 p-4 rounded-[1.25rem] border border-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors">
-                      <div className="text-blue-100 text-xs font-medium mb-1">
-                        Loose Volume (Swell)
-                      </div>
-                      <div className="text-2xl font-bold">
-                        {looseVolume.toFixed(2)}
-                        <span className="text-lg font-medium text-blue-200/70">
-                          {unitV}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="bg-white/10 p-4 rounded-[1.25rem] border border-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors">
-                      <div className="text-indigo-100 text-xs font-medium mb-1">
-                        Compacted Volume
-                      </div>
-                      <div className="text-2xl font-bold">
-                        {compactedVolume.toFixed(2)}
-                        <span className="text-lg font-medium text-indigo-200/70">
-                          {unitV}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{solidVolume.toFixed(2)}</span>
+                  <span className="text-sm font-semibold text-slate-300">{unitV}</span>
+                </div>
+                <p className="text-[10px] font-medium text-slate-500 mt-2">Bank Measure</p>
+              </div>
+              <div className="bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-indigo-400"><Layers className="w-5 h-5" /></div>
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">Loose Volume</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{looseVolume.toFixed(2)}</span>
+                  <span className="text-sm font-semibold text-slate-300">{unitV}</span>
+                </div>
+                <p className="text-[10px] font-medium text-slate-500 mt-2">Excavated Measure</p>
+              </div>
+              <div className="bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-indigo-400"><Layers className="w-5 h-5" /></div>
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">Compacted Volume</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{compactedVolume.toFixed(2)}</span>
+                  <span className="text-sm font-semibold text-slate-300">{unitV}</span>
                 </div>
               </div>
-            </div>
-            {/* Hauling Summary */}
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex items-center justify-between">
-              <div>
-                <h3 className="text-lg font-bold text-gray-800 mb-1">
-                  Total Truck Trips
-                </h3>
-                <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">
-                  Based on loose volume & capacity
-                </p>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="text-4xl font-black text-indigo-600 tracking-tighter">
-                  {truckTrips}
+              <div className="bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center lg:col-span-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-slate-400"><Calculator className="w-5 h-5" /></div>
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">Total Truck Trips</span>
                 </div>
-                <div className="text-gray-700 dark:text-gray-300 mt-2">trips</div>
-              </div>
-            </div>
-            {/* Total Cost Summary */}
-            <div className="bg-gradient-to-br from-emerald-500 to-teal-600 p-6 rounded-[1.5rem] shadow-[0_8px_30px_rgb(20,184,166,0.2)] text-white flex items-center justify-between mt-6 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-              <div className="relative z-10">
-                <h3 className="text-lg font-bold text-white mb-1">
-                  Total Project Cost
-                </h3>
-                <p className="text-sm text-emerald-100 font-medium">
-                  Excavation + Compaction + Hauling
-                </p>
-              </div>
-              <div className="flex items-center gap-2 relative z-10">
-                <div className="text-3xl sm:text-4xl font-black text-white tracking-tighter">
-                  {formatCurrency(totalCostConverted)}
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{truckTrips}</span>
                 </div>
+                <p className="text-[10px] font-medium text-slate-500 mt-2">Based on loose volume & capacity</p>
+              </div>
+              <div className="bg-gradient-to-br from-emerald-900/20 to-teal-900/20 px-4 py-4 rounded-2xl border border-emerald-700/50 flex flex-col justify-center lg:col-span-2">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-emerald-400"><Calculator className="w-5 h-5" /></div>
+                  <span className="text-emerald-400/80 text-xs font-bold uppercase tracking-widest">Total Project Cost</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{formatCurrency(totalCostConverted)}</span>
+                </div>
+                <p className="text-[10px] font-medium text-emerald-500 mt-2">Excavation + Compaction + Hauling</p>
               </div>
             </div>
           </section>
+
         </div>
         {/* Analytics Table */}
         <div className="bg-white rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden mt-8">

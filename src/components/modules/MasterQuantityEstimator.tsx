@@ -515,12 +515,12 @@ export default function MasterQuantityEstimator({
             )}
           </div>
         </div>
-        <div className="bg-blue-950 text-white rounded-3xl p-6 md:p-8 shadow-xl flex flex-col justify-between">
+        <div className="bg-slate-900 rounded-3xl p-6 md:p-8 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="font-bold text-blue-300 text-sm uppercase tracking-widest mb-6">
+            <h3 className="font-bold text-slate-400 text-sm uppercase tracking-widest mb-6">
               Quantities Required
             </h3>
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {Object.entries(results).map(([key, val]) => (
                 <div
                   key={key}

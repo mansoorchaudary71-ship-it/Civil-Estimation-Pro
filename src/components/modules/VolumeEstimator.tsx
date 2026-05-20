@@ -663,35 +663,43 @@ export default function VolumeEstimator() {
             )}
 
             <div className="w-full space-y-4 mb-8">
-              <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700 flex flex-col justify-center items-center">
-                <Maximize className="w-6 h-6 text-blue-400 mb-2" />
-                <span className="block text-slate-700 dark:text-slate-300 text-[11px] font-bold uppercase mb-1">
-                  Total Volume
-                </span>
-                <span className="text-4xl font-black text-white">
-                  {volume.toFixed(2)}
-                  <span className="text-xl text-blue-300">{volUnit}</span>
-                </span>
+              {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-blue-400">{<Maximize className="w-5 h-5 text-white" />}</div>
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Volume"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{volume.toFixed(2)}</span>
+                  {volUnit && <span className="text-sm font-semibold text-slate-300">{volUnit}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
               </div>
-              <div className="flex flex-wrap gap-4 items-center w-full">
-                <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700 flex flex-col justify-center items-center">
-                  <span className="block text-slate-700 dark:text-slate-300 text-[10px] font-bold uppercase mb-1">
-                    Surface Area
-                  </span>
-                  <span className="text-xl font-bold text-emerald-400">
-                    {surfaceArea.toFixed(2)}
-                    <span className="text-sm">{areaUnit}</span>
-                  </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Surface Area"}</span>
                 </div>
-                <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700 flex flex-col justify-center items-center">
-                  <span className="block text-slate-700 dark:text-slate-300 text-[10px] font-bold uppercase mb-1">
-                    Liquid Capacity
-                  </span>
-                  <span className="text-xl font-bold text-cyan-400">
-                    {liquidCapacity.toFixed(2)}
-                    <span className="text-sm">{capacityUnit}</span>
-                  </span>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{surfaceArea.toFixed(2)}</span>
+                  {areaUnit && <span className="text-sm font-semibold text-slate-300">{areaUnit}</span>}
                 </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
+                {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Liquid Capacity"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{liquidCapacity.toFixed(2)}</span>
+                  {capacityUnit && <span className="text-sm font-semibold text-slate-300">{capacityUnit}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
               </div>
             </div>
             <div className="mt-6 flex flex-wrap gap-4 items-center">

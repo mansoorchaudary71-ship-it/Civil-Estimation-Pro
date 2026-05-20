@@ -222,25 +222,43 @@ export default function PropertyAreaCalculator() {
             </h3>
             
             <div className="w-full space-y-4">
-              <div className="bg-slate-800/50 p-5 rounded-2xl border border-slate-700">
-                <span className="block text-slate-400 text-xs font-bold uppercase mb-1">Carpet Area</span>
-                <span className="text-3xl font-black text-white">{carpetAreaFormatted}</span>
-                <p className="text-[10px] text-slate-500 mt-1">Net usable floor area</p>
-              </div>
-
-              <div className="bg-slate-800/50 p-5 rounded-2xl border border-slate-700">
-                <span className="block text-slate-400 text-xs font-bold uppercase mb-1">Built-Up Area</span>
-                <span className="text-3xl font-black text-blue-400">{builtUpAreaFormatted}</span>
-                <p className="text-[10px] text-slate-500 mt-1">Carpet + Wall + Balcony</p>
-              </div>
-
-              <div className="bg-indigo-600/20 p-5 rounded-2xl border border-indigo-500/50 relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-4 opacity-10">
-                  <Building className="w-16 h-16" />
+              {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Carpet Area"}</span>
                 </div>
-                <span className="block text-indigo-300 text-xs font-bold uppercase mb-1">Super Built-Up Area</span>
-                <span className="text-4xl font-black text-indigo-400">{superBuiltUpAreaFormatted}</span>
-                <p className="text-[10px] text-indigo-300/70 mt-1">Chargeable area (incl. common amenities)</p>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{carpetAreaFormatted.split(" ")[0]}</span>
+                  {isMetric ? "m²" : "sq.ft" && <span className="text-sm font-semibold text-slate-300">{isMetric ? "m²" : "sq.ft"}</span>}
+                </div>
+                {"Net usable floor area" && <p className="text-[10px] font-medium text-slate-500 mt-2">{"Net usable floor area"}</p>}
+              </div>
+
+              {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Built-Up Area"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{builtUpAreaFormatted.split(" ")[0]}</span>
+                  {isMetric ? "m²" : "sq.ft" && <span className="text-sm font-semibold text-slate-300">{isMetric ? "m²" : "sq.ft"}</span>}
+                </div>
+                {"Carpet + Wall + Balcony" && <p className="text-[10px] font-medium text-slate-500 mt-2">{"Carpet + Wall + Balcony"}</p>}
+              </div>
+
+              {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-blue-400">{<Building className="w-5 h-5 text-white" />}</div>
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Super Built-Up Area"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{superBuiltUpAreaFormatted.split(" ")[0]}</span>
+                  {isMetric ? "m²" : "sq.ft" && <span className="text-sm font-semibold text-slate-300">{isMetric ? "m²" : "sq.ft"}</span>}
+                </div>
+                {"Chargeable area (incl. common amenities)" && <p className="text-[10px] font-medium text-slate-500 mt-2">{"Chargeable area (incl. common amenities)"}</p>}
               </div>
             </div>
           </div>

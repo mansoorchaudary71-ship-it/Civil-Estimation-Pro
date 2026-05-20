@@ -191,45 +191,54 @@ export default function SolarRoofCalculator() {
 
               {/* Main Stats Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-white dark:bg-slate-800/80 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-white/5 flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 dark:text-amber-400">
-                    <Sun className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Recommended System</p>
-                    <p className="text-2xl font-black text-slate-800 dark:text-white">{results.recSystemSize.toFixed(1)} <span className="text-lg font-bold text-slate-400">kW</span></p>
-                  </div>
+                {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-blue-400">{<Sun className="w-5 h-5 text-white" />}</div>
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Recommended System"}</span>
                 </div>
-
-                <div className="bg-white dark:bg-slate-800/80 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-white/5 flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                    <Home className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Total Panels</p>
-                    <p className="text-2xl font-black text-slate-800 dark:text-white">{results.numPanels} <span className="text-lg font-bold text-slate-400">units</span></p>
-                  </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.recSystemSize.toFixed(1)}</span>
+                  {"kW" && <span className="text-sm font-semibold text-slate-300">{"kW"}</span>}
                 </div>
-
-                <div className="bg-white dark:bg-slate-800/80 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-white/5 flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
-                    <Zap className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Annual Energy Gen.</p>
-                    <p className="text-2xl font-black text-slate-800 dark:text-white">{results.annualGeneration.toLocaleString(undefined, {maximumFractionDigits: 0})} <span className="text-lg font-bold text-slate-400">kWh</span></p>
-                  </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
+                {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-blue-400">{<Home className="w-5 h-5 text-white" />}</div>
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Panels"}</span>
                 </div>
-
-                <div className="bg-white dark:bg-slate-800/80 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-white/5 flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
-                    <DollarSign className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Annual Savings</p>
-                    <p className="text-2xl font-black text-slate-800 dark:text-white">${results.annualSavings.toLocaleString(undefined, {maximumFractionDigits: 0})}</p>
-                  </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.numPanels}</span>
+                  {"units" && <span className="text-sm font-semibold text-slate-300">{"units"}</span>}
                 </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
+                {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-blue-400">{<Zap className="w-4 h-4 text-slate-700 dark:text-slate-300" />}</div>
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Annual Energy Gen."}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.annualGeneration.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
+                  {"kWh" && <span className="text-sm font-semibold text-slate-300">{"kWh"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
+                {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="text-blue-400">{<DollarSign className="w-4 h-4 text-slate-700 dark:text-slate-300" />}</div>
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Annual Savings"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{`$${results.annualSavings.toLocaleString(undefined, {maximumFractionDigits: 0})}`}</span>
+                  {"" && <span className="text-sm font-semibold text-slate-300">{""}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
               </div>
 
               {/* Financial Summary */}

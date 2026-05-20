@@ -264,37 +264,58 @@ export default function SlabEstimator() {
           
           {results ? (
             <div className="space-y-6 flex-1">
-              <div className="bg-slate-800/80 p-5 rounded-2xl border border-slate-700">
-                <p className="text-slate-400 text-sm mb-1">Concrete Dry Volume (~1.54x)</p>
-                <div className="text-3xl font-black text-white mb-2">
-                  {results.concreteVolumeDry.toFixed(2)} <span className="text-lg text-slate-400 font-normal">m³</span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Concrete Dry Volume (~1.54x)"}</span>
                 </div>
-                <p className="text-slate-400 text-sm">Wet Volume: {results.concreteVolumeWet.toFixed(2)} m³</p>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.concreteVolumeDry.toFixed(2)}</span>
+                  {"m³" && <span className="text-sm font-semibold text-slate-300">{"m³"}</span>}
+                </div>
+                {`Wet Volume: ${results.concreteVolumeWet.toFixed(2)} m³` && <p className="text-[10px] font-medium text-slate-500 mt-2">{`Wet Volume: ${results.concreteVolumeWet.toFixed(2)} m³`}</p>}
               </div>
-              
+                {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Steel Weight"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.totalSteelWeight.toFixed(2)}</span>
+                  {"kg" && <span className="text-sm font-semibold text-slate-300">{"kg"}</span>}
+                </div>
+                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+              </div>
+                {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{results.type === "one-way" ? "Main Bars" : "Short Span Bars"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.shortBarsCount}</span>
+                  {"bars" && <span className="text-sm font-semibold text-slate-300">{"bars"}</span>}
+                </div>
+                {`${results.shortBarsTotalLength.toFixed(1)}m total` && <p className="text-[10px] font-medium text-slate-500 mt-2">{`${results.shortBarsTotalLength.toFixed(1)}m total`}</p>}
+              </div>
+                {/* Hardcoded Result Reverted */}
+              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  
+                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{results.type === "one-way" ? "Dist Bars" : "Long Span Bars"}</span>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-3xl font-black text-white">{results.longBarsCount}</span>
+                  {"bars" && <span className="text-sm font-semibold text-slate-300">{"bars"}</span>}
+                </div>
+                {`${results.longBarsTotalLength.toFixed(1)}m total` && <p className="text-[10px] font-medium text-slate-500 mt-2">{`${results.longBarsTotalLength.toFixed(1)}m total`}</p>}
+              </div>
+              </div>
+
               <div className="bg-slate-800/80 p-5 rounded-2xl border border-slate-700">
-                <p className="text-slate-400 text-sm mb-1">Total Steel Weight</p>
-                <div className="text-3xl font-black text-blue-400 mb-4">
-                  {results.totalSteelWeight.toFixed(2)} <span className="text-lg text-slate-400 font-normal">kg</span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mt-2 pt-4 border-t border-slate-700 mb-6">
-                  <div>
-                    <p className="text-slate-400 text-xs uppercase tracking-wider mb-1">
-                      {results.type === "one-way" ? "Main Bars" : "Short Span Bars"}
-                    </p>
-                    <p className="text-xl font-bold text-white">{results.shortBarsCount} <span className="text-xs font-normal text-slate-400">bars</span></p>
-                    <p className="text-sm text-slate-300 mt-1">{results.shortBarsTotalLength.toFixed(1)}m total</p>
-                  </div>
-                  <div>
-                    <p className="text-slate-400 text-xs uppercase tracking-wider mb-1">
-                      {results.type === "one-way" ? "Dist Bars" : "Long Span Bars"}
-                    </p>
-                    <p className="text-xl font-bold text-white">{results.longBarsCount} <span className="text-xs font-normal text-slate-400">bars</span></p>
-                    <p className="text-sm text-slate-300 mt-1">{results.longBarsTotalLength.toFixed(1)}m total</p>
-                  </div>
-                </div>
-
                 <div className="mt-2 text-slate-900">
                   <StyledChart 
                     data={[

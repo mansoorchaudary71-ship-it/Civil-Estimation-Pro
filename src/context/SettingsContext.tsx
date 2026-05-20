@@ -93,10 +93,26 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     localStorage.setItem('app-settings', JSON.stringify(settings));
     
-    // Apply theme to document
-    // Always force light mode as requested
     const root = window.document.documentElement;
-    root.classList.remove('dark');
+
+    const applyTheme = () => {
+      root.classList.remove('light', 'dark');
+      if (settings.theme === 'system') {
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        root.classList.add(systemTheme);
+      } else {
+        root.classList.add(settings.theme);
+      }
+    };
+
+    applyTheme();
+
+    if (settings.theme === 'system') {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const handleChange = () => applyTheme();
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    }
   }, [settings]);
 
   const updateSettings = (newSettings: Partial<SettingsState>) => {
