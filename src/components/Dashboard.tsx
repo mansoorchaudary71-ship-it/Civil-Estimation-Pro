@@ -232,19 +232,21 @@ export default function Dashboard({
             <p className="text-slate-500 font-medium mt-2">Select a calculator to initiate a new estimate.</p>
           </div>
           
-          <div className="w-full md:max-w-xs shrink-0 flex items-center">
-            <div className="relative flex items-center w-full h-12 rounded-full bg-slate-100 dark:bg-slate-800 transition-all duration-300 focus-within:ring-2 focus-within:ring-slate-300 dark:focus-within:ring-slate-600">
-              <Hammer className="w-[18px] h-[18px] ml-4 text-slate-400 dark:text-slate-500" strokeWidth={2.5} />
+          <div className="w-full md:max-w-[420px] xl:max-w-[480px] shrink-0 flex items-center">
+            <div className="relative flex items-center w-full h-[60px] rounded-full bg-white dark:bg-[#1f2229] shadow-[0_4px_24px_-4px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_24px_-4px_rgba(0,0,0,0.4)] transition-all duration-300 focus-within:shadow-[0_8px_32px_-6px_rgba(0,0,0,0.12)] border border-slate-100 dark:border-slate-800 focus-within:scale-[1.01]">
+              <div className="ml-5 w-[38px] h-[38px] rounded-full bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-500 flex items-center justify-center shrink-0 shadow-sm transition-transform duration-300">
+                <Search className="w-[18px] h-[18px] text-white" strokeWidth={3} />
+              </div>
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search..."
-                className="w-full h-full bg-transparent border-none outline-none text-[15px] font-medium text-slate-800 dark:text-white placeholder:text-slate-500 px-3"
+                placeholder="Search calculators..."
+                className="w-full h-full bg-transparent border-none outline-none text-[16px] font-medium text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 px-4"
               />
               {searchTerm && (
-                <button onClick={() => setSearchTerm("")} className="mr-3 p-1 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-500 hover:text-slate-800 dark:hover:text-white transition-colors">
-                  <X className="w-3.5 h-3.5" strokeWidth={2.5} />
+                <button onClick={() => setSearchTerm("")} className="mr-3 p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                  <X className="w-[18px] h-[18px]" strokeWidth={2.5} />
                 </button>
               )}
             </div>
@@ -255,7 +257,7 @@ export default function Dashboard({
         <div className="flex flex-col w-full">
             {groupsToDisplay.length === 0 ? (
               <div className="py-24 text-center flex flex-col items-center">
-                <Hammer className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
+                <Search className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
                 <h3 className="text-xl font-bold text-[var(--primary-dark)] dark:text-slate-200">No calculators found</h3>
                 <p className="text-slate-500 mt-2">Try adjusting your search term or category.</p>
               </div>
