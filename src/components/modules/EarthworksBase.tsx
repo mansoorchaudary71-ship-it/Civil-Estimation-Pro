@@ -302,7 +302,7 @@ export default function StandardEarthworks() {
           </section>
           {/* Results Section */}
           <section className="space-y-6">
-            <div className=" text-white p-8 rounded-[2rem] shadow-[0_20px_40px_rgba(79,70,229,0.2)] relative overflow-hidden">
+            <div className="bg-gradient-to-br from-indigo-500 to-indigo-700 text-white p-8 rounded-[2rem] shadow-[0_20px_40px_rgba(79,70,229,0.2)] relative overflow-hidden">
               {/* Decorative background shapes */}
               <div className="absolute -top-24 -right-24 w-48 h-48 bg-white/10 rounded-full blur-2xl"></div>
               <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-indigo-900/40 rounded-full blur-3xl"></div>

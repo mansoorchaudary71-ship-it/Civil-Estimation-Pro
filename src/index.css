@@ -326,26 +326,15 @@
 }
 
 @layer utilities {
-  .hide-old-headers > div > header > div > h1.text-4xl,
-  .hide-old-headers > div > header > div > h1.text-3xl,
-  .hide-old-headers > div > header > div > h1.text-5xl,
-  .hide-old-headers > div > header h1.text-4xl,
-  .hide-old-headers > div > header h1.text-3xl,
-  .hide-old-headers > div > header h1.text-5xl,
-  .hide-old-headers > div > h1.text-4xl,
-  .hide-old-headers > div > h1.text-3xl,
-  .hide-old-headers > div > h1.text-5xl {
-    display: none !important;
+  .themed-tool-container h1 {
+    color: var(--tool-theme-color) !important;
+    -webkit-text-fill-color: var(--tool-theme-color) !important;
+    background-image: none !important;
+    background-clip: unset !important;
+    -webkit-background-clip: unset !important;
   }
-
-  .hide-old-headers > div > header > div > p.text-lg,
-  .hide-old-headers > div > header > div > p.text-gray-500,
-  .hide-old-headers > div > header > p,
-  .hide-old-headers > div > p {
+  
+  .themed-tool-container h1 svg {
     display: none !important;
-  }
-
-  .hide-old-headers > div > header {
-    margin-bottom: 0.5rem !important; 
   }
 }

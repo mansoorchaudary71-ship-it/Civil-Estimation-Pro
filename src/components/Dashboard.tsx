@@ -53,22 +53,22 @@ interface DashboardProps {
 
 export const getCategoryTheme = (category: string, id: string) => {
   if (id === 'ai') {
-    return { text: "text-white", bg: "bg-[#8b6cff] dark:bg-[#7158e2]", stroke: "stroke-[#8b6cff]" };
+    return { text: "text-white", bg: "bg-[#8b6cff] dark:bg-[#7158e2]", stroke: "stroke-[#8b6cff]", baseHex: "#8b6cff" };
   }
   
   switch (category) {
     case "Concrete Tech":
-      return { text: "text-white", bg: "bg-[#ff6b6b] dark:bg-[#ee5253]", stroke: "stroke-[#ff6b6b]" };
+      return { text: "text-white", bg: "bg-[#ff6b6b] dark:bg-[#ee5253]", stroke: "stroke-[#ff6b6b]", baseHex: "#ee5253" };
     case "Quantity Estimator":
-      return { text: "text-white", bg: "bg-[#54a0ff] dark:bg-[#2e86de]", stroke: "stroke-[#54a0ff]" };
+      return { text: "text-white", bg: "bg-[#54a0ff] dark:bg-[#2e86de]", stroke: "stroke-[#54a0ff]", baseHex: "#2e86de" };
     case "Road Construction":
-      return { text: "text-white", bg: "bg-[#1dd1a1] dark:bg-[#10ac84]", stroke: "stroke-[#1dd1a1]" };
+      return { text: "text-white", bg: "bg-[#1dd1a1] dark:bg-[#10ac84]", stroke: "stroke-[#1dd1a1]", baseHex: "#10ac84" };
     case "Soil Tests":
-      return { text: "text-white", bg: "bg-[#ff9f43] dark:bg-[#ff7f50]", stroke: "stroke-[#ff9f43]" };
+      return { text: "text-white", bg: "bg-[#ff9f43] dark:bg-[#ff7f50]", stroke: "stroke-[#ff9f43]", baseHex: "#ff7f50" };
     case "MEP":
-      return { text: "text-white", bg: "bg-[#c6e33e] dark:bg-[#a3cb38]", stroke: "stroke-[#c6e33e]" };
+      return { text: "text-white", bg: "bg-[#c6e33e] dark:bg-[#a3cb38]", stroke: "stroke-[#c6e33e]", baseHex: "#a3cb38" };
     default:
-      return { text: "text-white", bg: "bg-[#8b6cff] dark:bg-[#7158e2]", stroke: "stroke-[#8b6cff]" };
+      return { text: "text-white", bg: "bg-[#8b6cff] dark:bg-[#7158e2]", stroke: "stroke-[#8b6cff]", baseHex: "#8b6cff" };
   }
 };
 

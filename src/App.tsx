@@ -338,7 +338,6 @@ import { ToolActionBar } from "./components/ui/ToolActionBar";
 function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: string; onOpenSidebar: () => void; onOpenSettings: () => void; onGoHome?: () => void }) {
   const breadcrumbItems: BreadcrumbItem[] = [
     { label: "Home", isHome: true, onClick: onGoHome },
-    { label: "Tools", onClick: onGoHome },
     { label: title }
   ];
 
@@ -395,32 +394,31 @@ function ModuleWrapper({
         <div className="min-h-full flex flex-col items-center pb-[130px] md:pb-6">
           <div className="w-full max-w-full">
             
+            {/* Added breadcrumb for desktop */}
+            <div className="hidden md:flex ml-8 mt-6 mb-2">
+              <Breadcrumb items={[
+                { label: "Home", isHome: true, onClick: () => setActiveModule("home") },
+                { label: title }
+              ]} />
+            </div>
+
             {(() => {
               const moduleDef = ALL_MODULES.find(m => m.id === activeModule);
+              let themeHex = '#54a0ff';
               if (moduleDef) {
                  const theme = getCategoryTheme(moduleDef.category, moduleDef.id);
-                 return (
-                   <div className="flex items-center gap-4 md:gap-5 mb-2 px-6 md:px-8 mt-6 md:mt-2 animate-in fade-in slide-in-from-top-4 duration-500">
-                      <div className={`w-14 h-14 md:w-16 md:h-16 rounded-[14px] md:rounded-[18px] flex items-center justify-center shrink-0 ${theme.bg} shadow-lg shadow-black/5`}>
-                         <moduleDef.icon className={`w-6 h-6 md:w-8 md:h-8 ${theme.text}`} strokeWidth={2.5} />
-                      </div>
-                      <div>
-                        <h1 className="text-3xl md:text-3xl font-extrabold text-[#0f172a] dark:text-white tracking-tight tool-unified-title">
-                          {moduleDef.title}
-                        </h1>
-                        <p className="text-slate-500 dark:text-slate-400 font-medium mt-1 tool-unified-desc">
-                          {moduleDef.desc}
-                        </p>
-                      </div>
-                   </div>
-                 )
+                 const match = theme.bg.match(/#([a-fA-F0-9]{6})/);
+                 if (match) themeHex = match[0];
               }
-              return null;
+              return (
+                <div 
+                  className="flex-1 shrink-0 px-4 md:px-8 pb-6 w-full themed-tool-container"
+                  style={{ '--tool-theme-color': themeHex } as React.CSSProperties}
+                >
+                  {children}
+                </div>
+              );
             })()}
-
-            <div className="flex-1 shrink-0 px-4 md:px-8 pb-6 w-full hide-old-headers">
-              {children}
-            </div>
           </div>
         </div>
       </div>
