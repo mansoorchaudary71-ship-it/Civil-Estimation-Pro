@@ -21,7 +21,7 @@ export function CalculationExplanation({
   return (
     <div className="w-full max-w-3xl mx-auto mt-2 mb-8 font-sans">
       <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200 dark:border-slate-800 shadow-sm rounded-2xl p-5 overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500 rounded-l-2xl" />
+        <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-indigo-500 via-rose-500 to-amber-500 rounded-l-2xl" />
         
         <div className="flex items-center gap-2 mb-4">
           <div className="bg-indigo-100 dark:bg-indigo-900/30 p-1.5 rounded-lg text-indigo-600 dark:text-indigo-400">
@@ -51,9 +51,21 @@ export function CalculationExplanation({
             </div>
           ) : (
             <div className="space-y-3">
-              {activeBreakdown.map((step, idx) => (
-                <div key={idx} className="relative pl-6">
-                  <div className="absolute left-1 top-2 w-2 h-2 rounded-full bg-indigo-400 border border-white dark:border-slate-900 z-10" />
+              {activeBreakdown.map((step, idx) => {
+                const colors = [
+                  'text-indigo-600 dark:text-indigo-400',
+                  'text-pink-600 dark:text-pink-400',
+                  'text-amber-600 dark:text-amber-400',
+                  'text-emerald-600 dark:text-emerald-400',
+                  'text-sky-600 dark:text-sky-400',
+                  'text-purple-600 dark:text-purple-400'
+                ];
+                const dotColors = [
+                  'bg-indigo-400', 'bg-pink-400', 'bg-amber-400', 'bg-emerald-400', 'bg-sky-400', 'bg-purple-400'
+                ];
+                return (
+                 <div key={idx} className="relative pl-6">
+                  <div className={`absolute left-1 top-2 w-2 h-2 rounded-full ${dotColors[idx % dotColors.length]} border border-white dark:border-slate-900 z-10`} />
                   {idx !== activeBreakdown.length - 1 && (
                     <div className="absolute left-[0.3125rem] top-4 w-[2px] h-full bg-slate-200 dark:bg-slate-700 -z-0" />
                   )}
@@ -64,12 +76,13 @@ export function CalculationExplanation({
                     <div className="font-mono text-sm text-slate-600 dark:text-slate-300 mb-1 overflow-x-auto">
                       {step.formula}
                     </div>
-                    <div className="font-mono text-sm font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
+                    <div className={`font-mono text-sm font-bold flex items-center gap-2 ${colors[idx % colors.length]}`}>
                       <span className="text-slate-400 dark:text-slate-500">=</span> {step.result}
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           )}
 

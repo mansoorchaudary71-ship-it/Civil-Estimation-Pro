@@ -285,7 +285,15 @@ export default function ConstructionMaterialEstimator() {
             {(["slab", "column", "staircase"] as const).map((type) => (
               <button
                 key={type}
-                onClick={() => { setConcreteType(type); if(hasData) resetEstimate(); }}
+                onClick={() => { 
+                  setConcreteType(type); 
+                  if(hasData) resetEstimate(); 
+                  
+                  // Suggest standard concrete grades based on structural member
+                  if (type === "slab") setCMix("1:1.5:3"); // M20 is standard for slabs
+                  else if (type === "column") setCMix("1:1.5:3"); // M20+ is standard for columns
+                  else if (type === "staircase") setCMix("1:2:4"); // M15/M20 can be used
+                }}
                 className={`flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition-all ${
                   concreteType === type 
                     ? "bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400" 
@@ -447,9 +455,14 @@ export default function ConstructionMaterialEstimator() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
-              Mix Ratio
-            </label>
+            <div className="flex justify-between items-center">
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
+                Mix Ratio
+              </label>
+              <span className="text-[9px] font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 px-1.5 py-0.5 rounded">
+                Standard: {concreteType === 'slab' || concreteType === 'column' ? 'M20' : 'M15/M20'}
+              </span>
+            </div>
             <select
               value={cMix}
               onChange={(e) => setCMix(e.target.value)}

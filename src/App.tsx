@@ -225,11 +225,14 @@ export default function App() {
           </div>
           </div>
 
-          <BottomNavBar 
-            activeModule={activeModule} 
-            onSelectModule={handleSelectModule} 
-            onOpenProfile={() => setIsSidebarOpen(true)} 
-          />
+          {["home", "my-estimates", "about", "careers", "contact", "blog", "privacy", "terms", "cookies"].includes(activeModule) && (
+            <BottomNavBar 
+              activeModule={activeModule} 
+              onSelectModule={handleSelectModule} 
+              onOpenProfile={() => setIsSidebarOpen(true)} 
+            />
+          )}
+
         </main>
         </div>
 
@@ -310,7 +313,7 @@ function ModuleWrapper({
       />
 
       <div className="flex-1 overflow-y-auto w-full max-w-full">
-        <div className="min-h-full flex flex-col items-center pb-[130px] md:pb-6">
+        <div className="min-h-full flex flex-col items-center pb-[140px] md:pb-[140px]">
           <div className="w-full max-w-full">
             
             {/* Added breadcrumb for desktop */}

@@ -61,17 +61,14 @@ export function ResultCard({
   };
 
   // Auto-assign colorful variants to create a One UI / Gemini mixed-gradient feel.
-  // We override legacy hardcoded variants to ensure visual variety across the interface, unless it's strictly neutral or dark.
-  let activeVariant = variant;
-  if (variant !== 'neutral' && variant !== 'dark') {
-    const mixedVariants = ['primary', 'secondary', 'success', 'warning', 'info', 'purple', 'cyan', 'pink', 'yellow', 'violet', 'fuchsia', 'lime', 'sky'];
-    let hash = 0;
-    const hashStr = title + (unit ? String(unit) : '');
-    for (let i = 0; i < hashStr.length; i++) {
-        hash = hashStr.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    activeVariant = mixedVariants[Math.abs(hash) % mixedVariants.length];
+  // We override legacy hardcoded variants to ensure visual variety across the interface.
+  const mixedVariants = ['primary', 'secondary', 'success', 'warning', 'info', 'purple', 'cyan', 'pink', 'yellow', 'violet', 'fuchsia', 'lime', 'sky'];
+  let hash = 0;
+  const hashStr = title + (unit ? String(unit) : '') + String(value);
+  for (let i = 0; i < hashStr.length; i++) {
+      hash = hashStr.charCodeAt(i) + ((hash << 5) - hash);
   }
+  const activeVariant = mixedVariants[Math.abs(hash) % mixedVariants.length];
 
   const accentColor = accentColors[activeVariant] || accentColors.neutral;
   const bgStyle = bgStyles[activeVariant] || bgStyles.neutral;

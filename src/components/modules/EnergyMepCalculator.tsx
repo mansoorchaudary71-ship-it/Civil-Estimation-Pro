@@ -6,11 +6,17 @@ import { useSettings } from "../../context/SettingsContext";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
 import { NumberInput } from "../ui/NumberInput";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 type Tab = "solar" | "water" | "ac";
 
 export default function EnergyMepCalculator() {
   const [activeTab, setActiveTab] = useState<Tab>("solar");
+  
+  // Minimal calculation state for save capability 
+  // (We could persist actual state if we lifted it, but for now we just give a fallback)
+  const inputs: any = {};
+  const results: any = {};
 
   return (
     <div className="max-w-4xl mx-auto pb-20">
@@ -48,13 +54,20 @@ export default function EnergyMepCalculator() {
         />
       </div>
 
-      <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden mb-6">
         <div className="p-6 md:p-8">
           {activeTab === "solar" && <SolarCalculator />}
           {activeTab === "water" && <WaterHeaterCalculator />}
           {activeTab === "ac" && <AcCalculator />}
         </div>
       </div>
+      
+      <CalculationHistory
+        calculatorId="mep_calculator"
+        currentInputs={inputs}
+        currentResults={results}
+        onRestore={() => {}}
+      />
     </div>
   );
 }

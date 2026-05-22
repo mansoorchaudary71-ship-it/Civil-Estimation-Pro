@@ -1,3 +1,5 @@
+import { CalculationHistory } from "../ui/CalculationHistory";
+
 import { useState, useRef, useEffect, useCallback } from "react";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { useGlobalSettings } from "../../context/SettingsContext";
@@ -1046,6 +1048,12 @@ export default function Takeoff() {
         </div>
       </div>
       
+      <CalculationHistory
+        calculatorId="takeoff"
+        currentInputs={{}}
+        currentResults={{}}
+        onRestore={() => {}}
+      />
     </div>
   );
 }

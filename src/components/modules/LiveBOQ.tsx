@@ -24,6 +24,7 @@ import { generatePDFReport, generateExcelReport } from "../../utils/reports";
 
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
+import { CalculationHistory } from "../ui/CalculationHistory";
 function cleanUnit(u: string) {
   return u.replace(/[²³]/g, "").replace(/sq\.?/g, "").trim().toLowerCase();
 }
@@ -510,6 +511,13 @@ export default function LiveBOQ() {
           </div>
         </div>
       )}
+      
+      <CalculationHistory
+        calculatorId="live_boq"
+        currentInputs={{}}
+        currentResults={{}}
+        onRestore={() => {}}
+      />
     </div>
   );
 }

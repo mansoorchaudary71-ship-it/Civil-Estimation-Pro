@@ -501,13 +501,13 @@ export default function RigidPavementEstimator() {
                   title="Total Joint Steel"
                   value={((totalDowelWeight + totalTieWeight) / 1000).toFixed(3)}
                   unit="tons"
-                  variant="highlight"
+                  variant="primary"
                 />
                 <ResultCard
                   title="Steel Weight"
                   value={(totalDowelWeight + totalTieWeight).toFixed(1)}
                   unit="kg"
-                  variant="highlight"
+                  variant="primary"
                 />
               </div>
              </MaterialSummary>

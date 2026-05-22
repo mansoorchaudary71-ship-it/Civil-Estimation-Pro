@@ -192,33 +192,33 @@ export function CalculationHistory({
 
   return (
     <>
-      {/* Floating Bottom Navigation Bar */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[40] font-sans w-[90%] max-w-sm pointer-events-none pb-safe">
-        <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-white/40 dark:border-slate-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-[2rem] p-2 flex items-center justify-between pointer-events-auto gap-1">
+      {/* Bottom Navigation Action Bar */}
+      <div className="flex justify-center w-full mt-12 mb-8 font-sans px-4">
+        <div className="flex items-center justify-between w-full max-w-[420px] rounded-full border border-slate-300/80 dark:border-slate-600/60 p-1.5 bg-transparent pointer-events-auto">
           
           {/* Dashboard Button */}
           <button
             onClick={handleGoHome}
-            className={baseBtnClass}
+            className="flex flex-1 items-center justify-center gap-1.5 px-1 sm:px-2 py-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-slate-700 dark:text-slate-300 hover:text-slate-900 group"
             aria-label="Back to Dashboard"
           >
-            <div className={`${iconWrapperClass} bg-gradient-to-tr from-blue-500/10 to-cyan-500/10 dark:from-blue-500/20 dark:to-cyan-500/20 group-hover:from-blue-500/20 group-hover:to-cyan-500/20`}>
-              <Home className="w-5 h-5 text-blue-600 dark:text-cyan-400 drop-shadow-sm" strokeWidth={2.5} />
-            </div>
+            <Home className="w-[18px] h-[18px] group-hover:scale-110 transition-transform" strokeWidth={2} />
+            <span className="text-[12px] sm:text-[13px] font-semibold">Dashbo...</span>
           </button>
 
           {/* History Button */}
           <button
             onClick={() => setIsOpen(true)}
-            className={baseBtnClass}
+            className="flex flex-1 items-center justify-center gap-1.5 px-1 sm:px-2 py-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-slate-700 dark:text-slate-300 hover:text-slate-900 group relative"
             aria-label="View History"
           >
-            <div className={`${iconWrapperClass} bg-gradient-to-tr from-orange-500/10 to-amber-500/10 dark:from-orange-500/20 dark:to-amber-500/20 group-hover:from-orange-500/20 group-hover:to-amber-500/20`}>
-              <History className="w-5 h-5 text-orange-600 dark:text-amber-400 drop-shadow-sm" strokeWidth={2.5} />
-              {history.length > 0 && (
-                <span className="absolute top-1 right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-gradient-to-tr from-orange-500 to-amber-500 text-[9px] font-bold text-white shadow-sm ring-2 ring-white/50 dark:ring-slate-900/50" />
-              )}
-            </div>
+            <History className="w-[18px] h-[18px] group-hover:scale-110 transition-transform" strokeWidth={2} />
+            <span className="text-[12px] sm:text-[13px] font-semibold">History</span>
+            {history.length > 0 && (
+              <span className="absolute -top-0.5 right-0 sm:right-2 flex h-4 w-4 items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-white shadow-sm">
+                {history.length}
+              </span>
+            )}
           </button>
 
           {/* Save Button */}
@@ -234,16 +234,15 @@ export function CalculationHistory({
               }
             }}
             disabled={isSavingLocal || isSavingCloud}
-            className={`${baseBtnClass} disabled:opacity-50`}
+            className="flex flex-1 items-center justify-center gap-1.5 px-1 sm:px-2 py-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-slate-700 dark:text-slate-300 hover:text-slate-900 disabled:opacity-50 group"
             aria-label="Save Calculation"
           >
-            <div className={`${iconWrapperClass} bg-gradient-to-tr from-emerald-500/10 to-teal-500/10 dark:from-emerald-500/20 dark:to-teal-500/20 group-hover:from-emerald-500/20 group-hover:to-teal-500/20`}>
-              {isSavingLocal || isSavingCloud ? (
-                <Save className="w-5 h-5 text-emerald-600 dark:text-teal-400 drop-shadow-sm animate-pulse" strokeWidth={2.5} />
-              ) : (
-                <Bookmark className="w-5 h-5 text-emerald-600 dark:text-teal-400 drop-shadow-sm" strokeWidth={2.5} />
-              )}
-            </div>
+            {isSavingLocal || isSavingCloud ? (
+              <Save className="w-[18px] h-[18px] animate-pulse" strokeWidth={2} />
+            ) : (
+              <Save className="w-[18px] h-[18px] group-hover:scale-110 transition-transform" strokeWidth={2} />
+            )}
+            <span className="text-[12px] sm:text-[13px] font-semibold">Save</span>
           </button>
 
           {/* Share Button */}
@@ -252,13 +251,14 @@ export function CalculationHistory({
             title={estimationName || "Calculation"}
             data={currentResults || currentInputs || {}}
             exportFormat={savePayload || { inputs: currentInputs || {}, breakdown: currentResults || {} }}
-            containerClassName="!gap-0 m-0 p-0"
+            containerClassName="flex-1 m-0 p-0 !flex"
             popupPosition="top"
-            triggerClassName={baseBtnClass}
+            triggerClassName="flex flex-1 items-center justify-center gap-1.5 px-1 sm:px-2 py-2.5 w-full rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-slate-700 dark:text-slate-300 hover:text-slate-900 group"
             triggerContent={
-              <div className={`${iconWrapperClass} bg-gradient-to-tr from-purple-500/10 to-pink-500/10 dark:from-purple-500/20 dark:to-pink-500/20 group-hover:from-purple-500/20 group-hover:to-pink-500/20`}>
-                <Share2 className="w-5 h-5 text-purple-600 dark:text-pink-400 drop-shadow-sm" strokeWidth={2.5} />
-              </div>
+              <>
+                <Share2 className="w-[18px] h-[18px] group-hover:scale-110 transition-transform" strokeWidth={2} />
+                <span className="text-[12px] sm:text-[13px] font-semibold">Share</span>
+              </>
             }
           />
 
