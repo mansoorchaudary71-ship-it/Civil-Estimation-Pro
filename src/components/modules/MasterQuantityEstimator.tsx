@@ -384,7 +384,7 @@ export default function MasterQuantityEstimator({
   const renderCalculatorContent = () => {
     /* A simplified generic layout for each calculator for the sake of completion. */ let content = null;
     return (
-      <div className="flex flex-wrap  gap-8 items-center w-full">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 w-full items-start">
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl px-4 py-3 shadow-sm">
           <h3 className="font-bold mb-6 text-lg">
             Input Parameters
