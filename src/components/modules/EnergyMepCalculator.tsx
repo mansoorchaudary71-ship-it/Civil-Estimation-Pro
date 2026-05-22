@@ -5,6 +5,7 @@ import ColorfulTab from "../ui/ColorfulTab";
 import { useSettings } from "../../context/SettingsContext";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
+import { NumberInput } from "../ui/NumberInput";
 
 type Tab = "solar" | "water" | "ac";
 

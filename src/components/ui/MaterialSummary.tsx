@@ -30,33 +30,33 @@ export function MaterialSummary({
       transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
       className={`w-full bg-slate-50/80 dark:bg-[#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 dark:border-white/5 rounded-[32px] p-6 sm:p-8 overflow-hidden relative shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.2)] ${className}`}
     >
-      {/* Soft Glow Background Effects */}
-      <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-br from-orange-400/20 to-amber-500/20 dark:from-orange-500/10 dark:to-amber-500/10 rounded-full blur-[80px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-tr from-rose-500/10 to-orange-500/10 dark:from-rose-500/5 dark:to-orange-500/5 rounded-full blur-[80px] pointer-events-none" />
+      {/* Soft Glow Background Effects (Gemini / One UI Style) */}
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-rose-500/10 dark:from-indigo-500/10 dark:via-purple-500/10 dark:to-rose-500/10 rounded-full blur-[80px] pointer-events-none -translate-y-1/4 translate-x-1/4" />
+      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gradient-to-tr from-blue-500/10 to-cyan-500/10 dark:from-blue-500/10 dark:to-cyan-500/10 rounded-full blur-[80px] pointer-events-none translate-y-1/4 -translate-x-1/4" />
 
       {/* Header section */}
       <div className="flex items-center gap-3 mb-8 relative z-10">
-        <div className="p-2 bg-gradient-to-br from-orange-100 to-amber-100 dark:from-orange-500/20 dark:to-amber-500/20 text-orange-600 dark:text-orange-400 rounded-xl shadow-sm border border-orange-200/50 dark:border-white/5">
+        <div className="p-2 bg-gradient-to-br from-indigo-100 via-purple-100 to-rose-100 dark:from-indigo-500/20 dark:via-purple-500/20 dark:to-rose-500/20 text-indigo-600 dark:text-indigo-400 rounded-xl shadow-sm border border-indigo-200/50 dark:border-white/5">
           {icon || <Layers className="w-4 h-4 flex-shrink-0" />}
         </div>
         <h3 className="font-bold uppercase tracking-widest text-xs text-slate-700 dark:text-slate-300">{title}</h3>
       </div>
 
       {/* Hero Total Section */}
-      <div className="mb-10 relative z-10">
+      <div className="mb-10 relative z-10 w-full">
         {totalLabel && (
           <p className="text-slate-500 dark:text-slate-400 font-semibold text-sm sm:text-base mb-3">{totalLabel}</p>
         )}
-        <div className="flex items-baseline gap-2 flex-wrap">
-          <span className="text-[clamp(3rem,10vw,4.5rem)] leading-none font-black tracking-tighter bg-gradient-to-r from-orange-500 to-rose-400 dark:from-orange-400 dark:to-rose-300 bg-clip-text text-transparent break-all sm:break-normal">
+        <div className="flex flex-row items-baseline flex-wrap gap-x-2 gap-y-1 max-w-full overflow-hidden">
+          <span className="text-[clamp(2.5rem,8vw,4.5rem)] leading-none font-black tracking-tighter bg-gradient-to-r from-indigo-500 via-purple-500 to-rose-400 dark:from-indigo-400 dark:via-purple-400 dark:to-rose-300 bg-clip-text text-transparent break-words max-w-full">
             {totalValue}
           </span>
-          <div className="flex flex-col text-left">
+          <div className="flex flex-col text-left shrink-0">
             {totalUnit && (
               <span className="text-xl sm:text-2xl font-bold text-slate-700 dark:text-slate-300">{totalUnit}</span>
             )}
             {subtitle && (
-              <span className="text-sm font-medium text-slate-500 dark:text-slate-500">{subtitle}</span>
+              <span className="text-sm font-medium text-slate-400 dark:text-slate-500">{subtitle}</span>
             )}
           </div>
         </div>
