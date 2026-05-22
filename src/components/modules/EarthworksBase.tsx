@@ -6,6 +6,8 @@ import {
   Layers,
   DollarSign,
 } from "lucide-react";
+import { MaterialSummary } from "../ui/MaterialSummary";
+import { ResultCard } from "../ui/ResultCard";
 
 import { useSettings } from "../../context/SettingsContext";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
@@ -301,65 +303,44 @@ export default function StandardEarthworks() {
             </div>
           </section>
           {/* Results Section */}
-          <section className="space-y-6">
-            <h2 className="text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100 flex items-center gap-2">
-              <Calculator className="w-5 h-5 text-indigo-500" />
-              Calculation Results
-            </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  <div className="text-indigo-400"><Layers className="w-5 h-5" /></div>
-                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">Solid Volume</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{solidVolume.toFixed(2)}</span>
-                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{unitV}</span>
-                </div>
-                <p className="text-[11px] sm:text-xs font-medium text-slate-500 dark:text-slate-400 max-w-full break-words mt-1 relative z-10">Bank Measure</p>
-              </div>
-              <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  <div className="text-indigo-400"><Layers className="w-5 h-5" /></div>
-                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">Loose Volume</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{looseVolume.toFixed(2)}</span>
-                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{unitV}</span>
-                </div>
-                <p className="text-[11px] sm:text-xs font-medium text-slate-500 dark:text-slate-400 max-w-full break-words mt-1 relative z-10">Excavated Measure</p>
-              </div>
-              <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  <div className="text-indigo-400"><Layers className="w-5 h-5" /></div>
-                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">Compacted Volume</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{compactedVolume.toFixed(2)}</span>
-                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{unitV}</span>
-                </div>
-              </div>
-              <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  <div className="text-slate-400"><Calculator className="w-5 h-5" /></div>
-                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">Total Truck Trips</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{truckTrips}</span>
-                </div>
-                <p className="text-[11px] sm:text-xs font-medium text-slate-500 dark:text-slate-400 max-w-full break-words mt-1 relative z-10">Based on loose volume & capacity</p>
-              </div>
-              <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  <div className="text-emerald-400"><Calculator className="w-5 h-5" /></div>
-                  <span className="text-emerald-400/80 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">Total Project Cost</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{formatCurrency(totalCostConverted)}</span>
-                </div>
-                <p className="text-[11px] sm:text-xs font-medium text-emerald-500 mt-1 relative z-10">Excavation + Compaction + Hauling</p>
-              </div>
-            </div>
+          <section className="space-y-6 flex-1 flex flex-col mt-6">
+            <MaterialSummary
+               title="Calculation Results"
+               totalLabel="Total Project Cost"
+               totalValue={formatCurrency(totalCostConverted)}
+               totalUnit=""
+               subtitle="Excavation + Compaction + Hauling"
+             >
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                 <ResultCard
+                   title="Solid Volume"
+                   value={solidVolume.toFixed(2)}
+                   unit={unitV}
+                   description="Bank Measure"
+                   variant="neutral"
+                 />
+                 <ResultCard
+                   title="Loose Volume"
+                   value={looseVolume.toFixed(2)}
+                   unit={unitV}
+                   description="Excavated Measure"
+                   variant="neutral"
+                 />
+                 <ResultCard
+                   title="Compacted Volume"
+                   value={compactedVolume.toFixed(2)}
+                   unit={unitV}
+                   variant="neutral"
+                 />
+                 <ResultCard
+                   title="Total Truck Trips"
+                   value={truckTrips}
+                   unit="trips"
+                   description="Based on loose vol & capacity"
+                   variant="neutral"
+                 />
+               </div>
+             </MaterialSummary>
           </section>
 
         </div>

@@ -11,6 +11,8 @@ import {
   ChevronDown,
   Info,
 } from "lucide-react";
+import { MaterialSummary } from "../ui/MaterialSummary";
+import { ResultCard } from "../ui/ResultCard";
 
 import { useSettings } from "../../context/SettingsContext";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
@@ -222,66 +224,41 @@ export default function TrenchExcavationEstimator() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-teal-500/10 rounded-full blur-2xl -ml-10 -mb-10"></div>
               <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 bg-white/20 rounded-xl backdrop-blur-md">
-                    <Calculator className="w-5 h-5 text-white" />
-                  </div>
-                  <h2 className="text-xl font-bold tracking-tight text-white">
-                    Results
-                  </h2>
-                </div>
-                <div className="space-y-6">
-                  <div className="bg-white/10 p-5 rounded-[1.25rem] border border-white/20 backdrop-blur-sm">
-                    <div className="text-teal-100 text-sm font-medium mb-1">
-                      Total Excavated Volume
-                    </div>
-                    <div className="text-4xl font-extrabold tracking-tight text-white">
-                      {totalExcavationVolume.toFixed(2)}
-                      <span className="text-xl font-medium text-teal-200 ml-2">
-                        {unitV}
-                      </span>
-                    </div>
-                  </div>
-                  {(D_bedding > 0 || D_pipe > 0) && (
-                    <div className="bg-white/10 p-5 rounded-[1.25rem] border border-white/20 backdrop-blur-sm transition-all duration-300">
-                      <div className="text-indigo-100 text-sm font-medium mb-1">
-                        Bedding Material Volume
-                      </div>
-                      <div className="text-3xl font-extrabold tracking-tight text-white">
-                        {beddingMaterialVolume.toFixed(2)}
-                        <span className="text-lg font-medium text-indigo-200/70 ml-2">
-                          {unitV}
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                  <table className="w-full text-left mt-2 border-collapse">
-                    <tbody className="divide-y divide-white/10 text-sm font-medium">
-                      <tr>
-                        <td className="py-3 text-gray-700 dark:text-gray-300">
-                          Trapezoidal Area
-                        </td>
-                        <td className="py-3 text-right text-white font-mono">
-                          {crossSectionArea.toFixed(2)} {unitA}
-                        </td>
-                      </tr>
-                      {D_pipe > 0 && (
-                        <tr>
-                          <td className="py-3 text-gray-700 dark:text-gray-300">
-                            Pipe Volume
-                          </td>
-                          <td className="py-3 text-right text-white font-mono">
-                            {(Math.PI * Math.pow(D_pipe / 2, 2) * L).toFixed(2)}{" "}
-                            {unitV}
-                          </td>
-                        </tr>
-                      )}
-                    </tbody>
-                  </table>
-                </div>
+                <div className="flex flex-col h-full">
+                 <MaterialSummary
+                   title="Results"
+                   totalLabel={`Total Excavated Volume`}
+                   totalValue={totalExcavationVolume.toFixed(2)}
+                   totalUnit={unitV || ""}
+                 >
+                   <div className="grid grid-cols-1 gap-4 mt-6">
+                     {(D_bedding > 0 || D_pipe > 0) && (
+                       <ResultCard
+                         title="Bedding Material Volume"
+                         value={beddingMaterialVolume.toFixed(2)}
+                         unit={unitV || ""}
+                         variant="primary"
+                       />
+                     )}
+                     <ResultCard
+                       title="Trapezoidal Area"
+                       value={crossSectionArea.toFixed(2)}
+                       unit={unitA || ""}
+                       variant="neutral"
+                     />
+                     {D_pipe > 0 && (
+                       <ResultCard
+                         title="Pipe Volume"
+                         value={(Math.PI * Math.pow(D_pipe / 2, 2) * L).toFixed(2)}
+                         unit={unitV || ""}
+                         variant="neutral"
+                       />
+                     )}
+                   </div>
+                  </MaterialSummary>
               </div>
+             </div>
             </div>
-            
           </section>
         </div>
       </div>

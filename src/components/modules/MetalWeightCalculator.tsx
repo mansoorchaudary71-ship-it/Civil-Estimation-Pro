@@ -16,6 +16,8 @@ import {
   Save,
 } from "lucide-react";
 
+import { MaterialSummary } from "../ui/MaterialSummary";
+import { ResultCard } from "../ui/ResultCard";
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
@@ -566,37 +568,29 @@ export default function MetalWeightCalculator() {
             </div>
           </div>
           {/* Results Section */}
-          <div className="lg:col-span-5 bg-neutral-900 border border-neutral-800 rounded-[2rem] p-6 lg:p-10 text-white shadow-2xl flex flex-col justify-between">
-            <div>
-              <h3 className="font-bold text-neutral-400 text-sm uppercase tracking-widest mb-8">
-                Calculated Results
-              </h3>
-              <div className="space-y-6">
-                <div className="bg-neutral-800/60 p-6 rounded-2xl border border-neutral-700">
-                  <span className="block text-neutral-400 text-xs font-bold uppercase mb-2">
-                    Weight per Unit Length
-                  </span>
-                  <span className="text-4xl font-black text-emerald-400 whitespace-nowrap">
-                    {weightPerM.toFixed(3)}
-                    <span className="text-xl text-neutral-500 ml-2">kg/m</span>
-                  </span>
-                </div>
-                <div className="bg-neutral-800/60 p-6 rounded-2xl border border-neutral-700">
-                  <span className="block text-neutral-400 text-xs font-bold uppercase mb-2">
-                    Total Element Weight
-                  </span>
-                  <span className="text-5xl font-black text-white whitespace-nowrap">
-                    {totalWeight.toFixed(2)}
-                    <span className="text-2xl text-neutral-500 ml-3 whitespace-nowrap">kg</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="mt-6 flex flex-wrap gap-4 items-center">
-              
-              
-              
-            </div>
+          <div className="lg:col-span-5 flex flex-col items-stretch h-full">
+            <MaterialSummary
+               title="Calculated Results"
+               totalLabel="Total Element Weight"
+               totalValue={totalWeight.toFixed(2)}
+               totalUnit="kg"
+               subtitle=""
+             >
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                 <ResultCard
+                   title="Weight per Unit Length"
+                   value={weightPerM.toFixed(3)}
+                   unit="kg/m"
+                   variant="neutral"
+                 />
+                 <ResultCard
+                   title="Material Info"
+                   value="Density"
+                   unit={`${density} kg/m³`}
+                   variant="neutral"
+                 />
+               </div>
+             </MaterialSummary>
           </div>
         </div>
       </div>

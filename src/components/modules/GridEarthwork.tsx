@@ -9,6 +9,8 @@ import {
   ArrowRight,
   Grid2X2,
 } from "lucide-react";
+import { MaterialSummary } from "../ui/MaterialSummary";
+import { ResultCard } from "../ui/ResultCard";
 
 import { useSettings } from "../../context/SettingsContext";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
@@ -274,73 +276,34 @@ export default function GridEarthworkEstimator() {
               </div>
             </div>
           </section>
-          <section className="space-y-6">
-            <div className="bg-slate-900 border border-slate-800 rounded-[2rem] p-6 text-white shadow-xl flex flex-col justify-between items-center text-center">
-              <div className="w-full text-left mb-6 flex items-center gap-3">
-                <div className="p-2 bg-blue-500/20 rounded-xl">
-                  <Calculator className="w-5 h-5 text-blue-400" />
-                </div>
-                <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest">
-                  Results (Grid Leveling)
-                </h3>
-              </div>
-              
-              <div className="w-full space-y-4 mb-4">
-                 {/* Hardcoded Result Reverted */}
-              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  
-                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{`Total ${isCut ? "Cut" : isFill ? "Fill" : ""} Volume`}</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{totalVolume.toFixed(2)}</span>
-                  {unitV && <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{unitV}</span>}
-                </div>
-                
-              </div>
-                 
-                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                   {/* Hardcoded Result Reverted */}
-              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  
-                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{"Avg Existing Elev."}</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{avgExisting.toFixed(3)}</span>
-                  {unitL && <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{unitL}</span>}
-                </div>
-                
-              </div>
-                   {/* Hardcoded Result Reverted */}
-              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  
-                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{"Avg Proposed Elev."}</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{avgProposed.toFixed(3)}</span>
-                  {unitL && <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{unitL}</span>}
-                </div>
-                
-              </div>
-                 </div>
-                 
-                 {/* Hardcoded Result Reverted */}
-              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  
-                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{isCut ? "Average Cut Depth" : isFill ? "Average Fill Depth" : "Average Depth"}</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{Math.abs(avgDepth).toFixed(3)}</span>
-                  {unitL && <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{unitL}</span>}
-                </div>
-                
-              </div>
-              </div>
-            </div>
-            
+          <section className="space-y-6 flex-1 flex flex-col mt-6">
+                 <MaterialSummary
+                   title="Results (Grid Leveling)"
+                   totalLabel={`Total ${isCut ? "Cut" : isFill ? "Fill" : ""} Volume`}
+                   totalValue={totalVolume.toFixed(2)}
+                   totalUnit={unitV || ""}
+                 >
+                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                     <ResultCard
+                       title="Avg Existing Elev."
+                       value={avgExisting.toFixed(3)}
+                       unit={unitL || ""}
+                       variant="neutral"
+                     />
+                     <ResultCard
+                       title="Avg Proposed Elev."
+                       value={avgProposed.toFixed(3)}
+                       unit={unitL || ""}
+                       variant="neutral"
+                     />
+                     <ResultCard
+                       title={isCut ? "Average Cut Depth" : isFill ? "Average Fill Depth" : "Average Depth"}
+                       value={Math.abs(avgDepth).toFixed(3)}
+                       unit={unitL || ""}
+                       variant="neutral"
+                     />
+                   </div>
+                 </MaterialSummary>
           </section>
         </div>
       </div>

@@ -18,6 +18,8 @@ import {
 } from "lucide-react";
 
 import { saveEstimate } from "../../lib/estimates";
+import { MaterialSummary } from "../ui/MaterialSummary";
+import { ResultCard } from "../ui/ResultCard";
 import { useAuth } from "../../contexts/AuthContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { SVGShapeVisualizer } from "./ShapeVisualizer";
@@ -640,73 +642,44 @@ export default function VolumeEstimator() {
               )}
             </div>
           </div>
-          <div className="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-[2rem] p-6 text-white shadow-xl flex flex-col justify-between items-center text-center">
-            <div className="w-full text-left mb-6">
-              <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest">
-                Calculated Results
-              </h3>
-            </div>
-            
-            {["Trapezoidal Dumper", "Cylinder", "Rectangle Tank"].includes(activeShape) && (
-              <SVGShapeVisualizer
-                shape={activeShape}
-                dimensions={{
-                  topWidth: Number(topWidth),
-                  bottomWidth: Number(bottomWidth),
-                  depth: Number(depth),
-                  length: Number(length),
-                  width: Number(width),
-                  height: Number(height),
-                  radius: Number(radius)
-                }}
-              />
-            )}
-
-            <div className="w-full space-y-4 mb-8">
-              {/* Hardcoded Result Reverted */}
-              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  <div className="text-blue-400">{<Maximize className="w-5 h-5 text-white" />}</div>
-                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{"Total Volume"}</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{volume.toFixed(2)}</span>
-                  {volUnit && <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{volUnit}</span>}
-                </div>
-                
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Hardcoded Result Reverted */}
-              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  
-                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{"Surface Area"}</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{surfaceArea.toFixed(2)}</span>
-                  {areaUnit && <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{areaUnit}</span>}
-                </div>
-                
-              </div>
-                {/* Hardcoded Result Reverted */}
-              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  
-                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{"Liquid Capacity"}</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{liquidCapacity.toFixed(2)}</span>
-                  {capacityUnit && <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{capacityUnit}</span>}
-                </div>
-                
-              </div>
-              </div>
-            </div>
-            <div className="mt-6 flex flex-wrap gap-4 items-center">
-              
-              
-              
-            </div>
+          <div className="lg:col-span-5 flex flex-col items-stretch h-full">
+            <MaterialSummary
+               title="Calculated Results"
+               totalLabel="Total Volume"
+               totalValue={volume.toFixed(2)}
+               totalUnit={volUnit || ""}
+             >
+             {["Trapezoidal Dumper", "Cylinder", "Rectangle Tank"].includes(activeShape) && (
+               <SVGShapeVisualizer
+                 shape={activeShape}
+                 dimensions={{
+                   topWidth: Number(topWidth),
+                   bottomWidth: Number(bottomWidth),
+                   depth: Number(depth),
+                   length: Number(length),
+                   width: Number(width),
+                   height: Number(height),
+                   radius: Number(radius)
+                 }}
+               />
+             )}
+             
+             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                 <ResultCard
+                   title="Surface Area"
+                   value={surfaceArea.toFixed(2)}
+                   unit={areaUnit || ""}
+                   variant="neutral"
+                 />
+                 <ResultCard
+                   title="Liquid Capacity"
+                   value={liquidCapacity.toFixed(2)}
+                   unit={capacityUnit || ""}
+                   variant="neutral"
+                 />
+             </div>
+                                       
+             </MaterialSummary>
           </div>
         </div>
       </div>

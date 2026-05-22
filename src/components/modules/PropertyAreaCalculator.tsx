@@ -1,5 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { Building, Plus, Trash2, Maximize, Ruler, Home } from "lucide-react";
+import { MaterialSummary } from "../ui/MaterialSummary";
+import { ResultCard } from "../ui/ResultCard";
 import { useGlobalSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { parseNum } from "../../utils/mathHelpers";
@@ -168,29 +170,28 @@ export default function PropertyAreaCalculator() {
             </div>
         </div>
 
-        <div className="lg:col-span-1">
-          <div className="sticky top-6 bg-indigo-500/5 border border-indigo-500/20 rounded-3xl p-6">
-            <h3 className="text-indigo-300 font-semibold mb-6 flex items-center gap-2">
-              <Ruler className="w-5 h-5" /> Results
-            </h3>
-            
-            <div className="space-y-4">
-              <div className="bg-slate-900/50 p-4 rounded-2xl border border-slate-700/50">
-                <div className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Carpet Area</div>
-                <div className="text-2xl font-black text-white">{carpetAreaFormatted}</div>
-              </div>
-              
-              <div className="bg-slate-900/50 p-4 rounded-2xl border border-slate-700/50">
-                <div className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Built-Up Area</div>
-                <div className="text-2xl font-black text-white">{builtUpAreaFormatted}</div>
-              </div>
-              
-              <div className="bg-indigo-500/10 p-5 rounded-2xl border border-indigo-500/30">
-                <div className="text-indigo-400 text-sm font-bold uppercase tracking-wider mb-2">Super Built-Up Area</div>
-                <div className="text-3xl font-black text-indigo-100">{superBuiltUpAreaFormatted}</div>
-              </div>
-            </div>
-          </div>
+        <div className="lg:col-span-1 flex flex-col h-full">
+            <MaterialSummary
+               title="Results"
+               totalLabel="Super Built-Up Area"
+               totalValue={results.superBuiltUp.toFixed(2)}
+               totalUnit={areaUnitStr}
+             >
+               <div className="flex flex-col gap-4 mt-6">
+                 <ResultCard
+                   title="Carpet Area"
+                   value={results.carpet.toFixed(2)}
+                   unit={areaUnitStr}
+                   variant="neutral"
+                 />
+                 <ResultCard
+                   title="Built-Up Area"
+                   value={results.builtUp.toFixed(2)}
+                   unit={areaUnitStr}
+                   variant="neutral"
+                 />
+               </div>
+             </MaterialSummary>
         </div>
       </div>
       

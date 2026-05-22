@@ -4,6 +4,7 @@ import { cn } from "../../lib/utils";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import ColorfulTab from "../ui/ColorfulTab";
 import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
 
 type Tab = "asphalt" | "prime" | "tack";
 
@@ -150,35 +151,32 @@ function AsphaltCalculator() {
           </InputGroup>
         </div>
 
-        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-          <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
-          
+        <div className="flex-1 flex flex-col">
           {results ? (
-            <div className="space-y-4">
-              <ResultCard
-  title="Required Asphalt"
-  value={results.tons}
-  unit="Metric Tons"
-  variant="neutral"
-/>
+            <MaterialSummary
+              title="Estimate Results"
+              totalLabel="Required Asphalt"
+              totalValue={results.tons}
+              totalUnit="Metric Tons"
+            >
               <div className="grid grid-cols-2 gap-4">
                 <ResultCard
-  title="Volume"
-  value={results.volume}
-  unit="m³"
-  variant="neutral"
-/>
+                  title="Volume"
+                  value={results.volume}
+                  unit="m³"
+                  variant="neutral"
+                />
                 <ResultCard
-  title="Surface Area"
-  value={results.area}
-  unit="m²"
-  variant="neutral"
-/>
+                  title="Surface Area"
+                  value={results.area}
+                  unit="m²"
+                  variant="neutral"
+                />
               </div>
-            </div>
+            </MaterialSummary>
           ) : (
-            <div className="text-center text-slate-500 py-8">
-              Enter length, width, and thickness to calculate asphalt tonnage.
+            <div className="bg-slate-50/80 dark:bg-[#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 dark:border-white/5 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.2)]">
+              <span className="text-slate-400 dark:text-white/40 font-medium tracking-wide">Enter length, width, and thickness to calculate asphalt tonnage.</span>
             </div>
           )}
         </div>
@@ -246,27 +244,19 @@ function PrimeCoatCalculator() {
           </InputGroup>
         </div>
 
-        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-          <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
-          
+        <div className="flex-1 flex flex-col">
           {results ? (
-            <div className="space-y-4">
-              <ResultCard
-  title="Total Prime Coat"
-  value={results.liters}
-  unit="Liters"
-  variant="neutral"
-/>
-              <ResultCard
-  title="Standard Drums"
-  value={results.drums}
-  unit="drums approx. (200L)"
-  variant="neutral"
-/>
-            </div>
+             <MaterialSummary
+               title="Estimate Results"
+               totalLabel="Total Prime Coat"
+               totalValue={results.liters}
+               totalUnit="Liters"
+               subtitle={`Standard Drums: ${results.drums} approx (200L)`}
+             >
+             </MaterialSummary>
           ) : (
-            <div className="text-center text-slate-500 py-8">
-              Enter area and application rate to calculate prime coat.
+            <div className="bg-slate-50/80 dark:bg-[#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 dark:border-white/5 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.2)]">
+              <span className="text-slate-400 dark:text-white/40 font-medium tracking-wide">Enter area and application rate to calculate prime coat.</span>
             </div>
           )}
         </div>
@@ -331,27 +321,19 @@ function TackCoatCalculator() {
           </InputGroup>
         </div>
 
-        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-          <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
-          
+        <div className="flex-1 flex flex-col">
           {results ? (
-            <div className="space-y-4">
-              <ResultCard
-  title="Total Tack Coat"
-  value={results.liters}
-  unit="Liters"
-  variant="neutral"
-/>
-              <ResultCard
-  title="Standard Drums"
-  value={results.drums}
-  unit="drums approx. (200L)"
-  variant="neutral"
-/>
-            </div>
+            <MaterialSummary
+               title="Estimate Results"
+               totalLabel="Total Tack Coat"
+               totalValue={results.liters}
+               totalUnit="Liters"
+               subtitle={`Standard Drums: ${results.drums} approx (200L)`}
+             >
+             </MaterialSummary>
           ) : (
-            <div className="text-center text-slate-500 py-8">
-              Enter area and application rate to calculate tack coat.
+            <div className="bg-slate-50/80 dark:bg-[#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 dark:border-white/5 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.2)]">
+              <span className="text-slate-400 dark:text-white/40 font-medium tracking-wide">Enter area and application rate to calculate tack coat.</span>
             </div>
           )}
         </div>

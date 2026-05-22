@@ -14,6 +14,8 @@ import {
   Save,
   History,
 } from "lucide-react";
+import { MaterialSummary } from "../ui/MaterialSummary";
+import { ResultCard } from "../ui/ResultCard";
 import { motion } from "motion/react";
 
 import ColorfulTab from "../ui/ColorfulTab";
@@ -939,12 +941,14 @@ export default function AreaCalculator() {
             </div>{" "}
           </div>{" "}
           {/* Results Section */}{" "}
-          <div className="bg-slate-900 border border-slate-800 rounded-[2rem] p-6 lg:p-8 text-white shadow-xl flex flex-col justify-between">
-            {" "}
-            <div>
-              <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest mb-6">
-                Real-Time Calculation
-              </h3>
+          <div className="flex flex-col flex-1">
+            <MaterialSummary
+               title="Real-Time Calculation"
+               totalLabel="Total Area"
+               totalValue={formatArea(calcAreaSqM)}
+               totalUnit=""
+               subtitle=""
+             >
               {activeShape === "Trapezoid" && (
                 <SVGShapeVisualizer
                   shape="Trapezoid"
@@ -985,28 +989,14 @@ export default function AreaCalculator() {
               {activeShape === "IrregularQuad" && (
                 <SVGShapeVisualizer shape="IrregularQuad" dimensions={{ a: Number(quadA), b: Number(quadB), c: Number(quadC), d: Number(quadD) }} />
               )}
-              <div className="space-y-6">
-                {" "}
-                <div className="bg-slate-800/50 px-4 py-3 rounded-xl border border-slate-700">
-                  {" "}
-                  <span className="block text-slate-700 dark:text-slate-300 text-xs font-bold uppercase mb-1">
-                    Total Area
-                  </span>{" "}
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-indigo-400 whitespace-nowrap">
-                    {formatArea(calcAreaSqM)}
-                  </span>{" "}
-                </div>{" "}
-                <div className="bg-slate-800/50 px-4 py-3 rounded-xl border border-slate-700">
-                  {" "}
-                  <span className="block text-slate-700 dark:text-slate-300 text-xs font-bold uppercase mb-1">
-                    Perimeter / Circumference
-                  </span>{" "}
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-teal-400 whitespace-nowrap">
-                    {formatPerimeter(calcPerimeterM)}
-                  </span>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                <ResultCard
+                  title="Perimeter / Circumference"
+                  value={formatPerimeter(calcPerimeterM)}
+                  unit=""
+                  variant="neutral"
+                />
+              </div>
             <div className="mt-8 flex flex-wrap gap-4 items-center">
               <button
                 onClick={handleSaveCalculation}
@@ -1060,6 +1050,7 @@ export default function AreaCalculator() {
                 </div>
               </div>
             )}
+            </MaterialSummary>
           </div>
         </div>
       </div>

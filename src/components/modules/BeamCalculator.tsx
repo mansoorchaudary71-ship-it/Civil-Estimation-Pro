@@ -3,6 +3,7 @@ import { CopySlash, Settings2, Columns } from "lucide-react";
 import { SEO } from "../SEO";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
 
 export default function BeamCalculator() {
   const [beamWidth, setBeamWidth] = useState("300"); // mm
@@ -362,19 +363,16 @@ export default function BeamCalculator() {
           </button>
         </div>
 
-        <div className="bg-slate-900 rounded-3xl p-6 md:p-8 text-white flex flex-col">
-          <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Calculation Results</h3>
-          
+        <div className="flex-1 flex flex-col">
           {results ? (
-            <div className="space-y-6 flex-1">
+            <MaterialSummary
+              title="Calculation Results"
+              totalLabel="Concrete Dry Volume"
+              totalValue={results.concreteVolumeDry.toFixed(3)}
+              totalUnit="m³"
+              subtitle={`Wet Volume: ${results.concreteVolumeWet.toFixed(3)} m³`}
+            >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <ResultCard
-                  title="Concrete Dry Volume"
-                  value={results.concreteVolumeDry.toFixed(3)}
-                  unit="m³"
-                  description={`Wet Volume: ${results.concreteVolumeWet.toFixed(3)} m³`}
-                  variant="primary"
-                />
                 <ResultCard
                   title="Total Steel Weight"
                   value={results.totalSteelWeight.toFixed(2)}
@@ -388,31 +386,31 @@ export default function BeamCalculator() {
                   variant="neutral"
                 />
                 <ResultCard
-  title="Stirrups"
-  value={results.stirrupSteelWeight.toFixed(2)}
-  unit="kg"
-  variant="neutral"
-/>
+                  title="Stirrups"
+                  value={results.stirrupSteelWeight.toFixed(2)}
+                  unit="kg"
+                  variant="neutral"
+                />
               </div>
 
-              <div className="pt-4 border-t border-slate-700">
-                <p className="text-slate-400 text-xs uppercase tracking-wider mb-3">Stirrup Cut Length Breakdown ({results.stirrupsCount} sets)</p>
-                <ul className="space-y-3">
+              <div className="mt-8 pt-6 border-t border-slate-200/50 dark:border-white/10">
+                <p className="text-[10px] sm:text-xs font-extrabold text-slate-500 dark:text-white/50 uppercase tracking-[0.15em] mb-4">Stirrup Cut Length Breakdown ({results.stirrupsCount} sets)</p>
+                <ul className="space-y-3 bg-white/50 dark:bg-white/5 rounded-2xl p-4 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-slate-200/50 dark:border-white/5 backdrop-blur-md">
                   {results.stirrupTypes.map((tie, index) => (
-                    <li key={index} className="flex justify-between items-end border-b border-slate-700/50 pb-2">
+                    <li key={index} className="flex justify-between items-end border-b border-slate-700/10 dark:border-white/10 pb-2 last:border-0 last:pb-0">
                       <div>
-                        <p className="text-sm font-medium text-slate-200">{tie.name}</p>
+                        <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{tie.name}</p>
                         <p className="text-xs text-slate-500">{tie.countPerSet} per set</p>
                       </div>
-                      <p className="font-bold text-slate-300">{tie.length.toFixed(0)} mm</p>
+                      <p className="font-bold text-slate-800 dark:text-slate-300">{tie.length.toFixed(0)} mm</p>
                     </li>
                   ))}
                 </ul>
               </div>
-            </div>
+            </MaterialSummary>
           ) : (
-            <div className="flex-1 flex items-center justify-center text-slate-500 py-12 text-center h-full">
-              Enter beam dimensions and reinforcement details to calculate material requirements.
+            <div className="bg-slate-50/80 dark:bg-[#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 dark:border-white/5 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.2)]">
+              <span className="text-slate-400 dark:text-white/40 font-medium tracking-wide">Enter beam dimensions and reinforcement details to calculate material requirements.</span>
             </div>
           )}
         </div>
