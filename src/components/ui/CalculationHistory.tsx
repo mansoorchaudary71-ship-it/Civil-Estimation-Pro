@@ -193,29 +193,29 @@ export function CalculationHistory({
   return (
     <>
       {/* Bottom Navigation Action Bar */}
-      <div className="flex justify-center w-full mt-12 mb-8 font-sans px-4">
-        <div className="flex items-center justify-between w-full max-w-[420px] rounded-full border border-slate-300/80 dark:border-slate-600/60 p-1.5 bg-transparent pointer-events-auto">
+      <div className="flex justify-center w-full mt-12 mb-8 font-sans px-2 sm:px-4">
+        <div className="flex items-center justify-between w-full max-w-[440px] rounded-full border border-slate-300/80 dark:border-slate-600/60 p-1 sm:p-1.5 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm pointer-events-auto shadow-sm gap-0.5 sm:gap-1.5">
           
           {/* Dashboard Button */}
           <button
             onClick={handleGoHome}
-            className="flex flex-1 items-center justify-center gap-1.5 px-1 sm:px-2 py-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-slate-700 dark:text-slate-300 hover:text-slate-900 group"
+            className="flex flex-1 min-w-0 items-center justify-center gap-1 sm:gap-1.5 px-1 sm:px-2 py-2 sm:py-2.5 rounded-full hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-300 group border border-transparent hover:border-blue-200 dark:hover:border-blue-500/20"
             aria-label="Back to Dashboard"
           >
-            <Home className="w-[18px] h-[18px] group-hover:scale-110 transition-transform" strokeWidth={2} />
-            <span className="text-[12px] sm:text-[13px] font-semibold">Dashbo...</span>
+            <Home className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
+            <span className="text-[11px] sm:text-[13px] font-semibold truncate">Home</span>
           </button>
 
           {/* History Button */}
           <button
             onClick={() => setIsOpen(true)}
-            className="flex flex-1 items-center justify-center gap-1.5 px-1 sm:px-2 py-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-slate-700 dark:text-slate-300 hover:text-slate-900 group relative"
+            className="flex flex-1 min-w-0 items-center justify-center gap-1 sm:gap-1.5 px-1 sm:px-2 py-2 sm:py-2.5 rounded-full hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-orange-700 dark:hover:text-orange-300 group relative border border-transparent hover:border-orange-200 dark:hover:border-orange-500/20"
             aria-label="View History"
           >
-            <History className="w-[18px] h-[18px] group-hover:scale-110 transition-transform" strokeWidth={2} />
-            <span className="text-[12px] sm:text-[13px] font-semibold">History</span>
+            <History className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
+            <span className="text-[11px] sm:text-[13px] font-semibold truncate">History</span>
             {history.length > 0 && (
-              <span className="absolute -top-0.5 right-0 sm:right-2 flex h-4 w-4 items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-white shadow-sm">
+              <span className="absolute top-0 right-1 sm:right-2 flex h-3 w-3 sm:h-4 sm:w-4 items-center justify-center rounded-full bg-orange-500 text-[9px] sm:text-[10px] font-bold text-white shadow-sm ring-2 ring-white dark:ring-slate-900">
                 {history.length}
               </span>
             )}
@@ -234,15 +234,15 @@ export function CalculationHistory({
               }
             }}
             disabled={isSavingLocal || isSavingCloud}
-            className="flex flex-1 items-center justify-center gap-1.5 px-1 sm:px-2 py-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-slate-700 dark:text-slate-300 hover:text-slate-900 disabled:opacity-50 group"
+            className="flex flex-1 min-w-0 items-center justify-center gap-1 sm:gap-1.5 px-1 sm:px-2 py-2 sm:py-2.5 rounded-full hover:bg-emerald-50 dark:hover:bg-emerald-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-300 disabled:opacity-50 group border border-transparent hover:border-emerald-200 dark:hover:border-emerald-500/20"
             aria-label="Save Calculation"
           >
             {isSavingLocal || isSavingCloud ? (
-              <Save className="w-[18px] h-[18px] animate-pulse" strokeWidth={2} />
+              <Save className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-emerald-600 dark:text-emerald-400 animate-pulse flex-shrink-0" strokeWidth={2} />
             ) : (
-              <Save className="w-[18px] h-[18px] group-hover:scale-110 transition-transform" strokeWidth={2} />
+              <Save className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
             )}
-            <span className="text-[12px] sm:text-[13px] font-semibold">Save</span>
+            <span className="text-[11px] sm:text-[13px] font-semibold truncate">Save</span>
           </button>
 
           {/* Share Button */}
@@ -251,13 +251,13 @@ export function CalculationHistory({
             title={estimationName || "Calculation"}
             data={currentResults || currentInputs || {}}
             exportFormat={savePayload || { inputs: currentInputs || {}, breakdown: currentResults || {} }}
-            containerClassName="flex-1 m-0 p-0 !flex"
+            containerClassName="flex-1 min-w-0 m-0 p-0 flex"
             popupPosition="top"
-            triggerClassName="flex flex-1 items-center justify-center gap-1.5 px-1 sm:px-2 py-2.5 w-full rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-slate-700 dark:text-slate-300 hover:text-slate-900 group"
+            triggerClassName="flex min-w-0 w-full items-center justify-center gap-1 sm:gap-1.5 px-1 sm:px-2 py-2 sm:py-2.5 rounded-full hover:bg-purple-50 dark:hover:bg-purple-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-purple-700 dark:hover:text-purple-300 group overflow-hidden border border-transparent hover:border-purple-200 dark:hover:border-purple-500/20"
             triggerContent={
               <>
-                <Share2 className="w-[18px] h-[18px] group-hover:scale-110 transition-transform" strokeWidth={2} />
-                <span className="text-[12px] sm:text-[13px] font-semibold">Share</span>
+                <Share2 className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
+                <span className="text-[11px] sm:text-[13px] font-semibold truncate">Share</span>
               </>
             }
           />

@@ -4,7 +4,7 @@ import { getFirestore, doc, getDocFromServer, initializeFirestore, setLogLevel }
 import firebaseConfig from '../../firebase-applet-config.json';
 
 // Suppress Firestore offline connection warnings which are benign
-setLogLevel('error');
+setLogLevel('silent');
 
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
