@@ -70,12 +70,18 @@ export function ResultCard({
       </div>
 
       <div className="flex flex-col w-full relative z-10 mt-1">
-        <div className="flex flex-wrap items-baseline gap-2">
-          <span className="text-4xl sm:text-5xl font-black tracking-tighter whitespace-nowrap text-slate-800 dark:text-white">
+        <div className="flex flex-wrap items-baseline gap-1.5 sm:gap-2">
+          <span className={`text-[clamp(1.75rem,8vw,3rem)] leading-none font-black tracking-tighter break-all sm:break-normal ${
+            variant === 'highlight' 
+            ? 'bg-gradient-to-br from-orange-600 to-amber-500 dark:from-orange-400 dark:to-amber-300 bg-clip-text text-transparent'
+            : 'text-slate-800 dark:text-white'
+          }`}>
             {value}
           </span>
           {unit && (
-            <span className="text-[13px] sm:text-sm font-semibold ml-1 text-slate-500 dark:text-slate-400">
+            <span className={`text-[13px] sm:text-sm font-semibold ml-1 ${
+              variant === 'highlight' ? 'text-orange-600/80 dark:text-orange-400/80' : 'text-slate-500 dark:text-slate-400'
+            }`}>
               {unit}
             </span>
           )}

@@ -1283,9 +1283,9 @@ export default function ConstructionMaterialEstimator() {
           })}
         </div>
         <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-xl shadow-md border border-slate-200 dark:border-slate-800 transition-all duration-300 relative">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative">
+          <div className={`grid grid-cols-1 ${activeTab !== "master" && activeTab !== "cement" && activeTab !== "sand" ? "lg:grid-cols-2 gap-8 relative" : "gap-4"}`}>
             <div 
-              className="flex flex-col gap-4"
+              className={`flex flex-col gap-4 ${activeTab === "master" ? "lg:col-span-2" : ""}`}
               onChange={(e) => {
                 if ((e.target as HTMLElement).tagName === 'INPUT' || (e.target as HTMLElement).tagName === 'SELECT') {
                   if (hasData) resetEstimate();
