@@ -320,16 +320,16 @@ export default function Dashboard({
     </div>
 
     {/* AI Chat Bottom Sheet Modal */}
-    <div className={`fixed inset-0 z-50 pointer-events-none transition-opacity duration-500 ${isAiChatOpen ? "opacity-100" : "opacity-0"}`}>
+    <div className={`fixed inset-0 z-50 transition-all duration-500 ${isAiChatOpen ? "opacity-100 visible pointer-events-auto" : "opacity-0 invisible pointer-events-none"}`}>
       {/* Backdrop */}
       <div 
-        className={`absolute inset-0 bg-black/20 dark:bg-black/40 backdrop-blur-sm pointer-events-auto transition-opacity duration-500 ${isAiChatOpen ? "opacity-100" : "opacity-0"}`}
+        className="absolute inset-0 bg-black/20 dark:bg-black/40 backdrop-blur-sm"
         onClick={() => setIsAiChatOpen(false)}
       />
 
       {/* Bottom Sheet Modal */}
       <div 
-        className={`fixed bottom-0 left-0 right-0 h-[65vh] bg-white dark:bg-slate-900 shadow-[0_-20px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_-20px_40px_rgba(0,0,0,0.4)] rounded-t-[40px] pointer-events-auto transform transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col ${isAiChatOpen ? "translate-y-0" : "translate-y-full"}`}
+        className={`fixed bottom-0 left-0 right-0 h-[65vh] bg-white dark:bg-slate-900 shadow-[0_-20px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_-20px_40px_rgba(0,0,0,0.4)] rounded-t-[40px] transform transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col ${isAiChatOpen ? "translate-y-0" : "translate-y-full"}`}
       >
         {/* Drag handle */}
         <div className="w-full flex justify-center pt-5 pb-3 shrink-0 cursor-pointer" onClick={() => setIsAiChatOpen(false)}>

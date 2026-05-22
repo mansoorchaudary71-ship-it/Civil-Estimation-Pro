@@ -1009,7 +1009,7 @@ export default function AreaCalculator() {
             </div>
             {savedCalcs.length > 0 && (
               <div className="mt-8 border-t border-slate-700/50 pt-6">
-                <h4 className="text-slate-300 text-xs font-bold uppercase tracking-wider mb-4 flex items-center gap-2">
+                <h4 className="text-xs font-bold uppercase tracking-wider mb-4 flex items-center gap-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 bg-clip-text text-transparent dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400">
                   <History className="w-4 h-4 text-indigo-400" /> Saved Calculations
                 </h4>
                 <div className="space-y-3 max-h-[300px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">

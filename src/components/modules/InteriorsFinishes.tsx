@@ -187,7 +187,7 @@ function TilesCalculator() {
              </MaterialSummary>
           ) : (
             <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
-              <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
+              <h3 className="font-bold text-sm uppercase tracking-wider mb-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-rose-400 bg-clip-text text-transparent dark:from-indigo-400 dark:via-purple-400 dark:to-rose-300">Estimate Results</h3>
               <div className="text-center text-slate-500 py-8">
                 Enter area and tile size to calculate.
               </div>
@@ -306,7 +306,7 @@ function PaintCalculator() {
              </MaterialSummary>
         ) : (
           <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
-            <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
+            <h3 className="font-bold text-sm uppercase tracking-wider mb-6 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent dark:from-emerald-400 dark:via-teal-400 dark:to-cyan-400">Estimate Results</h3>
             <div className="text-center text-slate-500 py-8">
               Enter wall/ceiling area and coats to calculate.
             </div>
@@ -498,7 +498,7 @@ function DoorsWindowsCalculator() {
           </>
         ) : (
           <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group h-full justify-center">
-            <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-2 text-center">Estimate Results</h3>
+            <h3 className="font-bold text-sm uppercase tracking-wider mb-2 text-center bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500 bg-clip-text text-transparent dark:from-orange-400 dark:via-amber-400 dark:to-yellow-400">Estimate Results</h3>
             <div className="text-center text-slate-500 py-8">
               Enter wall dimensions to calculate net area and see the proportional preview.
             </div>

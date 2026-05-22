@@ -31,9 +31,13 @@ export function ResultCard({
     warning: 'text-rose-500 dark:text-rose-400',
     info: 'text-blue-500 dark:text-blue-400',
     purple: 'text-purple-500 dark:text-purple-400',
-    cyan: 'text-cyan-600 dark:text-cyan-400',
+    cyan: 'text-cyan-500 dark:text-cyan-400',
     pink: 'text-pink-500 dark:text-pink-400',
     yellow: 'text-amber-500 dark:text-amber-400',
+    violet: 'text-violet-500 dark:text-violet-400',
+    fuchsia: 'text-fuchsia-500 dark:text-fuchsia-400',
+    lime: 'text-lime-500 dark:text-lime-400',
+    sky: 'text-sky-500 dark:text-sky-400',
     neutral: 'text-slate-600 dark:text-slate-400',
     dark: 'text-slate-800 dark:text-slate-200'
   };
@@ -48,6 +52,10 @@ export function ResultCard({
     cyan: 'bg-white dark:bg-white/5',
     pink: 'bg-white dark:bg-white/5',
     yellow: 'bg-white dark:bg-white/5',
+    violet: 'bg-white dark:bg-white/5',
+    fuchsia: 'bg-white dark:bg-white/5',
+    lime: 'bg-white dark:bg-white/5',
+    sky: 'bg-white dark:bg-white/5',
     neutral: 'bg-white dark:bg-white/5',
     dark: 'bg-slate-50 dark:bg-slate-900/50'
   };
@@ -56,7 +64,7 @@ export function ResultCard({
   // We override legacy hardcoded variants to ensure visual variety across the interface, unless it's strictly neutral or dark.
   let activeVariant = variant;
   if (variant !== 'neutral' && variant !== 'dark') {
-    const mixedVariants = ['primary', 'secondary', 'success', 'warning', 'info', 'purple', 'cyan', 'pink', 'yellow'];
+    const mixedVariants = ['primary', 'secondary', 'success', 'warning', 'info', 'purple', 'cyan', 'pink', 'yellow', 'violet', 'fuchsia', 'lime', 'sky'];
     let hash = 0;
     const hashStr = title + (unit ? String(unit) : '');
     for (let i = 0; i < hashStr.length; i++) {
@@ -69,15 +77,19 @@ export function ResultCard({
   const bgStyle = bgStyles[activeVariant] || bgStyles.neutral;
 
   const textGradients: Record<string, string> = {
-    primary: 'bg-gradient-to-br from-orange-600 to-amber-500 dark:from-orange-400 dark:to-amber-300 bg-clip-text text-transparent',
-    secondary: 'bg-gradient-to-br from-indigo-600 to-blue-500 dark:from-indigo-400 dark:to-blue-300 bg-clip-text text-transparent',
-    success: 'bg-gradient-to-br from-emerald-600 to-teal-500 dark:from-emerald-400 dark:to-teal-300 bg-clip-text text-transparent',
+    primary: 'bg-gradient-to-br from-orange-500 to-amber-500 dark:from-orange-400 dark:to-amber-400 bg-clip-text text-transparent',
+    secondary: 'bg-gradient-to-br from-indigo-500 to-blue-500 dark:from-indigo-400 dark:to-blue-400 bg-clip-text text-transparent',
+    success: 'bg-gradient-to-br from-emerald-500 to-teal-500 dark:from-emerald-400 dark:to-teal-400 bg-clip-text text-transparent',
     warning: 'bg-gradient-to-br from-rose-500 to-orange-500 dark:from-rose-400 dark:to-orange-400 bg-clip-text text-transparent',
-    info: 'bg-gradient-to-br from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300 bg-clip-text text-transparent',
-    purple: 'bg-gradient-to-br from-purple-600 to-fuchsia-500 dark:from-purple-400 dark:to-fuchsia-300 bg-clip-text text-transparent',
-    cyan: 'bg-gradient-to-br from-cyan-600 to-sky-500 dark:from-cyan-400 dark:to-sky-300 bg-clip-text text-transparent',
-    pink: 'bg-gradient-to-br from-pink-600 to-rose-500 dark:from-pink-400 dark:to-rose-300 bg-clip-text text-transparent',
-    yellow: 'bg-gradient-to-br from-amber-600 to-yellow-500 dark:from-amber-400 dark:to-yellow-300 bg-clip-text text-transparent',
+    info: 'bg-gradient-to-br from-blue-500 to-cyan-500 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent',
+    purple: 'bg-gradient-to-br from-purple-500 to-fuchsia-500 dark:from-purple-400 dark:to-fuchsia-400 bg-clip-text text-transparent',
+    cyan: 'bg-gradient-to-br from-cyan-500 to-sky-500 dark:from-cyan-400 dark:to-sky-400 bg-clip-text text-transparent',
+    pink: 'bg-gradient-to-br from-pink-500 to-rose-500 dark:from-pink-400 dark:to-rose-400 bg-clip-text text-transparent',
+    yellow: 'bg-gradient-to-br from-amber-500 to-yellow-500 dark:from-amber-400 dark:to-yellow-400 bg-clip-text text-transparent',
+    violet: 'bg-gradient-to-br from-violet-500 to-purple-500 dark:from-violet-400 dark:to-purple-400 bg-clip-text text-transparent',
+    fuchsia: 'bg-gradient-to-br from-fuchsia-500 to-pink-500 dark:from-fuchsia-400 dark:to-pink-400 bg-clip-text text-transparent',
+    lime: 'bg-gradient-to-br from-lime-500 to-emerald-500 dark:from-lime-400 dark:to-emerald-400 bg-clip-text text-transparent',
+    sky: 'bg-gradient-to-br from-sky-500 to-blue-500 dark:from-sky-400 dark:to-blue-400 bg-clip-text text-transparent',
     neutral: 'bg-gradient-to-br from-slate-800 to-slate-600 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent',
     dark: 'text-slate-800 dark:text-white',
   };

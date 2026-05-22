@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { History, Save, Trash2, ChevronRight, X, CloudUpload, Home, Share2 } from 'lucide-react';
+import { History, Save, Trash2, ChevronRight, X, CloudUpload, Home, Share2, Bookmark } from 'lucide-react';
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
@@ -187,32 +187,38 @@ export function CalculationHistory({
     window.dispatchEvent(new CustomEvent('go-home'));
   };
 
-  const baseBtnClass = "relative flex items-center justify-center p-2.5 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900";
+  const baseBtnClass = "relative flex flex-col items-center justify-center p-3 rounded-2xl transition-all duration-300 hover:scale-[1.03] active:scale-95 group focus:outline-none";
+  const iconWrapperClass = "w-[42px] h-[42px] rounded-2xl flex items-center justify-center transition-all shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]";
 
   return (
     <>
-      <div className="fixed top-[72px] right-4 md:top-6 md:right-8 z-[40] font-sans flex items-center justify-end pointer-events-none">
-        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 shadow-[0_4px_16px_rgb(0,0,0,0.08)] dark:shadow-[0_4px_16px_rgb(0,0,0,0.3)] rounded-full p-1.5 flex items-center gap-1.5 pointer-events-auto">
+      {/* Floating Bottom Navigation Bar */}
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[40] font-sans w-[90%] max-w-sm pointer-events-none pb-safe">
+        <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-white/40 dark:border-slate-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-[2rem] p-2 flex items-center justify-between pointer-events-auto gap-1">
           
           {/* Dashboard Button */}
           <button
             onClick={handleGoHome}
-            className={`${baseBtnClass} text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800`}
-            title="Back to Dashboard"
+            className={baseBtnClass}
+            aria-label="Back to Dashboard"
           >
-            <Home className="w-[18px] h-[18px]" strokeWidth={2} />
+            <div className={`${iconWrapperClass} bg-gradient-to-tr from-blue-500/10 to-cyan-500/10 dark:from-blue-500/20 dark:to-cyan-500/20 group-hover:from-blue-500/20 group-hover:to-cyan-500/20`}>
+              <Home className="w-5 h-5 text-blue-600 dark:text-cyan-400 drop-shadow-sm" strokeWidth={2.5} />
+            </div>
           </button>
 
           {/* History Button */}
           <button
             onClick={() => setIsOpen(true)}
-            className={`${baseBtnClass} text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-500/10`}
-            title="View History"
+            className={baseBtnClass}
+            aria-label="View History"
           >
-            <History className="w-[18px] h-[18px]" strokeWidth={2} />
-            {history.length > 0 && (
-              <span className="absolute top-1 right-1 flex h-3 w-3 items-center justify-center rounded-full bg-indigo-500 text-[8px] font-bold text-white ring-2 ring-white dark:ring-slate-900" />
-            )}
+            <div className={`${iconWrapperClass} bg-gradient-to-tr from-orange-500/10 to-amber-500/10 dark:from-orange-500/20 dark:to-amber-500/20 group-hover:from-orange-500/20 group-hover:to-amber-500/20`}>
+              <History className="w-5 h-5 text-orange-600 dark:text-amber-400 drop-shadow-sm" strokeWidth={2.5} />
+              {history.length > 0 && (
+                <span className="absolute top-1 right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-gradient-to-tr from-orange-500 to-amber-500 text-[9px] font-bold text-white shadow-sm ring-2 ring-white/50 dark:ring-slate-900/50" />
+              )}
+            </div>
           </button>
 
           {/* Save Button */}
@@ -228,14 +234,16 @@ export function CalculationHistory({
               }
             }}
             disabled={isSavingLocal || isSavingCloud}
-            className={`${baseBtnClass} text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 dark:text-slate-400 dark:hover:text-emerald-400 dark:hover:bg-emerald-500/10 disabled:opacity-50`}
-            title="Save Calculation"
+            className={`${baseBtnClass} disabled:opacity-50`}
+            aria-label="Save Calculation"
           >
-            {isSavingLocal || isSavingCloud ? (
-               <Save className="w-[18px] h-[18px] animate-pulse" strokeWidth={2} />
-            ) : (
-               <Save className="w-[18px] h-[18px]" strokeWidth={2} />
-            )}
+            <div className={`${iconWrapperClass} bg-gradient-to-tr from-emerald-500/10 to-teal-500/10 dark:from-emerald-500/20 dark:to-teal-500/20 group-hover:from-emerald-500/20 group-hover:to-teal-500/20`}>
+              {isSavingLocal || isSavingCloud ? (
+                <Save className="w-5 h-5 text-emerald-600 dark:text-teal-400 drop-shadow-sm animate-pulse" strokeWidth={2.5} />
+              ) : (
+                <Bookmark className="w-5 h-5 text-emerald-600 dark:text-teal-400 drop-shadow-sm" strokeWidth={2.5} />
+              )}
+            </div>
           </button>
 
           {/* Share Button */}
@@ -245,10 +253,12 @@ export function CalculationHistory({
             data={currentResults || currentInputs || {}}
             exportFormat={savePayload || { inputs: currentInputs || {}, breakdown: currentResults || {} }}
             containerClassName="!gap-0 m-0 p-0"
-            popupPosition="bottom"
-            triggerClassName={`${baseBtnClass} text-slate-500 hover:text-amber-600 hover:bg-amber-50 dark:text-slate-400 dark:hover:text-amber-400 dark:hover:bg-amber-500/10`}
+            popupPosition="top"
+            triggerClassName={baseBtnClass}
             triggerContent={
-              <Share2 className="w-[18px] h-[18px]" strokeWidth={2} />
+              <div className={`${iconWrapperClass} bg-gradient-to-tr from-purple-500/10 to-pink-500/10 dark:from-purple-500/20 dark:to-pink-500/20 group-hover:from-purple-500/20 group-hover:to-pink-500/20`}>
+                <Share2 className="w-5 h-5 text-purple-600 dark:text-pink-400 drop-shadow-sm" strokeWidth={2.5} />
+              </div>
             }
           />
 
