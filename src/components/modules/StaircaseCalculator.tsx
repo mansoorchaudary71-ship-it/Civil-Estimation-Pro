@@ -51,62 +51,88 @@ export default function StaircaseCalculator() {
     };
   }, [numSteps, rise, tread, stairWidth, waistThickness, mainBarDia, mainBarSpacing, distBarDia, distBarSpacing, clearCover, concreteGrade, wastage, landings]);
 
+  const InputGroup = ({ label, children }: { label: string, children: React.ReactNode }) => (
+    <div>
+      <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
+        {label}
+      </label>
+      {children}
+    </div>
+  );
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-4">
       <SEO title="Staircase Calculator" description="Calculate concrete and steel for stairs." />
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6">
-        <h2 className="text-xl font-bold text-white flex items-center gap-2 mb-6">
-          <Layers className="w-5 h-5 text-indigo-400" /> Staircase Calculator
-        </h2>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="space-y-4">
-            <div>
-              <label className="text-xs text-slate-400 mb-1 block">Number of Steps</label>
-              <input type="number" value={numSteps} onChange={e => setNumSteps(e.target.value)} className="w-full bg-slate-800 text-white rounded p-2" />
+      <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] overflow-hidden shadow-md">
+        <div className="px-6 md:px-8 py-5 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between bg-transparent dark:bg-slate-800/50 gap-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl">
+              <Layers className="w-5 h-5" />
             </div>
             <div>
-              <label className="text-xs text-slate-400 mb-1 block">Rise ({uLen})</label>
-              <input type="number" value={rise} onChange={e => setRise(e.target.value)} className="w-full bg-slate-800 text-white rounded p-2" />
-            </div>
-            <div>
-              <label className="text-xs text-slate-400 mb-1 block">Tread ({uLen})</label>
-              <input type="number" value={tread} onChange={e => setTread(e.target.value)} className="w-full bg-slate-800 text-white rounded p-2" />
-            </div>
-            <div>
-              <label className="text-xs text-slate-400 mb-1 block">Wastage (%)</label>
-              <input type="number" value={wastage} onChange={e => setWastage(e.target.value)} className="w-full bg-slate-800 text-white rounded p-2" />
+              <h3 className="text-xl font-bold text-slate-800 dark:text-white">
+                Staircase Calculator
+              </h3>
+              <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                Calculate concrete and steel material for stairs.
+              </p>
             </div>
           </div>
-          
-          <div className="flex flex-col h-full">
-            <MaterialSummary
-               title="Quantity Summary"
-               totalLabel="Total Steel Required"
-               totalValue={res.totalSteelWeight.toFixed(1)}
-               totalUnit="kg"
-             >
-               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
-                 <ResultCard
-                   title="Cement"
-                   value={res.cementBags}
-                   unit="bags"
-                   variant="secondary"
-                 />
-                 <ResultCard
-                   title="Sand"
-                   value={res.sandCft}
-                   unit="CFT"
-                   variant="warning"
-                 />
-                 <ResultCard
-                   title="Aggregate"
-                   value={res.aggCft}
-                   unit="CFT"
-                   variant="neutral"
-                 />
-               </div>
-             </MaterialSummary>
+          <span className="px-3 py-1.5 bg-transparent dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold uppercase tracking-wider rounded-lg shadow-sm">
+            {stairShape}
+          </span>
+        </div>
+        
+        <div className="p-6 md:p-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 w-full items-start">
+            <div className="space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                <InputGroup label="Number of Steps">
+                  <input type="number" value={numSteps} onChange={e => setNumSteps(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 dark:hover:border-slate-600 shadow-sm transition-all" />
+                </InputGroup>
+                <InputGroup label={`Rise (${uLen})`}>
+                  <input type="number" value={rise} onChange={e => setRise(e.target.value)} placeholder="e.g. 0.15" className="w-full bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 dark:hover:border-slate-600 shadow-sm transition-all" />
+                </InputGroup>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <InputGroup label={`Tread (${uLen})`}>
+                  <input type="number" value={tread} onChange={e => setTread(e.target.value)} placeholder="e.g. 0.25" className="w-full bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 dark:hover:border-slate-600 shadow-sm transition-all" />
+                </InputGroup>
+                <InputGroup label="Wastage (%)">
+                  <input type="number" value={wastage} onChange={e => setWastage(e.target.value)} placeholder="e.g. 5" className="w-full bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 dark:hover:border-slate-600 shadow-sm transition-all" />
+                </InputGroup>
+              </div>
+            </div>
+            
+            <div className="flex flex-col h-full mt-4 lg:mt-0">
+              <MaterialSummary
+                 title="Quantity Summary"
+                 totalLabel="Total Steel Required"
+                 totalValue={res.totalSteelWeight.toFixed(1)}
+                 totalUnit="kg"
+               >
+                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+                   <ResultCard
+                     title="Cement"
+                     value={res.cementBags}
+                     unit="bags"
+                     variant="secondary"
+                   />
+                   <ResultCard
+                     title="Sand"
+                     value={res.sandCft}
+                     unit="CFT"
+                     variant="warning"
+                   />
+                   <ResultCard
+                     title="Aggregate"
+                     value={res.aggCft}
+                     unit="CFT"
+                     variant="neutral"
+                   />
+                 </div>
+               </MaterialSummary>
+            </div>
           </div>
         </div>
       </div>

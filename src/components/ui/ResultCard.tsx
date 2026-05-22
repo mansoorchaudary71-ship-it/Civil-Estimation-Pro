@@ -8,7 +8,7 @@ export interface ResultCardProps {
   icon?: React.ReactNode;
   description?: React.ReactNode;
   badge?: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'neutral' | 'dark';
+  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'neutral' | 'dark' | 'info' | 'purple' | 'cyan' | 'pink' | 'yellow';
   className?: string;
   delay?: number;
 }
@@ -52,13 +52,15 @@ export function ResultCard({
     dark: 'bg-slate-50 dark:bg-slate-900/50'
   };
 
-  // Auto-assign colorful variants if neutral is passed to create a One UI / Gemini mixed-gradient feel.
+  // Auto-assign colorful variants to create a One UI / Gemini mixed-gradient feel.
+  // We override legacy hardcoded variants to ensure visual variety across the interface, unless it's strictly neutral or dark.
   let activeVariant = variant;
-  if (variant === 'neutral' || variant === undefined) {
+  if (variant !== 'neutral' && variant !== 'dark') {
     const mixedVariants = ['primary', 'secondary', 'success', 'warning', 'info', 'purple', 'cyan', 'pink', 'yellow'];
     let hash = 0;
-    for (let i = 0; i < title.length; i++) {
-        hash = title.charCodeAt(i) + ((hash << 5) - hash);
+    const hashStr = title + (unit ? String(unit) : '');
+    for (let i = 0; i < hashStr.length; i++) {
+        hash = hashStr.charCodeAt(i) + ((hash << 5) - hash);
     }
     activeVariant = mixedVariants[Math.abs(hash) % mixedVariants.length];
   }

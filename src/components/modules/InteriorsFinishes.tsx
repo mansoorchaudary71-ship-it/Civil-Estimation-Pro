@@ -332,9 +332,11 @@ function PaintCalculator() {
 function DoorsWindowsCalculator() {
   const { settings } = useSettings();
   const isSI = settings.measurement === "SI";
+  const uLen = isSI ? "m" : "ft";
   const uArea = isSI ? "m²" : "sq.ft";
 
-  const [grossArea, setGrossArea] = useState<number | "">("");
+  const [wallLength, setWallLength] = useState<number | "">(isSI ? 5 : 16);
+  const [wallHeight, setWallHeight] = useState<number | "">(isSI ? 3 : 10);
   const [deductions, setDeductions] = useState<{name: string, w: number, h: number, qty: number}[]>([
     { name: "Door", w: isSI ? 0.9 : 3, h: isSI ? 2.1 : 7, qty: 1 }
   ]);
@@ -345,52 +347,140 @@ function DoorsWindowsCalculator() {
     setDeductions(newItems);
   };
 
-  const addItem = () => setDeductions([...deductions, { name: "Window", w: 0, h: 0, qty: 1 }]);
+  const addItem = () => setDeductions([...deductions, { name: "Window", w: isSI ? 1 : 3, h: isSI ? 1.2 : 4, qty: 1 }]);
   const removeItem = (index: number) => setDeductions(deductions.filter((_, i) => i !== index));
 
+  const grossArea = Number(wallLength) * Number(wallHeight);
   const totalDeduction = deductions.reduce((sum, item) => sum + (item.w * item.h * item.qty), 0);
-  const netArea = Number(grossArea) - totalDeduction;
+  const netArea = grossArea - totalDeduction;
+
+  const renderPreview = () => {
+    if (!wallLength || !wallHeight) return null;
+    const wl = Number(wallLength);
+    const wh = Number(wallHeight);
+    if (wl <= 0 || wh <= 0) return null;
+
+    const displayRatio = Math.min(Math.max(wl / wh, 0.5), 5); // Constrain for UI sanity
+
+    let currentX = 0; // Simple auto-layout from left to right
+
+    return (
+      <div className="mt-8 p-5 bg-slate-50/50 dark:bg-slate-900/50 border border-slate-200 dark:border-white/5 rounded-2xl">
+        <div className="flex items-center justify-between mb-4">
+          <h4 className="text-sm font-bold text-slate-700 dark:text-slate-300">Proportional Preview</h4>
+          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider bg-white dark:bg-slate-800 shadow-sm px-2 py-1 rounded-md">
+            {wl}{uLen} × {wh}{uLen}
+          </span>
+        </div>
+        
+        <div 
+          className="relative w-full mx-auto bg-white dark:bg-[#1A1C24] border-2 border-indigo-200 dark:border-indigo-500/30 overflow-hidden rounded-lg shadow-sm" 
+          style={{ aspectRatio: displayRatio }}
+        >
+          {/* Wall Grid Texture */}
+          <div className="absolute inset-0 opacity-10 dark:opacity-20 pointer-events-none" style={{ backgroundImage: 'linear-gradient(90deg, #6366f1 1px, transparent 1px), linear-gradient(180deg, #6366f1 1px, transparent 1px)', backgroundSize: 'min(5%, 20px) min(5%, 20px)' }}></div>
+          
+          {deductions.flatMap((op, oIdx) => {
+            return Array.from({ length: Number(op.qty) || 0 }).map((_, qIdx) => {
+               const isDoor = op.name.toLowerCase().includes("door");
+               const opW = Number(op.w) || 0;
+               const opH = Number(op.h) || 0;
+               
+               const maxW = Math.min(opW, wl);
+               const maxH = Math.min(opH, wh);
+
+               if (maxW <= 0 || maxH <= 0) return null;
+
+               const pctW = (maxW / wl) * 100;
+               const pctH = (maxH / wh) * 100;
+               
+               // Next position
+               const xPos = currentX;
+               currentX += maxW + (wl * 0.05); // add 5% gap
+               if (currentX > wl - maxW) currentX = 0; // wrap to beginning if it exceeds
+
+               const leftPct = (xPos / wl) * 100;
+
+               return (
+                 <div
+                   key={`${oIdx}-${qIdx}`}
+                   className="absolute bg-rose-500/10 dark:bg-rose-500/20 backdrop-blur-md border-2 border-rose-400 dark:border-rose-500 flex items-center justify-center transition-all shadow-[0_0_15px_rgba(244,63,94,0.1)]"
+                   style={{
+                     width: `${pctW}%`,
+                     height: `${pctH}%`,
+                     left: `${leftPct}%`,
+                     bottom: isDoor ? '0' : `calc(50% - ${pctH / 2}%)`,
+                   }}
+                 >
+                   <div className="bg-white/90 dark:bg-slate-900/90 rounded px-1.5 py-0.5">
+                     <span className="text-[9px] sm:text-[10px] font-bold text-rose-600 dark:text-rose-400 truncate whitespace-nowrap">
+                       {op.name}
+                     </span>
+                   </div>
+                 </div>
+               );
+            });
+          })}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div className="space-y-6">
-        <InputGroup label={`Gross Wall Area (${uArea})`}>
-          <input
-            type="number"
-            min="0"
-            value={grossArea}
-            onChange={(e) => setGrossArea(e.target.value ? Number(e.target.value) : "")}
-            className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
-            placeholder="e.g. 1000"
-          />
-        </InputGroup>
+        <div className="grid grid-cols-2 gap-4">
+          <InputGroup label={`Wall Length (${uLen})`}>
+            <input
+              type="number"
+              min="0"
+              value={wallLength}
+              onChange={(e) => setWallLength(e.target.value ? Number(e.target.value) : "")}
+              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+              placeholder="e.g. 5"
+            />
+          </InputGroup>
+          <InputGroup label={`Wall Height (${uLen})`}>
+            <input
+              type="number"
+              min="0"
+              value={wallHeight}
+              onChange={(e) => setWallHeight(e.target.value ? Number(e.target.value) : "")}
+              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+              placeholder="e.g. 3"
+            />
+          </InputGroup>
+        </div>
 
-        <div className="space-y-3">
+        <div className="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800">
           <label className="text-sm font-bold text-slate-700">Openings / Deductions</label>
-          {deductions.map((item, index) => (
-            <div key={index} className="flex gap-2 items-center bg-slate-50 border border-slate-200 p-2 rounded-xl">
-              <input 
-                type="text" 
-                value={item.name} 
-                onChange={(e) => {
-                  const newItems = [...deductions];
-                  newItems[index].name = e.target.value;
-                  setDeductions(newItems);
-                }}
-                className="w-24 px-2 py-1.5 text-sm bg-white border border-slate-200 rounded outline-none" 
-              />
-              <input type="number" placeholder="W" value={item.w || ""} onChange={(e) => updateItem(index, 'w', e.target.value)} className="w-16 px-2 py-1.5 text-sm bg-white border border-slate-200 rounded outline-none" />
-              <input type="number" placeholder="H" value={item.h || ""} onChange={(e) => updateItem(index, 'h', e.target.value)} className="w-16 px-2 py-1.5 text-sm bg-white border border-slate-200 rounded outline-none" />
-              <input type="number" placeholder="Qty" value={item.qty || ""} onChange={(e) => updateItem(index, 'qty', e.target.value)} className="w-16 px-2 py-1.5 text-sm bg-white border border-slate-200 rounded outline-none" />
-              <button onClick={() => removeItem(index)} className="p-1 px-2 text-rose-500 hover:bg-rose-50 rounded">X</button>
-            </div>
-          ))}
-          <button onClick={addItem} className="text-sm font-bold text-amber-600 hover:text-amber-700">+ Add Opening</button>
+          <div className="space-y-2">
+            {deductions.map((item, index) => (
+              <div key={index} className="flex gap-2 items-center bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-2 rounded-xl">
+                <input 
+                  type="text" 
+                  value={item.name} 
+                  onChange={(e) => {
+                    const newItems = [...deductions];
+                    newItems[index].name = e.target.value;
+                    setDeductions(newItems);
+                  }}
+                  className="w-24 px-2 py-1.5 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded outline-none font-medium text-slate-700 dark:text-slate-300" 
+                />
+                <input type="number" placeholder="W" value={item.w || ""} onChange={(e) => updateItem(index, 'w', e.target.value)} className="w-16 px-2 py-1.5 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded outline-none font-medium text-slate-700 dark:text-slate-300" />
+                <input type="number" placeholder="H" value={item.h || ""} onChange={(e) => updateItem(index, 'h', e.target.value)} className="w-16 px-2 py-1.5 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded outline-none font-medium text-slate-700 dark:text-slate-300" />
+                <input type="number" placeholder="Qty" value={item.qty || ""} onChange={(e) => updateItem(index, 'qty', e.target.value)} className="w-16 px-2 py-1.5 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded outline-none font-medium text-slate-700 dark:text-slate-300" />
+                <button onClick={() => removeItem(index)} className="p-1.5 px-2.5 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded transition-colors ml-auto mr-1"><span className="font-bold">X</span></button>
+              </div>
+            ))}
+          </div>
+          <button onClick={addItem} className="text-sm font-bold text-amber-600 dark:text-amber-500 hover:text-amber-700 dark:hover:text-amber-400 mt-2 inline-flex items-center gap-1">+ Add Opening</button>
         </div>
       </div>
 
       <div className="flex flex-col h-full">
-        {grossArea ? (
+        {grossArea > 0 ? (
+          <>
             <MaterialSummary
                title="Estimate Results"
                totalLabel="Net Printable / Plaster Area"
@@ -399,13 +489,18 @@ function DoorsWindowsCalculator() {
              >
                <div className="grid grid-cols-1 gap-4 mt-6">
                  <ResultCard title="Total Deductions" value={totalDeduction.toFixed(2)} unit={uArea} variant="warning" />
+                 <ResultCard title="Gross Wall Area (No Deductions)" value={grossArea.toFixed(2)} unit={uArea} variant="neutral" />
                </div>
              </MaterialSummary>
+             
+             {/* 2D Canvas Preview */}
+             {renderPreview()}
+          </>
         ) : (
-          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
-            <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
+          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group h-full justify-center">
+            <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-2 text-center">Estimate Results</h3>
             <div className="text-center text-slate-500 py-8">
-              Enter gross area to calculate net dimensions.
+              Enter wall dimensions to calculate net area and see the proportional preview.
             </div>
           </div>
         )}
