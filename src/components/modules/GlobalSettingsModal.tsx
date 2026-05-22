@@ -85,7 +85,7 @@ export default function GlobalSettingsModal({
     value: number;
     onChangeKey: keyof typeof localRates;
   }) => (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 rounded-2xl bg-white/50 dark:bg-slate-800/50 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-colors border border-transparent hover:border-slate-200 dark:hover:border-slate-700">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 py-3 rounded-2xl bg-white/50 dark:bg-slate-800/50 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-colors border border-transparent hover:border-slate-200 dark:hover:border-slate-700">
       {" "}
       <div className="flex flex-col">
         {" "}
@@ -221,7 +221,7 @@ export default function GlobalSettingsModal({
                   {" "}
                   <div className="flex items-center justify-between">
                     {" "}
-                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    <span className="text-[13px] sm:text-sm font-semibold text-slate-700 dark:text-slate-500 dark:text-slate-400">
                       Finishing
                     </span>{" "}
                     <select
@@ -240,7 +240,7 @@ export default function GlobalSettingsModal({
                   </div>{" "}
                   <div className="flex items-center justify-between">
                     {" "}
-                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    <span className="text-[13px] sm:text-sm font-semibold text-slate-700 dark:text-slate-500 dark:text-slate-400">
                       Roads
                     </span>{" "}
                     <select
@@ -259,7 +259,7 @@ export default function GlobalSettingsModal({
                   </div>{" "}
                   <div className="flex items-center justify-between">
                     {" "}
-                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    <span className="text-[13px] sm:text-sm font-semibold text-slate-700 dark:text-slate-500 dark:text-slate-400">
                       Earthworks
                     </span>{" "}
                     <select
@@ -288,7 +288,7 @@ export default function GlobalSettingsModal({
                   {" "}
                   <div className="flex items-center justify-between">
                     {" "}
-                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    <span className="text-[13px] sm:text-sm font-semibold text-slate-700 dark:text-slate-500 dark:text-slate-400">
                       Finishing
                     </span>{" "}
                     <select
@@ -307,7 +307,7 @@ export default function GlobalSettingsModal({
                   </div>{" "}
                   <div className="flex items-center justify-between">
                     {" "}
-                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    <span className="text-[13px] sm:text-sm font-semibold text-slate-700 dark:text-slate-500 dark:text-slate-400">
                       Roads
                     </span>{" "}
                     <select
@@ -325,7 +325,7 @@ export default function GlobalSettingsModal({
                   </div>{" "}
                   <div className="flex items-center justify-between">
                     {" "}
-                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    <span className="text-[13px] sm:text-sm font-semibold text-slate-700 dark:text-slate-500 dark:text-slate-400">
                       Earthworks
                     </span>{" "}
                     <select

@@ -605,7 +605,7 @@ export default function RigidPavementEstimator() {
                     {((totalDowelWeight + totalTieWeight) / 1000).toFixed(
                       3,
                     )}{" "}
-                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    <span className="text-[13px] sm:text-sm font-semibold text-slate-700 dark:text-slate-500 dark:text-slate-400">
                       tons
                     </span>{" "}
                   </div>{" "}

@@ -5,6 +5,14 @@ import { ALL_MODULES } from './Dashboard';
 import { getMyEstimates } from '../lib/estimates';
 import { ArrowRight, Home, Box, Ruler, Building2, Plus, FileText, Clock, HardHat } from 'lucide-react';
 import { useGlobalSettings } from '../context/SettingsContext';
+import { motion, AnimatePresence } from 'motion/react';
+
+const PHRASES = [
+  "Create New Estimate",
+  "Calculate Materials",
+  "Estimate Project Cost",
+  "Start New Project"
+];
 
 interface PostLoginDashboardProps {
   onSelectModule: (id: ModuleId) => void;
@@ -15,6 +23,14 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
   const [estimates, setEstimates] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { formatCurrency } = useGlobalSettings();
+  const [phraseIndex, setPhraseIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setPhraseIndex((prev) => (prev + 1) % PHRASES.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     async function loadData() {
@@ -91,7 +107,20 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-rose-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
             <div className="flex items-center justify-center gap-2 relative z-10 w-full">
               <Plus className="w-5 h-5 stroke-[2.5]" />
-              <span>Create New Estimate</span>
+              <div className="relative overflow-hidden flex items-center justify-start h-6 min-w-[200px]">
+                <AnimatePresence mode="popLayout">
+                  <motion.span
+                    key={phraseIndex}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -20, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: 'easeOut' }}
+                    className="absolute left-0 whitespace-nowrap"
+                  >
+                    {PHRASES[phraseIndex]}
+                  </motion.span>
+                </AnimatePresence>
+              </div>
             </div>
           </button>
         </div>

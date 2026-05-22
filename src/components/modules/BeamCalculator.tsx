@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { CopySlash, Settings2, Columns } from "lucide-react";
 import { SEO } from "../SEO";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { ResultCard } from "../ui/ResultCard";
 
 export default function BeamCalculator() {
   const [beamWidth, setBeamWidth] = useState("300"); // mm
@@ -367,54 +368,31 @@ export default function BeamCalculator() {
           {results ? (
             <div className="space-y-6 flex-1">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Concrete Dry Volume"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.concreteVolumeDry.toFixed(3)}</span>
-                  {"m³" && <span className="text-sm font-semibold text-slate-300">{"m³"}</span>}
-                </div>
-                {`Wet Volume: ${results.concreteVolumeWet.toFixed(3)} m³` && <p className="text-[10px] font-medium text-slate-500 mt-2">{`Wet Volume: ${results.concreteVolumeWet.toFixed(3)} m³`}</p>}
-              </div>
-                {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Steel Weight"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.totalSteelWeight.toFixed(2)}</span>
-                  {"kg" && <span className="text-sm font-semibold text-slate-300">{"kg"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-                {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{`Longitudinal (${longitudinalBarsCount} Bars)`}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.longitudinalSteelWeight.toFixed(2)}</span>
-                  {"kg" && <span className="text-sm font-semibold text-slate-300">{"kg"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-                {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Stirrups"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.stirrupSteelWeight.toFixed(2)}</span>
-                  {"kg" && <span className="text-sm font-semibold text-slate-300">{"kg"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
+                <ResultCard
+                  title="Concrete Dry Volume"
+                  value={results.concreteVolumeDry.toFixed(3)}
+                  unit="m³"
+                  description={`Wet Volume: ${results.concreteVolumeWet.toFixed(3)} m³`}
+                  variant="primary"
+                />
+                <ResultCard
+                  title="Total Steel Weight"
+                  value={results.totalSteelWeight.toFixed(2)}
+                  unit="kg"
+                  variant="secondary"
+                />
+                <ResultCard
+                  title={`Longitudinal (${longitudinalBarsCount} Bars)`}
+                  value={results.longitudinalSteelWeight.toFixed(2)}
+                  unit="kg"
+                  variant="neutral"
+                />
+                <ResultCard
+  title="Stirrups"
+  value={results.stirrupSteelWeight.toFixed(2)}
+  unit="kg"
+  variant="neutral"
+/>
               </div>
 
               <div className="pt-4 border-t border-slate-700">

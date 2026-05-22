@@ -181,7 +181,7 @@ export default function TopNavbar({
             setIsMobileMenuOpen(false);
             onNavigate?.('house' as ModuleId);
           }}
-          className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-2xl text-[16px] font-bold text-white dark:text-[#111111] bg-[#111111] dark:bg-white shadow-[0_8px_30px_rgba(0,0,0,0.2)] dark:shadow-[0_8px_30px_rgba(255,255,255,0.15)] active:scale-[0.98] transition-transform duration-200"
+          className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-2xl text-[16px] font-bold text-white dark:text-[#111111] bg-[#111111] dark:bg-white shadow-[0_8px_30px_rgba(0,0,0,0.2)] dark:shadow-[0_8px_30px_rgba(255,255,255,0.15)] active:scale-[0.98] transition-transform duration-200"
         >
           Start Estimating <ArrowRight className="w-5 h-5" />
         </button>

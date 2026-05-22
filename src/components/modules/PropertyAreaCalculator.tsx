@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import { Building, Plus, Trash2, Maximize, Ruler, Home } from "lucide-react";
 import { useGlobalSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
-import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
+import { parseNum } from "../../utils/mathHelpers";
 
 interface Room {
   id: string;
@@ -12,8 +12,10 @@ interface Room {
 }
 
 export default function PropertyAreaCalculator() {
-  const { currentUnit, setCurrentUnit } = useGlobalSettings();
+  const { currentUnit } = useGlobalSettings();
   const isMetric = currentUnit === "Metric";
+  const unitStr = isMetric ? "m" : "ft";
+  const areaUnitStr = isMetric ? "m²" : "sq.ft";
 
   const [rooms, setRooms] = useState<Room[]>([
     { id: "1", name: "Living Room", length: "", width: "" },
@@ -36,229 +38,156 @@ export default function PropertyAreaCalculator() {
   };
 
   const updateRoom = (id: string, field: keyof Room, value: string) => {
-    setRooms(rooms.map((r) => (r.id === id ? { ...r, [field]: value } : r)));
+    setRooms(rooms.map(r => r.id === id ? { ...r, [field]: value } : r));
   };
 
-  const calculate = () => {
-    let carpetArea = 0;
-    rooms.forEach((r) => {
-      const l = parseFloat(r.length) || 0;
-      const w = parseFloat(r.width) || 0;
-      carpetArea += l * w;
+  const results = useMemo(() => {
+    let carpet = 0;
+    rooms.forEach(r => {
+      carpet += parseNum(r.length) * parseNum(r.width);
     });
-
-    const wArea = parseFloat(wallArea) || 0;
-    const bArea = parseFloat(balconyArea) || 0;
-    const builtUpArea = carpetArea + wArea + bArea;
-
-    const cPercent = parseFloat(commonAreaPercent) || 0;
-    const superBuiltUpArea = builtUpArea + builtUpArea * (cPercent / 100);
-
-    const formatSqmToSqft = (sqm: number) => sqm * Math.pow(CIVIL_CONSTANTS.M_TO_FT, 2);
-    
+    const builtUp = carpet + parseNum(wallArea) + parseNum(balconyArea);
+    const superBuiltUp = builtUp * (1 + parseNum(commonAreaPercent) / 100);
     return {
-      carpetArea,
-      builtUpArea,
-      superBuiltUpArea,
-      carpetAreaFormatted: isMetric ? `${carpetArea.toFixed(2)} m²` : `${carpetArea.toFixed(2)} sq.ft`,
-      builtUpAreaFormatted: isMetric ? `${builtUpArea.toFixed(2)} m²` : `${builtUpArea.toFixed(2)} sq.ft`,
-      superBuiltUpAreaFormatted: isMetric ? `${superBuiltUpArea.toFixed(2)} m²` : `${superBuiltUpArea.toFixed(2)} sq.ft`,
-      carpetSqft: formatSqmToSqft(isMetric ? carpetArea : carpetArea / Math.pow(CIVIL_CONSTANTS.M_TO_FT, 2)),
-      builtUpSqft: formatSqmToSqft(isMetric ? builtUpArea : builtUpArea / Math.pow(CIVIL_CONSTANTS.M_TO_FT, 2)),
-      superBuiltUpSqft: formatSqmToSqft(isMetric ? superBuiltUpArea : superBuiltUpArea / Math.pow(CIVIL_CONSTANTS.M_TO_FT, 2)),
+      carpet,
+      builtUp,
+      superBuiltUp
     };
-  };
+  }, [rooms, wallArea, balconyArea, commonAreaPercent]);
 
-  const { carpetArea, builtUpArea, superBuiltUpArea, carpetAreaFormatted, builtUpAreaFormatted, superBuiltUpAreaFormatted } = useMemo(calculate, [rooms, wallArea, balconyArea, commonAreaPercent, isMetric]);
-
-  const explanationOpts = {
-    hasInputs: carpetArea > 0,
-    genericFormula: [
-      { label: "Carpet Area", formula: "Sum of all useable room areas" },
-      { label: "Built-up Area", formula: "Carpet Area + Wall Area + Balcony Area" },
-      { label: "Super Built-up Area", formula: "Built-up Area + (Built-up Area × Common Area %)" }
-    ],
-    activeBreakdown: carpetArea > 0 ? [
-      { label: "Total Carpet Area", formula: "Σ (L × W)", result: carpetAreaFormatted },
-      { label: "Built-up Area", formula: `${carpetArea.toFixed(2)} + ${wallArea || 0} + ${balconyArea || 0}`, result: builtUpAreaFormatted },
-      { label: "Super Built-up Area", formula: `${builtUpArea.toFixed(2)} + (${builtUpArea.toFixed(2)} × ${commonAreaPercent || 0}%)`, result: superBuiltUpAreaFormatted }
-    ] : []
-  };
+  const carpetAreaFormatted = `${results.carpet.toFixed(2)} ${areaUnitStr}`;
+  const builtUpAreaFormatted = `${results.builtUp.toFixed(2)} ${areaUnitStr}`;
+  const superBuiltUpAreaFormatted = `${results.superBuiltUp.toFixed(2)} ${areaUnitStr}`;
 
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
-          <Building className="w-8 h-8 text-indigo-600" /> Property Area Calculator
-        </h1>
-        <p className="text-slate-500 dark:text-slate-400 mb-8 font-medium">
-          Calculate Carpet Area, Built-up Area, and Super Built-up area precisely using room dimensions.
-        </p>
-
-        <div className="flex flex-wrap gap-4 mb-8">
-          <div>
-            <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase block mb-1">
-              Unit System
-            </label>
-            <div className="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1 w-fit">
-              <button
-                onClick={() => setCurrentUnit("Metric")}
-                className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all ${isMetric ? "bg-white dark:bg-slate-700 shadow-sm text-indigo-600" : "text-slate-700 dark:text-slate-300"}`}
-              >
-                Metric (m/m²)
-              </button>
-              <button
-                onClick={() => setCurrentUnit("Imperial")}
-                className={`px-4 py-1.5 rounded-md text-sm font-semibold transition-all ${!isMetric ? "bg-white dark:bg-slate-700 shadow-sm text-indigo-600" : "text-slate-700 dark:text-slate-300"}`}
-              >
-                Imperial (ft/sq.ft)
-              </button>
-            </div>
-          </div>
+    <div className="space-y-6">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-blue-500/20 flex items-center justify-center border border-indigo-500/20">
+          <Building className="w-6 h-6 text-indigo-400" />
         </div>
+        <div>
+          <h2 className="text-2xl font-bold text-white">Property Area Estimator</h2>
+          <p className="text-slate-400 text-sm">Calculate Carpet, Built-up & Super Built-up Area</p>
+        </div>
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] p-6 shadow-sm">
-            <h3 className="font-bold text-lg mb-6 flex items-center gap-2">
-              <Home className="w-5 h-5 text-indigo-500" /> Carpet Area (Rooms)
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 space-y-6">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 relative overflow-hidden">
+            <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <Maximize className="w-5 h-5 text-indigo-400" /> Carpet Area (Rooms)
             </h3>
-            <div className="space-y-4 mb-6">
+            
+            <div className="space-y-4">
               {rooms.map((room, index) => (
-                <div key={room.id} className="flex flex-wrap sm:flex-nowrap items-end gap-3 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50">
-                  <div className="w-full sm:w-1/3">
-                    <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Room Name</label>
+                <div key={room.id} className="grid grid-cols-12 gap-3 items-center">
+                  <div className="col-span-12 sm:col-span-4">
                     <input
                       type="text"
+                      placeholder="Room Name"
                       value={room.name}
                       onChange={(e) => updateRoom(room.id, "name", e.target.value)}
-                      className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-2.5 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                      className="w-full bg-slate-800 border-none rounded-lg p-3 text-white text-sm"
                     />
                   </div>
-                  <div className="w-1/2 sm:w-1/4">
-                    <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Length ({isMetric ? "m" : "ft"})</label>
+                  <div className="col-span-5 sm:col-span-3 relative">
                     <input
                       type="number"
+                      placeholder={`Length`}
                       value={room.length}
                       onChange={(e) => updateRoom(room.id, "length", e.target.value)}
-                      className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-2.5 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                      placeholder="0.0"
+                      className="w-full bg-slate-800 border-none rounded-lg p-3 text-white text-sm font-mono"
                     />
+                    <span className="absolute right-3 top-3 text-slate-500 text-xs">{unitStr}</span>
                   </div>
-                  <div className="w-[calc(50%-3rem)] sm:w-1/4">
-                    <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Width ({isMetric ? "m" : "ft"})</label>
+                  <div className="col-span-5 sm:col-span-3 relative">
                     <input
                       type="number"
+                      placeholder={`Width`}
                       value={room.width}
                       onChange={(e) => updateRoom(room.id, "width", e.target.value)}
-                      className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-2.5 rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                      placeholder="0.0"
+                      className="w-full bg-slate-800 border-none rounded-lg p-3 text-white text-sm font-mono"
                     />
+                    <span className="absolute right-3 top-3 text-slate-500 text-xs">{unitStr}</span>
                   </div>
-                  <button
-                    onClick={() => removeRoom(room.id)}
-                    disabled={rooms.length === 1}
-                    className="w-10 h-10 flex items-center justify-center bg-red-50 text-red-500 dark:bg-red-500/10 rounded-lg hover:bg-red-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+                  <div className="col-span-2 sm:col-span-2 flex justify-end">
+                    {rooms.length > 1 && (
+                      <button onClick={() => removeRoom(room.id)} className="p-2 text-rose-400 hover:bg-rose-400/10 rounded-lg">
+                        <Trash2 className="w-5 h-5" />
+                      </button>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
-            <button
-              onClick={addRoom}
-              className="flex items-center gap-2 text-sm font-semibold text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 px-4 py-2 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-500/20 transition-colors"
-            >
+
+            <button onClick={addRoom} className="mt-4 flex items-center gap-2 text-indigo-400 text-sm font-medium hover:text-indigo-300">
               <Plus className="w-4 h-4" /> Add Room
             </button>
+          </div>
 
-            <div className="h-px w-full bg-slate-200 dark:bg-slate-800 my-8"></div>
-
-            <h3 className="font-bold text-lg mb-6 flex items-center gap-2">
-              <Maximize className="w-5 h-5 text-indigo-500" /> Additional Areas
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              <div>
-                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1">
-                  Wall Area ({isMetric ? "m²" : "sq.ft"})
-                </label>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+              <label className="block text-sm font-medium text-slate-400 mb-2">Wall Area</label>
+              <div className="relative">
                 <input
                   type="number"
                   value={wallArea}
                   onChange={(e) => setWallArea(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-slate-400"
-                  placeholder="0.0"
+                  className="w-full bg-slate-800 border-[1px] border-slate-700 focus:border-indigo-500/50 rounded-xl p-3 text-white font-mono"
                 />
+                <span className="absolute right-4 top-3 text-slate-500">{areaUnitStr}</span>
               </div>
-              <div>
-                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1">
-                  Balcony Area ({isMetric ? "m²" : "sq.ft"})
-                </label>
+            </div>
+            
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+              <label className="block text-sm font-medium text-slate-400 mb-2">Balcony Area</label>
+              <div className="relative">
                 <input
                   type="number"
                   value={balconyArea}
                   onChange={(e) => setBalconyArea(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-slate-400"
-                  placeholder="0.0"
+                  className="w-full bg-slate-800 border-[1px] border-slate-700 focus:border-indigo-500/50 rounded-xl p-3 text-white font-mono"
                 />
+                <span className="absolute right-4 top-3 text-slate-500">{areaUnitStr}</span>
               </div>
-              <div>
-                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1">
-                  Common Area %
-                </label>
+            </div>
+          </div>
+          
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+              <label className="block text-sm font-medium text-slate-400 mb-2">Common Area Percentage</label>
+              <div className="relative">
                 <input
                   type="number"
                   value={commonAreaPercent}
                   onChange={(e) => setCommonAreaPercent(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50 p-3 rounded-xl font-medium text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder:text-slate-400"
-                  placeholder="20"
+                  className="w-full bg-slate-800 border-[1px] border-slate-700 focus:border-indigo-500/50 rounded-xl p-3 text-white font-mono"
                 />
+                <span className="absolute right-4 top-3 text-slate-500">%</span>
               </div>
             </div>
-          </div>
+        </div>
 
-          <div className="lg:col-span-5 bg-slate-900 border border-slate-800 rounded-[2rem] p-6 text-white shadow-xl flex flex-col items-center text-center">
-            <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest mb-6 w-full text-left">
-              Property Area Results
+        <div className="lg:col-span-1">
+          <div className="sticky top-6 bg-indigo-500/5 border border-indigo-500/20 rounded-3xl p-6">
+            <h3 className="text-indigo-300 font-semibold mb-6 flex items-center gap-2">
+              <Ruler className="w-5 h-5" /> Results
             </h3>
             
-            <div className="w-full space-y-4">
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Carpet Area"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{carpetAreaFormatted.split(" ")[0]}</span>
-                  {isMetric ? "m²" : "sq.ft" && <span className="text-sm font-semibold text-slate-300">{isMetric ? "m²" : "sq.ft"}</span>}
-                </div>
-                {"Net usable floor area" && <p className="text-[10px] font-medium text-slate-500 mt-2">{"Net usable floor area"}</p>}
+            <div className="space-y-4">
+              <div className="bg-slate-900/50 p-4 rounded-2xl border border-slate-700/50">
+                <div className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Carpet Area</div>
+                <div className="text-2xl font-black text-white">{carpetAreaFormatted}</div>
               </div>
-
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Built-Up Area"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{builtUpAreaFormatted.split(" ")[0]}</span>
-                  {isMetric ? "m²" : "sq.ft" && <span className="text-sm font-semibold text-slate-300">{isMetric ? "m²" : "sq.ft"}</span>}
-                </div>
-                {"Carpet + Wall + Balcony" && <p className="text-[10px] font-medium text-slate-500 mt-2">{"Carpet + Wall + Balcony"}</p>}
+              
+              <div className="bg-slate-900/50 p-4 rounded-2xl border border-slate-700/50">
+                <div className="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Built-Up Area</div>
+                <div className="text-2xl font-black text-white">{builtUpAreaFormatted}</div>
               </div>
-
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="text-blue-400">{<Building className="w-5 h-5 text-white" />}</div>
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Super Built-Up Area"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{superBuiltUpAreaFormatted.split(" ")[0]}</span>
-                  {isMetric ? "m²" : "sq.ft" && <span className="text-sm font-semibold text-slate-300">{isMetric ? "m²" : "sq.ft"}</span>}
-                </div>
-                {"Chargeable area (incl. common amenities)" && <p className="text-[10px] font-medium text-slate-500 mt-2">{"Chargeable area (incl. common amenities)"}</p>}
+              
+              <div className="bg-indigo-500/10 p-5 rounded-2xl border border-indigo-500/30">
+                <div className="text-indigo-400 text-sm font-bold uppercase tracking-wider mb-2">Super Built-Up Area</div>
+                <div className="text-3xl font-black text-indigo-100">{superBuiltUpAreaFormatted}</div>
               </div>
             </div>
           </div>
@@ -269,7 +198,7 @@ export default function PropertyAreaCalculator() {
         calculatorId="property_area_v1"
         currentInputs={{ rooms, wallArea, balconyArea, commonAreaPercent, isMetric }}
         currentResults={{ carpetAreaFormatted, builtUpAreaFormatted, superBuiltUpAreaFormatted }}
-        explanation={explanationOpts}
+        explanation={{ hasInputs: false }}
         summaryGeneration={(ins, res) => `Super Built-up Area: ${res.superBuiltUpAreaFormatted}`}
         onRestore={(ins) => {
           if (ins.rooms) setRooms(ins.rooms);

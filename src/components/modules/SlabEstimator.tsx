@@ -3,6 +3,8 @@ import { Grid2X2, Settings2, Replace } from "lucide-react";
 import { SEO } from "../SEO";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { StyledChart } from "../ui/EstimateVisualizer";
+import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
 
 export default function SlabEstimator() {
   const [slabType, setSlabType] = useState<"one-way" | "two-way">("two-way");
@@ -259,90 +261,70 @@ export default function SlabEstimator() {
           </button>
         </div>
 
-        <div className="bg-slate-900 rounded-3xl p-6 md:p-8 text-white flex flex-col">
-          <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Calculation Results</h3>
-          
+        <div className="flex-1 flex flex-col">
           {results ? (
-            <div className="space-y-6 flex-1">
+            <MaterialSummary
+              title="Material Summary"
+              totalLabel="Total Concrete Dry Volume"
+              totalValue={results.concreteVolumeDry.toFixed(2)}
+              totalUnit="m³"
+              subtitle={`Wet Volume: ${results.concreteVolumeWet.toFixed(2)} m³`}
+            >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Concrete Dry Volume (~1.54x)"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.concreteVolumeDry.toFixed(2)}</span>
-                  {"m³" && <span className="text-sm font-semibold text-slate-300">{"m³"}</span>}
-                </div>
-                {`Wet Volume: ${results.concreteVolumeWet.toFixed(2)} m³` && <p className="text-[10px] font-medium text-slate-500 mt-2">{`Wet Volume: ${results.concreteVolumeWet.toFixed(2)} m³`}</p>}
-              </div>
-                {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Steel Weight"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.totalSteelWeight.toFixed(2)}</span>
-                  {"kg" && <span className="text-sm font-semibold text-slate-300">{"kg"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-                {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{results.type === "one-way" ? "Main Bars" : "Short Span Bars"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.shortBarsCount}</span>
-                  {"bars" && <span className="text-sm font-semibold text-slate-300">{"bars"}</span>}
-                </div>
-                {`${results.shortBarsTotalLength.toFixed(1)}m total` && <p className="text-[10px] font-medium text-slate-500 mt-2">{`${results.shortBarsTotalLength.toFixed(1)}m total`}</p>}
-              </div>
-                {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{results.type === "one-way" ? "Dist Bars" : "Long Span Bars"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.longBarsCount}</span>
-                  {"bars" && <span className="text-sm font-semibold text-slate-300">{"bars"}</span>}
-                </div>
-                {`${results.longBarsTotalLength.toFixed(1)}m total` && <p className="text-[10px] font-medium text-slate-500 mt-2">{`${results.longBarsTotalLength.toFixed(1)}m total`}</p>}
-              </div>
+                <ResultCard
+                  title="Total Steel Weight"
+                  value={results.totalSteelWeight.toFixed(2)}
+                  unit="kg"
+                  variant="primary"
+                  badge={results.type === "one-way" ? "One-Way Slab" : "Two-Way Slab"}
+                />
+                <ResultCard
+                  title={results.type === "one-way" ? "Main Bars" : "Short Span Bars"}
+                  value={results.shortBarsCount}
+                  unit="bars"
+                  description={`${results.shortBarsTotalLength.toFixed(1)}m total length`}
+                  variant="neutral"
+                />
+                <ResultCard
+                  title={results.type === "one-way" ? "Dist Bars" : "Long Span Bars"}
+                  value={results.longBarsCount}
+                  unit="bars"
+                  description={`${results.longBarsTotalLength.toFixed(1)}m total length`}
+                  variant="neutral"
+                />
               </div>
 
-              <div className="bg-slate-800/80 p-5 rounded-2xl border border-slate-700">
-                <div className="mt-2 text-slate-900">
+              <div className="mt-8 pt-6 border-t border-slate-200/50 dark:border-white/10">
+                <div className="mb-4 text-[10px] sm:text-xs font-extrabold text-slate-500 dark:text-white/50 uppercase tracking-[0.15em]">
+                  Rebar Breakdown
+                </div>
+                <div className="bg-white/50 dark:bg-white rounded-2xl p-4 shadow-sm text-slate-900 border border-slate-200/50 dark:border-slate-100 backdrop-blur-md">
                   <StyledChart 
                     data={[
                       { name: results.type === "one-way" ? "Main Bars" : "Short Span", value: Math.round(results.shortBarsTotalLength), fill: '#6366f1' },
                       { name: results.type === "one-way" ? "Dist Bars" : "Long Span", value: Math.round(results.longBarsTotalLength), fill: '#14b8a6' }
                     ]}
                     type="bar"
-                    title="Rebar Length Breakdown"
+                    title="Length Breakdown"
                     valueFormatter={(val) => `${val} m`}
                   />
                 </div>
               </div>
 
-              <div className="p-4 bg-blue-900/40 border border-blue-800/50 rounded-xl">
+              <div className="mt-4 p-4 bg-amber-500/10 dark:bg-amber-500/5 border border-amber-500/20 rounded-xl">
                  <p className="text-xs flex gap-2">
-                    <span className="text-blue-400">ℹ</span>
-                    <span className="text-blue-200 leading-relaxed">
+                    <span className="text-amber-600 dark:text-amber-500 font-bold">ℹ</span>
+                    <span className="text-slate-600 dark:text-amber-500/80 leading-relaxed">
                       {results.type === "two-way" 
                         ? "Includes an assumption for alternate bent-up (cranked) bars contributing an additional average of 0.42d extra length per bar."
                         : "Main bars span across the shorter dimension (lx). Distribution bars span across the longer dimension (ly)."}
                     </span>
                  </p>
               </div>
-            </div>
+            </MaterialSummary>
           ) : (
-            <div className="flex-1 flex items-center justify-center text-slate-500 py-12 text-center h-full">
-              Enter slab dimensions and reinforcement details to calculate material requirements.
+            <div className="bg-[#1A1C20] rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full border border-white/5 shadow-2xl">
+              <span className="text-white/40 font-medium tracking-wide">Enter dimensions to calculate</span>
             </div>
           )}
         </div>

@@ -154,7 +154,7 @@ export default function CountertopModule() {
 
           <div className="space-y-4 border-t border-slate-100 dark:border-slate-800 pt-4">
             <h4 className="font-bold text-sm text-slate-800 dark:text-white">Cutout Deductions</h4>
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center justify-between gap-3 w-full relative z-10">
               <input type="checkbox" id="hasSink" checked={hasSink} onChange={e => setHasSink(e.target.checked)} className="rounded text-indigo-600 w-4 h-4" />
               <label htmlFor="hasSink" className="text-sm font-bold text-slate-700 dark:text-slate-300">Include Sink Cutout</label>
             </div>
@@ -190,12 +190,12 @@ export default function CountertopModule() {
           </div>
         </div>
 
-        <div className="bg-slate-900 rounded-3xl p-6 text-white flex flex-col justify-center">
+        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
           <h3 className="font-bold text-slate-400 text-sm uppercase tracking-widest mb-6">Quantity Summary</h3>
           <div className="space-y-4">
             <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
               <span className="block text-slate-400 text-xs font-bold uppercase mb-1">Total Material Required (Slab/Granite)</span>
-              <span className="text-3xl font-black text-indigo-400">{totalMaterialArea.toFixed(2)} {uA}</span>
+              <span className="text-4xl sm:text-5xl tracking-tight font-black text-indigo-400 whitespace-nowrap">{totalMaterialArea.toFixed(2)} {uA}</span>
               <p className="text-[10px] text-slate-500 mt-1">Platform gross area + Skirting area</p>
             </div>
             

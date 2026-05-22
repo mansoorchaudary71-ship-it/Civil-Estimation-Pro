@@ -115,7 +115,7 @@ export default function SolarRoofCalculator() {
                     onChange={(e) => setRoofArea(e.target.value === "" ? "" : parseFloat(e.target.value))}
                   />
                   <select
-                    className="w-24 px-3 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
+                    className="w-24 px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
                     value={areaUnit}
                     onChange={(e) => setAreaUnit(e.target.value as "sqm" | "sqft")}
                   >
@@ -192,52 +192,52 @@ export default function SolarRoofCalculator() {
               {/* Main Stats Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
+              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
+                <div className="flex items-center justify-between gap-3 w-full relative z-10">
                   <div className="text-blue-400">{<Sun className="w-5 h-5 text-white" />}</div>
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Recommended System"}</span>
+                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{"Recommended System"}</span>
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.recSystemSize.toFixed(1)}</span>
-                  {"kW" && <span className="text-sm font-semibold text-slate-300">{"kW"}</span>}
+                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{results.recSystemSize.toFixed(1)}</span>
+                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">kW</span>
                 </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+                
               </div>
                 {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
+              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
+                <div className="flex items-center justify-between gap-3 w-full relative z-10">
                   <div className="text-blue-400">{<Home className="w-5 h-5 text-white" />}</div>
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Panels"}</span>
+                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{"Total Panels"}</span>
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.numPanels}</span>
-                  {"units" && <span className="text-sm font-semibold text-slate-300">{"units"}</span>}
+                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{results.numPanels}</span>
+                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">units</span>
                 </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+                
               </div>
                 {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
+              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
+                <div className="flex items-center justify-between gap-3 w-full relative z-10">
                   <div className="text-blue-400">{<Zap className="w-4 h-4 text-slate-700 dark:text-slate-300" />}</div>
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Annual Energy Gen."}</span>
+                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{"Annual Energy Gen."}</span>
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.annualGeneration.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
-                  {"kWh" && <span className="text-sm font-semibold text-slate-300">{"kWh"}</span>}
+                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{results.annualGeneration.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
+                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">kWh</span>
                 </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+                
               </div>
                 {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
+              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
+                <div className="flex items-center justify-between gap-3 w-full relative z-10">
                   <div className="text-blue-400">{<DollarSign className="w-4 h-4 text-slate-700 dark:text-slate-300" />}</div>
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Annual Savings"}</span>
+                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{"Annual Savings"}</span>
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{`$${results.annualSavings.toLocaleString(undefined, {maximumFractionDigits: 0})}`}</span>
-                  {"" && <span className="text-sm font-semibold text-slate-300">{""}</span>}
+                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{`$${results.annualSavings.toLocaleString(undefined, {maximumFractionDigits: 0})}`}</span>
+                  
                 </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+                
               </div>
               </div>
 
@@ -259,7 +259,7 @@ export default function SolarRoofCalculator() {
                   
                   <div>
                     <p className="text-slate-400 font-medium mb-1">Estimated Payback Period</p>
-                    <div className="flex items-baseline gap-2">
+                    <div className="flex items-baseline gap-2 flex-wrap relative z-10">
                       <p className="text-4xl font-black text-amber-400">{results.paybackPeriod.toFixed(1)}</p>
                       <span className="text-lg font-bold text-amber-400/80">Years</span>
                     </div>
@@ -268,7 +268,7 @@ export default function SolarRoofCalculator() {
 
                   <div>
                     <p className="text-slate-400 font-medium mb-1">Lifetime ROI (25 yrs)</p>
-                    <div className="flex items-baseline gap-2">
+                    <div className="flex items-baseline gap-2 flex-wrap relative z-10">
                       <p className="text-4xl font-black text-emerald-400">{results.roi.toFixed(0)}</p>
                       <span className="text-lg font-bold text-emerald-400/80">%</span>
                     </div>

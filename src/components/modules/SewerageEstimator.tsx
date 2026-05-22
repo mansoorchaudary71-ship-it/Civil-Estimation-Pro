@@ -354,7 +354,7 @@ export default function SewerageEstimator() {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-amber-50 px-4 py-3 rounded-2xl border border-amber-100 flex flex-col justify-center space-y-4">
+                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                     <h3 className="text-amber-800 font-bold border-b border-amber-200 pb-2">
                       Excavation & Backfill
                     </h3>
@@ -386,7 +386,7 @@ export default function SewerageEstimator() {
                       <span className="text-amber-800 font-bold text-base">
                         Net Backfill Volume
                       </span>
-                      <span className="text-amber-900 font-black text-2xl">
+                      <span className="text-amber-900 font-black text-2xl whitespace-nowrap">
                         {netBackfillVol.toFixed(2)} m³
                       </span>
                     </div>
@@ -603,12 +603,12 @@ export default function SewerageEstimator() {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-blue-50 px-4 py-3 rounded-2xl border border-blue-100 flex flex-col justify-center">
+                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                     <div className="text-blue-800 text-sm font-semibold mb-1">
                       Ending Invert Level
                     </div>
                     <div className="flex items-end gap-2">
-                      <span className="text-5xl font-black text-indigo-600 tracking-tighter">
+                      <span className="text-5xl font-black text-indigo-600 tracking-tighter whitespace-nowrap">
                         {endIL.toFixed(3)}
                       </span>
                       <span className="text-xl font-medium text-blue-500 mb-1">
@@ -673,12 +673,12 @@ export default function SewerageEstimator() {
                       />
                     </div>
                   </div>
-                  <div className="bg-indigo-50 px-4 py-3 rounded-2xl border border-indigo-100 flex flex-col justify-center">
+                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                     <div className="text-indigo-800 text-sm font-semibold mb-1">
                       Required Pipes
                     </div>
                     <div className="flex items-center justify-between mt-1">
-                      <div className="flex items-baseline gap-2">
+                      <div className="flex items-baseline gap-2 flex-wrap relative z-10">
                         <span className="text-6xl font-black text-indigo-600 tracking-tighter leading-none">
                           {pipeCount}
                         </span>
@@ -805,7 +805,7 @@ export default function SewerageEstimator() {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-purple-50 px-4 py-3 rounded-2xl border border-purple-100 flex flex-col justify-center space-y-4">
+                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                     <h3 className="text-purple-800 font-bold border-b border-purple-200 pb-2">
                       Material Requirements
                     </h3>
@@ -847,7 +847,7 @@ export default function SewerageEstimator() {
                             </span>
                           </div>
                           <div className="text-right">
-                            <span className="text-purple-900 font-black text-2xl">
+                            <span className="text-purple-900 font-black text-2xl whitespace-nowrap">
                               {beddingWeightTons.toFixed(2)}
                             </span>
                             <span className="text-purple-600 font-bold">
@@ -935,7 +935,7 @@ export default function SewerageEstimator() {
                       </select>
                     </div>
                   </div>
-                  <div className="bg-cyan-50 px-4 py-3 rounded-2xl border border-cyan-100 flex flex-col justify-center space-y-4">
+                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                     <h3 className="text-cyan-800 font-bold border-b border-cyan-200 pb-2">
                       Full-Bore Flow Characteristics
                     </h3>
@@ -980,7 +980,7 @@ export default function SewerageEstimator() {
                         Discharge (Liters/sec)
                       </span>
                       <div className="text-right">
-                        <span className="text-cyan-900 font-black text-2xl">
+                        <span className="text-cyan-900 font-black text-2xl whitespace-nowrap">
                           {dischargeCapacityL.toFixed(2)}
                         </span>
                         <span className="text-cyan-600 font-bold">
@@ -1067,7 +1067,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                   </div>
-                  <div className="bg-emerald-50 px-4 py-3 rounded-2xl border border-emerald-100 flex flex-col justify-center space-y-4">
+                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                     <h3 className="text-emerald-800 font-bold border-b border-emerald-200 pb-2">
                       Septic Tank Dimensions
                     </h3>

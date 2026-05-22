@@ -176,9 +176,11 @@ export function CalculationHistory({
   };
 
   const deleteItem = (id: string) => {
-    const newHistory = history.filter(h => h.id !== id);
-    setHistory(newHistory);
-    localStorage.setItem(`calc_history_${calculatorId}`, JSON.stringify(newHistory));
+    if (window.confirm("Are you sure you want to permanently delete this calculation?")) {
+      const newHistory = history.filter(h => h.id !== id);
+      setHistory(newHistory);
+      localStorage.setItem(`calc_history_${calculatorId}`, JSON.stringify(newHistory));
+    }
   };
 
   const handleGoHome = () => {

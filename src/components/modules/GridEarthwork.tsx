@@ -287,56 +287,56 @@ export default function GridEarthworkEstimator() {
               
               <div className="w-full space-y-4 mb-4">
                  {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
+              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
+                <div className="flex items-center justify-between gap-3 w-full relative z-10">
                   
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{`Total ${isCut ? "Cut" : isFill ? "Fill" : ""} Volume`}</span>
+                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{`Total ${isCut ? "Cut" : isFill ? "Fill" : ""} Volume`}</span>
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{totalVolume.toFixed(2)}</span>
-                  {unitV && <span className="text-sm font-semibold text-slate-300">{unitV}</span>}
+                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{totalVolume.toFixed(2)}</span>
+                  {unitV && <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{unitV}</span>}
                 </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+                
               </div>
                  
                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                    {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
+              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
+                <div className="flex items-center justify-between gap-3 w-full relative z-10">
                   
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Avg Existing Elev."}</span>
+                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{"Avg Existing Elev."}</span>
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{avgExisting.toFixed(3)}</span>
-                  {unitL && <span className="text-sm font-semibold text-slate-300">{unitL}</span>}
+                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{avgExisting.toFixed(3)}</span>
+                  {unitL && <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{unitL}</span>}
                 </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+                
               </div>
                    {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
+              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
+                <div className="flex items-center justify-between gap-3 w-full relative z-10">
                   
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Avg Proposed Elev."}</span>
+                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{"Avg Proposed Elev."}</span>
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{avgProposed.toFixed(3)}</span>
-                  {unitL && <span className="text-sm font-semibold text-slate-300">{unitL}</span>}
+                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{avgProposed.toFixed(3)}</span>
+                  {unitL && <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{unitL}</span>}
                 </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+                
               </div>
                  </div>
                  
                  {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
+              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
+                <div className="flex items-center justify-between gap-3 w-full relative z-10">
                   
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{isCut ? "Average Cut Depth" : isFill ? "Average Fill Depth" : "Average Depth"}</span>
+                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{isCut ? "Average Cut Depth" : isFill ? "Average Fill Depth" : "Average Depth"}</span>
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{Math.abs(avgDepth).toFixed(3)}</span>
-                  {unitL && <span className="text-sm font-semibold text-slate-300">{unitL}</span>}
+                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{Math.abs(avgDepth).toFixed(3)}</span>
+                  {unitL && <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{unitL}</span>}
                 </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
+                
               </div>
               </div>
             </div>

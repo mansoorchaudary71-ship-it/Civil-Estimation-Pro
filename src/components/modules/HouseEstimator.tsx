@@ -589,7 +589,7 @@ export default function HouseEstimator() {
               <span className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
                 Built-up
               </span>
-              <span className="text-2xl font-black text-indigo-600 tracking-tighter">
+              <span className="text-2xl font-black text-indigo-600 tracking-tighter whitespace-nowrap">
                 {builtUpArea.toFixed(0)}
                 <span className="text-sm font-medium text-indigo-400">
                   sq.ft
@@ -1038,7 +1038,7 @@ export default function HouseEstimator() {
               </div>
               <div className="space-y-4">
                 <div className="flex justify-between items-end mb-2">
-                  <span className="text-2xl font-black text-violet-600 tracking-tighter">
+                  <span className="text-2xl font-black text-violet-600 tracking-tighter whitespace-nowrap">
                     {getQualityLabel(finishQuality)}
                   </span>
                   <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
@@ -1428,7 +1428,7 @@ export default function HouseEstimator() {
                           </ResponsiveContainer>
                         </div>
                         <div className="w-full md:w-1/2 space-y-6">
-                          <div className="bg-transparent px-4 py-3 rounded-2xl border border-slate-100 relative overflow-hidden group flex flex-col justify-center min-w-0">
+                          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                             <div className="absolute top-0 left-0 w-1.5 h-full bg-slate-500" />
                             <div className="text-slate-700 dark:text-slate-300 text-xs md:text-sm font-bold uppercase tracking-widest mb-1 pl-2 truncate">
                               Grey Structure
@@ -1443,7 +1443,7 @@ export default function HouseEstimator() {
                               Foundation, Framing, Masonry
                             </div>
                           </div>
-                          <div className="bg-violet-50 px-4 py-3 rounded-2xl border border-violet-100 relative overflow-hidden flex flex-col justify-center min-w-0">
+                          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                             <div className="absolute top-0 left-0 w-1.5 h-full bg-violet-500" />
                             <div className="text-violet-600 text-xs md:text-sm font-bold uppercase tracking-widest mb-1 pl-2 truncate">
                               Finishing Works

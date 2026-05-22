@@ -381,7 +381,9 @@ export default function AreaCalculator() {
   };
 
   const deleteCalculation = (id: string) => {
-    setSavedCalcs(savedCalcs.filter(c => c.id !== id));
+    if (window.confirm("Are you sure you want to permanently delete this task?")) {
+      setSavedCalcs(savedCalcs.filter(c => c.id !== id));
+    }
   };
 
   const restoreCalculation = (calc: SavedCalc) => {
@@ -990,7 +992,7 @@ export default function AreaCalculator() {
                   <span className="block text-slate-700 dark:text-slate-300 text-xs font-bold uppercase mb-1">
                     Total Area
                   </span>{" "}
-                  <span className="text-3xl font-black text-indigo-400">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-indigo-400 whitespace-nowrap">
                     {formatArea(calcAreaSqM)}
                   </span>{" "}
                 </div>{" "}
@@ -999,7 +1001,7 @@ export default function AreaCalculator() {
                   <span className="block text-slate-700 dark:text-slate-300 text-xs font-bold uppercase mb-1">
                     Perimeter / Circumference
                   </span>{" "}
-                  <span className="text-3xl font-black text-teal-400">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-teal-400 whitespace-nowrap">
                     {formatPerimeter(calcPerimeterM)}
                   </span>{" "}
                 </div>{" "}

@@ -30,7 +30,7 @@ export default function RelatedCalculators({ diameter_mm, isMetric = true }: Rel
           </a>
         ) : (
           <div className="p-5 bg-slate-100 rounded-xl border border-slate-200 opacity-50 flex items-center justify-center">
-            <span className="text-sm font-semibold text-slate-400">Smallest Size</span>
+            <span className="text-[13px] sm:text-sm font-semibold text-slate-400">Smallest Size</span>
           </div>
         )}
         
@@ -45,7 +45,7 @@ export default function RelatedCalculators({ diameter_mm, isMetric = true }: Rel
           </a>
         ) : (
           <div className="p-5 bg-slate-100 rounded-xl border border-slate-200 opacity-50 flex items-center justify-center">
-            <span className="text-sm font-semibold text-slate-400">Largest Size</span>
+            <span className="text-[13px] sm:text-sm font-semibold text-slate-400">Largest Size</span>
           </div>
         )}
 

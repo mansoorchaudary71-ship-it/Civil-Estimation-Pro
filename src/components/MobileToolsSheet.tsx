@@ -122,9 +122,10 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
                     </svg>
 
                     <div className="flex-shrink-0 w-12 h-12 rounded-[14px] bg-slate-50 dark:bg-slate-900 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-[var(--accent-vibrant)] group-hover:bg-orange-50 dark:group-hover:bg-orange-900/20 transition-colors relative z-10">
-                      {typeof tool.icon === 'function' ? (
-                        <tool.icon className="w-6 h-6" />
-                      ) : (
+                      {typeof tool.icon === 'function' ? (() => {
+                        const Icon = tool.icon as any;
+                        return <Icon className="w-6 h-6" />
+                      })() : (
                         React.isValidElement(tool.icon) && React.cloneElement(tool.icon as React.ReactElement, { className: "w-6 h-6" } as any)
                       )}
                     </div>

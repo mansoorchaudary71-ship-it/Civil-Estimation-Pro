@@ -40,7 +40,7 @@ export function CalculationExplanation({
               </p>
               {genericFormula.map((item, idx) => (
                 <div key={idx} className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-3 border border-slate-100 dark:border-slate-700/50">
-                  <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 block mb-1">
+                  <span className="text-[13px] sm:text-sm font-semibold text-slate-700 dark:text-slate-500 dark:text-slate-400 block mb-1">
                     {item.label}
                   </span>
                   <div className="font-mono text-sm text-indigo-600 dark:text-indigo-400 overflow-x-auto pb-1">

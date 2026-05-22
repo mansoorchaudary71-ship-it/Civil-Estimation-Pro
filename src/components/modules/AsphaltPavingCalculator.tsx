@@ -3,6 +3,7 @@ import { Route, Droplet, ArrowRight, Layers, Calculator } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import ColorfulTab from "../ui/ColorfulTab";
+import { ResultCard } from "../ui/ResultCard";
 
 type Tab = "asphalt" | "prime" | "tack";
 
@@ -149,48 +150,30 @@ function AsphaltCalculator() {
           </InputGroup>
         </div>
 
-        <div className="bg-slate-900 rounded-2xl p-6 text-white flex flex-col justify-center">
+        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
           <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
           
           {results ? (
             <div className="space-y-4">
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Required Asphalt"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.tons}</span>
-                  {"Metric Tons" && <span className="text-sm font-semibold text-slate-300">{"Metric Tons"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
+              <ResultCard
+  title="Required Asphalt"
+  value={results.tons}
+  unit="Metric Tons"
+  variant="neutral"
+/>
               <div className="grid grid-cols-2 gap-4">
-                {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Volume"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.volume}</span>
-                  {"m³" && <span className="text-sm font-semibold text-slate-300">{"m³"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-                {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Surface Area"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.area}</span>
-                  {"m²" && <span className="text-sm font-semibold text-slate-300">{"m²"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
+                <ResultCard
+  title="Volume"
+  value={results.volume}
+  unit="m³"
+  variant="neutral"
+/>
+                <ResultCard
+  title="Surface Area"
+  value={results.area}
+  unit="m²"
+  variant="neutral"
+/>
               </div>
             </div>
           ) : (
@@ -263,35 +246,23 @@ function PrimeCoatCalculator() {
           </InputGroup>
         </div>
 
-        <div className="bg-slate-900 rounded-2xl p-6 text-white flex flex-col justify-center">
+        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
           <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
           
           {results ? (
             <div className="space-y-4">
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Prime Coat"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.liters}</span>
-                  {"Liters" && <span className="text-sm font-semibold text-slate-300">{"Liters"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Standard Drums"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.drums}</span>
-                  {"drums approx. (200L)" && <span className="text-sm font-semibold text-slate-300">{"drums approx. (200L)"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
+              <ResultCard
+  title="Total Prime Coat"
+  value={results.liters}
+  unit="Liters"
+  variant="neutral"
+/>
+              <ResultCard
+  title="Standard Drums"
+  value={results.drums}
+  unit="drums approx. (200L)"
+  variant="neutral"
+/>
             </div>
           ) : (
             <div className="text-center text-slate-500 py-8">
@@ -360,35 +331,23 @@ function TackCoatCalculator() {
           </InputGroup>
         </div>
 
-        <div className="bg-slate-900 rounded-2xl p-6 text-white flex flex-col justify-center">
+        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
           <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
           
           {results ? (
             <div className="space-y-4">
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Tack Coat"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.liters}</span>
-                  {"Liters" && <span className="text-sm font-semibold text-slate-300">{"Liters"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Standard Drums"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.drums}</span>
-                  {"drums approx. (200L)" && <span className="text-sm font-semibold text-slate-300">{"drums approx. (200L)"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
+              <ResultCard
+  title="Total Tack Coat"
+  value={results.liters}
+  unit="Liters"
+  variant="neutral"
+/>
+              <ResultCard
+  title="Standard Drums"
+  value={results.drums}
+  unit="drums approx. (200L)"
+  variant="neutral"
+/>
             </div>
           ) : (
             <div className="text-center text-slate-500 py-8">

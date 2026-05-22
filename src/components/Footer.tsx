@@ -15,7 +15,7 @@ export default function Footer({ onNavigate }: { activeModule?: ModuleId, onNavi
             className="flex items-center justify-start cursor-pointer shrink-0"
             onClick={() => onNavigate?.("home")}
           >
-            <span className="font-heading font-black text-2xl tracking-tighter text-[#111111] dark:text-white">
+            <span className="font-heading font-black text-2xl tracking-tighter text-[#111111] dark:text-white whitespace-nowrap">
               Civil Estimation Pro
             </span>
           </div>

@@ -134,10 +134,11 @@ export default function ShareButtonWithPopup({
         isEven = !isEven;
       });
     } else if (cItem) {
+      const isSI = cItem.unitVol === "m³";
       addRow("Cement", cItem.cementBags || 0, "Bag", "cement");
       addRow("Sand", cItem.sandVol || 0, cItem.unitVol, "sand");
       addRow("Aggregate", cItem.aggregateVol || 0, cItem.unitVol, "aggregate");
-      addRow("Water", cItem.waterLiters || 0, "L", "water");
+      addRow("Water", isSI ? (cItem.waterLiters || 0) : ((cItem.waterLiters / 3.78541) || 0), isSI ? "L" : "Gal", "water");
       if (cItem.steelKg) addRow("Steel", cItem.steelKg, "kg", "steel");
       if (cItem.bricksCount)
         addRow("Bricks", cItem.bricksCount, "nos", "bricks");
@@ -228,10 +229,11 @@ export default function ShareButtonWithPopup({
         });
       });
     } else if (cItem) {
+      const isSI = cItem.unitVol === "m³";
       addRow("Cement", cItem.cementBags || 0, "Bag", "cement");
       addRow("Sand", cItem.sandVol || 0, cItem.unitVol, "sand");
       addRow("Aggregate", cItem.aggregateVol || 0, cItem.unitVol, "aggregate");
-      addRow("Water", cItem.waterLiters || 0, "L", "water");
+      addRow("Water", isSI ? (cItem.waterLiters || 0) : ((cItem.waterLiters / 3.78541) || 0), isSI ? "L" : "Gal", "water");
       if (cItem.steelKg) addRow("Steel", cItem.steelKg, "kg", "steel");
       if (cItem.bricksCount)
         addRow("Bricks", cItem.bricksCount, "nos", "bricks");
@@ -470,10 +472,11 @@ export default function ShareButtonWithPopup({
         currentRow++;
       });
     } else if (cItem) {
+      const isSI = cItem.unitVol === "m³";
       addRow("Cement", cItem.cementBags || 0, "Bag", "cement");
       addRow("Sand", cItem.sandVol || 0, cItem.unitVol, "sand");
       addRow("Aggregate", cItem.aggregateVol || 0, cItem.unitVol, "aggregate");
-      addRow("Water", cItem.waterLiters || 0, "L", "water");
+      addRow("Water", isSI ? cItem.waterLiters : (cItem.waterLiters / 3.78541) || 0, isSI ? "L" : "Gal", "water");
       if (cItem.steelKg) addRow("Steel", cItem.steelKg, "kg", "steel");
       if (cItem.bricksCount)
         addRow("Bricks", cItem.bricksCount, "nos", "bricks");

@@ -21,11 +21,6 @@ import { useGlobalSettings } from "../../context/SettingsContext";
 const STANDARD_BRICK = { l: 0.23, w: 0.11, h: 0.075 };
 /* in m (9" x 4.3" x 3") */ const MODULAR_BRICK = { l: 0.19, w: 0.09, h: 0.09 };
 /* in m */ const MORTAR_THICKNESS = 0.01;
-/* 10mm mortar */ const MIX_RATIOS: Record<string, { c: number; s: number }> = {
-  "1:3": { c: 1, s: 3 },
-  "1:4": { c: 1, s: 4 },
-  "1:6": { c: 1, s: 6 },
-};
 
 export default function Brickwork9InchModule({ hideHistory = false }: { hideHistory?: boolean }) {
   const { currentUnit } = useGlobalSettings();
@@ -37,7 +32,9 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
   const [wallLength, setWallLength] = useState<string>("5");
   const [wallHeight, setWallHeight] = useState<string>("3");
   const [deductions, setDeductions] = useState<string>("0");
-  const [mixRatio, setMixRatio] = useState<string>("1:4");
+  const [mixRatioPreset, setMixRatioPreset] = useState<string>("1:4");
+  const [cementRatio, setCementRatio] = useState<string>("1");
+  const [sandRatio, setSandRatio] = useState<string>("4");
   const [includeWastage, setIncludeWastage] = useState<boolean>(true);
 
   React.useEffect(() => {
@@ -90,12 +87,13 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
     if (includeWastage) {
       dryMortarVol = dryMortarVol * 1.1; /* 10% wastage for mortar */
     }
-    const ratio = MIX_RATIOS[mixRatio];
-    const totalRatio = ratio.c + ratio.s;
-    /* Cement in m3 */ const cementM3 = (dryMortarVol * ratio.c) / totalRatio;
+    const cRatio = parseFloat(cementRatio) || 1;
+    const sRatio = parseFloat(sandRatio) || 4;
+    const totalRatio = cRatio + sRatio;
+    /* Cement in m3 */ const cementM3 = (dryMortarVol * cRatio) / (totalRatio || 1);
     /* 1 bag = 0.0347 m3 */ const cementBags = Math.ceil(cementM3 / 0.0347);
     /* Sand in m3 -> convert to cft */ const sandM3 =
-      (dryMortarVol * ratio.s) / totalRatio;
+      (dryMortarVol * sRatio) / (totalRatio || 1);
     const sandCft = sandM3 * 35.3147;
 
     return {
@@ -112,7 +110,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
       sandM3,
       isSI
     };
-  }, [wallLength, wallHeight, deductions, brickType, mixRatio, includeWastage, isSI]);
+  }, [wallLength, wallHeight, deductions, brickType, cementRatio, sandRatio, includeWastage, isSI]);
   const explanationOpts = useMemo(() => {
     let l = parseFloat(wallLength) || 0;
     let h = parseFloat(wallHeight) || 0;
@@ -257,22 +255,57 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                 </div>
 
                 <div className="flex flex-col justify-between">
-                  <div>
-                    <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
-                      Mortar Ratio (Cement:Sand)
-                    </label>
-                    <div className="relative">
-                      <select
-                        value={mixRatio}
-                        onChange={(e) => setMixRatio(e.target.value)}
-                        className="w-full appearance-none bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-orange-500/50 shadow-sm transition-all cursor-pointer font-bold"
-                      >
-                        <option value="1:3">1:3 (Rich Mix)</option>
-                        <option value="1:4">1:4 (Standard Mix)</option>
-                        <option value="1:6">1:6 (Lean Mix)</option>
-                      </select>
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-700 dark:text-slate-300">
-                        <Settings className="w-5 h-5" />
+                  <div className="flex flex-col gap-4">
+                    <div>
+                      <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
+                        Mortar Mix Preset
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={mixRatioPreset}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setMixRatioPreset(val);
+                            if (val !== "custom") {
+                              const [c, s] = val.split(":");
+                              setCementRatio(c);
+                              setSandRatio(s);
+                            }
+                          }}
+                          className="w-full appearance-none bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 pr-10 focus:outline-none focus:ring-2 focus:ring-orange-500/50 shadow-sm transition-all cursor-pointer font-bold"
+                        >
+                          <option value="1:3">1:3 (Rich Mix)</option>
+                          <option value="1:4">1:4 (Standard Mix)</option>
+                          <option value="1:6">1:6 (Lean Mix)</option>
+                          <option value="custom">Custom Mix</option>
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-700 dark:text-slate-300">
+                          <Settings className="w-5 h-5" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
+                          Cement Ratio
+                        </label>
+                        <input
+                          type="number"
+                          value={cementRatio}
+                          onChange={(e) => { setCementRatio(e.target.value); setMixRatioPreset("custom"); }}
+                          className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/50 shadow-sm transition-all"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
+                          Sand Ratio
+                        </label>
+                        <input
+                          type="number"
+                          value={sandRatio}
+                          onChange={(e) => { setSandRatio(e.target.value); setMixRatioPreset("custom"); }}
+                          className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 font-medium focus:outline-none focus:ring-2 focus:ring-orange-500/50 shadow-sm transition-all"
+                        />
                       </div>
                     </div>
                   </div>
@@ -335,7 +368,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                 />
               </div>
 
-              <div className="px-6 py-4 bg-transparent dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 rounded-2xl flex justify-center text-center mt-2">
+              <div className="px-4 py-3 bg-transparent dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 rounded-2xl flex justify-center text-center mt-2">
                 <span className="flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300">
                   <Droplets className="w-4 h-4 text-blue-400" />
                   Dry Mortar: {results.dryMortarVol.toFixed(3)} {results.isSI ? 'm³' : 'cft'}
@@ -351,7 +384,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
       {!hideHistory && (
         <CalculationHistory
           calculatorId="brickwork_9inch_v1"
-          currentInputs={{ brickType, wallLength, wallHeight, deductions, mixRatio, includeWastage }}
+          currentInputs={{ brickType, wallLength, wallHeight, deductions, mixRatioPreset, cementRatio, sandRatio, includeWastage }}
           currentResults={{ noOfBricks: results.noOfBricks, cementBags: results.cementBags, sandCft: results.sandCft }}
           summaryGeneration={(inputs, res) => `9in Brickwork Area ${inputs.wallLength}x${inputs.wallHeight}`}
           explanation={explanationOpts}
@@ -360,7 +393,9 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
             if (inputs.wallLength !== undefined) setWallLength(inputs.wallLength);
             if (inputs.wallHeight !== undefined) setWallHeight(inputs.wallHeight);
             if (inputs.deductions !== undefined) setDeductions(inputs.deductions);
-            if (inputs.mixRatio !== undefined) setMixRatio(inputs.mixRatio);
+            if (inputs.mixRatioPreset !== undefined) setMixRatioPreset(inputs.mixRatioPreset);
+            if (inputs.cementRatio !== undefined) setCementRatio(inputs.cementRatio);
+            if (inputs.sandRatio !== undefined) setSandRatio(inputs.sandRatio);
             if (inputs.includeWastage !== undefined) setIncludeWastage(inputs.includeWastage);
           }}
         />

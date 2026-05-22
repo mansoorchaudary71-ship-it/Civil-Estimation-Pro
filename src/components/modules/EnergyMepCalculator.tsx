@@ -139,35 +139,35 @@ function SolarCalculator() {
           </div>
         </div>
 
-        <div className="bg-slate-900 rounded-2xl p-6 text-white flex flex-col justify-center">
+        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
           <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
           
           {results ? (
             <div className="space-y-4">
-              <div className="bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">Required System Capacity</span>
+              <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                <div className="flex items-center justify-between gap-3 w-full relative z-10">
+                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">Required System Capacity</span>
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.requiredKw}</span>
-                  <span className="text-sm font-semibold text-slate-300">kW</span>
+                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{results.requiredKw}</span>
+                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">kW</span>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">Total Panels (~400W)</span>
+                <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                  <div className="flex items-center justify-between gap-3 w-full relative z-10">
+                    <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">Total Panels (~400W)</span>
                   </div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-3xl font-black text-white">{results.panelCount}</span>
-                    <span className="text-sm font-semibold text-slate-300">panels</span>
+                  <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                    <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{results.panelCount}</span>
+                    <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">panels</span>
                   </div>
                 </div>
-                <div className="bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">Estimated Cost</span>
+                <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                  <div className="flex items-center justify-between gap-3 w-full relative z-10">
+                    <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">Estimated Cost</span>
                   </div>
-                  <div className="flex items-baseline gap-2">
+                  <div className="flex items-baseline gap-2 flex-wrap relative z-10">
                     <span className="text-xl font-bold text-emerald-400">{formatCurrency(results.estCostConverted)}</span>
                   </div>
                 </div>
@@ -210,15 +210,15 @@ function WaterHeaterCalculator() {
             placeholder="e.g. 4"
           />
         </div>
-        <div className="bg-slate-900 rounded-2xl p-6 text-white flex flex-col justify-center">
+        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
           <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
           {results ? (
             <div className="space-y-4">
-              <div className="bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700">
+              <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700">
                 <div className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Recommended System Size</div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.recommendedSize}</span>
-                  <span className="text-sm font-semibold text-slate-300">Liters per Day (LPD)</span>
+                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{results.recommendedSize}</span>
+                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">Liters per Day (LPD)</span>
                 </div>
               </div>
             </div>
@@ -255,15 +255,15 @@ function AcCalculator() {
             placeholder="e.g. 150"
           />
         </div>
-        <div className="bg-slate-900 rounded-2xl p-6 text-white flex flex-col justify-center">
+        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
           <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
           {results ? (
             <div className="space-y-4">
-              <div className="bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700">
+              <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700">
                 <div className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Recommended AC Capacity</div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.tonnage.toFixed(1)}</span>
-                  <span className="text-sm font-semibold text-slate-300">Tons</span>
+                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{results.tonnage.toFixed(1)}</span>
+                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">Tons</span>
                 </div>
               </div>
             </div>

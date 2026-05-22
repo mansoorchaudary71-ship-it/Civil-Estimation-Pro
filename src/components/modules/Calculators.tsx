@@ -38,7 +38,7 @@ import { SEO } from "../SEO";
 import { StyledChart } from "../ui/EstimateVisualizer";
 
 export default function ConstructionMaterialEstimator() {
-  const { formatCurrency, currentUnit, currentCurrency } = useGlobalSettings();
+  const { formatCurrency, currentUnit, setCurrentUnit, currentCurrency } = useGlobalSettings();
   const { user } = useAuth();
   const { isProcessing, hasData, processEstimate, resetEstimate } = useEstimateProcessing();
   
@@ -54,7 +54,7 @@ export default function ConstructionMaterialEstimator() {
   const isSI = currentUnit === "Metric";
   const unitFt = isSI ? "m" : "ft";
   const unitIn = isSI ? "cm" : "in";
-  const unitVol = isSI ? "m³" : "cft";
+  const unitVol = isSI ? "m³" : "ft³";
   const unitArea = isSI ? "m²" : "sq.ft";
   const tabs = [
     { id: "master", label: "Master Quantities", icon: Calculator },
@@ -252,7 +252,7 @@ export default function ConstructionMaterialEstimator() {
       "Cement Required": `${res.cementBags.toFixed(2)} Bags`,
       "Sand Required": `${res.sandVol.toFixed(2)} ${unitVol}`,
       "Aggregate Required": `${res.aggregateVol.toFixed(2)} ${unitVol}`,
-      "Water Required": `${res.waterLiters.toFixed(1)} L`,
+      "Water Required": isSI ? `${res.waterLiters.toFixed(1)} Liters` : `${(res.waterLiters / 3.78541).toFixed(1)} Gallons`,
     };
     currentCartItem = {
       type: "Concrete",
@@ -264,11 +264,22 @@ export default function ConstructionMaterialEstimator() {
       rawExport: currentExportData,
     };
     content = (
-      <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 mb-4 gap-4">
-          <h3 className="font-bold text-lg text-slate-800 dark:text-white">
-            Concrete Estimator
-          </h3>
+      <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full relative">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b pb-4 mb-4 gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <h3 className="font-bold text-lg text-slate-800 dark:text-white">
+              Concrete Estimator
+            </h3>
+            <UnitToggleGroup
+              units={[
+                { id: "Metric", label: "Metric (m³, L)" },
+                { id: "Imperial", label: "Imperial (ft³, gal)" },
+              ]}
+              activeUnit={currentUnit || "Metric"}
+              onChange={setCurrentUnit}
+              size="sm"
+            />
+          </div>
           <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl w-full sm:w-auto">
             {(["slab", "column", "staircase"] as const).map((type) => (
               <button
@@ -1352,7 +1363,7 @@ export default function ConstructionMaterialEstimator() {
                   })}
                   {showCost && currentCartItem && (
                     <div className="pt-4 mt-4 border-t-2 border-slate-700 space-y-3">
-                      <div className="grid grid-cols-2 gap-3 text-xs bg-slate-800/50 p-3 rounded-xl border border-slate-700">
+                      <div className="grid grid-cols-2 gapx-4 py-3 text-xs bg-slate-800/50 p-3 rounded-xl border border-slate-700">
                         {currentCartItem.cementBags > 0 && (
                           <div className="col-span-2 sm:col-span-1">
                             <label className="text-slate-700 dark:text-slate-300 mb-1 block">
@@ -1491,7 +1502,7 @@ export default function ConstructionMaterialEstimator() {
                         {currentCartItem.waterLiters > 0 && (
                           <div className="col-span-2 sm:col-span-1">
                             <label className="text-slate-700 dark:text-slate-300 mb-1 block">
-                              Water (per L)
+                              Water (per {isSI ? "L" : "Gal"})
                             </label>
                             <input
                               type="number"
@@ -1508,6 +1519,11 @@ export default function ConstructionMaterialEstimator() {
                                 });
                               }}
                             />
+                            <div className="text-xs text-slate-500 mt-1 uppercase text-right">
+                              {isSI 
+                                ? `${currentCartItem.waterLiters.toFixed(1)} L` 
+                                : `${(currentCartItem.waterLiters / 3.78541).toFixed(1)} Gal`}
+                            </div>
                           </div>
                         )}
                       </div>
@@ -1521,7 +1537,7 @@ export default function ConstructionMaterialEstimator() {
                               currentCartItem.sandVol * rates.sand +
                               (currentCartItem.aggregateVol || 0) *
                                 rates.aggregate +
-                              currentCartItem.waterLiters * rates.water +
+                              (isSI ? currentCartItem.waterLiters : currentCartItem.waterLiters / 3.78541) * rates.water +
                               (currentCartItem.steelKg || 0) * rates.steel +
                               (currentCartItem.bricksCount || 0) *
                                 rates.bricks +
@@ -1536,7 +1552,8 @@ export default function ConstructionMaterialEstimator() {
                         const cCost = currentCartItem.cementBags * rates.cement;
                         const sCost = currentCartItem.sandVol * rates.sand;
                         const aCost = (currentCartItem.aggregateVol || 0) * rates.aggregate;
-                        const wCost = currentCartItem.waterLiters * rates.water;
+                        const waterAmount = isSI ? currentCartItem.waterLiters : (currentCartItem.waterLiters / 3.78541);
+                        const wCost = waterAmount * rates.water;
                         const stCost = (currentCartItem.steelKg || 0) * rates.steel;
                         const bkCost = (currentCartItem.bricksCount || 0) * rates.bricks;
                         const blCost = (currentCartItem.blocksCount || 0) * rates.blocks;
@@ -1660,8 +1677,8 @@ export default function ConstructionMaterialEstimator() {
                     <span className="text-indigo-100/70 font-semibold">
                       Water
                     </span>
-                    <span className="font-mono font-bold text-white">
-                      {totalWater.toFixed(1)} L
+                    <span className="font-mono font-bold text-white uppercase text-right">
+                      {isSI ? `${totalWater.toFixed(1)} L` : `${(totalWater / 3.78541).toFixed(1)} Gal`}
                     </span>
                   </div>
                 </div>

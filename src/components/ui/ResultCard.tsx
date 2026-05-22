@@ -1,13 +1,16 @@
 import React from 'react';
+import { motion } from 'motion/react';
 
 export interface ResultCardProps {
   title: string;
   value: string | number;
-  unit?: string;
+  unit?: React.ReactNode;
   icon?: React.ReactNode;
-  description?: string;
-  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'neutral';
+  description?: React.ReactNode;
+  badge?: React.ReactNode;
+  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'neutral' | 'dark';
   className?: string;
+  delay?: number;
 }
 
 export function ResultCard({
@@ -15,59 +18,74 @@ export function ResultCard({
   value,
   unit,
   icon,
+  badge,
   description,
   variant = 'neutral',
-  className = ''
+  className = '',
+  delay = 0,
 }: ResultCardProps) {
-  const variants = {
-    primary: 'bg-white dark:bg-slate-900 border-indigo-100 dark:border-indigo-800/50 shadow-[0_4px_24px_rgba(79,70,229,0.06)] dark:shadow-[0_4px_24px_rgba(79,70,229,0.2)] text-indigo-900 dark:text-indigo-100',
-    secondary: 'bg-white dark:bg-slate-900 border-blue-100 dark:border-blue-800/50 shadow-[0_4px_24px_rgba(59,130,246,0.06)] dark:shadow-[0_4px_24px_rgba(59,130,246,0.2)] text-blue-900 dark:text-blue-100',
-    success: 'bg-white dark:bg-slate-900 border-emerald-100 dark:border-emerald-800/50 shadow-[0_4px_24px_rgba(16,185,129,0.06)] dark:shadow-[0_4px_24px_rgba(16,185,129,0.2)] text-emerald-900 dark:text-emerald-100',
-    warning: 'bg-white dark:bg-slate-900 border-amber-100 dark:border-amber-800/50 shadow-[0_4px_24px_rgba(245,158,11,0.06)] dark:shadow-[0_4px_24px_rgba(245,158,11,0.2)] text-amber-900 dark:text-amber-100',
-    neutral: 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)] text-slate-900 dark:text-slate-100',
+  const accentColors = {
+    primary: 'text-indigo-600 dark:text-indigo-400',
+    secondary: 'text-blue-600 dark:text-blue-400',
+    success: 'text-emerald-600 dark:text-emerald-400',
+    warning: 'text-amber-600 dark:text-amber-400',
+    neutral: 'text-slate-600 dark:text-slate-400'
   };
 
-  const iconColors = {
-    primary: 'text-indigo-500 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/40',
-    secondary: 'text-blue-500 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/40',
-    success: 'text-emerald-500 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/40',
-    warning: 'text-amber-500 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/40',
-    neutral: 'text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800',
+  const bgStyles = {
+    primary: 'bg-white dark:bg-white/5',
+    secondary: 'bg-white dark:bg-white/5',
+    success: 'bg-white dark:bg-white/5',
+    warning: 'bg-white dark:bg-white/5',
+    neutral: 'bg-white dark:bg-white/5'
   };
 
-  const baseClass = variants[variant] || variants.neutral;
-  const bgClass = iconColors[variant] || iconColors.neutral;
+  const accentColor = accentColors[variant] || accentColors.neutral;
+  const bgStyle = bgStyles[variant] || bgStyles.neutral;
 
   return (
-    <div className={`p-5 sm:p-6 min-h-[140px] rounded-[24px] border ${baseClass} flex flex-col justify-between gap-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg break-words w-full ${className}`}>
-      <div className="flex items-start justify-between gap-3 w-full">
-        <h4 className="text-xs sm:text-sm font-bold opacity-80 uppercase tracking-wider leading-relaxed text-balance">
-          {title}
-        </h4>
-        {icon && (
-          <div className={`p-2.5 rounded-full flex-shrink-0 ${bgClass}`}>
-            {icon}
+    <motion.div 
+      initial={{ opacity: 0, y: 15, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
+      transition={{ duration: 0.4, delay, ease: [0.23, 1, 0.32, 1] }}
+      className={`relative p-5 sm:p-6 rounded-[28px] backdrop-blur-3xl border border-slate-200/50 dark:border-white/5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-none flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:hover:bg-white/10 w-full overflow-hidden ${bgStyle} ${className}`}
+    >
+      <div className="flex items-center justify-between gap-3 w-full relative z-10">
+        <div className="flex items-center gap-2">
+           {icon && (
+            <div className={`flex-shrink-0 ${accentColor}`}>
+              {icon}
+            </div>
+          )}
+          <h4 className={`text-[10px] sm:text-xs font-bold uppercase tracking-[0.1em] ${accentColor}`}>
+            {title}
+          </h4>
+        </div>
+        {badge && (
+          <div className="flex-shrink-0 flex items-center bg-amber-500/10 dark:bg-amber-400/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-[10px] sm:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+            {badge}
           </div>
         )}
       </div>
 
-      <div className="flex flex-col gap-1.5 w-full">
+      <div className="flex flex-col w-full relative z-10 mt-1">
         <div className="flex flex-wrap items-baseline gap-2">
-          <span className="text-3xl sm:text-4xl font-black tracking-tight break-words" style={{ wordBreak: 'break-word', overflowWrap: 'break-word' }}>
+          <span className="text-4xl sm:text-5xl font-black tracking-tighter whitespace-nowrap text-slate-800 dark:text-white">
             {value}
           </span>
           {unit && (
-            <span className="text-sm font-semibold opacity-70">
+            <span className="text-[13px] sm:text-sm font-semibold ml-1 text-slate-500 dark:text-slate-400">
               {unit}
             </span>
           )}
         </div>
         {description && (
-          <p className="text-[11px] sm:text-xs opacity-75 font-medium leading-relaxed max-w-full break-words">
+          <div className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium leading-relaxed max-w-full break-words mt-1">
             {description}
-          </p>
+          </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

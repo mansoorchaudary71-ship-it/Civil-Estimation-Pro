@@ -14,6 +14,7 @@ import {
   Construction,
 } from "lucide-react";
 import ColorfulTab from "../ui/ColorfulTab";
+import { ResultCard } from "../ui/ResultCard";
 export interface ManholeResults {
   excavationVol: number;
   wallVol: number;
@@ -325,30 +326,21 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
           </div>{" "}
           <div className="lg:col-span-2 w-full space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="text-blue-400">{<Droplets className="w-4 h-4 text-white" />}</div>
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Concrete Volume"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{totalWetConcrete.toFixed(2)}</span>
-                  {"m³" && <span className="text-sm font-semibold text-slate-300">{"m³"}</span>}
-                </div>
-                {"Wet Area (Base + Wall + Slab)" && <p className="text-[10px] font-medium text-slate-500 mt-2">{"Wet Area (Base + Wall + Slab)"}</p>}
-              </div>
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Dry Concrete"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{totalDryConcrete.toFixed(2)}</span>
-                  {"m³" && <span className="text-sm font-semibold text-slate-300">{"m³"}</span>}
-                </div>
-                {"Wet factor used: × 1.54" && <p className="text-[10px] font-medium text-slate-500 mt-2">{"Wet factor used: × 1.54"}</p>}
-              </div>
+              <ResultCard
+                title="Concrete Volume"
+                value={totalWetConcrete.toFixed(2)}
+                unit="m³"
+                icon={<Droplets className="w-4 h-4 text-white" />}
+                description="Wet Area (Base + Wall + Slab)"
+                variant="primary"
+              />
+              <ResultCard
+                title="Total Dry Concrete"
+                value={totalDryConcrete.toFixed(2)}
+                unit="m³"
+                description="Wet factor used: × 1.54"
+                variant="neutral"
+              />
             </div>
             
             <div className="w-full h-px bg-slate-100 my-4" />
@@ -358,42 +350,24 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
             </h4>
             
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Cement"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{cementBags}</span>
-                  {"bags" && <span className="text-sm font-semibold text-slate-300">{"bags"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Sand"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{sandCft.toFixed(1)}</span>
-                  {"cft" && <span className="text-sm font-semibold text-slate-300">{"cft"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-              {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Aggregate"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{aggCft.toFixed(1)}</span>
-                  {"cft" && <span className="text-sm font-semibold text-slate-300">{"cft"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
+              <ResultCard
+                title="Cement"
+                value={cementBags}
+                unit="bags"
+                variant="neutral"
+              />
+              <ResultCard
+                title="Sand"
+                value={sandCft.toFixed(1)}
+                unit="cft"
+                variant="neutral"
+              />
+              <ResultCard
+                title="Aggregate"
+                value={aggCft.toFixed(1)}
+                unit="cft"
+                variant="neutral"
+              />
             </div>
           </div>{" "}
           <div className="mt-6 flex flex-wrap gap-4 items-center">

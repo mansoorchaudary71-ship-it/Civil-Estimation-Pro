@@ -407,11 +407,11 @@ export default function RateAnalysis() {
                     </span>
                   </div>
                   <div className="bg-white/10 backdrop-blur-md rounded-2xl px-4 py-3 border border-white/10 mt-4 flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-widest text-slate-300">
+                    <span className="text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em] text-slate-300">
                       Analyzed Rate
                     </span>
                     <div className="flex items-end gap-1">
-                      <span className="text-3xl font-black text-white leading-none">
+                      <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white leading-none whitespace-nowrap">
                         {formatCurrency(compositeCalc.finalRate)}
                       </span>
                       <span className="text-sm font-medium text-teal-400 pb-0.5">

@@ -117,7 +117,7 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
              <span className="text-sm font-medium text-slate-400">Result Yields</span>
              <div className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-5 py-2 rounded-full inline-flex items-baseline gap-1.5 w-fit">
-               <span className="font-mono text-xl sm:text-2xl font-black">{step.result}</span>
+               <span className="font-mono text-xl sm:text-2xl font-black whitespace-nowrap">{step.result}</span>
                {step.resultUnit && <span className="font-bold text-sm sm:text-base">{step.resultUnit}</span>}
              </div>
           </div>

@@ -140,7 +140,7 @@ export default function InteractiveSteelCalculator({
         </div>
 
         {/* Results UI */}
-        <div className="p-6 sm:p-10 lg:col-span-2 flex flex-col justify-center bg-slate-900 text-white relative overflow-hidden">
+        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
           <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-indigo-600 opacity-20 blur-3xl mix-blend-screen pointer-events-none"></div>
           <div className="absolute -bottom-24 -left-24 w-64 h-64 rounded-full bg-blue-500 opacity-20 blur-3xl mix-blend-screen pointer-events-none"></div>
 
@@ -157,7 +157,7 @@ export default function InteractiveSteelCalculator({
               <span className="text-6xl sm:text-7xl font-black tracking-tighter text-white">
                 {weight}
               </span>
-              <span className="text-2xl font-bold text-slate-400">kg</span>
+              <span className="text-2xl font-bold text-slate-400 whitespace-nowrap">kg</span>
             </div>
 
             <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-5 border border-slate-700/50">
@@ -186,7 +186,7 @@ export default function InteractiveSteelCalculator({
                   <span className="text-sm text-slate-300">
                     Metric (per meter)
                   </span>
-                  <span className="font-mono text-sm font-semibold text-indigo-300 bg-indigo-900/40 px-2 py-0.5 rounded">
+                  <span className="font-mono text-[13px] sm:text-sm font-semibold text-indigo-300 bg-indigo-900/40 px-2 py-0.5 rounded">
                     D² / 162.28 × L
                   </span>
                 </div>
@@ -198,7 +198,7 @@ export default function InteractiveSteelCalculator({
                   <span className="text-sm text-slate-300">
                     Imperial (per foot)
                   </span>
-                  <span className="font-mono text-sm font-semibold text-indigo-300 bg-indigo-900/40 px-2 py-0.5 rounded">
+                  <span className="font-mono text-[13px] sm:text-sm font-semibold text-indigo-300 bg-indigo-900/40 px-2 py-0.5 rounded">
                     D² / 533 × L
                   </span>
                 </div>

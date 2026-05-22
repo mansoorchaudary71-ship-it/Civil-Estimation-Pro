@@ -123,7 +123,7 @@ export function RelatedCalculators({ category, currentSlug }: RelatedCalculators
         {sequentialLinks.map((link, idx) => (
           <a key={`seq-${idx}`} href={link.url} className="group p-5 bg-slate-800 rounded-xl border border-slate-700 hover:border-indigo-500 hover:bg-slate-800/80 transition-all flex flex-col">
             <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2">{link.label}</span>
-            <span className="text-sm font-semibold text-slate-200 group-hover:text-white capitalize leading-snug">{link.title}</span>
+            <span className="text-[13px] sm:text-sm font-semibold text-slate-200 group-hover:text-white capitalize leading-snug">{link.title}</span>
           </a>
         ))}
         
@@ -131,13 +131,13 @@ export function RelatedCalculators({ category, currentSlug }: RelatedCalculators
         {crossLinks.map((link, idx) => (
           <a key={`cross-${idx}`} href={link.url} className="group p-5 bg-slate-800 rounded-xl border border-slate-700 hover:border-emerald-500 hover:bg-slate-800/80 transition-all flex flex-col">
             <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-2">{link.label}</span>
-            <span className="text-sm font-semibold text-slate-200 group-hover:text-white capitalize leading-snug">{link.title}</span>
+            <span className="text-[13px] sm:text-sm font-semibold text-slate-200 group-hover:text-white capitalize leading-snug">{link.title}</span>
           </a>
         ))}
 
         {/* Render Category Hubs (exact 2) */}
         {categoryHubLinks.map((link, idx) => (
-          <a key={`hub-${idx}`} href={link.url} className="group p-5 bg-indigo-600 rounded-xl border border-indigo-500 hover:bg-indigo-500 hover:border-indigo-400 shadow-lg shadow-indigo-900/20 transition-all flex flex-col justify-center items-start">
+          <a key={`hub-${idx}`} href={link.url} className="group px-4 py-3 bg-indigo-600 rounded-xl border border-indigo-500 hover:bg-indigo-500 hover:border-indigo-400 shadow-lg shadow-indigo-900/20 transition-all flex flex-col justify-center items-start">
             <span className="text-xs font-bold text-indigo-200 uppercase tracking-wider mb-2">{link.label}</span>
             <span className="text-sm font-bold text-white capitalize leading-snug">{link.title}</span>
           </a>

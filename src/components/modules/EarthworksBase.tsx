@@ -307,57 +307,57 @@ export default function StandardEarthworks() {
               Calculation Results
             </h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div className="bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center">
-                <div className="flex items-center gap-2 mb-2">
+              <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                <div className="flex items-center justify-between gap-3 w-full relative z-10">
                   <div className="text-indigo-400"><Layers className="w-5 h-5" /></div>
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">Solid Volume</span>
+                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">Solid Volume</span>
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{solidVolume.toFixed(2)}</span>
-                  <span className="text-sm font-semibold text-slate-300">{unitV}</span>
+                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{solidVolume.toFixed(2)}</span>
+                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{unitV}</span>
                 </div>
-                <p className="text-[10px] font-medium text-slate-500 mt-2">Bank Measure</p>
+                <p className="text-[11px] sm:text-xs font-medium text-slate-500 dark:text-slate-400 max-w-full break-words mt-1 relative z-10">Bank Measure</p>
               </div>
-              <div className="bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center">
-                <div className="flex items-center gap-2 mb-2">
+              <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                <div className="flex items-center justify-between gap-3 w-full relative z-10">
                   <div className="text-indigo-400"><Layers className="w-5 h-5" /></div>
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">Loose Volume</span>
+                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">Loose Volume</span>
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{looseVolume.toFixed(2)}</span>
-                  <span className="text-sm font-semibold text-slate-300">{unitV}</span>
+                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{looseVolume.toFixed(2)}</span>
+                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{unitV}</span>
                 </div>
-                <p className="text-[10px] font-medium text-slate-500 mt-2">Excavated Measure</p>
+                <p className="text-[11px] sm:text-xs font-medium text-slate-500 dark:text-slate-400 max-w-full break-words mt-1 relative z-10">Excavated Measure</p>
               </div>
-              <div className="bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center">
-                <div className="flex items-center gap-2 mb-2">
+              <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                <div className="flex items-center justify-between gap-3 w-full relative z-10">
                   <div className="text-indigo-400"><Layers className="w-5 h-5" /></div>
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">Compacted Volume</span>
+                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">Compacted Volume</span>
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{compactedVolume.toFixed(2)}</span>
-                  <span className="text-sm font-semibold text-slate-300">{unitV}</span>
+                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{compactedVolume.toFixed(2)}</span>
+                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">{unitV}</span>
                 </div>
               </div>
-              <div className="bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center lg:col-span-1">
-                <div className="flex items-center gap-2 mb-2">
+              <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                <div className="flex items-center justify-between gap-3 w-full relative z-10">
                   <div className="text-slate-400"><Calculator className="w-5 h-5" /></div>
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">Total Truck Trips</span>
+                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">Total Truck Trips</span>
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{truckTrips}</span>
+                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{truckTrips}</span>
                 </div>
-                <p className="text-[10px] font-medium text-slate-500 mt-2">Based on loose volume & capacity</p>
+                <p className="text-[11px] sm:text-xs font-medium text-slate-500 dark:text-slate-400 max-w-full break-words mt-1 relative z-10">Based on loose volume & capacity</p>
               </div>
-              <div className="bg-gradient-to-br from-emerald-900/20 to-teal-900/20 px-4 py-4 rounded-2xl border border-emerald-700/50 flex flex-col justify-center lg:col-span-2">
-                <div className="flex items-center gap-2 mb-2">
+              <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                <div className="flex items-center justify-between gap-3 w-full relative z-10">
                   <div className="text-emerald-400"><Calculator className="w-5 h-5" /></div>
-                  <span className="text-emerald-400/80 text-xs font-bold uppercase tracking-widest">Total Project Cost</span>
+                  <span className="text-emerald-400/80 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">Total Project Cost</span>
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{formatCurrency(totalCostConverted)}</span>
+                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{formatCurrency(totalCostConverted)}</span>
                 </div>
-                <p className="text-[10px] font-medium text-emerald-500 mt-2">Excavation + Compaction + Hauling</p>
+                <p className="text-[11px] sm:text-xs font-medium text-emerald-500 mt-1 relative z-10">Excavation + Compaction + Hauling</p>
               </div>
             </div>
           </section>

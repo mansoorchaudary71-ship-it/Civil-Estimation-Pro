@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { MaterialSummary } from "../ui/MaterialSummary";
+import { ResultCard } from "../ui/ResultCard";
 
 interface FormworkElement {
   id: string;
@@ -323,7 +325,7 @@ export default function FormworkEstimator() {
               {" "}
               <div className="flex-1">
                 {" "}
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center justify-between gap-3 w-full relative z-10">
                   {" "}
                   <RefreshCw className="w-5 h-5 text-indigo-600" />{" "}
                   <h3 className="text-lg font-bold text-gray-800">
@@ -352,74 +354,37 @@ export default function FormworkEstimator() {
           </section>{" "}
           {/* Results Summary Interface */}{" "}
           <section className="lg:col-span-4 space-y-6">
-            {" "}
-            <div className="bg-gradient-to-b from-slate-900 to-slate-800 p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden">
-              {" "}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/20 rounded-full blur-[80px]" />{" "}
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-rose-500/20 rounded-full blur-[80px]" />{" "}
-              <div className="relative z-10 text-white">
-                {" "}
-                <h2 className="text-lg flex items-center gap-2 text-amber-400 font-bold tracking-wide uppercase mb-6">
-                  {" "}
-                  <SquareStack className="w-5 h-5" /> Material Summary{" "}
-                </h2>{" "}
-                <div className="mb-4">
-                  {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Total Formwork Area"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.totalArea.toFixed(1)}</span>
-                  {areaUnitStr && <span className="text-sm font-semibold text-slate-300">{areaUnitStr}</span>}
-                </div>
-                {`(${isMetric ? results.totalAreaSqft.toFixed(1) + " sq.ft" : results.totalAreaSqm.toFixed(1) + " m²"})` && <p className="text-[10px] font-medium text-slate-500 mt-2">{`(${isMetric ? results.totalAreaSqft.toFixed(1) + " sq.ft" : results.totalAreaSqm.toFixed(1) + " m²"})`}</p>}
+            <MaterialSummary
+              title="Material Summary"
+              totalLabel="Total Formwork Area"
+              totalValue={results.totalArea.toFixed(1)}
+              totalUnit={areaUnitStr}
+              subtitle={isMetric ? `(${results.totalAreaSqft.toFixed(1)} sq.ft)` : `(${results.totalAreaSqm.toFixed(1)} m²)`}
+              icon={<SquareStack className="w-5 h-5 flex-shrink-0" />}
+            >
+              <ResultCard
+                title="Plywood Sheets"
+                value={results.plywoodSheets}
+                badge="4'x8' standard"
+                variant="warning"
+              />
+              <div className="grid grid-cols-2 gap-4">
+                <ResultCard
+                  title="Wooden Battens"
+                  value={results.battensRft}
+                  unit="Rft"
+                  variant="success"
+                />
+                <ResultCard
+                  title="Steel Props / Scaffold"
+                  value={results.steelProps}
+                  unit="Pcs"
+                  variant="primary"
+                />
               </div>
-                </div>
-                <div className="space-y-4">
-                  {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Plywood Sheets"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.plywoodSheets}</span>
-                  {"sheets" && <span className="text-sm font-semibold text-slate-300">{"sheets"}</span>}
-                </div>
-                {"4'x8' standard" && <p className="text-[10px] font-medium text-slate-500 mt-2">{"4'x8' standard"}</p>}
-              </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Wooden Battens"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.battensRft}</span>
-                  {"Rft" && <span className="text-sm font-semibold text-slate-300">{"Rft"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-                    {/* Hardcoded Result Reverted */}
-              <div className={`bg-slate-800/50 px-4 py-4 rounded-2xl border border-slate-700 flex flex-col justify-center ${""}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  
-                  <span className="text-slate-400 text-xs font-bold uppercase tracking-widest">{"Steel Props / Scaffold"}</span>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-white">{results.steelProps}</span>
-                  {"Pcs" && <span className="text-sm font-semibold text-slate-300">{"Pcs"}</span>}
-                </div>
-                {null && <p className="text-[10px] font-medium text-slate-500 mt-2">{null}</p>}
-              </div>
-                  </div>
-                </div>{" "}
-                <div className="mt-8 pt-6 border-t border-white/10">
-                  {" "}
-                  <div className="mb-4 text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
+
+              <div className="mt-8 pt-6 border-t border-slate-200/50 dark:border-white/10">
+                  <div className="mb-4 text-[10px] sm:text-xs font-extrabold text-slate-500 dark:text-white/50 uppercase tracking-[0.15em]">
                     Area Breakdown
                   </div>{" "}
                   <div className="h-48 w-full relative">
@@ -474,10 +439,9 @@ export default function FormworkEstimator() {
                       <span className="w-2.5 h-2.5 rounded-full bg-indigo-500" />{" "}
                       Beams
                     </span>{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+                  </div>
+                </div>
+            </MaterialSummary>
           </section>{" "}
         </div>{" "}
       </div>{" "}

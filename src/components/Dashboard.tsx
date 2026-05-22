@@ -8,7 +8,7 @@ import {
   Map, Grid2X2, Box, ArrowRightLeft, Weight, Spline, ArrowRight,
   ChevronRight, ChevronDown, HardHat, Scaling, Container, Repeat, Anvil, Building2, Building, 
   Blocks, Shovel, Pickaxe, Cone, Droplet, PaintBucket, Ruler, Columns, 
-  ClipboardList, Maximize2, FileSpreadsheet, Zap, Wand2, ArrowUpRight, LineChart, Sun, X
+  ClipboardList, Maximize2, FileSpreadsheet, Zap, Wand2, ArrowUpRight, LineChart, Sun, X, Mic
 } from "lucide-react";
 import { SEO } from "./SEO";
 import Logo from "./Logo";
@@ -232,23 +232,29 @@ export default function Dashboard({
             <p className="text-slate-500 font-medium mt-2">Select a calculator to initiate a new estimate.</p>
           </div>
           
-          <div className="w-full md:max-w-[420px] xl:max-w-[480px] shrink-0 flex items-center">
-            <div className="relative flex items-center w-full h-[60px] rounded-full bg-white dark:bg-[#1f2229] shadow-[0_4px_24px_-4px_rgba(0,0,0,0.06)] dark:shadow-[0_4px_24px_-4px_rgba(0,0,0,0.4)] transition-all duration-300 focus-within:shadow-[0_8px_32px_-6px_rgba(0,0,0,0.12)] border border-slate-100 dark:border-slate-800 focus-within:scale-[1.01]">
-              <div className="ml-5 w-[38px] h-[38px] rounded-full bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-500 flex items-center justify-center shrink-0 shadow-sm transition-transform duration-300">
-                <Search className="w-[18px] h-[18px] text-white" strokeWidth={3} />
+          <div className="w-full md:max-w-[500px] xl:max-w-[600px] shrink-0 flex items-center relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-full opacity-25 blur-lg group-focus-within:opacity-60 transition-all duration-700 ease-in-out"></div>
+            <div className="relative flex items-center w-full h-[64px] rounded-full bg-white/90 dark:bg-[#1f2229]/95 backdrop-blur-xl shadow-[0_8px_32px_-4px_rgba(0,0,0,0.08)] transition-all duration-500 focus-within:shadow-[0_16px_48px_-8px_rgba(0,0,0,0.15)] focus-within:scale-[1.01] border border-white dark:border-slate-800/80">
+              <div className="ml-5 w-[42px] h-[42px] rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 text-transparent bg-clip-text bg-gradient-to-br from-blue-500 to-purple-600">
+                <Sparkles className="w-[24px] h-[24px] text-indigo-500 group-focus-within:animate-pulse" strokeWidth={2} />
               </div>
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search calculators..."
-                className="w-full h-full bg-transparent border-none outline-none text-[16px] font-medium text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 px-4"
+                placeholder="Ask what you want to calculate..."
+                className="w-full h-full bg-transparent border-none outline-none text-[16px] md:text-[17px] font-medium text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 px-3"
               />
-              {searchTerm && (
-                <button onClick={() => setSearchTerm("")} className="mr-3 p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-                  <X className="w-[18px] h-[18px]" strokeWidth={2.5} />
+              <div className="mr-3 shrink-0 flex gap-1">
+                {searchTerm && (
+                  <button onClick={() => setSearchTerm("")} className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors duration-200">
+                    <X className="w-5 h-5" strokeWidth={2.5} />
+                  </button>
+                )}
+                <button className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors duration-200">
+                  <Mic className="w-5 h-5" strokeWidth={2.5} />
                 </button>
-              )}
+              </div>
             </div>
           </div>
         </div>

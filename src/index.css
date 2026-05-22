@@ -395,14 +395,4 @@
     position: relative; 
     box-sizing: border-box;
   }
-
-  /* Fluid min-height and overflow protections for flex/grid children across the entire app */
-  .flex > div,
-  .grid > div {
-    min-height: min-content;
-    height: auto;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-    box-sizing: border-box;
-  }
 }

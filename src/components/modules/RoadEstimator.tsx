@@ -526,7 +526,7 @@ export default function RoadEstimator() {
                 </div>
               </div>
               {/* Road SVG Diagram */}
-              <div className="relative z-10 flex-1 flex flex-col justify-center w-full mt-4">
+              <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                 <svg
                   viewBox="0 0 1000 320"
                   preserveAspectRatio="xMidYMid meet"

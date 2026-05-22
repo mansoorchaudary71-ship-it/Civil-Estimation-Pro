@@ -474,8 +474,8 @@ export default function ColumnEstimator() {
                     <span className="block text-xs font-semibold text-blue-500 dark:text-blue-400 mb-1">
                       Wet Volume
                     </span>
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-black text-blue-700 dark:text-blue-200">
+                    <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                      <span className="text-4xl sm:text-5xl tracking-tight font-black text-blue-700 dark:text-blue-200 whitespace-nowrap">
                         {vol.toFixed(3)}
                       </span>
                       <span className="text-indigo-600 dark:text-blue-400 font-medium">
@@ -487,8 +487,8 @@ export default function ColumnEstimator() {
                     <span className="block text-xs font-semibold text-blue-500 dark:text-blue-400 mb-1">
                       Dry Volume
                     </span>
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-black text-blue-700 dark:text-blue-200">
+                    <div className="flex items-baseline gap-2 flex-wrap relative z-10">
+                      <span className="text-4xl sm:text-5xl tracking-tight font-black text-blue-700 dark:text-blue-200 whitespace-nowrap">
                         {dryVol.toFixed(3)}
                       </span>
                       <span className="text-indigo-600 dark:text-blue-400 font-medium">
@@ -542,7 +542,7 @@ export default function ColumnEstimator() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <span className="block text-xs font-semibold text-slate-400 mb-1">Total Steel Weight</span>
-                    <span className="block text-3xl font-black text-blue-400 mb-2">
+                    <span className="block text-4xl sm:text-5xl tracking-tight font-black text-blue-400 mb-2 whitespace-nowrap">
                       {totalSteelWeight.toFixed(2)}
                       <span className="text-lg font-normal text-slate-400 ml-1">kg</span>
                     </span>

@@ -113,7 +113,7 @@ export function CalculationMethodology({ steps, className = '' }: CalculationMet
                       <span className="text-xs md:text-sm font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 block">
                         Step-by-Step Substitution
                       </span>
-                      <div className="px-4 py-4 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
+                      <div className="px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
                         <div className="font-mono text-sm md:text-base text-slate-600 dark:text-slate-400 mb-3 whitespace-nowrap overflow-x-auto pb-1">
                           {step.substitution}
                         </div>

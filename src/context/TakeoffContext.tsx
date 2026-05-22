@@ -47,11 +47,13 @@ export function TakeoffProvider({ children }: { children: ReactNode }) {
 
   const addMeasurement = (m: Measurement) => setMeasurements(prev => [...prev, m]);
   const removeMeasurement = (id: string) => {
-    setMeasurements(prev => prev.filter(m => m.id !== id));
-    setBoqItems(prev => prev.map(item => ({
-      ...item, 
-      linkedMeasurementIds: item.linkedMeasurementIds?.filter(mId => mId !== id)
-    })));
+    if (window.confirm("Are you sure you want to permanently delete this task?")) {
+      setMeasurements(prev => prev.filter(m => m.id !== id));
+      setBoqItems(prev => prev.map(item => ({
+        ...item, 
+        linkedMeasurementIds: item.linkedMeasurementIds?.filter(mId => mId !== id)
+      })));
+    }
   };
 
   const updateBoqItem = (id: string, updates: Partial<BOQItem>) => {

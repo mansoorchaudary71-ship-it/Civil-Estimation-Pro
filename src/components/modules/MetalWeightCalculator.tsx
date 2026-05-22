@@ -576,7 +576,7 @@ export default function MetalWeightCalculator() {
                   <span className="block text-neutral-400 text-xs font-bold uppercase mb-2">
                     Weight per Unit Length
                   </span>
-                  <span className="text-4xl font-black text-emerald-400">
+                  <span className="text-4xl font-black text-emerald-400 whitespace-nowrap">
                     {weightPerM.toFixed(3)}
                     <span className="text-xl text-neutral-500 ml-2">kg/m</span>
                   </span>
@@ -585,9 +585,9 @@ export default function MetalWeightCalculator() {
                   <span className="block text-neutral-400 text-xs font-bold uppercase mb-2">
                     Total Element Weight
                   </span>
-                  <span className="text-5xl font-black text-white">
+                  <span className="text-5xl font-black text-white whitespace-nowrap">
                     {totalWeight.toFixed(2)}
-                    <span className="text-2xl text-neutral-500 ml-3">kg</span>
+                    <span className="text-2xl text-neutral-500 ml-3 whitespace-nowrap">kg</span>
                   </span>
                 </div>
               </div>
