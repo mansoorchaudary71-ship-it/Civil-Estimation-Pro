@@ -187,40 +187,35 @@ export function CalculationHistory({
     window.dispatchEvent(new CustomEvent('go-home'));
   };
 
-  const baseBtnClass = "group relative w-full h-full flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-3 rounded-full transition-all duration-200 text-[10px] leading-tight sm:text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 border";
+  const baseBtnClass = "relative flex items-center justify-center p-2.5 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900";
 
   return (
     <>
-      <div className="w-full mt-8 mb-4 font-sans flex justify-center">
-        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 shadow-[0_4px_16px_rgb(0,0,0,0.05)] dark:shadow-[0_4px_16px_rgb(0,0,0,0.2)] rounded-full p-2 grid grid-cols-4 gap-2 w-full transform transition-all duration-300 max-w-3xl">
+      <div className="fixed top-[72px] right-4 md:top-6 md:right-8 z-[40] font-sans flex items-center justify-end pointer-events-none">
+        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 shadow-[0_4px_16px_rgb(0,0,0,0.08)] dark:shadow-[0_4px_16px_rgb(0,0,0,0.3)] rounded-full p-1.5 flex items-center gap-1.5 pointer-events-auto">
           
-          {/* Dashboard Button: Slate */}
+          {/* Dashboard Button */}
           <button
             onClick={handleGoHome}
-            className={`${baseBtnClass} bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 border-slate-300/80 hover:border-slate-400 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 dark:hover:text-slate-100 dark:border-slate-600 dark:hover:border-slate-500 focus:ring-slate-500`}
+            className={`${baseBtnClass} text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800`}
             title="Back to Dashboard"
           >
-            <Home className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
-            <span className="truncate hidden sm:inline">Dashboard</span>
-            <span className="truncate sm:hidden">Dash</span>
+            <Home className="w-[18px] h-[18px]" strokeWidth={2} />
           </button>
 
-          {/* History Button: Indigo */}
+          {/* History Button */}
           <button
             onClick={() => setIsOpen(true)}
-            className={`${baseBtnClass} bg-indigo-50 text-indigo-700 hover:bg-indigo-50 border-indigo-300 hover:border-indigo-400 dark:bg-indigo-500/10 dark:text-indigo-300 dark:hover:bg-indigo-500/20 dark:border-indigo-500/40 dark:hover:border-indigo-500/50 focus:ring-indigo-500/50`}
+            className={`${baseBtnClass} text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 dark:text-slate-400 dark:hover:text-indigo-400 dark:hover:bg-indigo-500/10`}
             title="View History"
           >
-            <History className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
-            <span className="truncate">History</span>
+            <History className="w-[18px] h-[18px]" strokeWidth={2} />
             {history.length > 0 && (
-              <span className="absolute top-0 right-0 -mt-1 -mr-1 flex h-4 w-4 sm:h-5 sm:w-5 items-center justify-center rounded-full bg-indigo-500 text-[9px] sm:text-[10px] font-bold text-white shadow-sm ring-2 ring-white dark:ring-slate-900">
-                {history.length > 9 ? '9+' : history.length}
-              </span>
+              <span className="absolute top-1 right-1 flex h-3 w-3 items-center justify-center rounded-full bg-indigo-500 text-[8px] font-bold text-white ring-2 ring-white dark:ring-slate-900" />
             )}
           </button>
 
-          {/* Save Button: Emerald */}
+          {/* Save Button */}
           <button
             onClick={() => {
               if (!currentInputs || Object.keys(currentInputs).length === 0) {
@@ -233,30 +228,27 @@ export function CalculationHistory({
               }
             }}
             disabled={isSavingLocal || isSavingCloud}
-            className={`${baseBtnClass} bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border-emerald-300 hover:border-emerald-400 dark:bg-emerald-500/10 dark:text-emerald-300 dark:hover:bg-emerald-500/20 dark:border-emerald-500/40 dark:hover:border-emerald-500/50 focus:ring-emerald-500 disabled:opacity-50`}
+            className={`${baseBtnClass} text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 dark:text-slate-400 dark:hover:text-emerald-400 dark:hover:bg-emerald-500/10 disabled:opacity-50`}
             title="Save Calculation"
           >
             {isSavingLocal || isSavingCloud ? (
-               <Save className="w-4 h-4 sm:w-5 sm:h-5 animate-pulse" />
+               <Save className="w-[18px] h-[18px] animate-pulse" strokeWidth={2} />
             ) : (
-               <Save className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
+               <Save className="w-[18px] h-[18px]" strokeWidth={2} />
             )}
-            <span className="truncate">Save</span>
           </button>
 
-          {/* Share Button: Amber/Orange */}
+          {/* Share Button */}
           <ShareButtonWithPopup
             activeTab={calculatorId}
             title={estimationName || "Calculation"}
             data={currentResults || currentInputs || {}}
             exportFormat={savePayload || { inputs: currentInputs || {}, breakdown: currentResults || {} }}
-            containerClassName="w-full h-full !gap-0"
-            triggerClassName={`${baseBtnClass} border-amber-300 hover:border-amber-400 bg-amber-50 text-amber-700 hover:bg-amber-100 dark:bg-amber-500/10 dark:text-amber-300 dark:hover:bg-amber-500/20 dark:border-amber-500/40 dark:hover:border-amber-500/50 focus:ring-amber-500 w-full shrink-0`}
+            containerClassName="!gap-0 m-0 p-0"
+            popupPosition="bottom"
+            triggerClassName={`${baseBtnClass} text-slate-500 hover:text-amber-600 hover:bg-amber-50 dark:text-slate-400 dark:hover:text-amber-400 dark:hover:bg-amber-500/10`}
             triggerContent={
-              <>
-                <Share2 className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
-                <span className="truncate">Share</span>
-              </>
+              <Share2 className="w-[18px] h-[18px]" strokeWidth={2} />
             }
           />
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { ModuleId } from "../App";
 import { useAuth } from "../contexts/AuthContext";
@@ -17,7 +17,7 @@ import RecentEstimates from "./RecentEstimates";
 import PostLoginDashboard from "./PostLoginDashboard";
 
 export const ALL_MODULES = [
-  { id: "calculators", title: "Construction Material", desc: "Accurate estimations for concrete, bricks, steel, blocks, mortar.", category: "Concrete Tech", icon: HardHat, styleStyle: "solid", colorClass: "bg-[var(--accent-vibrant)] text-white shadow-[0_8px_30px_rgba(255,159,67,0.3)]", iconClass: "text-white opacity-90" },
+  { id: "calculators", title: "Construction Material", desc: "Accurate estimations for concrete, bricks, steel, blocks, mortar.", category: "Concrete Tech", icon: HardHat, styleStyle: "solid", colorClass: "bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-[0_8px_30px_rgba(99,102,241,0.3)]", iconClass: "text-white opacity-90" },
   { id: "house", title: "House Estimator", desc: "Complete residential cost breakdown from grey structure to finishing.", category: "Quantity Estimator", icon: Home, premium: true, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white" },
   { id: "area-calculator", title: "Area Calculator", desc: "Calculate area & perimeter for multiple 2D shapes.", category: "Quantity Estimator", icon: Scaling, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white" },
   { id: "property-area", title: "Property Area Calculator", desc: "Calculate Carpet Area, Built-up Area and Super Built-up Area.", category: "Quantity Estimator", icon: Building, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white" },
@@ -84,6 +84,18 @@ export default function Dashboard({
   const { user } = useAuth();
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("All Tools");
+  const [isAiChatOpen, setIsAiChatOpen] = useState(false);
+  const [aiMessage, setAiMessage] = useState("");
+  const [aiMessages, setAiMessages] = useState<{ role: string, content: string }[]>([
+    { role: 'system', content: 'Hi there! I am your AI assistant. Ask me anything about calculations, materials, or which tool to use.' }
+  ]);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isAiChatOpen && chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [aiMessages, isAiChatOpen]);
 
   useEffect(() => {
     if (previousModule && !["home", "my-estimates", "pricing", "about", "careers", "contact", "blog"].includes(previousModule)) {
@@ -233,21 +245,25 @@ export default function Dashboard({
           </div>
           
           <div className="w-full md:max-w-[500px] xl:max-w-[600px] shrink-0 flex items-center relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-full opacity-25 blur-lg group-focus-within:opacity-60 transition-all duration-700 ease-in-out"></div>
-            <div className="relative flex items-center w-full h-[64px] rounded-full bg-white/90 dark:bg-[#1f2229]/95 backdrop-blur-xl shadow-[0_8px_32px_-4px_rgba(0,0,0,0.08)] transition-all duration-500 focus-within:shadow-[0_16px_48px_-8px_rgba(0,0,0,0.15)] focus-within:scale-[1.01] border border-white dark:border-slate-800/80">
-              <div className="ml-5 w-[42px] h-[42px] rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 text-transparent bg-clip-text bg-gradient-to-br from-blue-500 to-purple-600">
-                <Sparkles className="w-[24px] h-[24px] text-indigo-500 group-focus-within:animate-pulse" strokeWidth={2} />
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-full opacity-25 blur-lg group-hover:opacity-60 transition-all duration-700 ease-in-out"></div>
+            <div 
+              className="relative flex items-center w-full h-[64px] rounded-full bg-white/90 dark:bg-[#1f2229]/95 backdrop-blur-xl shadow-[0_8px_32px_-4px_rgba(0,0,0,0.08)] transition-all duration-500 hover:shadow-[0_16px_48px_-8px_rgba(0,0,0,0.15)] hover:scale-[1.01] border border-white dark:border-slate-800/80 cursor-pointer"
+              onClick={() => setIsAiChatOpen(true)}
+            >
+              <button 
+                onClick={(e) => { e.stopPropagation(); setIsAiChatOpen(true); }}
+                className="ml-5 w-[42px] h-[42px] rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 text-transparent bg-clip-text bg-gradient-to-br from-blue-500 to-purple-600 hover:scale-110"
+              >
+                <Sparkles className="w-[24px] h-[24px] text-indigo-500 group-hover:animate-pulse" strokeWidth={2} />
+              </button>
+              <div
+                className="w-full h-full bg-transparent border-none outline-none text-[16px] md:text-[17px] font-medium text-slate-400 dark:text-slate-500 px-3 flex items-center cursor-text"
+              >
+                {searchTerm || "Ask what you want to calculate..."}
               </div>
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Ask what you want to calculate..."
-                className="w-full h-full bg-transparent border-none outline-none text-[16px] md:text-[17px] font-medium text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 px-3"
-              />
               <div className="mr-3 shrink-0 flex gap-1">
                 {searchTerm && (
-                  <button onClick={() => setSearchTerm("")} className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors duration-200">
+                  <button onClick={(e) => { e.stopPropagation(); setSearchTerm(""); }} className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors duration-200">
                     <X className="w-5 h-5" strokeWidth={2.5} />
                   </button>
                 )}
@@ -275,44 +291,115 @@ export default function Dashboard({
                        {groupName}
                      </h3>
                    )}
-                  <div className="bg-white dark:bg-[#1a1a1a] rounded-[28px] sm:rounded-[32px] overflow-hidden shadow-[0_2px_12px_-4px_rgba(0,0,0,0.04)] dark:shadow-none border border-slate-100 dark:border-slate-800/60 w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    {groupedModules[groupName].map((mod, idx) => {
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    {groupedModules[groupName].map((mod) => {
                       const theme = getCategoryTheme(mod.category, mod.id);
-                      const isLast = idx === groupedModules[groupName].length - 1;
                       return (
-                        <div key={mod.id} className="relative group">
-                          <button
-                            id={`module-card-${mod.id}`}
-                            onClick={() => onSelectModule(mod.id as ModuleId)}
-                            className={`w-full flex items-center p-4 sm:p-5 text-left transition-colors hover:bg-slate-50/80 dark:hover:bg-slate-800/40 outline-none`}
-                          >
-                             <div className={`w-11 h-11 sm:w-[46px] sm:h-[46px] rounded-full flex items-center justify-center shrink-0 ${theme.bg}`}>
-                               <mod.icon className={`w-5 h-5 sm:w-[22px] sm:h-[22px] ${theme.text}`} strokeWidth={2} />
+                        <button
+                          key={mod.id}
+                          id={`module-card-${mod.id}`}
+                          onClick={() => onSelectModule(mod.id as ModuleId)}
+                          className="bg-white dark:bg-[#1a1a1a] border border-slate-100 dark:border-slate-800/60 shadow-sm hover:shadow-md hover:-translate-y-1 active:scale-95 rounded-[2rem] p-3 flex flex-col items-center justify-center text-center transition-all outline-none aspect-square group"
+                        >
+                             <div className={`w-12 h-12 sm:w-[52px] sm:h-[52px] mb-3 sm:mb-4 rounded-full flex items-center justify-center shrink-0 ${theme.bg}`}>
+                               <mod.icon className={`w-6 h-6 sm:w-7 sm:h-7 ${theme.text}`} strokeWidth={2} />
                              </div>
                              
-                             <div className="ml-4 sm:ml-5 flex-1 pr-2">
-                               <h4 className="text-[17px] sm:text-[18px] font-medium text-slate-800 dark:text-slate-100 tracking-tight">
-                                 {mod.title}
-                               </h4>
-                               <p className="text-[13px] sm:text-[14px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1 leading-snug">
-                                 {mod.desc}
-                               </p>
-                             </div>
-                             
-                             <div className="text-slate-300 dark:text-slate-600 pr-2">
-                               <ChevronRight className="w-5 h-5" />
-                             </div>
-                          </button>
-                          {!isLast && (
-                            <div className="ml-20 sm:ml-[86px] h-[1px] bg-slate-100 dark:bg-slate-800/60 transition-colors"></div>
-                          )}
-                        </div>
+                             <h4 className="text-[13.5px] sm:text-[16px] font-bold text-slate-800 dark:text-slate-100 tracking-tight leading-snug line-clamp-2 px-1">
+                               {mod.title}
+                             </h4>
+                        </button>
                       );
                     })}
                   </div>
                 </div>
               ))
             )}
+        </div>
+      </div>
+    </div>
+
+    {/* AI Chat Bottom Sheet Modal */}
+    <div className={`fixed inset-0 z-50 pointer-events-none transition-opacity duration-500 ${isAiChatOpen ? "opacity-100" : "opacity-0"}`}>
+      {/* Backdrop */}
+      <div 
+        className={`absolute inset-0 bg-black/20 dark:bg-black/40 backdrop-blur-sm pointer-events-auto transition-opacity duration-500 ${isAiChatOpen ? "opacity-100" : "opacity-0"}`}
+        onClick={() => setIsAiChatOpen(false)}
+      />
+
+      {/* Bottom Sheet Modal */}
+      <div 
+        className={`fixed bottom-0 left-0 right-0 h-[65vh] bg-white dark:bg-slate-900 shadow-[0_-20px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_-20px_40px_rgba(0,0,0,0.4)] rounded-t-[40px] pointer-events-auto transform transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col ${isAiChatOpen ? "translate-y-0" : "translate-y-full"}`}
+      >
+        {/* Drag handle */}
+        <div className="w-full flex justify-center pt-5 pb-3 shrink-0 cursor-pointer" onClick={() => setIsAiChatOpen(false)}>
+          <div className="w-16 h-1.5 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors" />
+        </div>
+
+        <div className="px-6 flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+          <h3 className="font-bold text-lg text-slate-800 dark:text-white flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-indigo-500" />
+            AI Assistant
+          </h3>
+          <button onClick={() => setIsAiChatOpen(false)} className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400">
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Chat area */}
+        <div className="flex-1 overflow-y-auto px-6 py-6 flex flex-col gap-6 max-w-4xl mx-auto w-full">
+          {aiMessages.map((msg, i) => (
+            <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              {msg.role === 'system' && (
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shrink-0 mr-3 mt-1 shadow-sm">
+                  <Sparkles className="w-4 h-4 text-white" />
+                </div>
+              )}
+              <div className={`px-5 py-3 rounded-2xl max-w-[85%] font-medium text-[15px] leading-relaxed shadow-sm ${msg.role === 'user' ? 'bg-indigo-600 text-white rounded-tr-sm' : 'bg-slate-50 border border-slate-100 dark:bg-slate-800 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-tl-sm'}`}>
+                {msg.content}
+              </div>
+            </div>
+          ))}
+          <div ref={chatEndRef} className="h-4" />
+        </div>
+
+        {/* Input area */}
+        <div className="p-6 pt-4 shrink-0 w-full max-w-4xl mx-auto bg-white dark:bg-slate-900 border-t border-slate-50 dark:border-slate-800/50">
+          <div className="relative group">
+            <div className="absolute -inset-[2px] bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500 rounded-full opacity-60 group-focus-within:opacity-100 blur-[3px] transition-all duration-300"></div>
+            <div className="relative flex items-center bg-white dark:bg-slate-900 rounded-full px-5 py-2.5 border border-transparent shadow-sm">
+              <input 
+                type="text" 
+                value={aiMessage} 
+                onChange={(e) => setAiMessage(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && aiMessage.trim()) {
+                    setAiMessages(prev => [...prev, { role: 'user', content: aiMessage.trim() }]);
+                    setAiMessage("");
+                    setTimeout(() => {
+                      setAiMessages(prev => [...prev, { role: 'system', content: 'I can help with that. Could you provide a bit more context about the materials or calculator you need?' }]);
+                    }, 1000);
+                  }
+                }}
+                placeholder="Ask your assistant..." 
+                className="w-full bg-transparent border-none outline-none text-[16px] text-slate-800 dark:text-slate-100 px-2 py-2 placeholder:text-slate-400"
+              />
+              <button 
+                className="p-2.5 bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-500/20 text-white rounded-full transition-all hover:scale-105 active:scale-95 ml-2 shrink-0"
+                onClick={() => {
+                  if (aiMessage.trim()) {
+                    setAiMessages(prev => [...prev, { role: 'user', content: aiMessage.trim() }]);
+                    setAiMessage("");
+                    setTimeout(() => {
+                      setAiMessages(prev => [...prev, { role: 'system', content: 'I can help with that. Could you provide a bit more context about the materials or calculator you need?' }]);
+                    }, 1000);
+                  }
+                }}
+              >
+                <ArrowUpRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

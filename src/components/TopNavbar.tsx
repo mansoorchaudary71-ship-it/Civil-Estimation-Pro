@@ -164,7 +164,7 @@ export default function TopNavbar({
             
             <button 
               onClick={() => onNavigate?.('house' as ModuleId)}
-              className="px-6 py-2.5 rounded-full text-[14px] font-bold text-white bg-[var(--accent-vibrant)] hover:bg-[#FF8A1F] transition-all duration-300 whitespace-nowrap shadow-[0_4px_14px_rgba(255,159,67,0.3)] hover:shadow-[0_6px_20px_rgba(255,159,67,0.4)] hover:-translate-y-0.5"
+              className="px-6 py-2.5 rounded-full text-[14px] font-bold text-white bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 transition-all duration-300 whitespace-nowrap shadow-[0_4px_14px_rgba(99,102,241,0.3)] hover:shadow-[0_6px_20px_rgba(34,211,238,0.4)] hover:-translate-y-0.5"
             >
               Start Estimating
             </button>

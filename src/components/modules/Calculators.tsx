@@ -1300,7 +1300,7 @@ export default function ConstructionMaterialEstimator() {
                   <button
                     onClick={() => processEstimate(() => {})}
                     disabled={isProcessing}
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6  rounded-full shadow-lg transition-all mt-4"
+                    className="w-full bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white font-bold py-4 px-6 rounded-full shadow-[0_4px_20px_rgba(99,102,241,0.3)] hover:shadow-[0_6px_25px_rgba(34,211,238,0.4)] transition-all mt-4"
                   >
                     {isProcessing ? "Computing Estimate..." : "Compute Estimate"}
                   </button>

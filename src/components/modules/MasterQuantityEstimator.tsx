@@ -26,6 +26,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
+import { StyledChart } from "../ui/EstimateVisualizer";
 import Brickwork9InchModule from "./Brickwork9InchModule";
 import CountertopModule from "./CountertopModule";
 import { SEO } from "../SEO";
@@ -524,7 +525,7 @@ export default function MasterQuantityEstimator({
              totalValue={Object.keys(results).length > 0 ? "Ready" : "Pending"}
              totalUnit=""
            >
-             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 mb-8">
                {Object.entries(results).map(([key, val]) => (
                  <ResultCard
                    key={key}
@@ -534,6 +535,34 @@ export default function MasterQuantityEstimator({
                  />
                ))}
              </div>
+             
+             {Object.keys(results).length > 1 && (
+               <div className="mt-4 border-t border-slate-100 dark:border-slate-800 pt-6">
+                 <StyledChart
+                   data={Object.entries(results).reduce((acc: any[], [key, val], index) => {
+                     // Exclude totals from the breakdown visualization to avoid skewing the chart
+                     if (key.toLowerCase().includes("total") || key.toLowerCase().includes("area") || key.toLowerCase().includes("perimeter") || key.toLowerCase().includes("dimension")) return acc;
+                     
+                     const numStr = String(val).replace(/,/g, '');
+                     const match = numStr.match(/^[\d.]+/);
+                     if (match) {
+                       const value = parseFloat(match[0]);
+                       if (value > 0) {
+                         const colors = ["#6366f1", "#14b8a6", "#f59e0b", "#ec4899", "#8b5cf6", "#10b981", "#f43f5e"];
+                         acc.push({
+                           name: key,
+                           value,
+                           fill: colors[acc.length % colors.length]
+                         });
+                       }
+                     }
+                     return acc;
+                   }, [])}
+                   type="bar"
+                   title="Quantity Breakdown Visualizer"
+                 />
+               </div>
+             )}
            </MaterialSummary>
         </div>
       </div>

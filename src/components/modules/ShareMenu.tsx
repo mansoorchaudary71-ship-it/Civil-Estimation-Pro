@@ -25,6 +25,7 @@ export interface ShareMenuProps {
   triggerClassName?: string;
   triggerContent?: React.ReactNode;
   containerClassName?: string;
+  popupPosition?: "top" | "bottom";
   exportFormat?: {
     inputs: Record<string, string>;
     breakdown: Record<string, string>;
@@ -47,6 +48,7 @@ export default function ShareButtonWithPopup({
   triggerClassName,
   triggerContent,
   containerClassName,
+  popupPosition = "top",
   exportFormat,
 }: ShareMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -580,10 +582,10 @@ export default function ShareButtonWithPopup({
       </button>
       {isOpen && (
         <div
-          className="absolute right-0 bottom-full mb-3 w-64 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 rounded-3xl shadow-[0_15px_40px_-5px_rgba(0,0,0,0.15),0_8px_20px_-6px_rgba(0,0,0,0.1)] dark:shadow-[0_15px_40px_-5px_rgba(0,0,0,0.3)] z-50 p-2 font-sans origin-bottom-right"
-          style={{ animation: "menuSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
+          className={`absolute right-0 ${popupPosition === "top" ? "bottom-full mb-3 origin-bottom-right" : "top-full mt-3 origin-top-right"} w-64 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 rounded-3xl shadow-[0_15px_40px_-5px_rgba(0,0,0,0.15),0_8px_20px_-6px_rgba(0,0,0,0.1)] dark:shadow-[0_15px_40px_-5px_rgba(0,0,0,0.3)] z-50 p-2 font-sans`}
+          style={{ animation: "menuSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
         >
-            <style>{` @keyframes menuSlideUp { from { opacity: 0; transform: translateY(15px) scale(0.95); filter: blur(4px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } } `}</style>
+            <style>{` @keyframes menuSlide { from { opacity: 0; transform: translateY(${popupPosition === "top" ? "15px" : "-15px"}) scale(0.95); filter: blur(4px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } } `}</style>
             <div className="flex flex-col gap-1.5">
               <button
                 onClick={() => generatePDF("pdf")}

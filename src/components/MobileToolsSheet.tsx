@@ -82,7 +82,7 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
 
             <div className="px-6 pb-4 pt-2">
               <div className="flex items-center gap-2">
-                <div className="relative flex flex-1 items-center h-[52px] bg-transparent rounded-[50px] border-2 border-[var(--accent-vibrant)] transition-all overflow-hidden group">
+                <div className="relative flex flex-1 items-center h-[52px] bg-transparent rounded-[50px] border-2 border-indigo-500 transition-all overflow-hidden group">
                   <input 
                     type="text" 
                     value={searchTerm}
@@ -91,7 +91,7 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
                     className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[15px] font-medium text-[var(--primary-dark)] dark:text-white placeholder:text-slate-400 pl-5 pr-3"
                   />
                 </div>
-                <button className="w-[52px] h-[52px] flex items-center justify-center shrink-0 rounded-full border-2 border-[var(--accent-vibrant)] text-[var(--accent-vibrant)] hover:bg-[var(--accent-vibrant)] hover:text-white transition-colors">
+                <button className="w-[52px] h-[52px] flex items-center justify-center shrink-0 rounded-full border-2 border-indigo-500 text-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-cyan-500 hover:text-white hover:border-transparent transition-all">
                   <Search className="w-5 h-5" strokeWidth={2.5} />
                 </button>
               </div>
@@ -121,7 +121,7 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
                       />
                     </svg>
 
-                    <div className="flex-shrink-0 w-12 h-12 rounded-[14px] bg-slate-50 dark:bg-slate-900 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-[var(--accent-vibrant)] group-hover:bg-orange-50 dark:group-hover:bg-orange-900/20 transition-colors relative z-10">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-[14px] bg-slate-50 dark:bg-slate-900 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-indigo-500 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/20 transition-colors relative z-10">
                       {typeof tool.icon === 'function' ? (() => {
                         const Icon = tool.icon as any;
                         return <Icon className="w-6 h-6" />

@@ -172,7 +172,7 @@ export default function App() {
               <div className="md:border md:border-slate-200 dark:md:border-slate-700/40 md:shadow-sm md:bg-white/50 dark:md:bg-slate-900/50 md:backdrop-blur-sm md:rounded-[32px] flex-1 flex flex-col min-h-0 relative w-full transition-colors duration-300">
             
             {["home", "my-estimates", "about", "careers", "contact", "blog", "privacy", "terms", "cookies"].includes(activeModule) ? (
-            <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto pb-24 md:pb-0">
+            <div ref={scrollRef} className="flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto pb-32 md:pb-0">
               <div className="flex flex-col min-h-full relative w-full">
                 {activeModule === "home" && <Dashboard previousModule={previousModule} onSelectModule={handleSelectModule} onOpenSidebar={() => setIsSidebarOpen(true)} onOpenSettings={() => setIsSettingsOpen(true)} onOpenAuth={() => setIsAuthOpen(true)} />}
                 {activeModule === "my-estimates" && <RecentEstimates onSelectModule={handleSelectModule} />}
@@ -188,7 +188,7 @@ export default function App() {
               </div>
             </div>
           ) : (
-            <div className="flex-1 flex flex-col min-h-0 relative w-full bg-transparent pb-24 md:pb-0">
+            <div className="flex-1 flex flex-col min-h-0 relative w-full bg-transparent pb-32 md:pb-0">
                {/* We remove AppHeader for Desktop, handle differently inside module wrappers if needed, but for now we keep ModuleWrapper and conditionally hide AppHeader inside it on desktop */}
               {activeModule === "takeoff" && <ModuleWrapper title="2D Takeoff" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><Takeoff /></ModuleWrapper>}
               {activeModule === "area-calculator" && <ModuleWrapper title="Area Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AreaCalculator /></ModuleWrapper>}
@@ -242,17 +242,6 @@ export default function App() {
           onClose={() => setIsMobileToolsOpen(false)} 
           onSelectModule={handleSelectModule}
         />
-
-        {/* Floating Tools Button (Mobile Only) */}
-        {!isMobileToolsOpen && (
-          <button
-            onClick={() => setIsMobileToolsOpen(true)}
-            className="md:hidden fixed bottom-24 right-5 z-[45] w-14 h-14 bg-[#FF6B00] text-white rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(255,107,0,0.4)] hover:bg-[#e66000] active:scale-95 transition-all outline-none"
-            aria-label="Open Tools"
-          >
-            <Hammer className="w-6 h-6" />
-          </button>
-        )}
       </div>
       </TakeoffProvider>
     </MarketRatesProvider>

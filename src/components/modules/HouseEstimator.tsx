@@ -34,6 +34,7 @@ import {
   YAxis,
   CartesianGrid,
 } from "recharts";
+import { StyledChart } from "../ui/EstimateVisualizer";
 import { useMarketRates } from "../../context/MarketRatesContext";
 import { useSettings } from "../../context/SettingsContext";
 
@@ -163,7 +164,7 @@ export default function HouseEstimator() {
   const [isSpecsAccordionOpen, setIsSpecsAccordionOpen] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [activeTab, setActiveTab] = useState<
-    "grey" | "finishing" | "summary" | "rcc" | "master"
+    "grey" | "finishing" | "summary" | "rcc" | "master" | "rates"
   >("summary");
   const [finishQuality, setFinishQuality] = useState<number>(1);
   /* 1: Standard, 2: Premium, 3: Luxury */ const [
@@ -741,7 +742,7 @@ export default function HouseEstimator() {
                         <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">
                           Total Area
                         </label>
-                        <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
+                        <div className="flex flex-col gap-3">
                           <input
                             type="number"
                             value={geoState.plotSizeValue}
@@ -751,7 +752,7 @@ export default function HouseEstimator() {
                                 payload: e.target.value,
                               })
                             }
-                            className="flex-1 bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all font-medium shadow-sm"
+                            className="bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all font-medium shadow-sm w-full"
                             placeholder="0"
                           />
                           <select
@@ -764,21 +765,23 @@ export default function HouseEstimator() {
                             }
                             className="hidden"
                           ></select>
-                          <UnitToggleGroup
-                            units={[
-                              { id: "marla", label: "Marla" },
-                              { id: "sqyd", label: "Sq.Yd" },
-                              { id: "sqft", label: "Sq.Ft" },
-                            ]}
-                            activeUnit={geoState.plotSizeUnit}
-                            onChange={(u) =>
-                              dispatch({
-                                type: "SET_PLOT_SIZE_UNIT",
-                                payload: u as any,
-                              })
-                            }
-                            size="sm"
-                          />
+                          <div className="w-full">
+                            <UnitToggleGroup
+                              units={[
+                                { id: "marla", label: "Marla" },
+                                { id: "sqyd", label: "Sq.Yd" },
+                                { id: "sqft", label: "Sq.Ft" },
+                              ]}
+                              activeUnit={geoState.plotSizeUnit}
+                              onChange={(u) =>
+                                dispatch({
+                                  type: "SET_PLOT_SIZE_UNIT",
+                                  payload: u as any,
+                                })
+                              }
+                              size="md"
+                            />
+                          </div>
                         </div>
                         <p className="text-[11px] text-slate-700 dark:text-slate-300 mt-1.5 ml-2">
                           Total plot size (
@@ -1136,173 +1139,21 @@ export default function HouseEstimator() {
                 </div>
               )}
             </div>
+            
+            <button
+               onClick={() => setShowResults(true)}
+               className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-bold px-8 py-4 rounded-2xl hover:shadow-lg hover:shadow-cyan-500/30 transition-all active:scale-95"
+            >
+               Compute Estimate
+            </button>
           </section>
           {/* Results Area */}
           <section className="lg:col-span-8 flex flex-col gap-6">
             {!showResults ? (
-              <div className="bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_rgb(0,0,0,0.04)] border border-slate-100 flex-1 relative overflow-hidden flex flex-col">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 bg-indigo-50 text-indigo-600 rounded-2xl">
-                    <Database className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-extrabold text-slate-800">
-                      Configure Material Rates
-                    </h2>
-                    <p className="text-slate-700 dark:text-slate-300 font-medium text-sm mt-1">
-                      Review market rates and override with custom vendor quotes
-                      if needed.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex-1 overflow-auto border border-slate-200 rounded-2xl mb-6">
-                  <table className="w-full text-sm text-left">
-                    <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider sticky top-0 z-10">
-                      <tr>
-                        <th className="px-6 py-4 font-bold">Material Item</th>
-                        <th className="px-6 py-4 font-bold">
-                          Current Market Rate
-                        </th>
-                        <th className="px-6 py-4 font-bold bg-indigo-50/50 text-indigo-700">
-                          Your Custom Rate
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-slate-100">
-                      {(
-                        [
-                          {
-                            key: "cement",
-                            name: "Cement (Per Bag)",
-                            color: "bg-stone-500",
-                            bg: "bg-stone-50",
-                          },
-                          {
-                            key: "steel",
-                            name: "Steel 60-Grade (Per Kg)",
-                            color: "bg-slate-700",
-                            bg: "bg-transparent",
-                          },
-                          {
-                            key: "bricks",
-                            name: "Bricks A-Class (Per 1000)",
-                            color: "bg-orange-500",
-                            bg: "bg-orange-50",
-                          },
-                          {
-                            key: "sand",
-                            name: "Sand (Per Cft)",
-                            color: "bg-amber-400",
-                            bg: "bg-amber-50",
-                          },
-                          {
-                            key: "crush",
-                            name: "Crush (Per Cft)",
-                            color: "bg-neutral-500",
-                            bg: "bg-neutral-50",
-                          },
-                          {
-                            key: "laborGrey",
-                            name: "Grey Labor (Per Sq.ft)",
-                            color: "bg-emerald-500",
-                            bg: "bg-emerald-50",
-                          },
-                          {
-                            key: "laborFinish",
-                            name: "Finish Labor (Per Sq.ft)",
-                            color: "bg-teal-500",
-                            bg: "bg-teal-50",
-                          },
-                        ] as const
-                      ).map((item) => (
-                        <tr
-                          key={item.key}
-                          className="hover:bg-transparent/80 transition-colors group"
-                        >
-                          <td className="px-6 py-4 font-bold text-slate-700">
-                            <div className="flex items-center gap-3">
-                              <div
-                                className={`flex items-center justify-center w-8 h-8 rounded-lg ${item.bg} group-hover:scale-110 transition-transform`}
-                              >
-                                <div
-                                  className={`w-3 h-3 rounded-full ${item.color} shadow-sm`}
-                                ></div>
-                              </div>
-                              <span>{item.name}</span>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 font-bold text-slate-700 dark:text-slate-300">
-                            {formatCurrency(
-                              item.key === "bricks"
-                                ? marketRates[item.key] * 1000
-                                : marketRates[item.key],
-                            )}
-                          </td>
-                          <td className="px-6 py-3 bg-indigo-50/30">
-                            <div className="relative flex items-center">
-                              <span className="absolute left-3 text-slate-700 dark:text-slate-300 font-bold mb-0.5">
-                                {settings.currency === "PKR" ? "Rs" : "$"}
-                              </span>
-                              <input
-                                type="number"
-                                min="0"
-                                step="any"
-                                className={`w-full bg-white border ${customRates[item.key] !== undefined ? "border-indigo-300 ring-2 ring-indigo-500/20 text-indigo-700 font-bold" : "border-slate-200 text-slate-800"} rounded-xl py-2 pl-10 pr-3 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all`}
-                                placeholder="Default"
-                                value={
-                                  customRates[item.key] !== undefined
-                                    ? item.key === "bricks"
-                                      ? customRates[item.key]! * 1000
-                                      : customRates[item.key]
-                                    : ""
-                                }
-                                onChange={(e) => {
-                                  const val = e.target.value
-                                    ? parseFloat(e.target.value)
-                                    : null;
-                                  if (val !== null && val < 0) return;
-                                  /* Prevent negative inputs */ setCustomRate(
-                                    item.key,
-                                    val !== null && item.key === "bricks"
-                                      ? val / 1000
-                                      : val,
-                                  );
-                                }}
-                              />
-                            </div>
-                            {customRates[item.key] !== undefined && (
-                              <div className="text-[10px] text-indigo-600 font-medium mt-1 ml-1 truncate">
-                                Custom rate active
-                              </div>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <div className="flex flex-col sm:flex-row items-center justify-between mt-auto gap-4 pt-4 border-t border-slate-100">
-                  <button
-                    onClick={resetCustomRates}
-                    className="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-bold hover:text-slate-800 px-4 py-2 rounded-xl hover:bg-slate-100 transition-colors w-full sm:w-auto justify-center"
-                  >
-                    <RotateCcw className="w-4 h-4" /> Reset Defaults
-                  </button>
-                  <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-                    <button
-                      onClick={() => setShowResults(true)}
-                      className="w-full sm:w-auto flex items-center justify-center gap-2 bg-emerald-50 text-emerald-600 font-bold px-8 py-3.5 rounded-xl hover:bg-emerald-100 transition-all active:scale-95"
-                    >
-                      UPDATE RATES
-                    </button>
-                    <button
-                      onClick={() => setShowResults(true)}
-                      className="w-full sm:w-auto flex items-center justify-center gap-2 bg-indigo-600 text-white font-bold px-8 py-3.5  rounded-full hover:bg-indigo-700 hover:shadow-lg hover:shadow-indigo-500/30 transition-all active:scale-95"
-                    >
-                      Generate Estimate <ArrowRight className="w-5 h-5" />
-                    </button>
-                  </div>
-                </div>
+              <div className="bg-slate-50 dark:bg-slate-900/50 rounded-3xl p-8 border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center sticky top-6 self-start h-full min-h-[400px] w-full">
+                 <Calculator className="w-16 h-16 text-slate-300 dark:text-slate-600 mb-4" />
+                 <h3 className="font-bold text-slate-700 dark:text-slate-300 text-lg">Waiting to Compute</h3>
+                 <p className="text-slate-500 text-sm mt-2 max-w-sm">Enter your dimensions on the left and click Compute Estimate to see the detailed material breakdown and rates.</p>
               </div>
             ) : (
               <>
@@ -1344,9 +1195,16 @@ export default function HouseEstimator() {
                       onClick={() => setActiveTab("master")}
                       colorTheme="emerald"
                     />
+                    <ColorfulTab index={5} id="rates"
+                      label="Material Rates"
+                      icon={<Database className="w-[18px] h-[18px]" />}
+                      isActive={activeTab === "rates"}
+                      onClick={() => setActiveTab("rates")}
+                      colorTheme="rose"
+                    />
                   </div>
                   <button
-                    onClick={() => setShowResults(false)}
+                    onClick={() => setActiveTab("rates")}
                     className="flex items-center gap-2 text-indigo-600 bg-indigo-50 hover:bg-indigo-50 font-bold px-4 py-2.5 rounded-xl shadow-sm border border-indigo-100 transition-colors shrink-0 whitespace-nowrap"
                   >
                     <Database className="w-[18px] h-[18px]" /> View / Edit Rates
@@ -1360,74 +1218,15 @@ export default function HouseEstimator() {
                       </h3>
                       <div className="flex flex-col md:flex-row items-center justify-between gap-8 flex-1">
                         <div
-                          className="w-full md:w-1/2 h-64 relative"
+                          className="w-full md:w-1/2 h-80 relative"
                           id="export-chart-target"
                         >
-                          <ResponsiveContainer width="100%" height="100%">
-                            <PieChart>
-                              <Pie
-                                data={summaryData}
-                                innerRadius={85}
-                                outerRadius={110}
-                                paddingAngle={5}
-                                dataKey="value"
-                                animationDuration={1000}
-                              >
-                                {summaryData.map((entry, index) => (
-                                  <Cell
-                                    key={`cell-${index}`}
-                                    fill={entry.color}
-                                    stroke="none"
-                                  />
-                                ))}
-                              </Pie>
-                              <Tooltip
-                                formatter={(value: number) =>
-                                  formatCurrency(value, false)
-                                }
-                                contentStyle={{
-                                  borderRadius: "16px",
-                                  border: "none",
-                                  boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
-                                }}
-                              />
-                              <text
-                                x="50%"
-                                y="42%"
-                                textAnchor="middle"
-                                dominantBaseline="middle"
-                                fill="#64748b"
-                                fontSize="11"
-                                fontWeight="600"
-                              >
-                                Grey: {formatCurrency(estimates.totalGrey)}
-                              </text>
-                              <text
-                                x="50%"
-                                y="50%"
-                                textAnchor="middle"
-                                dominantBaseline="middle"
-                                fill="#8b5cf6"
-                                fontSize="11"
-                                fontWeight="600"
-                              >
-                                Finish:
-                                {formatCurrency(estimates.totalFinishing)}
-                              </text>
-                              <text
-                                x="50%"
-                                y="62%"
-                                textAnchor="middle"
-                                dominantBaseline="middle"
-                                fill="#0f172a"
-                                fontSize="15"
-                                fontWeight="900"
-                              >
-                                Total:
-                                {formatCurrency(estimates.totalCost)}
-                              </text>
-                            </PieChart>
-                          </ResponsiveContainer>
+                          <StyledChart 
+                            data={summaryData.map(d => ({ ...d, fill: d.color }))}
+                            type="pie"
+                            title="Cost Breakdown"
+                            valueFormatter={(val) => formatCurrency(val, false)}
+                          />
                         </div>
                         <div className="w-full md:w-1/2 space-y-6">
                           <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
@@ -1436,7 +1235,7 @@ export default function HouseEstimator() {
                               Grey Structure
                             </div>
                             <div
-                              className="text-xl sm:text-2xl font-black text-slate-800 pl-2 truncate"
+                              className="text-xl sm:text-2xl font-black text-slate-800 dark:text-white pl-2 truncate"
                               title={formatCurrency(estimates.totalGrey)}
                             >
                               {formatCurrency(estimates.totalGrey)}
@@ -1451,7 +1250,7 @@ export default function HouseEstimator() {
                               Finishing Works
                             </div>
                             <div
-                              className="text-xl sm:text-2xl font-black text-violet-800 pl-2 truncate"
+                              className="text-xl sm:text-2xl font-black text-violet-800 dark:text-violet-400 pl-2 truncate"
                               title={formatCurrency(estimates.totalFinishing)}
                             >
                               {formatCurrency(estimates.totalFinishing)}
@@ -1460,38 +1259,28 @@ export default function HouseEstimator() {
                               {getQualityLabel(finishQuality)} Grade Finishing
                             </div>
                           </div>
+                          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                            <div className="absolute top-0 left-0 w-1.5 h-full bg-indigo-500" />
+                            <div className="text-indigo-600 dark:text-indigo-400 text-xs md:text-sm font-bold uppercase tracking-widest mb-1 pl-2 truncate">
+                              Total Cost
+                            </div>
+                            <div
+                              className="text-2xl sm:text-3xl font-black text-indigo-800 dark:text-indigo-300 pl-2 truncate"
+                              title={formatCurrency(estimates.totalCost)}
+                            >
+                              {formatCurrency(estimates.totalCost)}
+                            </div>
+                          </div>
                         </div>
                       </div>
                       
                       <div className="mt-10 pt-8 border-t border-slate-100/60" id="overview-bar-chart">
-                        <h4 className="text-lg font-bold text-slate-800 mb-6 flex justify-between items-center">
-                          <span>Cost Breakdown Comparison</span>
-                          <span className="text-xs font-medium text-slate-700 dark:text-slate-300 font-normal">Highest to Lowest</span>
-                        </h4>
-                        <div className="w-full h-[450px]">
-                          <ResponsiveContainer width="100%" height="100%">
-                            <BarChart
-                              data={combinedCostData}
-                              layout="vertical"
-                              margin={{ top: 5, right: 30, left: 10, bottom: 5 }}
-                            >
-                              <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={true} stroke="#f1f5f9" />
-                              <XAxis type="number" axisLine={false} tickLine={false} tick={{ fill: "#94a3b8", fontSize: 12 }} 
-                                tickFormatter={(val) => `${settings.currency === "PKR" ? "RS" : settings.currency} ${(val / 1000).toFixed(0)}k`} />
-                              <YAxis dataKey="name" type="category" width={140} axisLine={false} tickLine={false} tick={{ fill: "#475569", fontSize: 11, fontWeight: 500 }} />
-                              <Tooltip 
-                                cursor={{ fill: "#f8fafc" }}
-                                contentStyle={{ borderRadius: "12px", border: "1px solid #e2e8f0", boxShadow: "0 10px 30px rgba(0,0,0,0.05)", fontWeight: "bold" }}
-                                formatter={(value: number, name: string, props: any) => [formatCurrency(value, false), props.payload.category]}
-                              />
-                              <Bar dataKey="value" radius={[0, 4, 4, 0]} maxBarSize={40}>
-                                {combinedCostData.map((entry, index) => (
-                                  <Cell key={`cell-${index}`} fill={entry.color} />
-                                ))}
-                              </Bar>
-                            </BarChart>
-                          </ResponsiveContainer>
-                        </div>
+                        <StyledChart 
+                          data={combinedCostData.map(d => ({ ...d, fill: d.color })).slice(0, 10)}
+                          type="bar"
+                          title="Cost Breakdown Comparison (Top 10)"
+                          valueFormatter={(val) => formatCurrency(val, false)}
+                        />
                       </div>
                     </div>
                   )}
@@ -1836,6 +1625,93 @@ export default function HouseEstimator() {
                   {activeTab === "master" && (
                     <div className="animate-in fade-in slide-in-from-bottom-8 duration-500 h-full flex flex-col pt-4">
                       <MasterQuantityEstimator isEmbedded={true} />
+                    </div>
+                  )}
+                  {activeTab === "rates" && (
+                    <div className="animate-in fade-in slide-in-from-bottom-8 duration-500 h-full flex flex-col text-left">
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="p-3 bg-indigo-50 text-indigo-600 rounded-2xl">
+                          <Database className="w-6 h-6" />
+                        </div>
+                        <div>
+                          <h2 className="text-2xl font-extrabold text-slate-800">
+                            Configure Material Rates
+                          </h2>
+                          <p className="text-slate-700 dark:text-slate-300 font-medium text-sm mt-1">
+                            Review market rates and override with custom vendor quotes
+                            if needed.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex-1 overflow-auto border border-slate-200 rounded-2xl mb-6">
+                        <table className="w-full text-sm text-left">
+                          <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider sticky top-0 z-10">
+                            <tr>
+                              <th className="px-6 py-4 font-bold">Material Item</th>
+                              <th className="px-6 py-4 font-bold">Current Market Rate</th>
+                              <th className="px-6 py-4 font-bold bg-indigo-50/50 text-indigo-700">Your Custom Rate</th>
+                            </tr>
+                          </thead>
+                          <tbody className="bg-white divide-y divide-slate-100">
+                            {(
+                              [
+                                { key: "cement", name: "Cement (Per Bag)", color: "bg-stone-500", bg: "bg-stone-50" },
+                                { key: "steel", name: "Steel 60-Grade (Per Kg)", color: "bg-slate-700", bg: "bg-transparent" },
+                                { key: "bricks", name: "Bricks A-Class (Per 1000)", color: "bg-orange-500", bg: "bg-orange-50" },
+                                { key: "sand", name: "Sand (Per Cft)", color: "bg-amber-400", bg: "bg-amber-50" },
+                                { key: "crush", name: "Crush (Per Cft)", color: "bg-neutral-500", bg: "bg-neutral-50" },
+                                { key: "laborGrey", name: "Grey Labor (Per Sq.ft)", color: "bg-emerald-500", bg: "bg-emerald-50" },
+                                { key: "laborFinish", name: "Finish Labor (Per Sq.ft)", color: "bg-teal-500", bg: "bg-teal-50" },
+                              ] as const
+                            ).map((item) => (
+                              <tr key={item.key} className="hover:bg-transparent/80 transition-colors group">
+                                <td className="px-6 py-4 font-bold text-slate-700">
+                                  <div className="flex items-center gap-3">
+                                    <div className={`flex items-center justify-center w-8 h-8 rounded-lg ${item.bg} group-hover:scale-110 transition-transform`}>
+                                      <div className={`w-3 h-3 rounded-full ${item.color} shadow-sm`}></div>
+                                    </div>
+                                    <span>{item.name}</span>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 font-bold text-slate-700 dark:text-slate-300">
+                                  {formatCurrency(item.key === "bricks" ? marketRates[item.key] * 1000 : marketRates[item.key])}
+                                </td>
+                                <td className="px-6 py-3 bg-indigo-50/30">
+                                  <div className="relative flex items-center">
+                                    <span className="absolute left-3 text-slate-700 dark:text-slate-300 font-bold mb-0.5">
+                                      {settings.currency === "PKR" ? "Rs" : "$"}
+                                    </span>
+                                    <input
+                                      type="number"
+                                      min="0"
+                                      step="any"
+                                      className={`w-full bg-white border ${customRates[item.key] !== undefined ? "border-indigo-300 ring-2 ring-indigo-500/20 text-indigo-700 font-bold" : "border-slate-200 text-slate-800"} rounded-xl py-2 pl-10 pr-3 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all`}
+                                      placeholder="Default"
+                                      value={customRates[item.key] !== undefined ? (item.key === "bricks" ? customRates[item.key]! * 1000 : customRates[item.key]) : ""}
+                                      onChange={(e) => {
+                                        const val = e.target.value ? parseFloat(e.target.value) : null;
+                                        if (val !== null && val < 0) return;
+                                        setCustomRate(item.key, val !== null && item.key === "bricks" ? val / 1000 : val);
+                                      }}
+                                    />
+                                  </div>
+                                  {customRates[item.key] !== undefined && (
+                                    <div className="text-[10px] text-indigo-600 font-medium mt-1 ml-1 truncate">Custom rate active</div>
+                                  )}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="flex flex-col sm:flex-row items-center justify-between mt-auto gap-4 pt-4 border-t border-slate-100">
+                        <button
+                          onClick={resetCustomRates}
+                          className="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-bold hover:text-slate-800 px-4 py-2 rounded-xl hover:bg-slate-100 transition-colors w-full sm:w-auto justify-center"
+                        >
+                          <RotateCcw className="w-4 h-4" /> Reset Defaults
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>

@@ -39,7 +39,7 @@ export function MaterialSummary({
         <div className="p-2 bg-gradient-to-br from-indigo-100 via-purple-100 to-rose-100 dark:from-indigo-500/20 dark:via-purple-500/20 dark:to-rose-500/20 text-indigo-600 dark:text-indigo-400 rounded-xl shadow-sm border border-indigo-200/50 dark:border-white/5">
           {icon || <Layers className="w-4 h-4 flex-shrink-0" />}
         </div>
-        <h3 className="font-bold uppercase tracking-widest text-xs text-slate-700 dark:text-slate-300">{title}</h3>
+        <h3 className="font-bold uppercase tracking-widest text-xs bg-gradient-to-r from-indigo-500 via-purple-500 to-rose-500 bg-clip-text text-transparent dark:from-indigo-400 dark:via-purple-400 dark:to-rose-400 drop-shadow-sm">{title}</h3>
       </div>
 
       {/* Hero Total Section */}

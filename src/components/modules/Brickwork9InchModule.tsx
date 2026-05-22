@@ -236,7 +236,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                         </div>
                         <span className="tracking-wide">Standard</span>
                       </div>
-                      <span className={`text-[11px] font-medium ml-6 whitespace-nowrap opacity-80 ${brickType === "standard" ? "text-orange-700 dark:text-orange-300" : "text-slate-500 dark:text-slate-400"}`}>
+                      <span className={`text-[11px] font-medium ml-6 opacity-80 ${brickType === "standard" ? "text-orange-700 dark:text-orange-300" : "text-slate-500 dark:text-slate-400"}`}>
                         230 × 110 × 75 mm
                       </span>
                     </button>
@@ -250,7 +250,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                         </div>
                         <span className="tracking-wide">Modular</span>
                       </div>
-                      <span className={`text-[11px] font-medium ml-6 whitespace-nowrap opacity-80 ${brickType === "modular" ? "text-orange-700 dark:text-orange-300" : "text-slate-500 dark:text-slate-400"}`}>
+                      <span className={`text-[11px] font-medium ml-6 opacity-80 ${brickType === "modular" ? "text-orange-700 dark:text-orange-300" : "text-slate-500 dark:text-slate-400"}`}>
                         190 × 90 × 90 mm
                       </span>
                     </button>
