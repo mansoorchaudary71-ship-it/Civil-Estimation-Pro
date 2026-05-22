@@ -1,6 +1,8 @@
 import React, { useState, useMemo, useReducer } from "react";
 import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
+import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
 import {
   Home,
   Layers,
@@ -1495,107 +1497,50 @@ export default function HouseEstimator() {
                   )}
                   {activeTab === "grey" && (
                     <div className="animate-in fade-in slide-in-from-right-8 duration-500 h-full flex flex-col">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
-                        <h3 className="text-xl font-bold text-slate-800">
-                          Grey Structure Breakdown
-                        </h3>
-                        <div className="text-2xl font-black text-indigo-600 tracking-tighter bg-indigo-50 px-4 py-1.5 rounded-xl border border-indigo-100">
-                          {formatCurrency(estimates.totalGrey)}
+                      <MaterialSummary
+                        title="Grey Structure Breakdown"
+                        totalLabel="Total Grey Structure Cost"
+                        totalValue={formatCurrency(estimates.totalGrey)}
+                        totalUnit=""
+                      >
+                        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mt-6">
+                           <ResultCard
+                              title="Cement"
+                              value={estimates.cementBags.toFixed(0)}
+                              unit="bags"
+                              variant="neutral"
+                              description={formatCurrency(estimates.costCement)}
+                           />
+                           <ResultCard
+                              title="Steel"
+                              value={(estimates.steelKg / 1000).toFixed(1)}
+                              unit="tons"
+                              variant="primary"
+                              description={formatCurrency(estimates.costSteel)}
+                           />
+                           <ResultCard
+                              title="Bricks"
+                              value={`${(estimates.bricksCount / 1000).toFixed(0)}k`}
+                              unit="qty"
+                              variant="warning"
+                              description={formatCurrency(estimates.costBricks)}
+                           />
+                           <ResultCard
+                              title="Sand"
+                              value={isSI ? (estimates.sandCft / 35.3147).toFixed(1) : estimates.sandCft.toFixed(0)}
+                              unit={isSI ? "m³" : "cft"}
+                              variant="neutral"
+                              description={formatCurrency(estimates.costSand)}
+                           />
+                           <ResultCard
+                              title="Crush"
+                              value={isSI ? (estimates.crushCft / 35.3147).toFixed(1) : estimates.crushCft.toFixed(0)}
+                              unit={isSI ? "m³" : "cft"}
+                              variant="neutral"
+                              description={formatCurrency(estimates.costCrush)}
+                           />
                         </div>
-                      </div>
-                      <div className="flex flex-wrap  gap-4 mb-8 items-center w-full">
-                        <div className="bg-transparent px-4 py-3 rounded-2xl border border-gray-100 text-center min-w-0">
-                          <div
-                            className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate"
-                            title={estimates.cementBags.toFixed(0)}
-                          >
-                            {estimates.cementBags.toFixed(0)}
-                            <span className="text-xs font-normal">bags</span>
-                          </div>
-                          <div className="text-[10px] uppercase tracking-widest font-bold text-slate-700 dark:text-slate-300 mt-1 truncate">
-                            Cement
-                          </div>
-                          <div className="text-sm font-bold text-indigo-600 mt-2">
-                            {formatCurrency(estimates.costCement)}
-                          </div>
-                        </div>
-                        <div className="bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 text-center min-w-0">
-                          <div
-                            className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate"
-                            title={(estimates.steelKg / 1000).toFixed(1)}
-                          >
-                            {(estimates.steelKg / 1000).toFixed(1)}
-                            <span className="text-xs font-normal">tons</span>
-                          </div>
-                          <div className="text-[10px] uppercase tracking-widest font-bold text-slate-700 dark:text-slate-300 mt-1 truncate">
-                            Steel
-                          </div>
-                          <div className="text-sm font-bold text-indigo-600 mt-2">
-                            {formatCurrency(estimates.costSteel)}
-                          </div>
-                        </div>
-                        <div className="bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 text-center min-w-0">
-                          <div
-                            className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate"
-                            title={`${(estimates.bricksCount / 1000).toFixed(0)}k`}
-                          >
-                            {(estimates.bricksCount / 1000).toFixed(0)}k
-                            <span className="text-xs font-normal">qty</span>
-                          </div>
-                          <div className="text-[10px] uppercase tracking-widest font-bold text-slate-700 dark:text-slate-300 mt-1 truncate">
-                            Bricks
-                          </div>
-                          <div className="text-sm font-bold text-indigo-600 mt-2">
-                            {formatCurrency(estimates.costBricks)}
-                          </div>
-                        </div>
-                        <div className="bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 text-center min-w-0">
-                          <div
-                            className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate"
-                            title={
-                              isSI
-                                ? (estimates.sandCft / 35.3147).toFixed(1)
-                                : estimates.sandCft.toFixed(0)
-                            }
-                          >
-                            {isSI
-                              ? (estimates.sandCft / 35.3147).toFixed(1)
-                              : estimates.sandCft.toFixed(0)}
-                            <span className="text-xs font-normal">
-                              {isSI ? "m³" : "cft"}
-                            </span>
-                          </div>
-                          <div className="text-[10px] uppercase tracking-widest font-bold text-slate-700 dark:text-slate-300 mt-1 truncate">
-                            Sand
-                          </div>
-                          <div className="text-sm font-bold text-indigo-600 mt-2">
-                            {formatCurrency(estimates.costSand)}
-                          </div>
-                        </div>
-                        <div className="bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 text-center min-w-0 md:col-span-1 col-span-2">
-                          <div
-                            className="text-xl sm:text-2xl font-black text-slate-600 tracking-tighter truncate"
-                            title={
-                              isSI
-                                ? (estimates.crushCft / 35.3147).toFixed(1)
-                                : estimates.crushCft.toFixed(0)
-                            }
-                          >
-                            {isSI
-                              ? (estimates.crushCft / 35.3147).toFixed(1)
-                              : estimates.crushCft.toFixed(0)}
-                            <span className="text-xs font-normal">
-                              {isSI ? "m³" : "cft"}
-                            </span>
-                          </div>
-                          <div className="text-[10px] uppercase tracking-widest font-bold text-slate-700 dark:text-slate-300 mt-1 truncate">
-                            Crush
-                          </div>
-                          <div className="text-sm font-bold text-indigo-600 mt-2">
-                            {formatCurrency(estimates.costCrush)}
-                          </div>
-                        </div>
-                      </div>
+                      </MaterialSummary>
                       <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">
                         Detailed Exact BOQ
                       </h3>
@@ -1752,53 +1697,25 @@ export default function HouseEstimator() {
                   )}
                   {activeTab === "finishing" && (
                     <div className="animate-in fade-in slide-in-from-left-8 duration-500 h-full flex flex-col">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                        <h3 className="text-xl font-bold text-slate-800">
-                          Finishing Breakdown
-                        </h3>
-                        <div className="text-2xl font-black text-violet-600 tracking-tighter bg-violet-50 px-4 py-1.5 rounded-xl border border-violet-100">
-                          {formatCurrency(estimates.totalFinishing)}
-                        </div>
-                      </div>
-                      <p className="text-sm font-medium text-violet-500 mb-6">
-                        Based on {getQualityLabel(finishQuality)} Grade settings
-                        ({specs.flooringType}, {specs.wardrobeMaterial})
-                      </p>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 content-start mb-8">
-                        {finishingCostData.map((item, idx) => (
-                          <div
-                            key={idx}
-                            className="bg-white border border-slate-100 px-4 py-3 rounded-2xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group"
-                          >
-                            <div
-                              className="absolute top-0 left-0 w-1 h-full opacity-50 group-hover:opacity-100 transition-opacity"
-                              style={{ backgroundColor: item.color }}
-                            />
-                            <div className="flex justify-between items-start pl-2 min-w-0">
-                              <div className="min-w-0 flex-1 pr-2">
-                                <div
-                                  className="text-lg sm:text-2xl font-black text-slate-800 tracking-tight truncate"
-                                  title={formatCurrency(item.value)}
-                                >
-                                  {formatCurrency(item.value)}
-                                </div>
-                                <div className="text-[10px] sm:text-xs uppercase tracking-widest font-bold text-slate-700 dark:text-slate-300 mt-1 truncate">
-                                  {item.name}
-                                </div>
-                              </div>
-                              <div
-                                className="w-10 h-10 rounded-full flex items-center justify-center opacity-20 shrink-0"
-                                style={{ backgroundColor: item.color }}
-                              >
-                                <Settings
-                                  className="w-5 h-5 mix-blend-multiply"
-                                  style={{ color: item.color }}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
+                      <MaterialSummary
+                        title="Finishing Breakdown"
+                        totalLabel="Total Finishing Cost"
+                        totalValue={formatCurrency(estimates.totalFinishing)}
+                        totalUnit=""
+                        subtitle={`Based on ${getQualityLabel(finishQuality)} Grade settings (${specs.flooringType}, ${specs.wardrobeMaterial})`}
+                      >
+                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+                            {finishingCostData.map((item, idx) => (
+                               <ResultCard
+                                  key={idx}
+                                  title={item.name}
+                                  value={formatCurrency(item.value)}
+                                  unit=""
+                                  variant="neutral"
+                               />
+                            ))}
+                         </div>
+                      </MaterialSummary>
                       <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">
                         Detailed Exact BOQ
                       </h3>

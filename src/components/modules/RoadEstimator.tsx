@@ -4,6 +4,8 @@ import { Route, Calculator, Layers, Droplets, ArrowRight } from "lucide-react";
 
 import { useSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { MaterialSummary } from "../ui/MaterialSummary";
+import { ResultCard } from "../ui/ResultCard";
 import { SEO } from "../SEO";
 
 const roadSchema = {
@@ -816,150 +818,71 @@ export default function RoadEstimator() {
                 </div>
               </div>
             </div>
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-indigo-200 transition-colors mb-6 mt-6">
-              <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-4 flex items-center gap-2">
-                <Layers className="w-4 h-4 text-indigo-600" /> Granular Material
-                Breakdown (Loose)
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-sm">
-                <div>
-                  <h4 className="font-semibold text-gray-700 bg-gray-50 px-3 py-1.5 rounded-md inline-block mb-3">
+            <MaterialSummary
+               title="Estimate Details"
+               subtitle="WBM materials, GSB Aggregate & Financial details"
+               totalLabel="Total Project Cost"
+               totalValue={formatCurrency(totalCost)}
+               totalUnit=""
+             >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-sm mt-4">
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                  <h4 className="font-semibold text-slate-400 mb-3 uppercase tracking-wider text-xs">
                     WBM Sub-components
                   </h4>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center border-b border-gray-50 pb-2">
-                      <span className="text-gray-600">
-                        Coarse Aggregate (80%)
-                      </span>
-                      <div className="text-right">
-                        <span className="font-bold text-gray-900 block">
-                          {wbmCoarseVol.toFixed(2)} m³
-                        </span>
-                        <span className="text-xs text-gray-700 dark:text-gray-300 font-medium">
-                          {wbmCoarseTons.toFixed(2)} T
-                        </span>
-                      </div>
+                  <div className="space-y-3 text-slate-300">
+                    <div className="flex justify-between items-center border-b border-white/5 pb-2">
+                       <span>Coarse Aggregate (80%)</span>
+                       <div className="text-right">
+                         <span className="font-bold text-slate-100 block">{wbmCoarseVol.toFixed(2)} m³</span>
+                         <span className="text-xs text-slate-400 font-medium">{wbmCoarseTons.toFixed(2)} T</span>
+                       </div>
                     </div>
-                    <div className="flex justify-between items-center border-b border-gray-50 pb-2">
-                      <span className="text-gray-600">
-                        Screenings (15%)
-                      </span>
-                      <div className="text-right">
-                        <span className="font-bold text-gray-900 block">
-                          {wbmScreeningVol.toFixed(2)} m³
-                        </span>
-                        <span className="text-xs text-gray-700 dark:text-gray-300 font-medium">
-                          {wbmScreeningTons.toFixed(2)} T
-                        </span>
-                      </div>
+                    <div className="flex justify-between items-center border-b border-white/5 pb-2">
+                       <span>Screenings (15%)</span>
+                       <div className="text-right">
+                         <span className="font-bold text-slate-100 block">{wbmScreeningVol.toFixed(2)} m³</span>
+                         <span className="text-xs text-slate-400 font-medium">{wbmScreeningTons.toFixed(2)} T</span>
+                       </div>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600">
-                        Binding Material (5%)
-                      </span>
-                      <div className="text-right">
-                        <span className="font-bold text-gray-900 block">
-                          {wbmBindingVol.toFixed(2)} m³
-                        </span>
-                        <span className="text-xs text-gray-700 dark:text-gray-300 font-medium">
-                          {wbmBindingTons.toFixed(2)} T
-                        </span>
-                      </div>
+                       <span>Binding Material (5%)</span>
+                       <div className="text-right">
+                         <span className="font-bold text-slate-100 block">{wbmBindingVol.toFixed(2)} m³</span>
+                         <span className="text-xs text-slate-400 font-medium">{wbmBindingTons.toFixed(2)} T</span>
+                       </div>
                     </div>
                   </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-gray-700 bg-gray-50 px-3 py-1.5 rounded-md inline-block mb-3">
-                    Sub-base Material
+                
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                  <h4 className="font-semibold text-slate-400 mb-3 uppercase tracking-wider text-xs">
+                    Sub-base Material & Finances
                   </h4>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">
-                        GSB Aggregate (100%)
-                      </span>
+                  <div className="space-y-3 text-slate-300">
+                    <div className="flex justify-between items-center border-b border-white/5 pb-2">
+                      <span>GSB Aggregate</span>
                       <div className="text-right">
-                        <span className="font-bold text-gray-900 block">
-                          {sbLooseVol.toFixed(2)} m³
-                        </span>
-                        <span className="text-xs text-gray-700 dark:text-gray-300 font-medium">
-                          {sbMaterialTons.toFixed(2)} T
-                        </span>
+                        <span className="font-bold text-slate-100 block">{sbLooseVol.toFixed(2)} m³</span>
+                        <span className="text-xs text-slate-400 font-medium">{sbMaterialTons.toFixed(2)} T</span>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center border-b border-white/5 pb-2">
+                      <span>Asphalt / Prime / Tack</span>
+                      <div className="text-right">
+                         <span className="font-bold text-emerald-400 block">{formatCurrency(costAsp + costPrime + costTack)}</span>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span>Base / Sub-base</span>
+                      <div className="text-right">
+                         <span className="font-bold text-amber-400 block">{formatCurrency(costSb + costWbm + costSg)}</span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-emerald-200 transition-colors">
-              <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-4 flex items-center gap-2">
-                <svg
-                  className="w-4 h-4 text-emerald-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                Financial Summary
-              </h3>
-              <div className="space-y-3 font-mono text-sm">
-                <div className="grid grid-cols-2 gap-4 pb-2 border-b border-gray-50">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Sub-Grade</span>
-                    <span className="font-bold text-gray-900">
-                      {formatCurrency(costSg)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Sub-Base</span>
-                    <span className="font-bold text-gray-900">
-                      {formatCurrency(costSb)}
-                    </span>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4 pb-2 border-b border-gray-50">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">WBM</span>
-                    <span className="font-bold text-gray-900">
-                      {formatCurrency(costWbm)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Asphalt</span>
-                    <span className="font-bold text-emerald-600">
-                      {formatCurrency(costAsp)}
-                    </span>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4 pb-4">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Prime Coat</span>
-                    <span className="font-bold text-gray-900">
-                      {formatCurrency(costPrime)}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Tack Coat</span>
-                    <span className="font-bold text-gray-900">
-                      {formatCurrency(costTack)}
-                    </span>
-                  </div>
-                </div>
-                <div className="pt-3 border-t-2 border-slate-800 flex justify-between items-center text-lg">
-                  <span className="font-bold text-slate-800 tracking-tight uppercase text-xs">
-                    Total Estimate Project Cost
-                  </span>
-                  <span className="font-black text-emerald-600 bg-emerald-50 px-3 py-1 rounded-lg">
-                    {formatCurrency(totalCost)}
-                  </span>
-                </div>
-              </div>
-            </div>
+            </MaterialSummary>
           </section>
         </div>
       </div>

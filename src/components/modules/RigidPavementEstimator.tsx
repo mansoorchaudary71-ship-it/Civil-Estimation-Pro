@@ -12,6 +12,8 @@ import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { useSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { MaterialSummary } from "../ui/MaterialSummary";
+import { ResultCard } from "../ui/ResultCard";
 export default function RigidPavementEstimator() {
   const { user } = useAuth();
   const { settings, formatCurrency } = useSettings();
@@ -438,183 +440,77 @@ export default function RigidPavementEstimator() {
               </div>{" "}
             </div>{" "}
           </section>{" "}
-          {/* Results Sidebar */}{" "}
-          <section className="lg:col-span-4 space-y-6">
-            {" "}
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 sticky top-6">
-              {" "}
-              <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-4 flex items-center gap-2">
-                {" "}
-                <BarChart3 className="w-4 h-4 text-blue-500" /> Concrete
-                Volumes{" "}
-              </h3>{" "}
-              <div className="space-y-4 font-mono text-sm mb-6">
-                {" "}
-                <div className="bg-gray-50 p-3 rounded-xl border border-gray-100">
-                  {" "}
+          {/* Results Sidebar */}
+          <section className="lg:col-span-4 space-y-6 flex flex-col items-stretch h-full">
+            <MaterialSummary
+               title="Concrete Volumes"
+               totalLabel="Total Concrete"
+               totalValue={(volDLC + volPQC).toFixed(2)}
+               totalUnit="m³"
+               subtitle={`DLC: ${volDLC.toFixed(2)} m³ | PQC: ${volPQC.toFixed(2)} m³`}
+             >
+              <div className="space-y-4 font-mono text-sm mb-6 mt-6">
+                <div className="bg-gray-50/5 p-3 rounded-xl border border-gray-100/10">
                   <div className="flex justify-between items-center mb-2">
-                    {" "}
-                    <span className="text-gray-600 font-sans font-medium">
-                      DLC Sub-base
-                    </span>{" "}
-                    <span className="font-bold text-gray-900 text-lg">
-                      {volDLC.toFixed(2)}{" "}
-                      <span className="text-sm text-gray-700 dark:text-gray-300 font-normal">
-                        m³
-                      </span>
-                    </span>{" "}
-                  </div>{" "}
-                  <div className="space-y-1 text-xs text-gray-700 dark:text-gray-300 border-t border-gray-100 pt-2">
-                    {" "}
-                    <div className="flex justify-between">
-                      {" "}
-                      <span>Cement:</span>{" "}
-                      <span className="font-medium text-gray-700">
-                        {dlcCementBags} bags
-                      </span>{" "}
-                    </div>{" "}
-                    <div className="flex justify-between">
-                      {" "}
-                      <span>Sand:</span>{" "}
-                      <span className="font-medium text-gray-700">
-                        {dlcSandVol.toFixed(2)} m³
-                      </span>{" "}
-                    </div>{" "}
-                    <div className="flex justify-between">
-                      {" "}
-                      <span>Aggregates:</span>{" "}
-                      <span className="font-medium text-gray-700">
-                        {dlcAggVol.toFixed(2)} m³
-                      </span>{" "}
-                    </div>{" "}
-                    <div className="flex justify-between">
-                      {" "}
-                      <span>Water:</span>{" "}
-                      <span className="font-medium text-gray-700">
-                        {dlcWaterLiters.toFixed(0)} L
-                      </span>{" "}
-                    </div>{" "}
-                  </div>{" "}
-                </div>{" "}
-                <div className="bg-blue-50 p-3 rounded-xl border border-blue-100">
-                  {" "}
+                    <span className="text-gray-400 font-sans font-medium">DLC Sub-base</span>
+                    <span className="font-bold text-gray-200 text-lg">
+                      {volDLC.toFixed(2)} <span className="text-sm font-normal text-gray-400">m³</span>
+                    </span>
+                  </div>
+                  <div className="space-y-1 text-xs text-gray-400 border-t border-gray-100/10 pt-2">
+                    <div className="flex justify-between"><span>Cement:</span><span className="font-medium text-gray-300">{dlcCementBags} bags</span></div>
+                    <div className="flex justify-between"><span>Sand:</span><span className="font-medium text-gray-300">{dlcSandVol.toFixed(2)} m³</span></div>
+                    <div className="flex justify-between"><span>Aggregates:</span><span className="font-medium text-gray-300">{dlcAggVol.toFixed(2)} m³</span></div>
+                    <div className="flex justify-between"><span>Water:</span><span className="font-medium text-gray-300">{dlcWaterLiters.toFixed(0)} L</span></div>
+                  </div>
+                </div>
+                <div className="bg-indigo-500/10 p-3 rounded-xl border border-indigo-500/20">
                   <div className="flex justify-between items-center mb-2">
-                    {" "}
-                    <span className="text-blue-800 font-sans font-medium">
-                      PQC Surface
-                    </span>{" "}
-                    <span className="font-bold text-blue-900 text-lg">
-                      {volPQC.toFixed(2)}{" "}
-                      <span className="text-sm text-indigo-600/60 font-normal">
-                        m³
-                      </span>
-                    </span>{" "}
-                  </div>{" "}
-                  <div className="space-y-1 text-xs text-blue-700/70 border-t border-blue-100/50 pt-2">
-                    {" "}
-                    <div className="flex justify-between">
-                      {" "}
-                      <span>Cement:</span>{" "}
-                      <span className="font-medium text-blue-800">
-                        {pqcCementBags} bags
-                      </span>{" "}
-                    </div>{" "}
-                    <div className="flex justify-between">
-                      {" "}
-                      <span>Sand:</span>{" "}
-                      <span className="font-medium text-blue-800">
-                        {pqcSandVol.toFixed(2)} m³
-                      </span>{" "}
-                    </div>{" "}
-                    <div className="flex justify-between">
-                      {" "}
-                      <span>Aggregates:</span>{" "}
-                      <span className="font-medium text-blue-800">
-                        {pqcAggVol.toFixed(2)} m³
-                      </span>{" "}
-                    </div>{" "}
-                    <div className="flex justify-between">
-                      {" "}
-                      <span>Water:</span>{" "}
-                      <span className="font-medium text-blue-800">
-                        {pqcWaterLiters.toFixed(0)} L
-                      </span>{" "}
-                    </div>{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-              <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-4 border-t border-gray-100 pt-6">
-                {" "}
-                Steel Requirements{" "}
-              </h3>{" "}
-              <div className="space-y-6">
-                {" "}
-                <div>
-                  {" "}
-                  <div className="flex justify-between items-end mb-1 transition-all">
-                    {" "}
-                    <span className="text-sm text-gray-600 font-medium">
-                      Dowel Bars
-                    </span>{" "}
-                    <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 bg-slate-100 px-2 py-0.5 rounded">
-                      {totalDowelWeight.toFixed(1)} kg
-                    </span>{" "}
-                  </div>{" "}
-                  <div className="text-2xl font-bold text-slate-800">
-                    {" "}
-                    {totalDowels}{" "}
-                    <span className="text-base font-normal text-slate-700 dark:text-slate-300">
-                      nos
-                    </span>{" "}
-                  </div>{" "}
-                  <div className="text-xs text-slate-700 dark:text-slate-300 mt-1">
-                    Total {numTransverseJoints} joints • {dowelsPerJoint}{" "}
-                    bars/joint
-                  </div>{" "}
-                </div>{" "}
-                <div>
-                  {" "}
-                  <div className="flex justify-between items-end mb-1">
-                    {" "}
-                    <span className="text-sm text-gray-600 font-medium">
-                      Tie Bars
-                    </span>{" "}
-                    <span className="text-[10px] font-medium text-slate-700 dark:text-slate-300 bg-slate-100 px-2 py-0.5 rounded">
-                      {totalTieWeight.toFixed(1)} kg
-                    </span>{" "}
-                  </div>{" "}
-                  <div className="text-2xl font-bold text-slate-800">
-                    {" "}
-                    {totalTies}{" "}
-                    <span className="text-base font-normal text-slate-700 dark:text-slate-300">
-                      nos
-                    </span>{" "}
-                  </div>{" "}
-                  <div className="text-xs text-slate-700 dark:text-slate-300 mt-1">
-                    Total {numLongitudinalJoints} joints • {tiesPerJoint}{" "}
-                    bars/joint
-                  </div>{" "}
-                </div>{" "}
-                <div className="pt-4 border-t border-gray-100 bg-transparent p-4 rounded-xl">
-                  {" "}
-                  <div className="text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide mb-1">
-                    Total Joint Steel
-                  </div>{" "}
-                  <div className="text-2xl font-black text-slate-800">
-                    {" "}
-                    {((totalDowelWeight + totalTieWeight) / 1000).toFixed(
-                      3,
-                    )}{" "}
-                    <span className="text-[13px] sm:text-sm font-semibold text-slate-700 dark:text-slate-500 dark:text-slate-400">
-                      tons
-                    </span>{" "}
-                  </div>{" "}
-                  <div className="text-xs text-slate-700 dark:text-slate-300 mt-1">
-                    ({(totalDowelWeight + totalTieWeight).toFixed(1)} kg)
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
+                    <span className="text-indigo-400 font-sans font-medium">PQC Surface</span>
+                    <span className="font-bold text-indigo-300 text-lg">
+                      {volPQC.toFixed(2)} <span className="text-sm font-normal text-indigo-400/60">m³</span>
+                    </span>
+                  </div>
+                  <div className="space-y-1 text-xs text-indigo-400/80 border-t border-indigo-500/20 pt-2">
+                    <div className="flex justify-between"><span>Cement:</span><span className="font-medium text-indigo-300">{pqcCementBags} bags</span></div>
+                    <div className="flex justify-between"><span>Sand:</span><span className="font-medium text-indigo-300">{pqcSandVol.toFixed(2)} m³</span></div>
+                    <div className="flex justify-between"><span>Aggregates:</span><span className="font-medium text-indigo-300">{pqcAggVol.toFixed(2)} m³</span></div>
+                    <div className="flex justify-between"><span>Water:</span><span className="font-medium text-indigo-300">{pqcWaterLiters.toFixed(0)} L</span></div>
+                  </div>
+                </div>
+              </div>
+              
+              <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4 border-t border-slate-700/50 pt-6">
+                Steel Requirements
+              </h3>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <ResultCard
+                  title="Dowel Bars"
+                  value={totalDowels}
+                  unit="nos"
+                  variant="neutral"
+                />
+                <ResultCard
+                  title="Tie Bars"
+                  value={totalTies}
+                  unit="nos"
+                  variant="neutral"
+                />
+                <ResultCard
+                  title="Total Joint Steel"
+                  value={((totalDowelWeight + totalTieWeight) / 1000).toFixed(3)}
+                  unit="tons"
+                  variant="highlight"
+                />
+                <ResultCard
+                  title="Steel Weight"
+                  value={(totalDowelWeight + totalTieWeight).toFixed(1)}
+                  unit="kg"
+                  variant="highlight"
+                />
+              </div>
+             </MaterialSummary>
           </section>{" "}
         </div>{" "}
       </div>{" "}

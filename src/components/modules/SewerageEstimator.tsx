@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { useTakeoff } from "../../context/TakeoffContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
 
 import ManholeModule, { ManholeResults } from "./ManholeModule";
 export default function SewerageEstimator() {
@@ -1067,69 +1069,58 @@ export default function SewerageEstimator() {
                       />
                     </div>
                   </div>
-                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-                    <h3 className="text-emerald-800 font-bold border-b border-emerald-200 pb-2">
-                      Septic Tank Dimensions
-                    </h3>
-                    <div className="flex flex-wrap gap-2 items-center w-full">
-                      <div className="bg-white/60 p-3 rounded-xl border border-emerald-100 text-center">
-                        <span className="block text-emerald-600 text-xs font-semibold mb-1">
-                          Length
-                        </span>
-                        <span className="block text-emerald-900 font-bold text-lg">
-                          {septicLength.toFixed(2)} m
-                        </span>
+                  <div className="flex flex-col h-full">
+                    <MaterialSummary
+                      title="Septic Tank Dimensions"
+                      totalLabel="Calculated Volume (24h retention + sludge)"
+                      totalValue={septicTotalVolM3.toFixed(2)}
+                      totalUnit="m³"
+                    >
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+                        <ResultCard
+                          title="Length"
+                          value={septicLength.toFixed(2)}
+                          unit="m"
+                          variant="neutral"
+                        />
+                        <ResultCard
+                          title="Width"
+                          value={septicWidth.toFixed(2)}
+                          unit="m"
+                          variant="neutral"
+                        />
+                        <ResultCard
+                          title="Liquid Depth"
+                          value={septicDepth.toFixed(2)}
+                          unit="m"
+                          variant="neutral"
+                        />
                       </div>
-                      <div className="bg-white/60 p-3 rounded-xl border border-emerald-100 text-center">
-                        <span className="block text-emerald-600 text-xs font-semibold mb-1">
-                          Width
-                        </span>
-                        <span className="block text-emerald-900 font-bold text-lg">
-                          {septicWidth.toFixed(2)} m
-                        </span>
+                      
+                      <h4 className="font-bold text-slate-800 dark:text-white mt-6 mb-4 flex items-center gap-2">
+                        Soakage Pit Dimensions
+                      </h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <ResultCard
+                          title="Req. Sidewall Area"
+                          value={soakageAreaRequired.toFixed(2)}
+                          unit="m²"
+                          variant="primary"
+                        />
+                        <ResultCard
+                          title="Diameter"
+                          value={soakageDia.toFixed(2)}
+                          unit="m"
+                          variant="neutral"
+                        />
+                        <ResultCard
+                          title="Depth"
+                          value={soakageDepth.toFixed(2)}
+                          unit="m"
+                          variant="neutral"
+                        />
                       </div>
-                      <div className="bg-white/60 p-3 rounded-xl border border-emerald-100 text-center">
-                        <span className="block text-emerald-600 text-xs font-semibold mb-1">
-                          Liquid Depth
-                        </span>
-                        <span className="block text-emerald-900 font-bold text-lg">
-                          {septicDepth.toFixed(2)} m
-                        </span>
-                      </div>
-                    </div>
-                    <p className="text-[11px] text-emerald-600 font-medium text-center">
-                      Calculated Volume: {septicTotalVolM3.toFixed(2)} m³
-                      (Includes 24hr retention + sludge)
-                    </p>
-                    <h3 className="text-emerald-800 font-bold border-b border-emerald-200 pb-2 mt-2">
-                      Soakage Pit Dimensions
-                    </h3>
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="text-emerald-700 font-medium">
-                        Req. Sidewall Area
-                      </span>
-                      <span className="text-emerald-900 font-bold text-base">
-                        {soakageAreaRequired.toFixed(2)} m²
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap gap-2 mt-1 items-center w-full">
-                      <div className="bg-white/60 p-3 rounded-xl border border-emerald-100 text-center">
-                        <span className="block text-emerald-600 text-xs font-semibold mb-1">
-                          Diameter
-                        </span>
-                        <span className="block text-emerald-900 font-bold text-xl">
-                          {soakageDia.toFixed(2)} m
-                        </span>
-                      </div>
-                      <div className="bg-white/60 p-3 rounded-xl border border-emerald-100 text-center">
-                        <span className="block text-emerald-600 text-xs font-semibold mb-1">
-                          Depth
-                        </span>
-                        <span className="block text-emerald-900 font-bold text-xl">
-                          {soakageDepth.toFixed(2)} m
-                        </span>
-                      </div>
-                    </div>
+                    </MaterialSummary>
                   </div>
                 </div>
               </div>

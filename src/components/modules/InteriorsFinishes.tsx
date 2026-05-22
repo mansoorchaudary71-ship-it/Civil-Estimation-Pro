@@ -4,6 +4,7 @@ import { cn } from "../../lib/utils";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { useSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { MaterialSummary } from "../ui/MaterialSummary";
 import { ResultCard } from "../ui/ResultCard";
 
 export default function InteriorsFinishesEstimator() {
@@ -172,17 +173,24 @@ function TilesCalculator() {
         </InputGroup>
       </div>
 
-        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-          <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
-          
+        <div className="flex flex-col h-full">
           {results ? (
-            <div className="space-y-4">
-              <ResultCard title="Required Tiles (inc. 5% waste)" value={results.numTiles} unit="tiles" variant="neutral" />
-              <ResultCard title="Boxes Required" value={results.boxesReq} unit="boxes" variant="primary" />
-            </div>
+            <MaterialSummary
+               title="Estimate Results"
+               totalLabel="Boxes Required"
+               totalValue={results.boxesReq.toString()}
+               totalUnit="boxes"
+             >
+               <div className="grid grid-cols-1 gap-4 mt-6">
+                 <ResultCard title="Required Tiles (inc. 5% waste)" value={results.numTiles} unit="tiles" variant="neutral" />
+               </div>
+             </MaterialSummary>
           ) : (
-            <div className="text-center text-slate-500 py-8">
-              Enter area and tile size to calculate.
+            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
+              <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
+              <div className="text-center text-slate-500 py-8">
+                Enter area and tile size to calculate.
+              </div>
             </div>
           )}
         </div>
@@ -284,17 +292,24 @@ function PaintCalculator() {
 
       </div>
 
-      <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-        <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
-        
+      <div className="flex flex-col h-full">
         {results ? (
-          <div className="space-y-4">
-            <ResultCard title="Required Paint" value={results.liters} unit="Liters" variant="warning" />
-            <ResultCard title="In Gallons (US)" value={results.gallons} unit="gals" variant="neutral" />
-          </div>
+            <MaterialSummary
+               title="Estimate Results"
+               totalLabel="Required Paint"
+               totalValue={results.liters}
+               totalUnit="Liters"
+             >
+               <div className="grid grid-cols-1 gap-4 mt-6">
+                 <ResultCard title="In Gallons (US)" value={results.gallons} unit="gals" variant="neutral" />
+               </div>
+             </MaterialSummary>
         ) : (
-          <div className="text-center text-slate-500 py-8">
-            Enter wall/ceiling area and coats to calculate.
+          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
+            <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
+            <div className="text-center text-slate-500 py-8">
+              Enter wall/ceiling area and coats to calculate.
+            </div>
           </div>
         )}
       </div>
@@ -374,17 +389,24 @@ function DoorsWindowsCalculator() {
         </div>
       </div>
 
-      <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-        <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
-        
+      <div className="flex flex-col h-full">
         {grossArea ? (
-          <div className="space-y-4">
-            <ResultCard title="Net Printable / Plaster Area" value={netArea > 0 ? netArea.toFixed(2) : 0} unit={uArea} variant="primary" />
-            <ResultCard title="Total Deductions" value={totalDeduction.toFixed(2)} unit={uArea} variant="warning" />
-          </div>
+            <MaterialSummary
+               title="Estimate Results"
+               totalLabel="Net Printable / Plaster Area"
+               totalValue={netArea > 0 ? netArea.toFixed(2) : "0"}
+               totalUnit={uArea}
+             >
+               <div className="grid grid-cols-1 gap-4 mt-6">
+                 <ResultCard title="Total Deductions" value={totalDeduction.toFixed(2)} unit={uArea} variant="warning" />
+               </div>
+             </MaterialSummary>
         ) : (
-          <div className="text-center text-slate-500 py-8">
-            Enter gross area to calculate net dimensions.
+          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
+            <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
+            <div className="text-center text-slate-500 py-8">
+              Enter gross area to calculate net dimensions.
+            </div>
           </div>
         )}
       </div>

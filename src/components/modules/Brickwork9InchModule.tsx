@@ -7,6 +7,7 @@ import { Save } from "lucide-react";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { StyledChart } from "../ui/EstimateVisualizer";
 import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
 import {
   Columns,
   Settings,
@@ -334,39 +335,41 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
           </div>
 
           {/* Results Column */}
-          <div className="relative">
-            <div className="sticky top-6 flex flex-col h-full space-y-4">
-              <ResultCard
-                title="Net Wall Volume"
-                value={results.netVolume.toFixed(2)}
-                unit={results.isSI ? 'm³' : 'cft'}
-                variant="neutral"
-              />
-              <ResultCard
-                title="Total Bricks Estimated"
-                value={results.noOfBricks.toLocaleString()}
-                unit="pcs"
-                variant="primary"
-                icon={<Box className="w-5 h-5 text-indigo-500" />}
-              />
-              
-              <div className="grid grid-cols-2 gap-4">
-                <ResultCard
-                  title="Cement"
-                  value={results.cementBags}
-                  unit="bags"
-                  variant="secondary"
-                  icon={<Construction className="w-5 h-5 text-blue-500" />}
-                />
-                <ResultCard
-                  title="Sand"
-                  value={results.sandCft.toFixed(1)}
-                  unit="cft"
-                  variant="warning"
-                  icon={<Layers className="w-5 h-5 text-amber-500" />}
-                  description={`${((results.sandCft || 0) / 35.3147).toFixed(2)} m³`}
-                />
-              </div>
+          <div className="relative flex flex-col h-full">
+            <div className="sticky top-6 flex flex-col flex-1">
+              <MaterialSummary
+               title="Estimate Results"
+               totalLabel="Total Bricks Estimated"
+               totalValue={results.noOfBricks.toLocaleString()}
+               totalUnit="pcs"
+             >
+               <div className="grid grid-cols-1 gap-4 mt-6">
+                 <ResultCard
+                   title="Net Wall Volume"
+                   value={results.netVolume.toFixed(2)}
+                   unit={results.isSI ? 'm³' : 'cft'}
+                   variant="neutral"
+                 />
+                 
+                 <div className="grid grid-cols-2 gap-4">
+                   <ResultCard
+                     title="Cement"
+                     value={results.cementBags}
+                     unit="bags"
+                     variant="secondary"
+                     icon={<Construction className="w-5 h-5 text-blue-500" />}
+                   />
+                   <ResultCard
+                     title="Sand"
+                     value={results.sandCft.toFixed(1)}
+                     unit="cft"
+                     variant="warning"
+                     icon={<Layers className="w-5 h-5 text-amber-500" />}
+                     description={`${((results.sandCft || 0) / 35.3147).toFixed(2)} m³`}
+                   />
+                 </div>
+               </div>
+              </MaterialSummary>
 
               <div className="px-4 py-3 bg-transparent dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700 rounded-2xl flex justify-center text-center mt-2">
                 <span className="flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300">

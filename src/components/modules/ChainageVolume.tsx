@@ -15,6 +15,8 @@ import {
 import { useSettings } from "../../context/SettingsContext";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
 import { v4 as uuidv4 } from "uuid";
 interface Station {
   id: string;
@@ -386,61 +388,28 @@ export default function ChainageVolumeEstimator() {
             </div>
           </section>
           <section className="lg:col-span-4 space-y-6">
-            <div className="bg-gradient-to-br from-slate-900  rounded-[2rem] p-8 shadow-2xl relative overflow-hidden sticky top-6">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-amber-500/10 rounded-full blur-2xl -ml-10 -mb-10"></div>
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 bg-white/10 rounded-xl backdrop-blur-md border border-white/10 text-white">
-                    <Calculator className="w-5 h-5" />
-                  </div>
-                  <h2 className="text-xl font-bold tracking-tight text-white">
-                    Summary
-                  </h2>
+            <div className="flex flex-col h-full sticky top-6">
+              <MaterialSummary
+                title="Summary"
+                totalLabel={`Final Balance ${finalNet >= 0 ? "(Excess Cut)" : "(Required Fill)"}`}
+                totalValue={Math.abs(finalNet).toFixed(2)}
+                totalUnit={unitV}
+              >
+                <div className="grid grid-cols-1 gap-4 mt-6">
+                  <ResultCard
+                    title="Cumulative Cut"
+                    value={totalCut.toFixed(2)}
+                    unit={unitV}
+                    variant="warning"
+                  />
+                  <ResultCard
+                    title="Cumulative Fill"
+                    value={totalFill.toFixed(2)}
+                    unit={unitV}
+                    variant="secondary"
+                  />
                 </div>
-                <div className="space-y-4">
-                  <div className="bg-white/5 p-5 rounded-[1.25rem] border border-white/10 backdrop-blur-sm">
-                    <div className="text-amber-200/70 text-sm font-semibold mb-1 uppercase tracking-wider">
-                      Cumulative Cut
-                    </div>
-                    <div className="text-3xl font-black tracking-tight text-amber-100">
-                      {totalCut.toFixed(2)}
-                      <span className="text-lg font-medium text-amber-200/50">
-                        {unitV}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="bg-white/5 p-5 rounded-[1.25rem] border border-white/10 backdrop-blur-sm">
-                    <div className="text-indigo-200/70 text-sm font-semibold mb-1 uppercase tracking-wider">
-                      Cumulative Fill
-                    </div>
-                    <div className="text-3xl font-black tracking-tight text-indigo-100">
-                      {totalFill.toFixed(2)}
-                      <span className="text-lg font-medium text-indigo-200/50">
-                        {unitV}
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    className={`p-5 rounded-[1.25rem] border backdrop-blur-sm mt-6 ${finalNet >= 0 ? "bg-amber-500/20 border-amber-500/30" : "bg-indigo-500/20 border-indigo-500/30"}`}
-                  >
-                    <div
-                      className={`text-xs font-bold mb-1 uppercase tracking-widest ${finalNet >= 0 ? "text-amber-200/80" : "text-indigo-200/80"}`}
-                    >
-                      Final Balance
-                      {finalNet >= 0 ? "(Excess Cut)" : "(Required Fill)"}
-                    </div>
-                    <div
-                      className={`text-4xl font-black tracking-tight ${finalNet >= 0 ? "text-amber-400" : "text-indigo-400"}`}
-                    >
-                      {Math.abs(finalNet).toFixed(2)}
-                      <span className="text-xl font-medium opacity-60 ml-1">
-                        {unitV}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              </MaterialSummary>
             </div>
           </section>
         </div>

@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import ColorfulTab from "../ui/ColorfulTab";
 import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
 export interface ManholeResults {
   excavationVol: number;
   wallVol: number;
@@ -324,51 +325,50 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
               </p>{" "}
             </div>{" "}
           </div>{" "}
-          <div className="lg:col-span-2 w-full space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <ResultCard
-                title="Concrete Volume"
-                value={totalWetConcrete.toFixed(2)}
-                unit="m³"
-                icon={<Droplets className="w-4 h-4 text-white" />}
-                description="Wet Area (Base + Wall + Slab)"
-                variant="primary"
-              />
-              <ResultCard
-                title="Total Dry Concrete"
-                value={totalDryConcrete.toFixed(2)}
-                unit="m³"
-                description="Wet factor used: × 1.54"
-                variant="neutral"
-              />
-            </div>
-            
-            <div className="w-full h-px bg-slate-100 my-4" />
-            
-            <h4 className="text-sm font-bold text-slate-800 mb-2 flex items-center gap-2">
-              <Construction className="w-4 h-4 text-slate-600" /> Material Breakdown ({concreteMix})
-            </h4>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <ResultCard
-                title="Cement"
-                value={cementBags}
-                unit="bags"
-                variant="neutral"
-              />
-              <ResultCard
-                title="Sand"
-                value={sandCft.toFixed(1)}
-                unit="cft"
-                variant="neutral"
-              />
-              <ResultCard
-                title="Aggregate"
-                value={aggCft.toFixed(1)}
-                unit="cft"
-                variant="neutral"
-              />
-            </div>
+          <div className="lg:col-span-2 flex flex-col h-full">
+            <MaterialSummary
+              title="Estimate Results"
+              totalLabel="Total Dry Concrete"
+              totalValue={totalDryConcrete.toFixed(2)}
+              totalUnit="m³"
+              subtitle="Wet factor used: × 1.54"
+            >
+              <div className="grid grid-cols-1 gap-4 mt-6">
+                <ResultCard
+                  title="Wet Concrete Volume"
+                  value={totalWetConcrete.toFixed(2)}
+                  unit="m³"
+                  icon={<Droplets className="w-4 h-4 text-white" />}
+                  description="Base + Wall + Slab"
+                  variant="primary"
+                />
+                
+                <h4 className="text-sm font-bold text-slate-800 mb-2 mt-4 flex items-center gap-2">
+                  <Construction className="w-4 h-4 text-slate-600" /> Material Breakdown ({concreteMix})
+                </h4>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <ResultCard
+                    title="Cement"
+                    value={cementBags}
+                    unit="bags"
+                    variant="neutral"
+                  />
+                  <ResultCard
+                    title="Sand"
+                    value={sandCft.toFixed(1)}
+                    unit="cft"
+                    variant="neutral"
+                  />
+                  <ResultCard
+                    title="Aggregate"
+                    value={aggCft.toFixed(1)}
+                    unit="cft"
+                    variant="neutral"
+                  />
+                </div>
+              </div>
+            </MaterialSummary>
           </div>{" "}
           <div className="mt-6 flex flex-wrap gap-4 items-center">
             

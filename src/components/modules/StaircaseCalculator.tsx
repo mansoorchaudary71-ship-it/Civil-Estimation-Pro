@@ -3,6 +3,8 @@ import { Layers, Info, CheckCircle2, ChevronRight, Calculator, Ruler, Hash, Cyli
 import ColorfulTab from "../ui/ColorfulTab";
 import { useGlobalSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
 import { DetailedCalculationDisplay } from "../ui/DetailedCalculationDisplay";
 import { SEO } from "../SEO";
 import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
@@ -77,12 +79,34 @@ export default function StaircaseCalculator() {
             </div>
           </div>
           
-          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-             <div className="text-slate-400 text-xs font-bold uppercase mb-2">Total Steel Required</div>
-             <div className="text-3xl font-black text-white">{res.totalSteelWeight.toFixed(1)} kg</div>
-             <div className="text-sm text-slate-500 mt-2">Cement: {res.cementBags} bags</div>
-             <div className="text-sm text-slate-500">Sand: {res.sandCft} CFT</div>
-             <div className="text-sm text-slate-500">Aggregate: {res.aggCft} CFT</div>
+          <div className="flex flex-col h-full">
+            <MaterialSummary
+               title="Quantity Summary"
+               totalLabel="Total Steel Required"
+               totalValue={res.totalSteelWeight.toFixed(1)}
+               totalUnit="kg"
+             >
+               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+                 <ResultCard
+                   title="Cement"
+                   value={res.cementBags}
+                   unit="bags"
+                   variant="secondary"
+                 />
+                 <ResultCard
+                   title="Sand"
+                   value={res.sandCft}
+                   unit="CFT"
+                   variant="warning"
+                 />
+                 <ResultCard
+                   title="Aggregate"
+                   value={res.aggCft}
+                   unit="CFT"
+                   variant="neutral"
+                 />
+               </div>
+             </MaterialSummary>
           </div>
         </div>
       </div>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Calculator, Square } from "lucide-react";
 import { useSettings } from "../../context/SettingsContext";
+import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
 import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import { CalculationHistory } from "../ui/CalculationHistory";
 
@@ -190,28 +192,31 @@ export default function CountertopModule() {
           </div>
         </div>
 
-        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-          <h3 className="font-bold text-slate-400 text-sm uppercase tracking-widest mb-6">Quantity Summary</h3>
-          <div className="space-y-4">
-            <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-              <span className="block text-slate-400 text-xs font-bold uppercase mb-1">Total Material Required (Slab/Granite)</span>
-              <span className="text-4xl sm:text-5xl tracking-tight font-black text-indigo-400 whitespace-nowrap">{totalMaterialArea.toFixed(2)} {uA}</span>
-              <p className="text-[10px] text-slate-500 mt-1">Platform gross area + Skirting area</p>
+        <div className="flex flex-col h-full">
+          <MaterialSummary
+            title="Quantity Summary"
+            totalLabel="Total Material Required (Slab/Granite)"
+            totalValue={totalMaterialArea.toFixed(2)}
+            totalUnit={uA}
+            subtitle="Platform gross area + Skirting area"
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+              <ResultCard
+                title="Net Usable Area"
+                value={netArea.toFixed(2)}
+                unit={uA}
+                variant="neutral"
+                description="Gross minus deductions"
+              />
+              <ResultCard
+                title="Edge Polishing"
+                value={frontEdgePolish.toFixed(2)}
+                unit={uL}
+                variant="neutral"
+                description="Front edges"
+              />
             </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                <span className="block text-slate-400 text-xs font-bold uppercase mb-1">Net Usable Area</span>
-                <span className="text-xl font-bold flex items-baseline gap-1">{netArea.toFixed(2)} <span className="text-sm">{uA}</span></span>
-                <p className="text-[10px] text-slate-500 mt-1">Gross minus deductions</p>
-              </div>
-              <div className="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                <span className="block text-slate-400 text-xs font-bold uppercase mb-1">Edge Polishing</span>
-                <span className="text-xl font-bold flex items-baseline gap-1">{frontEdgePolish.toFixed(2)} <span className="text-sm">{uL}</span></span>
-                <p className="text-[10px] text-slate-500 mt-1">Front edges</p>
-              </div>
-            </div>
-          </div>
+          </MaterialSummary>
         </div>
       </div>
       <CalculationHistory

@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { useGlobalSettings } from "../../context/SettingsContext";
 import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
+import { MaterialSummary } from "../ui/MaterialSummary";
 import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
 import {
   ConcreteMortarCalculator,
@@ -1313,21 +1314,24 @@ export default function ConstructionMaterialEstimator() {
                     <ProcessingSkeleton count={4} />
                   </div>
                 ) : hasData ? (
-                  <div className="bg-slate-900 rounded-3xl px-4 py-3 md:px-4 md:py-3 text-white space-y-4 shadow-xl sticky top-6 self-start z-10 w-full">
-                    <div className="flex justify-between items-center mb-4">
-                      <h3 className="font-bold text-slate-300 text-sm uppercase tracking-widest">
-                        Material Breakdown
-                      </h3>
-                      <label className="flex items-center gap-2 cursor-pointer text-xs bg-slate-800 p-2 rounded-lg hover:bg-slate-700 transition">
-                        <input
-                          type="checkbox"
-                          checked={showCost}
-                          onChange={(e) => setShowCost(e.target.checked)}
-                          className="accent-indigo-500 w-4 h-4 rounded"
-                        />
-                        Cost Est.
-                      </label>
-                    </div>
+                  <div className="sticky top-6 self-start z-10 w-full">
+                    <MaterialSummary
+                      title="Material Breakdown"
+                      totalLabel="Status"
+                      totalValue="Computed"
+                      totalUnit=""
+                    >
+                      <div className="flex justify-end mb-4 border-b border-slate-200/50 dark:border-white/10 pb-4">
+                        <label className="flex items-center gap-2 cursor-pointer text-xs bg-slate-800/10 dark:bg-white/10 p-2 rounded-lg hover:bg-slate-800/20 dark:hover:bg-white/20 transition">
+                          <input
+                            type="checkbox"
+                            checked={showCost}
+                            onChange={(e) => setShowCost(e.target.checked)}
+                            className="accent-indigo-500 w-4 h-4 rounded"
+                          />
+                          <span className="text-slate-700 dark:text-slate-300 font-bold">Cost Est.</span>
+                        </label>
+                      </div>
                   {Object.entries(currentExportData).map(([key, val]) => {
                     let colorClass = "text-slate-700 dark:text-slate-300";
                     if (key.includes("Cement"))
@@ -1581,9 +1585,10 @@ export default function ConstructionMaterialEstimator() {
                       })()}
                     </div>
                   )}
-                </div>
-                ) : (
-                  <div className="bg-slate-50 dark:bg-slate-900/50 rounded-3xl p-8 border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center sticky top-6 self-start h-full min-h-[300px] w-full">
+                </MaterialSummary>
+              </div>
+              ) : (
+                <div className="bg-slate-50 dark:bg-slate-900/50 rounded-3xl p-8 border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center sticky top-6 self-start h-full min-h-[300px] w-full">
                     <Calculator className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
                     <h3 className="font-bold text-slate-700 dark:text-slate-300 text-lg">Waiting to Compute</h3>
                     <p className="text-slate-500 text-sm mt-2">Enter your dimensions on the left and click the Compute Estimate button to see the detailed material breakdown.</p>

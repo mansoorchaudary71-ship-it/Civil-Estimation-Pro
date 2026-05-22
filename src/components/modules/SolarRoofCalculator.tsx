@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Sun, Battery, Zap, DollarSign, Home, AlertCircle, Calculator } from "lucide-react";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
 
 export default function SolarRoofCalculator() {
   const [roofArea, setRoofArea] = useState<number | "">(50);
@@ -189,56 +191,38 @@ export default function SolarRoofCalculator() {
                 </div>
               )}
 
-              {/* Main Stats Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Hardcoded Result Reverted */}
-              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  <div className="text-blue-400">{<Sun className="w-5 h-5 text-white" />}</div>
-                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{"Recommended System"}</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{results.recSystemSize.toFixed(1)}</span>
-                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">kW</span>
-                </div>
-                
-              </div>
-                {/* Hardcoded Result Reverted */}
-              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  <div className="text-blue-400">{<Home className="w-5 h-5 text-white" />}</div>
-                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{"Total Panels"}</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{results.numPanels}</span>
-                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">units</span>
-                </div>
-                
-              </div>
-                {/* Hardcoded Result Reverted */}
-              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  <div className="text-blue-400">{<Zap className="w-4 h-4 text-slate-700 dark:text-slate-300" />}</div>
-                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{"Annual Energy Gen."}</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{results.annualGeneration.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
-                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">kWh</span>
-                </div>
-                
-              </div>
-                {/* Hardcoded Result Reverted */}
-              <div className={`relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group`}>
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  <div className="text-blue-400">{<DollarSign className="w-4 h-4 text-slate-700 dark:text-slate-300" />}</div>
-                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">{"Annual Savings"}</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{`$${results.annualSavings.toLocaleString(undefined, {maximumFractionDigits: 0})}`}</span>
-                  
-                </div>
-                
-              </div>
+              {/* Main Stats */}
+              <div className="flex flex-col h-full">
+                <MaterialSummary
+                  title="Estimate Results"
+                  totalLabel="Recommended System"
+                  totalValue={results.recSystemSize.toFixed(1)}
+                  totalUnit="kW"
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                    <ResultCard
+                      title="Total Panels"
+                      value={results.numPanels}
+                      unit="units"
+                      variant="primary"
+                      icon={<Home className="w-5 h-5 text-white" />}
+                    />
+                    <ResultCard
+                      title="Annual Energy Gen."
+                      value={results.annualGeneration.toLocaleString(undefined, {maximumFractionDigits: 0})}
+                      unit="kWh"
+                      variant="neutral"
+                      icon={<Zap className="w-4 h-4 text-slate-700 dark:text-slate-300" />}
+                    />
+                    <ResultCard
+                      title="Annual Savings"
+                      value={`$${results.annualSavings.toLocaleString(undefined, {maximumFractionDigits: 0})}`}
+                      unit=""
+                      variant="neutral"
+                      icon={<DollarSign className="w-4 h-4 text-slate-700 dark:text-slate-300" />}
+                    />
+                  </div>
+                </MaterialSummary>
               </div>
 
               {/* Financial Summary */}

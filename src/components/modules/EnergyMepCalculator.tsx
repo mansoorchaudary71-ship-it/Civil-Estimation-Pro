@@ -3,7 +3,8 @@ import { Zap, Droplet, Wind } from "lucide-react";
 import { cn } from "../../lib/utils";
 import ColorfulTab from "../ui/ColorfulTab";
 import { useSettings } from "../../context/SettingsContext";
-import { NumberInput } from "../ui/NumberInput";
+import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
 
 type Tab = "solar" | "water" | "ac";
 
@@ -139,42 +140,31 @@ function SolarCalculator() {
           </div>
         </div>
 
-        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-          <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
-          
+        <div className="flex flex-col h-full">
           {results ? (
-            <div className="space-y-4">
-              <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-                <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                  <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">Required System Capacity</span>
-                </div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{results.requiredKw}</span>
-                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">kW</span>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-                  <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                    <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">Total Panels (~400W)</span>
-                  </div>
-                  <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                    <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{results.panelCount}</span>
-                    <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">panels</span>
-                  </div>
-                </div>
-                <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-                  <div className="flex items-center justify-between gap-3 w-full relative z-10">
-                    <span className="text-slate-600 dark:text-slate-400 text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em]">Estimated Cost</span>
-                  </div>
-                  <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                    <span className="text-xl font-bold text-emerald-400">{formatCurrency(results.estCostConverted)}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <MaterialSummary
+               title="Estimate Results"
+               totalLabel="Required System Capacity"
+               totalValue={results.requiredKw.toString()}
+               totalUnit="kW"
+             >
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                 <ResultCard
+                   title="Total Panels (~400W)"
+                   value={results.panelCount}
+                   unit="panels"
+                   variant="neutral"
+                 />
+                 <ResultCard
+                   title="Estimated Cost"
+                   value={formatCurrency(results.estCostConverted)}
+                   unit=""
+                   variant="primary"
+                 />
+               </div>
+             </MaterialSummary>
           ) : (
-            <div className="flex items-center justify-center h-full text-slate-500 text-sm">
+            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
               Enter specifications to see estimation.
             </div>
           )}
@@ -210,20 +200,18 @@ function WaterHeaterCalculator() {
             placeholder="e.g. 4"
           />
         </div>
-        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-          <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
+        <div className="flex flex-col h-full">
           {results ? (
-            <div className="space-y-4">
-              <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700">
-                <div className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Recommended System Size</div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{results.recommendedSize}</span>
-                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">Liters per Day (LPD)</span>
-                </div>
-              </div>
-            </div>
+             <MaterialSummary
+               title="Estimate Results"
+               totalLabel="Recommended System Size"
+               totalValue={results.recommendedSize.toString()}
+               totalUnit="Liters per Day (LPD)"
+             />
           ) : (
-             <div className="text-slate-500 text-sm">Enter specifications to see estimation.</div>
+            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
+              Enter specifications to see estimation.
+            </div>
           )}
         </div>
       </div>
@@ -255,20 +243,18 @@ function AcCalculator() {
             placeholder="e.g. 150"
           />
         </div>
-        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-          <h3 className="text-slate-400 font-bold text-sm uppercase tracking-wider mb-6">Estimate Results</h3>
+        <div className="flex flex-col h-full">
           {results ? (
-            <div className="space-y-4">
-              <div className="bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-700">
-                <div className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Recommended AC Capacity</div>
-                <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                  <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white whitespace-nowrap">{results.tonnage.toFixed(1)}</span>
-                  <span className="text-[13px] sm:text-sm font-semibold text-slate-500 dark:text-slate-400">Tons</span>
-                </div>
-              </div>
-            </div>
+             <MaterialSummary
+               title="Estimate Results"
+               totalLabel="Recommended AC Capacity"
+               totalValue={results.tonnage.toFixed(1)}
+               totalUnit="Tons"
+             />
           ) : (
-            <div className="text-slate-500 text-sm">Enter specifications to see estimation.</div>
+            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
+              Enter specifications to see estimation.
+            </div>
           )}
         </div>
       </div>

@@ -25,6 +25,7 @@ import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
 import Brickwork9InchModule from "./Brickwork9InchModule";
 import CountertopModule from "./CountertopModule";
 import { SEO } from "../SEO";
@@ -516,27 +517,24 @@ export default function MasterQuantityEstimator({
             )}
           </div>
         </div>
-        <div className="bg-slate-900 rounded-3xl p-6 md:p-8 shadow-xl flex flex-col justify-between">
-          <div>
-            <h3 className="font-bold text-slate-400 text-sm uppercase tracking-widest mb-6">
-              Quantities Required
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {Object.entries(results).map(([key, val]) => (
-                <ResultCard
-                  key={key}
-                  title={key}
-                  value={val !== undefined && val !== null && !isNaN(Number(val)) ? Number(val).toLocaleString(undefined, { maximumFractionDigits: 2 }) : String(val)}
-                  variant="primary"
-                />
-              ))}
-            </div>
-          </div>
-          <div className="mt-6 flex flex-wrap gap-4 items-center">
-            
-            
-            
-          </div>
+        <div className="flex flex-col h-full">
+           <MaterialSummary
+             title="Estimate Results"
+             totalLabel="Calculation Details"
+             totalValue={Object.keys(results).length > 0 ? "Ready" : "Pending"}
+             totalUnit=""
+           >
+             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+               {Object.entries(results).map(([key, val]) => (
+                 <ResultCard
+                   key={key}
+                   title={key}
+                   value={val !== undefined && val !== null && !isNaN(Number(val)) ? Number(val).toLocaleString(undefined, { maximumFractionDigits: 2 }) : String(val)}
+                   variant="neutral"
+                 />
+               ))}
+             </div>
+           </MaterialSummary>
         </div>
       </div>
     );

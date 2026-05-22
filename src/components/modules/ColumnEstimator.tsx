@@ -12,7 +12,8 @@ import {
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { useSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
-
+import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
 import ColorfulTab from "../ui/ColorfulTab";
 
 const mixRatios: Record<string, { c: number; s: number; a: number }> = {
@@ -461,119 +462,76 @@ export default function ColumnEstimator() {
             </div>
 
             {/* Results Grid */}
-            <div className="flex flex-wrap  gap-6 pt-6 border-t border-slate-100 dark:border-slate-800 items-center w-full">
-              <div className="bg-blue-50 dark:bg-blue-900/20 px-4 py-3 rounded-2xl border border-blue-100 dark:border-blue-800/50">
-                <div className="flex items-center gap-2 mb-4">
-                  <Droplets className="w-5 h-5 text-indigo-600 dark:text-blue-400" />
-                  <h4 className="font-bold text-blue-800 dark:text-blue-300">
-                    Concrete Volume
-                  </h4>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <span className="block text-xs font-semibold text-blue-500 dark:text-blue-400 mb-1">
-                      Wet Volume
-                    </span>
-                    <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                      <span className="text-4xl sm:text-5xl tracking-tight font-black text-blue-700 dark:text-blue-200 whitespace-nowrap">
-                        {vol.toFixed(3)}
-                      </span>
-                      <span className="text-indigo-600 dark:text-blue-400 font-medium">
-                        m³
-                      </span>
-                    </div>
-                  </div>
-                  <div>
-                    <span className="block text-xs font-semibold text-blue-500 dark:text-blue-400 mb-1">
-                      Dry Volume
-                    </span>
-                    <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                      <span className="text-4xl sm:text-5xl tracking-tight font-black text-blue-700 dark:text-blue-200 whitespace-nowrap">
-                        {dryVol.toFixed(3)}
-                      </span>
-                      <span className="text-indigo-600 dark:text-blue-400 font-medium">
-                        m³
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="bg-slate-100 dark:bg-slate-800 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-700">
-                <h4 className="font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
-                  <Layers className="w-5 h-5 text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300" />
-                  Material Breakdown
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div>
-                    <span className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1">
-                      Cement
-                    </span>
-                    <span className="block text-xl font-bold text-slate-800 dark:text-white">
-                      {cementBags}
-                      <span className="text-sm text-slate-700 dark:text-slate-300">bags</span>
-                    </span>
-                  </div>
-                  <div>
-                    <span className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1">
-                      Sand
-                    </span>
-                    <span className="block text-xl font-bold text-slate-800 dark:text-white">
-                      {sandCft.toFixed(1)}
-                      <span className="text-sm text-slate-700 dark:text-slate-300">cft</span>
-                    </span>
-                  </div>
-                  <div>
-                    <span className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1">
-                      Aggregate
-                    </span>
-                    <span className="block text-xl font-bold text-slate-800 dark:text-white">
-                      {aggCft.toFixed(1)}
-                      <span className="text-sm text-slate-700 dark:text-slate-300">cft</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="w-full bg-slate-900 rounded-2xl p-6 text-white border border-slate-800 shadow-sm mt-4">
-                <h4 className="font-bold text-slate-100 mb-4 flex items-center gap-2">
-                  <CopySlash className="w-5 h-5 text-blue-400" />
-                  Steel Reinforcement Summary
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <span className="block text-xs font-semibold text-slate-400 mb-1">Total Steel Weight</span>
-                    <span className="block text-4xl sm:text-5xl tracking-tight font-black text-blue-400 mb-2 whitespace-nowrap">
-                      {totalSteelWeight.toFixed(2)}
-                      <span className="text-lg font-normal text-slate-400 ml-1">kg</span>
-                    </span>
-                    <div className="grid grid-cols-2 gap-2 text-sm mt-3 pt-3 border-t border-slate-800">
-                      <div>
-                        <span className="text-slate-400 text-xs uppercase tracking-wider block mb-0.5">Main ({numBars} Bars)</span>
-                        <span className="font-semibold">{mainSteelWeight.toFixed(2)} kg</span>
-                      </div>
-                      <div>
-                        <span className="text-slate-400 text-xs uppercase tracking-wider block mb-0.5">Ties</span>
-                        <span className="font-semibold">{totalTieWeight.toFixed(2)} kg</span>
-                      </div>
-                    </div>
+            <div className="flex flex-col h-full pt-6 border-t border-slate-100 dark:border-slate-800 w-full mt-4">
+              <MaterialSummary
+                title="Estimate Results"
+                totalLabel="Total Steel Weight"
+                totalValue={totalSteelWeight.toFixed(2)}
+                totalUnit="kg"
+              >
+                <div className="grid grid-cols-1 gap-6 mt-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <ResultCard
+                      title="Concrete Volume (Wet)"
+                      value={vol.toFixed(3)}
+                      unit="m³"
+                      variant="primary"
+                    />
+                    <ResultCard
+                      title="Dry Concrete Volume"
+                      value={dryVol.toFixed(3)}
+                      unit="m³"
+                      variant="neutral"
+                    />
                   </div>
                   
-                  <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700/50">
-                    <p className="text-slate-400 text-xs uppercase tracking-wider mb-3">Tie Cut Length Breakdown ({tieSetsCount} sets per col)</p>
-                    <ul className="space-y-2">
-                      {tieTypes.map((tie, idx) => (
-                        <li key={idx} className="flex justify-between items-center bg-slate-800 px-3 py-2 rounded-lg text-sm">
-                          <div>
-                            <p className="font-medium text-slate-200">{tie.name}</p>
-                            <p className="text-xs text-slate-500">{tie.countPerSet} per set</p>
+                  <h4 className="font-bold text-slate-800 dark:text-white mb-2 flex items-center gap-2">
+                    <Layers className="w-5 h-5 text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300" />
+                    Material Breakdown ({mix})
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                    <ResultCard title="Cement" value={cementBags} unit="bags" variant="neutral" />
+                    <ResultCard title="Sand" value={sandCft.toFixed(1)} unit="cft" variant="neutral" />
+                    <ResultCard title="Aggregate" value={aggCft.toFixed(1)} unit="cft" variant="neutral" />
+                  </div>
+                  
+                  <div className="w-full bg-slate-900 rounded-2xl p-6 text-white border border-slate-800 shadow-sm mt-4">
+                    <h4 className="font-bold text-slate-100 mb-4 flex items-center gap-2">
+                      <CopySlash className="w-5 h-5 text-blue-400" />
+                      Steel Reinforcement Summary
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <div className="grid grid-cols-2 gap-2 text-sm">
+                          <div className="bg-slate-800 p-3 rounded-lg">
+                            <span className="text-slate-400 text-xs uppercase tracking-wider block mb-0.5">Main ({numBars} Bars)</span>
+                            <span className="font-semibold text-lg">{mainSteelWeight.toFixed(2)} kg</span>
                           </div>
-                          <p className="font-bold text-slate-300">{tie.length.toFixed(0)} mm</p>
-                        </li>
-                      ))}
-                    </ul>
+                          <div className="bg-slate-800 p-3 rounded-lg">
+                            <span className="text-slate-400 text-xs uppercase tracking-wider block mb-0.5">Ties</span>
+                            <span className="font-semibold text-lg">{totalTieWeight.toFixed(2)} kg</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700/50">
+                        <p className="text-slate-400 text-xs uppercase tracking-wider mb-3">Tie Cut Length Breakdown ({tieSetsCount} sets per col)</p>
+                        <ul className="space-y-2">
+                          {tieTypes.map((tie, idx) => (
+                            <li key={idx} className="flex justify-between items-center bg-slate-800 px-3 py-2 rounded-lg text-sm">
+                              <div>
+                                <p className="font-medium text-slate-200">{tie.name}</p>
+                                <p className="text-xs text-slate-500">{tie.countPerSet} per set</p>
+                              </div>
+                              <p className="font-bold text-slate-300">{tie.length.toFixed(0)} mm</p>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </MaterialSummary>
             </div>
           </div>
         </div>
