@@ -1,0 +1,477 @@
+import React, { useState } from "react";
+import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
+import {
+  Maximize,
+  Box,
+  Layers,
+  ArrowDownToLine,
+  Spade,
+  CheckCircle,
+  AlertTriangle
+} from "lucide-react";
+import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
+import { useSettings } from "../../context/SettingsContext";
+import { CalculationHistory } from "../ui/CalculationHistory";
+import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
+import ColorfulTab from "../ui/ColorfulTab";
+
+const mixRatios: Record<string, { c: number; s: number; a: number }> = {
+  "M10 (1:3:6)": { c: 1, s: 3, a: 6 },
+  "M15 (1:2:4)": { c: 1, s: 2, a: 4 },
+  "M20 (1:1.5:3)": { c: 1, s: 1.5, a: 3 },
+  "M25 (1:1:2)": { c: 1, s: 1, a: 2 },
+};
+
+function InputGroup({ label, children, colSpan = 1 }: { label: string; children: React.ReactNode, colSpan?: number }) {
+  return (
+    <div className={`flex flex-col gap-2 ${colSpan > 1 ? `md:col-span-${colSpan}` : ''}`}>
+      <label className="text-sm font-bold text-slate-700 dark:text-slate-300">{label}</label>
+      {children}
+    </div>
+  );
+}
+
+export default function IsolatedFootingCalculator() {
+  const { settings } = useSettings();
+  const [footingL, setFootingL] = useState("2.0");
+  const [footingW, setFootingW] = useState("2.0");
+  const [footingD, setFootingD] = useState("0.5");
+  
+  const [columnL, setColumnL] = useState("0.4");
+  const [columnW, setColumnW] = useState("0.4");
+  
+  const [workingSpace, setWorkingSpace] = useState("0.3");
+  const [excavationDepth, setExcavationDepth] = useState("1.5");
+  
+  const [load, setLoad] = useState("1000"); // kN
+  const [sbc, setSbc] = useState("250"); // kN/m2
+  
+  const [mix, setMix] = useState("M20 (1:1.5:3)");
+
+  // Reinforcement
+  const [clearCover, setClearCover] = useState("50");
+  const [hasTopMesh, setHasTopMesh] = useState(false);
+  const [diaX, setDiaX] = useState("12");
+  const [spacingX, setSpacingX] = useState("150");
+  const [diaY, setDiaY] = useState("12");
+  const [spacingY, setSpacingY] = useState("150");
+  
+  const [diaXTop, setDiaXTop] = useState("10");
+  const [spacingXTop, setSpacingXTop] = useState("200");
+  const [diaYTop, setDiaYTop] = useState("10");
+  const [spacingYTop, setSpacingYTop] = useState("200");
+
+  const fL = parseFloat(footingL) || 0;
+  const fW = parseFloat(footingW) || 0;
+  const fD = parseFloat(footingD) || 0;
+  const cL = parseFloat(columnL) || 0;
+  const cW = parseFloat(columnW) || 0;
+  const ws = parseFloat(workingSpace) || 0;
+  const exD = parseFloat(excavationDepth) || 0;
+  const P = parseFloat(load) || 0;
+  const q_allow = parseFloat(sbc) || 0;
+  const cover = parseFloat(clearCover) || 0;
+  
+  // Design Check
+  const reqArea = q_allow > 0 ? (P * 1.1) / q_allow : 0; // 10% extra for self weight
+  const actualArea = fL * fW;
+  const isSafe = actualArea >= reqArea;
+
+  // Concrete Volume
+  const concreteVol = fL * fW * fD;
+  const dryVol = concreteVol * CIVIL_CONSTANTS.DRY_CONCRETE_FACTOR; // RULE: CONCRETE_DRY_VOLUME
+  
+  // Materials
+  const ratio = mixRatios[mix];
+  const totalRatio = ratio ? (ratio.c + ratio.s + ratio.a) : 1;
+  const cementM3 = (dryVol * ratio.c) / totalRatio;
+  const cementBags = Math.ceil(cementM3 / CIVIL_CONSTANTS.CEMENT_BAG_VOLUME_M3);
+  const sandCft = ((dryVol * ratio.s) / totalRatio) * CIVIL_CONSTANTS.M3_TO_CFT;
+  const aggCft = ((dryVol * ratio.a) / totalRatio) * CIVIL_CONSTANTS.M3_TO_CFT;
+
+  // Excavation & Backfilling
+  const exL = fL + (2 * ws);
+  const exW = fW + (2 * ws);
+  const excavationVol = exL * exW * exD;
+  const backfillVol = Math.max(0, excavationVol - concreteVol - (cL * cW * (exD - fD))); // Rough approx subtracting footing and column
+
+  // Steel Reinforcement
+  // Length Direction (bars placed along Width)
+  const dX = parseFloat(diaX) || 0;
+  const sX = parseFloat(spacingX) || 150;
+  const barsX = Math.ceil((fW * 1000 - 2 * cover) / sX) + 1; // RULE: REBAR_SPACING_COUNT
+  // Development length approximation ~40d for M20 or typical Ld
+  // A standard bent-up hook is fD - 2*cover
+  const hookL = fD * 1000 - 2 * cover;
+  const cutLengthX = (fL * 1000) - 2 * cover + 2 * hookL; 
+  const wtX = (Math.pow(dX, 2) / 162.28) * (cutLengthX / 1000) * barsX; // RULE: STEEL_WEIGHT_ESTIMATION
+  
+  // Width Direction (bars placed along Length)
+  const dY = parseFloat(diaY) || 0;
+  const sY = parseFloat(spacingY) || 150;
+  const barsY = Math.ceil((fL * 1000 - 2 * cover) / sY) + 1;
+  const cutLengthY = (fW * 1000) - 2 * cover + 2 * hookL;
+  const wtY = (Math.pow(dY, 2) / 162.28) * (cutLengthY / 1000) * barsY;
+  
+  // Top Mesh
+  let wtXTop = 0;
+  let wtYTop = 0;
+  let barsXTop = 0;
+  let barsYTop = 0;
+  let cutLengthXTop = 0;
+  let cutLengthYTop = 0;
+  if (hasTopMesh) {
+    const dXT = parseFloat(diaXTop) || 0;
+    const sXT = parseFloat(spacingXTop) || 150;
+    barsXTop = Math.ceil((fW * 1000 - 2 * cover) / sXT) + 1;
+    cutLengthXTop = (fL * 1000) - 2 * cover + 2 * hookL;
+    wtXTop = (Math.pow(dXT, 2) / 162.28) * (cutLengthXTop / 1000) * barsXTop;
+    
+    const dYT = parseFloat(diaYTop) || 0;
+    const sYT = parseFloat(spacingYTop) || 150;
+    barsYTop = Math.ceil((fL * 1000 - 2 * cover) / sYT) + 1;
+    cutLengthYTop = (fW * 1000) - 2 * cover + 2 * hookL;
+    wtYTop = (Math.pow(dYT, 2) / 162.28) * (cutLengthYTop / 1000) * barsYTop;
+  }
+  
+  const totalSteel = wtX + wtY + wtXTop + wtYTop;
+
+  return (
+    <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8">
+      <div className="max-w-5xl mx-auto space-y-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-[28px] font-black mb-2 flex items-center gap-3 text-text-primary">
+              <Box className="w-8 h-8 text-[#E55A2B] dark:text-[#ff8a65]" />
+              Isolated Footing Calculator
+            </h1>
+            <p className="text-slate-500 dark:text-slate-300 font-medium">
+              Calculate concrete, excavation, and steel mesh quantities for isolated foundations.
+            </p>
+          </div>
+          <GlobalSettingsToggle align="left" showCurrency={false} />
+        </div>
+        
+        <div className="bg-bg-card rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-border-color overflow-hidden">
+          <div className="p-6 md:p-8 space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Inputs */}
+              <div className="space-y-6">
+                <div>
+                  <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Load & SBC Check</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <InputGroup label="Column Load (kN)">
+                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={load} onChange={(e) => setLoad(e.target.value)} />
+                    </InputGroup>
+                    <InputGroup label="Safe Bearing Capacity (kN/m²)">
+                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={sbc} onChange={(e) => setSbc(e.target.value)} />
+                    </InputGroup>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Footing Details</h3>
+                  <div className="grid grid-cols-3 gap-4">
+                    <InputGroup label="Length (m)">
+                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={footingL} onChange={(e) => setFootingL(e.target.value)} />
+                    </InputGroup>
+                    <InputGroup label="Width (m)">
+                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={footingW} onChange={(e) => setFootingW(e.target.value)} />
+                    </InputGroup>
+                    <InputGroup label="Depth (m)">
+                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={footingD} onChange={(e) => setFootingD(e.target.value)} />
+                    </InputGroup>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Column & Earthworks</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <InputGroup label="Column L×W (m)">
+                      <div className="flex gap-2">
+                        <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-3 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={columnL} onChange={(e) => setColumnL(e.target.value)} placeholder="L" />
+                        <span className="text-slate-400 self-center">×</span>
+                        <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-3 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={columnW} onChange={(e) => setColumnW(e.target.value)} placeholder="W" />
+                      </div>
+                    </InputGroup>
+                    <InputGroup label="Concrete Mix">
+                      <select className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all appearance-none shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={mix} onChange={(e) => setMix(e.target.value)}>
+                        {Object.keys(mixRatios).map((m) => (
+                          <option key={m} value={m}>{m}</option>
+                        ))}
+                      </select>
+                    </InputGroup>
+                    <InputGroup label="Working Space (m)">
+                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={workingSpace} onChange={(e) => setWorkingSpace(e.target.value)} />
+                    </InputGroup>
+                    <InputGroup label="Excavation Depth (m)">
+                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={excavationDepth} onChange={(e) => setExcavationDepth(e.target.value)} />
+                    </InputGroup>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Reinforcement Mesh</h3>
+                  <div className="grid grid-cols-3 gap-4 mb-3">
+                    <div className="col-span-3">
+                      <InputGroup label="Clear Cover (mm)">
+                        <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={clearCover} onChange={(e) => setClearCover(e.target.value)} />
+                      </InputGroup>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="p-4 bg-slate-50 dark:bg-[#6B46C1]/50 rounded-[12px] border border-slate-200 dark:border-slate-700/50">
+                      <p className="text-[12px] font-medium text-[#6B7280] uppercase text-[#4B5563] mb-3 ml-1 tracking-wider">Bottom Mesh: X-Axis</p>
+                      <div className="space-y-4">
+                        <InputGroup label="Bar Dia (mm)">
+                           <select className="w-full bg-white dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={diaX} onChange={e => setDiaX(e.target.value)}>
+                             {[8, 10, 12, 16, 20].map(d => <option key={d} value={d}>{d}</option>)}
+                           </select>
+                        </InputGroup>
+                        <InputGroup label="Spacing c/c (mm)">
+                           <input type="number" className="w-full bg-white dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={spacingX} onChange={e => setSpacingX(e.target.value)} />
+                        </InputGroup>
+                      </div>
+                    </div>
+                    <div className="p-4 bg-slate-50 dark:bg-[#6B46C1]/50 rounded-[12px] border border-slate-200 dark:border-slate-700/50">
+                      <p className="text-[12px] font-medium text-[#6B7280] uppercase text-[#4B5563] mb-3 ml-1 tracking-wider">Bottom Mesh: Y-Axis</p>
+                      <div className="space-y-4">
+                        <InputGroup label="Bar Dia (mm)">
+                           <select className="w-full bg-white dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={diaY} onChange={e => setDiaY(e.target.value)}>
+                             {[8, 10, 12, 16, 20].map(d => <option key={d} value={d}>{d}</option>)}
+                           </select>
+                        </InputGroup>
+                        <InputGroup label="Spacing c/c (mm)">
+                           <input type="number" className="w-full bg-white dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={spacingY} onChange={e => setSpacingY(e.target.value)} />
+                        </InputGroup>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4">
+                    <label className="flex items-center gap-3 cursor-pointer p-4 bg-slate-100 dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px]">
+                      <input type="checkbox" className="w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-[#6B46C1]" checked={hasTopMesh} onChange={e => setHasTopMesh(e.target.checked)} />
+                      <span className="font-bold text-slate-800 dark:text-slate-200">Include Top Mesh</span>
+                    </label>
+                  </div>
+                  
+                  {hasTopMesh && (
+                    <div className="grid grid-cols-2 gap-4 mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                      <div className="p-4 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-[12px] border border-indigo-100 dark:border-indigo-800/30">
+                        <p className="text-[12px] font-medium text-[#6B7280] uppercase text-indigo-700 dark:text-indigo-400 mb-3 ml-1 tracking-wider">Top Mesh: X-Axis</p>
+                        <div className="space-y-4">
+                          <InputGroup label="Bar Dia (mm)">
+                             <select className="w-full bg-white dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={diaXTop} onChange={e => setDiaXTop(e.target.value)}>
+                               {[8, 10, 12, 16, 20].map(d => <option key={d} value={d}>{d}</option>)}
+                             </select>
+                          </InputGroup>
+                          <InputGroup label="Spacing c/c (mm)">
+                             <input type="number" className="w-full bg-white dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={spacingXTop} onChange={e => setSpacingXTop(e.target.value)} />
+                          </InputGroup>
+                        </div>
+                      </div>
+                      <div className="p-4 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-[12px] border border-indigo-100 dark:border-indigo-800/30">
+                        <p className="text-[12px] font-medium text-[#6B7280] uppercase text-indigo-700 dark:text-indigo-400 mb-3 ml-1 tracking-wider">Top Mesh: Y-Axis</p>
+                        <div className="space-y-4">
+                          <InputGroup label="Bar Dia (mm)">
+                             <select className="w-full bg-white dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={diaYTop} onChange={e => setDiaYTop(e.target.value)}>
+                               {[8, 10, 12, 16, 20].map(d => <option key={d} value={d}>{d}</option>)}
+                             </select>
+                          </InputGroup>
+                          <InputGroup label="Spacing c/c (mm)">
+                             <input type="number" className="w-full bg-white dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={spacingYTop} onChange={e => setSpacingYTop(e.target.value)} />
+                          </InputGroup>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Drawing & SBC Status */}
+              <div>
+                <div className={`p-4 rounded-[12px] border ${isSafe ? 'bg-emerald-50 border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-800/30' : 'bg-rose-50 border-rose-200 dark:bg-rose-900/20 dark:border-rose-800/30'} flex items-start gap-4 mb-6 shadow-[0_2px_12px_rgba(0,0,0,0.08)]`}>
+                  {isSafe ? <CheckCircle className="w-6 h-6 text-emerald-600 dark:text-emerald-400 mt-1" /> : <AlertTriangle className="w-6 h-6 text-rose-600 dark:text-rose-400 mt-1" />}
+                  <div>
+                    <h4 className={`font-bold ${isSafe ? 'text-emerald-800 dark:text-emerald-300' : 'text-rose-800 dark:text-rose-300'}`}>
+                      {isSafe ? 'Safe Bearing Capacity OK' : 'Bearing Capacity Exceeded'}
+                    </h4>
+                    <p className={`text-sm mt-1 font-medium ${isSafe ? 'text-emerald-700 dark:text-emerald-400/80' : 'text-rose-700 dark:text-rose-400/80'}`}>
+                      Required Area: {reqArea.toFixed(2)} m² | Provided Area: {actualArea.toFixed(2)} m²
+                    </p>
+                    {!isSafe && <p className="text-xs font-bold text-rose-600 dark:text-rose-400 mt-2">Increase footing dimensions to prevent settlement failures.</p>}
+                  </div>
+                </div>
+
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[12px] p-6 flex flex-col items-center justify-center min-h-[400px] shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+                  <h4 className="font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-sm mb-8">Cross-Section Profile</h4>
+                  
+                  {/* Schematic SVG */}
+                  <svg width="100%" height="280" viewBox="0 0 300 240" className="max-w-full overflow-visible">
+                    {/* Ground line */}
+                    <line x1="10" y1="50" x2="290" y2="50" stroke="#8b5a2b" strokeWidth="2" strokeDasharray="5,5" />
+                    <text x="15" y="45" fill="#8b5a2b" fontSize="10" fontWeight="bold">G.L</text>
+                    
+                    {/* Excavation Pit Outline */}
+                    <rect x="30" y="50" width="240" height="150" fill="rgba(139, 90, 43, 0.05)" stroke="#d2b48c" strokeWidth="1" strokeDasharray="4,4" />
+                    
+                    {/* Centerline */}
+                    <line x1="150" y1="20" x2="150" y2="220" stroke="#cbd5e1" strokeWidth="1" strokeDasharray="10,5,2,5" />
+                    
+                    {/* Column */}
+                    <rect x="135" y="30" width="30" height="130" fill="#e2e8f0" stroke="#64748b" strokeWidth="2" />
+                    
+                    {/* Footing Base */}
+                    <rect x="70" y="160" width="160" height="40" fill="#cbd5e1" stroke="#475569" strokeWidth="2" />
+                    
+                    {/* Sloped / Trapozeidal shape mock (we assume rectangular for calc, showing simple box) */}
+                    
+                    {/* Rebar Mesh Line */}
+                    <line x1="75" y1="190" x2="225" y2="190" stroke="#f43f5e" strokeWidth="3" strokeLinecap="round" />
+                    <line x1="75" y1="190" x2="75" y2="170" stroke="#f43f5e" strokeWidth="3" strokeLinecap="round" />
+                    <line x1="225" y1="190" x2="225" y2="170" stroke="#f43f5e" strokeWidth="3" strokeLinecap="round" />
+                    
+                    {/* Dots for cross bars */}
+                    <circle cx="85" cy="190" r="2.5" fill="#1e1b4b" />
+                    <circle cx="115" cy="190" r="2.5" fill="#1e1b4b" />
+                    <circle cx="150" cy="190" r="2.5" fill="#1e1b4b" />
+                    <circle cx="185" cy="190" r="2.5" fill="#1e1b4b" />
+                    <circle cx="215" cy="190" r="2.5" fill="#1e1b4b" />
+                    
+                    {hasTopMesh && (
+                      <>
+                        <line x1="75" y1="170" x2="225" y2="170" stroke="#6366f1" strokeWidth="3" strokeLinecap="round" />
+                        <line x1="75" y1="170" x2="75" y2="190" stroke="#6366f1" strokeWidth="3" strokeLinecap="round" />
+                        <line x1="225" y1="170" x2="225" y2="190" stroke="#6366f1" strokeWidth="3" strokeLinecap="round" />
+                        <circle cx="85" cy="170" r="2.5" fill="#312e81" />
+                        <circle cx="115" cy="170" r="2.5" fill="#312e81" />
+                        <circle cx="150" cy="170" r="2.5" fill="#312e81" />
+                        <circle cx="185" cy="170" r="2.5" fill="#312e81" />
+                        <circle cx="215" cy="170" r="2.5" fill="#312e81" />
+                      </>
+                    )}
+                    
+                    {/* Dimension Lines */}
+                    {/* Width */}
+                    <path d="M 70 215 L 230 215" stroke="#64748b" strokeWidth="1" />
+                    <line x1="70" y1="210" x2="70" y2="220" stroke="#64748b" strokeWidth="1" />
+                    <line x1="230" y1="210" x2="230" y2="220" stroke="#64748b" strokeWidth="1" />
+                    <text x="150" y="230" fill="#64748b" fontSize="12" textAnchor="middle">{fL}m (L)</text>
+
+                    {/* Depth */}
+                    <path d="M 55 160 L 55 200" stroke="#64748b" strokeWidth="1" />
+                    <line x1="50" y1="160" x2="60" y2="160" stroke="#64748b" strokeWidth="1" />
+                    <line x1="50" y1="200" x2="60" y2="200" stroke="#64748b" strokeWidth="1" />
+                    <text x="45" y="184" fill="#64748b" fontSize="12" textAnchor="end">{fD}m</text>
+
+                    {/* Working Space */}
+                    <path d="M 30 215 L 70 215" stroke="#94a3b8" strokeWidth="1" strokeDasharray="2,2"/>
+                    <text x="50" y="230" fill="#94a3b8" fontSize="10" textAnchor="middle">{ws}m WS</text>
+                  </svg>
+                  
+                </div>
+              </div>
+            </div>
+
+            {/* Results */}
+            <div className="pt-8 border-t border-border-color mt-6">
+              <MaterialSummary
+                title="Output Quantities"
+                totalLabel="Total Concrete Vol"
+                totalValue={concreteVol.toFixed(2)}
+                totalUnit="m³"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                  <div>
+                    <h4 className="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2 mb-4">
+                      <Spade className="w-5 h-5 text-amber-600 dark:text-amber-500" />
+                      Earthworks
+                    </h4>
+                    <div className="grid grid-cols-2 gap-4">
+                      <ResultCard title="Excavation" value={excavationVol.toFixed(2)} unit="m³" variant="neutral" />
+                      <ResultCard title="Backfilling" value={backfillVol.toFixed(2)} unit="m³" variant="neutral" />
+                    </div>
+                    
+                    <h4 className="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2 mt-8 mb-4">
+                      <Layers className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                      Concrete Materials ({mix})
+                    </h4>
+                    <div className="grid grid-cols-2 gap-4">
+                      <ResultCard title="Cement" value={cementBags} unit="bags" variant="primary" />
+                      <ResultCard title="Sand" value={sandCft.toFixed(1)} unit="cft" variant="neutral" />
+                      <ResultCard title="Aggregate" value={aggCft.toFixed(1)} unit="cft" variant="neutral" />
+                    </div>
+                  </div>
+
+                  <div>
+                    <h4 className="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2 mb-4">
+                      <ArrowDownToLine className="w-5 h-5 text-[#f43f5e]" />
+                      Steel Reinforcement Check
+                    </h4>
+                    <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[12px] overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+                      <div className="p-4 bg-slate-100 dark:bg-[#6B46C1] border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+                        <span className="font-bold text-slate-700 dark:text-slate-200">Total Steel Required</span>
+                        <span className="text-[18px] font-black text-rose-600 dark:text-rose-400">{totalSteel.toFixed(2)} kg</span>
+                      </div>
+                      <div className="p-4 space-y-4">
+                        <div className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-2">Bottom Mesh</div>
+                        <div className="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-3">
+                          <div>
+                            <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">X-Axis Bars</p>
+                            <p className="text-xs text-[#4B5563] mt-0.5">{barsX} bars • Cut Length: {(cutLengthX/1000).toFixed(2)}m</p>
+                          </div>
+                          <p className="font-bold text-slate-700 dark:text-slate-300">{wtX.toFixed(2)} kg</p>
+                        </div>
+                        <div className="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-3">
+                          <div>
+                            <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">Y-Axis Bars</p>
+                            <p className="text-xs text-[#4B5563] mt-0.5">{barsY} bars • Cut Length: {(cutLengthY/1000).toFixed(2)}m</p>
+                          </div>
+                          <p className="font-bold text-slate-700 dark:text-slate-300">{wtY.toFixed(2)} kg</p>
+                        </div>
+                        
+                        {hasTopMesh && (
+                          <>
+                            <div className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mt-4 mb-2">Top Mesh</div>
+                            <div className="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-3">
+                              <div>
+                                <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">X-Axis Bars</p>
+                                <p className="text-xs text-[#4B5563] mt-0.5">{barsXTop} bars • Cut Length: {(cutLengthXTop/1000).toFixed(2)}m</p>
+                              </div>
+                              <p className="font-bold text-slate-700 dark:text-slate-300">{wtXTop.toFixed(2)} kg</p>
+                            </div>
+                            <div className="flex justify-between items-center pb-1">
+                              <div>
+                                <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">Y-Axis Bars</p>
+                                <p className="text-xs text-[#4B5563] mt-0.5">{barsYTop} bars • Cut Length: {(cutLengthYTop/1000).toFixed(2)}m</p>
+                              </div>
+                              <p className="font-bold text-slate-700 dark:text-slate-300">{wtYTop.toFixed(2)} kg</p>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    
+                    <div className="mt-4 p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-[12px] border border-indigo-100 dark:border-indigo-800/30">
+                      <p className="text-sm font-medium text-indigo-800 dark:text-indigo-300">
+                        * Steel weight derived using D²/162.28. Hook lengths added based on footing depth {fD}m minus {clearCover}mm top/bottom covers.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </MaterialSummary>
+            </div>
+          </div>
+        </div>
+      </div>
+      <CalculationHistory
+        calculatorId="isolated_footing_calc"
+        estimationName="Isolated Footing Estimate"
+        currentInputs={{ footingL, footingW, footingD, columnL, columnW, load, sbc, mix, diaX, spacingX, diaY, spacingY }}
+        currentResults={{ concreteVol: concreteVol.toFixed(2), steelKg: totalSteel.toFixed(2), excavationVol: excavationVol.toFixed(2) }}
+        summaryGeneration={(inputs, res) => `Vol: ${res.concreteVol} m³ - Steel: ${res.steelKg} kg`}
+      />
+    </div>
+  );
+}

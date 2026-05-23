@@ -29,7 +29,7 @@ export function DarkModeToggle({ isMobile }: { isMobile?: boolean }) {
           {isDarkMode ? <Moon className="w-5 h-5 text-amber-500" /> : <Sun className="w-5 h-5 text-orange-500" />}
           {isDarkMode ? 'Dark Mode' : 'Light Mode'}
         </div>
-        <div className="w-10 h-6 rounded-full bg-slate-200 dark:bg-slate-700 relative transition-colors duration-300">
+        <div className="w-10 h-6 rounded-full bg-slate-200 dark:bg-[#6B46C1] relative transition-colors duration-300">
            <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all duration-300 ${isDarkMode ? 'left-5' : 'left-1'}`}></div>
         </div>
       </button>
@@ -39,10 +39,10 @@ export function DarkModeToggle({ isMobile }: { isMobile?: boolean }) {
   return (
     <button
       onClick={toggleTheme}
-      className={`w-10 h-10 rounded-full shadow-sm flex items-center justify-center transition-all duration-300 ${
+      className={`w-10 h-10 rounded-full shadow-[0_2px_12px_rgba(0,0,0,0.08)] flex items-center justify-center transition-all duration-300 ${
         isDarkMode 
-          ? 'bg-slate-800 border border-slate-700 text-amber-400 hover:bg-slate-700 hover:shadow-md hover:-translate-y-0.5' 
-          : 'bg-white border border-slate-200 text-amber-500 hover:bg-slate-50 hover:shadow-md hover:-translate-y-0.5'
+          ? 'bg-[#6B46C1] border border-slate-700 text-amber-400 hover:bg-[#6B46C1] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] hover:-translate-y-0.5' 
+          : 'bg-white border border-slate-200 text-amber-500 hover:bg-slate-50 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] hover:-translate-y-0.5'
       }`}
       title="Toggle Dark Mode"
     >

@@ -135,22 +135,22 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
       activeBreakdown: [
         { label: "Gross Wall Area", formula: `${l} × ${h}`, result: `${(l * h).toFixed(2)} ${isSI ? "m²" : "sq.ft"}` },
         { label: "Net Volume", formula: `(Gross Area - Deductions) × ${isSI ? '0.23m' : '0.75ft'}`, result: `${results.netVolume.toFixed(2)} ${isSI ? "m³" : "cft"}` },
-        { label: "Bricks", formula: `Net Volume / Brick Vol.`, result: `${results.noOfBricks.toLocaleString()} pcs` },
+        { label: "Bricks", formula: `Net Volume / Brick Vol.`, result: `${results.noOfBricks.toLocaleString('en-US')} pcs` },
       ],
       notes: ["1.33 is the dry volume conversion factor for mortar"]
     };
   }, [wallLength, wallHeight, deductions, results, isSI]);
 
   return (
-    <div className={`w-full ${hideHistory ? '' : 'bg-bg-card border border-border-color rounded-[2rem] overflow-hidden shadow-md mt-4'}`}>
+    <div className={`w-full ${hideHistory ? '' : 'bg-bg-card border border-border-color rounded-[12px] overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.08)] mt-4'}`}>
       {!hideHistory && (
-        <div className="px-6 md:px-8 py-5 border-b border-border-color flex flex-col md:flex-row items-start md:items-center justify-between bg-transparent dark:bg-slate-800/50 gap-4">
+        <div className="px-6 md:px-8 py-5 border-b border-border-color flex flex-col md:flex-row items-start md:items-center justify-between bg-transparent dark:bg-[#6B46C1]/50 gap-4">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-xl">
+            <div className="p-2.5 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-[12px]">
               <Columns className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-text-primary">
+              <h3 className="text-[18px] font-bold text-text-primary">
                 Brickwork Estimator
               </h3>
               <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
@@ -158,7 +158,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
               </p>
             </div>
           </div>
-          <span className="px-3 py-1.5 bg-transparent dark:bg-slate-800 border border-border-color text-slate-700 dark:text-slate-300 text-xs font-bold uppercase tracking-wider rounded-lg shadow-sm">
+          <span className="px-3 py-1.5 bg-transparent dark:bg-[#6B46C1] border border-border-color text-slate-700 dark:text-slate-300 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
             Load Bearing (230mm)
           </span>
         </div>
@@ -183,7 +183,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                     type="number"
                     value={wallLength}
                     onChange={(e) => setWallLength(e.target.value)}
-                    className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 dark:hover:border-slate-600 shadow-sm transition-all"
+                    className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-[12px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-[#6B46C1] hover:border-orange-300 dark:hover:border-slate-600 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-all"
                     placeholder="e.g. 5"
                   />
                 </div>
@@ -195,7 +195,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                     type="number"
                     value={wallHeight}
                     onChange={(e) => setWallHeight(e.target.value)}
-                    className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 dark:hover:border-slate-600 shadow-sm transition-all"
+                    className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-[12px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-[#6B46C1] hover:border-orange-300 dark:hover:border-slate-600 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-all"
                     placeholder="e.g. 3"
                   />
                 </div>
@@ -207,7 +207,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                     type="number"
                     value={deductions}
                     onChange={(e) => setDeductions(e.target.value)}
-                    className="w-full bg-transparent dark:bg-slate-900 border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 dark:hover:border-slate-600 shadow-sm transition-all"
+                    className="w-full bg-transparent dark:bg-slate-900 border border-border-color text-text-primary rounded-[12px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-[#6B46C1] hover:border-orange-300 dark:hover:border-slate-600 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-all"
                     placeholder="e.g. 1.5"
                   />
                 </div>
@@ -228,7 +228,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                   <div className="flex flex-col sm:flex-row gap-3 w-full">
                     <button
                       onClick={() => setBrickType("standard")}
-                      className={`flex-1 flex flex-col items-start justify-center py-3.5 px-5 text-sm font-bold rounded-2xl transition-all border ${brickType === "standard" ? "bg-orange-50 dark:bg-orange-500/10 border-orange-200 dark:border-orange-500/30 text-orange-700 dark:text-orange-400 shadow-[0_4px_20px_rgba(249,115,22,0.1)]" : "bg-bg-card border-border-color text-slate-700 dark:text-slate-300 hover:border-orange-200 hover:bg-orange-50/50"}`}
+                      className={`flex-1 flex flex-col items-start justify-center py-3.5 px-5 text-sm font-bold rounded-[12px] transition-all border ${brickType === "standard" ? "bg-orange-50 dark:bg-orange-500/10 border-orange-200 dark:border-orange-500/30 text-orange-700 dark:text-orange-400 shadow-[0_4px_20px_rgba(249,115,22,0.1)]" : "bg-bg-card border-border-color text-slate-700 dark:text-slate-300 hover:border-orange-200 hover:bg-orange-50/50"}`}
                     >
                       <div className="flex items-center gap-2 mb-1.5">
                         <div className={`w-4 h-4 rounded-full border-[3px] flex items-center justify-center shrink-0 ${brickType === "standard" ? "border-orange-500 bg-bg-card" : "border-slate-300"}`}>
@@ -242,7 +242,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                     </button>
                     <button
                       onClick={() => setBrickType("modular")}
-                      className={`flex-1 flex flex-col items-start justify-center py-3.5 px-5 text-sm font-bold rounded-2xl transition-all border ${brickType === "modular" ? "bg-orange-50 dark:bg-orange-500/10 border-orange-200 dark:border-orange-500/30 text-orange-700 dark:text-orange-400 shadow-[0_4px_20px_rgba(249,115,22,0.1)]" : "bg-bg-card border-border-color text-slate-700 dark:text-slate-300 hover:border-orange-200 hover:bg-orange-50/50"}`}
+                      className={`flex-1 flex flex-col items-start justify-center py-3.5 px-5 text-sm font-bold rounded-[12px] transition-all border ${brickType === "modular" ? "bg-orange-50 dark:bg-orange-500/10 border-orange-200 dark:border-orange-500/30 text-orange-700 dark:text-orange-400 shadow-[0_4px_20px_rgba(249,115,22,0.1)]" : "bg-bg-card border-border-color text-slate-700 dark:text-slate-300 hover:border-orange-200 hover:bg-orange-50/50"}`}
                     >
                       <div className="flex items-center gap-2 mb-1.5">
                         <div className={`w-4 h-4 rounded-full border-[3px] flex items-center justify-center shrink-0 ${brickType === "modular" ? "border-orange-500 bg-bg-card" : "border-slate-300"}`}>
@@ -274,7 +274,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                               setSandRatio(s);
                             }
                           }}
-                          className="w-full appearance-none bg-bg-card/80 border border-border-color text-text-primary rounded-2xl px-5 py-3.5 pr-10 focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 dark:hover:border-slate-600 shadow-sm transition-all cursor-pointer font-semibold"
+                          className="w-full appearance-none bg-bg-card/80 border border-border-color text-text-primary rounded-[12px] px-5 py-3.5 pr-10 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] hover:border-orange-300 dark:hover:border-slate-600 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-all cursor-pointer font-semibold"
                         >
                           <option value="1:3">1:3 (Rich Mix)</option>
                           <option value="1:4">1:4 (Standard Mix)</option>
@@ -295,7 +295,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                           type="number"
                           value={cementRatio}
                           onChange={(e) => { setCementRatio(e.target.value); setMixRatioPreset("custom"); }}
-                          className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 dark:hover:border-slate-600 shadow-sm transition-all"
+                          className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-[12px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-[#6B46C1] hover:border-orange-300 dark:hover:border-slate-600 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-all"
                         />
                       </div>
                       <div className="flex-1">
@@ -306,7 +306,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                           type="number"
                           value={sandRatio}
                           onChange={(e) => { setSandRatio(e.target.value); setMixRatioPreset("custom"); }}
-                          className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 dark:hover:border-slate-600 shadow-sm transition-all"
+                          className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-[12px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-[#6B46C1] hover:border-orange-300 dark:hover:border-slate-600 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-all"
                         />
                       </div>
                     </div>
@@ -317,7 +317,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                 <label className="relative flex cursor-pointer items-center rounded-full p-1 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-colors">
                   <input
                     type="checkbox"
-                    className="peer cursor-pointer appearance-none rounded-xl border-2 border-border-color transition-all checked:border-orange-500 checked:bg-orange-500 w-6 h-6 ml-1"
+                    className="peer cursor-pointer appearance-none rounded-[12px] border-2 border-border-color transition-all checked:border-orange-500 checked:bg-orange-500 w-6 h-6 ml-1"
                     checked={includeWastage}
                     onChange={(e) => setIncludeWastage(e.target.checked)}
                   />
@@ -345,7 +345,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
               <MaterialSummary
                title="Estimate Results"
                totalLabel="Total Bricks Estimated"
-               totalValue={results.noOfBricks.toLocaleString()}
+               totalValue={results.noOfBricks.toLocaleString('en-US')}
                totalUnit="pcs"
              >
                <div className="grid grid-cols-1 gap-4 mt-6">
@@ -376,7 +376,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                </div>
               </MaterialSummary>
 
-              <div className="px-4 py-3 bg-transparent dark:bg-slate-800/80 border border-border-color rounded-2xl flex justify-center text-center mt-2">
+              <div className="px-4 py-3 bg-transparent dark:bg-[#6B46C1]/80 border border-border-color rounded-[12px] flex justify-center text-center mt-2">
                 <span className="flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300">
                   <Droplets className="w-4 h-4 text-blue-400" />
                   Dry Mortar: {results.dryMortarVol.toFixed(3)} {results.isSI ? 'm³' : 'cft'}

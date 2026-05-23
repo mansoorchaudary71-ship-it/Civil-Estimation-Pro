@@ -29,8 +29,8 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
   const [showInsight, setShowInsight] = useState(false);
 
   return (
-    <div className="bg-white/80 dark:bg-slate-800/80 rounded-[20px] p-5 sm:p-6 shadow-sm border border-border-color/50">
-      <h4 className="text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-100 mb-5 flex items-center gap-3">
+    <div className="bg-white/80 dark:bg-[#6B46C1]/80 rounded-[12px] p-5 sm:p-6 shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-border-color/50">
+      <h4 className="text-lg sm:text-[18px] font-bold text-slate-800 dark:text-slate-100 mb-5 flex items-center gap-3">
         <span className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-sm font-black">
           {idx + 1}
         </span>
@@ -41,7 +41,7 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
         {/* Scientific Derivation */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <h5 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-2">
+            <h5 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider text-slate-400 dark:text-[#4B5563] flex items-center gap-2">
               <Beaker className="w-4 h-4" /> Core Equation
             </h5>
             {step.insight && (
@@ -55,7 +55,7 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
               </button>
             )}
           </div>
-          <div className="bg-bg-primary/50 rounded-xl p-4 border border-border-color overflow-x-auto text-sm sm:text-base font-mono font-semibold text-slate-700 dark:text-slate-300">
+          <div className="bg-bg-primary/50 rounded-[12px] p-4 border border-border-color overflow-x-auto text-sm sm:text-base font-mono font-semibold text-slate-700 dark:text-slate-300">
             {step.equation}
           </div>
         </div>
@@ -63,14 +63,14 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
         {/* Variable Breakdown */}
         {step.variables && step.variables.length > 0 && (
           <div>
-            <h5 className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
+            <h5 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider text-slate-400 dark:text-[#4B5563] mb-2">
               Input Variables
             </h5>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
               {step.variables.map((v, vIdx) => (
                 <div
                   key={vIdx}
-                  className="flex justify-between items-center px-4 py-3 bg-bg-primary/50 rounded-xl border border-border-color"
+                  className="flex justify-between items-center px-4 py-3 bg-bg-primary/50 rounded-[12px] border border-border-color"
                 >
                   <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
                     {v.name}
@@ -80,7 +80,7 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
                       {v.value}
                     </span>
                     {v.unit && (
-                      <span className="text-slate-400 dark:text-slate-500 font-bold ml-1">
+                      <span className="text-slate-400 dark:text-[#4B5563] font-bold ml-1">
                         {v.unit}
                       </span>
                     )}
@@ -93,10 +93,10 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
 
         {/* Professional Insight (Toggled) */}
         {step.insight && showInsight && (
-          <div className="flex gap-3 p-4 sm:p-5 rounded-[16px] bg-indigo-50/70 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800/30 animate-in fade-in slide-in-from-top-2 duration-300">
+          <div className="flex gap-3 p-4 sm:p-5 rounded-[12px] bg-indigo-50/70 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800/30 animate-in fade-in slide-in-from-top-2 duration-300">
             <Lightbulb className="w-5 h-5 text-indigo-500 dark:text-indigo-400 shrink-0 mt-0.5" />
             <div>
-               <h5 className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-1">
+               <h5 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider text-indigo-600 dark:text-indigo-400 mb-1">
                  Engineering Justification
                </h5>
                <p className="text-sm sm:text-base font-semibold text-indigo-900 dark:text-indigo-100 leading-relaxed">
@@ -107,8 +107,8 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
         )}
 
         {/* Step-by-Step Substitution */}
-        <div className="bg-slate-800 dark:bg-black/40 rounded-[16px] p-4 sm:p-5 text-white">
-          <h5 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
+        <div className="bg-[#6B46C1] dark:bg-black/40 rounded-[12px] p-4 sm:p-5 text-white">
+          <h5 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider text-slate-400 mb-3">
             Computation
           </h5>
           <div className="font-mono text-sm sm:text-base text-slate-300 mb-4 whitespace-nowrap overflow-x-auto pb-2 border-b border-slate-700/50">
@@ -123,7 +123,7 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
                step.resultColor === "orange" ? "bg-orange-500/20 text-orange-400 border-orange-500/30" :
                "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
              }`}>
-               <span className="font-mono text-xl sm:text-2xl font-black whitespace-nowrap">{step.result}</span>
+               <span className="font-mono text-[18px] sm:text-[18px] font-black whitespace-nowrap">{step.result}</span>
                {step.resultUnit && <span className="font-bold text-sm sm:text-base">{step.resultUnit}</span>}
              </div>
           </div>
@@ -146,19 +146,19 @@ export function DetailedCalculationDisplay({
 
   return (
     <div className={`w-full max-w-4xl mx-auto mt-8 mb-4 font-sans ${className}`}>
-      <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl rounded-[24px] shadow-[0_8px_32px_rgba(0,0,0,0.08)] border border-white/40 dark:border-slate-800/60 overflow-hidden transition-all duration-300">
+      <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl rounded-[12px] shadow-[0_8px_32px_rgba(0,0,0,0.08)] border border-white/40 dark:border-slate-800/60 overflow-hidden transition-all duration-300">
         
         {/* Header Toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full px-5 py-5 sm:px-8 sm:py-6 flex items-center justify-between text-left transition-colors hover:bg-slate-50/50 dark:hover:bg-slate-800/40 focus:outline-none"
+          className="w-full px-5 py-5 sm:px-8 sm:py-6 flex items-center justify-between text-left transition-colors hover:bg-slate-50/50 dark:hover:bg-[#6B46C1]/40 focus:outline-none"
         >
           <div className="flex items-center gap-4 sm:gap-5">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[16px] bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center text-white shrink-0 shadow-lg shadow-indigo-500/30">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[12px] bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center text-white shrink-0 shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-indigo-500/30">
               <Calculator className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={2.5} />
             </div>
             <div>
-              <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-800 dark:text-slate-100">
+              <h3 className="text-[18px] sm:text-[18px] font-extrabold tracking-tight text-slate-800 dark:text-slate-100">
                 {title}
               </h3>
               <p className="text-sm sm:text-base font-medium text-slate-500 dark:text-slate-400 mt-1">

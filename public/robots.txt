@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://y71-ship-it.github.io/sitemap.xml
+Sitemap: https://civilestimationpro.com/sitemap.xml

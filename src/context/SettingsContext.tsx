@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
-export type Currency = 'PKR' | 'USD' | 'INR' | 'AED' | 'SAR' | 'GBP';
+export type Currency = 'PKR' | 'USD' | 'INR' | 'AED' | 'SAR' | 'GBP' | 'BDT';
 export type MeasurementSystem = 'FPS' | 'SI';
 export type Theme = 'light' | 'dark' | 'system';
 export type UserRole = 'Civil Engineer' | 'Quantity Surveyor' | 'Student' | 'Contractor' | undefined;
@@ -83,6 +83,7 @@ const currencySymbols: Record<Currency, string> = {
   AED: 'AED',
   SAR: 'SAR',
   GBP: '£',
+  BDT: '৳',
 };
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
@@ -134,6 +135,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       case 'INR': return 1 / 3.33;
       case 'AED': return 1 / 75;
       case 'GBP': return 1 / 350;
+      case 'BDT': return 1 / 2.3;
       default: return 1; // PKR
     }
   };
@@ -142,7 +144,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     const symbol = currencySymbols[settings.currency];
     const rate = getExchangeRate(settings.currency);
     const finalAmount = applyExchangeRate ? amount * rate : amount;
-    return `${symbol} ${finalAmount.toLocaleString(undefined, { maximumFractionDigits: settings.currency === 'PKR' ? 0 : 2 })}`;
+    return `${symbol} ${finalAmount.toLocaleString('en-US', { minimumFractionDigits: settings.currency === 'PKR' ? 0 : 2, maximumFractionDigits: settings.currency === 'PKR' ? 0 : 2 })}`;
   };
 
   const convertAmount = (amount: number) => {

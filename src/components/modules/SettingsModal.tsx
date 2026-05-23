@@ -54,11 +54,11 @@ export default function SettingsModal({
         {/* Sidebar */}
         <div className="w-full md:w-64 bg-transparent/50 dark:bg-slate-950/50 border-r border-slate-200/50 dark:border-slate-800/50 p-6 flex flex-col shrink-0 overflow-y-auto">
           <div className="flex items-center gap-3 mb-10 pt-2">
-            <div className="w-10 h-10 bg-gradient-to-tr   rounded-2xl flex items-center justify-center shadow-md shadow-blue-500/20">
+            <div className="w-10 h-10 bg-gradient-to-tr   rounded-[12px] flex items-center justify-center shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-blue-500/20">
               <SettingsIcon className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-text-primary leading-tight">
+              <h2 className="text-[18px] font-bold text-text-primary leading-tight">
                 Preferences
               </h2>
             </div>
@@ -71,7 +71,7 @@ export default function SettingsModal({
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-3 w-full px-4 py-3.5 rounded-2xl font-semibold transition-all ${isActive ? "bg-bg-card text-indigo-600 dark:text-blue-400 shadow-sm border border-border-color/50" : "text-slate-700 dark:text-slate-300 hover:bg-slate-100/50 dark:hover:bg-slate-800/30 hover:text-slate-900 dark:hover:text-slate-100 border border-transparent"}`}
+                  className={`flex items-center gap-3 w-full px-4 py-3.5 rounded-[12px] font-semibold transition-all ${isActive ? "bg-bg-card text-indigo-600 dark:text-blue-400 shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-border-color/50" : "text-slate-700 dark:text-slate-300 hover:bg-slate-100/50 dark:hover:bg-[#6B46C1]/30 hover:text-slate-900 dark:hover:text-slate-100 border border-transparent"}`}
                 >
                   <Icon
                     className={`w-5 h-5 ${isActive ? "text-indigo-600 dark:text-blue-400" : "text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300"}`}
@@ -92,12 +92,12 @@ export default function SettingsModal({
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col min-h-0 bg-transparent">
           <div className="hidden md:flex items-center justify-between px-8 py-6 border-b border-border-color/50">
-            <h3 className="text-2xl font-bold text-text-primary capitalize">
+            <h3 className="text-[18px] font-bold text-text-primary capitalize">
               {tabs.find((t) => t.id === activeTab)?.label}
             </h3>
             <button
               onClick={onClose}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-bg-card hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-800 dark:text-slate-700 dark:text-slate-300 dark:hover:text-white border border-border-color shadow-sm transition-all"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-bg-card hover:bg-slate-100 dark:hover:bg-[#6B46C1] text-slate-700 dark:text-slate-300 hover:text-slate-800 dark:text-slate-700 dark:text-slate-300 dark:hover:text-white border border-border-color shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-all"
             >
               <X className="w-5 h-5" />
             </button>
@@ -105,14 +105,14 @@ export default function SettingsModal({
           <div className="flex-1 overflow-y-auto px-6 py-8 md:px-10 md:py-10">
             <div className="max-w-xl mx-auto md:mx-0">
               {/* Mobile Header */}
-              <h3 className="md:hidden text-2xl font-bold text-text-primary capitalize mb-6">
+              <h3 className="md:hidden text-[18px] font-bold text-text-primary capitalize mb-6">
                 {tabs.find((t) => t.id === activeTab)?.label}
               </h3>
               {activeTab === "account" && (
                 <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
                   <div className="flex items-center gap-6">
                     <div className="relative group">
-                      <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-sky-400  flex items-center justify-center text-3xl font-bold text-white shadow-lg overflow-hidden relative">
+                      <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-sky-400  flex items-center justify-center text-[28px] font-bold text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] overflow-hidden relative">
                         <span className="relative z-10 w-full h-full flex items-center justify-center">
                           {name.charAt(0)}
                         </span>
@@ -129,7 +129,7 @@ export default function SettingsModal({
                         Visible to other team members.
                       </p>
                       <div className="flex gap-2">
-                        <button className="px-4 py-2 bg-bg-card border border-border-color rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-transparent dark:hover:bg-slate-700 transition-colors shadow-sm">
+                        <button className="px-4 py-2 bg-bg-card border border-border-color rounded-[12px] text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-transparent dark:hover:bg-[#6B46C1] transition-colors shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
                           Upload New
                         </button>
                       </div>
@@ -144,7 +144,7 @@ export default function SettingsModal({
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full bg-bg-card border border-border-color rounded-2xl px-4 py-3.5 text-text-primary font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 dark:focus:border-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full bg-bg-card border border-border-color rounded-[12px] px-4 py-3.5 text-text-primary font-medium focus:ring-4 focus:ring-[#6B46C1]/10 focus:border-[#6B46C1] dark:focus:border-[#6B46C1] outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
                       />
                     </div>
                     <div>
@@ -155,7 +155,7 @@ export default function SettingsModal({
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full bg-bg-card border border-border-color rounded-2xl px-4 py-3.5 text-text-primary font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 dark:focus:border-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full bg-bg-card border border-border-color rounded-[12px] px-4 py-3.5 text-text-primary font-medium focus:ring-4 focus:ring-[#6B46C1]/10 focus:border-[#6B46C1] dark:focus:border-[#6B46C1] outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
                       />
                     </div>
                   </div>
@@ -163,7 +163,7 @@ export default function SettingsModal({
               )}
               {activeTab === "measurements" && (
                 <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                  <div className="bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 rounded-2xl p-5 mb-6">
+                  <div className="bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-500/20 rounded-[12px] p-5 mb-6">
                     <p className="text-sm font-medium text-blue-700 dark:text-blue-300">
                       This preference affects all calculation modules globally.
                       Some legacy fields may still expect native inputs.
@@ -172,7 +172,7 @@ export default function SettingsModal({
                   <div className="space-y-6">
                     <div className="flex flex-col gap-4">
                       <label
-                        className={`relative flex items-center justify-between p-5 rounded-2xl border-2 cursor-pointer transition-all ${settings.measurement === "SI" ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-border-color hover:border-slate-300 dark:hover:border-slate-700 bg-bg-card"}`}
+                        className={`relative flex items-center justify-between p-[20px] rounded-[12px] border-2 cursor-pointer transition-all ${settings.measurement === "SI" ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-border-color hover:border-slate-300 dark:hover:border-slate-700 bg-bg-card"}`}
                       >
                         <div className="flex flex-col">
                           <span className="text-lg font-bold text-text-primary mb-1">
@@ -198,7 +198,7 @@ export default function SettingsModal({
                         />
                       </label>
                       <label
-                        className={`relative flex items-center justify-between p-5 rounded-2xl border-2 cursor-pointer transition-all ${settings.measurement === "FPS" ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-border-color hover:border-slate-300 dark:hover:border-slate-700 bg-bg-card"}`}
+                        className={`relative flex items-center justify-between p-[20px] rounded-[12px] border-2 cursor-pointer transition-all ${settings.measurement === "FPS" ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-border-color hover:border-slate-300 dark:hover:border-slate-700 bg-bg-card"}`}
                       >
                         <div className="flex flex-col">
                           <span className="text-lg font-bold text-text-primary mb-1">
@@ -249,7 +249,7 @@ export default function SettingsModal({
                             onClick={() =>
                               updateSettings({ theme: t.id as Theme })
                             }
-                            className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border-2 transition-all ${isActive ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-border-color hover:border-slate-300 dark:hover:border-slate-700 bg-bg-card"}`}
+                            className={`flex flex-col items-center justify-center gap-3 p-[20px] rounded-[12px] border-2 transition-all ${isActive ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-border-color hover:border-slate-300 dark:hover:border-slate-700 bg-bg-card"}`}
                           >
                             <div
                               className={`p-3 rounded-full ${isActive ? "bg-blue-100 dark:bg-blue-500/20 text-indigo-600 dark:text-blue-400" : "bg-bg-primary text-slate-700 dark:text-slate-300"}`}
@@ -266,13 +266,13 @@ export default function SettingsModal({
                       })}
                     </div>
                   </div>
-                  <div className="h-px w-full bg-slate-200 dark:bg-slate-800 my-8" />
+                  <div className="h-px w-full bg-slate-200 dark:bg-[#6B46C1] my-8" />
                   {/* Additional visually pleasing mock toggles for appearance tab */}
                   <div className="space-y-6">
                     <h4 className="text-base font-bold text-slate-800 dark:text-slate-200 mb-4">
                       Display Options
                     </h4>
-                    <div className="flex items-center justify-between px-4 py-3 bg-bg-card rounded-2xl border border-border-color shadow-sm">
+                    <div className="flex items-center justify-between px-4 py-3 bg-bg-card rounded-[12px] border border-border-color shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
                       <div className="flex flex-col">
                         <span className="font-bold text-text-primary">
                           Compact Mode
@@ -283,10 +283,10 @@ export default function SettingsModal({
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" className="sr-only peer" />
-                        <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-slate-600 peer-checked:bg-indigo-600"></div>
+                        <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-[#6B46C1] peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-slate-600 peer-checked:bg-[#6B46C1]"></div>
                       </label>
                     </div>
-                    <div className="flex items-center justify-between px-4 py-3 bg-bg-card rounded-2xl border border-border-color shadow-sm">
+                    <div className="flex items-center justify-between px-4 py-3 bg-bg-card rounded-[12px] border border-border-color shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
                       <div className="flex flex-col">
                         <span className="font-bold text-text-primary">
                           Animations
@@ -301,7 +301,7 @@ export default function SettingsModal({
                           className="sr-only peer"
                           defaultChecked
                         />
-                        <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-slate-600 peer-checked:bg-indigo-600"></div>
+                        <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-[#6B46C1] peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-slate-600 peer-checked:bg-[#6B46C1]"></div>
                       </label>
                     </div>
                   </div>
@@ -311,7 +311,7 @@ export default function SettingsModal({
             <div className="mt-12 max-w-xl mx-auto md:mx-0 flex justify-end">
               <button
                 onClick={onClose}
-                className="px-8 py-3.5 bg-gradient-to-r   hover:from-blue-700 hover: text-white font-bold rounded-2xl shadow-md hover:shadow-lg transition-all"
+                className="px-8 py-3.5 bg-gradient-to-r   hover:from-blue-700 hover: text-white font-bold rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] transition-all"
               >
                 Save Changes
               </button>

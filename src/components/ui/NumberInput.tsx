@@ -75,7 +75,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
     return (
       <div className={`w-full ${containerClassName}`}>
         {label && (
-          <label htmlFor={inputId} className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1">
+          <label htmlFor={inputId} className="block text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-1.5 ml-1">
             {label}
           </label>
         )}
@@ -90,11 +90,11 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             onBlur={onBlur}
-            className={`w-full bg-slate-50/80 dark:bg-slate-800/80 border ${
+            className={`w-full bg-slate-50/80 dark:bg-[#6B46C1]/80 border ${
               displayError 
                 ? 'border-red-400 dark:border-red-500/50 focus:ring-red-500/50 focus:border-red-500' 
-                : 'border-border-color/80 focus:ring-indigo-500/50 focus:border-indigo-500'
-            } text-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 ${
+                : 'border-border-color/80 focus:ring-[#6B46C1] focus:border-[#6B46C1]'
+            } text-slate-800 dark:text-slate-100 rounded-[12px] px-4 py-3 ${
               unit ? 'pr-12' : ''
             } focus:outline-none focus:ring-2 transition-all placeholder:text-slate-700 font-semibold text-sm ${className || ''}`}
             {...props}

@@ -8,7 +8,7 @@ interface SEOContentProps {
 export function SEOContent({ category, data }: SEOContentProps) {
   const renderMetalContent = () => (
     <>
-      <h2 className="text-3xl font-bold text-slate-900 mt-8 mb-4">How to Calculate Weight for {data.diameter_mm}mm {data.profile}</h2>
+      <h2 className="text-[28px] font-bold text-slate-900 mt-8 mb-4">How to Calculate Weight for {data.diameter_mm}mm {data.profile}</h2>
       <p className="mb-4">
         Accurate material calculation is critical for structural integrity, precise cost control, and preventing catastrophic load failures in reinforced concrete projects. When determining the mass of a <strong>{data.diameter_mm}mm</strong> {data.profile.toLowerCase()} spanning <strong>{data.length_m} meters</strong>, structural engineers and quantity surveyors rely on the universally accepted specific gravity of steel, which is standardized at 7850 kg/m³. This exact density ensures that our theoretical estimates closely match empirical weigh-bridge data upon material delivery from the steel rolling mills. Discrepancies between calculated theoretical weight and actual scale weight often indicate non-compliant or sub-standard rebars, making this programmatic calculation an essential quality control checkpoint on the construction site.
       </p>
@@ -29,7 +29,7 @@ export function SEOContent({ category, data }: SEOContentProps) {
 
   const renderConcreteContent = () => (
     <>
-      <h2 className="text-3xl font-bold text-slate-900 mt-8 mb-4">How to Calculate Material for {data.volume_cft} CFT</h2>
+      <h2 className="text-[28px] font-bold text-slate-900 mt-8 mb-4">How to Calculate Material for {data.volume_cft} CFT</h2>
       <p className="mb-4">
         When pouring a <strong>{data.volume_cft} CFT</strong> structural element using an engineered <strong>{data.mix_ratio}</strong> nominal mix, absolute precision in your material takeoff is non-negotiable. Whether you are executing a monolithic raft foundation, a suspended RCC slab, or load-bearing columns, concrete mixture components must be batched with exact volumetric or weight-based proportions to attain the targeted compressive strength. Fresh concrete contains entrapped air and moisture. Therefore, the initial calculated wet volume must always be significantly escalated to a dry volumetric state before isolating individual solid ingredients.
       </p>
@@ -44,7 +44,7 @@ export function SEOContent({ category, data }: SEOContentProps) {
 
   const renderHouseContent = () => (
     <>
-      <h2 className="text-3xl font-bold text-slate-900 mt-8 mb-4">How to Calculate Grey Structure Cost for {data.plot_designation}</h2>
+      <h2 className="text-[28px] font-bold text-slate-900 mt-8 mb-4">How to Calculate Grey Structure Cost for {data.plot_designation}</h2>
       <p className="mb-4">
         When undertaking the construction of a <strong>{data.stories.toLowerCase()}-story {data.plot_designation}</strong> residential unit, establishing a resilient and highly accurate baseline financial projection for the grey structure is the most critical phase of project planning. The 'grey structure' entails the core structural perimeter and internal skeletal framework of the building. This includes deep excavations, foundation concrete, load-bearing masonry brickwork, steel reinforced columns, RCC suspended slabs, internal base plastering, and essential concealed electrical and plumbing conduits. It explicitly excludes cosmetic finishings like paint, tile work, light fixtures, and cabinetry.
       </p>
@@ -59,7 +59,7 @@ export function SEOContent({ category, data }: SEOContentProps) {
 
   const renderEarthworksContent = () => (
     <>
-      <h2 className="text-3xl font-bold text-slate-900 mt-8 mb-4">How to Calculate Excavation Hauling using {data.calculation_method}</h2>
+      <h2 className="text-[28px] font-bold text-slate-900 mt-8 mb-4">How to Calculate Excavation Hauling using {data.calculation_method}</h2>
       <p className="mb-4">
         Heavy earthmoving and trench excavation operations for a <strong>{data.length_ft}ft</strong> long foundational trench involve analyzing complex volumetric expansions and soil mechanics. Before excavation begins, the soil in the ground exists in a highly compressed and naturally consolidated state known as the 'bank volume'. Once mechanical excavators systematically break the soil matrix, it undergoes immediate decompression and significant aeration, drastically increasing its total bulk footprint—a critical geotechnical phenomenon measured by the specific swell factor.
       </p>
@@ -74,7 +74,7 @@ export function SEOContent({ category, data }: SEOContentProps) {
 
   return (
     <article className="prose prose-indigo max-w-none text-slate-600 mt-8 font-sans">
-      <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight capitalize mb-2 border-b pb-4">
+      <h1 className="text-[28px] font-extrabold text-slate-900 tracking-tight capitalize mb-2 border-b pb-4">
         {data.target_keyword}
       </h1>
       
@@ -83,7 +83,7 @@ export function SEOContent({ category, data }: SEOContentProps) {
       {category === 'house' && renderHouseContent()}
       {category === 'earthworks' && renderEarthworksContent()}
 
-      <h3 className="text-xl font-bold text-slate-900 mt-8 mb-3">Standard Allowances and Wastage Factors</h3>
+      <h3 className="text-[18px] font-bold text-slate-900 mt-8 mb-3">Standard Allowances and Wastage Factors</h3>
       <p>
         Regardless of the theoretical precision inherent in these mathematical models, practical site deployment always introduces uncontrollable environmental and operational variables. Cutting overlaps, transit spills, handling damages, and dimensional tolerances at the batching plant necessitate contingency buffers.
       </p>

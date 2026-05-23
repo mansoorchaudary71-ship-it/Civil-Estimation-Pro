@@ -28,55 +28,188 @@ interface CalculationHistoryProps {
 
 function getDefaultExplanation(calculatorId: string, currentInputs: any, currentResults: any): CalculationExplanationOptions | undefined {
   const hasInputs = currentInputs && Object.values(currentInputs).some((v: any) => v && v !== "0" && v !== 0);
-  
-  switch(true) {
-    case calculatorId.includes("area_calculator"):
-      if (!hasInputs) return { hasInputs, genericFormula: [{ label: "Area", formula: "Length × Width" }] };
-      return { hasInputs, activeBreakdown: [{ label: "Area", formula: "Base × Height", result: currentResults?.Area || "" }] };
-      
-    case calculatorId.includes("volume_estimator"):
-      // Handled manually in VolumeEstimator
-      return undefined;
-      
-    case calculatorId.includes("metal_weight"):
-      if (!hasInputs) return { hasInputs, genericFormula: [{ label: "Weight", formula: "(Diameter² / 162) × Length" }], notes: ["Rule of Thumb: Weight of Steel = D²/162 kg/m"] };
-      return { hasInputs, activeBreakdown: [{ label: "Weight", formula: `(d² / 162.28) × L`, result: currentResults?.["Total Weight"] || "" }], notes: ["Rule of Thumb: Weight of Steel = D²/162 kg/m"] };
-      
-    case calculatorId.includes("brickwork"):
-    case calculatorId.includes("material_calc_bricks"):
-      if (!hasInputs) return { 
-        hasInputs, 
-        genericFormula: [
+
+  // Return generic formulas based on calculatorId if hasInputs is false
+  if (!hasInputs) {
+    let genericFormula: { label: string; formula: string }[] = [];
+    let notes: string[] = [];
+
+    switch (true) {
+      case calculatorId.includes("area_calculator"):
+        genericFormula = [
+          { label: "Rectangular Area", formula: "Length × Width" },
+          { label: "Circular Area", formula: "π × Radius²" },
+          { label: "Triangular Area", formula: "0.5 × Base × Height" }
+        ];
+        break;
+      case calculatorId.includes("takeoff"):
+        genericFormula = [{ label: "BOQ Line Item Amount", formula: "Quantity × Unit Rate" }];
+        break;
+      case calculatorId.includes("volume_estimator"):
+        return undefined; // Handled manually
+      case calculatorId.includes("metal_weight"):
+        genericFormula = [{ label: "Steel Weight", formula: "(D² / 162.28) × Length × No. of bars" }];
+        notes = [
+          "D = Diameter of Bar in mm",
+          "L = Total Length of Bar in m",
+          "Formula is derived from the density of steel (7850 kg/m³)"
+        ];
+        break;
+      case calculatorId.includes("slab_estimator"):
+        genericFormula = [
+          { label: "Concrete Volume", formula: "Length × Width × Thickness" },
+          { label: "Steel Weight", formula: "(D² / 162.28) × Total Length × No. of Bars" }
+        ];
+        notes = ["Dry Concrete Volume = Wet Volume × 1.54"];
+        break;
+      case calculatorId.includes("column"):
+        genericFormula = [
+          { label: "Concrete Volume", formula: "Length × Width × Depth" },
+          { label: "Main Steel Weight", formula: "(D² / 162.28) × Length × No. of Main Bars" },
+          { label: "Number of Ties", formula: "(Length / Spacing) + 1" },
+          { label: "Tie Cut Length", formula: "2 × (A + B) + Hook Lengths" }
+        ];
+        notes = ["Dry Concrete Volume = Wet Volume × 1.54", "A & B are inner dimensions after subtracting Clear Cover"];
+        break;
+      case calculatorId.includes("beam"):
+        genericFormula = [
+          { label: "Concrete Volume", formula: "Length × Width × Depth" },
+          { label: "Main Steel Weight", formula: "(D² / 162.28) × Length × Total Bars" },
+          { label: "Stirrup Cut Length", formula: "2 × (A + B) + 24D" },
+          { label: "Number of Stirrups", formula: "(Length / Spacing) + 1" }
+        ];
+        break;
+      case calculatorId.includes("brickwork"):
+        genericFormula = [
           { label: "Volume of Wall", formula: "Length × Height × Thickness" },
           { label: "No. of Bricks", formula: "Volume of Wall / Volume of 1 Brick with Mortar" },
           { label: "Dry Mortar", formula: "Total Mortar Volume × 1.33" }
-        ],
-        notes: ["1.33 is the dry volume conversion factor for mortar", "Standard Mortar Joint is 10mm"]
-      };
-      return { 
-        hasInputs, 
-        activeBreakdown: [
-          { label: "Bricks", formula: `Wall Vol / Brick Vol`, result: currentResults?.["Bricks Required"] || "" },
-        ],
-        notes: ["1.33 is the dry volume conversion factor for mortar"]
-      };
+        ];
+        notes = ["1.33 is the dry volume conversion factor for mortar", "Standard Mortar Joint is typically 10mm"];
+        break;
+      case calculatorId.includes("staircase"):
+        genericFormula = [
+          { label: "Volume of Steps", formula: "0.5 × Tread × Riser × Width × Number of Steps" },
+          { label: "Waist Slab Volume", formula: "Length of Waist × Thickness × Width" }
+        ];
+        break;
+      case calculatorId.includes("house_estimator") || calculatorId.includes("rate_analysis"):
+        genericFormula = [
+          { label: "Total Cost", formula: "Σ (Material Cost + Labor Cost + Equipment) * (1 + Profit Margin)" }
+        ];
+        break;
+      case calculatorId.includes("formwork"):
+        genericFormula = [{ label: "Formwork Area", formula: "Perimeter of Section × Height/Depth" }];
+        notes = ["Consider surface area exposed to concrete casting"];
+        break;
+      case calculatorId.includes("manhole"):
+        genericFormula = [
+          { label: "Cylindrical Excavation Volume", formula: "π × Radius² × Depth" },
+          { label: "Rectangular Volume", formula: "Length × Width × Depth" }
+        ];
+        break;
+      case calculatorId.includes("sewerage"):
+        genericFormula = [
+          { label: "Trench Excavation", formula: "Trench Width × Trench Depth × Trench Length" },
+          { label: "Pipe Volume", formula: "π × ((OD² - ID²) / 4) × Length" }
+        ];
+        break;
+      case calculatorId.includes("trench_excavation"):
+        genericFormula = [
+          { label: "Rectangular Trench Volume", formula: "Length × Width × Depth" },
+          { label: "Trapezoidal Trench Volume", formula: "L × (Top Width + Bottom Width) / 2 × Depth" }
+        ];
+        break;
+      case calculatorId.includes("asphalt") || calculatorId.includes("rigid_pavement"):
+        genericFormula = [
+          { label: "Pavement Volume", formula: "Length × Width × Thickness" },
+          { label: "Tonnage (Asphalt)", formula: "Volume × Density (e.g., 2.33 t/m³)" }
+        ];
+        break;
+      case calculatorId.includes("coat_calc"):
+        genericFormula = [{ label: "Emulsion Requirement", formula: "Total Area × Application Rate" }];
+        break;
+      case calculatorId.includes("property_area"):
+        genericFormula = [
+          { label: "Carpet Area", formula: "Σ (Inner dimensions of all rooms)" },
+          { label: "Built-up Area", formula: "Carpet Area + Wall Area + Balcony Area" },
+          { label: "Super Built-up Area", formula: "Built-up Area + Proportionate Common Area" }
+        ];
+        break;
+      case calculatorId.includes("energy") || calculatorId.includes("mep"):
+        genericFormula = [{ label: "Total Load (Wh)", formula: "Σ (Power rating × Quantity × Usage Hours)" }];
+        break;
+      case calculatorId.includes("sieve") || calculatorId.includes("aggregate"):
+        genericFormula = [
+          { label: "Percentage Retained", formula: "(Weight of Sieve / Total Weight) × 100" },
+          { label: "Cumulative % Passing", formula: "100 - Cumulative % Retained" }
+        ];
+        break;
+      case calculatorId.includes("earthworks") || calculatorId.includes("chainage") || calculatorId.includes("grid_earthwork"):
+        genericFormula = [
+          { label: "Grid Volume Method", formula: "(Area of single grid / 4) × (Σh1 + 2Σh2 + 3Σh3 + 4Σh4)" },
+          { label: "Trapezoidal Method", formula: "Length × (Area1 + Area2) / 2" },
+          { label: "Prismoidal Method", formula: "(Length / 6) × (A1 + 4*Am + A2)" }
+        ];
+        break;
+      case calculatorId.includes("unit_converter"):
+        genericFormula = [{ label: "Unit Conversion", formula: "Input Value × Conversion Factor" }];
+        break;
+      case calculatorId.includes("gradient"):
+        genericFormula = [
+          { label: "Gradient (%)", formula: "(Rise / Run) × 100" },
+          { label: "Slope Angle", formula: "arctan(Rise / Run)" }
+        ];
+        break;
+      case calculatorId.includes("solar_roof"):
+        genericFormula = [
+          { label: "Number of Panels", formula: "Usable Roof Area / Area per Panel" },
+          { label: "System Capacity (kW)", formula: "Number of Panels × Panel Wattage" }
+        ];
+        break;
+      case calculatorId.includes("tiles"):
+        genericFormula = [
+          { label: "Total Area", formula: "Length × Width" },
+          { label: "Number of Tiles", formula: "(Total Area / Area of 1 Tile) × (1 + Wastage %)" }
+        ];
+        break;
+      case calculatorId.includes("paint"):
+        genericFormula = [
+          { label: "Paintable Area", formula: "Total Wall Area - Area of Openings (Doors/Windows)" },
+          { label: "Paint Estimation", formula: "(Paintable Area / Paint Coverage per Litre) × Double Coat Factor" }
+        ];
+        break;
+      case calculatorId.includes("bbs"):
+        genericFormula = [
+          { label: "Cutting Length", formula: "Clear Span + Development Lengths - Bend Deductions" },
+          { label: "Total Steel Weight", formula: "(D² / 162.28) × Total Cutting Length" }
+        ];
+        break;
+      default:
+        genericFormula = [{ label: "Calculation", formula: "Main Input(s) × Relevant Formula Factor" }];
+        break;
+    }
 
-    default:
-      // Fallback
-      if (!hasInputs) return { 
-        hasInputs, 
-        genericFormula: [{ label: "Calculation", formula: "Input × Factor" }] 
-      };
-      const breakdowns = [];
-      if (currentResults && Object.keys(currentResults).length > 0) {
-        breakdowns.push({
-          label: "Result",
-          formula: "Calculated from inputs",
-          result: Object.values(currentResults)[0] as string
-        });
-      }
-      return { hasInputs, activeBreakdown: breakdowns };
+    return { hasInputs: false, genericFormula, notes };
   }
+
+  // If hasInputs is true, we fallback to a generic breakdown,
+  // or preferably let the component pass `explanation` directly 
+  // since active breakdown varies heavily by specific input values.
+  const breakdowns = [];
+  if (currentResults && Object.keys(currentResults).length > 0) {
+     for (const [key, value] of Object.entries(currentResults)) {
+       if (typeof value === "string" || typeof value === "number") {
+         breakdowns.push({
+           label: key,
+           formula: "Derived from calculation",
+           result: String(value)
+         });
+       }
+     }
+  }
+
+  return { hasInputs, activeBreakdown: breakdowns };
 }
 
 export function CalculationHistory({
@@ -215,14 +348,14 @@ export function CalculationHistory({
     window.dispatchEvent(new CustomEvent('go-home'));
   };
 
-  const baseBtnClass = "relative flex flex-col items-center justify-center p-3 rounded-2xl transition-all duration-300 hover:scale-[1.03] active:scale-95 group focus:outline-none";
-  const iconWrapperClass = "w-[42px] h-[42px] rounded-2xl flex items-center justify-center transition-all shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]";
+  const baseBtnClass = "relative flex flex-col items-center justify-center p-3 rounded-[12px] transition-all duration-300 hover:scale-[1.03] active:scale-95 group focus:outline-none";
+  const iconWrapperClass = "w-[42px] h-[42px] rounded-[12px] flex items-center justify-center transition-all shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]";
 
   return (
     <>
       {/* Bottom Navigation Action Bar */}
       <div className="flex justify-center w-full mt-12 mb-8 font-sans px-2 sm:px-4">
-        <div className="flex items-center justify-between w-full max-w-[440px] rounded-full border border-slate-300/80 dark:border-slate-600/60 p-1 sm:p-1.5 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm pointer-events-auto shadow-sm gap-0.5 sm:gap-1.5">
+        <div className="flex items-center justify-between w-full max-w-[440px] rounded-full border border-slate-300/80 dark:border-slate-600/60 p-1 sm:p-1.5 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm pointer-events-auto shadow-[0_2px_12px_rgba(0,0,0,0.08)] gap-0.5 sm:gap-1.5">
           
           {/* Dashboard Button */}
           <button
@@ -243,7 +376,7 @@ export function CalculationHistory({
             <History className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
             <span className="text-[11px] sm:text-[13px] font-semibold truncate">History</span>
             {history.length > 0 && (
-              <span className="absolute top-0 right-1 sm:right-2 flex h-3 w-3 sm:h-4 sm:w-4 items-center justify-center rounded-full bg-orange-500 text-[9px] sm:text-[10px] font-bold text-white shadow-sm ring-2 ring-white dark:ring-slate-900">
+              <span className="absolute top-0 right-1 sm:right-2 flex h-3 w-3 sm:h-4 sm:w-4 items-center justify-center rounded-full bg-orange-500 text-[9px] sm:text-[10px] font-bold text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] ring-2 ring-white dark:ring-slate-900">
                 {history.length}
               </span>
             )}
@@ -311,7 +444,7 @@ export function CalculationHistory({
               </h2>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="p-2 -mr-2 text-slate-700 hover:text-slate-600 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                className="p-2 -mr-2 text-slate-700 hover:text-slate-600 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-[#6B46C1] transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -326,15 +459,15 @@ export function CalculationHistory({
                 </div>
               ) : (
                 history.map((item) => (
-                  <div key={item.id} className="bg-bg-primary/50 border border-border-color/60 rounded-xl p-4 transition-all hover:border-indigo-300 dark:hover:border-indigo-500/50 group">
+                  <div key={item.id} className="bg-bg-primary/50 border border-border-color/60 rounded-[12px] p-4 transition-all hover:border-indigo-300 dark:hover:border-indigo-500/50 group">
                     <div className="flex justify-between items-start mb-2">
                       <div className="pr-4">
                         <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm truncate">{item.name}</h3>
-                        <p className="text-[11px] text-slate-700 dark:text-slate-700">{new Date(item.date).toLocaleString()}</p>
+                        <p className="text-[11px] text-slate-700 dark:text-slate-700">{new Date(item.date).toLocaleString('en-US')}</p>
                       </div>
                       <button 
                         onClick={() => deleteItem(item.id)}
-                        className="text-slate-700 hover:text-red-500 p-1 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors opacity-0 group-hover:opacity-100 shrink-0"
+                        className="text-slate-700 hover:text-red-500 p-1 rounded-[12px] hover:bg-slate-200 dark:hover:bg-[#6B46C1] transition-colors opacity-0 group-hover:opacity-100 shrink-0"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -349,7 +482,7 @@ export function CalculationHistory({
                         onRestore(item.inputs);
                         setIsOpen(false);
                       }}
-                      className="w-full py-2 bg-bg-card border border-indigo-200 dark:border-indigo-500/30 text-indigo-600 dark:text-indigo-400 rounded-lg text-sm font-medium transition-all hover:bg-indigo-50 dark:hover:bg-indigo-500/10 flex items-center justify-center gap-1"
+                      className="w-full py-2 bg-bg-card border border-indigo-200 dark:border-indigo-500/30 text-indigo-600 dark:text-indigo-400 rounded-[12px] text-sm font-medium transition-all hover:bg-indigo-50 dark:hover:bg-indigo-500/10 flex items-center justify-center gap-1"
                     >
                       Restore Inputs <ChevronRight className="w-4 h-4" />
                     </button>
@@ -367,7 +500,7 @@ export function CalculationHistory({
                       localStorage.removeItem(`calc_history_${calculatorId}`);
                     }
                   }}
-                  className="w-full py-2.5 text-slate-700 hover:text-red-500 text-sm font-medium hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg transition-colors"
+                  className="w-full py-2.5 text-slate-700 hover:text-red-500 text-sm font-medium hover:bg-red-50 dark:hover:bg-red-500/10 rounded-[12px] transition-colors"
                 >
                   Clear All History
                 </button>
@@ -380,19 +513,19 @@ export function CalculationHistory({
       {isSaveModalOpen && (
         <div className="fixed inset-0 z-[60] overflow-hidden flex items-center justify-center font-sans px-4">
           <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" onClick={() => setIsSaveModalOpen(false)} />
-          <div className="relative w-full max-w-md bg-bg-card shadow-2xl rounded-2xl border border-border-color flex flex-col transform transition-transform duration-300 ease-in-out p-6 pt-7 animate-in zoom-in-95">
+          <div className="relative w-full max-w-md bg-bg-card shadow-2xl rounded-[12px] border border-border-color flex flex-col transform transition-transform duration-300 ease-in-out p-[20px] pt-7 animate-in zoom-in-95">
             <button 
               onClick={() => setIsSaveModalOpen(false)}
-              className="absolute top-4 right-4 p-2 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="absolute top-4 right-4 p-2 text-[#4B5563] hover:text-slate-700 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-[#6B46C1] transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center shrink-0">
+              <div className="w-12 h-12 rounded-[12px] bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center shrink-0">
                 <CloudUpload className="w-6 h-6 text-indigo-600" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-text-primary tracking-tight">Save Estimate</h2>
+                <h2 className="text-[18px] font-bold text-text-primary tracking-tight">Save Estimate</h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Save to your cloud profile</p>
               </div>
             </div>
@@ -404,7 +537,7 @@ export function CalculationHistory({
                   type="text"
                   value={saveName}
                   onChange={(e) => setSaveName(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-border-color bg-bg-primary text-text-primary focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium"
+                  className="w-full px-4 py-3 rounded-[12px] border border-border-color bg-bg-primary text-text-primary focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1] transition-all font-medium"
                   placeholder="e.g. Dream House Ground Floor"
                   autoFocus
                 />
@@ -416,7 +549,7 @@ export function CalculationHistory({
                   <select
                     value={saveType}
                     onChange={(e) => setSaveType(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-border-color bg-bg-primary text-text-primary focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium appearance-none"
+                    className="w-full px-4 py-3 rounded-[12px] border border-border-color bg-bg-primary text-text-primary focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1] transition-all font-medium appearance-none"
                   >
                     <option value="General">General</option>
                     <option value="House">House</option>
@@ -438,7 +571,7 @@ export function CalculationHistory({
             <div className="flex gap-3">
               <button
                 onClick={() => setIsSaveModalOpen(false)}
-                className="flex-1 px-4 py-3 rounded-xl border border-border-color text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                className="flex-1 px-4 py-3 rounded-[12px] border border-border-color text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 dark:hover:bg-[#6B46C1] transition-colors"
                 disabled={isSavingCloud}
               >
                 Cancel
@@ -446,7 +579,7 @@ export function CalculationHistory({
               <button
                 onClick={confirmCloudSave}
                 disabled={isSavingCloud || !saveName.trim()}
-                className="flex-[2] flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-[2] flex items-center justify-center gap-2 px-4 py-3 rounded-[12px] bg-[#6B46C1] text-white font-bold hover:bg-[#6B46C1] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSavingCloud ? (
                   <>

@@ -38,6 +38,8 @@ import AuthModal from "./components/auth/AuthModal";
 import ProfileSettings from "./components/auth/ProfileSettings";
 import { useAuth } from "./contexts/AuthContext";
 import { Toaster } from "react-hot-toast";
+import { SEO } from "./components/SEO";
+import { DynamicSEOContent } from "./components/ui/DynamicSEOContent";
 
 import { TakeoffProvider } from "./context/TakeoffContext";
 import { MarketRatesProvider } from "./context/MarketRatesContext";
@@ -52,6 +54,9 @@ import ProjectManager from "./components/modules/ProjectManager";
 import ReinforcementVisualizer from "./components/modules/ReinforcementVisualizer";
 import BOQGenerator from "./components/modules/BOQGenerator";
 import MixDesignCalculator from "./components/modules/MixDesignCalculator";
+import RetainingWallCalculator from "./components/modules/RetainingWallCalculator";
+import LabourCalculator from "./components/modules/LabourCalculator";
+import IsolatedFootingCalculator from "./components/modules/IsolatedFootingCalculator";
 import SiteProgressTracker from "./components/modules/SiteProgressTracker";
 
 import { WelcomeModal } from "./components/ui/WelcomeModal";
@@ -112,7 +117,14 @@ export const ALL_TOOLS = [
 
 export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeModule, setActiveModule] = useState<ModuleId>("home");
+  const [activeModule, setActiveModule] = useState<ModuleId>(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const tool = params.get("tool");
+      if (tool) return tool as ModuleId;
+    }
+    return "home";
+  });
   const [previousModule, setPreviousModule] = useState<ModuleId | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobileToolsOpen, setIsMobileToolsOpen] = useState(false);
@@ -133,10 +145,14 @@ export default function App() {
   const { user, logOut } = useAuth();
 
   useEffect(() => {
-    if (scrollRef.current) {
-      if (activeModule !== "home" || !previousModule || ["home", "my-estimates", "pricing", "about", "careers", "contact", "blog"].includes(previousModule)) {
-        scrollRef.current.scrollTo(0, 0);
+    if (typeof window !== "undefined") {
+      const newUrl = activeModule === "home" ? "/" : "/?tool=" + activeModule;
+      if (window.location.pathname + window.location.search !== newUrl) {
+        window.history.pushState({}, "", newUrl);
       }
+    }
+    if (activeModule !== "home" || !previousModule || ["home", "my-estimates", "pricing", "about", "careers", "contact", "blog"].includes(previousModule)) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [activeModule, previousModule]);
 
@@ -207,8 +223,11 @@ export default function App() {
                {/* We remove AppHeader for Desktop, handle differently inside module wrappers if needed, but for now we keep ModuleWrapper and conditionally hide AppHeader inside it on desktop */}
               {activeModule === "tracker" && <ModuleWrapper title="Site Progress Tracker" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><SiteProgressTracker /></ModuleWrapper>}
               {activeModule === "projects" && <ModuleWrapper title="Project Manager" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ProjectManager /></ModuleWrapper>}
+              {activeModule === "labour-calculator" && <ModuleWrapper title="Labour & Workforce" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><LabourCalculator /></ModuleWrapper>}
               {activeModule === "boq" && <ModuleWrapper title="Professional BOQ Generator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><BOQGenerator /></ModuleWrapper>}
               {activeModule === "mix-design" && <ModuleWrapper title="Concrete Mix Design" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MixDesignCalculator /></ModuleWrapper>}
+              {activeModule === "retaining-wall" && <ModuleWrapper title="Retaining Wall Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RetainingWallCalculator /></ModuleWrapper>}
+              {activeModule === "isolated-footing" && <ModuleWrapper title="Isolated Footing Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><IsolatedFootingCalculator /></ModuleWrapper>}
               {activeModule === "takeoff" && <ModuleWrapper title="2D Takeoff" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><Takeoff /></ModuleWrapper>}
               {activeModule === "area-calculator" && <ModuleWrapper title="Area Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AreaCalculator /></ModuleWrapper>}
               {activeModule === "property-area" && <ModuleWrapper title="Property Area" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><PropertyAreaCalculator /></ModuleWrapper>}
@@ -216,6 +235,7 @@ export default function App() {
               {activeModule === "unit-converter" && <ModuleWrapper title="Universal Unit Converter" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><UnitConverter /></ModuleWrapper>}
               {activeModule === "metal-weight" && <ModuleWrapper title="Metal Weight Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MetalWeightCalculator /></ModuleWrapper>}
               {activeModule === "mep-calculator" && <ModuleWrapper title="Energy & MEP Calculators" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><EnergyMepCalculator /></ModuleWrapper>}
+              {activeModule === "rainwater-harvesting" && <ModuleWrapper title="Rainwater Harvesting" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RainwaterHarvesting /></ModuleWrapper>}
               {activeModule === "gradient-calculator" && <ModuleWrapper title="Gradient & Slope Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><GradientCalculator /></ModuleWrapper>}
               {activeModule === "master-rcc" && <ModuleWrapper title="Master RCC Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MasterRccStructure onNavigate={handleSelectModule} /></ModuleWrapper>}
               {activeModule === "reinforcement" && <ModuleWrapper title="Reinforcement Detailing Visualizer" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ReinforcementVisualizer /></ModuleWrapper>}
@@ -335,6 +355,91 @@ function ModuleWrapper({
 }) {
   return (
     <div className="h-full flex flex-col min-h-0 bg-transparent">
+      {(() => {
+        const moduleDef = ALL_MODULES.find(m => m.id === activeModule);
+        const desc = moduleDef ? moduleDef.description : title;
+        const keywords = moduleDef ? `civil engineering calculator, ${title.toLowerCase()} calculator, ${title.toLowerCase()} estimation` : "civil estimation pro, construction calculator";
+        const canonicalUrl = `https://civilestimationpro.com/?tool=${activeModule}`;
+        
+        const schema = {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebApplication",
+              "name": title,
+              "applicationCategory": "EngineeringApplication",
+              "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+              "description": desc,
+              "featureList": ["Live updates", "Export to PDF", "Material estimation"],
+              "url": canonicalUrl
+            },
+            {
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": `How accurate is the ${title} calculator?`,
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": `The ${title} calculator uses standard engineering formulas and constants. However, actual site conditions and material variances mean you should add a 5-10% contingency to these estimates.`
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": `Can I save my ${title} results?`,
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, you can click the 'Print / Convert to PDF' button to save or download a comprehensive report of your material quantities and costs."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": `Is this ${title} calculator free to use?`,
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes! Civil Estimation Pro provides this and all other calculators completely free for students, contractors, and engineers."
+                  }
+                },
+                   {
+                  "@type": "Question",
+                  "name": `Does the ${title} tool work for different unit systems?`,
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, you can toggle between SI (Metric) and FPS (Imperial) units globally using the settings menu or the unit toggles provided on the page."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": `Who should use the ${title} calculator?`,
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": `This tool is designed for civil engineers, quantity surveyors, building contractors, and architecture students who need quick, reliable estimates for ${title}.`
+                  }
+                }
+              ]
+            },
+            {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://civilestimationpro.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": title,
+                  "item": canonicalUrl
+                }
+              ]
+            }
+          ]
+        };
+        
+        return <SEO title={title} description={desc} keywords={keywords} canonicalUrl={canonicalUrl} schema={schema} />;
+      })()}
       <AppHeader 
         title={title} 
         onOpenSidebar={() => setIsSidebarOpen(true)} 
@@ -364,10 +469,19 @@ function ModuleWrapper({
               }
               return (
                 <div 
-                  className="flex-1 shrink-0 px-4 md:px-8 pb-6 w-full themed-tool-container"
+                  className="flex-1 shrink-0 px-4 md:px-8 pb-6 w-full themed-tool-container relative"
                   style={{ '--tool-theme-color': themeHex } as React.CSSProperties}
                 >
+                  <DynamicSEOContent title={title} category={moduleDef?.category} position="top" />
                   {children}
+                  <DynamicSEOContent title={title} category={moduleDef?.category} position="bottom" onNavigate={setActiveModule} />
+                  <ToolActionBar 
+                    onHome={() => setActiveModule("home")}
+                    onHistory={() => window.dispatchEvent(new CustomEvent('tool-history'))}
+                    onSave={() => window.dispatchEvent(new CustomEvent('tool-save'))}
+                    onShare={() => window.dispatchEvent(new CustomEvent('tool-share'))}
+                    onPrint={() => window.print()}
+                  />
                 </div>
               );
             })()}

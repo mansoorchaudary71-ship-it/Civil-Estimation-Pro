@@ -5,6 +5,7 @@ import {
   AlertTriangle,
   Maximize2,
   LayoutTemplate,
+  FileImage,
 } from "lucide-react";
 import { MaterialSummary } from "../ui/MaterialSummary";
 
@@ -135,7 +136,7 @@ export default function ReinforcementVisualizer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-6">
           {/* Controls */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700">
+            <div className="bg-slate-50 dark:bg-[#6B46C1]/50 p-6 rounded-[12px] border border-slate-200 dark:border-slate-700">
               <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-4">
                 Geometry Inputs
               </h3>
@@ -148,7 +149,7 @@ export default function ReinforcementVisualizer() {
                   <select
                     value={type}
                     onChange={(e) => setType(e.target.value as ElementType)}
-                    className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                    className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-[12px] focus:ring-2 focus:ring-[#6B46C1] outline-none"
                   >
                     <option value="Beam">Beam</option>
                     <option value="Column">Column</option>
@@ -165,7 +166,7 @@ export default function ReinforcementVisualizer() {
                       type="number"
                       value={width}
                       onChange={(e) => setWidth(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-[12px] outline-none"
                     />
                   </div>
                   <div>
@@ -176,7 +177,7 @@ export default function ReinforcementVisualizer() {
                       type="number"
                       value={depth}
                       onChange={(e) => setDepth(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-[12px] outline-none"
                     />
                   </div>
                   <div>
@@ -187,14 +188,14 @@ export default function ReinforcementVisualizer() {
                       type="number"
                       value={cover}
                       onChange={(e) => setCover(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-[12px] outline-none"
                     />
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700">
+            <div className="bg-slate-50 dark:bg-[#6B46C1]/50 p-6 rounded-[12px] border border-slate-200 dark:border-slate-700">
               <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-4">
                 Reinforcement
               </h3>
@@ -211,7 +212,7 @@ export default function ReinforcementVisualizer() {
                         onChange={(e) =>
                           setTopBarsCount(Number(e.target.value))
                         }
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-[12px] outline-none"
                         min={2}
                       />
                     </div>
@@ -222,7 +223,7 @@ export default function ReinforcementVisualizer() {
                       <select
                         value={topBarsDia}
                         onChange={(e) => setTopBarsDia(Number(e.target.value))}
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-[12px] outline-none"
                       >
                         {[8, 10, 12, 16, 20, 25, 32].map((d) => (
                           <option key={d} value={d}>
@@ -245,7 +246,7 @@ export default function ReinforcementVisualizer() {
                       onChange={(e) =>
                         setBottomBarsCount(Number(e.target.value))
                       }
-                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-[12px] outline-none"
                       min={2}
                     />
                   </div>
@@ -256,7 +257,7 @@ export default function ReinforcementVisualizer() {
                     <select
                       value={bottomBarsDia}
                       onChange={(e) => setBottomBarsDia(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-[12px] outline-none"
                     >
                       {[8, 10, 12, 16, 20, 25, 32].map((d) => (
                         <option key={d} value={d}>
@@ -276,7 +277,7 @@ export default function ReinforcementVisualizer() {
                       <select
                         value={stirrupDia}
                         onChange={(e) => setStirrupDia(Number(e.target.value))}
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-[12px] outline-none"
                       >
                         {[8, 10, 12].map((d) => (
                           <option key={d} value={d}>
@@ -295,7 +296,7 @@ export default function ReinforcementVisualizer() {
                         onChange={(e) =>
                           setStirrupSpacing(Number(e.target.value))
                         }
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-[12px] outline-none"
                       />
                     </div>
                   </div>
@@ -305,7 +306,7 @@ export default function ReinforcementVisualizer() {
 
             <div className="space-y-3">
               <div
-                className={`p-4 rounded-xl border flex items-start gap-3 ${coverCheck.pass ? "bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-500/10 dark:border-emerald-500/20 dark:text-emerald-400" : "bg-rose-50 border-rose-200 text-rose-800 dark:bg-rose-500/10 dark:border-rose-500/20 dark:text-rose-400"}`}
+                className={`p-4 rounded-[12px] border flex items-start gap-3 ${coverCheck.pass ? "bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-500/10 dark:border-emerald-500/20 dark:text-emerald-400" : "bg-rose-50 border-rose-200 text-rose-800 dark:bg-rose-500/10 dark:border-rose-500/20 dark:text-rose-400"}`}
               >
                 {coverCheck.pass ? (
                   <CheckCircle className="w-5 h-5 shrink-0 mt-0.5" />
@@ -322,7 +323,7 @@ export default function ReinforcementVisualizer() {
 
               {type !== "Slab" && (
                 <div
-                  className={`p-4 rounded-xl border flex items-start gap-3 ${spacingCheck.pass ? "bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-500/10 dark:border-emerald-500/20 dark:text-emerald-400" : "bg-rose-50 border-rose-200 text-rose-800 dark:bg-rose-500/10 dark:border-rose-500/20 dark:text-rose-400"}`}
+                  className={`p-4 rounded-[12px] border flex items-start gap-3 ${spacingCheck.pass ? "bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-500/10 dark:border-emerald-500/20 dark:text-emerald-400" : "bg-rose-50 border-rose-200 text-rose-800 dark:bg-rose-500/10 dark:border-rose-500/20 dark:text-rose-400"}`}
                 >
                   {spacingCheck.pass ? (
                     <CheckCircle className="w-5 h-5 shrink-0 mt-0.5" />
@@ -349,22 +350,22 @@ export default function ReinforcementVisualizer() {
               <div className="flex gap-2">
                 <button
                   onClick={downloadSvg}
-                  className="px-3 py-1.5 bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 text-sm font-bold border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center gap-2"
+                  className="px-3 py-1.5 bg-white dark:bg-[#6B46C1] text-indigo-600 dark:text-indigo-400 text-sm font-bold border border-slate-200 dark:border-slate-700 rounded-[12px] hover:bg-slate-50 dark:hover:bg-[#6B46C1] transition flex items-center gap-2"
                 >
                   <FileImage className="w-4 h-4" /> SVG
                 </button>
                 <button
                   onClick={handleDownloadPng}
-                  className="px-3 py-1.5 bg-indigo-600 text-white text-sm font-bold rounded-lg hover:bg-indigo-700 transition flex items-center gap-2 shadow-sm"
+                  className="px-3 py-1.5 bg-[#6B46C1] text-white text-sm font-bold rounded-[12px] hover:bg-[#6B46C1] transition flex items-center gap-2 shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
                 >
                   <Download className="w-4 h-4" /> PNG
                 </button>
               </div>
             </div>
 
-            <div className="flex-1 bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden relative min-h-[400px] flex items-center justify-center p-4">
+            <div className="flex-1 bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-700 rounded-[12px] overflow-hidden relative min-h-[400px] flex items-center justify-center p-4">
               <div
-                className="absolute inset-0 pattern-grid-lg text-slate-100 dark:text-slate-800/50 pointer-events-none"
+                className="absolute inset-0 pattern-grid-lg text-slate-100 dark:text-[#374151]/50 pointer-events-none"
                 style={{
                   backgroundSize: "20px 20px",
                   backgroundImage:
@@ -375,7 +376,7 @@ export default function ReinforcementVisualizer() {
               <svg
                 ref={svgRef}
                 viewBox={`0 0 ${vWidth} ${vHeight}`}
-                className="max-w-full max-h-[600px] drop-shadow-md relative z-10"
+                className="max-w-full max-h-[600px] drop-shadow-[0_2px_12px_rgba(0,0,0,0.08)] relative z-10"
                 xmlns="http://www.w3.org/2000/svg"
                 style={{ backgroundColor: "white" }}
               >

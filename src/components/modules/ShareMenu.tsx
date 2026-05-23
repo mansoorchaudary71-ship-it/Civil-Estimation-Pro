@@ -570,7 +570,7 @@ export default function ShareButtonWithPopup({
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={triggerClassName || "bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white px-5 py-2.5 rounded-full font-bold transition-all hover:scale-105 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-teal-500/30 shadow-md flex items-center justify-center gap-2 text-sm"}
+        className={triggerClassName || "bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white px-5 py-2.5 rounded-full font-bold transition-all hover:scale-105 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-teal-500/30 shadow-[0_2px_12px_rgba(0,0,0,0.08)] flex items-center justify-center gap-2 text-sm"}
         title="Share Results"
       >
         {triggerContent || (
@@ -582,16 +582,16 @@ export default function ShareButtonWithPopup({
       </button>
       {isOpen && (
         <div
-          className={`absolute right-0 ${popupPosition === "top" ? "bottom-full mb-3 origin-bottom-right" : "top-full mt-3 origin-top-right"} w-64 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 rounded-3xl shadow-[0_15px_40px_-5px_rgba(0,0,0,0.15),0_8px_20px_-6px_rgba(0,0,0,0.1)] dark:shadow-[0_15px_40px_-5px_rgba(0,0,0,0.3)] z-50 p-2 font-sans`}
+          className={`absolute right-0 ${popupPosition === "top" ? "bottom-full mb-3 origin-bottom-right" : "top-full mt-3 origin-top-right"} w-64 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 rounded-[12px] shadow-[0_15px_40px_-5px_rgba(0,0,0,0.15),0_8px_20px_-6px_rgba(0,0,0,0.1)] dark:shadow-[0_15px_40px_-5px_rgba(0,0,0,0.3)] z-50 p-2 font-sans`}
           style={{ animation: "menuSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
         >
             <style>{` @keyframes menuSlide { from { opacity: 0; transform: translateY(${popupPosition === "top" ? "15px" : "-15px"}) scale(0.95); filter: blur(4px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } } `}</style>
             <div className="flex flex-col gap-1.5">
               <button
                 onClick={() => generatePDF("pdf")}
-                className="group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl transition-all duration-200 text-sm font-semibold bg-rose-50 text-rose-700 hover:bg-rose-100 hover:text-rose-900 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/20 dark:hover:text-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-500 hover:scale-[1.02] active:scale-[0.98]"
+                className="group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-200 text-sm font-semibold bg-rose-50 text-rose-700 hover:bg-rose-100 hover:text-rose-900 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/20 dark:hover:text-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-500 hover:scale-[1.02] active:scale-[0.98]"
               >
-                <div className="p-2 rounded-xl bg-white dark:bg-rose-500/20 text-rose-500 dark:text-rose-400 shadow-sm shadow-rose-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
+                <div className="p-2 rounded-[12px] bg-white dark:bg-rose-500/20 text-rose-500 dark:text-rose-400 shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-rose-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
                   <FileText className="w-4 h-4" />
                 </div>
                 Download PDF
@@ -599,9 +599,9 @@ export default function ShareButtonWithPopup({
               
               <button
                 onClick={generateExcel}
-                className="group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl transition-all duration-200 text-sm font-semibold bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:text-emerald-900 dark:bg-emerald-500/10 dark:text-emerald-300 dark:hover:bg-emerald-500/20 dark:hover:text-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 hover:scale-[1.02] active:scale-[0.98]"
+                className="group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-200 text-sm font-semibold bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:text-emerald-900 dark:bg-emerald-500/10 dark:text-emerald-300 dark:hover:bg-emerald-500/20 dark:hover:text-emerald-200 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] hover:scale-[1.02] active:scale-[0.98]"
               >
-                <div className="p-2 rounded-xl bg-white dark:bg-emerald-500/20 text-emerald-500 dark:text-emerald-400 shadow-sm shadow-emerald-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
+                <div className="p-2 rounded-[12px] bg-white dark:bg-emerald-500/20 text-emerald-500 dark:text-emerald-400 shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-emerald-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
                   <FileSpreadsheet className="w-4 h-4" />
                 </div>
                 Export to Excel
@@ -609,9 +609,9 @@ export default function ShareButtonWithPopup({
               
               <button
                 onClick={() => generatePDF("whatsapp")}
-                className="group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl transition-all duration-200 text-sm font-semibold bg-green-50 text-green-700 hover:bg-green-100 hover:text-green-900 dark:bg-green-500/10 dark:text-green-300 dark:hover:bg-green-500/20 dark:hover:text-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 hover:scale-[1.02] active:scale-[0.98]"
+                className="group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-200 text-sm font-semibold bg-green-50 text-green-700 hover:bg-green-100 hover:text-green-900 dark:bg-green-500/10 dark:text-green-300 dark:hover:bg-green-500/20 dark:hover:text-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 hover:scale-[1.02] active:scale-[0.98]"
               >
-                <div className="p-2 rounded-xl bg-white dark:bg-green-500/20 text-green-500 dark:text-green-400 shadow-sm shadow-green-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
+                <div className="p-2 rounded-[12px] bg-white dark:bg-green-500/20 text-green-500 dark:text-green-400 shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-green-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
                   <MessageCircle className="w-4 h-4" />
                 </div>
                 Share on WhatsApp
@@ -619,9 +619,9 @@ export default function ShareButtonWithPopup({
               
               <button
                 onClick={() => generatePDF("email")}
-                className="group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl transition-all duration-200 text-sm font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-900 dark:bg-blue-500/10 dark:text-blue-300 dark:hover:bg-blue-500/20 dark:hover:text-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:scale-[1.02] active:scale-[0.98]"
+                className="group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-200 text-sm font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-900 dark:bg-blue-500/10 dark:text-blue-300 dark:hover:bg-blue-500/20 dark:hover:text-blue-200 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] hover:scale-[1.02] active:scale-[0.98]"
               >
-                <div className="p-2 rounded-xl bg-white dark:bg-blue-500/20 text-blue-500 dark:text-blue-400 shadow-sm shadow-blue-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
+                <div className="p-2 rounded-[12px] bg-white dark:bg-blue-500/20 text-blue-500 dark:text-blue-400 shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-blue-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
                   <Mail className="w-4 h-4" />
                 </div>
                 Send via Email
@@ -629,9 +629,9 @@ export default function ShareButtonWithPopup({
               
               <button
                 onClick={handleDownloadText}
-                className="group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl transition-all duration-200 text-sm font-semibold bg-indigo-50 text-indigo-700 hover:bg-indigo-50 hover:text-indigo-900 dark:bg-indigo-500/10 dark:text-indigo-300 dark:hover:bg-indigo-500/20 dark:hover:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:scale-[1.02] active:scale-[0.98]"
+                className="group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-[12px] transition-all duration-200 text-sm font-semibold bg-indigo-50 text-indigo-700 hover:bg-indigo-50 hover:text-indigo-900 dark:bg-indigo-500/10 dark:text-indigo-300 dark:hover:bg-indigo-500/20 dark:hover:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] hover:scale-[1.02] active:scale-[0.98]"
               >
-                <div className="p-2 rounded-xl bg-white dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 shadow-sm shadow-indigo-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
+                <div className="p-2 rounded-[12px] bg-white dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-indigo-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
                   <Download className="w-4 h-4" />
                 </div>
                 Download as Text

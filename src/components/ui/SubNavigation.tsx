@@ -15,17 +15,17 @@ export interface SubNavigationProps {
 
 export function SubNavigation({ options, activeId, onChange, className = '' }: SubNavigationProps) {
   return (
-    <div className={`w-full flex-wrap gap-2 p-1.5 bg-slate-100/70 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/50 rounded-2xl flex sm:inline-flex ${className}`}>
+    <div className={`w-full flex-wrap gap-2 p-1.5 bg-slate-100/70 dark:bg-[#6B46C1]/50 border border-slate-200/60 dark:border-slate-700/50 rounded-[12px] flex sm:inline-flex ${className}`}>
       {options.map((option) => {
         const isActive = activeId === option.id;
         return (
           <button
             key={option.id}
             onClick={() => onChange(option.id)}
-            className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 min-w-[110px] ${
+            className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-[12px] font-bold text-sm transition-all duration-300 min-w-[110px] ${
               isActive
-                ? 'bg-bg-card text-indigo-600 dark:text-indigo-400 shadow-sm ring-1 ring-slate-200/80 dark:ring-slate-700 scale-[1.02] z-10'
-                : 'text-slate-700 dark:text-slate-700 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-700/50'
+                ? 'bg-bg-card text-indigo-600 dark:text-indigo-400 shadow-[0_2px_12px_rgba(0,0,0,0.08)] ring-1 ring-slate-200/80 dark:ring-slate-700 scale-[1.02] z-10'
+                : 'text-slate-700 dark:text-slate-700 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-[#6B46C1]/50'
             }`}
           >
             {option.icon && (

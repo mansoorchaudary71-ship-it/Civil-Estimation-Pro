@@ -14,8 +14,8 @@ export default function RelatedCalculators({ diameter_mm, isMetric = true }: Rel
   const nextSize = currentIndex < diameters.length - 1 ? diameters[currentIndex + 1] : null;
 
   return (
-    <section className="mt-12 bg-slate-50 rounded-2xl p-8 border border-slate-200">
-      <h2 className="text-2xl font-bold text-slate-900 mb-6">
+    <section className="mt-12 bg-slate-50 rounded-[12px] p-8 border border-slate-200">
+      <h2 className="text-[18px] font-bold text-slate-900 mb-6">
         Quick Links & Related Calculators
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -23,13 +23,13 @@ export default function RelatedCalculators({ diameter_mm, isMetric = true }: Rel
         {prevSize ? (
           <a 
             href={`/steel-weight/weight-of-${prevSize}mm-steel-bar-${isMetric ? 'per-meter' : 'per-foot'}`}
-            className="group flex flex-col p-5 bg-white rounded-xl border border-slate-200 hover:border-indigo-400 hover:shadow-md hover:bg-slate-50 transition-all"
+            className="group flex flex-col p-5 bg-white rounded-[12px] border border-slate-200 hover:border-indigo-400 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] hover:bg-slate-50 transition-all"
           >
-            <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-1 group-hover:text-indigo-600">Smaller Bar</span>
-            <span className="text-lg font-bold text-slate-800 leading-tight">Calculate {prevSize}mm Steel Weight</span>
+            <span className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-1 group-hover:text-indigo-600">Smaller Bar</span>
+            <span className="text-lg font-bold text-[#374151] leading-tight">Calculate {prevSize}mm Steel Weight</span>
           </a>
         ) : (
-          <div className="p-5 bg-slate-100 rounded-xl border border-slate-200 opacity-50 flex items-center justify-center">
+          <div className="p-5 bg-slate-100 rounded-[12px] border border-slate-200 opacity-50 flex items-center justify-center">
             <span className="text-[13px] sm:text-sm font-semibold text-slate-400">Smallest Size</span>
           </div>
         )}
@@ -38,13 +38,13 @@ export default function RelatedCalculators({ diameter_mm, isMetric = true }: Rel
         {nextSize ? (
           <a 
             href={`/steel-weight/weight-of-${nextSize}mm-steel-bar-${isMetric ? 'per-meter' : 'per-foot'}`}
-            className="group flex flex-col p-5 bg-white rounded-xl border border-slate-200 hover:border-indigo-400 hover:shadow-md hover:bg-slate-50 transition-all"
+            className="group flex flex-col p-5 bg-white rounded-[12px] border border-slate-200 hover:border-indigo-400 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] hover:bg-slate-50 transition-all"
           >
-            <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-1 group-hover:text-indigo-600">Larger Bar</span>
-            <span className="text-lg font-bold text-slate-800 leading-tight">Calculate {nextSize}mm Steel Weight</span>
+            <span className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-1 group-hover:text-indigo-600">Larger Bar</span>
+            <span className="text-lg font-bold text-[#374151] leading-tight">Calculate {nextSize}mm Steel Weight</span>
           </a>
         ) : (
-          <div className="p-5 bg-slate-100 rounded-xl border border-slate-200 opacity-50 flex items-center justify-center">
+          <div className="p-5 bg-slate-100 rounded-[12px] border border-slate-200 opacity-50 flex items-center justify-center">
             <span className="text-[13px] sm:text-sm font-semibold text-slate-400">Largest Size</span>
           </div>
         )}
@@ -52,19 +52,19 @@ export default function RelatedCalculators({ diameter_mm, isMetric = true }: Rel
         {/* Horizontal Link 1 */}
         <a 
           href="/marla-to-sq-ft"
-          className="group flex flex-col p-5 bg-white rounded-xl border border-slate-200 hover:border-teal-400 hover:shadow-md hover:bg-slate-50 transition-all"
+          className="group flex flex-col p-5 bg-white rounded-[12px] border border-slate-200 hover:border-teal-400 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] hover:bg-slate-50 transition-all"
         >
-          <span className="text-xs font-bold text-teal-500 uppercase tracking-wider mb-1 group-hover:text-teal-600">Land Area</span>
-          <span className="text-lg font-bold text-slate-800 leading-tight">Marla to Sq Ft Calculator</span>
+          <span className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-1 group-hover:text-teal-600">Land Area</span>
+          <span className="text-lg font-bold text-[#374151] leading-tight">Marla to Sq Ft Calculator</span>
         </a>
 
         {/* Horizontal Link 2 */}
         <a 
           href="/brick-wall-calculator"
-          className="group flex flex-col p-5 bg-white rounded-xl border border-slate-200 hover:border-rose-400 hover:shadow-md hover:bg-slate-50 transition-all"
+          className="group flex flex-col p-5 bg-white rounded-[12px] border border-slate-200 hover:border-rose-400 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] hover:bg-slate-50 transition-all"
         >
-          <span className="text-xs font-bold text-rose-500 uppercase tracking-wider mb-1 group-hover:text-rose-600">Masonry</span>
-          <span className="text-lg font-bold text-slate-800 leading-tight">Brick Wall Calculator</span>
+          <span className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-1 group-hover:text-rose-600">Masonry</span>
+          <span className="text-lg font-bold text-[#374151] leading-tight">Brick Wall Calculator</span>
         </a>
       </div>
     </section>

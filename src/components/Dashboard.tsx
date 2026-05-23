@@ -8,7 +8,7 @@ import {
   Map, Grid2X2, Box, ArrowRightLeft, Weight, Spline, ArrowRight,
   ChevronRight, ChevronDown, HardHat, Scaling, Container, Repeat, Anvil, Building2, Building, 
   Blocks, Shovel, Pickaxe, Cone, Droplet, PaintBucket, Ruler, Columns, FolderOpen,
-  ClipboardList, Maximize2, FileSpreadsheet, Zap, Wand2, ArrowUpRight, LineChart, Sun, X, Mic, Clock, BarChart
+  ClipboardList, Maximize2, FileSpreadsheet, Zap, Wand2, ArrowUpRight, LineChart, Sun, X, Mic, Clock, BarChart, ShieldCheck, Users
 } from "lucide-react";
 import { SEO } from "./SEO";
 import Logo from "./Logo";
@@ -18,37 +18,41 @@ import PostLoginDashboard from "./PostLoginDashboard";
 import { useSettings } from "../context/SettingsContext";
 
 export const ALL_MODULES = [
-  { id: "tracker", title: "Site Progress Tracker", desc: "Track construction timelines, visual Gantt charts, budget burn, and photo updates.", category: "Analysis & Tools", icon: BarChart, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~3 mins", isNew: true },
-  { id: "projects", title: "Project Manager", desc: "Group calculations by project, view aggregated costs and timelines.", category: "Analysis & Tools", icon: FolderOpen, styleStyle: "solid", colorClass: "bg-indigo-600 text-white shadow-lg", difficulty: "Beginner", estimatedTime: "~1 min", isNew: true },
-  { id: "boq", title: "Professional BOQ Generator", desc: "Create, format, and export professional Bills of Quantities and itemized estimates.", category: "Quantity Estimator", icon: ClipboardList, styleStyle: "solid", colorClass: "bg-blue-600 text-white shadow-lg", difficulty: "Advanced", estimatedTime: "~5 mins", isNew: true },
-  { id: "mix-design", title: "Concrete Mix Design", desc: "IS 10262 performance-based concrete mix calculator and report generator.", category: "Concrete Tech", icon: Droplet, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~4 mins", isNew: true },
+  { id: "tracker", title: "Site Progress Tracker", desc: "Track construction timelines, visual Gantt charts, budget burn, and photo updates.", category: "Analysis & Tools", icon: BarChart, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~3 mins", isNew: true },
+  { id: "projects", title: "Project Manager", desc: "Group calculations by project, view aggregated costs and timelines.", category: "Analysis & Tools", icon: FolderOpen, styleStyle: "solid", colorClass: "bg-[#6B46C1] text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)]", difficulty: "Beginner", estimatedTime: "~1 min", isNew: true },
+  { id: "labour-calculator", title: "Labour & Workforce", desc: "Calculate labour cost, worker allocation, and daily burn rates for your project.", category: "Project Costing", icon: Users, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~2 mins", isNew: true },
+  { id: "boq", title: "Professional BOQ Generator", desc: "Create, format, and export professional Bills of Quantities and itemized estimates.", category: "Quantity Estimator", icon: ClipboardList, styleStyle: "solid", colorClass: "bg-[#6B46C1] text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)]", difficulty: "Advanced", estimatedTime: "~5 mins", isNew: true },
+  { id: "retaining-wall", title: "Retaining Wall Estimator", desc: "Calculate stability factors, concrete volume, and reinforcement for cantilever retaining walls.", category: "Concrete Tech", icon: ShieldCheck, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~5 mins", isNew: true },
+  { id: "mix-design", title: "Concrete Mix Design", desc: "IS 10262 performance-based concrete mix calculator and report generator.", category: "Concrete Tech", icon: Droplet, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~4 mins", isNew: true },
+  { id: "isolated-footing", title: "Isolated Footing Calculator", desc: "Detailed estimations for concrete, steel mesh, excavation and working space.", category: "Concrete Tech", icon: Box, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~3 mins", isNew: true },
   { id: "calculators", title: "Construction Material", desc: "Accurate estimations for concrete, bricks, steel, blocks, mortar.", category: "Concrete Tech", icon: HardHat, styleStyle: "solid", colorClass: "bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-[0_8px_30px_rgba(99,102,241,0.3)]", iconClass: "text-white opacity-90", difficulty: "Beginner", estimatedTime: "~2 mins", isPopular: true },
-  { id: "reinforcement", title: "Reinforcement Detailing Visualizer", desc: "Interactive 2D rebar detailing for beams, columns & slabs with IS 456 checks.", category: "Concrete Tech", icon: Layers, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~3 mins", isNew: true },
-  { id: "house", title: "House Estimator", desc: "Complete residential cost breakdown from grey structure to finishing.", category: "Quantity Estimator", icon: Home, premium: true, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~15 mins", isPopular: true },
-  { id: "area-calculator", title: "Area Calculator", desc: "Calculate area & perimeter for multiple 2D shapes.", category: "Quantity Estimator", icon: Scaling, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~1 min" },
-  { id: "property-area", title: "Property Area Calculator", desc: "Calculate Carpet Area, Built-up Area and Super Built-up Area.", category: "Quantity Estimator", icon: Building, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~2 mins" },
-  { id: "volume-estimator", title: "Volume & Tank Capacity", desc: "Calculate volumes, tank capacity & surface area.", category: "Quantity Estimator", icon: Container, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~3 mins" },
-  { id: "unit-converter", title: "Unit Converter", desc: "Convert units across 15 engineering categories.", category: "Quantity Estimator", icon: Repeat, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~1 min" },
-  { id: "metal-weight", title: "Metal Weight", desc: "Calculate section weights of steel profiles.", category: "Quantity Estimator", icon: Anvil, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~3 mins" },
-  { id: "mep-calculator", title: "Energy & MEP Calculators", desc: "Estimate solar capacity, water heating, and AC sizing.", category: "MEP", icon: Zap, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins", isNew: true },
+  { id: "reinforcement", title: "Reinforcement Detailing Visualizer", desc: "Interactive 2D rebar detailing for beams, columns & slabs with IS 456 checks.", category: "Concrete Tech", icon: Layers, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~3 mins", isNew: true },
+  { id: "house", title: "House Estimator", desc: "Complete residential cost breakdown from grey structure to finishing.", category: "Quantity Estimator", icon: Home, premium: true, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~15 mins", isPopular: true },
+  { id: "area-calculator", title: "Area Calculator", desc: "Calculate area & perimeter for multiple 2D shapes.", category: "Quantity Estimator", icon: Scaling, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~1 min" },
+  { id: "property-area", title: "Property Area Calculator", desc: "Calculate Carpet Area, Built-up Area and Super Built-up Area.", category: "Quantity Estimator", icon: Building, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~2 mins" },
+  { id: "volume-estimator", title: "Volume & Tank Capacity", desc: "Calculate volumes, tank capacity & surface area.", category: "Quantity Estimator", icon: Container, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~3 mins" },
+  { id: "unit-converter", title: "Unit Converter", desc: "Convert units across 15 engineering categories.", category: "Quantity Estimator", icon: Repeat, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~1 min" },
+  { id: "metal-weight", title: "Metal Weight", desc: "Calculate section weights of steel profiles.", category: "Quantity Estimator", icon: Anvil, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~3 mins" },
+  { id: "mep-calculator", title: "Energy & MEP Calculators", desc: "Estimate solar capacity, water heating, and AC sizing.", category: "MEP", icon: Zap, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins", isNew: true },
+  { id: "rainwater-harvesting", title: "Rainwater Harvesting", desc: "Calculate collectible rainwater volume and recommend tank sizes.", category: "MEP", icon: Droplet, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~3 mins", isNew: true },
   { id: "master-rcc", title: "Master RCC Estimator", desc: "Unified hub for Slab, Column, Beam, Staircase, and BBS calculations.", category: "Concrete Tech", icon: Building2, styleStyle: "solid", colorClass: "bg-[var(--accent-teal)] text-white shadow-[0_8px_30px_rgba(32,201,151,0.3)]", iconClass: "text-white opacity-90", difficulty: "Advanced", estimatedTime: "~10 mins", isPopular: true },
-  { id: "staircase-calculator", title: "Staircase Calculator", desc: "Detailed staircase material and BOQ generator.", category: "Concrete Tech", icon: TrendingUp, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins" },
-  { id: "bbs-generator", title: "BBS Generator", desc: "Bar Bending Schedule generator.", category: "Concrete Tech", icon: FileSpreadsheet, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~10 mins" },
+  { id: "staircase-calculator", title: "Staircase Calculator", desc: "Detailed staircase material and BOQ generator.", category: "Concrete Tech", icon: TrendingUp, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins" },
+  { id: "bbs-generator", title: "BBS Generator", desc: "Bar Bending Schedule generator.", category: "Concrete Tech", icon: FileSpreadsheet, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~10 mins" },
   { id: "master-quantity", title: "Master Quantity & Estimation", desc: "23 comprehensive calculators for specialized construction items.", category: "Quantity Estimator", icon: ClipboardList, styleStyle: "solid", colorClass: "bg-[var(--accent-blue)] text-[var(--primary-dark)] shadow-[0_8px_30px_rgba(0,207,232,0.3)]", iconClass: "text-[var(--primary-dark)] opacity-90", difficulty: "Advanced", estimatedTime: "~20 mins" },
-  { id: "earthworks", title: "Earthworks", desc: "Calculate site preparation, excavation and hauling volumes.", category: "Road Construction", icon: Shovel, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins" },
-  { id: "road-pavement", title: "Road & Pavement Estimator", desc: "Comprehensive tool for flexible, rigid, pavement & sewerage calculations.", category: "Road Construction", icon: Route, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~15 mins" },
-  { id: "chainage", title: "Chainage Volume", desc: "Road highway chainage extraction calculations.", category: "Road Construction", icon: Map, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins" },
-  { id: "interiors-finishes", title: "Interiors & Finishes", desc: "Tiles, painting, doors, wood framing, and termite treatments.", category: "Quantity Estimator", icon: Paintbrush, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~3 mins" },
-  { id: "formwork", title: "Formwork & Scaffold", desc: "Shuttering and scaffolding material computations.", category: "Concrete Tech", icon: Hammer, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~4 mins" },
-  { id: "gradient-calculator", title: "Gradient & Slope", desc: "Dynamic bidirectional slope and elevation calculator.", category: "Road Construction", icon: Maximize2, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~2 mins" },
+  { id: "earthworks", title: "Earthworks", desc: "Calculate site preparation, excavation and hauling volumes.", category: "Road Construction", icon: Shovel, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins" },
+  { id: "road-pavement", title: "Road & Pavement Estimator", desc: "Comprehensive tool for flexible, rigid, pavement & sewerage calculations.", category: "Road Construction", icon: Route, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~15 mins" },
+  { id: "chainage", title: "Chainage Volume", desc: "Road highway chainage extraction calculations.", category: "Road Construction", icon: Map, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins" },
+  { id: "interiors-finishes", title: "Interiors & Finishes", desc: "Tiles, painting, doors, wood framing, and termite treatments.", category: "Quantity Estimator", icon: Paintbrush, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~3 mins" },
+  { id: "formwork", title: "Formwork & Scaffold", desc: "Shuttering and scaffolding material computations.", category: "Concrete Tech", icon: Hammer, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~4 mins" },
+  { id: "gradient-calculator", title: "Gradient & Slope", desc: "Dynamic bidirectional slope and elevation calculator.", category: "Road Construction", icon: Maximize2, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~2 mins" },
   { id: "takeoff", title: "Plan Measure", desc: "Area & linear extraction.", category: "Quantity Estimator", icon: Ruler, styleStyle: "solid", colorClass: "bg-[var(--accent-purple)] text-white shadow-[0_8px_30px_rgba(115,103,240,0.3)]", iconClass: "text-white opacity-90", difficulty: "Advanced", estimatedTime: "~10 mins", isPopular: true },
-  { id: "rates", title: "Live DB Rates", desc: "Centralized database for local market prices.", category: "Quantity Estimator", icon: TrendingUp, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~1 min", isPopular: true },
-  { id: "ai", title: "AI Assistant", desc: "Ask anything about construction", category: "Quantity Estimator", icon: Sparkles, premium: true, styleStyle: "solid", colorClass: "bg-[var(--primary-dark)] text-white shadow-lg", iconClass: "text-white opacity-90", difficulty: "Beginner", estimatedTime: "~1 min", isNew: true },
-  { id: "geotechnical", title: "Geotechnical & Soil Tests", desc: "Process lab data for water content, Specific Gravity, LL, and CBR.", category: "Soil Tests", icon: Cone, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins" },
-  { id: "master-sieve", title: "Master Sieve Analysis", desc: "Dynamic gradation validator driven by specification databases.", category: "Soil Tests", icon: LineChart, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~8 mins" },
-  { id: "aggregate-blending", title: "Aggregate Blending", desc: "Blend 2 to 4 stockpiles to meet target grading specifications.", category: "Soil Tests", icon: Layers, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~10 mins" },
-  { id: "aggregate-tests", title: "Aggregate Tests", desc: "Calculate impact, crushing, abrasion values and water absorption.", category: "Concrete Tech", icon: Box, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~4 mins" },
-  { id: "solar-roof", title: "Solar Roof Calculator", desc: "Estimate required solar system size, panels, and ROI.", category: "MEP", icon: Sun, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~2 mins", isNew: true }
+  { id: "rates", title: "Live DB Rates", desc: "Centralized database for local market prices.", category: "Quantity Estimator", icon: TrendingUp, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~1 min", isPopular: true },
+  { id: "ai", title: "AI Assistant", desc: "Ask anything about construction", category: "Quantity Estimator", icon: Sparkles, premium: true, styleStyle: "solid", colorClass: "bg-[var(--primary-dark)] text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)]", iconClass: "text-white opacity-90", difficulty: "Beginner", estimatedTime: "~1 min", isNew: true },
+  { id: "geotechnical", title: "Geotechnical & Soil Tests", desc: "Process lab data for water content, Specific Gravity, LL, and CBR.", category: "Soil Tests", icon: Cone, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins" },
+  { id: "master-sieve", title: "Master Sieve Analysis", desc: "Dynamic gradation validator driven by specification databases.", category: "Soil Tests", icon: LineChart, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~8 mins" },
+  { id: "aggregate-blending", title: "Aggregate Blending", desc: "Blend 2 to 4 stockpiles to meet target grading specifications.", category: "Soil Tests", icon: Layers, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~10 mins" },
+  { id: "aggregate-tests", title: "Aggregate Tests", desc: "Calculate impact, crushing, abrasion values and water absorption.", category: "Concrete Tech", icon: Box, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~4 mins" },
+  { id: "solar-roof", title: "Solar Roof Calculator", desc: "Estimate required solar system size, panels, and ROI.", category: "MEP", icon: Sun, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~2 mins", isNew: true }
 ];
 
 interface DashboardProps {
@@ -61,22 +65,24 @@ interface DashboardProps {
 
 export const getCategoryTheme = (category: string, id: string) => {
   if (id === 'ai') {
-    return { text: "text-white", bg: "bg-[#8b6cff] dark:bg-[#7158e2]", stroke: "stroke-[#8b6cff]", baseHex: "#8b6cff", border: "border-purple-500 dark:border-purple-500" };
+    return { textRaw: "text-[#4338CA] dark:text-[#818CF8]", text: "text-white", bg: "bg-[#4338CA] dark:bg-[#4338CA]", stroke: "stroke-[#4338CA]", baseHex: "#4338CA", border: "border-[#4338CA] dark:border-[#4338CA]" };
   }
   
   switch (category) {
     case "Concrete Tech":
-      return { text: "text-white", bg: "bg-[#ff6b6b] dark:bg-[#ee5253]", stroke: "stroke-[#ff6b6b]", baseHex: "#ee5253", border: "border-orange-500 dark:border-orange-500" };
+      return { textRaw: "text-[#E55A2B] dark:text-[#ff8a65]", text: "text-white", bg: "bg-[#E55A2B] dark:bg-[#E55A2B]", stroke: "stroke-[#E55A2B]", baseHex: "#E55A2B", border: "border-[#E55A2B] dark:border-[#E55A2B]" };
     case "Quantity Estimator":
-      return { text: "text-white", bg: "bg-[#54a0ff] dark:bg-[#2e86de]", stroke: "stroke-[#54a0ff]", baseHex: "#2e86de", border: "border-blue-500 dark:border-blue-500" };
+      return { textRaw: "text-[#6B46C1] dark:text-[#9F7AEA]", text: "text-white", bg: "bg-[#6B46C1] dark:bg-[#6B46C1]", stroke: "stroke-[#6B46C1]", baseHex: "#6B46C1", border: "border-[#6B46C1] dark:border-[#6B46C1]" };
     case "Road Construction":
-      return { text: "text-white", bg: "bg-[#1dd1a1] dark:bg-[#10ac84]", stroke: "stroke-[#1dd1a1]", baseHex: "#10ac84", border: "border-emerald-500 dark:border-emerald-500" };
+      return { textRaw: "text-[#0D9488] dark:text-[#2DD4BF]", text: "text-white", bg: "bg-[#0D9488] dark:bg-[#0D9488]", stroke: "stroke-[#0D9488]", baseHex: "#0D9488", border: "border-[#0D9488] dark:border-[#0D9488]" };
     case "Soil Tests":
-      return { text: "text-white", bg: "bg-[#ff9f43] dark:bg-[#ff7f50]", stroke: "stroke-[#ff9f43]", baseHex: "#ff7f50", border: "border-amber-500 dark:border-amber-500" };
+      return { textRaw: "text-[#D97706] dark:text-[#FBBF24]", text: "text-white", bg: "bg-[#D97706] dark:bg-[#D97706]", stroke: "stroke-[#D97706]", baseHex: "#D97706", border: "border-[#D97706] dark:border-[#D97706]" };
     case "MEP":
-      return { text: "text-white", bg: "bg-[#c6e33e] dark:bg-[#a3cb38]", stroke: "stroke-[#c6e33e]", baseHex: "#a3cb38", border: "border-purple-500 dark:border-purple-500" };
+      return { textRaw: "text-[#2563EB] dark:text-[#60A5FA]", text: "text-white", bg: "bg-[#2563EB] dark:bg-[#2563EB]", stroke: "stroke-[#2563EB]", baseHex: "#2563EB", border: "border-[#2563EB] dark:border-[#2563EB]" };
+    case "Analysis & Tools":
+      return { textRaw: "text-[#4338CA] dark:text-[#818CF8]", text: "text-white", bg: "bg-[#4338CA] dark:bg-[#4338CA]", stroke: "stroke-[#4338CA]", baseHex: "#4338CA", border: "border-[#4338CA] dark:border-[#4338CA]" };
     default:
-      return { text: "text-white", bg: "bg-[#8b6cff] dark:bg-[#7158e2]", stroke: "stroke-[#8b6cff]", baseHex: "#8b6cff", border: "border-slate-500 dark:border-slate-500" };
+      return { textRaw: "text-[#4338CA] dark:text-[#818CF8]", text: "text-white", bg: "bg-[#4338CA] dark:bg-[#4338CA]", stroke: "stroke-[#4338CA]", baseHex: "#4338CA", border: "border-slate-500 dark:border-slate-500" };
   }
 };
 
@@ -92,7 +98,7 @@ const ToolCard = ({ mod, onSelect, isUsed }: { mod: any, onSelect: (id: string) 
       onClick={() => onSelect(mod.id)}
       id={`module-card-${mod.id}`}
       title={mod.desc}
-      className={`group relative overflow-hidden flex flex-col items-start p-5 rounded-2xl cursor-pointer transition-all duration-300 ease-out outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 hover:-translate-y-2 hover:shadow-xl hover:shadow-[var(--accent-vibrant)]/10 dark:hover:shadow-black/50 border-t-4 border-l border-r border-b ${theme.border} border-[var(--border-color)] ${
+      className={`group relative overflow-hidden flex flex-col items-start p-5 rounded-[12px] cursor-pointer transition-all duration-300 ease-out outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 hover:-translate-y-2 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[var(--accent-vibrant)]/10 dark:transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-black/50 border-t-4 border-l border-r border-b ${theme.border} border-[var(--border-color)] ${
         mod.styleStyle === "solid"
           ? `${theme.bg} text-white`
           : "bg-[var(--bg-card)] hover:bg-[var(--bg-primary)]"
@@ -100,20 +106,20 @@ const ToolCard = ({ mod, onSelect, isUsed }: { mod: any, onSelect: (id: string) 
     >
       <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5 z-10 pointer-events-none">
         {mod.isPopular && (
-          <span className="text-[10px] font-bold uppercase tracking-wider bg-orange-500 text-white py-0.5 px-2 rounded-full shadow-sm">Popular</span>
+          <span className="text-[10px] font-bold uppercase tracking-wider bg-orange-500 text-white py-0.5 px-2 rounded-full shadow-[0_2px_12px_rgba(0,0,0,0.08)]">Popular</span>
         )}
         {mod.isNew && (
-          <span className="text-[10px] font-bold uppercase tracking-wider bg-purple-500 text-white py-0.5 px-2 rounded-full shadow-sm">New</span>
+          <span className="text-[10px] font-bold uppercase tracking-wider bg-purple-500 text-white py-0.5 px-2 rounded-full shadow-[0_2px_12px_rgba(0,0,0,0.08)]">New</span>
         )}
         {mod.premium && (
-          <span className="text-[10px] uppercase font-bold tracking-wider py-0.5 px-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-sm flex items-center gap-1 group-hover:scale-110 transition-transform">
+          <span className="text-[10px] uppercase font-bold tracking-wider py-0.5 px-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] flex items-center gap-1 group-hover:scale-110 transition-transform">
             <Sparkles className="w-2.5 h-2.5 flex-shrink-0" /> Pro
           </span>
         )}
       </div>
 
       <div className="flex items-start gap-3 mb-3 w-full pr-12 relative z-10 text-left h-[52px]">
-        <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:rotate-[10deg] shadow-sm ${
+        <div className={`w-12 h-12 rounded-[12px] flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:rotate-[10deg] shadow-[0_2px_12px_rgba(0,0,0,0.08)] ${
           mod.styleStyle === 'solid' ? 'bg-white/25 backdrop-blur-sm' : theme.bg
         }`}>
           <mod.icon className={`w-6 h-6 ${mod.styleStyle === 'solid' ? 'text-white' : theme.text}`} strokeWidth={2.5} />
@@ -122,7 +128,7 @@ const ToolCard = ({ mod, onSelect, isUsed }: { mod: any, onSelect: (id: string) 
           <h4 className={`text-[15px] md:text-base font-bold tracking-tight leading-tight line-clamp-2 ${mod.styleStyle === 'solid' ? 'text-white' : 'text-[var(--text-primary)]'}`}>
             {mod.title}
           </h4>
-          <span className={`text-[9.5px] md:text-[10px] font-bold uppercase tracking-wider mt-1 block line-clamp-1 ${mod.styleStyle === 'solid' ? 'text-white/80' : 'text-slate-400'}`}>
+          <span className={`text-[9.5px] md:text-[10px] font-bold uppercase tracking-wider mt-1 block line-clamp-1 ${mod.styleStyle === 'solid' ? 'text-white/80' : theme.textRaw}`}>
             {mod.category}
           </span>
         </div>
@@ -145,7 +151,7 @@ const ToolCard = ({ mod, onSelect, isUsed }: { mod: any, onSelect: (id: string) 
              </span>
            )}
            <div className="flex items-center gap-1.5" title="Estimated time">
-              <Clock className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
+              <Clock className="w-3.5 h-3.5 text-slate-400 dark:text-[#4B5563]" />
               <span className={`text-xs font-semibold ${mod.styleStyle === 'solid' ? 'text-white/90' : 'text-slate-500 dark:text-slate-400'}`}>{mod.estimatedTime || '~2 mins'}</span>
            </div>
         </div>
@@ -314,20 +320,20 @@ export default function Dashboard({
         {/* MASSIVE HERO SECTION */}
         <div className="relative w-full max-w-[1400px] mx-auto mt-12 md:mt-24 mb-16 px-4 lg:px-8 flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-bottom-8 duration-700 z-10">
           
-          <h1 className="text-5xl md:text-7xl font-sans font-black tracking-tight text-[var(--primary-dark)] dark:text-white mb-8 max-w-4xl mx-auto drop-shadow-sm flex flex-col justify-center items-center">
+          <h1 className="text-5xl md:text-7xl font-sans font-black tracking-tight text-[var(--primary-dark)] dark:text-white mb-8 max-w-4xl mx-auto drop-shadow-[0_2px_12px_rgba(0,0,0,0.08)] flex flex-col justify-center items-center">
             <span className="block mb-2">Build Smarter.</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-purple-500 to-orange-500 font-extrabold drop-shadow-sm pb-2">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-purple-500 to-orange-500 font-extrabold drop-shadow-[0_2px_12px_rgba(0,0,0,0.08)] pb-2">
               Estimate Faster.
             </span>
           </h1>
           
-          <div className="inline-flex items-center gap-3 mb-10 px-5 py-2.5 bg-purple-50 dark:bg-purple-900/30 rounded-full border border-purple-100 dark:border-purple-800/50 shadow-sm animate-in fade-in zoom-in duration-1000 delay-300">
+          <div className="inline-flex items-center gap-3 mb-10 px-5 py-2.5 bg-purple-50 dark:bg-purple-900/30 rounded-full border border-purple-100 dark:border-purple-800/50 shadow-[0_2px_12px_rgba(0,0,0,0.08)] animate-in fade-in zoom-in duration-1000 delay-300">
              <div className="flex -space-x-3 mr-2">
-                <img src="https://i.pravatar.cc/100?img=11" className="w-9 h-9 rounded-full border-2 border-white dark:border-slate-900 shadow-sm" alt="Avatar"/>
-                <img src="https://i.pravatar.cc/100?img=12" className="w-9 h-9 rounded-full border-2 border-white dark:border-slate-900 shadow-sm" alt="Avatar"/>
-                <img src="https://i.pravatar.cc/100?img=13" className="w-9 h-9 rounded-full border-2 border-white dark:border-slate-900 shadow-sm" alt="Avatar"/>
+                <img src="https://i.pravatar.cc/100?img=11" className="w-9 h-9 rounded-full border-2 border-white dark:border-slate-900 shadow-[0_2px_12px_rgba(0,0,0,0.08)]" alt="Avatar"/>
+                <img src="https://i.pravatar.cc/100?img=12" className="w-9 h-9 rounded-full border-2 border-white dark:border-slate-900 shadow-[0_2px_12px_rgba(0,0,0,0.08)]" alt="Avatar"/>
+                <img src="https://i.pravatar.cc/100?img=13" className="w-9 h-9 rounded-full border-2 border-white dark:border-slate-900 shadow-[0_2px_12px_rgba(0,0,0,0.08)]" alt="Avatar"/>
              </div>
-             <span className="font-bold text-purple-700 dark:text-purple-300 tracking-wide text-sm md:text-base cursor-default">{engineersCount === 10000 ? '10,000+' : engineersCount.toLocaleString()} Engineers Trust Us</span>
+             <span className="font-bold text-purple-700 dark:text-purple-300 tracking-wide text-sm md:text-base cursor-default">{engineersCount === 10000 ? '10,000+' : engineersCount.toLocaleString('en-US')} Engineers Trust Us</span>
           </div>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
@@ -336,12 +342,12 @@ export default function Dashboard({
                  const elm = document.getElementById('search-bar-container');
                  elm?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                }}
-               className="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-purple-600 to-orange-500 text-white rounded-full font-bold text-lg shadow-[0_8px_30px_rgba(147,51,234,0.3)] hover:shadow-[0_8px_40px_rgba(147,51,234,0.4)] transition-all hover:-translate-y-1 active:scale-95"
+               className="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-purple-600 to-orange-500 text-white rounded-full font-bold text-lg shadow-[0_8px_30px_rgba(147,51,234,0.3)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_8px_40px_rgba(147,51,234,0.4)] transition-all hover:-translate-y-1 active:scale-95"
             >
               Start Estimating Free
             </button>
             <button
-               className="w-full sm:w-auto px-10 py-4 bg-white dark:bg-slate-800 text-slate-700 dark:text-white rounded-full font-bold text-lg shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all hover:-translate-y-1 flex items-center justify-center gap-2 group active:scale-95"
+               className="w-full sm:w-auto px-10 py-4 bg-white dark:bg-[#6B46C1] text-slate-700 dark:text-white rounded-full font-bold text-lg shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-[#6B46C1] transition-all hover:-translate-y-1 flex items-center justify-center gap-2 group active:scale-95"
             >
               Watch Demo <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform"/>
             </button>
@@ -349,36 +355,36 @@ export default function Dashboard({
 
           {/* Stats Bar */}
           <div className="w-full max-w-5xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[2rem] border border-white dark:border-slate-800 shadow-[0_20px_50px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.2)] relative overflow-hidden">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[12px] border border-white dark:border-slate-800 shadow-[0_20px_50px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.2)] relative overflow-hidden">
                {/* Shine effect */}
                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[100%] hover:animate-[shimmer_2s_infinite] dark:via-white/5 pointer-events-none" />
                
                <div className="flex flex-col items-center text-center p-2 group">
-                  <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                  <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-[12px] flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                     <Box className="w-6 h-6 text-purple-600 dark:text-purple-400"/>
                   </div>
-                  <h4 className="font-extrabold text-2xl text-slate-900 dark:text-white mb-1 tracking-tight">30+</h4>
+                  <h4 className="font-extrabold text-[18px] text-slate-900 dark:text-white mb-1 tracking-tight">30+</h4>
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Professional Tools</p>
                </div>
                <div className="flex flex-col items-center text-center p-2 group">
-                  <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
+                  <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 rounded-[12px] flex items-center justify-center mb-4 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
                     <CheckSquare className="w-6 h-6 text-emerald-600 dark:text-emerald-400"/>
                   </div>
-                  <h4 className="font-extrabold text-2xl text-slate-900 dark:text-white mb-1 tracking-tight">100%</h4>
+                  <h4 className="font-extrabold text-[18px] text-slate-900 dark:text-white mb-1 tracking-tight">100%</h4>
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Free Forever</p>
                </div>
                <div className="flex flex-col items-center text-center p-2 group">
-                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-[12px] flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                     <Map className="w-6 h-6 text-blue-600 dark:text-blue-400"/>
                   </div>
-                  <h4 className="font-extrabold text-2xl text-slate-900 dark:text-white mb-1 tracking-tight">15+</h4>
+                  <h4 className="font-extrabold text-[18px] text-slate-900 dark:text-white mb-1 tracking-tight">15+</h4>
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Countries Trusted</p>
                </div>
                <div className="flex flex-col items-center text-center p-2 group">
-                  <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
+                  <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-[12px] flex items-center justify-center mb-4 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
                     <Sparkles className="w-6 h-6 text-orange-600 dark:text-orange-400"/>
                   </div>
-                  <h4 className="font-extrabold text-2xl text-slate-900 dark:text-white mb-1 tracking-tight">AI</h4>
+                  <h4 className="font-extrabold text-[18px] text-slate-900 dark:text-white mb-1 tracking-tight">AI</h4>
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Powered Estimates</p>
                </div>
             </div>
@@ -397,10 +403,10 @@ export default function Dashboard({
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`group relative overflow-hidden flex flex-col p-5 rounded-[2rem] text-left transition-all duration-300 ease-out border outline-none 
+                  className={`group relative overflow-hidden flex flex-col p-5 rounded-[12px] text-left transition-all duration-300 ease-out border outline-none 
                     ${activeCategory === category 
                       ? "bg-purple-600 text-white border-purple-500 shadow-[0_8px_30px_rgba(147,51,234,0.3)] scale-[1.02] z-10" 
-                      : "bg-white/80 dark:bg-slate-900/80 backdrop-blur-md text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-800 hover:border-purple-300 dark:hover:border-purple-700 hover:text-purple-600 dark:hover:text-purple-400 hover:shadow-xl hover:-translate-y-1 bg-gradient-to-br hover:from-purple-50 hover:to-orange-50 dark:hover:from-purple-900/20 dark:hover:to-orange-900/20"
+                      : "bg-white/80 dark:bg-slate-900/80 backdrop-blur-md text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-800 hover:border-purple-300 dark:hover:border-purple-700 hover:text-purple-600 dark:hover:text-purple-400 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] hover:-translate-y-1 bg-gradient-to-br hover:from-purple-50 hover:to-orange-50 dark:hover:from-purple-900/20 dark:hover:to-orange-900/20"
                     }`}
                 >
                   {/* Hover background effect */}
@@ -411,7 +417,7 @@ export default function Dashboard({
                     <div className={`mt-auto inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1.5 rounded-full w-max mt-2 transition-colors duration-300 ${
                       activeCategory === category 
                         ? 'bg-white/20 text-white' 
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-500 group-hover:bg-purple-100 group-hover:text-purple-700 dark:group-hover:bg-purple-900/50 dark:group-hover:text-purple-300'
+                        : 'bg-slate-100 dark:bg-[#6B46C1] text-[#4B5563] group-hover:bg-purple-100 group-hover:text-purple-700 dark:group-hover:bg-purple-900/50 dark:group-hover:text-purple-300'
                     }`}>
                       <Layers className="w-3 h-3" />
                       {count} Tools
@@ -438,11 +444,11 @@ export default function Dashboard({
         {/* Header and Search */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
           <div>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--primary-dark)] dark:text-white tracking-tight flex items-center gap-3">
+            <h2 className="text-[28px] md:text-[28px] font-extrabold text-[var(--primary-dark)] dark:text-white tracking-tight flex items-center gap-3">
               {activeCategory}
             </h2>
             <div className="flex items-center gap-4 mt-2">
-              <p className="text-slate-500 font-medium">Select a calculator to initiate a new estimate.</p>
+              <p className="text-[#4B5563] font-medium">Select a calculator to initiate a new estimate.</p>
               {settings.usedTools && (
                 <div className="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-full text-xs font-bold border border-blue-100 dark:border-blue-800 hidden md:block">
                   You've used {settings.usedTools.length}/{ALL_MODULES.length} tools
@@ -454,7 +460,7 @@ export default function Dashboard({
           <div className="w-full md:max-w-[500px] xl:max-w-[600px] shrink-0 flex items-center relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-full opacity-25 blur-lg group-hover:opacity-60 transition-all duration-700 ease-in-out"></div>
             <div 
-              className="relative flex items-center w-full h-[64px] rounded-full bg-white/90 dark:bg-[#1f2229]/95 backdrop-blur-xl shadow-[0_8px_32px_-4px_rgba(0,0,0,0.08)] transition-all duration-500 hover:shadow-[0_16px_48px_-8px_rgba(0,0,0,0.15)] hover:scale-[1.01] border border-white dark:border-slate-800/80 cursor-pointer"
+              className="relative flex items-center w-full h-[64px] rounded-full bg-white/90 dark:bg-[#1f2229]/95 backdrop-blur-xl shadow-[0_8px_32px_-4px_rgba(0,0,0,0.08)] transition-all duration-500 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_16px_48px_-8px_rgba(0,0,0,0.15)] hover:scale-[1.01] border border-white dark:border-slate-800/80 cursor-pointer"
               onClick={() => setIsAiChatOpen(true)}
             >
               <button 
@@ -464,17 +470,17 @@ export default function Dashboard({
                 <Sparkles className="w-[24px] h-[24px] text-indigo-500 group-hover:animate-pulse" strokeWidth={2} />
               </button>
               <div
-                className="w-full h-full bg-transparent border-none outline-none text-[16px] md:text-[17px] font-medium text-slate-400 dark:text-slate-500 px-3 flex items-center cursor-text"
+                className="w-full h-full bg-transparent border-none outline-none text-[16px] md:text-[17px] font-medium text-slate-400 dark:text-[#4B5563] px-3 flex items-center cursor-text"
               >
                 {searchTerm || "Ask what you want to calculate..."}
               </div>
               <div className="mr-3 shrink-0 flex gap-1">
                 {searchTerm && (
-                  <button onClick={(e) => { e.stopPropagation(); setSearchTerm(""); }} className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors duration-200">
+                  <button onClick={(e) => { e.stopPropagation(); setSearchTerm(""); }} className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-[#6B46C1] text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors duration-200">
                     <X className="w-5 h-5" strokeWidth={2.5} />
                   </button>
                 )}
-                <button className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors duration-200">
+                <button className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-[#6B46C1] text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors duration-200">
                   <Mic className="w-5 h-5" strokeWidth={2.5} />
                 </button>
               </div>
@@ -485,7 +491,7 @@ export default function Dashboard({
         {/* Recommended for You */}
         {activeCategory === "All Tools" && !searchTerm && recommendedModules.length > 0 && (
           <div className="mb-14 fade-in">
-            <h3 className="text-xl font-bold flex flex-col tracking-tight text-[var(--primary-dark)] dark:text-white mb-6">
+            <h3 className="text-[18px] font-bold flex flex-col tracking-tight text-[var(--primary-dark)] dark:text-white mb-6">
               Recommended for {settings.role}
               <div className="h-1 w-12 bg-blue-500 rounded-full mt-2" />
             </h3>
@@ -502,8 +508,8 @@ export default function Dashboard({
             {groupsToDisplay.length === 0 ? (
               <div className="py-24 text-center flex flex-col items-center">
                 <Search className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
-                <h3 className="text-xl font-bold text-[var(--primary-dark)] dark:text-slate-200">No calculators found</h3>
-                <p className="text-slate-500 mt-2">Try adjusting your search term or category.</p>
+                <h3 className="text-[18px] font-bold text-[var(--primary-dark)] dark:text-slate-200">No calculators found</h3>
+                <p className="text-[#4B5563] mt-2">Try adjusting your search term or category.</p>
               </div>
             ) : (
               groupsToDisplay.map((groupName) => (
@@ -525,33 +531,33 @@ export default function Dashboard({
         
         {/* Featured Tool Spotlight */}
         <div className="w-full mt-24 mb-16">
-           <div className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-[3rem] p-8 md:p-12 relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center gap-10">
+           <div className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-[12px] p-8 md:p-12 relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center gap-10">
               {/* Background Accents */}
               <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl pointer-events-none" />
               <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-80 h-80 bg-indigo-500/30 rounded-full blur-3xl pointer-events-none" />
               
               <div className="flex-1 relative z-10 text-center md:text-left">
-                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/20 border border-purple-400/30 rounded-full text-purple-200 text-xs font-bold tracking-wider uppercase mb-6">
+                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/20 border border-purple-400/30 rounded-full text-purple-200 text-[12px] font-medium text-[#6B7280] uppercase mb-6">
                     <Sparkles className="w-4 h-4" /> Featured Tool of the Week
                  </div>
-                 <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-4 drop-shadow-sm">
+                 <h2 className="text-[28px] md:text-5xl font-black tracking-tight text-white mb-4 drop-shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
                     Master RCC Estimator
                  </h2>
-                 <p className="text-indigo-200 text-lg md:text-xl font-medium mb-8 max-w-xl mx-auto md:mx-0">
+                 <p className="text-indigo-200 text-lg md:text-[18px] font-medium mb-8 max-w-xl mx-auto md:mx-0">
                     The unified hub for Slab, Column, Beam, Staircase, and BBS calculations. Save hours of manual work with auto-generated steel weight estimations.
                  </p>
                  <button 
                     onClick={() => handleSelect('master-rcc')}
-                    className="px-8 py-4 bg-white text-indigo-900 rounded-full font-bold text-lg hover:bg-indigo-50 transition-all hover:scale-105 active:scale-95 shadow-lg group"
+                    className="px-8 py-4 bg-white text-indigo-900 rounded-full font-bold text-lg hover:bg-indigo-50 transition-all hover:scale-105 active:scale-95 shadow-[0_2px_12px_rgba(0,0,0,0.08)] group"
                  >
                     Try it Now <ArrowRight className="inline ml-2 group-hover:translate-x-1 transition-transform" />
                  </button>
               </div>
               
               <div className="relative z-10 w-full max-w-md pointer-events-none hidden md:block">
-                 <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-[2rem] p-6 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                 <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-[12px] p-6 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
                     <div className="flex items-center gap-4 mb-6">
-                       <div className="w-14 h-14 bg-emerald-500 rounded-2xl flex items-center justify-center">
+                       <div className="w-14 h-14 bg-emerald-500 rounded-[12px] flex items-center justify-center">
                           <Building2 className="w-8 h-8 text-white" />
                        </div>
                        <div className="flex flex-col">
@@ -571,7 +577,7 @@ export default function Dashboard({
 
         {/* Testimonials */}
         <div className="w-full mb-24 text-center">
-           <h3 className="text-2xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white mb-12">
+           <h3 className="text-[18px] md:text-[28px] font-black tracking-tight text-slate-900 dark:text-white mb-12">
               Trusted by 10,000+ Engineers
            </h3>
            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -580,7 +586,7 @@ export default function Dashboard({
                 { name: "Sarah K.", role: "Quantity Surveyor", text: "The live rate analysis with instant BOQ generation has completely transformed our bidding process.", rating: 5 },
                 { name: "David T.", role: "Contractor", text: "Easy to use on site. I run earthwork volumes directly on my phone and export to PDF instantly.", rating: 5 }
               ].map((t, idx) => (
-                <div key={idx} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 flex flex-col items-center text-center shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <div key={idx} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[12px] p-8 flex flex-col items-center text-center shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300">
                    <div className="flex gap-1 mb-4">
                      {[...Array(t.rating)].map((_, i) => <Sparkles key={i} className="w-5 h-5 text-amber-500 fill-amber-500" />)}
                    </div>
@@ -592,7 +598,7 @@ export default function Dashboard({
                         {t.name.charAt(0)}
                       </div>
                       <span className="font-bold text-slate-900 dark:text-white">{t.name}</span>
-                      <span className="text-sm font-medium text-slate-500">{t.role}</span>
+                      <span className="text-sm font-medium text-[#4B5563]">{t.role}</span>
                    </div>
                 </div>
               ))}
@@ -601,8 +607,8 @@ export default function Dashboard({
 
         {/* Newsletter Signup */}
         <div className="w-full mb-16 max-w-4xl mx-auto">
-           <div className="bg-gradient-to-r from-orange-50 to-orange-100 dark:from-orange-950/30 dark:to-orange-900/10 border border-orange-200 dark:border-orange-900/50 rounded-[3rem] p-8 md:p-12 text-center shadow-lg">
-              <h3 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">
+           <div className="bg-gradient-to-r from-orange-50 to-orange-100 dark:from-orange-950/30 dark:to-orange-900/10 border border-orange-200 dark:border-orange-900/50 rounded-[12px] p-8 md:p-12 text-center shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+              <h3 className="text-[18px] md:text-[28px] font-black text-slate-900 dark:text-white mb-4 tracking-tight">
                  Get Weekly Construction Cost Updates
               </h3>
               <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-xl mx-auto font-medium text-lg">
@@ -612,11 +618,11 @@ export default function Dashboard({
                  <input 
                     type="email" 
                     placeholder="Enter your email address" 
-                    className="flex-1 px-6 py-4 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:text-white"
+                    className="flex-1 px-6 py-4 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] dark:text-white"
                  />
                  <button 
                     type="submit" 
-                    className="px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-full transition-colors shadow-md"
+                    className="px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-full transition-colors shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
                  >
                     Subscribe
                  </button>
@@ -641,7 +647,7 @@ export default function Dashboard({
       >
         {/* Drag handle */}
         <div className="w-full flex justify-center pt-5 pb-3 shrink-0 cursor-pointer" onClick={() => setIsAiChatOpen(false)}>
-          <div className="w-16 h-1.5 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors" />
+          <div className="w-16 h-1.5 rounded-full bg-slate-200 dark:bg-[#6B46C1] hover:bg-slate-300 dark:hover:bg-[#6B46C1] transition-colors" />
         </div>
 
         <div className="px-6 flex items-center justify-between pb-2 border-b border-border-color">
@@ -649,7 +655,7 @@ export default function Dashboard({
             <Sparkles className="w-5 h-5 text-indigo-500" />
             AI Assistant
           </h3>
-          <button onClick={() => setIsAiChatOpen(false)} className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400">
+          <button onClick={() => setIsAiChatOpen(false)} className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-[#6B46C1] text-slate-400">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -659,11 +665,11 @@ export default function Dashboard({
           {aiMessages.map((msg, i) => (
             <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               {msg.role === 'system' && (
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shrink-0 mr-3 mt-1 shadow-sm">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shrink-0 mr-3 mt-1 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
                   <Sparkles className="w-4 h-4 text-white" />
                 </div>
               )}
-              <div className={`px-5 py-3 rounded-2xl max-w-[85%] font-medium text-[15px] leading-relaxed shadow-sm ${msg.role === 'user' ? 'bg-indigo-600 text-white rounded-tr-sm' : 'bg-slate-50 border border-slate-100 dark:bg-slate-800 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-tl-sm'}`}>
+              <div className={`px-5 py-3 rounded-[12px] max-w-[85%] font-medium text-[15px] leading-relaxed shadow-[0_2px_12px_rgba(0,0,0,0.08)] ${msg.role === 'user' ? 'bg-[#6B46C1] text-white rounded-tr-sm' : 'bg-slate-50 border border-slate-100 dark:bg-[#6B46C1] dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-tl-sm'}`}>
                 {msg.content}
               </div>
             </div>
@@ -672,10 +678,10 @@ export default function Dashboard({
         </div>
 
         {/* Input area */}
-        <div className="p-6 pt-4 shrink-0 w-full max-w-4xl mx-auto bg-bg-card border-t border-slate-50 dark:border-slate-800/50">
+        <div className="p-[20px] pt-4 shrink-0 w-full max-w-4xl mx-auto bg-bg-card border-t border-slate-50 dark:border-slate-800/50">
           <div className="relative group">
             <div className="absolute -inset-[2px] bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500 rounded-full opacity-60 group-focus-within:opacity-100 blur-[3px] transition-all duration-300"></div>
-            <div className="relative flex items-center bg-bg-card rounded-full px-5 py-2.5 border border-transparent shadow-sm">
+            <div className="relative flex items-center bg-bg-card rounded-full px-5 py-2.5 border border-transparent shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
               <input 
                 type="text" 
                 value={aiMessage} 
@@ -693,7 +699,7 @@ export default function Dashboard({
                 className="w-full bg-transparent border-none outline-none text-[16px] text-slate-800 dark:text-slate-100 px-2 py-2 placeholder:text-slate-400"
               />
               <button 
-                className="p-2.5 bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-500/20 text-white rounded-full transition-all hover:scale-105 active:scale-95 ml-2 shrink-0"
+                className="p-2.5 bg-[#6B46C1] hover:bg-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-indigo-500/20 text-white rounded-full transition-all hover:scale-105 active:scale-95 ml-2 shrink-0"
                 onClick={() => {
                   if (aiMessage.trim()) {
                     setAiMessages(prev => [...prev, { role: 'user', content: aiMessage.trim() }]);

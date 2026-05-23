@@ -210,10 +210,10 @@ export default function SewerageEstimator() {
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-teal-50 text-teal-600 rounded-xl">
+                <div className="p-2 bg-teal-50 text-teal-600 rounded-[12px]">
                   <CircleDashed className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-800">
+                <h2 className="text-[18px] font-bold text-gray-800">
                   Manhole Calculator
                 </h2>
               </div>
@@ -236,10 +236,10 @@ export default function SewerageEstimator() {
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-amber-50 text-amber-600 rounded-xl">
+                <div className="p-2 bg-amber-50 text-amber-600 rounded-[12px]">
                   <AlignVerticalJustifyStart className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-800">
+                <h2 className="text-[18px] font-bold text-gray-800">
                   Trench Excavation
                 </h2>
               </div>
@@ -259,7 +259,7 @@ export default function SewerageEstimator() {
                       </label>
                       <input
                         type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
                         value={trenchLength}
                         onChange={(e) => setTrenchLength(e.target.value)}
                       />
@@ -270,7 +270,7 @@ export default function SewerageEstimator() {
                       </label>
                       <input
                         type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
                         value={trenchWidth}
                         onChange={(e) => setTrenchWidth(e.target.value)}
                       />
@@ -281,7 +281,7 @@ export default function SewerageEstimator() {
                       </label>
                       <input
                         type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
                         value={trenchDepth}
                         onChange={(e) => setTrenchDepth(e.target.value)}
                       />
@@ -290,15 +290,15 @@ export default function SewerageEstimator() {
                       <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                         Trench Profile
                       </label>
-                      <div className="flex bg-gray-100 p-1 rounded-xl mb-4">
+                      <div className="flex bg-gray-100 p-1 rounded-[12px] mb-4">
                         <button
-                          className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${trenchProfile === "vertical" ? "bg-white text-gray-800 shadow-sm" : "text-gray-700 dark:text-gray-300 hover:text-gray-700"}`}
+                          className={`flex-1 py-2 text-sm font-semibold rounded-[12px] transition-all ${trenchProfile === "vertical" ? "bg-white text-gray-800 shadow-[0_2px_12px_rgba(0,0,0,0.08)]" : "text-gray-700 dark:text-gray-300 hover:text-gray-700"}`}
                           onClick={() => setTrenchProfile("vertical")}
                         >
                           Vertical
                         </button>
                         <button
-                          className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${trenchProfile === "sloped" ? "bg-white text-gray-800 shadow-sm" : "text-gray-700 dark:text-gray-300 hover:text-gray-700"}`}
+                          className={`flex-1 py-2 text-sm font-semibold rounded-[12px] transition-all ${trenchProfile === "sloped" ? "bg-white text-gray-800 shadow-[0_2px_12px_rgba(0,0,0,0.08)]" : "text-gray-700 dark:text-gray-300 hover:text-gray-700"}`}
                           onClick={() => setTrenchProfile("sloped")}
                         >
                           Sloped/Trapezoidal
@@ -310,7 +310,7 @@ export default function SewerageEstimator() {
                         <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                           Side Slope (1 Vertical : X Horizontal)
                         </label>
-                        <div className="flex items-center gap-3 w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-amber-500/50 transition-shadow">
+                        <div className="flex items-center gap-3 w-full bg-gray-50/50 border border-gray-200 rounded-[12px] px-4 py-3 focus-within:ring-2 focus-within:ring-amber-500/50 transition-shadow">
                           <span className="text-gray-700 dark:text-gray-300 font-semibold text-sm whitespace-nowrap">1 V :</span>
                           <input
                             type="number"
@@ -335,7 +335,7 @@ export default function SewerageEstimator() {
                           </label>
                           <input
                             type="number"
-                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
                             value={pipeOuterDiameter}
                             onChange={(e) =>
                               setPipeOuterDiameter(e.target.value)
@@ -348,7 +348,7 @@ export default function SewerageEstimator() {
                           </label>
                           <input
                             type="number"
-                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
                             value={beddingDepth}
                             onChange={(e) => setBeddingDepth(e.target.value)}
                           />
@@ -356,7 +356,7 @@ export default function SewerageEstimator() {
                       </div>
                     </div>
                   </div>
-                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                  <div className="relative p-5 sm:p-6 rounded-[12px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] dark:transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                     <h3 className="text-amber-800 font-bold border-b border-amber-200 pb-2">
                       Excavation & Backfill
                     </h3>
@@ -364,7 +364,7 @@ export default function SewerageEstimator() {
                       <span className="text-amber-700 font-medium">
                         Total Excavation Vol
                       </span>
-                      <span className="text-amber-900 font-bold text-xl">
+                      <span className="text-amber-900 font-bold text-[18px]">
                         {trenchVol.toFixed(2)} m³
                       </span>
                     </div>
@@ -388,7 +388,7 @@ export default function SewerageEstimator() {
                       <span className="text-amber-800 font-bold text-base">
                         Net Backfill Volume
                       </span>
-                      <span className="text-amber-900 font-black text-2xl whitespace-nowrap">
+                      <span className="text-amber-900 font-black text-[18px] whitespace-nowrap">
                         {netBackfillVol.toFixed(2)} m³
                       </span>
                     </div>
@@ -396,14 +396,14 @@ export default function SewerageEstimator() {
                 </div>
 
                 {/* Trench Cross-Section Diagram */}
-                <div className="mt-8 bg-white border border-gray-100 rounded-[1.5rem] p-6 flex flex-col items-center shadow-sm">
-                  <h3 className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-6 flex items-center gap-2">
+                <div className="mt-8 bg-white border border-gray-100 rounded-[1.5rem] p-6 flex flex-col items-center shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+                  <h3 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-6 flex items-center gap-2">
                     <AlignVerticalJustifyStart className="w-4 h-4" />
                     Trench Cross Section Profile
                   </h3>
                   
                   <div className="w-full max-w-lg relative">
-                    <svg viewBox="0 0 500 300" className="w-full h-auto drop-shadow-md">
+                    <svg viewBox="0 0 500 300" className="w-full h-auto drop-shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
                       <defs>
                         <pattern id="soil" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
                           <circle cx="2" cy="2" r="1" fill="#d4af37" opacity="0.3" />
@@ -547,10 +547,10 @@ export default function SewerageEstimator() {
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-blue-50 text-indigo-600 rounded-xl">
+                <div className="p-2 bg-blue-50 text-indigo-600 rounded-[12px]">
                   <ArrowDownRight className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-800">
+                <h2 className="text-[18px] font-bold text-gray-800">
                   Invert Level (IL) Calculator
                 </h2>
               </div>
@@ -570,7 +570,7 @@ export default function SewerageEstimator() {
                       </label>
                       <input
                         type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1]"
                         value={startIL}
                         onChange={(e) => setStartIL(e.target.value)}
                       />
@@ -582,7 +582,7 @@ export default function SewerageEstimator() {
                         </label>
                         <input
                           type="number"
-                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1]"
                           value={ilLength}
                           onChange={(e) => setIlLength(e.target.value)}
                         />
@@ -591,7 +591,7 @@ export default function SewerageEstimator() {
                         <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
                           Gradient (1 in X)
                         </label>
-                        <div className="flex items-center bg-gray-50/50 border border-gray-200 rounded-xl focus-within:ring-2 focus-within:ring-blue-500/50 overflow-hidden">
+                        <div className="flex items-center bg-gray-50/50 border border-gray-200 rounded-[12px] focus-within:ring-2 focus-within:ring-blue-500/50 overflow-hidden">
                           <div className="px-3 text-sm text-gray-700 dark:text-gray-300 font-medium">
                             1 :
                           </div>
@@ -605,7 +605,7 @@ export default function SewerageEstimator() {
                       </div>
                     </div>
                   </div>
-                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                  <div className="relative p-5 sm:p-6 rounded-[12px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] dark:transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                     <div className="text-blue-800 text-sm font-semibold mb-1">
                       Ending Invert Level
                     </div>
@@ -613,7 +613,7 @@ export default function SewerageEstimator() {
                       <span className="text-5xl font-black text-indigo-600 tracking-tighter whitespace-nowrap">
                         {endIL.toFixed(3)}
                       </span>
-                      <span className="text-xl font-medium text-blue-500 mb-1">
+                      <span className="text-[18px] font-medium text-blue-500 mb-1">
                         m
                       </span>
                     </div>
@@ -635,10 +635,10 @@ export default function SewerageEstimator() {
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-indigo-50 text-indigo-600 rounded-xl">
+                <div className="p-2 bg-indigo-50 text-indigo-600 rounded-[12px]">
                   <Waves className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-800">
+                <h2 className="text-[18px] font-bold text-gray-800">
                   Pipe Count Calculator
                 </h2>
               </div>
@@ -658,7 +658,7 @@ export default function SewerageEstimator() {
                       </label>
                       <input
                         type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1]"
                         value={pipeLength}
                         onChange={(e) => setPipeLength(e.target.value)}
                       />
@@ -669,13 +669,13 @@ export default function SewerageEstimator() {
                       </label>
                       <input
                         type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1]"
                         value={pipeSectionLen}
                         onChange={(e) => setPipeSectionLen(e.target.value)}
                       />
                     </div>
                   </div>
-                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                  <div className="relative p-5 sm:p-6 rounded-[12px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] dark:transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                     <div className="text-indigo-800 text-sm font-semibold mb-1">
                       Required Pipes
                     </div>
@@ -690,7 +690,7 @@ export default function SewerageEstimator() {
                       </div>
                       <button
                         onClick={handleAddPipesToBOQ}
-                        className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2  rounded-full transition-all shadow-md hover:shadow-lg active:scale-95"
+                        className="flex items-center gap-2 bg-[#6B46C1] hover:bg-[#6B46C1] text-white px-4 py-2  rounded-full transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] active:scale-95"
                       >
                         <Plus className="w-5 h-5" />
                         <span className="font-semibold">Add to BOQ</span>
@@ -708,10 +708,10 @@ export default function SewerageEstimator() {
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-purple-50 text-purple-600 rounded-xl">
+                <div className="p-2 bg-purple-50 text-purple-600 rounded-[12px]">
                   <Layers className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-800">
+                <h2 className="text-[18px] font-bold text-gray-800">
                   Pipe Bedding Calculator
                 </h2>
               </div>
@@ -732,7 +732,7 @@ export default function SewerageEstimator() {
                         </label>
                         <input
                           type="number"
-                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                           value={beddingCalcLength}
                           onChange={(e) => setBeddingCalcLength(e.target.value)}
                         />
@@ -743,7 +743,7 @@ export default function SewerageEstimator() {
                         </label>
                         <input
                           type="number"
-                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                           value={beddingCalcWidth}
                           onChange={(e) => setBeddingCalcWidth(e.target.value)}
                         />
@@ -755,7 +755,7 @@ export default function SewerageEstimator() {
                       </label>
                       <input
                         type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                         value={beddingCalcPipeOD}
                         onChange={(e) => setBeddingCalcPipeOD(e.target.value)}
                       />
@@ -765,7 +765,7 @@ export default function SewerageEstimator() {
                         Bedding Type / Class
                       </label>
                       <select
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50 appearance-none"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50 appearance-none"
                         value={beddingType}
                         onChange={(e) => setBeddingType(e.target.value as any)}
                       >
@@ -787,7 +787,7 @@ export default function SewerageEstimator() {
                         </label>
                         <input
                           type="number"
-                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                           value={beddingUnderPipe}
                           onChange={(e) => setBeddingUnderPipe(e.target.value)}
                         />
@@ -798,7 +798,7 @@ export default function SewerageEstimator() {
                         </label>
                         <input
                           type="number"
-                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                           value={beddingHaunchHeight}
                           onChange={(e) =>
                             setBeddingHaunchHeight(e.target.value)
@@ -807,7 +807,7 @@ export default function SewerageEstimator() {
                       </div>
                     </div>
                   </div>
-                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                  <div className="relative p-5 sm:p-6 rounded-[12px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] dark:transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                     <h3 className="text-purple-800 font-bold border-b border-purple-200 pb-2">
                       Material Requirements
                     </h3>
@@ -829,7 +829,7 @@ export default function SewerageEstimator() {
                         Total Volume
                       </span>
                       <div className="text-right">
-                        <span className="text-purple-900 font-bold text-xl">
+                        <span className="text-purple-900 font-bold text-[18px]">
                           {beddingCalculatedVol.toFixed(2)}
                         </span>
                         <span className="text-purple-600 font-medium text-sm">
@@ -849,7 +849,7 @@ export default function SewerageEstimator() {
                             </span>
                           </div>
                           <div className="text-right">
-                            <span className="text-purple-900 font-black text-2xl whitespace-nowrap">
+                            <span className="text-purple-900 font-black text-[18px] whitespace-nowrap">
                               {beddingWeightTons.toFixed(2)}
                             </span>
                             <span className="text-purple-600 font-bold">
@@ -859,7 +859,7 @@ export default function SewerageEstimator() {
                         </div>
                       )}
                     {beddingType === "classA" && (
-                      <div className="flex items-start gap-2 bg-indigo-50 border border-indigo-200 p-3 rounded-xl mt-1">
+                      <div className="flex items-start gap-2 bg-indigo-50 border border-indigo-200 p-3 rounded-[12px] mt-1">
                         <p className="text-xs font-medium text-indigo-700">
                           For Class A (Concrete), you typically use low-strength
                           concrete (e.g., M10 or M15).
@@ -878,10 +878,10 @@ export default function SewerageEstimator() {
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-cyan-50 text-cyan-600 rounded-xl">
+                <div className="p-2 bg-cyan-50 text-cyan-600 rounded-[12px]">
                   <Droplet className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-800">
+                <h2 className="text-[18px] font-bold text-gray-800">
                   Hydraulic Flow Calculator
                 </h2>
               </div>
@@ -901,7 +901,7 @@ export default function SewerageEstimator() {
                       </label>
                       <input
                         type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1]"
                         value={flowDia}
                         onChange={(e) => setFlowDia(e.target.value)}
                       />
@@ -912,7 +912,7 @@ export default function SewerageEstimator() {
                       </label>
                       <input
                         type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1]"
                         value={flowGradient}
                         onChange={(e) => setFlowGradient(e.target.value)}
                       />
@@ -922,7 +922,7 @@ export default function SewerageEstimator() {
                         Pipe Material
                       </label>
                       <select
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 appearance-none"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] appearance-none"
                         value={flowMaterial}
                         onChange={(e) => setFlowMaterial(e.target.value as any)}
                       >
@@ -937,7 +937,7 @@ export default function SewerageEstimator() {
                       </select>
                     </div>
                   </div>
-                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                  <div className="relative p-5 sm:p-6 rounded-[12px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] dark:transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                     <h3 className="text-cyan-800 font-bold border-b border-cyan-200 pb-2">
                       Full-Bore Flow Characteristics
                     </h3>
@@ -946,7 +946,7 @@ export default function SewerageEstimator() {
                         Flow Velocity
                       </span>
                       <div className="text-right">
-                        <span className="text-cyan-900 font-bold text-xl">
+                        <span className="text-cyan-900 font-bold text-[18px]">
                           {flowVelocity.toFixed(3)}
                         </span>
                         <span className="text-cyan-600 font-medium text-sm">
@@ -955,7 +955,7 @@ export default function SewerageEstimator() {
                       </div>
                     </div>
                     {flowVelocity > 0 && flowVelocity < 0.6 && (
-                      <div className="flex items-start gap-2 bg-rose-50 border border-rose-200 text-rose-700 p-3 rounded-xl mt-1">
+                      <div className="flex items-start gap-2 bg-rose-50 border border-rose-200 text-rose-700 p-3 rounded-[12px] mt-1">
                         <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-rose-500" />
                         <p className="text-xs font-medium">
                           Warning: Calculated velocity is below the typical
@@ -982,7 +982,7 @@ export default function SewerageEstimator() {
                         Discharge (Liters/sec)
                       </span>
                       <div className="text-right">
-                        <span className="text-cyan-900 font-black text-2xl whitespace-nowrap">
+                        <span className="text-cyan-900 font-black text-[18px] whitespace-nowrap">
                           {dischargeCapacityL.toFixed(2)}
                         </span>
                         <span className="text-cyan-600 font-bold">
@@ -1002,10 +1002,10 @@ export default function SewerageEstimator() {
               className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50/50 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-emerald-50 text-emerald-600 rounded-xl">
+                <div className="p-2 bg-emerald-50 text-emerald-600 rounded-[12px]">
                   <Waves className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold text-gray-800">
+                <h2 className="text-[18px] font-bold text-gray-800">
                   Septic System Sizing Calculator
                 </h2>
               </div>
@@ -1026,7 +1026,7 @@ export default function SewerageEstimator() {
                       <input
                         type="number"
                         min="0"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1]"
                         value={septicUsers}
                         onChange={(e) => {
                           const val = parseFloat(e.target.value);
@@ -1042,7 +1042,7 @@ export default function SewerageEstimator() {
                       <input
                         type="number"
                         min="0"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1]"
                         value={septicDemand}
                         onChange={(e) => {
                           const val = parseFloat(e.target.value);
@@ -1059,7 +1059,7 @@ export default function SewerageEstimator() {
                         type="number"
                         min="0"
                         step="any"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1]"
                         value={septicPercolation}
                         onChange={(e) => {
                           const val = parseFloat(e.target.value);

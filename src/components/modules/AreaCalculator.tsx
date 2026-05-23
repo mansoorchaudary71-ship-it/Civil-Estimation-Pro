@@ -429,7 +429,7 @@ export default function AreaCalculator() {
       {" "}
       <div className="max-w-4xl mx-auto">
         {" "}
-        <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
+        <h1 className="text-[28px] font-black mb-2 flex items-center gap-3">
           {" "}
           <Calculator className="w-8 h-8 text-indigo-600" /> Area
           Calculator{" "}
@@ -442,7 +442,7 @@ export default function AreaCalculator() {
           {" "}
           <div>
             {" "}
-            <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase block mb-1">
+            <label className="text-[12px] font-medium text-[#6B7280] uppercase block mb-1">
               Input Unit
             </label>{" "}
             <select
@@ -456,7 +456,7 @@ export default function AreaCalculator() {
                   updateSettings({ measurement: "SI" });
                 }
               }}
-              className="bg-bg-card border dark:border-slate-700 p-2 rounded-xl text-sm font-medium"
+              className="bg-bg-card border dark:border-slate-700 p-2 rounded-[12px] text-sm font-medium"
             >
               {" "}
               <option value="mm">Millimeters (mm)</option>{" "}
@@ -468,7 +468,7 @@ export default function AreaCalculator() {
           </div>{" "}
           <div>
             {" "}
-            <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1">
+            <label className="text-[12px] font-medium text-[#6B7280] uppercase block mb-1">
               Area Output Unit
             </label>{" "}
             <select
@@ -482,7 +482,7 @@ export default function AreaCalculator() {
                   updateSettings({ measurement: "SI" });
                 }
               }}
-              className="bg-bg-card border dark:border-slate-700 p-2 rounded-xl text-sm font-medium"
+              className="bg-bg-card border dark:border-slate-700 p-2 rounded-[12px] text-sm font-medium"
             >
               {" "}
               <option value="sqm">Square Meters (m²)</option>{" "}
@@ -513,7 +513,7 @@ export default function AreaCalculator() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {" "}
           {/* Inputs Section */}{" "}
-          <div className="bg-bg-card p-6 rounded-[2rem] border border-border-color">
+          <div className="bg-bg-card p-[20px] rounded-[12px] border border-border-color">
             {" "}
             <h3 className="font-bold text-lg mb-6">
               {activeShape} Measurements
@@ -523,28 +523,28 @@ export default function AreaCalculator() {
               {activeShape === "Circle" && (
                 <div>
                   {" "}
-                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                  <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                     Radius ({inputUnit})
                   </label>{" "}
                   <input
                     type="number"
                     value={radius}
                     onChange={(e) => setRadius(e.target.value)}
-                    className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                   />{" "}
                 </div>
               )}{" "}
               {activeShape === "Square" && (
                 <div>
                   {" "}
-                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                  <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                     Side length ({inputUnit})
                   </label>{" "}
                   <input
                     type="number"
                     value={side}
                     onChange={(e) => setSide(e.target.value)}
-                    className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                    className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                   />{" "}
                 </div>
               )}{" "}
@@ -553,26 +553,26 @@ export default function AreaCalculator() {
                   {" "}
                   <div>
                     {" "}
-                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                       Length ({inputUnit})
                     </label>{" "}
                     <input
                       type="number"
                       value={length}
                       onChange={(e) => setLength(e.target.value)}
-                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                   <div>
                     {" "}
-                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                       Width ({inputUnit})
                     </label>{" "}
                     <input
                       type="number"
                       value={width}
                       onChange={(e) => setWidth(e.target.value)}
-                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                 </>
@@ -584,26 +584,26 @@ export default function AreaCalculator() {
                     {" "}
                     <div>
                       {" "}
-                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                      <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                         Base ({inputUnit})
                       </label>{" "}
                       <input
                         type="number"
                         value={triBase}
                         onChange={(e) => setTriBase(e.target.value)}
-                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                     <div>
                       {" "}
-                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                      <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                         Height ({inputUnit})
                       </label>{" "}
                       <input
                         type="number"
                         value={triHeight}
                         onChange={(e) => setTriHeight(e.target.value)}
-                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                   </div>{" "}
@@ -611,26 +611,26 @@ export default function AreaCalculator() {
                     {" "}
                     <div>
                       {" "}
-                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                      <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                         Side 2 ({inputUnit})
                       </label>{" "}
                       <input
                         type="number"
                         value={triSide2}
                         onChange={(e) => setTriSide2(e.target.value)}
-                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                     <div>
                       {" "}
-                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                      <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                         Side 3 ({inputUnit})
                       </label>{" "}
                       <input
                         type="number"
                         value={triSide3}
                         onChange={(e) => setTriSide3(e.target.value)}
-                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                   </div>{" "}
@@ -643,65 +643,65 @@ export default function AreaCalculator() {
                     {" "}
                     <div>
                       {" "}
-                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                      <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                         Parallel Base 1 ({inputUnit})
                       </label>{" "}
                       <input
                         type="number"
                         value={trapBase1}
                         onChange={(e) => setTrapBase1(e.target.value)}
-                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                     <div>
                       {" "}
-                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                      <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                         Parallel Base 2 ({inputUnit})
                       </label>{" "}
                       <input
                         type="number"
                         value={trapBase2}
                         onChange={(e) => setTrapBase2(e.target.value)}
-                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                   </div>{" "}
                   <div>
                     {" "}
-                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                       Height ({inputUnit})
                     </label>{" "}
                     <input
                       type="number"
                       value={trapHeight}
                       onChange={(e) => setTrapHeight(e.target.value)}
-                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {" "}
                     <div>
                       {" "}
-                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                      <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                         Leg 1 ({inputUnit})
                       </label>{" "}
                       <input
                         type="number"
                         value={trapSide1}
                         onChange={(e) => setTrapSide1(e.target.value)}
-                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                     <div>
                       {" "}
-                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                      <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                         Leg 2 ({inputUnit})
                       </label>{" "}
                       <input
                         type="number"
                         value={trapSide2}
                         onChange={(e) => setTrapSide2(e.target.value)}
-                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                   </div>{" "}
@@ -712,26 +712,26 @@ export default function AreaCalculator() {
                   {" "}
                   <div>
                     {" "}
-                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                       Semi-major Axis (a) ({inputUnit})
                     </label>{" "}
                     <input
                       type="number"
                       value={ellMajor}
                       onChange={(e) => setEllMajor(e.target.value)}
-                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                   <div>
                     {" "}
-                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                       Semi-minor Axis (b) ({inputUnit})
                     </label>{" "}
                     <input
                       type="number"
                       value={ellMinor}
                       onChange={(e) => setEllMinor(e.target.value)}
-                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                 </>
@@ -741,26 +741,26 @@ export default function AreaCalculator() {
                   {" "}
                   <div>
                     {" "}
-                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                       Base ({inputUnit})
                     </label>{" "}
                     <input
                       type="number"
                       value={rtBase}
                       onChange={(e) => setRtBase(e.target.value)}
-                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                   <div>
                     {" "}
-                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                       Height ({inputUnit})
                     </label>{" "}
                     <input
                       type="number"
                       value={rtHeight}
                       onChange={(e) => setRtHeight(e.target.value)}
-                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                 </div>
@@ -770,26 +770,26 @@ export default function AreaCalculator() {
                   {" "}
                   <div>
                     {" "}
-                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                       Straight Length ({inputUnit})
                     </label>{" "}
                     <input
                       type="number"
                       value={capLength}
                       onChange={(e) => setCapLength(e.target.value)}
-                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                   <div>
                     {" "}
-                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                       Radius ({inputUnit})
                     </label>{" "}
                     <input
                       type="number"
                       value={capRadius}
                       onChange={(e) => setCapRadius(e.target.value)}
-                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                 </div>
@@ -799,26 +799,26 @@ export default function AreaCalculator() {
                   {" "}
                   <div>
                     {" "}
-                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                       Straight Length ({inputUnit})
                     </label>{" "}
                     <input
                       type="number"
                       value={vCapLength}
                       onChange={(e) => setVCapLength(e.target.value)}
-                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                   <div>
                     {" "}
-                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                       Radius ({inputUnit})
                     </label>{" "}
                     <input
                       type="number"
                       value={vCapRadius}
                       onChange={(e) => setVCapRadius(e.target.value)}
-                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                 </div>
@@ -830,39 +830,39 @@ export default function AreaCalculator() {
                     {" "}
                     <div>
                       {" "}
-                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                      <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                         Base ({inputUnit})
                       </label>{" "}
                       <input
                         type="number"
                         value={paraBase}
                         onChange={(e) => setParaBase(e.target.value)}
-                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                     <div>
                       {" "}
-                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                      <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                         Side ({inputUnit})
                       </label>{" "}
                       <input
                         type="number"
                         value={paraSide}
                         onChange={(e) => setParaSide(e.target.value)}
-                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                   </div>{" "}
                   <div>
                     {" "}
-                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                       Vertical Height ({inputUnit})
                     </label>{" "}
                     <input
                       type="number"
                       value={paraHeight}
                       onChange={(e) => setParaHeight(e.target.value)}
-                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                 </>
@@ -874,26 +874,26 @@ export default function AreaCalculator() {
                     {" "}
                     <div>
                       {" "}
-                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                      <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                         Side A ({inputUnit})
                       </label>{" "}
                       <input
                         type="number"
                         value={quadA}
                         onChange={(e) => setQuadA(e.target.value)}
-                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                     <div>
                       {" "}
-                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                      <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                         Side B ({inputUnit})
                       </label>{" "}
                       <input
                         type="number"
                         value={quadB}
                         onChange={(e) => setQuadB(e.target.value)}
-                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                   </div>{" "}
@@ -901,39 +901,39 @@ export default function AreaCalculator() {
                     {" "}
                     <div>
                       {" "}
-                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                      <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                         Side C ({inputUnit})
                       </label>{" "}
                       <input
                         type="number"
                         value={quadC}
                         onChange={(e) => setQuadC(e.target.value)}
-                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                     <div>
                       {" "}
-                      <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                      <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                         Side D ({inputUnit})
                       </label>{" "}
                       <input
                         type="number"
                         value={quadD}
                         onChange={(e) => setQuadD(e.target.value)}
-                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                        className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                       />{" "}
                     </div>{" "}
                   </div>{" "}
                   <div>
                     {" "}
-                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
                       Diagonal (A to C) ({inputUnit})
                     </label>{" "}
                     <input
                       type="number"
                       value={quadDiag}
                       onChange={(e) => setQuadDiag(e.target.value)}
-                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
+                      className="w-full bg-bg-primary/50 border border-border-color/50 p-3 rounded-[12px] mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-transparent transition-all placeholder:text-slate-700 dark:text-slate-300"
                     />{" "}
                   </div>{" "}
                 </>
@@ -1001,7 +1001,7 @@ export default function AreaCalculator() {
               <button
                 onClick={handleSaveCalculation}
                 disabled={calcAreaSqM === 0 && calcPerimeterM === 0}
-                className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-3 rounded-xl font-bold transition-colors shadow-md shadow-indigo-600/20"
+                className="w-full flex items-center justify-center gap-2 bg-[#6B46C1] hover:bg-[#6B46C1] disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 py-3 rounded-[12px] font-bold transition-colors shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-indigo-600/20"
               >
                 <Save className="w-5 h-5" />
                 Save Calculation to List
@@ -1009,21 +1009,21 @@ export default function AreaCalculator() {
             </div>
             {savedCalcs.length > 0 && (
               <div className="mt-8 border-t border-slate-700/50 pt-6">
-                <h4 className="text-xs font-bold uppercase tracking-wider mb-4 flex items-center gap-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 bg-clip-text text-transparent dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400">
+                <h4 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-4 flex items-center gap-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 bg-clip-text text-transparent dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400">
                   <History className="w-4 h-4 text-indigo-400" /> Saved Calculations
                 </h4>
                 <div className="space-y-3 max-h-[300px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
                   {savedCalcs.map((calc) => (
-                    <div key={calc.id} className="bg-slate-800/80 p-3 rounded-xl border border-slate-700 hover:border-indigo-500/50 transition-colors group">
+                    <div key={calc.id} className="bg-[#6B46C1]/80 p-3 rounded-[12px] border border-slate-700 hover:border-indigo-500/50 transition-colors group">
                       <div className="flex justify-between items-start mb-2">
                         <div>
-                          <span className="text-[10px] bg-slate-700 text-slate-300 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">
+                          <span className="text-[10px] bg-[#6B46C1] text-slate-300 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">
                             {calc.shape}
                           </span>
                         </div>
                         <button
                           onClick={() => deleteCalculation(calc.id)}
-                          className="text-slate-700 dark:text-slate-300 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded-lg hover:bg-slate-700"
+                          className="text-slate-700 dark:text-slate-300 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded-[12px] hover:bg-[#6B46C1]"
                           title="Delete"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
@@ -1041,7 +1041,7 @@ export default function AreaCalculator() {
                       </div>
                       <button
                         onClick={() => restoreCalculation(calc)}
-                        className="w-full mt-1 bg-slate-700/50 hover:bg-indigo-500/20 text-slate-300 hover:text-indigo-300 py-1.5 rounded-lg text-xs font-bold transition-colors flex items-center justify-center gap-1"
+                        className="w-full mt-1 bg-[#6B46C1]/50 hover:bg-indigo-500/20 text-slate-300 hover:text-indigo-300 py-1.5 rounded-[12px] text-xs font-bold transition-colors flex items-center justify-center gap-1"
                       >
                         <PlaySquare className="w-3 h-3" /> Recall Inputs
                       </button>

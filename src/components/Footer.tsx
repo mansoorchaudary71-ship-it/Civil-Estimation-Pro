@@ -15,7 +15,7 @@ export default function Footer({ onNavigate }: { activeModule?: ModuleId, onNavi
             className="flex items-center justify-start cursor-pointer shrink-0"
             onClick={() => onNavigate?.("home")}
           >
-            <span className="font-heading font-black text-2xl tracking-tighter text-[#111111] dark:text-white whitespace-nowrap">
+            <span className="font-heading font-black text-[18px] tracking-tighter text-[#111111] dark:text-white whitespace-nowrap">
               Civil Estimation Pro
             </span>
           </div>
@@ -44,6 +44,16 @@ export default function Footer({ onNavigate }: { activeModule?: ModuleId, onNavi
               <button onClick={() => onNavigate?.('privacy')} className="text-left text-[#111111]/70 dark:text-white/70 hover:text-[var(--accent-vibrant)] dark:hover:text-[var(--accent-vibrant)] transition-colors font-medium">Privacy Policy</button>
               <button onClick={() => onNavigate?.('terms')} className="text-left text-[#111111]/70 dark:text-white/70 hover:text-[var(--accent-vibrant)] dark:hover:text-[var(--accent-vibrant)] transition-colors font-medium">Terms of Service</button>
               <button onClick={() => onNavigate?.('cookies')} className="text-left text-[#111111]/70 dark:text-white/70 hover:text-[var(--accent-vibrant)] dark:hover:text-[var(--accent-vibrant)] transition-colors font-medium">Cookie Policy</button>
+            </div>
+          </div>
+          
+          {/* Developers & Embed */}
+          <div className="flex flex-col gap-4">
+            <h4 className="font-bold text-[16px] text-[#111111] dark:text-white tracking-wide">Developers</h4>
+            <div className="flex flex-col gap-3">
+              <div className="text-[#111111]/70 dark:text-white/70 font-medium cursor-pointer" onClick={() => prompt('Copy this code to embed Civil Estimation Pro on your website:', '<iframe src=\"https://civilestimationpro.com/\" width=\"100%\" height=\"600px\" style=\"border:none;border-radius:12px;\"></iframe>')}>
+                Embed This Calculator
+              </div>
             </div>
           </div>
         </div>

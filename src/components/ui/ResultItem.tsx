@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { HelpCircle, AlertTriangle, CheckCircle, Info } from 'lucide-react';
 import { useCountUp } from '../../hooks/useCountUp';
+import { useSettings } from '../../context/SettingsContext';
 
 export interface ResultItemProps {
   label: string;
@@ -15,13 +16,14 @@ export interface ResultItemProps {
   secondaryValue?: number;
 }
 
-const categoryColors = {
-  concrete: 'from-orange-500/10 to-orange-500/5 border-orange-500/20 text-orange-600 dark:text-orange-400 text-orange-500',
-  quantity: 'from-blue-500/10 to-blue-500/5 border-blue-500/20 text-blue-600 dark:text-blue-400 text-blue-500',
-  road: 'from-emerald-500/10 to-emerald-500/5 border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-emerald-500',
-  soil: 'from-amber-500/10 to-amber-500/5 border-amber-500/20 text-amber-600 dark:text-amber-400 text-amber-500',
-  mep: 'from-purple-500/10 to-purple-500/5 border-purple-500/20 text-purple-600 dark:text-purple-400 text-purple-500',
-  default: 'from-indigo-500/10 to-indigo-500/5 border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-indigo-500'
+const categoryStyles = {
+  concrete: { border: 'border-l-[#E55A2B]', text: 'bg-gradient-to-br from-[#E55A2B] to-[#F97316]' },
+  quantity: { border: 'border-l-[#6B46C1]', text: 'bg-gradient-to-br from-[#6B46C1] to-[#9F7AEA]' },
+  road: { border: 'border-l-[#0D9488]', text: 'bg-gradient-to-br from-[#0D9488] to-[#2DD4BF]' },
+  soil: { border: 'border-l-[#D97706]', text: 'bg-gradient-to-br from-[#D97706] to-[#FBBF24]' },
+  mep: { border: 'border-l-[#2563EB]', text: 'bg-gradient-to-br from-[#2563EB] to-[#60A5FA]' },
+  tools: { border: 'border-l-[#4338CA]', text: 'bg-gradient-to-br from-[#4338CA] to-[#818CF8]' },
+  default: { border: 'border-l-[#4338CA]', text: 'bg-gradient-to-br from-[#4338CA] to-[#818CF8]' }
 };
 
 const statusConfig = {
@@ -41,31 +43,63 @@ export function ResultItem({
   secondaryUnit,
   secondaryValue
 }: ResultItemProps) {
+  const { formatCurrency } = useSettings();
   const [expanded, setExpanded] = useState(false);
   const animatedValue = useCountUp(value, 800);
   
-  // Format based on integer vs float
-  const displayValue = Number.isInteger(value) 
-    ? Math.round(animatedValue) 
-    : Number(animatedValue.toFixed(2));
-    
-  const colorClasses = categoryColors[category] || categoryColors.default;
+  // Format based on rules
+  let displayValueStr = "";
+  let decimals = 2; // Default
+  
+  const unitLower = unit.toLowerCase();
+  const labelLower = label.toLowerCase();
+  
+  const isCurrency = unitLower.includes('rs') || unitLower.includes('pkr') || labelLower.includes('cost') || labelLower.includes('price');
+
+  // 1. Bag Counts (0 decimals)
+  if (unitLower.includes('bag') || unitLower.includes('nos') || labelLower.includes('count') || labelLower.includes('bricks') || (isCurrency && unitLower.includes('bag'))) {
+    decimals = 0;
+  }
+  // 2. Volumes / Areas (2 decimals)
+  else if (unitLower.includes('m³') || unitLower.includes('cu.m') || unitLower.includes('cft') || unitLower.includes('sq.m') || unitLower.includes('sft')) {
+    decimals = 2;
+  }
+  // Generic whole numbers
+  else if (Number.isInteger(value)) {
+    decimals = 0;
+  }
+
+  if (isCurrency && !unitLower.includes('bag')) {
+    // Exclude Rs from unit display if we are going to use formatCurrency (which adds its own symbol)
+    displayValueStr = formatCurrency(animatedValue, false);
+  } else {
+    displayValueStr = animatedValue.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+  }
+
+  // To omit the `Rs` or `PKR` from the end since we've prefixed it
+  let displayUnit = unit;
+  if (isCurrency && (unitLower === 'rs' || unitLower === 'pkr' || unitLower === '$')) {
+    displayUnit = ''; // The symbol is already in displayValueStr
+  }
+
   const statusDetails = statusConfig[status];
   const StatusIcon = statusDetails.icon;
 
+  const style = categoryStyles[category === 'tools' ? 'tools' : category] || categoryStyles.default;
+
   return (
-    <div className={`p-4 rounded-2xl border bg-gradient-to-tr transition-all duration-300 w-full mb-3 ${colorClasses.split(' ').slice(0, 2).join(' ')} ${colorClasses.split(' ')[2]}`}>
+    <div className={`p-4 rounded-[12px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 border-l-[4px] ${style.border} shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] transition-all duration-300 w-full mb-3`}>
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 relative z-10 w-full">
         {/* Left side labels */}
         <div className="flex flex-col flex-1 pr-2">
           <div className="flex items-center gap-2 mb-1">
-            <span className={`font-bold text-sm tracking-tight ${colorClasses.split(' ')[3]} dark:${colorClasses.split(' ')[4]}`}>
+            <span className="font-bold text-sm tracking-tight text-slate-700 dark:text-slate-300">
               {label}
             </span>
             {explanation && (
               <button 
                 onClick={() => setExpanded(!expanded)}
-                className="opacity-70 hover:opacity-100 transition-opacity"
+                className="opacity-70 hover:opacity-100 transition-opacity text-[#4B5563]"
               >
                 <HelpCircle className="w-3.5 h-3.5" />
               </button>
@@ -73,7 +107,7 @@ export function ResultItem({
           </div>
           
           {comparisonText && (
-            <div className="flex items-center gap-1.5 mt-1.5">
+            <div className="flex items-center gap-1.5 mt-1.5 text-[#4B5563]">
                {/* Mini sparkline visualization */}
                <div className="flex items-end gap-0.5 h-3 opacity-70">
                  <div className="w-1 bg-current h-1/3 rounded-full" />
@@ -88,18 +122,18 @@ export function ResultItem({
         {/* Right side values */}
         <div className="flex flex-col sm:items-end justify-center min-w-[30%]">
           <div className="flex items-baseline gap-1.5">
-            <span className={`text-2xl sm:text-3xl font-black tracking-tighter tabular-nums ${colorClasses.split(' ')[3]} dark:${colorClasses.split(' ')[4]}`}>
-              {displayValue.toLocaleString()}
+            <span className={`text-[18px] sm:text-[28px] font-black tracking-tighter tabular-nums ${style.text} bg-clip-text text-transparent`}>
+              {displayValueStr}
             </span>
-            <span className={`text-sm font-bold opacity-80 ${colorClasses.split(' ')[3]} dark:${colorClasses.split(' ')[4]}`}>
-              {unit}
+            <span className="text-sm font-bold opacity-80 text-slate-600 dark:text-slate-400">
+              {displayUnit}
             </span>
           </div>
           
           {/* Secondary unit conversion */}
           {secondaryValue !== undefined && secondaryUnit && (
-            <div className="text-[11px] font-bold opacity-60 tabular-nums">
-              = {secondaryValue.toLocaleString()} {secondaryUnit}
+            <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 tabular-nums">
+              = {typeof secondaryValue === 'number' ? secondaryValue.toLocaleString('en-US', { maximumFractionDigits: 2 }) : secondaryValue} {secondaryUnit}
             </div>
           )}
           
@@ -119,9 +153,9 @@ export function ResultItem({
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            <div className="mt-3 pt-3 border-t border-current/10">
-              <div className="flex items-start gap-2">
-                <Info className="w-4 h-4 mt-0.5 opacity-70" />
+            <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex items-start gap-2 text-slate-600 dark:text-slate-400">
+                <Info className="w-4 h-4 mt-0.5 opacity-80 text-[#6B46C1]" />
                 <p className="text-sm opacity-90 leading-relaxed font-medium">
                   {explanation}
                 </p>

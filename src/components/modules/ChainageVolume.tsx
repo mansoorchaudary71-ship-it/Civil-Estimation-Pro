@@ -130,9 +130,9 @@ export default function ChainageVolumeEstimator() {
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-7xl mx-auto space-y-8">
-        <header className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6 bg-white p-6 rounded-[2rem] shadow-sm border border-gray-100">
+        <header className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6 bg-white p-6 rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-gray-100">
           <div>
-            <h1 className="text-3xl md:text-4xl hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent pb-1 flex items-center gap-3">
+            <h1 className="text-[28px] md:text-[28px] hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent pb-1 flex items-center gap-3">
               <Map className="w-8 h-8 text-amber-500" /> Road Earthwork
               Calculator
             </h1>
@@ -153,10 +153,10 @@ export default function ChainageVolumeEstimator() {
             {/* Global Parameters */}
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-[12px]">
                   <Layers className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold tracking-tight text-gray-800">
+                <h2 className="text-[18px] font-bold tracking-tight text-gray-800">
                   Road Parameters
                 </h2>
               </div>
@@ -167,7 +167,7 @@ export default function ChainageVolumeEstimator() {
                   </label>
                   <input
                     type="number"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
                     value={formationWidth}
                     onChange={(e) => setFormationWidth(e.target.value)}
                   />
@@ -178,7 +178,7 @@ export default function ChainageVolumeEstimator() {
                   </label>
                   <input
                     type="number"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
                     value={cutSlope}
                     onChange={(e) => setCutSlope(e.target.value)}
                   />
@@ -189,26 +189,26 @@ export default function ChainageVolumeEstimator() {
                   </label>
                   <input
                     type="number"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
                     value={fillSlope}
                     onChange={(e) => setFillSlope(e.target.value)}
                   />
                 </div>
               </div>
             </div>
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_8px_30px_rgb(0,0,0,0.08)]">
               <div className="flex items-center justify-between mb-5 border-b border-gray-50 pb-4">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
+                  <div className="p-2.5 bg-amber-50 text-amber-600 rounded-[12px]">
                     <Map className="w-5 h-5" />
                   </div>
-                  <h2 className="text-xl font-bold tracking-tight text-gray-800">
+                  <h2 className="text-[18px] font-bold tracking-tight text-gray-800">
                     Station Data
                   </h2>
                 </div>
                 <button
                   onClick={addStation}
-                  className="flex items-center gap-2 px-4 py-2 bg-amber-50 text-amber-700 hover:bg-amber-100 rounded-lg text-sm font-semibold transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 bg-amber-50 text-amber-700 hover:bg-amber-100 rounded-[12px] text-sm font-semibold transition-colors"
                 >
                   <Plus className="w-4 h-4" /> Add Station
                 </button>
@@ -243,7 +243,7 @@ export default function ChainageVolumeEstimator() {
                         <td className="py-2 pr-4">
                           <input
                             type="text"
-                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm"
+                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm"
                             value={st.chainage}
                             onChange={(e) =>
                               handleUpdateStation(
@@ -258,7 +258,7 @@ export default function ChainageVolumeEstimator() {
                         <td className="py-2 px-4">
                           <input
                             type="number"
-                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm"
+                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm"
                             value={st.ngl}
                             onChange={(e) =>
                               handleUpdateStation(st.id, "ngl", e.target.value)
@@ -268,7 +268,7 @@ export default function ChainageVolumeEstimator() {
                         <td className="py-2 px-4">
                           <input
                             type="number"
-                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm"
+                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow font-mono text-sm"
                             value={st.fl}
                             onChange={(e) =>
                               handleUpdateStation(st.id, "fl", e.target.value)
@@ -276,7 +276,7 @@ export default function ChainageVolumeEstimator() {
                           />
                         </td>
                         <td className="py-2 px-4">
-                          <div className="font-mono text-[13px] font-semibold flex flex-col items-start bg-slate-100 rounded-lg px-3 py-1.5 min-w-[70px]">
+                          <div className="font-mono text-[13px] font-semibold flex flex-col items-start bg-slate-100 rounded-[12px] px-3 py-1.5 min-w-[70px]">
                             {st.depthCut > 0 && (
                               <span className="text-amber-600">
                                 C: {st.depthCut.toFixed(2)}
@@ -296,7 +296,7 @@ export default function ChainageVolumeEstimator() {
                           <button
                             onClick={() => removeStation(st.id)}
                             disabled={stations.length <= 1}
-                            className={`p-2 rounded-lg ${stations.length <= 1 ? "text-gray-300 cursor-not-allowed" : "text-red-400 hover:text-red-600 hover:bg-red-50"}`}
+                            className={`p-2 rounded-[12px] ${stations.length <= 1 ? "text-gray-300 cursor-not-allowed" : "text-red-400 hover:text-red-600 hover:bg-red-50"}`}
                           >
                             <Trash2 className="w-5 h-5" />
                           </button>

@@ -114,28 +114,28 @@ export default function SlabEstimator() {
         description="Calculate concrete volume and steel reinforcement for one-way and two-way reinforced concrete slabs."
       />
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-slate-900 mb-2 flex items-center gap-3">
+        <h1 className="text-[28px] font-extrabold text-slate-900 mb-2 flex items-center gap-3">
           <Grid2X2 className="w-8 h-8 text-indigo-600" />
           Slab Estimator
         </h1>
-        <p className="text-slate-500 font-medium">
+        <p className="text-[#4B5563] font-medium">
           Estimate concrete volume and total structural steel weight for one-way and two-way spanning slabs.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 md:p-8">
+        <div className="bg-white rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-slate-200 p-6 md:p-8">
           
-          <div className="mb-6 p-1 bg-slate-100 rounded-xl flex gap-1">
+          <div className="mb-6 p-1 bg-slate-100 rounded-[12px] flex gap-1">
             <button
               onClick={() => setSlabType("one-way")}
-              className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${slabType === "one-way" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"}`}
+              className={`flex-1 py-2 rounded-[12px] text-sm font-bold transition-all ${slabType === "one-way" ? "bg-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] text-indigo-600" : "text-[#4B5563] hover:text-slate-700 hover:bg-slate-200/50"}`}
             >
               One-Way Slab
             </button>
             <button
               onClick={() => setSlabType("two-way")}
-              className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${slabType === "two-way" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"}`}
+              className={`flex-1 py-2 rounded-[12px] text-sm font-bold transition-all ${slabType === "two-way" ? "bg-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] text-indigo-600" : "text-[#4B5563] hover:text-slate-700 hover:bg-slate-200/50"}`}
             >
               Two-Way Slab
             </button>
@@ -143,7 +143,7 @@ export default function SlabEstimator() {
 
           <div className="flex items-center gap-2 mb-6">
             <Settings2 className="w-5 h-5 text-indigo-600" />
-            <h2 className="text-lg font-bold text-slate-800">Slab Dimensions</h2>
+            <h2 className="text-lg font-bold text-[#374151]">Slab Dimensions</h2>
           </div>
 
           <div className="space-y-4">
@@ -154,7 +154,7 @@ export default function SlabEstimator() {
                   min="0"
                   value={ly}
                   onChange={(e) => setLy(e.target.value)}
-                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all"
                 />
               </InputGroup>
               <InputGroup label="Short Span (lx) (m)">
@@ -163,7 +163,7 @@ export default function SlabEstimator() {
                   min="0"
                   value={lx}
                   onChange={(e) => setLx(e.target.value)}
-                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all"
                 />
               </InputGroup>
             </div>
@@ -175,7 +175,7 @@ export default function SlabEstimator() {
                   min="0"
                   value={thickness}
                   onChange={(e) => setThickness(e.target.value)}
-                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all"
                 />
               </InputGroup>
               <InputGroup label="Clear Cover (mm)">
@@ -184,7 +184,7 @@ export default function SlabEstimator() {
                   min="0"
                   value={clearCover}
                   onChange={(e) => setClearCover(e.target.value)}
-                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all"
                 />
               </InputGroup>
             </div>
@@ -192,12 +192,12 @@ export default function SlabEstimator() {
 
           <div className="flex items-center gap-2 mb-6 mt-8">
             <Grid2X2 className="w-5 h-5 text-indigo-600" />
-            <h2 className="text-lg font-bold text-slate-800">Reinforcement Details</h2>
+            <h2 className="text-lg font-bold text-[#374151]">Reinforcement Details</h2>
           </div>
 
           <div className="space-y-4">
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-              <h3 className="text-sm font-bold text-slate-600 uppercase tracking-wider mb-3">
+            <div className="p-4 bg-slate-50 rounded-[12px] border border-slate-100">
+              <h3 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-3">
                 {slabType === "one-way" ? "Main Bars (Short Span)" : "Short Span Bars (Main)"}
               </h3>
               <div className="grid grid-cols-2 gap-4">
@@ -205,7 +205,7 @@ export default function SlabEstimator() {
                   <select
                     value={mainDia}
                     onChange={(e) => setMainDia(e.target.value)}
-                    className="w-full h-11 bg-white border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    className="w-full h-11 bg-white border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all"
                   >
                     {[8, 10, 12, 16, 20, 25].map(d => (
                       <option key={d} value={d}>{d} mm</option>
@@ -218,14 +218,14 @@ export default function SlabEstimator() {
                     min="0"
                     value={mainSpacing}
                     onChange={(e) => setMainSpacing(e.target.value)}
-                    className="w-full h-11 bg-white border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    className="w-full h-11 bg-white border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all"
                   />
                 </InputGroup>
               </div>
             </div>
 
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-              <h3 className="text-sm font-bold text-slate-600 uppercase tracking-wider mb-3">
+            <div className="p-4 bg-slate-50 rounded-[12px] border border-slate-100">
+              <h3 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-3">
                 {slabType === "one-way" ? "Distribution Bars (Long Span)" : "Long Span Bars"}
               </h3>
               <div className="grid grid-cols-2 gap-4">
@@ -233,7 +233,7 @@ export default function SlabEstimator() {
                   <select
                     value={distDia}
                     onChange={(e) => setDistDia(e.target.value)}
-                    className="w-full h-11 bg-white border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    className="w-full h-11 bg-white border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all"
                   >
                     {[8, 10, 12, 16, 20, 25].map(d => (
                       <option key={d} value={d}>{d} mm</option>
@@ -246,7 +246,7 @@ export default function SlabEstimator() {
                     min="0"
                     value={distSpacing}
                     onChange={(e) => setDistSpacing(e.target.value)}
-                    className="w-full h-11 bg-white border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    className="w-full h-11 bg-white border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all"
                   />
                 </InputGroup>
               </div>
@@ -255,7 +255,7 @@ export default function SlabEstimator() {
 
           <button
             onClick={calculateSlab}
-            className="w-full mt-6 bg-indigo-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-colors mt-8"
+            className="w-full mt-6 bg-[#6B46C1] hover:bg-[#6B46C1] text-white font-bold py-4 rounded-[12px] transition-colors mt-8"
           >
             Calculate Slab Quantities
           </button>
@@ -298,7 +298,7 @@ export default function SlabEstimator() {
                 <div className="mb-4 text-[10px] sm:text-xs font-extrabold text-slate-500 dark:text-white/50 uppercase tracking-[0.15em]">
                   Rebar Breakdown
                 </div>
-                <div className="bg-white/50 dark:bg-white rounded-2xl p-4 shadow-sm text-slate-900 border border-slate-200/50 dark:border-slate-100 backdrop-blur-md">
+                <div className="bg-white/50 dark:bg-white rounded-[12px] p-4 shadow-[0_2px_12px_rgba(0,0,0,0.08)] text-slate-900 border border-slate-200/50 dark:border-slate-100 backdrop-blur-md">
                   <StyledChart 
                     data={[
                       { name: results.type === "one-way" ? "Main Bars" : "Short Span", value: Math.round(results.shortBarsTotalLength), fill: '#6366f1' },
@@ -311,7 +311,7 @@ export default function SlabEstimator() {
                 </div>
               </div>
 
-              <div className="mt-4 p-4 bg-amber-500/10 dark:bg-amber-500/5 border border-amber-500/20 rounded-xl">
+              <div className="mt-4 p-4 bg-amber-500/10 dark:bg-amber-500/5 border border-amber-500/20 rounded-[12px]">
                  <p className="text-xs flex gap-2">
                     <span className="text-amber-600 dark:text-amber-500 font-bold">ℹ</span>
                     <span className="text-slate-600 dark:text-amber-500/80 leading-relaxed">
@@ -323,8 +323,8 @@ export default function SlabEstimator() {
               </div>
             </MaterialSummary>
           ) : (
-            <div className="bg-[#1A1C20] rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full border border-white/5 shadow-2xl">
-              <span className="text-white/40 font-medium tracking-wide">Enter dimensions to calculate</span>
+            <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 border-dashed rounded-[12px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+              <span className="text-[#4B5563] font-medium tracking-wide">Enter dimensions to calculate</span>
             </div>
           )}
         </div>

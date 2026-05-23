@@ -269,9 +269,9 @@ export default function BOQGenerator() {
 
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500">
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-[12px] border border-slate-200 dark:border-slate-800 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
         <div className="flex items-center gap-4">
-          <div className="p-4 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-2xl">
+          <div className="p-4 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-[12px]">
             <Calculator className="w-8 h-8" />
           </div>
           <div>
@@ -279,7 +279,7 @@ export default function BOQGenerator() {
               type="text"
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
-              className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-white bg-transparent border-none outline-none hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl px-2 py-1 -ml-2 transition-colors w-full max-w-md"
+              className="text-[18px] sm:text-[28px] font-black text-slate-800 dark:text-white bg-transparent border-none outline-none hover:bg-slate-50 dark:hover:bg-[#6B46C1] rounded-[12px] px-2 py-1 -ml-2 transition-colors w-full max-w-md"
             />
             <p className="text-slate-500 dark:text-slate-400 font-medium ml-1">
               Professional Bill of Quantities Generator
@@ -292,7 +292,7 @@ export default function BOQGenerator() {
               if (e.target.value) loadTemplate(e.target.value);
               e.target.value = "";
             }}
-            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl outline-none transition-colors border border-slate-200 dark:border-slate-700"
+            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-[#6B46C1] dark:hover:bg-[#6B46C1] text-slate-700 dark:text-slate-300 font-bold rounded-[12px] outline-none transition-colors border border-slate-200 dark:border-slate-700"
           >
             <option value="">Load Template...</option>
             {Object.keys(STANDARD_TEMPLATES).map((t) => (
@@ -303,13 +303,13 @@ export default function BOQGenerator() {
           </select>
           <button
             onClick={exportCSV}
-            className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400 font-bold rounded-xl transition-colors border border-emerald-200 dark:border-emerald-500/20"
+            className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400 font-bold rounded-[12px] transition-colors border border-emerald-200 dark:border-emerald-500/20"
           >
             <FileSpreadsheet className="w-4 h-4" /> CSV
           </button>
           <button
             onClick={() => window.print()}
-            className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-sm"
+            className="flex items-center gap-2 px-4 py-2 bg-[#6B46C1] hover:bg-[#6B46C1] text-white font-bold rounded-[12px] transition-colors shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
           >
             <FileOutput className="w-4 h-4" /> PDF Report
           </button>
@@ -318,14 +318,14 @@ export default function BOQGenerator() {
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
         <div className="lg:col-span-3 space-y-6">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm overflow-hidden">
-            <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/30">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] overflow-hidden">
+            <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-[#6B46C1]/30">
               <h3 className="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
                 <FileText className="w-5 h-5 text-indigo-500" /> BOQ Items
               </h3>
               <button
                 onClick={handleAddItem}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white font-bold rounded-lg text-sm hover:bg-indigo-700 transition"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-[#6B46C1] text-white font-bold rounded-[12px] text-sm hover:bg-[#6B46C1] transition"
               >
                 <Plus className="w-4 h-4" /> Add Item
               </button>
@@ -334,7 +334,7 @@ export default function BOQGenerator() {
             <div className="p-0 overflow-x-auto">
               <table className="w-full text-left border-collapse min-w-[800px]">
                 <thead>
-                  <tr className="bg-slate-100/50 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400 text-[11px] uppercase tracking-wider font-bold">
+                  <tr className="bg-slate-100/50 dark:bg-[#6B46C1]/50 text-slate-500 dark:text-slate-400 text-[11px] uppercase tracking-wider font-bold">
                     <th className="p-4 w-48">Division</th>
                     <th className="p-4">Description</th>
                     <th className="p-4 w-24">Unit</th>
@@ -357,7 +357,7 @@ export default function BOQGenerator() {
                   ) : (
                     Object.entries(groupedItems).map(([division, divItems]) => (
                       <React.Fragment key={division}>
-                        <tr className="bg-slate-50/80 dark:bg-slate-800/30 border-y border-slate-200 dark:border-slate-800">
+                        <tr className="bg-slate-50/80 dark:bg-[#6B46C1]/30 border-y border-slate-200 dark:border-slate-800">
                           <td
                             colSpan={7}
                             className="px-4 py-2.5 font-bold text-indigo-700 dark:text-indigo-400 text-sm"
@@ -368,7 +368,7 @@ export default function BOQGenerator() {
                         {divItems.map((item, idx) => (
                           <tr
                             key={item.id}
-                            className="border-b border-slate-100 dark:border-slate-800 last:border-0 hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-colors"
+                            className="border-b border-slate-100 dark:border-slate-800 last:border-0 hover:bg-slate-50/50 dark:hover:bg-[#6B46C1]/20 transition-colors"
                           >
                             <td className="p-2 align-top">
                               <select
@@ -380,7 +380,7 @@ export default function BOQGenerator() {
                                     e.target.value,
                                   )
                                 }
-                                className="w-full p-2 bg-transparent text-xs font-semibold rounded outline-none border border-transparent focus:border-indigo-300 dark:focus:border-indigo-600 focus:bg-white dark:focus:bg-slate-800 transition-all truncate"
+                                className="w-full p-2 bg-transparent text-xs font-semibold rounded outline-none border border-transparent focus:border-indigo-300 dark:focus:border-[#6B46C1] focus:bg-white dark:focus:bg-[#6B46C1] transition-all truncate"
                               >
                                 {DEFAULT_DIVISIONS.map((d) => (
                                   <option key={d} value={d}>
@@ -405,7 +405,7 @@ export default function BOQGenerator() {
                                   )
                                 }
                                 placeholder="Item description..."
-                                className="w-full p-2 bg-transparent text-sm font-medium rounded outline-none border border-transparent focus:border-indigo-300 dark:focus:border-indigo-600 focus:bg-white dark:focus:bg-slate-800 transition-all resize-none min-h-[40px]"
+                                className="w-full p-2 bg-transparent text-sm font-medium rounded outline-none border border-transparent focus:border-indigo-300 dark:focus:border-[#6B46C1] focus:bg-white dark:focus:bg-[#6B46C1] transition-all resize-none min-h-[40px]"
                                 rows={1}
                               />
                             </td>
@@ -420,7 +420,7 @@ export default function BOQGenerator() {
                                     e.target.value,
                                   )
                                 }
-                                className="w-full p-2 bg-transparent text-sm rounded outline-none border border-transparent focus:border-indigo-300 dark:focus:border-indigo-600 focus:bg-white dark:focus:bg-slate-800 transition-all"
+                                className="w-full p-2 bg-transparent text-sm rounded outline-none border border-transparent focus:border-indigo-300 dark:focus:border-[#6B46C1] focus:bg-white dark:focus:bg-[#6B46C1] transition-all"
                               />
                             </td>
                             <td className="p-2 align-top">
@@ -434,7 +434,7 @@ export default function BOQGenerator() {
                                     parseFloat(e.target.value) || 0,
                                   )
                                 }
-                                className="w-full p-2 bg-transparent text-sm text-right font-bold rounded outline-none border border-transparent focus:border-indigo-300 dark:focus:border-indigo-600 focus:bg-white dark:focus:bg-slate-800 transition-all"
+                                className="w-full p-2 bg-transparent text-sm text-right font-bold rounded outline-none border border-transparent focus:border-indigo-300 dark:focus:border-[#6B46C1] focus:bg-white dark:focus:bg-[#6B46C1] transition-all"
                               />
                             </td>
                             <td className="p-2 align-top text-right">
@@ -450,17 +450,17 @@ export default function BOQGenerator() {
                                       parseFloat(e.target.value) || 0,
                                     )
                                   }
-                                  className="w-full p-2 bg-transparent text-sm text-right font-bold text-emerald-600 dark:text-emerald-400 rounded outline-none border border-transparent focus:border-indigo-300 dark:focus:border-indigo-600 focus:bg-white dark:focus:bg-slate-800 transition-all"
+                                  className="w-full p-2 bg-transparent text-sm text-right font-bold text-emerald-600 dark:text-emerald-400 rounded outline-none border border-transparent focus:border-indigo-300 dark:focus:border-[#6B46C1] focus:bg-white dark:focus:bg-[#6B46C1] transition-all"
                                 />
                               </div>
                             </td>
                             <td className="p-4 align-top text-right font-black text-slate-800 dark:text-white tabular-nums">
-                              {(item.quantity * item.rate).toLocaleString()}
+                              {(item.quantity * item.rate).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </td>
                             <td className="p-2 align-top text-center">
                               <button
                                 onClick={() => handleDeleteItem(item.id)}
-                                className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-lg transition-colors"
+                                className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-[12px] transition-colors"
                               >
                                 <Trash2 className="w-4 h-4" />
                               </button>
@@ -478,33 +478,33 @@ export default function BOQGenerator() {
 
         {/* Summary Sidebar */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="bg-slate-900 border border-slate-800 p-6 rounded-[2rem] shadow-xl text-white relative overflow-hidden">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 border-l-[4px] border-l-[#6B46C1] p-6 rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] relative overflow-hidden">
             {/* Pattern overlay */}
             <div
-              className="absolute inset-0 opacity-5"
+              className="absolute inset-0 opacity-5 dark:opacity-5 text-slate-800 dark:text-white"
               style={{
                 backgroundImage:
-                  "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
+                  "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
                 backgroundSize: "16px 16px",
               }}
             ></div>
 
-            <h3 className="font-bold text-lg mb-6 flex items-center gap-2 relative z-10">
-              <Settings2 className="w-5 h-5 text-indigo-400" /> Financial
+            <h3 className="font-bold text-lg mb-6 text-slate-800 dark:text-slate-100 flex items-center gap-2 relative z-10">
+              <Settings2 className="w-5 h-5 text-[#6B46C1]" /> Financial
               Summary
             </h3>
 
             <div className="space-y-4 relative z-10">
               <div className="flex justify-between items-center text-sm">
-                <span className="text-slate-400">Subtotal</span>
-                <span className="font-bold tabular-nums">
-                  ${subtotal.toLocaleString()}
+                <span className="text-slate-500 dark:text-slate-400">Subtotal</span>
+                <span className="font-bold text-slate-800 dark:text-white tabular-nums">
+                  ${subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </div>
 
               <div className="space-y-1">
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-slate-400 flex items-center gap-1">
+                  <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1">
                     Contingency <Percent className="w-3 h-3" />
                   </span>
                   <div className="flex items-center gap-2">
@@ -514,27 +514,28 @@ export default function BOQGenerator() {
                       onChange={(e) =>
                         setContingencyPct(Number(e.target.value) || 0)
                       }
-                      className="w-12 px-1 py-0.5 bg-slate-800 border border-slate-700 rounded text-right text-xs"
+                      className="w-12 px-1 py-0.5 bg-slate-50 dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded text-right text-xs"
                     />
-                    <span className="font-bold tabular-nums text-amber-400">
+                    <span className="font-bold tabular-nums text-orange-500">
                       +$
-                      {contingencyAmount.toLocaleString(undefined, {
-                        maximumFractionDigits: 0,
+                      {contingencyAmount.toLocaleString('en-US', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
                       })}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-800 space-y-1">
+              <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-1">
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-slate-400">Taxable Amount</span>
-                  <span className="font-bold tabular-nums">
-                    ${taxableAmount.toLocaleString()}
+                  <span className="text-slate-500 dark:text-slate-400">Taxable Amount</span>
+                  <span className="font-bold text-slate-800 dark:text-white tabular-nums">
+                    ${taxableAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-slate-400 flex items-center gap-1">
+                  <span className="text-slate-500 dark:text-slate-400 flex items-center gap-1">
                     GST/VAT <Percent className="w-3 h-3" />
                   </span>
                   <div className="flex items-center gap-2">
@@ -542,26 +543,28 @@ export default function BOQGenerator() {
                       type="number"
                       value={gstPct}
                       onChange={(e) => setGstPct(Number(e.target.value) || 0)}
-                      className="w-12 px-1 py-0.5 bg-slate-800 border border-slate-700 rounded text-right text-xs"
+                      className="w-12 px-1 py-0.5 bg-slate-50 dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded text-right text-xs"
                     />
-                    <span className="font-bold tabular-nums text-rose-400">
+                    <span className="font-bold tabular-nums text-rose-500 dark:text-rose-400">
                       +$
-                      {gstAmount.toLocaleString(undefined, {
-                        maximumFractionDigits: 0,
+                      {gstAmount.toLocaleString('en-US', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
                       })}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-4 mt-4 border-t border-slate-700/50">
-                <span className="text-slate-400 text-xs uppercase tracking-widest font-bold">
+              <div className="pt-4 mt-4 border-t border-slate-200 dark:border-slate-700/50">
+                <span className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-widest font-bold">
                   Grand Total
                 </span>
-                <p className="text-3xl font-black text-white mt-1 tabular-nums tracking-tight">
+                <p className="text-[28px] font-black bg-gradient-to-r from-[#6B46C1] to-[#F97316] bg-clip-text text-transparent mt-1 tabular-nums tracking-tight">
                   $
-                  {grandTotal.toLocaleString(undefined, {
-                    maximumFractionDigits: 0,
+                  {grandTotal.toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
                   })}
                 </p>
               </div>
@@ -574,22 +577,22 @@ export default function BOQGenerator() {
             totalUnit="Items"
           >
             <div className="grid grid-cols-2 gap-4 mt-6">
-              <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
-                <div className="text-xs font-bold uppercase text-slate-500 mb-1">
+              <div className="bg-white dark:bg-[#6B46C1] p-4 rounded-[12px] border border-slate-100 dark:border-slate-700">
+                <div className="text-[12px] font-medium text-[#6B7280] uppercase text-[#4B5563] mb-1">
                   Divisions
                 </div>
-                <div className="text-2xl font-black text-indigo-600 dark:text-indigo-400">
+                <div className="text-[18px] font-black text-indigo-600 dark:text-indigo-400">
                   {Object.keys(groupedItems).length}
                 </div>
               </div>
-              <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
-                <div className="text-xs font-bold uppercase text-slate-500 mb-1">
+              <div className="bg-white dark:bg-[#6B46C1] p-4 rounded-[12px] border border-slate-100 dark:border-slate-700">
+                <div className="text-[12px] font-medium text-[#6B7280] uppercase text-[#4B5563] mb-1">
                   Total QTY
                 </div>
-                <div className="text-2xl font-black text-emerald-600 dark:text-emerald-400">
+                <div className="text-[18px] font-black text-emerald-600 dark:text-emerald-400">
                   {items
                     .reduce((s, i) => s + i.quantity, 0)
-                    .toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                    .toLocaleString('en-US', { maximumFractionDigits: 0 })}
                 </div>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Menu, X, User, LogOut, Settings, ChevronDown, ArrowRight } from 'lucide-react';
+import { CurrencySelector } from './ui/CurrencySelector';
 import { GlobalSettingsToggle } from './ui/GlobalSettingsToggle';
 import { DarkModeToggle } from './ui/DarkModeToggle';
 import { useAuth } from '../contexts/AuthContext';
@@ -89,12 +90,12 @@ export default function TopNavbar({
 
   return (
     <>
-      <nav className="w-full sticky top-0 z-40 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md px-5 py-4 md:px-8 border-b border-border-color/50 shadow-sm transition-colors duration-300">
+      <nav className="w-full sticky top-0 z-40 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md px-5 py-4 md:px-8 border-b border-border-color/50 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-colors duration-300">
         <div className="w-full flex items-center justify-between mx-auto max-w-[1400px]">
           
           {/* Left: Logo */}
           <div className="flex items-center gap-3 justify-start cursor-pointer group shrink-0" onClick={() => onNavigate?.('home' as ModuleId)}>
-            <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center transition-all duration-300 text-[var(--accent-vibrant)] group-hover:scale-105 group-hover:rotate-3 shadow-glass bg-bg-card rounded-xl p-1.5">
+            <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center transition-all duration-300 text-[var(--accent-vibrant)] group-hover:scale-105 group-hover:rotate-3 shadow-glass bg-bg-card rounded-[12px] p-1.5">
               <Logo className="w-full h-full" />
             </div>
             <span className="font-sans font-extrabold text-[22px] text-[var(--primary-dark)] dark:text-white tracking-tight">
@@ -103,12 +104,12 @@ export default function TopNavbar({
           </div>
 
           {/* Center: Slash navigation links (Desktop/Tablet >= 768px) */}
-          <div className="hidden md:flex items-center justify-start ml-12 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md px-6 py-2.5 rounded-full shadow-sm border border-white/80 dark:border-slate-700/50">
+          <div className="hidden md:flex items-center justify-start ml-12 bg-white/60 dark:bg-[#6B46C1]/60 backdrop-blur-md px-6 py-2.5 rounded-full shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-white/80 dark:border-slate-700/50">
             {navItems.filter(link => link.id !== 'home').map((link, index, arr) => (
               <React.Fragment key={link.name}>
                 <button 
                   onClick={() => onNavigate?.(link.id)}
-                  className="text-[14px] font-semibold text-slate-500 hover:text-[var(--primary-dark)] dark:text-slate-400 dark:hover:text-white transition-colors tracking-tight"
+                  className="text-[14px] font-semibold text-[#4B5563] hover:text-[var(--primary-dark)] dark:text-slate-400 dark:hover:text-white transition-colors tracking-tight"
                 >
                   {link.name}
                 </button>
@@ -123,7 +124,7 @@ export default function TopNavbar({
           <div className="md:hidden flex items-center justify-end">
             <button 
               onClick={() => setIsMobileMenuOpen(true)}
-              className="w-10 h-10 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-300"
+              className="w-10 h-10 rounded-full bg-bg-card shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-border-color flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#6B46C1] transition-all duration-300"
             >
               <Menu className="w-5 h-5" strokeWidth={2} />
             </button>
@@ -131,13 +132,14 @@ export default function TopNavbar({
 
           {/* Right: Action Buttons (Desktop >= 768px) */}
           <div className="hidden md:flex items-center justify-end flex-1 gap-4">
+            <CurrencySelector />
             <DarkModeToggle />
             <GlobalSettingsToggle />
 
             <div className="flex items-center gap-3">
               <button 
                 onClick={() => onNavigate?.('contact' as ModuleId)}
-                className="w-10 h-10 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center justify-center text-slate-500 hover:text-[var(--accent-vibrant)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                className="w-10 h-10 rounded-full bg-bg-card shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-border-color flex items-center justify-center text-[#4B5563] hover:text-[var(--accent-vibrant)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300"
                 title="Support"
               >
                 <div className="font-bold text-lg">?</div>
@@ -146,7 +148,7 @@ export default function TopNavbar({
               {!isAuthenticated ? (
                 <button 
                   onClick={signInWithGoogle}
-                  className="px-4 h-9 rounded-full bg-slate-900 dark:bg-white shadow-sm border border-slate-800 dark:border-slate-200 flex items-center justify-center gap-2 text-white dark:text-slate-900 transition-all duration-300"
+                  className="px-4 h-9 rounded-full bg-slate-900 dark:bg-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-slate-800 dark:border-slate-200 flex items-center justify-center gap-2 text-white dark:text-slate-900 transition-all duration-300"
                   title="Sign In with Google"
                 >
                   <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-4 h-4" />
@@ -156,13 +158,13 @@ export default function TopNavbar({
                 <div ref={profileRef} className="relative">
                   <button 
                     onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                    className="h-10 pl-1.5 pr-2 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center gap-2 text-[14px] font-semibold text-slate-700 dark:text-slate-200 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                    className="h-10 pl-1.5 pr-2 rounded-full bg-bg-card shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-border-color flex items-center gap-2 text-[14px] font-semibold text-slate-700 dark:text-slate-200 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300"
                   >
                     {user?.photoURL ? (
-                       <img src={user.photoURL} alt="User" className="w-7 h-7 rounded-full object-cover shadow-sm border border-slate-200 dark:border-slate-600" />
+                       <img src={user.photoURL} alt="User" className="w-7 h-7 rounded-full object-cover shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-slate-200 dark:border-slate-600" />
                     ) : (
-                       <div className="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center border border-slate-200 dark:border-slate-600">
-                         <User className="w-4 h-4 text-slate-500" />
+                       <div className="w-7 h-7 rounded-full bg-slate-100 dark:bg-[#6B46C1] flex items-center justify-center border border-slate-200 dark:border-slate-600">
+                         <User className="w-4 h-4 text-[#4B5563]" />
                        </div>
                     )}
                     <span className="truncate max-w-[100px]">{user?.displayName?.split(' ')[0] || 'Account'}</span>
@@ -172,22 +174,22 @@ export default function TopNavbar({
                   </button>
 
                   {isProfileMenuOpen && (
-                    <div className="absolute right-0 top-[140%] w-56 bg-bg-card border border-border-color rounded-xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 z-50">
+                    <div className="absolute right-0 top-[140%] w-56 bg-bg-card border border-border-color rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] overflow-hidden animate-in fade-in slide-in-from-top-2 z-50">
                       <div className="px-4 py-3 border-b border-border-color bg-bg-primary/50">
                         <p className="text-sm font-bold text-text-primary truncate">{user?.displayName || 'User'}</p>
                         <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
                       </div>
                       <div className="p-2 space-y-1">
-                        <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                        <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[12px] text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#6B46C1] transition-colors">
                           <User className="w-4 h-4" /> My Profile
                         </button>
-                        <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                        <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[12px] text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#6B46C1] transition-colors">
                           <Settings className="w-4 h-4" /> Account Settings
                         </button>
-                        <div className="h-px bg-slate-200 dark:bg-slate-800 my-1" />
+                        <div className="h-px bg-slate-200 dark:bg-[#6B46C1] my-1" />
                         <button 
                           onClick={handleSignOut}
-                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-[12px] text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                         >
                           <LogOut className="w-4 h-4" /> Sign Out
                         </button>
@@ -200,7 +202,7 @@ export default function TopNavbar({
             
             <button 
               onClick={() => onNavigate?.('house' as ModuleId)}
-              className="px-6 py-2.5 rounded-full text-[14px] font-bold text-white bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 transition-all duration-300 whitespace-nowrap shadow-[0_4px_14px_rgba(99,102,241,0.3)] hover:shadow-[0_6px_20px_rgba(34,211,238,0.4)] hover:-translate-y-0.5"
+              className="px-6 py-2.5 rounded-full text-[14px] font-bold text-white bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 transition-all duration-300 whitespace-nowrap shadow-[0_4px_14px_rgba(99,102,241,0.3)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_6px_20px_rgba(34,211,238,0.4)] hover:-translate-y-0.5"
             >
               Start Estimating
             </button>
@@ -232,7 +234,7 @@ export default function TopNavbar({
                 <div className="w-6 h-6 flex items-center justify-center text-orange-500">
                   <Logo className="w-full h-full" />
                 </div>
-                <span className="font-heading font-black text-xl tracking-tighter text-[#111111] dark:text-white">
+                <span className="font-heading font-black text-[18px] tracking-tighter text-[#111111] dark:text-white">
                   Civil Estimation Pro
                 </span>
               </div>
@@ -270,16 +272,16 @@ export default function TopNavbar({
                 
                 <div className="flex flex-col gap-3">
                    <label className="text-[14px] font-bold text-[#111111] dark:text-white">Unit System</label>
-                   <div className="flex bg-[#111111]/5 dark:bg-white/5 rounded-lg p-1 border border-[#111111]/10 dark:border-white/10">
+                   <div className="flex bg-[#111111]/5 dark:bg-white/5 rounded-[12px] p-1 border border-[#111111]/10 dark:border-white/10">
                      <button
                        onClick={() => updateSettings({ measurement: 'FPS' })}
-                       className={`flex-1 py-2 text-sm font-bold rounded-md transition-colors ${settings.measurement === 'FPS' ? 'bg-white dark:bg-[#222] text-[#111111] dark:text-white shadow-sm border border-[#111111]/10 dark:border-white/10' : 'text-[#111111]/60 dark:text-white/60 hover:text-[#111111] dark:hover:text-white'}`}
+                       className={`flex-1 py-2 text-sm font-bold rounded-[12px] transition-colors ${settings.measurement === 'FPS' ? 'bg-white dark:bg-[#222] text-[#111111] dark:text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-[#111111]/10 dark:border-white/10' : 'text-[#111111]/60 dark:text-white/60 hover:text-[#111111] dark:hover:text-white'}`}
                      >
                        Imperial (ft)
                      </button>
                      <button
                        onClick={() => updateSettings({ measurement: 'SI' })}
-                       className={`flex-1 py-2 text-sm font-bold rounded-md transition-colors ${settings.measurement === 'SI' ? 'bg-white dark:bg-[#222] text-[#111111] dark:text-white shadow-sm border border-[#111111]/10 dark:border-white/10' : 'text-[#111111]/60 dark:text-white/60 hover:text-[#111111] dark:hover:text-white'}`}
+                       className={`flex-1 py-2 text-sm font-bold rounded-[12px] transition-colors ${settings.measurement === 'SI' ? 'bg-white dark:bg-[#222] text-[#111111] dark:text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-[#111111]/10 dark:border-white/10' : 'text-[#111111]/60 dark:text-white/60 hover:text-[#111111] dark:hover:text-white'}`}
                      >
                        Metric (m)
                      </button>
@@ -291,13 +293,14 @@ export default function TopNavbar({
                    <select
                      value={settings.currency}
                      onChange={(e) => updateSettings({ currency: e.target.value as Currency })}
-                     className="w-full bg-[#111111]/5 dark:bg-white/5 border border-[#111111]/10 dark:border-white/10 rounded-lg py-2.5 px-3 text-sm font-bold text-[#111111] dark:text-white shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                     className="w-full bg-[#111111]/5 dark:bg-white/5 border border-[#111111]/10 dark:border-white/10 rounded-[12px] py-2.5 px-3 text-sm font-bold text-[#111111] dark:text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1] outline-none"
                    >
                      <option value="USD">USD ($) - US Dollar</option>
                      <option value="PKR">PKR (Rs) - Pakistani Rupee</option>
                      <option value="INR">INR (₹) - Indian Rupee</option>
                      <option value="AED">AED - UAE Dirham</option>
                      <option value="SAR">SAR - Saudi Riyal</option>
+                     <option value="BDT">BDT (৳) - Bangladeshi Taka</option>
                      <option value="GBP">GBP (£) - British Pound</option>
                    </select>
                 </div>
@@ -324,13 +327,13 @@ export default function TopNavbar({
                   <div className="flex gap-2">
                     <button
                       onClick={() => { setIsMobileMenuOpen(false); onOpenProfile?.(); }}
-                      className="flex-1 py-2.5 rounded-xl text-[14px] font-bold text-[#111111] dark:text-white bg-white dark:bg-[#222] border border-[#111111]/10 dark:border-white/10 shadow-sm transition-colors"
+                      className="flex-1 py-2.5 rounded-[12px] text-[14px] font-bold text-[#111111] dark:text-white bg-white dark:bg-[#222] border border-[#111111]/10 dark:border-white/10 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-colors"
                     >
                       Account
                     </button>
                     <button
                       onClick={handleSignOut}
-                      className="flex-1 py-2.5 rounded-xl text-[14px] font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 shadow-sm transition-colors"
+                      className="flex-1 py-2.5 rounded-[12px] text-[14px] font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-colors"
                     >
                       Sign Out
                     </button>
@@ -339,7 +342,7 @@ export default function TopNavbar({
               ) : (
                 <button
                   onClick={() => { setIsMobileMenuOpen(false); signInWithGoogle(); }}
-                  className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl text-[15px] font-bold text-[#111111] dark:text-white bg-white dark:bg-[#222] border border-[#111111]/10 dark:border-white/10 shadow-sm transition-colors"
+                  className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-[12px] text-[15px] font-bold text-[#111111] dark:text-white bg-white dark:bg-[#222] border border-[#111111]/10 dark:border-white/10 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-colors"
                 >
                   <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5 bg-white rounded-full p-0.5" />
                   Sign In with Google

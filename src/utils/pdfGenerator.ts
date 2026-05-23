@@ -316,7 +316,7 @@ export const generateProfessionalPDF = async ({
       doc.addPage();
       currentY = 20;
     }
-    const totalText = `Rs ${Math.round(grandTotal).toLocaleString()}`;
+    const totalText = `Rs ${Math.round(grandTotal).toLocaleString('en-US')}`;
     const chartBase64 = await createDonutChartBase64(chartData, totalText);
     
     if (chartBase64) {
@@ -370,7 +370,7 @@ export const generateProfessionalPDF = async ({
   // 6. Grand Total Row
   autoTable(doc, {
     startY: finalY,
-    body: [["Grand Total Estimated", `Rs ${grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`]],
+    body: [["Grand Total Estimated", `Rs ${grandTotal.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`]],
     theme: "grid",
     styles: { font: "helvetica", fontSize: 13, cellPadding: 8 },
     columnStyles: {

@@ -155,10 +155,10 @@ export default function MixDesignCalculator() {
 
   return (
     <div className="w-full max-w-6xl mx-auto space-y-6 animate-in fade-in duration-500">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
         <div>
-          <h2 className="text-3xl font-black text-slate-800 dark:text-white tracking-tight flex items-center gap-3">
-            <div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-2xl">
+          <h2 className="text-[28px] font-black text-slate-800 dark:text-white tracking-tight flex items-center gap-3">
+            <div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-[12px]">
               <Droplet className="w-8 h-8" />
             </div>
             Concrete Mix Design (IS 10262)
@@ -169,7 +169,7 @@ export default function MixDesignCalculator() {
         </div>
         <button
           onClick={() => window.print()}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2"
+          className="bg-[#6B46C1] hover:bg-[#6B46C1] text-white px-5 py-2.5 rounded-[12px] font-bold transition flex items-center gap-2"
         >
           <FileOutput className="w-5 h-5" /> Generate Report
         </button>
@@ -178,7 +178,7 @@ export default function MixDesignCalculator() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Config Panel */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm p-6 overflow-hidden relative">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] p-6 overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-50 dark:bg-indigo-500/5 rounded-full blur-[40px] pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
 
             <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-5 flex items-center gap-2">
@@ -196,7 +196,7 @@ export default function MixDesignCalculator() {
                     type="number"
                     value={fck}
                     onChange={(e) => setFck(Number(e.target.value) || 20)}
-                    className="flex-1 px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="flex-1 px-4 py-2.5 bg-slate-50 dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] outline-none focus:ring-2 focus:ring-[#6B46C1]"
                     min={15}
                     max={80}
                   />
@@ -214,7 +214,7 @@ export default function MixDesignCalculator() {
                 <select
                   value={exposure}
                   onChange={(e) => setExposure(e.target.value as Exposure)}
-                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] outline-none focus:ring-2 focus:ring-[#6B46C1]"
                 >
                   {Object.keys(EXPOSURE_LIMITS).map((exp) => (
                     <option key={exp} value={exp}>
@@ -232,7 +232,7 @@ export default function MixDesignCalculator() {
                   <select
                     value={aggSize}
                     onChange={(e) => setAggSize(Number(e.target.value))}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-3 py-2 bg-slate-50 dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] outline-none focus:ring-2 focus:ring-[#6B46C1]"
                   >
                     <option value={10}>10 mm</option>
                     <option value={20}>20 mm</option>
@@ -246,7 +246,7 @@ export default function MixDesignCalculator() {
                   <select
                     value={slump}
                     onChange={(e) => setSlump(Number(e.target.value))}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-3 py-2 bg-slate-50 dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] outline-none focus:ring-2 focus:ring-[#6B46C1]"
                   >
                     <option value={50}>50 mm</option>
                     <option value={75}>75 mm</option>
@@ -266,12 +266,12 @@ export default function MixDesignCalculator() {
                   step="0.01"
                   value={targetWc}
                   onChange={(e) => setTargetWc(Number(e.target.value))}
-                  className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-4 py-2 bg-slate-50 dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] outline-none focus:ring-2 focus:ring-[#6B46C1]"
                 />
               </div>
 
               <div className="pt-4 mt-2 border-t border-slate-100 dark:border-slate-800">
-                <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">
+                <h4 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-widest mb-3">
                   Specific Gravities
                 </h4>
                 <div className="grid grid-cols-3 gap-2">
@@ -284,7 +284,7 @@ export default function MixDesignCalculator() {
                       step="0.01"
                       value={sgCementInput}
                       onChange={(e) => setSgCementInput(Number(e.target.value))}
-                      className="w-full px-2 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs outline-none"
+                      className="w-full px-2 py-1.5 bg-slate-50 dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] text-xs outline-none"
                     />
                   </div>
                   <div>
@@ -296,7 +296,7 @@ export default function MixDesignCalculator() {
                       step="0.01"
                       value={sgFaInput}
                       onChange={(e) => setSgFaInput(Number(e.target.value))}
-                      className="w-full px-2 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs outline-none"
+                      className="w-full px-2 py-1.5 bg-slate-50 dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] text-xs outline-none"
                     />
                   </div>
                   <div>
@@ -308,7 +308,7 @@ export default function MixDesignCalculator() {
                       step="0.01"
                       value={sgCaInput}
                       onChange={(e) => setSgCaInput(Number(e.target.value))}
-                      className="w-full px-2 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs outline-none"
+                      className="w-full px-2 py-1.5 bg-slate-50 dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] text-xs outline-none"
                     />
                   </div>
                 </div>
@@ -317,7 +317,7 @@ export default function MixDesignCalculator() {
           </div>
 
           {warnings.length > 0 && (
-            <div className="bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 p-4 rounded-2xl">
+            <div className="bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 p-4 rounded-[12px]">
               <h4 className="text-amber-800 dark:text-amber-400 font-bold text-sm flex items-center gap-2 mb-2">
                 <AlertTriangle className="w-4 h-4" /> Design Warnings
               </h4>
@@ -334,7 +334,7 @@ export default function MixDesignCalculator() {
             </div>
           )}
 
-          <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl">
+          <div className="bg-slate-50 dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 p-4 rounded-[12px]">
             <h4 className="font-bold text-slate-700 dark:text-slate-300 text-sm mb-3">
               Code Provisions Met
             </h4>
@@ -354,47 +354,47 @@ export default function MixDesignCalculator() {
         {/* Results Panel */}
         <div className="lg:col-span-8 flex flex-col gap-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
-              <p className="text-slate-500 font-bold text-xs uppercase tracking-wider mb-1">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+              <p className="text-[#4B5563] font-bold text-xs uppercase tracking-wider mb-1">
                 Cement
               </p>
-              <p className="text-3xl font-black text-indigo-600 dark:text-indigo-400 tabular-nums">
+              <p className="text-[28px] font-black text-indigo-600 dark:text-indigo-400 tabular-nums">
                 {cementContent}{" "}
                 <span className="text-sm font-bold text-slate-400">kg/m³</span>
               </p>
             </div>
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
-              <p className="text-slate-500 font-bold text-xs uppercase tracking-wider mb-1">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+              <p className="text-[#4B5563] font-bold text-xs uppercase tracking-wider mb-1">
                 Water
               </p>
-              <p className="text-3xl font-black text-sky-500 dark:text-sky-400 tabular-nums">
+              <p className="text-[28px] font-black text-sky-500 dark:text-sky-400 tabular-nums">
                 {Math.round(waterContent)}{" "}
                 <span className="text-sm font-bold text-slate-400">L/m³</span>
               </p>
             </div>
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
-              <p className="text-slate-500 font-bold text-xs uppercase tracking-wider mb-1">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+              <p className="text-[#4B5563] font-bold text-xs uppercase tracking-wider mb-1">
                 Fine Aggregation
               </p>
-              <p className="text-3xl font-black text-amber-500 dark:text-amber-400 tabular-nums">
+              <p className="text-[28px] font-black text-amber-500 dark:text-amber-400 tabular-nums">
                 {weightFA}{" "}
                 <span className="text-sm font-bold text-slate-400">kg/m³</span>
               </p>
             </div>
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
-              <p className="text-slate-500 font-bold text-xs uppercase tracking-wider mb-1">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+              <p className="text-[#4B5563] font-bold text-xs uppercase tracking-wider mb-1">
                 Coarse Agg
               </p>
-              <p className="text-3xl font-black text-teal-600 dark:text-teal-400 tabular-nums">
+              <p className="text-[28px] font-black text-teal-600 dark:text-teal-400 tabular-nums">
                 {weightCA}{" "}
                 <span className="text-sm font-bold text-slate-400">kg/m³</span>
               </p>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm overflow-hidden flex-1">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] overflow-hidden flex-1">
             <div className="p-6 border-b border-slate-100 dark:border-slate-800">
-              <h3 className="text-xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
+              <h3 className="text-[18px] font-bold text-slate-800 dark:text-white flex items-center gap-2">
                 <Calculator className="w-5 h-5 text-indigo-500" /> Mix
                 Proportions
               </h3>
@@ -402,37 +402,37 @@ export default function MixDesignCalculator() {
 
             <div className="p-6 flex flex-col md:flex-row gap-8 items-center border-b border-slate-100 dark:border-slate-800">
               <div className="w-full md:w-1/2 md:border-r border-slate-100 dark:border-slate-800 md:pr-8">
-                <h4 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 text-center">
+                <h4 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-widest mb-4 text-center">
                   Batch Weight Ratio
                 </h4>
                 <div className="flex justify-center items-end gap-2 sm:gap-4 mb-2">
                   <div className="flex flex-col items-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-black text-2xl text-slate-800 dark:text-white border-4 border-indigo-500">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-slate-100 dark:bg-[#6B46C1] flex items-center justify-center font-black text-[18px] text-slate-800 dark:text-white border-4 border-indigo-500">
                       1
                     </div>
-                    <span className="text-xs font-bold text-slate-500 mt-2">
+                    <span className="text-xs font-bold text-[#4B5563] mt-2">
                       Cement
                     </span>
                   </div>
-                  <span className="text-2xl font-bold text-slate-300 pb-6">
+                  <span className="text-[18px] font-bold text-slate-300 pb-6">
                     :
                   </span>
                   <div className="flex flex-col items-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-black text-2xl text-slate-800 dark:text-white border-4 border-amber-500">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-slate-100 dark:bg-[#6B46C1] flex items-center justify-center font-black text-[18px] text-slate-800 dark:text-white border-4 border-amber-500">
                       {(weightFA / cementContent).toFixed(2)}
                     </div>
-                    <span className="text-xs font-bold text-slate-500 mt-2">
+                    <span className="text-xs font-bold text-[#4B5563] mt-2">
                       F.A.
                     </span>
                   </div>
-                  <span className="text-2xl font-bold text-slate-300 pb-6">
+                  <span className="text-[18px] font-bold text-slate-300 pb-6">
                     :
                   </span>
                   <div className="flex flex-col items-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-black text-2xl text-slate-800 dark:text-white border-4 border-teal-500">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-slate-100 dark:bg-[#6B46C1] flex items-center justify-center font-black text-[18px] text-slate-800 dark:text-white border-4 border-teal-500">
                       {(weightCA / cementContent).toFixed(2)}
                     </div>
-                    <span className="text-xs font-bold text-slate-500 mt-2">
+                    <span className="text-xs font-bold text-[#4B5563] mt-2">
                       C.A.
                     </span>
                   </div>
@@ -440,12 +440,12 @@ export default function MixDesignCalculator() {
               </div>
 
               <div className="w-full md:w-1/2">
-                <h4 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">
+                <h4 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-widest mb-4">
                   Field Batch (per 50kg bag)
                 </h4>
                 <table className="w-full text-sm">
                   <tbody>
-                    <tr className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                    <tr className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-[#6B46C1]/50">
                       <td className="py-2.5 font-semibold text-slate-600 dark:text-slate-300">
                         Cement
                       </td>
@@ -453,7 +453,7 @@ export default function MixDesignCalculator() {
                         {batchCement} kg
                       </td>
                     </tr>
-                    <tr className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                    <tr className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-[#6B46C1]/50">
                       <td className="py-2.5 font-semibold text-slate-600 dark:text-slate-300">
                         Fine Aggregate (Sand)
                       </td>
@@ -461,7 +461,7 @@ export default function MixDesignCalculator() {
                         {batchFA} kg
                       </td>
                     </tr>
-                    <tr className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                    <tr className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-[#6B46C1]/50">
                       <td className="py-2.5 font-semibold text-slate-600 dark:text-slate-300">
                         Coarse Aggregate
                       </td>
@@ -469,7 +469,7 @@ export default function MixDesignCalculator() {
                         {batchCA} kg
                       </td>
                     </tr>
-                    <tr className="bg-slate-50 dark:bg-slate-800/50">
+                    <tr className="bg-slate-50 dark:bg-[#6B46C1]/50">
                       <td className="py-2.5 font-semibold text-sky-600 dark:text-sky-400 px-2 rounded-l-lg">
                         Water Required
                       </td>
@@ -484,7 +484,7 @@ export default function MixDesignCalculator() {
 
             <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-slate-50/50 dark:bg-slate-900/50">
               <div className="h-64 relative">
-                <h4 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-2 text-center absolute w-full top-0">
+                <h4 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-widest mb-2 text-center absolute w-full top-0">
                   By Weight Composition
                 </h4>
                 <ResponsiveContainer
@@ -516,13 +516,13 @@ export default function MixDesignCalculator() {
                       ))}
                     </Pie>
                     <RechartsTooltip
-                      formatter={(val: number) => `${val.toLocaleString()} kg`}
+                      formatter={(val: number) => `${val.toLocaleString('en-US')} kg`}
                     />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
               <div className="h-64">
-                <h4 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">
+                <h4 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-widest mb-4">
                   Comparison with Standard Mixes
                 </h4>
                 <ResponsiveContainer width="100%" height="100%">

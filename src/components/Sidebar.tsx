@@ -6,7 +6,8 @@ import {
   Home, Layers, Calculator, Building2, Zap, Route, 
   FlaskConical, MapPin, Ruler, Boxes, Sun, Truck, Mountain,
   Sparkles,
-  LayoutDashboard
+  LayoutDashboard,
+  Users
 } from "lucide-react";
 
 export type ModuleId =
@@ -20,6 +21,8 @@ export type ModuleId =
   | "house"
   | "rates"
   | "formwork"
+  | "retaining-wall"
+  | "isolated-footing"
   | "area-calculator"
   | "volume-estimator"
   | "unit-converter"
@@ -29,12 +32,14 @@ export type ModuleId =
   | "eight-bar-column"
   | "ten-bar-column"
   | "beam-calculator"
+  | "labour-calculator"
   | "staircase-calculator"
   | "column-estimator"
   | "master-rcc"
   | "master-quantity"
   | "gradient-calculator"
   | "mep-calculator"
+  | "rainwater-harvesting"
   | "interiors-finishes"
   | "geotechnical"
   | "bbs-generator"
@@ -100,6 +105,18 @@ const SIDEBAR_DATA: MainCategory[] = [
         ]
       },
       {
+        id: "retaining-wall",
+        label: "Retaining Wall",
+        icon: Boxes,
+        subTools: []
+      },
+      {
+        id: "isolated-footing",
+        label: "Isolated Footing",
+        icon: Boxes,
+        subTools: []
+      },
+      {
         id: "master-rcc",
         label: "Master RCC Estimator",
         icon: Layers,
@@ -130,6 +147,19 @@ const SIDEBAR_DATA: MainCategory[] = [
           { id: "at-abrasion", label: "Abrasion Value" },
           { id: "at-water", label: "Water Absorption" },
         ]
+      }
+    ]
+  },
+  {
+    id: "project-costing",
+    label: "Project Costing",
+    icon: Users,
+    tools: [
+      {
+        id: "labour-calculator",
+        label: "Labour & Workforce",
+        icon: Users,
+        subTools: []
       }
     ]
   },
@@ -182,6 +212,12 @@ const SIDEBAR_DATA: MainCategory[] = [
           { id: "mep-water", label: "Water Heating" },
           { id: "mep-ac", label: "AC Sizing" },
         ]
+      },
+      {
+        id: "rainwater-harvesting",
+        label: "Rainwater Harvesting",
+        icon: Droplet,
+        subTools: []
       },
       {
         id: "solar-roof",
@@ -329,7 +365,7 @@ export default function Sidebar({
             Esti<span className="text-indigo-600 dark:text-indigo-400">Pro</span>
           </div>
           <div className="flex items-center space-x-2 text-slate-900 dark:text-slate-100 lg:hidden">
-            <button onClick={onClose} aria-label="Close menu" className="hover:text-slate-500 transition-colors bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm p-2 rounded-full shadow-sm">
+            <button onClick={onClose} aria-label="Close menu" className="hover:text-[#4B5563] transition-colors bg-white/50 dark:bg-[#6B46C1]/50 backdrop-blur-sm p-2 rounded-full shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
               <X className="w-5 h-5 stroke-[2]" />
             </button>
           </div>
@@ -340,7 +376,7 @@ export default function Sidebar({
           
           {/* Top Search bar as in 2nd image */}
           <div className="flex items-center gap-3 w-full mb-8 mt-2 px-2">
-            <button className="flex-1 flex items-center justify-between h-[46px] px-5 rounded-[24px] border border-[#ff9f43] dark:border-[#ff7f50] text-[#ff9f43] dark:text-[#ff7f50] bg-transparent hover:bg-[#ff9f43]/5 dark:hover:bg-[#ff7f50]/10 transition-colors">
+            <button className="flex-1 flex items-center justify-between h-[46px] px-5 rounded-[12px] border border-[#ff9f43] dark:border-[#ff7f50] text-[#ff9f43] dark:text-[#ff7f50] bg-transparent hover:bg-[#ff9f43]/5 dark:hover:bg-[#ff7f50]/10 transition-colors">
               <span className="text-[14px] font-medium opacity-80">Search tools.</span>
             </button>
             <button className="w-[46px] h-[46px] shrink-0 rounded-full border border-[#ff9f43] dark:border-[#ff7f50] text-[#ff9f43] dark:text-[#ff7f50] flex items-center justify-center hover:bg-[#ff9f43]/5 dark:hover:bg-[#ff7f50]/10 transition-colors">
@@ -353,13 +389,13 @@ export default function Sidebar({
             <button
               onClick={() => handleSelectStandalone("home")}
               className={cn(
-                "flex items-center gap-4 px-3 py-3 w-full rounded-[20px] transition-all duration-300",
+                "flex items-center gap-4 px-3 py-3 w-full rounded-[12px] transition-all duration-300",
                 activeModule === "home"
                   ? "bg-bg-primary/60"
-                  : "hover:bg-slate-50/50 dark:hover:bg-slate-800/40"
+                  : "hover:bg-slate-50/50 dark:hover:bg-[#6B46C1]/40"
               )}
             >
-              <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-sm bg-[#54a0ff]")}>
+              <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] bg-[#54a0ff]")}>
                 <LayoutDashboard className="w-5 h-5" strokeWidth={2} />
               </div>
               <span className={cn(
@@ -370,13 +406,13 @@ export default function Sidebar({
             <button
               onClick={() => handleSelectStandalone("takeoff")}
               className={cn(
-                "flex items-center gap-4 px-3 py-3 w-full rounded-[20px] transition-all duration-300",
+                "flex items-center gap-4 px-3 py-3 w-full rounded-[12px] transition-all duration-300",
                 activeModule === "takeoff"
                   ? "bg-bg-primary/60"
-                  : "hover:bg-slate-50/50 dark:hover:bg-slate-800/40"
+                  : "hover:bg-slate-50/50 dark:hover:bg-[#6B46C1]/40"
               )}
             >
-              <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-sm bg-[#1dd1a1]")}>
+              <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] bg-[#1dd1a1]")}>
                 <Layers className="w-5 h-5" strokeWidth={2} />
               </div>
               <span className={cn(
@@ -387,13 +423,13 @@ export default function Sidebar({
             <button
               onClick={() => handleSelectStandalone("ai")}
               className={cn(
-                "flex items-center gap-4 px-3 py-3 w-full rounded-[20px] transition-all duration-300",
+                "flex items-center gap-4 px-3 py-3 w-full rounded-[12px] transition-all duration-300",
                 activeModule === "ai"
                   ? "bg-bg-primary/60"
-                  : "hover:bg-slate-50/50 dark:hover:bg-slate-800/40"
+                  : "hover:bg-slate-50/50 dark:hover:bg-[#6B46C1]/40"
               )}
             >
-              <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-sm bg-[#8b6cff]")}>
+              <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] bg-[#8b6cff]")}>
                  <Sparkles className="w-5 h-5" strokeWidth={2} />
               </div>
               <span className={cn(
@@ -403,7 +439,7 @@ export default function Sidebar({
             </button>
           </div>
 
-          <div className="w-full h-px bg-slate-200/50 dark:bg-slate-700/50 mb-6" />
+          <div className="w-full h-px bg-slate-200/50 dark:bg-[#6B46C1]/50 mb-6" />
 
           <div className="flex flex-col gap-2 pb-6">
             <h3 className="px-4 text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3">Core Estimators</h3>
@@ -429,8 +465,16 @@ export default function Sidebar({
                     <div className="flex flex-col gap-1 mt-1 mb-3 animate-in slide-in-from-top-2 fade-in duration-200 px-2">
                       {category.tools.map((tool, tIdx) => {
                         const isToolExpanded = expandedTool === tool.id;
-                        const colors = ['bg-[#8b6cff]', 'bg-[#ff6b6b]', 'bg-[#54a0ff]', 'bg-[#1dd1a1]', 'bg-[#ff9f43]', 'bg-[#c6e33e]'];
-                        const iconBg = colors[(idx + tIdx) % colors.length];
+                        
+                        let iconBg = 'bg-[#8b6cff]';
+                        switch (category.label) {
+                          case "Concrete Tech": iconBg = "bg-[#E55A2B]"; break;
+                          case "Quantity Estimator": iconBg = "bg-[#6B46C1]"; break;
+                          case "Road Construction": iconBg = "bg-[#0D9488]"; break;
+                          case "Soil Tests": iconBg = "bg-[#D97706]"; break;
+                          case "MEP": iconBg = "bg-[#2563EB]"; break;
+                          case "Analysis & Tools": iconBg = "bg-[#4338CA]"; break;
+                        }
 
                         return (
                           <div key={tool.id} className="flex flex-col">
@@ -439,13 +483,13 @@ export default function Sidebar({
                                 setExpandedTool(isToolExpanded ? null : tool.id);
                               }}
                               className={cn(
-                                "flex items-center gap-4 px-3 py-3 w-full rounded-[20px] transition-all",
+                                "flex items-center gap-4 px-3 py-3 w-full rounded-[12px] transition-all",
                                 isToolExpanded || activeModule === tool.id
                                   ? "bg-bg-primary/60"
-                                  : "hover:bg-slate-50/50 dark:hover:bg-slate-800/40"
+                                  : "hover:bg-slate-50/50 dark:hover:bg-[#6B46C1]/40"
                               )}
                             >
-                              <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-sm", iconBg)}>
+                              <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)]", iconBg)}>
                                 <tool.icon className="w-5 h-5" strokeWidth={2} />
                               </div>
                               <span className={cn(
@@ -481,7 +525,7 @@ export default function Sidebar({
                                       )}
                                     >
                                       {isSubActive && (
-                                        <span className="absolute left-[-26px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-slate-800 dark:bg-slate-200" />
+                                        <span className="absolute left-[-26px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#6B46C1] dark:bg-slate-200" />
                                       )}
                                       <span className="relative z-10 transition-transform duration-200 block group-hover:translate-x-1">
                                         {subTool.label}
@@ -507,7 +551,7 @@ export default function Sidebar({
           {isAuthenticated ? (
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-3 mb-1 px-2">
-                <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold overflow-hidden border border-indigo-200 shadow-sm">
+                <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold overflow-hidden border border-indigo-200 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
                   {user?.photoURL ? (
                     <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
@@ -516,19 +560,19 @@ export default function Sidebar({
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-[14px] font-bold text-slate-800 dark:text-slate-200 truncate">{user?.displayName || "User"}</p>
-                  <p className="text-[12px] text-slate-500 truncate">{user?.email}</p>
+                  <p className="text-[12px] text-[#4B5563] truncate">{user?.email}</p>
                 </div>
               </div>
               <div className="flex gap-2">
                 <button
                   onClick={() => { onClose?.(); onOpenProfile?.(); }}
-                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-[13px] font-bold text-slate-700 dark:text-slate-300 bg-bg-card border border-border-color shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-[12px] text-[13px] font-bold text-slate-700 dark:text-slate-300 bg-bg-card border border-border-color shadow-[0_2px_12px_rgba(0,0,0,0.08)] hover:bg-slate-50 dark:hover:bg-[#6B46C1]/50 transition-colors"
                 >
                   <Settings className="w-4 h-4" /> Account
                 </button>
                 <button
                   onClick={async () => { await logOut(); onClose?.(); }}
-                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-[13px] font-bold text-red-600 dark:text-red-400 bg-bg-card border border-border-color shadow-sm hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-100 dark:hover:border-red-800 transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-[12px] text-[13px] font-bold text-red-600 dark:text-red-400 bg-bg-card border border-border-color shadow-[0_2px_12px_rgba(0,0,0,0.08)] hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-100 dark:hover:border-red-800 transition-colors"
                 >
                   <LogOut className="w-4 h-4" /> Sign Out
                 </button>
@@ -538,7 +582,7 @@ export default function Sidebar({
             <div className="flex flex-col gap-2">
               <button
                 onClick={() => { onClose?.(); signInWithGoogle?.(); }}
-                className="w-full flex items-center justify-center gap-3 py-3 rounded-xl text-[14px] font-bold text-slate-700 dark:text-slate-200 bg-bg-card border border-border-color shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
+                className="w-full flex items-center justify-center gap-3 py-3 rounded-[12px] text-[14px] font-bold text-slate-700 dark:text-slate-200 bg-bg-card border border-border-color shadow-[0_2px_12px_rgba(0,0,0,0.08)] hover:bg-slate-50 dark:hover:bg-[#6B46C1]/50 transition-colors"
               >
                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5 bg-white rounded-full p-0.5" />
                 Sign In with Google

@@ -29,10 +29,10 @@ export function WelcomeModal() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-md p-4 animate-in fade-in duration-300 font-sans">
-      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[12px] w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         
         <div className="p-8 pb-6 border-b border-slate-100 dark:border-slate-800 text-center">
-          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-2">
+          <h1 className="text-[28px] font-extrabold text-slate-900 dark:text-white tracking-tight mb-2">
             Welcome to Civil AI
           </h1>
           <p className="text-slate-500 dark:text-slate-400">
@@ -43,21 +43,21 @@ export function WelcomeModal() {
         <div className="overflow-y-auto p-8 bg-slate-50 dark:bg-slate-900/50 flex-1 space-y-8">
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 shadow-sm">
+            <div className="bg-white dark:bg-[#6B46C1] p-4 rounded-[12px] border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
               <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
                 <Layers className="w-5 h-5" />
               </div>
               <h3 className="font-semibold text-slate-900 dark:text-white text-sm">30+ Pro Tools</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">Estimators, calculators, and rate analysis tools.</p>
             </div>
-            <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 shadow-sm">
+            <div className="bg-white dark:bg-[#6B46C1] p-4 rounded-[12px] border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
               <div className="w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
                 <Bot className="w-5 h-5" />
               </div>
               <h3 className="font-semibold text-slate-900 dark:text-white text-sm">AI Assistant</h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">Smart takeoff, chat analysis, and data validation.</p>
             </div>
-            <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 shadow-sm">
+            <div className="bg-white dark:bg-[#6B46C1] p-4 rounded-[12px] border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
               <div className="w-10 h-10 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
                 <FileText className="w-5 h-5" />
               </div>
@@ -67,7 +67,7 @@ export function WelcomeModal() {
           </div>
 
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+            <h3 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
               1. Choose Your Role
             </h3>
             <div className="grid grid-cols-2 gap-3">
@@ -75,10 +75,10 @@ export function WelcomeModal() {
                 <button
                   key={r.id}
                   onClick={() => setRole(r.id as UserRole)}
-                  className={`flex items-center gap-3 p-3 rounded-lg border text-left transition-all ${
+                  className={`flex items-center gap-3 p-3 rounded-[12px] border text-left transition-all ${
                     role === r.id 
                       ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300' 
-                      : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-blue-300'
+                      : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-[#6B46C1] text-slate-600 dark:text-slate-300 hover:border-blue-300'
                   }`}
                 >
                   <div className={role === r.id ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400'}>{r.icon}</div>
@@ -90,23 +90,23 @@ export function WelcomeModal() {
           </div>
 
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+            <h3 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
               2. System Preferences
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
               <div>
                 <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 block mb-2">Unit System</label>
-                <div className="flex bg-white dark:bg-slate-800 rounded-lg p-1 border border-slate-200 dark:border-slate-700">
+                <div className="flex bg-white dark:bg-[#6B46C1] rounded-[12px] p-1 border border-slate-200 dark:border-slate-700">
                   <button
                     onClick={() => setUnit('FPS')}
-                    className={`flex-1 py-1.5 text-sm font-medium rounded-md transition-colors ${unit === 'FPS' ? 'bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+                    className={`flex-1 py-1.5 text-sm font-medium rounded-[12px] transition-colors ${unit === 'FPS' ? 'bg-slate-100 dark:bg-[#6B46C1] text-slate-900 dark:text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)]' : 'text-[#4B5563] hover:text-slate-700 dark:hover:text-slate-300'}`}
                   >
                     Imperial (ft, sqft)
                   </button>
                   <button
                     onClick={() => setUnit('SI')}
-                    className={`flex-1 py-1.5 text-sm font-medium rounded-md transition-colors ${unit === 'SI' ? 'bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
+                    className={`flex-1 py-1.5 text-sm font-medium rounded-[12px] transition-colors ${unit === 'SI' ? 'bg-slate-100 dark:bg-[#6B46C1] text-slate-900 dark:text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)]' : 'text-[#4B5563] hover:text-slate-700 dark:hover:text-slate-300'}`}
                   >
                     Metric (m, m²)
                   </button>
@@ -118,7 +118,7 @@ export function WelcomeModal() {
                 <select
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value as Currency)}
-                  className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 text-sm font-medium text-slate-900 dark:text-white shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full bg-white dark:bg-[#6B46C1] border-slate-200 dark:border-slate-700 rounded-[12px] py-2 px-3 text-sm font-medium text-slate-900 dark:text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1]"
                 >
                   <option value="USD">USD ($) - US Dollar</option>
                   <option value="PKR">PKR (Rs) - Pakistani Rupee</option>
@@ -137,7 +137,7 @@ export function WelcomeModal() {
           <button
             onClick={handleComplete}
             disabled={!role}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:hover:bg-blue-600 text-white px-6 py-2.5 rounded-lg font-semibold transition-colors"
+            className="flex items-center gap-2 bg-[#6B46C1] hover:bg-[#6B46C1] disabled:opacity-50 disabled:hover:bg-[#6B46C1] text-white px-6 py-2.5 rounded-[12px] font-semibold transition-colors"
           >
             Get Started
             <ChevronRight className="w-5 h-5" />
