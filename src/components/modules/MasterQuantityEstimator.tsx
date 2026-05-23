@@ -386,7 +386,7 @@ export default function MasterQuantityEstimator({
     /* A simplified generic layout for each calculator for the sake of completion. */ let content = null;
     return (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full items-start">
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl px-4 py-3 shadow-sm">
+        <div className="bg-bg-card border border-border-color rounded-3xl px-4 py-3 shadow-sm">
           <h3 className="font-bold mb-6 text-lg">
             Input Parameters
           </h3>
@@ -537,7 +537,7 @@ export default function MasterQuantityEstimator({
              </div>
              
              {Object.keys(results).length > 1 && (
-               <div className="mt-4 border-t border-slate-100 dark:border-slate-800 pt-6">
+               <div className="mt-4 border-t border-border-color pt-6">
                  <StyledChart
                    data={Object.entries(results).reduce((acc: any[], [key, val], index) => {
                      // Exclude totals from the breakdown visualization to avoid skewing the chart
@@ -574,7 +574,7 @@ export default function MasterQuantityEstimator({
       className={
         isEmbedded
           ? "w-full"
-          : "w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8"
+          : "w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8"
       }
     >
       {!isEmbedded && (
@@ -611,7 +611,7 @@ export default function MasterQuantityEstimator({
                 placeholder="Search tools..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 font-medium dark:text-white outline-none placeholder:text-slate-700 dark:text-slate-300"
+                className="w-full bg-bg-card border border-border-color px-4 py-3 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 font-medium dark:text-white outline-none placeholder:text-slate-700 dark:text-slate-300"
               />
               {searchTerm && (
                 <button
@@ -634,7 +634,7 @@ export default function MasterQuantityEstimator({
                 
                 const isExpanded = expandedGroup === group || searchTerm !== "";
                 return (
-                  <div key={group} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden shadow-sm">
+                  <div key={group} className="bg-bg-card border border-border-color rounded-xl overflow-hidden shadow-sm">
                     <button
                       onClick={() => setExpandedGroup(isExpanded && searchTerm === "" ? null : group)}
                       className="w-full flex items-center justify-between px-4 py-3 text-left font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
@@ -645,7 +645,7 @@ export default function MasterQuantityEstimator({
                       </svg>
                     </button>
                     {isExpanded && (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-1 p-2 border-t border-slate-100 dark:border-slate-700/50">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-1 p-2 border-t border-border-color/50">
                         {groupTools.map((calc) => {
                           const Icon = calc.icon;
                           const isActive = activeCalc === calc.id;

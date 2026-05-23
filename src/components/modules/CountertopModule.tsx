@@ -69,10 +69,10 @@ export default function CountertopModule() {
   const uA = isMetric ? "m²" : "sq.ft";
 
   return (
-    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
+    <div className="bg-bg-card border border-border-color rounded-3xl p-6 shadow-sm">
       <div className="flex items-center gap-3 mb-6">
         <Square className="w-6 h-6 text-indigo-600" />
-        <h2 className="text-xl font-bold tracking-tight text-gray-800 dark:text-white">Countertop (Platform) Estimator</h2>
+        <h2 className="text-xl font-bold tracking-tight text-text-primary">Countertop (Platform) Estimator</h2>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -84,7 +84,7 @@ export default function CountertopModule() {
                 <button
                   key={s}
                   onClick={() => setShape(s)}
-                  className={`px-4 py-2 rounded-xl text-sm font-bold transition-all border ${shape === s ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100'}`}
+                  className={`px-4 py-2 rounded-xl text-sm font-bold transition-all border ${shape === s ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-bg-primary border-border-color text-slate-600 dark:text-slate-300 hover:bg-slate-100'}`}
                 >
                   {s}
                 </button>
@@ -101,7 +101,7 @@ export default function CountertopModule() {
                 type="number"
                 value={lengthA}
                 onChange={(e) => setLengthA(e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full bg-bg-primary border border-border-color p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
               />
             </div>
             {(shape === "L-Shape" || shape === "U-Shape") && (
@@ -113,7 +113,7 @@ export default function CountertopModule() {
                   type="number"
                   value={lengthB}
                   onChange={(e) => setLengthB(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                  className="w-full bg-bg-primary border border-border-color p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
                 />
               </div>
             )}
@@ -126,7 +126,7 @@ export default function CountertopModule() {
                   type="number"
                   value={lengthC}
                   onChange={(e) => setLengthC(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                  className="w-full bg-bg-primary border border-border-color p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
                 />
               </div>
             )}
@@ -138,7 +138,7 @@ export default function CountertopModule() {
                 type="number"
                 value={depth}
                 onChange={(e) => setDepth(e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full bg-bg-primary border border-border-color p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
               />
             </div>
             <div>
@@ -149,13 +149,13 @@ export default function CountertopModule() {
                 type="number"
                 value={skirtingHeight}
                 onChange={(e) => setSkirtingHeight(e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full bg-bg-primary border border-border-color p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
               />
             </div>
           </div>
 
-          <div className="space-y-4 border-t border-slate-100 dark:border-slate-800 pt-4">
-            <h4 className="font-bold text-sm text-slate-800 dark:text-white">Cutout Deductions</h4>
+          <div className="space-y-4 border-t border-border-color pt-4">
+            <h4 className="font-bold text-sm text-text-primary">Cutout Deductions</h4>
             <div className="flex items-center justify-between gap-3 w-full relative z-10">
               <input type="checkbox" id="hasSink" checked={hasSink} onChange={e => setHasSink(e.target.checked)} className="rounded text-indigo-600 w-4 h-4" />
               <label htmlFor="hasSink" className="text-sm font-bold text-slate-700 dark:text-slate-300">Include Sink Cutout</label>
@@ -164,11 +164,11 @@ export default function CountertopModule() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-[10px] font-bold text-gray-500 uppercase block mb-1">Length ({uL})</label>
-                  <input type="number" value={sinkLength} onChange={e => setSinkLength(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 p-2 rounded-lg text-sm" />
+                  <input type="number" value={sinkLength} onChange={e => setSinkLength(e.target.value)} className="w-full bg-bg-primary border border-slate-200 p-2 rounded-lg text-sm" />
                 </div>
                 <div>
                   <label className="text-[10px] font-bold text-gray-500 uppercase block mb-1">Width ({uL})</label>
-                  <input type="number" value={sinkWidth} onChange={e => setSinkWidth(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 p-2 rounded-lg text-sm" />
+                  <input type="number" value={sinkWidth} onChange={e => setSinkWidth(e.target.value)} className="w-full bg-bg-primary border border-slate-200 p-2 rounded-lg text-sm" />
                 </div>
               </div>
             )}
@@ -181,11 +181,11 @@ export default function CountertopModule() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-[10px] font-bold text-gray-500 uppercase block mb-1">Length ({uL})</label>
-                  <input type="number" value={hobLength} onChange={e => setHobLength(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 p-2 rounded-lg text-sm" />
+                  <input type="number" value={hobLength} onChange={e => setHobLength(e.target.value)} className="w-full bg-bg-primary border border-slate-200 p-2 rounded-lg text-sm" />
                 </div>
                 <div>
                   <label className="text-[10px] font-bold text-gray-500 uppercase block mb-1">Width ({uL})</label>
-                  <input type="number" value={hobWidth} onChange={e => setHobWidth(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 p-2 rounded-lg text-sm" />
+                  <input type="number" value={hobWidth} onChange={e => setHobWidth(e.target.value)} className="w-full bg-bg-primary border border-slate-200 p-2 rounded-lg text-sm" />
                 </div>
               </div>
             )}

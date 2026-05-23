@@ -15,6 +15,7 @@ export interface CalcStep {
   result: string | number;
   resultUnit?: string;
   insight?: string;
+  resultColor?: "emerald" | "purple" | "blue" | "orange";
 }
 
 export interface DetailedCalculationDisplayProps {
@@ -28,7 +29,7 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
   const [showInsight, setShowInsight] = useState(false);
 
   return (
-    <div className="bg-white/80 dark:bg-slate-800/80 rounded-[20px] p-5 sm:p-6 shadow-sm border border-slate-100 dark:border-slate-700/50">
+    <div className="bg-white/80 dark:bg-slate-800/80 rounded-[20px] p-5 sm:p-6 shadow-sm border border-border-color/50">
       <h4 className="text-lg sm:text-xl font-bold text-slate-800 dark:text-slate-100 mb-5 flex items-center gap-3">
         <span className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-sm font-black">
           {idx + 1}
@@ -54,7 +55,7 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
               </button>
             )}
           </div>
-          <div className="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-4 border border-slate-100 dark:border-slate-800 overflow-x-auto text-sm sm:text-base font-mono font-semibold text-slate-700 dark:text-slate-300">
+          <div className="bg-bg-primary/50 rounded-xl p-4 border border-border-color overflow-x-auto text-sm sm:text-base font-mono font-semibold text-slate-700 dark:text-slate-300">
             {step.equation}
           </div>
         </div>
@@ -69,7 +70,7 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
               {step.variables.map((v, vIdx) => (
                 <div
                   key={vIdx}
-                  className="flex justify-between items-center px-4 py-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-100 dark:border-slate-800"
+                  className="flex justify-between items-center px-4 py-3 bg-bg-primary/50 rounded-xl border border-border-color"
                 >
                   <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
                     {v.name}
@@ -116,7 +117,12 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
           
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
              <span className="text-sm font-medium text-slate-400">Result Yields</span>
-             <div className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-5 py-2 rounded-full inline-flex items-baseline gap-1.5 w-fit">
+             <div className={`px-5 py-2 rounded-full inline-flex items-baseline gap-1.5 w-fit border ${
+               step.resultColor === "purple" ? "bg-purple-500/20 text-purple-400 border-purple-500/30" :
+               step.resultColor === "blue" ? "bg-blue-500/20 text-blue-400 border-blue-500/30" :
+               step.resultColor === "orange" ? "bg-orange-500/20 text-orange-400 border-orange-500/30" :
+               "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
+             }`}>
                <span className="font-mono text-xl sm:text-2xl font-black whitespace-nowrap">{step.result}</span>
                {step.resultUnit && <span className="font-bold text-sm sm:text-base">{step.resultUnit}</span>}
              </div>
@@ -160,7 +166,7 @@ export function DetailedCalculationDisplay({
               </p>
             </div>
           </div>
-          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 transition-transform duration-300 shrink-0">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center bg-bg-primary text-slate-500 dark:text-slate-400 transition-transform duration-300 shrink-0">
             {isOpen ? <ChevronUp className="w-5 h-5 sm:w-6 sm:h-6" /> : <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6" />}
           </div>
         </button>

@@ -90,7 +90,7 @@ export default function SolarRoofCalculator() {
            <Sun className="w-4 h-4 text-amber-500" />
            <span className="text-xs font-bold text-amber-500 uppercase tracking-wider">Renewable Energy</span>
         </div>
-        <h2 className="text-2xl md:text-3xl font-heading font-black text-slate-800 dark:text-white mb-2">Solar Roof Calculator</h2>
+        <h2 className="text-2xl md:text-3xl font-heading font-black text-text-primary mb-2">Solar Roof Calculator</h2>
         <p className="text-slate-500 max-w-3xl text-sm leading-relaxed">
           Estimate the required solar system size, number of panels, and ROI based on your electricity bill and available roof space.
         </p>
@@ -100,8 +100,8 @@ export default function SolarRoofCalculator() {
         
         {/* Left Column: Inputs */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white dark:bg-slate-800/80 backdrop-blur-md rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-white/5">
-            <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-4 flex items-center gap-2">
+          <div className="bg-bg-card/80 backdrop-blur-md rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-white/5">
+            <h3 className="text-lg font-bold text-text-primary mb-4 flex items-center gap-2">
               <Calculator className="w-5 h-5 text-amber-500" /> System Parameters
             </h3>
             
@@ -112,12 +112,12 @@ export default function SolarRoofCalculator() {
                   <input 
                     type="number"
                     min="0"
-                    className="flex-1 px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
+                    className="flex-1 px-4 py-3 rounded-xl bg-bg-primary border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
                     value={roofArea}
                     onChange={(e) => setRoofArea(e.target.value === "" ? "" : parseFloat(e.target.value))}
                   />
                   <select
-                    className="w-24 px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
+                    className="w-24 px-4 py-3 rounded-xl bg-bg-primary border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
                     value={areaUnit}
                     onChange={(e) => setAreaUnit(e.target.value as "sqm" | "sqft")}
                   >
@@ -132,7 +132,7 @@ export default function SolarRoofCalculator() {
                 <input 
                   type="number"
                   min="0"
-                  className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-bg-primary border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
                   value={monthlyBill}
                   onChange={(e) => setMonthlyBill(e.target.value === "" ? "" : parseFloat(e.target.value))}
                 />
@@ -144,7 +144,7 @@ export default function SolarRoofCalculator() {
                   type="number"
                   step="0.01"
                   min="0"
-                  className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-bg-primary border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
                   value={electricityRate}
                   onChange={(e) => setElectricityRate(e.target.value === "" ? "" : parseFloat(e.target.value))}
                 />
@@ -153,7 +153,7 @@ export default function SolarRoofCalculator() {
               <div>
                 <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Peak Sun Hours / Day</label>
                 <select
-                  className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-bg-primary border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
                   value={peakSunHours}
                   onChange={(e) => setPeakSunHours(parseFloat(e.target.value))}
                 >
@@ -164,7 +164,7 @@ export default function SolarRoofCalculator() {
                 </select>
               </div>
               
-              <div className="mt-4 p-4 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-400">
+              <div className="mt-4 p-4 rounded-xl bg-bg-primary border border-border-color text-xs text-slate-600 dark:text-slate-400">
                 Assumes standard 400W panels (size ~2 m²) and a $2.50/W installation cost.
               </div>
             </div>
@@ -263,7 +263,7 @@ export default function SolarRoofCalculator() {
 
             </div>
           ) : (
-            <div className="bg-white dark:bg-slate-800/80 rounded-2xl p-12 shadow-sm border border-slate-200 dark:border-white/5 h-full flex flex-col items-center justify-center text-center text-slate-500 dark:text-slate-400">
+            <div className="bg-bg-card/80 rounded-2xl p-12 shadow-sm border border-slate-200 dark:border-white/5 h-full flex flex-col items-center justify-center text-center text-slate-500 dark:text-slate-400">
                <Sun className="w-16 h-16 text-slate-300 dark:text-slate-600 mb-4" />
                <p className="font-semibold text-lg">Awaiting Input</p>
                <p className="text-sm max-w-sm mt-2">Please enter your roof area and electricity bill details to generate a solar estimate.</p>

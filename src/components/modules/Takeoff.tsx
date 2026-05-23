@@ -41,104 +41,102 @@ import {
 import { useTakeoff } from "../../../src/context/TakeoffContext";
 const ASSEMBLIES = [
   {
-    id: "asm-manhole",
-    name: "Sewerage Manhole",
-    icon: "〇",
-    color: "#a855f7",
+    id: "asm-foundation",
+    name: "Foundation Strip",
+    icon: "🏗️",
+    color: "#f59e0b",
     inputs: [
-      {
-        key: "depth",
-        label: "Depth (m)",
-        type: "number",
-        placeholder: "e.g. 2.5",
-      },
+      { key: "length", label: "Length (m)", type: "number", placeholder: "e.g. 10" },
+      { key: "width", label: "Width (m)", type: "number", placeholder: "e.g. 0.6" },
+      { key: "depth", label: "Depth (m)", type: "number", placeholder: "e.g. 1.0" },
     ],
     generateBoq: (id: string, inputs: any) => {
-      const depth = parseFloat(inputs.depth || "0");
+      const l = parseFloat(inputs.length || "0");
+      const w = parseFloat(inputs.width || "0");
+      const d = parseFloat(inputs.depth || "0");
+      const vol = l * w * d;
       return [
-        {
-          desc: "Excavation for Manhole",
-          unit: "m³",
-          rate: 12.5,
-          qtyOverride: 3.14 * 0.75 * 0.75 * depth,
-          linkedMeasurementIds: [id],
-        },
-        {
-          desc: "PCC Foundation (Manhole)",
-          unit: "m³",
-          rate: 85.0,
-          qtyOverride: 3.14 * 0.75 * 0.75 * 0.15,
-          linkedMeasurementIds: [id],
-        },
-        {
-          desc: "Brick Masonry for Manhole",
-          unit: "m³",
-          rate: 110.0,
-          qtyOverride: 3.14 * 1.2 * 0.23 * depth,
-          linkedMeasurementIds: [id],
-        },
-        {
-          desc: "Manhole Cover (Cast Iron)",
-          unit: "No",
-          rate: 150.0,
-          qtyOverride: 1,
-          linkedMeasurementIds: [id],
-        },
+        { desc: "Excavation", unit: "m³", rate: 12.5, qtyOverride: vol, linkedMeasurementIds: [id] },
+        { desc: "PCC Base", unit: "m³", rate: 85.0, qtyOverride: l * w * 0.15, linkedMeasurementIds: [id] },
+        { desc: "RCC Foundation", unit: "m³", rate: 140.0, qtyOverride: l * (w-0.2) * (d-0.15), linkedMeasurementIds: [id] },
+      ];
+    },
+  },
+  {
+    id: "asm-colpad",
+    name: "Column Pad",
+    icon: "⏹️",
+    color: "#8b5cf6",
+    inputs: [
+      { key: "side", label: "Side (m)", type: "number", placeholder: "e.g. 1.2" },
+      { key: "depth", label: "Depth (m)", type: "number", placeholder: "e.g. 1.5" },
+    ],
+    generateBoq: (id: string, inputs: any) => {
+      const s = parseFloat(inputs.side || "0");
+      const d = parseFloat(inputs.depth || "0");
+      return [
+        { desc: "Excavation", unit: "m³", rate: 12.5, qtyOverride: s * s * d, linkedMeasurementIds: [id] },
+        { desc: "PCC Pad", unit: "m³", rate: 85.0, qtyOverride: s * s * 0.1, linkedMeasurementIds: [id] },
+        { desc: "RCC Footing", unit: "m³", rate: 140.0, qtyOverride: (s-0.2) * (s-0.2) * 0.4, linkedMeasurementIds: [id] },
+      ];
+    },
+  },
+  {
+    id: "asm-brickwall",
+    name: "Brick Wall",
+    icon: "🧱",
+    color: "#ef4444",
+    inputs: [
+      { key: "length", label: "Length (m)", type: "number", placeholder: "e.g. 5" },
+      { key: "height", label: "Height (m)", type: "number", placeholder: "e.g. 3" },
+      { key: "thick", label: "Thickness (m)", type: "number", placeholder: "e.g. 0.23" },
+    ],
+    generateBoq: (id: string, inputs: any) => {
+      const l = parseFloat(inputs.length || "0");
+      const h = parseFloat(inputs.height || "0");
+      const t = parseFloat(inputs.thick || "0");
+      return [
+        { desc: "Brick Masonry", unit: "m³", rate: 110.0, qtyOverride: l * h * t, linkedMeasurementIds: [id] },
+        { desc: "Plastering (2 sides)", unit: "m²", rate: 15.0, qtyOverride: l * h * 2, linkedMeasurementIds: [id] },
+      ];
+    },
+  },
+  {
+    id: "asm-slab",
+    name: "RCC Slab",
+    icon: "⬜",
+    color: "#06b6d4",
+    inputs: [
+      { key: "area", label: "Area (m²)", type: "number", placeholder: "e.g. 20" },
+      { key: "thick", label: "Thickness (m)", type: "number", placeholder: "e.g. 0.15" },
+    ],
+    generateBoq: (id: string, inputs: any) => {
+      const a = parseFloat(inputs.area || "0");
+      const t = parseFloat(inputs.thick || "0");
+      return [
+        { desc: "RCC for Slab", unit: "m³", rate: 150.0, qtyOverride: a * t, linkedMeasurementIds: [id] },
+        { desc: "Steel Reinforcement", unit: "kg", rate: 1.2, qtyOverride: a * t * 100, linkedMeasurementIds: [id] },
+        { desc: "Formwork", unit: "m²", rate: 10.0, qtyOverride: a, linkedMeasurementIds: [id] },
       ];
     },
   },
   {
     id: "asm-road",
-    name: "Asphalt Road Section",
+    name: "Road Section",
     icon: "🛣️",
     color: "#64748b",
     inputs: [
-      {
-        key: "length",
-        label: "Length (m)",
-        type: "number",
-        placeholder: "e.g. 100",
-      },
-      {
-        key: "width",
-        label: "Width (m)",
-        type: "number",
-        placeholder: "e.g. 7",
-      },
+      { key: "length", label: "Length (m)", type: "number", placeholder: "e.g. 100" },
+      { key: "width", label: "Width (m)", type: "number", placeholder: "e.g. 7" },
     ],
     generateBoq: (id: string, inputs: any) => {
-      const length = parseFloat(inputs.length || "0");
-      const width = parseFloat(inputs.width || "0");
-      const area = length * width;
+      const l = parseFloat(inputs.length || "0");
+      const w = parseFloat(inputs.width || "0");
+      const area = l * w;
       return [
-        {
-          desc: "Subgrade Preparation",
-          unit: "m²",
-          rate: 5.5,
-          qtyOverride: area,
-          linkedMeasurementIds: [id],
-        },
-        {
-          desc: "Subbase Course (Granular)",
-          unit: "m³",
-          rate: 35.0,
-          qtyOverride: area * 0.2,
-          linkedMeasurementIds: [id],
-        },
-        {
-          desc: "Base Course (Crushed Stone)",
-          unit: "m³",
-          rate: 45.0,
-          qtyOverride: area * 0.15,
-          linkedMeasurementIds: [id],
-        },
-        {
-          desc: "Asphalt Wearing Course",
-          unit: "m²",
-          rate: 25.0,
-          qtyOverride: area * 0.05,
-          linkedMeasurementIds: [id],
-        },
+        { desc: "Subgrade Preparation", unit: "m²", rate: 5.5, qtyOverride: area, linkedMeasurementIds: [id] },
+        { desc: "Subbase Course", unit: "m³", rate: 35.0, qtyOverride: area * 0.2, linkedMeasurementIds: [id] },
+        { desc: "Asphalt Wearing Course", unit: "m²", rate: 25.0, qtyOverride: area * 0.05, linkedMeasurementIds: [id] },
       ];
     },
   },
@@ -201,6 +199,29 @@ export default function Takeoff() {
     string | null
   >(null);
   const [editingMeasurementName, setEditingMeasurementName] = useState("");
+  const [showTutorial, setShowTutorial] = useState(false);
+  useEffect(() => {
+    if (!localStorage.getItem("takeoff_tutorial_seen")) {
+      setShowTutorial(true);
+    }
+  }, []);
+
+  const closeTutorial = () => {
+    setShowTutorial(false);
+    localStorage.setItem("takeoff_tutorial_seen", "true");
+  };
+
+  const handleLoadDemo = () => {
+    setFilename("Demo Blueprint");
+    const img = new Image();
+    img.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIiBzdHlsZT0iYmFja2dyb3VuZDojZmZmIj48cmVjdCB4PSIxMDAiIHk9IjEwMCIgd2lkdGg9IjYwMCIgaGVpZ2h0PSI0MDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLXdpZHRoPSIxMCIvPjxyZWN0IHg9IjQwMCIgeT0iMTAwIiB3aWR0aD0iMTAiIGhlaWdodD0iNDAwIiBmaWxsPSIjMDAwIi8+PHRleHQgeD0iMjUwIiB5PSIzMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5Sb29tIDE8L3RleHQ+PHRleHQgeD0iNTUwIiB5PSIzMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5Sb29tIDI8L3RleHQ+PGxpbmUgeDE9IjIwMCIgeTE9IjE1MCIgeDI9IjIwMCIgeTI9IjQ1MCIgc3Ryb2tlPSIjY2NjIiBzdHJva2UtZGFzaGFycmF5PSI1LDUiLz48dGV4dCB4PSIyMjAiIHk9IjI1MCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTYiIGZpbGw9IiM2NjYiPjEwbTwvdGV4dD48L3N2Zz4=";
+    img.onload = () => {
+      setImage(img);
+      setStageScale(1);
+      setStagePos({ x: 0, y: 0 });
+    };
+  };
+
   const handleRenameMeasurement = (id: string) => {
     if (!editingMeasurementName.trim()) {
       setEditingMeasurementId(null);
@@ -225,21 +246,57 @@ export default function Takeoff() {
     window.addEventListener("resize", updateSize);
     return () => window.removeEventListener("resize", updateSize);
   }, []);
+  const [recentBlueprints, setRecentBlueprints] = useState<{name: string, dataUrl: string, date: string}[]>([]);
+  
+  useEffect(() => {
+    try {
+      const recent = JSON.parse(localStorage.getItem("recent_blueprints") || "[]");
+      setRecentBlueprints(recent);
+    } catch(e) {}
+  }, []);
+
+  const saveRecentBlueprint = (name: string, dataUrl: string) => {
+    try {
+      const recentStr = localStorage.getItem("recent_blueprints") || "[]";
+      let recent = JSON.parse(recentStr);
+      recent = recent.filter((r: any) => r.name !== name);
+      recent.unshift({ name, dataUrl, date: new Date().toISOString() });
+      recent = recent.slice(0, 3);
+      localStorage.setItem("recent_blueprints", JSON.stringify(recent));
+      setRecentBlueprints(recent);
+    } catch(e) {
+      console.warn("Could not save to localStorage", e);
+    }
+  };
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setFilename(file.name);
     const reader = new FileReader();
     reader.onload = () => {
+      const dataUrl = reader.result as string;
       const img = new Image();
-      img.src = reader.result as string;
+      img.src = dataUrl;
       img.onload = () => {
         setImage(img);
         setStageScale(1);
         setStagePos({ x: 0, y: 0 });
+        saveRecentBlueprint(file.name, dataUrl);
       };
     };
     reader.readAsDataURL(file);
+  };
+
+  const handleLoadRecent = (b: {name: string, dataUrl: string}) => {
+    setFilename(b.name);
+    const img = new Image();
+    img.src = b.dataUrl;
+    img.onload = () => {
+      setImage(img);
+      setStageScale(1);
+      setStagePos({ x: 0, y: 0 });
+    };
   };
   const getLogicalPos = (e: any): Point | null => {
     const stage = e.target.getStage();
@@ -430,15 +487,24 @@ export default function Takeoff() {
               {filename}
             </div>
             {!image && (
-              <label className="flex items-center gap-2 cursor-pointer text-xs bg-white border border-slate-200 hover:bg-slate-200 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded transition-colors">
-                <Upload className="w-[14px] h-[14px]" /> Upload Image Blueprint
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleImageUpload}
-                />
-              </label>
+              <div className="flex items-center gap-2">
+                <label className="flex items-center gap-2 cursor-pointer text-xs bg-white border border-slate-200 hover:bg-slate-200 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded transition-colors" title="Upload a local image file">
+                  <Upload className="w-[14px] h-[14px]" /> Upload Image Blueprint
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleImageUpload}
+                  />
+                </label>
+                <button
+                  onClick={handleLoadDemo}
+                  className="flex items-center gap-2 cursor-pointer text-xs bg-blue-50 border border-blue-200 hover:bg-blue-100 text-blue-700 px-3 py-1.5 rounded transition-colors"
+                  title="Load a sample blueprint to try the features"
+                >
+                  Try Demo
+                </button>
+              </div>
             )}
             <div className="h-4 w-px bg-slate-200" />
             <div className="flex items-center gap-1">
@@ -475,15 +541,17 @@ export default function Takeoff() {
             <button
               onClick={() => setStageScale((s) => s / 1.2)}
               className="p-1.5 text-slate-700 dark:text-slate-300 hover:text-slate-800 rounded hover:bg-slate-100"
+              title="Zoom Out"
             >
               <ZoomOut className="w-[14px] h-[14px]" />
             </button>
-            <div className="font-mono text-slate-900 w-12 text-center text-[10px]">
+            <div className="font-mono text-slate-900 w-12 text-center text-[10px]" title="Current Zoom">
               {Math.round(stageScale * 100)}%
             </div>
             <button
               onClick={() => setStageScale((s) => s * 1.2)}
               className="p-1.5 text-slate-700 dark:text-slate-300 hover:text-slate-800 rounded hover:bg-slate-100"
+              title="Zoom In"
             >
               <ZoomIn className="w-[14px] h-[14px]" />
             </button>
@@ -565,11 +633,26 @@ export default function Takeoff() {
             onDrop={handleDrop}
           >
             {!image && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-50 text-slate-700 dark:text-slate-300">
-                <Layers className="w-12 h-12 mb-4" />
-                <span className="text-sm">
-                  Upload a blueprint image to start
-                </span>
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                <div className="flex flex-col items-center text-slate-400 mb-8 opacity-80">
+                  <Layers className="w-12 h-12 mb-4" />
+                  <span className="text-sm">
+                    Upload a blueprint image to start
+                  </span>
+                </div>
+                {recentBlueprints.length > 0 && (
+                  <div className="pointer-events-auto w-full max-w-sm z-10 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4 shadow-sm opacity-90 hover:opacity-100 transition-opacity">
+                    <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3 border-b border-slate-100 dark:border-slate-700 pb-2">Recent Blueprints</h3>
+                    <div className="flex flex-col gap-2">
+                       {recentBlueprints.map((b, i) => (
+                         <button key={i} onClick={() => handleLoadRecent(b)} className="px-4 py-2 border border-slate-100 dark:border-slate-700 rounded text-left hover:bg-blue-50 dark:hover:bg-slate-700 flex justify-between items-center group transition-colors">
+                           <span className="truncate flex-1 text-sm text-slate-700 dark:text-slate-300 group-hover:text-blue-700 dark:group-hover:text-blue-300 font-medium">{b.name}</span>
+                           <span className="text-[10px] uppercase font-bold text-slate-400 group-hover:text-blue-500">Load</span>
+                         </button>
+                       ))}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
             {dimensions.width > 0 && dimensions.height > 0 && (
@@ -1047,6 +1130,54 @@ export default function Takeoff() {
           </div>
         </div>
       </div>
+      
+      {showTutorial && (
+        <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center z-[100] p-4 font-sans">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl max-w-lg w-full shadow-2xl p-6 overflow-y-auto max-h-[90vh] relative">
+            <button onClick={closeTutorial} className="absolute right-4 top-4 p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors rounded-full hover:bg-slate-100 dark:hover:bg-slate-800">
+              <X className="w-5 h-5"/>
+            </button>
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6">Welcome to 2D Takeoff Engine</h2>
+            
+            <div className="space-y-6 mb-8">
+              <div className="flex gap-4 items-start">
+                <div className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold shrink-0 border border-blue-100 dark:border-blue-800">1</div>
+                <div>
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Upload your blueprint image</h4>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">Add any floor plan (JPG, PNG, PDF exported as image) or try the demo.</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start">
+                <div className="w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold shrink-0 border border-emerald-100 dark:border-emerald-800">2</div>
+                <div>
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Set the scale</h4>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">Click the ruler tool, draw a line over a known dimension, and set its real-world length.</p>
+                </div>
+              </div>
+              <div className="flex gap-4 items-start">
+                <div className="w-8 h-8 rounded-full bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center font-bold shrink-0 border border-orange-100 dark:border-orange-800">3</div>
+                <div>
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Measure and extract</h4>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">Draw lines/areas to extract material quantities or drop Smart Assemblies onto the canvas.</p>
+                </div>
+              </div>
+            </div>
+
+            <details className="mb-6 group">
+               <summary className="text-sm cursor-pointer font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 list-none flex items-center gap-2 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-200 dark:border-slate-700">
+                 ▶ Watch Video Tutorial
+               </summary>
+               <div className="mt-3 aspect-video bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
+                 <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video Tutorial" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="border-0"></iframe>
+               </div>
+            </details>
+
+            <button onClick={closeTutorial} className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-sm">
+              Get Started
+            </button>
+          </div>
+        </div>
+      )}
       
       <CalculationHistory
         calculatorId="takeoff"

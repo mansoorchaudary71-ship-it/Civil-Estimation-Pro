@@ -45,7 +45,7 @@ export function StyledChart({ data, type, title, valueFormatter }: ChartProps) {
   };
 
   return (
-    <div className="w-full bg-slate-50/50 dark:bg-slate-800/30 rounded-[24px] px-4 py-3 border border-slate-100 dark:border-slate-700/50 relative overflow-hidden backdrop-blur-sm transition-all hover:bg-slate-50/80 dark:hover:bg-slate-800/50">
+    <div className="w-full bg-slate-50/50 dark:bg-slate-800/30 rounded-[24px] px-4 py-3 border border-border-color/50 relative overflow-hidden backdrop-blur-sm transition-all hover:bg-slate-50/80 dark:hover:bg-slate-800/50">
       
       <div className="absolute -top-10 -right-10 w-32 h-32 bg-indigo-500/10 dark:bg-indigo-500/5 rounded-full blur-3xl" />
       <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-emerald-500/10 dark:bg-emerald-500/5 rounded-full blur-3xl" />
@@ -133,7 +133,7 @@ export function StyledChart({ data, type, title, valueFormatter }: ChartProps) {
           {enrichedData.map((entry, idx) => (
             <div 
               key={entry.name} 
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm transition-all duration-200 cursor-default
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-full border border-border-color bg-bg-card shadow-sm transition-all duration-200 cursor-default
                 ${activeIndex === idx ? 'ring-2 ring-offset-1 dark:ring-offset-slate-900 shadow-md scale-105' : 'opacity-80 hover:opacity-100 hover:scale-105'}
               `}
               style={{ '--tw-ring-color': entry.fill } as React.CSSProperties}

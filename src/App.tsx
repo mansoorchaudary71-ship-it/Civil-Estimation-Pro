@@ -43,11 +43,19 @@ import { TakeoffProvider } from "./context/TakeoffContext";
 import { MarketRatesProvider } from "./context/MarketRatesContext";
 import { HouseSpecsProvider } from "./context/HouseSpecsContext";
 import { SettingsProvider } from "./context/SettingsContext";
+import { ProjectProvider } from "./context/ProjectContext";
 
 import MasterSieveAnalysis from "./components/modules/MasterSieveAnalysis";
 import AggregateBlendingCalculator from "./components/modules/AggregateBlendingCalculator";
 import SolarRoofCalculator from "./components/modules/SolarRoofCalculator";
+import ProjectManager from "./components/modules/ProjectManager";
+import ReinforcementVisualizer from "./components/modules/ReinforcementVisualizer";
+import BOQGenerator from "./components/modules/BOQGenerator";
+import MixDesignCalculator from "./components/modules/MixDesignCalculator";
+import SiteProgressTracker from "./components/modules/SiteProgressTracker";
 
+import { WelcomeModal } from "./components/ui/WelcomeModal";
+import { HelpGuideModal } from "./components/ui/HelpGuideModal";
 import Dashboard, { ALL_MODULES, getCategoryTheme } from "./components/Dashboard";
 import RecentEstimates from "./components/RecentEstimates";
 import Sidebar, { ModuleId } from "./components/Sidebar";
@@ -64,19 +72,24 @@ import {
   Menu, Settings as SettingsIcon, Home, FileText, User as UserIcon, Plus, Search, 
   Calculator, Square, Box, ArrowRightLeft, Weight, Zap, 
   Map as MapIcon, Layers, Hammer, Sparkles, Mountain, Route, Droplet, 
-  LineChart, ChevronDown, ChevronUp, Sun, Building
+  LineChart, ChevronDown, ChevronUp, Sun, Building, HelpCircle, BarChart, ClipboardList
 } from "lucide-react";
+
 import { GlobalSettingsToggle } from "./components/ui/GlobalSettingsToggle";
-import { OnboardingModal } from "./components/ui/OnboardingModal";
 
 import MobileToolsSheet from "./components/MobileToolsSheet";
 
 export const ALL_TOOLS = [
+  { id: "tracker", title: "Site Progress Tracker", category: "Analysis & Tools", icon: <BarChart className="w-4 h-4" /> },
+  { id: "projects", title: "Project Manager", category: "Analysis & Tools", icon: <Layers className="w-4 h-4" /> },
+  { id: "boq", title: "Professional BOQ", category: "Core Estimators", icon: <ClipboardList className="w-4 h-4" /> },
+  { id: "mix-design", title: "Concrete Mix Design", category: "Core Estimators", icon: <Droplet className="w-4 h-4" /> },
   { id: "ai", title: "AI Assistant", category: "AI & Automation", icon: <Sparkles className="w-4 h-4" /> },
   { id: "takeoff", title: "2D Takeoff", category: "AI & Automation", icon: <MapIcon className="w-4 h-4" /> },
   { id: "house", title: "House Estimator", category: "Core Estimators", icon: <Home className="w-4 h-4" /> },
   { id: "master-quantity", title: "Master Quantity", category: "Core Estimators", icon: <Calculator className="w-4 h-4" /> },
   { id: "master-rcc", title: "Master RCC Structure", category: "Core Estimators", icon: <Layers className="w-4 h-4" /> },
+  { id: "reinforcement", title: "Reinforcement Detailing Visualizer", category: "Core Estimators", icon: <Layers className="w-4 h-4" /> },
   { id: "calculators", title: "Material Estimator", category: "Core Estimators", icon: <Hammer className="w-4 h-4" /> },
   { id: "earthworks", title: "Earthworks", category: "Site & Infrastructure", icon: <Mountain className="w-4 h-4" /> },
   { id: "chainage", title: "Road Earthworks", category: "Site & Infrastructure", icon: <Route className="w-4 h-4" /> },
@@ -104,6 +117,7 @@ export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobileToolsOpen, setIsMobileToolsOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [expandedCategory, setExpandedCategory] = useState<string | null>("Core Estimators");
@@ -146,6 +160,7 @@ export default function App() {
     <HouseSpecsProvider>
     <MarketRatesProvider>
       <TakeoffProvider>
+      <ProjectProvider>
       <div className="flex flex-col h-[100dvh] w-full bg-transparent font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
         <Toaster position="bottom-right" />
         
@@ -190,6 +205,10 @@ export default function App() {
           ) : (
             <div className="flex-1 flex flex-col min-h-0 relative w-full bg-transparent pb-32 md:pb-0">
                {/* We remove AppHeader for Desktop, handle differently inside module wrappers if needed, but for now we keep ModuleWrapper and conditionally hide AppHeader inside it on desktop */}
+              {activeModule === "tracker" && <ModuleWrapper title="Site Progress Tracker" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><SiteProgressTracker /></ModuleWrapper>}
+              {activeModule === "projects" && <ModuleWrapper title="Project Manager" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ProjectManager /></ModuleWrapper>}
+              {activeModule === "boq" && <ModuleWrapper title="Professional BOQ Generator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><BOQGenerator /></ModuleWrapper>}
+              {activeModule === "mix-design" && <ModuleWrapper title="Concrete Mix Design" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MixDesignCalculator /></ModuleWrapper>}
               {activeModule === "takeoff" && <ModuleWrapper title="2D Takeoff" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><Takeoff /></ModuleWrapper>}
               {activeModule === "area-calculator" && <ModuleWrapper title="Area Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AreaCalculator /></ModuleWrapper>}
               {activeModule === "property-area" && <ModuleWrapper title="Property Area" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><PropertyAreaCalculator /></ModuleWrapper>}
@@ -199,6 +218,7 @@ export default function App() {
               {activeModule === "mep-calculator" && <ModuleWrapper title="Energy & MEP Calculators" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><EnergyMepCalculator /></ModuleWrapper>}
               {activeModule === "gradient-calculator" && <ModuleWrapper title="Gradient & Slope Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><GradientCalculator /></ModuleWrapper>}
               {activeModule === "master-rcc" && <ModuleWrapper title="Master RCC Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MasterRccStructure onNavigate={handleSelectModule} /></ModuleWrapper>}
+              {activeModule === "reinforcement" && <ModuleWrapper title="Reinforcement Detailing Visualizer" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ReinforcementVisualizer /></ModuleWrapper>}
               {activeModule === "master-quantity" && <ModuleWrapper title="Master Quantity Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MasterQuantityEstimator /></ModuleWrapper>}
               {activeModule === "calculators" && <ModuleWrapper title="Construction Material Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><Calculators /></ModuleWrapper>}
               {activeModule === "ai" && <ModuleWrapper title="AI Assistant" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AIAssistant /></ModuleWrapper>}
@@ -225,13 +245,11 @@ export default function App() {
           </div>
           </div>
 
-          {["home", "my-estimates", "about", "careers", "contact", "blog", "privacy", "terms", "cookies"].includes(activeModule) && (
-            <BottomNavBar 
-              activeModule={activeModule} 
-              onSelectModule={handleSelectModule} 
-              onOpenProfile={() => setIsSidebarOpen(true)} 
-            />
-          )}
+          <BottomNavBar 
+            activeModule={activeModule} 
+            onSelectModule={handleSelectModule} 
+            onOpenProfile={() => setIsSidebarOpen(true)} 
+          />
 
         </main>
         </div>
@@ -239,13 +257,25 @@ export default function App() {
         <SettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />
         <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
         <ProfileSettings isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} />
-        <OnboardingModal onNavigate={handleSelectModule} />
+        <WelcomeModal />
+        <HelpGuideModal isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)} />
+        
+        {/* Floating Help Button */}
+        <button 
+          onClick={() => setIsHelpOpen(true)}
+          className="fixed bottom-20 md:bottom-8 right-4 md:right-8 z-50 p-3 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all hover:scale-110 flex items-center justify-center group focus:outline-none"
+          title="Help Guide"
+        >
+          <HelpCircle className="w-6 h-6 group-hover:text-amber-500 transition-colors" />
+        </button>
+
         <MobileToolsSheet 
           isOpen={isMobileToolsOpen} 
           onClose={() => setIsMobileToolsOpen(false)} 
           onSelectModule={handleSelectModule}
         />
       </div>
+      </ProjectProvider>
       </TakeoffProvider>
     </MarketRatesProvider>
     </HouseSpecsProvider>

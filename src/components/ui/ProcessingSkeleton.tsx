@@ -10,7 +10,7 @@ export function ProcessingSkeleton({ count = 4 }: ProcessingSkeletonProps) {
       {Array.from({ length: count }).map((_, index) => (
         <div 
           key={index} 
-          className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 flex flex-col h-full overflow-hidden animate-pulse min-h-[140px]"
+          className="p-5 rounded-2xl border border-border-color bg-white/50 dark:bg-slate-900/50 flex flex-col h-full overflow-hidden animate-pulse min-h-[140px]"
         >
           <div className="flex items-start justify-between gap-3 mb-6">
             <div className="h-4 bg-slate-200 dark:bg-slate-700/50 rounded-md w-1/2"></div>

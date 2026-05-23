@@ -100,7 +100,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           initial={{ opacity: 0, scale: 0.95, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
-          className="relative w-full max-w-md overflow-hidden bg-white dark:bg-slate-900 rounded-[28px] shadow-2xl border border-slate-200 dark:border-slate-800"
+          className="relative w-full max-w-md overflow-hidden bg-bg-card rounded-[28px] shadow-2xl border border-border-color"
         >
           <button
             onClick={onClose}
@@ -110,7 +110,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           </button>
 
           <div className="px-8 pt-10 pb-8">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+            <h2 className="text-2xl font-bold text-text-primary mb-2">
               {isLogin ? 'Welcome back' : 'Create an account'}
             </h2>
             <p className="text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-8">
@@ -131,7 +131,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                         setError('');
                       }}
                       required
-                      className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
+                      className="w-full pl-11 pr-4 py-3 bg-bg-primary border border-border-color rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
                     />
                   </div>
                 </div>
@@ -149,7 +149,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       setError('');
                     }}
                     required
-                    className="w-full pl-11 pr-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
+                    className="w-full pl-11 pr-4 py-3 bg-bg-primary border border-border-color rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
                   />
                 </div>
               </div>
@@ -166,7 +166,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       setError('');
                     }}
                     required
-                    className="w-full pl-11 pr-12 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
+                    className="w-full pl-11 pr-12 py-3 bg-bg-primary border border-border-color rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
                   />
                   <button
                     type="button"
@@ -194,16 +194,16 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
             </form>
 
             <div className="my-6 flex items-center">
-              <div className="flex-1 border-t border-slate-200 dark:border-slate-700"></div>
+              <div className="flex-1 border-t border-border-color"></div>
               <span className="px-4 text-xs font-medium text-slate-700 dark:text-slate-300 uppercase tracking-wider">or</span>
-              <div className="flex-1 border-t border-slate-200 dark:border-slate-700"></div>
+              <div className="flex-1 border-t border-border-color"></div>
             </div>
 
             <button
               type="button"
               onClick={handleGoogleSignIn}
               disabled={isLoading}
-              className="w-full py-3 px-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-medium rounded-xl shadow-sm text-sm transition-all focus:ring-4 focus:ring-slate-500/10 flex items-center justify-center gap-3 h-12"
+              className="w-full py-3 px-4 bg-bg-card border border-border-color hover:bg-slate-50 dark:hover:bg-slate-700 text-text-primary font-medium rounded-xl shadow-sm text-sm transition-all focus:ring-4 focus:ring-slate-500/10 flex items-center justify-center gap-3 h-12"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />

@@ -25,7 +25,7 @@ export const MetricInput = React.forwardRef<HTMLInputElement, MetricInputProps>(
             className={`w-full bg-slate-50/80 dark:bg-slate-800/80 border ${
               error 
                 ? 'border-red-300 dark:border-red-500/50 focus:ring-red-500/50' 
-                : 'border-slate-200 dark:border-slate-700/80 focus:ring-indigo-500/50 focus:border-indigo-500'
+                : 'border-border-color/80 focus:ring-indigo-500/50 focus:border-indigo-500'
             } text-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 ${
               unit ? 'pr-12' : ''
             } focus:outline-none focus:ring-2 transition-all placeholder:text-slate-700 font-semibold text-sm ${className || ''}`}

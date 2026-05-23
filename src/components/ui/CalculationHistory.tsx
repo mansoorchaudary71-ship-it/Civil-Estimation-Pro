@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { History, Save, Trash2, ChevronRight, X, CloudUpload, Home, Share2, Bookmark } from 'lucide-react';
-import { saveEstimate } from "../../lib/estimates";
+import { saveEstimate, getToolEstimates } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
 import ShareButtonWithPopup from "../modules/ShareMenu";
@@ -102,15 +102,40 @@ export function CalculationHistory({
 
 
   useEffect(() => {
-    const saved = localStorage.getItem(`calc_history_${calculatorId}`);
-    if (saved) {
-      try {
-        setHistory(JSON.parse(saved));
-      } catch (e) {
-        console.error('Failed to parse history', e);
+    async function fetchHistory() {
+      if (user) {
+        try {
+          const cloudEstimates = await getToolEstimates(calculatorId, 50);
+          if (cloudEstimates && cloudEstimates.length > 0) {
+            const mapped = cloudEstimates.map((est: any) => ({
+              id: est.id,
+              name: est.name,
+              date: est.createdAt,
+              inputs: est.payload?.inputs || est.payload,
+              results: est.payload?.results || est.payload?.breakdown || {},
+              summary: est.name
+            }));
+            setHistory(mapped);
+            return; // Use cloud history
+          }
+        } catch (err) {
+          console.error("Failed to load cloud history:", err);
+        }
+      }
+      
+      const saved = localStorage.getItem(`calc_history_${calculatorId}`);
+      if (saved) {
+        try {
+          setHistory(JSON.parse(saved));
+        } catch (e) {
+          console.error('Failed to parse history', e);
+        }
+      } else {
+        setHistory([]);
       }
     }
-  }, [calculatorId]);
+    fetchHistory();
+  }, [calculatorId, user, isOpen]);
 
   const saveHistory = () => {
     if (!currentInputs || Object.keys(currentInputs).length === 0) return;
@@ -162,6 +187,9 @@ export function CalculationHistory({
       inputs: currentInputs,
       breakdown: currentResults || {}
     };
+    
+    // Add calculatorId to payload so we can retrieve it
+    payloadToSave.calculatorId = calculatorId;
     
     setIsSavingCloud(true);
     try {
@@ -275,8 +303,8 @@ export function CalculationHistory({
         <div className="fixed inset-0 z-50 overflow-hidden">
           <div className="absolute inset-0 bg-slate-900/30 backdrop-blur-sm transition-opacity" onClick={() => setIsOpen(false)} />
           
-          <div className="fixed inset-y-0 right-0 max-w-sm w-full bg-white dark:bg-slate-900 shadow-2xl border-l border-slate-200 dark:border-slate-800 flex flex-col transform transition-transform duration-300 ease-in-out">
-            <div className="flex items-center justify-between p-5 border-b border-slate-200 dark:border-slate-700/50">
+          <div className="fixed inset-y-0 right-0 max-w-sm w-full bg-bg-card shadow-2xl border-l border-border-color flex flex-col transform transition-transform duration-300 ease-in-out">
+            <div className="flex items-center justify-between p-5 border-b border-border-color/50">
               <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
                 <History className="w-5 h-5 text-indigo-600" />
                 Calculation History
@@ -298,7 +326,7 @@ export function CalculationHistory({
                 </div>
               ) : (
                 history.map((item) => (
-                  <div key={item.id} className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 rounded-xl p-4 transition-all hover:border-indigo-300 dark:hover:border-indigo-500/50 group">
+                  <div key={item.id} className="bg-bg-primary/50 border border-border-color/60 rounded-xl p-4 transition-all hover:border-indigo-300 dark:hover:border-indigo-500/50 group">
                     <div className="flex justify-between items-start mb-2">
                       <div className="pr-4">
                         <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm truncate">{item.name}</h3>
@@ -312,7 +340,7 @@ export function CalculationHistory({
                       </button>
                     </div>
                     
-                    <p className="text-xs text-slate-600 dark:text-slate-300 mb-3 bg-white dark:bg-slate-800 p-2 rounded border border-slate-100 dark:border-slate-700/50 line-clamp-2">
+                    <p className="text-xs text-slate-600 dark:text-slate-300 mb-3 bg-bg-card p-2 rounded border border-border-color/50 line-clamp-2">
                       {item.summary}
                     </p>
                     
@@ -321,7 +349,7 @@ export function CalculationHistory({
                         onRestore(item.inputs);
                         setIsOpen(false);
                       }}
-                      className="w-full py-2 bg-white dark:bg-slate-800 border border-indigo-200 dark:border-indigo-500/30 text-indigo-600 dark:text-indigo-400 rounded-lg text-sm font-medium transition-all hover:bg-indigo-50 dark:hover:bg-indigo-500/10 flex items-center justify-center gap-1"
+                      className="w-full py-2 bg-bg-card border border-indigo-200 dark:border-indigo-500/30 text-indigo-600 dark:text-indigo-400 rounded-lg text-sm font-medium transition-all hover:bg-indigo-50 dark:hover:bg-indigo-500/10 flex items-center justify-center gap-1"
                     >
                       Restore Inputs <ChevronRight className="w-4 h-4" />
                     </button>
@@ -331,7 +359,7 @@ export function CalculationHistory({
             </div>
             
             {history.length > 0 && (
-              <div className="p-4 border-t border-slate-200 dark:border-slate-700/50">
+              <div className="p-4 border-t border-border-color/50">
                 <button
                   onClick={() => {
                     if (window.confirm('Clear all history for this calculator?')) {
@@ -352,7 +380,7 @@ export function CalculationHistory({
       {isSaveModalOpen && (
         <div className="fixed inset-0 z-[60] overflow-hidden flex items-center justify-center font-sans px-4">
           <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" onClick={() => setIsSaveModalOpen(false)} />
-          <div className="relative w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col transform transition-transform duration-300 ease-in-out p-6 pt-7 animate-in zoom-in-95">
+          <div className="relative w-full max-w-md bg-bg-card shadow-2xl rounded-2xl border border-border-color flex flex-col transform transition-transform duration-300 ease-in-out p-6 pt-7 animate-in zoom-in-95">
             <button 
               onClick={() => setIsSaveModalOpen(false)}
               className="absolute top-4 right-4 p-2 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
@@ -364,7 +392,7 @@ export function CalculationHistory({
                 <CloudUpload className="w-6 h-6 text-indigo-600" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Save Estimate</h2>
+                <h2 className="text-xl font-bold text-text-primary tracking-tight">Save Estimate</h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Save to your cloud profile</p>
               </div>
             </div>
@@ -376,7 +404,7 @@ export function CalculationHistory({
                   type="text"
                   value={saveName}
                   onChange={(e) => setSaveName(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium"
+                  className="w-full px-4 py-3 rounded-xl border border-border-color bg-bg-primary text-text-primary focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium"
                   placeholder="e.g. Dream House Ground Floor"
                   autoFocus
                 />
@@ -388,7 +416,7 @@ export function CalculationHistory({
                   <select
                     value={saveType}
                     onChange={(e) => setSaveType(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium appearance-none"
+                    className="w-full px-4 py-3 rounded-xl border border-border-color bg-bg-primary text-text-primary focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium appearance-none"
                   >
                     <option value="General">General</option>
                     <option value="House">House</option>
@@ -410,7 +438,7 @@ export function CalculationHistory({
             <div className="flex gap-3">
               <button
                 onClick={() => setIsSaveModalOpen(false)}
-                className="flex-1 px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                className="flex-1 px-4 py-3 rounded-xl border border-border-color text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                 disabled={isSavingCloud}
               >
                 Cancel

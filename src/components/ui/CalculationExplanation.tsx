@@ -20,7 +20,7 @@ export function CalculationExplanation({
 
   return (
     <div className="w-full max-w-3xl mx-auto mt-2 mb-8 font-sans">
-      <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200 dark:border-slate-800 shadow-sm rounded-2xl p-5 overflow-hidden relative">
+      <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border border-border-color shadow-sm rounded-2xl p-5 overflow-hidden relative">
         <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-indigo-500 via-rose-500 to-amber-500 rounded-l-2xl" />
         
         <div className="flex items-center gap-2 mb-4">
@@ -39,7 +39,7 @@ export function CalculationExplanation({
                 Enter your dimensions to see the step-by-step calculation. Here are the formulas we use:
               </p>
               {genericFormula.map((item, idx) => (
-                <div key={idx} className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-3 border border-slate-100 dark:border-slate-700/50">
+                <div key={idx} className="bg-bg-primary/50 rounded-xl p-3 border border-border-color/50">
                   <span className="text-[13px] sm:text-sm font-semibold text-slate-700 dark:text-slate-500 dark:text-slate-400 block mb-1">
                     {item.label}
                   </span>
@@ -72,7 +72,7 @@ export function CalculationExplanation({
                   <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1">
                     {step.label}
                   </span>
-                  <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-3 border border-slate-100 dark:border-slate-700/50">
+                  <div className="bg-bg-primary/50 rounded-xl p-3 border border-border-color/50">
                     <div className="font-mono text-sm text-slate-600 dark:text-slate-300 mb-1 overflow-x-auto">
                       {step.formula}
                     </div>

@@ -242,7 +242,7 @@ export default function MetalWeightCalculator() {
     "Total Weight": `${totalWeight.toFixed(2)} kg`,
   };
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8">
+    <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
           <Weight className="w-8 h-8 text-neutral-600 dark:text-neutral-400" />
@@ -253,7 +253,7 @@ export default function MetalWeightCalculator() {
           profiles.
         </p>
         {/* Global Settings */}
-        <div className="flex flex-wrap gap-4 mb-8 items-center bg-white dark:bg-slate-900 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div className="flex flex-wrap gap-4 mb-8 items-center bg-bg-card px-4 py-3 rounded-2xl border border-border-color shadow-sm">
           <div className="flex-1 min-w-[200px]">
             <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1.5">
               Material Density (kg/m³)
@@ -302,7 +302,7 @@ export default function MetalWeightCalculator() {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Inputs Section */}
-          <div className="lg:col-span-7 bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div className="lg:col-span-7 bg-bg-card p-6 md:p-8 rounded-[2rem] border border-border-color shadow-sm">
             <h3 className="font-bold text-xl mb-6">
               {activeProfile} Dimensions
             </h3>

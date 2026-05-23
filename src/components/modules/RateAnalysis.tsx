@@ -411,7 +411,7 @@ export default function RateAnalysis() {
                       Analyzed Rate
                     </span>
                     <div className="flex items-end gap-1">
-                      <span className="text-4xl sm:text-5xl tracking-tight font-black text-slate-800 dark:text-white leading-none whitespace-nowrap">
+                      <span className="text-4xl sm:text-5xl tracking-tight font-black text-text-primary leading-none whitespace-nowrap">
                         {formatCurrency(compositeCalc.finalRate)}
                       </span>
                       <span className="text-sm font-medium text-teal-400 pb-0.5">

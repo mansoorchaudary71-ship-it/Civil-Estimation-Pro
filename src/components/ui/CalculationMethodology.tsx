@@ -41,7 +41,7 @@ export function CalculationMethodology({ steps, className = '' }: CalculationMet
               </p>
             </div>
           </div>
-          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 transition-transform duration-300 shrink-0">
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center bg-bg-primary text-slate-500 dark:text-slate-400 transition-transform duration-300 shrink-0">
             {isOpen ? <ChevronUp className="w-5 h-5 md:w-6 md:h-6" /> : <ChevronDown className="w-5 h-5 md:w-6 md:h-6" />}
           </div>
         </button>
@@ -72,7 +72,7 @@ export function CalculationMethodology({ steps, className = '' }: CalculationMet
                       <span className="text-xs md:text-sm font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 block">
                         Core Formula
                       </span>
-                      <div className="font-mono text-sm md:text-base px-4 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-indigo-600 dark:text-indigo-400 font-semibold overflow-x-auto shadow-sm">
+                      <div className="font-mono text-sm md:text-base px-4 py-3 rounded-xl bg-bg-card border border-border-color text-indigo-600 dark:text-indigo-400 font-semibold overflow-x-auto shadow-sm">
                         {step.formula}
                       </div>
                     </div>
@@ -87,7 +87,7 @@ export function CalculationMethodology({ steps, className = '' }: CalculationMet
                           {step.variables.map((v, vIdx) => (
                             <div
                               key={vIdx}
-                              className="flex justify-between items-center px-4 py-2.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-700/60 shadow-sm"
+                              className="flex justify-between items-center px-4 py-2.5 bg-bg-card rounded-xl border border-border-color/60 shadow-sm"
                             >
                               <span className="text-sm md:text-base font-medium text-slate-600 dark:text-slate-400">
                                 {v.name}
@@ -113,11 +113,11 @@ export function CalculationMethodology({ steps, className = '' }: CalculationMet
                       <span className="text-xs md:text-sm font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 block">
                         Step-by-Step Substitution
                       </span>
-                      <div className="px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
+                      <div className="px-4 py-3 rounded-xl bg-bg-primary/80 border border-border-color">
                         <div className="font-mono text-sm md:text-base text-slate-600 dark:text-slate-400 mb-3 whitespace-nowrap overflow-x-auto pb-1">
                           {step.substitution}
                         </div>
-                        <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-200 dark:border-slate-700">
+                        <div className="flex items-center justify-end gap-3 pt-3 border-t border-border-color">
                           <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
                             Yields
                           </span>

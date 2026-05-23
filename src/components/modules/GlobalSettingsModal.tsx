@@ -113,7 +113,7 @@ export default function GlobalSettingsModal({
               if (!isNaN(val) && val < 0) return;
               handleChange(onChangeKey, e.target.value);
             }}
-            className="w-full pl-9 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 text-slate-800 dark:text-white font-medium transition-shadow"
+            className="w-full pl-9 pr-4 py-2 bg-bg-card border border-border-color rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 text-text-primary font-medium transition-shadow"
           />{" "}
         </div>{" "}
       </div>{" "}
@@ -229,7 +229,7 @@ export default function GlobalSettingsModal({
                       onChange={(e) =>
                         handlePrefChange("units", "finishing", e.target.value)
                       }
-                      className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
+                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
                     >
                       {" "}
                       <option value="mm">Millimeters (mm)</option>{" "}
@@ -248,7 +248,7 @@ export default function GlobalSettingsModal({
                       onChange={(e) =>
                         handlePrefChange("units", "roads", e.target.value)
                       }
-                      className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
+                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
                     >
                       {" "}
                       <option value="m">Meters (m)</option>{" "}
@@ -267,7 +267,7 @@ export default function GlobalSettingsModal({
                       onChange={(e) =>
                         handlePrefChange("units", "earthworks", e.target.value)
                       }
-                      className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
+                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
                     >
                       {" "}
                       <option value="m">Meters (m)</option>{" "}
@@ -296,7 +296,7 @@ export default function GlobalSettingsModal({
                       onChange={(e) =>
                         handlePrefChange("themes", "finishing", e.target.value)
                       }
-                      className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
+                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
                     >
                       {" "}
                       <option value="blue">Ocean Blue</option>{" "}
@@ -315,7 +315,7 @@ export default function GlobalSettingsModal({
                       onChange={(e) =>
                         handlePrefChange("themes", "roads", e.target.value)
                       }
-                      className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
+                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
                     >
                       {" "}
                       <option value="slate">Industrial Slate</option>{" "}
@@ -333,7 +333,7 @@ export default function GlobalSettingsModal({
                       onChange={(e) =>
                         handlePrefChange("themes", "earthworks", e.target.value)
                       }
-                      className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
+                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
                     >
                       {" "}
                       <option value="amber">Dirt Amber</option>{" "}

@@ -1,6 +1,7 @@
-import React from 'react';
-import { motion } from 'motion/react';
-import { Layers } from 'lucide-react'; // Default icon
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Layers, FolderPlus, CheckCircle, ChevronDown } from 'lucide-react';
+import { useProjects } from '../../context/ProjectContext';
 
 export interface MaterialSummaryProps {
   title?: string;
@@ -23,23 +24,110 @@ export function MaterialSummary({
   children,
   className = ""
 }: MaterialSummaryProps) {
+  const { projects, activeProjectId, addEstimateToProject } = useProjects();
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saved'>('idle');
+  const [showProjectSelect, setShowProjectSelect] = useState(false);
+  const activeProj = projects.find(p => p.id === activeProjectId);
+
+  const handleSave = (projectId: string) => {
+    // Attempt to extract material data from children
+    const extractedMaterials: Record<string, { quantity: number; unit: string }> = {};
+    
+    // Quick helper to recursively parse React children
+    const parseChildren = (node: React.ReactNode) => {
+       React.Children.forEach(node, child => {
+          if (!React.isValidElement(child)) return;
+          
+          if (typeof child.type === 'function' || typeof child.type === 'object') {
+             const props: any = child.props;
+             if (props && props.title && props.value !== undefined) {
+                // Determine unit
+                let unit = props.unit || 'units';
+                if (!unit && props.title.toLowerCase().includes('cost')) unit = '$';
+                
+                // Try to parse the value
+                const valStr = String(props.value).replace(/,/g, '').replace(/[a-zA-Z]/g, '');
+                const num = parseFloat(valStr) || 0;
+                extractedMaterials[props.title] = { quantity: num, unit };
+             }
+             if (props.children) parseChildren(props.children);
+          } else if (child.props && child.props.children) {
+             parseChildren(child.props.children); // HTML elements with children
+          }
+       });
+    };
+    
+    parseChildren(children);
+
+    let parsedCost = 0;
+    const costStr = String(totalValue).replace(/,/g, '').replace(/[^\d.-]/g, '');
+    parsedCost = parseFloat(costStr) || 0;
+
+    addEstimateToProject(projectId, {
+       toolId: window.location.pathname,
+       name: title,
+       cost: parsedCost,
+       materials: extractedMaterials,
+       category: 'Estimate'
+    });
+    
+    setSaveStatus('saved');
+    setShowProjectSelect(false);
+    setTimeout(() => setSaveStatus('idle'), 3000);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-      className={`w-full bg-slate-50/80 dark:bg-[#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 dark:border-white/5 rounded-[32px] p-6 sm:p-8 overflow-hidden relative shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.2)] ${className}`}
+      className={`w-full bg-slate-50/80 dark:bg-[#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 dark:border-white/5 rounded-[32px] p-6 sm:p-8 overflow-visible relative shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.2)] ${className}`}
     >
       {/* Soft Glow Background Effects (Gemini / One UI Style) */}
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-rose-500/10 dark:from-indigo-500/10 dark:via-purple-500/10 dark:to-rose-500/10 rounded-full blur-[80px] pointer-events-none -translate-y-1/4 translate-x-1/4" />
       <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gradient-to-tr from-blue-500/10 to-cyan-500/10 dark:from-blue-500/10 dark:to-cyan-500/10 rounded-full blur-[80px] pointer-events-none translate-y-1/4 -translate-x-1/4" />
 
-      {/* Header section */}
-      <div className="flex items-center gap-3 mb-8 relative z-10">
-        <div className="p-2 bg-gradient-to-br from-indigo-100 via-purple-100 to-rose-100 dark:from-indigo-500/20 dark:via-purple-500/20 dark:to-rose-500/20 text-indigo-600 dark:text-indigo-400 rounded-xl shadow-sm border border-indigo-200/50 dark:border-white/5">
-          {icon || <Layers className="w-4 h-4 flex-shrink-0" />}
+      {/* Header section with Save button */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 relative z-20">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-gradient-to-br from-indigo-100 via-purple-100 to-rose-100 dark:from-indigo-500/20 dark:via-purple-500/20 dark:to-rose-500/20 text-indigo-600 dark:text-indigo-400 rounded-xl shadow-sm border border-indigo-200/50 dark:border-white/5">
+            {icon || <Layers className="w-4 h-4 flex-shrink-0" />}
+          </div>
+          <h3 className="font-bold uppercase tracking-widest text-xs bg-gradient-to-r from-indigo-500 via-purple-500 to-rose-500 bg-clip-text text-transparent dark:from-indigo-400 dark:via-purple-400 dark:to-rose-400 drop-shadow-sm">{title}</h3>
         </div>
-        <h3 className="font-bold uppercase tracking-widest text-xs bg-gradient-to-r from-indigo-500 via-purple-500 to-rose-500 bg-clip-text text-transparent dark:from-indigo-400 dark:via-purple-400 dark:to-rose-400 drop-shadow-sm">{title}</h3>
+
+        {/* Global Save to Project Button */}
+        {projects.length > 0 && (
+          <div className="relative">
+            {saveStatus === 'saved' ? (
+              <span className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold text-sm bg-emerald-50 dark:bg-emerald-500/10 px-4 py-2 rounded-xl transition-all">
+                 <CheckCircle className="w-4 h-4" /> Saved to Project
+              </span>
+            ) : activeProj && !showProjectSelect ? (
+              <div className="flex bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-1 rounded-xl shadow-sm hover:shadow transition-shadow">
+                 <button onClick={() => handleSave(activeProj.id)} className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-bold text-xs sm:text-sm px-3 py-1.5 hover:bg-slate-50 dark:hover:bg-slate-700/50 rounded-lg transition-colors">
+                    <FolderPlus className="w-4 h-4" /> Save to: {activeProj.name}
+                 </button>
+                 <div className="w-px h-6 bg-slate-200 dark:bg-slate-700 my-auto mx-1"></div>
+                 <button onClick={() => setShowProjectSelect(true)} className="px-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                    <ChevronDown className="w-4 h-4" />
+                 </button>
+              </div>
+            ) : (
+               <div className="absolute right-0 top-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl w-64 p-2 z-50">
+                 <div className="flex justify-between items-center mb-2 px-2 pt-1">
+                   <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Select Project</span>
+                   <button onClick={() => setShowProjectSelect(false)} className="text-slate-400 hover:text-slate-600"><ChevronDown className="w-4 h-4 rotate-180" /></button>
+                 </div>
+                 {projects.map(p => (
+                    <button key={p.id} onClick={() => handleSave(p.id)} className="w-full text-left px-3 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-lg transition-colors mb-1 truncate">
+                       {p.name}
+                    </button>
+                 ))}
+               </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Hero Total Section */}

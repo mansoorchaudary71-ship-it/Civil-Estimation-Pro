@@ -260,7 +260,7 @@ export default function Sidebar({
   onOpenAuth,
   onOpenProfile,
 }: SidebarProps) {
-  const { user, logOut } = useAuth();
+  const { user, logOut, signInWithGoogle } = useAuth();
   const isAuthenticated = !!user;
   
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
@@ -325,7 +325,7 @@ export default function Sidebar({
       >
         {/* Header Row */}
         <div className="flex items-center justify-between px-6 py-5 shrink-0 lg:hidden">
-          <div className="text-[20px] font-black tracking-tighter text-slate-900 dark:text-white uppercase">
+          <div className="text-[20px] font-black tracking-tighter text-text-primary uppercase">
             Esti<span className="text-indigo-600 dark:text-indigo-400">Pro</span>
           </div>
           <div className="flex items-center space-x-2 text-slate-900 dark:text-slate-100 lg:hidden">
@@ -355,7 +355,7 @@ export default function Sidebar({
               className={cn(
                 "flex items-center gap-4 px-3 py-3 w-full rounded-[20px] transition-all duration-300",
                 activeModule === "home"
-                  ? "bg-slate-50 dark:bg-slate-800/60"
+                  ? "bg-bg-primary/60"
                   : "hover:bg-slate-50/50 dark:hover:bg-slate-800/40"
               )}
             >
@@ -364,7 +364,7 @@ export default function Sidebar({
               </div>
               <span className={cn(
                 "flex-1 text-left text-[15px] font-medium tracking-tight",
-                activeModule === "home" ? "text-slate-900 dark:text-white font-semibold" : "text-slate-700 dark:text-slate-300"
+                activeModule === "home" ? "text-text-primary font-semibold" : "text-slate-700 dark:text-slate-300"
               )}>Dashboard</span>
             </button>
             <button
@@ -372,7 +372,7 @@ export default function Sidebar({
               className={cn(
                 "flex items-center gap-4 px-3 py-3 w-full rounded-[20px] transition-all duration-300",
                 activeModule === "takeoff"
-                  ? "bg-slate-50 dark:bg-slate-800/60"
+                  ? "bg-bg-primary/60"
                   : "hover:bg-slate-50/50 dark:hover:bg-slate-800/40"
               )}
             >
@@ -381,7 +381,7 @@ export default function Sidebar({
               </div>
               <span className={cn(
                 "flex-1 text-left text-[15px] font-medium tracking-tight",
-                activeModule === "takeoff" ? "text-slate-900 dark:text-white font-semibold" : "text-slate-700 dark:text-slate-300"
+                activeModule === "takeoff" ? "text-text-primary font-semibold" : "text-slate-700 dark:text-slate-300"
               )}>2D Takeoff</span>
             </button>
             <button
@@ -389,7 +389,7 @@ export default function Sidebar({
               className={cn(
                 "flex items-center gap-4 px-3 py-3 w-full rounded-[20px] transition-all duration-300",
                 activeModule === "ai"
-                  ? "bg-slate-50 dark:bg-slate-800/60"
+                  ? "bg-bg-primary/60"
                   : "hover:bg-slate-50/50 dark:hover:bg-slate-800/40"
               )}
             >
@@ -398,7 +398,7 @@ export default function Sidebar({
               </div>
               <span className={cn(
                 "flex-1 text-left text-[15px] font-medium tracking-tight",
-                activeModule === "ai" ? "text-slate-900 dark:text-white font-semibold" : "text-slate-700 dark:text-slate-300"
+                activeModule === "ai" ? "text-text-primary font-semibold" : "text-slate-700 dark:text-slate-300"
               )}>AI Civil Assistant</span>
             </button>
           </div>
@@ -441,7 +441,7 @@ export default function Sidebar({
                               className={cn(
                                 "flex items-center gap-4 px-3 py-3 w-full rounded-[20px] transition-all",
                                 isToolExpanded || activeModule === tool.id
-                                  ? "bg-slate-50 dark:bg-slate-800/60"
+                                  ? "bg-bg-primary/60"
                                   : "hover:bg-slate-50/50 dark:hover:bg-slate-800/40"
                               )}
                             >
@@ -450,7 +450,7 @@ export default function Sidebar({
                               </div>
                               <span className={cn(
                                 "flex-1 text-left text-[15px] font-medium tracking-tight",
-                                isToolExpanded || activeModule === tool.id ? "text-slate-900 dark:text-white font-semibold" : "text-slate-700 dark:text-slate-300"
+                                isToolExpanded || activeModule === tool.id ? "text-text-primary font-semibold" : "text-slate-700 dark:text-slate-300"
                               )}>
                                 {tool.label}
                               </span>
@@ -463,7 +463,7 @@ export default function Sidebar({
                             {tool.subTools.length > 0 && (
                               <div 
                                 className={cn(
-                                  "flex flex-col ml-[28px] pl-6 border-l-2 border-slate-100 dark:border-slate-800 overflow-hidden transition-all duration-300",
+                                  "flex flex-col ml-[28px] pl-6 border-l-2 border-border-color overflow-hidden transition-all duration-300",
                                   isToolExpanded ? "max-h-[500px] mt-2 mb-2 opacity-100 py-1" : "max-h-0 opacity-0"
                                 )}
                               >
@@ -476,7 +476,7 @@ export default function Sidebar({
                                       className={cn(
                                         "text-left py-2.5 text-[14px] transition-all relative group",
                                         isSubActive 
-                                          ? "text-slate-900 dark:text-white font-medium" 
+                                          ? "text-text-primary font-medium" 
                                           : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
                                       )}
                                     >
@@ -522,13 +522,13 @@ export default function Sidebar({
               <div className="flex gap-2">
                 <button
                   onClick={() => { onClose?.(); onOpenProfile?.(); }}
-                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-[13px] font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-[13px] font-bold text-slate-700 dark:text-slate-300 bg-bg-card border border-border-color shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
                 >
                   <Settings className="w-4 h-4" /> Account
                 </button>
                 <button
                   onClick={async () => { await logOut(); onClose?.(); }}
-                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-[13px] font-bold text-red-600 dark:text-red-400 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-100 dark:hover:border-red-800 transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-[13px] font-bold text-red-600 dark:text-red-400 bg-bg-card border border-border-color shadow-sm hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-100 dark:hover:border-red-800 transition-colors"
                 >
                   <LogOut className="w-4 h-4" /> Sign Out
                 </button>
@@ -537,16 +537,11 @@ export default function Sidebar({
           ) : (
             <div className="flex flex-col gap-2">
               <button
-                onClick={() => { onClose?.(); onOpenAuth?.(); }}
-                className="w-full py-3 rounded-xl text-[14px] font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
+                onClick={() => { onClose?.(); signInWithGoogle?.(); }}
+                className="w-full flex items-center justify-center gap-3 py-3 rounded-xl text-[14px] font-bold text-slate-700 dark:text-slate-200 bg-bg-card border border-border-color shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
               >
-                Sign In
-              </button>
-              <button
-                onClick={() => { onClose?.(); onOpenAuth?.(); }}
-                className="w-full py-3 rounded-xl text-[14px] font-bold text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 transition-colors"
-              >
-                Get Started
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5 bg-white rounded-full p-0.5" />
+                Sign In with Google
               </button>
             </div>
           )}

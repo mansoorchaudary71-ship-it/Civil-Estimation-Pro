@@ -44,7 +44,7 @@ export default function LegalPages({ page, onNavigate }: LegalPageProps) {
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-blue-100/50 dark:bg-blue-900/30 text-indigo-600 dark:text-blue-400 mb-4 shadow-[0_8px_16px_-6px_rgba(37,99,235,0.2)]">
           <current.icon className="w-8 h-8" strokeWidth={1.5} />
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-800 dark:text-white tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-text-primary tracking-tight">
           {current.title}
         </h1>
         <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
@@ -58,7 +58,7 @@ export default function LegalPages({ page, onNavigate }: LegalPageProps) {
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 relative">
         {/* Sidebar Navigation */}
         <aside className="w-full lg:w-72 shrink-0 lg:sticky top-24 self-start">
-          <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-2">
+          <div className="bg-bg-card p-6 rounded-3xl border border-border-color shadow-sm space-y-2">
             <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-3 mb-4">
               Legal Pages
             </h3>
@@ -106,7 +106,7 @@ export default function LegalPages({ page, onNavigate }: LegalPageProps) {
             </button>
           </div>
           
-          <div className="mt-6 bg-slate-50 dark:bg-slate-900/50 p-6 rounded-3xl border border-slate-200/60 dark:border-slate-800/60 text-sm">
+          <div className="mt-6 bg-bg-primary/50 p-6 rounded-3xl border border-slate-200/60 dark:border-slate-800/60 text-sm">
             <h4 className="font-bold text-slate-800 dark:text-slate-200 mb-2">Have Questions?</h4>
             <p className="text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">
               If you have any questions about our legal policies, please contact our support team.
@@ -121,7 +121,7 @@ export default function LegalPages({ page, onNavigate }: LegalPageProps) {
         </aside>
 
         {/* Content Area */}
-        <main className="flex-1 bg-white dark:bg-slate-900 p-8 md:p-12 lg:p-16 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-sm min-w-0">
+        <main className="flex-1 bg-bg-card p-8 md:p-12 lg:p-16 rounded-[2.5rem] border border-border-color shadow-sm min-w-0">
           <div className="prose prose-slate dark:prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-indigo-600 dark:prose-a:text-blue-400 transition-colors">
             {page === 'privacy' && <PrivacyContent />}
             {page === 'terms' && <TermsContent />}

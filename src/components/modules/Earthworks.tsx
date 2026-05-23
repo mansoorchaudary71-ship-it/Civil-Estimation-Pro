@@ -11,7 +11,7 @@ export default function EarthworksEstimator() {
     <div className="w-full text-gray-900 font-sans md:p-4">
       <div className="max-w-7xl mx-auto space-y-8">
         <header className="mb-6 px-4 md:px-0">
-          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-2 flex items-center gap-3">
+          <h1 className="text-3xl font-extrabold text-text-primary mb-2 flex items-center gap-3">
             <Shovel className="w-8 h-8 text-indigo-600 dark:text-blue-400" />
             Earthworks & Excavation
           </h1>

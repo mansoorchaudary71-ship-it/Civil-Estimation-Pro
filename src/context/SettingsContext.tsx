@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, ReactNode, useEffect } from
 export type Currency = 'PKR' | 'USD' | 'INR' | 'AED' | 'SAR' | 'GBP';
 export type MeasurementSystem = 'FPS' | 'SI';
 export type Theme = 'light' | 'dark' | 'system';
+export type UserRole = 'Civil Engineer' | 'Quantity Surveyor' | 'Student' | 'Contractor' | undefined;
 
 export interface MaterialRates {
   cement: number;
@@ -31,6 +32,9 @@ interface SettingsState {
   theme: Theme;
   rates: MaterialRates;
   modulePreferences?: ModulePreferences;
+  role?: UserRole;
+  onboardingComplete?: boolean;
+  usedTools?: string[];
 }
 
 interface SettingsContextType {
@@ -39,12 +43,16 @@ interface SettingsContextType {
   formatCurrency: (amount: number, applyExchangeRate?: boolean) => string;
   convertAmount: (amount: number) => number;
   convertAmountToRaw: (amount: number) => number;
+  trackToolUse: (toolId: string) => void;
 }
 
 const defaultSettings: SettingsState = {
   currency: 'PKR',
   measurement: 'FPS', // FPS = ft, sqft, cft; SI = m, sqm, cum
   theme: 'system',
+  role: undefined,
+  onboardingComplete: false,
+  usedTools: [],
   rates: {
     cement: 1200,   // per 50kg bag
     steel: 260000,  // per ton
@@ -147,8 +155,16 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     return amount / rate;
   };
 
+  const trackToolUse = (toolId: string) => {
+    setSettings(prev => {
+      const used = prev.usedTools || [];
+      if (used.includes(toolId)) return prev;
+      return { ...prev, usedTools: [...used, toolId] };
+    });
+  };
+
   return (
-    <SettingsContext.Provider value={{ settings, updateSettings, formatCurrency, convertAmount, convertAmountToRaw }}>
+    <SettingsContext.Provider value={{ settings, updateSettings, formatCurrency, convertAmount, convertAmountToRaw, trackToolUse }}>
       {children}
     </SettingsContext.Provider>
   );

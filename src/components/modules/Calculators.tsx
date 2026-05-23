@@ -268,7 +268,7 @@ export default function ConstructionMaterialEstimator() {
       <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full relative">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b pb-4 mb-4 gap-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <h3 className="font-bold text-lg text-slate-800 dark:text-white">
+            <h3 className="font-bold text-lg text-text-primary">
               Concrete Estimator
             </h3>
             <UnitToggleGroup
@@ -281,7 +281,7 @@ export default function ConstructionMaterialEstimator() {
               size="sm"
             />
           </div>
-          <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl w-full sm:w-auto">
+          <div className="flex bg-bg-primary p-1 rounded-xl w-full sm:w-auto">
             {(["slab", "column", "staircase"] as const).map((type) => (
               <button
                 key={type}
@@ -1019,10 +1019,10 @@ export default function ConstructionMaterialEstimator() {
     content = (
       <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 mb-4 gap-4">
-          <h3 className="font-bold text-lg text-slate-800 dark:text-white">
+          <h3 className="font-bold text-lg text-text-primary">
             Finishes Estimator
           </h3>
-          <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl w-full sm:w-auto">
+          <div className="flex bg-bg-primary p-1 rounded-xl w-full sm:w-auto">
             {(["plaster", "paint", "antitermite"] as const).map((type) => (
               <button
                 key={type}
@@ -1295,7 +1295,7 @@ export default function ConstructionMaterialEstimator() {
             );
           })}
         </div>
-        <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-xl shadow-md border border-slate-200 dark:border-slate-800 transition-all duration-300 relative">
+        <div className="bg-bg-card p-6 md:p-8 rounded-xl shadow-md border border-border-color transition-all duration-300 relative">
           <div className={`grid grid-cols-1 ${activeTab !== "master" && activeTab !== "cement" && activeTab !== "sand" && activeTab !== "bricks" ? "lg:grid-cols-2 gap-8 relative" : "gap-4"}`}>
             <div 
               className={`flex flex-col gap-4 ${activeTab === "master" || activeTab === "bricks" ? "lg:col-span-2" : ""}`}
@@ -1546,7 +1546,7 @@ export default function ConstructionMaterialEstimator() {
                           </div>
                         )}
                       </div>
-                      <div className="flex justify-between items-center pt-6 pb-2 border-t mt-4 border-slate-200 dark:border-slate-800">
+                      <div className="flex justify-between items-center pt-6 pb-2 border-t mt-4 border-border-color">
                         <span className="text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider text-sm flex items-center gap-2">
                           Estimated Cost
                         </span>
@@ -1588,7 +1588,7 @@ export default function ConstructionMaterialEstimator() {
                         if (pieData.length === 0) return null;
 
                         return (
-                          <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800">
+                          <div className="mt-6 pt-4 border-t border-border-color">
                             <StyledChart 
                               data={pieData} 
                               type="pie" 
@@ -1603,7 +1603,7 @@ export default function ConstructionMaterialEstimator() {
                 </MaterialSummary>
               </div>
               ) : (
-                <div className="bg-slate-50 dark:bg-slate-900/50 rounded-3xl p-8 border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center sticky top-6 self-start h-full min-h-[300px] w-full">
+                <div className="bg-bg-primary/50 rounded-3xl p-8 border-2 border-dashed border-border-color flex flex-col items-center justify-center text-center sticky top-6 self-start h-full min-h-[300px] w-full">
                     <Calculator className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
                     <h3 className="font-bold text-slate-700 dark:text-slate-300 text-lg">Waiting to Compute</h3>
                     <p className="text-slate-500 text-sm mt-2">Enter your dimensions on the left and click the Compute Estimate button to see the detailed material breakdown.</p>
@@ -1612,7 +1612,7 @@ export default function ConstructionMaterialEstimator() {
               )}
           </div>
           {hasData && currentCartItem && (
-            <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row gap-4 items-end pb-12 sm:pb-0">
+            <div className="mt-8 pt-6 border-t border-border-color flex flex-col sm:flex-row gap-4 items-end pb-12 sm:pb-0">
               <div className="flex-1 w-full">
                 <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
                   Element Name (Optional)

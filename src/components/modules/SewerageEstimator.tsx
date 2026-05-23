@@ -1097,7 +1097,7 @@ export default function SewerageEstimator() {
                         />
                       </div>
                       
-                      <h4 className="font-bold text-slate-800 dark:text-white mt-6 mb-4 flex items-center gap-2">
+                      <h4 className="font-bold text-text-primary mt-6 mb-4 flex items-center gap-2">
                         Soakage Pit Dimensions
                       </h4>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Menu, X, User, LogOut, Settings, ChevronDown, ArrowRight } from 'lucide-react';
 import { GlobalSettingsToggle } from './ui/GlobalSettingsToggle';
+import { DarkModeToggle } from './ui/DarkModeToggle';
 import { useAuth } from '../contexts/AuthContext';
+import { useSettings, MeasurementSystem, Currency } from '../context/SettingsContext';
 import { ModuleId } from './Sidebar';
 import Logo from './Logo';
 
@@ -20,8 +22,10 @@ export default function TopNavbar({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSettingsDrawerOpen, setIsSettingsDrawerOpen] = useState(false);
   
+  const { settings, updateSettings } = useSettings();
+  
   const profileRef = useRef<HTMLDivElement>(null);
-  const { user, logOut } = useAuth();
+  const { user, logOut, signInWithGoogle } = useAuth();
   
   const isAuthenticated = !!user;
 
@@ -54,20 +58,43 @@ export default function TopNavbar({
   };
 
   const navItems = [
+    { name: 'Home', id: 'home' as ModuleId },
     { name: 'Estimator', id: 'house' as ModuleId },
     { name: 'Materials', id: 'calculators' as ModuleId },
     { name: 'Reports', id: 'my-estimates' as ModuleId },
     { name: 'Contact', id: 'contact' as ModuleId },
   ];
 
+  const touchStartX = useRef<number | null>(null);
+  
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const currentX = e.touches[0].clientX;
+    const diff = touchStartX.current - currentX;
+    
+    // Swipe left to close drawer (since it slides from left)
+    if (diff > 50) {
+      setIsMobileMenuOpen(false);
+      touchStartX.current = null;
+    }
+  };
+
+  const handleTouchEnd = () => {
+    touchStartX.current = null;
+  };
+
   return (
     <>
-      <nav className="w-full relative shrink-0 z-40 bg-transparent px-5 py-4 md:px-8 shadow-sm">
+      <nav className="w-full sticky top-0 z-40 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md px-5 py-4 md:px-8 border-b border-border-color/50 shadow-sm transition-colors duration-300">
         <div className="w-full flex items-center justify-between mx-auto max-w-[1400px]">
           
           {/* Left: Logo */}
           <div className="flex items-center gap-3 justify-start cursor-pointer group shrink-0" onClick={() => onNavigate?.('home' as ModuleId)}>
-            <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center transition-all duration-300 text-[var(--accent-vibrant)] group-hover:scale-105 group-hover:rotate-3 shadow-glass bg-white dark:bg-slate-800 rounded-xl p-1.5">
+            <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center transition-all duration-300 text-[var(--accent-vibrant)] group-hover:scale-105 group-hover:rotate-3 shadow-glass bg-bg-card rounded-xl p-1.5">
               <Logo className="w-full h-full" />
             </div>
             <span className="font-sans font-extrabold text-[22px] text-[var(--primary-dark)] dark:text-white tracking-tight">
@@ -77,7 +104,7 @@ export default function TopNavbar({
 
           {/* Center: Slash navigation links (Desktop/Tablet >= 768px) */}
           <div className="hidden md:flex items-center justify-start ml-12 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md px-6 py-2.5 rounded-full shadow-sm border border-white/80 dark:border-slate-700/50">
-            {navItems.map((link, index) => (
+            {navItems.filter(link => link.id !== 'home').map((link, index, arr) => (
               <React.Fragment key={link.name}>
                 <button 
                   onClick={() => onNavigate?.(link.id)}
@@ -85,7 +112,7 @@ export default function TopNavbar({
                 >
                   {link.name}
                 </button>
-                {index < navItems.length - 1 && (
+                {index < arr.length - 1 && (
                   <span className="mx-4 text-slate-300 dark:text-slate-600 font-light select-none">/</span>
                 )}
               </React.Fragment>
@@ -96,7 +123,7 @@ export default function TopNavbar({
           <div className="md:hidden flex items-center justify-end">
             <button 
               onClick={() => setIsMobileMenuOpen(true)}
-              className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-300"
+              className="w-10 h-10 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-300"
             >
               <Menu className="w-5 h-5" strokeWidth={2} />
             </button>
@@ -104,12 +131,13 @@ export default function TopNavbar({
 
           {/* Right: Action Buttons (Desktop >= 768px) */}
           <div className="hidden md:flex items-center justify-end flex-1 gap-4">
+            <DarkModeToggle />
             <GlobalSettingsToggle />
 
             <div className="flex items-center gap-3">
               <button 
                 onClick={() => onNavigate?.('contact' as ModuleId)}
-                className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-center text-slate-500 hover:text-[var(--accent-vibrant)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                className="w-10 h-10 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center justify-center text-slate-500 hover:text-[var(--accent-vibrant)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
                 title="Support"
               >
                 <div className="font-bold text-lg">?</div>
@@ -117,28 +145,36 @@ export default function TopNavbar({
               
               {!isAuthenticated ? (
                 <button 
-                  onClick={onOpenAuth}
-                  className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-center text-slate-500 hover:text-[var(--primary-dark)] dark:hover:text-white hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
-                  title="Login"
+                  onClick={signInWithGoogle}
+                  className="px-4 h-9 rounded-full bg-slate-900 dark:bg-white shadow-sm border border-slate-800 dark:border-slate-200 flex items-center justify-center gap-2 text-white dark:text-slate-900 transition-all duration-300"
+                  title="Sign In with Google"
                 >
-                  <User className="w-5 h-5" />
+                  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-4 h-4" />
+                  <span className="text-sm font-semibold tracking-tight">Sign In</span>
                 </button>
               ) : (
                 <div ref={profileRef} className="relative">
                   <button 
                     onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                    className="h-10 pl-3 pr-2 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center gap-2 text-[14px] font-semibold text-slate-700 dark:text-slate-200 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                    className="h-10 pl-1.5 pr-2 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center gap-2 text-[14px] font-semibold text-slate-700 dark:text-slate-200 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
                   >
+                    {user?.photoURL ? (
+                       <img src={user.photoURL} alt="User" className="w-7 h-7 rounded-full object-cover shadow-sm border border-slate-200 dark:border-slate-600" />
+                    ) : (
+                       <div className="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center border border-slate-200 dark:border-slate-600">
+                         <User className="w-4 h-4 text-slate-500" />
+                       </div>
+                    )}
                     <span className="truncate max-w-[100px]">{user?.displayName?.split(' ')[0] || 'Account'}</span>
-                    <div className="w-6 h-6 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center">
-                      <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
+                    <div className="w-5 h-5 rounded-full flex items-center justify-center text-slate-400">
+                      <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
                     </div>
                   </button>
 
                   {isProfileMenuOpen && (
-                    <div className="absolute right-0 top-[140%] w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 z-50">
-                      <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
-                        <p className="text-sm font-bold text-slate-900 dark:text-white truncate">{user?.displayName || 'User'}</p>
+                    <div className="absolute right-0 top-[140%] w-56 bg-bg-card border border-border-color rounded-xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 z-50">
+                      <div className="px-4 py-3 border-b border-border-color bg-bg-primary/50">
+                        <p className="text-sm font-bold text-text-primary truncate">{user?.displayName || 'User'}</p>
                         <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
                       </div>
                       <div className="p-2 space-y-1">
@@ -173,21 +209,6 @@ export default function TopNavbar({
       </nav>
 
       {/* ------------------------------------------- */}
-      {/* FULL-WIDTH STICKY CTA FOR MOBILE (< 768px)  */}
-      {/* ------------------------------------------- */}
-      <div className="md:hidden fixed bottom-6 left-4 right-4 z-40">
-        <button 
-          onClick={() => {
-            setIsMobileMenuOpen(false);
-            onNavigate?.('house' as ModuleId);
-          }}
-          className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-2xl text-[16px] font-bold text-white dark:text-[#111111] bg-[#111111] dark:bg-white shadow-[0_8px_30px_rgba(0,0,0,0.2)] dark:shadow-[0_8px_30px_rgba(255,255,255,0.15)] active:scale-[0.98] transition-transform duration-200"
-        >
-          Start Estimating <ArrowRight className="w-5 h-5" />
-        </button>
-      </div>
-
-      {/* ------------------------------------------- */}
       {/* MOBILE HAMBURGER MENU OVERLAY               */}
       {/* ------------------------------------------- */}
       {isMobileMenuOpen && (
@@ -199,7 +220,12 @@ export default function TopNavbar({
           ></div>
           
           {/* Menu Drawer */}
-          <div className="absolute top-0 right-0 bottom-0 w-[85vw] max-w-[340px] bg-white dark:bg-[#111111] shadow-2xl flex flex-col animate-in slide-in-from-right duration-300 ease-out">
+          <div 
+            className="absolute top-0 left-0 bottom-0 w-[85vw] max-w-[340px] bg-white dark:bg-[#111111] shadow-2xl flex flex-col animate-in slide-in-from-left duration-300 ease-out"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-[#111111]/10 dark:border-white/10 shrink-0">
               <div className="flex items-center gap-2">
@@ -240,16 +266,41 @@ export default function TopNavbar({
               
               <nav className="flex flex-col gap-5">
                 <span className="text-[11px] font-bold tracking-widest uppercase text-[#111111]/40 dark:text-white/40 mb-1">Preferences</span>
-                <button
-                  onClick={() => setIsSettingsDrawerOpen(true)}
-                  className="flex items-center justify-between text-left text-[18px] font-bold text-[#111111] dark:text-white group"
-                >
-                  <div className="flex items-center gap-3">
-                    <Settings className="w-5 h-5 text-[#111111]/60 dark:text-white/60" />
-                    Unit & Currency Settings
-                  </div>
-                  <ChevronDown className="w-5 h-5 text-[#111111]/40 dark:text-white/40 -rotate-90" />
-                </button>
+                <DarkModeToggle isMobile />
+                
+                <div className="flex flex-col gap-3">
+                   <label className="text-[14px] font-bold text-[#111111] dark:text-white">Unit System</label>
+                   <div className="flex bg-[#111111]/5 dark:bg-white/5 rounded-lg p-1 border border-[#111111]/10 dark:border-white/10">
+                     <button
+                       onClick={() => updateSettings({ measurement: 'FPS' })}
+                       className={`flex-1 py-2 text-sm font-bold rounded-md transition-colors ${settings.measurement === 'FPS' ? 'bg-white dark:bg-[#222] text-[#111111] dark:text-white shadow-sm border border-[#111111]/10 dark:border-white/10' : 'text-[#111111]/60 dark:text-white/60 hover:text-[#111111] dark:hover:text-white'}`}
+                     >
+                       Imperial (ft)
+                     </button>
+                     <button
+                       onClick={() => updateSettings({ measurement: 'SI' })}
+                       className={`flex-1 py-2 text-sm font-bold rounded-md transition-colors ${settings.measurement === 'SI' ? 'bg-white dark:bg-[#222] text-[#111111] dark:text-white shadow-sm border border-[#111111]/10 dark:border-white/10' : 'text-[#111111]/60 dark:text-white/60 hover:text-[#111111] dark:hover:text-white'}`}
+                     >
+                       Metric (m)
+                     </button>
+                   </div>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                   <label className="text-[14px] font-bold text-[#111111] dark:text-white">Currency</label>
+                   <select
+                     value={settings.currency}
+                     onChange={(e) => updateSettings({ currency: e.target.value as Currency })}
+                     className="w-full bg-[#111111]/5 dark:bg-white/5 border border-[#111111]/10 dark:border-white/10 rounded-lg py-2.5 px-3 text-sm font-bold text-[#111111] dark:text-white shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                   >
+                     <option value="USD">USD ($) - US Dollar</option>
+                     <option value="PKR">PKR (Rs) - Pakistani Rupee</option>
+                     <option value="INR">INR (₹) - Indian Rupee</option>
+                     <option value="AED">AED - UAE Dirham</option>
+                     <option value="SAR">SAR - Saudi Riyal</option>
+                     <option value="GBP">GBP (£) - British Pound</option>
+                   </select>
+                </div>
               </nav>
             </div>
 
@@ -287,52 +338,17 @@ export default function TopNavbar({
                 </div>
               ) : (
                 <button
-                  onClick={() => { setIsMobileMenuOpen(false); onOpenAuth?.(); }}
-                  className="w-full py-3 rounded-xl text-[15px] font-bold text-[#111111] dark:text-white bg-white dark: border border-[#111111]/10 dark:border-white/10 shadow-sm transition-colors"
+                  onClick={() => { setIsMobileMenuOpen(false); signInWithGoogle(); }}
+                  className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl text-[15px] font-bold text-[#111111] dark:text-white bg-white dark:bg-[#222] border border-[#111111]/10 dark:border-white/10 shadow-sm transition-colors"
                 >
-                  Sign In / Create Account
+                  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5 bg-white rounded-full p-0.5" />
+                  Sign In with Google
                 </button>
               )}
             </div>
             
             {/* Added padding to clear sticky CTA at the bottom */}
             <div className="h-24 shrink-0 bg-[#111111]/5 dark:bg-white/5"></div>
-          </div>
-        </div>
-      )}
-
-      {/* ------------------------------------------- */}
-      {/* SETTINGS DRAWER (Imperial/PKR Toggle)       */}
-      {/* ------------------------------------------- */}
-      {isSettingsDrawerOpen && (
-        <div className="md:hidden fixed inset-0 z-[110] flex items-end">
-          <div 
-            className="absolute inset-0 bg-[#111111]/40 dark:bg-black/60 backdrop-blur-sm transition-opacity"
-            onClick={() => setIsSettingsDrawerOpen(false)}
-          ></div>
-          <div className="relative w-full bg-white dark:bg-[#111111] rounded-t-[32px] p-6 shadow-[0_-8px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_-8px_40px_rgba(0,0,0,0.3)] animate-in slide-in-from-bottom duration-300 ease-out">
-            <div className="w-12 h-1.5 bg-[#111111]/20 dark:bg-white/20 rounded-full mx-auto mb-6"></div>
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-[20px] font-bold text-[#111111] dark:text-white">Regional Settings</h3>
-              <button onClick={() => setIsSettingsDrawerOpen(false)} className="p-2 -mr-2 text-[#111111]/60 dark:text-white/60">
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-            
-            {/* Render the actual toggle component but forced into a larger format or just use the settings context? */}
-            <div className="pb-8">
-               <div className="mb-4">
-                  <span className="text-[13px] font-bold text-[#111111]/50 dark:text-white/50 tracking-widest uppercase block mb-3">Unit System & Currency</span>
-                  {/* Instead of importing the context, we can just render GlobalSettingsToggle forced inline if possible, but it's a relative dropdown.
-                      Actually, let's wrap it in a flex container so it looks native, or we can just render the toggle. */}
-                  <div className="scale-110 origin-top-left inline-block">
-                    <GlobalSettingsToggle align="left" />
-                  </div>
-                  <p className="text-[13px] text-[#111111]/60 dark:text-white/60 mt-4 leading-relaxed">
-                    Click the button above to switch between Metric (m) and Imperial (ft), and update your preferred currency for reports.
-                  </p>
-               </div>
-            </div>
           </div>
         </div>
       )}

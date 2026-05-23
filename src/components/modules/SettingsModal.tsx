@@ -47,7 +47,7 @@ export default function SettingsModal({
         {/* Mobile Close Button */}
         <button
           onClick={onClose}
-          className="md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:text-slate-700 dark:text-slate-300 dark:hover:text-white transition-colors"
+          className="md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-bg-primary text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:text-slate-700 dark:text-slate-300 dark:hover:text-white transition-colors"
         >
           <X className="w-4 h-4" />
         </button>
@@ -58,7 +58,7 @@ export default function SettingsModal({
               <SettingsIcon className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-slate-800 dark:text-white leading-tight">
+              <h2 className="text-xl font-bold text-text-primary leading-tight">
                 Preferences
               </h2>
             </div>
@@ -71,7 +71,7 @@ export default function SettingsModal({
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-3 w-full px-4 py-3.5 rounded-2xl font-semibold transition-all ${isActive ? "bg-white dark:bg-slate-800 text-indigo-600 dark:text-blue-400 shadow-sm border border-slate-100 dark:border-slate-700/50" : "text-slate-700 dark:text-slate-300 hover:bg-slate-100/50 dark:hover:bg-slate-800/30 hover:text-slate-900 dark:hover:text-slate-100 border border-transparent"}`}
+                  className={`flex items-center gap-3 w-full px-4 py-3.5 rounded-2xl font-semibold transition-all ${isActive ? "bg-bg-card text-indigo-600 dark:text-blue-400 shadow-sm border border-border-color/50" : "text-slate-700 dark:text-slate-300 hover:bg-slate-100/50 dark:hover:bg-slate-800/30 hover:text-slate-900 dark:hover:text-slate-100 border border-transparent"}`}
                 >
                   <Icon
                     className={`w-5 h-5 ${isActive ? "text-indigo-600 dark:text-blue-400" : "text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300"}`}
@@ -91,13 +91,13 @@ export default function SettingsModal({
         </div>
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col min-h-0 bg-transparent">
-          <div className="hidden md:flex items-center justify-between px-8 py-6 border-b border-slate-100 dark:border-slate-800/50">
-            <h3 className="text-2xl font-bold text-slate-800 dark:text-white capitalize">
+          <div className="hidden md:flex items-center justify-between px-8 py-6 border-b border-border-color/50">
+            <h3 className="text-2xl font-bold text-text-primary capitalize">
               {tabs.find((t) => t.id === activeTab)?.label}
             </h3>
             <button
               onClick={onClose}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-800 dark:text-slate-700 dark:text-slate-300 dark:hover:text-white border border-slate-200 dark:border-slate-700 shadow-sm transition-all"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-bg-card hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-800 dark:text-slate-700 dark:text-slate-300 dark:hover:text-white border border-border-color shadow-sm transition-all"
             >
               <X className="w-5 h-5" />
             </button>
@@ -105,7 +105,7 @@ export default function SettingsModal({
           <div className="flex-1 overflow-y-auto px-6 py-8 md:px-10 md:py-10">
             <div className="max-w-xl mx-auto md:mx-0">
               {/* Mobile Header */}
-              <h3 className="md:hidden text-2xl font-bold text-slate-800 dark:text-white capitalize mb-6">
+              <h3 className="md:hidden text-2xl font-bold text-text-primary capitalize mb-6">
                 {tabs.find((t) => t.id === activeTab)?.label}
               </h3>
               {activeTab === "account" && (
@@ -129,7 +129,7 @@ export default function SettingsModal({
                         Visible to other team members.
                       </p>
                       <div className="flex gap-2">
-                        <button className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-transparent dark:hover:bg-slate-700 transition-colors shadow-sm">
+                        <button className="px-4 py-2 bg-bg-card border border-border-color rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-transparent dark:hover:bg-slate-700 transition-colors shadow-sm">
                           Upload New
                         </button>
                       </div>
@@ -144,7 +144,7 @@ export default function SettingsModal({
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3.5 text-slate-800 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 dark:focus:border-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full bg-bg-card border border-border-color rounded-2xl px-4 py-3.5 text-text-primary font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 dark:focus:border-blue-500 outline-none transition-all shadow-sm"
                       />
                     </div>
                     <div>
@@ -155,7 +155,7 @@ export default function SettingsModal({
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl px-4 py-3.5 text-slate-800 dark:text-white font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 dark:focus:border-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full bg-bg-card border border-border-color rounded-2xl px-4 py-3.5 text-text-primary font-medium focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 dark:focus:border-blue-500 outline-none transition-all shadow-sm"
                       />
                     </div>
                   </div>
@@ -172,10 +172,10 @@ export default function SettingsModal({
                   <div className="space-y-6">
                     <div className="flex flex-col gap-4">
                       <label
-                        className={`relative flex items-center justify-between p-5 rounded-2xl border-2 cursor-pointer transition-all ${settings.measurement === "SI" ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900"}`}
+                        className={`relative flex items-center justify-between p-5 rounded-2xl border-2 cursor-pointer transition-all ${settings.measurement === "SI" ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-border-color hover:border-slate-300 dark:hover:border-slate-700 bg-bg-card"}`}
                       >
                         <div className="flex flex-col">
-                          <span className="text-lg font-bold text-slate-800 dark:text-white mb-1">
+                          <span className="text-lg font-bold text-text-primary mb-1">
                             Metric (SI)
                           </span>
                           <span className="text-sm font-medium text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300">
@@ -183,7 +183,7 @@ export default function SettingsModal({
                           </span>
                         </div>
                         <div
-                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${settings.measurement === "SI" ? "border-blue-500 bg-blue-500" : "border-slate-300 dark:border-slate-600"}`}
+                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${settings.measurement === "SI" ? "border-blue-500 bg-blue-500" : "border-border-color"}`}
                         >
                           {settings.measurement === "SI" && (
                             <div className="w-2.5 h-2.5 bg-white rounded-full" />
@@ -198,10 +198,10 @@ export default function SettingsModal({
                         />
                       </label>
                       <label
-                        className={`relative flex items-center justify-between p-5 rounded-2xl border-2 cursor-pointer transition-all ${settings.measurement === "FPS" ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900"}`}
+                        className={`relative flex items-center justify-between p-5 rounded-2xl border-2 cursor-pointer transition-all ${settings.measurement === "FPS" ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-border-color hover:border-slate-300 dark:hover:border-slate-700 bg-bg-card"}`}
                       >
                         <div className="flex flex-col">
-                          <span className="text-lg font-bold text-slate-800 dark:text-white mb-1">
+                          <span className="text-lg font-bold text-text-primary mb-1">
                             Imperial (FPS)
                           </span>
                           <span className="text-sm font-medium text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300">
@@ -209,7 +209,7 @@ export default function SettingsModal({
                           </span>
                         </div>
                         <div
-                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${settings.measurement === "FPS" ? "border-blue-500 bg-blue-500" : "border-slate-300 dark:border-slate-600"}`}
+                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${settings.measurement === "FPS" ? "border-blue-500 bg-blue-500" : "border-border-color"}`}
                         >
                           {settings.measurement === "FPS" && (
                             <div className="w-2.5 h-2.5 bg-white rounded-full" />
@@ -249,10 +249,10 @@ export default function SettingsModal({
                             onClick={() =>
                               updateSettings({ theme: t.id as Theme })
                             }
-                            className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border-2 transition-all ${isActive ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900"}`}
+                            className={`flex flex-col items-center justify-center gap-3 p-6 rounded-2xl border-2 transition-all ${isActive ? "border-blue-500 bg-blue-50/50 dark:bg-blue-500/10" : "border-border-color hover:border-slate-300 dark:hover:border-slate-700 bg-bg-card"}`}
                           >
                             <div
-                              className={`p-3 rounded-full ${isActive ? "bg-blue-100 dark:bg-blue-500/20 text-indigo-600 dark:text-blue-400" : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"}`}
+                              className={`p-3 rounded-full ${isActive ? "bg-blue-100 dark:bg-blue-500/20 text-indigo-600 dark:text-blue-400" : "bg-bg-primary text-slate-700 dark:text-slate-300"}`}
                             >
                               <Icon className="w-6 h-6" />
                             </div>
@@ -272,9 +272,9 @@ export default function SettingsModal({
                     <h4 className="text-base font-bold text-slate-800 dark:text-slate-200 mb-4">
                       Display Options
                     </h4>
-                    <div className="flex items-center justify-between px-4 py-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div className="flex items-center justify-between px-4 py-3 bg-bg-card rounded-2xl border border-border-color shadow-sm">
                       <div className="flex flex-col">
-                        <span className="font-bold text-slate-800 dark:text-white">
+                        <span className="font-bold text-text-primary">
                           Compact Mode
                         </span>
                         <span className="text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300">
@@ -286,9 +286,9 @@ export default function SettingsModal({
                         <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-slate-600 peer-checked:bg-indigo-600"></div>
                       </label>
                     </div>
-                    <div className="flex items-center justify-between px-4 py-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div className="flex items-center justify-between px-4 py-3 bg-bg-card rounded-2xl border border-border-color shadow-sm">
                       <div className="flex flex-col">
-                        <span className="font-bold text-slate-800 dark:text-white">
+                        <span className="font-bold text-text-primary">
                           Animations
                         </span>
                         <span className="text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300">

@@ -41,7 +41,25 @@ export async function updateEstimateOrders(orders: { id: string, order: number }
   }
 }
 
+export async function getToolEstimates(calculatorId: string, limitCount = 50) {
+  try {
+    const estimates = await getMyEstimates();
+    if (!estimates) return [];
+    
+    // Filter by tool and sort by date descending
+    const filtered = estimates
+      .filter((e: any) => e.payload?.calculatorId === calculatorId)
+      .sort((a: any, b: any) => b.createdAt - a.createdAt)
+      .slice(0, limitCount);
+      
+    return filtered;
+  } catch (err) {
+    return [];
+  }
+}
+
 export async function getMyEstimates() {
+
   try {
     const q = query(collection(db, 'estimates'), where('userId', '==', auth.currentUser.uid));
     const snapshot = await getDocs(q);

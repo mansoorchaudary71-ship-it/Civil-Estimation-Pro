@@ -129,7 +129,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       updateUserDisplayName,
       updateUserProfilePhoto
     }}>
-      {!loading ? children : <div className="flex h-screen w-screen items-center justify-center bg-slate-50 dark:bg-slate-900"><div className="w-10 h-10 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div></div>}
+      {!loading ? children : <div className="flex h-screen w-screen items-center justify-center bg-bg-primary"><div className="w-10 h-10 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div></div>}
     </AuthContext.Provider>
   );
 };

@@ -126,7 +126,7 @@ export default function AggregateTestsCalculator() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+            <h1 className="text-3xl font-bold text-text-primary flex items-center gap-3">
               <Box className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
               Aggregate Tests Calculator
             </h1>
@@ -155,14 +155,14 @@ export default function AggregateTestsCalculator() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative items-start">
           <div 
-            className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-xl shadow-md border border-slate-200 dark:border-slate-800 flex flex-col gap-6"
+            className="bg-bg-card p-6 md:p-8 rounded-xl shadow-md border border-border-color flex flex-col gap-6"
             onChange={(e) => {
               if ((e.target as HTMLElement).tagName === 'INPUT') {
                 if (hasData) resetEstimate();
               }
             }}
           >
-            <h3 className="font-bold text-lg border-b border-slate-200 dark:border-slate-800 pb-3 text-slate-800 dark:text-white">
+            <h3 className="font-bold text-lg border-b border-border-color pb-3 text-text-primary">
               Laboratory Data Inputs
             </h3>
 
@@ -170,15 +170,15 @@ export default function AggregateTestsCalculator() {
               <div className="grid gap-4">
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase">Weight of empty container (W1) in g</label>
-                  <input type="number" min="0" value={aivW1} onChange={e => setAivW1(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <input type="number" min="0" value={aivW1} onChange={e => setAivW1(e.target.value)} className="mt-1 w-full bg-bg-primary border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase">Weight of container + aggregate (W2) in g</label>
-                  <input type="number" min="0" value={aivW2} onChange={e => setAivW2(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <input type="number" min="0" value={aivW2} onChange={e => setAivW2(e.target.value)} className="mt-1 w-full bg-bg-primary border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase">Weight passing 2.36mm sieve (W3) in g</label>
-                  <input type="number" min="0" value={aivW3} onChange={e => setAivW3(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <input type="number" min="0" value={aivW3} onChange={e => setAivW3(e.target.value)} className="mt-1 w-full bg-bg-primary border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
               </div>
             )}
@@ -187,15 +187,15 @@ export default function AggregateTestsCalculator() {
               <div className="grid gap-4">
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase">Weight of empty container (W1) in g</label>
-                  <input type="number" min="0" value={acvW1} onChange={e => setAcvW1(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <input type="number" min="0" value={acvW1} onChange={e => setAcvW1(e.target.value)} className="mt-1 w-full bg-bg-primary border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase">Weight of container + aggregate (W2) in g</label>
-                  <input type="number" min="0" value={acvW2} onChange={e => setAcvW2(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <input type="number" min="0" value={acvW2} onChange={e => setAcvW2(e.target.value)} className="mt-1 w-full bg-bg-primary border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase">Weight passing 2.36mm sieve limit (W3) in g</label>
-                  <input type="number" min="0" value={acvW3} onChange={e => setAcvW3(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <input type="number" min="0" value={acvW3} onChange={e => setAcvW3(e.target.value)} className="mt-1 w-full bg-bg-primary border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
               </div>
             )}
@@ -204,11 +204,11 @@ export default function AggregateTestsCalculator() {
               <div className="grid gap-4">
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase">Original Weight of sample (W1) in g</label>
-                  <input type="number" min="0" value={laW1} onChange={e => setLaW1(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <input type="number" min="0" value={laW1} onChange={e => setLaW1(e.target.value)} className="mt-1 w-full bg-bg-primary border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase">Weight passing 1.7mm sieve (W2) in g</label>
-                  <input type="number" min="0" value={laW2} onChange={e => setLaW2(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <input type="number" min="0" value={laW2} onChange={e => setLaW2(e.target.value)} className="mt-1 w-full bg-bg-primary border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
               </div>
             )}
@@ -217,15 +217,15 @@ export default function AggregateTestsCalculator() {
               <div className="grid gap-4">
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase">Weight of SSD aggregate in air (W1) in g</label>
-                  <input type="number" min="0" value={waW1} onChange={e => setWaW1(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <input type="number" min="0" value={waW1} onChange={e => setWaW1(e.target.value)} className="mt-1 w-full bg-bg-primary border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase">Weight of aggregate in water (W2) in g</label>
-                  <input type="number" min="0" value={waW2} onChange={e => setWaW2(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <input type="number" min="0" value={waW2} onChange={e => setWaW2(e.target.value)} className="mt-1 w-full bg-bg-primary border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase">Oven dry weight in air (W3) in g</label>
-                  <input type="number" min="0" value={waW3} onChange={e => setWaW3(e.target.value)} className="mt-1 w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
+                  <input type="number" min="0" value={waW3} onChange={e => setWaW3(e.target.value)} className="mt-1 w-full bg-bg-primary border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50" />
                 </div>
               </div>
             )}
@@ -262,7 +262,7 @@ export default function AggregateTestsCalculator() {
                 </div>
               </div>
             ) : (
-              <div className="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-8 border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center h-full min-h-[300px] w-full">
+              <div className="bg-bg-primary/50 rounded-xl p-8 border-2 border-dashed border-border-color flex flex-col items-center justify-center text-center h-full min-h-[300px] w-full">
                 <Box className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
                 <h3 className="font-bold text-slate-700 dark:text-slate-300 text-lg">Waiting for Input</h3>
                 <p className="text-slate-500 text-sm mt-2 max-w-sm">

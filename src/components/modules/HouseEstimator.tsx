@@ -1150,7 +1150,7 @@ export default function HouseEstimator() {
           {/* Results Area */}
           <section className="lg:col-span-8 flex flex-col gap-6">
             {!showResults ? (
-              <div className="bg-slate-50 dark:bg-slate-900/50 rounded-3xl p-8 border-2 border-dashed border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center text-center sticky top-6 self-start h-full min-h-[400px] w-full">
+              <div className="bg-bg-primary/50 rounded-3xl p-8 border-2 border-dashed border-border-color flex flex-col items-center justify-center text-center sticky top-6 self-start h-full min-h-[400px] w-full">
                  <Calculator className="w-16 h-16 text-slate-300 dark:text-slate-600 mb-4" />
                  <h3 className="font-bold text-slate-700 dark:text-slate-300 text-lg">Waiting to Compute</h3>
                  <p className="text-slate-500 text-sm mt-2 max-w-sm">Enter your dimensions on the left and click Compute Estimate to see the detailed material breakdown and rates.</p>
@@ -1235,7 +1235,7 @@ export default function HouseEstimator() {
                               Grey Structure
                             </div>
                             <div
-                              className="text-xl sm:text-2xl font-black text-slate-800 dark:text-white pl-2 truncate"
+                              className="text-xl sm:text-2xl font-black text-text-primary pl-2 truncate"
                               title={formatCurrency(estimates.totalGrey)}
                             >
                               {formatCurrency(estimates.totalGrey)}
@@ -1299,6 +1299,9 @@ export default function HouseEstimator() {
                               unit="bags"
                               variant="neutral"
                               description={formatCurrency(estimates.costCement)}
+                              status="normal"
+                              comparisonText="8% more than average"
+                              explanation="The total volume of cement required for foundation, superstructure, and plaster work. Store in a damp-proof area."
                            />
                            <ResultCard
                               title="Steel"
@@ -1306,6 +1309,9 @@ export default function HouseEstimator() {
                               unit="tons"
                               variant="primary"
                               description={formatCurrency(estimates.costSteel)}
+                              status="high"
+                              comparisonText="5% over typical limit"
+                              explanation="High-tensile Grade 60 steel required for structural integrity of the roof, columns, and foundations. Verify the BBS for exact usage."
                            />
                            <ResultCard
                               title="Bricks"
@@ -1313,6 +1319,9 @@ export default function HouseEstimator() {
                               unit="qty"
                               variant="warning"
                               description={formatCurrency(estimates.costBricks)}
+                              status="normal"
+                              secondaryUnit="pallets"
+                              secondaryValue={Math.ceil(estimates.bricksCount / 500)}
                            />
                            <ResultCard
                               title="Sand"
@@ -1320,6 +1329,9 @@ export default function HouseEstimator() {
                               unit={isSI ? "m³" : "cft"}
                               variant="neutral"
                               description={formatCurrency(estimates.costSand)}
+                              secondaryUnit={isSI ? "cft" : "m³"}
+                              secondaryValue={isSI ? estimates.sandCft : (estimates.sandCft / 35.3147)}
+                              explanation="Required for concrete mortar joints and wall plastering. Silt content should be tested on-site."
                            />
                            <ResultCard
                               title="Crush"
@@ -1327,6 +1339,8 @@ export default function HouseEstimator() {
                               unit={isSI ? "m³" : "cft"}
                               variant="neutral"
                               description={formatCurrency(estimates.costCrush)}
+                              secondaryUnit={isSI ? "cft" : "m³"}
+                              secondaryValue={isSI ? estimates.crushCft : (estimates.crushCft / 35.3147)}
                            />
                         </div>
                       </MaterialSummary>

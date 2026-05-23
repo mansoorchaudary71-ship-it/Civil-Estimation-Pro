@@ -368,7 +368,7 @@ function DoorsWindowsCalculator() {
       <div className="mt-8 p-5 bg-slate-50/50 dark:bg-slate-900/50 border border-slate-200 dark:border-white/5 rounded-2xl">
         <div className="flex items-center justify-between mb-4">
           <h4 className="text-sm font-bold text-slate-700 dark:text-slate-300">Proportional Preview</h4>
-          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider bg-white dark:bg-slate-800 shadow-sm px-2 py-1 rounded-md">
+          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider bg-bg-card shadow-sm px-2 py-1 rounded-md">
             {wl}{uLen} × {wh}{uLen}
           </span>
         </div>
@@ -452,11 +452,11 @@ function DoorsWindowsCalculator() {
           </InputGroup>
         </div>
 
-        <div className="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+        <div className="space-y-3 pt-4 border-t border-border-color">
           <label className="text-sm font-bold text-slate-700">Openings / Deductions</label>
           <div className="space-y-2">
             {deductions.map((item, index) => (
-              <div key={index} className="flex gap-2 items-center bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-2 rounded-xl">
+              <div key={index} className="flex gap-2 items-center bg-bg-primary/50 border border-border-color p-2 rounded-xl">
                 <input 
                   type="text" 
                   value={item.name} 
@@ -465,11 +465,11 @@ function DoorsWindowsCalculator() {
                     newItems[index].name = e.target.value;
                     setDeductions(newItems);
                   }}
-                  className="w-24 px-2 py-1.5 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded outline-none font-medium text-slate-700 dark:text-slate-300" 
+                  className="w-24 px-2 py-1.5 text-sm bg-bg-card border border-slate-200 dark:border-slate-600 rounded outline-none font-medium text-slate-700 dark:text-slate-300" 
                 />
-                <input type="number" placeholder="W" value={item.w || ""} onChange={(e) => updateItem(index, 'w', e.target.value)} className="w-16 px-2 py-1.5 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded outline-none font-medium text-slate-700 dark:text-slate-300" />
-                <input type="number" placeholder="H" value={item.h || ""} onChange={(e) => updateItem(index, 'h', e.target.value)} className="w-16 px-2 py-1.5 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded outline-none font-medium text-slate-700 dark:text-slate-300" />
-                <input type="number" placeholder="Qty" value={item.qty || ""} onChange={(e) => updateItem(index, 'qty', e.target.value)} className="w-16 px-2 py-1.5 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded outline-none font-medium text-slate-700 dark:text-slate-300" />
+                <input type="number" placeholder="W" value={item.w || ""} onChange={(e) => updateItem(index, 'w', e.target.value)} className="w-16 px-2 py-1.5 text-sm bg-bg-card border border-slate-200 dark:border-slate-600 rounded outline-none font-medium text-slate-700 dark:text-slate-300" />
+                <input type="number" placeholder="H" value={item.h || ""} onChange={(e) => updateItem(index, 'h', e.target.value)} className="w-16 px-2 py-1.5 text-sm bg-bg-card border border-slate-200 dark:border-slate-600 rounded outline-none font-medium text-slate-700 dark:text-slate-300" />
+                <input type="number" placeholder="Qty" value={item.qty || ""} onChange={(e) => updateItem(index, 'qty', e.target.value)} className="w-16 px-2 py-1.5 text-sm bg-bg-card border border-slate-200 dark:border-slate-600 rounded outline-none font-medium text-slate-700 dark:text-slate-300" />
                 <button onClick={() => removeItem(index)} className="p-1.5 px-2.5 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded transition-colors ml-auto mr-1"><span className="font-bold">X</span></button>
               </div>
             ))}

@@ -151,15 +151,15 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
     return (
       <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col font-sans mb-auto">
         <div className="mb-8 flex flex-col items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500 text-center mt-6">
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#0f172a] dark:text-white flex items-center justify-center gap-2">
-            My Estimates
+          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-text-primary flex items-center justify-center gap-2">
+            My Projects
           </h1>
           <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium text-base">
-            Manage your saved construction calculations
+            Manage your saved construction projects and estimates
           </p>
         </div>
-        <div className="w-full bg-white/60 dark:bg-slate-900/40 backdrop-blur-xl border border-white/60 dark:border-slate-800/60 rounded-[2rem] p-10 flex flex-col items-center justify-center text-center shadow-sm">
-          <div className="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center mb-4 text-slate-400 dark:text-slate-500 shadow-inner">
+        <div className="w-full bg-bg-card opacity-90 backdrop-blur-xl border border-border-color rounded-[2rem] p-10 flex flex-col items-center justify-center text-center shadow-sm">
+          <div className="w-16 h-16 bg-bg-primary rounded-2xl flex items-center justify-center mb-4 text-slate-400 dark:text-slate-500 shadow-inner">
             <FolderOpen className="w-8 h-8" />
           </div>
           <h4 className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-1">Sign in to save estimates</h4>
@@ -180,17 +180,17 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
   return (
     <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col font-sans pb-12">
       <div className="mb-8 flex flex-col items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500 text-center mt-6">
-        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#0f172a] dark:text-white flex items-center justify-center gap-2">
-          My Estimates
+        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-text-primary flex items-center justify-center gap-2">
+          My Projects
         </h1>
         <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium text-base">
-          Manage your saved construction calculations
+          Manage your saved construction projects and estimates
         </p>
       </div>
 
       {estimates.length === 0 ? (
-        <div className="w-full bg-white/60 dark:bg-slate-900/40 backdrop-blur-xl border border-white/60 dark:border-slate-800/60 rounded-[2rem] p-10 flex flex-col items-center justify-center text-center shadow-sm">
-          <div className="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center mb-4 text-slate-400 dark:text-slate-500 shadow-inner">
+        <div className="w-full bg-bg-card opacity-90 backdrop-blur-xl border border-border-color rounded-[2rem] p-10 flex flex-col items-center justify-center text-center shadow-sm">
+          <div className="w-16 h-16 bg-bg-primary rounded-2xl flex items-center justify-center mb-4 text-slate-400 dark:text-slate-500 shadow-inner">
             <FolderOpen className="w-8 h-8" />
           </div>
           <h4 className="text-lg font-bold text-slate-700 dark:text-slate-200 mb-1">No Projects Yet</h4>
@@ -208,7 +208,7 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
                 onDragStart={(e) => handleDragStart(e, est.id)}
                 onDragOver={(e) => handleDragOver(e, est.id)}
                 onDrop={handleDrop}
-                className={`group relative col-span-1 bg-white dark:bg-slate-900 p-4 md:p-4 rounded-2xl transition-all duration-300 flex flex-col items-center text-center border-2 border-slate-200 hover:border-slate-300 dark:border-slate-800 dark:hover:border-slate-700 cursor-pointer hover:-translate-y-1.5 shadow-sm hover:shadow-xl overflow-hidden ${dragOverId === est.id ? '!border-indigo-500 shadow-indigo-500/20' : ''} ${draggedId === est.id ? 'opacity-50' : 'opacity-100'}`}
+                className={`group relative col-span-1 bg-bg-card p-4 md:p-4 rounded-2xl transition-all duration-300 flex flex-col items-center text-center border-2 border-slate-200 hover:border-slate-300 dark:border-slate-800 dark:hover:border-slate-700 cursor-pointer hover:-translate-y-1.5 shadow-sm hover:shadow-xl overflow-hidden ${dragOverId === est.id ? '!border-indigo-500 shadow-indigo-500/20' : ''} ${draggedId === est.id ? 'opacity-50' : 'opacity-100'}`}
                 onClick={() => onSelectModule(est.type)}
                 style={{ minHeight: "150px" }}
               >
@@ -247,12 +247,12 @@ export default function RecentEstimates({ onSelectModule }: { onSelectModule: (i
                   </div>
 
                   <div
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border ${est.theme.border} bg-slate-50 dark:bg-slate-800/80 shadow-sm text-[11px] md:text-[12px] font-bold tracking-[0.1em] uppercase ${est.theme.text} mb-4`}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border ${est.theme.border} bg-bg-primary shadow-sm text-[11px] md:text-[12px] font-bold tracking-[0.1em] uppercase ${est.theme.text} mb-4`}
                   >
                     <span className="truncate">{est.typeLabel}</span>
                   </div>
 
-                  <h3 className="text-[18px] md:text-[20px] font-extrabold text-[#0f172a] dark:text-white mb-2 leading-[1.2]">
+                  <h3 className="text-[18px] md:text-[20px] font-extrabold text-text-primary mb-2 leading-[1.2]">
                     {est.title}
                   </h3>
                   

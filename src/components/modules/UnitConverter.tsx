@@ -255,7 +255,7 @@ export default function UnitConverter() {
   const conversionRate = convertValue("1", fromUnit, toUnit, activeCategory);
 
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8">
+    <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8">
       {" "}
       <div className="max-w-6xl mx-auto">
         {" "}
@@ -287,15 +287,15 @@ export default function UnitConverter() {
           })}
         </div>
         {/* Conversion UI */}{" "}
-        <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 md:p-12 border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none">
+        <div className="bg-bg-card rounded-[2.5rem] p-8 md:p-12 border border-border-color shadow-xl shadow-slate-200/50 dark:shadow-none">
           {" "}
-          <h2 className="text-xl font-bold mb-8 text-center text-slate-800 dark:text-white uppercase tracking-widest">
+          <h2 className="text-xl font-bold mb-8 text-center text-text-primary uppercase tracking-widest">
             {activeCategory} Conversion
           </h2>{" "}
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10">
             {" "}
             {/* FROM PANE */}{" "}
-            <div className="flex-1 w-full bg-transparent dark:bg-slate-800/50 p-6 md:p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 transition-all hover:border-fuchsia-300 dark:hover:border-fuchsia-500/30">
+            <div className="flex-1 w-full bg-transparent dark:bg-slate-800/50 p-6 md:p-8 rounded-[2rem] border border-border-color transition-all hover:border-fuchsia-300 dark:hover:border-fuchsia-500/30">
               {" "}
               <label className="block text-xs font-bold text-fuchsia-600 dark:text-fuchsia-400 uppercase tracking-widest mb-4">
                 From
@@ -303,7 +303,7 @@ export default function UnitConverter() {
               <select
                 value={fromUnit}
                 onChange={(e) => handleFromUnitChange(e.target.value)}
-                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white px-4 py-3 rounded-2xl font-bold text-sm mb-6 focus:ring-4 focus:ring-fuchsia-500/20 focus:border-fuchsia-500 transition-all outline-none"
+                className="w-full bg-bg-card border border-border-color text-text-primary px-4 py-3 rounded-2xl font-bold text-sm mb-6 focus:ring-4 focus:ring-fuchsia-500/20 focus:border-fuchsia-500 transition-all outline-none"
               >
                 {" "}
                 {currentUnits.map((u) => (
@@ -316,7 +316,7 @@ export default function UnitConverter() {
                 type="number"
                 value={fromValue}
                 onChange={(e) => handleFromValueChange(e.target.value)}
-                className="w-full bg-transparent border-0 text-4xl sm:text-5xl font-black text-slate-900 dark:text-white placeholder-slate-300 dark:placeholder-slate-700 focus:ring-0 focus:outline-none p-0 text-center whitespace-nowrap"
+                className="w-full bg-transparent border-0 text-4xl sm:text-5xl font-black text-text-primary placeholder-slate-300 dark:placeholder-slate-700 focus:ring-0 focus:outline-none p-0 text-center whitespace-nowrap"
                 placeholder="0"
               />{" "}
             </div>{" "}
@@ -330,7 +330,7 @@ export default function UnitConverter() {
               <ArrowRightLeft className="w-6 h-6" strokeWidth={2.5} />{" "}
             </button>{" "}
             {/* TO PANE */}{" "}
-            <div className="flex-1 w-full bg-transparent dark:bg-slate-800/50 p-6 md:p-8 rounded-[2rem] border border-slate-100 dark:border-slate-800 transition-all hover:border-fuchsia-300 dark:hover:border-fuchsia-500/30">
+            <div className="flex-1 w-full bg-transparent dark:bg-slate-800/50 p-6 md:p-8 rounded-[2rem] border border-border-color transition-all hover:border-fuchsia-300 dark:hover:border-fuchsia-500/30">
               {" "}
               <label className="block text-xs font-bold text-fuchsia-600 dark:text-fuchsia-400 uppercase tracking-widest mb-4">
                 To
@@ -338,7 +338,7 @@ export default function UnitConverter() {
               <select
                 value={toUnit}
                 onChange={(e) => handleToUnitChange(e.target.value)}
-                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white px-4 py-3 rounded-2xl font-bold text-sm mb-6 focus:ring-4 focus:ring-fuchsia-500/20 focus:border-fuchsia-500 transition-all outline-none"
+                className="w-full bg-bg-card border border-border-color text-text-primary px-4 py-3 rounded-2xl font-bold text-sm mb-6 focus:ring-4 focus:ring-fuchsia-500/20 focus:border-fuchsia-500 transition-all outline-none"
               >
                 {" "}
                 {currentUnits.map((u) => (
@@ -348,7 +348,7 @@ export default function UnitConverter() {
                 ))}{" "}
               </select>{" "}
               <div
-                className="w-full overflow-hidden text-center text-4xl sm:text-5xl font-black text-slate-900 dark:text-white py-2"
+                className="w-full overflow-hidden text-center text-4xl sm:text-5xl font-black text-text-primary py-2"
                 style={{ minHeight: "60px" }}
               >
                 {" "}
@@ -359,7 +359,7 @@ export default function UnitConverter() {
           
           {/* Conversion specific feedback */}
           {conversionRate !== "" && (
-             <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-bottom-2 duration-500">
+             <div className="mt-8 pt-6 border-t border-border-color flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-bottom-2 duration-500">
                 <p className="text-sm font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1">
                   Conversion Rate
                 </p>

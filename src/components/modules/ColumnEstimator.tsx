@@ -224,11 +224,11 @@ export default function ColumnEstimator() {
     totalSteelWeight = mainSteelWeight + totalTieWeight;
   }
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-slate-900 dark:text-white p-6 md:p-8">
+    <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8">
       <div className="max-w-4xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-black mb-2 flex items-center gap-3 text-slate-800 dark:text-white">
+            <h1 className="text-3xl font-black mb-2 flex items-center gap-3 text-text-primary">
               <Columns className="w-8 h-8 text-indigo-600 dark:text-blue-400" />
               Column Concrete Estimator
             </h1>
@@ -238,7 +238,7 @@ export default function ColumnEstimator() {
           </div>
           <GlobalSettingsToggle align="left" showCurrency={false} />
         </div>
-        <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-md border border-slate-200 dark:border-slate-800 overflow-hidden">
+        <div className="bg-bg-card rounded-3xl shadow-md border border-border-color overflow-hidden">
           <div className="p-6 md:p-8 space-y-8">
             {/* Shape Toggle Group */}
             <div>
@@ -284,7 +284,7 @@ export default function ColumnEstimator() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-transparent dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
+                      className="w-full bg-transparent dark:bg-slate-800/50 border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                     />
@@ -295,7 +295,7 @@ export default function ColumnEstimator() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-transparent dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
+                      className="w-full bg-transparent dark:bg-slate-800/50 border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
                       value={count}
                       onChange={(e) => setCount(e.target.value)}
                     />
@@ -306,7 +306,7 @@ export default function ColumnEstimator() {
                     Concrete Mix
                   </label>
                   <select
-                    className="w-full bg-transparent dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm appearance-none"
+                    className="w-full bg-transparent dark:bg-slate-800/50 border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm appearance-none"
                     value={mix}
                     onChange={(e) => setMix(e.target.value)}
                   >
@@ -319,7 +319,7 @@ export default function ColumnEstimator() {
                 </div>
               </div>
               {/* Visual Aid */}
-              <div className="bg-transparent dark:bg-slate-800 rounded-2xl flex flex-col items-center justify-center px-4 py-3 border border-slate-100 dark:border-slate-700/50 min-h-[300px]">
+              <div className="bg-transparent dark:bg-slate-800 rounded-2xl flex flex-col items-center justify-center px-4 py-3 border border-border-color/50 min-h-[300px]">
                 <div
                   className="w-40 h-40 relative flex items-center justify-center text-blue-200 dark:text-blue-900 border-[8px] mb-6 shadow-inner transition-all duration-500 ease-in-out"
                   style={{
@@ -343,7 +343,7 @@ export default function ColumnEstimator() {
                   </div>
                 </div>
                 <div className="text-center">
-                  <h4 className="font-bold text-slate-800 dark:text-white capitalize">
+                  <h4 className="font-bold text-text-primary capitalize">
                     {shape} Column Cross-Section
                   </h4>
                   <p className="text-xs text-slate-700 dark:text-slate-300 font-medium mt-1">
@@ -359,10 +359,10 @@ export default function ColumnEstimator() {
             </div>
             
             {/* Reinforcement Configuration */}
-            <div className="pt-6 border-t border-slate-100 dark:border-slate-800">
+            <div className="pt-6 border-t border-border-color">
               <div className="flex items-center gap-2 mb-6">
                 <CopySlash className="w-5 h-5 text-indigo-600 dark:text-blue-400" />
-                <h2 className="text-lg font-bold text-slate-800 dark:text-white">Reinforcement Details</h2>
+                <h2 className="text-lg font-bold text-text-primary">Reinforcement Details</h2>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -374,14 +374,14 @@ export default function ColumnEstimator() {
                         min="0"
                         value={clearCover}
                         onChange={(e) => setClearCover(e.target.value)}
-                        className="w-full h-11 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 text-slate-800 dark:text-white font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-xl px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                       />
                     </InputGroup>
                     <InputGroup label="Number of Main Bars">
                       <select
                         value={mainBarsCount}
                         onChange={(e) => setMainBarsCount(e.target.value)}
-                        className="w-full h-11 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 text-slate-800 dark:text-white font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-xl px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                       >
                         <option value="4">4 Bars</option>
                         <option value="6">6 Bars</option>
@@ -394,7 +394,7 @@ export default function ColumnEstimator() {
                     <select
                       value={mainDia}
                       onChange={(e) => setMainDia(e.target.value)}
-                      className="w-full h-11 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 text-slate-800 dark:text-white font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                      className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-xl px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                     >
                       {[12, 16, 20, 25, 32].map(d => (
                         <option key={d} value={d}>{d} mm</option>
@@ -409,7 +409,7 @@ export default function ColumnEstimator() {
                       <select
                         value={tieDia}
                         onChange={(e) => setTieDia(e.target.value)}
-                        className="w-full h-11 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 text-slate-800 dark:text-white font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-xl px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                       >
                         {[8, 10, 12, 16].map(d => (
                           <option key={d} value={d}>{d} mm</option>
@@ -422,7 +422,7 @@ export default function ColumnEstimator() {
                         min="0"
                         value={tieSpacing}
                         onChange={(e) => setTieSpacing(e.target.value)}
-                        className="w-full h-11 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 text-slate-800 dark:text-white font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-xl px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                       />
                     </InputGroup>
                   </div>
@@ -433,7 +433,7 @@ export default function ColumnEstimator() {
                         <select
                           value={variation8}
                           onChange={(e) => setVariation8(e.target.value)}
-                          className="w-full h-11 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 text-slate-800 dark:text-white font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                          className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-xl px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                         >
                           <option value="1">Outer Rect + Inner Diamond</option>
                           <option value="2">Outer Rect + Inner Rect (4x2 layout)</option>
@@ -449,7 +449,7 @@ export default function ColumnEstimator() {
                         <select
                           value={variation10}
                           onChange={(e) => setVariation10(e.target.value)}
-                          className="w-full h-11 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 text-slate-800 dark:text-white font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                          className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-xl px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                         >
                           <option value="1">Outer Rect + 3 Link/Cross Ties</option>
                           <option value="2">Outer Rect + Inner Rect + 1 Link Tie</option>
@@ -462,7 +462,7 @@ export default function ColumnEstimator() {
             </div>
 
             {/* Results Grid */}
-            <div className="flex flex-col h-full pt-6 border-t border-slate-100 dark:border-slate-800 w-full mt-4">
+            <div className="flex flex-col h-full pt-6 border-t border-border-color w-full mt-4">
               <MaterialSummary
                 title="Estimate Results"
                 totalLabel="Total Steel Weight"
@@ -485,7 +485,7 @@ export default function ColumnEstimator() {
                     />
                   </div>
                   
-                  <h4 className="font-bold text-slate-800 dark:text-white mb-2 flex items-center gap-2">
+                  <h4 className="font-bold text-text-primary mb-2 flex items-center gap-2">
                     <Layers className="w-5 h-5 text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300" />
                     Material Breakdown ({mix})
                   </h4>
