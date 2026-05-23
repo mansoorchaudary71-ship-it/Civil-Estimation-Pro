@@ -7,7 +7,8 @@ import {
   FlaskConical, MapPin, Ruler, Boxes, Sun, Truck, Mountain,
   Sparkles,
   LayoutDashboard,
-  Users
+  Users,
+  Droplet
 } from "lucide-react";
 
 export type ModuleId =
