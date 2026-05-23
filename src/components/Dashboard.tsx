@@ -19,26 +19,26 @@ import PostLoginDashboard from "./PostLoginDashboard";
 import { useSettings } from "../context/SettingsContext";
 
 export const ALL_MODULES = [
-  { id: "tracker", title: "Site Progress Tracker", desc: "Track construction timelines, visual Gantt charts, budget burn, and photo updates.", category: "Analysis & Tools", icon: BarChart, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~3 mins", isNew: true },
-  { id: "projects", title: "Project Manager", desc: "Group calculations by project, view aggregated costs and timelines.", category: "Analysis & Tools", icon: FolderOpen, styleStyle: "solid", colorClass: "bg-[#6B46C1] text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)]", difficulty: "Beginner", estimatedTime: "~1 min", isNew: true },
-  { id: "labour-calculator", title: "Labour & Workforce", desc: "Calculate labour cost, worker allocation, and daily burn rates for your project.", category: "Project Costing", icon: Users, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~2 mins", isNew: true },
-  { id: "boq", title: "Professional BOQ Generator", desc: "Create, format, and export professional Bills of Quantities and itemized estimates.", category: "Quantity Estimator", icon: ClipboardList, styleStyle: "solid", colorClass: "bg-[#6B46C1] text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)]", difficulty: "Advanced", estimatedTime: "~5 mins", isNew: true },
-  { id: "retaining-wall", title: "Retaining Wall Estimator", desc: "Calculate stability factors, concrete volume, and reinforcement for cantilever retaining walls.", category: "Concrete Tech", icon: ShieldCheck, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~5 mins", isNew: true },
-  { id: "mix-design", title: "Concrete Mix Design", desc: "IS 10262 performance-based concrete mix calculator and report generator.", category: "Concrete Tech", icon: Droplet, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~4 mins", isNew: true },
-  { id: "isolated-footing", title: "Isolated Footing Calculator", desc: "Detailed estimations for concrete, steel mesh, excavation and working space.", category: "Concrete Tech", icon: Box, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~3 mins", isNew: true },
-  { id: "calculators", title: "Construction Material", desc: "Accurate estimations for concrete, bricks, steel, blocks, mortar.", category: "Concrete Tech", icon: HardHat, styleStyle: "solid", colorClass: "bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-[0_8px_30px_rgba(99,102,241,0.3)]", iconClass: "text-white opacity-90", difficulty: "Beginner", estimatedTime: "~2 mins", isPopular: true },
-  { id: "reinforcement", title: "Reinforcement Detailing Visualizer", desc: "Interactive 2D rebar detailing for beams, columns & slabs with IS 456 checks.", category: "Concrete Tech", icon: Layers, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~3 mins", isNew: true },
-  { id: "house", title: "House Estimator", desc: "Complete residential cost breakdown from grey structure to finishing.", category: "Quantity Estimator", icon: Home, premium: true, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~15 mins", isPopular: true },
-  { id: "area-calculator", title: "Area Calculator", desc: "Calculate area & perimeter for multiple 2D shapes.", category: "Quantity Estimator", icon: Scaling, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~1 min" },
-  { id: "property-area", title: "Property Area Calculator", desc: "Calculate Carpet Area, Built-up Area and Super Built-up Area.", category: "Quantity Estimator", icon: Building, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~2 mins" },
-  { id: "volume-estimator", title: "Volume & Tank Capacity", desc: "Calculate volumes, tank capacity & surface area.", category: "Quantity Estimator", icon: Container, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~3 mins" },
-  { id: "unit-converter", title: "Unit Converter", desc: "Convert units across 15 engineering categories.", category: "Quantity Estimator", icon: Repeat, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~1 min" },
-  { id: "metal-weight", title: "Metal Weight", desc: "Calculate section weights of steel profiles.", category: "Quantity Estimator", icon: Anvil, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~3 mins" },
-  { id: "mep-calculator", title: "Energy & MEP Calculators", desc: "Estimate solar capacity, water heating, and AC sizing.", category: "MEP", icon: Zap, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins", isNew: true },
-  { id: "rainwater-harvesting", title: "Rainwater Harvesting", desc: "Calculate collectible rainwater volume and recommend tank sizes.", category: "MEP", icon: Droplet, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~3 mins", isNew: true },
-  { id: "master-rcc", title: "Master RCC Estimator", desc: "Unified hub for Slab, Column, Beam, Staircase, and BBS calculations.", category: "Concrete Tech", icon: Building2, styleStyle: "solid", colorClass: "bg-[var(--accent-teal)] text-white shadow-[0_8px_30px_rgba(32,201,151,0.3)]", iconClass: "text-white opacity-90", difficulty: "Advanced", estimatedTime: "~10 mins", isPopular: true },
-  { id: "staircase-calculator", title: "Staircase Calculator", desc: "Detailed staircase material and BOQ generator.", category: "Concrete Tech", icon: TrendingUp, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins" },
-  { id: "bbs-generator", title: "BBS Generator", desc: "Bar Bending Schedule generator.", category: "Concrete Tech", icon: FileSpreadsheet, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~10 mins" },
+  { id: "tracker", title: "Site Progress Tracker", desc: "Track construction timelines, visual Gantt charts, budget burn, and photo updates.", category: "Analysis", icon: BarChart, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-blue-500", difficulty: "Beginner", estimatedTime: "~3 mins", isNew: true },
+  { id: "projects", title: "Project Manager", desc: "Group calculations by project, view aggregated costs and timelines.", category: "Analysis", icon: FolderOpen, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-blue-500", difficulty: "Beginner", estimatedTime: "~1 min", isNew: true },
+  { id: "labour-calculator", title: "Labour & Workforce", desc: "Calculate labour cost, worker allocation, and daily burn rates for your project.", category: "Project Costing", icon: Users, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-green-500", difficulty: "Intermediate", estimatedTime: "~2 mins", isNew: true },
+  { id: "boq", title: "Professional BOQ Generator", desc: "Create, format, and export professional Bills of Quantities and itemized estimates.", category: "Quantity", icon: ClipboardList, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-purple-500", difficulty: "Advanced", estimatedTime: "~5 mins", isNew: true },
+  { id: "retaining-wall", title: "Retaining Wall Estimator", desc: "Calculate stability factors, concrete volume, and reinforcement for cantilever retaining walls.", category: "Concrete Tech", icon: ShieldCheck, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-amber-500", difficulty: "Advanced", estimatedTime: "~5 mins", isNew: true },
+  { id: "mix-design", title: "Concrete Mix Design", desc: "IS 10262 performance-based concrete mix calculator and report generator.", category: "Concrete Tech", icon: Droplet, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-amber-500", difficulty: "Advanced", estimatedTime: "~4 mins", isNew: true },
+  { id: "isolated-footing", title: "Isolated Footing Calculator", desc: "Detailed estimations for concrete, steel mesh, excavation and working space.", category: "Concrete Tech", icon: Box, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-amber-500", difficulty: "Intermediate", estimatedTime: "~3 mins", isNew: true },
+  { id: "calculators", title: "Construction Material", desc: "Accurate estimations for concrete, bricks, steel, blocks, mortar.", category: "Concrete Tech", icon: HardHat, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-amber-500", iconClass: "", difficulty: "Beginner", estimatedTime: "~2 mins", isPopular: true },
+  { id: "reinforcement", title: "Reinforcement Detailing Visualizer", desc: "Interactive 2D rebar detailing for beams, columns & slabs with IS 456 checks.", category: "Concrete Tech", icon: Layers, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-amber-500", difficulty: "Intermediate", estimatedTime: "~3 mins", isNew: true },
+  { id: "house", title: "House Estimator", desc: "Complete residential cost breakdown from grey structure to finishing.", category: "Quantity", icon: Home, premium: true, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-purple-500", difficulty: "Advanced", estimatedTime: "~15 mins", isPopular: true },
+  { id: "area-calculator", title: "Area Calculator", desc: "Calculate area & perimeter for multiple 2D shapes.", category: "Quantity", icon: Scaling, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-purple-500", difficulty: "Beginner", estimatedTime: "~1 min" },
+  { id: "property-area", title: "Property Area Calculator", desc: "Calculate Carpet Area, Built-up Area and Super Built-up Area.", category: "Quantity", icon: Building, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-purple-500", difficulty: "Beginner", estimatedTime: "~2 mins" },
+  { id: "volume-estimator", title: "Volume & Tank Capacity", desc: "Calculate volumes, tank capacity & surface area.", category: "Quantity", icon: Container, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-purple-500", difficulty: "Intermediate", estimatedTime: "~3 mins" },
+  { id: "unit-converter", title: "Unit Converter", desc: "Convert units across 15 engineering categories.", category: "Quantity", icon: Repeat, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-purple-500", difficulty: "Beginner", estimatedTime: "~1 min" },
+  { id: "metal-weight", title: "Metal Weight", desc: "Calculate section weights of steel profiles.", category: "Quantity", icon: Anvil, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-purple-500", difficulty: "Intermediate", estimatedTime: "~3 mins" },
+  { id: "mep-calculator", title: "Energy & MEP Calculators", desc: "Estimate solar capacity, water heating, and AC sizing.", category: "MEP", icon: Zap, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-cyan-500", difficulty: "Intermediate", estimatedTime: "~5 mins", isNew: true },
+  { id: "rainwater-harvesting", title: "Rainwater Harvesting", desc: "Calculate collectible rainwater volume and recommend tank sizes.", category: "MEP", icon: Droplet, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-cyan-500", difficulty: "Beginner", estimatedTime: "~3 mins", isNew: true },
+  { id: "master-rcc", title: "Master RCC Estimator", desc: "Unified hub for Slab, Column, Beam, Staircase, and BBS calculations.", category: "Concrete Tech", icon: Building2, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-amber-500", iconClass: "", difficulty: "Advanced", estimatedTime: "~10 mins", isPopular: true },
+  { id: "staircase-calculator", title: "Staircase Calculator", desc: "Detailed staircase material and BOQ generator.", category: "Concrete Tech", icon: TrendingUp, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-amber-500", difficulty: "Intermediate", estimatedTime: "~5 mins" },
+  { id: "bbs-generator", title: "BBS Generator", desc: "Bar Bending Schedule generator.", category: "Concrete Tech", icon: FileSpreadsheet, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#111827] backdrop-blur-md text-[var(--primary-dark)] dark:text-white border-amber-500", difficulty: "Advanced", estimatedTime: "~10 mins" },
   { id: "master-quantity", title: "Master Quantity & Estimation", desc: "23 comprehensive calculators for specialized construction items.", category: "Quantity Estimator", icon: ClipboardList, styleStyle: "solid", colorClass: "bg-[var(--accent-blue)] text-[var(--primary-dark)] shadow-[0_8px_30px_rgba(0,207,232,0.3)]", iconClass: "text-[var(--primary-dark)] opacity-90", difficulty: "Advanced", estimatedTime: "~20 mins" },
   { id: "earthworks", title: "Earthworks", desc: "Calculate site preparation, excavation and hauling volumes.", category: "Road Construction", icon: Shovel, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins" },
   { id: "road-pavement", title: "Road & Pavement Estimator", desc: "Comprehensive tool for flexible, rigid, pavement & sewerage calculations.", category: "Road Construction", icon: Route, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-[#6B46C1]/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~15 mins" },
@@ -90,72 +90,94 @@ export const getCategoryTheme = (category: string, id: string) => {
 const ToolCard = ({ mod, onSelect, isUsed }: { mod: any, onSelect: (id: string) => void, isUsed?: boolean }) => {
   const theme = getCategoryTheme(mod.category, mod.id);
   const diffColors: Record<string, string> = {
-    "Beginner": "bg-emerald-400",
-    "Intermediate": "bg-amber-400",
-    "Advanced": "bg-rose-500"
+    "Beginner": "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+    "Intermediate": "bg-yellow-500/20 text-yellow-500 border-yellow-500/30",
+    "Advanced": "bg-orange-500/20 text-orange-400 border-orange-500/30"
   };
+  
+  const difficultyClass = diffColors[mod.difficulty] || diffColors["Beginner"];
+  const isPro = !!mod.premium;
+
   return (
     <button
       onClick={() => onSelect(mod.id)}
       id={`module-card-${mod.id}`}
       title={mod.desc}
-      className={`group relative overflow-hidden flex flex-col items-start p-5 rounded-[12px] cursor-pointer transition-all duration-300 ease-out outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 hover:-translate-y-2 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[var(--accent-vibrant)]/10 dark:transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-black/50 border-t-4 border-l border-r border-b ${theme.border} border-[var(--border-color)] ${
-        mod.styleStyle === "solid"
-          ? `${theme.bg} text-white`
-          : "bg-[var(--bg-card)] hover:bg-[var(--bg-primary)]"
-      }`}
+      className={`group relative overflow-hidden flex flex-col items-start p-5 rounded-2xl cursor-pointer transition-all duration-500 ease-out outline-none text-left w-full h-[220px]
+        bg-[#111827] border border-white/10 shadow-lg
+        hover:-translate-y-2 hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.5)]
+        ${isPro ? 'before:absolute before:inset-0 before:bg-gradient-to-br before:from-purple-900/40 before:to-transparent before:z-0' : ''}
+      `}
+      style={{
+        boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.05)'
+      }}
     >
-      <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5 z-10 pointer-events-none">
+      <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-gradient-to-tr from-transparent to-white/20" />
+      {/* Category Border Glow */}
+      <div className={`absolute top-0 left-0 w-full h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${theme.bg}`} />
+
+      <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5 z-20 pointer-events-none">
         {mod.isPopular && (
-          <span className="text-[10px] font-bold uppercase tracking-wider bg-orange-500 text-white py-0.5 px-2 rounded-full shadow-[0_2px_12px_rgba(0,0,0,0.08)]">Popular</span>
+           <span className="relative overflow-hidden text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-orange-500 to-amber-500 text-white py-1 px-2.5 rounded-full shadow-lg">
+             Popular
+             <div className="absolute inset-0 -translate-x-[100%] animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+           </span>
         )}
         {mod.isNew && (
-          <span className="text-[10px] font-bold uppercase tracking-wider bg-purple-500 text-white py-0.5 px-2 rounded-full shadow-[0_2px_12px_rgba(0,0,0,0.08)]">New</span>
+           <span className="relative overflow-hidden text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-1 px-2.5 rounded-full shadow-lg">
+             New
+             <div className="absolute inset-0 -translate-x-[100%] animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+           </span>
         )}
-        {mod.premium && (
-          <span className="text-[10px] uppercase font-bold tracking-wider py-0.5 px-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] flex items-center gap-1 group-hover:scale-110 transition-transform">
-            <Sparkles className="w-2.5 h-2.5 flex-shrink-0" /> Pro
-          </span>
+        {isPro && (
+           <span className="text-[10px] uppercase font-bold tracking-wider py-1 px-2.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg flex items-center gap-1 group-hover:scale-110 transition-transform">
+             <Sparkles className="w-3 h-3 flex-shrink-0" /> PRO
+           </span>
         )}
       </div>
 
-      <div className="flex items-start gap-3 mb-3 w-full pr-12 relative z-10 text-left h-[52px]">
-        <div className={`w-12 h-12 rounded-[12px] flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:rotate-[10deg] shadow-[0_2px_12px_rgba(0,0,0,0.08)] ${
-          mod.styleStyle === 'solid' ? 'bg-white/25 backdrop-blur-sm' : theme.bg
-        }`}>
-          <mod.icon className={`w-6 h-6 ${mod.styleStyle === 'solid' ? 'text-white' : theme.text}`} strokeWidth={2.5} />
+      <div className="flex items-start gap-3 mb-3 w-full pr-14 relative z-10">
+        {/* 3D icon styled container */}
+        <div 
+          className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 bg-white/5 border border-white/10 shadow-inner group-hover:bg-white/10 transition-colors duration-300 transform-gpu group-hover:[transform:perspective(500px)_rotateY(15deg)]"
+        >
+          <mod.icon className={`w-6 h-6 transition-transform duration-500 group-hover:scale-110 ${theme.textRaw.replace('text-', 'text-!').replace('dark:', '')} text-purple-400`} strokeWidth={2} />
         </div>
-        <div className="flex-1 text-left flex flex-col justify-center h-full">
-          <h4 className={`text-[15px] md:text-base font-bold tracking-tight leading-tight line-clamp-2 ${mod.styleStyle === 'solid' ? 'text-white' : 'text-[var(--text-primary)]'}`}>
+        <div className="flex-1 flex flex-col justify-center h-full pt-1">
+          <h4 className="text-[15px] md:text-base font-bold tracking-tight leading-tight line-clamp-2 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-all">
             {mod.title}
           </h4>
-          <span className={`text-[9.5px] md:text-[10px] font-bold uppercase tracking-wider mt-1 block line-clamp-1 ${mod.styleStyle === 'solid' ? 'text-white/80' : theme.textRaw}`}>
+          <span className={`text-[9px] font-bold uppercase tracking-wider mt-1.5 block line-clamp-1 py-0.5 px-2 rounded w-fit ${theme.bg} text-white/90`}>
             {mod.category}
           </span>
         </div>
       </div>
       
-      <p className={`text-xs md:text-sm line-clamp-2 md:line-clamp-1 mb-4 text-left relative z-10 w-full ${mod.styleStyle === 'solid' ? 'text-white/90' : 'text-[var(--text-secondary)] transition-colors'}`}>
+      <p className="text-xs md:text-sm line-clamp-2 md:line-clamp-2 mb-4 relative z-10 w-full text-slate-400 group-hover:text-slate-300 transition-colors">
         {mod.desc}
       </p>
 
-      <div className="mt-auto w-full flex flex-wrap items-center justify-between relative z-10 pt-3 border-t border-black/5 dark:border-white/10 gap-x-2 gap-y-1">
-        <div className="flex items-center gap-1.5" title={`Difficulty: ${mod.difficulty || 'Beginner'}`}>
-           <span className={`w-2 h-2 rounded-full ${diffColors[(mod.difficulty as string)] || diffColors['Beginner']}`} />
-           <span className={`text-xs font-semibold ${mod.styleStyle === 'solid' ? 'text-white/90' : 'text-slate-500 dark:text-slate-400'}`}>{mod.difficulty || 'Beginner'}</span>
-        </div>
-        
-        <div className="flex items-center gap-2">
-           {isUsed && (
-             <span className="flex items-center gap-1 text-[10px] uppercase font-bold text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded-full" title="You have used this tool">
+      {/* Badges row */}
+      <div className="mt-auto flex items-center gap-2 relative z-10 w-full mb-1 group-hover:opacity-0 transition-opacity duration-300">
+         <div className={`flex items-center text-[10px] font-semibold uppercase px-2 py-1 rounded-md border ${difficultyClass}`}>
+            {mod.difficulty || 'Beginner'}
+         </div>
+         <div className="flex items-center gap-1 text-[10px] font-semibold text-slate-300 bg-white/5 border border-white/5 px-2 py-1 rounded-md">
+            <Clock className="w-3 h-3" />
+            {mod.estimatedTime || '~2 mins'}
+         </div>
+         {isUsed && (
+            <div className="flex items-center gap-1 text-[10px] font-semibold text-emerald-400 bg-emerald-400/10 border border-emerald-400/20 px-2 py-1 rounded-md ml-auto">
                <CheckSquare className="w-3 h-3" /> Used
-             </span>
-           )}
-           <div className="flex items-center gap-1.5" title="Estimated time">
-              <Clock className="w-3.5 h-3.5 text-slate-400 dark:text-[#4B5563]" />
-              <span className={`text-xs font-semibold ${mod.styleStyle === 'solid' ? 'text-white/90' : 'text-slate-500 dark:text-slate-400'}`}>{mod.estimatedTime || '~2 mins'}</span>
-           </div>
-        </div>
+            </div>
+         )}
+      </div>
+
+      {/* Hover action block */}
+      <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black via-black/80 to-transparent translate-y-[100%] group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 flex items-end justify-center h-[80px]">
+        <span className="px-6 py-2 rounded-full bg-white/10 backdrop-blur-md text-white/90 text-sm font-bold flex items-center gap-2 border border-white/20 shadow-lg">
+          Open Tool <ArrowRight className="w-4 h-4" />
+        </span>
       </div>
     </button>
   );
@@ -513,34 +535,58 @@ export default function Dashboard({
             </div>
           </div>
           
-          <div className="w-full md:max-w-[500px] xl:max-w-[600px] shrink-0 flex items-center relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-full opacity-25 blur-lg group-hover:opacity-60 transition-all duration-700 ease-in-out"></div>
-            <div 
-              className="relative flex items-center w-full h-[64px] rounded-full bg-white/90 dark:bg-[#1f2229]/95 backdrop-blur-xl shadow-[0_8px_32px_-4px_rgba(0,0,0,0.08)] transition-all duration-500 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_16px_48px_-8px_rgba(0,0,0,0.15)] hover:scale-[1.01] border border-white dark:border-slate-800/80 cursor-pointer"
-              onClick={() => setIsAiChatOpen(true)}
-            >
-              <button 
-                onClick={(e) => { e.stopPropagation(); setIsAiChatOpen(true); }}
-                className="ml-5 w-[42px] h-[42px] rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 text-transparent bg-clip-text bg-gradient-to-br from-blue-500 to-purple-600 hover:scale-110"
-              >
-                <Sparkles className="w-[24px] h-[24px] text-indigo-500 group-hover:animate-pulse" strokeWidth={2} />
-              </button>
-              <div
-                className="w-full h-full bg-transparent border-none outline-none text-[16px] md:text-[17px] font-medium text-slate-400 dark:text-[#4B5563] px-3 flex items-center cursor-text"
-              >
-                {searchTerm || "Ask what you want to calculate..."}
+          <div className="w-full md:max-w-[500px] xl:max-w-[600px] shrink-0 flex flex-col relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-full opacity-25 blur-lg group-focus-within:opacity-60 transition-all duration-700 ease-in-out"></div>
+            <div className="relative flex items-center w-full h-[56px] rounded-full bg-white/90 dark:bg-[#1f2229]/95 backdrop-blur-xl shadow-[0_8px_32px_-4px_rgba(0,0,0,0.08)] transition-all duration-300 focus-within:-translate-y-1 focus-within:shadow-[0_16px_48px_-8px_rgba(0,0,0,0.15)] border border-white dark:border-slate-800/80">
+              <div className="ml-5 shrink-0 flex items-center">
+                <Search className="w-5 h-5 text-slate-400" strokeWidth={2.5} />
               </div>
-              <div className="mr-3 shrink-0 flex gap-1">
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search tools or ask AI..."
+                className="w-full h-full bg-transparent border-none outline-none text-[16px] text-slate-700 dark:text-slate-200 px-3 placeholder-slate-400"
+              />
+              <div className="mr-2 shrink-0 flex items-center gap-1">
                 {searchTerm && (
-                  <button onClick={(e) => { e.stopPropagation(); setSearchTerm(""); }} className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-[#6B46C1] text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors duration-200">
+                  <button onClick={() => setSearchTerm("")} className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors duration-200">
                     <X className="w-5 h-5" strokeWidth={2.5} />
                   </button>
                 )}
-                <button className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-[#6B46C1] text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors duration-200">
+                <button className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors duration-200" title="Voice Search">
                   <Mic className="w-5 h-5" strokeWidth={2.5} />
+                </button>
+                <div className="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1"></div>
+                <button 
+                  onClick={() => setIsAiChatOpen(true)}
+                  className="p-2 rounded-full bg-gradient-to-br from-purple-500/10 to-blue-500/10 hover:from-purple-500/20 hover:to-blue-500/20 text-purple-600 dark:text-purple-400 transition-colors duration-200 flex items-center gap-1.5 px-3"
+                  title="Ask AI"
+                >
+                  <Sparkles className="w-4 h-4 group-hover:animate-pulse" strokeWidth={2} />
+                  <span className="text-xs font-bold uppercase tracking-wider hidden sm:block">AI</span>
                 </button>
               </div>
             </div>
+            {/* AI Suggestion Dropdown (shown when focus but empty) */}
+            {!searchTerm && (
+              <div className="absolute top-[110%] left-0 right-0 p-4 rounded-xl bg-white/95 dark:bg-[#1f2229]/95 backdrop-blur-xl border border-white/20 shadow-2xl opacity-0 invisible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-300 z-50 transform translate-y-2 group-focus-within:translate-y-0 text-left pointer-events-none group-focus-within:pointer-events-auto">
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                  <Sparkles className="w-3.5 h-3.5" /> AI Suggestions
+                </p>
+                <div className="flex flex-col gap-2">
+                  <button onClick={() => { setSearchTerm("Concrete mix for M30"); }} className="text-sm text-slate-600 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 p-2 rounded-lg text-left transition-colors whitespace-nowrap overflow-hidden text-ellipsis">
+                    "Concrete mix for M30 grade without fly ash..."
+                  </button>
+                  <button onClick={() => { setSearchTerm("Retaining wall"); }} className="text-sm text-slate-600 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 p-2 rounded-lg text-left transition-colors whitespace-nowrap overflow-hidden text-ellipsis">
+                    "Retaining wall stability check rules..."
+                  </button>
+                  <button onClick={() => { setSearchTerm("Labour required for 100m3 slab"); }} className="text-sm text-slate-600 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 p-2 rounded-lg text-left transition-colors whitespace-nowrap overflow-hidden text-ellipsis">
+                    "Labour required for 100m3 slab pouring?"
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -556,6 +602,80 @@ export default function Dashboard({
                 <ToolCard key={`rec-${m.id}`} mod={m} onSelect={handleSelect} isUsed={settings.usedTools && settings.usedTools.includes(m.id)} />
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Featured Tool of the Week */}
+        {activeCategory === "All Tools" && !searchTerm && (
+          <div className="mb-14 w-full relative rounded-[24px] overflow-hidden group cursor-pointer shadow-[0_20px_50px_rgba(0,0,0,0.2)]" onClick={() => handleSelect('mix-design')}>
+             <div className="absolute inset-0 bg-gradient-to-br from-purple-700 via-indigo-800 to-indigo-900 animate-[bg-shift_10s_ease_infinite] z-0" style={{ backgroundSize: '200% 200%' }} />
+             
+             {/* Particles Overlay */}
+             <div className="absolute inset-0 z-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '32px 32px' }} />
+             
+             <div className="relative z-10 flex flex-col lg:flex-row items-center p-8 md:p-12 gap-8 md:gap-12 w-full h-full">
+                <div className="flex-1 flex flex-col items-start min-w-[50%]">
+                   <div className="flex items-center gap-2 mb-4">
+                     <span className="bg-white/20 text-white text-xs font-bold uppercase tracking-wider py-1 px-3 rounded-full backdrop-blur-md border border-white/10 shadow-lg">Featured Tool of the week</span>
+                   </div>
+                   <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tight drop-shadow-lg leading-[1.1]">
+                      Concrete Mix Design <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-300 to-yellow-300">Pro IS-10262</span>
+                   </h2>
+                   <p className="text-white/80 text-lg md:text-xl font-medium mb-8 max-w-lg leading-relaxed">
+                      Generate performance-based mix designs instantly. Fully compliant with latest IS standards with professional PDF report generation.
+                   </p>
+                   <button className="flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-indigo-900 rounded-full font-bold text-lg shadow-xl hover:shadow-[0_8px_30px_rgba(255,255,255,0.4)] transition-all hover:-translate-y-1 group/btn w-full sm:w-auto">
+                      Try it Now <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1.5 transition-transform" />
+                   </button>
+                </div>
+
+                <div className="flex-1 w-full relative perspective-[1000px] h-[250px] md:h-[350px] transform-gpu">
+                   <div className="absolute inset-0 md:group-hover:rotate-y-[-10deg] md:group-hover:rotate-x-[5deg] md:group-hover:-translate-y-4 transition-all duration-700 ease-out preserve-3d">
+                      <div className="w-full h-full rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-slate-900 absolute flex items-center justify-center" style={{ transform: 'translateZ(20px)' }}>
+                         {/* Mock screenshot visualization */}
+                         <div className="w-full h-full relative">
+                            {/* App Header mockup */}
+                            <div className="h-10 bg-slate-800 w-full flex items-center px-4 gap-2 border-b border-white/10">
+                              <div className="w-2.5 h-2.5 rounded-full bg-red-400"></div><div className="w-2.5 h-2.5 rounded-full bg-yellow-400"></div><div className="w-2.5 h-2.5 rounded-full bg-green-400"></div>
+                              <div className="h-4 w-40 bg-slate-700 rounded ml-4"></div>
+                            </div>
+                            <div className="p-6 grid grid-cols-2 gap-4">
+                              <div className="space-y-4">
+                                <div className="h-4 w-32 bg-slate-700 rounded"></div>
+                                <div className="h-12 w-full bg-slate-800 rounded border border-white/5"></div>
+                                <div className="h-12 w-full bg-slate-800 rounded border border-white/5"></div>
+                                <div className="h-12 w-full bg-slate-800 rounded border border-white/5"></div>
+                              </div>
+                              <div className="space-y-4">
+                                <div className="h-40 w-full bg-gradient-to-br from-indigo-900 to-purple-900 rounded border border-white/10 flex items-end p-2 gap-2">
+                                   <div className="w-full h-[60%] bg-white/20 rounded-t"></div>
+                                   <div className="w-full h-[80%] bg-indigo-500 rounded-t"></div>
+                                   <div className="w-full h-[40%] bg-white/20 rounded-t"></div>
+                                </div>
+                              </div>
+                            </div>
+                         </div>
+                      </div>
+                      <div className="absolute -bottom-6 -right-6 bg-white rounded-xl p-4 shadow-2xl border border-black/5 transform translate-z-[60px] flex items-center gap-3">
+                         <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600">
+                           <CheckSquare className="w-6 h-6" />
+                         </div>
+                         <div>
+                           <p className="text-xs text-slate-500 font-bold uppercase tracking-wider">Status</p>
+                           <p className="text-slate-900 font-black text-lg">IS 10262 Validated</p>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+             
+             <style>{`
+                @keyframes bg-shift {
+                  0% { background-position: 0% 50%; }
+                  50% { background-position: 100% 50%; }
+                  100% { background-position: 0% 50%; }
+                }
+             `}</style>
           </div>
         )}
 
