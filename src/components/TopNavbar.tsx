@@ -109,9 +109,10 @@ export default function TopNavbar({
               <React.Fragment key={link.name}>
                 <button 
                   onClick={() => onNavigate?.(link.id)}
-                  className="text-[14px] font-semibold text-[#4B5563] hover:text-[var(--primary-dark)] dark:text-slate-400 dark:hover:text-white transition-colors tracking-tight"
+                  className="relative text-[14px] font-semibold text-[#4B5563] hover:text-[var(--primary-dark)] dark:text-slate-300 dark:hover:text-white transition-colors tracking-tight group"
                 >
                   {link.name}
+                  <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-gradient-to-r from-orange-400 to-red-500 rounded-full transition-all duration-300 group-hover:w-full"></span>
                 </button>
                 {index < arr.length - 1 && (
                   <span className="mx-4 text-slate-300 dark:text-slate-600 font-light select-none">/</span>
@@ -148,11 +149,10 @@ export default function TopNavbar({
               {!isAuthenticated ? (
                 <button 
                   onClick={signInWithGoogle}
-                  className="px-4 h-9 rounded-full bg-slate-900 dark:bg-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-slate-800 dark:border-slate-200 flex items-center justify-center gap-2 text-white dark:text-slate-900 transition-all duration-300"
-                  title="Sign In with Google"
+                  className="px-5 h-9 rounded-full bg-gradient-to-r from-orange-500 to-red-600 shadow-[0_2px_12px_rgba(249,115,22,0.5)] border-none flex items-center justify-center gap-2 text-white transition-all transform duration-300 hover:scale-105 active:scale-95 hover:shadow-[0_4px_16px_rgba(249,115,22,0.8)]"
+                  title="Get Started"
                 >
-                  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-4 h-4" />
-                  <span className="text-sm font-semibold tracking-tight">Sign In</span>
+                  <span className="text-sm font-bold tracking-tight">Get Started</span>
                 </button>
               ) : (
                 <div ref={profileRef} className="relative">

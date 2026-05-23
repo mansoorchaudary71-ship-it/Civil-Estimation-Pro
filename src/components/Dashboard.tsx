@@ -13,6 +13,7 @@ import {
 import { SEO } from "./SEO";
 import Logo from "./Logo";
 import RecentEstimates from "./RecentEstimates";
+import { ThreeJSBlueprintHero } from "./ThreeJSBlueprintHero";
 
 import PostLoginDashboard from "./PostLoginDashboard";
 import { useSettings } from "../context/SettingsContext";
@@ -299,97 +300,152 @@ export default function Dashboard({
         }
       `}</style>
       
-      {/* Expanded Subtle Blueprint Grid Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-[0.035] dark:opacity-[0.06]" style={{ maskImage: "linear-gradient(to bottom, white 0%, white 60%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, white 0%, white 60%, transparent 100%)" }}>
-         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="blueprint-grid-small" width="20" height="20" patternUnits="userSpaceOnUse">
-                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.5"/>
-              </pattern>
-              <pattern id="blueprint-grid-large" width="100" height="100" patternUnits="userSpaceOnUse">
-                <rect width="100" height="100" fill="url(#blueprint-grid-small)"/>
-                <path d="M 100 0 L 0 0 0 100" fill="none" stroke="currentColor" strokeWidth="1.5"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#blueprint-grid-large)" className="text-indigo-900 dark:text-indigo-100" />
-         </svg>
-      </div>
-
-      <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col relative z-10">
+      {/* FULL-VIEWPORT HERO SECTION */}
+      <div className="relative w-full min-h-[90vh] flex flex-col justify-center items-center overflow-hidden bg-gradient-to-br from-[#0a0f1e] via-[#1a0533] to-[#0a0f1e] pt-12 md:pt-0">
         
-        {/* MASSIVE HERO SECTION */}
-        <div className="relative w-full max-w-[1400px] mx-auto mt-12 md:mt-24 mb-16 px-4 lg:px-8 flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-bottom-8 duration-700 z-10">
+        {/* Animated Grid & Particles */}
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-20" style={{ maskImage: "linear-gradient(to bottom, white 0%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, white 0%, transparent 100%)" }}>
+           <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="blueprint-grid-hero" width="60" height="60" patternUnits="userSpaceOnUse">
+                  <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#60a5fa" strokeWidth="0.5"/>
+                  <path d="M 30 0 L 30 60 M 0 30 L 60 30" fill="none" stroke="#60a5fa" strokeWidth="0.1" opacity="0.5"/>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#blueprint-grid-hero)" />
+           </svg>
+        </div>
+        
+        {/* Particle System overlay (pure CSS) */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          {Array.from({ length: 40 }).map((_, i) => (
+            <div 
+              key={i} 
+              className="absolute w-1 h-1 bg-white rounded-full opacity-30 animate-pulse" 
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDuration: `${Math.random() * 3 + 2}s`,
+                animationDelay: `${Math.random() * 2}s`
+              }}
+            />
+          ))}
+        </div>
+
+        {/* 3D Isometric Building Scene */}
+        <ThreeJSBlueprintHero />
+
+        {/* Hero Content */}
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 lg:px-8 flex flex-col items-center justify-center text-center mt-8 md:mt-0 animate-in fade-in slide-in-from-bottom-8 duration-700">
           
-          <h1 className="text-5xl md:text-7xl font-sans font-black tracking-tight text-[var(--primary-dark)] dark:text-white mb-8 max-w-4xl mx-auto drop-shadow-[0_2px_12px_rgba(0,0,0,0.08)] flex flex-col justify-center items-center">
+          <h1 className="text-5xl lg:text-[72px] font-sans font-black tracking-tight text-white mb-6 max-w-5xl mx-auto drop-shadow-2xl leading-[1.1]">
             <span className="block mb-2">Build Smarter.</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-purple-500 to-orange-500 font-extrabold drop-shadow-[0_2px_12px_rgba(0,0,0,0.08)] pb-2">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-500 to-orange-400 font-extrabold pb-2 inline-block">
               Estimate Faster.
             </span>
           </h1>
           
-          <div className="inline-flex items-center gap-3 mb-10 px-5 py-2.5 bg-purple-50 dark:bg-purple-900/30 rounded-full border border-purple-100 dark:border-purple-800/50 shadow-[0_2px_12px_rgba(0,0,0,0.08)] animate-in fade-in zoom-in duration-1000 delay-300">
-             <div className="flex -space-x-3 mr-2">
-                <img src="https://i.pravatar.cc/100?img=11" className="w-9 h-9 rounded-full border-2 border-white dark:border-slate-900 shadow-[0_2px_12px_rgba(0,0,0,0.08)]" alt="Avatar"/>
-                <img src="https://i.pravatar.cc/100?img=12" className="w-9 h-9 rounded-full border-2 border-white dark:border-slate-900 shadow-[0_2px_12px_rgba(0,0,0,0.08)]" alt="Avatar"/>
-                <img src="https://i.pravatar.cc/100?img=13" className="w-9 h-9 rounded-full border-2 border-white dark:border-slate-900 shadow-[0_2px_12px_rgba(0,0,0,0.08)]" alt="Avatar"/>
-             </div>
-             <span className="font-bold text-purple-700 dark:text-purple-300 tracking-wide text-sm md:text-base cursor-default">{engineersCount === 10000 ? '10,000+' : engineersCount.toLocaleString('en-US')} Engineers Trust Us</span>
-          </div>
+          <p className="text-slate-300 text-lg md:text-xl font-medium max-w-2xl mx-auto mb-10 drop-shadow-md">
+            The world's most advanced civil engineering estimation toolkit. Used by 10,000+ engineers across 15+ countries.
+          </p>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-24 w-full">
             <button
                onClick={() => {
                  const elm = document.getElementById('search-bar-container');
                  elm?.scrollIntoView({ behavior: 'smooth', block: 'center' });
                }}
-               className="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-purple-600 to-orange-500 text-white rounded-full font-bold text-lg shadow-[0_8px_30px_rgba(147,51,234,0.3)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_8px_40px_rgba(147,51,234,0.4)] transition-all hover:-translate-y-1 active:scale-95"
+               className="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-orange-500 to-red-600 text-white rounded-full font-bold text-lg shadow-[0_0_30px_rgba(249,115,22,0.4)] transition-all hover:scale-105 active:scale-95 animate-[pulse_3s_infinite] hover:animate-none border border-orange-400 border-opacity-50"
             >
               Start Estimating Free
             </button>
             <button
-               className="w-full sm:w-auto px-10 py-4 bg-white dark:bg-[#6B46C1] text-slate-700 dark:text-white rounded-full font-bold text-lg shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-[#6B46C1] transition-all hover:-translate-y-1 flex items-center justify-center gap-2 group active:scale-95"
+               className="w-full sm:w-auto px-10 py-4 bg-white/10 backdrop-blur-md text-white rounded-full font-bold text-lg shadow-lg border border-white/20 hover:bg-white/20 transition-all hover:-translate-y-1 flex items-center justify-center gap-2 group active:scale-95"
             >
               Watch Demo <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform"/>
             </button>
           </div>
 
-          {/* Stats Bar */}
-          <div className="w-full max-w-5xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[12px] border border-white dark:border-slate-800 shadow-[0_20px_50px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.2)] relative overflow-hidden">
-               {/* Shine effect */}
-               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[100%] hover:animate-[shimmer_2s_infinite] dark:via-white/5 pointer-events-none" />
-               
-               <div className="flex flex-col items-center text-center p-2 group">
-                  <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-[12px] flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-                    <Box className="w-6 h-6 text-purple-600 dark:text-purple-400"/>
-                  </div>
-                  <h4 className="font-extrabold text-[18px] text-slate-900 dark:text-white mb-1 tracking-tight">30+</h4>
-                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Professional Tools</p>
-               </div>
-               <div className="flex flex-col items-center text-center p-2 group">
-                  <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 rounded-[12px] flex items-center justify-center mb-4 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
-                    <CheckSquare className="w-6 h-6 text-emerald-600 dark:text-emerald-400"/>
-                  </div>
-                  <h4 className="font-extrabold text-[18px] text-slate-900 dark:text-white mb-1 tracking-tight">100%</h4>
-                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Free Forever</p>
-               </div>
-               <div className="flex flex-col items-center text-center p-2 group">
-                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-[12px] flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-                    <Map className="w-6 h-6 text-blue-600 dark:text-blue-400"/>
-                  </div>
-                  <h4 className="font-extrabold text-[18px] text-slate-900 dark:text-white mb-1 tracking-tight">15+</h4>
-                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Countries Trusted</p>
-               </div>
-               <div className="flex flex-col items-center text-center p-2 group">
-                  <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-[12px] flex items-center justify-center mb-4 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
-                    <Sparkles className="w-6 h-6 text-orange-600 dark:text-orange-400"/>
-                  </div>
-                  <h4 className="font-extrabold text-[18px] text-slate-900 dark:text-white mb-1 tracking-tight">AI</h4>
-                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Powered Estimates</p>
-               </div>
-            </div>
+          {/* Floating Animated Stat Cards */}
+          <div className="w-full max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 px-4">
+             {/* Card 1 */}
+             <div className="flex flex-col items-center justify-center p-6 bg-white/5 backdrop-blur-xl rounded-[24px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:bg-white/10 transition-colors group">
+                <Box className="w-8 h-8 text-purple-400 mb-3 group-hover:scale-110 transition-transform" />
+                <h4 className="font-extrabold text-2xl text-white tracking-tight">35+</h4>
+                <p className="text-sm font-medium text-slate-400 mt-1 uppercase tracking-wider">Tools</p>
+             </div>
+             {/* Card 2 */}
+             <div className="flex flex-col items-center justify-center p-6 bg-white/5 backdrop-blur-xl rounded-[24px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:bg-white/10 transition-colors group">
+                <CheckSquare className="w-8 h-8 text-emerald-400 mb-3 group-hover:scale-110 transition-transform" />
+                <h4 className="font-extrabold text-2xl text-white tracking-tight">100%</h4>
+                <p className="text-sm font-medium text-slate-400 mt-1 uppercase tracking-wider">Free</p>
+             </div>
+             {/* Card 3 */}
+             <div className="flex flex-col items-center justify-center p-6 bg-white/5 backdrop-blur-xl rounded-[24px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:bg-white/10 transition-colors group">
+                <Map className="w-8 h-8 text-blue-400 mb-3 group-hover:scale-110 transition-transform" />
+                <h4 className="font-extrabold text-2xl text-white tracking-tight">15+</h4>
+                <p className="text-sm font-medium text-slate-400 mt-1 uppercase tracking-wider">Countries</p>
+             </div>
+             {/* Card 4 */}
+             <div className="flex flex-col items-center justify-center p-6 bg-white/5 backdrop-blur-xl rounded-[24px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:bg-white/10 transition-colors group">
+                <Sparkles className="w-8 h-8 text-orange-400 mb-3 group-hover:scale-110 transition-transform" />
+                <h4 className="font-extrabold text-2xl text-white tracking-tight">AI</h4>
+                <p className="text-sm font-medium text-slate-400 mt-1 uppercase tracking-wider">Powered</p>
+             </div>
           </div>
         </div>
+      </div>
+      
+      {/* TRUST SECTION */}
+      <div className="w-full bg-[#050814] py-12 flex flex-col items-center justify-center overflow-hidden border-b border-white/10">
+        <h4 className="text-slate-500 font-bold text-sm tracking-wider uppercase mb-8">Trusted by engineers at</h4>
+        <div className="w-full relative flex overflow-x-hidden mb-12">
+          <div className="animate-[scroll-right_30s_linear_infinite] whitespace-nowrap flex items-center gap-16 px-8">
+            {/* Logos Placeholder (Blurred Shapes) */}
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="flex items-center gap-2 opacity-50 contrast-50 grayscale blend-luminosity hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                <div className="w-8 h-8 rounded-md bg-gradient-to-tr from-slate-700 to-slate-500" />
+                <div className="w-24 h-4 rounded bg-slate-700" />
+              </div>
+            ))}
+            {/* Dup for infinite scroll */}
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i + 8} className="flex items-center gap-2 opacity-50 contrast-50 grayscale blend-luminosity hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+                <div className="w-8 h-8 rounded-md bg-gradient-to-tr from-slate-700 to-slate-500" />
+                <div className="w-24 h-4 rounded bg-slate-700" />
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 px-4 text-center">
+           <div className="flex items-center gap-2 text-slate-300 font-medium">
+             <div className="flex gap-0.5 text-yellow-500">
+                <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+             </div>
+             4.9/5 from 500+ reviews
+           </div>
+           <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-slate-600" />
+           <div className="text-slate-300 font-medium">
+             10,000+ Engineers
+           </div>
+           <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-slate-600" />
+           <div className="text-slate-400 text-sm">
+             Last updated: May 2026
+           </div>
+        </div>
+      </div>
+      
+      {/* Scroll animation keyframes addition */}
+      <style>{`
+        @keyframes scroll-right {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
+
+      <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col relative z-10 pt-16">
+
 
         {/* Tool category cards */}
         <div className="w-full max-w-[1400px] mx-auto px-4 lg:px-8 mb-16" id="search-bar-container">

@@ -151,6 +151,74 @@
   .dark p {
     color: #A3AED0;
   }
+
+  /* Global Inputs requested by User */
+  input[type="text"], input[type="number"], input[type="email"], input[type="password"], select, textarea {
+    height: 44px;
+    border: 1.5px solid #E5E7EB;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    background-color: var(--bg-card);
+  }
+  input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
+    border-color: #6B46C1 !important;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.1);
+  }
+  .dark input[type="text"], .dark input[type="number"], .dark input[type="email"], .dark input[type="password"], .dark select, .dark textarea {
+    border-color: #374151;
+  }
+
+  /* Custom Buttons requested by User */
+  .btn-primary {
+    background-color: #6B46C1;
+    color: #FFFFFF;
+    border-radius: 8px;
+    height: 44px;
+    padding: 0 24px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+  }
+  .btn-primary:hover {
+    background-color: #553C9A /* Darken ~10% */;
+  }
+  .btn-secondary {
+    background-color: #FFFFFF;
+    color: #6B46C1;
+    border: 1.5px solid #6B46C1;
+    border-radius: 8px;
+    height: 44px;
+    padding: 0 24px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-secondary:hover {
+    background-color: #F3F4F6;
+  }
+  .btn-danger {
+    background-color: #DC2626;
+    color: #FFFFFF;
+    border-radius: 8px;
+    height: 44px;
+    padding: 0 24px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+  }
+  .btn-danger:hover {
+    background-color: #B91C1C;
+  }
 }
 
 /* Custom Scrollbar Styles */
