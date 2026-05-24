@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useProjects, Project } from '../../context/ProjectContext';
 import { Plus, FolderOpen, Calendar, MapPin, Building, Share2, Printer, ChevronRight, BarChart3, AlertCircle, Upload, Play, FileText, ArrowRight, Home, Route } from 'lucide-react';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function ProjectManager() {
   const { projects, activeProjectId, setActiveProjectId, addProject, deleteProject } = useProjects();
@@ -586,6 +587,12 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
             </div>
          </div>
        </div>
-    </div>
+    
+      <CalculationHistory
+        calculatorId="project_manager"
+        estimationName="Project Summary"
+        currentInputs={{}}
+      />
+      </div>
   );
 }

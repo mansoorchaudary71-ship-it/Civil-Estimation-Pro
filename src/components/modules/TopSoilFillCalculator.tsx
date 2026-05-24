@@ -294,7 +294,7 @@ export default function TopSoilFillCalculator() {
             
             <CalculationHistory
               calculatorId="topsoil_fill_calculator"
-              currentInputs={{ length, width, depth, swellFactor, customSwellFactor, truckCapacity }}
+              currentInputs={{ area, depth, selectedSoilIndex, customFactor, truckCapacity }}
               currentResults={estimateData ? {
                 "Earth Bank Volume": `${estimateData.bankVolume.toLocaleString(undefined, {maximumFractionDigits: 1})} ${estimateData.volumeUnit}`,
                 "Loose / Delivery Volume": `${estimateData.looseVolume.toLocaleString(undefined, {maximumFractionDigits: 1})} ${estimateData.volumeUnit}`,

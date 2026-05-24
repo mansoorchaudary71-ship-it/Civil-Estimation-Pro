@@ -365,6 +365,7 @@ export default function GlobalSettingsModal({
           </button>{" "}
         </div>{" "}
       </div>{" "}
-    </div>
+    
+      </div>
   );
 }

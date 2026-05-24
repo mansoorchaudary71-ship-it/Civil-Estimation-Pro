@@ -5,6 +5,7 @@ import Markdown from "react-markdown";
 import { cn } from "../../lib/utils";
 import { processAIEstimate } from "../../lib/gemini";
 import { CalculationHistory } from "../ui/CalculationHistory";
+
 interface Message {
   role: "user" | "model";
   content: string;
@@ -133,16 +134,9 @@ export default function AIAssistant() {
         </div>
       </div>
       <CalculationHistory
-        calculatorId="ai_assistant_v1"
+        calculatorId="ai_assistant"
         estimationName="AI Assistant Chat"
         currentInputs={{}}
-        currentResults={{ messages }}
-        summaryGeneration={(inputs, res) => `AI Chat History (${res.messages?.length || 0} messages)`}
-        onRestore={(inputs) => {
-          // It doesn't make total sense to restore a chat log via inputs, 
-          // because it was saved as results.
-        }}
-        // we can cheat and restore from save payload or history
       />
     </div>
   );

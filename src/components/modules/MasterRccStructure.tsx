@@ -74,6 +74,7 @@ export default function MasterRccStructure({ isEmbedded = false, onNavigate }: M
           {activeTab === "bbs" && <BarBendingSchedule />}
         </div>
       </div>
-    </div>
+    
+      </div>
   );
 }

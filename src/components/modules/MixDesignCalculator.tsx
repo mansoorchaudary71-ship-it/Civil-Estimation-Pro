@@ -560,7 +560,7 @@ export default function MixDesignCalculator() {
       </div>
       <CalculationHistory
         calculatorId="mix_design_calculator"
-        currentInputs={{ fck, maxCA, slump, exposure, mixType, specificGravityCement, specificGravityFA, specificGravityCA }}
+        currentInputs={{ fck, aggSize, slump, exposure, targetWc, sgCementInput, sgFaInput, sgCaInput }}
         currentResults={{
           "Cement": `${cementContent} kg/m³`,
           "Water": `${(waterContent).toFixed(1)} L`,

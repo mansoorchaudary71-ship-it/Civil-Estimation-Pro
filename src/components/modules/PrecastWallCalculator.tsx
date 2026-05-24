@@ -294,7 +294,7 @@ export default function PrecastWallCalculator() {
               calculatorId="precast_wall_calculator"
               currentInputs={{ totalLength, postSpacing, wallHeight, slabHeight, postRate, slabRate, laborRatePerRunningMeter }}
               currentResults={estimateData ? {
-                "Total Posts": `${estimateData.totalPosts} nos`,
+                "Total Posts": `${estimateData.numberOfPosts} nos`,
                 "Total Slabs": `${estimateData.totalSlabs} nos`,
                 "Total Bays Formed": `${estimateData.numberOfBays}`,
                 "Total Cost": `$${estimateData.totalCost.toLocaleString()}`

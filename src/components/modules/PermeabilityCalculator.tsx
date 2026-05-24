@@ -366,9 +366,9 @@ export default function PermeabilityCalculator() {
               calculatorId="permeability_calculator"
               currentInputs={{ testMethod, lengthSample, areaSample, qVolume, timeConstant, constantHead, areaStandpipe, headInitial, headFinal, timeFalling }}
               currentResults={estimateData ? {
-                "Permeability (k)": `${estimateData.k_sci}`,
-                "Standard Form": `${estimateData.k_std} cm/sec`,
-                "Soil Classification": `${estimateData.classification}`
+                "Permeability (k)": `${estimateData.k.toExponential(2)}`,
+                "Standard Form": `${estimateData.k.toFixed(6)} cm/sec`,
+                "Soil Classification": `${estimateData.soilClass}`
               } : undefined}
               estimationName="Permeability Test"
             />

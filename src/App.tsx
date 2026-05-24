@@ -38,6 +38,7 @@ import MasterQuantityEstimator from "./components/modules/MasterQuantityEstimato
 import MasterRccStructure from "./components/modules/MasterRccStructure";
 import SlabEstimator from "./components/modules/SlabEstimator";
 import EnergyMepCalculator from "./components/modules/EnergyMepCalculator";
+import RainwaterHarvesting from "./components/modules/RainwaterHarvesting";
 import InteriorsFinishesEstimator from "./components/modules/InteriorsFinishes";
 import RoadPavementEstimator from "./components/modules/RoadPavementEstimator";
 import SettingsModal from "./components/modules/SettingsModal";
@@ -109,6 +110,8 @@ export const ALL_TOOLS = [
   { id: "permeability-test", title: "Permeability Calculator", category: "Site & Infrastructure", icon: <Droplets className="w-4 h-4" /> },
   { id: "direct-shear", title: "Direct Shear Test", category: "Site & Infrastructure", icon: <Layers className="w-4 h-4" /> },
   { id: "roof-pitch", title: "Roof Pitch Calculator", category: "Analysis & Tools", icon: <Triangle className="w-4 h-4" /> },
+  { id: "mep-calculator", title: "Energy & MEP Calculators", category: "MEP", icon: <Zap className="w-4 h-4" /> },
+  { id: "rainwater-harvesting", title: "Rainwater Harvesting", category: "MEP", icon: <Droplet className="w-4 h-4" /> },
   { id: "anti-termite", title: "Anti-Termite Treatment", category: "Site & Infrastructure", icon: <Bug className="w-4 h-4" /> },
   { id: "master-sieve", title: "Master Sieve Analysis", category: "Site & Infrastructure", icon: <LineChart className="w-4 h-4" /> },
   { id: "aggregate-blending", title: "Aggregate Blending Calculator", category: "Site & Infrastructure", icon: <Layers className="w-4 h-4" /> },
@@ -235,6 +238,7 @@ export default function App() {
               {activeModule === "unit-converter" && <ModuleWrapper title="Universal Unit Converter" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><UnitConverter /></ModuleWrapper>}
               {activeModule === "metal-weight" && <ModuleWrapper title="Metal Weight Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MetalWeightCalculator /></ModuleWrapper>}
               {activeModule === "mep-calculator" && <ModuleWrapper title="Energy & MEP Calculators" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><EnergyMepCalculator /></ModuleWrapper>}
+              {activeModule === "rainwater-harvesting" && <ModuleWrapper title="Rainwater Harvesting" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RainwaterHarvesting /></ModuleWrapper>}
               {activeModule === "gradient-calculator" && <ModuleWrapper title="Gradient & Slope Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><GradientCalculator /></ModuleWrapper>}
               {activeModule === "master-rcc" && <ModuleWrapper title="Master RCC Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MasterRccStructure onNavigate={handleSelectModule} /></ModuleWrapper>}
               {activeModule === "reinforcement" && <ModuleWrapper title="Reinforcement Detailing Visualizer" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ReinforcementVisualizer /></ModuleWrapper>}

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { CalculationHistory } from "../ui/CalculationHistory";
 import {
   Download,
   CheckCircle,
@@ -682,6 +683,13 @@ export default function ReinforcementVisualizer() {
           </div>
         </div>
       </MaterialSummary>
-    </div>
+    
+      <CalculationHistory
+        calculatorId="reinforcementvisualizer"
+        currentInputs={{}}
+        currentResults={{}}
+        estimationName="Reinforcement Visualizer"
+      />
+</div>
   );
 }

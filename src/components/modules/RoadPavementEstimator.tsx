@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { CalculationHistory } from "../ui/CalculationHistory";
 import { Route, Layers, Droplet, Waves } from "lucide-react";
 import { SEO } from "../SEO";
 import RoadEstimator from "./RoadEstimator";
@@ -60,6 +61,13 @@ export default function RoadPavementEstimator() {
           {activeTab === "sewerage" && <SewerageEstimator />}
         </div>
       </div>
-    </div>
+    
+      <CalculationHistory
+        calculatorId="roadpavementestimator"
+        currentInputs={{}}
+        currentResults={{}}
+        estimationName="Road Pavement Estimator"
+      />
+</div>
   );
 }

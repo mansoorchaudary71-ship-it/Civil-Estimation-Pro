@@ -369,6 +369,7 @@ function ToggleGroup({ value, onChange, options }: any) {
           {opt.label}
         </button>
       ))}
-    </div>
+    
+      </div>
   );
 }

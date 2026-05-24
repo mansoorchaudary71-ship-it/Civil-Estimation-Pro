@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { CalculationHistory } from "../ui/CalculationHistory";
 import { MaterialSummary } from '../ui/MaterialSummary';
 import { Calendar, CheckCircle, Image as ImageIcon, Link, BarChart, Upload, Trash2, Edit2, ChevronRight, FileOutput, Share2 } from 'lucide-react';
 
@@ -386,6 +387,13 @@ export default function SiteProgressTracker() {
              )}
           </div>
        </div>
-    </div>
+    
+      <CalculationHistory
+        calculatorId="siteprogresstracker"
+        currentInputs={{}}
+        currentResults={{}}
+        estimationName="Site Progress Tracker"
+      />
+</div>
   );
 }

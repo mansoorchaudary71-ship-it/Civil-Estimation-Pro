@@ -318,7 +318,7 @@ export default function DirectShearTestCalculator() {
             
             <CalculationHistory
               calculatorId="direct_shear_test_calculator"
-              currentInputs={{ ...Object.fromEntries(testPoints.map((d, i) => [`Sample ${i+1}`, `Normal: ${d.normalLoad}, Shear: ${d.shearLoad}`])) }}
+              currentInputs={{ ...Object.fromEntries(testData.map((d, i) => [`Sample ${i+1}`, `Normal: ${d.normalStress}, Shear: ${d.shearStress}`])) }}
               currentResults={estimateData ? {
                 "Cohesion (c)": `${estimateData.cohesion.toFixed(2)}`,
                 "Friction Angle (φ)": `${estimateData.angleOfFriction.toFixed(1)}°`,

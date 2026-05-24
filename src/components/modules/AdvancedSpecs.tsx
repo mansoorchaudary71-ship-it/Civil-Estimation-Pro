@@ -373,6 +373,7 @@ export default function AdvancedSpecs({
           </div>
         </div>
       )}
-    </div>
+    
+      </div>
   );
 }

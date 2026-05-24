@@ -372,7 +372,7 @@ export default function RoofPitchCalculator() {
             
             <CalculationHistory
               calculatorId="roof_pitch_calculator"
-              currentInputs={{ activeTab, rise, run, span, angle, baseRun, overhang }}
+              currentInputs={{ inputMode, rise, run, pitchAngle, runForAngle, overhang }}
               currentResults={estimateData ? {
                 "Pitch Angle": `${estimateData.angleDeg.toFixed(2)}°`,
                 "Slope Factor": `${estimateData.slopeFactor.toFixed(3)}`,

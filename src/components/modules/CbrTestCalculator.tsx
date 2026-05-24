@@ -352,7 +352,7 @@ export default function CbrTestCalculator() {
             
             <CalculationHistory
               calculatorId="cbr_test_calculator"
-              currentInputs={{ minCBRThreshold, ...Object.fromEntries(penData.map((d, i) => [`Penetration ${d.pen}mm`, d.load])) }}
+              currentInputs={{ minSpec, ...Object.fromEntries(testData.map((d) => [`Penetration ${d.penetration}mm`, `${d.load} kg`])) }}
               currentResults={estimateData ? {
                 "CBR @ 2.5mm": `${estimateData.cbr25.toFixed(1)}%`,
                 "CBR @ 5.0mm": `${estimateData.cbr50.toFixed(1)}%`,

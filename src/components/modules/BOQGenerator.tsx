@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+import { CalculationHistory } from "../ui/CalculationHistory";
 import { MaterialSummary } from "../ui/MaterialSummary";
 import {
   FileDown,
@@ -600,6 +601,13 @@ export default function BOQGenerator() {
           </MaterialSummary>
         </div>
       </div>
-    </div>
+    
+      <CalculationHistory
+        calculatorId="boqgenerator"
+        currentInputs={{}}
+        currentResults={{}}
+        estimationName="B O Q Generator"
+      />
+</div>
   );
 }

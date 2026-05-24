@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
+import { CalculationHistory } from "../ui/CalculationHistory";
 import {
   Download,
   Plus,
@@ -24,7 +25,6 @@ import { generatePDFReport, generateExcelReport } from "../../utils/reports";
 
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
-import { CalculationHistory } from "../ui/CalculationHistory";
 function cleanUnit(u: string) {
   return u.replace(/[²³]/g, "").replace(/sq\.?/g, "").trim().toLowerCase();
 }
@@ -514,9 +514,8 @@ export default function LiveBOQ() {
       
       <CalculationHistory
         calculatorId="live_boq"
+        estimationName="Live BOQ Viewer"
         currentInputs={{}}
-        currentResults={{}}
-        onRestore={() => {}}
       />
     </div>
   );

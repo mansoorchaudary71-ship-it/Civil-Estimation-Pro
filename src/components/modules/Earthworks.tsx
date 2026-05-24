@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { CalculationHistory } from "../ui/CalculationHistory";
 import { Shovel } from "lucide-react";
 import StandardEarthworks from "./EarthworksBase";
 import TrenchExcavationEstimator from "./TrenchExcavation";
@@ -47,7 +48,14 @@ export default function EarthworksEstimator() {
           </div>
         </div>
       </div>
-    </div>
+    
+      <CalculationHistory
+        calculatorId="earthworks"
+        currentInputs={{}}
+        currentResults={{}}
+        estimationName="Earthworks"
+      />
+</div>
   );
 }
 

@@ -31,12 +31,12 @@ import {
 
 import ColorfulTab from "../ui/ColorfulTab";
 import UnitToggleGroup from "../ui/UnitToggleGroup";
-import { CalculationHistory } from "../ui/CalculationHistory";
 import MasterQuantityEstimator from "./MasterQuantityEstimator";
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import Brickwork9InchModule from "./Brickwork9InchModule";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from "recharts";
+import { CalculationHistory } from "../ui/CalculationHistory";
 import { SEO } from "../SEO";
 import { StyledChart } from "../ui/EstimateVisualizer";
 
@@ -1821,41 +1821,13 @@ export default function ConstructionMaterialEstimator() {
           </div>
         )}
       </div>
-      {(activeTab !== 'master') && (
-        <CalculationHistory
-          calculatorId={`material_calc_${activeTab}`}
-          currentInputs={currentExportInputs}
-          currentResults={currentExportData}
-          summaryGeneration={(inputs, results) => `${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} calculation`}
-          explanation={explanationOpts}
-          onRestore={(inputs) => {
-            if (activeTab === "concrete") {
-              if (inputs["Dimensions"]) {
-                const match = inputs["Dimensions"].match(/Length:\s([\d.]+).*?Width:\s([\d.]+).*?Depth:\s([\d.]+)/);
-                if (match) { setCLength(match[1]); setCWidth(match[2]); setCDepth(match[3]); }
-              }
-              if (inputs["Mix Ratio"]) setCMix(inputs["Mix Ratio"]);
-              if (inputs["W/C Ratio"]) setCWcRatio(inputs["W/C Ratio"]);
-              if (inputs["Wastage Allowed"]) setWastage(inputs["Wastage Allowed"].replace("%", ""));
-            } else if (activeTab === "bricks" || activeTab === "blocks") {
-              if (inputs["Wall Dimensions"]) {
-                 const match = inputs["Wall Dimensions"].match(/Length:\s([\d.]+).*?Height:\s([\d.]+).*?Thickness:\s([\d.]+)/);
-                 if (match) { setBWallL(match[1]); setBWallH(match[2]); setBWallT(match[3]); }
-              }
-              if (inputs["Mix Ratio (Cement:Sand)"]) setBMix(inputs["Mix Ratio (Cement:Sand)"]);
-            } else if (activeTab === "plaster") {
-              if (inputs["Surface Area"]) setPArea(inputs["Surface Area"].split(" ")[0]);
-              if (inputs["Thickness"]) setPThick(inputs["Thickness"].split(" ")[0]);
-              if (inputs["Mix Ratio"]) setPMix(inputs["Mix Ratio"]);
-              if (inputs["Location"]) setPLocation(inputs["Location"] as "Internal" | "External");
-            } else if (activeTab === "steel") {
-              if (inputs["Total Span/Length"]) setSSpan(inputs["Total Span/Length"].split(" ")[0]);
-              if (inputs["Spacing (c/c)"]) setSSpace(inputs["Spacing (c/c)"].split(" ")[0]);
-              if (inputs["Bar Diameter"]) setSDia(inputs["Bar Diameter"].split(" ")[0]);
-            }
-          }}
-        />
-      )}
+
+      <CalculationHistory
+        calculatorId="master_calculators"
+        estimationName="Material Estimator"
+        currentInputs={{ activeTab }}
+        currentResults={{ totalCement, totalSand, totalAgg, totalWater }}
+      />
     </div>
   );
 }
