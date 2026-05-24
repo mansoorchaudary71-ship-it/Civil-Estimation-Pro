@@ -152,7 +152,7 @@ export default function FormworkEstimator() {
         {" "}
         <header className="mb-10">
           {" "}
-          <h1 className="text-[28px] lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-amber-600 to-rose-600 bg-clip-text text-transparent pb-2">
+          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-amber-600 to-rose-600 bg-clip-text text-transparent pb-2">
             {" "}
             Formwork & Scaffolding{" "}
           </h1>{" "}
@@ -176,13 +176,13 @@ export default function FormworkEstimator() {
                 {" "}
                 <div className="flex items-center gap-3">
                   {" "}
-                  <div className="p-3 bg-amber-50 rounded-[12px]">
+                  <div className="p-3 bg-amber-50 rounded-2xl">
                     {" "}
                     <Grid className="w-6 h-6 text-amber-600" />{" "}
                   </div>{" "}
                   <div>
                     {" "}
-                    <h2 className="text-[18px] font-bold text-gray-800">
+                    <h2 className="text-xl font-bold text-gray-800">
                       Shuttering Elements
                     </h2>{" "}
                     <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">
@@ -192,7 +192,7 @@ export default function FormworkEstimator() {
                 </div>{" "}
                 <button
                   onClick={addElement}
-                  className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white px-4 py-2.5 rounded-[12px] text-sm font-bold shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-amber-500/30 transition-all hover:scale-105 active:scale-95"
+                  className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-amber-500/30 transition-all hover:scale-105 active:scale-95"
                 >
                   {" "}
                   <Plus className="w-4 h-4" /> Add Item{" "}
@@ -203,7 +203,7 @@ export default function FormworkEstimator() {
                 {elements.map((el, index) => (
                   <div
                     key={el.id}
-                    className="group bg-gray-50/50 hover:bg-white border border-gray-100 hover:border-amber-200 p-5 rounded-[12px] transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] relative overflow-hidden flex flex-col md:flex-row gap-4 md:items-center"
+                    className="group bg-gray-50/50 hover:bg-white border border-gray-100 hover:border-amber-200 p-5 rounded-[2rem] transition-all shadow-sm hover:shadow-md relative overflow-hidden flex flex-col md:flex-row gap-4 md:items-center"
                   >
                     {" "}
                     <div className="absolute top-0 left-0 w-1.5 h-full bg-slate-300 group-hover:bg-amber-400 transition-colors" />{" "}
@@ -217,7 +217,7 @@ export default function FormworkEstimator() {
                         <div className="flex gap-2">
                           {" "}
                           <select
-                            className="bg-gray-100 border border-slate-200 rounded-[12px] px-3 py-2.5 text-sm font-semibold text-gray-700 outline-none focus:ring-2 focus:ring-amber-500/30 w-24"
+                            className="bg-gray-100 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-semibold text-gray-700 outline-none focus:ring-2 focus:ring-amber-500/30 w-24"
                             value={el.type}
                             onChange={(e) =>
                               updateElement(el.id, "type", e.target.value)
@@ -230,7 +230,7 @@ export default function FormworkEstimator() {
                           </select>{" "}
                           <input
                             type="text"
-                            className="bg-white border border-gray-200 rounded-[12px] px-3 py-2.5 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-amber-500/30"
+                            className="bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-amber-500/30"
                             value={el.name}
                             onChange={(e) =>
                               updateElement(el.id, "name", e.target.value)
@@ -247,7 +247,7 @@ export default function FormworkEstimator() {
                           type="number"
                           min="0"
                           step="0.1"
-                          className="bg-white border border-gray-200 rounded-[12px] px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
+                          className="bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
                           value={el.length}
                           onChange={(e) =>
                             updateElement(el.id, "length", e.target.value)
@@ -263,7 +263,7 @@ export default function FormworkEstimator() {
                           type="number"
                           min="0"
                           step="0.1"
-                          className="bg-white border border-gray-200 rounded-[12px] px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
+                          className="bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
                           value={el.width}
                           onChange={(e) =>
                             updateElement(el.id, "width", e.target.value)
@@ -279,7 +279,7 @@ export default function FormworkEstimator() {
                           type="number"
                           min="0"
                           step="0.1"
-                          className="bg-white border border-gray-200 rounded-[12px] px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
+                          className="bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
                           value={el.height}
                           onChange={(e) =>
                             updateElement(el.id, "height", e.target.value)
@@ -294,7 +294,7 @@ export default function FormworkEstimator() {
                         <input
                           type="number"
                           min="0"
-                          className="bg-white border border-gray-200 rounded-[12px] px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
+                          className="bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
                           value={el.count}
                           onChange={(e) =>
                             updateElement(el.id, "count", e.target.value)
@@ -304,7 +304,7 @@ export default function FormworkEstimator() {
                     </div>{" "}
                     <button
                       onClick={() => removeElement(el.id)}
-                      className="w-10 h-10 flex items-center justify-center bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white rounded-[12px] transition-colors ml-auto md:ml-0 self-end md:self-center"
+                      className="w-10 h-10 flex items-center justify-center bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white rounded-xl transition-colors ml-auto md:ml-0 self-end md:self-center"
                     >
                       {" "}
                       <Trash2 className="w-4 h-4" />{" "}
@@ -312,7 +312,7 @@ export default function FormworkEstimator() {
                   </div>
                 ))}{" "}
                 {elements.length === 0 && (
-                  <div className="text-center py-12 bg-transparent border-2 border-dashed border-gray-200 rounded-[12px]">
+                  <div className="text-center py-12 bg-transparent border-2 border-dashed border-gray-200 rounded-[2rem]">
                     {" "}
                     <p className="text-gray-700 dark:text-gray-300 font-medium">
                       No formwork elements added.
@@ -343,7 +343,7 @@ export default function FormworkEstimator() {
                   <button
                     key={factor}
                     onClick={() => setRepetitionFactor(factor)}
-                    className={`w-12 h-12 rounded-[12px] font-black transition-all ${repetitionFactor === factor ? "bg-[#6B46C1] text-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-indigo-500/30 scale-110" : "bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200"}`}
+                    className={`w-12 h-12 rounded-2xl font-black transition-all ${repetitionFactor === factor ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200"}`}
                   >
                     {" "}
                     x{factor}{" "}

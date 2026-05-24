@@ -112,33 +112,33 @@ export function RelatedCalculators({ category, currentSlug }: RelatedCalculators
   });
 
   return (
-    <section className="mt-16 bg-slate-900 rounded-[12px] p-8 sm:p-10 border border-slate-800">
+    <section className="mt-16 bg-slate-900 rounded-3xl p-8 sm:p-10 border border-slate-800">
       <div className="mb-8">
-        <h2 className="text-[18px] font-bold text-white">Silo Link Grid: Continue Exploring</h2>
+        <h2 className="text-2xl font-bold text-white">Silo Link Grid: Continue Exploring</h2>
         <p className="text-slate-500 dark:text-slate-400 mt-2">Discover sequential tools, categorical hubs, and related structural estimators.</p>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Render sequential links (exact 4) */}
         {sequentialLinks.map((link, idx) => (
-          <a key={`seq-${idx}`} href={link.url} className="group p-5 bg-[#6B46C1] rounded-[12px] border border-slate-700 hover:border-indigo-500 hover:bg-[#6B46C1]/80 transition-all flex flex-col">
-            <span className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-2">{link.label}</span>
+          <a key={`seq-${idx}`} href={link.url} className="group p-5 bg-slate-800 rounded-xl border border-slate-700 hover:border-indigo-500 hover:bg-slate-800/80 transition-all flex flex-col">
+            <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-2">{link.label}</span>
             <span className="text-[13px] sm:text-sm font-semibold text-slate-200 group-hover:text-white capitalize leading-snug">{link.title}</span>
           </a>
         ))}
         
         {/* Render Cross Pollination links (exact 2) */}
         {crossLinks.map((link, idx) => (
-          <a key={`cross-${idx}`} href={link.url} className="group p-5 bg-[#6B46C1] rounded-[12px] border border-slate-700 hover:border-emerald-500 hover:bg-[#6B46C1]/80 transition-all flex flex-col">
-            <span className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-2">{link.label}</span>
+          <a key={`cross-${idx}`} href={link.url} className="group p-5 bg-slate-800 rounded-xl border border-slate-700 hover:border-emerald-500 hover:bg-slate-800/80 transition-all flex flex-col">
+            <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-2">{link.label}</span>
             <span className="text-[13px] sm:text-sm font-semibold text-slate-200 group-hover:text-white capitalize leading-snug">{link.title}</span>
           </a>
         ))}
 
         {/* Render Category Hubs (exact 2) */}
         {categoryHubLinks.map((link, idx) => (
-          <a key={`hub-${idx}`} href={link.url} className="group px-4 py-3 bg-[#6B46C1] rounded-[12px] border border-indigo-500 hover:bg-indigo-500 hover:border-indigo-400 shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-indigo-900/20 transition-all flex flex-col justify-center items-start">
-            <span className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-2">{link.label}</span>
+          <a key={`hub-${idx}`} href={link.url} className="group px-4 py-3 bg-indigo-600 rounded-xl border border-indigo-500 hover:bg-indigo-500 hover:border-indigo-400 shadow-lg shadow-indigo-900/20 transition-all flex flex-col justify-center items-start">
+            <span className="text-xs font-bold text-indigo-200 uppercase tracking-wider mb-2">{link.label}</span>
             <span className="text-sm font-bold text-white capitalize leading-snug">{link.title}</span>
           </a>
         ))}

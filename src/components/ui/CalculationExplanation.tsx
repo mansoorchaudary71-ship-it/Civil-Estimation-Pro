@@ -20,11 +20,11 @@ export function CalculationExplanation({
 
   return (
     <div className="w-full max-w-3xl mx-auto mt-2 mb-8 font-sans">
-      <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border border-border-color shadow-[0_2px_12px_rgba(0,0,0,0.08)] rounded-[12px] p-5 overflow-hidden relative">
+      <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border border-border-color shadow-sm rounded-2xl p-5 overflow-hidden relative">
         <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-indigo-500 via-rose-500 to-amber-500 rounded-l-2xl" />
         
         <div className="flex items-center gap-2 mb-4">
-          <div className="bg-indigo-100 dark:bg-indigo-900/30 p-1.5 rounded-[12px] text-indigo-600 dark:text-indigo-400">
+          <div className="bg-indigo-100 dark:bg-indigo-900/30 p-1.5 rounded-lg text-indigo-600 dark:text-indigo-400">
             <Calculator className="w-5 h-5" />
           </div>
           <h3 className="font-bold text-slate-800 dark:text-slate-100 text-lg">
@@ -39,7 +39,7 @@ export function CalculationExplanation({
                 Enter your dimensions to see the step-by-step calculation. Here are the formulas we use:
               </p>
               {genericFormula.map((item, idx) => (
-                <div key={idx} className="bg-bg-primary/50 rounded-[12px] p-3 border border-border-color/50">
+                <div key={idx} className="bg-bg-primary/50 rounded-xl p-3 border border-border-color/50">
                   <span className="text-[13px] sm:text-sm font-semibold text-slate-700 dark:text-slate-500 dark:text-slate-400 block mb-1">
                     {item.label}
                   </span>
@@ -67,17 +67,17 @@ export function CalculationExplanation({
                  <div key={idx} className="relative pl-6">
                   <div className={`absolute left-1 top-2 w-2 h-2 rounded-full ${dotColors[idx % dotColors.length]} border border-white dark:border-slate-900 z-10`} />
                   {idx !== activeBreakdown.length - 1 && (
-                    <div className="absolute left-[0.3125rem] top-4 w-[2px] h-full bg-slate-200 dark:bg-[#6B46C1] -z-0" />
+                    <div className="absolute left-[0.3125rem] top-4 w-[2px] h-full bg-slate-200 dark:bg-slate-700 -z-0" />
                   )}
-                  <span className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1">
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-1">
                     {step.label}
                   </span>
-                  <div className="bg-bg-primary/50 rounded-[12px] p-3 border border-border-color/50">
+                  <div className="bg-bg-primary/50 rounded-xl p-3 border border-border-color/50">
                     <div className="font-mono text-sm text-slate-600 dark:text-slate-300 mb-1 overflow-x-auto">
                       {step.formula}
                     </div>
                     <div className={`font-mono text-sm font-bold flex items-center gap-2 ${colors[idx % colors.length]}`}>
-                      <span className="text-slate-400 dark:text-[#4B5563]">=</span> {step.result}
+                      <span className="text-slate-400 dark:text-slate-500">=</span> {step.result}
                     </div>
                   </div>
                 </div>
@@ -87,7 +87,7 @@ export function CalculationExplanation({
           )}
 
           {notes && notes.length > 0 && (
-            <div className="mt-5 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 rounded-[12px] p-4 flex gap-3">
+            <div className="mt-5 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 rounded-xl p-4 flex gap-3">
               <Lightbulb className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
               <div className="space-y-2">
                 <span className="text-sm font-bold text-emerald-800 dark:text-emerald-300 block">

@@ -142,7 +142,7 @@ export default function IsolatedFootingCalculator() {
       <div className="max-w-5xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-[28px] font-black mb-2 flex items-center gap-3 text-text-primary">
+            <h1 className="text-3xl font-black mb-2 flex items-center gap-3 text-text-primary">
               <Box className="w-8 h-8 text-[#E55A2B] dark:text-[#ff8a65]" />
               Isolated Footing Calculator
             </h1>
@@ -153,7 +153,7 @@ export default function IsolatedFootingCalculator() {
           <GlobalSettingsToggle align="left" showCurrency={false} />
         </div>
         
-        <div className="bg-bg-card rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-border-color overflow-hidden">
+        <div className="bg-bg-card rounded-3xl shadow-md border border-border-color overflow-hidden">
           <div className="p-6 md:p-8 space-y-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Inputs */}
@@ -162,10 +162,10 @@ export default function IsolatedFootingCalculator() {
                   <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Load & SBC Check</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <InputGroup label="Column Load (kN)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={load} onChange={(e) => setLoad(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={load} onChange={(e) => setLoad(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Safe Bearing Capacity (kN/m²)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={sbc} onChange={(e) => setSbc(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={sbc} onChange={(e) => setSbc(e.target.value)} />
                     </InputGroup>
                   </div>
                 </div>
@@ -174,13 +174,13 @@ export default function IsolatedFootingCalculator() {
                   <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Footing Details</h3>
                   <div className="grid grid-cols-3 gap-4">
                     <InputGroup label="Length (m)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={footingL} onChange={(e) => setFootingL(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={footingL} onChange={(e) => setFootingL(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Width (m)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={footingW} onChange={(e) => setFootingW(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={footingW} onChange={(e) => setFootingW(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Depth (m)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={footingD} onChange={(e) => setFootingD(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={footingD} onChange={(e) => setFootingD(e.target.value)} />
                     </InputGroup>
                   </div>
                 </div>
@@ -190,23 +190,23 @@ export default function IsolatedFootingCalculator() {
                   <div className="grid grid-cols-2 gap-4">
                     <InputGroup label="Column L×W (m)">
                       <div className="flex gap-2">
-                        <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-3 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={columnL} onChange={(e) => setColumnL(e.target.value)} placeholder="L" />
+                        <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-3 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={columnL} onChange={(e) => setColumnL(e.target.value)} placeholder="L" />
                         <span className="text-slate-400 self-center">×</span>
-                        <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-3 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={columnW} onChange={(e) => setColumnW(e.target.value)} placeholder="W" />
+                        <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-3 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={columnW} onChange={(e) => setColumnW(e.target.value)} placeholder="W" />
                       </div>
                     </InputGroup>
                     <InputGroup label="Concrete Mix">
-                      <select className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all appearance-none shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={mix} onChange={(e) => setMix(e.target.value)}>
+                      <select className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all appearance-none shadow-sm" value={mix} onChange={(e) => setMix(e.target.value)}>
                         {Object.keys(mixRatios).map((m) => (
                           <option key={m} value={m}>{m}</option>
                         ))}
                       </select>
                     </InputGroup>
                     <InputGroup label="Working Space (m)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={workingSpace} onChange={(e) => setWorkingSpace(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={workingSpace} onChange={(e) => setWorkingSpace(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Excavation Depth (m)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={excavationDepth} onChange={(e) => setExcavationDepth(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={excavationDepth} onChange={(e) => setExcavationDepth(e.target.value)} />
                     </InputGroup>
                   </div>
                 </div>
@@ -216,71 +216,71 @@ export default function IsolatedFootingCalculator() {
                   <div className="grid grid-cols-3 gap-4 mb-3">
                     <div className="col-span-3">
                       <InputGroup label="Clear Cover (mm)">
-                        <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={clearCover} onChange={(e) => setClearCover(e.target.value)} />
+                        <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500/50 outline-none transition-all shadow-sm" value={clearCover} onChange={(e) => setClearCover(e.target.value)} />
                       </InputGroup>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="p-4 bg-slate-50 dark:bg-[#6B46C1]/50 rounded-[12px] border border-slate-200 dark:border-slate-700/50">
-                      <p className="text-[12px] font-medium text-[#6B7280] uppercase text-[#4B5563] mb-3 ml-1 tracking-wider">Bottom Mesh: X-Axis</p>
+                    <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/50">
+                      <p className="text-xs font-bold uppercase text-slate-500 mb-3 ml-1 tracking-wider">Bottom Mesh: X-Axis</p>
                       <div className="space-y-4">
                         <InputGroup label="Bar Dia (mm)">
-                           <select className="w-full bg-white dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={diaX} onChange={e => setDiaX(e.target.value)}>
+                           <select className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaX} onChange={e => setDiaX(e.target.value)}>
                              {[8, 10, 12, 16, 20].map(d => <option key={d} value={d}>{d}</option>)}
                            </select>
                         </InputGroup>
                         <InputGroup label="Spacing c/c (mm)">
-                           <input type="number" className="w-full bg-white dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={spacingX} onChange={e => setSpacingX(e.target.value)} />
+                           <input type="number" className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={spacingX} onChange={e => setSpacingX(e.target.value)} />
                         </InputGroup>
                       </div>
                     </div>
-                    <div className="p-4 bg-slate-50 dark:bg-[#6B46C1]/50 rounded-[12px] border border-slate-200 dark:border-slate-700/50">
-                      <p className="text-[12px] font-medium text-[#6B7280] uppercase text-[#4B5563] mb-3 ml-1 tracking-wider">Bottom Mesh: Y-Axis</p>
+                    <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/50">
+                      <p className="text-xs font-bold uppercase text-slate-500 mb-3 ml-1 tracking-wider">Bottom Mesh: Y-Axis</p>
                       <div className="space-y-4">
                         <InputGroup label="Bar Dia (mm)">
-                           <select className="w-full bg-white dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={diaY} onChange={e => setDiaY(e.target.value)}>
+                           <select className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaY} onChange={e => setDiaY(e.target.value)}>
                              {[8, 10, 12, 16, 20].map(d => <option key={d} value={d}>{d}</option>)}
                            </select>
                         </InputGroup>
                         <InputGroup label="Spacing c/c (mm)">
-                           <input type="number" className="w-full bg-white dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={spacingY} onChange={e => setSpacingY(e.target.value)} />
+                           <input type="number" className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={spacingY} onChange={e => setSpacingY(e.target.value)} />
                         </InputGroup>
                       </div>
                     </div>
                   </div>
 
                   <div className="mt-4">
-                    <label className="flex items-center gap-3 cursor-pointer p-4 bg-slate-100 dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px]">
-                      <input type="checkbox" className="w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-[#6B46C1]" checked={hasTopMesh} onChange={e => setHasTopMesh(e.target.checked)} />
+                    <label className="flex items-center gap-3 cursor-pointer p-4 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl">
+                      <input type="checkbox" className="w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" checked={hasTopMesh} onChange={e => setHasTopMesh(e.target.checked)} />
                       <span className="font-bold text-slate-800 dark:text-slate-200">Include Top Mesh</span>
                     </label>
                   </div>
                   
                   {hasTopMesh && (
                     <div className="grid grid-cols-2 gap-4 mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
-                      <div className="p-4 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-[12px] border border-indigo-100 dark:border-indigo-800/30">
-                        <p className="text-[12px] font-medium text-[#6B7280] uppercase text-indigo-700 dark:text-indigo-400 mb-3 ml-1 tracking-wider">Top Mesh: X-Axis</p>
+                      <div className="p-4 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-2xl border border-indigo-100 dark:border-indigo-800/30">
+                        <p className="text-xs font-bold uppercase text-indigo-700 dark:text-indigo-400 mb-3 ml-1 tracking-wider">Top Mesh: X-Axis</p>
                         <div className="space-y-4">
                           <InputGroup label="Bar Dia (mm)">
-                             <select className="w-full bg-white dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={diaXTop} onChange={e => setDiaXTop(e.target.value)}>
+                             <select className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaXTop} onChange={e => setDiaXTop(e.target.value)}>
                                {[8, 10, 12, 16, 20].map(d => <option key={d} value={d}>{d}</option>)}
                              </select>
                           </InputGroup>
                           <InputGroup label="Spacing c/c (mm)">
-                             <input type="number" className="w-full bg-white dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={spacingXTop} onChange={e => setSpacingXTop(e.target.value)} />
+                             <input type="number" className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={spacingXTop} onChange={e => setSpacingXTop(e.target.value)} />
                           </InputGroup>
                         </div>
                       </div>
-                      <div className="p-4 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-[12px] border border-indigo-100 dark:border-indigo-800/30">
-                        <p className="text-[12px] font-medium text-[#6B7280] uppercase text-indigo-700 dark:text-indigo-400 mb-3 ml-1 tracking-wider">Top Mesh: Y-Axis</p>
+                      <div className="p-4 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-2xl border border-indigo-100 dark:border-indigo-800/30">
+                        <p className="text-xs font-bold uppercase text-indigo-700 dark:text-indigo-400 mb-3 ml-1 tracking-wider">Top Mesh: Y-Axis</p>
                         <div className="space-y-4">
                           <InputGroup label="Bar Dia (mm)">
-                             <select className="w-full bg-white dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={diaYTop} onChange={e => setDiaYTop(e.target.value)}>
+                             <select className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaYTop} onChange={e => setDiaYTop(e.target.value)}>
                                {[8, 10, 12, 16, 20].map(d => <option key={d} value={d}>{d}</option>)}
                              </select>
                           </InputGroup>
                           <InputGroup label="Spacing c/c (mm)">
-                             <input type="number" className="w-full bg-white dark:bg-[#6B46C1] border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#6B46C1] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" value={spacingYTop} onChange={e => setSpacingYTop(e.target.value)} />
+                             <input type="number" className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={spacingYTop} onChange={e => setSpacingYTop(e.target.value)} />
                           </InputGroup>
                         </div>
                       </div>
@@ -291,7 +291,7 @@ export default function IsolatedFootingCalculator() {
 
               {/* Drawing & SBC Status */}
               <div>
-                <div className={`p-4 rounded-[12px] border ${isSafe ? 'bg-emerald-50 border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-800/30' : 'bg-rose-50 border-rose-200 dark:bg-rose-900/20 dark:border-rose-800/30'} flex items-start gap-4 mb-6 shadow-[0_2px_12px_rgba(0,0,0,0.08)]`}>
+                <div className={`p-4 rounded-2xl border ${isSafe ? 'bg-emerald-50 border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-800/30' : 'bg-rose-50 border-rose-200 dark:bg-rose-900/20 dark:border-rose-800/30'} flex items-start gap-4 mb-6 shadow-sm`}>
                   {isSafe ? <CheckCircle className="w-6 h-6 text-emerald-600 dark:text-emerald-400 mt-1" /> : <AlertTriangle className="w-6 h-6 text-rose-600 dark:text-rose-400 mt-1" />}
                   <div>
                     <h4 className={`font-bold ${isSafe ? 'text-emerald-800 dark:text-emerald-300' : 'text-rose-800 dark:text-rose-300'}`}>
@@ -304,7 +304,7 @@ export default function IsolatedFootingCalculator() {
                   </div>
                 </div>
 
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[12px] p-6 flex flex-col items-center justify-center min-h-[400px] shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[400px] shadow-sm">
                   <h4 className="font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-sm mb-8">Cross-Section Profile</h4>
                   
                   {/* Schematic SVG */}
@@ -409,42 +409,42 @@ export default function IsolatedFootingCalculator() {
                       <ArrowDownToLine className="w-5 h-5 text-[#f43f5e]" />
                       Steel Reinforcement Check
                     </h4>
-                    <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[12px] overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
-                      <div className="p-4 bg-slate-100 dark:bg-[#6B46C1] border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+                    <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
+                      <div className="p-4 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
                         <span className="font-bold text-slate-700 dark:text-slate-200">Total Steel Required</span>
-                        <span className="text-[18px] font-black text-rose-600 dark:text-rose-400">{totalSteel.toFixed(2)} kg</span>
+                        <span className="text-xl font-black text-rose-600 dark:text-rose-400">{totalSteel.toFixed(2)} kg</span>
                       </div>
                       <div className="p-4 space-y-4">
-                        <div className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-2">Bottom Mesh</div>
+                        <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Bottom Mesh</div>
                         <div className="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-3">
                           <div>
                             <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">X-Axis Bars</p>
-                            <p className="text-xs text-[#4B5563] mt-0.5">{barsX} bars • Cut Length: {(cutLengthX/1000).toFixed(2)}m</p>
+                            <p className="text-xs text-slate-500 mt-0.5">{barsX} bars • Cut Length: {(cutLengthX/1000).toFixed(2)}m</p>
                           </div>
                           <p className="font-bold text-slate-700 dark:text-slate-300">{wtX.toFixed(2)} kg</p>
                         </div>
                         <div className="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-3">
                           <div>
                             <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">Y-Axis Bars</p>
-                            <p className="text-xs text-[#4B5563] mt-0.5">{barsY} bars • Cut Length: {(cutLengthY/1000).toFixed(2)}m</p>
+                            <p className="text-xs text-slate-500 mt-0.5">{barsY} bars • Cut Length: {(cutLengthY/1000).toFixed(2)}m</p>
                           </div>
                           <p className="font-bold text-slate-700 dark:text-slate-300">{wtY.toFixed(2)} kg</p>
                         </div>
                         
                         {hasTopMesh && (
                           <>
-                            <div className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mt-4 mb-2">Top Mesh</div>
+                            <div className="text-xs font-bold text-indigo-500 uppercase tracking-wider mt-4 mb-2">Top Mesh</div>
                             <div className="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-3">
                               <div>
                                 <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">X-Axis Bars</p>
-                                <p className="text-xs text-[#4B5563] mt-0.5">{barsXTop} bars • Cut Length: {(cutLengthXTop/1000).toFixed(2)}m</p>
+                                <p className="text-xs text-slate-500 mt-0.5">{barsXTop} bars • Cut Length: {(cutLengthXTop/1000).toFixed(2)}m</p>
                               </div>
                               <p className="font-bold text-slate-700 dark:text-slate-300">{wtXTop.toFixed(2)} kg</p>
                             </div>
                             <div className="flex justify-between items-center pb-1">
                               <div>
                                 <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">Y-Axis Bars</p>
-                                <p className="text-xs text-[#4B5563] mt-0.5">{barsYTop} bars • Cut Length: {(cutLengthYTop/1000).toFixed(2)}m</p>
+                                <p className="text-xs text-slate-500 mt-0.5">{barsYTop} bars • Cut Length: {(cutLengthYTop/1000).toFixed(2)}m</p>
                               </div>
                               <p className="font-bold text-slate-700 dark:text-slate-300">{wtYTop.toFixed(2)} kg</p>
                             </div>
@@ -453,7 +453,7 @@ export default function IsolatedFootingCalculator() {
                       </div>
                     </div>
                     
-                    <div className="mt-4 p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-[12px] border border-indigo-100 dark:border-indigo-800/30">
+                    <div className="mt-4 p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl border border-indigo-100 dark:border-indigo-800/30">
                       <p className="text-sm font-medium text-indigo-800 dark:text-indigo-300">
                         * Steel weight derived using D²/162.28. Hook lengths added based on footing depth {fD}m minus {clearCover}mm top/bottom covers.
                       </p>

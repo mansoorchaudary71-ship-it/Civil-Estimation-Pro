@@ -386,7 +386,7 @@ export default function MasterQuantityEstimator({
     /* A simplified generic layout for each calculator for the sake of completion. */ let content = null;
     return (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full items-start">
-        <div className="bg-bg-card border border-border-color rounded-[12px] px-4 py-3 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+        <div className="bg-bg-card border border-border-color rounded-3xl px-4 py-3 shadow-sm">
           <h3 className="font-bold mb-6 text-lg">
             Input Parameters
           </h3>
@@ -394,25 +394,25 @@ export default function MasterQuantityEstimator({
             {activeCalc !== "rebar_cage" && (
               <>
                 <div>
-                  <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                  <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">
                     Length ({unitL})
                   </label>
                   <input
                     type="number"
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
-                    className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-3 rounded-[12px] mt-1 font-bold focus:ring-2 focus:ring-[#6B46C1]"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
-                  <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                     {activeCalc === "concrete_tube" ? "Outer Diameter" : "Width"} ({unitL})
                   </label>
                   <input
                     type="number"
                     value={width}
                     onChange={(e) => setWidth(e.target.value)}
-                    className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-3 rounded-[12px] mt-1 font-bold focus:ring-2 focus:ring-[#6B46C1]"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </>
@@ -430,40 +430,40 @@ export default function MasterQuantityEstimator({
               "concrete_tube"
             ].includes(activeCalc) && (
               <div>
-                <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                   {["form_work", "precast_boundary"].includes(activeCalc) ? "Height" : activeCalc === "concrete_tube" ? "Inner Diameter" : "Depth"} ({unitL})
                 </label>
                 <input
                   type="number"
                   value={depth}
                   onChange={(e) => setDepth(e.target.value)}
-                  className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-3 rounded-[12px] mt-1 font-bold focus:ring-2 focus:ring-[#6B46C1]"
+                  className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             )}
             {activeCalc !== "rebar_cage" && (
               <div>
-                <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                   Wastage (%)
                 </label>
                 <input
                   type="number"
                   value={wastage}
                   onChange={(e) => setWastage(e.target.value)}
-                  className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-3 rounded-[12px] mt-1 font-bold focus:ring-2 focus:ring-[#6B46C1]"
+                  className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             )}
             {["concrete", "plaster", "concrete_test"].includes(activeCalc) && (
               <div>
-                <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                   Mix Ratio
                 </label>
                 <input
                   type="text"
                   value={mixRatioStr}
                   onChange={(e) => setMixRatioStr(e.target.value)}
-                  className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-3 rounded-[12px] mt-1 font-bold focus:ring-2 focus:ring-[#6B46C1]"
+                  className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   placeholder="e.g. 1:2:4"
                 />
               </div>
@@ -471,47 +471,47 @@ export default function MasterQuantityEstimator({
             {activeCalc === "rebar_cage" && (
               <>
                 <div>
-                  <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                     Total Rebar Weight (kg)
                   </label>
                   <input
                     type="number"
                     value={rebarWeight}
                     onChange={(e) => setRebarWeight(e.target.value)}
-                    className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-3 rounded-[12px] mt-1 font-bold focus:ring-2 focus:ring-[#6B46C1]"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
-                  <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                     Steel Grade
                   </label>
                   <input
                     type="number"
                     value={steelGrade}
                     onChange={(e) => setSteelGrade(e.target.value)}
-                    className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-3 rounded-[12px] mt-1 font-bold focus:ring-2 focus:ring-[#6B46C1]"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
-                  <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                     Spacing (mm)
                   </label>
                   <input
                     type="number"
                     value={rebarSpacing}
                     onChange={(e) => setRebarSpacing(e.target.value)}
-                    className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-3 rounded-[12px] mt-1 font-bold focus:ring-2 focus:ring-[#6B46C1]"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
-                  <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                     Cost per Ton (Rs)
                   </label>
                   <input
                     type="number"
                     value={costPerTon}
                     onChange={(e) => setCostPerTon(e.target.value)}
-                    className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-3 rounded-[12px] mt-1 font-bold focus:ring-2 focus:ring-[#6B46C1]"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </>
@@ -588,7 +588,7 @@ export default function MasterQuantityEstimator({
         {!isEmbedded && (
           <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
             <div>
-              <h1 className="text-[28px] font-black mb-2 flex items-center gap-3">
+              <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
                 <Calculator className="w-8 h-8 text-indigo-600 dark:text-blue-400" />
                 Master Quantity Estimator
               </h1>
@@ -611,7 +611,7 @@ export default function MasterQuantityEstimator({
                 placeholder="Search tools..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-bg-card border border-border-color px-4 py-3 rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] focus:ring-2 focus:ring-[#6B46C1] font-medium dark:text-white outline-none placeholder:text-slate-700 dark:text-slate-300"
+                className="w-full bg-bg-card border border-border-color px-4 py-3 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 font-medium dark:text-white outline-none placeholder:text-slate-700 dark:text-slate-300"
               />
               {searchTerm && (
                 <button
@@ -634,10 +634,10 @@ export default function MasterQuantityEstimator({
                 
                 const isExpanded = expandedGroup === group || searchTerm !== "";
                 return (
-                  <div key={group} className="bg-bg-card border border-border-color rounded-[12px] overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+                  <div key={group} className="bg-bg-card border border-border-color rounded-xl overflow-hidden shadow-sm">
                     <button
                       onClick={() => setExpandedGroup(isExpanded && searchTerm === "" ? null : group)}
-                      className="w-full flex items-center justify-between px-4 py-3 text-left font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#6B46C1]/50 transition-colors"
+                      className="w-full flex items-center justify-between px-4 py-3 text-left font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
                     >
                       <span className="uppercase text-xs tracking-widest">{group}</span>
                       <svg className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -653,10 +653,10 @@ export default function MasterQuantityEstimator({
                             <button
                               key={calc.id}
                               onClick={() => setActiveCalc(calc.id)}
-                              className={`w-full flex items-center gap-3 px-3 py-2 rounded-[12px] transition-all text-left ${
+                              className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all text-left ${
                                 isActive 
                                 ? 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 font-bold' 
-                                : 'text-slate-600 dark:text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[#6B46C1] font-medium'
+                                : 'text-slate-600 dark:text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 font-medium'
                               }`}
                             >
                               <Icon className={`w-4 h-4 flex-shrink-0 ${isActive ? "text-indigo-600 dark:text-indigo-400" : "text-slate-700 dark:text-slate-300"}`} />

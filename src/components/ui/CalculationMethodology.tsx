@@ -22,18 +22,18 @@ export function CalculationMethodology({ steps, className = '' }: CalculationMet
 
   return (
     <div className={`w-full max-w-4xl mx-auto mt-8 mb-4 font-sans ${className}`}>
-      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[12px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)] border border-slate-200/80 dark:border-slate-700/50 overflow-hidden transition-all duration-300 ease-in-out">
+      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.1)] border border-slate-200/80 dark:border-slate-700/50 overflow-hidden transition-all duration-300 ease-in-out">
         {/* Header Toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full px-6 md:px-8 py-5 md:py-6 flex items-center justify-between text-left transition-colors hover:bg-slate-50/60 dark:hover:bg-[#6B46C1]/40 focus:outline-none"
+          className="w-full px-6 md:px-8 py-5 md:py-6 flex items-center justify-between text-left transition-colors hover:bg-slate-50/60 dark:hover:bg-slate-800/40 focus:outline-none"
         >
           <div className="flex items-center gap-4 md:gap-5">
-            <div className="w-12 h-12 md:w-14 md:h-14 rounded-[1.1rem] bg-indigo-50 dark:bg-indigo-900/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0 shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-indigo-100 dark:border-indigo-800/30">
+            <div className="w-12 h-12 md:w-14 md:h-14 rounded-[1.1rem] bg-indigo-50 dark:bg-indigo-900/40 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0 shadow-sm border border-indigo-100 dark:border-indigo-800/30">
               <Calculator className="w-6 h-6 md:w-7 md:h-7" strokeWidth={2.5} />
             </div>
             <div>
-              <h3 className="text-[18px] md:text-[18px] font-extrabold tracking-tight text-slate-800 dark:text-slate-100">
+              <h3 className="text-xl md:text-2xl font-extrabold tracking-tight text-slate-800 dark:text-slate-100">
                 Calculation Logic
               </h3>
               <p className="text-sm md:text-base font-medium text-slate-500 dark:text-slate-400 mt-0.5 md:mt-1">
@@ -57,10 +57,10 @@ export function CalculationMethodology({ steps, className = '' }: CalculationMet
               {steps.map((step, idx) => (
                 <div
                   key={idx}
-                  className="bg-slate-50/50 dark:bg-[#6B46C1]/20 rounded-[1.5rem] p-5 md:p-6 border border-slate-200/60 dark:border-slate-700/50 relative"
+                  className="bg-slate-50/50 dark:bg-slate-800/20 rounded-[1.5rem] p-5 md:p-6 border border-slate-200/60 dark:border-slate-700/50 relative"
                 >
-                  <h4 className="text-lg md:text-[18px] font-bold text-slate-800 dark:text-slate-100 mb-5 flex items-center gap-3">
-                    <span className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-slate-200 dark:bg-[#6B46C1] flex items-center justify-center text-sm md:text-base font-black text-slate-600 dark:text-slate-300">
+                  <h4 className="text-lg md:text-xl font-bold text-slate-800 dark:text-slate-100 mb-5 flex items-center gap-3">
+                    <span className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-sm md:text-base font-black text-slate-600 dark:text-slate-300">
                       {idx + 1}
                     </span>
                     {step.title}
@@ -69,10 +69,10 @@ export function CalculationMethodology({ steps, className = '' }: CalculationMet
                   <div className="space-y-5">
                     {/* Formula */}
                     <div>
-                      <span className="text-xs md:text-[12px] font-medium text-[#6B7280] uppercase tracking-wider text-slate-400 dark:text-[#4B5563] mb-2 block">
+                      <span className="text-xs md:text-sm font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 block">
                         Core Formula
                       </span>
-                      <div className="font-mono text-sm md:text-base px-4 py-3 rounded-[12px] bg-bg-card border border-border-color text-indigo-600 dark:text-indigo-400 font-semibold overflow-x-auto shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+                      <div className="font-mono text-sm md:text-base px-4 py-3 rounded-xl bg-bg-card border border-border-color text-indigo-600 dark:text-indigo-400 font-semibold overflow-x-auto shadow-sm">
                         {step.formula}
                       </div>
                     </div>
@@ -80,14 +80,14 @@ export function CalculationMethodology({ steps, className = '' }: CalculationMet
                     {/* Variables */}
                     {step.variables && step.variables.length > 0 && (
                       <div>
-                        <span className="text-xs md:text-[12px] font-medium text-[#6B7280] uppercase tracking-wider text-slate-400 dark:text-[#4B5563] mb-2 block">
+                        <span className="text-xs md:text-sm font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 block">
                           Variable Breakdown
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3">
                           {step.variables.map((v, vIdx) => (
                             <div
                               key={vIdx}
-                              className="flex justify-between items-center px-4 py-2.5 bg-bg-card rounded-[12px] border border-border-color/60 shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+                              className="flex justify-between items-center px-4 py-2.5 bg-bg-card rounded-xl border border-border-color/60 shadow-sm"
                             >
                               <span className="text-sm md:text-base font-medium text-slate-600 dark:text-slate-400">
                                 {v.name}
@@ -110,10 +110,10 @@ export function CalculationMethodology({ steps, className = '' }: CalculationMet
 
                     {/* Substitution & Result */}
                     <div>
-                      <span className="text-xs md:text-[12px] font-medium text-[#6B7280] uppercase tracking-wider text-slate-400 dark:text-[#4B5563] mb-2 block">
+                      <span className="text-xs md:text-sm font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 block">
                         Step-by-Step Substitution
                       </span>
-                      <div className="px-4 py-3 rounded-[12px] bg-bg-primary/80 border border-border-color">
+                      <div className="px-4 py-3 rounded-xl bg-bg-primary/80 border border-border-color">
                         <div className="font-mono text-sm md:text-base text-slate-600 dark:text-slate-400 mb-3 whitespace-nowrap overflow-x-auto pb-1">
                           {step.substitution}
                         </div>
@@ -121,7 +121,7 @@ export function CalculationMethodology({ steps, className = '' }: CalculationMet
                           <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
                             Yields
                           </span>
-                          <div className="font-mono text-[18px] md:text-[18px] font-black text-emerald-600 dark:text-emerald-400">
+                          <div className="font-mono text-xl md:text-2xl font-black text-emerald-600 dark:text-emerald-400">
                             = {step.result.value}{' '}
                             <span className="text-base md:text-lg font-bold">
                               {step.result.unit}
@@ -133,7 +133,7 @@ export function CalculationMethodology({ steps, className = '' }: CalculationMet
 
                     {/* Justification */}
                     {step.justification && (
-                      <div className="flex gap-3 p-4 md:p-5 rounded-[12px] bg-orange-50 dark:bg-orange-950/20 border border-orange-100 dark:border-orange-900/30">
+                      <div className="flex gap-3 p-4 md:p-5 rounded-xl bg-orange-50 dark:bg-orange-950/20 border border-orange-100 dark:border-orange-900/30">
                         <Info className="w-5 h-5 md:w-6 md:h-6 text-orange-500 dark:text-orange-400 shrink-0 mt-0.5" />
                         <p className="text-sm md:text-base font-semibold text-orange-800 dark:text-orange-300 leading-relaxed">
                           {step.justification}

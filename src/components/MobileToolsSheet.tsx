@@ -71,13 +71,13 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
             style={{ maxHeight: '85vh' }}
           >
             <div className="flex justify-center pt-3 pb-2 w-full touch-none cursor-grab active:cursor-grabbing">
-              <div className="w-12 h-1.5 bg-slate-300 dark:bg-[#6B46C1] rounded-full" />
+              <div className="w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full" />
             </div>
 
             <div className="px-6 pb-2 pt-1 flex items-center justify-between">
-              <h2 className="text-[18px] font-bold text-slate-800 dark:text-slate-100">Tools Directory</h2>
+              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Tools Directory</h2>
               <button 
-                className="w-8 h-8 rounded-full bg-bg-primary flex items-center justify-center text-[#4B5563] hover:text-[#374151] transition-colors"
+                className="w-8 h-8 rounded-full bg-bg-primary flex items-center justify-center text-slate-500 hover:text-slate-800 transition-colors"
                 onClick={onClose}
               >
                 <X className="w-5 h-5" />
@@ -86,7 +86,7 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
 
             <div className="px-6 pb-4 pt-2">
               <div className="flex items-center gap-2">
-                <div className="relative flex flex-1 items-center h-[52px] bg-transparent rounded-[12px] border-2 border-indigo-500 transition-all overflow-hidden group">
+                <div className="relative flex flex-1 items-center h-[52px] bg-transparent rounded-[50px] border-2 border-indigo-500 transition-all overflow-hidden group">
                   <input 
                     type="text" 
                     value={searchTerm}
@@ -110,7 +110,7 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
                       onSelectModule(tool.id as ModuleId);
                       onClose();
                     }}
-                    className="group relative flex items-center gap-[20px] w-full p-3.5 bg-bg-card/80 rounded-[12px] border border-transparent shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-all duration-200 text-left active:scale-95"
+                    className="group relative flex items-center gap-4 w-full p-3.5 bg-bg-card/80 rounded-2xl border border-transparent shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-200 text-left active:scale-95"
                   >
                     {/* Border Draw SVG Effect */}
                     <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
@@ -125,7 +125,7 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
                       />
                     </svg>
 
-                    <div className="flex-shrink-0 w-12 h-12 rounded-[12px] bg-bg-primary flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-indigo-500 group-hover:bg-indigo-50 dark:group-hover:bg-[#5a3a9f]/20 transition-colors relative z-10">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-[14px] bg-bg-primary flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-indigo-500 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/20 transition-colors relative z-10">
                       {typeof tool.icon === 'function' ? (() => {
                         const Icon = tool.icon as any;
                         return <Icon className="w-6 h-6" />
@@ -139,7 +139,7 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
                   </button>
                 ))}
                 {filteredTools.length === 0 && (
-                  <div className="text-center py-8 text-[#4B5563] font-medium">
+                  <div className="text-center py-8 text-slate-500 font-medium">
                     No tools found matching "{searchTerm}"
                   </div>
                 )}

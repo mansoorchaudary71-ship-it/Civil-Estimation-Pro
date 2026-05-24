@@ -33,7 +33,7 @@ export function CurrencySelector() {
     <div ref={dropdownRef} className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="h-10 px-3 rounded-full bg-bg-card shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-border-color flex items-center justify-center gap-2 text-slate-700 dark:text-slate-300 hover:text-[var(--accent-vibrant)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-300"
+        className="h-10 px-3 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center justify-center gap-2 text-slate-700 dark:text-slate-300 hover:text-[var(--accent-vibrant)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         title="Currency & Region"
       >
         <span className="text-lg">{currentSettingsObj.flag}</span>
@@ -41,9 +41,9 @@ export function CurrencySelector() {
       </button>
 
       {isOpen && (
-        <div className="absolute top-[20px] right-0 w-56 bg-bg-card border border-border-color rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] overflow-hidden z-[100] animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="px-3 py-2 border-b border-border-color bg-slate-50 dark:bg-[#6B46C1]/50">
-            <h4 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider flex items-center gap-1.5">
+        <div className="absolute top-12 right-0 w-56 bg-bg-card border border-border-color rounded-2xl shadow-xl overflow-hidden z-[100] animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="px-3 py-2 border-b border-border-color bg-slate-50 dark:bg-slate-800/50">
+            <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
               <Globe className="w-3.5 h-3.5" />
               Currency & Region
             </h4>
@@ -63,7 +63,7 @@ export function CurrencySelector() {
                     parsed.currency = curr.code;
                     localStorage.setItem('app-settings', JSON.stringify(parsed));
                   }}
-                  className={`px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-[#6B46C1]/80 transition-colors ${
+                  className={`px-4 py-2.5 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/80 transition-colors ${
                     isSelected ? 'bg-indigo-50/50 dark:bg-indigo-900/20' : ''
                   }`}
                 >

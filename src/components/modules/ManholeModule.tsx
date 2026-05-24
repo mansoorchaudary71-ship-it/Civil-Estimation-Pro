@@ -205,7 +205,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
             </label>{" "}
             <input
               type="number"
-              className="w-full bg-white border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+              className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
               value={mhDepth}
               onChange={(e) => setMhDepth(e.target.value)}
             />{" "}
@@ -217,7 +217,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
             </label>{" "}
             <input
               type="number"
-              className="w-full bg-white border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+              className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
               value={mhInnerLen}
               onChange={(e) => setMhInnerLen(e.target.value)}
             />{" "}
@@ -230,7 +230,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
               </label>{" "}
               <input
                 type="number"
-                className="w-full bg-white border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+                className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
                 value={mhInnerWid}
                 onChange={(e) => setMhInnerWid(e.target.value)}
               />{" "}
@@ -244,7 +244,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
             <input
               type="number"
               step="0.01"
-              className="w-full bg-white border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+              className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
               value={mhWallThick}
               onChange={(e) => setMhWallThick(e.target.value)}
             />{" "}
@@ -257,7 +257,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
             <input
               type="number"
               step="0.01"
-              className="w-full bg-white border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+              className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
               value={mhBaseThick}
               onChange={(e) => setMhBaseThick(e.target.value)}
             />{" "}
@@ -270,7 +270,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
             <input
               type="number"
               step="0.01"
-              className="w-full bg-white border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+              className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
               value={mhTopThick}
               onChange={(e) => setMhTopThick(e.target.value)}
             />{" "}
@@ -281,7 +281,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
               Concrete Mix Grade
             </label>{" "}
             <select
-              className="w-full bg-white border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)] appearance-none"
+              className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm appearance-none"
               value={concreteMix}
               onChange={(e) => setConcreteMix(e.target.value)}
             >
@@ -299,7 +299,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
         {" "}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {" "}
-          <div className="lg:col-span-1 flex flex-col items-center justify-center p-6 bg-transparent border border-slate-100 rounded-[12px]">
+          <div className="lg:col-span-1 flex flex-col items-center justify-center p-6 bg-transparent border border-slate-100 rounded-2xl">
             {" "}
             {/* Visual Icon representation based on shape */}{" "}
             <div
@@ -343,7 +343,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
                   variant="primary"
                 />
                 
-                <h4 className="text-sm font-bold text-[#374151] mb-2 mt-4 flex items-center gap-2">
+                <h4 className="text-sm font-bold text-slate-800 mb-2 mt-4 flex items-center gap-2">
                   <Construction className="w-4 h-4 text-slate-600" /> Material Breakdown ({concreteMix})
                 </h4>
                 

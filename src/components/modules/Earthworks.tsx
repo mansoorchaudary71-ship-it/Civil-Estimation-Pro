@@ -11,7 +11,7 @@ export default function EarthworksEstimator() {
     <div className="w-full text-gray-900 font-sans md:p-4">
       <div className="max-w-7xl mx-auto space-y-8">
         <header className="mb-6 px-4 md:px-0">
-          <h1 className="text-[28px] font-extrabold text-text-primary mb-2 flex items-center gap-3">
+          <h1 className="text-3xl font-extrabold text-text-primary mb-2 flex items-center gap-3">
             <Shovel className="w-8 h-8 text-indigo-600 dark:text-blue-400" />
             Earthworks & Excavation
           </h1>
@@ -27,7 +27,7 @@ export default function EarthworksEstimator() {
               title="Calculation Method"
               value={activeMethod}
               onChange={(e) => setActiveMethod(e.target.value as "standard" | "trench" | "grid")}
-              className="bg-white border border-gray-300 text-gray-900 text-sm rounded-[12px] focus:ring-[#6B46C1] focus:border-[#6B46C1] block p-2.5 shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+              className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 shadow-sm"
             >
               <option value="standard">Standard Area/Depth</option>
               <option value="trench">Trenching</option>

@@ -24,10 +24,10 @@ export default function InteriorsFinishesEstimator() {
       className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-slate-50/80 transition-colors focus:outline-none"
     >
       <div className="flex items-center gap-3">
-        <div className="p-2 bg-amber-50 text-amber-600 rounded-[12px]">
+        <div className="p-2 bg-amber-50 text-amber-600 rounded-lg">
           <Icon className="w-5 h-5" />
         </div>
-        <h3 className="text-[16px] font-bold text-[#374151]">{title}</h3>
+        <h3 className="text-[16px] font-bold text-slate-800">{title}</h3>
       </div>
       {openSections[id] ? (
         <ChevronUp className="w-5 h-5 text-slate-400" />
@@ -41,11 +41,11 @@ export default function InteriorsFinishesEstimator() {
     <div className="w-full pb-20 mt-4">
       <div className="max-w-4xl mx-auto space-y-8">
         <header className="mb-4">
-          <h1 className="text-[28px] font-extrabold text-slate-900 mb-2 flex items-center gap-3">
+          <h1 className="text-3xl font-extrabold text-slate-900 mb-2 flex items-center gap-3">
             <PaintBucket className="w-8 h-8 text-amber-600" />
             Interiors & Finishes
           </h1>
-          <p className="text-[#4B5563] font-medium">
+          <p className="text-slate-500 font-medium">
             Estimate quantities for tiles, paint, doors/windows, wood framing, and anti-termite treatment.
           </p>
           <div className="mt-4">
@@ -54,7 +54,7 @@ export default function InteriorsFinishesEstimator() {
         </header>
 
         <div className="space-y-4">
-          <div className="bg-white rounded-[12px] shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-slate-200 overflow-hidden transition-all">
+          <div className="bg-white rounded-3xl shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-slate-200 overflow-hidden transition-all">
             <AccordionHeader id="tiles" title="Tiles & Flooring Calculator" icon={LayoutGrid} />
             {openSections["tiles"] && (
                <div className="p-6 md:p-8 border-t border-slate-100 animate-in fade-in slide-in-from-top-2 duration-300">
@@ -63,7 +63,7 @@ export default function InteriorsFinishesEstimator() {
             )}
           </div>
           
-          <div className="bg-white rounded-[12px] shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-slate-200 overflow-hidden transition-all">
+          <div className="bg-white rounded-3xl shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-slate-200 overflow-hidden transition-all">
             <AccordionHeader id="paint" title="Paint Calculator" icon={Paintbrush} />
             {openSections["paint"] && (
                <div className="p-6 md:p-8 border-t border-slate-100 animate-in fade-in slide-in-from-top-2 duration-300">
@@ -72,7 +72,7 @@ export default function InteriorsFinishesEstimator() {
             )}
           </div>
 
-          <div className="bg-white rounded-[12px] shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-slate-200 overflow-hidden transition-all">
+          <div className="bg-white rounded-3xl shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-slate-200 overflow-hidden transition-all">
             <AccordionHeader id="doorsWindows" title="Doors & Windows Deductions" icon={AppWindow} />
             {openSections["doorsWindows"] && (
                <div className="p-6 md:p-8 border-t border-slate-100 animate-in fade-in slide-in-from-top-2 duration-300">
@@ -136,7 +136,7 @@ function TilesCalculator() {
             min="0"
             value={area}
             onChange={(e) => setArea(e.target.value ? Number(e.target.value) : "")}
-            className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+            className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
             placeholder="e.g. 500"
           />
         </InputGroup>
@@ -148,7 +148,7 @@ function TilesCalculator() {
               min="1"
               value={tileWidth}
               onChange={(e) => setTileWidth(e.target.value ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
             />
           </InputGroup>
            <InputGroup label={`Tile Length (${isSI ? 'mm' : 'in'})`}>
@@ -157,7 +157,7 @@ function TilesCalculator() {
               min="1"
               value={tileLength}
               onChange={(e) => setTileLength(e.target.value ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
             />
           </InputGroup>
         </div>
@@ -168,7 +168,7 @@ function TilesCalculator() {
               min="1"
               value={tilesPerBox}
               onChange={(e) => setTilesPerBox(e.target.value ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
             />
         </InputGroup>
       </div>
@@ -186,9 +186,9 @@ function TilesCalculator() {
                </div>
              </MaterialSummary>
           ) : (
-            <div className="relative p-5 sm:p-6 rounded-[12px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
+            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
               <h3 className="font-bold text-sm uppercase tracking-wider mb-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-rose-400 bg-clip-text text-transparent dark:from-indigo-400 dark:via-purple-400 dark:to-rose-300">Estimate Results</h3>
-              <div className="text-center text-[#4B5563] py-8">
+              <div className="text-center text-slate-500 py-8">
                 Enter area and tile size to calculate.
               </div>
             </div>
@@ -254,7 +254,7 @@ function PaintCalculator() {
             min="0"
             value={area}
             onChange={(e) => setArea(e.target.value ? Number(e.target.value) : "")}
-            className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+            className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
             placeholder="e.g. 500"
           />
         </InputGroup>
@@ -266,7 +266,7 @@ function PaintCalculator() {
               min="1"
               value={coats}
               onChange={(e) => setCoats(e.target.value ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
             />
           </InputGroup>
            <InputGroup label="Wastage (%)">
@@ -275,7 +275,7 @@ function PaintCalculator() {
               min="0"
               value={wastage}
               onChange={(e) => setWastage(e.target.value !== "" ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
             />
           </InputGroup>
         </div>
@@ -286,7 +286,7 @@ function PaintCalculator() {
               min="1"
               value={coverage}
               onChange={(e) => setCoverage(e.target.value ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
             />
           </InputGroup>
 
@@ -305,9 +305,9 @@ function PaintCalculator() {
                </div>
              </MaterialSummary>
         ) : (
-          <div className="relative p-5 sm:p-6 rounded-[12px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
+          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
             <h3 className="font-bold text-sm uppercase tracking-wider mb-6 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent dark:from-emerald-400 dark:via-teal-400 dark:to-cyan-400">Estimate Results</h3>
-            <div className="text-center text-[#4B5563] py-8">
+            <div className="text-center text-slate-500 py-8">
               Enter wall/ceiling area and coats to calculate.
             </div>
           </div>
@@ -365,16 +365,16 @@ function DoorsWindowsCalculator() {
     let currentX = 0; // Simple auto-layout from left to right
 
     return (
-      <div className="mt-8 p-5 bg-slate-50/50 dark:bg-slate-900/50 border border-slate-200 dark:border-white/5 rounded-[12px]">
+      <div className="mt-8 p-5 bg-slate-50/50 dark:bg-slate-900/50 border border-slate-200 dark:border-white/5 rounded-2xl">
         <div className="flex items-center justify-between mb-4">
           <h4 className="text-sm font-bold text-slate-700 dark:text-slate-300">Proportional Preview</h4>
-          <span className="text-[10px] text-[#4B5563] font-bold uppercase tracking-wider bg-bg-card shadow-[0_2px_12px_rgba(0,0,0,0.08)] px-2 py-1 rounded-[12px]">
+          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider bg-bg-card shadow-sm px-2 py-1 rounded-md">
             {wl}{uLen} × {wh}{uLen}
           </span>
         </div>
         
         <div 
-          className="relative w-full mx-auto bg-white dark:bg-[#1A1C24] border-2 border-indigo-200 dark:border-indigo-500/30 overflow-hidden rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)]" 
+          className="relative w-full mx-auto bg-white dark:bg-[#1A1C24] border-2 border-indigo-200 dark:border-indigo-500/30 overflow-hidden rounded-lg shadow-sm" 
           style={{ aspectRatio: displayRatio }}
         >
           {/* Wall Grid Texture */}
@@ -436,7 +436,7 @@ function DoorsWindowsCalculator() {
               min="0"
               value={wallLength}
               onChange={(e) => setWallLength(e.target.value ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
               placeholder="e.g. 5"
             />
           </InputGroup>
@@ -446,7 +446,7 @@ function DoorsWindowsCalculator() {
               min="0"
               value={wallHeight}
               onChange={(e) => setWallHeight(e.target.value ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[12px] px-4 text-[#374151] font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
+              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
               placeholder="e.g. 3"
             />
           </InputGroup>
@@ -456,7 +456,7 @@ function DoorsWindowsCalculator() {
           <label className="text-sm font-bold text-slate-700">Openings / Deductions</label>
           <div className="space-y-2">
             {deductions.map((item, index) => (
-              <div key={index} className="flex gap-2 items-center bg-bg-primary/50 border border-border-color p-2 rounded-[12px]">
+              <div key={index} className="flex gap-2 items-center bg-bg-primary/50 border border-border-color p-2 rounded-xl">
                 <input 
                   type="text" 
                   value={item.name} 
@@ -497,9 +497,9 @@ function DoorsWindowsCalculator() {
              {renderPreview()}
           </>
         ) : (
-          <div className="relative p-5 sm:p-6 rounded-[12px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group h-full justify-center">
+          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group h-full justify-center">
             <h3 className="font-bold text-sm uppercase tracking-wider mb-2 text-center bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500 bg-clip-text text-transparent dark:from-orange-400 dark:via-amber-400 dark:to-yellow-400">Estimate Results</h3>
-            <div className="text-center text-[#4B5563] py-8">
+            <div className="text-center text-slate-500 py-8">
               Enter wall dimensions to calculate net area and see the proportional preview.
             </div>
           </div>

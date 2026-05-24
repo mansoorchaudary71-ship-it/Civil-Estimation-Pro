@@ -21,11 +21,11 @@ export default function EnergyMepCalculator() {
   return (
     <div className="max-w-4xl mx-auto pb-20">
       <div className="mb-8">
-        <h1 className="text-[28px] font-extrabold text-slate-900 mb-2 flex items-center gap-3">
+        <h1 className="text-3xl font-extrabold text-slate-900 mb-2 flex items-center gap-3">
           <Zap className="w-8 h-8 text-indigo-600" />
           Energy & MEP Calculators
         </h1>
-        <p className="text-[#4B5563] font-medium">
+        <p className="text-slate-500 font-medium">
           Estimate solar capacity, water heating requirements, and AC sizing for your projects.
         </p>
       </div>
@@ -54,7 +54,7 @@ export default function EnergyMepCalculator() {
         />
       </div>
 
-      <div className="bg-white rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-slate-200 overflow-hidden mb-6">
+      <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden mb-6">
         <div className="p-6 md:p-8">
           {activeTab === "solar" && <SolarCalculator />}
           {activeTab === "water" && <WaterHeaterCalculator />}
@@ -131,7 +131,7 @@ function SolarCalculator() {
           />
 
           <div className="w-full">
-            <label className="block text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1">
               Available Roof Area (Optional)
             </label>
             <div className="relative flex items-center">
@@ -145,7 +145,7 @@ function SolarCalculator() {
               <select
                 value={areaUnit}
                 onChange={(e) => setAreaUnit(e.target.value as "sqft" | "sqm")}
-                className="h-[46px] bg-slate-100 border border-slate-200 rounded-r-xl px-4 text-slate-700 font-bold outline-none focus:ring-2 focus:ring-[#6B46C1]"
+                className="h-[46px] bg-slate-100 border border-slate-200 rounded-r-xl px-4 text-slate-700 font-bold outline-none focus:ring-2 focus:ring-blue-500/50"
               >
                 <option value="sqft">Sq Ft</option>
                 <option value="sqm">Sq M</option>
@@ -178,7 +178,7 @@ function SolarCalculator() {
                </div>
              </MaterialSummary>
           ) : (
-            <div className="relative p-5 sm:p-6 rounded-[12px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] h-full flex items-center justify-center text-[#4B5563] text-sm">
+            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
               Enter specifications to see estimation.
             </div>
           )}
@@ -223,7 +223,7 @@ function WaterHeaterCalculator() {
                totalUnit="Liters per Day (LPD)"
              />
           ) : (
-            <div className="relative p-5 sm:p-6 rounded-[12px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] h-full flex items-center justify-center text-[#4B5563] text-sm">
+            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
               Enter specifications to see estimation.
             </div>
           )}
@@ -266,7 +266,7 @@ function AcCalculator() {
                totalUnit="Tons"
              />
           ) : (
-            <div className="relative p-5 sm:p-6 rounded-[12px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] h-full flex items-center justify-center text-[#4B5563] text-sm">
+            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
               Enter specifications to see estimation.
             </div>
           )}

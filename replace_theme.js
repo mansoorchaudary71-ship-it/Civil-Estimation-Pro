@@ -26,7 +26,7 @@ files.forEach(f => {
   // Replace card bg
   txt = txt.replace(/bg-white dark:bg-slate-800\b/g, 'bg-[var(--bg-card)]');
   txt = txt.replace(/bg-white dark:bg-slate-900\b/g, 'bg-[var(--bg-card)]');
-  txt = txt.replace(/bg-white\\/(\d+) dark:bg-slate-900\\/(\d+)\b/g, 'bg-[var(--bg-card)]/40');
+  txt = txt.replace(/bg-white\/(\d+) dark:bg-slate-900\/(\d+)\b/g, 'bg-[var(--bg-card)]/40');
   
   // Replace primary bg
   txt = txt.replace(/bg-slate-50 dark:bg-slate-900\b/g, 'bg-[var(--bg-primary)]');

@@ -197,14 +197,14 @@ export default function StaircaseCalculator() {
   return (
     <div className="space-y-6 mt-4">
       <SEO title="Staircase Calculator" description="Calculate concrete and steel for stairs." />
-      <div className="w-full bg-bg-card border border-border-color rounded-[12px] overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
-        <div className="px-6 md:px-8 py-5 border-b border-border-color flex flex-col md:flex-row items-start md:items-center justify-between bg-transparent dark:bg-[#6B46C1]/50 gap-4">
+      <div className="w-full bg-bg-card border border-border-color rounded-[2rem] overflow-hidden shadow-md">
+        <div className="px-6 md:px-8 py-5 border-b border-border-color flex flex-col md:flex-row items-start md:items-center justify-between bg-transparent dark:bg-slate-800/50 gap-4">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-[12px]">
+            <div className="p-2.5 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl">
               <Layers className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-[18px] font-bold text-text-primary">
+              <h3 className="text-xl font-bold text-text-primary">
                 Staircase Calculator
               </h3>
               <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
@@ -212,7 +212,7 @@ export default function StaircaseCalculator() {
               </p>
             </div>
           </div>
-          <span className="px-3 py-1.5 bg-transparent dark:bg-[#6B46C1] border border-border-color text-slate-700 dark:text-slate-300 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+          <span className="px-3 py-1.5 bg-transparent dark:bg-slate-800 border border-border-color text-slate-700 dark:text-slate-300 text-xs font-bold uppercase tracking-wider rounded-lg shadow-sm">
             {stairShape}
           </span>
         </div>
@@ -222,23 +222,23 @@ export default function StaircaseCalculator() {
             <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <InputGroup label="Number of Steps">
-                  <input type="number" value={numSteps} onChange={e => setNumSteps(e.target.value)} className="w-full bg-bg-primary border border-border-color text-text-primary rounded-[12px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-[#6B46C1] hover:border-indigo-300 dark:hover:border-slate-600 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-all" />
+                  <input type="number" value={numSteps} onChange={e => setNumSteps(e.target.value)} className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 dark:hover:border-slate-600 shadow-sm transition-all" />
                 </InputGroup>
                 <InputGroup label={`Rise (${uLen})`}>
-                  <input type="number" value={rise} onChange={e => setRise(e.target.value)} placeholder="e.g. 0.15" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-[12px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-[#6B46C1] hover:border-indigo-300 dark:hover:border-slate-600 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-all" />
+                  <input type="number" value={rise} onChange={e => setRise(e.target.value)} placeholder="e.g. 0.15" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 dark:hover:border-slate-600 shadow-sm transition-all" />
                 </InputGroup>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <InputGroup label={`Tread (${uLen})`}>
-                  <input type="number" value={tread} onChange={e => setTread(e.target.value)} placeholder="e.g. 0.25" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-[12px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-[#6B46C1] hover:border-indigo-300 dark:hover:border-slate-600 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-all" />
+                  <input type="number" value={tread} onChange={e => setTread(e.target.value)} placeholder="e.g. 0.25" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 dark:hover:border-slate-600 shadow-sm transition-all" />
                 </InputGroup>
                 <InputGroup label={`Width (${uLen})`}>
-                  <input type="number" value={stairWidth} onChange={e => setStairWidth(e.target.value)} placeholder="e.g. 1.2" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-[12px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-[#6B46C1] hover:border-indigo-300 dark:hover:border-slate-600 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-all" />
+                  <input type="number" value={stairWidth} onChange={e => setStairWidth(e.target.value)} placeholder="e.g. 1.2" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 dark:hover:border-slate-600 shadow-sm transition-all" />
                 </InputGroup>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <InputGroup label="Mix Ratio">
-                  <select value={concreteGrade} onChange={e => setConcreteGrade(e.target.value)} className="w-full bg-bg-primary border border-border-color text-text-primary rounded-[12px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-[#6B46C1] hover:border-indigo-300 dark:hover:border-slate-600 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-all">
+                  <select value={concreteGrade} onChange={e => setConcreteGrade(e.target.value)} className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 dark:hover:border-slate-600 shadow-sm transition-all">
                     <option value="M10 (1:3:6)">M10 (1:3:6)</option>
                     <option value="M15 (1:2:4)">M15 (1:2:4)</option>
                     <option value="M20 (1:1.5:3)">M20 (1:1.5:3)</option>
@@ -246,7 +246,7 @@ export default function StaircaseCalculator() {
                   </select>
                 </InputGroup>
                 <InputGroup label="Wastage (%)">
-                  <input type="number" value={wastage} onChange={e => setWastage(e.target.value)} placeholder="e.g. 5" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-[12px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-[#6B46C1] hover:border-indigo-300 dark:hover:border-slate-600 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-all" />
+                  <input type="number" value={wastage} onChange={e => setWastage(e.target.value)} placeholder="e.g. 5" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 dark:hover:border-slate-600 shadow-sm transition-all" />
                 </InputGroup>
               </div>
             </div>

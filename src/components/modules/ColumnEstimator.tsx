@@ -46,7 +46,7 @@ function CircularColumnInputs({
       </label>
       <input
         type="number"
-        className="w-full bg-white border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+        className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
         value={diameter}
         onChange={(e) => setDiameter(e.target.value)}
         placeholder="e.g. 0.4"
@@ -75,7 +75,7 @@ function RectangularColumnInputs({
         </label>
         <input
           type="number"
-          className="w-full bg-white border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+          className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
           value={length}
           onChange={(e) => {
             setLength(e.target.value);
@@ -91,7 +91,7 @@ function RectangularColumnInputs({
           </label>
           <input
             type="number"
-            className="w-full bg-white border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+            className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
             value={width}
             onChange={(e) => setWidth(e.target.value)}
             placeholder="e.g. 0.3"
@@ -228,7 +228,7 @@ export default function ColumnEstimator() {
       <div className="max-w-4xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-[28px] font-black mb-2 flex items-center gap-3 text-text-primary">
+            <h1 className="text-3xl font-black mb-2 flex items-center gap-3 text-text-primary">
               <Columns className="w-8 h-8 text-indigo-600 dark:text-blue-400" />
               Column Concrete Estimator
             </h1>
@@ -238,7 +238,7 @@ export default function ColumnEstimator() {
           </div>
           <GlobalSettingsToggle align="left" showCurrency={false} />
         </div>
-        <div className="bg-bg-card rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-border-color overflow-hidden">
+        <div className="bg-bg-card rounded-3xl shadow-md border border-border-color overflow-hidden">
           <div className="p-6 md:p-8 space-y-8">
             {/* Shape Toggle Group */}
             <div>
@@ -284,7 +284,7 @@ export default function ColumnEstimator() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-transparent dark:bg-[#6B46C1]/50 border border-border-color text-text-primary rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+                      className="w-full bg-transparent dark:bg-slate-800/50 border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                     />
@@ -295,7 +295,7 @@ export default function ColumnEstimator() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-transparent dark:bg-[#6B46C1]/50 border border-border-color text-text-primary rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+                      className="w-full bg-transparent dark:bg-slate-800/50 border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
                       value={count}
                       onChange={(e) => setCount(e.target.value)}
                     />
@@ -306,7 +306,7 @@ export default function ColumnEstimator() {
                     Concrete Mix
                   </label>
                   <select
-                    className="w-full bg-transparent dark:bg-[#6B46C1]/50 border border-border-color text-text-primary rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)] appearance-none"
+                    className="w-full bg-transparent dark:bg-slate-800/50 border border-border-color text-text-primary rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm appearance-none"
                     value={mix}
                     onChange={(e) => setMix(e.target.value)}
                   >
@@ -319,7 +319,7 @@ export default function ColumnEstimator() {
                 </div>
               </div>
               {/* Visual Aid */}
-              <div className="bg-transparent dark:bg-[#6B46C1] rounded-[12px] flex flex-col items-center justify-center px-4 py-3 border border-border-color/50 min-h-[300px]">
+              <div className="bg-transparent dark:bg-slate-800 rounded-2xl flex flex-col items-center justify-center px-4 py-3 border border-border-color/50 min-h-[300px]">
                 <div
                   className="w-40 h-40 relative flex items-center justify-center text-blue-200 dark:text-blue-900 border-[8px] mb-6 shadow-inner transition-all duration-500 ease-in-out"
                   style={{
@@ -335,11 +335,11 @@ export default function ColumnEstimator() {
                   }}
                 >
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-blue-400 dark:bg-[#6B46C1]" />
-                    <div className="absolute top-2 w-1 h-3 rounded-full bg-blue-300 dark:bg-[#6B46C1]" />
-                    <div className="absolute bottom-2 w-1 h-3 rounded-full bg-blue-300 dark:bg-[#6B46C1]" />
-                    <div className="absolute left-2 w-3 h-1 rounded-full bg-blue-300 dark:bg-[#6B46C1]" />
-                    <div className="absolute right-2 w-3 h-1 rounded-full bg-blue-300 dark:bg-[#6B46C1]" />
+                    <div className="w-2 h-2 rounded-full bg-blue-400 dark:bg-indigo-600" />
+                    <div className="absolute top-2 w-1 h-3 rounded-full bg-blue-300 dark:bg-blue-700" />
+                    <div className="absolute bottom-2 w-1 h-3 rounded-full bg-blue-300 dark:bg-blue-700" />
+                    <div className="absolute left-2 w-3 h-1 rounded-full bg-blue-300 dark:bg-blue-700" />
+                    <div className="absolute right-2 w-3 h-1 rounded-full bg-blue-300 dark:bg-blue-700" />
                   </div>
                 </div>
                 <div className="text-center">
@@ -374,14 +374,14 @@ export default function ColumnEstimator() {
                         min="0"
                         value={clearCover}
                         onChange={(e) => setClearCover(e.target.value)}
-                        className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-[12px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+                        className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-xl px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                       />
                     </InputGroup>
                     <InputGroup label="Number of Main Bars">
                       <select
                         value={mainBarsCount}
                         onChange={(e) => setMainBarsCount(e.target.value)}
-                        className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-[12px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+                        className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-xl px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                       >
                         <option value="4">4 Bars</option>
                         <option value="6">6 Bars</option>
@@ -394,7 +394,7 @@ export default function ColumnEstimator() {
                     <select
                       value={mainDia}
                       onChange={(e) => setMainDia(e.target.value)}
-                      className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-[12px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+                      className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-xl px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                     >
                       {[12, 16, 20, 25, 32].map(d => (
                         <option key={d} value={d}>{d} mm</option>
@@ -409,7 +409,7 @@ export default function ColumnEstimator() {
                       <select
                         value={tieDia}
                         onChange={(e) => setTieDia(e.target.value)}
-                        className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-[12px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+                        className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-xl px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                       >
                         {[8, 10, 12, 16].map(d => (
                           <option key={d} value={d}>{d} mm</option>
@@ -422,7 +422,7 @@ export default function ColumnEstimator() {
                         min="0"
                         value={tieSpacing}
                         onChange={(e) => setTieSpacing(e.target.value)}
-                        className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-[12px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+                        className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-xl px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                       />
                     </InputGroup>
                   </div>
@@ -433,7 +433,7 @@ export default function ColumnEstimator() {
                         <select
                           value={variation8}
                           onChange={(e) => setVariation8(e.target.value)}
-                          className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-[12px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+                          className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-xl px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                         >
                           <option value="1">Outer Rect + Inner Diamond</option>
                           <option value="2">Outer Rect + Inner Rect (4x2 layout)</option>
@@ -449,7 +449,7 @@ export default function ColumnEstimator() {
                         <select
                           value={variation10}
                           onChange={(e) => setVariation10(e.target.value)}
-                          className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-[12px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-[#6B46C1] outline-none transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+                          className="w-full h-11 bg-bg-primary/50 border border-border-color rounded-xl px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                         >
                           <option value="1">Outer Rect + 3 Link/Cross Ties</option>
                           <option value="2">Outer Rect + Inner Rect + 1 Link Tie</option>
@@ -495,7 +495,7 @@ export default function ColumnEstimator() {
                     <ResultCard title="Aggregate" value={aggCft.toFixed(1)} unit="cft" variant="neutral" />
                   </div>
                   
-                  <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 border-l-[4px] border-l-[#6B46C1] rounded-[12px] p-6 shadow-[0_2px_12px_rgba(0,0,0,0.08)] mt-4">
+                  <div className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 border-l-[4px] border-l-[#6B46C1] rounded-2xl p-6 shadow-sm mt-4">
                     <h4 className="font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-2">
                       <CopySlash className="w-5 h-5 text-[#6B46C1]" />
                       Steel Reinforcement Summary
@@ -503,25 +503,25 @@ export default function ColumnEstimator() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <div className="grid grid-cols-2 gap-2 text-sm">
-                          <div className="bg-slate-50 dark:bg-[#6B46C1] p-3 rounded-[12px] border border-slate-100 dark:border-slate-700">
-                            <span className="text-[#4B5563] text-xs uppercase tracking-wider block mb-0.5">Main ({numBars} Bars)</span>
+                          <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-lg border border-slate-100 dark:border-slate-700">
+                            <span className="text-slate-500 text-xs uppercase tracking-wider block mb-0.5">Main ({numBars} Bars)</span>
                             <span className="font-semibold text-lg text-slate-800 dark:text-slate-100">{mainSteelWeight.toFixed(2)} kg</span>
                           </div>
-                          <div className="bg-slate-50 dark:bg-[#6B46C1] p-3 rounded-[12px] border border-slate-100 dark:border-slate-700">
-                            <span className="text-[#4B5563] text-xs uppercase tracking-wider block mb-0.5">Ties</span>
+                          <div className="bg-slate-50 dark:bg-slate-800 p-3 rounded-lg border border-slate-100 dark:border-slate-700">
+                            <span className="text-slate-500 text-xs uppercase tracking-wider block mb-0.5">Ties</span>
                             <span className="font-semibold text-lg text-slate-800 dark:text-slate-100">{totalTieWeight.toFixed(2)} kg</span>
                           </div>
                         </div>
                       </div>
                       
-                      <div className="bg-slate-50 dark:bg-[#6B46C1]/50 rounded-[12px] p-4 border border-slate-200 dark:border-slate-700/50">
-                        <p className="text-[#4B5563] text-xs uppercase tracking-wider mb-3">Tie Cut Length Breakdown ({tieSetsCount} sets per col)</p>
+                      <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 border border-slate-200 dark:border-slate-700/50">
+                        <p className="text-slate-500 text-xs uppercase tracking-wider mb-3">Tie Cut Length Breakdown ({tieSetsCount} sets per col)</p>
                         <ul className="space-y-2">
                           {tieTypes.map((tie, idx) => (
-                            <li key={idx} className="flex justify-between items-center bg-white dark:bg-[#6B46C1] border border-slate-100 dark:border-slate-700 px-3 py-2 rounded-[12px] text-sm shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+                            <li key={idx} className="flex justify-between items-center bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 px-3 py-2 rounded-lg text-sm shadow-sm">
                               <div>
                                 <p className="font-medium text-slate-700 dark:text-slate-200">{tie.name}</p>
-                                <p className="text-xs text-[#4B5563]">{tie.countPerSet} per set</p>
+                                <p className="text-xs text-slate-500">{tie.countPerSet} per set</p>
                               </div>
                               <p className="font-bold text-slate-700 dark:text-slate-300">{tie.length.toFixed(0)} mm</p>
                             </li>

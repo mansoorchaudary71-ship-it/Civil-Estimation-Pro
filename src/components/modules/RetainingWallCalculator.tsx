@@ -151,7 +151,7 @@ export default function RetainingWallCalculator() {
       <div className="max-w-5xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-[28px] font-black mb-2 flex items-center gap-3 text-text-primary">
+            <h1 className="text-3xl font-black mb-2 flex items-center gap-3 text-text-primary">
               <ShieldCheck className="w-8 h-8 text-[#E55A2B] dark:text-[#ff8a65]" />
               Retaining Wall Estimator
             </h1>
@@ -162,7 +162,7 @@ export default function RetainingWallCalculator() {
           <GlobalSettingsToggle align="left" showCurrency={false} />
         </div>
         
-        <div className="bg-bg-card rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-border-color overflow-hidden">
+        <div className="bg-bg-card rounded-3xl shadow-md border border-border-color overflow-hidden">
           <div className="p-6 md:p-8 space-y-8">
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
               {/* Inputs */}
@@ -171,25 +171,25 @@ export default function RetainingWallCalculator() {
                   <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Wall Dimensions</h3>
                   <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                     <InputGroup label="Wall Height (m)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={wallH} onChange={(e) => setWallH(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={wallH} onChange={(e) => setWallH(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Wall Length (m)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={wallL} onChange={(e) => setWallL(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={wallL} onChange={(e) => setWallL(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Base Width (m)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={baseW} onChange={(e) => setBaseW(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={baseW} onChange={(e) => setBaseW(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Base Thk (m)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={baseD} onChange={(e) => setBaseD(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={baseD} onChange={(e) => setBaseD(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Stem Top (m)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={stemWTop} onChange={(e) => setStemWTop(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={stemWTop} onChange={(e) => setStemWTop(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Stem Bot (m)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={stemWBot} onChange={(e) => setStemWBot(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={stemWBot} onChange={(e) => setStemWBot(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Toe Proj (m)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 rounded-[12px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={toeProj} onChange={(e) => setToeProj(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={toeProj} onChange={(e) => setToeProj(e.target.value)} />
                     </InputGroup>
                   </div>
                 </div>
@@ -198,16 +198,16 @@ export default function RetainingWallCalculator() {
                   <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Soil & Loads</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <InputGroup label="Soil Density (kN/m³)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-3" value={soilDens} onChange={(e) => setSoilDens(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-3" value={soilDens} onChange={(e) => setSoilDens(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Friction Angle (deg)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-3" value={phiAngle} onChange={(e) => setPhiAngle(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-3" value={phiAngle} onChange={(e) => setPhiAngle(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Base Friction Coeff (μ)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-3" value={frictionCoeff} onChange={(e) => setFrictionCoeff(e.target.value)} step="0.1" />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-3" value={frictionCoeff} onChange={(e) => setFrictionCoeff(e.target.value)} step="0.1" />
                     </InputGroup>
                     <InputGroup label="Surcharge (kN/m²)">
-                      <input type="number" className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 rounded-[12px] px-3 py-3" value={surcharge} onChange={(e) => setSurcharge(e.target.value)} />
+                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-3" value={surcharge} onChange={(e) => setSurcharge(e.target.value)} />
                     </InputGroup>
                   </div>
                 </div>
@@ -216,7 +216,7 @@ export default function RetainingWallCalculator() {
                   <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Materials</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <InputGroup label="Concrete Mix">
-                      <select className="w-full bg-white dark:bg-[#6B46C1]/50 border border-slate-200 dark:border-slate-700 rounded-[12px] px-4 py-3" value={mix} onChange={(e) => setMix(e.target.value)}>
+                      <select className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3" value={mix} onChange={(e) => setMix(e.target.value)}>
                         {Object.keys(mixRatios).map((m) => <option key={m} value={m}>{m}</option>)}
                       </select>
                     </InputGroup>
@@ -227,17 +227,17 @@ export default function RetainingWallCalculator() {
               {/* Drawing & Stability check */}
               <div>
                 <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className={`p-4 rounded-[12px] border ${isSlidingSafe ? 'bg-emerald-50 border-emerald-200 dark:bg-emerald-900/20' : 'bg-rose-50 border-rose-200 dark:bg-rose-900/20'}`}>
+                  <div className={`p-4 rounded-2xl border ${isSlidingSafe ? 'bg-emerald-50 border-emerald-200 dark:bg-emerald-900/20' : 'bg-rose-50 border-rose-200 dark:bg-rose-900/20'}`}>
                     <h4 className="font-bold text-sm text-slate-800 dark:text-slate-200 mb-1">Sliding (FS &gt; 1.5)</h4>
-                    <p className={`text-[18px] font-black ${isSlidingSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{FS_sliding.toFixed(2)}</p>
+                    <p className={`text-2xl font-black ${isSlidingSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{FS_sliding.toFixed(2)}</p>
                   </div>
-                  <div className={`p-4 rounded-[12px] border ${isOverturnSafe ? 'bg-emerald-50 border-emerald-200 dark:bg-emerald-900/20' : 'bg-rose-50 border-rose-200 dark:bg-rose-900/20'}`}>
+                  <div className={`p-4 rounded-2xl border ${isOverturnSafe ? 'bg-emerald-50 border-emerald-200 dark:bg-emerald-900/20' : 'bg-rose-50 border-rose-200 dark:bg-rose-900/20'}`}>
                     <h4 className="font-bold text-sm text-slate-800 dark:text-slate-200 mb-1">Overturning (FS &gt; 2.0)</h4>
-                    <p className={`text-[18px] font-black ${isOverturnSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{FS_overturn.toFixed(2)}</p>
+                    <p className={`text-2xl font-black ${isOverturnSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{FS_overturn.toFixed(2)}</p>
                   </div>
                 </div>
 
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[12px] p-6 flex flex-col items-center justify-center min-h-[400px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] relative overflow-hidden">
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[400px] shadow-sm relative overflow-hidden">
                   <h4 className="font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-sm mb-4">Cross-Section Profile</h4>
                   
                   <svg width="100%" height="320" viewBox="-50 -50 400 350" className="max-w-full overflow-visible">
@@ -314,22 +314,22 @@ export default function RetainingWallCalculator() {
                     <div className="grid grid-cols-2 gap-4 mb-4">
                       <InputGroup label="Vert. Dia / Spc">
                         <div className="flex gap-2">
-                           <input type="number" className="w-full bg-slate-50 dark:bg-[#6B46C1] border-none rounded-[12px] px-2 py-2" value={vertDia} onChange={e => setVertDia(e.target.value)} />
-                           <input type="number" className="w-full bg-slate-50 dark:bg-[#6B46C1] border-none rounded-[12px] px-2 py-2" value={vertSpace} onChange={e => setVertSpace(e.target.value)} />
+                           <input type="number" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-lg px-2 py-2" value={vertDia} onChange={e => setVertDia(e.target.value)} />
+                           <input type="number" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-lg px-2 py-2" value={vertSpace} onChange={e => setVertSpace(e.target.value)} />
                         </div>
                       </InputGroup>
                       <InputGroup label="Horiz. Dia / Spc">
                         <div className="flex gap-2">
-                           <input type="number" className="w-full bg-slate-50 dark:bg-[#6B46C1] border-none rounded-[12px] px-2 py-2" value={horizDia} onChange={e => setHorizDia(e.target.value)} />
-                           <input type="number" className="w-full bg-slate-50 dark:bg-[#6B46C1] border-none rounded-[12px] px-2 py-2" value={horizSpace} onChange={e => setHorizSpace(e.target.value)} />
+                           <input type="number" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-lg px-2 py-2" value={horizDia} onChange={e => setHorizDia(e.target.value)} />
+                           <input type="number" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-lg px-2 py-2" value={horizSpace} onChange={e => setHorizSpace(e.target.value)} />
                         </div>
                       </InputGroup>
                     </div>
 
-                    <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[12px] overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
-                      <div className="p-4 bg-slate-100 dark:bg-[#6B46C1] border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+                    <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
+                      <div className="p-4 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
                         <span className="font-bold text-slate-700 dark:text-slate-200">Stem Steel Weight</span>
-                        <span className="text-[18px] font-black text-rose-600 dark:text-rose-400">{totalSteel.toFixed(1)} kg</span>
+                        <span className="text-xl font-black text-rose-600 dark:text-rose-400">{totalSteel.toFixed(1)} kg</span>
                       </div>
                     </div>
                   </div>

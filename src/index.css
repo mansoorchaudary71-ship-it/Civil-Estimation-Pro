@@ -151,74 +151,6 @@
   .dark p {
     color: #A3AED0;
   }
-
-  /* Global Inputs requested by User */
-  input[type="text"], input[type="number"], input[type="email"], input[type="password"], select, textarea {
-    height: 44px;
-    border: 1.5px solid #E5E7EB;
-    border-radius: 8px;
-    font-size: 14px;
-    transition: all 0.2s ease;
-    background-color: var(--bg-card);
-  }
-  input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="password"]:focus, select:focus, textarea:focus {
-    border-color: #6B46C1 !important;
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.1);
-  }
-  .dark input[type="text"], .dark input[type="number"], .dark input[type="email"], .dark input[type="password"], .dark select, .dark textarea {
-    border-color: #374151;
-  }
-
-  /* Custom Buttons requested by User */
-  .btn-primary {
-    background-color: #6B46C1;
-    color: #FFFFFF;
-    border-radius: 8px;
-    height: 44px;
-    padding: 0 24px;
-    font-weight: 600;
-    transition: background-color 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-  }
-  .btn-primary:hover {
-    background-color: #553C9A /* Darken ~10% */;
-  }
-  .btn-secondary {
-    background-color: #FFFFFF;
-    color: #6B46C1;
-    border: 1.5px solid #6B46C1;
-    border-radius: 8px;
-    height: 44px;
-    padding: 0 24px;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .btn-secondary:hover {
-    background-color: #F3F4F6;
-  }
-  .btn-danger {
-    background-color: #DC2626;
-    color: #FFFFFF;
-    border-radius: 8px;
-    height: 44px;
-    padding: 0 24px;
-    font-weight: 600;
-    transition: background-color 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-  }
-  .btn-danger:hover {
-    background-color: #B91C1C;
-  }
 }
 
 /* Custom Scrollbar Styles */
@@ -486,37 +418,4 @@
     position: relative; 
     box-sizing: border-box;
   }
-}
-
-
-/* === STRICT UI REDESIGN STANDARDS (Civil Estimation Pro) === */
-@layer utilities {
-  /* BACKGROUND */
-  body, #root { background: #F8F7FF !important; background-image: none !important; color: #4B5563 !important; }
-  .dark body, .dark #root { background: #0F0F1A !important; }
-  
-  /* TYPOGRAPHY */
-  h1 { font-size: 28px !important; font-weight: 700 !important; color: #1A1A2E !important; }
-  .dark h1 { color: #FFFFFF !important; }
-  h2, h3, h4, h5, h6 { font-size: 18px !important; font-weight: 600 !important; color: #374151 !important; }
-  .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 { color: #E2E8F0 !important; }
-  label, .label-text { font-size: 12px !important; font-weight: 500 !important; text-transform: uppercase !important; color: #6B7280 !important; }
-  
-  /* RESULT PANELS */
-  .result-card, [class*="border-l-[4px]"] { background-color: #FFFFFF !important; border-left: 4px solid #6B46C1 !important; border-radius: 12px !important; padding: 20px !important; box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important; border-top: none !important; border-right: none !important; border-bottom: none !important; }
-  .dark .result-card, .dark [class*="border-l-[4px]"] { background-color: #1A1A2E !important; }
-  
-  /* RESULT VALUES */
-  .result-value, [class*="text-[clamp"] { font-size: clamp(32px, 5vw, 48px) !important; font-weight: 700 !important; background: linear-gradient(90deg, #6B46C1, #F97316) !important; -webkit-background-clip: text !important; background-clip: text !important; -webkit-text-fill-color: transparent !important; color: transparent !important; }
-  
-  /* CARDS */
-  .bg-bg-card, .card { background-color: #FFFFFF !important; border-radius: 12px !important; padding: 20px !important; box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important; border: none !important; transition: transform 0.2s ease, box-shadow 0.2s ease !important; }
-  .dark .bg-bg-card, .dark .card { background-color: #1A1A2E !important; }
-  .bg-bg-card:hover, .card:hover { transform: translateY(-2px) !important; box-shadow: 0 4px 16px rgba(0,0,0,0.12) !important; }
-  
-  /* INPUT FIELDS */
-  input[type="text"], input[type="number"], input[type="email"], select, textarea { height: 44px !important; border: 1.5px solid #E5E7EB !important; border-radius: 8px !important; font-size: 14px !important; background-color: #FFFFFF !important; transition: all 0.2s ease !important; padding: 0 16px !important; color: #4B5563 !important; }
-  textarea { height: auto !important; min-height: 88px !important; padding: 12px 16px !important; }
-  .dark input[type="text"], .dark input[type="number"], .dark input[type="email"], .dark select, .dark textarea { background-color: #0F0F1A !important; border-color: #2E2E48 !important; color: white !important; }
-  input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus, select:focus, textarea:focus { border-color: #6B46C1 !important; box-shadow: 0 0 0 1px #6B46C1 !important; outline: none !important; }
 }

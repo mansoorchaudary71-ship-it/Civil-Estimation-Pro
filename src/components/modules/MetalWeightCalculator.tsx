@@ -244,7 +244,7 @@ export default function MetalWeightCalculator() {
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-[28px] font-black mb-2 flex items-center gap-3">
+        <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
           <Weight className="w-8 h-8 text-neutral-600 dark:text-neutral-400" />
           Metal Weight Calculator
         </h1>
@@ -253,30 +253,30 @@ export default function MetalWeightCalculator() {
           profiles.
         </p>
         {/* Global Settings */}
-        <div className="flex flex-wrap gap-[20px] mb-8 items-center bg-bg-card px-4 py-3 rounded-[12px] border border-border-color shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+        <div className="flex flex-wrap gap-4 mb-8 items-center bg-bg-card px-4 py-3 rounded-2xl border border-border-color shadow-sm">
           <div className="flex-1 min-w-[200px]">
-            <label className="text-[12px] font-medium text-[#6B7280] uppercase block mb-1.5">
+            <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1.5">
               Material Density (kg/m³)
             </label>
             <input
               type="number"
               value={density}
               onChange={(e) => setDensity(e.target.value)}
-              className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-3 rounded-[12px] font-bold focus:ring-2 focus:ring-neutral-500"
+              className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl font-bold focus:ring-2 focus:ring-neutral-500"
             />
             <p className="text-[10px] text-slate-700 dark:text-slate-300 mt-1 pl-1">
               Steel: 7850 | Aluminum: 2700 | Stainless: 7930
             </p>
           </div>
           <div className="flex-1 min-w-[200px]">
-            <label className="text-[12px] font-medium text-[#6B7280] uppercase block mb-1.5">
+            <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1.5">
               Element Length (m)
             </label>
             <input
               type="number"
               value={length}
               onChange={(e) => setLength(e.target.value)}
-              className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-3 rounded-[12px] font-bold focus:ring-2 focus:ring-neutral-500"
+              className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl font-bold focus:ring-2 focus:ring-neutral-500"
             />
             <p className="text-[10px] text-slate-700 dark:text-slate-300 mt-1 pl-1">
               Total run length of member
@@ -302,35 +302,35 @@ export default function MetalWeightCalculator() {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Inputs Section */}
-          <div className="lg:col-span-7 bg-bg-card p-[20px] md:p-8 rounded-[12px] border border-border-color shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
-            <h3 className="font-bold text-[18px] mb-6">
+          <div className="lg:col-span-7 bg-bg-card p-6 md:p-8 rounded-[2rem] border border-border-color shadow-sm">
+            <h3 className="font-bold text-xl mb-6">
               {activeProfile} Dimensions
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {activeProfile === "Round bar" && (
                 <div>
-                  <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                     Diameter (mm)
                   </label>
                   <input
                     type="number"
                     value={d}
                     onChange={(e) => setD(e.target.value)}
-                    className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                     placeholder="e.g. 20"
                   />
                 </div>
               )}
               {activeProfile === "Square bar" && (
                 <div>
-                  <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                     Side Width (mm)
                   </label>
                   <input
                     type="number"
                     value={w}
                     onChange={(e) => setW(e.target.value)}
-                    className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                     placeholder="e.g. 50"
                   />
                 </div>
@@ -338,26 +338,26 @@ export default function MetalWeightCalculator() {
               {activeProfile === "Round pipe bar" && (
                 <>
                   <div>
-                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Outer Diameter (mm)
                     </label>
                     <input
                       type="number"
                       value={d}
                       onChange={(e) => setD(e.target.value)}
-                      className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 100"
                     />
                   </div>
                   <div>
-                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Wall Thickness (mm)
                     </label>
                     <input
                       type="number"
                       value={t}
                       onChange={(e) => setT(e.target.value)}
-                      className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 5"
                     />
                   </div>
@@ -365,14 +365,14 @@ export default function MetalWeightCalculator() {
               )}
               {activeProfile === "Hexagonal bar" && (
                 <div>
-                  <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                     Size Across Flats (mm)
                   </label>
                   <input
                     type="number"
                     value={s}
                     onChange={(e) => setS(e.target.value)}
-                    className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                     placeholder="e.g. 30"
                   />
                 </div>
@@ -380,26 +380,26 @@ export default function MetalWeightCalculator() {
               {activeProfile === "Square tubing bar" && (
                 <>
                   <div>
-                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Outer Width (mm)
                     </label>
                     <input
                       type="number"
                       value={w}
                       onChange={(e) => setW(e.target.value)}
-                      className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 50"
                     />
                   </div>
                   <div>
-                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Wall Thickness (mm)
                     </label>
                     <input
                       type="number"
                       value={t}
                       onChange={(e) => setT(e.target.value)}
-                      className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 3"
                     />
                   </div>
@@ -408,38 +408,38 @@ export default function MetalWeightCalculator() {
               {activeProfile === "Tee Bar" && (
                 <>
                   <div>
-                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Flange Width (mm)
                     </label>
                     <input
                       type="number"
                       value={w}
                       onChange={(e) => setW(e.target.value)}
-                      className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 40"
                     />
                   </div>
                   <div>
-                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Total Height (mm)
                     </label>
                     <input
                       type="number"
                       value={h}
                       onChange={(e) => setH(e.target.value)}
-                      className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 40"
                     />
                   </div>
                   <div>
-                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Thickness (mm)
                     </label>
                     <input
                       type="number"
                       value={t}
                       onChange={(e) => setT(e.target.value)}
-                      className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 5"
                     />
                   </div>
@@ -448,50 +448,50 @@ export default function MetalWeightCalculator() {
               {["Beam bar", "Channel shape"].includes(activeProfile) && (
                 <>
                   <div>
-                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Flange Width (mm)
                     </label>
                     <input
                       type="number"
                       value={w}
                       onChange={(e) => setW(e.target.value)}
-                      className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 150"
                     />
                   </div>
                   <div>
-                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Depth / Height (mm)
                     </label>
                     <input
                       type="number"
                       value={h}
                       onChange={(e) => setH(e.target.value)}
-                      className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 300"
                     />
                   </div>
                   <div>
-                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Flange Thickness (mm)
                     </label>
                     <input
                       type="number"
                       value={tf}
                       onChange={(e) => setTf(e.target.value)}
-                      className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 10"
                     />
                   </div>
                   <div>
-                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Web Thickness (mm)
                     </label>
                     <input
                       type="number"
                       value={tw}
                       onChange={(e) => setTw(e.target.value)}
-                      className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 7"
                     />
                   </div>
@@ -500,38 +500,38 @@ export default function MetalWeightCalculator() {
               {activeProfile === "Angle shape" && (
                 <>
                   <div>
-                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Leg 1 Length (mm)
                     </label>
                     <input
                       type="number"
                       value={leg1}
                       onChange={(e) => setLeg1(e.target.value)}
-                      className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 50"
                     />
                   </div>
                   <div>
-                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Leg 2 Length (mm)
                     </label>
                     <input
                       type="number"
                       value={leg2}
                       onChange={(e) => setLeg2(e.target.value)}
-                      className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 50"
                     />
                   </div>
                   <div>
-                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Thickness (mm)
                     </label>
                     <input
                       type="number"
                       value={t}
                       onChange={(e) => setT(e.target.value)}
-                      className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 6"
                     />
                   </div>
@@ -540,26 +540,26 @@ export default function MetalWeightCalculator() {
               {["Flat shape", "Sheet shape"].includes(activeProfile) && (
                 <>
                   <div>
-                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Width (mm)
                     </label>
                     <input
                       type="number"
                       value={w}
                       onChange={(e) => setW(e.target.value)}
-                      className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 1000"
                     />
                   </div>
                   <div>
-                    <label className="text-[12px] font-medium text-[#6B7280] uppercase">
+                    <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
                       Thickness (mm)
                     </label>
                     <input
                       type="number"
                       value={t}
                       onChange={(e) => setT(e.target.value)}
-                      className="w-full bg-transparent dark:bg-[#6B46C1] border border-slate-200 p-4 rounded-[12px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+                      className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-4 rounded-xl mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
                       placeholder="e.g. 10"
                     />
                   </div>

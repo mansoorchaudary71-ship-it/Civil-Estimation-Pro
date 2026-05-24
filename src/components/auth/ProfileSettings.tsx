@@ -53,13 +53,13 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
           initial={{ opacity: 0, scale: 0.95, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
-          className="relative w-full max-w-md overflow-hidden bg-bg-card rounded-[12px] shadow-2xl border border-border-color"
+          className="relative w-full max-w-md overflow-hidden bg-bg-card rounded-[28px] shadow-2xl border border-border-color"
         >
           <div className="flex items-center justify-between px-6 py-5 border-b border-border-color">
-            <h2 className="text-[18px] font-bold text-text-primary">Profile Settings</h2>
+            <h2 className="text-xl font-bold text-text-primary">Profile Settings</h2>
             <button
               onClick={onClose}
-              className="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-[#6B46C1] transition-colors"
+              className="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -67,7 +67,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
 
           <form onSubmit={handleSubmit} className="px-6 py-6 space-y-6">
             <div className="flex flex-col items-center gap-4">
-              <div className="relative w-24 h-24 rounded-full overflow-hidden bg-bg-primary border-4 border-white dark:border-slate-700 shadow-[0_2px_12px_rgba(0,0,0,0.08)] flex items-center justify-center group">
+              <div className="relative w-24 h-24 rounded-full overflow-hidden bg-bg-primary border-4 border-white dark:border-slate-700 shadow-sm flex items-center justify-center group">
                 {photoURL ? (
                   <img src={photoURL} alt="Profile" className="w-full h-full object-cover" />
                 ) : (
@@ -88,7 +88,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3 bg-bg-primary border border-border-color rounded-[12px] text-sm focus:outline-none focus:border-[#6B46C1] focus:ring-2 focus:ring-[#6B46C1] transition-all dark:text-white"
+                    className="w-full pl-11 pr-4 py-3 bg-bg-primary border border-border-color rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
                   />
                 </div>
               </div>
@@ -102,14 +102,14 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
                      value={photoURL}
                      onChange={(e) => setPhotoURL(e.target.value)}
                      placeholder="https://example.com/avatar.png"
-                     className="w-full pl-11 pr-4 py-3 bg-bg-primary border border-border-color rounded-[12px] text-sm focus:outline-none focus:border-[#6B46C1] focus:ring-2 focus:ring-[#6B46C1] transition-all dark:text-white"
+                     className="w-full pl-11 pr-4 py-3 bg-bg-primary border border-border-color rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
                   />
                 </div>
               </div>
             </div>
 
             {successMsg && (
-              <div className="p-3 text-sm text-emerald-600 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 rounded-[12px] text-center font-medium">
+              <div className="p-3 text-sm text-emerald-600 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 rounded-xl text-center font-medium">
                 {successMsg}
               </div>
             )}
@@ -117,7 +117,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
             <button
                type="submit"
                disabled={isLoading}
-               className="w-full py-3.5 px-4 bg-[#6B46C1] hover:bg-[#6B46C1] text-white font-semibold  rounded-full shadow-[0_2px_12px_rgba(0,0,0,0.08)] text-sm transition-all focus:ring-4 focus:ring-[#6B46C1] flex justify-center items-center h-12"
+               className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold  rounded-full shadow-sm text-sm transition-all focus:ring-4 focus:ring-indigo-500/50 flex justify-center items-center h-12"
             >
                {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Save Changes'}
             </button>

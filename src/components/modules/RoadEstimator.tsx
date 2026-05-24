@@ -172,10 +172,10 @@ export default function RoadEstimator() {
           <section className="lg:col-span-5 space-y-6">
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-amber-50 text-amber-600 rounded-[12px]">
+                <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
                   <Route className="w-5 h-5" />
                 </div>
-                <h2 className="text-[18px] font-bold tracking-tight text-gray-800">
+                <h2 className="text-xl font-bold tracking-tight text-gray-800">
                   Geometry Input
                 </h2>
               </div>
@@ -186,7 +186,7 @@ export default function RoadEstimator() {
                   </label>
                   <input
                     type="number"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
                   />
@@ -198,7 +198,7 @@ export default function RoadEstimator() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
                       value={width}
                       onChange={(e) => setWidth(e.target.value)}
                     />
@@ -209,7 +209,7 @@ export default function RoadEstimator() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
                       value={camber}
                       onChange={(e) => setCamber(e.target.value)}
                     />
@@ -223,7 +223,7 @@ export default function RoadEstimator() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
                       value={shoulderWidth}
                       onChange={(e) => setShoulderWidth(e.target.value)}
                     />
@@ -237,7 +237,7 @@ export default function RoadEstimator() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
                       value={shoulderFall}
                       onChange={(e) => setShoulderFall(e.target.value)}
                     />
@@ -249,7 +249,7 @@ export default function RoadEstimator() {
                     >
                       Side Slope
                     </label>
-                    <div className="flex items-center gap-3 w-full bg-gray-50/50 border border-gray-200 rounded-[12px] px-4 py-3 focus-within:ring-2 focus-within:ring-amber-500/50 transition-shadow">
+                    <div className="flex items-center gap-3 w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-amber-500/50 transition-shadow">
                       <span className="text-gray-700 dark:text-gray-300 font-semibold text-sm whitespace-nowrap">1 V :</span>
                       <input
                         type="number"
@@ -266,10 +266,10 @@ export default function RoadEstimator() {
             </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-orange-50 text-orange-600 rounded-[12px]">
+                <div className="p-2.5 bg-orange-50 text-orange-600 rounded-xl">
                   <Layers className="w-5 h-5" />
                 </div>
-                <h2 className="text-[18px] font-bold tracking-tight text-gray-800">
+                <h2 className="text-xl font-bold tracking-tight text-gray-800">
                   Layer Thickness (mm)
                 </h2>
               </div>
@@ -281,7 +281,7 @@ export default function RoadEstimator() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1] transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-shadow"
                       value={sgThickness}
                       onChange={(e) => setSgThickness(e.target.value)}
                     />
@@ -292,7 +292,7 @@ export default function RoadEstimator() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1] transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-shadow"
                       value={sbThickness}
                       onChange={(e) => setSbThickness(e.target.value)}
                     />
@@ -305,7 +305,7 @@ export default function RoadEstimator() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1] transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-shadow"
                       value={wbmThickness}
                       onChange={(e) => setWbmThickness(e.target.value)}
                     />
@@ -316,7 +316,7 @@ export default function RoadEstimator() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1] transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-shadow"
                       value={asphaltThickness}
                       onChange={(e) => setAsphaltThickness(e.target.value)}
                     />
@@ -326,10 +326,10 @@ export default function RoadEstimator() {
             </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-blue-50 text-indigo-600 rounded-[12px]">
+                <div className="p-2.5 bg-blue-50 text-indigo-600 rounded-xl">
                   <Droplets className="w-5 h-5" />
                 </div>
-                <h2 className="text-[18px] font-bold tracking-tight text-gray-800">
+                <h2 className="text-xl font-bold tracking-tight text-gray-800">
                   Application Rates (L/m²)
                 </h2>
               </div>
@@ -342,7 +342,7 @@ export default function RoadEstimator() {
                     type="number"
                     min="0"
                     step="any"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1] transition-shadow"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow"
                     value={primeRateInput}
                     onChange={(e) => {
                       const val = parseFloat(e.target.value);
@@ -359,7 +359,7 @@ export default function RoadEstimator() {
                     type="number"
                     min="0"
                     step="any"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1] transition-shadow"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow"
                     value={tackRateInput}
                     onChange={(e) => {
                       const val = parseFloat(e.target.value);
@@ -372,10 +372,10 @@ export default function RoadEstimator() {
             </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-[12px]">
+                <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl">
                   <Calculator className="w-5 h-5" />
                 </div>
-                <h2 className="text-[18px] font-bold tracking-tight text-gray-800">
+                <h2 className="text-xl font-bold tracking-tight text-gray-800">
                   Material Rates
                 </h2>
               </div>
@@ -389,7 +389,7 @@ export default function RoadEstimator() {
                       type="number"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1]"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
                       value={rateSg}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -406,7 +406,7 @@ export default function RoadEstimator() {
                       type="number"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1]"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
                       value={rateSb}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -423,7 +423,7 @@ export default function RoadEstimator() {
                       type="number"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1]"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
                       value={rateWbm}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -440,7 +440,7 @@ export default function RoadEstimator() {
                       type="number"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1]"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
                       value={rateAsp}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -457,7 +457,7 @@ export default function RoadEstimator() {
                       type="number"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1]"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
                       value={ratePrime}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -474,7 +474,7 @@ export default function RoadEstimator() {
                       type="number"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1]"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
                       value={rateTack}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -491,7 +491,7 @@ export default function RoadEstimator() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-600 text-sm rounded-[12px] px-3 py-2 focus:outline-none"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-600 text-sm rounded-xl px-3 py-2 focus:outline-none"
                       value={asphaltDensity}
                       onChange={(e) => setAsphaltDensity(e.target.value)}
                     />
@@ -502,7 +502,7 @@ export default function RoadEstimator() {
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-600 text-sm rounded-[12px] px-3 py-2 focus:outline-none"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-600 text-sm rounded-xl px-3 py-2 focus:outline-none"
                       value={bitumenSG}
                       onChange={(e) => setBitumenSG(e.target.value)}
                     />
@@ -514,21 +514,21 @@ export default function RoadEstimator() {
           {/* Visualization and Results Section */}
           <section className="lg:col-span-7 flex flex-col gap-6">
             <div
-              className="bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-[12px] shadow-2xl relative overflow-hidden flex flex-col justify-between"
+              className="bg-gradient-to-br from-slate-800 to-slate-900 p-8 rounded-[2rem] shadow-2xl relative overflow-hidden flex flex-col justify-between"
               style={{ minHeight: "360px" }}
             >
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
               <div className="relative z-10 flex items-center justify-between mb-8 text-white">
-                <h2 className="text-[18px] font-bold tracking-tight flex items-center gap-2">
+                <h2 className="text-xl font-bold tracking-tight flex items-center gap-2">
                   <Layers className="w-5 h-5 text-amber-400" /> Cross-Section
                   Profile
                 </h2>
-                <div className="text-xs font-mono bg-white/10 px-3 py-1.5 rounded-[12px] border border-white/10">
+                <div className="text-xs font-mono bg-white/10 px-3 py-1.5 rounded-lg border border-white/10">
                   Camber: {c}% | Rise: {(riseAtCenter * 1000).toFixed(0)}mm
                 </div>
               </div>
               {/* Road SVG Diagram */}
-              <div className="relative p-5 sm:p-6 rounded-[12px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] dark:transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+              <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                 <svg
                   viewBox="0 0 1000 320"
                   preserveAspectRatio="xMidYMid meet"
@@ -727,7 +727,7 @@ export default function RoadEstimator() {
             </div>
             <div className="flex flex-wrap  gap-4 items-center w-full">
               <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-amber-200 transition-colors">
-                <h3 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-4 flex items-center gap-2">
+                <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-4 flex items-center gap-2">
                   <Calculator className="w-4 h-4 text-amber-500" /> Layer
                   Quantities
                 </h3>
@@ -764,12 +764,12 @@ export default function RoadEstimator() {
                 </div>
               </div>
               <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-orange-200 transition-colors">
-                <h3 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-4 flex items-center gap-2">
+                <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-4 flex items-center gap-2">
                   <Droplets className="w-4 h-4 text-orange-500" /> Bitumen
                   Coats
                 </h3>
                 <div className="space-y-4">
-                  <div className="bg-orange-50/50 px-4 py-3 rounded-[12px] border border-orange-100">
+                  <div className="bg-orange-50/50 px-4 py-3 rounded-xl border border-orange-100">
                     <div className="flex justify-between items-start mb-1">
                       <div className="text-orange-800 text-xs font-semibold">
                         Prime Coat (on WBM)
@@ -780,7 +780,7 @@ export default function RoadEstimator() {
                     </div>
                     <div className="flex items-end justify-between">
                       <div className="flex items-end gap-2">
-                        <span className="text-[18px] font-black text-orange-600 leading-none">
+                        <span className="text-xl font-black text-orange-600 leading-none">
                           {primeCoatVolume.toFixed(1)}
                         </span>
                         <span className="text-xs font-medium text-orange-400 mb-0.5">
@@ -792,7 +792,7 @@ export default function RoadEstimator() {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-gray-50 px-4 py-3 rounded-[12px] border border-gray-200">
+                  <div className="bg-gray-50 px-4 py-3 rounded-xl border border-gray-200">
                     <div className="flex justify-between items-start mb-1">
                       <div className="text-gray-600 text-xs font-semibold">
                         Tack Coat
@@ -803,7 +803,7 @@ export default function RoadEstimator() {
                     </div>
                     <div className="flex items-end justify-between">
                       <div className="flex items-end gap-2">
-                        <span className="text-[18px] font-black text-gray-800 leading-none">
+                        <span className="text-xl font-black text-gray-800 leading-none">
                           {tackCoatVolume.toFixed(1)}
                         </span>
                         <span className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-0.5">
@@ -826,7 +826,7 @@ export default function RoadEstimator() {
                totalUnit=""
              >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-sm mt-4">
-                <div className="bg-white/5 border border-white/10 rounded-[12px] p-4">
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
                   <h4 className="font-semibold text-slate-400 mb-3 uppercase tracking-wider text-xs">
                     WBM Sub-components
                   </h4>
@@ -855,7 +855,7 @@ export default function RoadEstimator() {
                   </div>
                 </div>
                 
-                <div className="bg-white/5 border border-white/10 rounded-[12px] p-4">
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
                   <h4 className="font-semibold text-slate-400 mb-3 uppercase tracking-wider text-xs">
                     Sub-base Material & Finances
                   </h4>

@@ -90,7 +90,7 @@ export default function AdvancedSpecs({
         <select
           value={specs[specKey] as string}
           onChange={(e) => updateSpec(specKey, e.target.value)}
-          className="w-full bg-transparent border border-slate-200 text-[#374151] rounded-[12px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] font-medium appearance-none text-sm"
+          className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium appearance-none text-sm"
         >
           {options.map((opt) => (
             <option key={opt} value={opt}>
@@ -116,12 +116,12 @@ export default function AdvancedSpecs({
         value={specs[specKey] as string}
         onChange={(e) => updateSpec(specKey, e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-transparent border border-slate-200 text-[#374151] rounded-[12px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] font-medium text-sm"
+        className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm"
       />
     </div>
   );
   const renderToggle = (label: string, specKey: keyof SpecsState) => (
-    <div className="flex items-center justify-between col-span-2 bg-transparent border border-slate-200 rounded-[12px] px-4 py-2.5">
+    <div className="flex items-center justify-between col-span-2 bg-transparent border border-slate-200 rounded-xl px-4 py-2.5">
       <span className="text-sm font-bold text-slate-700">{label}</span>
       <label className="relative inline-flex items-center cursor-pointer">
         <input
@@ -130,18 +130,18 @@ export default function AdvancedSpecs({
           onChange={(e) => updateSpec(specKey, e.target.checked)}
           className="sr-only peer"
         />
-        <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#6B46C1]"></div>
+        <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
       </label>
     </div>
   );
   return (
-    <div className="bg-white/80 p-6 rounded-[12px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl transition-all duration-300">
+    <div className="bg-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl transition-all duration-300">
       <div
         className="flex items-center justify-between mb-2 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-teal-50 text-teal-600 rounded-[12px]">
+          <div className="p-3 bg-teal-50 text-teal-600 rounded-2xl">
             <Sliders className="w-6 h-6" />
           </div>
           <h2 className="text-lg font-bold text-gray-800">
@@ -164,12 +164,12 @@ export default function AdvancedSpecs({
       {isOpen && (
         <div className="mt-6 space-y-3 animate-in fade-in zoom-in-95">
           {/* 1. Foundation & Substructure */}
-          <div className="rounded-[12px] border border-slate-200 overflow-hidden bg-white">
+          <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(0)}
               className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
             >
-              <span className="font-bold text-sm text-[#374151]">
+              <span className="font-bold text-sm text-slate-800">
                 1. Foundation & Substructure
               </span>
               {openCategory === 0 ? (
@@ -194,12 +194,12 @@ export default function AdvancedSpecs({
             )}
           </div>
           {/* 2. Superstructure (Grey Structure) */}
-          <div className="rounded-[12px] border border-slate-200 overflow-hidden bg-white">
+          <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(1)}
               className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
             >
-              <span className="font-bold text-sm text-[#374151]">
+              <span className="font-bold text-sm text-slate-800">
                 2. Superstructure (Grey Structure)
               </span>
               {openCategory === 1 ? (
@@ -235,12 +235,12 @@ export default function AdvancedSpecs({
             )}
           </div>
           {/* 3. Finishing & Surfaces */}
-          <div className="rounded-[12px] border border-slate-200 overflow-hidden bg-white">
+          <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(2)}
               className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
             >
-              <span className="font-bold text-sm text-[#374151]">
+              <span className="font-bold text-sm text-slate-800">
                 3. Finishing & Surfaces
               </span>
               {openCategory === 2 ? (
@@ -287,12 +287,12 @@ export default function AdvancedSpecs({
             )}
           </div>
           {/* 4. Woodwork & Openings (Doors/Windows) */}
-          <div className="rounded-[12px] border border-slate-200 overflow-hidden bg-white">
+          <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(3)}
               className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
             >
-              <span className="font-bold text-sm text-[#374151]">
+              <span className="font-bold text-sm text-slate-800">
                 4. Woodwork & Openings
               </span>
               {openCategory === 3 ? (
@@ -334,12 +334,12 @@ export default function AdvancedSpecs({
             )}
           </div>
           {/* 5. MEP (Mechanical, Electrical, Plumbing) */}
-          <div className="rounded-[12px] border border-slate-200 overflow-hidden bg-white">
+          <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(4)}
               className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
             >
-              <span className="font-bold text-sm text-[#374151]">
+              <span className="font-bold text-sm text-slate-800">
                 5. MEP Services
               </span>
               {openCategory === 4 ? (

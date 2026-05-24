@@ -88,7 +88,7 @@ export function ResultItem({
   const style = categoryStyles[category === 'tools' ? 'tools' : category] || categoryStyles.default;
 
   return (
-    <div className={`p-4 rounded-[12px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 border-l-[4px] ${style.border} shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] transition-all duration-300 w-full mb-3`}>
+    <div className={`p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 border-l-[4px] ${style.border} shadow-sm hover:shadow-md transition-all duration-300 w-full mb-3`}>
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 relative z-10 w-full">
         {/* Left side labels */}
         <div className="flex flex-col flex-1 pr-2">
@@ -99,7 +99,7 @@ export function ResultItem({
             {explanation && (
               <button 
                 onClick={() => setExpanded(!expanded)}
-                className="opacity-70 hover:opacity-100 transition-opacity text-[#4B5563]"
+                className="opacity-70 hover:opacity-100 transition-opacity text-slate-500"
               >
                 <HelpCircle className="w-3.5 h-3.5" />
               </button>
@@ -107,7 +107,7 @@ export function ResultItem({
           </div>
           
           {comparisonText && (
-            <div className="flex items-center gap-1.5 mt-1.5 text-[#4B5563]">
+            <div className="flex items-center gap-1.5 mt-1.5 text-slate-500">
                {/* Mini sparkline visualization */}
                <div className="flex items-end gap-0.5 h-3 opacity-70">
                  <div className="w-1 bg-current h-1/3 rounded-full" />
@@ -122,7 +122,7 @@ export function ResultItem({
         {/* Right side values */}
         <div className="flex flex-col sm:items-end justify-center min-w-[30%]">
           <div className="flex items-baseline gap-1.5">
-            <span className={`text-[18px] sm:text-[28px] font-black tracking-tighter tabular-nums ${style.text} bg-clip-text text-transparent`}>
+            <span className={`text-2xl sm:text-3xl font-black tracking-tighter tabular-nums ${style.text} bg-clip-text text-transparent`}>
               {displayValueStr}
             </span>
             <span className="text-sm font-bold opacity-80 text-slate-600 dark:text-slate-400">

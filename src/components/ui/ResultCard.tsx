@@ -113,22 +113,22 @@ export function ResultCard({
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
       transition={{ duration: 0.4, delay, ease: [0.23, 1, 0.32, 1] }}
-      className={`relative p-5 sm:p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 border-l-[4px] border-l-[#6B46C1] rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden ${className}`}
+      className={`relative p-5 sm:p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 border-l-[4px] border-l-[#6B46C1] rounded-2xl shadow-sm hover:shadow-md flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden ${className}`}
     >
       <div className="flex items-start justify-between gap-3 w-full relative z-10">
         <div className="flex flex-col max-w-[80%]">
           <div className="flex items-center gap-2">
             {icon && (
-              <div className="p-1.5 rounded-[12px] bg-slate-50 dark:bg-[#6B46C1] flex-shrink-0 border border-slate-100 dark:border-slate-700 text-[#6B46C1] dark:text-[#8b5cf6]">
+              <div className="p-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 flex-shrink-0 border border-slate-100 dark:border-slate-700 text-[#6B46C1] dark:text-[#8b5cf6]">
                 {icon}
               </div>
             )}
-            <h4 className="text-[10px] sm:text-[12px] font-medium text-[#6B7280] uppercase tracking-widest truncate flex items-center gap-1">
+            <h4 className="text-[10px] sm:text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-widest truncate flex items-center gap-1">
               {title}
               {explanation && (
                 <button 
                   onClick={() => setExpanded(!expanded)}
-                  className="opacity-70 hover:opacity-100 transition-opacity p-0.5 text-[#4B5563]"
+                  className="opacity-70 hover:opacity-100 transition-opacity p-0.5 text-slate-500"
                   title="What does this mean?"
                 >
                   <HelpCircle className="w-3.5 h-3.5" />
@@ -138,7 +138,7 @@ export function ResultCard({
           </div>
           
           {comparisonText && (
-            <div className="flex items-center gap-1.5 mt-2 text-[#4B5563]">
+            <div className="flex items-center gap-1.5 mt-2 text-slate-500">
                <div className="flex items-end gap-[3px] h-3.5 opacity-70">
                  <div className="w-1 bg-current h-1/3 rounded-full" />
                  <div className="w-1 bg-current h-2/3 rounded-full" />
@@ -151,7 +151,7 @@ export function ResultCard({
 
         <div className="flex flex-col items-end gap-2">
           {badge && (
-            <div className="flex-shrink-0 flex items-center bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 text-[#6B46C1] dark:text-purple-400 text-[10px] sm:text-[12px] font-medium text-[#6B7280] uppercase tracking-wider">
+            <div className="flex-shrink-0 flex items-center bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 text-[#6B46C1] dark:text-purple-400 text-[10px] sm:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
               {badge}
             </div>
           )}
@@ -166,7 +166,7 @@ export function ResultCard({
 
       <div className="flex flex-col w-full relative z-10 mt-1 overflow-hidden">
         <div className="flex flex-wrap items-baseline gap-1.5 sm:gap-2">
-          <span className="text-[32px] md:text-[48px] leading-none font-black tracking-tighter break-words max-w-full bg-gradient-to-br from-[#6B46C1] to-[#F97316] bg-clip-text text-transparent">
+          <span className="text-[clamp(1.5rem,7vw,3rem)] leading-none font-black tracking-tighter break-words max-w-full bg-gradient-to-br from-[#6B46C1] to-orange-500 bg-clip-text text-transparent">
             {displayValue}
           </span>
           {unit && (

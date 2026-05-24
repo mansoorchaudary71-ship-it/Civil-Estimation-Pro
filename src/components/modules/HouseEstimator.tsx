@@ -576,7 +576,7 @@ export default function HouseEstimator() {
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         <header className="mb-8 block">
           <div>
-            <h1 className="text-[28px] lg:text-5xl font-extrabold tracking-tight  text-white bg-clip-text text-transparent pb-2">
+            <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight  text-white bg-clip-text text-transparent pb-2">
               Complete House Estimator
             </h1>
             <p className="text-gray-500 dark:text-gray-400 mt-2 text-lg font-medium">
@@ -588,11 +588,11 @@ export default function HouseEstimator() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="bg-white px-4 py-3 rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-gray-100 flex items-center justify-between gap-4">
-              <span className="text-[12px] font-medium text-[#6B7280] uppercase tracking-widest">
+            <div className="bg-white px-4 py-3 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between gap-4">
+              <span className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
                 Built-up
               </span>
-              <span className="text-[18px] font-black text-indigo-600 tracking-tighter whitespace-nowrap">
+              <span className="text-2xl font-black text-indigo-600 tracking-tighter whitespace-nowrap">
                 {builtUpArea.toFixed(0)}
                 <span className="text-sm font-medium text-indigo-400">
                   sq.ft
@@ -605,11 +605,11 @@ export default function HouseEstimator() {
         {/* Project Details */}
         <section className="bg-white/80 p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_32px_rgba(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-3 bg-indigo-50 rounded-[12px]">
+            <div className="p-3 bg-indigo-50 rounded-2xl">
               <Briefcase className="w-6 h-6 text-indigo-600" />
             </div>
             <div>
-              <h2 className="text-[18px] font-bold text-gray-800">
+              <h2 className="text-xl font-bold text-gray-800">
                 Project Details
               </h2>
               <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">
@@ -619,7 +619,7 @@ export default function HouseEstimator() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-2">
-              <label className="text-[12px] font-medium text-[#6B7280] uppercase tracking-widest">
+              <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
                 Project Name
               </label>
               <input
@@ -631,12 +631,12 @@ export default function HouseEstimator() {
                     projectName: e.target.value,
                   })
                 }
-                className="bg-white border border-gray-200 rounded-[12px] px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-[#6B46C1] transition-all"
+                className="bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
                 placeholder="e.g. 5 Marla Villa"
               />
             </div>
             <div className="space-y-2">
-              <label className="text-[12px] font-medium text-[#6B7280] uppercase tracking-widest">
+              <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
                 Client Name
               </label>
               <input
@@ -648,12 +648,12 @@ export default function HouseEstimator() {
                     clientName: e.target.value,
                   })
                 }
-                className="bg-white border border-gray-200 rounded-[12px] px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-[#6B46C1] transition-all"
+                className="bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
                 placeholder="e.g. John Doe"
               />
             </div>
             <div className="space-y-2">
-              <label className="text-[12px] font-medium text-[#6B7280] uppercase tracking-widest">
+              <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
                 Site Location
               </label>
               <input
@@ -665,7 +665,7 @@ export default function HouseEstimator() {
                     siteLocation: e.target.value,
                   })
                 }
-                className="bg-white border border-gray-200 rounded-[12px] px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-[#6B46C1] transition-all"
+                className="bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
                 placeholder="e.g. DHA Phase 6"
               />
             </div>
@@ -676,13 +676,13 @@ export default function HouseEstimator() {
           {/* Main Controls Overlay */}
           <section className="lg:col-span-4 space-y-6">
             {/* Plot & Geometry Accordion */}
-            <div className="bg-white/80 p-6 rounded-[12px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
+            <div className="bg-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
               <div
                 className="flex items-center justify-between mb-6 cursor-pointer"
                 onClick={() => setIsAccordionOpen(!isAccordionOpen)}
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-3 bg-blue-50 text-indigo-600 rounded-[12px]">
+                  <div className="p-3 bg-blue-50 text-indigo-600 rounded-2xl">
                     <Home className="w-6 h-6" />
                   </div>
                   <h2 className="text-lg font-bold text-gray-800">
@@ -702,7 +702,7 @@ export default function HouseEstimator() {
                 <div className="space-y-4 animate-in fade-in zoom-in-95">
                   <div className="flex justify-between items-center text-sm">
                     <span className="font-bold text-slate-700 dark:text-slate-300">Plot Size</span>
-                    <span className="font-bold text-[#374151]">
+                    <span className="font-bold text-slate-800">
                       {geoState.plotSizeValue}
                       {geoState.plotSizeUnit.toUpperCase()}
                     </span>
@@ -711,19 +711,19 @@ export default function HouseEstimator() {
                     <span className="font-bold text-slate-700 dark:text-slate-300">
                       Covered Area
                     </span>
-                    <span className="font-bold text-[#374151]">
+                    <span className="font-bold text-slate-800">
                       {geoState.coveredAreaSqft} Sq.Ft/fl
                     </span>
                   </div>
                   <div className="flex justify-between items-center text-sm">
                     <span className="font-bold text-slate-700 dark:text-slate-300">Stories</span>
-                    <span className="font-bold text-[#374151]">
+                    <span className="font-bold text-slate-800">
                       {geoState.stories}
                     </span>
                   </div>
                   <button
                     onClick={() => setIsAccordionOpen(true)}
-                    className="w-full py-3 bg-blue-50 text-indigo-600 font-bold rounded-[12px] text-sm hover:bg-blue-100 transition-colors"
+                    className="w-full py-3 bg-blue-50 text-indigo-600 font-bold rounded-xl text-sm hover:bg-blue-100 transition-colors"
                   >
                     Edit Detailed Geometry
                   </button>
@@ -733,7 +733,7 @@ export default function HouseEstimator() {
               {isAccordionOpen && (
                 <div className="space-y-6 animate-in slide-in-from-top-4 fade-in duration-300">
                   <div className="bg-transparent/50 px-4 py-3 sm:px-4 py-3 rounded-[1.5rem] border border-slate-100 space-y-6">
-                    <h3 className="text-sm font-bold text-[#374151]">
+                    <h3 className="text-sm font-bold text-slate-800">
                       Area Specifications
                     </h3>
                     <div className="space-y-5">
@@ -752,7 +752,7 @@ export default function HouseEstimator() {
                                 payload: e.target.value,
                               })
                             }
-                            className="bg-white border border-slate-200 text-[#374151] rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#6B46C1]/30 focus:border-[#6B46C1] transition-all font-medium shadow-[0_2px_12px_rgba(0,0,0,0.08)] w-full"
+                            className="bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all font-medium shadow-sm w-full"
                             placeholder="0"
                           />
                           <select
@@ -806,7 +806,7 @@ export default function HouseEstimator() {
                                 payload: e.target.value,
                               })
                             }
-                            className="w-full bg-white border border-slate-200 text-[#374151] rounded-full px-5 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-[#6B46C1]/30 focus:border-[#6B46C1] transition-all font-medium shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+                            className="w-full bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all font-medium shadow-sm"
                             placeholder="0" /* In metric we assume input was already SQM visually but actually logic uses sqft, so let's adapt. Actually let's keep logic in sqft and just display correctly for users if needed. wait, actually for simplicity just changing display is fine. */
                           />
                           <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-700 dark:text-slate-300 pointer-events-none">
@@ -838,7 +838,7 @@ export default function HouseEstimator() {
                                 payload: covered.toString(),
                               });
                             }}
-                            className="w-full bg-white border border-slate-200 text-[#374151] rounded-full px-5 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-[#6B46C1]/30 focus:border-[#6B46C1] transition-all font-medium shadow-[0_2px_12px_rgba(0,0,0,0.08)]"
+                            className="w-full bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all font-medium shadow-sm"
                             placeholder="0" /* In metric we assume input was already SQM visually but actually logic uses sqft, so let's adapt. Actually let's keep logic in sqft and just display correctly for users if needed. wait, actually for simplicity just changing display is fine. */
                           />
                           <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-700 dark:text-slate-300 pointer-events-none">
@@ -885,7 +885,7 @@ export default function HouseEstimator() {
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-2">
+                      <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                         Stories
                       </label>
                       <div className="flex items-center gap-2">
@@ -896,7 +896,7 @@ export default function HouseEstimator() {
                               payload: Math.max(1, geoState.stories - 1),
                             })
                           }
-                          className="w-10 h-10 rounded-[12px] bg-slate-100 text-slate-600 font-bold hover:bg-slate-200 flex items-center justify-center"
+                          className="w-10 h-10 rounded-xl bg-slate-100 text-slate-600 font-bold hover:bg-slate-200 flex items-center justify-center"
                         >
                           -
                         </button>
@@ -910,14 +910,14 @@ export default function HouseEstimator() {
                               payload: geoState.stories + 1,
                             })
                           }
-                          className="w-10 h-10 rounded-[12px] bg-slate-100 text-slate-600 font-bold hover:bg-slate-200 flex items-center justify-center"
+                          className="w-10 h-10 rounded-xl bg-slate-100 text-slate-600 font-bold hover:bg-slate-200 flex items-center justify-center"
                         >
                           +
                         </button>
                       </div>
                     </div>
                     <div>
-                      <label className="block text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-2">
+                      <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
                         Room Ht (ft)
                       </label>
                       <input
@@ -930,7 +930,7 @@ export default function HouseEstimator() {
                             payload: e.target.value,
                           })
                         }
-                        className="w-full bg-transparent border border-slate-200 text-[#374151] rounded-[12px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] font-medium"
+                        className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium"
                       />
                     </div>
                   </div>
@@ -976,7 +976,7 @@ export default function HouseEstimator() {
                             {room.replace(/([A-Z])/g, " $1").trim()}
                           </label>
                           <div className="flex items-center gap-3">
-                            <div className="flex items-center gap-1 bg-transparent border border-slate-200 rounded-[12px] p-0.5 w-[5.5rem]">
+                            <div className="flex items-center gap-1 bg-transparent border border-slate-200 rounded-lg p-0.5 w-[5.5rem]">
                               <button
                                 onClick={() =>
                                   dispatch({
@@ -1013,7 +1013,7 @@ export default function HouseEstimator() {
                                     payload: { room, area: e.target.value },
                                   })
                                 }
-                                className="w-full bg-transparent border border-slate-200 text-[#374151] rounded-[12px] px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] font-medium text-sm pr-10"
+                                className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium text-sm pr-10"
                                 placeholder="Area"
                               />
                               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-700 dark:text-slate-300 font-bold">
@@ -1032,9 +1032,9 @@ export default function HouseEstimator() {
                 </div>
               )}
             </div>
-            <div className="bg-white/80 p-6 rounded-[12px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
+            <div className="bg-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-violet-50 text-violet-600 rounded-[12px]">
+                <div className="p-3 bg-violet-50 text-violet-600 rounded-2xl">
                   <Sliders className="w-6 h-6" />
                 </div>
                 <h2 className="text-lg font-bold text-gray-800">
@@ -1043,10 +1043,10 @@ export default function HouseEstimator() {
               </div>
               <div className="space-y-4">
                 <div className="flex justify-between items-end mb-2">
-                  <span className="text-[18px] font-black text-violet-600 tracking-tighter whitespace-nowrap">
+                  <span className="text-2xl font-black text-violet-600 tracking-tighter whitespace-nowrap">
                     {getQualityLabel(finishQuality)}
                   </span>
-                  <span className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider">
+                  <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                     x
                     {finishQuality === 1
                       ? "1.0"
@@ -1063,7 +1063,7 @@ export default function HouseEstimator() {
                   step="1"
                   value={finishQuality}
                   onChange={(e) => setFinishQuality(parseInt(e.target.value))}
-                  className="w-full h-2 bg-slate-200 rounded-[12px] appearance-none cursor-pointer accent-violet-600"
+                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-violet-600"
                 />
                 <div className="flex justify-between text-[10px] uppercase tracking-widest text-slate-700 dark:text-slate-300 font-bold mt-2">
                   <span>Std</span> <span>Prem</span> <span>Lux</span>
@@ -1077,10 +1077,10 @@ export default function HouseEstimator() {
               setIsOpen={setIsSpecsAccordionOpen}
             />
             {/* Boundary Wall Module */}
-            <div className="bg-white/80 p-6 rounded-[12px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
+            <div className="bg-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
               <div className="flex items-center justify-between">
                 <div className="flex flex-col">
-                  <h2 className="text-[18px] font-extrabold text-[#374151]">
+                  <h2 className="text-xl font-extrabold text-slate-800">
                     Boundary Wall
                   </h2>
                   <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
@@ -1096,35 +1096,35 @@ export default function HouseEstimator() {
                       setIncludeBoundaryWall(!includeBoundaryWall)
                     }
                   />
-                  <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#6B46C1] rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#6B46C1]"></div>
+                  <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-500/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
                 </label>
               </div>
               {includeBoundaryWall && (
                 <div className="grid grid-cols-3 gap-3 pt-4 mt-4 border-t border-slate-100 animate-in fade-in slide-in-from-top-4 duration-300">
                   <div>
-                    <label className="block text-[10px] sm:text-[12px] font-medium text-[#6B7280] uppercase tracking-widest mb-1.5">
+                    <label className="block text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5">
                       Length (ft)
                     </label>
                     <input
                       type="number"
                       value={bwLength || ""}
                       onChange={(e) => setBwLength(parseFloat(e.target.value))}
-                      className="w-full bg-transparent border border-slate-200 rounded-[12px] px-3 py-2 text-slate-700 font-medium focus:ring-2 focus:ring-[#6B46C1] focus:outline-none"
+                      className="w-full bg-transparent border border-slate-200 rounded-xl px-3 py-2 text-slate-700 font-medium focus:ring-2 focus:ring-indigo-500/50 focus:outline-none"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] sm:text-[12px] font-medium text-[#6B7280] uppercase tracking-widest mb-1.5">
+                    <label className="block text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5">
                       Height (ft)
                     </label>
                     <input
                       type="number"
                       value={bwHeight || ""}
                       onChange={(e) => setBwHeight(parseFloat(e.target.value))}
-                      className="w-full bg-transparent border border-slate-200 rounded-[12px] px-3 py-2 text-slate-700 font-medium focus:ring-2 focus:ring-[#6B46C1] focus:outline-none"
+                      className="w-full bg-transparent border border-slate-200 rounded-xl px-3 py-2 text-slate-700 font-medium focus:ring-2 focus:ring-indigo-500/50 focus:outline-none"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] sm:text-[12px] font-medium text-[#6B7280] uppercase tracking-widest mb-1.5">
+                    <label className="block text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5">
                       Gate (ft)
                     </label>
                     <input
@@ -1133,7 +1133,7 @@ export default function HouseEstimator() {
                       onChange={(e) =>
                         setBwGateSize(parseFloat(e.target.value))
                       }
-                      className="w-full bg-transparent border border-slate-200 rounded-[12px] px-3 py-2 text-slate-700 font-medium focus:ring-2 focus:ring-[#6B46C1] focus:outline-none"
+                      className="w-full bg-transparent border border-slate-200 rounded-xl px-3 py-2 text-slate-700 font-medium focus:ring-2 focus:ring-indigo-500/50 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -1142,7 +1142,7 @@ export default function HouseEstimator() {
             
             <button
                onClick={() => setShowResults(true)}
-               className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-bold px-8 py-4 rounded-[12px] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-cyan-500/30 transition-all active:scale-95"
+               className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-bold px-8 py-4 rounded-2xl hover:shadow-lg hover:shadow-cyan-500/30 transition-all active:scale-95"
             >
                Compute Estimate
             </button>
@@ -1150,10 +1150,10 @@ export default function HouseEstimator() {
           {/* Results Area */}
           <section className="lg:col-span-8 flex flex-col gap-6">
             {!showResults ? (
-              <div className="bg-bg-primary/50 rounded-[12px] p-8 border-2 border-dashed border-border-color flex flex-col items-center justify-center text-center sticky top-6 self-start h-full min-h-[400px] w-full">
+              <div className="bg-bg-primary/50 rounded-3xl p-8 border-2 border-dashed border-border-color flex flex-col items-center justify-center text-center sticky top-6 self-start h-full min-h-[400px] w-full">
                  <Calculator className="w-16 h-16 text-slate-300 dark:text-slate-600 mb-4" />
                  <h3 className="font-bold text-slate-700 dark:text-slate-300 text-lg">Waiting to Compute</h3>
-                 <p className="text-[#4B5563] text-sm mt-2 max-w-sm">Enter your dimensions on the left and click Compute Estimate to see the detailed material breakdown and rates.</p>
+                 <p className="text-slate-500 text-sm mt-2 max-w-sm">Enter your dimensions on the left and click Compute Estimate to see the detailed material breakdown and rates.</p>
               </div>
             ) : (
               <>
@@ -1205,15 +1205,15 @@ export default function HouseEstimator() {
                   </div>
                   <button
                     onClick={() => setActiveTab("rates")}
-                    className="flex items-center gap-2 text-indigo-600 bg-indigo-50 hover:bg-indigo-50 font-bold px-4 py-2.5 rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-indigo-100 transition-colors shrink-0 whitespace-nowrap"
+                    className="flex items-center gap-2 text-indigo-600 bg-indigo-50 hover:bg-indigo-50 font-bold px-4 py-2.5 rounded-xl shadow-sm border border-indigo-100 transition-colors shrink-0 whitespace-nowrap"
                   >
                     <Database className="w-[18px] h-[18px]" /> View / Edit Rates
                   </button>
                 </div>
-                <div className="bg-white p-8 rounded-[12px] shadow-[0_10px_40px_rgb(0,0,0,0.04)] border border-slate-100 flex-1 relative overflow-hidden transition-all duration-300">
+                <div className="bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_rgb(0,0,0,0.04)] border border-slate-100 flex-1 relative overflow-hidden transition-all duration-300">
                   {activeTab === "summary" && (
                     <div className="animate-in fade-in zoom-in-95 duration-500 h-full flex flex-col">
-                      <h3 className="text-[18px] font-bold text-[#374151] mb-6">
+                      <h3 className="text-xl font-bold text-slate-800 mb-6">
                         Total Project Estimate
                       </h3>
                       <div className="flex flex-col md:flex-row items-center justify-between gap-8 flex-1">
@@ -1229,13 +1229,13 @@ export default function HouseEstimator() {
                           />
                         </div>
                         <div className="w-full md:w-1/2 space-y-6">
-                          <div className="relative p-5 sm:p-6 rounded-[12px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] dark:transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                             <div className="absolute top-0 left-0 w-1.5 h-full bg-slate-500" />
-                            <div className="text-slate-700 dark:text-slate-300 text-xs md:text-[12px] font-medium text-[#6B7280] uppercase tracking-widest mb-1 pl-2 truncate">
+                            <div className="text-slate-700 dark:text-slate-300 text-xs md:text-sm font-bold uppercase tracking-widest mb-1 pl-2 truncate">
                               Grey Structure
                             </div>
                             <div
-                              className="text-[18px] sm:text-[18px] font-black text-text-primary pl-2 truncate"
+                              className="text-xl sm:text-2xl font-black text-text-primary pl-2 truncate"
                               title={formatCurrency(estimates.totalGrey)}
                             >
                               {formatCurrency(estimates.totalGrey)}
@@ -1244,13 +1244,13 @@ export default function HouseEstimator() {
                               Foundation, Framing, Masonry
                             </div>
                           </div>
-                          <div className="relative p-5 sm:p-6 rounded-[12px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] dark:transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                             <div className="absolute top-0 left-0 w-1.5 h-full bg-violet-500" />
-                            <div className="text-violet-600 text-xs md:text-[12px] font-medium text-[#6B7280] uppercase tracking-widest mb-1 pl-2 truncate">
+                            <div className="text-violet-600 text-xs md:text-sm font-bold uppercase tracking-widest mb-1 pl-2 truncate">
                               Finishing Works
                             </div>
                             <div
-                              className="text-[18px] sm:text-[18px] font-black text-violet-800 dark:text-violet-400 pl-2 truncate"
+                              className="text-xl sm:text-2xl font-black text-violet-800 dark:text-violet-400 pl-2 truncate"
                               title={formatCurrency(estimates.totalFinishing)}
                             >
                               {formatCurrency(estimates.totalFinishing)}
@@ -1259,13 +1259,13 @@ export default function HouseEstimator() {
                               {getQualityLabel(finishQuality)} Grade Finishing
                             </div>
                           </div>
-                          <div className="relative p-5 sm:p-6 rounded-[12px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] dark:transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                             <div className="absolute top-0 left-0 w-1.5 h-full bg-indigo-500" />
-                            <div className="text-indigo-600 dark:text-indigo-400 text-xs md:text-[12px] font-medium text-[#6B7280] uppercase tracking-widest mb-1 pl-2 truncate">
+                            <div className="text-indigo-600 dark:text-indigo-400 text-xs md:text-sm font-bold uppercase tracking-widest mb-1 pl-2 truncate">
                               Total Cost
                             </div>
                             <div
-                              className="text-[18px] sm:text-[28px] font-black text-indigo-800 dark:text-indigo-300 pl-2 truncate"
+                              className="text-2xl sm:text-3xl font-black text-indigo-800 dark:text-indigo-300 pl-2 truncate"
                               title={formatCurrency(estimates.totalCost)}
                             >
                               {formatCurrency(estimates.totalCost)}
@@ -1344,10 +1344,10 @@ export default function HouseEstimator() {
                            />
                         </div>
                       </MaterialSummary>
-                      <h3 className="text-[18px] font-bold text-[#374151] mt-8 mb-4">
+                      <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">
                         Detailed Exact BOQ
                       </h3>
-                      <div className="border border-slate-200 rounded-[12px] overflow-hidden bg-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] mb-8">
+                      <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm mb-8">
                         <table className="w-full text-sm text-left">
                           <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider">
                             <tr>
@@ -1365,11 +1365,11 @@ export default function HouseEstimator() {
                               </th>
                             </tr>
                           </thead>
-                          <tbody className="text-[#374151] divide-y divide-slate-100">
+                          <tbody className="text-slate-800 divide-y divide-slate-100">
                             <tr className="bg-transparent/50">
                               <td
                                 colSpan={4}
-                                className="px-6 py-2.5 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider text-slate-700 dark:text-slate-300"
+                                className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"
                               >
                                 Foundation Work
                               </td>
@@ -1395,7 +1395,7 @@ export default function HouseEstimator() {
                                 <td className="px-6 py-4 text-center font-medium text-slate-700 dark:text-slate-300">
                                   {item.unit}
                                 </td>
-                                <td className="px-6 py-4 text-right font-bold text-[#374151]">
+                                <td className="px-6 py-4 text-right font-bold text-slate-800">
                                   {formatCurrency(item.value)}
                                 </td>
                               </tr>
@@ -1403,7 +1403,7 @@ export default function HouseEstimator() {
                             <tr className="bg-transparent/50">
                               <td
                                 colSpan={4}
-                                className="px-6 py-2.5 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider text-slate-700 dark:text-slate-300"
+                                className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"
                               >
                                 Superstructure
                               </td>
@@ -1429,7 +1429,7 @@ export default function HouseEstimator() {
                                 <td className="px-6 py-4 text-center font-medium text-slate-700 dark:text-slate-300">
                                   {item.unit}
                                 </td>
-                                <td className="px-6 py-4 text-right font-bold text-[#374151]">
+                                <td className="px-6 py-4 text-right font-bold text-slate-800">
                                   {formatCurrency(item.value)}
                                 </td>
                               </tr>
@@ -1519,10 +1519,10 @@ export default function HouseEstimator() {
                             ))}
                          </div>
                       </MaterialSummary>
-                      <h3 className="text-[18px] font-bold text-[#374151] mt-8 mb-4">
+                      <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">
                         Detailed Exact BOQ
                       </h3>
-                      <div className="border border-slate-200 rounded-[12px] overflow-hidden bg-white shadow-[0_2px_12px_rgba(0,0,0,0.08)] mb-8">
+                      <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm mb-8">
                         <table className="w-full text-sm text-left">
                           <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider">
                             <tr>
@@ -1540,7 +1540,7 @@ export default function HouseEstimator() {
                               </th>
                             </tr>
                           </thead>
-                          <tbody className="text-[#374151] divide-y divide-slate-100">
+                          <tbody className="text-slate-800 divide-y divide-slate-100">
                             {finishingCostData.map((item, idx) => (
                               <tr
                                 key={idx}
@@ -1562,7 +1562,7 @@ export default function HouseEstimator() {
                                 <td className="px-6 py-4 text-center font-medium text-slate-700 dark:text-slate-300">
                                   {item.unit}
                                 </td>
-                                <td className="px-6 py-4 text-right font-bold text-[#374151]">
+                                <td className="px-6 py-4 text-right font-bold text-slate-800">
                                   {formatCurrency(item.value)}
                                 </td>
                               </tr>
@@ -1644,11 +1644,11 @@ export default function HouseEstimator() {
                   {activeTab === "rates" && (
                     <div className="animate-in fade-in slide-in-from-bottom-8 duration-500 h-full flex flex-col text-left">
                       <div className="flex items-center gap-4 mb-6">
-                        <div className="p-3 bg-indigo-50 text-indigo-600 rounded-[12px]">
+                        <div className="p-3 bg-indigo-50 text-indigo-600 rounded-2xl">
                           <Database className="w-6 h-6" />
                         </div>
                         <div>
-                          <h2 className="text-[18px] font-extrabold text-[#374151]">
+                          <h2 className="text-2xl font-extrabold text-slate-800">
                             Configure Material Rates
                           </h2>
                           <p className="text-slate-700 dark:text-slate-300 font-medium text-sm mt-1">
@@ -1657,7 +1657,7 @@ export default function HouseEstimator() {
                           </p>
                         </div>
                       </div>
-                      <div className="flex-1 overflow-auto border border-slate-200 rounded-[12px] mb-6">
+                      <div className="flex-1 overflow-auto border border-slate-200 rounded-2xl mb-6">
                         <table className="w-full text-sm text-left">
                           <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider sticky top-0 z-10">
                             <tr>
@@ -1670,7 +1670,7 @@ export default function HouseEstimator() {
                             {(
                               [
                                 { key: "cement", name: "Cement (Per Bag)", color: "bg-stone-500", bg: "bg-stone-50" },
-                                { key: "steel", name: "Steel 60-Grade (Per Kg)", color: "bg-[#6B46C1]", bg: "bg-transparent" },
+                                { key: "steel", name: "Steel 60-Grade (Per Kg)", color: "bg-slate-700", bg: "bg-transparent" },
                                 { key: "bricks", name: "Bricks A-Class (Per 1000)", color: "bg-orange-500", bg: "bg-orange-50" },
                                 { key: "sand", name: "Sand (Per Cft)", color: "bg-amber-400", bg: "bg-amber-50" },
                                 { key: "crush", name: "Crush (Per Cft)", color: "bg-neutral-500", bg: "bg-neutral-50" },
@@ -1681,8 +1681,8 @@ export default function HouseEstimator() {
                               <tr key={item.key} className="hover:bg-transparent/80 transition-colors group">
                                 <td className="px-6 py-4 font-bold text-slate-700">
                                   <div className="flex items-center gap-3">
-                                    <div className={`flex items-center justify-center w-8 h-8 rounded-[12px] ${item.bg} group-hover:scale-110 transition-transform`}>
-                                      <div className={`w-3 h-3 rounded-full ${item.color} shadow-[0_2px_12px_rgba(0,0,0,0.08)]`}></div>
+                                    <div className={`flex items-center justify-center w-8 h-8 rounded-lg ${item.bg} group-hover:scale-110 transition-transform`}>
+                                      <div className={`w-3 h-3 rounded-full ${item.color} shadow-sm`}></div>
                                     </div>
                                     <span>{item.name}</span>
                                   </div>
@@ -1699,7 +1699,7 @@ export default function HouseEstimator() {
                                       type="number"
                                       min="0"
                                       step="any"
-                                      className={`w-full bg-white border ${customRates[item.key] !== undefined ? "border-indigo-300 ring-2 ring-indigo-500/20 text-indigo-700 font-bold" : "border-slate-200 text-[#374151]"} rounded-[12px] py-2 pl-10 pr-3 focus:outline-none focus:border-[#6B46C1] focus:ring-2 focus:ring-[#6B46C1] transition-all`}
+                                      className={`w-full bg-white border ${customRates[item.key] !== undefined ? "border-indigo-300 ring-2 ring-indigo-500/20 text-indigo-700 font-bold" : "border-slate-200 text-slate-800"} rounded-xl py-2 pl-10 pr-3 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all`}
                                       placeholder="Default"
                                       value={customRates[item.key] !== undefined ? (item.key === "bricks" ? customRates[item.key]! * 1000 : customRates[item.key]) : ""}
                                       onChange={(e) => {
@@ -1721,7 +1721,7 @@ export default function HouseEstimator() {
                       <div className="flex flex-col sm:flex-row items-center justify-between mt-auto gap-4 pt-4 border-t border-slate-100">
                         <button
                           onClick={resetCustomRates}
-                          className="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-bold hover:text-[#374151] px-4 py-2 rounded-[12px] hover:bg-slate-100 transition-colors w-full sm:w-auto justify-center"
+                          className="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-bold hover:text-slate-800 px-4 py-2 rounded-xl hover:bg-slate-100 transition-colors w-full sm:w-auto justify-center"
                         >
                           <RotateCcw className="w-4 h-4" /> Reset Defaults
                         </button>

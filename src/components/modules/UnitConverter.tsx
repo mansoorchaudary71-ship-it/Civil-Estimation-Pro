@@ -197,7 +197,7 @@ const categories: { id: Category; label: string; icon: any; color: string }[] =
       id: "Resolution",
       label: "Resolution",
       icon: Monitor,
-      color: "text-[#4B5563] bg-slate-100 dark:bg-slate-500/20",
+      color: "text-slate-500 bg-slate-100 dark:bg-slate-500/20",
     },
     {
       id: "Currency",
@@ -259,7 +259,7 @@ export default function UnitConverter() {
       {" "}
       <div className="max-w-6xl mx-auto">
         {" "}
-        <h1 className="text-[28px] font-black mb-2 flex items-center gap-3">
+        <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
           {" "}
           <RefreshCcw className="w-8 h-8 text-fuchsia-500" /> Universal Unit
           Converter{" "}
@@ -287,23 +287,23 @@ export default function UnitConverter() {
           })}
         </div>
         {/* Conversion UI */}{" "}
-        <div className="bg-bg-card rounded-[2.5rem] p-[20px] md:p-12 border border-border-color shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-slate-200/50 dark:shadow-none">
+        <div className="bg-bg-card rounded-[2.5rem] p-8 md:p-12 border border-border-color shadow-xl shadow-slate-200/50 dark:shadow-none">
           {" "}
-          <h2 className="text-[18px] font-bold mb-8 text-center text-text-primary uppercase tracking-widest">
+          <h2 className="text-xl font-bold mb-8 text-center text-text-primary uppercase tracking-widest">
             {activeCategory} Conversion
           </h2>{" "}
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10">
             {" "}
             {/* FROM PANE */}{" "}
-            <div className="flex-1 w-full bg-transparent dark:bg-[#6B46C1]/50 p-6 md:p-8 rounded-[12px] border border-border-color transition-all hover:border-fuchsia-300 dark:hover:border-fuchsia-500/30">
+            <div className="flex-1 w-full bg-transparent dark:bg-slate-800/50 p-6 md:p-8 rounded-[2rem] border border-border-color transition-all hover:border-fuchsia-300 dark:hover:border-fuchsia-500/30">
               {" "}
-              <label className="block text-[12px] font-medium text-[#6B7280] uppercase tracking-widest mb-4">
+              <label className="block text-xs font-bold text-fuchsia-600 dark:text-fuchsia-400 uppercase tracking-widest mb-4">
                 From
               </label>{" "}
               <select
                 value={fromUnit}
                 onChange={(e) => handleFromUnitChange(e.target.value)}
-                className="w-full bg-bg-card border border-border-color text-text-primary px-4 py-3 rounded-[12px] font-bold text-sm mb-6 focus:ring-4 focus:ring-[#6B46C1] focus:border-[#6B46C1] transition-all outline-none"
+                className="w-full bg-bg-card border border-border-color text-text-primary px-4 py-3 rounded-2xl font-bold text-sm mb-6 focus:ring-4 focus:ring-fuchsia-500/20 focus:border-fuchsia-500 transition-all outline-none"
               >
                 {" "}
                 {currentUnits.map((u) => (
@@ -316,29 +316,29 @@ export default function UnitConverter() {
                 type="number"
                 value={fromValue}
                 onChange={(e) => handleFromValueChange(e.target.value)}
-                className="w-full bg-transparent border-0 text-[28px] sm:text-5xl font-black text-text-primary placeholder-slate-300 dark:placeholder-slate-700 focus:ring-0 focus:outline-none p-0 text-center whitespace-nowrap"
+                className="w-full bg-transparent border-0 text-4xl sm:text-5xl font-black text-text-primary placeholder-slate-300 dark:placeholder-slate-700 focus:ring-0 focus:outline-none p-0 text-center whitespace-nowrap"
                 placeholder="0"
               />{" "}
             </div>{" "}
             {/* SWAP BUTTON */}{" "}
             <button
               onClick={handleSwap}
-              className="p-5 rounded-full bg-fuchsia-100 dark:bg-fuchsia-900/30 text-fuchsia-600 dark:text-fuchsia-400 hover:bg-fuchsia-600 hover:text-white dark:hover:bg-fuchsia-500 transition-all shadow-[0_2px_12px_rgba(0,0,0,0.08)] hover:rotate-180 duration-500 flex-shrink-0"
+              className="p-5 rounded-full bg-fuchsia-100 dark:bg-fuchsia-900/30 text-fuchsia-600 dark:text-fuchsia-400 hover:bg-fuchsia-600 hover:text-white dark:hover:bg-fuchsia-500 transition-all shadow-lg hover:rotate-180 duration-500 flex-shrink-0"
               title="Swap Units"
             >
               {" "}
               <ArrowRightLeft className="w-6 h-6" strokeWidth={2.5} />{" "}
             </button>{" "}
             {/* TO PANE */}{" "}
-            <div className="flex-1 w-full bg-transparent dark:bg-[#6B46C1]/50 p-6 md:p-8 rounded-[12px] border border-border-color transition-all hover:border-fuchsia-300 dark:hover:border-fuchsia-500/30">
+            <div className="flex-1 w-full bg-transparent dark:bg-slate-800/50 p-6 md:p-8 rounded-[2rem] border border-border-color transition-all hover:border-fuchsia-300 dark:hover:border-fuchsia-500/30">
               {" "}
-              <label className="block text-[12px] font-medium text-[#6B7280] uppercase tracking-widest mb-4">
+              <label className="block text-xs font-bold text-fuchsia-600 dark:text-fuchsia-400 uppercase tracking-widest mb-4">
                 To
               </label>{" "}
               <select
                 value={toUnit}
                 onChange={(e) => handleToUnitChange(e.target.value)}
-                className="w-full bg-bg-card border border-border-color text-text-primary px-4 py-3 rounded-[12px] font-bold text-sm mb-6 focus:ring-4 focus:ring-[#6B46C1] focus:border-[#6B46C1] transition-all outline-none"
+                className="w-full bg-bg-card border border-border-color text-text-primary px-4 py-3 rounded-2xl font-bold text-sm mb-6 focus:ring-4 focus:ring-fuchsia-500/20 focus:border-fuchsia-500 transition-all outline-none"
               >
                 {" "}
                 {currentUnits.map((u) => (
@@ -348,7 +348,7 @@ export default function UnitConverter() {
                 ))}{" "}
               </select>{" "}
               <div
-                className="w-full overflow-hidden text-center text-[28px] sm:text-5xl font-black text-text-primary py-2"
+                className="w-full overflow-hidden text-center text-4xl sm:text-5xl font-black text-text-primary py-2"
                 style={{ minHeight: "60px" }}
               >
                 {" "}

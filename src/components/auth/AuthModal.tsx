@@ -100,17 +100,17 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           initial={{ opacity: 0, scale: 0.95, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 10 }}
-          className="relative w-full max-w-md overflow-hidden bg-bg-card rounded-[12px] shadow-2xl border border-border-color"
+          className="relative w-full max-w-md overflow-hidden bg-bg-card rounded-[28px] shadow-2xl border border-border-color"
         >
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 p-2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-[#6B46C1] transition-colors z-10"
+            className="absolute top-5 right-5 p-2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors z-10"
           >
             <X className="w-5 h-5" />
           </button>
 
           <div className="px-8 pt-10 pb-8">
-            <h2 className="text-[18px] font-bold text-text-primary mb-2">
+            <h2 className="text-2xl font-bold text-text-primary mb-2">
               {isLogin ? 'Welcome back' : 'Create an account'}
             </h2>
             <p className="text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-8">
@@ -131,7 +131,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                         setError('');
                       }}
                       required
-                      className="w-full pl-11 pr-4 py-3 bg-bg-primary border border-border-color rounded-[12px] text-sm focus:outline-none focus:border-[#6B46C1] focus:ring-2 focus:ring-[#6B46C1] transition-all dark:text-white"
+                      className="w-full pl-11 pr-4 py-3 bg-bg-primary border border-border-color rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
                     />
                   </div>
                 </div>
@@ -149,7 +149,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       setError('');
                     }}
                     required
-                    className="w-full pl-11 pr-4 py-3 bg-bg-primary border border-border-color rounded-[12px] text-sm focus:outline-none focus:border-[#6B46C1] focus:ring-2 focus:ring-[#6B46C1] transition-all dark:text-white"
+                    className="w-full pl-11 pr-4 py-3 bg-bg-primary border border-border-color rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
                   />
                 </div>
               </div>
@@ -166,7 +166,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       setError('');
                     }}
                     required
-                    className="w-full pl-11 pr-12 py-3 bg-bg-primary border border-border-color rounded-[12px] text-sm focus:outline-none focus:border-[#6B46C1] focus:ring-2 focus:ring-[#6B46C1] transition-all dark:text-white"
+                    className="w-full pl-11 pr-12 py-3 bg-bg-primary border border-border-color rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
                   />
                   <button
                     type="button"
@@ -179,7 +179,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               </div>
 
               {error && (
-                <div className="p-3 text-sm text-red-500 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-[12px]">
+                <div className="p-3 text-sm text-red-500 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-xl">
                   {error}
                 </div>
               )}
@@ -187,7 +187,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3.5 px-4 bg-[#6B46C1] hover:bg-[#6B46C1] text-white font-semibold rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] text-sm transition-all flex justify-center items-center h-12"
+                className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-sm text-sm transition-all flex justify-center items-center h-12"
               >
                 {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : (isLogin ? 'Sign In' : 'Sign Up')}
               </button>
@@ -203,7 +203,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               type="button"
               onClick={handleGoogleSignIn}
               disabled={isLoading}
-              className="w-full py-3 px-4 bg-bg-card border border-border-color hover:bg-slate-50 dark:hover:bg-[#6B46C1] text-text-primary font-medium rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] text-sm transition-all focus:ring-4 focus:ring-slate-500/10 flex items-center justify-center gap-3 h-12"
+              className="w-full py-3 px-4 bg-bg-card border border-border-color hover:bg-slate-50 dark:hover:bg-slate-700 text-text-primary font-medium rounded-xl shadow-sm text-sm transition-all focus:ring-4 focus:ring-slate-500/10 flex items-center justify-center gap-3 h-12"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />

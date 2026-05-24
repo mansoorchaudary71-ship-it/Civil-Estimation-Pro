@@ -31,7 +31,7 @@ export default function BottomNavBar({ activeModule, onSelectModule, onOpenProfi
   return (
     <div className="fixed bottom-[15px] left-0 right-0 z-[80] flex justify-center md:hidden pointer-events-none">
       <nav 
-        className="pointer-events-auto flex items-center justify-around w-[95%] max-w-md px-1 py-3 rounded-[12px] bg-white/90 dark:bg-slate-900/90 backdrop-blur-[10px] border border-white/50 dark:border-slate-700/50 shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
+        className="pointer-events-auto flex items-center justify-around w-[95%] max-w-md px-1 py-3 rounded-3xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-[10px] border border-white/50 dark:border-slate-700/50 shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
       >
         {bottomModules.map(m => {
           if (!m) return null;
@@ -55,7 +55,7 @@ function NavItem({ icon, label, isActive, onClick }: { icon: React.ReactNode, la
   return (
     <button 
       onClick={onClick}
-      className={`group relative flex flex-col items-center justify-center flex-1 w-0 gap-1 rounded-[12px] transition-all duration-300 ease-out ${isActive ? 'text-indigo-600 dark:text-cyan-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'}`}
+      className={`group relative flex flex-col items-center justify-center flex-1 w-0 gap-1 rounded-2xl transition-all duration-300 ease-out ${isActive ? 'text-indigo-600 dark:text-cyan-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'}`}
     >
       <div className={`flex items-center justify-center transition-all duration-300 ease-out ${isActive ? '-translate-y-1 scale-110' : 'group-hover:scale-110 group-hover:-translate-y-0.5 group-active:scale-95'} [&>svg]:w-[22px] [&>svg]:h-[22px]`}>
         {isActive ? (

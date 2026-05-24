@@ -36,7 +36,7 @@ export function GlobalSettingsToggle({ align = "right", showCurrency = true }: {
       </button>
 
       {isOpen && (
-        <div className={`absolute top-full mt-2 w-56 ${alignClass} bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/80 dark:border-slate-700/80 rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] overflow-hidden animate-in fade-in slide-in-from-top-2 ring-1 ring-slate-900/5 dark:ring-white/10`}>
+        <div className={`absolute top-full mt-2 w-56 ${alignClass} bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/80 dark:border-slate-700/80 rounded-[24px] shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 ring-1 ring-slate-900/5 dark:ring-white/10`}>
           <div className="p-3">
             <div className="mb-2 text-[11px] font-black text-slate-700 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5 pl-1">
               <Ruler className="w-3.5 h-3.5"/> Unit System
@@ -48,10 +48,10 @@ export function GlobalSettingsToggle({ align = "right", showCurrency = true }: {
                   <button
                     key={val}
                     onClick={() => { updateSettings({ measurement: val as MeasurementSystem }); setIsOpen(false); }}
-                    className={`py-2 px-2 text-xs font-bold rounded-[12px] transition-colors ${
+                    className={`py-2 px-2 text-xs font-bold rounded-lg transition-colors ${
                       isActive 
                         ? "bg-amber-100 text-amber-700 dark:bg-amber-600/20 dark:text-amber-500 ring-1 ring-amber-600/20" 
-                        : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-[#6B46C1]"
+                        : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800"
                     }`}
                   >
                     {val === "SI" ? "Metric (m)" : "Imperial (ft)"}
@@ -72,10 +72,10 @@ export function GlobalSettingsToggle({ align = "right", showCurrency = true }: {
                       <button
                         key={val}
                         onClick={() => { updateSettings({ currency: val as Currency }); setIsOpen(false); }}
-                        className={`py-2 px-2 text-xs font-bold rounded-[12px] transition-colors ${
+                        className={`py-2 px-2 text-xs font-bold rounded-lg transition-colors ${
                           isActive 
                             ? "bg-amber-100 text-amber-700 dark:bg-amber-600/20 dark:text-amber-500 ring-1 ring-amber-600/20" 
-                            : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-[#6B46C1]"
+                            : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800"
                         }`}
                       >
                         {val}

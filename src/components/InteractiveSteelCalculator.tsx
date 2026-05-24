@@ -36,12 +36,12 @@ export default function InteractiveSteelCalculator({
   }, [length, unit, initialDiameter]);
 
   return (
-    <main className="bg-white rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] overflow-hidden border border-slate-200">
+    <main className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
       <div className="grid grid-cols-1 lg:grid-cols-5">
         {/* Calculator Settings UI */}
         <div className="p-6 sm:p-10 lg:col-span-3 bg-white border-b lg:border-b-0 lg:border-r border-slate-200">
           <div className="flex items-center mb-8 pb-4 border-b border-slate-100">
-            <div className="bg-indigo-50 p-3 rounded-[12px] mr-4">
+            <div className="bg-indigo-50 p-3 rounded-lg mr-4">
               <svg
                 className="w-6 h-6 text-indigo-600"
                 fill="none"
@@ -63,10 +63,10 @@ export default function InteractiveSteelCalculator({
               </svg>
             </div>
             <div>
-              <h2 className="text-[18px] font-bold text-[#374151]">
+              <h2 className="text-xl font-bold text-slate-800">
                 Bar Specifications
               </h2>
-              <p className="text-sm text-[#4B5563] mt-1">
+              <p className="text-sm text-slate-500 mt-1">
                 Configure diameter and length parameters
               </p>
             </div>
@@ -85,7 +85,7 @@ export default function InteractiveSteelCalculator({
                   type="number"
                   readOnly
                   value={initialDiameter}
-                  className="block w-full rounded-[12px] border-slate-200 bg-slate-50 py-4 pl-5 pr-16 text-[18px] font-bold text-slate-700 shadow-[0_2px_12px_rgba(0,0,0,0.08)] border focus:ring-0 focus:border-slate-300 transition-colors cursor-default"
+                  className="block w-full rounded-xl border-slate-200 bg-slate-50 py-4 pl-5 pr-16 text-xl font-bold text-slate-700 shadow-sm border focus:ring-0 focus:border-slate-300 transition-colors cursor-default"
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-5 pointer-events-none">
                   <span className="text-slate-400 font-semibold text-lg">
@@ -99,14 +99,14 @@ export default function InteractiveSteelCalculator({
               <label className="flex items-center text-sm font-bold text-slate-700 mb-2">
                 Total Length
               </label>
-              <div className="relative focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 rounded-[12px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-slate-300 bg-white overflow-hidden flex transition-all">
+              <div className="relative focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 rounded-xl shadow-sm border border-slate-300 bg-white overflow-hidden flex transition-all">
                 <input
                   type="number"
                   value={length}
                   onChange={(e) => setLength(e.target.value)}
                   min="0"
                   step="0.01"
-                  className="block w-full border-none py-4 pl-5 pr-4 text-[18px] font-bold text-slate-900 focus:ring-0 bg-transparent"
+                  className="block w-full border-none py-4 pl-5 pr-4 text-xl font-bold text-slate-900 focus:ring-0 bg-transparent"
                 />
                 <div className="flex items-center bg-slate-50 border-l border-slate-200 px-2">
                   <select
@@ -119,7 +119,7 @@ export default function InteractiveSteelCalculator({
                   </select>
                 </div>
               </div>
-              <p className="mt-2 text-sm text-[#4B5563] flex items-center">
+              <p className="mt-2 text-sm text-slate-500 flex items-center">
                 <svg
                   className="w-4 h-4 mr-1.5 text-slate-400"
                   fill="none"
@@ -140,12 +140,12 @@ export default function InteractiveSteelCalculator({
         </div>
 
         {/* Results UI */}
-        <div className="relative p-5 sm:p-6 rounded-[12px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] dark:transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-          <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-[#6B46C1] opacity-20 blur-3xl mix-blend-screen pointer-events-none"></div>
+        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+          <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-indigo-600 opacity-20 blur-3xl mix-blend-screen pointer-events-none"></div>
           <div className="absolute -bottom-24 -left-24 w-64 h-64 rounded-full bg-blue-500 opacity-20 blur-3xl mix-blend-screen pointer-events-none"></div>
 
           <div className="relative z-10">
-            <div className="inline-flex items-center px-3 py-1 rounded-full bg-[#6B46C1] border border-slate-700 text-[12px] font-medium text-[#6B7280] uppercase tracking-widest text-indigo-300 mb-6">
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs font-bold uppercase tracking-widest text-indigo-300 mb-6">
               <span className="w-2 h-2 rounded-full bg-indigo-400 mr-2 animate-pulse"></span>
               Calculated Output
             </div>
@@ -157,11 +157,11 @@ export default function InteractiveSteelCalculator({
               <span className="text-6xl sm:text-7xl font-black tracking-tighter text-white">
                 {weight}
               </span>
-              <span className="text-[18px] font-bold text-slate-400 whitespace-nowrap">kg</span>
+              <span className="text-2xl font-bold text-slate-400 whitespace-nowrap">kg</span>
             </div>
 
-            <div className="bg-[#6B46C1]/50 backdrop-blur-sm rounded-[12px] p-5 border border-slate-700/50">
-              <h4 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider mb-4 flex items-center">
+            <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-5 border border-slate-700/50">
+              <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center">
                 <svg
                   className="w-3.5 h-3.5 mr-1.5"
                   fill="none"

@@ -145,13 +145,13 @@ export default function AggregateBlendingCalculator() {
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-7xl mx-auto pb-20">
       
       {/* Header */}
-      <div className="bg-white dark:bg-[#151821] rounded-[12px] p-6 md:p-8 mb-6 shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-slate-200 dark:border-white/5">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[12px] bg-[var(--accent-vibrant)]/10 border border-[var(--accent-vibrant)]/20 mb-3">
+      <div className="bg-white dark:bg-[#151821] rounded-2xl p-6 md:p-8 mb-6 shadow-sm border border-slate-200 dark:border-white/5">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--accent-vibrant)]/10 border border-[var(--accent-vibrant)]/20 mb-3">
            <ArrowRightLeft className="w-4 h-4 text-[var(--accent-vibrant)]" />
-           <span className="text-[12px] font-medium text-[#6B7280] uppercase tracking-wider">Mix Design Toolkit</span>
+           <span className="text-xs font-bold text-[var(--accent-vibrant)] uppercase tracking-wider">Mix Design Toolkit</span>
         </div>
-        <h2 className="text-[18px] md:text-[28px] font-heading font-black text-text-primary mb-2">Aggregate Blending Calculator</h2>
-        <p className="text-[#4B5563] max-w-3xl text-sm leading-relaxed">
+        <h2 className="text-2xl md:text-3xl font-heading font-black text-text-primary mb-2">Aggregate Blending Calculator</h2>
+        <p className="text-slate-500 max-w-3xl text-sm leading-relaxed">
           Blend 2 to 4 different aggregate stockpiles to meet target grading specifications. Use the interactive sliders to adjust proportions and instantly preview the blended gradation envelope.
         </p>
       </div>
@@ -161,12 +161,12 @@ export default function AggregateBlendingCalculator() {
         {/* Top/Left Section: Inputs & Spec Selection */}
         <div className="xl:col-span-7 space-y-6">
           
-          <div className="bg-bg-card/80 backdrop-blur-md rounded-[12px] p-[20px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-slate-200 dark:border-white/5">
+          <div className="bg-bg-card/80 backdrop-blur-md rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-white/5">
              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
               <div>
                 <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Target Category</label>
                 <select 
-                  className="w-full px-4 py-3 rounded-[12px] bg-bg-primary/50 border border-border-color focus:ring-2 focus:ring-[var(--accent-vibrant)] outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-bg-primary/50 border border-border-color focus:ring-2 focus:ring-[var(--accent-vibrant)] outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
                 >
@@ -176,7 +176,7 @@ export default function AggregateBlendingCalculator() {
               <div>
                 <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Target Specification</label>
                 <select 
-                  className="w-full px-4 py-3 rounded-[12px] bg-bg-primary/50 border border-border-color focus:ring-2 focus:ring-[var(--accent-vibrant)] outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
+                  className="w-full px-4 py-3 rounded-xl bg-bg-primary/50 border border-border-color focus:ring-2 focus:ring-[var(--accent-vibrant)] outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
                   value={selectedGrading}
                   onChange={(e) => setSelectedGrading(e.target.value)}
                 >
@@ -188,7 +188,7 @@ export default function AggregateBlendingCalculator() {
             </div>
           </div>
 
-          <div className="bg-bg-card/80 backdrop-blur-md rounded-[12px] p-[20px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-slate-200 dark:border-white/5 overflow-x-auto">
+          <div className="bg-bg-card/80 backdrop-blur-md rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-white/5 overflow-x-auto">
             <h3 className="text-lg font-bold text-text-primary mb-4 flex items-center gap-2">
               <Layers className="w-5 h-5 text-[var(--accent-vibrant)]" /> Stockpile Percent Passing
             </h3>
@@ -196,19 +196,19 @@ export default function AggregateBlendingCalculator() {
             <table className="w-full text-left border-collapse min-w-[600px]">
               <thead>
                 <tr>
-                  <th className="py-2 px-2 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider w-24">IS Sieve</th>
+                  <th className="py-2 px-2 text-xs font-bold text-slate-500 uppercase tracking-wider w-24">IS Sieve</th>
                   {[0, 1, 2, 3].map(i => (
                     <th key={i} className="py-2 px-2">
                       <input 
                         type="text"
                         value={binNames[i]}
                         onChange={(e) => handleBinNameChange(i, e.target.value)}
-                        className="w-full text-[12px] font-medium text-[#6B7280] uppercase tracking-wider"
+                        className="w-full text-xs font-bold text-slate-500 bg-transparent border-b border-dashed border-border-color focus:border-[var(--accent-vibrant)] outline-none pb-1 uppercase tracking-wider"
                       />
                     </th>
                   ))}
-                  <th className="py-2 px-2 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider text-right w-24">Blended %</th>
-                  <th className="py-2 px-2 text-[12px] font-medium text-[#6B7280] uppercase tracking-wider text-right w-24">Limits</th>
+                  <th className="py-2 px-2 text-xs font-bold text-slate-500 uppercase tracking-wider text-right w-24">Blended %</th>
+                  <th className="py-2 px-2 text-xs font-bold text-slate-500 uppercase tracking-wider text-right w-24">Limits</th>
                 </tr>
               </thead>
               <tbody>
@@ -260,7 +260,7 @@ export default function AggregateBlendingCalculator() {
                            </span>
                         ) : '-'}
                       </td>
-                      <td className="py-2 px-2 text-sm font-medium text-[#4B5563] text-right whitespace-nowrap">
+                      <td className="py-2 px-2 text-sm font-medium text-slate-500 text-right whitespace-nowrap">
                         {row.minPassing} - {row.maxPassing}
                       </td>
                     </tr>
@@ -275,7 +275,7 @@ export default function AggregateBlendingCalculator() {
         {/* Right Section: Sliders & Graph */}
         <div className="xl:col-span-5 space-y-6">
           
-          <div className="bg-bg-card/80 backdrop-blur-md rounded-[12px] p-[20px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-slate-200 dark:border-white/5">
+          <div className="bg-bg-card/80 backdrop-blur-md rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-white/5">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-bold text-text-primary flex items-center gap-2">
                 <Calculator className="w-5 h-5 text-[var(--accent-vibrant)]" /> Trial Blending
@@ -299,19 +299,19 @@ export default function AggregateBlendingCalculator() {
                     step="0.1"
                     value={proportions[i]}
                     onChange={(e) => handleProportionChange(i, e.target.value)}
-                    className="w-full h-2 bg-slate-200 dark:bg-[#6B46C1] rounded-[12px] appearance-none cursor-pointer accent-[var(--accent-vibrant)]"
+                    className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-[var(--accent-vibrant)]"
                   />
                 </div>
               ))}
             </div>
             
-            <div className="mt-6 p-4 rounded-[12px] bg-orange-50 dark:bg-orange-900/10 border border-orange-200 dark:border-orange-500/20 text-xs text-orange-800 dark:text-orange-300 flex items-start gap-2">
+            <div className="mt-6 p-4 rounded-xl bg-orange-50 dark:bg-orange-900/10 border border-orange-200 dark:border-orange-500/20 text-xs text-orange-800 dark:text-orange-300 flex items-start gap-2">
                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                <p>Moving a slider will automatically adjust the remaining proportions to ensure the total blend always equals 100%.</p>
             </div>
           </div>
 
-          <div className="bg-bg-card/80 backdrop-blur-md rounded-[12px] p-[20px] shadow-[0_2px_12px_rgba(0,0,0,0.08)] border border-slate-200 dark:border-white/5 h-[400px] flex flex-col">
+          <div className="bg-bg-card/80 backdrop-blur-md rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-white/5 h-[400px] flex flex-col">
             <h3 className="text-lg font-bold text-text-primary mb-4 flex items-center gap-2">
               <LineChart className="w-5 h-5 text-[var(--accent-vibrant)]" /> Blended Gradation Curve
             </h3>

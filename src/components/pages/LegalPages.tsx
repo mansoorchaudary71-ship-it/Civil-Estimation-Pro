@@ -40,17 +40,17 @@ export default function LegalPages({ page, onNavigate }: LegalPageProps) {
       />
       
       {/* Header */}
-      <div className="text-center space-y-4 pt-4 md:pt-8 bg-white/50 dark:bg-slate-900/50 p-8 md:p-12 rounded-[12px]">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-[12px] bg-blue-100/50 dark:bg-blue-900/30 text-indigo-600 dark:text-blue-400 mb-4 shadow-[0_8px_16px_-6px_rgba(37,99,235,0.2)]">
+      <div className="text-center space-y-4 pt-4 md:pt-8 bg-white/50 dark:bg-slate-900/50 p-8 md:p-12 rounded-[3rem]">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-blue-100/50 dark:bg-blue-900/30 text-indigo-600 dark:text-blue-400 mb-4 shadow-[0_8px_16px_-6px_rgba(37,99,235,0.2)]">
           <current.icon className="w-8 h-8" strokeWidth={1.5} />
         </div>
-        <h1 className="text-[28px] md:text-5xl font-extrabold text-text-primary tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-text-primary tracking-tight">
           {current.title}
         </h1>
         <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
           {current.description}
         </p>
-        <p className="text-sm font-medium text-slate-400 dark:text-[#4B5563] mt-6">
+        <p className="text-sm font-medium text-slate-400 dark:text-slate-500 mt-6">
           {current.date}
         </p>
       </div>
@@ -58,17 +58,17 @@ export default function LegalPages({ page, onNavigate }: LegalPageProps) {
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 relative">
         {/* Sidebar Navigation */}
         <aside className="w-full lg:w-72 shrink-0 lg:sticky top-24 self-start">
-          <div className="bg-bg-card p-[20px] rounded-[12px] border border-border-color shadow-[0_2px_12px_rgba(0,0,0,0.08)] space-y-2">
-            <h3 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-widest pl-3 mb-4">
+          <div className="bg-bg-card p-6 rounded-3xl border border-border-color shadow-sm space-y-2">
+            <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest pl-3 mb-4">
               Legal Pages
             </h3>
             
             <button
               onClick={() => onNavigate('privacy')}
-              className={`w-full flex items-center justify-between px-4 py-3 rounded-[12px] transition-all ${
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all ${
                 page === 'privacy' 
                   ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 font-bold' 
-                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-[#6B46C1]/50 font-medium'
+                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 font-medium'
               }`}
             >
               <span className="flex items-center gap-3">
@@ -79,10 +79,10 @@ export default function LegalPages({ page, onNavigate }: LegalPageProps) {
             
             <button
               onClick={() => onNavigate('terms')}
-              className={`w-full flex items-center justify-between px-4 py-3 rounded-[12px] transition-all ${
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all ${
                 page === 'terms' 
                   ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 font-bold' 
-                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-[#6B46C1]/50 font-medium'
+                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 font-medium'
               }`}
             >
               <span className="flex items-center gap-3">
@@ -93,10 +93,10 @@ export default function LegalPages({ page, onNavigate }: LegalPageProps) {
             
             <button
               onClick={() => onNavigate('cookies')}
-              className={`w-full flex items-center justify-between px-4 py-3 rounded-[12px] transition-all ${
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all ${
                 page === 'cookies' 
                   ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 font-bold' 
-                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-[#6B46C1]/50 font-medium'
+                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 font-medium'
               }`}
             >
               <span className="flex items-center gap-3">
@@ -106,7 +106,7 @@ export default function LegalPages({ page, onNavigate }: LegalPageProps) {
             </button>
           </div>
           
-          <div className="mt-6 bg-bg-primary/50 p-6 rounded-[12px] border border-slate-200/60 dark:border-slate-800/60 text-sm">
+          <div className="mt-6 bg-bg-primary/50 p-6 rounded-3xl border border-slate-200/60 dark:border-slate-800/60 text-sm">
             <h4 className="font-bold text-slate-800 dark:text-slate-200 mb-2">Have Questions?</h4>
             <p className="text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">
               If you have any questions about our legal policies, please contact our support team.
@@ -121,7 +121,7 @@ export default function LegalPages({ page, onNavigate }: LegalPageProps) {
         </aside>
 
         {/* Content Area */}
-        <main className="flex-1 bg-bg-card p-[20px] md:p-12 lg:p-16 rounded-[2.5rem] border border-border-color shadow-[0_2px_12px_rgba(0,0,0,0.08)] min-w-0">
+        <main className="flex-1 bg-bg-card p-8 md:p-12 lg:p-16 rounded-[2.5rem] border border-border-color shadow-sm min-w-0">
           <div className="prose prose-slate dark:prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-indigo-600 dark:prose-a:text-blue-400 transition-colors">
             {page === 'privacy' && <PrivacyContent />}
             {page === 'terms' && <TermsContent />}

@@ -85,7 +85,7 @@ export default function GlobalSettingsModal({
     value: number;
     onChangeKey: keyof typeof localRates;
   }) => (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 py-3 rounded-[12px] bg-white/50 dark:bg-[#6B46C1]/50 hover:bg-white/80 dark:hover:bg-[#6B46C1]/80 transition-colors border border-transparent hover:border-slate-200 dark:hover:border-slate-700">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 py-3 rounded-2xl bg-white/50 dark:bg-slate-800/50 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-colors border border-transparent hover:border-slate-200 dark:hover:border-slate-700">
       {" "}
       <div className="flex flex-col">
         {" "}
@@ -113,7 +113,7 @@ export default function GlobalSettingsModal({
               if (!isNaN(val) && val < 0) return;
               handleChange(onChangeKey, e.target.value);
             }}
-            className="w-full pl-9 pr-4 py-2 bg-bg-card border border-border-color rounded-[12px] focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1] text-text-primary font-medium transition-shadow"
+            className="w-full pl-9 pr-4 py-2 bg-bg-card border border-border-color rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 text-text-primary font-medium transition-shadow"
           />{" "}
         </div>{" "}
       </div>{" "}
@@ -126,14 +126,14 @@ export default function GlobalSettingsModal({
         className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
         onClick={onClose}
       ></div>{" "}
-      <div className="relative bg-transparent/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 rounded-[12px] shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
+      <div className="relative bg-transparent/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
         {" "}
         {/* Header */}{" "}
         <div className="flex items-center justify-between p-6 border-b border-slate-200/50 dark:border-slate-800/50 shrink-0">
           {" "}
           <div>
             {" "}
-            <h3 className="text-[18px] font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
+            <h3 className="text-xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
               {" "}
               Global Settings{" "}
             </h3>{" "}
@@ -144,7 +144,7 @@ export default function GlobalSettingsModal({
           </div>{" "}
           <button
             onClick={onClose}
-            className="p-2 -mr-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-[#6B46C1]/50 text-slate-700 dark:text-slate-300 transition-colors"
+            className="p-2 -mr-2 rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/50 text-slate-700 dark:text-slate-300 transition-colors"
           >
             {" "}
             <X className="w-5 h-5" />{" "}
@@ -217,7 +217,7 @@ export default function GlobalSettingsModal({
                   <Ruler className="w-4 h-4 text-slate-700 dark:text-slate-300" /> Preferred
                   Units{" "}
                 </h4>{" "}
-                <div className="space-y-3 bg-white/50 dark:bg-[#6B46C1]/50 px-4 py-3 rounded-[12px] border border-slate-200/50 dark:border-slate-700/50">
+                <div className="space-y-3 bg-white/50 dark:bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-200/50 dark:border-slate-700/50">
                   {" "}
                   <div className="flex items-center justify-between">
                     {" "}
@@ -229,7 +229,7 @@ export default function GlobalSettingsModal({
                       onChange={(e) =>
                         handlePrefChange("units", "finishing", e.target.value)
                       }
-                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-[12px] px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] text-sm font-medium"
+                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
                     >
                       {" "}
                       <option value="mm">Millimeters (mm)</option>{" "}
@@ -248,7 +248,7 @@ export default function GlobalSettingsModal({
                       onChange={(e) =>
                         handlePrefChange("units", "roads", e.target.value)
                       }
-                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-[12px] px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] text-sm font-medium"
+                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
                     >
                       {" "}
                       <option value="m">Meters (m)</option>{" "}
@@ -267,7 +267,7 @@ export default function GlobalSettingsModal({
                       onChange={(e) =>
                         handlePrefChange("units", "earthworks", e.target.value)
                       }
-                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-[12px] px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] text-sm font-medium"
+                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
                     >
                       {" "}
                       <option value="m">Meters (m)</option>{" "}
@@ -284,7 +284,7 @@ export default function GlobalSettingsModal({
                   <Palette className="w-4 h-4 text-slate-700 dark:text-slate-300" /> Default Color
                   Themes{" "}
                 </h4>{" "}
-                <div className="space-y-3 bg-white/50 dark:bg-[#6B46C1]/50 px-4 py-3 rounded-[12px] border border-slate-200/50 dark:border-slate-700/50">
+                <div className="space-y-3 bg-white/50 dark:bg-slate-800/50 px-4 py-3 rounded-2xl border border-slate-200/50 dark:border-slate-700/50">
                   {" "}
                   <div className="flex items-center justify-between">
                     {" "}
@@ -296,7 +296,7 @@ export default function GlobalSettingsModal({
                       onChange={(e) =>
                         handlePrefChange("themes", "finishing", e.target.value)
                       }
-                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-[12px] px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] text-sm font-medium"
+                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
                     >
                       {" "}
                       <option value="blue">Ocean Blue</option>{" "}
@@ -315,7 +315,7 @@ export default function GlobalSettingsModal({
                       onChange={(e) =>
                         handlePrefChange("themes", "roads", e.target.value)
                       }
-                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-[12px] px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] text-sm font-medium"
+                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
                     >
                       {" "}
                       <option value="slate">Industrial Slate</option>{" "}
@@ -333,7 +333,7 @@ export default function GlobalSettingsModal({
                       onChange={(e) =>
                         handlePrefChange("themes", "earthworks", e.target.value)
                       }
-                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-[12px] px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#6B46C1] text-sm font-medium"
+                      className="bg-bg-card border border-border-color text-slate-800 dark:text-slate-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/50 text-sm font-medium"
                     >
                       {" "}
                       <option value="amber">Dirt Amber</option>{" "}
@@ -351,14 +351,14 @@ export default function GlobalSettingsModal({
           {" "}
           <button
             onClick={onClose}
-            className="px-5 py-2.5 rounded-[12px] text-slate-600 dark:text-slate-300 hover:bg-slate-200/50 dark:hover:bg-[#6B46C1]/50 font-medium transition-colors"
+            className="px-5 py-2.5 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 font-medium transition-colors"
           >
             {" "}
             Cancel{" "}
           </button>{" "}
           <button
             onClick={handleSave}
-            className="flex items-center gap-2 px-6 py-2.5 bg-[#6B46C1] hover:bg-[#6B46C1] text-white rounded-[12px] font-medium shadow-[0_2px_12px_rgba(0,0,0,0.08)] shadow-blue-500/20 transition-all hover:scale-[1.02] active:scale-95"
+            className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-blue-700 text-white rounded-xl font-medium shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] active:scale-95"
           >
             {" "}
             <Check className="w-4 h-4" /> Save Settings{" "}

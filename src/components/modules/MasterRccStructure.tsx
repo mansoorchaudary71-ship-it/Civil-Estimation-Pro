@@ -37,7 +37,7 @@ export default function MasterRccStructure({ isEmbedded = false, onNavigate }: M
           />
           
           <div className="mb-6 md:mb-8 px-4 md:px-0">
-            <h1 className="text-[28px] font-extrabold text-text-primary mb-2 flex items-center gap-3">
+            <h1 className="text-3xl font-extrabold text-text-primary mb-2 flex items-center gap-3">
               <Building2 className="w-8 h-8 text-indigo-600 dark:text-blue-400" />
               Master RCC Estimator
             </h1>

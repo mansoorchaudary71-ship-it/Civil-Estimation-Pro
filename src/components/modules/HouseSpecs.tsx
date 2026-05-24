@@ -17,7 +17,7 @@ export default function HouseSpecs() {
     <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         <header className="mb-10">
-          <h1 className="text-[28px] lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r   bg-clip-text text-transparent pb-2">
+          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r   bg-clip-text text-transparent pb-2">
             Material Specs & Finishing
           </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-2 text-lg font-medium">
@@ -286,9 +286,9 @@ function GlassCard({
     fuchsia: "bg-fuchsia-500/10 border-fuchsia-500/20 text-fuchsia-600",
   };
   return (
-    <div className="bg-white/70 backdrop-blur-3xl border border-white p-6 rounded-[12px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_12px_40px_rgb(0,0,0,0.06)] transition-all">
+    <div className="bg-white/70 backdrop-blur-3xl border border-white p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] transition-all">
       <div className="flex items-center gap-3 mb-6">
-        <div className={`p-2.5 rounded-[12px] ${bgColors[color]}`}>
+        <div className={`p-2.5 rounded-2xl ${bgColors[color]}`}>
           {icon}
         </div>
         <h3 className="text-lg font-bold text-gray-800">
@@ -307,7 +307,7 @@ function SelectInput({ label, value, options, onChange }: any) {
       </label>
       <div className="relative">
         <select
-          className="w-full bg-gray-50/80 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 text-sm font-semibold appearance-none focus:outline-none focus:ring-2 focus:ring-[#6B46C1]/30 transition-shadow transition-colors"
+          className="w-full bg-gray-50/80 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 text-sm font-semibold appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         >
@@ -345,7 +345,7 @@ function NumberInput({ label, value, onChange, desc }: any) {
       <input
         type="number"
         step="any"
-        className="w-full bg-gray-50/80 border border-gray-200 text-gray-800 rounded-[12px] px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#6B46C1]/30 transition-shadow transition-colors"
+        className="w-full bg-gray-50/80 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors"
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
@@ -359,12 +359,12 @@ function NumberInput({ label, value, onChange, desc }: any) {
 }
 function ToggleGroup({ value, onChange, options }: any) {
   return (
-    <div className="flex bg-gray-100/80 backdrop-blur-sm p-1 rounded-[12px] w-full border border-gray-200/50">
+    <div className="flex bg-gray-100/80 backdrop-blur-sm p-1 rounded-2xl w-full border border-gray-200/50">
       {options.map((opt: any) => (
         <button
           key={opt.value}
           onClick={() => onChange(opt.value)}
-          className={`flex-1 py-2.5 px-3 text-[12px] font-bold rounded-[12px] transition-all duration-300 ${value === opt.value ? "bg-white text-gray-800 shadow-[0_2px_12px_rgba(0,0,0,0.08)]" : "text-gray-700 dark:text-gray-300 hover:text-gray-700 hover:bg-gray-200/50"}`}
+          className={`flex-1 py-2.5 px-3 text-[12px] font-bold rounded-xl transition-all duration-300 ${value === opt.value ? "bg-white text-gray-800 shadow-sm" : "text-gray-700 dark:text-gray-300 hover:text-gray-700 hover:bg-gray-200/50"}`}
         >
           {opt.label}
         </button>

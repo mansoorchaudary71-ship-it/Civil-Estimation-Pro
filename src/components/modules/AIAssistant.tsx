@@ -51,10 +51,10 @@ export default function AIAssistant() {
   };
   return (
     <div className="flex flex-col h-full bg-transparent text-slate-900 p-8">
-      <div className="flex-1 bg-white border border-slate-200 rounded-[12px] flex flex-col overflow-hidden relative shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+      <div className="flex-1 bg-white border border-slate-200 rounded-xl flex flex-col overflow-hidden relative shadow-sm">
         <div className="px-6 py-4 border-b border-slate-200 bg-transparent flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></div>
-          <h2 className="text-[12px] font-medium text-[#6B7280] uppercase tracking-widest text-slate-700">
+          <h2 className="text-sm font-bold uppercase tracking-widest text-slate-700">
             AI Assistant
           </h2>
         </div>
@@ -74,14 +74,14 @@ export default function AIAssistant() {
               )}
               <div
                 className={cn(
-                  "rounded-[12px] px-5 py-3 max-w-[85%] text-sm shadow-[0_2px_12px_rgba(0,0,0,0.08)]",
+                  "rounded-2xl px-5 py-3 max-w-[85%] text-sm shadow-sm",
                   msg.role === "user"
-                    ? "bg-[#6B46C1] text-white font-medium"
+                    ? "bg-indigo-600 text-white font-medium"
                     : "bg-transparent text-slate-700 border border-slate-100 leading-relaxed",
                 )}
               >
                 {msg.role === "model" ? (
-                  <div className="prose prose-sm max-w-none prose-p:leading-relaxed prose-headings:text-[#374151] prose-a:text-indigo-600 prose-th:bg-slate-100 prose-td:border-slate-200">
+                  <div className="prose prose-sm max-w-none prose-p:leading-relaxed prose-headings:text-slate-800 prose-a:text-indigo-600 prose-th:bg-slate-100 prose-td:border-slate-200">
                     <Markdown>{msg.content}</Markdown>
                   </div>
                 ) : (
@@ -95,7 +95,7 @@ export default function AIAssistant() {
               <div className="w-8 h-8 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center shrink-0 mt-1">
                 <Loader2 className="w-[18px] h-[18px] text-indigo-600 animate-spin" />
               </div>
-              <div className="rounded-[12px] px-5 py-4 bg-transparent border border-slate-100 flex items-center gap-2 shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+              <div className="rounded-2xl px-5 py-4 bg-transparent border border-slate-100 flex items-center gap-2 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce"></span>
                 <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce delay-75"></span>
                 <span className="w-2 h-2 rounded-full bg-indigo-400 animate-bounce delay-150"></span>
@@ -115,13 +115,13 @@ export default function AIAssistant() {
                 }
               }}
               placeholder="Ask about cost optimization or estimation..."
-              className="w-full bg-transparent border border-slate-200 rounded-[12px] py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-[#6B46C1] focus:border-[#6B46C1] resize-none min-h-[44px] max-h-[120px] text-[#374151] shadow-[0_2px_12px_rgba(0,0,0,0.08)] transition-all"
+              className="w-full bg-transparent border border-slate-200 rounded-xl py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 resize-none min-h-[44px] max-h-[120px] text-slate-800 shadow-sm transition-all"
               rows={1}
             />
             <button
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="absolute right-3 top-2.5 p-1.5 text-indigo-600 bg-indigo-50 hover:bg-indigo-50 rounded-[12px] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="absolute right-3 top-2.5 p-1.5 text-indigo-600 bg-indigo-50 hover:bg-indigo-50 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               <Send className="w-[16px] h-[16px]" />
             </button>

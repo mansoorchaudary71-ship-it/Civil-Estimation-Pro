@@ -69,7 +69,7 @@ export default function Contact() {
   return (
     <div className="max-w-5xl mx-auto space-y-12 pb-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="text-center space-y-4">
-        <h1 className="text-[28px] md:text-5xl font-extrabold text-text-primary tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-text-primary tracking-tight">
           Get in Touch
         </h1>
         <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
@@ -79,8 +79,8 @@ export default function Contact() {
 
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-1 space-y-6">
-          <div className="bg-bg-card rounded-[12px] p-[20px] md:p-8 border border-border-color shadow-[0_2px_12px_rgba(0,0,0,0.08)] flex items-start gap-4 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] transition-shadow">
-             <div className="w-12 h-12 bg-blue-50 dark:bg-blue-500/10 rounded-[12px] flex items-center justify-center shrink-0">
+          <div className="bg-bg-card rounded-3xl p-6 md:p-8 border border-border-color shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
+             <div className="w-12 h-12 bg-blue-50 dark:bg-blue-500/10 rounded-2xl flex items-center justify-center shrink-0">
                <MessageSquare className="w-6 h-6 text-indigo-600 dark:text-blue-400" />
              </div>
              <div>
@@ -90,8 +90,8 @@ export default function Contact() {
              </div>
           </div>
 
-          <div className="bg-bg-card rounded-[12px] p-[20px] md:p-8 border border-border-color shadow-[0_2px_12px_rgba(0,0,0,0.08)] flex items-start gap-4 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] transition-shadow">
-             <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-500/10 rounded-[12px] flex items-center justify-center shrink-0">
+          <div className="bg-bg-card rounded-3xl p-6 md:p-8 border border-border-color shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
+             <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-500/10 rounded-2xl flex items-center justify-center shrink-0">
                <MapPin className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
              </div>
              <div>
@@ -103,8 +103,8 @@ export default function Contact() {
              </div>
           </div>
 
-          <div className="bg-bg-card rounded-[12px] p-[20px] md:p-8 border border-border-color shadow-[0_2px_12px_rgba(0,0,0,0.08)] flex items-start gap-4 transition-transform hover:-translate-y-[2px] hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)]-[0_2px_12px_rgba(0,0,0,0.08)] transition-shadow">
-             <div className="w-12 h-12 bg-purple-50 dark:bg-purple-500/10 rounded-[12px] flex items-center justify-center shrink-0">
+          <div className="bg-bg-card rounded-3xl p-6 md:p-8 border border-border-color shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
+             <div className="w-12 h-12 bg-purple-50 dark:bg-purple-500/10 rounded-2xl flex items-center justify-center shrink-0">
                <PhoneCall className="w-6 h-6 text-purple-600 dark:text-purple-400" />
              </div>
              <div>
@@ -115,17 +115,17 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="lg:col-span-2 bg-bg-card rounded-[2.5rem] p-[20px] md:p-10 border border-border-color shadow-[0_2px_12px_rgba(0,0,0,0.08)]">
+        <div className="lg:col-span-2 bg-bg-card rounded-[2.5rem] p-8 md:p-10 border border-border-color shadow-sm">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {status === 'success' && (
-              <div className="bg-green-50 border border-green-200 text-green-800 rounded-[12px] p-4 flex items-center gap-3">
+              <div className="bg-green-50 border border-green-200 text-green-800 rounded-2xl p-4 flex items-center gap-3">
                 <CheckCircle className="w-5 h-5 text-green-600 shrink-0" />
                 <p className="font-semibold text-sm">Your message has been sent successfully!</p>
               </div>
             )}
 
             {status === 'error' && errorMessage && (
-              <div className="bg-red-50 border border-red-200 text-red-800 rounded-[12px] p-4 flex items-center gap-3">
+              <div className="bg-red-50 border border-red-200 text-red-800 rounded-2xl p-4 flex items-center gap-3">
                 <AlertCircle className="w-5 h-5 text-red-600 shrink-0" />
                 <p className="font-semibold text-sm">{errorMessage}</p>
               </div>
@@ -140,7 +140,7 @@ export default function Contact() {
                   value={formData.firstName}
                   onChange={handleInputChange}
                   disabled={status === 'loading'}
-                  className="w-full px-4 py-3 rounded-[12px] bg-slate-50 dark:bg-slate-950 border border-border-color focus:border-[#6B46C1] focus:ring-4 focus:ring-[#6B46C1]/10 outline-none transition-all font-medium disabled:opacity-50" 
+                  className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-border-color focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all font-medium disabled:opacity-50" 
                   placeholder="Jane" 
                 />
               </div>
@@ -152,7 +152,7 @@ export default function Contact() {
                   value={formData.lastName}
                   onChange={handleInputChange}
                   disabled={status === 'loading'}
-                  className="w-full px-4 py-3 rounded-[12px] bg-slate-50 dark:bg-slate-950 border border-border-color focus:border-[#6B46C1] focus:ring-4 focus:ring-[#6B46C1]/10 outline-none transition-all font-medium disabled:opacity-50" 
+                  className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-border-color focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all font-medium disabled:opacity-50" 
                   placeholder="Smith" 
                 />
               </div>
@@ -166,7 +166,7 @@ export default function Contact() {
                 value={formData.email}
                 onChange={handleInputChange}
                 disabled={status === 'loading'}
-                className="w-full px-4 py-3 rounded-[12px] bg-slate-50 dark:bg-slate-950 border border-border-color focus:border-[#6B46C1] focus:ring-4 focus:ring-[#6B46C1]/10 outline-none transition-all font-medium disabled:opacity-50" 
+                className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-border-color focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all font-medium disabled:opacity-50" 
                 placeholder="jane@example.com" 
               />
             </div>
@@ -179,7 +179,7 @@ export default function Contact() {
                 value={formData.message}
                 onChange={handleInputChange}
                 disabled={status === 'loading'}
-                className="w-full px-4 py-3 rounded-[12px] bg-slate-50 dark:bg-slate-950 border border-border-color focus:border-[#6B46C1] focus:ring-4 focus:ring-[#6B46C1]/10 outline-none transition-all font-medium resize-none disabled:opacity-50" 
+                className="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-border-color focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition-all font-medium resize-none disabled:opacity-50" 
                 placeholder="How can we help?" 
               />
             </div>
@@ -187,7 +187,7 @@ export default function Contact() {
             <button 
               type="submit" 
               disabled={status === 'loading'}
-              className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r   hover:from-blue-700 hover: disabled:opacity-75 text-white font-bold rounded-[12px] shadow-[0_4px_24px_rgba(37,99,235,0.25)] transition-all"
+              className="w-full flex items-center justify-center gap-2 py-4 bg-gradient-to-r   hover:from-blue-700 hover: disabled:opacity-75 text-white font-bold rounded-2xl shadow-[0_4px_24px_rgba(37,99,235,0.25)] transition-all"
             >
               {status === 'loading' ? (
                 <>
