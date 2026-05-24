@@ -5,6 +5,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsToolti
 import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
 import { MaterialSummary } from "../ui/MaterialSummary";
 import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 export default function CbrTestCalculator() {
   const { isProcessing, hasData, processEstimate, resetEstimate } = useEstimateProcessing();
@@ -330,20 +331,6 @@ export default function CbrTestCalculator() {
                        </AreaChart>
                      </ResponsiveContainer>
                   </div>
-                  
-                  <div className="flex justify-between items-center mt-6">
-                    <button className="text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 flex items-center gap-2 transition-colors">
-                      <Save className="w-4 h-4" /> Save Lab Record
-                    </button>
-                    <div className="flex gap-2">
-                       <button onClick={handlePrint} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-white rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-50 transition-colors font-bold text-sm">
-                         <Printer className="w-4 h-4" /> Print
-                       </button>
-                       <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl shadow-sm border-none hover:bg-indigo-700 transition-colors font-bold text-sm">
-                         <Share2 className="w-4 h-4" /> Share
-                       </button>
-                    </div>
-                  </div>
                 </div>
               </div>
             ) : (
@@ -362,6 +349,18 @@ export default function CbrTestCalculator() {
                 </div>
               </div>
             )}
+            
+            <CalculationHistory
+              calculatorId="cbr_test_calculator"
+              currentInputs={{ minCBRThreshold, ...Object.fromEntries(penData.map((d, i) => [`Penetration ${d.pen}mm`, d.load])) }}
+              currentResults={estimateData ? {
+                "CBR @ 2.5mm": `${estimateData.cbr25.toFixed(1)}%`,
+                "CBR @ 5.0mm": `${estimateData.cbr50.toFixed(1)}%`,
+                "Final CBR": `${estimateData.finalCbr.toFixed(1)}%`,
+                "Status": estimateData.passed ? "PASSED" : "FAILED"
+              } : undefined}
+              estimationName="CBR Test Result"
+            />
           </div>
         </div>
       </div>

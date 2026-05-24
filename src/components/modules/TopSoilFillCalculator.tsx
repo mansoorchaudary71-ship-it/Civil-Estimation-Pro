@@ -4,6 +4,7 @@ import { Calculator, ArrowRight, Save, Printer, Share2, Mountain, Clock, HelpCir
 import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
 import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
 import { useGlobalSettings } from "../../context/SettingsContext";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 export default function TopSoilFillCalculator() {
   const { isProcessing, hasData, processEstimate, resetEstimate } = useEstimateProcessing();
@@ -277,20 +278,6 @@ export default function TopSoilFillCalculator() {
                        <span className="text-sm font-black text-slate-800 dark:text-slate-200 font-mono">{estimateData.truckLoads} Loads</span>
                      </div>
                   </div>
-                  
-                  <div className="flex justify-between items-center mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
-                    <button className="text-sm font-bold text-amber-600 dark:text-amber-400 hover:text-amber-700 flex items-center gap-2 transition-colors">
-                      <Save className="w-4 h-4" /> Save Specs
-                    </button>
-                    <div className="flex gap-2">
-                       <button onClick={handlePrint} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-white rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-50 transition-colors font-bold text-sm">
-                         <Printer className="w-4 h-4" /> Print
-                       </button>
-                       <button className="flex items-center gap-2 px-4 py-2 bg-amber-600 text-white rounded-xl shadow-sm border-none hover:bg-amber-700 transition-colors font-bold text-sm">
-                         <Share2 className="w-4 h-4" /> Share
-                       </button>
-                    </div>
-                  </div>
                 </div>
               </div>
             ) : (
@@ -304,6 +291,17 @@ export default function TopSoilFillCalculator() {
                 </p>
               </div>
             )}
+            
+            <CalculationHistory
+              calculatorId="topsoil_fill_calculator"
+              currentInputs={{ length, width, depth, swellFactor, customSwellFactor, truckCapacity }}
+              currentResults={estimateData ? {
+                "Earth Bank Volume": `${estimateData.bankVolume.toLocaleString(undefined, {maximumFractionDigits: 1})} ${estimateData.volumeUnit}`,
+                "Loose / Delivery Volume": `${estimateData.looseVolume.toLocaleString(undefined, {maximumFractionDigits: 1})} ${estimateData.volumeUnit}`,
+                "Total Truck Loads": `${estimateData.truckLoads} Loads`
+              } : undefined}
+              estimationName="Topsoil / Fill Estimator"
+            />
           </div>
         </div>
       </div>

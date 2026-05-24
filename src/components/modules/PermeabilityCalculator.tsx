@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Calculator, ArrowRight, Save, Printer, Share2, Droplets, Clock, HelpCircle, Activity } from "lucide-react";
 import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
 import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 export default function PermeabilityCalculator() {
   const { isProcessing, hasData, processEstimate } = useEstimateProcessing();
@@ -347,20 +348,6 @@ export default function PermeabilityCalculator() {
                         </>
                      )}
                   </div>
-                  
-                  <div className="flex justify-between items-center mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
-                    <button className="text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 flex items-center gap-2 transition-colors">
-                      <Save className="w-4 h-4" /> Save Lab Record
-                    </button>
-                    <div className="flex gap-2">
-                       <button onClick={handlePrint} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-white rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-50 transition-colors font-bold text-sm">
-                         <Printer className="w-4 h-4" /> Print
-                       </button>
-                       <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl shadow-sm border-none hover:bg-indigo-700 transition-colors font-bold text-sm">
-                         <Share2 className="w-4 h-4" /> Share
-                       </button>
-                    </div>
-                  </div>
                 </div>
               </div>
             ) : (
@@ -374,6 +361,17 @@ export default function PermeabilityCalculator() {
                 </p>
               </div>
             )}
+            
+            <CalculationHistory
+              calculatorId="permeability_calculator"
+              currentInputs={{ testMethod, lengthSample, areaSample, qVolume, timeConstant, constantHead, areaStandpipe, headInitial, headFinal, timeFalling }}
+              currentResults={estimateData ? {
+                "Permeability (k)": `${estimateData.k_sci}`,
+                "Standard Form": `${estimateData.k_std} cm/sec`,
+                "Soil Classification": `${estimateData.classification}`
+              } : undefined}
+              estimationName="Permeability Test"
+            />
           </div>
         </div>
       </div>

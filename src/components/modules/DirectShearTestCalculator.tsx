@@ -4,6 +4,7 @@ import { Calculator, ArrowRight, Save, Printer, Share2, Plus, Trash2, Clock, Hel
 import { ComposedChart, Line, Scatter, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Legend } from "recharts";
 import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
 import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 export default function DirectShearTestCalculator() {
   const { isProcessing, hasData, processEstimate, resetEstimate } = useEstimateProcessing();
@@ -301,20 +302,6 @@ export default function DirectShearTestCalculator() {
                        </ComposedChart>
                      </ResponsiveContainer>
                   </div>
-                  
-                  <div className="flex justify-between items-center mt-6">
-                    <button className="text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 flex items-center gap-2 transition-colors">
-                      <Save className="w-4 h-4" /> Save Lab Record
-                    </button>
-                    <div className="flex gap-2">
-                       <button onClick={handlePrint} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-white rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-50 transition-colors font-bold text-sm">
-                         <Printer className="w-4 h-4" /> Print
-                       </button>
-                       <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl shadow-sm border-none hover:bg-indigo-700 transition-colors font-bold text-sm">
-                         <Share2 className="w-4 h-4" /> Share
-                       </button>
-                    </div>
-                  </div>
                 </div>
               </div>
             ) : (
@@ -328,6 +315,17 @@ export default function DirectShearTestCalculator() {
                 </p>
               </div>
             )}
+            
+            <CalculationHistory
+              calculatorId="direct_shear_test_calculator"
+              currentInputs={{ ...Object.fromEntries(testPoints.map((d, i) => [`Sample ${i+1}`, `Normal: ${d.normalLoad}, Shear: ${d.shearLoad}`])) }}
+              currentResults={estimateData ? {
+                "Cohesion (c)": `${estimateData.cohesion.toFixed(2)}`,
+                "Friction Angle (φ)": `${estimateData.angleOfFriction.toFixed(1)}°`,
+                "Equation": estimateData.eq
+              } : undefined}
+              estimationName="Direct Shear Test"
+            />
           </div>
         </div>
       </div>

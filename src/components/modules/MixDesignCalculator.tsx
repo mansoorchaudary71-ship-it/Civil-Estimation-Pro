@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { MaterialSummary } from "../ui/MaterialSummary";
+import { CalculationHistory } from "../ui/CalculationHistory";
 import {
   Settings,
   Calculator,
@@ -167,12 +168,6 @@ export default function MixDesignCalculator() {
             Design performance-based concrete mixes according to standard codes.
           </p>
         </div>
-        <button
-          onClick={() => window.print()}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2"
-        >
-          <FileOutput className="w-5 h-5" /> Generate Report
-        </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -563,6 +558,17 @@ export default function MixDesignCalculator() {
           </div>
         </div>
       </div>
+      <CalculationHistory
+        calculatorId="mix_design_calculator"
+        currentInputs={{ fck, maxCA, slump, exposure, mixType, specificGravityCement, specificGravityFA, specificGravityCA }}
+        currentResults={{
+          "Cement": `${cementContent} kg/m³`,
+          "Water": `${(waterContent).toFixed(1)} L`,
+          "Fine Sand": `${(weightFA).toFixed(1)} kg`,
+          "Coarse Agg": `${Math.round(weightCA)} kg`
+        }}
+        estimationName="Concrete Mix Design"
+      />
     </div>
   );
 }

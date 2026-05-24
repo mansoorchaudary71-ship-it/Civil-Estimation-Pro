@@ -4,6 +4,7 @@ import { Calculator, ArrowRight, Save, Printer, Share2, Ruler, Lock, BrickWall, 
 import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
 import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
 import { useGlobalSettings } from "../../context/SettingsContext";
+import { CalculationHistory } from "../ui/CalculationHistory";
 
 export default function PrecastWallCalculator() {
   const { isProcessing, hasData, processEstimate } = useEstimateProcessing();
@@ -275,20 +276,6 @@ export default function PrecastWallCalculator() {
                       <div className="text-xl font-black text-slate-800 dark:text-white">{estimateData.slabsPerBay}</div>
                     </div>
                   </div>
-                  
-                  <div className="flex justify-between items-center mt-6 pt-6 border-t border-slate-100 dark:border-slate-800">
-                    <button className="text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 flex items-center gap-2 transition-colors">
-                      <Save className="w-4 h-4" /> Save BOM
-                    </button>
-                    <div className="flex gap-2">
-                       <button onClick={handlePrint} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-white rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-50 transition-colors font-bold text-sm">
-                         <Printer className="w-4 h-4" /> Print
-                       </button>
-                       <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl shadow-sm border-none hover:bg-indigo-700 transition-colors font-bold text-sm">
-                         <Share2 className="w-4 h-4" /> Share
-                       </button>
-                    </div>
-                  </div>
                 </div>
               </div>
             ) : (
@@ -302,6 +289,18 @@ export default function PrecastWallCalculator() {
                 </p>
               </div>
             )}
+            
+            <CalculationHistory
+              calculatorId="precast_wall_calculator"
+              currentInputs={{ totalLength, postSpacing, wallHeight, slabHeight, postRate, slabRate, laborRatePerRunningMeter }}
+              currentResults={estimateData ? {
+                "Total Posts": `${estimateData.totalPosts} nos`,
+                "Total Slabs": `${estimateData.totalSlabs} nos`,
+                "Total Bays Formed": `${estimateData.numberOfBays}`,
+                "Total Cost": `$${estimateData.totalCost.toLocaleString()}`
+              } : undefined}
+              estimationName="Precast Wall Estimate"
+            />
           </div>
         </div>
       </div>
