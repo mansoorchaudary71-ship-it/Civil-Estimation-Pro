@@ -98,7 +98,7 @@ export default function TopNavbar({
             <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center transition-all duration-300 text-[var(--accent-vibrant)] group-hover:scale-105 group-hover:rotate-3 shadow-glass bg-bg-card rounded-xl p-1.5">
               <Logo className="w-full h-full" />
             </div>
-            <span className="font-sans font-extrabold text-[22px] text-[var(--primary-dark)] dark:text-white tracking-tight">
+            <span className="font-sans font-black text-[24px] text-[var(--primary-dark)] dark:text-white tracking-tight">
               Civil Estimation Pro
             </span>
           </div>
@@ -120,91 +120,89 @@ export default function TopNavbar({
             ))}
           </div>
 
-          {/* Mobile Right: Hamburger (Visible < 768px) */}
-          <div className="md:hidden flex items-center justify-end">
+          {/* Right: Action Buttons & Menu Toggle */}
+          <div className="flex items-center justify-end flex-1 gap-2 md:gap-4">
+            
+            <div className="hidden md:flex items-center gap-4">
+              <DarkModeToggle />
+
+              <div className="flex items-center gap-3">
+                <button 
+                  onClick={() => onNavigate?.('contact' as ModuleId)}
+                  className="w-10 h-10 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center justify-center text-slate-500 hover:text-[var(--accent-vibrant)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                  title="Support"
+                >
+                  <div className="font-bold text-lg">?</div>
+                </button>
+                
+                {!isAuthenticated ? (
+                  <button 
+                    onClick={signInWithGoogle}
+                    className="px-4 h-9 rounded-full bg-slate-900 dark:bg-white shadow-sm border border-slate-800 dark:border-slate-200 flex items-center justify-center gap-2 text-white dark:text-slate-900 transition-all duration-300"
+                    title="Sign In with Google"
+                  >
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-4 h-4" />
+                    <span className="text-sm font-semibold tracking-tight">Sign In</span>
+                  </button>
+                ) : (
+                  <div ref={profileRef} className="relative">
+                    <button 
+                      onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                      className="h-10 pl-1.5 pr-2 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center gap-2 text-[14px] font-semibold text-slate-700 dark:text-slate-200 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                    >
+                      {user?.photoURL ? (
+                         <img src={user.photoURL} alt="User" className="w-7 h-7 rounded-full object-cover shadow-sm border border-slate-200 dark:border-slate-600" />
+                      ) : (
+                         <div className="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center border border-slate-200 dark:border-slate-600">
+                           <User className="w-4 h-4 text-slate-500" />
+                         </div>
+                      )}
+                      <span className="truncate max-w-[100px]">{user?.displayName?.split(' ')[0] || 'Account'}</span>
+                      <div className="w-5 h-5 rounded-full flex items-center justify-center text-slate-400">
+                        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
+                      </div>
+                    </button>
+
+                    {isProfileMenuOpen && (
+                      <div className="absolute right-0 top-[140%] w-56 bg-bg-card border border-border-color rounded-xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 z-50">
+                        <div className="px-4 py-3 border-b border-border-color bg-bg-primary/50">
+                          <p className="text-sm font-bold text-text-primary truncate">{user?.displayName || 'User'}</p>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
+                        </div>
+                        <div className="p-2 space-y-1">
+                          <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                            <User className="w-4 h-4" /> My Profile
+                          </button>
+                          <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                            <Settings className="w-4 h-4" /> Account Settings
+                          </button>
+                          <div className="h-px bg-slate-200 dark:bg-slate-800 my-1" />
+                          <button 
+                            onClick={handleSignOut}
+                            className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                          >
+                            <LogOut className="w-4 h-4" /> Sign Out
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+              
+              <button 
+                onClick={() => onNavigate?.('house' as ModuleId)}
+                className="px-6 py-2.5 rounded-full text-[14px] font-bold text-white bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 transition-all duration-300 whitespace-nowrap shadow-[0_4px_14px_rgba(99,102,241,0.3)] hover:shadow-[0_6px_20px_rgba(34,211,238,0.4)] hover:-translate-y-0.5"
+              >
+                Start Estimating
+              </button>
+            </div>
+
             <button 
               onClick={() => setIsMobileMenuOpen(true)}
               className="w-10 h-10 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-300"
             >
               <Menu className="w-5 h-5" strokeWidth={2} />
-            </button>
-          </div>
-
-          {/* Right: Action Buttons (Desktop >= 768px) */}
-          <div className="hidden md:flex items-center justify-end flex-1 gap-4">
-            <CurrencySelector />
-            <DarkModeToggle />
-            <GlobalSettingsToggle />
-
-            <div className="flex items-center gap-3">
-              <button 
-                onClick={() => onNavigate?.('contact' as ModuleId)}
-                className="w-10 h-10 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center justify-center text-slate-500 hover:text-[var(--accent-vibrant)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
-                title="Support"
-              >
-                <div className="font-bold text-lg">?</div>
-              </button>
-              
-              {!isAuthenticated ? (
-                <button 
-                  onClick={signInWithGoogle}
-                  className="px-4 h-9 rounded-full bg-slate-900 dark:bg-white shadow-sm border border-slate-800 dark:border-slate-200 flex items-center justify-center gap-2 text-white dark:text-slate-900 transition-all duration-300"
-                  title="Sign In with Google"
-                >
-                  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-4 h-4" />
-                  <span className="text-sm font-semibold tracking-tight">Sign In</span>
-                </button>
-              ) : (
-                <div ref={profileRef} className="relative">
-                  <button 
-                    onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                    className="h-10 pl-1.5 pr-2 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center gap-2 text-[14px] font-semibold text-slate-700 dark:text-slate-200 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
-                  >
-                    {user?.photoURL ? (
-                       <img src={user.photoURL} alt="User" className="w-7 h-7 rounded-full object-cover shadow-sm border border-slate-200 dark:border-slate-600" />
-                    ) : (
-                       <div className="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center border border-slate-200 dark:border-slate-600">
-                         <User className="w-4 h-4 text-slate-500" />
-                       </div>
-                    )}
-                    <span className="truncate max-w-[100px]">{user?.displayName?.split(' ')[0] || 'Account'}</span>
-                    <div className="w-5 h-5 rounded-full flex items-center justify-center text-slate-400">
-                      <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
-                    </div>
-                  </button>
-
-                  {isProfileMenuOpen && (
-                    <div className="absolute right-0 top-[140%] w-56 bg-bg-card border border-border-color rounded-xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 z-50">
-                      <div className="px-4 py-3 border-b border-border-color bg-bg-primary/50">
-                        <p className="text-sm font-bold text-text-primary truncate">{user?.displayName || 'User'}</p>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
-                      </div>
-                      <div className="p-2 space-y-1">
-                        <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                          <User className="w-4 h-4" /> My Profile
-                        </button>
-                        <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                          <Settings className="w-4 h-4" /> Account Settings
-                        </button>
-                        <div className="h-px bg-slate-200 dark:bg-slate-800 my-1" />
-                        <button 
-                          onClick={handleSignOut}
-                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
-                        >
-                          <LogOut className="w-4 h-4" /> Sign Out
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-            
-            <button 
-              onClick={() => onNavigate?.('house' as ModuleId)}
-              className="px-6 py-2.5 rounded-full text-[14px] font-bold text-white bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 transition-all duration-300 whitespace-nowrap shadow-[0_4px_14px_rgba(99,102,241,0.3)] hover:shadow-[0_6px_20px_rgba(34,211,238,0.4)] hover:-translate-y-0.5"
-            >
-              Start Estimating
             </button>
           </div>
         </div>
@@ -214,7 +212,7 @@ export default function TopNavbar({
       {/* MOBILE HAMBURGER MENU OVERLAY               */}
       {/* ------------------------------------------- */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-[100] flex">
+        <div className="fixed inset-0 z-[100] flex">
           {/* Backdrop */}
           <div 
             className="absolute inset-0 bg-[#111111]/20 dark:bg-black/40 backdrop-blur-sm transition-opacity"

@@ -93,66 +93,83 @@ const ToolCard = ({ mod, onSelect, isUsed }: { mod: any, onSelect: (id: string) 
     "Intermediate": "bg-amber-400",
     "Advanced": "bg-rose-500"
   };
+
+  const pillClass = mod.styleStyle === "solid"
+    ? "bg-black/10 border border-white/10 text-white"
+    : "bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/50 text-slate-600 dark:text-slate-400 group-hover:border-slate-300 dark:group-hover:border-slate-600";
+    
   return (
     <button
       onClick={() => onSelect(mod.id)}
       id={`module-card-${mod.id}`}
       title={mod.desc}
-      className={`group relative overflow-hidden flex flex-col items-start p-5 rounded-2xl cursor-pointer transition-all duration-300 ease-out outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 hover:-translate-y-2 hover:shadow-xl hover:shadow-[var(--accent-vibrant)]/10 dark:hover:shadow-black/50 border-t-4 border-l border-r border-b ${theme.border} border-[var(--border-color)] ${
+      className={`group relative flex flex-col h-full w-full p-6 text-left rounded-3xl cursor-pointer transition-all duration-300 ease-out outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-purple)] focus-visible:ring-offset-2 hover:-translate-y-2 hover:shadow-xl dark:hover:shadow-black/50 border ${theme.border} ${
         mod.styleStyle === "solid"
           ? `${theme.bg} text-white`
           : "bg-[var(--bg-card)] hover:bg-[var(--bg-primary)]"
       }`}
     >
-      <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5 z-10 pointer-events-none">
+      {/* Badges absolutely positioned overlapping border */}
+      <div className="absolute -top-3 -right-3 flex flex-col items-end gap-2 z-20 pointer-events-none">
         {mod.isPopular && (
-          <span className="text-[10px] font-bold uppercase tracking-wider bg-orange-500 text-white py-0.5 px-2 rounded-full shadow-sm">Popular</span>
+          <span className={`text-[11px] font-black uppercase tracking-widest bg-gradient-to-r from-orange-400 to-rose-500 text-white py-1 px-3 rounded-full shadow-lg shadow-orange-500/30 ring-4 ${mod.styleStyle === "solid" ? "ring-transparent" : "ring-[var(--bg-card)]"}`}>
+            Popular
+          </span>
         )}
         {mod.isNew && (
-          <span className="text-[10px] font-bold uppercase tracking-wider bg-purple-500 text-white py-0.5 px-2 rounded-full shadow-sm">New</span>
+          <span className={`text-[11px] font-black uppercase tracking-widest bg-gradient-to-r from-[var(--accent-purple)] to-indigo-500 text-white py-1 px-3 rounded-full shadow-lg shadow-purple-500/30 ring-4 ${mod.styleStyle === "solid" ? "ring-transparent" : "ring-[var(--bg-card)]"}`}>
+            New
+          </span>
         )}
         {mod.premium && (
-          <span className="text-[10px] uppercase font-bold tracking-wider py-0.5 px-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-sm flex items-center gap-1 group-hover:scale-110 transition-transform">
-            <Sparkles className="w-2.5 h-2.5 flex-shrink-0" /> Pro
+          <span className={`text-[11px] font-black uppercase tracking-widest bg-gradient-to-r from-amber-400 to-orange-500 text-white py-1 px-3 rounded-full shadow-lg shadow-amber-500/30 ring-4 ${mod.styleStyle === "solid" ? "ring-transparent" : "ring-[var(--bg-card)]"} flex items-center gap-1 group-hover:scale-110 transition-transform`}>
+            <Sparkles className="w-3 h-3 flex-shrink-0" /> Pro
           </span>
         )}
       </div>
 
-      <div className="flex items-start gap-3 mb-3 w-full pr-12 relative z-10 text-left h-[52px]">
-        <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:rotate-[10deg] shadow-sm ${
+      {/* Header (Icon + Title) */}
+      <div className="flex items-start gap-4 mb-4 w-full pr-8 flex-shrink-0">
+        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105 shadow-sm ${
           mod.styleStyle === 'solid' ? 'bg-white/25 backdrop-blur-sm' : theme.bg
         }`}>
           <mod.icon className={`w-6 h-6 ${mod.styleStyle === 'solid' ? 'text-white' : theme.text}`} strokeWidth={2.5} />
         </div>
-        <div className="flex-1 text-left flex flex-col justify-center h-full">
-          <h4 className={`text-[15px] md:text-base font-bold tracking-tight leading-tight line-clamp-2 ${mod.styleStyle === 'solid' ? 'text-white' : 'text-[var(--text-primary)]'}`}>
+        <div className="flex-1 text-left flex flex-col justify-center min-h-[48px]">
+          <h4 className={`text-[17px] font-bold tracking-tight leading-snug line-clamp-2 ${mod.styleStyle === 'solid' ? 'text-white' : 'text-[var(--text-primary)]'}`}>
             {mod.title}
           </h4>
-          <span className={`text-[9.5px] md:text-[10px] font-bold uppercase tracking-wider mt-1 block line-clamp-1 ${mod.styleStyle === 'solid' ? 'text-white/80' : theme.textRaw}`}>
+          <span className={`text-[10px] font-black uppercase tracking-wider mt-1 block line-clamp-1 ${mod.styleStyle === 'solid' ? 'text-white/80' : theme.textRaw}`}>
             {mod.category}
           </span>
         </div>
       </div>
       
-      <p className={`text-xs md:text-sm line-clamp-2 md:line-clamp-1 mb-4 text-left relative z-10 w-full ${mod.styleStyle === 'solid' ? 'text-white/90' : 'text-[var(--text-secondary)] transition-colors'}`}>
+      {/* Body (Description) */}
+      <p className={`text-[14px] leading-relaxed line-clamp-2 mb-6 text-left w-full flex-grow ${mod.styleStyle === 'solid' ? 'text-white/90' : 'text-[var(--color-slate-500)] dark:text-slate-400 transition-colors'}`}>
         {mod.desc}
       </p>
 
-      <div className="mt-auto w-full flex flex-wrap items-center justify-between relative z-10 pt-3 border-t border-black/5 dark:border-white/10 gap-x-2 gap-y-1">
-        <div className="flex items-center gap-1.5" title={`Difficulty: ${mod.difficulty || 'Beginner'}`}>
-           <span className={`w-2 h-2 rounded-full ${diffColors[(mod.difficulty as string)] || diffColors['Beginner']}`} />
-           <span className={`text-xs font-semibold ${mod.styleStyle === 'solid' ? 'text-white/90' : 'text-slate-500 dark:text-slate-400'}`}>{mod.difficulty || 'Beginner'}</span>
+      {/* Footer (Difficulty + Time) */}
+      <div className="w-full flex flex-wrap items-center justify-between gap-y-2 mt-auto pt-5 border-t border-black/5 dark:border-white/10 flex-shrink-0">
+        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors ${pillClass}`} title={`Difficulty: ${mod.difficulty || 'Beginner'}`}>
+           <span className={`w-2.5 h-2.5 rounded-full ${diffColors[(mod.difficulty as string)] || diffColors['Beginner']}`} />
+           <span className="text-[11.5px] font-bold leading-none">
+             {mod.difficulty || 'Beginner'}
+           </span>
         </div>
         
         <div className="flex items-center gap-2">
            {isUsed && (
-             <span className="flex items-center gap-1 text-[10px] uppercase font-bold text-emerald-500 bg-emerald-500/10 px-1.5 py-0.5 rounded-full" title="You have used this tool">
-               <CheckSquare className="w-3 h-3" /> Used
+             <span className="flex items-center gap-1.5 text-[11.5px] font-bold leading-none text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-full" title="You have used this tool">
+               <CheckSquare className="w-3.5 h-3.5" /> Used
              </span>
            )}
-           <div className="flex items-center gap-1.5" title="Estimated time">
-              <Clock className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
-              <span className={`text-xs font-semibold ${mod.styleStyle === 'solid' ? 'text-white/90' : 'text-slate-500 dark:text-slate-400'}`}>{mod.estimatedTime || '~2 mins'}</span>
+           <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors ${pillClass}`} title="Estimated time">
+              <Clock className="w-3.5 h-3.5" />
+              <span className="text-[11.5px] font-bold leading-none">
+                {mod.estimatedTime || '~2 mins'}
+              </span>
            </div>
         </div>
       </div>
