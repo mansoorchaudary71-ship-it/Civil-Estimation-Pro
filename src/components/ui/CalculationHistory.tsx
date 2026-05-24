@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { History, Save, Trash2, ChevronRight, X, CloudUpload, Home, Share2, Bookmark } from 'lucide-react';
+import { History, Save, Trash2, ChevronRight, X, CloudUpload, Home, Share2, Printer } from 'lucide-react';
 import { saveEstimate, getToolEstimates } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
@@ -353,30 +353,38 @@ export function CalculationHistory({
 
   return (
     <>
+      {finalExplanationOpts && (
+        <div className="w-full flex justify-center mt-2 mb-4 px-4 sm:px-0">
+          <CalculationExplanation {...finalExplanationOpts} />
+        </div>
+      )}
+
       {/* Bottom Navigation Action Bar */}
-      <div className="flex justify-center w-full mt-12 mb-8 font-sans px-2 sm:px-4">
-        <div className="flex items-center justify-between w-full max-w-[440px] rounded-full border border-slate-300/80 dark:border-slate-600/60 p-1 sm:p-1.5 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm pointer-events-auto shadow-sm gap-0.5 sm:gap-1.5">
+      <div className="flex justify-center w-full mt-8 mb-8 font-sans px-2 sm:px-4">
+        <div className="grid grid-cols-6 sm:flex sm:items-center sm:justify-between w-full max-w-[400px] sm:max-w-[550px] rounded-3xl sm:rounded-full border border-slate-300/80 dark:border-slate-600/60 p-1.5 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm pointer-events-auto shadow-sm gap-1.5">
           
           {/* Dashboard Button */}
           <button
             onClick={handleGoHome}
-            className="flex flex-1 min-w-0 items-center justify-center gap-1 sm:gap-1.5 px-1 sm:px-2 py-2 sm:py-2.5 rounded-full hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-300 group border border-transparent hover:border-blue-200 dark:hover:border-blue-500/20"
+            className="col-span-2 sm:col-span-1 flex min-w-0 items-center justify-center gap-1.5 px-2 py-2.5 rounded-2xl sm:rounded-full hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-300 group border border-transparent hover:border-blue-200 dark:hover:border-blue-500/20"
             aria-label="Back to Dashboard"
           >
-            <Home className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
-            <span className="text-[11px] sm:text-[13px] font-semibold truncate">Home</span>
+            <Home className="w-[18px] h-[18px] text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
+            <span className="text-[13px] font-semibold truncate hidden sm:inline-block md:hidden lg:inline-block">Dashboard</span>
+            <span className="text-[12px] font-semibold sm:hidden">Home</span>
           </button>
 
           {/* History Button */}
           <button
             onClick={() => setIsOpen(true)}
-            className="flex flex-1 min-w-0 items-center justify-center gap-1 sm:gap-1.5 px-1 sm:px-2 py-2 sm:py-2.5 rounded-full hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-orange-700 dark:hover:text-orange-300 group relative border border-transparent hover:border-orange-200 dark:hover:border-orange-500/20"
+            className="col-span-2 sm:col-span-1 flex min-w-0 items-center justify-center gap-1.5 px-2 py-2.5 rounded-2xl sm:rounded-full hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-orange-700 dark:hover:text-orange-300 group relative border border-transparent hover:border-orange-200 dark:hover:border-orange-500/20"
             aria-label="View History"
           >
-            <History className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
-            <span className="text-[11px] sm:text-[13px] font-semibold truncate">History</span>
+            <History className="w-[18px] h-[18px] text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
+            <span className="text-[12px] sm:text-[13px] font-semibold truncate hidden sm:inline-block">History</span>
+            <span className="text-[12px] font-semibold sm:hidden">History</span>
             {history.length > 0 && (
-              <span className="absolute top-0 right-1 sm:right-2 flex h-3 w-3 sm:h-4 sm:w-4 items-center justify-center rounded-full bg-orange-500 text-[9px] sm:text-[10px] font-bold text-white shadow-sm ring-2 ring-white dark:ring-slate-900">
+              <span className="absolute top-0 right-1 sm:right-2 flex h-4 w-4 items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-white shadow-sm ring-2 ring-white dark:ring-slate-900">
                 {history.length}
               </span>
             )}
@@ -395,15 +403,16 @@ export function CalculationHistory({
               }
             }}
             disabled={isSavingLocal || isSavingCloud}
-            className="flex flex-1 min-w-0 items-center justify-center gap-1 sm:gap-1.5 px-1 sm:px-2 py-2 sm:py-2.5 rounded-full hover:bg-emerald-50 dark:hover:bg-emerald-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-300 disabled:opacity-50 group border border-transparent hover:border-emerald-200 dark:hover:border-emerald-500/20"
+            className="col-span-2 sm:col-span-1 flex min-w-0 items-center justify-center gap-1.5 px-2 py-2.5 rounded-2xl sm:rounded-full hover:bg-emerald-50 dark:hover:bg-emerald-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-300 disabled:opacity-50 group border border-transparent hover:border-emerald-200 dark:hover:border-emerald-500/20"
             aria-label="Save Calculation"
           >
             {isSavingLocal || isSavingCloud ? (
-              <Save className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-emerald-600 dark:text-emerald-400 animate-pulse flex-shrink-0" strokeWidth={2} />
+              <Save className="w-[18px] h-[18px] text-emerald-600 dark:text-emerald-400 animate-pulse flex-shrink-0" strokeWidth={2} />
             ) : (
-              <Save className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
+              <Save className="w-[18px] h-[18px] text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
             )}
-            <span className="text-[11px] sm:text-[13px] font-semibold truncate">Save</span>
+            <span className="text-[12px] sm:text-[13px] font-semibold truncate hidden sm:inline-block">Save</span>
+            <span className="text-[12px] font-semibold sm:hidden">Save</span>
           </button>
 
           {/* Share Button */}
@@ -412,25 +421,31 @@ export function CalculationHistory({
             title={estimationName || "Calculation"}
             data={currentResults || currentInputs || {}}
             exportFormat={savePayload || { inputs: currentInputs || {}, breakdown: currentResults || {} }}
-            containerClassName="flex-1 min-w-0 m-0 p-0 flex"
+            containerClassName="col-span-3 sm:col-span-1 min-w-0 m-0 p-0 flex"
             popupPosition="top"
-            triggerClassName="flex min-w-0 w-full items-center justify-center gap-1 sm:gap-1.5 px-1 sm:px-2 py-2 sm:py-2.5 rounded-full hover:bg-purple-50 dark:hover:bg-purple-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-purple-700 dark:hover:text-purple-300 group overflow-hidden border border-transparent hover:border-purple-200 dark:hover:border-purple-500/20"
+            triggerClassName="flex min-w-0 w-full items-center justify-center gap-1.5 px-2 py-2.5 rounded-2xl sm:rounded-full hover:bg-purple-50 dark:hover:bg-purple-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-purple-700 dark:hover:text-purple-300 group overflow-hidden border border-transparent hover:border-purple-200 dark:hover:border-purple-500/20"
             triggerContent={
               <>
-                <Share2 className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
-                <span className="text-[11px] sm:text-[13px] font-semibold truncate">Share</span>
+                <Share2 className="w-[18px] h-[18px] text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
+                <span className="text-[12px] sm:text-[13px] font-semibold truncate hidden sm:inline-block">Share</span>
+                <span className="text-[12px] font-semibold sm:hidden">Share</span>
               </>
             }
           />
+          
+          {/* Print Button */}
+          <button
+            onClick={() => window.print()}
+            className="col-span-3 sm:col-span-1 flex min-w-0 items-center justify-center gap-1.5 px-2 py-2.5 rounded-2xl sm:rounded-full hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-rose-700 dark:hover:text-rose-300 group border border-transparent hover:border-rose-200 dark:hover:border-rose-500/20"
+            aria-label="Print Calculation"
+          >
+            <Printer className="w-[18px] h-[18px] text-rose-600 dark:text-rose-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
+            <span className="text-[12px] sm:text-[13px] font-semibold truncate hidden sm:inline-block">Print</span>
+            <span className="text-[12px] font-semibold sm:hidden">Print</span>
+          </button>
 
         </div>
       </div>
-      
-      {finalExplanationOpts && (
-        <div className="w-full flex justify-center mt-2 mb-4 px-4 sm:px-0">
-          <CalculationExplanation {...finalExplanationOpts} />
-        </div>
-      )}
 
       {isOpen && (
         <div className="fixed inset-0 z-50 overflow-hidden">

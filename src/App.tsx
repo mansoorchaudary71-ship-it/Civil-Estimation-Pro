@@ -310,7 +310,6 @@ export default function App() {
 
 import Breadcrumb, { BreadcrumbItem } from "./components/Breadcrumb";
 import BottomNavBar from "./components/BottomNavBar";
-import { ToolActionBar } from "./components/ui/ToolActionBar";
 
 function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: string; onOpenSidebar: () => void; onOpenSettings: () => void; onGoHome?: () => void }) {
   const breadcrumbItems: BreadcrumbItem[] = [
@@ -526,14 +525,6 @@ function ModuleWrapper({
                       </div>
                     </div>
                   )}
-
-                  <ToolActionBar 
-                    onHome={() => setActiveModule("home")}
-                    onHistory={() => window.dispatchEvent(new CustomEvent('tool-history'))}
-                    onSave={() => window.dispatchEvent(new CustomEvent('tool-save'))}
-                    onShare={() => window.dispatchEvent(new CustomEvent('tool-share'))}
-                    onPrint={() => window.print()}
-                  />
                 </div>
               );
             })()}
