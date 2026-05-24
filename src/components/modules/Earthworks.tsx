@@ -3,9 +3,10 @@ import { Shovel } from "lucide-react";
 import StandardEarthworks from "./EarthworksBase";
 import TrenchExcavationEstimator from "./TrenchExcavation";
 import GridEarthworkEstimator from "./GridEarthwork";
+import TopSoilFillCalculator from "./TopSoilFillCalculator";
 
 export default function EarthworksEstimator() {
-  const [activeMethod, setActiveMethod] = useState<"standard" | "trench" | "grid">("standard");
+  const [activeMethod, setActiveMethod] = useState<"standard" | "trench" | "grid" | "topsoil">("standard");
 
   return (
     <div className="w-full text-gray-900 font-sans md:p-4">
@@ -26,12 +27,13 @@ export default function EarthworksEstimator() {
             <select
               title="Calculation Method"
               value={activeMethod}
-              onChange={(e) => setActiveMethod(e.target.value as "standard" | "trench" | "grid")}
+              onChange={(e) => setActiveMethod(e.target.value as "standard" | "trench" | "grid" | "topsoil")}
               className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 shadow-sm"
             >
               <option value="standard">Standard Area/Depth</option>
               <option value="trench">Trenching</option>
               <option value="grid">Grid Method</option>
+              <option value="topsoil">Top Soil / Fill</option>
             </select>
           </div>
         </header>
@@ -41,6 +43,7 @@ export default function EarthworksEstimator() {
             {activeMethod === "standard" && <StandardEarthworks />}
             {activeMethod === "trench" && <TrenchExcavationEstimator />}
             {activeMethod === "grid" && <GridEarthworkEstimator />}
+            {activeMethod === "topsoil" && <TopSoilFillCalculator />}
           </div>
         </div>
       </div>

@@ -132,6 +132,7 @@ export default function ReinforcementVisualizer() {
       <MaterialSummary
         title="Reinforcement Detailing"
         icon={<LayoutTemplate className="w-5 h-5" />}
+        totalValue="—"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-6">
           {/* Controls */}

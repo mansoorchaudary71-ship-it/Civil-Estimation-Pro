@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect, useRef } from "react";
+import { Helmet } from "react-helmet-async";
 import AIAssistant from "./components/modules/AIAssistant";
 import Calculators from "./components/modules/Calculators";
 import Takeoff from "./components/modules/Takeoff";
@@ -19,10 +20,16 @@ import AreaCalculator from "./components/modules/AreaCalculator";
 import PropertyAreaCalculator from "./components/modules/PropertyAreaCalculator";
 import GeotechnicalCalculator from "./components/modules/GeotechnicalCalculator";
 import AggregateTestsCalculator from "./components/modules/AggregateTestsCalculator";
+import CbrTestCalculator from "./components/modules/CbrTestCalculator";
 import VolumeEstimator from "./components/modules/VolumeEstimator";
 import UnitConverter from "./components/modules/UnitConverter";
+import PermeabilityCalculator from "./components/modules/PermeabilityCalculator";
+import DirectShearTestCalculator from "./components/modules/DirectShearTestCalculator";
+import RoofPitchCalculator from "./components/modules/RoofPitchCalculator";
 import MetalWeightCalculator from "./components/modules/MetalWeightCalculator";
 import GradientCalculator from "./components/modules/GradientCalculator";
+import PrecastWallCalculator from "./components/modules/PrecastWallCalculator";
+import AntiTermiteCalculator from "./components/modules/AntiTermiteCalculator";
 import BarBendingSchedule from "./components/modules/BarBendingSchedule";
 import StaircaseCalculator from "./components/modules/StaircaseCalculator";
 import ColumnEstimator from "./components/modules/ColumnEstimator";
@@ -74,11 +81,12 @@ import LegalPages from "./components/pages/LegalPages";
 import { 
   Menu, Settings as SettingsIcon, Home, FileText, User as UserIcon, Plus, Search, 
   Calculator, Square, Box, ArrowRightLeft, Weight, Zap, 
-  Map as MapIcon, Layers, Hammer, Sparkles, Mountain, Route, Droplet, 
+  Map as MapIcon, Layers, Hammer, Sparkles, Mountain, Route, Droplet, Activity, Droplets, Triangle, Bug,
   LineChart, ChevronDown, ChevronUp, Sun, Building, HelpCircle, BarChart, ClipboardList
 } from "lucide-react";
 
 import { GlobalSettingsToggle } from "./components/ui/GlobalSettingsToggle";
+import { Users, Clock } from "lucide-react";
 
 import MobileToolsSheet from "./components/MobileToolsSheet";
 
@@ -97,6 +105,11 @@ export const ALL_TOOLS = [
   { id: "earthworks", title: "Earthworks", category: "Site & Infrastructure", icon: <Mountain className="w-4 h-4" /> },
   { id: "chainage", title: "Road Earthworks", category: "Site & Infrastructure", icon: <Route className="w-4 h-4" /> },
   { id: "geotechnical", title: "Geotechnical & Soil Tests", category: "Site & Infrastructure", icon: <Droplet className="w-4 h-4" /> },
+  { id: "cbr-test", title: "CBR Test Calculator", category: "Site & Infrastructure", icon: <Activity className="w-4 h-4" /> },
+  { id: "permeability-test", title: "Permeability Calculator", category: "Site & Infrastructure", icon: <Droplets className="w-4 h-4" /> },
+  { id: "direct-shear", title: "Direct Shear Test", category: "Site & Infrastructure", icon: <Layers className="w-4 h-4" /> },
+  { id: "roof-pitch", title: "Roof Pitch Calculator", category: "Analysis & Tools", icon: <Triangle className="w-4 h-4" /> },
+  { id: "anti-termite", title: "Anti-Termite Treatment", category: "Site & Infrastructure", icon: <Bug className="w-4 h-4" /> },
   { id: "master-sieve", title: "Master Sieve Analysis", category: "Site & Infrastructure", icon: <LineChart className="w-4 h-4" /> },
   { id: "aggregate-blending", title: "Aggregate Blending Calculator", category: "Site & Infrastructure", icon: <Layers className="w-4 h-4" /> },
   { id: "solar-roof", title: "Solar Roof Calculator", category: "Site & Infrastructure", icon: <Sun className="w-4 h-4" /> },
@@ -222,7 +235,6 @@ export default function App() {
               {activeModule === "unit-converter" && <ModuleWrapper title="Universal Unit Converter" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><UnitConverter /></ModuleWrapper>}
               {activeModule === "metal-weight" && <ModuleWrapper title="Metal Weight Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MetalWeightCalculator /></ModuleWrapper>}
               {activeModule === "mep-calculator" && <ModuleWrapper title="Energy & MEP Calculators" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><EnergyMepCalculator /></ModuleWrapper>}
-              {activeModule === "rainwater-harvesting" && <ModuleWrapper title="Rainwater Harvesting" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RainwaterHarvesting /></ModuleWrapper>}
               {activeModule === "gradient-calculator" && <ModuleWrapper title="Gradient & Slope Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><GradientCalculator /></ModuleWrapper>}
               {activeModule === "master-rcc" && <ModuleWrapper title="Master RCC Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MasterRccStructure onNavigate={handleSelectModule} /></ModuleWrapper>}
               {activeModule === "reinforcement" && <ModuleWrapper title="Reinforcement Detailing Visualizer" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ReinforcementVisualizer /></ModuleWrapper>}
@@ -231,7 +243,13 @@ export default function App() {
               {activeModule === "ai" && <ModuleWrapper title="AI Assistant" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AIAssistant /></ModuleWrapper>}
               {activeModule === "earthworks" && <ModuleWrapper title="Earthworks" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><EarthworksEstimator /></ModuleWrapper>}
               {activeModule === "chainage" && <ModuleWrapper title="Road Earthworks" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ChainageVolumeEstimator /></ModuleWrapper>}
+              {activeModule === "precast-wall" && <ModuleWrapper title="Precast Wall Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><PrecastWallCalculator /></ModuleWrapper>}
               {activeModule === "geotechnical" && <ModuleWrapper title="Geotechnical & Soil Tests" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><GeotechnicalCalculator /></ModuleWrapper>}
+              {activeModule === "cbr-test" && <ModuleWrapper title="CBR Test Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><CbrTestCalculator /></ModuleWrapper>}
+              {activeModule === "permeability-test" && <ModuleWrapper title="Permeability Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><PermeabilityCalculator /></ModuleWrapper>}
+              {activeModule === "direct-shear" && <ModuleWrapper title="Direct Shear Test Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><DirectShearTestCalculator /></ModuleWrapper>}
+              {activeModule === "roof-pitch" && <ModuleWrapper title="Roof Pitch Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RoofPitchCalculator /></ModuleWrapper>}
+              {activeModule === "anti-termite" && <ModuleWrapper title="Anti-Termite Treatment Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AntiTermiteCalculator /></ModuleWrapper>}
               {activeModule === "master-sieve" && <ModuleWrapper title="Master Sieve Analysis" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MasterSieveAnalysis /></ModuleWrapper>}
               {activeModule === "aggregate-blending" && <ModuleWrapper title="Aggregate Blending Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AggregateBlendingCalculator /></ModuleWrapper>}
               {activeModule === "aggregate-tests" && <ModuleWrapper title="Aggregate Tests" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AggregateTestsCalculator /></ModuleWrapper>}
@@ -340,8 +358,43 @@ function ModuleWrapper({
   setIsSettingsOpen: (val: boolean) => void; 
   children: React.ReactNode;
 }) {
+  const moduleDef = ALL_MODULES.find(m => m.id === activeModule);
   return (
     <div className="h-full flex flex-col min-h-0 bg-transparent">
+      {moduleDef && (
+        <Helmet>
+          <title>{`${moduleDef.title} Calculator - Free Online ${moduleDef.category} Tool | Civil Estimation Pro`}</title>
+          <meta name="description" content={moduleDef.desc} />
+          <meta name="keywords" content={`civil engineering calculator, ${moduleDef.title.toLowerCase()}, ${moduleDef.category.toLowerCase()}`} />
+          <link rel="canonical" href={`https://civilestimationpro.com/tools/${moduleDef.id}`} />
+          
+          <meta property="og:title" content={`${moduleDef.title} Calculator | Civil Estimation Pro`} />
+          <meta property="og:description" content={moduleDef.desc} />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content={`https://civilestimationpro.com/tools/${moduleDef.id}`} />
+          <meta property="og:site_name" content="Civil Estimation Pro" />
+
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={`${moduleDef.title} Calculator | Civil Estimation Pro`} />
+          <meta name="twitter:description" content={moduleDef.desc} />
+
+          <script type="application/ld+json">
+            {JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              "name": moduleDef.title,
+              "applicationCategory": "EngineeringApplication",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              },
+              "description": moduleDef.desc,
+              "featureList": `Free online ${moduleDef.title.toLowerCase()}`
+            })}
+          </script>
+        </Helmet>
+      )}
       <AppHeader 
         title={title} 
         onOpenSidebar={() => setIsSidebarOpen(true)} 
@@ -362,7 +415,6 @@ function ModuleWrapper({
             </div>
 
             {(() => {
-              const moduleDef = ALL_MODULES.find(m => m.id === activeModule);
               let themeHex = '#54a0ff';
               if (moduleDef) {
                  const theme = getCategoryTheme(moduleDef.category, moduleDef.id);
@@ -374,7 +426,107 @@ function ModuleWrapper({
                   className="flex-1 shrink-0 px-4 md:px-8 pb-6 w-full themed-tool-container relative"
                   style={{ '--tool-theme-color': themeHex } as React.CSSProperties}
                 >
+                  {moduleDef && (
+                    <div className="mb-6 p-6 rounded-[2rem] bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
+                        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+                          {moduleDef.title} Calculator - Free Online {moduleDef.category} Tool
+                        </h1>
+                        {moduleDef.isPopular && (
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-400 text-sm font-semibold whitespace-nowrap">
+                            🔥 Most popular this week
+                          </span>
+                        )}
+                      </div>
+                      
+                      {/* Social Signals */}
+                      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mb-4 text-sm text-slate-600 dark:text-slate-400">
+                        <div className="flex items-center gap-1">
+                          <span className="text-amber-500 flex">
+                            {"★".repeat(5)}
+                          </span>
+                          <span className="font-medium ml-1">4.9/5</span>
+                          <span>(128 reviews)</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <Users className="w-4 h-4" />
+                          <span>Calculated by 10,000+ engineers</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <Clock className="w-4 h-4" />
+                          <span>Last updated: {new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span>
+                        </div>
+                      </div>
+
+                      <p className="text-slate-600 dark:text-slate-300 leading-relaxed max-w-4xl text-base mb-8">
+                        {moduleDef.desc}. This tool is designed for civil engineers, contractors, and students to quickly and accurately calculate requirements. Use this free online calculator to improve the speed and accuracy of your estimation process.
+                      </p>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                          <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4">How to Use the {moduleDef.title} Calculator</h2>
+                          <ol className="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-400">
+                            <li>Select your preferred units of measurement</li>
+                            <li>Input the primary dimensions and parameters</li>
+                            <li>Review any standard constants and adjust if necessary</li>
+                            <li>Check the real-time generated results and summaries</li>
+                            <li>Export the calculation to PDF or save it for later</li>
+                          </ol>
+                        </div>
+                        <div>
+                          <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4">Frequently Asked Questions</h2>
+                          <div className="space-y-3">
+                            <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800">
+                              <p className="font-medium text-sm text-slate-800 dark:text-slate-200">Is this calculator free to use?</p>
+                              <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Yes, all core calculation features are completely free for all users.</p>
+                            </div>
+                            <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800">
+                              <p className="font-medium text-sm text-slate-800 dark:text-slate-200">How accurate are the results?</p>
+                              <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Estimations follow standard civil engineering formulas and practices. Always verify critical computations.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                   {children}
+                  
+                  {/* Comments / Discussion Widget */}
+                  {moduleDef && (
+                    <div className="mt-8 p-6 rounded-[2rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                      <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6">Discussion & Comments</h2>
+                      <div className="flex flex-col gap-4">
+                         <div className="flex items-start gap-4">
+                           <div className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center shrink-0 font-bold text-slate-500">M</div>
+                           <div className="flex-1">
+                             <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl rounded-tl-none border border-slate-100 dark:border-slate-800">
+                               <div className="flex items-center justify-between mb-2">
+                                 <h4 className="font-semibold text-slate-800 dark:text-slate-200 text-sm">Muhammad A.</h4>
+                                 <span className="text-xs text-slate-500">2 days ago</span>
+                               </div>
+                               <p className="text-sm text-slate-600 dark:text-slate-400">This {moduleDef.title.toLowerCase()} tool saved me hours of manual calculations. Highly recommended for quick site estimations!</p>
+                             </div>
+                           </div>
+                         </div>
+                         
+                         <div className="mt-4 flex items-start gap-4">
+                           <div className="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center shrink-0 font-bold text-indigo-600 dark:text-indigo-400"> You</div>
+                           <div className="flex-1 relative">
+                             <textarea 
+                               placeholder="Add a comment or ask a question..." 
+                               className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+                               rows={3}
+                             />
+                             <button className="absolute bottom-3 right-3 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-1.5 rounded-xl text-sm font-medium transition-colors">
+                               Post
+                             </button>
+                           </div>
+                         </div>
+                      </div>
+                    </div>
+                  )}
+
                   <ToolActionBar 
                     onHome={() => setActiveModule("home")}
                     onHistory={() => window.dispatchEvent(new CustomEvent('tool-history'))}

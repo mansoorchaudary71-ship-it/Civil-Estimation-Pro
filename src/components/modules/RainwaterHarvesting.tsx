@@ -225,6 +225,7 @@ export default function RainwaterHarvesting() {
         currentInputs={{ roofArea, rainfall }}
         currentResults={{ annualVolLiters }}
         summaryGeneration={(inputs, res) => `Yield: ${Math.round(res.annualVolLiters).toLocaleString()} L`}
+        onRestore={() => {}}
       />
     </div>
   );

@@ -1,48 +1,307 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://y71-ship-it.github.io/</loc>
+    <loc>https://civilestimationpro.com/</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/" />
   </url>
   <url>
-    <loc>https://y71-ship-it.github.io/#house</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://y71-ship-it.github.io/#slab</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://y71-ship-it.github.io/#reinforcement</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://y71-ship-it.github.io/#mix-design</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://y71-ship-it.github.io/#boq</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://y71-ship-it.github.io/#calculators</loc>
+    <loc>https://civilestimationpro.com/tools/tracker</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/tracker" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/tracker" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/tracker" />
   </url>
   <url>
-    <loc>https://y71-ship-it.github.io/#tracker</loc>
+    <loc>https://civilestimationpro.com/tools/projects</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/projects" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/projects" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/projects" />
   </url>
   <url>
-    <loc>https://y71-ship-it.github.io/#projects</loc>
+    <loc>https://civilestimationpro.com/tools/labour-calculator</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/labour-calculator" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/labour-calculator" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/labour-calculator" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/boq</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/boq" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/boq" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/boq" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/retaining-wall</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/retaining-wall" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/retaining-wall" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/retaining-wall" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/mix-design</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/mix-design" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/mix-design" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/mix-design" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/isolated-footing</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/isolated-footing" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/isolated-footing" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/isolated-footing" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/calculators</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/calculators" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/calculators" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/calculators" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/reinforcement</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/reinforcement" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/reinforcement" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/reinforcement" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/house</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/house" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/house" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/house" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/area-calculator</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/area-calculator" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/area-calculator" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/area-calculator" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/property-area</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/property-area" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/property-area" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/property-area" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/volume-estimator</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/volume-estimator" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/volume-estimator" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/volume-estimator" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/unit-converter</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/unit-converter" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/unit-converter" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/unit-converter" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/metal-weight</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/metal-weight" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/metal-weight" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/metal-weight" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/mep-calculator</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/mep-calculator" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/mep-calculator" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/mep-calculator" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/rainwater-harvesting</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/rainwater-harvesting" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/rainwater-harvesting" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/rainwater-harvesting" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/master-rcc</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/master-rcc" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/master-rcc" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/master-rcc" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/staircase-calculator</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/staircase-calculator" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/staircase-calculator" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/staircase-calculator" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/bbs-generator</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/bbs-generator" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/bbs-generator" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/bbs-generator" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/master-quantity</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/master-quantity" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/master-quantity" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/master-quantity" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/earthworks</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/earthworks" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/earthworks" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/earthworks" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/road-pavement</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/road-pavement" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/road-pavement" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/road-pavement" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/chainage</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/chainage" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/chainage" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/chainage" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/interiors-finishes</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/interiors-finishes" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/interiors-finishes" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/interiors-finishes" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/formwork</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/formwork" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/formwork" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/formwork" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/gradient-calculator</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/gradient-calculator" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/gradient-calculator" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/gradient-calculator" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/takeoff</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/takeoff" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/takeoff" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/takeoff" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/rates</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/rates" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/rates" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/rates" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/ai</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/ai" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/ai" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/ai" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/geotechnical</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/geotechnical" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/geotechnical" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/geotechnical" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/master-sieve</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/master-sieve" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/master-sieve" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/master-sieve" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/aggregate-blending</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/aggregate-blending" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/aggregate-blending" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/aggregate-blending" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/aggregate-tests</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/aggregate-tests" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/aggregate-tests" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/aggregate-tests" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/solar-roof</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/solar-roof" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/solar-roof" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/solar-roof" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/cbr-test</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/cbr-test" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/cbr-test" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/cbr-test" />
+  </url>
+  <url>
+    <loc>https://civilestimationpro.com/tools/permeability-test</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://civilestimationpro.com/tools/permeability-test" />
+    <xhtml:link rel="alternate" hreflang="ur" href="https://civilestimationpro.com/tools/permeability-test" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://civilestimationpro.com/tools/permeability-test" />
   </url>
 </urlset>

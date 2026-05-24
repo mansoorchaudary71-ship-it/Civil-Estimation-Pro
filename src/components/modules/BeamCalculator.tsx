@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { CopySlash, Settings2, Columns } from "lucide-react";
+import { CopySlash, Settings2, Columns, ArrowUp, AlertTriangle } from "lucide-react";
 import { SEO } from "../SEO";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
 
 export default function BeamCalculator() {
+  const [isPrecast, setIsPrecast] = useState(false);
+  const [concreteDensity, setConcreteDensity] = useState("2400");
+  const [riggingRadius, setRiggingRadius] = useState("5");
+
   const [beamWidth, setBeamWidth] = useState("300"); // mm
   const [beamDepth, setBeamDepth] = useState("450"); // mm
   const [beamSpan, setBeamSpan] = useState("5"); // meters
@@ -57,6 +61,8 @@ export default function BeamCalculator() {
     totalSteelWeight: number;
     stirrupsCount: number;
     stirrupTypes: { name: string; length: number; countPerSet: number }[];
+    elementWeightKg: number;
+    craneCapacityTonnes: number;
   } | null>(null);
 
   const calculateBeam = () => {
@@ -69,6 +75,8 @@ export default function BeamCalculator() {
     const sDia = parseFloat(stirrupDia);
     const spacing = parseFloat(stirrupSpacing);
     const legs = parseInt(stirrupLegs);
+    const density = parseFloat(concreteDensity) || 2400;
+    const radius = parseFloat(riggingRadius) || 5;
 
     if (
       isNaN(w) || isNaN(d) || isNaN(span) || isNaN(c) ||
@@ -81,6 +89,10 @@ export default function BeamCalculator() {
     // Concrete Volume
     const concreteVolumeWet = (w / 1000) * (d / 1000) * span;
     const concreteVolumeDry = concreteVolumeWet * 1.54; // RULE: CONCRETE_DRY_VOLUME
+
+    // Precast Calculations
+    const elementWeightKg = concreteVolumeWet * density;
+    const craneCapacityTonnes = (elementWeightKg * 1.5 * radius) / 1000;
 
     // Core dimensions for stirrups
     const A = w - 2 * c;
@@ -159,6 +171,8 @@ export default function BeamCalculator() {
       totalSteelWeight,
       stirrupsCount,
       stirrupTypes,
+      elementWeightKg,
+      craneCapacityTonnes,
     });
   };
 
@@ -180,9 +194,20 @@ export default function BeamCalculator() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 md:p-8">
-          <div className="flex items-center gap-2 mb-6">
-            <Settings2 className="w-5 h-5 text-indigo-600" />
-            <h2 className="text-lg font-bold text-slate-800">Beam Dimensions</h2>
+          <div className="flex items-center justify-between gap-4 mb-6">
+            <div className="flex items-center gap-2">
+              <Settings2 className="w-5 h-5 text-indigo-600" />
+              <h2 className="text-lg font-bold text-slate-800">Beam Dimensions</h2>
+            </div>
+            <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200 dark:border-slate-700">
+               <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Precast Mode</span>
+               <button 
+                onClick={() => setIsPrecast(!isPrecast)}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${isPrecast ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-600'}`}
+               >
+                 <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${isPrecast ? 'translate-x-6' : 'translate-x-1'}`} />
+               </button>
+            </div>
           </div>
 
           <div className="space-y-4">
@@ -228,6 +253,17 @@ export default function BeamCalculator() {
                 />
               </InputGroup>
             </div>
+
+            {isPrecast && (
+              <div className="animate-in fade-in slide-in-from-top-2 duration-300 grid grid-cols-1 sm:grid-cols-2 gap-4 bg-indigo-50/50 dark:bg-indigo-900/10 p-4 rounded-xl border border-indigo-100 dark:border-indigo-800/50 mt-4">
+                <InputGroup label="Concrete Density (kg/m³)">
+                  <input type="number" value={concreteDensity} onChange={(e) => setConcreteDensity(e.target.value)} className="w-full h-11 bg-white dark:bg-slate-800/80 border border-indigo-200 dark:border-indigo-700/50 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
+                </InputGroup>
+                <InputGroup label="Lifting Radius (m)">
+                  <input type="number" value={riggingRadius} onChange={(e) => setRiggingRadius(e.target.value)} className="w-full h-11 bg-white dark:bg-slate-800/80 border border-indigo-200 dark:border-indigo-700/50 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
+                </InputGroup>
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-2 mb-6 mt-8">
@@ -365,8 +401,38 @@ export default function BeamCalculator() {
 
         <div className="flex-1 flex flex-col">
           {results ? (
-            <MaterialSummary
-              title="Calculation Results"
+            <div className="flex flex-col h-full w-full">
+              {isPrecast && (
+                <div className="mb-6 p-4 md:p-6 rounded-2xl bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-200 shadow-sm relative overflow-hidden animate-in fade-in slide-in-from-top-4 duration-500">
+                  <div className="absolute top-0 right-0 p-4 opacity-10 transform translate-x-4 -translate-y-4">
+                    <ArrowUp className="w-32 h-32 text-indigo-900" />
+                  </div>
+                  <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6">
+                    <div className="flex-1">
+                      <h4 className="text-sm font-bold uppercase tracking-widest text-indigo-600 mb-1 flex items-center gap-2">
+                        <AlertTriangle className="w-4 h-4" /> Precast Safety & Lifting
+                      </h4>
+                      <p className="text-slate-600 text-sm mb-4 leading-relaxed">
+                        Based on {riggingRadius}m rig radius and 1.5x dynamic multi.
+                      </p>
+                      
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-white/60 p-4 rounded-xl border border-indigo-100">
+                          <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Single Element Wt</span>
+                          <span className="text-xl md:text-2xl font-black text-slate-800">{(results.elementWeightKg / 1000).toFixed(2)}<span className="text-sm font-medium ml-1 text-slate-500">Tons</span></span>
+                        </div>
+                        <div className="bg-white/80 p-4 rounded-xl border border-indigo-200 shadow-sm">
+                          <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Min. Crane Capacity</span>
+                          <span className="text-xl md:text-2xl font-black text-indigo-700">{results.craneCapacityTonnes.toFixed(2)}<span className="text-sm font-medium ml-1 text-indigo-600/80">Tons</span></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              <MaterialSummary
+                title="Calculation Results"
               totalLabel="Concrete Dry Volume"
               totalValue={results.concreteVolumeDry.toFixed(3)}
               totalUnit="m³"
@@ -408,6 +474,7 @@ export default function BeamCalculator() {
                 </ul>
               </div>
             </MaterialSummary>
+            </div>
           ) : (
             <div className="bg-slate-50/80 dark:bg-[#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 dark:border-white/5 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.2)]">
               <span className="text-slate-400 dark:text-white/40 font-medium tracking-wide">Enter beam dimensions and reinforcement details to calculate material requirements.</span>

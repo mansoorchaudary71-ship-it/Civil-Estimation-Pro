@@ -618,6 +618,21 @@ export default function ShareButtonWithPopup({
               </button>
               
               <button
+                onClick={() => {
+                  const url = encodeURIComponent(window.location.href);
+                  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, "_blank");
+                  setIsOpen(false);
+                  toast.success("Opened LinkedIn");
+                }}
+                className="group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl transition-all duration-200 text-sm font-semibold bg-[#e8f4fa] text-[#0a66c2] hover:bg-[#d0e8f5] hover:text-[#004182] dark:bg-[#0a66c2]/10 dark:text-[#70b5f9] dark:hover:bg-[#0a66c2]/20 dark:hover:text-[#a0cbfb] focus:outline-none focus:ring-2 focus:ring-[#0a66c2] hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <div className="p-2 rounded-xl bg-white dark:bg-[#0a66c2]/20 text-[#0a66c2] dark:text-[#70b5f9] shadow-sm shadow-[#0a66c2]/30 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
+                  <Share2 className="w-4 h-4" />
+                </div>
+                Share on LinkedIn
+              </button>
+
+              <button
                 onClick={() => generatePDF("email")}
                 className="group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl transition-all duration-200 text-sm font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-900 dark:bg-blue-500/10 dark:text-blue-300 dark:hover:bg-blue-500/20 dark:hover:text-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:scale-[1.02] active:scale-[0.98]"
               >

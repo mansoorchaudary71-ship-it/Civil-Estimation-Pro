@@ -46,6 +46,16 @@ export default function Footer({ onNavigate }: { activeModule?: ModuleId, onNavi
               <button onClick={() => onNavigate?.('cookies')} className="text-left text-[#111111]/70 dark:text-white/70 hover:text-[var(--accent-vibrant)] dark:hover:text-[var(--accent-vibrant)] transition-colors font-medium">Cookie Policy</button>
             </div>
           </div>
+
+          {/* Resources & Partners */}
+          <div className="flex flex-col gap-4">
+            <h4 className="font-bold text-[16px] text-[#111111] dark:text-white tracking-wide">Resources</h4>
+            <div className="flex flex-col gap-3">
+              <button onClick={() => window.alert('<iframe src="https://civilestimationpro.com" width="100%" height="800"></iframe>')} className="text-left text-[#111111]/70 dark:text-white/70 hover:text-[var(--accent-vibrant)] dark:hover:text-[var(--accent-vibrant)] transition-colors font-medium">Embed Calculator</button>
+              <a href="#" className="text-left text-[#111111]/70 dark:text-white/70 hover:text-[var(--accent-vibrant)] dark:hover:text-[var(--accent-vibrant)] transition-colors font-medium">Link Exchange</a>
+              <a href="#" className="text-left text-[#111111]/70 dark:text-white/70 hover:text-[var(--accent-vibrant)] dark:hover:text-[var(--accent-vibrant)] transition-colors font-medium">Directory Submissions</a>
+            </div>
+          </div>
         </div>
 
       </div>

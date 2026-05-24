@@ -208,7 +208,6 @@ export default function MixDesignCalculator() {
                   Exposure Condition{" "}
                   <HelpCircle
                     className="w-3.5 h-3.5 opacity-50"
-                    title="Mild, Moderate, Severe, Very Severe, Extreme based on environmental factors"
                   />
                 </label>
                 <select

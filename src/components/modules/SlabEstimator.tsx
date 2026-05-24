@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Grid2X2, Settings2, Replace } from "lucide-react";
+import { Grid2X2, Settings2, Replace, ArrowUp, AlertTriangle } from "lucide-react";
 import { SEO } from "../SEO";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { StyledChart } from "../ui/EstimateVisualizer";
@@ -8,6 +8,9 @@ import { MaterialSummary } from "../ui/MaterialSummary";
 
 export default function SlabEstimator() {
   const [slabType, setSlabType] = useState<"one-way" | "two-way">("two-way");
+  const [isPrecast, setIsPrecast] = useState(false);
+  const [concreteDensity, setConcreteDensity] = useState("2400");
+  const [riggingRadius, setRiggingRadius] = useState("5");
   
   const [ly, setLy] = useState("5"); // Long Span (meters)
   const [lx, setLx] = useState("4"); // Short Span (meters)
@@ -28,6 +31,8 @@ export default function SlabEstimator() {
     longBarsCount: number;
     longBarsTotalLength: number;
     totalSteelWeight: number;
+    elementWeightKg: number;
+    craneCapacityTonnes: number;
   } | null>(null);
 
   const calculateSlab = () => {
@@ -39,6 +44,8 @@ export default function SlabEstimator() {
     const ss = parseFloat(mainSpacing);
     const sl = parseFloat(distSpacing);
     const c = parseFloat(clearCover);
+    const density = parseFloat(concreteDensity) || 2400;
+    const radius = parseFloat(riggingRadius) || 5;
 
     if (
       isNaN(l_y) || isNaN(l_x) || isNaN(t) || isNaN(ds) || 
@@ -51,6 +58,10 @@ export default function SlabEstimator() {
     // Concrete Volume
     const concreteVolumeWet = l_x * l_y * (t / 1000);
     const concreteVolumeDry = concreteVolumeWet * 1.54; // RULE: CONCRETE_DRY_VOLUME
+
+    // Precast Calculations
+    const elementWeightKg = concreteVolumeWet * density;
+    const craneCapacityTonnes = (elementWeightKg * 1.5 * radius) / 1000;
 
     // Dimensions in mm
     const lx_mm = l_x * 1000;
@@ -104,6 +115,8 @@ export default function SlabEstimator() {
       longBarsCount,
       longBarsTotalLength,
       totalSteelWeight,
+      elementWeightKg,
+      craneCapacityTonnes,
     });
   };
 
@@ -126,19 +139,31 @@ export default function SlabEstimator() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="bg-white rounded-3xl shadow-sm border border-slate-200 p-6 md:p-8">
           
-          <div className="mb-6 p-1 bg-slate-100 rounded-xl flex gap-1">
-            <button
-              onClick={() => setSlabType("one-way")}
-              className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${slabType === "one-way" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"}`}
-            >
-              One-Way Slab
-            </button>
-            <button
-              onClick={() => setSlabType("two-way")}
-              className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${slabType === "two-way" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"}`}
-            >
-              Two-Way Slab
-            </button>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <div className="p-1 bg-slate-100 rounded-xl flex gap-1 w-full sm:w-auto flex-1">
+              <button
+                onClick={() => setSlabType("one-way")}
+                className={`flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${slabType === "one-way" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"}`}
+              >
+                One-Way Slab
+              </button>
+              <button
+                onClick={() => setSlabType("two-way")}
+                className={`flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${slabType === "two-way" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"}`}
+              >
+                Two-Way Slab
+              </button>
+            </div>
+            
+            <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200 dark:border-slate-700 w-full sm:w-auto min-w-max">
+               <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Precast Mode</span>
+               <button 
+                onClick={() => setIsPrecast(!isPrecast)}
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${isPrecast ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-600'}`}
+               >
+                 <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${isPrecast ? 'translate-x-6' : 'translate-x-1'}`} />
+               </button>
+            </div>
           </div>
 
           <div className="flex items-center gap-2 mb-6">
@@ -188,6 +213,17 @@ export default function SlabEstimator() {
                 />
               </InputGroup>
             </div>
+
+            {isPrecast && (
+              <div className="animate-in fade-in slide-in-from-top-2 duration-300 grid grid-cols-1 sm:grid-cols-2 gap-4 bg-teal-50/50 dark:bg-teal-900/10 p-4 rounded-xl border border-teal-100 dark:border-teal-800/50 mt-4">
+                <InputGroup label="Concrete Density (kg/m³)">
+                  <input type="number" value={concreteDensity} onChange={(e) => setConcreteDensity(e.target.value)} className="w-full h-11 bg-white dark:bg-slate-800/80 border border-teal-200 dark:border-teal-700/50 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-teal-500 outline-none transition-all shadow-sm" />
+                </InputGroup>
+                <InputGroup label="Lifting Radius (m)">
+                  <input type="number" value={riggingRadius} onChange={(e) => setRiggingRadius(e.target.value)} className="w-full h-11 bg-white dark:bg-slate-800/80 border border-teal-200 dark:border-teal-700/50 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-teal-500 outline-none transition-all shadow-sm" />
+                </InputGroup>
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-2 mb-6 mt-8">
@@ -263,8 +299,37 @@ export default function SlabEstimator() {
 
         <div className="flex-1 flex flex-col">
           {results ? (
-            <MaterialSummary
-              title="Material Summary"
+            <div className="flex flex-col h-full w-full">
+              {isPrecast && (
+                <div className="mb-6 p-4 md:p-6 rounded-2xl bg-gradient-to-r from-teal-50 to-emerald-50 border border-teal-200 shadow-sm relative overflow-hidden animate-in fade-in slide-in-from-top-4 duration-500">
+                  <div className="absolute top-0 right-0 p-4 opacity-10 transform translate-x-4 -translate-y-4">
+                    <ArrowUp className="w-32 h-32 text-teal-900" />
+                  </div>
+                  <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6">
+                    <div className="flex-1">
+                      <h4 className="text-sm font-bold uppercase tracking-widest text-teal-600 mb-1 flex items-center gap-2">
+                        <AlertTriangle className="w-4 h-4" /> Precast Safety & Lifting
+                      </h4>
+                      <p className="text-slate-600 text-sm mb-4 leading-relaxed">
+                        Based on {riggingRadius}m rig radius and 1.5x dynamic multi.
+                      </p>
+                      
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-white/60 p-4 rounded-xl border border-teal-100">
+                          <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Single Element Wt</span>
+                          <span className="text-xl md:text-2xl font-black text-slate-800">{(results.elementWeightKg / 1000).toFixed(2)}<span className="text-sm font-medium ml-1 text-slate-500">Tons</span></span>
+                        </div>
+                        <div className="bg-white/80 p-4 rounded-xl border border-teal-200 shadow-sm">
+                          <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Min. Crane Capacity</span>
+                          <span className="text-xl md:text-2xl font-black text-teal-700">{results.craneCapacityTonnes.toFixed(2)}<span className="text-sm font-medium ml-1 text-teal-600/80">Tons</span></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <MaterialSummary
+                title="Material Summary"
               totalLabel="Total Concrete Dry Volume"
               totalValue={results.concreteVolumeDry.toFixed(2)}
               totalUnit="m³"
@@ -322,6 +387,7 @@ export default function SlabEstimator() {
                  </p>
               </div>
             </MaterialSummary>
+            </div>
           ) : (
             <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 border-dashed rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-sm">
               <span className="text-slate-500 font-medium tracking-wide">Enter dimensions to calculate</span>

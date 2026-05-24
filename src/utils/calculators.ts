@@ -85,22 +85,28 @@ export class PlasterCalculator {
 
   calculate() {
     const wetVolume = this.area * this.thickness;
-    let dryVolume = wetVolume * 1.33; // standard for mortar
-    dryVolume = dryVolume * (1 + this.wastagePct / 100);
+    // Dry Volume = V_wet * 1.33 (for voids etc) * 1.25 (shrinkage/wastage) = V_wet * 1.6625
+    let dryVolume = wetVolume * 1.6625;
 
     const sumRatio = this.mixRatio.reduce((a, b) => a + b, 0);
-    if (sumRatio === 0) return { cementBags: 0, sandVol: 0, totalWetVolume: wetVolume };
+    if (sumRatio === 0) return { cementBags: 0, sandVol: 0, waterLiters: 0, totalWetVolume: wetVolume };
 
     const cementRatio = this.mixRatio[0] || 0;
     const cementVol = (cementRatio / sumRatio) * dryVolume;
     
+    // cement calculation: Volume of 1 bag is roughly 0.0347 m3
     const cementVolumePerBag = this.isMetric ? 0.0347 : 1.226;
     const cementBags = cementVol / cementVolumePerBag;
 
     const sandRatio = this.mixRatio[1] || 0;
     const sandVol = (sandRatio / sumRatio) * dryVolume;
 
-    return { cementBags, sandVol, totalWetVolume: wetVolume };
+    // standard water rule: ~20% of dry weight of cement + sand, or rough rule ~10-15 L per bag of cement used. Let's just use typical ratio water= cementWeight*0.2 + sandWeight*0.05
+    // But typical W/C ratio for plastering is around 0.5 to 0.6. We'll use 0.55 * cement kg. 
+    // 1 bag cement = 50kg.
+    const waterLiters = cementBags * 50 * 0.55;
+
+    return { cementBags, sandVol, waterLiters, totalWetVolume: wetVolume };
   }
 }
 

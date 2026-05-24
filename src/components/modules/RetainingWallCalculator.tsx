@@ -345,6 +345,7 @@ export default function RetainingWallCalculator() {
         currentInputs={{ wallH, wallL, baseW, baseD }}
         currentResults={{ concreteVol: totalConcrete.toFixed(2), steelKg: totalSteel.toFixed(1) }}
         summaryGeneration={(inputs, res) => `Concrete: ${res.concreteVol}m³ - Steel: ${res.steelKg}kg`}
+        onRestore={() => {}}
       />
     </div>
   );

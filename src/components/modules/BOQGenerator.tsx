@@ -13,7 +13,7 @@ import {
   Calculator,
   FileOutput,
 } from "lucide-react";
-import { formatCurrency } from "../../utils/unitConverter";
+import { useSettings } from "../../context/SettingsContext";
 
 interface BOQItem {
   id: string;
@@ -176,6 +176,7 @@ const STANDARD_TEMPLATES: Record<string, BOQItem[]> = {
 };
 
 export default function BOQGenerator() {
+  const { formatCurrency } = useSettings();
   const [items, setItems] = useState<BOQItem[]>([]);
   const [contingencyPct, setContingencyPct] = useState(5);
   const [gstPct, setGstPct] = useState(18);

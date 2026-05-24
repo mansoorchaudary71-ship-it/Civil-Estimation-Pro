@@ -101,7 +101,7 @@ export default function SiteProgressTracker() {
 
   // Gantt Chart Logic
   const ganttScale = useMemo(() => {
-     if (phases.length === 0) return { start: new Date(), end: new Date(), days: 1 };
+     if (phases.length === 0) return { start: new Date().getTime(), end: new Date().getTime(), days: 1 };
      let minDate = new Date(phases[0].startDate).getTime();
      let maxDate = new Date(phases[0].endDate).getTime();
      phases.forEach(p => {

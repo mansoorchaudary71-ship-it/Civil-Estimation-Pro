@@ -51,8 +51,8 @@ export function MaterialSummary({
                 extractedMaterials[props.title] = { quantity: num, unit };
              }
              if (props.children) parseChildren(props.children);
-          } else if (child.props && child.props.children) {
-             parseChildren(child.props.children); // HTML elements with children
+          } else if (child.props && (child.props as any).children) {
+             parseChildren((child.props as any).children); // HTML elements with children
           }
        });
     };

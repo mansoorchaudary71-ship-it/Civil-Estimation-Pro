@@ -35,6 +35,7 @@ type Shape =
   | "Triangular Dumper"
   | "Trapezoidal Dumper"
   | "Rectangle Tank"
+  | "Concentric Cylinder"
   | "Prism";
 type System = "Metric" | "Imperial";
 import { useGlobalSettings } from "../../context/SettingsContext";
@@ -59,6 +60,18 @@ export default function VolumeEstimator() {
   const [depth, setDepth] = useState("");
   const [baseArea, setBaseArea] = useState("");
   const [basePerimeter, setBasePerimeter] = useState("");
+  const [outerDiameter, setOuterDiameter] = useState("");
+  const [innerDiameter, setInnerDiameter] = useState("");
+  const [density, setDensity] = useState("2400"); // default, we'll let user change it
+  
+  React.useEffect(() => {
+    if (system === "Metric" && density === "150") {
+      setDensity("2400");
+    } else if (system === "Imperial" && density === "2400") {
+      setDensity("150");
+    }
+  }, [system]);
+
   const shapes: { id: Shape; label: string; icon: any; color: string }[] = [
     {
       id: "Rectangular Prism",
@@ -127,6 +140,12 @@ export default function VolumeEstimator() {
       color: "text-indigo-600 bg-indigo-50 dark:bg-indigo-500/20",
     },
     {
+      id: "Concentric Cylinder",
+      label: "Tube / Pipe",
+      icon: Cylinder,
+      color: "text-slate-600 bg-slate-100 dark:bg-slate-500/20",
+    },
+    {
       id: "Prism",
       label: "Prism",
       icon: Hexagon,
@@ -136,6 +155,7 @@ export default function VolumeEstimator() {
   const calculate = () => {
     let volume = 0;
     let surfaceArea = 0;
+    let totalWeight = 0;
     let inputs: Record<string, string> = {};
     const parse = (val: string) => {
       const parsed = parseFloat(val);
@@ -154,6 +174,9 @@ export default function VolumeEstimator() {
     const d = parse(depth);
     const ba = parse(baseArea);
     const bp = parse(basePerimeter);
+    const od = parse(outerDiameter);
+    const id = parse(innerDiameter);
+    const den = parse(density);
     const unit = system === "Metric" ? "m" : "ft";
     const sqUnit = system === "Metric" ? "m²" : "sq.ft";
     
@@ -243,6 +266,27 @@ export default function VolumeEstimator() {
         Width: `${w} ${unit}`,
         Height: `${h} ${unit}`,
       };
+    } else if (activeShape === "Concentric Cylinder") {
+      volume = (Math.PI / 4) * (od * od - id * id) * l;
+      surfaceArea = Math.PI * od * l + Math.PI * id * l + (Math.PI / 2) * (od * od - id * id);
+      totalWeight = volume * den;
+      inputs = {
+        "Outer Diameter": `${od} ${unit}`,
+        "Inner Diameter": `${id} ${unit}`,
+        Length: `${l} ${unit}`,
+        Density: `${den} ${system === "Metric" ? "kg/m³" : "lb/ft³"}`
+      };
+      explanationOpts.genericFormula = [
+        { label: "Volume", formula: "(π ÷ 4) × (OuterDia² - InnerDia²) × Length" },
+        { label: "Total Weight", formula: "Volume × Density" }
+      ];
+      if (od || id || l) {
+        explanationOpts.hasInputs = true;
+        explanationOpts.activeBreakdown = [
+          { label: "Volume", formula: `(π/4) × (${od}² - ${id}²) × ${l}`, result: `${volume.toFixed(2)} ${unit}³` },
+          { label: "Weight", formula: `${volume.toFixed(2)} × ${den}`, result: `${totalWeight.toFixed(2)} ${system === "Metric" ? "kg" : "lbs"}` },
+        ];
+      }
     } else if (activeShape === "Prism") {
       volume = ba * h;
       surfaceArea = 2 * ba + bp * h;
@@ -252,9 +296,9 @@ export default function VolumeEstimator() {
         Height: `${h} ${unit}`,
       };
     }
-    return { volume, surfaceArea, inputs, explanationOpts };
+    return { volume, surfaceArea, totalWeight, inputs, explanationOpts };
   };
-  const { volume, surfaceArea, inputs, explanationOpts } = useMemo(calculate, [
+  const { volume, surfaceArea, totalWeight, inputs, explanationOpts } = useMemo(calculate, [
     activeShape,
     system,
     length,
@@ -270,6 +314,9 @@ export default function VolumeEstimator() {
     depth,
     baseArea,
     basePerimeter,
+    outerDiameter,
+    innerDiameter,
+    density
   ]);
   let liquidCapacity = 0;
   let capacityUnit = "";
@@ -603,6 +650,87 @@ export default function VolumeEstimator() {
                   </div>
                 </div>
               )}
+              {activeShape === "Concentric Cylinder" && (
+                <div className="grid grid-cols-1 mt-2 mb-6 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden bg-slate-50 dark:bg-slate-900/50">
+                  <div className="p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div className="flex flex-col gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                            Outer Diameter ({system === "Metric" ? "m" : "ft"})
+                          </label>
+                          <input
+                            type="number"
+                            value={outerDiameter}
+                            onChange={(e) => setOuterDiameter(e.target.value)}
+                            className="w-full bg-white dark:bg-slate-800 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all placeholder:text-slate-400"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                            Inner Diameter ({system === "Metric" ? "m" : "ft"})
+                          </label>
+                          <input
+                            type="number"
+                            value={innerDiameter}
+                            onChange={(e) => setInnerDiameter(e.target.value)}
+                            className="w-full bg-white dark:bg-slate-800 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all placeholder:text-slate-400"
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                            Length ({system === "Metric" ? "m" : "ft"})
+                          </label>
+                          <input
+                            type="number"
+                            value={length}
+                            onChange={(e) => setLength(e.target.value)}
+                            className="w-full bg-white dark:bg-slate-800 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all placeholder:text-slate-400"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                            Concrete Density ({system === "Metric" ? "kg/m³" : "lb/ft³"})
+                          </label>
+                          <input
+                            type="number"
+                            value={density}
+                            onChange={(e) => setDensity(e.target.value)}
+                            className="w-full bg-white dark:bg-slate-800 border border-border-color/50 p-3 rounded-xl mt-1 font-medium text-text-primary focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all placeholder:text-slate-400"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-center p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm relative">
+                      <div className="absolute top-2 left-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Cross-Section Schematic</div>
+                      <svg viewBox="0 0 200 200" className="w-[180px] h-[180px] opacity-90 drop-shadow-sm">
+                        {/* Outer circle */}
+                        <circle cx="100" cy="100" r="80" fill="#e2e8f0" stroke="#94a3b8" strokeWidth="4" className="dark:fill-slate-700 dark:stroke-slate-500" />
+                        {/* Inner circle (hole) */}
+                        <circle cx="100" cy="100" r="50" fill="#ffffff" stroke="#94a3b8" strokeWidth="4" className="dark:fill-slate-900 dark:stroke-slate-500" />
+                        {/* Outer diameter dimension line */}
+                        <line x1="20" y1="185" x2="180" y2="185" stroke="#ef4444" strokeWidth="2" strokeDasharray="4" />
+                        <line x1="20" y1="180" x2="20" y2="190" stroke="#ef4444" strokeWidth="2" />
+                        <line x1="180" y1="180" x2="180" y2="190" stroke="#ef4444" strokeWidth="2" />
+                        <text x="100" y="198" fill="#ef4444" fontSize="12" fontWeight="bold" textAnchor="middle">Outer Dia.</text>
+                        {/* Inner diameter dimension line */}
+                        <line x1="50" y1="100" x2="150" y2="100" stroke="#3b82f6" strokeWidth="2" />
+                        <circle cx="50" cy="100" r="3" fill="#3b82f6" />
+                        <circle cx="150" cy="100" r="3" fill="#3b82f6" />
+                        <text x="100" y="95" fill="#3b82f6" fontSize="12" fontWeight="bold" textAnchor="middle">Inner Dia.</text>
+                        {/* Wall Thickness */}
+                        <line x1="50" y1="50" x2="20" y2="50" stroke="#10b981" strokeWidth="2" />
+                        <circle cx="65" cy="65" r="2" fill="#10b981" />
+                        <path d="M 65 65 Q 40 50 20 50" fill="none" stroke="#10b981" strokeWidth="2" />
+                        <text x="10" y="45" fill="#10b981" fontSize="10" fontWeight="bold">Wall Thick.</text>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              )}
               {activeShape === "Prism" && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
@@ -665,18 +793,37 @@ export default function VolumeEstimator() {
              )}
              
              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-                 <ResultCard
-                   title="Surface Area"
-                   value={surfaceArea.toFixed(2)}
-                   unit={areaUnit || ""}
-                   variant="neutral"
-                 />
-                 <ResultCard
-                   title="Liquid Capacity"
-                   value={liquidCapacity.toFixed(2)}
-                   unit={capacityUnit || ""}
-                   variant="neutral"
-                 />
+                 {activeShape === "Concentric Cylinder" ? (
+                   <>
+                     <ResultCard
+                       title="Total Weight"
+                       value={totalWeight.toFixed(2)}
+                       unit={system === "Metric" ? "kg" : "lbs"}
+                       variant="neutral"
+                     />
+                     <ResultCard
+                       title="Surface Area"
+                       value={surfaceArea.toFixed(2)}
+                       unit={areaUnit || ""}
+                       variant="neutral"
+                     />
+                   </>
+                 ) : (
+                   <>
+                     <ResultCard
+                       title="Surface Area"
+                       value={surfaceArea.toFixed(2)}
+                       unit={areaUnit || ""}
+                       variant="neutral"
+                     />
+                     <ResultCard
+                       title="Liquid Capacity"
+                       value={liquidCapacity.toFixed(2)}
+                       unit={capacityUnit || ""}
+                       variant="neutral"
+                     />
+                   </>
+                 )}
              </div>
                                        
              </MaterialSummary>

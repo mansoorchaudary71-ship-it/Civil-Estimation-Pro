@@ -241,7 +241,7 @@ export default function ProjectManager() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map(proj => {
-             const isCompare = compareIds.includes(proj.id);
+             const isCompare = compareIds[0] === proj.id || compareIds[1] === proj.id;
              return (
             <div key={proj.id} className={`group bg-white dark:bg-slate-900 border ${activeProjectId === proj.id ? 'border-indigo-500 ring-1 ring-indigo-500' : 'border-slate-200 dark:border-slate-800'} p-6 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col relative overflow-hidden`}>
               

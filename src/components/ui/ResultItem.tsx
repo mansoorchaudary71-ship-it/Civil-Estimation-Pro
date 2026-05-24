@@ -8,7 +8,7 @@ export interface ResultItemProps {
   label: string;
   value: number;
   unit: string;
-  category?: 'concrete' | 'road' | 'soil' | 'mep' | 'quantity' | 'default';
+  category?: 'concrete' | 'road' | 'soil' | 'mep' | 'quantity' | 'tools' | 'default';
   status?: 'normal' | 'high' | 'exceeds';
   comparisonText?: string;
   explanation?: string;

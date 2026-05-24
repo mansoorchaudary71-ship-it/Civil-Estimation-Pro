@@ -15,6 +15,8 @@ import {
   Spline,
   Calculator,
   Save,
+  Clock,
+  HelpCircle,
 } from "lucide-react";
 import { useGlobalSettings } from "../../context/SettingsContext";
 import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
@@ -146,6 +148,7 @@ export default function ConstructionMaterialEstimator() {
   /* Plaster */ const [pArea, setPArea] = useState("200");
   const [pThick, setPThick] = useState(isSI ? "1.2" : "0.5");
   /* cm or in */ const [pMix, setPMix] = useState("1:4");
+  const [pLocation, setPLocation] = useState<"Internal" | "External">("Internal");
   /* Paint */ const [paintArea, setPaintArea] = useState("500");
   const [paintCoats, setPaintCoats] = useState("2");
   /* Anti-Termite */ const [termiteArea, setTermiteArea] = useState("1000");
@@ -934,6 +937,7 @@ export default function ConstructionMaterialEstimator() {
       const res = calc.calculate();
       currentExportInputs = {
         Type: "Plastering",
+        "Location": pLocation,
         "Surface Area": `${pArea} ${unitArea}`,
         Thickness: `${pThick} ${unitIn}`,
         "Mix Ratio": pMix,
@@ -944,13 +948,14 @@ export default function ConstructionMaterialEstimator() {
         "Total Wet Volume": `${res.totalWetVolume.toFixed(2)} ${unitVol}`,
         "Cement Required": `${res.cementBags.toFixed(2)} Bags`,
         "Sand Required": `${res.sandVol.toFixed(2)} ${unitVol}`,
+        "Water Required": `${res.waterLiters.toFixed(1)} L`,
       };
       currentCartItem = {
         type: "Plaster",
         cementBags: res.cementBags,
         sandVol: res.sandVol,
         aggregateVol: 0,
-        waterLiters: 0,
+        waterLiters: res.waterLiters,
         unitVol,
         rawExport: currentExportData,
       };
@@ -1019,8 +1024,19 @@ export default function ConstructionMaterialEstimator() {
     content = (
       <div className="space-y-6 bg-transparent/50 px-4 py-3 rounded-2xl border w-full">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 mb-4 gap-4">
-          <h3 className="font-bold text-lg text-text-primary">
+          <h3 className="font-bold text-lg text-text-primary flex flex-wrap items-center gap-2">
             Finishes Estimator
+            {finishesType === "plaster" && (
+              <>
+                <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 text-[10px] font-bold tracking-wide uppercase">
+                  Beginner
+                </span>
+                <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-[10px] font-bold tracking-wide uppercase flex items-center gap-1">
+                  <Clock className="w-3 h-3" />
+                  2 MIN
+                </span>
+              </>
+            )}
           </h3>
           <div className="flex bg-bg-primary p-1 rounded-xl w-full sm:w-auto">
             {(["plaster", "paint", "antitermite"] as const).map((type) => (
@@ -1041,9 +1057,46 @@ export default function ConstructionMaterialEstimator() {
 
         {finishesType === "plaster" && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="sm:col-span-2">
+              <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase mb-2 block">
+                Plaster Location
+              </label>
+              <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl w-full">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPLocation("Internal");
+                    setPThick(isSI ? "1.2" : "0.5");
+                    setPMix("1:4");
+                  }}
+                  className={`flex-1 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+                    pLocation === "Internal" 
+                      ? "bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400" 
+                      : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                  }`}
+                >
+                  Internal (12mm)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPLocation("External");
+                    setPThick(isSI ? "2.0" : "0.75");
+                    setPMix("1:6");
+                  }}
+                  className={`flex-1 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
+                    pLocation === "External" 
+                      ? "bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400" 
+                      : "text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
+                  }`}
+                >
+                  External (20mm)
+                </button>
+              </div>
+            </div>
             <div>
               <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
-                Surface Area ({unitArea})
+                Wall Area ({unitArea})
               </label>
               <input
                 type="number"
@@ -1065,17 +1118,73 @@ export default function ConstructionMaterialEstimator() {
             </div>
             <div>
               <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase">
-                Mix Ratio
+                Mix Ratio (Cement:Sand)
               </label>
               <select
                 value={pMix}
                 onChange={(e) => setPMix(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
               >
-                <option value="1:3">1:3</option> <option value="1:4">1:4</option>
-                <option value="1:5">1:5</option>
-                <option value="1:6">1:6</option>
+                <option value="1:3">1:3 (Ceiling/Rich mix)</option>
+                <option value="1:4">1:4 (Internal walls)</option>
+                <option value="1:5">1:5 (Standard)</option>
+                <option value="1:6">1:6 (External/Rough)</option>
               </select>
+            </div>
+            <div className="sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2 p-3 bg-slate-50 dark:bg-slate-800/30 rounded-xl border border-slate-100 dark:border-slate-800">
+              <div>
+                <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase flex items-center justify-between">
+                  Cement Density (kg/m³)
+                  <HelpCircle className="w-3 h-3 text-slate-400" />
+                </label>
+                <input
+                  type="number"
+                  defaultValue="1440"
+                  className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all"
+                />
+              </div>
+              <div>
+                <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase flex items-center justify-between">
+                  Sand Density (kg/m³)
+                  <HelpCircle className="w-3 h-3 text-slate-400" />
+                </label>
+                <input
+                  type="number"
+                  defaultValue="1600"
+                  className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all"
+                />
+              </div>
+            </div>
+            
+            <div className="sm:col-span-2 mt-4 p-4 rounded-xl border border-indigo-200 bg-indigo-50/50 dark:bg-indigo-900/10 dark:border-indigo-800/50">
+              <h4 className="text-sm font-semibold text-indigo-900 dark:text-indigo-300 mb-2">Math Logic & Formulas (Built-in)</h4>
+              <ul className="text-xs text-indigo-800 dark:text-indigo-400 space-y-1.5 list-disc list-inside">
+                <li><strong>Wet Volume (V_wet):</strong> Area × (Thickness / 100)</li>
+                <li><strong>Dry Volume (V_dry):</strong> V_wet × 1.33 (wastage/voids) × 1.25 (shrinkage) = <strong>V_wet × 1.6625</strong></li>
+                <li><strong>Cement Bags:</strong> [V_dry × (Cement Ratio / Total Ratio)] / 0.0347</li>
+              </ul>
+            </div>
+
+            <div className="sm:col-span-2 mt-6">
+              <h4 className="font-bold text-slate-800 dark:text-slate-200 mb-3">Frequently Asked Questions</h4>
+              <div className="space-y-3">
+                <div className="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-100 dark:border-slate-700">
+                  <p className="font-semibold text-sm text-slate-700 dark:text-slate-300">Why do we multiply wet volume by 1.33?</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Dry mortar volume is typically 30-33% more than wet volume due to voids getting filled with water during mixing.</p>
+                </div>
+                <div className="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-100 dark:border-slate-700">
+                  <p className="font-semibold text-sm text-slate-700 dark:text-slate-300">What is the standard mix ratio for internal plaster?</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">1:4 (1 part cement to 4 parts sand) is the standard for internal walls and ceilings, ensuring strong adherence.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="sm:col-span-2 mt-6">
+              <h4 className="font-bold text-slate-800 dark:text-slate-200 mb-3">Related Tools</h4>
+              <div className="flex gap-2">
+                <button onClick={() => setActiveTab('concrete')} className="px-3 py-2 text-xs font-semibold rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-colors">Concrete Calculator</button>
+                <button onClick={() => setActiveTab('bricks')} className="px-3 py-2 text-xs font-semibold rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition-colors">Brickwork Estimator</button>
+              </div>
             </div>
           </div>
         )}
@@ -1735,9 +1844,10 @@ export default function ConstructionMaterialEstimator() {
               }
               if (inputs["Mix Ratio (Cement:Sand)"]) setBMix(inputs["Mix Ratio (Cement:Sand)"]);
             } else if (activeTab === "plaster") {
-              if (inputs["Total Plaster Area"]) setPArea(inputs["Total Plaster Area"].split(" ")[0]);
-              if (inputs["Plaster Thickness"]) setPThick(inputs["Plaster Thickness"].split(" ")[0]);
+              if (inputs["Surface Area"]) setPArea(inputs["Surface Area"].split(" ")[0]);
+              if (inputs["Thickness"]) setPThick(inputs["Thickness"].split(" ")[0]);
               if (inputs["Mix Ratio"]) setPMix(inputs["Mix Ratio"]);
+              if (inputs["Location"]) setPLocation(inputs["Location"] as "Internal" | "External");
             } else if (activeTab === "steel") {
               if (inputs["Total Span/Length"]) setSSpan(inputs["Total Span/Length"].split(" ")[0]);
               if (inputs["Spacing (c/c)"]) setSSpace(inputs["Spacing (c/c)"].split(" ")[0]);

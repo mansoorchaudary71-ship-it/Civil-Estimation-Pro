@@ -471,6 +471,20 @@ export default function IsolatedFootingCalculator() {
         currentInputs={{ footingL, footingW, footingD, columnL, columnW, load, sbc, mix, diaX, spacingX, diaY, spacingY }}
         currentResults={{ concreteVol: concreteVol.toFixed(2), steelKg: totalSteel.toFixed(2), excavationVol: excavationVol.toFixed(2) }}
         summaryGeneration={(inputs, res) => `Vol: ${res.concreteVol} m³ - Steel: ${res.steelKg} kg`}
+        onRestore={(savedInputs) => {
+          if (savedInputs.footingL) setFootingL(savedInputs.footingL);
+          if (savedInputs.footingW) setFootingW(savedInputs.footingW);
+          if (savedInputs.footingD) setFootingD(savedInputs.footingD);
+          if (savedInputs.columnL) setColumnL(savedInputs.columnL);
+          if (savedInputs.columnW) setColumnW(savedInputs.columnW);
+          if (savedInputs.load) setLoad(savedInputs.load);
+          if (savedInputs.sbc) setSbc(savedInputs.sbc);
+          if (savedInputs.mix) setMix(savedInputs.mix);
+          if (savedInputs.diaX) setDiaX(savedInputs.diaX);
+          if (savedInputs.spacingX) setSpacingX(savedInputs.spacingX);
+          if (savedInputs.diaY) setDiaY(savedInputs.diaY);
+          if (savedInputs.spacingY) setSpacingY(savedInputs.spacingY);
+        }}
       />
     </div>
   );

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { 
-  Users, 
-  Plus, 
-  Trash2, 
+import {
+  Users,
+  Plus,
+  Trash2,
   CheckCircle,
   TrendingDown,
   Download,
@@ -13,7 +13,6 @@ import { useSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { generateProfessionalPDF } from "../../utils/pdfGenerator";
 import { v4 as uuidv4 } from "uuid";
-import { Tooltip } from "../ui/Tooltip";
 import toast from "react-hot-toast";
 
 interface LabourTask {
@@ -332,6 +331,7 @@ export default function LabourCalculator() {
         currentInputs={{ tasks: tasks.length }}
         currentResults={{ total: totalCost, burn: overallBurnRate }}
         summaryGeneration={(inputs, res) => `Total: Rs ${res.total} - Tasks: ${inputs.tasks}`}
+        onRestore={(savedInputs) => {}}
       />
     </div>
   );

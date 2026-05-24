@@ -7,7 +7,9 @@ import {
   Layers,
   Droplets,
   Settings2,
-  CopySlash
+  CopySlash,
+  AlertTriangle,
+  ArrowUp
 } from "lucide-react";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { useSettings } from "../../context/SettingsContext";
@@ -23,10 +25,15 @@ const mixRatios: Record<string, { c: number; s: number; a: number }> = {
   "M25 (1:1:2)": { c: 1, s: 1, a: 2 },
 };
 
-function InputGroup({ label, children }: { label: string; children: React.ReactNode }) {
+function InputGroup({ label, children, info }: { label: string; children: React.ReactNode; info?: React.ReactNode }) {
   return (
-    <div className="flex flex-col gap-2">
-      <label className="text-sm font-bold text-slate-700 dark:text-slate-300">{label}</label>
+    <div className="flex flex-col gap-2 relative group">
+      <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center justify-between">
+        {label}
+        {info && (
+          <span className="text-[10px] text-slate-400 font-normal uppercase tracking-wider">{info}</span>
+        )}
+      </label>
       {children}
     </div>
   );
@@ -103,15 +110,18 @@ function RectangularColumnInputs({
 }
 export default function ColumnEstimator() {
   const { settings } = useSettings();
-  const [shape, setShape] = useState<"rectangular" | "square" | "circular">(
-    "rectangular",
-  );
+  const [shape, setShape] = useState<"rectangular" | "square" | "circular">("rectangular");
+  const [isPrecast, setIsPrecast] = useState(false);
+  
   const [length, setLength] = useState("0.4");
   const [width, setWidth] = useState("0.6");
   const [diameter, setDiameter] = useState("0.4");
   const [height, setHeight] = useState("3.0");
   const [count, setCount] = useState("1");
   const [mix, setMix] = useState("M20 (1:1.5:3)");
+
+  const [concreteDensity, setConcreteDensity] = useState("2400");
+  const [riggingRadius, setRiggingRadius] = useState("5");
 
   // Reinforcement States
   const [mainBarsCount, setMainBarsCount] = useState("8"); 
@@ -132,6 +142,8 @@ export default function ColumnEstimator() {
   const dTie = parseFloat(tieDia) || 0;
   const sTie = parseFloat(tieSpacing) || 1;
   const numBars = parseInt(mainBarsCount) || 4;
+  const density = parseFloat(concreteDensity) || 2400;
+  const radius = parseFloat(riggingRadius) || 5;
 
   let vol = 0;
   if (shape === "circular") {
@@ -146,6 +158,11 @@ export default function ColumnEstimator() {
   const cementBags = Math.ceil(cementM3 / CIVIL_CONSTANTS.CEMENT_BAG_VOLUME_M3);
   const sandCft = ((dryVol * ratio.s) / totalRatio) * CIVIL_CONSTANTS.M3_TO_CFT;
   const aggCft = ((dryVol * ratio.a) / totalRatio) * CIVIL_CONSTANTS.M3_TO_CFT;
+
+  // Precast Calculations
+  const singleElementVolume = vol / n;
+  const elementWeightKg = singleElementVolume * density;
+  const craneCapacityTonnes = (elementWeightKg * 1.5 * radius) / 1000;
 
   // Reinforcement Calculations
   let totalTieWeight = 0;
@@ -238,28 +255,39 @@ export default function ColumnEstimator() {
           </div>
           <GlobalSettingsToggle align="left" showCurrency={false} />
         </div>
-        <div className="bg-bg-card rounded-3xl shadow-md border border-border-color overflow-hidden">
+                <div className="bg-bg-card rounded-3xl shadow-md border border-border-color overflow-hidden">
           <div className="p-6 md:p-8 space-y-8">
-            {/* Shape Toggle Group */}
-            <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-3">
-                Column Shape
-              </label>
-              <div className="flex overflow-x-auto pb-4 gap-2 mb-6 p-1">
-                {(["rectangular", "square", "circular"] as const).map(
-                  (s, idx) => (
-                    <ColorfulTab index={idx} key={s}
-                      id={s}
-                      label={s.charAt(0).toUpperCase() + s.slice(1)}
-                      isActive={shape === s}
-                      onClick={() => setShape(s)}
-                      colorTheme={s === 'rectangular' ? 'indigo' : s === 'square' ? 'teal' : 'amber'}
-                      icon={s === "circular" ? <CircleDashed className="w-4 h-4" /> : <Square className="w-4 h-4" />}
-                    />
-                  ),
-                )}
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-2">
+              <div>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-3">
+                  Column Shape
+                </label>
+                <div className="flex overflow-x-auto pb-4 gap-2 mb-6 p-1">
+                  {(["rectangular", "square", "circular"] as const).map(
+                    (s, idx) => (
+                      <ColorfulTab index={idx} key={s}
+                        id={s}
+                        label={s.charAt(0).toUpperCase() + s.slice(1)}
+                        isActive={shape === s}
+                        onClick={() => setShape(s)}
+                        colorTheme={s === 'rectangular' ? 'indigo' : s === 'square' ? 'teal' : 'amber'}
+                        icon={s === "circular" ? <CircleDashed className="w-4 h-4" /> : <Square className="w-4 h-4" />}
+                      />
+                    ),
+                  )}
+                </div>
+              </div>
+              <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200 dark:border-slate-700">
+                 <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Precast Mode</span>
+                 <button 
+                  onClick={() => setIsPrecast(!isPrecast)}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${isPrecast ? 'bg-indigo-600' : 'bg-slate-300 dark:bg-slate-600'}`}
+                 >
+                   <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${isPrecast ? 'translate-x-6' : 'translate-x-1'}`} />
+                 </button>
               </div>
             </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-6">
                 {/* Dynamically Render Inputs */}
@@ -317,6 +345,17 @@ export default function ColumnEstimator() {
                     ))}
                   </select>
                 </div>
+
+                {isPrecast && (
+                  <div className="animate-in fade-in slide-in-from-top-2 duration-300 grid grid-cols-1 sm:grid-cols-2 gap-4 bg-indigo-50/50 dark:bg-indigo-900/10 p-4 rounded-xl border border-indigo-100 dark:border-indigo-800/50">
+                    <InputGroup label="Concrete Density" info="kg/m³">
+                      <input type="number" value={concreteDensity} onChange={(e) => setConcreteDensity(e.target.value)} className="w-full h-11 bg-white dark:bg-slate-800/80 border border-indigo-200 dark:border-indigo-700/50 rounded-xl px-4 text-text-primary font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
+                    </InputGroup>
+                    <InputGroup label="Lifting Radius" info="m">
+                      <input type="number" value={riggingRadius} onChange={(e) => setRiggingRadius(e.target.value)} className="w-full h-11 bg-white dark:bg-slate-800/80 border border-indigo-200 dark:border-indigo-700/50 rounded-xl px-4 text-text-primary font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
+                    </InputGroup>
+                  </div>
+                )}
               </div>
               {/* Visual Aid */}
               <div className="bg-transparent dark:bg-slate-800 rounded-2xl flex flex-col items-center justify-center px-4 py-3 border border-border-color/50 min-h-[300px]">
@@ -364,7 +403,6 @@ export default function ColumnEstimator() {
                 <CopySlash className="w-5 h-5 text-indigo-600 dark:text-blue-400" />
                 <h2 className="text-lg font-bold text-text-primary">Reinforcement Details</h2>
               </div>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
@@ -463,6 +501,35 @@ export default function ColumnEstimator() {
 
             {/* Results Grid */}
             <div className="flex flex-col h-full pt-6 border-t border-border-color w-full mt-4">
+              {isPrecast && (
+                <div className="mb-6 p-4 md:p-6 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-500/10 dark:to-orange-500/10 border border-amber-200 dark:border-amber-500/20 shadow-sm relative overflow-hidden animate-in fade-in slide-in-from-top-4 duration-500">
+                  <div className="absolute top-0 right-0 p-4 opacity-10 dark:opacity-5 transform translate-x-4 -translate-y-4">
+                    <ArrowUp className="w-32 h-32 text-amber-900" />
+                  </div>
+                  <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6">
+                    <div className="flex-1">
+                      <h4 className="text-sm font-bold uppercase tracking-widest text-amber-600 dark:text-amber-500 mb-1 flex items-center gap-2">
+                        <AlertTriangle className="w-4 h-4" /> Precast Safety & Lifting
+                      </h4>
+                      <p className="text-slate-600 dark:text-slate-300 text-sm mb-4 leading-relaxed">
+                        Based on {radius}m rig radius and 1.5x dynamic multi.
+                      </p>
+                      
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="bg-white/60 dark:bg-slate-900/40 p-4 rounded-xl border border-amber-100 dark:border-amber-900/50">
+                          <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Single Element Wt</span>
+                          <span className="text-xl md:text-2xl font-black text-slate-800 dark:text-slate-100">{(elementWeightKg / 1000).toFixed(2)}<span className="text-sm font-medium ml-1 text-slate-500">Tons</span></span>
+                        </div>
+                        <div className="bg-white/80 dark:bg-slate-900/60 p-4 rounded-xl border border-amber-200 dark:border-amber-800/50 shadow-sm">
+                          <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Min. Crane Capacity</span>
+                          <span className="text-xl md:text-2xl font-black text-amber-700 dark:text-amber-400">{craneCapacityTonnes.toFixed(2)}<span className="text-sm font-medium ml-1 text-amber-600/80 dark:text-amber-500/80">Tons</span></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <MaterialSummary
                 title="Estimate Results"
                 totalLabel="Total Steel Weight"
