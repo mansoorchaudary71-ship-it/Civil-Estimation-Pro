@@ -563,24 +563,9 @@ export default function ShareButtonWithPopup({
     setIsOpen(false);
     toast.success(`✅ File saved as ${fileName}`);
   };
-  const handleNativeShareOrMenu = async (e: React.MouseEvent) => {
+  const handleNativeShareOrMenu = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (navigator.share && /Mobi|Android/i.test(navigator.userAgent)) {
-      try {
-        await navigator.share({
-          title,
-          text: formatText(),
-        });
-        toast.success("Shared successfully");
-      } catch (err: any) {
-        if (err.name !== "AbortError") {
-          console.error("Native share failed", err);
-          setIsOpen(!isOpen);
-        }
-      }
-    } else {
-      setIsOpen(!isOpen);
-    }
+    setIsOpen((prev) => !prev);
   };
 
   return (

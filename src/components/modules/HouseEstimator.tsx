@@ -3,6 +3,8 @@ import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
+import WashroomEstimator from "./WashroomEstimator";
+import { motion, AnimatePresence } from "motion/react";
 import {
   Home,
   Layers,
@@ -178,6 +180,7 @@ export default function HouseEstimator() {
     setIncludeBoundaryWall,
   ] = useState(false);
   const [bwLength, setBwLength] = useState(100);
+  const [showWashroomEstimator, setShowWashroomEstimator] = useState(false);
   /* feet */ const [bwHeight, setBwHeight] = useState(6);
   /* feet */ const [bwGateSize, setBwGateSize] = useState(12);
   /* feet */ const plotAreaSqft = useMemo(() => {
@@ -1025,6 +1028,11 @@ export default function HouseEstimator() {
                               </span>
                             </div>
                           </div>
+                          {room === "washrooms" && (
+                            <button onClick={() => setShowWashroomEstimator(true)} className="mt-1 w-fit text-[11px] font-bold text-purple-600 bg-purple-50 dark:bg-purple-900/30 dark:text-purple-400 px-3 py-1.5 rounded-lg flex items-center justify-center gap-1 hover:bg-purple-100 transition-colors border border-purple-200 dark:border-purple-800">
+                              Detailed Washroom Calculation (PRO)
+                            </button>
+                          )}
                         </div>
                       ))}
                     </div>
@@ -1739,6 +1747,15 @@ export default function HouseEstimator() {
         isOpen={isGlobalSettingsOpen}
         onClose={() => setIsGlobalSettingsOpen(false)}
       />
+
+      <AnimatePresence>
+        {showWashroomEstimator && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm">
+            <WashroomEstimator onClose={() => setShowWashroomEstimator(false)} />
+          </div>
+        )}
+      </AnimatePresence>
+
       <CalculationHistory
         calculatorId="house_estimator_v1"
         estimationName="Complete House Estimator"

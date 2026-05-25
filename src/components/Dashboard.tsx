@@ -102,7 +102,7 @@ export const getCategoryTheme = (category: string, id: string) => {
   }
 };
 
-const ToolCard = ({ mod, onSelect, isUsed }: { mod: any, onSelect: (id: string) => void, isUsed?: boolean }) => {
+const ToolCard = ({ mod, onSelect, isUsed, idx = 0 }: { mod: any, onSelect: (id: string) => void, isUsed?: boolean, idx?: number }) => {
   const theme = getCategoryTheme(mod.category, mod.id);
   const diffColors: Record<string, string> = {
     "Beginner": "bg-emerald-400",
@@ -115,7 +115,10 @@ const ToolCard = ({ mod, onSelect, isUsed }: { mod: any, onSelect: (id: string) 
     : "bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/50 text-slate-600 dark:text-slate-400 group-hover:border-slate-300 dark:group-hover:border-slate-600";
     
   return (
-    <button
+    <motion.button
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: idx * 0.05, ease: "easeOut" }}
       onClick={() => onSelect(mod.id)}
       id={`module-card-${mod.id}`}
       title={mod.desc}
@@ -189,7 +192,7 @@ const ToolCard = ({ mod, onSelect, isUsed }: { mod: any, onSelect: (id: string) 
            </div>
         </div>
       </div>
-    </button>
+    </motion.button>
   );
 };
 
@@ -541,7 +544,7 @@ export default function Dashboard({
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
               {recommendedModules.map((m, idx) => (
-                <ToolCard key={`rec-${m.id}`} mod={m} onSelect={handleSelect} isUsed={settings.usedTools && settings.usedTools.includes(m.id)} />
+                <ToolCard key={`rec-${m.id}`} mod={m} onSelect={handleSelect} isUsed={settings.usedTools && settings.usedTools.includes(m.id)} idx={idx} />
               ))}
             </div>
           </div>
@@ -564,8 +567,8 @@ export default function Dashboard({
                      </h3>
                    )}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    {groupedModules[groupName].map((mod) => (
-                      <ToolCard key={mod.id} mod={mod} onSelect={handleSelect} isUsed={settings.usedTools && settings.usedTools.includes(mod.id)} />
+                    {groupedModules[groupName].map((mod, idx) => (
+                      <ToolCard key={mod.id} mod={mod} onSelect={handleSelect} isUsed={settings.usedTools && settings.usedTools.includes(mod.id)} idx={idx} />
                     ))}
                   </div>
                 </div>
