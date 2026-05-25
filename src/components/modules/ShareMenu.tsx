@@ -563,13 +563,34 @@ export default function ShareButtonWithPopup({
     setIsOpen(false);
     toast.success(`✅ File saved as ${fileName}`);
   };
+  const handleNativeShareOrMenu = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (navigator.share && /Mobi|Android/i.test(navigator.userAgent)) {
+      try {
+        await navigator.share({
+          title,
+          text: formatText(),
+        });
+        toast.success("Shared successfully");
+      } catch (err: any) {
+        if (err.name !== "AbortError") {
+          console.error("Native share failed", err);
+          setIsOpen(!isOpen);
+        }
+      }
+    } else {
+      setIsOpen(!isOpen);
+    }
+  };
+
   return (
     <div
-      className={`relative inline-flex items-center gap-3 z-30 font-sans ${containerClassName || ""}`}
+      className={`relative inline-flex items-center gap-3 z-[100] font-sans ${containerClassName || ""}`}
       ref={menuRef}
     >
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        type="button"
+        onClick={handleNativeShareOrMenu}
         className={triggerClassName || "bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white px-5 py-2.5 rounded-full font-bold transition-all hover:scale-105 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-teal-500/30 shadow-md flex items-center justify-center gap-2 text-sm"}
         title="Share Results"
       >
@@ -608,7 +629,7 @@ export default function ShareButtonWithPopup({
               </button>
               
               <button
-                onClick={() => generatePDF("whatsapp")}
+                onClick={handleWhatsAppHTML}
                 className="group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl transition-all duration-200 text-sm font-semibold bg-green-50 text-green-700 hover:bg-green-100 hover:text-green-900 dark:bg-green-500/10 dark:text-green-300 dark:hover:bg-green-500/20 dark:hover:text-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <div className="p-2 rounded-xl bg-white dark:bg-green-500/20 text-green-500 dark:text-green-400 shadow-sm shadow-green-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
@@ -633,7 +654,7 @@ export default function ShareButtonWithPopup({
               </button>
 
               <button
-                onClick={() => generatePDF("email")}
+                onClick={handleEmailHTML}
                 className="group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl transition-all duration-200 text-sm font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-900 dark:bg-blue-500/10 dark:text-blue-300 dark:hover:bg-blue-500/20 dark:hover:text-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <div className="p-2 rounded-xl bg-white dark:bg-blue-500/20 text-blue-500 dark:text-blue-400 shadow-sm shadow-blue-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
