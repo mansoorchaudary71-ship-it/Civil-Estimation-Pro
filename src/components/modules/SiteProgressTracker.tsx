@@ -360,7 +360,7 @@ export default function SiteProgressTracker() {
                             <div className="grid grid-cols-2 gap-2">
                                {activePhase.photos.map((p, idx) => (
                                   <div key={idx} className="aspect-square rounded-xl bg-slate-100 overflow-hidden relative group">
-                                     <img src={p} alt={`Progess ${idx}`} className="w-full h-full object-cover" />
+                                     <img src={p} alt={`Site Progress Photo ${idx}`} title={`Progress Photo ${idx}`} loading="lazy" className="w-full h-full object-cover" />
                                      <button 
                                         onClick={() => {
                                            const newPhotos = [...activePhase.photos];

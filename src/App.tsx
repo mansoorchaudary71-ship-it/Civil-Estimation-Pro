@@ -190,7 +190,7 @@ export default function App() {
           onNavigate={handleSelectModule} 
         />
 
-        <div className="flex flex-1 relative w-full">
+        <div className="flex flex-1 min-h-0 relative w-full">
           {/* Main Sidebar (Mobile Overlay + Persistent Desktop) */}
           <Sidebar 
             activeModule={activeModule} 
@@ -201,8 +201,8 @@ export default function App() {
             onOpenProfile={() => { setIsSidebarOpen(false); setIsProfileOpen(true); }}
           />
 
-          <main id="main-content" className="flex-1 flex flex-col bg-transparent relative w-full h-full md:px-6 md:pb-6 md:pt-4 transition-all duration-300">
-            <div className="w-full flex flex-col min-h-0 relative transition-all duration-300">
+          <main id="main-content" className="flex-1 flex flex-col bg-transparent relative w-full min-h-0 md:px-6 md:pb-6 md:pt-4 transition-all duration-300">
+            <div className="w-full h-full flex-1 flex flex-col min-h-0 relative transition-all duration-300">
               <div className="md:border md:border-slate-200 dark:md:border-slate-700/40 md:shadow-sm md:bg-white/50 dark:md:bg-slate-900/50 md:backdrop-blur-sm md:rounded-[32px] flex-1 flex flex-col min-h-0 relative w-full transition-colors duration-300">
             
             {["home", "my-estimates", "about", "careers", "contact", "blog", "privacy", "terms", "cookies"].includes(activeModule) ? (

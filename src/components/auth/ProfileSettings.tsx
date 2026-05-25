@@ -69,7 +69,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
             <div className="flex flex-col items-center gap-4">
               <div className="relative w-24 h-24 rounded-full overflow-hidden bg-bg-primary border-4 border-white dark:border-slate-700 shadow-sm flex items-center justify-center group">
                 {photoURL ? (
-                  <img src={photoURL} alt="Profile" className="w-full h-full object-cover" />
+                  <img src={photoURL} alt="User Profile Details Settings Photo" title="Profile Avatar" loading="lazy" className="w-full h-full object-cover" />
                 ) : (
                   <User className="w-10 h-10 text-slate-700 dark:text-slate-300" />
                 )}

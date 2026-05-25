@@ -141,7 +141,7 @@ export default function TopNavbar({
                     className="px-4 h-9 rounded-full bg-slate-900 dark:bg-white shadow-sm border border-slate-800 dark:border-slate-200 flex items-center justify-center gap-2 text-white dark:text-slate-900 transition-all duration-300"
                     title="Sign In with Google"
                   >
-                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-4 h-4" />
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Login Icon" title="Google Login" loading="lazy" className="w-4 h-4" />
                     <span className="text-sm font-semibold tracking-tight">Sign In</span>
                   </button>
                 ) : (
@@ -151,7 +151,7 @@ export default function TopNavbar({
                       className="h-10 pl-1.5 pr-2 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center gap-2 text-[14px] font-semibold text-slate-700 dark:text-slate-200 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
                     >
                       {user?.photoURL ? (
-                         <img src={user.photoURL} alt="User" className="w-7 h-7 rounded-full object-cover shadow-sm border border-slate-200 dark:border-slate-600" />
+                         <img src={user.photoURL} alt="User Avatar" title="User Profile Photo" loading="lazy" className="w-7 h-7 rounded-full object-cover shadow-sm border border-slate-200 dark:border-slate-600" />
                       ) : (
                          <div className="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center border border-slate-200 dark:border-slate-600">
                            <User className="w-4 h-4 text-slate-500" />
@@ -312,7 +312,7 @@ export default function TopNavbar({
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-[#111111]/10 dark:bg-white/10 flex items-center justify-center text-[#111111] dark:text-white font-bold overflow-hidden border border-white/20">
                       {user?.photoURL ? (
-                        <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
+                        <img src={user.photoURL} alt="User Profile Photo" title="Profile Details Avatar" loading="lazy" className="w-full h-full object-cover" />
                       ) : (
                         <span>{user?.displayName?.[0]?.toUpperCase() || <User className="w-5 h-5" />}</span>
                       )}
@@ -342,7 +342,7 @@ export default function TopNavbar({
                   onClick={() => { setIsMobileMenuOpen(false); signInWithGoogle(); }}
                   className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl text-[15px] font-bold text-[#111111] dark:text-white bg-white dark:bg-[#222] border border-[#111111]/10 dark:border-white/10 shadow-sm transition-colors"
                 >
-                  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5 bg-white rounded-full p-0.5" />
+                  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Login Icon" title="Google Authentication" loading="lazy" className="w-5 h-5 bg-white rounded-full p-0.5" />
                   Sign In with Google
                 </button>
               )}

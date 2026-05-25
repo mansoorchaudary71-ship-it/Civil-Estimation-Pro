@@ -507,7 +507,7 @@ export default function Sidebar({
               <div className="flex items-center gap-3 mb-1 px-2">
                 <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold overflow-hidden border border-indigo-200 shadow-sm">
                   {user?.photoURL ? (
-                    <img src={user.photoURL} alt="Profile" className="w-full h-full object-cover" />
+                    <img src={user.photoURL} alt="User Profile Details Avatar" title="User Avatar" loading="lazy" className="w-full h-full object-cover" />
                   ) : (
                     <span>{user?.displayName?.[0]?.toUpperCase() || <User className="w-5 h-5" />}</span>
                   )}
@@ -538,7 +538,7 @@ export default function Sidebar({
                 onClick={() => { onClose?.(); signInWithGoogle?.(); }}
                 className="w-full flex items-center justify-center gap-3 py-3 rounded-xl text-[14px] font-bold text-slate-700 dark:text-slate-200 bg-bg-card border border-border-color shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
               >
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5 bg-white rounded-full p-0.5" />
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Login Button Logo" title="Google External Sign in Auth" loading="lazy" className="w-5 h-5 bg-white rounded-full p-0.5" />
                 Sign In with Google
               </button>
             </div>
