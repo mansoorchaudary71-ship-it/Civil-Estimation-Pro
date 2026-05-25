@@ -10,6 +10,29 @@
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@400;500;600&display=swap" />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" />
     
+    <!-- Core Styles Inline -->
+    <style>
+      :root {
+        --primary-dark: #0f172a;
+        --bg-card: #ffffff;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        background-color: #f8fafc;
+      }
+      @media (prefers-color-scheme: dark) {
+        body { background-color: var(--primary-dark); }
+        :root { --bg-card: #1e293b; }
+      }
+      #root {
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+      }
+    </style>
+    
     <!-- PWA Manifest & Theme Color -->
     <meta name="theme-color" content="#2980b9" />
     <link rel="manifest" href="/manifest.webmanifest">

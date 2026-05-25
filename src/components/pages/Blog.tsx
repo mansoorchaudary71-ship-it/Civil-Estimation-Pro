@@ -100,7 +100,9 @@ export default function Blog() {
             <img 
               src={selectedPost.image} 
               alt={selectedPost.title} 
+              title={selectedPost.title}
               className="w-full h-full object-cover" 
+              loading="lazy"
             />
           </div>
           
@@ -167,7 +169,7 @@ export default function Blog() {
               className="bg-bg-card rounded-[2rem] border border-border-color shadow-sm overflow-hidden flex flex-col group cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
               <div className="h-48 overflow-hidden relative">
-                 <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                 <img src={post.image} alt={post.title} title={post.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                  <div className="absolute top-4 left-4">
                    <span className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm px-3 py-1.5 rounded-xl text-xs font-bold text-text-primary shadow-sm">
                      {post.category}

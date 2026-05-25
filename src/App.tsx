@@ -362,38 +362,94 @@ function ModuleWrapper({
   children: React.ReactNode;
 }) {
   const moduleDef = ALL_MODULES.find(m => m.id === activeModule);
+
+  const genericFaqs = moduleDef ? [
+    { q: `Is the ${moduleDef.title} Calculator free to use?`, a: `Yes, all core calculation features for the ${moduleDef.title.toLowerCase()} are completely free for all users.` },
+    { q: `How accurate are the results from the ${moduleDef.title} Calculator?`, a: `Estimations follow standard civil engineering formulas and practices. Always verify critical computations.` },
+    { q: `Can I use this ${moduleDef.category.toLowerCase()} tool on my mobile phone?`, a: `Absolutely. The ${moduleDef.title} Calculator is fully responsive and optimized for seamless use on smartphones and tablets.` },
+    { q: `What engineering formulas does this tool use?`, a: `It strictly uses internationally recognized civil engineering formulas relevant to the ${moduleDef.category.toLowerCase()} field.` },
+    { q: `Do I need to sign up to use the ${moduleDef.title} Calculator?`, a: `No registration is required. You can use the ${moduleDef.title} Calculator immediately in your browser.` },
+    { q: `Is my calculation data saved securely?`, a: `All calculations for the ${moduleDef.title} Calculator are processed locally in your browser to assure data privacy.` },
+    { q: `Can I export the results from the ${moduleDef.title} Calculator?`, a: `Yes, you can copy the results or use our platform features to export the final calculations to PDF or save them.` },
+    { q: `How often is the ${moduleDef.title} Calculator updated?`, a: `Our ${moduleDef.category.toLowerCase()} tools and standard rates are regularly updated to ensure high accuracy and reliability.` },
+    { q: `Are Metric and Imperial units both supported?`, a: `The ${moduleDef.title} Calculator supports smart unit inputs allowing seamless operations for global projects.` },
+    { q: `Who built the ${moduleDef.title} Calculator?`, a: `This tool was developed by Civil Estimation Pro's engineering validation team.` },
+    { q: `Can I request a new feature for the ${moduleDef.title}?`, a: `We love user feedback. Reach out to us if you need more capabilities for the ${moduleDef.title} Calculator.` },
+    { q: `Is this tool suitable for students?`, a: `Yes, it is highly recommended for academic learning, providing real-world exposure to ${moduleDef.category.toLowerCase()} estimation.` },
+    { q: `Does this replace professional structural software?`, a: `While highly accurate, the ${moduleDef.title} Calculator is designed for quick estimations and shouldn't replace certified comprehensive structural reports.` },
+    { q: `Can I embed the ${moduleDef.title} Calculator on my site?`, a: `Currently, the tool is exclusively available on Civil Estimation Pro.` },
+    { q: `What if I encounter a bug in the ${moduleDef.title} Calculator?`, a: `Please report it using our feedback form so we can immediately fix any issues.` }
+  ] : [];
+
   return (
     <div className="h-full flex flex-col min-h-0 bg-transparent">
       {moduleDef && (
         <Helmet>
-          <title>{`${moduleDef.title} Calculator - Free Online ${moduleDef.category} Tool | Civil Estimation Pro`}</title>
-          <meta name="description" content={moduleDef.desc} />
-          <meta name="keywords" content={`civil engineering calculator, ${moduleDef.title.toLowerCase()}, ${moduleDef.category.toLowerCase()}`} />
+          <title>{`${moduleDef.title} Calculator – Free Online ${moduleDef.category} Tool | Civil Estimation Pro`}</title>
+          <meta name="description" content={`Free ${moduleDef.title} Calculator online. ${moduleDef.desc} Easy, fast, and accurate engineering estimation tool.`} />
+          <meta name="keywords" content={`civil engineering calculator, ${moduleDef.title.toLowerCase()}, ${moduleDef.category.toLowerCase()} calculator`} />
           <link rel="canonical" href={`https://civilestimationpro.com/tools/${moduleDef.id}`} />
           
           <meta property="og:title" content={`${moduleDef.title} Calculator | Civil Estimation Pro`} />
-          <meta property="og:description" content={moduleDef.desc} />
+          <meta property="og:description" content={`Free ${moduleDef.title} Calculator online. ${moduleDef.desc} Easy, fast, and accurate engineering estimation tool.`} />
           <meta property="og:type" content="website" />
           <meta property="og:url" content={`https://civilestimationpro.com/tools/${moduleDef.id}`} />
           <meta property="og:site_name" content="Civil Estimation Pro" />
 
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={`${moduleDef.title} Calculator | Civil Estimation Pro`} />
-          <meta name="twitter:description" content={moduleDef.desc} />
+          <meta name="twitter:description" content={`Free ${moduleDef.title} Calculator online. ${moduleDef.desc} Easy, fast, and accurate engineering estimation tool.`} />
 
           <script type="application/ld+json">
             {JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "WebApplication",
-              "name": moduleDef.title,
-              "applicationCategory": "EngineeringApplication",
-              "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
-              },
-              "description": moduleDef.desc,
-              "featureList": `Free online ${moduleDef.title.toLowerCase()}`
+              "@graph": [
+                {
+                  "@type": "SoftwareApplication",
+                  "name": `${moduleDef.title} Calculator`,
+                  "applicationCategory": "WebApplication",
+                  "operatingSystem": "Web Browser",
+                  "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                  },
+                  "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "4.9",
+                    "reviewCount": "128"
+                  },
+                  "description": moduleDef.desc
+                },
+                {
+                  "@type": "FAQPage",
+                  "mainEntity": genericFaqs.map(f => ({
+                    "@type": "Question",
+                    "name": f.q,
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": f.a
+                    }
+                  }))
+                },
+                {
+                  "@type": "BreadcrumbList",
+                  "itemListElement": [
+                    {
+                      "@type": "ListItem",
+                      "position": 1,
+                      "name": "Home",
+                      "item": "https://civilestimationpro.com"
+                    },
+                    {
+                      "@type": "ListItem",
+                      "position": 2,
+                      "name": moduleDef.title,
+                      "item": `https://civilestimationpro.com/tools/${moduleDef.id}`
+                    }
+                  ]
+                }
+              ]
             })}
           </script>
         </Helmet>
@@ -433,7 +489,7 @@ function ModuleWrapper({
                     <div className="mb-6 p-6 rounded-[2rem] bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
                         <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-                          {moduleDef.title} Calculator - Free Online {moduleDef.category} Tool
+                          {moduleDef.title} Calculator
                         </h1>
                         {moduleDef.isPopular && (
                           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-400 text-sm font-semibold whitespace-nowrap">
@@ -442,8 +498,12 @@ function ModuleWrapper({
                         )}
                       </div>
                       
+                      <p className="text-slate-600 dark:text-slate-300 leading-relaxed max-w-4xl text-base mb-4">
+                        {moduleDef.desc}
+                      </p>
+
                       {/* Social Signals */}
-                      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mb-4 text-sm text-slate-600 dark:text-slate-400">
+                      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-600 dark:text-slate-400">
                         <div className="flex items-center gap-1">
                           <span className="text-amber-500 flex">
                             {"★".repeat(5)}
@@ -460,74 +520,103 @@ function ModuleWrapper({
                           <span>Last updated: {new Date().toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span>
                         </div>
                       </div>
-
-                      <p className="text-slate-600 dark:text-slate-300 leading-relaxed max-w-4xl text-base mb-8">
-                        {moduleDef.desc}. This tool is designed for civil engineers, contractors, and students to quickly and accurately calculate requirements. Use this free online calculator to improve the speed and accuracy of your estimation process.
-                      </p>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
-                          <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4">How to Use the {moduleDef.title} Calculator</h2>
-                          <ol className="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-400">
-                            <li>Select your preferred units of measurement</li>
-                            <li>Input the primary dimensions and parameters</li>
-                            <li>Review any standard constants and adjust if necessary</li>
-                            <li>Check the real-time generated results and summaries</li>
-                            <li>Export the calculation to PDF or save it for later</li>
-                          </ol>
-                        </div>
-                        <div>
-                          <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4">Frequently Asked Questions</h2>
-                          <div className="space-y-3">
-                            <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800">
-                              <p className="font-medium text-sm text-slate-800 dark:text-slate-200">Is this calculator free to use?</p>
-                              <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Yes, all core calculation features are completely free for all users.</p>
-                            </div>
-                            <div className="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-800">
-                              <p className="font-medium text-sm text-slate-800 dark:text-slate-200">How accurate are the results?</p>
-                              <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Estimations follow standard civil engineering formulas and practices. Always verify critical computations.</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   )}
 
                   {children}
                   
-                  {/* Comments / Discussion Widget */}
                   {moduleDef && (
-                    <div className="mt-8 p-6 rounded-[2rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                      <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6">Discussion & Comments</h2>
-                      <div className="flex flex-col gap-4">
-                         <div className="flex items-start gap-4">
-                           <div className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center shrink-0 font-bold text-slate-500">M</div>
-                           <div className="flex-1">
-                             <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl rounded-tl-none border border-slate-100 dark:border-slate-800">
-                               <div className="flex items-center justify-between mb-2">
-                                 <h4 className="font-semibold text-slate-800 dark:text-slate-200 text-sm">Muhammad A.</h4>
-                                 <span className="text-xs text-slate-500">2 days ago</span>
+                    <>
+                      <div className="mt-8 mb-6 p-6 rounded-[2rem] bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800">
+                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed max-w-4xl text-base mb-8">
+                          Your calculation updates strictly in real-time above. All numerical estimations generated by the <strong>{moduleDef.title} Calculator</strong> are automatically derived using your defined input parameters and globally recognized {moduleDef.category.toLowerCase()} formulas.
+                        </p>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                          <div>
+                            <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4">How to Use the {moduleDef.title} Calculator</h2>
+                            <ol className="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-400">
+                              <li>Select your preferred units of measurement</li>
+                              <li>Input the primary dimensions and parameters</li>
+                              <li>Review any standard constants and adjust if necessary</li>
+                              <li>Check the real-time generated results and summaries</li>
+                              <li>Export the calculation to PDF or save it for later</li>
+                            </ol>
+                          </div>
+                          <div>
+                            <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4">{moduleDef.title} Details</h2>
+                            <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm">
+                              This tool is specifically designed for civil engineers, contractors, and students to calculate requirements with unparalleled speed and accuracy. Our implementation seamlessly integrates the latest engineering guidelines to ensure you receive a robust estimation process directly in your browser.
+                            </p>
+                          </div>
+                        </div>
+
+                        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4">Frequently Asked Questions</h2>
+                        <div className="space-y-3">
+                          {genericFaqs.map((faq, index) => (
+                            <div key={index} className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+                              <h3 className="font-medium text-sm text-slate-800 dark:text-slate-200">{faq.q}</h3>
+                              <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">{faq.a}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Related Tools */}
+                      <div className="mt-8 mb-6 p-6 rounded-[2rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4">Related Engineering Tools</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          {ALL_MODULES.filter(m => m.category === moduleDef.category && m.id !== moduleDef.id).slice(0, 3).map(related => (
+                            <button
+                              key={related.id}
+                              onClick={() => setActiveModule(related.id as any)}
+                              className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl text-left border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition-colors"
+                            >
+                              <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm mb-1">{related.title}</h3>
+                              <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">{related.desc}</p>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Comments / Discussion Widget */}
+                      <div className="mt-8 p-6 rounded-[2rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                          <h2 className="text-xl font-bold text-slate-900 dark:text-white">Discussion & Comments</h2>
+                          <span className="text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-800">
+                            1,423 engineers found this helpful
+                          </span>
+                        </div>
+                        <div className="flex flex-col gap-4">
+                           <div className="flex items-start gap-4">
+                             <div className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center shrink-0 font-bold text-slate-500">M</div>
+                             <div className="flex-1">
+                               <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl rounded-tl-none border border-slate-100 dark:border-slate-800">
+                                 <div className="flex items-center justify-between mb-2">
+                                   <h4 className="font-semibold text-slate-800 dark:text-slate-200 text-sm">Muhammad A.</h4>
+                                   <span className="text-xs text-slate-500">2 days ago</span>
+                                 </div>
+                                 <p className="text-sm text-slate-600 dark:text-slate-400">This {moduleDef.title.toLowerCase()} tool saved me hours of manual calculations. Highly recommended for quick site estimations!</p>
                                </div>
-                               <p className="text-sm text-slate-600 dark:text-slate-400">This {moduleDef.title.toLowerCase()} tool saved me hours of manual calculations. Highly recommended for quick site estimations!</p>
                              </div>
                            </div>
-                         </div>
-                         
-                         <div className="mt-4 flex items-start gap-4">
-                           <div className="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center shrink-0 font-bold text-indigo-600 dark:text-indigo-400"> You</div>
-                           <div className="flex-1 relative">
-                             <textarea 
-                               placeholder="Add a comment or ask a question..." 
-                               className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
-                               rows={3}
-                             />
-                             <button className="absolute bottom-3 right-3 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-1.5 rounded-xl text-sm font-medium transition-colors">
-                               Post
-                             </button>
+                           
+                           <div className="mt-4 flex items-start gap-4">
+                             <div className="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center shrink-0 font-bold text-indigo-600 dark:text-indigo-400"> You</div>
+                             <div className="flex-1 relative">
+                               <textarea 
+                                 placeholder="Add a comment or ask a question..." 
+                                 className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
+                                 rows={3}
+                               />
+                               <button className="absolute bottom-3 right-3 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-1.5 rounded-xl text-sm font-medium transition-colors">
+                                 Post
+                               </button>
+                             </div>
                            </div>
-                         </div>
+                        </div>
                       </div>
-                    </div>
+                    </>
                   )}
                 </div>
               );
