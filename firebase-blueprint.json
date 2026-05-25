@@ -30,9 +30,26 @@
         "createdAt": { "type": "number", "description": "Server Timestamp" }
       },
       "required": ["userId", "name", "type", "createdAt"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "User reviews/comments for tools",
+      "type": "object",
+      "properties": {
+        "toolId": { "type": "string" },
+        "userName": { "type": "string" },
+        "text": { "type": "string" },
+        "timestamp": { "type": "number", "description": "Server Timestamp" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"], "description": "Moderation status" }
+      },
+      "required": ["toolId", "userName", "text", "timestamp", "status"]
     }
   },
   "firestore": {
+    "/comments/{commentId}": {
+      "schema": { "$ref": "#/entities/Comment" },
+      "description": "Tool discussion comments"
+    },
     "/users/{userId}": {
       "schema": { "$ref": "#/entities/User" },
       "description": "User profiles"
