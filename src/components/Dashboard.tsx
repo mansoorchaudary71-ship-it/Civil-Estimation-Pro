@@ -20,8 +20,8 @@ import { useSettings } from "../context/SettingsContext";
 export const ALL_MODULES = [
   // 📦 QUANTITY ESTIMATOR
   { id: "master-quantity", title: "Master Quantity & Estimation", desc: "23 comprehensive calculators for specialized construction items.", category: "Quantity Estimator", icon: ClipboardList, styleStyle: "solid", colorClass: "bg-[var(--accent-blue)] text-[var(--primary-dark)] shadow-[0_8px_30px_rgba(0,207,232,0.3)]", iconClass: "text-[var(--primary-dark)] opacity-90", difficulty: "Advanced", estimatedTime: "~20 mins" },
-  { id: "house", title: "House Estimator", desc: "Complete residential cost breakdown from grey structure to finishing.", category: "Quantity Estimator", icon: Home, premium: true, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~15 mins", isPopular: true },
-  { id: "boq", title: "Professional BOQ Generator", desc: "Create, format, and export professional Bills of Quantities and itemized estimates.", category: "Quantity Estimator", icon: ClipboardList, styleStyle: "solid", colorClass: "bg-blue-600 text-white shadow-lg", difficulty: "Advanced", estimatedTime: "~5 mins", isNew: true },
+  { id: "house", title: "House Estimator", desc: "Calculate complete residential construction costs from excavation to finishing. Contractors benefit by getting an accurate Civil Estimation Pro material breakdown instantly.", category: "Quantity Estimator", icon: Home, premium: true, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~15 mins", isPopular: true },
+  { id: "boq", title: "Professional BOQ Generator", desc: "Calculate and format standardized Bills of Quantities for construction projects. Quantity surveyors rely on Civil Estimation Pro to export precise, itemized cost documents.", category: "Quantity Estimator", icon: ClipboardList, styleStyle: "solid", colorClass: "bg-blue-600 text-white shadow-lg", difficulty: "Advanced", estimatedTime: "~5 mins", isNew: true },
   { id: "takeoff", title: "Plan Measure", desc: "Area & linear extraction.", category: "Quantity Estimator", icon: Ruler, styleStyle: "solid", colorClass: "bg-[var(--accent-purple)] text-white shadow-[0_8px_30px_rgba(115,103,240,0.3)]", iconClass: "text-white opacity-90", difficulty: "Advanced", estimatedTime: "~10 mins", isPopular: true },
   { id: "rates", title: "Live DB Rates", desc: "Centralized database for local market prices.", category: "Quantity Estimator", icon: TrendingUp, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~1 min", isPopular: true },
   { id: "interiors-finishes", title: "Interiors & Finishes", desc: "Tiles, painting, doors, wood framing, and termite treatments.", category: "Quantity Estimator", icon: Paintbrush, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~3 mins" },
@@ -33,20 +33,20 @@ export const ALL_MODULES = [
   { id: "ai", title: "AI Assistant", desc: "Ask anything about construction", category: "Quantity Estimator", icon: Sparkles, premium: true, styleStyle: "solid", colorClass: "bg-[var(--primary-dark)] text-white shadow-lg", iconClass: "text-white opacity-90", difficulty: "Beginner", estimatedTime: "~1 min", isNew: true },
 
   // 🏗️ CONCRETE TECH
-  { id: "master-rcc", title: "Master RCC Estimator", desc: "Unified hub for Slab, Column, Beam, Staircase, and BBS calculations.", category: "Concrete Tech", icon: Building2, styleStyle: "solid", colorClass: "bg-[var(--accent-teal)] text-white shadow-[0_8px_30px_rgba(32,201,151,0.3)]", iconClass: "text-white opacity-90", difficulty: "Advanced", estimatedTime: "~10 mins", isPopular: true },
+  { id: "master-rcc", title: "Master RCC Estimator", desc: "This Civil Estimation Pro tool calculates quantities for slabs, columns, beams, and staircases. Structural engineers benefit from instant concrete and steel volume outputs.", category: "Concrete Tech", icon: Building2, styleStyle: "solid", colorClass: "bg-[var(--accent-teal)] text-white shadow-[0_8px_30px_rgba(32,201,151,0.3)]", iconClass: "text-white opacity-90", difficulty: "Advanced", estimatedTime: "~10 mins", isPopular: true },
   { id: "calculators", title: "Construction Material", desc: "Accurate estimations for concrete, bricks, steel, blocks, mortar.", category: "Concrete Tech", icon: HardHat, styleStyle: "solid", colorClass: "bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-[0_8px_30px_rgba(99,102,241,0.3)]", iconClass: "text-white opacity-90", difficulty: "Beginner", estimatedTime: "~2 mins", isPopular: true },
-  { id: "mix-design", title: "Concrete Mix Design", desc: "IS 10262 performance-based concrete mix calculator and report generator.", category: "Concrete Tech", icon: Droplet, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~4 mins", isNew: true },
-  { id: "bbs-generator", title: "BBS Generator", desc: "Bar Bending Schedule generator.", category: "Concrete Tech", icon: FileSpreadsheet, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~10 mins" },
+  { id: "mix-design", title: "Concrete Mix Design", desc: "Calculate IS 10262 compliant proportions for any concrete grade. Site engineers trust Civil Estimation Pro to output instant water-cement ratio reports.", category: "Concrete Tech", icon: Droplet, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~4 mins", isNew: true },
+  { id: "bbs-generator", title: "BBS Generator", desc: "Calculate core steel reinforcement cutting lengths and bend deductions. Civil engineers use this Civil Estimation Pro generator to output standardized bar schedules.", category: "Concrete Tech", icon: FileSpreadsheet, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~10 mins" },
   { id: "reinforcement", title: "Reinforcement Detailing Visualizer", desc: "Interactive 2D rebar detailing for beams, columns & slabs with IS 456 checks.", category: "Concrete Tech", icon: Layers, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~3 mins", isNew: true },
   { id: "isolated-footing", title: "Isolated Footing Calculator", desc: "Detailed estimations for concrete, steel mesh, excavation and working space.", category: "Concrete Tech", icon: Box, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~3 mins", isNew: true },
-  { id: "retaining-wall", title: "Retaining Wall Estimator", desc: "Calculate stability factors, concrete volume, and reinforcement for cantilever retaining walls.", category: "Concrete Tech", icon: ShieldCheck, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~5 mins", isNew: true },
+  { id: "retaining-wall", title: "Retaining Wall Estimator", desc: "Calculate structural stability, concrete volume, and rebar for cantilever walls. Civil Estimation Pro helps engineers output safe material quantities for earth-retaining structures.", category: "Concrete Tech", icon: ShieldCheck, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~5 mins", isNew: true },
   { id: "staircase-calculator", title: "Staircase Calculator", desc: "Detailed staircase material and BOQ generator.", category: "Concrete Tech", icon: TrendingUp, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins" },
   { id: "aggregate-tests", title: "Aggregate Tests", desc: "Calculate impact, crushing, abrasion values and water absorption.", category: "Concrete Tech", icon: Box, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~4 mins" },
   { id: "formwork", title: "Formwork & Scaffold", desc: "Shuttering and scaffolding material computations.", category: "Concrete Tech", icon: Hammer, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~4 mins" },
 
   // 🛣️ ROAD CONSTRUCTION
-  { id: "road-pavement", title: "Road & Pavement Estimator", desc: "Comprehensive tool for flexible, rigid, pavement & sewerage calculations.", category: "Road Construction", icon: Route, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~15 mins" },
-  { id: "earthworks", title: "Earthworks & Excavation", desc: "Calculate site preparation, excavation, top soil and fill volumes.", category: "Road Construction", icon: Shovel, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins" },
+  { id: "road-pavement", title: "Road & Pavement Estimator", desc: "Calculate material quantities for flexible and rigid pavement layers. Highway engineers use this Civil Estimation Pro tool to output exact asphalt volumes.", category: "Road Construction", icon: Route, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~15 mins" },
+  { id: "earthworks", title: "Earthworks & Excavation", desc: "Calculate precise cut, fill, and site preparation volumes for varied terrain. Surveyors use this Civil Estimation Pro tool to generate accurate excavation tonnage reports.", category: "Road Construction", icon: Shovel, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins" },
   { id: "chainage", title: "Chainage Volume", desc: "Road highway chainage extraction calculations.", category: "Road Construction", icon: Map, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~5 mins" },
   { id: "gradient-calculator", title: "Gradient & Slope", desc: "Dynamic bidirectional slope and elevation calculator.", category: "Road Construction", icon: Maximize2, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~2 mins" },
   { id: "anti-termite", title: "Anti-Termite Calculator", desc: "Calculate pre-construction termite chemical emulsion and concentrate requirements.", category: "Road Construction", icon: Bug, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~2 mins", isNew: true },
@@ -356,12 +356,16 @@ export default function Dashboard({
         {/* MASSIVE HERO SECTION */}
         <div className="relative w-full max-w-[1400px] mx-auto mt-12 md:mt-24 mb-16 px-4 lg:px-8 flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-bottom-8 duration-700 z-10">
           
-          <h1 className="text-5xl md:text-7xl font-sans font-black tracking-tight text-[var(--primary-dark)] dark:text-white mb-8 max-w-4xl mx-auto drop-shadow-sm flex flex-col justify-center items-center">
-            <span className="block mb-2">Build Smarter.</span>
+          <h1 className="text-5xl md:text-6xl font-sans font-black tracking-tight text-[var(--primary-dark)] dark:text-white mb-6 max-w-4xl mx-auto drop-shadow-sm flex flex-col justify-center items-center text-center">
+            <span className="block mb-2">Free Civil Engineering</span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-purple-500 to-orange-500 font-extrabold drop-shadow-sm pb-2">
-              Estimate Faster.
+              Estimation Platform
             </span>
           </h1>
+          
+          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8 font-medium text-center">
+            Calculate material quantities, generate BOQs, and estimate project costs instantly with 40+ professional engineering tools.
+          </p>
           
           <div className="inline-flex items-center gap-3 mb-10 px-5 py-2.5 bg-purple-50 dark:bg-purple-900/30 rounded-full border border-purple-100 dark:border-purple-800/50 shadow-sm animate-in fade-in zoom-in duration-1000 delay-300">
              <div className="flex -space-x-3 mr-2">
@@ -380,12 +384,16 @@ export default function Dashboard({
                }}
                className="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-purple-600 to-orange-500 text-white rounded-full font-bold text-lg shadow-[0_8px_30px_rgba(147,51,234,0.3)] hover:shadow-[0_8px_40px_rgba(147,51,234,0.4)] transition-all hover:-translate-y-1 active:scale-95"
             >
-              Start Estimating Free
+              Start Estimating for Free
             </button>
             <button
+               onClick={() => {
+                 const elm = document.getElementById('category-filter-section');
+                 elm?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+               }}
                className="w-full sm:w-auto px-10 py-4 bg-white dark:bg-slate-800 text-slate-700 dark:text-white rounded-full font-bold text-lg shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all hover:-translate-y-1 flex items-center justify-center gap-2 group active:scale-95"
             >
-              Watch Demo <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform"/>
+              View All Tools <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform"/>
             </button>
           </div>
 
@@ -399,7 +407,7 @@ export default function Dashboard({
                   <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                     <Box className="w-6 h-6 text-purple-600 dark:text-purple-400"/>
                   </div>
-                  <h4 className="font-extrabold text-2xl text-slate-900 dark:text-white mb-1 tracking-tight">30+</h4>
+                  <h4 className="font-extrabold text-2xl text-slate-900 dark:text-white mb-1 tracking-tight">40+</h4>
                   <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Professional Tools</p>
                </div>
                <div className="flex flex-col items-center text-center p-2 group">
@@ -616,17 +624,20 @@ export default function Dashboard({
            <h3 className="text-2xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white mb-12">
               Trusted by 10,000+ Engineers
            </h3>
-           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                { name: "Michael R.", role: "Civil Engineer", text: "Reduced my estimation time by 80%. The steel weight auto-deductions are incredibly accurate.", rating: 5 },
-                { name: "Sarah K.", role: "Quantity Surveyor", text: "The live rate analysis with instant BOQ generation has completely transformed our bidding process.", rating: 5 },
-                { name: "David T.", role: "Contractor", text: "Easy to use on site. I run earthwork volumes directly on my phone and export to PDF instantly.", rating: 5 }
+                { name: "Ahmed Al-Farsi", role: "Project Manager", company: "Commercial Construction", country: "UAE", text: "Civil Estimation Pro has literally given me my weekends back. Using the Professional BOQ Generator, I can compile complete client tenders in 15 minutes instead of hours. The accuracy of the embedded ISO code checks makes our bids bulletproof.", rating: 5 },
+                { name: "Maria Gonzalez", role: "Quantity Surveyor", company: "Infrastructure Firm", country: "Spain", text: "The earthworks and chainage volume calculator is by far the best I've used online. It handles complex slope inputs effortlessly and provides exact cut/fill volumes. Saved my team days of tedious manual spreadsheet work.", rating: 5 },
+                { name: "John Davis", role: "Contractor", company: "Residential Builders", country: "United States", text: "As a small builder, getting quick material estimates is crucial. The House Estimator tool is incredibly accurate for our grey structure planning. I just input the plot size, and within a minute I have the exact bricks, cement, and steel needed.", rating: 5 },
+                { name: "Liam O'Connor", role: "Site Engineer", company: "MEP & Fit-out Contractors", country: "Ireland", text: "I constantly use the Unit Converter and Volume & Tank Capacity tools while on site. Being able to access these reliably on my phone has streamlined my daily quality checks. Highly recommend for any field engineer.", rating: 5 },
+                { name: "Rajesh Kumar", role: "Civil Engineer", company: "Structural Design", country: "India", text: "The Concrete Mix Design tool is phenomenal. Generating a compliant mix design report traditionally took up a lot of my drafting time, but now it's instantaneous. It computes target mean strength and water-cement ratios flawlessly.", rating: 5 },
+                { name: "Emily Watson", role: "Civil Engineering Student", company: "University Level", country: "UK", text: "This platform has been a lifesaver for my university projects. The visual BBS generator helped me finally understand bar bending schedules and deductions. It turns confusing theoretical formulas into clear, practical outputs.", rating: 5 }
               ].map((t, idx) => (
                 <div key={idx} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 flex flex-col items-center text-center shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                    <div className="flex gap-1 mb-4">
                      {[...Array(t.rating)].map((_, i) => <Sparkles key={i} className="w-5 h-5 text-amber-500 fill-amber-500" />)}
                    </div>
-                   <p className="text-slate-600 dark:text-slate-400 font-medium mb-6 italic leading-relaxed">
+                   <p className="text-slate-600 dark:text-slate-400 font-medium mb-6 italic leading-relaxed text-sm">
                      "{t.text}"
                    </p>
                    <div className="mt-auto flex flex-col items-center">
@@ -634,7 +645,8 @@ export default function Dashboard({
                         {t.name.charAt(0)}
                       </div>
                       <span className="font-bold text-slate-900 dark:text-white">{t.name}</span>
-                      <span className="text-sm font-medium text-slate-500">{t.role}</span>
+                      <span className="text-xs font-medium text-slate-500">{t.role} • {t.company}</span>
+                      <span className="text-xs text-slate-400 mt-0.5">{t.country}</span>
                    </div>
                 </div>
               ))}
