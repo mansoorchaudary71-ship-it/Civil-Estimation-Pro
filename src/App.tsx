@@ -50,7 +50,7 @@ import { Toaster } from "react-hot-toast";
 import { TakeoffProvider } from "./context/TakeoffContext";
 import { MarketRatesProvider } from "./context/MarketRatesContext";
 import { HouseSpecsProvider } from "./context/HouseSpecsContext";
-import { SettingsProvider } from "./context/SettingsContext";
+import { SettingsProvider, useSettings } from "./context/SettingsContext";
 import { ProjectProvider } from "./context/ProjectContext";
 
 import MasterSieveAnalysis from "./components/modules/MasterSieveAnalysis";
