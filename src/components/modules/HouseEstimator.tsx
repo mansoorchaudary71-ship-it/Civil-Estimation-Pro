@@ -3,7 +3,7 @@ import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
-import WashroomEstimator from "./WashroomEstimator";
+import { DetailedRoomEstimators } from "./DetailedRoomEstimators";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Home,
@@ -175,12 +175,12 @@ export default function HouseEstimator() {
   ] = useState(false);
   /* Master Unit System Toggle */ const masterUnit =
     settings.measurement === "SI" ? "metric" : "imperial";
+  const [topTab, setTopTab] = useState<"General House" | "Kitchen" | "Bedroom" | "Drawing Room" | "Washroom" | "Basement">("General House");
   /* Boundary Wall State */ const [
     includeBoundaryWall,
     setIncludeBoundaryWall,
   ] = useState(false);
   const [bwLength, setBwLength] = useState(100);
-  const [showWashroomEstimator, setShowWashroomEstimator] = useState(false);
   /* feet */ const [bwHeight, setBwHeight] = useState(6);
   /* feet */ const [bwGateSize, setBwGateSize] = useState(12);
   /* feet */ const plotAreaSqft = useMemo(() => {
@@ -605,6 +605,27 @@ export default function HouseEstimator() {
           </div>
         </header>
 
+        {/* Top Tabbed Interface */}
+        <div className="flex gap-2 p-1 bg-white/50 backdrop-blur-md rounded-2xl w-fit mb-8 shadow-sm border border-slate-200 dark:bg-slate-800/50 dark:border-slate-700 overflow-x-auto max-w-full">
+          {(["General House", "Rooms & Basement"] as const).map(tab => (
+            <button
+              key={tab}
+              onClick={() => setTopTab(tab)}
+              className={`px-6 py-3 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
+                topTab === tab
+                  ? "bg-purple-600 text-white shadow-md shadow-purple-500/20"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-white/60 dark:text-slate-400 dark:hover:text-slate-200"
+              }`}
+            >
+              {tab} {tab !== "General House" && <span className="ml-1 bg-orange-500 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-full tracking-wider">PRO</span>}
+            </button>
+          ))}
+        </div>
+
+        {topTab === "Rooms & Basement" ? (
+          <DetailedRoomEstimators />
+        ) : (
+          <div className="space-y-8 w-full">
         {/* Project Details */}
         <section className="bg-white/80 p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_32px_rgba(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
           <div className="flex items-center gap-3 mb-6">
@@ -1028,11 +1049,6 @@ export default function HouseEstimator() {
                               </span>
                             </div>
                           </div>
-                          {room === "washrooms" && (
-                            <button onClick={() => setShowWashroomEstimator(true)} className="mt-1 w-fit text-[11px] font-bold text-purple-600 bg-purple-50 dark:bg-purple-900/30 dark:text-purple-400 px-3 py-1.5 rounded-lg flex items-center justify-center gap-1 hover:bg-purple-100 transition-colors border border-purple-200 dark:border-purple-800">
-                              Detailed Washroom Calculation (PRO)
-                            </button>
-                          )}
                         </div>
                       ))}
                     </div>
@@ -1741,20 +1757,14 @@ export default function HouseEstimator() {
             )}
           </section>
         </div>
+        </div>
+        )}
       </div>
       
       <GlobalSettingsModal
         isOpen={isGlobalSettingsOpen}
         onClose={() => setIsGlobalSettingsOpen(false)}
       />
-
-      <AnimatePresence>
-        {showWashroomEstimator && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm">
-            <WashroomEstimator onClose={() => setShowWashroomEstimator(false)} />
-          </div>
-        )}
-      </AnimatePresence>
 
       <CalculationHistory
         calculatorId="house_estimator_v1"
