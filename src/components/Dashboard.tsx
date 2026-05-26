@@ -308,11 +308,14 @@ export default function Dashboard({
   ];
 
   const filteredModules = ALL_MODULES.filter((m) => {
+    const searchWords = searchTerm.toLowerCase().split(/\s+/).filter(Boolean);
     const matchesSearch =
-      !searchTerm ||
-      m.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      m.desc.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      m.category.toLowerCase().includes(searchTerm.toLowerCase());
+      searchWords.length === 0 ||
+      searchWords.every(word =>
+        m.title.toLowerCase().includes(word) ||
+        m.desc.toLowerCase().includes(word) ||
+        m.category.toLowerCase().includes(word)
+      );
 
     const matchesCategory =
       activeCategory === "All Tools" || m.category === activeCategory;
@@ -527,24 +530,26 @@ export default function Dashboard({
             </div>
           </div>
           
-          <div className="w-full md:max-w-[500px] xl:max-w-[600px] shrink-0 flex items-center relative group">
+          <div className="w-full md:max-w-[500px] xl:max-w-[600px] shrink-0 flex items-center relative group" id="search-bar-container">
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-full opacity-25 blur-lg group-hover:opacity-60 transition-all duration-700 ease-in-out"></div>
             <div 
-              className="relative flex items-center w-full h-[64px] rounded-full bg-white/90 dark:bg-[#1f2229]/95 backdrop-blur-xl shadow-[0_8px_32px_-4px_rgba(0,0,0,0.08)] transition-all duration-500 hover:shadow-[0_16px_48px_-8px_rgba(0,0,0,0.15)] hover:scale-[1.01] border border-white dark:border-slate-800/80 cursor-pointer"
-              onClick={() => setIsAiChatOpen(true)}
+              className="relative flex items-center w-full h-[64px] rounded-full bg-white/90 dark:bg-[#1f2229]/95 backdrop-blur-xl shadow-[0_8px_32px_-4px_rgba(0,0,0,0.08)] transition-all duration-500 hover:shadow-[0_16px_48px_-8px_rgba(0,0,0,0.15)] hover:scale-[1.01] border border-white dark:border-slate-800/80"
             >
               <button 
                 onClick={(e) => { e.stopPropagation(); setIsAiChatOpen(true); }}
+                title="Ask AI Assistant"
                 className="ml-5 w-[42px] h-[42px] rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 text-transparent bg-clip-text bg-gradient-to-br from-blue-500 to-purple-600 hover:scale-110"
               >
                 <Sparkles className="w-[24px] h-[24px] text-indigo-500 group-hover:animate-pulse" strokeWidth={2} />
               </button>
-              <div
-                className="w-full h-full bg-transparent border-none outline-none text-[16px] md:text-[17px] font-medium text-slate-400 dark:text-slate-500 px-3 flex items-center cursor-text"
-              >
-                {searchTerm || "Ask what you want to calculate..."}
-              </div>
-              <div className="mr-3 shrink-0 flex gap-1">
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search tools & calculators..."
+                className="w-full h-full bg-transparent border-none outline-none text-[16px] md:text-[17px] font-medium text-slate-800 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 px-3 cursor-text"
+              />
+              <div className="mr-3 shrink-0 flex items-center gap-1">
                 {searchTerm && (
                   <button onClick={(e) => { e.stopPropagation(); setSearchTerm(""); }} className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors duration-200">
                     <X className="w-5 h-5" strokeWidth={2.5} />

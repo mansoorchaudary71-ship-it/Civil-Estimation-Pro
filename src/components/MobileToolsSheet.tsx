@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Search, X, Hammer, Sparkles, Map as MapIcon, Square, Box, ArrowRightLeft, Weight, Zap, LineChart, Layers, Calculator, Mountain, Route, Droplet, Home, ShieldCheck, Users, Sun, Triangle } from 'lucide-react';
 import { ModuleId } from './Sidebar';
 import { motion, AnimatePresence } from 'motion/react';
+import { ALL_MODULES } from './Dashboard';
 
 export const ALL_TOOLS = [
   { id: "qs-workflow", title: "Guided QS Workflow", icon: <Layers className="w-4 h-4" /> },
@@ -45,9 +46,16 @@ interface MobileToolsSheetProps {
 export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: MobileToolsSheetProps) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredTools = ALL_TOOLS.filter(tool => 
-    tool.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const searchWords = searchTerm.toLowerCase().split(/\s+/).filter(Boolean);
+  const filteredTools = ALL_TOOLS.filter(tool => {
+    if (searchWords.length === 0) return true;
+    const fullMod = ALL_MODULES.find(m => m.id === tool.id);
+    return searchWords.every(word => 
+      tool.title.toLowerCase().includes(word) ||
+      fullMod?.desc?.toLowerCase().includes(word) ||
+      fullMod?.category?.toLowerCase().includes(word)
+    );
+  });
 
   return (
     <AnimatePresence>

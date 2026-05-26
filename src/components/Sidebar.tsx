@@ -395,10 +395,30 @@ export default function Sidebar({
           
           {/* Top Search bar as in 2nd image */}
           <div className="flex items-center gap-3 w-full mb-8 mt-2 px-2">
-            <button className="flex-1 flex items-center justify-between h-[46px] px-5 rounded-[24px] border border-[#ff9f43] dark:border-[#ff7f50] text-[#ff9f43] dark:text-[#ff7f50] bg-transparent hover:bg-[#ff9f43]/5 dark:hover:bg-[#ff7f50]/10 transition-colors">
+            <button 
+              onClick={() => {
+                handleSelectStandalone("home");
+                setTimeout(() => {
+                   document.getElementById('search-bar-container')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                   const input = document.querySelector('#search-bar-container input') as HTMLInputElement;
+                   if (input) input.focus();
+                }, 300);
+              }}
+              className="flex-1 flex items-center justify-between h-[46px] px-5 rounded-[24px] border border-[#ff9f43] dark:border-[#ff7f50] text-[#ff9f43] dark:text-[#ff7f50] bg-transparent hover:bg-[#ff9f43]/5 dark:hover:bg-[#ff7f50]/10 transition-colors"
+            >
               <span className="text-[14px] font-medium opacity-80">Search tools.</span>
             </button>
-            <button className="w-[46px] h-[46px] shrink-0 rounded-full border border-[#ff9f43] dark:border-[#ff7f50] text-[#ff9f43] dark:text-[#ff7f50] flex items-center justify-center hover:bg-[#ff9f43]/5 dark:hover:bg-[#ff7f50]/10 transition-colors">
+            <button 
+              onClick={() => {
+                handleSelectStandalone("home");
+                setTimeout(() => {
+                   document.getElementById('search-bar-container')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                   const input = document.querySelector('#search-bar-container input') as HTMLInputElement;
+                   if (input) input.focus();
+                }, 300);
+              }}
+              className="w-[46px] h-[46px] shrink-0 rounded-full border border-[#ff9f43] dark:border-[#ff7f50] text-[#ff9f43] dark:text-[#ff7f50] flex items-center justify-center hover:bg-[#ff9f43]/5 dark:hover:bg-[#ff7f50]/10 transition-colors"
+            >
               <Search className="w-5 h-5" strokeWidth={2.5} />
             </button>
           </div>
