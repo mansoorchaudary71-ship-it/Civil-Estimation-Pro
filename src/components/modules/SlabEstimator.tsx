@@ -6,6 +6,8 @@ import { StyledChart } from "../ui/EstimateVisualizer";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
 
+import { FieldTooltip } from "../ui/FieldTooltip";
+
 export default function SlabEstimator() {
   const [slabType, setSlabType] = useState<"one-way" | "two-way">("two-way");
   const [isPrecast, setIsPrecast] = useState(false);
@@ -120,20 +122,84 @@ export default function SlabEstimator() {
     });
   };
 
+  const loadExample = () => {
+    setSlabType("two-way");
+    setIsPrecast(false);
+    setLy("5");
+    setLx("4");
+    setThickness("150");
+    setClearCover("20");
+    setMainDia("12");
+    setDistDia("10");
+    setMainSpacing("150");
+    setDistSpacing("150");
+  };
+
+  const resetDefault = () => {
+    setLy("");
+    setLx("");
+    setThickness("");
+    setClearCover("");
+    setMainDia("12");
+    setDistDia("12");
+    setMainSpacing("150");
+    setDistSpacing("150");
+    setResults(null);
+  };
+
+  const sendToBOQ = () => {
+    if (!results) return;
+    const items = [
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        division: "03 - Concrete",
+        description: `RCC Slab ${isPrecast ? '(Precast)' : ''} (Thickness: ${thickness}mm)`,
+        unit: "m³",
+        quantity: results.concreteVolumeWet,
+        rate: 0
+      },
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        division: "05 - Metals",
+        description: `Steel Reinforcement for Slab`,
+        unit: "kg",
+        quantity: results.totalSteelWeight,
+        rate: 0
+      }
+    ];
+    window.dispatchEvent(new CustomEvent('fill-boq', { detail: items }));
+    alert("Sent to BOQ Generator!");
+  };
+
   return (
     <div className="max-w-4xl mx-auto pb-20">
       <SEO 
         title="Slab Estimator | EstiPro"
         description="Calculate concrete volume and steel reinforcement for one-way and two-way reinforced concrete slabs."
       />
-      <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-slate-900 mb-2 flex items-center gap-3">
-          <Grid2X2 className="w-8 h-8 text-indigo-600" />
-          Slab Estimator
-        </h1>
-        <p className="text-slate-500 font-medium">
-          Estimate concrete volume and total structural steel weight for one-way and two-way spanning slabs.
-        </p>
+      <div className="mb-8 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-extrabold text-slate-900 mb-2 flex items-center gap-3">
+            <Grid2X2 className="w-8 h-8 text-indigo-600" />
+            Slab Estimator
+          </h1>
+          <p className="text-slate-500 font-medium">
+            Estimate concrete volume and total structural steel weight for one-way and two-way spanning slabs.
+          </p>
+        </div>
+        <div className="flex gap-2">
+          {results && (
+            <button onClick={sendToBOQ} className="text-xs font-bold px-3 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors border border-emerald-200 dark:border-emerald-800">
+              Send to BOQ
+            </button>
+          )}
+          <button onClick={loadExample} className="text-xs font-bold px-3 py-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors">
+            Load Example
+          </button>
+          <button onClick={resetDefault} className="text-xs font-bold px-3 py-2 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -203,7 +269,12 @@ export default function SlabEstimator() {
                   className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                 />
               </InputGroup>
-              <InputGroup label="Clear Cover (mm)">
+              <InputGroup label={
+                <span className="flex items-center">
+                  Clear Cover (mm)
+                  <FieldTooltip content="Minimum concrete cover to protect reinforcement from corrosion. IS 456:2000 Table 16: Mild exposure = 20mm, Moderate = 30mm, Severe = 45mm, Very Severe = 50mm" />
+                </span>
+              }>
                 <input
                   type="number"
                   min="0"
@@ -420,7 +491,7 @@ export default function SlabEstimator() {
   );
 }
 
-function InputGroup({ label, children }: { label: string; children: React.ReactNode }) {
+function InputGroup({ label, children }: { label: React.ReactNode; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-2">
       <label className="text-sm font-bold text-slate-700">{label}</label>

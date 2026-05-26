@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { Search, X, Hammer, Sparkles, Map as MapIcon, Square, Box, ArrowRightLeft, Weight, Zap, LineChart, Layers, Calculator, Mountain, Route, Droplet, Home, ShieldCheck, Users } from 'lucide-react';
+import { Search, X, Hammer, Sparkles, Map as MapIcon, Square, Box, ArrowRightLeft, Weight, Zap, LineChart, Layers, Calculator, Mountain, Route, Droplet, Home, ShieldCheck, Users, Sun, Triangle } from 'lucide-react';
 import { ModuleId } from './Sidebar';
 import { motion, AnimatePresence } from 'motion/react';
 
 export const ALL_TOOLS = [
+  { id: "qs-workflow", title: "Guided QS Workflow", icon: <Layers className="w-4 h-4" /> },
   { id: "ai", title: "AI Assistant", icon: <Sparkles className="w-4 h-4" /> },
   { id: "labour-calculator", title: "Labour & Workforce", icon: <Users className="w-4 h-4" /> },
   { id: "takeoff", title: "2D Takeoff", icon: <MapIcon className="w-4 h-4" /> },
   { id: "retaining-wall", title: "Retaining Wall Estimator", icon: <ShieldCheck className="w-4 h-4" /> },
   { id: "isolated-footing", title: "Isolated Footing Calculator", icon: <Box className="w-4 h-4" /> },
-  { id: "area-calculator", title: "Area Calculator", icon: <Square className="w-4 h-4" /> },
+  { id: "area-space-calculator", title: "Area & Space Calculator", icon: <Square className="w-4 h-4" /> },
   { id: "volume-estimator", title: "Volume Estimator", icon: <Box className="w-4 h-4" /> },
   { id: "unit-converter", title: "Universal Unit Converter", icon: <ArrowRightLeft className="w-4 h-4" /> },
   { id: "metal-weight", title: "Metal Weight Calculator", icon: <Weight className="w-4 h-4" /> },
@@ -27,6 +28,12 @@ export const ALL_TOOLS = [
   { id: "house", title: "House Estimator", icon: <Home className="w-4 h-4" /> },
   { id: "formwork", title: "Formwork & Scaffold", icon: <Layers className="w-4 h-4" /> },
   { id: "rates", title: "Market Rates", icon: <LineChart className="w-4 h-4" /> },
+  { id: "ventilation-checker", title: "Ventilation & Lighting Checker", icon: <Sun className="w-4 h-4" /> },
+  { id: "door-window-schedule", title: "Door & Window Schedule", icon: <Square className="w-4 h-4" /> },
+  { id: "staircase-design-reference", title: "Staircase Design Reference", icon: <Triangle className="w-4 h-4" /> },
+  { id: "far-fsi-calculator", title: "FAR/FSI Calculator", icon: <Layers className="w-4 h-4" /> },
+  { id: "building-setback-calculator", title: "Building Setback Calculator", icon: <ArrowRightLeft className="w-4 h-4" /> },
+  { id: "room-area-calculator", title: "Room Area Calculator", icon: <Square className="w-4 h-4" /> },
 ];
 
 interface MobileToolsSheetProps {

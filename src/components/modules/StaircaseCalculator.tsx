@@ -6,6 +6,7 @@ import { CalculationHistory } from "../ui/CalculationHistory";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
 import { DetailedCalculationDisplay } from "../ui/DetailedCalculationDisplay";
+import { NumberInput } from "../ui/NumberInput";
 import { SEO } from "../SEO";
 import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import { parseNum } from "../../utils/mathHelpers";
@@ -19,10 +20,10 @@ export default function StaircaseCalculator() {
   
   const [stairShape, setStairShape] = useState("Straight");
   const [numSteps, setNumSteps] = useState("10");
-  const [rise, setRise] = useState("");
-  const [tread, setTread] = useState("");
-  const [stairWidth, setStairWidth] = useState("");
-  const [waistThickness, setWaistThickness] = useState("");
+  const [rise, setRise] = useState("0.15");
+  const [tread, setTread] = useState("0.25");
+  const [stairWidth, setStairWidth] = useState("1.2");
+  const [waistThickness, setWaistThickness] = useState("0.15");
   
   const [mainBarDia, setMainBarDia] = useState("12");
   const [mainBarSpacing, setMainBarSpacing] = useState("150");
@@ -194,6 +195,18 @@ export default function StaircaseCalculator() {
     </div>
   );
 
+  const rVal = parseFloat(rise) || 0;
+  const tVal = parseFloat(tread) || 0;
+  let warningText = "";
+  if (rVal > 0 && tVal > 0) {
+    const rMm = isSI ? rVal * 1000 : rVal * 304.8;
+    const tMm = isSI ? tVal * 1000 : tVal * 304.8;
+    const formula = (2 * rMm) + tMm;
+    if (formula < 600 || formula > 640) {
+      warningText = `Warning: 2R + T = ${Math.round(formula)}mm — outside 600-640mm ideal range. Suggest R=150mm, T=300mm.`;
+    }
+  }
+
   return (
     <div className="space-y-6 mt-4">
       <SEO title="Staircase Calculator" description="Calculate concrete and steel for stairs." />
@@ -222,18 +235,18 @@ export default function StaircaseCalculator() {
             <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <InputGroup label="Number of Steps">
-                  <input type="number" value={numSteps} onChange={e => setNumSteps(e.target.value)} className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 dark:hover:border-slate-600 shadow-sm transition-all" />
+                  <NumberInput value={numSteps} onChange={(val) => setNumSteps(val.toString())} className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl font-semibold shadow-sm transition-all" />
                 </InputGroup>
                 <InputGroup label={`Rise (${uLen})`}>
-                  <input type="number" value={rise} onChange={e => setRise(e.target.value)} placeholder="e.g. 0.15" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 dark:hover:border-slate-600 shadow-sm transition-all" />
+                  <NumberInput value={rise} onChange={(val) => setRise(val.toString())} placeholder="e.g. 0.15" step="0.01" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl font-semibold shadow-sm transition-all" />
                 </InputGroup>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <InputGroup label={`Tread (${uLen})`}>
-                  <input type="number" value={tread} onChange={e => setTread(e.target.value)} placeholder="e.g. 0.25" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 dark:hover:border-slate-600 shadow-sm transition-all" />
+                  <NumberInput value={tread} onChange={(val) => setTread(val.toString())} placeholder="e.g. 0.25" step="0.01" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl font-semibold shadow-sm transition-all" />
                 </InputGroup>
                 <InputGroup label={`Width (${uLen})`}>
-                  <input type="number" value={stairWidth} onChange={e => setStairWidth(e.target.value)} placeholder="e.g. 1.2" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 dark:hover:border-slate-600 shadow-sm transition-all" />
+                  <NumberInput value={stairWidth} onChange={(val) => setStairWidth(val.toString())} placeholder="e.g. 1.2" step="0.1" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl font-semibold shadow-sm transition-all" />
                 </InputGroup>
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -246,9 +259,16 @@ export default function StaircaseCalculator() {
                   </select>
                 </InputGroup>
                 <InputGroup label="Wastage (%)">
-                  <input type="number" value={wastage} onChange={e => setWastage(e.target.value)} placeholder="e.g. 5" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 dark:hover:border-slate-600 shadow-sm transition-all" />
+                  <NumberInput value={wastage} onChange={(val) => setWastage(val.toString())} placeholder="e.g. 5" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl font-semibold shadow-sm transition-all" />
                 </InputGroup>
               </div>
+              
+              {warningText && (
+                <div className="p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-400 rounded-2xl text-sm font-bold flex items-start gap-3">
+                  <Info className="w-5 h-5 shrink-0 mt-0.5" />
+                  <p>{warningText}</p>
+                </div>
+              )}
             </div>
             
             <div className="flex flex-col h-full mt-4 lg:mt-0">

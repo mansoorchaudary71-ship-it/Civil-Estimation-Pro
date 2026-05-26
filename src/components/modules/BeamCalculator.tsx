@@ -4,6 +4,7 @@ import { SEO } from "../SEO";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
+import { FieldTooltip } from "../ui/FieldTooltip";
 
 export default function BeamCalculator() {
   const [isPrecast, setIsPrecast] = useState(false);
@@ -243,7 +244,12 @@ export default function BeamCalculator() {
                   className="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                 />
               </InputGroup>
-              <InputGroup label="Clear Cover (mm)">
+              <InputGroup label={
+                <span className="flex items-center">
+                  Clear Cover (mm)
+                  <FieldTooltip content="Minimum concrete cover to protect reinforcement from corrosion. IS 456:2000 Table 16: Mild exposure = 20mm, Moderate = 30mm, Severe = 45mm, Very Severe = 50mm" />
+                </span>
+              }>
                 <input
                   type="number"
                   min="0"
@@ -508,7 +514,7 @@ export default function BeamCalculator() {
   );
 }
 
-function InputGroup({ label, children }: { label: string; children: React.ReactNode }) {
+function InputGroup({ label, children }: { label: React.ReactNode; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-2">
       <label className="text-sm font-bold text-slate-700">{label}</label>

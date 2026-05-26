@@ -16,8 +16,8 @@ import SewerageEstimator from "./components/modules/SewerageEstimator";
 import HouseEstimator from "./components/modules/HouseEstimator";
 import RateAnalysis from "./components/modules/RateAnalysis";
 import FormworkEstimator from "./components/modules/FormworkEstimator";
-import AreaCalculator from "./components/modules/AreaCalculator";
-import PropertyAreaCalculator from "./components/modules/PropertyAreaCalculator";
+import AreaSpaceCalculator from "./components/modules/AreaSpaceCalculator";
+import SoilLabSuite from "./components/modules/SoilLabSuite";
 import GeotechnicalCalculator from "./components/modules/GeotechnicalCalculator";
 import AggregateTestsCalculator from "./components/modules/AggregateTestsCalculator";
 import CbrTestCalculator from "./components/modules/CbrTestCalculator";
@@ -25,8 +25,8 @@ import VolumeEstimator from "./components/modules/VolumeEstimator";
 import UnitConverter from "./components/modules/UnitConverter";
 import PermeabilityCalculator from "./components/modules/PermeabilityCalculator";
 import DirectShearTestCalculator from "./components/modules/DirectShearTestCalculator";
-import RoofPitchCalculator from "./components/modules/RoofPitchCalculator";
-import MetalWeightCalculator from "./components/modules/MetalWeightCalculator";
+// Import RoofPitch removed as it is merged into AreaSpaceCalculator
+import SteelReinforcementHub from "./components/modules/SteelReinforcementHub";
 import GradientCalculator from "./components/modules/GradientCalculator";
 import PrecastWallCalculator from "./components/modules/PrecastWallCalculator";
 import AntiTermiteCalculator from "./components/modules/AntiTermiteCalculator";
@@ -57,13 +57,26 @@ import MasterSieveAnalysis from "./components/modules/MasterSieveAnalysis";
 import AggregateBlendingCalculator from "./components/modules/AggregateBlendingCalculator";
 import SolarRoofCalculator from "./components/modules/SolarRoofCalculator";
 import ProjectManager from "./components/modules/ProjectManager";
+import RoomAreaCalculator from "./components/modules/RoomAreaCalculator";
+import BuildingSetbackCalculator from "./components/modules/BuildingSetbackCalculator";
+import FarFsiCalculator from "./components/modules/FarFsiCalculator";
+import StaircaseDesignReference from "./components/modules/StaircaseDesignReference";
+import DoorWindowSchedule from "./components/modules/DoorWindowSchedule";
+import VentilationChecker from "./components/modules/VentilationChecker";
 import ReinforcementVisualizer from "./components/modules/ReinforcementVisualizer";
 import BOQGenerator from "./components/modules/BOQGenerator";
 import MixDesignCalculator from "./components/modules/MixDesignCalculator";
 import RetainingWallCalculator from "./components/modules/RetainingWallCalculator";
 import LabourCalculator from "./components/modules/LabourCalculator";
-import IsolatedFootingCalculator from "./components/modules/IsolatedFootingCalculator";
+import ConcreteMasonryHub from "./components/modules/ConcreteMasonryHub";
 import SiteProgressTracker from "./components/modules/SiteProgressTracker";
+import BeamDesignTool from "./components/modules/BeamDesignTool";
+import ColumnDesignTool from "./components/modules/ColumnDesignTool";
+import RaftFoundationDesigner from "./components/modules/RaftFoundationDesigner";
+import QSWorkflow from "./components/modules/QSWorkflow";
+import WaterTankDesign from "./components/modules/WaterTankDesign";
+import PileFoundationCalculator from "./components/modules/PileFoundationCalculator";
+import PrestressedConcreteEstimator from "./components/modules/PrestressedConcreteEstimator";
 
 import { WelcomeModal } from "./components/ui/WelcomeModal";
 import { HelpGuideModal } from "./components/ui/HelpGuideModal";
@@ -83,16 +96,32 @@ import {
   Menu, Settings as SettingsIcon, Home, FileText, User as UserIcon, Plus, Search, 
   Calculator, Square, Box, ArrowRightLeft, Weight, Zap, 
   Map as MapIcon, Layers, Hammer, Sparkles, Mountain, Route, Droplet, Activity, Droplets, Triangle, Bug,
-  LineChart, ChevronDown, ChevronUp, Sun, Building, HelpCircle, BarChart, ClipboardList
+  LineChart, ChevronDown, ChevronUp, Sun, Building, HelpCircle, BarChart, ClipboardList, FlaskConical, Layout
 } from "lucide-react";
 
-import { GlobalSettingsToggle } from "./components/ui/GlobalSettingsToggle";
+              import { Grid2X2, Waves, Pickaxe, Building2 } from "lucide-react";
 import { Users, Clock } from "lucide-react";
 
 import MobileToolsSheet from "./components/MobileToolsSheet";
 import DiscussionWidget from "./components/DiscussionWidget";
 
 export const ALL_TOOLS = [
+  // ✨ Structural Design
+  { id: "beam-design", title: "Beam Design Tool", category: "Structural Design", icon: <Layers className="w-4 h-4" /> },
+  { id: "column-design", title: "Column Design Tool", category: "Structural Design", icon: <Building2 className="w-4 h-4" /> },
+  { id: "raft-foundation", title: "Raft Foundation Designer", category: "Structural Design", icon: <Grid2X2 className="w-4 h-4" /> },
+  { id: "water-tank-design", title: "Water Tank Design", category: "Structural Design", icon: <Waves className="w-4 h-4" /> },
+  { id: "pile-foundation", title: "Pile Foundation Calculator", category: "Structural Design", icon: <Pickaxe className="w-4 h-4" /> },
+  { id: "prestressed-concrete", title: "Pre-stressed Concrete", category: "Structural Design", icon: <Layers className="w-4 h-4" /> },
+  
+  // ✨ Architectural References & Space Planning
+  { id: "room-area-calculator", title: "Room Area Calculator", category: "Architectural References & Space Planning", icon: <Square className="w-4 h-4" /> },
+  { id: "building-setback-calculator", title: "Building Setback Calculator", category: "Architectural References & Space Planning", icon: <ArrowRightLeft className="w-4 h-4" /> },
+  { id: "far-fsi-calculator", title: "FAR/FSI Calculator", category: "Architectural References & Space Planning", icon: <Building className="w-4 h-4" /> },
+  { id: "staircase-design-reference", title: "Staircase Design Reference", category: "Architectural References & Space Planning", icon: <Triangle className="w-4 h-4" /> },
+  { id: "door-window-schedule", title: "Door & Window Schedule Generator", category: "Architectural References & Space Planning", icon: <Layout className="w-4 h-4" /> },
+  { id: "ventilation-checker", title: "Ventilation & Lighting Checker", category: "Architectural References & Space Planning", icon: <Sun className="w-4 h-4" /> },
+
   { id: "tracker", title: "Site Progress Tracker", category: "Analysis & Tools", icon: <BarChart className="w-4 h-4" /> },
   { id: "projects", title: "Project Manager", category: "Analysis & Tools", icon: <Layers className="w-4 h-4" /> },
   { id: "boq", title: "Professional BOQ", category: "Core Estimators", icon: <ClipboardList className="w-4 h-4" /> },
@@ -101,28 +130,19 @@ export const ALL_TOOLS = [
   { id: "takeoff", title: "2D Takeoff", category: "AI & Automation", icon: <MapIcon className="w-4 h-4" /> },
   { id: "house", title: "House Estimator", category: "Core Estimators", icon: <Home className="w-4 h-4" /> },
   { id: "master-quantity", title: "Master Quantity", category: "Core Estimators", icon: <Calculator className="w-4 h-4" /> },
-  { id: "master-rcc", title: "Master RCC Structure", category: "Core Estimators", icon: <Layers className="w-4 h-4" /> },
-  { id: "reinforcement", title: "Reinforcement Detailing Visualizer", category: "Core Estimators", icon: <Layers className="w-4 h-4" /> },
-  { id: "calculators", title: "Material Estimator", category: "Core Estimators", icon: <Hammer className="w-4 h-4" /> },
-  { id: "earthworks", title: "Earthworks", category: "Site & Infrastructure", icon: <Mountain className="w-4 h-4" /> },
-  { id: "chainage", title: "Road Earthworks", category: "Site & Infrastructure", icon: <Route className="w-4 h-4" /> },
-  { id: "geotechnical", title: "Geotechnical & Soil Tests", category: "Site & Infrastructure", icon: <Droplet className="w-4 h-4" /> },
-  { id: "cbr-test", title: "CBR Test Calculator", category: "Site & Infrastructure", icon: <Activity className="w-4 h-4" /> },
-  { id: "permeability-test", title: "Permeability Calculator", category: "Site & Infrastructure", icon: <Droplets className="w-4 h-4" /> },
-  { id: "direct-shear", title: "Direct Shear Test", category: "Site & Infrastructure", icon: <Layers className="w-4 h-4" /> },
-  { id: "roof-pitch", title: "Roof Pitch Calculator", category: "Analysis & Tools", icon: <Triangle className="w-4 h-4" /> },
+  { id: "concrete-masonry-hub", title: "Concrete & Masonry Hub", category: "Core Estimators", icon: <Layers className="w-4 h-4" /> },
+  { id: "steel-hub", title: "Steel & Reinforcement Hub", category: "Core Estimators", icon: <Layers className="w-4 h-4" /> },
+  { id: "earthworks", title: "Earthworks Suite", category: "Site & Infrastructure", icon: <Mountain className="w-4 h-4" /> },
+  { id: "soil-lab-suite", title: "Soil & Materials Lab Suite", category: "Site & Infrastructure", icon: <FlaskConical className="w-4 h-4" /> },
+  // Roof pitch calculator module merged into AreaSpaceCalculator
   { id: "mep-calculator", title: "Energy & MEP Calculators", category: "MEP", icon: <Zap className="w-4 h-4" /> },
   { id: "rainwater-harvesting", title: "Rainwater Harvesting", category: "MEP", icon: <Droplet className="w-4 h-4" /> },
   { id: "anti-termite", title: "Anti-Termite Treatment", category: "Site & Infrastructure", icon: <Bug className="w-4 h-4" /> },
-  { id: "master-sieve", title: "Master Sieve Analysis", category: "Site & Infrastructure", icon: <LineChart className="w-4 h-4" /> },
-  { id: "aggregate-blending", title: "Aggregate Blending Calculator", category: "Site & Infrastructure", icon: <Layers className="w-4 h-4" /> },
   { id: "solar-roof", title: "Solar Roof Calculator", category: "Site & Infrastructure", icon: <Sun className="w-4 h-4" /> },
   { id: "road-pavement", title: "Road & Pavement", category: "Site & Infrastructure", icon: <Route className="w-4 h-4" /> },
   { id: "interiors-finishes", title: "Interiors & Finishes", category: "Finishes & Specs", icon: <Box className="w-4 h-4" /> },
-  { id: "formwork", title: "Formwork & Scaffold", category: "Finishes & Specs", icon: <Layers className="w-4 h-4" /> },
-  { id: "metal-weight", title: "Metal Weight Calculator", category: "Finishes & Specs", icon: <Weight className="w-4 h-4" /> },
-  { id: "area-calculator", title: "Area Calculator", category: "Analysis & Tools", icon: <Square className="w-4 h-4" /> },
-  { id: "property-area", title: "Property Area Calculator", category: "Analysis & Tools", icon: <Building className="w-4 h-4" /> },
+  { id: "area-space-calculator", title: "Area & Space Calculator", category: "Analysis & Tools", icon: <Square className="w-4 h-4" /> },
+  // property area merged
   { id: "volume-estimator", title: "Volume & Tank Capacity", category: "Analysis & Tools", icon: <Box className="w-4 h-4" /> },
   { id: "unit-converter", title: "Universal Unit Converter", category: "Analysis & Tools", icon: <ArrowRightLeft className="w-4 h-4" /> },
   { id: "mep-calculator", title: "Energy & MEP", category: "Analysis & Tools", icon: <Zap className="w-4 h-4" /> },
@@ -228,42 +248,44 @@ export default function App() {
               {activeModule === "tracker" && <ModuleWrapper title="Site Progress Tracker" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><SiteProgressTracker /></ModuleWrapper>}
               {activeModule === "projects" && <ModuleWrapper title="Project Manager" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ProjectManager /></ModuleWrapper>}
               {activeModule === "labour-calculator" && <ModuleWrapper title="Labour & Workforce" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><LabourCalculator /></ModuleWrapper>}
+              {activeModule === "qs-workflow" && <ModuleWrapper title="Guided QS Workflow" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><QSWorkflow /></ModuleWrapper>}
               {activeModule === "boq" && <ModuleWrapper title="Professional BOQ Generator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><BOQGenerator /></ModuleWrapper>}
               {activeModule === "mix-design" && <ModuleWrapper title="Concrete Mix Design" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MixDesignCalculator /></ModuleWrapper>}
-              {activeModule === "retaining-wall" && <ModuleWrapper title="Retaining Wall Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RetainingWallCalculator /></ModuleWrapper>}
-              {activeModule === "isolated-footing" && <ModuleWrapper title="Isolated Footing Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><IsolatedFootingCalculator /></ModuleWrapper>}
               {activeModule === "takeoff" && <ModuleWrapper title="2D Takeoff" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><Takeoff /></ModuleWrapper>}
-              {activeModule === "area-calculator" && <ModuleWrapper title="Area Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AreaCalculator /></ModuleWrapper>}
-              {activeModule === "property-area" && <ModuleWrapper title="Property Area" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><PropertyAreaCalculator /></ModuleWrapper>}
+              {activeModule === "area-space-calculator" && <ModuleWrapper title="Area & Space Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AreaSpaceCalculator /></ModuleWrapper>}
               {activeModule === "volume-estimator" && <ModuleWrapper title="Volume & Tank Capacity" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSettingsOpen} setIsSettingsOpen={setIsSettingsOpen}><VolumeEstimator /></ModuleWrapper>}
               {activeModule === "unit-converter" && <ModuleWrapper title="Universal Unit Converter" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><UnitConverter /></ModuleWrapper>}
-              {activeModule === "metal-weight" && <ModuleWrapper title="Metal Weight Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MetalWeightCalculator /></ModuleWrapper>}
+              {activeModule === "steel-hub" && <ModuleWrapper title="Steel & Reinforcement Hub" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><SteelReinforcementHub /></ModuleWrapper>}
               {activeModule === "mep-calculator" && <ModuleWrapper title="Energy & MEP Calculators" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><EnergyMepCalculator /></ModuleWrapper>}
               {activeModule === "rainwater-harvesting" && <ModuleWrapper title="Rainwater Harvesting" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RainwaterHarvesting /></ModuleWrapper>}
               {activeModule === "gradient-calculator" && <ModuleWrapper title="Gradient & Slope Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><GradientCalculator /></ModuleWrapper>}
-              {activeModule === "master-rcc" && <ModuleWrapper title="Master RCC Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MasterRccStructure onNavigate={handleSelectModule} /></ModuleWrapper>}
-              {activeModule === "reinforcement" && <ModuleWrapper title="Reinforcement Detailing Visualizer" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ReinforcementVisualizer /></ModuleWrapper>}
+              {activeModule === "concrete-masonry-hub" && <ModuleWrapper title="Concrete & Masonry Hub" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ConcreteMasonryHub onNavigate={handleSelectModule} /></ModuleWrapper>}
               {activeModule === "master-quantity" && <ModuleWrapper title="Master Quantity Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MasterQuantityEstimator /></ModuleWrapper>}
-              {activeModule === "calculators" && <ModuleWrapper title="Construction Material Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><Calculators /></ModuleWrapper>}
               {activeModule === "ai" && <ModuleWrapper title="AI Assistant" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AIAssistant /></ModuleWrapper>}
-              {activeModule === "earthworks" && <ModuleWrapper title="Earthworks" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><EarthworksEstimator /></ModuleWrapper>}
-              {activeModule === "chainage" && <ModuleWrapper title="Road Earthworks" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ChainageVolumeEstimator /></ModuleWrapper>}
+              {activeModule === "earthworks" && <ModuleWrapper title="Earthworks Suite" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><EarthworksEstimator /></ModuleWrapper>}
               {activeModule === "precast-wall" && <ModuleWrapper title="Precast Wall Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><PrecastWallCalculator /></ModuleWrapper>}
-              {activeModule === "geotechnical" && <ModuleWrapper title="Geotechnical & Soil Tests" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><GeotechnicalCalculator /></ModuleWrapper>}
-              {activeModule === "cbr-test" && <ModuleWrapper title="CBR Test Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><CbrTestCalculator /></ModuleWrapper>}
-              {activeModule === "permeability-test" && <ModuleWrapper title="Permeability Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><PermeabilityCalculator /></ModuleWrapper>}
-              {activeModule === "direct-shear" && <ModuleWrapper title="Direct Shear Test Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><DirectShearTestCalculator /></ModuleWrapper>}
-              {activeModule === "roof-pitch" && <ModuleWrapper title="Roof Pitch Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RoofPitchCalculator /></ModuleWrapper>}
+              {activeModule === "soil-lab-suite" && <ModuleWrapper title="Soil & Materials Lab Suite" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><SoilLabSuite /></ModuleWrapper>}
+              {/* Roof pitch calculator functionality moved to AreaSpaceCalculator */}
               {activeModule === "anti-termite" && <ModuleWrapper title="Anti-Termite Treatment Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AntiTermiteCalculator /></ModuleWrapper>}
-              {activeModule === "master-sieve" && <ModuleWrapper title="Master Sieve Analysis" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MasterSieveAnalysis /></ModuleWrapper>}
-              {activeModule === "aggregate-blending" && <ModuleWrapper title="Aggregate Blending Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AggregateBlendingCalculator /></ModuleWrapper>}
-              {activeModule === "aggregate-tests" && <ModuleWrapper title="Aggregate Tests" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><AggregateTestsCalculator /></ModuleWrapper>}
               {activeModule === "solar-roof" && <ModuleWrapper title="Solar Roof Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><SolarRoofCalculator /></ModuleWrapper>}
-              {activeModule === "road-pavement" && <ModuleWrapper title="Road & Pavement Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RoadPavementEstimator /></ModuleWrapper>}
+              {activeModule === "road-pavement" && <ModuleWrapper title="Road & Pavement Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RoadPavementEstimator onNavigate={handleSelectModule} /></ModuleWrapper>}
               
+              {activeModule === "beam-design" && <ModuleWrapper title="Beam Design Tool" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><BeamDesignTool /></ModuleWrapper>}
+              {activeModule === "column-design" && <ModuleWrapper title="Column Design Tool" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ColumnDesignTool /></ModuleWrapper>}
+              {activeModule === "raft-foundation" && <ModuleWrapper title="Raft Foundation Designer" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RaftFoundationDesigner /></ModuleWrapper>}
+              {activeModule === "water-tank-design" && <ModuleWrapper title="Water Tank Design" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><WaterTankDesign /></ModuleWrapper>}
+              {activeModule === "pile-foundation" && <ModuleWrapper title="Pile Foundation Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><PileFoundationCalculator /></ModuleWrapper>}
+              {activeModule === "prestressed-concrete" && <ModuleWrapper title="Pre-stressed Concrete Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><PrestressedConcreteEstimator /></ModuleWrapper>}
+
+              {activeModule === "room-area-calculator" && <ModuleWrapper title="Room Area Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><RoomAreaCalculator /></ModuleWrapper>}
+              {activeModule === "building-setback-calculator" && <ModuleWrapper title="Building Setback Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><BuildingSetbackCalculator /></ModuleWrapper>}
+              {activeModule === "far-fsi-calculator" && <ModuleWrapper title="FAR/FSI Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><FarFsiCalculator /></ModuleWrapper>}
+              {activeModule === "staircase-design-reference" && <ModuleWrapper title="Staircase Design Reference" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><StaircaseDesignReference /></ModuleWrapper>}
+              {activeModule === "door-window-schedule" && <ModuleWrapper title="Door & Window Schedule Generator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><DoorWindowSchedule /></ModuleWrapper>}
+              {activeModule === "ventilation-checker" && <ModuleWrapper title="Ventilation & Lighting Checker" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><VentilationChecker /></ModuleWrapper>}
+
               {/* Restored individual calculators */}
               {activeModule === "staircase-calculator" && <ModuleWrapper title="Staircase Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><StaircaseCalculator /></ModuleWrapper>}
-              {activeModule === "bbs-generator" && <ModuleWrapper title="BBS Generator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><BarBendingSchedule /></ModuleWrapper>}
 
               {activeModule === "interiors-finishes" && <ModuleWrapper title="Interiors & Finishes" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><InteriorsFinishesEstimator /></ModuleWrapper>}
               {activeModule === "house" && <ModuleWrapper title="House Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><HouseEstimator /></ModuleWrapper>}
@@ -316,6 +338,36 @@ export default function App() {
 import Breadcrumb, { BreadcrumbItem } from "./components/Breadcrumb";
 import BottomNavBar from "./components/BottomNavBar";
 
+function FontSizeControls() {
+  const { settings, updateSettings } = useSettings();
+  
+  return (
+    <div className="flex items-center space-x-1 bg-black/5 dark:bg-white/10 rounded-lg p-1 mr-2 px-2">
+      <button 
+        onClick={() => updateSettings({ fontSize: 'small' })}
+        className={`px-2 py-1 text-xs font-bold rounded-md ${settings.fontSize === 'small' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'}`}
+        aria-label="Decrease text size"
+      >
+        A-
+      </button>
+      <button 
+        onClick={() => updateSettings({ fontSize: 'medium' })}
+        className={`px-2 py-1 text-sm font-bold rounded-md ${settings.fontSize === 'medium' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'}`}
+        aria-label="Default text size"
+      >
+        A
+      </button>
+      <button 
+        onClick={() => updateSettings({ fontSize: 'large' })}
+        className={`px-2 py-1 text-base font-bold rounded-md ${settings.fontSize === 'large' ? 'bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'}`}
+        aria-label="Increase text size"
+      >
+        A+
+      </button>
+    </div>
+  );
+}
+
 function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: string; onOpenSidebar: () => void; onOpenSettings: () => void; onGoHome?: () => void }) {
   const breadcrumbItems: BreadcrumbItem[] = [
     { label: "Home", isHome: true, onClick: onGoHome },
@@ -323,13 +375,13 @@ function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: 
   ];
 
   return (
-    <header className="md:hidden flex items-center px-4 py-2.5 mx-2 mt-3 mb-3 bg-[#FFFFFF] border border-black/5 rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.02)] sticky top-3 z-30 shrink-0 min-h-[50px] transition-all duration-300">
-      <button onClick={onOpenSidebar} className="p-2 mr-3 -ml-2 rounded-lg hover:bg-black/5 text-[#888888] transition-all">
+    <header className="md:hidden flex items-center px-4 py-2.5 mx-2 mt-3 mb-3 bg-[#FFFFFF] dark:bg-slate-900 border border-black/5 dark:border-white/5 rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.02)] sticky top-3 z-30 shrink-0 min-h-[50px] transition-all duration-300">
+      <button onClick={onOpenSidebar} className="p-2 mr-3 -ml-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 text-[#888888] dark:text-slate-400 transition-all" aria-label="Open sidebar">
         <Menu className="w-5 h-5" />
       </button>
 
       <div className="flex items-center gap-2 mr-5 shrink-0 hidden cursor-pointer transition-transform hover:scale-105" onClick={onGoHome}>
-         <Logo className="w-6 h-6 text-indigo-600" />
+         <Logo className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
       </div>
       
       {onGoHome ? (
@@ -337,15 +389,19 @@ function AppHeader({ title, onOpenSidebar, onOpenSettings, onGoHome }: { title: 
           <Breadcrumb items={breadcrumbItems} />
         </div>
       ) : (
-        <h1 className="text-base font-bold text-indigo-600 flex-1 min-w-0 truncate pr-2">{title}</h1>
+        <h1 className="text-base font-bold text-indigo-600 dark:text-indigo-400 flex-1 min-w-0 truncate pr-2">{title}</h1>
       )}
 
-      <button onClick={onOpenSettings} className="p-2 -mr-2 rounded-lg hover:bg-black/5 text-[#888888] transition-all">
+      <FontSizeControls />
+
+      <button onClick={onOpenSettings} className="p-2 -mr-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 text-[#888888] dark:text-slate-400 transition-all" aria-label="Open settings">
         <SettingsIcon className="w-5 h-5" />
       </button>
     </header>
   );
 }
+
+import { CodeReferences } from "./components/ui/CodeReferences";
 
 function ModuleWrapper({ 
   title, 
@@ -383,7 +439,10 @@ function ModuleWrapper({
   ] : [];
 
   return (
-    <div className="h-full flex flex-col min-h-0 bg-transparent">
+    <div className="h-full flex flex-col min-h-0 bg-transparent relative">
+      <a href="#main-calculator-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold shadow-lg">
+        Skip to calculation
+      </a>
       {moduleDef && (
         <Helmet>
           <title>{`${moduleDef.title} Calculator – Free Online ${moduleDef.category} Tool | Civil Estimation Pro`}</title>
@@ -462,16 +521,20 @@ function ModuleWrapper({
         onGoHome={() => setActiveModule("home")}
       />
 
-      <div className="flex-1 overflow-y-auto w-full max-w-full">
+      <div className="flex-1 overflow-y-auto w-full max-w-full" id="main-calculator-content" tabIndex={-1}>
         <div className="min-h-full flex flex-col items-center pb-[140px] md:pb-[140px]">
           <div className="w-full max-w-full">
             
             {/* Added breadcrumb for desktop */}
-            <div className="hidden md:flex ml-8 mt-6 mb-2">
+            <div className="hidden md:flex ml-8 mt-6 mb-2 items-center justify-between pr-8">
               <Breadcrumb items={[
                 { label: "Home", isHome: true, onClick: () => setActiveModule("home") },
                 { label: title }
               ]} />
+              <div className="flex items-center gap-4">
+                <span className="text-sm font-semibold text-slate-500 dark:text-slate-400">Text Size:</span>
+                <FontSizeControls />
+              </div>
             </div>
 
             {(() => {
@@ -524,6 +587,8 @@ function ModuleWrapper({
                     </div>
                   )}
 
+                  <CodeReferences moduleId={activeModule} />
+                  
                   {children}
                   
                   {moduleDef && (

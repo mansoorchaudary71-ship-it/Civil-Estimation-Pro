@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import React, { useState, useEffect, useMemo } from "react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from "recharts";
 import { Download, Calculator, FileSpreadsheet, RefreshCw, AlertCircle } from "lucide-react";
 import toast from "react-hot-toast";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { SoilReportHeader } from "../ui/SoilReportHeader";
+import { SoilReportDetails, generateGeotechReportPDF } from "../../utils/soilReports";
 
 interface SieveRow {
   size: number;
@@ -24,9 +26,19 @@ export default function MasterSieveAnalysis() {
   const [sieveData, setSieveData] = useState<SieveRow[]>([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    // Initial fetch not needed anymore
-  }, []);
+  const [reportDetails, setReportDetails] = useState<SoilReportDetails>({
+    projectName: "Site Development Works",
+    clientName: "ABC Constructors",
+    labName: "Central Soils Laboratory",
+    sampleId: "SA-01 Base Course",
+    depth: "0.5m",
+    testedBy: "Senior Tech",
+    date: new Date().toLocaleDateString(),
+  });
+
+  const handleReportChange = (field: keyof SoilReportDetails, value: string) => {
+    setReportDetails(prev => ({ ...prev, [field]: value }));
+  };
 
   useEffect(() => {
     if (selectedCategory) {
@@ -104,6 +116,58 @@ export default function MasterSieveAnalysis() {
     Max: row.maxPassing
   })).sort((a, b) => a.size - b.size); // Recharts line charts typically expect sorted X-axis data
 
+  const getDx = (targetPassing: number) => {
+    const data = [...sieveData].sort((a, b) => a.size - b.size);
+    for (let i = 0; i < data.length - 1; i++) {
+        if (data[i].percentPassing <= targetPassing && data[i+1].percentPassing >= targetPassing) {
+            // Linear interpolation on log scale for sieve size
+            // x = x1 + (y - y1) * (x2 - x1) / (y2 - y1)
+            // But log scale interpolation is better for grain size: log(x) = log(x1) + ...
+            const y1 = data[i].percentPassing, y2 = data[i+1].percentPassing;
+            const x1 = Math.log10(Math.max(0.001, data[i].size)), x2 = Math.log10(Math.max(0.001, data[i+1].size));
+            if (y2 === y1) return data[i].size;
+            const logX = x1 + (targetPassing - y1) * (x2 - x1) / (y2 - y1);
+            return Math.pow(10, logX);
+        }
+    }
+    return null;
+  };
+
+  const d10 = useMemo(() => getDx(10), [sieveData]);
+  const d30 = useMemo(() => getDx(30), [sieveData]);
+  const d60 = useMemo(() => getDx(60), [sieveData]);
+
+  const cu = (d60 !== null && d10 !== null && d10 > 0) ? (d60 / d10) : null;
+  const cc = (d60 !== null && d30 !== null && d10 !== null && d10 > 0) ? ((d30 * d30) / (d60 * d10)) : null;
+
+  let uscs = "Unknown";
+  if (sieveData.length > 0 && totalWeight !== "" && cu !== null && cc !== null) {
+      if (cu >= 4 && cc >= 1 && cc <= 3) uscs = "GW (Well-graded gravel)";
+      else if (cu >= 6 && cc >= 1 && cc <= 3) uscs = "SW (Well-graded sand)";
+      else uscs = "GP/SP (Poorly graded soil)";
+  }
+
+  const handleSave = async () => {
+    if (totalWeight === "" || sieveData.length === 0) return;
+    
+    // Auto-generated interpretation
+    const interpretationText = `Coefficient of Uniformity (Cu) = ${cu ? cu.toFixed(2) : 'N/A'}\nCoefficient of Curvature (Cc) = ${cc ? cc.toFixed(2) : 'N/A'}\n\nUSCS / IS 1498 Classification Estimate: ${uscs}`;
+    
+    const results = [
+      { label: "Total Sample Weight", value: `${totalWeight} gm` },
+      { label: "Spec Category", value: selectedCategory },
+      { label: "Grading Spec", value: selectedGrading },
+      { label: "D10 (Effective Size)", value: d10 ? `${d10.toFixed(3)} mm` : 'N/A' },
+      { label: "D30", value: d30 ? `${d30.toFixed(3)} mm` : 'N/A' },
+      { label: "D60", value: d60 ? `${d60.toFixed(3)} mm` : 'N/A' },
+      { label: "Cu", value: cu ? cu.toFixed(2) : 'N/A' },
+      { label: "Cc", value: cc ? cc.toFixed(2) : 'N/A' },
+      { label: "USCS Estimate", value: uscs }
+    ];
+
+    await generateGeotechReportPDF(`Sieve Analysis (${selectedGrading})`, reportDetails, results, interpretationText);
+  };
+
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-6xl mx-auto pb-20">
       
@@ -120,6 +184,13 @@ export default function MasterSieveAnalysis() {
           </p>
         </div>
       </div>
+
+      <SoilReportHeader 
+        details={reportDetails}
+        onChange={handleReportChange}
+        onGenerateReport={handleSave}
+        isGenerating={totalWeight === ""}
+      />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column: Inputs & Data entry */}
@@ -261,17 +332,37 @@ export default function MasterSieveAnalysis() {
                       <Line type="stepAfter" dataKey="Max" stroke="#f43f5e" strokeWidth={2} strokeDasharray="5 5" name="Upper Limit" dot={false} />
                       <Line type="stepAfter" dataKey="Min" stroke="#3b82f6" strokeWidth={2} strokeDasharray="5 5" name="Lower Limit" dot={false} />
                       <Line type="monotone" dataKey="Actual" stroke="#10b981" strokeWidth={3} name="Actual Gradation" dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />
+                      
+                      {d10 && <ReferenceLine x={d10} stroke="#94a3b8" strokeDasharray="3 3" label={{ position: 'insideTopLeft', value: `D10: ${d10.toFixed(2)}`, fill: '#64748b', fontSize: 10 }} />}
+                      {d30 && <ReferenceLine x={d30} stroke="#94a3b8" strokeDasharray="3 3" label={{ position: 'insideTopLeft', value: `D30: ${d30.toFixed(2)}`, fill: '#64748b', fontSize: 10 }} />}
+                      {d60 && <ReferenceLine x={d60} stroke="#94a3b8" strokeDasharray="3 3" label={{ position: 'insideTopLeft', value: `D60: ${d60.toFixed(2)}`, fill: '#64748b', fontSize: 10 }} />}
                     </LineChart>
                   </ResponsiveContainer>
                )}
             </div>
+            {totalWeight !== "" && (
+              <div className="mt-4 pt-4 border-t border-slate-200 dark:border-white/5 flex flex-wrap gap-4 justify-between items-center bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl">
+                <div><span className="text-xs text-slate-500 block uppercase font-bold">D10</span><strong className="text-sm dark:text-white">{d10 ? `${d10.toFixed(3)}mm` : 'N/A'}</strong></div>
+                <div><span className="text-xs text-slate-500 block uppercase font-bold">D30</span><strong className="text-sm dark:text-white">{d30 ? `${d30.toFixed(3)}mm` : 'N/A'}</strong></div>
+                <div><span className="text-xs text-slate-500 block uppercase font-bold">D60</span><strong className="text-sm dark:text-white">{d60 ? `${d60.toFixed(3)}mm` : 'N/A'}</strong></div>
+                <div><span className="text-xs text-slate-500 block uppercase font-bold">Cu</span><strong className="text-sm dark:text-white">{cu ? cu.toFixed(2) : 'N/A'}</strong></div>
+                <div><span className="text-xs text-slate-500 block uppercase font-bold">Cc</span><strong className="text-sm dark:text-white">{cc ? cc.toFixed(2) : 'N/A'}</strong></div>
+                <div className="shrink-0 max-w-[200px] text-right">
+                  <span className="text-xs text-slate-500 block uppercase font-bold">USCS Class</span>
+                  <strong className="text-sm text-[#F26B1D] truncate block" title={uscs}>{uscs}</strong>
+                </div>
+              </div>
+            )}
           </div>
           
           <div className="bg-[#F26B1D] text-white rounded-2xl p-6 shadow-[0_8px_30px_rgba(242,107,29,0.3)] border border-[#F26B1D]/50 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-[150px] h-[150px] bg-white/20 blur-[50px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
             <h3 className="text-xl font-heading font-black mb-2 relative z-10">Instant Report</h3>
             <p className="text-orange-100 text-sm mb-6 relative z-10 font-medium">Generate a professional specification-compliant testing report instantly.</p>
-            <button className="w-full flex items-center justify-center gap-2 bg-white text-[#F26B1D] font-bold py-3 px-4 rounded-xl shadow-sm hover:shadow-md transition-all group-hover:-translate-y-1 relative z-10">
+            <button 
+              onClick={handleSave}
+              disabled={totalWeight === ""}
+              className="w-full flex items-center justify-center gap-2 bg-white text-[#F26B1D] font-bold py-3 px-4 rounded-xl shadow-sm hover:shadow-md transition-all group-hover:-translate-y-1 relative z-10 disabled:opacity-75 disabled:cursor-not-allowed">
               <Download className="w-5 h-5" /> Export PDF
             </button>
           </div>

@@ -1,6 +1,8 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { MaterialSummary } from "../ui/MaterialSummary";
+import { useMarketRates } from "../../context/MarketRatesContext";
+import { generateBOQExcel, generateBOQPDF } from "../../utils/boq-reports";
 import {
   FileDown,
   FileText,
@@ -13,6 +15,7 @@ import {
   Percent,
   Calculator,
   FileOutput,
+  RefreshCw,
 } from "lucide-react";
 import { useSettings } from "../../context/SettingsContext";
 
@@ -24,6 +27,13 @@ interface BOQItem {
   quantity: number;
   rate: number;
 }
+
+const MEASUREMENT_STANDARDS = [
+  "IS 1200 (Indian)",
+  "CESMM4 (UK Civil)",
+  "NRM2 (UK Building)",
+  "POMI (Plant & Equip)",
+];
 
 const DEFAULT_DIVISIONS = [
   "01 - General Requirements",
@@ -40,148 +50,77 @@ const DEFAULT_DIVISIONS = [
 ];
 
 const STANDARD_TEMPLATES: Record<string, BOQItem[]> = {
-  "Residential House": [
-    {
-      id: "1",
-      division: "02 - Site Work & Earthwork",
-      description: "Excavation for foundation",
-      unit: "m³",
-      quantity: 120,
-      rate: 15,
-    },
-    {
-      id: "2",
-      division: "03 - Concrete",
-      description: "PCC (1:4:8) for foundation bed",
-      unit: "m³",
-      quantity: 15,
-      rate: 85,
-    },
-    {
-      id: "3",
-      division: "03 - Concrete",
-      description: "RCC (1:2:4) in columns, beams, slab",
-      unit: "m³",
-      quantity: 65,
-      rate: 150,
-    },
-    {
-      id: "4",
-      division: "04 - Masonry",
-      description: "First class brickwork in cement mortar (1:6)",
-      unit: "m³",
-      quantity: 85,
-      rate: 110,
-    },
-    {
-      id: "5",
-      division: "09 - Finishes (Plaster, Flooring, Paint)",
-      description: "Internal Plastering (1:4)",
-      unit: "m²",
-      quantity: 450,
-      rate: 12,
-    },
-    {
-      id: "6",
-      division: "09 - Finishes (Plaster, Flooring, Paint)",
-      description: "Vitrified Tile Flooring",
-      unit: "m²",
-      quantity: 120,
-      rate: 35,
-    },
+  "Residential Building": [
+    { id: "1", division: "02 - Site Work & Earthwork", description: "Excavation for foundation", unit: "m³", quantity: 120, rate: 15 },
+    { id: "2", division: "03 - Concrete", description: "PCC (1:4:8) for foundation bed", unit: "m³", quantity: 15, rate: 85 },
+    { id: "3", division: "03 - Concrete", description: "RCC (1:2:4) in columns, beams, slab", unit: "m³", quantity: 65, rate: 150 },
+    { id: "4", division: "04 - Masonry", description: "First class brickwork in cement mortar (1:6)", unit: "m³", quantity: 85, rate: 110 },
+    { id: "5", division: "09 - Finishes (Plaster, Flooring, Paint)", description: "Internal Plastering (1:4)", unit: "m²", quantity: 450, rate: 12 },
+    { id: "6", division: "09 - Finishes (Plaster, Flooring, Paint)", description: "Vitrified Tile Flooring", unit: "m²", quantity: 120, rate: 35 },
+    { id: "7", division: "15 - Mechanical / Plumbing", description: "Plumbing fixtures and piping", unit: "lump sum", quantity: 1, rate: 2500 },
+    { id: "8", division: "16 - Electrical", description: "Wiring and DB fixtures", unit: "lump sum", quantity: 1, rate: 3000 },
   ],
-  "Boundary Wall": [
-    {
-      id: "1",
-      division: "02 - Site Work & Earthwork",
-      description: "Trench excavation",
-      unit: "m³",
-      quantity: 45,
-      rate: 12,
-    },
-    {
-      id: "2",
-      division: "03 - Concrete",
-      description: "PCC Foundation base",
-      unit: "m³",
-      quantity: 10,
-      rate: 80,
-    },
-    {
-      id: "3",
-      division: "04 - Masonry",
-      description: '9" brick wall',
-      unit: "m³",
-      quantity: 38,
-      rate: 105,
-    },
-    {
-      id: "4",
-      division: "09 - Finishes (Plaster, Flooring, Paint)",
-      description: "External Plaster",
-      unit: "m²",
-      quantity: 200,
-      rate: 14,
-    },
+  "Road Project": [
+    { id: "1", division: "02 - Site Work & Earthwork", description: "Clearing and grubbing", unit: "m²", quantity: 15000, rate: 2 },
+    { id: "2", division: "02 - Site Work & Earthwork", description: "Subgrade preparation", unit: "m³", quantity: 5000, rate: 8 },
+    { id: "3", division: "03 - Concrete", description: "Granular Sub Base (GSB)", unit: "m³", quantity: 2500, rate: 25 },
+    { id: "4", division: "03 - Concrete", description: "Wet Mix Macadam (WMM)", unit: "m³", quantity: 1500, rate: 35 },
+    { id: "5", division: "09 - Finishes (Plaster, Flooring, Paint)", description: "Bituminous Macadam (BM)", unit: "m³", quantity: 700, rate: 120 },
+    { id: "6", division: "09 - Finishes (Plaster, Flooring, Paint)", description: "Asphalt Concrete (AC)", unit: "m³", quantity: 400, rate: 150 },
+    { id: "7", division: "02 - Site Work & Earthwork", description: "Roadside Drainage", unit: "m", quantity: 1000, rate: 45 },
   ],
-  "Road 1km": [
-    {
-      id: "1",
-      division: "02 - Site Work & Earthwork",
-      description: "Clearing and grubbing",
-      unit: "m²",
-      quantity: 15000,
-      rate: 2,
-    },
-    {
-      id: "2",
-      division: "02 - Site Work & Earthwork",
-      description: "Subgrade preparation",
-      unit: "m³",
-      quantity: 5000,
-      rate: 8,
-    },
-    {
-      id: "3",
-      division: "03 - Concrete",
-      description: "Granular Sub Base (GSB)",
-      unit: "m³",
-      quantity: 2500,
-      rate: 25,
-    },
-    {
-      id: "4",
-      division: "03 - Concrete",
-      description: "Wet Mix Macadam (WMM)",
-      unit: "m³",
-      quantity: 1500,
-      rate: 35,
-    },
-    {
-      id: "5",
-      division: "09 - Finishes (Plaster, Flooring, Paint)",
-      description: "Bituminous Macadam (BM)",
-      unit: "m³",
-      quantity: 700,
-      rate: 120,
-    },
-    {
-      id: "6",
-      division: "09 - Finishes (Plaster, Flooring, Paint)",
-      description: "Asphalt Concrete (AC)",
-      unit: "m³",
-      quantity: 400,
-      rate: 150,
-    },
+  "Retaining Structure": [
+    { id: "1", division: "02 - Site Work & Earthwork", description: "Trench excavation", unit: "m³", quantity: 45, rate: 12 },
+    { id: "2", division: "03 - Concrete", description: "PCC Foundation base", unit: "m³", quantity: 10, rate: 80 },
+    { id: "3", division: "03 - Concrete", description: "RCC Retaining Wall (1:1.5:3)", unit: "m³", quantity: 85, rate: 160 },
+    { id: "4", division: "03 - Concrete", description: "Weep holes with gravel filter", unit: "count", quantity: 50, rate: 5 },
+    { id: "5", division: "02 - Site Work & Earthwork", description: "Backfilling with selected earth", unit: "m³", quantity: 150, rate: 6 },
+  ],
+  "Drainage/Sewer Project": [
+    { id: "1", division: "02 - Site Work & Earthwork", description: "Trench excavation for pipes", unit: "m³", quantity: 2500, rate: 15 },
+    { id: "2", division: "02 - Site Work & Earthwork", description: "Bedding material for pipes", unit: "m³", quantity: 300, rate: 25 },
+    { id: "3", division: "15 - Mechanical / Plumbing", description: "HDPE Sewer Pipes (DN 300)", unit: "m", quantity: 1500, rate: 45 },
+    { id: "4", division: "03 - Concrete", description: "Precast Concrete Manholes", unit: "count", quantity: 35, rate: 400 },
+    { id: "5", division: "02 - Site Work & Earthwork", description: "Trench backfilling and compaction", unit: "m³", quantity: 2200, rate: 8 },
   ],
 };
 
 export default function BOQGenerator() {
-  const { formatCurrency } = useSettings();
+  const { formatCurrency, settings } = useSettings();
+  const { rates } = useMarketRates();
   const [items, setItems] = useState<BOQItem[]>([]);
   const [contingencyPct, setContingencyPct] = useState(5);
   const [gstPct, setGstPct] = useState(18);
   const [projectName, setProjectName] = useState("Untitled Project BOQ");
+  const [measurementStandard, setMeasurementStandard] = useState(MEASUREMENT_STANDARDS[0]);
+
+  useEffect(() => {
+    const handleFillBOQ = (e: CustomEvent<BOQItem[]>) => {
+      setItems(prevItems => {
+        const newItems = e.detail;
+        return [...prevItems, ...newItems];
+      });
+      setProjectName("Imported BOQ");
+    };
+    window.addEventListener('fill-boq' as any, handleFillBOQ);
+    return () => window.removeEventListener('fill-boq' as any, handleFillBOQ);
+  }, []);
+
+  const syncRates = () => {
+    setItems(items.map(item => {
+      let newRate = item.rate;
+      const lowerDesc = item.description.toLowerCase();
+      if (lowerDesc.includes("cement")) newRate = rates.cement;
+      if (lowerDesc.includes("steel") || lowerDesc.includes("rebar")) newRate = rates.steel;
+      if (lowerDesc.includes("sand")) newRate = rates.sand;
+      if (lowerDesc.includes("crush") || lowerDesc.includes("aggregate")) newRate = rates.crush;
+      if (lowerDesc.includes("brick")) newRate = rates.bricks;
+      if (lowerDesc.includes("tile")) newRate = rates.tiles;
+      if (lowerDesc.includes("paint")) newRate = rates.paint;
+      
+      return { ...item, rate: newRate };
+    }));
+  };
 
   const handleAddItem = () => {
     const newItem: BOQItem = {
@@ -269,6 +208,14 @@ export default function BOQGenerator() {
     link.click();
   };
 
+  const exportPDF = () => {
+    generateBOQPDF(items, projectName, subtotal, contingencyAmount, gstAmount, grandTotal, settings.currency);
+  };
+
+  const exportExcel = () => {
+    generateBOQExcel(items, projectName, subtotal, contingencyAmount, gstAmount, grandTotal, settings.currency);
+  };
+
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500">
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm">
@@ -288,33 +235,57 @@ export default function BOQGenerator() {
             </p>
           </div>
         </div>
-        <div className="flex flex-wrap gap-2">
-          <select
-            onChange={(e) => {
-              if (e.target.value) loadTemplate(e.target.value);
-              e.target.value = "";
-            }}
-            className="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl outline-none transition-colors border border-slate-200 dark:border-slate-700"
-          >
-            <option value="">Load Template...</option>
-            {Object.keys(STANDARD_TEMPLATES).map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
-          <button
-            onClick={exportCSV}
-            className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400 font-bold rounded-xl transition-colors border border-emerald-200 dark:border-emerald-500/20"
-          >
-            <FileSpreadsheet className="w-4 h-4" /> CSV
-          </button>
-          <button
-            onClick={() => window.print()}
-            className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-sm"
-          >
-            <FileOutput className="w-4 h-4" /> PDF Report
-          </button>
+        <div className="flex flex-col items-end gap-2">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-widest hidden sm:block">Standard:</span>
+            <select
+              value={measurementStandard}
+              onChange={(e) => setMeasurementStandard(e.target.value)}
+              className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-sm font-bold rounded-lg outline-none transition-colors border border-slate-200 dark:border-slate-700"
+            >
+              {MEASUREMENT_STANDARDS.map(s => <option key={s} value={s}>{s}</option>)}
+            </select>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <select
+              onChange={(e) => {
+                if (e.target.value) loadTemplate(e.target.value);
+                e.target.value = "";
+              }}
+              className="px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl outline-none transition-colors border border-slate-200 dark:border-slate-700"
+            >
+              <option value="">Load Template...</option>
+              {Object.keys(STANDARD_TEMPLATES).map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+            <button
+              onClick={syncRates}
+              className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-400 font-bold rounded-xl transition-colors border border-indigo-200 dark:border-indigo-500/20"
+            >
+              <RefreshCw className="w-4 h-4" /> Sync DB Rates
+            </button>
+            <button
+              onClick={exportCSV}
+              className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-500/10 dark:text-emerald-400 font-bold rounded-xl transition-colors border border-emerald-200 dark:border-emerald-500/20"
+            >
+              <FileSpreadsheet className="w-4 h-4" /> CSV
+            </button>
+            <button
+              onClick={exportExcel}
+              className="flex items-center gap-2 px-4 py-2 bg-green-50 text-green-700 hover:bg-green-100 dark:bg-green-500/10 dark:text-green-400 font-bold rounded-xl transition-colors border border-green-200 dark:border-green-500/20"
+            >
+              <FileSpreadsheet className="w-4 h-4" /> Excel
+            </button>
+            <button
+              onClick={exportPDF}
+              className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors shadow-sm"
+            >
+              <FileOutput className="w-4 h-4" /> PDF Report
+            </button>
+          </div>
         </div>
       </div>
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CalculationHistory } from "../ui/CalculationHistory";
-import { Route, Layers, Droplet, Waves } from "lucide-react";
+import { Route, Layers, Droplet, Waves, Send, Settings2 } from "lucide-react";
 import { SEO } from "../SEO";
 import RoadEstimator from "./RoadEstimator";
 import RigidPavementEstimator from "./RigidPavementEstimator";
@@ -10,8 +10,22 @@ import ColorfulTab from "../ui/ColorfulTab";
 
 type Tab = "flexible" | "rigid" | "asphalt" | "sewerage";
 
-export default function RoadPavementEstimator() {
+export default function RoadPavementEstimator({ onNavigate }: { onNavigate?: (id: string) => void }) {
   const [activeTab, setActiveTab] = useState<Tab>("flexible");
+  const [designStandard, setDesignStandard] = useState("IRC:37-2018 (Flexible)");
+
+  const handleUseInBOQ = () => {
+    const activeItems = (window as any).__currentRoadBOQItems || [];
+    if (activeItems.length > 0) {
+      const event = new CustomEvent('fill-boq', { detail: activeItems });
+      window.dispatchEvent(event);
+      if (onNavigate) {
+        onNavigate("boq");
+      }
+    } else {
+      alert("Please calculate quantities first to pre-fill the BOQ.");
+    }
+  };
 
   const tabs: { id: Tab; label: string; icon: any }[] = [
     { id: "flexible", label: "Flexible Pavement", icon: Route },
@@ -27,14 +41,37 @@ export default function RoadPavementEstimator() {
         description="Comprehensive tool for flexible, rigid, and asphalt pavement calculations."
       />
       
-      <div className="mb-6 md:mb-8 px-4 md:px-0">
-        <h1 className="text-3xl font-extrabold text-text-primary mb-2 flex items-center gap-3">
-          <Route className="w-8 h-8 text-amber-600 dark:text-amber-500" />
-          Road & Pavement Estimator
-        </h1>
-        <p className="text-slate-500 dark:text-slate-400 font-medium">
-          A centralized hub for roadway, pavement, layer materials, and surface coat calculations.
-        </p>
+      <div className="mb-6 md:mb-8 px-4 md:px-0 flex flex-col md:flex-row md:items-start justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-extrabold text-text-primary mb-2 flex items-center gap-3">
+            <Route className="w-8 h-8 text-amber-600 dark:text-amber-500" />
+            Road & Pavement Estimator
+          </h1>
+          <p className="text-slate-500 dark:text-slate-400 font-medium max-w-2xl">
+            A centralized hub for roadway, pavement, layer materials, and surface coat calculations.
+          </p>
+        </div>
+        <div className="flex flex-col gap-3 sm:flex-row items-center">
+          <div className="flex items-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 shadow-sm">
+            <Settings2 className="w-4 h-4 text-slate-500" />
+            <select
+              value={designStandard}
+              onChange={(e) => setDesignStandard(e.target.value)}
+              className="text-sm font-semibold bg-transparent border-none outline-none focus:ring-0 text-slate-700 dark:text-slate-300 cursor-pointer"
+            >
+              <option value="IRC:37-2018 (Flexible)">IRC:37-2018 (Flexible)</option>
+              <option value="IRC:58-2015 (Rigid)">IRC:58-2015 (Rigid)</option>
+              <option value="AASHTO 1993">AASHTO 1993</option>
+            </select>
+          </div>
+          <button
+            onClick={handleUseInBOQ}
+            className="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl shadow-sm hover:shadow-md transition-all text-sm w-full sm:w-auto justify-center"
+          >
+            <Send className="w-4 h-4" />
+            Use these quantities in BOQ Generator
+          </button>
+        </div>
       </div>
 
       <div className="flex overflow-x-auto gap-2 pb-2 mb-6 px-4 md:px-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">

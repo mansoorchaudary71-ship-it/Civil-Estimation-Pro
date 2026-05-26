@@ -18,6 +18,8 @@ import { CalculationHistory } from "../ui/CalculationHistory";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
 import { v4 as uuidv4 } from "uuid";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Area, AreaChart } from "recharts";
+
 interface Station {
   id: string;
   chainage: string;
@@ -385,6 +387,59 @@ export default function ChainageVolumeEstimator() {
                   </tbody>
                 </table>
               </div>
+            </div>
+
+            {/* Mass Haul Curve Chart */}
+            <div className="bg-white px-4 py-6 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
+              <h2 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <LayoutTemplate className="w-5 h-5 text-indigo-600" /> Mass Haul Curve
+              </h2>
+              <div className="h-[350px] w-full mt-4">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart
+                    data={results}
+                    margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
+                  >
+                    <defs>
+                      <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#d97706" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="#4f46e5" stopOpacity={0.3} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" opacity={0.3} vertical={false} />
+                    <XAxis 
+                      dataKey="chainage" 
+                      tick={{ fontSize: 12, fill: '#64748b' }} 
+                      tickMargin={12} 
+                      axisLine={false} 
+                      tickLine={false} 
+                    />
+                    <YAxis 
+                      tick={{ fontSize: 12, fill: '#64748b' }} 
+                      tickMargin={12} 
+                      axisLine={false} 
+                      tickLine={false} 
+                    />
+                    <Tooltip
+                      contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)' }}
+                      formatter={(value: number) => [`${value.toFixed(2)} ${unitV}`, "Mass Haul"]}
+                      labelStyle={{ color: '#0f172a', fontWeight: 'bold', marginBottom: '4px' }}
+                    />
+                    <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="3 3" />
+                    <Area 
+                      type="monotone" 
+                      dataKey="netVolume" 
+                      stroke="#4f46e5" 
+                      strokeWidth={3}
+                      fill="url(#splitColor)"
+                      activeDot={{ r: 6, strokeWidth: 0, fill: '#4f46e5' }}
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+              <p className="mt-4 text-xs text-gray-500 font-medium text-center">
+                The diagram plots Cumulative Volume vs. Chainage. Points where the curve intersects the zero line indicate balance points.
+              </p>
             </div>
           </section>
           <section className="lg:col-span-4 space-y-6">

@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
-export type Currency = 'PKR' | 'USD' | 'INR' | 'AED' | 'SAR' | 'GBP' | 'BDT';
+export type Currency = 'PKR' | 'USD' | 'INR' | 'AED' | 'SAR' | 'GBP' | 'BDT' | 'LKR';
 export type MeasurementSystem = 'FPS' | 'SI';
 export type Theme = 'light' | 'dark' | 'system';
+export type FontSize = 'small' | 'medium' | 'large';
 export type UserRole = 'Civil Engineer' | 'Quantity Surveyor' | 'Student' | 'Contractor' | undefined;
 
 export interface MaterialRates {
@@ -30,6 +31,7 @@ interface SettingsState {
   currency: Currency;
   measurement: MeasurementSystem;
   theme: Theme;
+  fontSize: FontSize;
   rates: MaterialRates;
   modulePreferences?: ModulePreferences;
   role?: UserRole;
@@ -48,8 +50,9 @@ interface SettingsContextType {
 
 const defaultSettings: SettingsState = {
   currency: 'PKR',
-  measurement: 'FPS', // FPS = ft, sqft, cft; SI = m, sqm, cum
+  measurement: 'FPS',
   theme: 'system',
+  fontSize: 'medium',
   role: undefined,
   onboardingComplete: false,
   usedTools: [],
@@ -84,6 +87,7 @@ const currencySymbols: Record<Currency, string> = {
   SAR: 'SAR',
   GBP: '£',
   BDT: '৳',
+  LKR: 'Rs',
 };
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
@@ -111,6 +115,15 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         root.classList.add(systemTheme);
       } else {
         root.classList.add(settings.theme);
+      }
+      
+      // Apply font size scaling
+      if (settings.fontSize === 'small') {
+        root.style.fontSize = '14px';
+      } else if (settings.fontSize === 'large') {
+        root.style.fontSize = '18px';
+      } else {
+        root.style.fontSize = '16px';
       }
     };
 

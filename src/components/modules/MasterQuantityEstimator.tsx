@@ -126,25 +126,6 @@ export const calculatorsList: CalcItem[] = [
     group: "Concrete & Masonry",
     icon: Box,
   },
-  /* Roads */ { id: "asphalt", label: "Asphalt", group: "Roads", icon: Layers },
-  {
-    id: "prime_coat",
-    label: "Bitumen Prime Coat",
-    group: "Roads",
-    icon: Droplet,
-  },
-  {
-    id: "tack_coat",
-    label: "Bitumen Tack Coat",
-    group: "Roads",
-    icon: Droplet,
-  },
-  {
-    id: "super_elevation",
-    label: "Super Elevation",
-    group: "Roads",
-    icon: ArrowRightLeft,
-  },
   /* Reinforcement & Formwork */ {
     id: "helix_bar",
     label: "Helix Bar",
@@ -279,12 +260,6 @@ export default function MasterQuantityEstimator({
         "Trucks required (10m³ / 350cft)": `${Math.ceil(volume / (unitSystem === "metric" ? 10 : 350))} trips`,
       };
       break;
-    case "asphalt":
-      results = {
-        Volume: `${volume.toFixed(2)} ${unitV}`,
-        "Asphalt Required": `${(volume * (unitSystem === "metric" ? 2.4 : 0.068)).toFixed(2)} Tons`,
-      };
-      break;
     case "form_work":
       results = {
         "Contact Area": `${(l * d * 2 + w * d * 2).toFixed(2)} ${unitA}`,
@@ -302,20 +277,6 @@ export default function MasterQuantityEstimator({
         Width: `${w.toFixed(2)} ${unitL}`,
         Length: `${l.toFixed(2)} ${unitL}`,
         "Diagonal (Hypotenuse)": `${Math.sqrt(l * l + w * w).toFixed(2)} ${unitL}`,
-      };
-      break;
-    case "prime_coat":
-      results = {
-        "Surface Area": `${area.toFixed(2)} ${unitA}`,
-        "Bitumen Required (Approx 1.0 L/sq.m)": `${(area * (unitSystem === "metric" ? 1.0 : 0.092)).toFixed(2)} Liters`,
-        "Bitumen Weight": `${((area * (unitSystem === "metric" ? 1.0 : 0.092)) * 1.01 / 1000).toFixed(3)} Tons`
-      };
-      break;
-    case "tack_coat":
-      results = {
-        "Surface Area": `${area.toFixed(2)} ${unitA}`,
-        "Bitumen Required (Approx 0.25 L/sq.m)": `${(area * (unitSystem === "metric" ? 0.25 : 0.023)).toFixed(2)} Liters`,
-        "Bitumen Weight": `${((area * (unitSystem === "metric" ? 0.25 : 0.023)) * 1.01 / 1000).toFixed(3)} Tons`
       };
       break;
     case "countertop":
@@ -423,7 +384,6 @@ export default function MasterQuantityEstimator({
               "blocks",
               "excavation",
               "filling",
-              "asphalt",
               "water_tank",
               "form_work",
               "precast_boundary",

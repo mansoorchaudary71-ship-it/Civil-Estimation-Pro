@@ -156,7 +156,7 @@ export default function HouseEstimator() {
     resetCustomRates,
     isCustomRate,
   } = useMarketRates();
-  const { formatCurrency, settings, convertAmount } = useSettings();
+  const { formatCurrency, settings, convertAmount, updateSettings } = useSettings();
   const isSI = settings.measurement === "SI";
   const [geoState, dispatch] = useReducer(geometryReducer, initialGeometry);
   const [projectDetails, setProjectDetails] = useState({
@@ -188,6 +188,14 @@ export default function HouseEstimator() {
     basement: { depth: 10, retainingWall: "RCC 9-Inch" }
   });
   const [activeRoomTab, setActiveRoomTab] = useState<"bedroom"|"washroom"|"kitchen"|"living"|"basement">("bedroom");
+  
+  /* International Market Settings */
+  const [currencyRate, setCurrencyRate] = useState("PKR");
+  const [designStandard, setDesignStandard] = useState("NBC Pakistan 2021");
+  const [foundationType, setFoundationType] = useState("Strip Foundation");
+  const [structuralSystem, setStructuralSystem] = useState("RCC Framed Structure");
+  const [seismicZone, setSeismicZone] = useState("Zone 2B");
+  
   /* Boundary Wall State */ const [
     includeBoundaryWall,
     setIncludeBoundaryWall,
@@ -206,13 +214,55 @@ export default function HouseEstimator() {
   }, [geoState.coveredAreaSqft]);
   const builtUpArea = coveredAreaSqft * geoState.stories;
   const estimates = useMemo(() => {
+    let steelSeismicMultiplier = 1;
+    let concreteSeismicMultiplier = 1;
+
+    switch (seismicZone) {
+      case "Zone 4":
+        steelSeismicMultiplier = 1.2;
+        concreteSeismicMultiplier = 1.1;
+        break;
+      case "Zone 3":
+        steelSeismicMultiplier = 1.1;
+        concreteSeismicMultiplier = 1.05;
+        break;
+      case "Zone 2B":
+        steelSeismicMultiplier = 1.05;
+        break;
+      default:
+        steelSeismicMultiplier = 1.0;
+        concreteSeismicMultiplier = 1.0;
+    }
+
+    let steelMulti = steelSeismicMultiplier;
+    let concreteMulti = concreteSeismicMultiplier;
+    let brickMulti = 1.0;
+
+    if (structuralSystem === "Load bearing masonry") {
+      steelMulti *= 0.4;
+      concreteMulti *= 0.8;
+      brickMulti *= 1.5;
+    } else if (structuralSystem === "Steel frame") {
+      steelMulti *= 2.5;
+      concreteMulti *= 0.3;
+      brickMulti *= 0.5;
+    }
+
+    if (foundationType === "Raft Foundation") {
+      concreteMulti *= 1.5;
+      steelMulti *= 1.3;
+    } else if (foundationType === "Pile Foundation") {
+      concreteMulti *= 2.0;
+      steelMulti *= 1.8;
+    }
+
     const stories = geoState.stories;
     const roomHeight = parseFloat(geoState.roomHeight) || 10.5;
     /* Step 1: Generate Standard Assumptions */ const totalWallLength =
       coveredAreaSqft * 0.15;
     const wallThickness = 0.75;
     /* 9 inches */ const slabThickness = 0.5;
-    /* 6 inches */ const foundationDepth = 3;
+    /* 6 inches */ const foundationDepth = foundationType === "Pile Foundation" ? 15 : foundationType === "Raft Foundation" ? 4 : 3;
     const foundationWidth = 3;
     const openingDeduction = 0.85;
     /* Step 2: Apply Exact Formulas // 1. Excavation */ const excavationVolumeCft =
@@ -220,18 +270,18 @@ export default function HouseEstimator() {
     /* 2. Brickwork */ const totalHeight =
       roomHeight * stories + foundationDepth;
     const brickworkVolume =
-      totalWallLength * totalHeight * wallThickness * openingDeduction;
+      totalWallLength * totalHeight * wallThickness * openingDeduction * brickMulti;
     const totalBricksNos = Math.ceil(brickworkVolume * 13.5);
     const brickworkDryMortar = brickworkVolume * 0.3;
     const cementBw = (1 / 5) * brickworkDryMortar;
     const sandBw = (4 / 5) * brickworkDryMortar;
     /* 3. RCC */ const slabVolume = coveredAreaSqft * slabThickness * stories;
-    const rcWetVolume = slabVolume * 1.25;
+    const rcWetVolume = slabVolume * 1.25 * concreteMulti;
     /* Slab + 25% for beams/columns */ const rccDryVolume = rcWetVolume * CIVIL_CONSTANTS.DRY_CONCRETE_FACTOR;
     const cementRcc = (1 / 7) * rccDryVolume;
     const sandRcc = (2 / 7) * rccDryVolume;
     const crushRcc = (4 / 7) * rccDryVolume;
-    /* 4. Steel */ const steelKgResult = rcWetVolume * 0.015 * 222.2;
+    /* 4. Steel */ const steelKgResult = slabVolume * 1.25 * 0.015 * 222.2 * steelMulti;
     const steelMetricTons = steelKgResult / 1000;
     /* 5. Plastering */ const plasterArea =
       totalWallLength * (roomHeight * stories) * 2 * openingDeduction;
@@ -354,6 +404,9 @@ export default function HouseEstimator() {
     bwLength,
     bwHeight,
     bwGateSize,
+    foundationType,
+    structuralSystem,
+    seismicZone,
   ]);
   const greyFoundationData = [
     {
@@ -773,6 +826,118 @@ export default function HouseEstimator() {
               </div>
             </div>
 
+            {/* International & Structural Setup */}
+            <div className="bg-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl space-y-5">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="p-3 bg-teal-50 text-teal-600 rounded-2xl">
+                  <Database className="w-6 h-6" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-bold text-gray-800">
+                    International & Structural Defaults
+                  </h2>
+                  <p className="text-xs text-slate-500 font-medium tracking-wide">
+                    Market, Foundation, System
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">Market Currency</label>
+                  <select
+                    value={currencyRate}
+                    onChange={(e) => {
+                      const market = e.target.value;
+                      setCurrencyRate(market);
+                      if (market === "CUSTOM") return;
+                      updateSettings({ currency: market as any });
+                      const marketPresets: Record<string, any> = {
+                        PKR: { cement: 1450, steel: 280, bricks: 18, sand: 90, crush: 250, laborGrey: 500, laborFinish: 600 },
+                        INR: { cement: 380, steel: 65, bricks: 8, sand: 45, crush: 80, laborGrey: 250, laborFinish: 350 },
+                        USD: { cement: 15, steel: 1, bricks: 0.6, sand: 2, crush: 4, laborGrey: 45, laborFinish: 55 },
+                        GBP: { cement: 8, steel: 1.5, bricks: 0.8, sand: 1.5, crush: 3, laborGrey: 35, laborFinish: 45 },
+                        AED: { cement: 18, steel: 3, bricks: 2, sand: 5, crush: 10, laborGrey: 30, laborFinish: 40 },
+                        SAR: { cement: 18, steel: 3, bricks: 2, sand: 4, crush: 9, laborGrey: 25, laborFinish: 35 },
+                        BDT: { cement: 500, steel: 100, bricks: 12, sand: 30, crush: 80, laborGrey: 300, laborFinish: 400 },
+                        LKR: { cement: 2000, steel: 400, bricks: 25, sand: 150, crush: 300, laborGrey: 800, laborFinish: 1000 }
+                      };
+                      const pst = marketPresets[market];
+                      if(pst) {
+                        setCustomRate("cement", pst.cement);
+                        setCustomRate("steel", pst.steel);
+                        setCustomRate("bricks", pst.bricks);
+                        setCustomRate("sand", pst.sand);
+                        setCustomRate("crush", pst.crush);
+                        setCustomRate("laborGrey", pst.laborGrey);
+                        setCustomRate("laborFinish", pst.laborFinish);
+                      }
+                    }}
+                    className="bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
+                  >
+                    {["PKR", "INR", "USD", "GBP", "AED", "SAR", "BDT", "LKR", "CUSTOM"].map(c => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">Design Standard</label>
+                  <select
+                     value={designStandard}
+                     onChange={(e) => setDesignStandard(e.target.value)}
+                     className="bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
+                  >
+                     <option>NBC Pakistan 2021</option>
+                     <option>NBC India 2016</option>
+                     <option>IS 456</option>
+                     <option>BS 8110</option>
+                     <option>ACI 318</option>
+                     <option>Dubai Municipality Stds</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">Foundation Type</label>
+                  <select
+                     value={foundationType}
+                     onChange={(e) => setFoundationType(e.target.value)}
+                     className="bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
+                  >
+                     <option>Strip Foundation</option>
+                     <option>Raft Foundation</option>
+                     <option>Pile Foundation</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">Structural System</label>
+                  <select
+                     value={structuralSystem}
+                     onChange={(e) => setStructuralSystem(e.target.value)}
+                     className="bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
+                  >
+                     <option>RCC Framed Structure</option>
+                     <option>Load bearing masonry</option>
+                     <option>Steel frame</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">Seismic Zone</label>
+                  <select
+                     value={seismicZone}
+                     onChange={(e) => setSeismicZone(e.target.value)}
+                     className="bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
+                  >
+                     <option>Zone 1</option>
+                     <option>Zone 2</option>
+                     <option>Zone 2B</option>
+                     <option>Zone 3</option>
+                     <option>Zone 4</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
             {/* Advanced Customization Accordion */}
             <div className="bg-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
               <div
@@ -939,18 +1104,19 @@ export default function HouseEstimator() {
                 </div>
                 <div>
                   <h3 className="text-indigo-200 text-xs font-bold uppercase tracking-widest mb-0.5">Total Estimated Cost</h3>
-                  <p className="text-3xl sm:text-4xl font-black tabular-nums">{formatCurrency(estimates.totalCost)}</p>
+                  <p className="text-3xl sm:text-4xl font-black tabular-nums text-white dark:text-white drop-shadow-sm">{formatCurrency(estimates.totalCost)}</p>
+                  <p className="text-indigo-200 text-[10px] mt-1 font-medium">Rates based on current regional market — verify with local suppliers.</p>
                 </div>
               </div>
               <div className="flex gap-6 mt-4 sm:mt-0 w-full sm:w-auto p-4 sm:p-0 bg-white/5 sm:bg-transparent rounded-2xl sm:rounded-none">
                 <div>
                   <div className="text-indigo-200 text-[10px] font-bold uppercase tracking-wider mb-0.5">Basic Structure</div>
-                  <div className="text-lg font-bold tabular-nums">{formatCurrency(estimates.totalGrey)}</div>
+                  <div className="text-lg font-bold tabular-nums text-white dark:text-white">{formatCurrency(estimates.totalGrey)}</div>
                 </div>
                 <div className="w-px h-8 bg-indigo-400/30 self-center hidden sm:block"></div>
                 <div>
-                  <div className="text-indigo-200 text-[10px] font-bold uppercase tracking-wider mb-0.5">Finishing</div>
-                  <div className="text-lg font-bold tabular-nums">{formatCurrency(estimates.totalFinishing)}</div>
+                  <div className="text-indigo-200 text-[10px] font-bold uppercase tracking-wider mb-0.5">Finishings</div>
+                  <div className="text-lg font-bold tabular-nums text-white dark:text-white">{formatCurrency(estimates.totalFinishing)}</div>
                 </div>
               </div>
             </div>

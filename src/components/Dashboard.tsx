@@ -8,7 +8,7 @@ import {
   Map, Grid2X2, Box, ArrowRightLeft, Weight, Spline, ArrowRight,
   ChevronRight, ChevronDown, HardHat, Scaling, Container, Repeat, Anvil, Building2, Building, 
   Blocks, Shovel, Pickaxe, Cone, Droplet, PaintBucket, Ruler, Columns, FolderOpen,
-  ClipboardList, Maximize2, FileSpreadsheet, Zap, Wand2, ArrowUpRight, LineChart, Sun, X, Mic, Clock, BarChart, ShieldCheck, Users, Activity, Droplets, Triangle, Bug
+  ClipboardList, Maximize2, FileSpreadsheet, Zap, Wand2, ArrowUpRight, LineChart, Sun, X, Mic, Clock, BarChart, ShieldCheck, Users, Activity, Droplets, Triangle, Bug, Layout, Square
 } from "lucide-react";
 import { SEO } from "./SEO";
 import Logo from "./Logo";
@@ -18,6 +18,9 @@ import PostLoginDashboard from "./PostLoginDashboard";
 import { useSettings } from "../context/SettingsContext";
 
 export const ALL_MODULES = [
+  // 🚀 Guided Workflows
+  { id: "qs-workflow", title: "Guided QS Workflow", desc: "Walks users through a complete sequence: Project Setup, Drawings, Substructure, Superstructure, Masonry, Services, BOQ Compilation, and final Report.", category: "Quantity Estimator", icon: Activity, styleStyle: "solid", colorClass: "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30", difficulty: "Intermediate", estimatedTime: "~20 mins", isNew: true, isPopular: true },
+
   // 📦 QUANTITY ESTIMATOR
   { id: "master-quantity", title: "Master Quantity & Estimation", desc: "23 comprehensive calculators for specialized construction items.", category: "Quantity Estimator", icon: ClipboardList, styleStyle: "solid", colorClass: "bg-[var(--accent-blue)] text-[var(--primary-dark)] shadow-[0_8px_30px_rgba(0,207,232,0.3)]", iconClass: "text-[var(--primary-dark)] opacity-90", difficulty: "Advanced", estimatedTime: "~20 mins" },
   { id: "house", title: "House Estimator", desc: "Calculate complete residential construction costs from excavation to finishing. Contractors benefit by getting an accurate Civil Estimation Pro material breakdown instantly.", category: "Quantity Estimator", icon: Home, premium: true, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~15 mins", isPopular: true },
@@ -25,8 +28,7 @@ export const ALL_MODULES = [
   { id: "takeoff", title: "Plan Measure", desc: "Area & linear extraction.", category: "Quantity Estimator", icon: Ruler, styleStyle: "solid", colorClass: "bg-[var(--accent-purple)] text-white shadow-[0_8px_30px_rgba(115,103,240,0.3)]", iconClass: "text-white opacity-90", difficulty: "Advanced", estimatedTime: "~10 mins", isPopular: true },
   { id: "rates", title: "Live DB Rates", desc: "Centralized database for local market prices.", category: "Quantity Estimator", icon: TrendingUp, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~1 min", isPopular: true },
   { id: "interiors-finishes", title: "Interiors & Finishes", desc: "Tiles, painting, doors, wood framing, and termite treatments.", category: "Quantity Estimator", icon: Paintbrush, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~3 mins" },
-  { id: "area-calculator", title: "Area Calculator", desc: "Calculate area & perimeter for multiple 2D shapes.", category: "Quantity Estimator", icon: Scaling, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~1 min" },
-  { id: "property-area", title: "Property Area Calculator", desc: "Calculate Carpet Area, Built-up Area and Super Built-up Area.", category: "Quantity Estimator", icon: Building, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~2 mins" },
+  { id: "area-space-calculator", title: "Area & Space Calculator", desc: "Calculate dimensional areas, RERA property spaces, plots, and roof material.", category: "Quantity Estimator", icon: Scaling, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~3 mins" },
   { id: "volume-estimator", title: "Volume & Tank Capacity", desc: "Calculate volumes, tank capacity & surface area.", category: "Quantity Estimator", icon: Container, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~3 mins" },
   { id: "metal-weight", title: "Metal Weight", desc: "Calculate section weights of steel profiles.", category: "Quantity Estimator", icon: Anvil, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~3 mins" },
   { id: "unit-converter", title: "Unit Converter", desc: "Convert units across 15 engineering categories.", category: "Quantity Estimator", icon: Repeat, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~1 min" },
@@ -68,7 +70,22 @@ export const ALL_MODULES = [
   { id: "projects", title: "Project Manager", desc: "Group calculations by project, view aggregated costs and timelines.", category: "Analysis & Tools", icon: FolderOpen, styleStyle: "solid", colorClass: "bg-indigo-600 text-white shadow-lg", difficulty: "Beginner", estimatedTime: "~1 min", isNew: true },
   { id: "tracker", title: "Site Progress Tracker", desc: "Track construction timelines, visual Gantt charts, budget burn, and photo updates.", category: "Analysis & Tools", icon: BarChart, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~3 mins", isNew: true },
   { id: "labour-calculator", title: "Labour & Workforce", desc: "Calculate labour cost, worker allocation, and daily burn rates for your project.", category: "Analysis & Tools", icon: Users, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~2 mins", isNew: true },
-  { id: "roof-pitch", title: "Roof Pitch Calculator", desc: "Determine roof pitch angles, calculate rafter lengths and slope area multipliers.", category: "Analysis & Tools", icon: Triangle, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~2 mins", isNew: true }
+  
+  // 🏢 STRUCTURAL DESIGN
+  { id: "beam-design", title: "Beam Design Tool", desc: "Limit State Method including deflection, shear design, and anchorage per IS 456:2000.", category: "Structural Design", icon: Layers, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~10 mins", isNew: true },
+  { id: "column-design", title: "Column Design Tool", desc: "Short/slender check and axial + biaxial bending capacity per IS 456 & 13920.", category: "Structural Design", icon: Building2, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~10 mins", isNew: true },
+  { id: "raft-foundation", title: "Raft Foundation Designer", desc: "Design raft thickness, reinforcement, and check settlement per IS 2950.", category: "Structural Design", icon: Grid2X2, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~15 mins", isNew: true },
+  { id: "water-tank-design", title: "Water Tank Design", desc: "Crack width checks for overhead/underground tanks per IS 3370.", category: "Structural Design", icon: Waves, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~12 mins", isNew: true },
+  { id: "pile-foundation", title: "Pile Foundation Calculator", desc: "Friction & end bearing pile capacity, group efficiency per IS 2911.", category: "Structural Design", icon: Pickaxe, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~8 mins", isNew: true },
+  { id: "prestressed-concrete", title: "Pre-stressed Concrete Estimator", desc: "Tendon layout and prestress losses per IS 1343:2012.", category: "Structural Design", icon: Layers, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~10 mins", isNew: true },
+
+  // ✨ ARCHITECTURAL REFERENCES & SPACE PLANNING
+  { id: "room-area-calculator", title: "Room Area Calculator", desc: "Calculate net vs gross area and check NBC/RERA minimum room size compliance.", category: "Architectural References & Space Planning", icon: Square, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~2 mins", isNew: true },
+  { id: "building-setback-calculator", title: "Building Setback Calculator", desc: "Auto-calculate front, rear setbacks, and side margins given plot size and zone.", category: "Architectural References & Space Planning", icon: ArrowRightLeft, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~3 mins", isNew: true },
+  { id: "far-fsi-calculator", title: "FAR/FSI Calculator", desc: "Determine maximum permissible built-up area and floors based on FAR/FSI allowance.", category: "Architectural References & Space Planning", icon: Building, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~2 mins", isNew: true },
+  { id: "staircase-design-reference", title: "Staircase Design Reference", desc: "Validate riser-going ergonomics, headroom clearance, and minimum stair widths.", category: "Architectural References & Space Planning", icon: Triangle, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Intermediate", estimatedTime: "~4 mins", isNew: true },
+  { id: "door-window-schedule", title: "Door & Window Schedule", desc: "Generate schedules and calculate required lintel sizes for building openings.", category: "Architectural References & Space Planning", icon: Layout, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~5 mins", isNew: true },
+  { id: "ventilation-checker", title: "Ventilation & Lighting Checker", desc: "Check if window and ventilation areas meet minimum NBC requirements based on floor area.", category: "Architectural References & Space Planning", icon: Sun, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~2 mins", isNew: true }
 ];
 
 interface DashboardProps {
@@ -89,12 +106,16 @@ export const getCategoryTheme = (category: string, id: string) => {
       return { textRaw: "text-[#E55A2B] dark:text-[#ff8a65]", text: "text-white", bg: "bg-[#E55A2B] dark:bg-[#E55A2B]", stroke: "stroke-[#E55A2B]", baseHex: "#E55A2B", border: "border-[#E55A2B] dark:border-[#E55A2B]" };
     case "Quantity Estimator":
       return { textRaw: "text-[#6B46C1] dark:text-[#9F7AEA]", text: "text-white", bg: "bg-[#6B46C1] dark:bg-[#6B46C1]", stroke: "stroke-[#6B46C1]", baseHex: "#6B46C1", border: "border-[#6B46C1] dark:border-[#6B46C1]" };
+    case "Structural Design":
+      return { textRaw: "text-[#BE185D] dark:text-[#F472B6]", text: "text-white", bg: "bg-[#BE185D] dark:bg-[#BE185D]", stroke: "stroke-[#BE185D]", baseHex: "#BE185D", border: "border-[#BE185D] dark:border-[#BE185D]" };
     case "Road Construction":
       return { textRaw: "text-[#0D9488] dark:text-[#2DD4BF]", text: "text-white", bg: "bg-[#0D9488] dark:bg-[#0D9488]", stroke: "stroke-[#0D9488]", baseHex: "#0D9488", border: "border-[#0D9488] dark:border-[#0D9488]" };
     case "Soil Tests":
       return { textRaw: "text-[#D97706] dark:text-[#FBBF24]", text: "text-white", bg: "bg-[#D97706] dark:bg-[#D97706]", stroke: "stroke-[#D97706]", baseHex: "#D97706", border: "border-[#D97706] dark:border-[#D97706]" };
     case "MEP":
       return { textRaw: "text-[#2563EB] dark:text-[#60A5FA]", text: "text-white", bg: "bg-[#2563EB] dark:bg-[#2563EB]", stroke: "stroke-[#2563EB]", baseHex: "#2563EB", border: "border-[#2563EB] dark:border-[#2563EB]" };
+    case "Architectural References & Space Planning":
+      return { textRaw: "text-[#EC4899] dark:text-[#F472B6]", text: "text-white", bg: "bg-[#EC4899] dark:bg-[#EC4899]", stroke: "stroke-[#EC4899]", baseHex: "#EC4899", border: "border-[#EC4899] dark:border-[#EC4899]" };
     case "Analysis & Tools":
       return { textRaw: "text-[#4338CA] dark:text-[#818CF8]", text: "text-white", bg: "bg-[#4338CA] dark:bg-[#4338CA]", stroke: "stroke-[#4338CA]", baseHex: "#4338CA", border: "border-[#4338CA] dark:border-[#4338CA]" };
     default:
@@ -277,7 +298,9 @@ export default function Dashboard({
   const categories = [
     "All Tools",
     "Quantity Estimator",
+    "Structural Design",
     "Concrete Tech",
+    "Architectural References & Space Planning",
     "Road Construction",
     "Soil Tests",
     "MEP",

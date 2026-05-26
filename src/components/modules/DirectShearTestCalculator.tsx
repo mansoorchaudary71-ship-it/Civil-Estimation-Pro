@@ -5,9 +5,25 @@ import { ComposedChart, Line, Scatter, XAxis, YAxis, CartesianGrid, Tooltip as R
 import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
 import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { SoilReportHeader } from "../ui/SoilReportHeader";
+import { SoilReportDetails, generateGeotechReportPDF } from "../../utils/soilReports";
 
 export default function DirectShearTestCalculator() {
   const { isProcessing, hasData, processEstimate, resetEstimate } = useEstimateProcessing();
+
+  const [reportDetails, setReportDetails] = useState<SoilReportDetails>({
+    projectName: "Commercial Plaza Construction",
+    clientName: "ABC Builders",
+    labName: "Central Soils Laboratory",
+    sampleId: "DS-08",
+    depth: "3.0m",
+    testedBy: "Senior Tech",
+    date: new Date().toLocaleDateString(),
+  });
+
+  const handleReportChange = (field: keyof SoilReportDetails, value: string) => {
+    setReportDetails(prev => ({ ...prev, [field]: value }));
+  };
 
   const defaultData = [
     { normalStress: 50, shearStress: 35 },
@@ -94,6 +110,39 @@ export default function DirectShearTestCalculator() {
 
   const handlePrint = () => window.print();
 
+  const handleSave = async () => {
+    if (!estimateData) return;
+    
+    // Auto-generated interpretation
+    let soilType = "";
+    if (estimateData.cohesion > 10 && estimateData.angleOfFriction > 5) {
+      soilType = "c-φ soil (e.g. Clayey Sand or Silty Clay)";
+    } else if (estimateData.cohesion > 10) {
+      soilType = "Cohesive soil (e.g. Clay)";
+    } else {
+      soilType = "Cohesionless soil (e.g. Sand)";
+    }
+    
+    // Very rough safe bearing capacity estimate (Terzaghi shallow foundation approx for demo)
+    const factorOfSafety = 3;
+    const Nc = 5.14 * Math.exp(estimateData.angleOfFriction * Math.PI / 180 * 2) * Math.tan(45 + estimateData.angleOfFriction/2); // simplification
+    const sbc = ((estimateData.cohesion * 15 /* roughly Nc */) + (18 /* gamma approx */ * 1 /* depth */ * 10 /* Nq */)) / factorOfSafety; 
+    
+    const interpretationText = `c = ${estimateData.cohesion.toFixed(1)} kPa, φ = ${estimateData.angleOfFriction.toFixed(1)}° — Soil classification: ${soilType}.\nSafe bearing capacity estimate (Terzaghi approx): ${Math.round(sbc)} kN/m²`;
+    
+    const results = [
+      { label: "Cohesion (c)", value: `${estimateData.cohesion.toFixed(2)} kPa` },
+      { label: "Angle of Internal Friction (φ)", value: `${estimateData.angleOfFriction.toFixed(2)} °` },
+      { label: "Failure Envelope Equation", value: estimateData.eq }
+    ];
+    testData.forEach((td, i) => {
+        results.push({ label: `Sample ${i+1} Normal Stress`, value: `${td.normalStress} kPa` });
+        results.push({ label: `Sample ${i+1} Shear Stress`, value: `${td.shearStress} kPa` });
+    });
+
+    await generateGeotechReportPDF("Direct Shear Test", reportDetails, results, interpretationText);
+  };
+
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-slate-900 pb-[120px]">
       <Helmet>
@@ -119,6 +168,13 @@ export default function DirectShearTestCalculator() {
             Determine the shear strength parameters of soil: Cohesion (c) and Angle of Internal Friction (φ) using Mohr-Coulomb failure envelope regression.
           </p>
         </div>
+
+        <SoilReportHeader 
+          details={reportDetails}
+          onChange={handleReportChange}
+          onGenerateReport={handleSave}
+          isGenerating={!hasData}
+        />
 
         <div className="flex flex-col md:flex-row gap-8">
           {/* Input Panel */}

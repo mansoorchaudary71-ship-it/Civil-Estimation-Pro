@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import {
   Share2,
@@ -55,21 +56,6 @@ export default function ShareButtonWithPopup({
   const menuRef = useRef<HTMLDivElement>(null);
   const { user } = useAuth();
   
-  // Close menu when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
-
   const getFileNamePrefix = () => {
     const dateObj = new Date();
     const d = dateObj.getDate().toString().padStart(2, "0");
@@ -604,15 +590,15 @@ export default function ShareButtonWithPopup({
         )}
       </button>
 
-      {isOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 font-sans">
+      {isOpen && typeof document !== "undefined" && createPortal(
+        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-end sm:justify-center p-4 font-sans pointer-events-auto">
             <div 
               className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
               onClick={() => setIsOpen(false)}
             />
             
             <div
-              className={`relative w-full max-w-sm bg-white dark:bg-slate-900 backdrop-blur-xl border border-slate-200 dark:border-slate-700/60 rounded-[2rem] shadow-2xl z-10 overflow-hidden font-sans`}
+              className={`relative w-full max-w-sm bg-white dark:bg-slate-900 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 rounded-[2rem] shadow-2xl z-10 overflow-hidden font-sans`}
               style={{ animation: "modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
             >
               <style>{` @keyframes modalSlideUp { from { opacity: 0; transform: translateY(20px) scale(0.95); filter: blur(4px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } } `}</style>
@@ -695,7 +681,7 @@ export default function ShareButtonWithPopup({
               </div>
           </div>
         </div>
-      )}
+      , document.body)}
     </div>
   );
 }

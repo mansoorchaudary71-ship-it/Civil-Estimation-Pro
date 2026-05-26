@@ -633,12 +633,18 @@ export default function Takeoff() {
             onDrop={handleDrop}
           >
             {!image && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
                 <div className="flex flex-col items-center text-slate-400 mb-8 opacity-80">
                   <Layers className="w-12 h-12 mb-4" />
-                  <span className="text-sm">
+                  <span className="text-sm mb-4">
                     Upload a blueprint image to start
                   </span>
+                  <button
+                    onClick={handleLoadDemo}
+                    className="pointer-events-auto flex items-center gap-2 cursor-pointer text-sm font-bold bg-blue-50 border border-blue-200 hover:bg-blue-100 dark:bg-blue-900/30 dark:border-blue-800 text-blue-700 dark:text-blue-400 px-6 py-3 rounded-xl transition-all shadow-sm hover:shadow-md"
+                  >
+                    Try Demo Blueprint
+                  </button>
                 </div>
                 {recentBlueprints.length > 0 && (
                   <div className="pointer-events-auto w-full max-w-sm z-10 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-4 shadow-sm opacity-90 hover:opacity-100 transition-opacity">

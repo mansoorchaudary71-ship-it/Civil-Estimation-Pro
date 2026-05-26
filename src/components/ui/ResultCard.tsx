@@ -164,8 +164,9 @@ export function ResultCard({
         </div>
       </div>
 
-      <div className="flex flex-col w-full relative z-10 mt-1 overflow-hidden">
-        <div className="flex flex-wrap items-baseline gap-1.5 sm:gap-2">
+      <div className="flex flex-col w-full relative z-10 mt-1 overflow-hidden" role="alert" aria-live="polite">
+        <span className="sr-only">Calculation updated: {title} is {displayValue} {unit}</span>
+        <div className="flex flex-wrap items-baseline gap-1.5 sm:gap-2" aria-hidden="true">
           <span className="text-[clamp(1.5rem,7vw,3rem)] leading-none font-black tracking-tighter break-words max-w-full bg-gradient-to-br from-[#6B46C1] to-orange-500 bg-clip-text text-transparent">
             {displayValue}
           </span>

@@ -95,7 +95,46 @@ export default function RigidPavementEstimator() {
   const totalTies = numLongitudinalJoints * tiesPerJoint;
   const tieWtPerBar = ((d_tie * d_tie) / 162.28) * (len_tie / 1000);
   const totalTieWeight = totalTies * tieWtPerBar;
-  /* kg */ return (
+  /* kg */ 
+  
+  React.useEffect(() => {
+    (window as any).__currentRoadBOQItems = [
+      {
+        id: Math.random().toString(),
+        division: "03 - Concrete",
+        description: "Dry Lean Concrete (DLC)",
+        unit: "m³",
+        quantity: volDLC,
+        rate: 0
+      },
+      {
+        id: Math.random().toString(),
+        division: "03 - Concrete",
+        description: "Pavement Quality Concrete (PQC)",
+        unit: "m³",
+        quantity: volPQC,
+        rate: 0
+      },
+      {
+        id: Math.random().toString(),
+        division: "05 - Metals",
+        description: "Dowel Bars for Transverse Joints",
+        unit: "kg",
+        quantity: totalDowelWeight,
+        rate: 0
+      },
+      {
+        id: Math.random().toString(),
+        division: "05 - Metals",
+        description: "Tie Bars for Longitudinal Joints",
+        unit: "kg",
+        quantity: totalTieWeight,
+        rate: 0
+      }
+    ];
+  }, [volDLC, volPQC, totalDowelWeight, totalTieWeight]);
+
+  return (
     <div className="w-full text-gray-900 font-sans md:p-4">
       {" "}
       <div className="max-w-7xl mx-auto space-y-6">

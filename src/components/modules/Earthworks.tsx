@@ -1,61 +1,70 @@
 import React, { useState } from "react";
-import { CalculationHistory } from "../ui/CalculationHistory";
-import { Shovel } from "lucide-react";
+import { Mountain, Route, Grid, TrendingUp, ShieldAlert } from "lucide-react";
 import StandardEarthworks from "./EarthworksBase";
-import TrenchExcavationEstimator from "./TrenchExcavation";
+import ChainageVolumeEstimator from "./ChainageVolume";
 import GridEarthworkEstimator from "./GridEarthwork";
-import TopSoilFillCalculator from "./TopSoilFillCalculator";
+import SlopeStability from "./SlopeStability"; // We will create this
+
+type HubTab = "general" | "chainage" | "grid" | "slope";
 
 export default function EarthworksEstimator() {
-  const [activeMethod, setActiveMethod] = useState<"standard" | "trench" | "grid" | "topsoil">("standard");
+  const [activeTab, setActiveTab] = useState<HubTab>("general");
+  const [designStandard, setDesignStandard] = useState("IS 1200 Part 27 (Measurement)");
+
+  const tabs: { id: HubTab; label: string; icon: any }[] = [
+    { id: "general", label: "General Earthwork", icon: Mountain },
+    { id: "chainage", label: "Road Chainage & Mass Haul", icon: Route },
+    { id: "grid", label: "Grid Method", icon: Grid },
+    { id: "slope", label: "Slope Stability", icon: ShieldAlert },
+  ];
 
   return (
-    <div className="w-full text-gray-900 font-sans md:p-4">
-      <div className="max-w-7xl mx-auto space-y-8">
-        <header className="mb-6 px-4 md:px-0">
-          <h1 className="text-3xl font-extrabold text-text-primary mb-2 flex items-center gap-3">
-            <Shovel className="w-8 h-8 text-indigo-600 dark:text-blue-400" />
-            Earthworks & Excavation
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Calculate calculation volumes for standard grading, trenches, and grid-method excavations.
-          </p>
-          
-          <div className="mt-6 flex items-center gap-3">
-            <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-              Calculation Method:
-            </label>
-            <select
-              title="Calculation Method"
-              value={activeMethod}
-              onChange={(e) => setActiveMethod(e.target.value as "standard" | "trench" | "grid" | "topsoil")}
-              className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 shadow-sm"
-            >
-              <option value="standard">Standard Area/Depth</option>
-              <option value="trench">Trenching</option>
-              <option value="grid">Grid Method</option>
-              <option value="topsoil">Top Soil / Fill</option>
-            </select>
-          </div>
-        </header>
+    <div className="w-full h-full flex flex-col md:flex-row bg-slate-50 dark:bg-slate-900 overflow-hidden">
+      {/* Sidebar for Sub-Navigation */}
+      <div className="w-full md:w-64 flex-shrink-0 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col pt-6 px-4 gap-2">
+        <h2 className="text-xl font-black text-slate-800 dark:text-white px-2 mb-4">
+          Earthworks
+        </h2>
+        
+        <div className="px-2 mb-4">
+          <label className="text-xs font-bold text-slate-500 uppercase">Reference</label>
+          <select 
+            value={designStandard}
+            onChange={(e) => setDesignStandard(e.target.value)}
+            className="w-full mt-1 bg-slate-100 dark:bg-slate-800 border-none p-2 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-300 outline-none"
+          >
+            <option value="IS 1200 Part 27 (Measurement)">IS 1200 Part 27 (Measurement)</option>
+            <option value="IS 3764 (Excavation Safety)">IS 3764 (Safety)</option>
+            <option value="USCS Classification">USCS Classification</option>
+          </select>
+        </div>
 
-        <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
-          <div className="mt-2">
-            {activeMethod === "standard" && <StandardEarthworks />}
-            {activeMethod === "trench" && <TrenchExcavationEstimator />}
-            {activeMethod === "grid" && <GridEarthworkEstimator />}
-            {activeMethod === "topsoil" && <TopSoilFillCalculator />}
-          </div>
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all text-sm ${
+              activeTab === tab.id
+                ? "bg-amber-600 text-white shadow-md translate-x-1"
+                : "text-slate-600 dark:text-slate-400 hover:bg-amber-50 hover:text-amber-700 dark:hover:bg-slate-800 dark:hover:text-amber-500"
+            }`}
+          >
+            <tab.icon className="w-5 h-5" />
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Main Content Area */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="p-4 md:p-0 max-w-7xl mx-auto">
+          {activeTab === "general" && <StandardEarthworks />}
+          {activeTab === "chainage" && <ChainageVolumeEstimator />}
+          {activeTab === "grid" && <GridEarthworkEstimator />}
+          {activeTab === "slope" && <SlopeStability />}
         </div>
       </div>
-    
-      <CalculationHistory
-        calculatorId="earthworks"
-        currentInputs={{}}
-        currentResults={{}}
-        estimationName="Earthworks"
-      />
-</div>
+    </div>
   );
 }
 

@@ -95,6 +95,23 @@ function AsphaltCalculator() {
 
   const results = calculateAsphalt();
 
+  React.useEffect(() => {
+    if (results) {
+      (window as any).__currentRoadBOQItems = [
+        {
+          id: Math.random().toString(),
+          division: "09 - Finishes (Plaster, Flooring, Paint)",
+          description: "Asphalt Concrete Wearing Course",
+          unit: "Tons",
+          quantity: Number(results.tons),
+          rate: 0
+        }
+      ];
+    } else {
+      (window as any).__currentRoadBOQItems = [];
+    }
+  }, [results?.tons]);
+
   return (
     <div className="animate-in fade-in duration-300">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -215,6 +232,23 @@ function PrimeCoatCalculator() {
 
   const results = calculateCoat();
 
+  React.useEffect(() => {
+    if (results) {
+      (window as any).__currentRoadBOQItems = [
+        {
+          id: Math.random().toString(),
+          division: "09 - Finishes (Plaster, Flooring, Paint)",
+          description: "Bitumen Prime Coat",
+          unit: "Liters",
+          quantity: Number(results.liters),
+          rate: 0
+        }
+      ];
+    } else {
+      (window as any).__currentRoadBOQItems = [];
+    }
+  }, [results?.liters]);
+
   return (
     <div className="animate-in fade-in duration-300">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -291,6 +325,23 @@ function TackCoatCalculator() {
   };
 
   const results = calculateCoat();
+
+  React.useEffect(() => {
+    if (results) {
+      (window as any).__currentRoadBOQItems = [
+        {
+          id: Math.random().toString(),
+          division: "09 - Finishes (Plaster, Flooring, Paint)",
+          description: "Bitumen Tack Coat",
+          unit: "Liters",
+          quantity: Number(results.liters),
+          rate: 0
+        }
+      ];
+    } else {
+      (window as any).__currentRoadBOQItems = [];
+    }
+  }, [results?.liters]);
 
   return (
     <div className="animate-in fade-in duration-300">

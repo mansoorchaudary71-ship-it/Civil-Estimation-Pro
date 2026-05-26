@@ -6,11 +6,26 @@ import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
 import { MaterialSummary } from "../ui/MaterialSummary";
 import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { SoilReportHeader } from "../ui/SoilReportHeader";
+import { SoilReportDetails, generateGeotechReportPDF } from "../../utils/soilReports";
 
 export default function CbrTestCalculator() {
   const { isProcessing, hasData, processEstimate, resetEstimate } = useEstimateProcessing();
 
   const [minSpec, setMinSpec] = useState("15");
+  const [reportDetails, setReportDetails] = useState<SoilReportDetails>({
+    projectName: "Highway Rehabilitation Phase 2",
+    clientName: "Department of Transportation",
+    labName: "Central Soils Laboratory",
+    sampleId: "S-54/CBR",
+    depth: "1.5m",
+    testedBy: "Senior Tech",
+    date: new Date().toLocaleDateString(),
+  });
+
+  const handleReportChange = (field: keyof SoilReportDetails, value: string) => {
+    setReportDetails(prev => ({ ...prev, [field]: value }));
+  };
 
   const defaultData = [
     { penetration: 0.0, load: 0 },
@@ -97,7 +112,23 @@ export default function CbrTestCalculator() {
   }, [hasData, testData, minSpec]);
 
   const handlePrint = () => window.print();
-  const handleSave = () => { /* save functionality here */ };
+  const handleSave = async () => {
+    if (!estimateData) return;
+    
+    // Auto-generated interpretation
+    const interpretationText = `Design CBR = ${estimateData.finalCbr.toFixed(1)}% — Per IRC:37-2018, recommended subgrade CBR for traffic > 10 MSA requires minimum 5%.\nStatus: [${estimateData.passed ? 'PASS' : 'FAIL'}] — Quality: ${estimateData.soilClass}`;
+    
+    const results = [
+      { label: "CBR at 2.5 mm", value: `${estimateData.cbr25.toFixed(2)} %` },
+      { label: "CBR at 5.0 mm", value: `${estimateData.cbr50.toFixed(2)} %` },
+      { label: "Design CBR", value: `${estimateData.finalCbr.toFixed(2)} %` },
+      { label: "Quality classification", value: estimateData.soilClass },
+      { label: "Specification minimum", value: `${estimateData.requiredMin} %` },
+      { label: "Test Result Status", value: estimateData.passed ? "PASSED" : "FAILED" }
+    ];
+
+    await generateGeotechReportPDF("California Bearing Ratio (CBR)", reportDetails, results, interpretationText);
+  };
 
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-slate-900 pb-[120px]">
@@ -124,6 +155,13 @@ export default function CbrTestCalculator() {
             Record Load vs. Penetration data to calculate the California Bearing Ratio (CBR) for evaluating the mechanical strength of road subgrades and base courses.
           </p>
         </div>
+
+        <SoilReportHeader 
+          details={reportDetails}
+          onChange={handleReportChange}
+          onGenerateReport={handleSave}
+          isGenerating={!hasData}
+        />
 
         <div className="flex flex-col md:flex-row gap-8">
           {/* Input Panel */}

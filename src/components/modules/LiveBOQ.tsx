@@ -398,7 +398,7 @@ export default function LiveBOQ() {
                 >
                   Total Estimated Cost
                 </th>
-                <th className="py-3 px-3 font-mono text-right text-sm text-green-500 font-bold">
+                <th className="py-3 px-3 font-mono text-right text-sm text-slate-900 dark:text-white font-black bg-slate-100 dark:bg-slate-800 rounded-br-lg">
                   {formatCurrency(totalCost)}
                 </th>
               </tr>

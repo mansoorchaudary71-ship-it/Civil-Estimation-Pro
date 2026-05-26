@@ -15,8 +15,9 @@ import { useSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
+import { FieldTooltip } from "../ui/FieldTooltip";
 
-function InputGroup({ label, children, colSpan = 1 }: { label: string; children: React.ReactNode, colSpan?: number }) {
+function InputGroup({ label, children, colSpan = 1 }: { label: React.ReactNode; children: React.ReactNode, colSpan?: number }) {
   return (
     <div className={`flex flex-col gap-2 ${colSpan > 1 ? `md:col-span-${colSpan}` : ''}`}>
       <label className="text-sm font-bold text-slate-700 dark:text-slate-300">{label}</label>
@@ -32,7 +33,7 @@ const mixRatios: Record<string, { c: number; s: number; a: number }> = {
   "M30 (1:0.75:1.5)": { c: 1, s: 0.75, a: 1.5 }
 };
 
-export default function RetainingWallCalculator() {
+export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbedded?: boolean }) {
   const { settings } = useSettings();
   
   // Dimensions
@@ -146,21 +147,51 @@ export default function RetainingWallCalculator() {
   
   const totalSteel = vWeight + hWeight; // Rough approx for stem only. Base added later.
 
+  const sendToBOQ = () => {
+    const items = [
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        division: "03 - Concrete",
+        description: `RCC Retaining Wall (Length: ${wallL}m, Height: ${wallH}m)`,
+        unit: "m³",
+        quantity: totalConcrete,
+        rate: 0
+      },
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        division: "05 - Metals",
+        description: `Steel Reinforcement for Retaining Wall`,
+        unit: "kg",
+        quantity: totalSteel,
+        rate: 0
+      },
+    ];
+    window.dispatchEvent(new CustomEvent('fill-boq', { detail: items }));
+    alert("Sent to BOQ Generator!");
+  };
+
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8">
+    <div className={isEmbedded ? "w-full space-y-6" : "w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8"}>
       <div className="max-w-5xl mx-auto space-y-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-black mb-2 flex items-center gap-3 text-text-primary">
-              <ShieldCheck className="w-8 h-8 text-[#E55A2B] dark:text-[#ff8a65]" />
-              Retaining Wall Estimator
-            </h1>
-            <p className="text-slate-500 dark:text-slate-300 font-medium">
-              Calculate stability, concrete volume, and reinforcement for cantilever retaining walls.
-            </p>
+        {!isEmbedded && (
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+            <div>
+              <h1 className="text-3xl font-black mb-2 flex items-center gap-3 text-text-primary">
+                <ShieldCheck className="w-8 h-8 text-[#E55A2B] dark:text-[#ff8a65]" />
+                Retaining Wall Estimator
+              </h1>
+              <p className="text-slate-500 dark:text-slate-300 font-medium">
+                Calculate stability, concrete volume, and reinforcement for cantilever retaining walls.
+              </p>
+            </div>
+            <div className="flex flex-col items-end gap-2">
+              <GlobalSettingsToggle align="left" showCurrency={false} />
+              <button onClick={sendToBOQ} className="text-xs font-bold px-3 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors border border-emerald-200 dark:border-emerald-800">
+                Send to BOQ
+              </button>
+            </div>
           </div>
-          <GlobalSettingsToggle align="left" showCurrency={false} />
-        </div>
+        )}
         
         <div className="bg-bg-card rounded-3xl shadow-md border border-border-color overflow-hidden">
           <div className="p-6 md:p-8 space-y-8">
@@ -197,10 +228,20 @@ export default function RetainingWallCalculator() {
                 <div>
                   <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Soil & Loads</h3>
                   <div className="grid grid-cols-2 gap-4">
-                    <InputGroup label="Soil Density (kN/m³)">
+                    <InputGroup label={
+                      <span className="flex items-center">
+                        Soil Density (kN/m³)
+                        <FieldTooltip content="Unit weight of retained soil. Typical values: Loose soil = 14-16, Compacted soil = 18-20, Gravel/Rock = 20-22" />
+                      </span>
+                    }>
                       <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-3" value={soilDens} onChange={(e) => setSoilDens(e.target.value)} />
                     </InputGroup>
-                    <InputGroup label="Friction Angle (deg)">
+                    <InputGroup label={
+                      <span className="flex items-center">
+                        Friction Angle (deg)
+                        <FieldTooltip content="Angle of internal friction of soil (Φ). Typical values: Clay = 0-20°, Silt = 26-30°, Sand = 30-40°, Gravel = 35-45°" />
+                      </span>
+                    }>
                       <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-3" value={phiAngle} onChange={(e) => setPhiAngle(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Base Friction Coeff (μ)">
@@ -226,7 +267,7 @@ export default function RetainingWallCalculator() {
 
               {/* Drawing & Stability check */}
               <div>
-                <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="grid grid-cols-2 gap-4 mb-2">
                   <div className={`p-4 rounded-2xl border ${isSlidingSafe ? 'bg-emerald-50 border-emerald-200 dark:bg-emerald-900/20' : 'bg-rose-50 border-rose-200 dark:bg-rose-900/20'}`}>
                     <h4 className="font-bold text-sm text-slate-800 dark:text-slate-200 mb-1">Sliding (FS &gt; 1.5)</h4>
                     <p className={`text-2xl font-black ${isSlidingSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{FS_sliding.toFixed(2)}</p>
@@ -236,6 +277,16 @@ export default function RetainingWallCalculator() {
                     <p className={`text-2xl font-black ${isOverturnSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{FS_overturn.toFixed(2)}</p>
                   </div>
                 </div>
+                
+                {(!isSlidingSafe || !isOverturnSafe) && (
+                  <div className="mb-6 p-4 bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-400 rounded-2xl text-sm font-bold flex items-start gap-3">
+                    <span className="text-lg mt-0.5">⚠</span>
+                    <div>
+                      {!isSlidingSafe && <p>Sliding Factor of Safety ({FS_sliding.toFixed(2)}) &lt; 1.5 minimum required per IS 456:2000. Increase base width or add toe projection.</p>}
+                      {!isOverturnSafe && <p>Overturning Factor of Safety ({FS_overturn.toFixed(2)}) &lt; 2.0 minimum required. Increase base width or heel projection.</p>}
+                    </div>
+                  </div>
+                )}
 
                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[400px] shadow-sm relative overflow-hidden">
                   <h4 className="font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-sm mb-4">Cross-Section Profile</h4>

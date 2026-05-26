@@ -91,15 +91,15 @@
   }
 
   .dark {
-    --bg-primary: #0A0410;
-    --bg-card: #150926;
-    --text-primary: #F8FAFC;
-    --accent-purple: #9333EA;
-    --accent-orange: #FF7A00;
+    --bg-primary: #1a1a2e;
+    --bg-card: #16213e;
+    --text-primary: #e2e8f0;
+    --accent-purple: #7c3aed;
+    --accent-orange: #f97316;
     --border-color: rgba(167, 139, 250, 0.1);
     
-    --background: 260 40% 6%;
-    --foreground: 210 40% 98%;
+    --background: 232 28% 14%;
+    --foreground: 214 32% 91%;
   }
 
   @keyframes dynamicGradient {

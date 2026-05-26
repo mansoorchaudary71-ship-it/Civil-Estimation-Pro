@@ -7,6 +7,7 @@ import { CalculationHistory } from "../ui/CalculationHistory";
 import { MaterialSummary } from "../ui/MaterialSummary";
 import { ResultCard } from "../ui/ResultCard";
 import { SEO } from "../SEO";
+import { FieldTooltip } from "../ui/FieldTooltip";
 
 const roadSchema = {
   "@context": "https://schema.org",
@@ -118,6 +119,60 @@ export default function RoadEstimator() {
   const costPrime = primeCoatTons * (parseFloat(ratePrime) || 0);
   const costTack = tackCoatTons * (parseFloat(rateTack) || 0);
   const totalCost = costSg + costSb + costWbm + costAsp + costPrime + costTack;
+  
+  React.useEffect(() => {
+    (window as any).__currentRoadBOQItems = [
+      {
+        id: Math.random().toString(),
+        division: "02 - Site Work & Earthwork",
+        description: "Subgrade Preparation",
+        unit: "m³",
+        quantity: volSG,
+        rate: parseFloat(rateSg) || 0
+      },
+      {
+        id: Math.random().toString(),
+        division: "02 - Site Work & Earthwork",
+        description: "Sub-base (GSB)",
+        unit: "m³",
+        quantity: volSB,
+        rate: parseFloat(rateSb) || 0
+      },
+      {
+        id: Math.random().toString(),
+        division: "02 - Site Work & Earthwork",
+        description: "Water Bound Macadam (WBM)",
+        unit: "m³",
+        quantity: volWBM,
+        rate: parseFloat(rateWbm) || 0
+      },
+      {
+        id: Math.random().toString(),
+        division: "09 - Finishes (Plaster, Flooring, Paint)",
+        description: "Asphalt Wearing Course",
+        unit: "Tons",
+        quantity: asphaltTons,
+        rate: parseFloat(rateAsp) || 0
+      },
+      {
+        id: Math.random().toString(),
+        division: "09 - Finishes (Plaster, Flooring, Paint)",
+        description: "Bitumen Prime Coat",
+        unit: "Tons",
+        quantity: primeCoatTons,
+        rate: parseFloat(ratePrime) || 0
+      },
+      {
+        id: Math.random().toString(),
+        division: "09 - Finishes (Plaster, Flooring, Paint)",
+        description: "Bitumen Tack Coat",
+        unit: "Tons",
+        quantity: tackCoatTons,
+        rate: parseFloat(rateTack) || 0
+      }
+    ];
+  }, [volSG, volSB, volWBM, asphaltTons, primeCoatTons, tackCoatTons, rateSg, rateSb, rateWbm, rateAsp, ratePrime, rateTack]);
+
   /* Visual dimensions */ const svgTotalHeight = 300;
   const fixedMinHeight = 25;
   /* minimum visual height per layer to show text // Calculate relative heights */ const hSG =
@@ -164,9 +219,86 @@ export default function RoadEstimator() {
   const pathWbm = `M ${500 - dxAspBot},${y1_S} L ${500 - dxCarriageway},${y1_Carriage} L 500,${y1_C} L ${500 + dxCarriageway},${y1_Carriage} L ${500 + dxAspBot},${y1_S} L ${500 + dxWbmBot},${y2_S} L ${500 + dxCarriageway},${y2_Carriage} L 500,${y2_C} L ${500 - dxCarriageway},${y2_Carriage} L ${500 - dxWbmBot},${y2_S} Z`;
   const pathSb = `M ${500 - dxWbmBot},${y2_S} L ${500 - dxCarriageway},${y2_Carriage} L 500,${y2_C} L ${500 + dxCarriageway},${y2_Carriage} L ${500 + dxWbmBot},${y2_S} L ${500 + dxSbBot},${y3_S} L ${500 + dxCarriageway},${y3_Carriage} L 500,${y3_C} L ${500 - dxCarriageway},${y3_Carriage} L ${500 - dxSbBot},${y3_S} Z`;
   const pathSg = `M ${500 - dxSbBot},${y3_S} L ${500 - dxCarriageway},${y3_Carriage} L 500,${y3_C} L ${500 + dxCarriageway},${y3_Carriage} L ${500 + dxSbBot},${y3_S} L ${500 + dxSgBot},${y4_S} L ${500 + dxCarriageway},${y4_Carriage} L 500,${y4_C} L ${500 - dxCarriageway},${y4_Carriage} L ${500 - dxSgBot},${y4_S} Z`;
+
+  const loadExample = () => {
+    setLength("1000");
+    setWidth("7.5");
+    setCamber("2.5");
+    setShoulderWidth("1.5");
+    setShoulderFall("3.0");
+    setSideSlope("1.5");
+    setSgThickness("500");
+    setSbThickness("300");
+    setWbmThickness("225");
+    setAsphaltThickness("50");
+  };
+
+  const resetDefault = () => {
+    setLength("1000");
+    setWidth("7.5");
+    setCamber("2.5");
+    setShoulderWidth("1.5");
+    setShoulderFall("3.0");
+    setSideSlope("1.5");
+    setSgThickness("500");
+    setSbThickness("300");
+    setWbmThickness("200");
+    setAsphaltThickness("50");
+  };
+
+  const sendToBOQ = () => {
+    const items = [
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        division: "02 - Site Work & Earthwork",
+        description: `Subgrade Preparation (${l.toFixed(0)}m length)`,
+        unit: "m³",
+        quantity: volSG,
+        rate: 0
+      },
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        division: "03 - Concrete",
+        description: `Sub-Base (GSB)`,
+        unit: "m³",
+        quantity: volSB,
+        rate: 0
+      },
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        division: "03 - Concrete",
+        description: `Base Course (WMM)`,
+        unit: "m³",
+        quantity: volWBM,
+        rate: 0
+      },
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        division: "09 - Finishes (Plaster, Flooring, Paint)",
+        description: `Asphalt/Surface Course`,
+        unit: "m³",
+        quantity: volAsphalt,
+        rate: 0
+      },
+    ];
+    window.dispatchEvent(new CustomEvent('fill-boq', { detail: items }));
+    alert("Sent to BOQ Generator!");
+  };
+
   return (
     <div className="w-full text-gray-900 font-sans md:p-4">
       <div className="max-w-7xl mx-auto space-y-8">
+        <div className="flex justify-end gap-2 mb-2">
+          <button onClick={sendToBOQ} className="text-xs font-bold px-3 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors border border-emerald-200 dark:border-emerald-800">
+            Send to BOQ
+          </button>
+          <button onClick={loadExample} className="text-xs font-bold px-3 py-2 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-lg hover:bg-amber-100 dark:hover:bg-amber-900/50 transition-colors">
+            Load Example
+          </button>
+          <button onClick={resetDefault} className="text-xs font-bold px-3 py-2 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Inputs Section */}
           <section className="lg:col-span-5 space-y-6">
@@ -204,8 +336,9 @@ export default function RoadEstimator() {
                     />
                   </div>
                   <div className="col-span-1">
-                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
                       Camber (%)
+                      <FieldTooltip content="Transverse slope of road carriageway for drainage. IRC:73-1980: Bituminous surface = 2-2.5%, Concrete = 1-1.5%, Water-bound macadam = 3-4%" />
                     </label>
                     <input
                       type="number"
@@ -825,6 +958,25 @@ export default function RoadEstimator() {
                totalValue={formatCurrency(totalCost)}
                totalUnit=""
              >
+              {totalCost === 0 && (
+                <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-4 rounded-xl mt-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl">⚠</span>
+                    <p className="text-sm font-bold text-amber-800 dark:text-amber-400">
+                      Material rates not set. Fill in the rates above or go to Live DB Rates to set current market prices first.
+                    </p>
+                  </div>
+                  <button 
+                    onClick={() => {
+                      const event = new CustomEvent('navigate-module', { detail: { moduleId: 'rates' } });
+                      window.dispatchEvent(event);
+                    }}
+                    className="shrink-0 text-xs font-bold px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors"
+                  >
+                    Set Live DB Rates
+                  </button>
+                </div>
+              )}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-sm mt-4">
                 <div className="bg-white/5 border border-white/10 rounded-xl p-4">
                   <h4 className="font-semibold text-slate-400 mb-3 uppercase tracking-wider text-xs">

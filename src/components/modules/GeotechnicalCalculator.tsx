@@ -6,6 +6,8 @@ import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
 import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import ColorfulTab from "../ui/ColorfulTab";
+import { SoilReportHeader } from "../ui/SoilReportHeader";
+import { SoilReportDetails, generateGeotechReportPDF } from "../../utils/soilReports";
 
 // Sub-components for each Geotechnical test
 export default function GeotechnicalCalculator() {
@@ -38,7 +40,22 @@ export default function GeotechnicalCalculator() {
   const [cbrLoad25, setCbrLoad25] = useState("");
   const [cbrLoad50, setCbrLoad50] = useState("");
 
+  const [reportDetails, setReportDetails] = useState<SoilReportDetails>({
+    projectName: "Foundation Reconnaissance",
+    clientName: "City Constructors",
+    labName: "Central Soils Laboratory",
+    sampleId: "BH-1",
+    depth: "2.0m",
+    testedBy: "Lab Tech",
+    date: new Date().toLocaleDateString(),
+  });
+
+  const handleReportChange = (field: keyof SoilReportDetails, value: string) => {
+    setReportDetails(prev => ({ ...prev, [field]: value }));
+  };
+
   let currentExportData: Record<string, string> = {};
+  let interpretationText = "";
   
   const parseNum = (val: string) => Math.max(0, parseFloat(val) || 0);
 
@@ -59,6 +76,10 @@ export default function GeotechnicalCalculator() {
       "Weight of Water": `${(W2 - W3).toFixed(2)} g`,
       "Water Content (w)": `${w.toFixed(2)}%`,
     };
+    
+    const classification = w > 50 ? "High Plasticity" : w > 35 ? "Medium Plasticity" : "Low Plasticity";
+    interpretationText = `Result: ${w.toFixed(1)}% — Classification per IS 1498: [${classification}] soil (assumptive correlation).`;
+    
   } else if (activeTab === "specific-gravity") {
     const W1 = parseNum(sgW1);
     const W2 = parseNum(sgW2);
@@ -122,7 +143,16 @@ export default function GeotechnicalCalculator() {
       "CBR @ 5.0mm Penetration": `${CBR50.toFixed(2)}%`,
       "Final CBR Value": `${CBR_Final.toFixed(2)}%`,
     };
+    const cbrStatus = CBR_Final >= 5 ? "PASS" : "FAIL";
+    interpretationText = `Design CBR = ${CBR_Final.toFixed(1)}% — Per IRC:37-2018, recommended subgrade CBR for traffic > 10 MSA requires minimum 5%.\nResult: [${cbrStatus}]`;
   }
+
+  const handleSave = async () => {
+     if (!hasData) return;
+     const results = Object.entries(currentExportData).map(([k, v]) => ({ label: k, value: v }));
+     let title = activeTab.split("-").map(k => k.charAt(0).toUpperCase() + k.slice(1)).join(" ");
+     await generateGeotechReportPDF(title, reportDetails, results, interpretationText);
+  };
 
   const tabs = [
     { id: "water-content", label: "Water Content", icon: Droplet },
@@ -168,6 +198,13 @@ export default function GeotechnicalCalculator() {
             );
           })}
         </div>
+        
+        <SoilReportHeader 
+          details={reportDetails}
+          onChange={handleReportChange}
+          onGenerateReport={handleSave}
+          isGenerating={!hasData}
+        />
 
         {/* Calculator Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative items-start">
@@ -286,7 +323,10 @@ export default function GeotechnicalCalculator() {
                 <h3 className="font-bold text-slate-500 text-sm uppercase tracking-widest">
                   Lab Report Summary
                 </h3>
-                <Download className="w-5 h-5 text-indigo-500 cursor-pointer hover:text-indigo-600 transition-colors" />
+                <Download 
+                  className="w-5 h-5 text-indigo-500 cursor-pointer hover:text-indigo-600 transition-colors" 
+                  onClick={handleSave} 
+                />
               </div>
               <div className="space-y-4">
                 {Object.entries(currentExportData).map(([key, val]) => (

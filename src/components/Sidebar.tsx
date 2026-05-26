@@ -7,7 +7,8 @@ import {
   FlaskConical, MapPin, Ruler, Boxes, Sun, Truck, Mountain,
   Sparkles, Droplet,
   LayoutDashboard,
-  Users
+  Users, Grid2X2, Waves, Pickaxe,
+  Building, Square, ArrowRightLeft, Layout, Triangle, Activity
 } from "lucide-react";
 
 export type ModuleId = string;
@@ -42,53 +43,76 @@ type MainCategory = {
 
 const SIDEBAR_DATA: MainCategory[] = [
   {
+    id: "structural-design",
+    label: "Structural Design",
+    icon: Building2,
+    tools: [
+      {
+        id: "beam-design",
+        label: "Beam Design Tool",
+        icon: Layers,
+        subTools: []
+      },
+      {
+        id: "column-design",
+        label: "Column Design Tool",
+        icon: Building2,
+        subTools: []
+      },
+      {
+        id: "raft-foundation",
+        label: "Raft Foundation",
+        icon: Grid2X2,
+        subTools: []
+      },
+      {
+        id: "water-tank-design",
+        label: "Water Tank Design",
+        icon: Waves,
+        subTools: []
+      },
+      {
+        id: "pile-foundation",
+        label: "Pile Foundation",
+        icon: Pickaxe,
+        subTools: []
+      },
+      {
+        id: "prestressed-concrete",
+        label: "Pre-stressed Concrete",
+        icon: Layers,
+        subTools: []
+      }
+    ]
+  },
+  {
     id: "concrete-tech",
     label: "Concrete Tech",
     icon: Building2,
     tools: [
       {
-        id: "calculators",
-        label: "Construction Material",
-        icon: Boxes,
-        subTools: [
-          { id: "cm-concrete", label: "Concrete Estimator" },
-          { id: "cm-brick", label: "Brick Estimator" },
-          { id: "cm-steel", label: "Steel Estimator" },
-          { id: "cm-block", label: "Block Estimator" },
-          { id: "cm-mortar", label: "Mortar Estimator" },
-        ]
-      },
-      {
-        id: "retaining-wall",
-        label: "Retaining Wall",
-        icon: Boxes,
-        subTools: []
-      },
-      {
-        id: "isolated-footing",
-        label: "Isolated Footing",
-        icon: Boxes,
-        subTools: []
-      },
-      {
-        id: "master-rcc",
-        label: "Master RCC Estimator",
+        id: "concrete-masonry-hub",
+        label: "Concrete & Masonry Hub",
         icon: Layers,
         subTools: [
-          { id: "rcc-slab", label: "Slab Calculator" },
-          { id: "rcc-column", label: "Column Calculator" },
-          { id: "rcc-beam", label: "Beam Calculator" },
-          { id: "rcc-staircase", label: "Staircase Calculator" },
-          { id: "rcc-bbs", label: "BBS (Bar Bending Schedule)" },
+          { id: "cmh-slab", label: "Slab Calculator" },
+          { id: "cmh-column", label: "Column Calculator" },
+          { id: "cmh-beam", label: "Beam Calculator" },
+          { id: "cmh-foundation", label: "Foundation" },
+          { id: "cmh-retaining", label: "Retaining Wall" },
         ]
       },
       {
-        id: "formwork",
-        label: "Formwork & Scaffold",
-        icon: Ruler,
+        id: "steel-hub",
+        label: "Steel & Reinforcement Hub",
+        icon: Zap,
         subTools: [
-          { id: "fw-shuttering", label: "Shuttering Materials" },
-          { id: "fw-scaffolding", label: "Scaffolding Materials" },
+          { id: "steel-bbs", label: "BBS Generator" },
+          { id: "steel-weight", label: "Section Weight" },
+          { id: "steel-estimation", label: "Bar Estimation" },
+          { id: "steel-cage", label: "Cage Estimator" },
+          { id: "steel-detail", label: "Detailing Visualizer" },
+          { id: "steel-formwork", label: "Formwork & Scaffold" },
         ]
       },
       {
@@ -123,6 +147,12 @@ const SIDEBAR_DATA: MainCategory[] = [
     icon: Calculator,
     tools: [
       {
+        id: "qs-workflow",
+        label: "Guided QS Workflow",
+        icon: Activity,
+        subTools: []
+      },
+      {
         id: "house",
         label: "House Estimator",
         icon: Home,
@@ -132,13 +162,14 @@ const SIDEBAR_DATA: MainCategory[] = [
         ]
       },
       {
-        id: "property-area",
-        label: "Property Area Calculator",
+        id: "area-space-calculator",
+        label: "Area & Space Calculator",
         icon: MapPin,
         subTools: [
-          { id: "pa-carpet", label: "Carpet Area" },
-          { id: "pa-builtup", label: "Built-up Area" },
-          { id: "pa-super", label: "Super Built-up Area" },
+          { id: "asc-shape", label: "2D Shape Calc" },
+          { id: "asc-property", label: "Property Area" },
+          { id: "asc-plot", label: "Plot Measure" },
+          { id: "asc-roof", label: "Roof & Pitch" },
         ]
       },
       {
@@ -150,6 +181,49 @@ const SIDEBAR_DATA: MainCategory[] = [
           { id: "vt-overhead", label: "Overhead Tank" },
           { id: "vt-standard", label: "Standard Volumes" },
         ]
+      }
+    ]
+  },
+  {
+    id: "architectural-references",
+    label: "Space Planning",
+    icon: Layout,
+    tools: [
+      {
+        id: "room-area-calculator",
+        label: "Room Area Calculator",
+        icon: Square,
+        subTools: []
+      },
+      {
+        id: "building-setback-calculator",
+        label: "Building Setback Calculator",
+        icon: ArrowRightLeft,
+        subTools: []
+      },
+      {
+        id: "far-fsi-calculator",
+        label: "FAR/FSI Calculator",
+        icon: Building,
+        subTools: []
+      },
+      {
+        id: "staircase-design-reference",
+        label: "Staircase Design Reference",
+        icon: Triangle,
+        subTools: []
+      },
+      {
+        id: "door-window-schedule",
+        label: "Door & Window Schedule",
+        icon: Layout,
+        subTools: []
+      },
+      {
+        id: "ventilation-checker",
+        label: "Ventilation & Lighting",
+        icon: Sun,
+        subTools: []
       }
     ]
   },
@@ -192,12 +266,13 @@ const SIDEBAR_DATA: MainCategory[] = [
     tools: [
       {
         id: "earthworks",
-        label: "Earthworks",
+        label: "Earthworks Suite",
         icon: Mountain,
         subTools: [
-          { id: "ew-site", label: "Site Preparation" },
-          { id: "ew-excavation", label: "Excavation Volume" },
-          { id: "ew-hauling", label: "Hauling Volume" },
+          { id: "ew-general", label: "General Earthwork" },
+          { id: "ew-chainage", label: "Road Chainage & Mass Haul" },
+          { id: "ew-grid", label: "Grid Method" },
+          { id: "ew-slope", label: "Slope Stability" },
         ]
       },
       {
@@ -218,24 +293,14 @@ const SIDEBAR_DATA: MainCategory[] = [
     icon: FlaskConical,
     tools: [
       {
-        id: "geotechnical",
-        label: "Geotechnical & Soil Tests",
+        id: "soil-lab-suite",
+        label: "Soil & Materials Lab",
         icon: Layers,
         subTools: [
-          { id: "gt-wc", label: "Water Content" },
-          { id: "gt-sg", label: "Specific Gravity" },
-          { id: "gt-ll", label: "Liquid Limit (LL)" },
-          { id: "gt-cbr", label: "CBR" },
-        ]
-      },
-      {
-        id: "aggregate-blending",
-        label: "Aggregate Blending",
-        icon: Boxes,
-        subTools: [
-          { id: "ab-2", label: "2-Stockpile Blend" },
-          { id: "ab-3", label: "3-Stockpile Blend" },
-          { id: "ab-4", label: "4-Stockpile Blend" },
+          { id: "sl-index", label: "Index Properties" },
+          { id: "sl-gradation", label: "Gradation" },
+          { id: "sl-strength", label: "Strength & Permeability" },
+          { id: "sl-aggregates", label: "Road Aggregates" },
         ]
       }
     ]
@@ -425,6 +490,7 @@ export default function Sidebar({
                           case "Concrete Tech": iconBg = "bg-[#E55A2B]"; break;
                           case "Quantity Estimator": iconBg = "bg-[#6B46C1]"; break;
                           case "Road Construction": iconBg = "bg-[#0D9488]"; break;
+                          case "Structural Design": iconBg = "bg-[#BE185D]"; break;
                           case "Soil Tests": iconBg = "bg-[#D97706]"; break;
                           case "MEP": iconBg = "bg-[#2563EB]"; break;
                           case "Analysis & Tools": iconBg = "bg-[#4338CA]"; break;

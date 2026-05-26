@@ -15,6 +15,8 @@ import { CalculationHistory } from "../ui/CalculationHistory";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
 import ColorfulTab from "../ui/ColorfulTab";
+import { FieldTooltip } from "../ui/FieldTooltip";
+import { NumberInput } from "../ui/NumberInput";
 
 const mixRatios: Record<string, { c: number; s: number; a: number }> = {
   "M10 (1:3:6)": { c: 1, s: 3, a: 6 },
@@ -23,7 +25,7 @@ const mixRatios: Record<string, { c: number; s: number; a: number }> = {
   "M25 (1:1:2)": { c: 1, s: 1, a: 2 },
 };
 
-function InputGroup({ label, children, colSpan = 1 }: { label: string; children: React.ReactNode, colSpan?: number }) {
+function InputGroup({ label, children, colSpan = 1 }: { label: React.ReactNode; children: React.ReactNode, colSpan?: number }) {
   return (
     <div className={`flex flex-col gap-2 ${colSpan > 1 ? `md:col-span-${colSpan}` : ''}`}>
       <label className="text-sm font-bold text-slate-700 dark:text-slate-300">{label}</label>
@@ -32,10 +34,10 @@ function InputGroup({ label, children, colSpan = 1 }: { label: string; children:
   );
 }
 
-export default function IsolatedFootingCalculator() {
+export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEmbedded?: boolean }) {
   const { settings } = useSettings();
-  const [footingL, setFootingL] = useState("2.0");
-  const [footingW, setFootingW] = useState("2.0");
+  const [footingL, setFootingL] = useState("2.2");
+  const [footingW, setFootingW] = useState("2.2");
   const [footingD, setFootingD] = useState("0.5");
   
   const [columnL, setColumnL] = useState("0.4");
@@ -137,21 +139,83 @@ export default function IsolatedFootingCalculator() {
   
   const totalSteel = wtX + wtY + wtXTop + wtYTop;
 
+  const loadExample = () => {
+    setLoad("800");
+    setSbc("150");
+    setFootingL("2.5");
+    setFootingW("2.5");
+    setFootingD("0.5");
+  };
+
+  const resetDefault = () => {
+    setLoad("1000");
+    setSbc("250");
+    setFootingL("2.2");
+    setFootingW("2.2");
+    setFootingD("0.5");
+  };
+
+  const sendToBOQ = () => {
+    const items = [
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        division: "03 - Concrete",
+        description: `RCC Isolated Footing (${footingL}x${footingW}m, D=${footingD}m)`,
+        unit: "m³",
+        quantity: concreteVol,
+        rate: 0
+      },
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        division: "05 - Metals",
+        description: `Steel Reinforcement for Footing`,
+        unit: "kg",
+        quantity: totalSteel,
+        rate: 0
+      },
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        division: "02 - Site Work & Earthwork",
+        description: `Excavation for Footing`,
+        unit: "m³",
+        quantity: excavationVol,
+        rate: 0
+      }
+    ];
+    window.dispatchEvent(new CustomEvent('fill-boq', { detail: items }));
+    alert("Sent to BOQ Generator!");
+  };
+
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8">
+    <div className={isEmbedded ? "w-full space-y-6" : "w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8"}>
       <div className="max-w-5xl mx-auto space-y-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-black mb-2 flex items-center gap-3 text-text-primary">
-              <Box className="w-8 h-8 text-[#E55A2B] dark:text-[#ff8a65]" />
-              Isolated Footing Calculator
-            </h1>
-            <p className="text-slate-500 dark:text-slate-300 font-medium">
-              Calculate concrete, excavation, and steel mesh quantities for isolated foundations.
-            </p>
+        {!isEmbedded && (
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+            <div>
+              <h1 className="text-3xl font-black mb-2 flex items-center gap-3 text-text-primary">
+                <Box className="w-8 h-8 text-[#E55A2B] dark:text-[#ff8a65]" />
+                Isolated Footing Calculator
+              </h1>
+              <p className="text-slate-500 dark:text-slate-300 font-medium">
+                Calculate concrete, excavation, and steel mesh quantities for isolated foundations.
+              </p>
+            </div>
+            <div className="flex flex-col items-end gap-2">
+              <GlobalSettingsToggle align="left" showCurrency={false} />
+              <div className="flex gap-2">
+                <button onClick={sendToBOQ} className="text-xs font-bold px-3 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors border border-emerald-200 dark:border-emerald-800">
+                  Send to BOQ
+                </button>
+                <button onClick={loadExample} className="text-xs font-bold px-3 py-2 bg-[#E55A2B]/10 dark:bg-[#E55A2B]/20 text-[#E55A2B] dark:text-[#ff8a65] rounded-lg hover:bg-[#E55A2B]/20 dark:hover:bg-[#E55A2B]/30 transition-colors">
+                  Load Example
+                </button>
+                <button onClick={resetDefault} className="text-xs font-bold px-3 py-2 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                  Reset
+                </button>
+              </div>
+            </div>
           </div>
-          <GlobalSettingsToggle align="left" showCurrency={false} />
-        </div>
+        )}
         
         <div className="bg-bg-card rounded-3xl shadow-md border border-border-color overflow-hidden">
           <div className="p-6 md:p-8 space-y-8">
@@ -162,10 +226,15 @@ export default function IsolatedFootingCalculator() {
                   <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Load & SBC Check</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <InputGroup label="Column Load (kN)">
-                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={load} onChange={(e) => setLoad(e.target.value)} />
+                      <NumberInput className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={load} onChange={(val) => setLoad(val.toString())} />
                     </InputGroup>
-                    <InputGroup label="Safe Bearing Capacity (kN/m²)">
-                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={sbc} onChange={(e) => setSbc(e.target.value)} />
+                    <InputGroup label={
+                      <span className="flex items-center">
+                        Safe Bearing Capacity (kN/m²)
+                        <FieldTooltip content="Maximum load per unit area soil can carry without shear failure. IS 1904:1986: Soft clay = 50-100, Stiff clay = 100-200, Dense sand = 200-400, Rock = 1000-4000 kN/m²" />
+                      </span>
+                    }>
+                      <NumberInput className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={sbc} onChange={(val) => setSbc(val.toString())} />
                     </InputGroup>
                   </div>
                 </div>
@@ -174,13 +243,13 @@ export default function IsolatedFootingCalculator() {
                   <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Footing Details</h3>
                   <div className="grid grid-cols-3 gap-4">
                     <InputGroup label="Length (m)">
-                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={footingL} onChange={(e) => setFootingL(e.target.value)} />
+                      <NumberInput step="0.1" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={footingL} onChange={(val) => setFootingL(val.toString())} />
                     </InputGroup>
                     <InputGroup label="Width (m)">
-                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={footingW} onChange={(e) => setFootingW(e.target.value)} />
+                      <NumberInput step="0.1" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={footingW} onChange={(val) => setFootingW(val.toString())} />
                     </InputGroup>
                     <InputGroup label="Depth (m)">
-                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={footingD} onChange={(e) => setFootingD(e.target.value)} />
+                      <NumberInput step="0.1" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={footingD} onChange={(val) => setFootingD(val.toString())} />
                     </InputGroup>
                   </div>
                 </div>
@@ -190,9 +259,9 @@ export default function IsolatedFootingCalculator() {
                   <div className="grid grid-cols-2 gap-4">
                     <InputGroup label="Column L×W (m)">
                       <div className="flex gap-2">
-                        <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-3 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={columnL} onChange={(e) => setColumnL(e.target.value)} placeholder="L" />
+                        <NumberInput step="0.1" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={columnL} onChange={(val) => setColumnL(val.toString())} placeholder="L" />
                         <span className="text-slate-400 self-center">×</span>
-                        <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-3 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={columnW} onChange={(e) => setColumnW(e.target.value)} placeholder="W" />
+                        <NumberInput step="0.1" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={columnW} onChange={(val) => setColumnW(val.toString())} placeholder="W" />
                       </div>
                     </InputGroup>
                     <InputGroup label="Concrete Mix">
@@ -203,10 +272,10 @@ export default function IsolatedFootingCalculator() {
                       </select>
                     </InputGroup>
                     <InputGroup label="Working Space (m)">
-                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={workingSpace} onChange={(e) => setWorkingSpace(e.target.value)} />
+                      <NumberInput step="0.1" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={workingSpace} onChange={(val) => setWorkingSpace(val.toString())} />
                     </InputGroup>
                     <InputGroup label="Excavation Depth (m)">
-                      <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all shadow-sm" value={excavationDepth} onChange={(e) => setExcavationDepth(e.target.value)} />
+                      <NumberInput step="0.1" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={excavationDepth} onChange={(val) => setExcavationDepth(val.toString())} />
                     </InputGroup>
                   </div>
                 </div>
@@ -215,8 +284,13 @@ export default function IsolatedFootingCalculator() {
                   <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Reinforcement Mesh</h3>
                   <div className="grid grid-cols-3 gap-4 mb-3">
                     <div className="col-span-3">
-                      <InputGroup label="Clear Cover (mm)">
-                        <input type="number" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-indigo-500/50 outline-none transition-all shadow-sm" value={clearCover} onChange={(e) => setClearCover(e.target.value)} />
+                      <InputGroup label={
+                        <span className="flex items-center">
+                          Clear Cover (mm)
+                          <FieldTooltip content="Minimum concrete cover to protect reinforcement from corrosion. IS 456:2000 Table 16: Mild exposure = 20mm, Moderate = 30mm, Severe = 45mm, Very Severe = 50mm" />
+                        </span>
+                      }>
+                        <NumberInput className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={clearCover} onChange={(val) => setClearCover(val.toString())} />
                       </InputGroup>
                     </div>
                   </div>
@@ -230,7 +304,7 @@ export default function IsolatedFootingCalculator() {
                            </select>
                         </InputGroup>
                         <InputGroup label="Spacing c/c (mm)">
-                           <input type="number" className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={spacingX} onChange={e => setSpacingX(e.target.value)} />
+                           <NumberInput className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm transition-all" value={spacingX} onChange={(val) => setSpacingX(val.toString())} />
                         </InputGroup>
                       </div>
                     </div>
@@ -243,7 +317,7 @@ export default function IsolatedFootingCalculator() {
                            </select>
                         </InputGroup>
                         <InputGroup label="Spacing c/c (mm)">
-                           <input type="number" className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={spacingY} onChange={e => setSpacingY(e.target.value)} />
+                           <NumberInput className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm transition-all" value={spacingY} onChange={(val) => setSpacingY(val.toString())} />
                         </InputGroup>
                       </div>
                     </div>
@@ -267,7 +341,7 @@ export default function IsolatedFootingCalculator() {
                              </select>
                           </InputGroup>
                           <InputGroup label="Spacing c/c (mm)">
-                             <input type="number" className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={spacingXTop} onChange={e => setSpacingXTop(e.target.value)} />
+                             <NumberInput className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm transition-all" value={spacingXTop} onChange={(val) => setSpacingXTop(val.toString())} />
                           </InputGroup>
                         </div>
                       </div>
@@ -280,7 +354,7 @@ export default function IsolatedFootingCalculator() {
                              </select>
                           </InputGroup>
                           <InputGroup label="Spacing c/c (mm)">
-                             <input type="number" className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={spacingYTop} onChange={e => setSpacingYTop(e.target.value)} />
+                             <NumberInput className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm transition-all" value={spacingYTop} onChange={(val) => setSpacingYTop(val.toString())} />
                           </InputGroup>
                         </div>
                       </div>

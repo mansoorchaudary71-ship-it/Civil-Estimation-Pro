@@ -17,6 +17,7 @@ import { CalculationHistory } from "../ui/CalculationHistory";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
 import ColorfulTab from "../ui/ColorfulTab";
+import { FieldTooltip } from "../ui/FieldTooltip";
 
 const mixRatios: Record<string, { c: number; s: number; a: number }> = {
   "M10 (1:3:6)": { c: 1, s: 3, a: 6 },
@@ -25,7 +26,7 @@ const mixRatios: Record<string, { c: number; s: number; a: number }> = {
   "M25 (1:1:2)": { c: 1, s: 1, a: 2 },
 };
 
-function InputGroup({ label, children, info }: { label: string; children: React.ReactNode; info?: React.ReactNode }) {
+function InputGroup({ label, children, info }: { label: React.ReactNode; children: React.ReactNode; info?: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-2 relative group">
       <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center justify-between">
@@ -406,7 +407,12 @@ export default function ColumnEstimator() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
-                    <InputGroup label="Clear Cover (mm)">
+                    <InputGroup label={
+                      <span className="flex items-center">
+                        Clear Cover (mm)
+                        <FieldTooltip content="Minimum concrete cover to protect reinforcement from corrosion. IS 456:2000 Table 16: Mild exposure = 20mm, Moderate = 30mm, Severe = 45mm, Very Severe = 50mm" />
+                      </span>
+                    }>
                       <input
                         type="number"
                         min="0"

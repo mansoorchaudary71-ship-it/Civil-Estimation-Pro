@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { MaterialSummary } from '../ui/MaterialSummary';
-import { Calendar, CheckCircle, Image as ImageIcon, Link, BarChart, Upload, Trash2, Edit2, ChevronRight, FileOutput, Share2 } from 'lucide-react';
+import { Calendar, CheckCircle, Image as ImageIcon, Link, BarChart as BarChartIcon, Upload, Trash2, Edit2, ChevronRight, FileOutput, Share2, Bell, Download, DownloadCloud } from 'lucide-react';
+import { generateProgressPDF, exportToMSProject, exportToCSV } from "../../utils/projectReports";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, BarChart, Bar, LineChart, Line, ComposedChart } from 'recharts';
 
 interface Phase {
   id: string;
@@ -11,19 +13,23 @@ interface Phase {
   progress: number;
   budget: number;
   actualCost: number;
+  workersPlanned: number;
+  workersActual: number;
   photos: string[];
 }
 
 const DEFAULT_PHASES: Phase[] = [
-  { id: '1', name: 'Foundation', startDate: '2024-06-01', endDate: '2024-06-15', progress: 100, budget: 15000, actualCost: 14500, photos: [] },
-  { id: '2', name: 'Structure', startDate: '2024-06-16', endDate: '2024-07-20', progress: 60, budget: 35000, actualCost: 22000, photos: [] },
-  { id: '3', name: 'Roof', startDate: '2024-07-21', endDate: '2024-08-05', progress: 0, budget: 12000, actualCost: 0, photos: [] },
-  { id: '4', name: 'Brickwork', startDate: '2024-08-06', endDate: '2024-08-25', progress: 0, budget: 18000, actualCost: 0, photos: [] },
-  { id: '5', name: 'Plastering', startDate: '2024-08-26', endDate: '2024-09-10', progress: 0, budget: 8000, actualCost: 0, photos: [] },
-  { id: '6', name: 'Flooring', startDate: '2024-09-11', endDate: '2024-09-25', progress: 0, budget: 15000, actualCost: 0, photos: [] },
-  { id: '7', name: 'Paint', startDate: '2024-09-26', endDate: '2024-10-10', progress: 0, budget: 6000, actualCost: 0, photos: [] },
-  { id: '8', name: 'Finishing', startDate: '2024-10-11', endDate: '2024-10-20', progress: 0, budget: 10000, actualCost: 0, photos: [] },
+  { id: '1', name: 'Foundation', startDate: '2024-06-01', endDate: '2024-06-15', progress: 100, budget: 15000, actualCost: 14500, workersPlanned: 10, workersActual: 10, photos: [] },
+  { id: '2', name: 'Structure', startDate: '2024-06-16', endDate: '2024-07-20', progress: 60, budget: 35000, actualCost: 22000, workersPlanned: 20, workersActual: 18, photos: [] },
+  { id: '3', name: 'Roof', startDate: '2024-07-21', endDate: '2024-08-05', progress: 0, budget: 12000, actualCost: 0, workersPlanned: 8, workersActual: 0, photos: [] },
+  { id: '4', name: 'Brickwork', startDate: '2024-08-06', endDate: '2024-08-25', progress: 0, budget: 18000, actualCost: 0, workersPlanned: 15, workersActual: 0, photos: [] },
+  { id: '5', name: 'Plastering', startDate: '2024-08-26', endDate: '2024-09-10', progress: 0, budget: 8000, actualCost: 0, workersPlanned: 12, workersActual: 0, photos: [] },
+  { id: '6', name: 'Flooring', startDate: '2024-09-11', endDate: '2024-09-25', progress: 0, budget: 15000, actualCost: 0, workersPlanned: 10, workersActual: 0, photos: [] },
+  { id: '7', name: 'Paint', startDate: '2024-09-26', endDate: '2024-10-10', progress: 0, budget: 6000, actualCost: 0, workersPlanned: 6, workersActual: 0, photos: [] },
+  { id: '8', name: 'Finishing', startDate: '2024-10-11', endDate: '2024-10-20', progress: 0, budget: 10000, actualCost: 0, workersPlanned: 5, workersActual: 0, photos: [] },
 ];
+
+import html2canvas from 'html2canvas';
 
 export default function SiteProgressTracker() {
   const [phases, setPhases] = useState<Phase[]>([]);
@@ -59,24 +65,41 @@ export default function SiteProgressTracker() {
     }
   }, [phases]);
 
+  const handleExportPDF = async () => {
+    let sCurveImg;
+    let histogramImg;
+    try {
+      const el1 = document.getElementById('s-curve-chart');
+      if (el1) {
+         const canvas = await html2canvas(el1);
+         sCurveImg = canvas.toDataURL('image/png');
+      }
+      const el2 = document.getElementById('resource-histogram');
+      if (el2) {
+         const canvas = await html2canvas(el2);
+         histogramImg = canvas.toDataURL('image/png');
+      }
+    } catch(e) {
+      console.error(e);
+    }
+    await generateProgressPDF(phases, metrics, sCurveImg, histogramImg);
+  };
+
   // Calculations
   const metrics = useMemo(() => {
-    if (phases.length === 0) return { overallProgress: 0, totalBudget: 0, totalCost: 0, daysAheadBehind: 0 };
+    if (phases.length === 0) return { overallProgress: 0, totalBudget: 0, totalCost: 0, daysAheadBehind: 0, SPI: 1, CPI: 1, expectedProgress: 0 };
     
     let totalBudget = 0;
     let totalCost = 0;
-    let totalProgressWeight = 0;
+    let EV = 0; // Earned Value (totalProgressWeight)
+    let PV = 0; // Planned Value (expectedWeight)
     
-    // To calculate days ahead/behind, we compare expected progress vs actual
-    // Simple metric: if total actual cost > total budget (relative to progress), we are over burn.
-    // Time delta: sum of (budget * expected progress) vs (budget * actual progress)
-    let expectedWeight = 0;
     const today = new Date().getTime();
 
     phases.forEach(p => {
       totalBudget += p.budget;
       totalCost += p.actualCost;
-      totalProgressWeight += (p.progress / 100) * p.budget;
+      EV += (p.progress / 100) * p.budget;
       
       const s = new Date(p.startDate).getTime();
       const e = new Date(p.endDate).getTime();
@@ -86,18 +109,72 @@ export default function SiteProgressTracker() {
       else if (today > s && e > s) {
          expectedPct = ((today - s) / (e - s)) * 100;
       }
-      expectedWeight += (expectedPct / 100) * p.budget;
+      PV += (expectedPct / 100) * p.budget;
     });
 
-    const overallProgress = totalBudget > 0 ? (totalProgressWeight / totalBudget) * 100 : 0;
-    const expectedProgress = totalBudget > 0 ? (expectedWeight / totalBudget) * 100 : 0;
+    const overallProgress = totalBudget > 0 ? (EV / totalBudget) * 100 : 0;
+    const expectedProgress = totalBudget > 0 ? (PV / totalBudget) * 100 : 0;
+    const SPI = PV > 0 ? (EV / PV) : 1;
+    const CPI = totalCost > 0 ? (EV / totalCost) : 1;
     
     // Simple days estimation (1% progress = ~X days). Hacky but visually effective.
     const progressDiff = overallProgress - expectedProgress;
     const projectDuration = phases.length > 0 ? (new Date(phases[phases.length-1].endDate).getTime() - new Date(phases[0].startDate).getTime()) / (1000*60*60*24) : 0;
     const daysAheadBehind = Math.round((progressDiff / 100) * projectDuration);
 
-    return { overallProgress, totalBudget, totalCost, daysAheadBehind };
+    return { overallProgress, expectedProgress, totalBudget, totalCost, daysAheadBehind, SPI, CPI };
+  }, [phases]);
+
+  const chartData = useMemo(() => {
+    if (phases.length === 0) return [];
+    
+    // For a simplified S-Curve, we'll plot cumulatively by phase sequence instead of strict daily timeline interpolation
+    // to give a clear view.
+    let cumPV = 0;
+    let cumEV = 0;
+    let cumAC = 0;
+    
+    return phases.map((p, i) => {
+        const pv = p.budget;
+        const ev = (p.progress / 100) * p.budget;
+        const ac = p.actualCost;
+        
+        cumPV += pv;
+        cumEV += ev;
+        cumAC += ac;
+        
+        return {
+           name: p.name,
+           PlannedValue: Math.round(cumPV),
+           EarnedValue: Math.round(cumEV),
+           ActualCost: Math.round(cumAC),
+           WorkersPlanned: p.workersPlanned || 0,
+           WorkersActual: p.workersActual || 0
+        };
+    });
+  }, [phases]);
+
+  const notifications = useMemo(() => {
+     let notifs: string[] = [];
+     const today = new Date().getTime();
+     phases.forEach(p => {
+         const tEnd = new Date(p.endDate).getTime();
+         const daysToDeadline = (tEnd - today) / (1000 * 3600 * 24);
+         
+         if (p.progress < 100 && daysToDeadline > 0 && daysToDeadline <= 7) {
+            notifs.push(`Phase "${p.name}" is 7 days from deadline!`);
+         }
+         
+         const tStart = new Date(p.startDate).getTime();
+         let expPct = 0;
+         if (today > tEnd) expPct = 100;
+         else if (today > tStart) expPct = ((today - tStart) / (tEnd - tStart)) * 100;
+         
+         if (p.progress < expPct - 10 && expPct > 0) { // arbitrary threshold: 10% behind
+            notifs.push(`Phase "${p.name}" is lagging behind expectations.`);
+         }
+     });
+     return notifs;
   }, [phases]);
 
   // Gantt Chart Logic
@@ -152,23 +229,29 @@ export default function SiteProgressTracker() {
   const activePhase = phases.find(p => p.id === selectedPhase);
 
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500">
+    <div className="w-full max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500 pb-[120px]">
        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm">
          <div>
            <h2 className="text-3xl font-black text-slate-800 dark:text-white tracking-tight flex items-center gap-3">
               <div className="p-3 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-2xl">
-                <BarChart className="w-8 h-8" />
+                <BarChartIcon className="w-8 h-8" />
               </div>
               Site Progress Tracker
            </h2>
            <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">Track timelines, budgets, and visual progress.</p>
          </div>
-         <div className="flex gap-2">
-            <button onClick={handleShare} className="bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2">
-               <Share2 className="w-5 h-5" /> Share
+         <div className="flex flex-wrap gap-2">
+            <button onClick={() => exportToCSV(phases)} className="bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-4 py-2.5 rounded-xl font-bold transition flex items-center gap-2 text-sm">
+               <Download className="w-4 h-4" /> CSV
             </button>
-            <button onClick={() => window.print()} className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2">
-               <FileOutput className="w-5 h-5" /> Report
+            <button onClick={() => exportToMSProject(phases)} className="bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-4 py-2.5 rounded-xl font-bold transition flex items-center gap-2 text-sm">
+               <DownloadCloud className="w-4 h-4" /> XML
+            </button>
+            <button onClick={handleShare} className="bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-4 py-2.5 rounded-xl font-bold transition flex items-center gap-2 text-sm">
+               <Share2 className="w-4 h-4" /> Share
+            </button>
+            <button onClick={handleExportPDF} className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2 text-sm">
+               <FileOutput className="w-4 h-4" /> Report
             </button>
          </div>
        </div>
@@ -207,15 +290,77 @@ export default function SiteProgressTracker() {
                 </div>
 
                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm relative overflow-hidden flex flex-col justify-center">
-                   <p className="text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wider mb-2 relative z-10">Schedule Status</p>
+                   <p className="text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wider mb-2 relative z-10">Schedule Status <span className="text-indigo-500 ml-1">(SPI: {metrics.SPI.toFixed(2)})</span></p>
                    {metrics.daysAheadBehind > 0 ? (
                       <h3 className="text-3xl font-black text-emerald-500 leading-none">{metrics.daysAheadBehind} <span className="text-lg text-emerald-600/50">Days Ahead</span></h3>
                    ) : metrics.daysAheadBehind < 0 ? (
-                      <h3 className="text-3xl font-black text-rose-500 leading-none">{Math.abs(metrics.daysAheadBehind)} <span className="text-lg text-rose-600/50">Days Behind</span></h3>
+                      <h3 className={`text-3xl font-black ${Math.abs(metrics.daysAheadBehind) <= 7 ? 'text-amber-500' : 'text-rose-500'} leading-none`}>{Math.abs(metrics.daysAheadBehind)} <span className="text-lg opacity-50">Days Behind</span></h3>
                    ) : (
                       <h3 className="text-3xl font-black text-slate-500 leading-none">On Track</h3>
                    )}
                    <p className="text-xs font-bold mt-3 relative z-10 text-slate-400">Based on expected % vs actual %</p>
+                </div>
+             </div>
+
+             {notifications.length > 0 && (
+                <div className="bg-amber-50 dark:bg-amber-900/10 border-l-4 border-amber-500 p-4 rounded-r-xl relative overflow-hidden flex flex-col gap-2 shadow-sm mb-6 mt-6">
+                   <div className="flex items-center gap-2 text-amber-800 dark:text-amber-300 font-bold mb-1">
+                      <Bell className="w-5 h-5 flex-shrink-0" /> Project Alerts & Milestones
+                   </div>
+                   {notifications.map((n, idx) => (
+                      <div key={idx} className="text-sm font-medium text-amber-700 dark:text-amber-400 flex items-start gap-2">
+                         <span className="mt-1.5 block w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span> {n}
+                      </div>
+                   ))}
+                </div>
+             )}
+
+             {/* S-Curve & Histograms Grid */}
+             <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm p-6 overflow-hidden">
+                   <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-6">S-Curve (Planned vs Actual Value)</h3>
+                   <div className="h-64 w-full" id="s-curve-chart">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={chartData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                          <defs>
+                            <linearGradient id="colorPV" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="#94a3b8" stopOpacity={0.3}/>
+                              <stop offset="95%" stopColor="#94a3b8" stopOpacity={0}/>
+                            </linearGradient>
+                            <linearGradient id="colorEV" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
+                              <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                            </linearGradient>
+                          </defs>
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" strokeOpacity={0.5} />
+                          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#64748b' }} />
+                          <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#64748b' }} tickFormatter={(v) => `$${v/1000}k`} />
+                          <RechartsTooltip 
+                            contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                          />
+                          <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
+                          <Area type="monotone" dataKey="PlannedValue" name="Planned Value (PV)" stroke="#94a3b8" strokeWidth={2} fillOpacity={1} fill="url(#colorPV)" />
+                          <Area type="monotone" dataKey="EarnedValue" name="Earned Value (EV)" stroke="#10b981" strokeWidth={3} fillOpacity={1} fill="url(#colorEV)" />
+                        </AreaChart>
+                      </ResponsiveContainer>
+                   </div>
+                </div>
+
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm p-6 overflow-hidden">
+                   <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-6">Resource Allocation</h3>
+                   <div className="h-64 w-full" id="resource-histogram">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={chartData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" strokeOpacity={0.5} />
+                          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#64748b' }} />
+                          <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#64748b' }} />
+                          <RechartsTooltip cursor={{ fill: 'transparent' }} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
+                          <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
+                          <Bar dataKey="WorkersPlanned" name="Planned Workers" fill="#94a3b8" radius={[4, 4, 0, 0]} barSize={20} />
+                          <Bar dataKey="WorkersActual" name="Actual Workers" fill="#6366f1" radius={[4, 4, 0, 0]} barSize={20} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                   </div>
                 </div>
              </div>
 
@@ -340,6 +485,29 @@ export default function SiteProgressTracker() {
                                   disabled={isClientDemo}
                                />
                             </div>
+                         </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3">
+                         <div>
+                            <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">Planned Workers</label>
+                            <input 
+                               type="number" 
+                               value={activePhase.workersPlanned || 0} 
+                               onChange={(e) => handleUpdatePhase(activePhase.id, 'workersPlanned', parseInt(e.target.value)||0)}
+                               className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-semibold outline-none"
+                               disabled={isClientDemo}
+                            />
+                         </div>
+                         <div>
+                            <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">Actual Workers</label>
+                            <input 
+                               type="number" 
+                               value={activePhase.workersActual || 0} 
+                               onChange={(e) => handleUpdatePhase(activePhase.id, 'workersActual', parseInt(e.target.value)||0)}
+                               className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-semibold outline-none"
+                               disabled={isClientDemo}
+                            />
                          </div>
                       </div>
 

@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { MaterialSummary } from "../ui/MaterialSummary";
 import { ResultCard } from "../ui/ResultCard";
+import { FieldTooltip } from "../ui/FieldTooltip";
 
 import { useSettings } from "../../context/SettingsContext";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
@@ -187,8 +188,9 @@ export default function StandardEarthworks() {
               <div className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
                       Swell Factor (%)
+                      <FieldTooltip content="Volume increase when soil is excavated. Loose sandy soil = 10-15%, Clay = 20-30%, Rock = 25-50%" />
                     </label>
                     <input
                       type="number"
@@ -311,6 +313,25 @@ export default function StandardEarthworks() {
                totalUnit=""
                subtitle="Excavation + Compaction + Hauling"
              >
+               {totalCostConverted === 0 && (
+                <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-4 rounded-xl mt-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl">⚠</span>
+                    <p className="text-sm font-bold text-amber-800 dark:text-amber-400">
+                      Material rates not set. Fill in the rates above or go to Live DB Rates to set current market prices first.
+                    </p>
+                  </div>
+                  <button 
+                    onClick={() => {
+                      const event = new CustomEvent('navigate-module', { detail: { moduleId: 'rates' } });
+                      window.dispatchEvent(event);
+                    }}
+                    className="shrink-0 text-xs font-bold px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors"
+                  >
+                    Set Live DB Rates
+                  </button>
+                </div>
+               )}
                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
                  <ResultCard
                    title="Solid Volume"

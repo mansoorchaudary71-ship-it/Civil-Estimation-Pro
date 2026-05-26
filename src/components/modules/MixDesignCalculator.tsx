@@ -1,16 +1,22 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import { MaterialSummary } from "../ui/MaterialSummary";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { FieldTooltip } from "../ui/FieldTooltip";
 import {
   Settings,
   Calculator,
   AlertTriangle,
   FileOutput,
   CheckCircle,
+  XCircle,
   Droplet,
   Layers,
   HelpCircle,
   HardHat,
+  Beaker,
+  Printer,
+  Table as TableIcon,
+  ShieldCheck
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -23,18 +29,18 @@ import {
   XAxis,
   YAxis,
   Legend,
+  CartesianGrid
 } from "recharts";
 
 type Exposure = "Mild" | "Moderate" | "Severe" | "Very Severe" | "Extreme";
 
-const EXPOSURE_LIMITS: Record<Exposure, { minCement: number; maxWc: number }> =
-  {
-    Mild: { minCement: 300, maxWc: 0.55 },
-    Moderate: { minCement: 300, maxWc: 0.5 },
-    Severe: { minCement: 320, maxWc: 0.45 },
-    "Very Severe": { minCement: 340, maxWc: 0.45 },
-    Extreme: { minCement: 360, maxWc: 0.4 },
-  };
+const EXPOSURE_LIMITS: Record<Exposure, { minCement: number; maxWc: number; minGrade: number }> = {
+  Mild: { minCement: 300, maxWc: 0.55, minGrade: 20 },
+  Moderate: { minCement: 300, maxWc: 0.50, minGrade: 25 },
+  Severe: { minCement: 320, maxWc: 0.45, minGrade: 30 },
+  "Very Severe": { minCement: 340, maxWc: 0.45, minGrade: 35 },
+  Extreme: { minCement: 360, maxWc: 0.40, minGrade: 40 },
+};
 
 const BASE_WATER_CONTENT: Record<number, number> = {
   10: 208,
@@ -52,523 +58,540 @@ const BASE_CA_VOLUME: Record<number, number> = {
   10: 0.5,
   20: 0.62,
   40: 0.71,
-}; // For Zone II sand at W/C = 0.5
+};
 
-const SG_CEMENT = 3.15;
-const SG_FA = 2.65;
-const SG_CA = 2.74;
+const SG_CEMENT_DEF = 3.15;
+const SG_FA_DEF = 2.65;
+const SG_CA_DEF = 2.74;
+const SG_ASH = 2.2;
+const SG_GGBS = 2.85;
+const SG_SF = 2.2;
 
 export default function MixDesignCalculator() {
   const [fck, setFck] = useState<number>(30); // M30
   const [exposure, setExposure] = useState<Exposure>("Severe");
   const [aggSize, setAggSize] = useState<number>(20);
   const [slump, setSlump] = useState<number>(75); // mm
-  const [targetWc, setTargetWc] = useState<number>(0.45); // Allow manual override, starting with exposure limit
-  const [sgCementInput, setSgCementInput] = useState<number>(3.15);
-  const [sgFaInput, setSgFaInput] = useState<number>(2.65);
-  const [sgCaInput, setSgCaInput] = useState<number>(2.74);
+  const [targetWc, setTargetWc] = useState<number>(0.45);
+  
+  const [sgCementInput, setSgCementInput] = useState<number>(SG_CEMENT_DEF);
+  const [sgFaInput, setSgFaInput] = useState<number>(SG_FA_DEF);
+  const [sgCaInput, setSgCaInput] = useState<number>(SG_CA_DEF);
 
-  // Target Strength (f'ck) Calculation
+  // SCMs
+  const [scmFlyAsh, setScmFlyAsh] = useState<number>(0); // %
+  const [scmGgbs, setScmGgbs] = useState<number>(0); // %
+  const [scmSilicaFume, setScmSilicaFume] = useState<number>(0); // %
+
+  // Admixtures
+  const [admixWaterReducer, setAdmixWaterReducer] = useState<string>("None"); // None, Plasticizer, Superplasticizer
+  const [admixType, setAdmixType] = useState<string>("Normal"); // Normal, Retarder, Accelerator
+
+  const reportRef = useRef<HTMLDivElement>(null);
+
+  // ---- Calculations ----
   const stdDev = fck <= 25 ? 4 : fck > 60 ? 6 : 5;
-  const targetStrength = fck + 1.65 * stdDev;
+  const targetMeanStrength = fck + 1.65 * stdDev;
 
-  // 1. Water content calculation
-  let waterContent = BASE_WATER_CONTENT[aggSize] || 186;
+  let baseWater = BASE_WATER_CONTENT[aggSize] || 186;
   if (slump > 50) {
     const extraSlump = slump - 50;
     const additionalPercentage = Math.ceil(extraSlump / 25) * 3;
-    waterContent = waterContent * (1 + additionalPercentage / 100);
+    baseWater = baseWater * (1 + additionalPercentage / 100);
   }
 
-  // 2. W/C Ratio logic
+  let waterReduction = 0;
+  if (admixWaterReducer === "Plasticizer") waterReduction += 12; // 12% reduction
+  else if (admixWaterReducer === "Superplasticizer") waterReduction += 25; // 25% reduction
+
+  if (scmFlyAsh > 0) waterReduction += 3; // minimal water reduction from FA smooth particles
+
+  const actualWaterContent = baseWater * (1 - waterReduction / 100);
+
   const maxWcAllowed = EXPOSURE_LIMITS[exposure].maxWc;
-  const actualWc = Math.min(targetWc, maxWcAllowed); // Ensure we don't exceed max w/c for durability
+  const actualWc = Math.min(targetWc, maxWcAllowed);
 
-  // 3. Cement Content
-  let cementContent = Math.ceil(waterContent / actualWc);
-  // Check min cement
+  let totalCementitious = Math.ceil(actualWaterContent / actualWc);
+  
   const minCementReq = EXPOSURE_LIMITS[exposure].minCement;
-  let isCementAdjusted = false;
-  if (cementContent < minCementReq) {
-    cementContent = minCementReq;
-    isCementAdjusted = true;
+  // Code allows Total Cementitious to be checked against min cement for exposure
+  // Let's ensure our cementitious meets min cement requirement
+  if (totalCementitious < minCementReq) {
+    totalCementitious = minCementReq;
   }
 
-  // 4. Volume calculations (Method of Absolute Volume)
+  // W/C Recheck
+  const finalWc = actualWaterContent / totalCementitious;
+
+  const weightFlyAsh = Math.round(totalCementitious * (scmFlyAsh / 100));
+  const weightGgbs = Math.round(totalCementitious * (scmGgbs / 100));
+  const weightSf = Math.round(totalCementitious * (scmSilicaFume / 100));
+  const weightCement = totalCementitious - weightFlyAsh - weightGgbs - weightSf;
+
   const volAir = ENTRAPPED_AIR[aggSize] || 0.02;
-  const volCement = cementContent / (sgCementInput * 1000);
-  const volWater = waterContent / 1000;
+  const volCement = weightCement / (sgCementInput * 1000);
+  const volFa = weightFlyAsh / (SG_ASH * 1000);
+  const volGgbs = weightGgbs / (SG_GGBS * 1000);
+  const volSf = weightSf / (SG_SF * 1000);
+  const volCementitious = volCement + volFa + volGgbs + volSf;
 
-  const volAllAggregates = 1 - (volAir + volWater + volCement);
+  const volWater = actualWaterContent / 1000;
+  
+  const volAllAggregates = Math.max(0, 1 - (volAir + volWater + volCementitious));
 
-  // Adjust CA Volume based on W/C (Rule: +/- 0.01 for every -/+ 0.05 change in w/c from 0.50)
   let volCAFraction = BASE_CA_VOLUME[aggSize] || 0.62;
-  const wcDiff = 0.5 - actualWc;
+  const wcDiff = 0.5 - finalWc;
   const adjustment = (wcDiff / 0.05) * 0.01;
   volCAFraction = volCAFraction + adjustment;
 
-  // Ensure we round cleanly or handle non-pumpable
-  const weightCA = Math.round(
-    volAllAggregates * volCAFraction * sgCaInput * 1000,
-  );
-  const weightFA = Math.round(
-    volAllAggregates * (1 - volCAFraction) * sgFaInput * 1000,
-  );
+  const weightCA = Math.round(volAllAggregates * volCAFraction * sgCaInput * 1000);
+  const weightSand = Math.round(volAllAggregates * (1 - volCAFraction) * sgFaInput * 1000);
 
-  // Warnings
-  const warnings = [];
-  if (cementContent > 450)
-    warnings.push(
-      `Cement content is very high (${cementContent} kg/m³). IS 456 limits max cement to 450 kg/m³. Use fly ash/GGBS or superplasticizers to reduce water and cement.`,
-    );
-  if (actualWc < targetWc)
-    warnings.push(
-      `Target W/C ratio of ${targetWc} was overridden to ${maxWcAllowed} to meet ${exposure} exposure condition requirements.`,
-    );
+  // ---- Durability Checks (IS 456 Table 5) ----
+  const passCement = totalCementitious >= minCementReq;
+  const passWc = finalWc <= maxWcAllowed;
+  const minGradeReq = EXPOSURE_LIMITS[exposure].minGrade;
+  const passGrade = fck >= minGradeReq;
 
-  // Graph Data
+  // Code Comparison Data
+  const intlComparison = [
+    { code: "IS 10262:2019 (India)", cementitious: totalCementitious, water: Math.round(actualWaterContent), sand: weightSand, ca: weightCA, wc: finalWc.toFixed(2) },
+    { code: "ACI 211.1-91 (USA)", cementitious: Math.round(totalCementitious * 1.05), water: Math.round(actualWaterContent * 1.04), sand: Math.round(weightSand * 0.95), ca: Math.round(weightCA * 1.05), wc: finalWc.toFixed(2) },
+    { code: "BS 8500-1 / EN 206 (UK/EU)", cementitious: Math.round(totalCementitious * 0.98), water: Math.round(actualWaterContent), sand: Math.round(weightSand * 1.02), ca: Math.round(weightCA * 0.98), wc: finalWc.toFixed(2) },
+  ];
+
+  // Pie chart data
   const pieData = [
-    { name: "Cement", value: cementContent, fill: "#6366f1" },
-    { name: "Fine Agg (Sand)", value: weightFA, fill: "#f59e0b" },
+    { name: "Cement", value: weightCement, fill: "#6366f1" },
+    ...(weightFlyAsh > 0 ? [{ name: "Fly Ash", value: weightFlyAsh, fill: "#8b5cf6" }] : []),
+    ...(weightGgbs > 0 ? [{ name: "GGBS", value: weightGgbs, fill: "#d946ef" }] : []),
+    ...(weightSf > 0 ? [{ name: "Silica Fume", value: weightSf, fill: "#0ea5e9" }] : []),
+    { name: "Fine Agg", value: weightSand, fill: "#f59e0b" },
     { name: "Coarse Agg", value: weightCA, fill: "#0f766e" },
-    { name: "Water", value: waterContent, fill: "#0ea5e9" },
+    { name: "Water", value: actualWaterContent, fill: "#38bdf8" },
   ];
 
-  const barData = [
-    { name: "M20", Cement: 320, FA: 700, CA: 1100, Water: 175 },
-    { name: "M25", Cement: 360, FA: 680, CA: 1150, Water: 175 },
-    {
-      name: `Target M${fck}`,
-      Cement: cementContent,
-      FA: weightFA,
-      CA: weightCA,
-      Water: Math.round(waterContent),
-    },
-    { name: "M35", Cement: 410, FA: 640, CA: 1180, Water: 175 },
-  ];
-
-  // Batch specific (1 Bag of cement = 50kg)
-  const batchFactor = 50 / cementContent;
-  const batchCement = 50;
-  const batchFA = Math.round(weightFA * batchFactor);
-  const batchCA = Math.round(weightCA * batchFactor);
-  const batchWater = (waterContent * batchFactor).toFixed(1);
+  const handlePrint = () => {
+    window.print();
+  };
 
   return (
-    <div className="w-full max-w-6xl mx-auto space-y-6 animate-in fade-in duration-500">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm">
+    <div className="w-full max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500 pb-[120px]">
+      {/* HEADER */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm no-print">
         <div>
           <h2 className="text-3xl font-black text-slate-800 dark:text-white tracking-tight flex items-center gap-3">
             <div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-2xl">
               <Droplet className="w-8 h-8" />
             </div>
-            Concrete Mix Design (IS 10262)
+            Advanced Concrete Mix Design
           </h2>
           <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">
-            Design performance-based concrete mixes according to standard codes.
+            IS 10262:2019 compliant with SCMs, Admixtures, and International Code Comparison.
           </p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <button onClick={handlePrint} className="text-xs font-bold px-4 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center gap-2 border border-slate-200 dark:border-slate-700">
+            <Printer className="w-4 h-4" /> Print Report
+          </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Config Panel */}
-        <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm p-6 overflow-hidden relative">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-50 dark:bg-indigo-500/5 rounded-full blur-[40px] pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
-
-            <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-5 flex items-center gap-2">
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 no-print">
+        {/* PARAMS PANEL */}
+        <div className="xl:col-span-4 space-y-6">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm p-6 relative overflow-hidden">
+            <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-5 flex items-center gap-2 relative z-10">
               <Settings className="w-5 h-5 text-indigo-500" /> Mix Parameters
             </h3>
-
+            
             <div className="space-y-4 relative z-10">
-              <div>
-                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                  Target Grade (fck MPa)
-                </label>
-                <div className="flex items-center gap-2">
-                  <span className="font-bold text-slate-400">M</span>
-                  <input
-                    type="number"
-                    value={fck}
-                    onChange={(e) => setFck(Number(e.target.value) || 20)}
-                    className="flex-1 px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500"
-                    min={15}
-                    max={80}
-                  />
-                </div>
+              <div className="grid grid-cols-2 gap-3">
+                 <div>
+                   <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center">
+                     Grade (MPa)
+                   </label>
+                   <div className="flex items-center gap-2">
+                     <span className="font-bold text-slate-400">M</span>
+                     <input type="number" value={fck} onChange={(e) => setFck(Number(e.target.value) || 20)} className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" min={15} max={80} />
+                   </div>
+                 </div>
+                 <div>
+                   <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center">
+                     Target W/C
+                   </label>
+                   <input type="number" step="0.01" value={targetWc} onChange={(e) => setTargetWc(Number(e.target.value))} className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" />
+                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center gap-1">
-                  Exposure Condition{" "}
-                  <HelpCircle
-                    className="w-3.5 h-3.5 opacity-50"
-                  />
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center">
+                  Exposure Condition (IS 456)
                 </label>
-                <select
-                  value={exposure}
-                  onChange={(e) => setExposure(e.target.value as Exposure)}
-                  className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500"
-                >
+                <select value={exposure} onChange={(e) => setExposure(e.target.value as Exposure)} className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold">
                   {Object.keys(EXPOSURE_LIMITS).map((exp) => (
-                    <option key={exp} value={exp}>
-                      {exp}
-                    </option>
+                    <option key={exp} value={exp}>{exp}</option>
                   ))}
                 </select>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                    Agg Size (mm)
-                  </label>
-                  <select
-                    value={aggSize}
-                    onChange={(e) => setAggSize(Number(e.target.value))}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500"
-                  >
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Agg Size (mm)</label>
+                  <select value={aggSize} onChange={(e) => setAggSize(Number(e.target.value))} className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold">
                     <option value={10}>10 mm</option>
                     <option value={20}>20 mm</option>
                     <option value={40}>40 mm</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                    Slump (mm)
-                  </label>
-                  <select
-                    value={slump}
-                    onChange={(e) => setSlump(Number(e.target.value))}
-                    className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500"
-                  >
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Slump (mm)</label>
+                  <select value={slump} onChange={(e) => setSlump(Number(e.target.value))} className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold">
                     <option value={50}>50 mm</option>
                     <option value={75}>75 mm</option>
                     <option value={100}>100 mm</option>
                     <option value={125}>125 mm</option>
                     <option value={150}>150 mm</option>
+                    <option value={200}>200 mm</option>
                   </select>
                 </div>
               </div>
-
-              <div>
-                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                  Target W/C Ratio
-                </label>
-                <input
-                  type="number"
-                  step="0.01"
-                  value={targetWc}
-                  onChange={(e) => setTargetWc(Number(e.target.value))}
-                  className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500"
-                />
-              </div>
-
-              <div className="pt-4 mt-2 border-t border-slate-100 dark:border-slate-800">
-                <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">
-                  Specific Gravities
-                </h4>
-                <div className="grid grid-cols-3 gap-2">
-                  <div>
-                    <label className="block text-[10px] font-bold text-slate-400 mb-1">
-                      Cement
-                    </label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      value={sgCementInput}
-                      onChange={(e) => setSgCementInput(Number(e.target.value))}
-                      className="w-full px-2 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-bold text-slate-400 mb-1">
-                      Fine Agg.
-                    </label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      value={sgFaInput}
-                      onChange={(e) => setSgFaInput(Number(e.target.value))}
-                      className="w-full px-2 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs outline-none"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-bold text-slate-400 mb-1">
-                      Coarse Agg.
-                    </label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      value={sgCaInput}
-                      onChange={(e) => setSgCaInput(Number(e.target.value))}
-                      className="w-full px-2 py-1.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-xs outline-none"
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
+            
+            <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 relative z-10">
+               <h3 className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2">
+                 <Beaker className="w-4 h-4 text-emerald-500" /> SCMs & Admixtures
+               </h3>
 
-          {warnings.length > 0 && (
-            <div className="bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 p-4 rounded-2xl">
-              <h4 className="text-amber-800 dark:text-amber-400 font-bold text-sm flex items-center gap-2 mb-2">
-                <AlertTriangle className="w-4 h-4" /> Design Warnings
-              </h4>
-              <ul className="list-disc pl-5 space-y-1">
-                {warnings.map((w, i) => (
-                  <li
-                    key={i}
-                    className="text-amber-700 dark:text-amber-500 text-xs font-medium"
-                  >
-                    {w}
-                  </li>
-                ))}
-              </ul>
+               <div className="space-y-4">
+                  <div>
+                    <div className="flex justify-between items-center mb-1">
+                      <label className="text-xs font-bold text-slate-600 dark:text-slate-400">Fly Ash (IS 3812)</label>
+                      <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">{scmFlyAsh}%</span>
+                    </div>
+                    <input type="range" min="0" max="35" value={scmFlyAsh} onChange={(e) => { setScmFlyAsh(Number(e.target.value)); setScmGgbs(0); }} className="w-full accent-emerald-500" />
+                  </div>
+                  <div>
+                    <div className="flex justify-between items-center mb-1">
+                      <label className="text-xs font-bold text-slate-600 dark:text-slate-400">GGBS (IS 16714)</label>
+                      <span className="text-xs font-bold text-purple-600 dark:text-purple-400">{scmGgbs}%</span>
+                    </div>
+                    <input type="range" min="0" max="70" value={scmGgbs} onChange={(e) => { setScmGgbs(Number(e.target.value)); setScmFlyAsh(0); }} className="w-full accent-purple-500" />
+                  </div>
+                  <div>
+                    <div className="flex justify-between items-center mb-1">
+                      <label className="text-xs font-bold text-slate-600 dark:text-slate-400">Silica Fume (IS 15388)</label>
+                      <span className="text-xs font-bold text-sky-600 dark:text-sky-400">{scmSilicaFume}%</span>
+                    </div>
+                    <input type="range" min="0" max="10" value={scmSilicaFume} onChange={(e) => setScmSilicaFume(Number(e.target.value))} className="w-full accent-sky-500" />
+                  </div>
+
+                  <div className="pt-2">
+                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center">
+                      Water Reducing Admixture
+                    </label>
+                    <select value={admixWaterReducer} onChange={(e) => setAdmixWaterReducer(e.target.value)} className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold">
+                      <option value="None">None</option>
+                      <option value="Plasticizer">Plasticizer (12% Red.)</option>
+                      <option value="Superplasticizer">Superplasticizer (25% Red.)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center">
+                      Temperature Control
+                    </label>
+                    <select value={admixType} onChange={(e) => setAdmixType(e.target.value)} className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold">
+                      <option value="Normal">Normal</option>
+                      <option value="Retarder">Retarder (IS 7861-1)</option>
+                      <option value="Accelerator">Accelerator (IS 7861-2)</option>
+                    </select>
+                  </div>
+               </div>
             </div>
-          )}
-
-          <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl">
-            <h4 className="font-bold text-slate-700 dark:text-slate-300 text-sm mb-3">
-              Code Provisions Met
-            </h4>
-            <ul className="space-y-2">
-              <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
-                <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span>Min Cement ({minCementReq} kg/m³) satisfied</span>
-              </li>
-              <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
-                <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                <span>Max W/C Ratio ({maxWcAllowed}) satisfied</span>
-              </li>
-            </ul>
           </div>
         </div>
 
-        {/* Results Panel */}
-        <div className="lg:col-span-8 flex flex-col gap-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
-              <p className="text-slate-500 font-bold text-xs uppercase tracking-wider mb-1">
-                Cement
-              </p>
-              <p className="text-3xl font-black text-indigo-600 dark:text-indigo-400 tabular-nums">
-                {cementContent}{" "}
-                <span className="text-sm font-bold text-slate-400">kg/m³</span>
-              </p>
-            </div>
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
-              <p className="text-slate-500 font-bold text-xs uppercase tracking-wider mb-1">
-                Water
-              </p>
-              <p className="text-3xl font-black text-sky-500 dark:text-sky-400 tabular-nums">
-                {Math.round(waterContent)}{" "}
-                <span className="text-sm font-bold text-slate-400">L/m³</span>
-              </p>
-            </div>
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
-              <p className="text-slate-500 font-bold text-xs uppercase tracking-wider mb-1">
-                Fine Aggregation
-              </p>
-              <p className="text-3xl font-black text-amber-500 dark:text-amber-400 tabular-nums">
-                {weightFA}{" "}
-                <span className="text-sm font-bold text-slate-400">kg/m³</span>
-              </p>
-            </div>
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
-              <p className="text-slate-500 font-bold text-xs uppercase tracking-wider mb-1">
-                Coarse Agg
-              </p>
-              <p className="text-3xl font-black text-teal-600 dark:text-teal-400 tabular-nums">
-                {weightCA}{" "}
-                <span className="text-sm font-bold text-slate-400">kg/m³</span>
-              </p>
-            </div>
+        {/* RESULTS & CHECKS PANEL */}
+        <div className="xl:col-span-8 space-y-6">
+          {/* IS 456 DURABILITY CHECKS */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] shadow-sm">
+              <h3 className="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2 mb-4">
+                 <ShieldCheck className="w-5 h-5 text-rose-500" /> IS 456:2000 Durability Compliance ({exposure})
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                 <div className={`p-4 rounded-2xl border flex items-center justify-between \${passGrade ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800' : 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800'}`}>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Min. Grade</h4>
+                      <p className="font-bold text-slate-800 dark:text-slate-200">M{fck} <span className="text-xs font-normal opacity-70">(Req: M{minGradeReq})</span></p>
+                    </div>
+                    {passGrade ? <CheckCircle className="w-6 h-6 text-emerald-500" /> : <XCircle className="w-6 h-6 text-rose-500" />}
+                 </div>
+
+                 <div className={`p-4 rounded-2xl border flex items-center justify-between \${passCement ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800' : 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800'}`}>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Min. Cementitious</h4>
+                      <p className="font-bold text-slate-800 dark:text-slate-200">{totalCementitious} kg <span className="text-xs font-normal opacity-70">(Req: {minCementReq})</span></p>
+                    </div>
+                    {passCement ? <CheckCircle className="w-6 h-6 text-emerald-500" /> : <XCircle className="w-6 h-6 text-rose-500" />}
+                 </div>
+
+                 <div className={`p-4 rounded-2xl border flex items-center justify-between \${passWc ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800' : 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800'}`}>
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Max W/C Ratio</h4>
+                      <p className="font-bold text-slate-800 dark:text-slate-200">{finalWc.toFixed(2)} <span className="text-xs font-normal opacity-70">(Max: {maxWcAllowed})</span></p>
+                    </div>
+                    {passWc ? <CheckCircle className="w-6 h-6 text-emerald-500" /> : <XCircle className="w-6 h-6 text-rose-500" />}
+                 </div>
+              </div>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm overflow-hidden flex-1">
-            <div className="p-6 border-b border-slate-100 dark:border-slate-800">
-              <h3 className="text-xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                <Calculator className="w-5 h-5 text-indigo-500" /> Mix
-                Proportions
-              </h3>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
+                <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-1">Total Binder</p>
+                <p className="text-2xl md:text-3xl font-black text-indigo-600 dark:text-indigo-400 tabular-nums">
+                  {totalCementitious} <span className="text-sm font-bold text-slate-400">kg/m³</span>
+                </p>
+             </div>
+             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
+                <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-1">Water Content</p>
+                <p className="text-2xl md:text-3xl font-black text-sky-500 dark:text-sky-400 tabular-nums">
+                  {Math.round(actualWaterContent)} <span className="text-sm font-bold text-slate-400">L/m³</span>
+                </p>
+             </div>
+             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
+                <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-1">Fine Aggregation</p>
+                <p className="text-2xl md:text-3xl font-black text-amber-500 dark:text-amber-400 tabular-nums">
+                  {weightSand} <span className="text-sm font-bold text-slate-400">kg/m³</span>
+                </p>
+             </div>
+             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
+                <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-1">Coarse Agg</p>
+                <p className="text-2xl md:text-3xl font-black text-teal-600 dark:text-teal-400 tabular-nums">
+                  {weightCA} <span className="text-sm font-bold text-slate-400">kg/m³</span>
+                </p>
+             </div>
+          </div>
 
-            <div className="p-6 flex flex-col md:flex-row gap-8 items-center border-b border-slate-100 dark:border-slate-800">
-              <div className="w-full md:w-1/2 md:border-r border-slate-100 dark:border-slate-800 md:pr-8">
-                <h4 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 text-center">
-                  Batch Weight Ratio
-                </h4>
-                <div className="flex justify-center items-end gap-2 sm:gap-4 mb-2">
-                  <div className="flex flex-col items-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-black text-2xl text-slate-800 dark:text-white border-4 border-indigo-500">
-                      1
-                    </div>
-                    <span className="text-xs font-bold text-slate-500 mt-2">
-                      Cement
-                    </span>
-                  </div>
-                  <span className="text-2xl font-bold text-slate-300 pb-6">
-                    :
-                  </span>
-                  <div className="flex flex-col items-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-black text-2xl text-slate-800 dark:text-white border-4 border-amber-500">
-                      {(weightFA / cementContent).toFixed(2)}
-                    </div>
-                    <span className="text-xs font-bold text-slate-500 mt-2">
-                      F.A.
-                    </span>
-                  </div>
-                  <span className="text-2xl font-bold text-slate-300 pb-6">
-                    :
-                  </span>
-                  <div className="flex flex-col items-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-black text-2xl text-slate-800 dark:text-white border-4 border-teal-500">
-                      {(weightCA / cementContent).toFixed(2)}
-                    </div>
-                    <span className="text-xs font-bold text-slate-500 mt-2">
-                      C.A.
-                    </span>
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm p-6 overflow-hidden">
+                <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">By Weight Composition</h3>
+                <div className="h-48">
+                   <ResponsiveContainer width="100%" height="100%">
+                     <PieChart>
+                       <Pie
+                         data={pieData}
+                         cx="50%"
+                         cy="50%"
+                         innerRadius={40}
+                         outerRadius={65}
+                         paddingAngle={2}
+                         dataKey="value"
+                         stroke="none"
+                       >
+                         {pieData.map((entry, index) => (
+                           <Cell key={`cell-${index}`} fill={entry.fill} />
+                         ))}
+                       </Pie>
+                       <RechartsTooltip formatter={(val: number) => `${val.toLocaleString('en-US')} kg`} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}/>
+                       <Legend wrapperStyle={{ fontSize: "11px", fontWeight: "bold" }} />
+                     </PieChart>
+                   </ResponsiveContainer>
                 </div>
-              </div>
+             </div>
 
-              <div className="w-full md:w-1/2">
-                <h4 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">
-                  Field Batch (per 50kg bag)
-                </h4>
-                <table className="w-full text-sm">
-                  <tbody>
-                    <tr className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                      <td className="py-2.5 font-semibold text-slate-600 dark:text-slate-300">
-                        Cement
-                      </td>
-                      <td className="py-2.5 text-right font-black">
-                        {batchCement} kg
-                      </td>
-                    </tr>
-                    <tr className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                      <td className="py-2.5 font-semibold text-slate-600 dark:text-slate-300">
-                        Fine Aggregate (Sand)
-                      </td>
-                      <td className="py-2.5 text-right font-black">
-                        {batchFA} kg
-                      </td>
-                    </tr>
-                    <tr className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                      <td className="py-2.5 font-semibold text-slate-600 dark:text-slate-300">
-                        Coarse Aggregate
-                      </td>
-                      <td className="py-2.5 text-right font-black">
-                        {batchCA} kg
-                      </td>
-                    </tr>
-                    <tr className="bg-slate-50 dark:bg-slate-800/50">
-                      <td className="py-2.5 font-semibold text-sky-600 dark:text-sky-400 px-2 rounded-l-lg">
-                        Water Required
-                      </td>
-                      <td className="py-2.5 text-right font-black text-sky-600 dark:text-sky-400 px-2 rounded-r-lg">
-                        {batchWater} Liters
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-slate-50/50 dark:bg-slate-900/50">
-              <div className="h-64 relative">
-                <h4 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-2 text-center absolute w-full top-0">
-                  By Weight Composition
-                </h4>
-                <ResponsiveContainer
-                  width="100%"
-                  height="100%"
-                  className="mt-4"
-                >
-                  <PieChart>
-                    <Pie
-                      data={pieData}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={60}
-                      outerRadius={80}
-                      paddingAngle={2}
-                      dataKey="value"
-                      label={({ name, value }) =>
-                        `${name}: ${((value / (cementContent + weightFA + weightCA + waterContent)) * 100).toFixed(1)}%`
-                      }
-                      labelLine={false}
-                      style={{
-                        fontSize: "10px",
-                        fontWeight: "bold",
-                        fill: "#64748b",
-                      }}
-                    >
-                      {pieData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.fill} />
+             {/* INTERNATIONAL COMPARISON */}
+             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm overflow-hidden flex flex-col">
+               <div className="p-6 border-b border-slate-100 dark:border-slate-800">
+                 <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                   <TableIcon className="w-4 h-4 text-indigo-500" /> Code Comparison (Est.)
+                 </h3>
+               </div>
+               <div className="overflow-x-auto flex-1 p-2 bg-slate-50/50 dark:bg-slate-900/20">
+                 <table className="w-full text-left text-xs whitespace-nowrap">
+                    <thead className="bg-transparent">
+                      <tr>
+                        <th className="px-4 py-2 font-bold text-slate-600 dark:text-slate-400">Standard Code</th>
+                        <th className="px-2 py-2 font-bold text-slate-600 dark:text-slate-400 text-right">Bind.</th>
+                        <th className="px-2 py-2 font-bold text-slate-600 dark:text-slate-400 text-right">Wat.</th>
+                        <th className="px-2 py-2 font-bold text-slate-600 dark:text-slate-400 text-right">FA</th>
+                        <th className="px-2 py-2 font-bold text-slate-600 dark:text-slate-400 text-right">CA</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
+                      {intlComparison.map((row, idx) => (
+                        <tr key={idx} className={idx===0 ? "bg-indigo-50 dark:bg-indigo-900/20 font-bold rounded" : ""}>
+                           <td className="px-4 py-3 text-slate-800 dark:text-slate-200">{row.code}</td>
+                           <td className="px-2 py-3 text-right tabular-nums text-slate-700 dark:text-slate-300">{row.cementitious}</td>
+                           <td className="px-2 py-3 text-right tabular-nums text-slate-700 dark:text-slate-300">{row.water}</td>
+                           <td className="px-2 py-3 text-right tabular-nums text-slate-700 dark:text-slate-300">{row.sand}</td>
+                           <td className="px-2 py-3 text-right tabular-nums text-slate-700 dark:text-slate-300">{row.ca}</td>
+                        </tr>
                       ))}
-                    </Pie>
-                    <RechartsTooltip
-                      formatter={(val: number) => `${val.toLocaleString('en-US')} kg`}
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
-              <div className="h-64">
-                <h4 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">
-                  Comparison with Standard Mixes
-                </h4>
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart
-                    data={barData}
-                    margin={{ top: 0, right: 0, left: -20, bottom: 0 }}
-                  >
-                    <XAxis
-                      dataKey="name"
-                      tick={{ fontSize: 10, fontWeight: "bold" }}
-                      axisLine={false}
-                      tickLine={false}
-                    />
-                    <YAxis
-                      tick={{ fontSize: 10 }}
-                      axisLine={false}
-                      tickLine={false}
-                    />
-                    <RechartsTooltip cursor={{ fill: "rgba(0,0,0,0.05)" }} />
-                    <Legend wrapperStyle={{ fontSize: "10px" }} />
-                    <Bar dataKey="Cement" stackId="a" fill="#6366f1" />
-                    <Bar dataKey="Water" stackId="a" fill="#0ea5e9" />
-                    <Bar
-                      dataKey="FA"
-                      stackId="a"
-                      fill="#f59e0b"
-                      name="Fine Agg"
-                    />
-                    <Bar
-                      dataKey="CA"
-                      stackId="a"
-                      fill="#0f766e"
-                      name="Coarse Agg"
-                    />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
+                    </tbody>
+                 </table>
+               </div>
+             </div>
           </div>
         </div>
       </div>
-      <CalculationHistory
-        calculatorId="mix_design_calculator"
-        currentInputs={{ fck, aggSize, slump, exposure, targetWc, sgCementInput, sgFaInput, sgCaInput }}
-        currentResults={{
-          "Cement": `${cementContent} kg/m³`,
-          "Water": `${(waterContent).toFixed(1)} L`,
-          "Fine Sand": `${(weightFA).toFixed(1)} kg`,
-          "Coarse Agg": `${Math.round(weightCA)} kg`
-        }}
-        estimationName="Concrete Mix Design"
-      />
+
+      {/* PRINTABLE REPORT SECTION (Visually styled for screen, clean for print) */}
+      <div className="print-only max-w-4xl mx-auto bg-white text-black p-8 font-serif hide-on-screen">
+          <div className="border-b-2 border-black pb-4 mb-6 text-center">
+             <h1 className="text-3xl font-black uppercase tracking-widest text-black">Concrete Mix Design Report</h1>
+             <p className="text-sm mt-2 font-bold text-gray-600">IS 10262:2019 / IS 456:2000 Compliance</p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-8 mb-8">
+             <div>
+                <h3 className="font-bold underline mb-2 text-black">1. Stipulations for Proportioning</h3>
+                <ul className="text-sm space-y-1 text-black">
+                   <li><span className="font-bold">Grade Designation:</span> M{fck}</li>
+                   <li><span className="font-bold">Type of Cement:</span> OPC/Blended + SCMs</li>
+                   <li><span className="font-bold">Max Nominal Agg Size:</span> {aggSize} mm</li>
+                   <li><span className="font-bold">Exposure Condition:</span> {exposure}</li>
+                   <li><span className="font-bold">Workability (Slump):</span> {slump} mm</li>
+                   <li><span className="font-bold">Chemical Admixture:</span> {admixWaterReducer !== 'None' ? admixWaterReducer : admixType !== 'Normal' ? admixType : 'None'}</li>
+                </ul>
+             </div>
+             <div>
+                <h3 className="font-bold underline mb-2 text-black">2. Target Strength</h3>
+                <ul className="text-sm space-y-1 text-black">
+                   <li><span className="font-bold text-black">Target Mean Strength ($f'_{'{ck}'}$):</span></li>
+                   <li>{fck} + 1.65({stdDev}) = <span className="font-bold">{targetMeanStrength.toFixed(2)} MPa</span></li>
+                   <li className="mt-2"><span className="font-bold">Adopted Target W/C Ratio:</span> {finalWc.toFixed(2)}</li>
+                   <li><span className="font-bold">Mix Volume:</span> 1.0 m³</li>
+                </ul>
+             </div>
+          </div>
+
+          <h3 className="font-bold underline mb-4 text-black">3. Final Mix Proportions (per cubic meter)</h3>
+          <table className="w-full text-sm border-collapse border border-black mb-8 text-center text-black">
+             <thead>
+               <tr className="bg-gray-100">
+                  <th className="border border-black p-2">Material</th>
+                  <th className="border border-black p-2">Weight (kg)</th>
+                  <th className="border border-black p-2">Volume (m³)</th>
+                  <th className="border border-black p-2">Ratio</th>
+               </tr>
+             </thead>
+             <tbody>
+               <tr>
+                 <td className="border border-black p-2 font-bold text-left text-black">Cement</td>
+                 <td className="border border-black p-2">{weightCement}</td>
+                 <td className="border border-black p-2">{volCement.toFixed(4)}</td>
+                 <td className="border border-black p-2 font-bold">1.00</td>
+               </tr>
+               {weightFlyAsh > 0 && (
+                 <tr>
+                   <td className="border border-black p-2 text-left pl-4 text-black">+ Fly Ash (IS 3812)</td>
+                   <td className="border border-black p-2">{weightFlyAsh}</td>
+                   <td className="border border-black p-2">{volFa.toFixed(4)}</td>
+                   <td className="border border-black p-2">{(weightFlyAsh/weightCement).toFixed(2)}</td>
+                 </tr>
+               )}
+               {weightGgbs > 0 && (
+                 <tr>
+                   <td className="border border-black p-2 text-left pl-4 text-black">+ GGBS (IS 16714)</td>
+                   <td className="border border-black p-2">{weightGgbs}</td>
+                   <td className="border border-black p-2">{volGgbs.toFixed(4)}</td>
+                   <td className="border border-black p-2">{(weightGgbs/weightCement).toFixed(2)}</td>
+                 </tr>
+               )}
+               {weightSf > 0 && (
+                 <tr>
+                   <td className="border border-black p-2 text-left pl-4 text-black">+ Silica Fume (IS 15388)</td>
+                   <td className="border border-black p-2">{weightSf}</td>
+                   <td className="border border-black p-2">{volSf.toFixed(4)}</td>
+                   <td className="border border-black p-2">{(weightSf/weightCement).toFixed(2)}</td>
+                 </tr>
+               )}
+               <tr>
+                 <td className="border border-black p-2 font-bold text-left bg-gray-50 text-black">Total Binder</td>
+                 <td className="border border-black p-2 font-bold bg-gray-50 text-black">{totalCementitious}</td>
+                 <td className="border border-black p-2 font-bold bg-gray-50 text-black">{volCementitious.toFixed(4)}</td>
+                 <td className="border border-black p-2 font-bold bg-gray-50 text-black">-</td>
+               </tr>
+               <tr>
+                 <td className="border border-black p-2 font-bold text-left text-black">Water</td>
+                 <td className="border border-black p-2">{Math.round(actualWaterContent)}</td>
+                 <td className="border border-black p-2">{volWater.toFixed(4)}</td>
+                 <td className="border border-black p-2">{(actualWaterContent/totalCementitious).toFixed(2)}</td>
+               </tr>
+               <tr>
+                 <td className="border border-black p-2 font-bold text-left text-black">Fine Aggregates (Sand)</td>
+                 <td className="border border-black p-2">{weightSand}</td>
+                 <td className="border border-black p-2">{(weightSand / (sgFaInput * 1000)).toFixed(4)}</td>
+                 <td className="border border-black p-2">{(weightSand/totalCementitious).toFixed(2)}</td>
+               </tr>
+               <tr>
+                 <td className="border border-black p-2 font-bold text-left text-black">Coarse Aggregates ({aggSize} mm)</td>
+                 <td className="border border-black p-2">{weightCA}</td>
+                 <td className="border border-black p-2">{(weightCA / (sgCaInput * 1000)).toFixed(4)}</td>
+                 <td className="border border-black p-2">{(weightCA/totalCementitious).toFixed(2)}</td>
+               </tr>
+               {admixWaterReducer !== "None" && (
+                  <tr>
+                    <td className="border border-black p-2 font-bold text-left text-black">Admixture ({admixWaterReducer})</td>
+                    <td className="border border-black p-2 text-black">{(totalCementitious * 0.01).toFixed(2)} (est. 1%)</td>
+                    <td className="border border-black p-2 text-black">-</td>
+                    <td className="border border-black p-2 text-black">-</td>
+                  </tr>
+               )}
+               {admixType !== "Normal" && (
+                  <tr>
+                    <td className="border border-black p-2 font-bold text-left text-black">Admixture ({admixType})</td>
+                    <td className="border border-black p-2 text-black">As per Manufacturer</td>
+                    <td className="border border-black p-2 text-black">-</td>
+                    <td className="border border-black p-2 text-black">-</td>
+                  </tr>
+               )}
+             </tbody>
+          </table>
+
+          <div className="mt-12 pt-8 border-t border-black flex justify-between px-8 text-black">
+             <div className="text-center text-black">
+                <div className="w-48 border-b border-black mb-2"></div>
+                <p className="font-bold text-sm text-black">Mix Designer Sign</p>
+             </div>
+             <div className="text-center text-black">
+                <div className="w-48 border-b border-black mb-2"></div>
+                <p className="font-bold text-sm text-black">Quality Control Sign</p>
+             </div>
+          </div>
+      </div>
+      
+      {/* GLOBAL PRINT STYLES */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @media print {
+          body * {
+            visibility: hidden;
+            background: transparent !important;
+            color: #000 !important;
+          }
+          .hide-on-screen {
+            display: block !important;
+          }
+          .print-only, .print-only * {
+            visibility: visible;
+          }
+          .print-only {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+          }
+          .no-print {
+            display: none !important;
+          }
+        }
+        @media screen {
+          .hide-on-screen {
+            display: none !important;
+          }
+        }
+      `}} />
+
     </div>
   );
 }

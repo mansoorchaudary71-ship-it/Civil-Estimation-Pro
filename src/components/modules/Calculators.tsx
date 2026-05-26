@@ -40,7 +40,7 @@ import { CalculationHistory } from "../ui/CalculationHistory";
 import { SEO } from "../SEO";
 import { StyledChart } from "../ui/EstimateVisualizer";
 
-export default function ConstructionMaterialEstimator() {
+export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }: { forcedTab?: "master" | "concrete" | "bricks" | "blocks" | "plaster" | "bricks-blocks" | "steel"; hideHeader?: boolean } = {}) {
   const { formatCurrency, currentUnit, setCurrentUnit, currentCurrency } = useGlobalSettings();
   const { user } = useAuth();
   const { isProcessing, hasData, processEstimate, resetEstimate } = useEstimateProcessing();
@@ -83,8 +83,8 @@ export default function ConstructionMaterialEstimator() {
     { id: "cement", label: "Cement", icon: Box },
     { id: "sand", label: "Sand", icon: Scaling },
   ] as const;
-  type TabId = (typeof fullTabs)[number]["id"];
-  const [activeTab, setActiveTab] = useState<TabId>("master");
+  type TabId = (typeof fullTabs)[number]["id"] | "bricks-blocks";
+  const [activeTab, setActiveTab] = useState<TabId>(forcedTab || "master");
   const [concreteType, setConcreteType] = useState<"slab" | "column" | "staircase">("slab");
   const [finishesType, setFinishesType] = useState<"plaster" | "paint" | "antitermite">("plaster");
 
@@ -1352,58 +1352,64 @@ export default function ConstructionMaterialEstimator() {
   }
 
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent text-slate-900 p-6 md:p-8">
-      <SEO 
-        title="Construction Material Estimator" 
-        description="Calculate exact material requirements like cement, sand, and aggregate for brickwork, plaster, and concrete across your construction projects." 
-        canonicalUrl="https://civilestimationpro.com/calculators" 
-        schema={schema}
-      />
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
-          <div>
-            <h1 className="text-3xl font-black text-gray-900 mb-2">
-              Construction Material Estimator
-            </h1>
-            <p className="text-gray-700 dark:text-gray-300 font-medium">
-              Accurate estimations for concrete, bricks, steel, blocks, and
-              mortar.
-            </p>
-            <div className="mt-4 flex items-center gap-4">
-              <GlobalSettingsToggle align="left" />
+    <div className={hideHeader ? "w-full" : "w-full h-full overflow-y-auto bg-transparent text-slate-900 p-6 md:p-8"}>
+      {!hideHeader && (
+        <SEO 
+          title="Construction Material Estimator" 
+          description="Calculate exact material requirements like cement, sand, and aggregate for brickwork, plaster, and concrete across your construction projects." 
+          canonicalUrl="https://civilestimationpro.com/calculators" 
+          schema={schema}
+        />
+      )}
+      <div className={hideHeader ? "w-full" : "max-w-7xl mx-auto"}>
+        {!hideHeader && (
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
+            <div>
+              <h1 className="text-3xl font-black text-gray-900 mb-2">
+                Construction Material Estimator
+              </h1>
+              <p className="text-gray-700 dark:text-gray-300 font-medium">
+                Accurate estimations for concrete, bricks, steel, blocks, and
+                mortar.
+              </p>
+              <div className="mt-4 flex items-center gap-4">
+                <GlobalSettingsToggle align="left" />
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-4">
+              <div className="bg-white px-4 py-3 rounded-xl border flex items-center gap-2 shadow-sm">
+                <span className="text-xs font-bold text-gray-700 dark:text-gray-300">
+                  WASTAGE
+                </span>
+                <input
+                  type="number"
+                  value={wastage}
+                  onChange={(e) => setWastage(e.target.value)}
+                  className="w-14 text-center font-bold bg-transparent rounded border border-slate-200 p-1 focus:ring-2 focus:ring-indigo-500/50"
+                />
+                <span className="text-xs font-bold text-gray-700 dark:text-gray-300">%</span>
+              </div>
             </div>
           </div>
-          <div className="flex flex-wrap items-center gap-4">
-            <div className="bg-white px-4 py-3 rounded-xl border flex items-center gap-2 shadow-sm">
-              <span className="text-xs font-bold text-gray-700 dark:text-gray-300">
-                WASTAGE
-              </span>
-              <input
-                type="number"
-                value={wastage}
-                onChange={(e) => setWastage(e.target.value)}
-                className="w-14 text-center font-bold bg-transparent rounded border border-slate-200 p-1 focus:ring-2 focus:ring-indigo-500/50"
-              />
-              <span className="text-xs font-bold text-gray-700 dark:text-gray-300">%</span>
-            </div>
+        )}
+        {!hideHeader && (
+          <div className="flex overflow-x-auto pb-4 gap-2 mb-4 p-1 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            {fullTabs.map((tab, idx) => {
+              const colors = ["indigo", "rose", "emerald", "amber", "cyan", "fuchsia", "teal"];
+              const color = colors[idx % colors.length] as any;
+              return (
+                <ColorfulTab index={idx} key={tab.id}
+                  id={tab.id}
+                  label={tab.label}
+                  icon={<tab.icon className="w-4 h-4" />}
+                  isActive={activeTab === tab.id}
+                  onClick={() => { setActiveTab(tab.id); resetEstimate(); }}
+                  colorTheme={color}
+                />
+              );
+            })}
           </div>
-        </div>
-        <div className="flex overflow-x-auto pb-4 gap-2 mb-4 p-1 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          {fullTabs.map((tab, idx) => {
-            const colors = ["indigo", "rose", "emerald", "amber", "cyan", "fuchsia", "teal"];
-            const color = colors[idx % colors.length] as any;
-            return (
-              <ColorfulTab index={idx} key={tab.id}
-                id={tab.id}
-                label={tab.label}
-                icon={<tab.icon className="w-4 h-4" />}
-                isActive={activeTab === tab.id}
-                onClick={() => { setActiveTab(tab.id); resetEstimate(); }}
-                colorTheme={color}
-              />
-            );
-          })}
-        </div>
+        )}
         <div className="bg-bg-card p-6 md:p-8 rounded-xl shadow-md border border-border-color transition-all duration-300 relative">
           <div className={`grid grid-cols-1 ${activeTab !== "master" && activeTab !== "cement" && activeTab !== "sand" && activeTab !== "bricks" ? "lg:grid-cols-2 gap-8 relative" : "gap-4"}`}>
             <div 

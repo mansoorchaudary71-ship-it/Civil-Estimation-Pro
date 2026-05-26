@@ -19,7 +19,20 @@ interface BBSRow {
 }
 
 export default function BarBendingSchedule() {
-  const [rows, setRows] = useState<BBSRow[]>([]);
+  const [rows, setRows] = useState<BBSRow[]>([
+    {
+      id: "demo-example",
+      member: "Beam B1 (Demo)",
+      shape: "rect-stirrup",
+      dia: 8,
+      noOfBars: 1,
+      cover: 40,
+      inputs: { W: 300, D: 450, A: 220, B: 370 },
+      cutLengthM: 1.372, // 2(220+370) + 24*8 = 1180 + 192 = 1372mm
+      totalLengthM: 1.372,
+      totalWeightKg: 0.54 // (8^2 / 162.28) * 1.372
+    }
+  ]);
 
   // Input states
   const [member, setMember] = useState("");
@@ -140,7 +153,43 @@ export default function BarBendingSchedule() {
     window.print();
   };
 
+  const loadExample = () => {
+    setMember("B1 — Main Beam");
+    setShape("rect-stirrup");
+    setDia("8");
+    setNoOfBars("25");
+    setCover("40");
+    setWidth("300");
+    setDepth("450");
+  };
+
+  const resetDefault = () => {
+    setMember("");
+    setShape("rect-stirrup");
+    setDia("8");
+    setNoOfBars("1");
+    setCover("40");
+    setWidth("300");
+    setDepth("450");
+  };
+
   const totalProjectWeight = rows.reduce((sum, r) => sum + r.totalWeightKg, 0);
+
+  const sendToBOQ = () => {
+    if (rows.length === 0) return;
+    const items = [
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        division: "05 - Metals",
+        description: `Steel Reinforcement (BBS Total - ${rows.length} items)`,
+        unit: "kg",
+        quantity: totalProjectWeight,
+        rate: 0
+      }
+    ];
+    window.dispatchEvent(new CustomEvent('fill-boq', { detail: items }));
+    alert("Sent to BOQ Generator!");
+  };
 
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
@@ -161,7 +210,20 @@ export default function BarBendingSchedule() {
             </div>
             <p className="text-gray-500 dark:text-gray-400 ml-1">Create printable Bar Bending Schedules with exact cutting lengths</p>
           </div>
-          <div className="mt-6 flex flex-wrap gap-4 items-center">
+          <div className="mt-6 flex flex-wrap gap-2 items-center">
+             <button
+               onClick={sendToBOQ}
+               disabled={rows.length === 0}
+               className="text-sm font-bold px-4 py-2.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-xl hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors disabled:opacity-50 border border-emerald-200 dark:border-emerald-800"
+             >
+               Send to BOQ
+             </button>
+             <button onClick={loadExample} className="text-sm font-bold px-4 py-2.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors">
+               Load Example
+             </button>
+             <button onClick={resetDefault} className="text-sm font-bold px-4 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+               Reset
+             </button>
              <button
                 onClick={handlePrint}
                 className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold rounded-xl bg-indigo-600 hover:bg-blue-700 text-white shadow-md shadow-blue-200 transition-all"

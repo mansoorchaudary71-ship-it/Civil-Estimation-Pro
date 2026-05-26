@@ -361,13 +361,13 @@ export function CalculationHistory({
 
       {/* Bottom Navigation Action Bar */}
       <div className="fixed bottom-6 left-0 lg:left-[300px] right-0 z-[60] flex justify-center w-full lg:w-auto font-sans px-2 pointer-events-none">
-        <div className="flex items-center justify-between w-full max-w-[420px] sm:max-w-[550px] rounded-full border border-slate-300/80 dark:border-slate-600/60 p-1.5 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md pointer-events-auto shadow-xl gap-1 mx-auto flex-nowrap overflow-visible">
+        <div className="flex items-stretch justify-between w-full max-w-[420px] sm:max-w-[550px] rounded-full border border-slate-300/80 dark:border-slate-600/60 p-1.5 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md pointer-events-auto shadow-xl gap-1 mx-auto flex-nowrap overflow-visible">
           
           {/* Dashboard Button */}
           <button
             type="button"
             onClick={handleGoHome}
-            className="flex-1 min-w-[70px] flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-300 group border border-transparent hover:border-blue-200 dark:hover:border-blue-500/20"
+            className="flex-1 min-w-[60px] sm:min-w-[70px] min-h-[50px] flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-300 group border border-transparent hover:border-blue-200 dark:hover:border-blue-500/20"
             aria-label="Back to Dashboard"
           >
             <Home className="w-[18px] h-[18px] text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
@@ -378,7 +378,7 @@ export function CalculationHistory({
           <button
             type="button"
             onClick={() => setIsOpen(true)}
-            className="flex-1 min-w-[70px] flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-orange-700 dark:hover:text-orange-300 group relative border border-transparent hover:border-orange-200 dark:hover:border-orange-500/20"
+            className="flex-1 min-w-[60px] sm:min-w-[70px] min-h-[50px] flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-orange-700 dark:hover:text-orange-300 group relative border border-transparent hover:border-orange-200 dark:hover:border-orange-500/20"
             aria-label="View History"
           >
             <History className="w-[18px] h-[18px] text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
@@ -404,7 +404,7 @@ export function CalculationHistory({
               }
             }}
             disabled={isSavingLocal || isSavingCloud}
-            className="flex-1 min-w-[70px] flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-emerald-50 dark:hover:bg-emerald-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-300 disabled:opacity-50 group border border-transparent hover:border-emerald-200 dark:hover:border-emerald-500/20"
+            className="flex-1 min-w-[60px] sm:min-w-[70px] min-h-[50px] flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-emerald-50 dark:hover:bg-emerald-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-300 disabled:opacity-50 group border border-transparent hover:border-emerald-200 dark:hover:border-emerald-500/20"
             aria-label="Save Calculation"
           >
             {isSavingLocal || isSavingCloud ? (
@@ -421,9 +421,9 @@ export function CalculationHistory({
             title={estimationName || "Calculation"}
             data={currentResults || currentInputs || {}}
             exportFormat={savePayload || { inputs: currentInputs || {}, breakdown: currentResults || {} }}
-            containerClassName="flex-1 min-w-[70px] m-0 p-0 flex pointer-events-auto items-stretch"
+            containerClassName="flex-1 min-w-[60px] sm:min-w-[70px] m-0 p-0 flex pointer-events-auto items-stretch h-full min-h-[50px]"
             popupPosition="top"
-            triggerClassName="w-full h-full flex-col sm:flex-row flex items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-purple-50 dark:hover:bg-purple-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-purple-700 dark:hover:text-purple-300 group border border-transparent hover:border-purple-200 dark:hover:border-purple-500/20"
+            triggerClassName="w-full h-full min-h-[50px] flex-col sm:flex-row flex items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-purple-50 dark:hover:bg-purple-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-purple-700 dark:hover:text-purple-300 group border border-transparent hover:border-purple-200 dark:hover:border-purple-500/20"
             triggerContent={
               <>
                 <Share2 className="w-[18px] h-[18px] text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
@@ -436,7 +436,7 @@ export function CalculationHistory({
           <button
             type="button"
             onClick={() => window.print()}
-            className="flex-1 min-w-[70px] flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-rose-700 dark:hover:text-rose-300 group border border-transparent hover:border-rose-200 dark:hover:border-rose-500/20"
+            className="flex-1 min-w-[60px] sm:min-w-[70px] min-h-[50px] flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-rose-700 dark:hover:text-rose-300 group border border-transparent hover:border-rose-200 dark:hover:border-rose-500/20"
             aria-label="Print Calculation"
           >
             <Printer className="w-[18px] h-[18px] text-rose-600 dark:text-rose-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
