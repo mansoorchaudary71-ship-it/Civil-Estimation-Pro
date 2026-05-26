@@ -361,7 +361,7 @@ export function CalculationHistory({
 
       {/* Bottom Navigation Action Bar */}
       <div className="fixed bottom-6 left-0 lg:left-[300px] right-0 z-[60] flex justify-center w-full lg:w-auto font-sans px-2 pointer-events-none">
-        <div className="flex items-center justify-between w-full max-w-[420px] sm:max-w-[550px] rounded-full border border-slate-300/80 dark:border-slate-600/60 p-1.5 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md pointer-events-auto shadow-xl gap-1 overflow-x-auto mx-auto no-scrollbar">
+        <div className="flex items-center justify-between w-full max-w-[420px] sm:max-w-[550px] rounded-full border border-slate-300/80 dark:border-slate-600/60 p-1.5 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md pointer-events-auto shadow-xl gap-1 mx-auto flex-nowrap overflow-visible">
           
           {/* Dashboard Button */}
           <button
@@ -423,7 +423,7 @@ export function CalculationHistory({
             exportFormat={savePayload || { inputs: currentInputs || {}, breakdown: currentResults || {} }}
             containerClassName="flex-1 min-w-[70px] m-0 p-0 flex pointer-events-auto"
             popupPosition="top"
-            triggerClassName="w-full flex-col sm:flex-row flex items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-purple-50 dark:hover:bg-purple-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-purple-700 dark:hover:text-purple-300 group overflow-hidden border border-transparent hover:border-purple-200 dark:hover:border-purple-500/20"
+            triggerClassName="w-full flex-col sm:flex-row flex items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-purple-50 dark:hover:bg-purple-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-purple-700 dark:hover:text-purple-300 group border border-transparent hover:border-purple-200 dark:hover:border-purple-500/20"
             triggerContent={
               <>
                 <Share2 className="w-[18px] h-[18px] text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />

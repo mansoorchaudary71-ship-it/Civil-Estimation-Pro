@@ -14,6 +14,7 @@ import {
   Settings,
   ChevronUp,
   ChevronDown,
+  ChevronRight,
   Share2,
   Download,
   Database,
@@ -23,6 +24,8 @@ import {
   Spline,
   Calculator,
   Briefcase,
+  X,
+  CheckCircle2,
 } from "lucide-react";
 import {
   PieChart,
@@ -168,6 +171,7 @@ export default function HouseEstimator() {
   const [activeTab, setActiveTab] = useState<
     "grey" | "finishing" | "summary" | "rcc" | "master" | "rates"
   >("summary");
+  const [isMathOpen, setIsMathOpen] = useState(false);
   const [finishQuality, setFinishQuality] = useState<number>(1);
   /* 1: Standard, 2: Premium, 3: Luxury */ const [
     isGlobalSettingsOpen,
@@ -175,7 +179,7 @@ export default function HouseEstimator() {
   ] = useState(false);
   /* Master Unit System Toggle */ const masterUnit =
     settings.measurement === "SI" ? "metric" : "imperial";
-  const [topTab, setTopTab] = useState<"General House" | "Kitchen" | "Bedroom" | "Drawing Room" | "Washroom" | "Basement">("General House");
+  const [isRoomModalOpen, setIsRoomModalOpen] = useState(false);
   /* Boundary Wall State */ const [
     includeBoundaryWall,
     setIncludeBoundaryWall,
@@ -605,479 +609,145 @@ export default function HouseEstimator() {
           </div>
         </header>
 
-        {/* Top Tabbed Interface */}
-        <div className="flex gap-2 p-1 bg-white/50 backdrop-blur-md rounded-2xl w-fit mb-8 shadow-sm border border-slate-200 dark:bg-slate-800/50 dark:border-slate-700 overflow-x-auto max-w-full">
-          {(["General House", "Rooms & Basement"] as const).map(tab => (
-            <button
-              key={tab}
-              onClick={() => setTopTab(tab)}
-              className={`px-6 py-3 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
-                topTab === tab
-                  ? "bg-purple-600 text-white shadow-md shadow-purple-500/20"
-                  : "text-slate-600 hover:text-slate-900 hover:bg-white/60 dark:text-slate-400 dark:hover:text-slate-200"
-              }`}
-            >
-              {tab} {tab !== "General House" && <span className="ml-1 bg-orange-500 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded-full tracking-wider">PRO</span>}
-            </button>
-          ))}
-        </div>
-
-        {topTab === "Rooms & Basement" ? (
-          <DetailedRoomEstimators />
-        ) : (
-          <div className="space-y-8 w-full">
-        {/* Project Details */}
-        <section className="bg-white/80 p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_32px_rgba(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-3 bg-indigo-50 rounded-2xl">
-              <Briefcase className="w-6 h-6 text-indigo-600" />
-            </div>
-            <div>
-              <h2 className="text-xl font-bold text-gray-800">
-                Project Details
-              </h2>
-              <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">
-                For accurate reports & records
-              </p>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
-                Project Name
-              </label>
-              <input
-                type="text"
-                value={projectDetails.projectName}
-                onChange={(e) =>
-                  setProjectDetails({
-                    ...projectDetails,
-                    projectName: e.target.value,
-                  })
-                }
-                className="bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
-                placeholder="e.g. 5 Marla Villa"
-              />
-            </div>
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
-                Client Name
-              </label>
-              <input
-                type="text"
-                value={projectDetails.clientName}
-                onChange={(e) =>
-                  setProjectDetails({
-                    ...projectDetails,
-                    clientName: e.target.value,
-                  })
-                }
-                className="bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
-                placeholder="e.g. John Doe"
-              />
-            </div>
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
-                Site Location
-              </label>
-              <input
-                type="text"
-                value={projectDetails.siteLocation}
-                onChange={(e) =>
-                  setProjectDetails({
-                    ...projectDetails,
-                    siteLocation: e.target.value,
-                  })
-                }
-                className="bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all"
-                placeholder="e.g. DHA Phase 6"
-              />
-            </div>
-          </div>
-        </section>
-
+        <div className="space-y-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Main Controls Overlay */}
           <section className="lg:col-span-4 space-y-6">
-            {/* Plot & Geometry Accordion */}
-            <div className="bg-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
-              <div
-                className="flex items-center justify-between mb-6 cursor-pointer"
-                onClick={() => setIsAccordionOpen(!isAccordionOpen)}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="p-3 bg-blue-50 text-indigo-600 rounded-2xl">
-                    <Home className="w-6 h-6" />
-                  </div>
-                  <h2 className="text-lg font-bold text-gray-800">
-                    Plot & Geometry
-                  </h2>
+            {/* Quick Estimate Base Controls */}
+            <div className="bg-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl space-y-6">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="p-3 bg-blue-50 text-indigo-600 rounded-2xl">
+                  <Home className="w-6 h-6" />
                 </div>
-                <div className="p-2 bg-transparent text-slate-500 dark:text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors">
-                  {isAccordionOpen ? (
-                    <ChevronUp className="w-5 h-5" />
-                  ) : (
-                    <ChevronDown className="w-5 h-5" />
-                  )}
+                <div>
+                  <h2 className="text-lg font-bold text-gray-800">
+                    Quick Estimate
+                  </h2>
+                  <p className="text-xs text-slate-500 font-medium tracking-wide">
+                    Basic Configuration
+                  </p>
                 </div>
               </div>
-              {/* Basic View (when closed) */}
-              {!isAccordionOpen && (
-                <div className="space-y-4 animate-in fade-in zoom-in-95">
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="font-bold text-slate-700 dark:text-slate-300">Plot Size</span>
-                    <span className="font-bold text-slate-800">
-                      {geoState.plotSizeValue}
-                      {geoState.plotSizeUnit.toUpperCase()}
+
+              {/* City Location */}
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">
+                  City / Location
+                </label>
+                <input
+                  type="text"
+                  value={projectDetails.siteLocation}
+                  onChange={(e) =>
+                    setProjectDetails({
+                      ...projectDetails,
+                      siteLocation: e.target.value,
+                    })
+                  }
+                  className="bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all shadow-sm"
+                  placeholder="e.g. DHA Phase 6"
+                />
+              </div>
+
+              {/* Plot Size */}
+              <div>
+                <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1 group flex items-center gap-1 w-fit cursor-help">
+                  Plot Size 
+                  <span className="relative">
+                    <AlertCircle className="w-3.5 h-3.5 text-slate-400" />
+                    <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max px-3 py-1.5 bg-slate-800 text-white text-[10px] rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                      Total land area limits the maximum covered area
                     </span>
+                  </span>
+                </label>
+                <div className="flex flex-col gap-3">
+                  <input
+                    type="number"
+                    value={geoState.plotSizeValue}
+                    onChange={(e) =>
+                      dispatch({
+                        type: "SET_PLOT_SIZE_VALUE",
+                        payload: e.target.value,
+                      })
+                    }
+                    className="bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all font-medium shadow-sm w-full"
+                    placeholder="0"
+                  />
+                  <div className="w-full">
+                    <UnitToggleGroup
+                      units={[
+                        { id: "marla", label: "Marla" },
+                        { id: "sqyd", label: "Sq.Yd" },
+                        { id: "sqft", label: "Sq.Ft" },
+                      ]}
+                      activeUnit={geoState.plotSizeUnit}
+                      onChange={(u) =>
+                        dispatch({
+                          type: "SET_PLOT_SIZE_UNIT",
+                          payload: u as any,
+                        })
+                      }
+                      size="md"
+                    />
                   </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="font-bold text-slate-700 dark:text-slate-300">
-                      Covered Area
-                    </span>
-                    <span className="font-bold text-slate-800">
-                      {geoState.coveredAreaSqft} Sq.Ft/fl
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="font-bold text-slate-700 dark:text-slate-300">Stories</span>
-                    <span className="font-bold text-slate-800">
+                </div>
+              </div>
+
+              {/* Stories & Rooms Config */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
+                    Stories
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() =>
+                        dispatch({
+                          type: "SET_STORIES",
+                          payload: Math.max(1, geoState.stories - 1),
+                        })
+                      }
+                      className="w-10 h-10 rounded-xl bg-slate-100 text-slate-600 font-bold hover:bg-slate-200 flex items-center justify-center"
+                    >
+                      -
+                    </button>
+                    <span className="font-bold text-lg w-6 text-center">
                       {geoState.stories}
                     </span>
-                  </div>
-                  <button
-                    onClick={() => setIsAccordionOpen(true)}
-                    className="w-full py-3 bg-blue-50 text-indigo-600 font-bold rounded-xl text-sm hover:bg-blue-100 transition-colors"
-                  >
-                    Edit Detailed Geometry
-                  </button>
-                </div>
-              )}
-              {/* Detailed View (when open) */}
-              {isAccordionOpen && (
-                <div className="space-y-6 animate-in slide-in-from-top-4 fade-in duration-300">
-                  <div className="bg-transparent/50 px-4 py-3 sm:px-4 py-3 rounded-[1.5rem] border border-slate-100 space-y-6">
-                    <h3 className="text-sm font-bold text-slate-800">
-                      Area Specifications
-                    </h3>
-                    <div className="space-y-5">
-                      {/* Total Area */}
-                      <div>
-                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">
-                          Total Area
-                        </label>
-                        <div className="flex flex-col gap-3">
-                          <input
-                            type="number"
-                            value={geoState.plotSizeValue}
-                            onChange={(e) =>
-                              dispatch({
-                                type: "SET_PLOT_SIZE_VALUE",
-                                payload: e.target.value,
-                              })
-                            }
-                            className="bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all font-medium shadow-sm w-full"
-                            placeholder="0"
-                          />
-                          <select
-                            value={geoState.plotSizeUnit}
-                            onChange={(e) =>
-                              dispatch({
-                                type: "SET_PLOT_SIZE_UNIT",
-                                payload: e.target.value as any,
-                              })
-                            }
-                            className="hidden"
-                          ></select>
-                          <div className="w-full">
-                            <UnitToggleGroup
-                              units={[
-                                { id: "marla", label: "Marla" },
-                                { id: "sqyd", label: "Sq.Yd" },
-                                { id: "sqft", label: "Sq.Ft" },
-                              ]}
-                              activeUnit={geoState.plotSizeUnit}
-                              onChange={(u) =>
-                                dispatch({
-                                  type: "SET_PLOT_SIZE_UNIT",
-                                  payload: u as any,
-                                })
-                              }
-                              size="md"
-                            />
-                          </div>
-                        </div>
-                        <p className="text-[11px] text-slate-700 dark:text-slate-300 mt-1.5 ml-2">
-                          Total plot size (
-                          {isSI
-                            ? (plotAreaSqft / 10.7639).toFixed(1)
-                            : plotAreaSqft.toFixed(0)}
-                          {isSI ? "Sq.M" : "Sq.Ft"})
-                        </p>
-                      </div>
-                      {/* Covered Area */}
-                      <div>
-                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">
-                          Covered Area
-                        </label>
-                        <div className="relative">
-                          <input
-                            type="number"
-                            value={geoState.coveredAreaSqft}
-                            onChange={(e) =>
-                              dispatch({
-                                type: "SET_COVERED_AREA_SQFT",
-                                payload: e.target.value,
-                              })
-                            }
-                            className="w-full bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all font-medium shadow-sm"
-                            placeholder="0" /* In metric we assume input was already SQM visually but actually logic uses sqft, so let's adapt. Actually let's keep logic in sqft and just display correctly for users if needed. wait, actually for simplicity just changing display is fine. */
-                          />
-                          <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-700 dark:text-slate-300 pointer-events-none">
-                            {isSI ? "SQ.M" : "SQ.FT"}
-                          </span>
-                        </div>
-                        <p className="text-[11px] text-slate-700 dark:text-slate-300 mt-1.5 ml-2">
-                          Constructed area per floor
-                        </p>
-                      </div>
-                      {/* Open Area */}
-                      <div>
-                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">
-                          Open Area
-                        </label>
-                        <div className="relative">
-                          <input
-                            type="number"
-                            value={Math.max(
-                              0,
-                              plotAreaSqft -
-                                (parseFloat(geoState.coveredAreaSqft) || 0),
-                            )}
-                            onChange={(e) => {
-                              const open = parseFloat(e.target.value) || 0;
-                              const covered = Math.max(0, plotAreaSqft - open);
-                              dispatch({
-                                type: "SET_COVERED_AREA_SQFT",
-                                payload: covered.toString(),
-                              });
-                            }}
-                            className="w-full bg-white border border-slate-200 text-slate-800 rounded-full px-5 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all font-medium shadow-sm"
-                            placeholder="0" /* In metric we assume input was already SQM visually but actually logic uses sqft, so let's adapt. Actually let's keep logic in sqft and just display correctly for users if needed. wait, actually for simplicity just changing display is fine. */
-                          />
-                          <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-700 dark:text-slate-300 pointer-events-none">
-                            SQ.FT
-                          </span>
-                        </div>
-                        <p className="text-[11px] text-slate-700 dark:text-slate-300 mt-1.5 ml-2">
-                          Unbuilt space (Total - Covered)
-                        </p>
-                      </div>
-                      {/* Visual Indicator */}
-                      <div className="pt-2 px-1">
-                        <div className="flex justify-between items-end mb-2">
-                          <span className="text-[10px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest">
-                            Proportion Ratio
-                          </span>
-                          <span className="text-[10px] font-bold text-indigo-600">
-                            {plotAreaSqft > 0
-                              ? (
-                                  ((parseFloat(geoState.coveredAreaSqft) || 0) /
-                                    plotAreaSqft) *
-                                  100
-                                ).toFixed(0)
-                              : 0}
-                            % Covered
-                          </span>
-                        </div>
-                        <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden flex shadow-inner">
-                          <div
-                            className="h-full bg-blue-500 transition-all duration-500 ease-out"
-                            style={{
-                              width: `${plotAreaSqft > 0 ? Math.min(100, Math.max(0, ((parseFloat(geoState.coveredAreaSqft) || 0) / plotAreaSqft) * 100)) : 0}%`,
-                            }}
-                          />
-                          <div
-                            className="h-full bg-slate-200 transition-all duration-500 ease-out"
-                            style={{
-                              width: `${plotAreaSqft > 0 ? Math.max(0, 100 - ((parseFloat(geoState.coveredAreaSqft) || 0) / plotAreaSqft) * 100) : 100}%`,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
-                        Stories
-                      </label>
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() =>
-                            dispatch({
-                              type: "SET_STORIES",
-                              payload: Math.max(1, geoState.stories - 1),
-                            })
-                          }
-                          className="w-10 h-10 rounded-xl bg-slate-100 text-slate-600 font-bold hover:bg-slate-200 flex items-center justify-center"
-                        >
-                          -
-                        </button>
-                        <span className="font-bold text-lg w-6 text-center">
-                          {geoState.stories}
-                        </span>
-                        <button
-                          onClick={() =>
-                            dispatch({
-                              type: "SET_STORIES",
-                              payload: geoState.stories + 1,
-                            })
-                          }
-                          className="w-10 h-10 rounded-xl bg-slate-100 text-slate-600 font-bold hover:bg-slate-200 flex items-center justify-center"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
-                        Room Ht (ft)
-                      </label>
-                      <input
-                        type="number"
-                        step="0.5"
-                        value={geoState.roomHeight}
-                        onChange={(e) =>
-                          dispatch({
-                            type: "SET_ROOM_HEIGHT",
-                            payload: e.target.value,
-                          })
-                        }
-                        className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium"
-                      />
-                    </div>
-                  </div>
-                  <div className="pt-4 border-t border-slate-100 space-y-4">
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
-                      <h3 className="text-sm font-bold text-gray-600">
-                        Room Configuration
-                      </h3>
-                      <select
-                        value={geoState.roomAreaUnit}
-                        onChange={(e) =>
-                          dispatch({
-                            type: "SET_ROOM_AREA_UNIT",
-                            payload: e.target.value as any,
-                          })
-                        }
-                        className="hidden"
-                      ></select>
-                      <UnitToggleGroup
-                        units={[
-                          { id: "sqft", label: "Sq.Ft" },
-                          { id: "sqm", label: "Sq.M" },
-                          { id: "sqyd", label: "Sq.Yd" },
-                        ]}
-                        activeUnit={geoState.roomAreaUnit}
-                        onChange={(u) =>
-                          dispatch({
-                            type: "SET_ROOM_AREA_UNIT",
-                            payload: u as any,
-                          })
-                        }
-                        size="sm"
-                      />
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
-                      {(
-                        Object.keys(geoState.rooms) as Array<
-                          keyof GeometryState["rooms"]
-                        >
-                      ).map((room) => (
-                        <div key={room} className="flex flex-col gap-2">
-                          <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
-                            {room.replace(/([A-Z])/g, " $1").trim()}
-                          </label>
-                          <div className="flex items-center gap-3">
-                            <div className="flex items-center gap-1 bg-transparent border border-slate-200 rounded-lg p-0.5 w-[5.5rem]">
-                              <button
-                                onClick={() =>
-                                  dispatch({
-                                    type: "DECREMENT_ROOM",
-                                    payload: room,
-                                  })
-                                }
-                                className="w-7 h-7 rounded text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-200 flex items-center justify-center"
-                              >
-                                -
-                              </button>
-                              <span className="font-bold text-sm flex-1 text-center">
-                                {geoState.rooms[room]}
-                              </span>
-                              <button
-                                onClick={() =>
-                                  dispatch({
-                                    type: "INCREMENT_ROOM",
-                                    payload: room,
-                                  })
-                                }
-                                className="w-7 h-7 rounded text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-200 flex items-center justify-center"
-                              >
-                                +
-                              </button>
-                            </div>
-                            <div className="flex-1 relative">
-                              <input
-                                type="number"
-                                value={geoState.roomAreas[room]}
-                                onChange={(e) =>
-                                  dispatch({
-                                    type: "SET_ROOM_AREA",
-                                    payload: { room, area: e.target.value },
-                                  })
-                                }
-                                className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium text-sm pr-10"
-                                placeholder="Area"
-                              />
-                              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-700 dark:text-slate-300 font-bold">
-                                {geoState.roomAreaUnit === "sqft"
-                                  ? "sf"
-                                  : geoState.roomAreaUnit === "sqm"
-                                    ? "m²"
-                                    : "yd²"}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                    <button
+                      onClick={() =>
+                        dispatch({
+                          type: "SET_STORIES",
+                          payload: geoState.stories + 1,
+                        })
+                      }
+                      className="w-10 h-10 rounded-xl bg-slate-100 text-slate-600 font-bold hover:bg-slate-200 flex items-center justify-center"
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
-              )}
-            </div>
-            <div className="bg-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 bg-violet-50 text-violet-600 rounded-2xl">
-                  <Sliders className="w-6 h-6" />
-                </div>
-                <h2 className="text-lg font-bold text-gray-800">
-                  Finish Quality
-                </h2>
               </div>
-              <div className="space-y-4">
+
+              {/* Finish Quality */}
+              <div className="pt-4 border-t border-slate-100 space-y-4">
+                <div className="flex items-center gap-2 mb-2">
+                   <div className="p-2 bg-violet-50 text-violet-600 rounded-xl">
+                     <Sliders className="w-4 h-4" />
+                   </div>
+                   <h3 className="text-sm font-bold text-gray-700">Finish Quality</h3>
+                </div>
                 <div className="flex justify-between items-end mb-2">
-                  <span className="text-2xl font-black text-violet-600 tracking-tighter whitespace-nowrap">
+                  <span className="text-xl font-black text-violet-600 tracking-tighter whitespace-nowrap">
                     {getQualityLabel(finishQuality)}
                   </span>
-                  <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
                     x
                     {finishQuality === 1
                       ? "1.0"
                       : finishQuality === 2
                         ? "1.6"
                         : "2.5"}
-                    Multiplier
+                    Rate
                   </span>
                 </div>
                 <input
@@ -1089,226 +759,290 @@ export default function HouseEstimator() {
                   onChange={(e) => setFinishQuality(parseInt(e.target.value))}
                   className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-violet-600"
                 />
-                <div className="flex justify-between text-[10px] uppercase tracking-widest text-slate-700 dark:text-slate-300 font-bold mt-2">
+                <div className="flex justify-between text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-2">
                   <span>Std</span> <span>Prem</span> <span>Lux</span>
                 </div>
               </div>
             </div>
-            <AdvancedSpecs
-              specs={specs}
-              setSpecs={setSpecs}
-              isOpen={isSpecsAccordionOpen}
-              setIsOpen={setIsSpecsAccordionOpen}
-            />
-            {/* Boundary Wall Module */}
+
+            {/* Advanced Customization Accordion */}
             <div className="bg-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
-              <div className="flex items-center justify-between">
-                <div className="flex flex-col">
-                  <h2 className="text-xl font-extrabold text-slate-800">
-                    Boundary Wall
+              <div
+                className="flex items-center justify-between cursor-pointer"
+                onClick={() => setIsAccordionOpen(!isAccordionOpen)}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-3 bg-slate-50 text-slate-600 rounded-2xl">
+                    <Settings className="w-6 h-6" />
+                  </div>
+                  <h2 className="text-base font-bold text-gray-800">
+                    Advanced Customization
                   </h2>
-                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                    Include exterior boundary wall
-                  </span>
                 </div>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="sr-only peer"
-                    checked={includeBoundaryWall}
-                    onChange={() =>
-                      setIncludeBoundaryWall(!includeBoundaryWall)
-                    }
-                  />
-                  <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-500/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
-                </label>
+                <div className="p-2 bg-transparent text-slate-500 dark:text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors">
+                  {isAccordionOpen ? (
+                    <ChevronUp className="w-5 h-5" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5" />
+                  )}
+                </div>
               </div>
-              {includeBoundaryWall && (
-                <div className="grid grid-cols-3 gap-3 pt-4 mt-4 border-t border-slate-100 animate-in fade-in slide-in-from-top-4 duration-300">
-                  <div>
-                    <label className="block text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5">
-                      Length (ft)
-                    </label>
-                    <input
-                      type="number"
-                      value={bwLength || ""}
-                      onChange={(e) => setBwLength(parseFloat(e.target.value))}
-                      className="w-full bg-transparent border border-slate-200 rounded-xl px-3 py-2 text-slate-700 font-medium focus:ring-2 focus:ring-indigo-500/50 focus:outline-none"
-                    />
+              
+              {isAccordionOpen && (
+                <div className="mt-6 pt-6 border-t border-slate-100 space-y-6 animate-in slide-in-from-top-4 fade-in duration-300">
+                  {/* Room Setup Button Trigger */}
+                  <div className="flex justify-between items-center bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
+                    <div>
+                      <h3 className="text-sm font-bold text-indigo-900">Room Configuration</h3>
+                      <p className="text-[10px] font-semibold text-indigo-600 uppercase tracking-wide">Customize layout specifics</p>
+                    </div>
+                    <button 
+                      onClick={() => setIsRoomModalOpen(true)} 
+                      className="text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-xl transition-all shadow-sm active:scale-95 flex items-center gap-1"
+                    >
+                      Open Rooms <ChevronRight className="w-3 h-3" />
+                    </button>
                   </div>
+
+                  {/* Covered Area */}
                   <div>
-                    <label className="block text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5">
-                      Height (ft)
+                    <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-1.5 ml-1 flex items-center gap-1 cursor-help group w-fit">
+                      Covered Area (Per Floor)
+                      <span className="relative">
+                        <AlertCircle className="w-3.5 h-3.5 text-slate-400" />
+                        <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max max-w-[200px] whitespace-normal px-3 py-1.5 bg-slate-800 text-white text-[10px] rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10 text-center">
+                          Total floor area constructed for a single story. Must be less than plot size.
+                        </span>
+                      </span>
                     </label>
-                    <input
-                      type="number"
-                      value={bwHeight || ""}
-                      onChange={(e) => setBwHeight(parseFloat(e.target.value))}
-                      className="w-full bg-transparent border border-slate-200 rounded-xl px-3 py-2 text-slate-700 font-medium focus:ring-2 focus:ring-indigo-500/50 focus:outline-none"
-                    />
+                    <div className="relative">
+                      <input
+                        type="number"
+                        value={geoState.coveredAreaSqft}
+                        onChange={(e) =>
+                          dispatch({
+                            type: "SET_COVERED_AREA_SQFT",
+                            payload: e.target.value,
+                          })
+                        }
+                        className="w-full bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 font-medium shadow-sm"
+                        placeholder="0" 
+                      />
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-500 pointer-events-none">
+                        {isSI ? "SQ.M" : "SQ.FT"}
+                      </span>
+                    </div>
                   </div>
+
                   <div>
-                    <label className="block text-[10px] sm:text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5">
-                      Gate (ft)
+                    <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-1.5 ml-1">
+                      Room Height (ft)
                     </label>
                     <input
                       type="number"
-                      value={bwGateSize || ""}
+                      step="0.5"
+                      value={geoState.roomHeight}
                       onChange={(e) =>
-                        setBwGateSize(parseFloat(e.target.value))
+                        dispatch({
+                          type: "SET_ROOM_HEIGHT",
+                          payload: e.target.value,
+                        })
                       }
-                      className="w-full bg-transparent border border-slate-200 rounded-xl px-3 py-2 text-slate-700 font-medium focus:ring-2 focus:ring-indigo-500/50 focus:outline-none"
+                      className="w-full bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium text-sm shadow-sm"
                     />
                   </div>
+                  
+                  <AdvancedSpecs
+                    specs={specs}
+                    setSpecs={setSpecs}
+                    isOpen={isSpecsAccordionOpen}
+                    setIsOpen={setIsSpecsAccordionOpen}
+                  />
+
+                  {/* Boundary Wall Module */}
+                  <div className="pt-4 border-t border-slate-100">
+                    <div className="flex items-center justify-between">
+                      <div className="flex flex-col">
+                        <h2 className="text-sm font-bold text-slate-800">
+                          Boundary Wall
+                        </h2>
+                        <span className="text-[10px] font-medium text-slate-500">
+                          Include exterior boundary wall
+                        </span>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          className="sr-only peer"
+                          checked={includeBoundaryWall}
+                          onChange={() =>
+                            setIncludeBoundaryWall(!includeBoundaryWall)
+                          }
+                        />
+                        <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-500/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                      </label>
+                    </div>
+                    {includeBoundaryWall && (
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 pt-4 mt-4 border-t border-slate-100 animate-in fade-in slide-in-from-top-4 duration-300">
+                        <div>
+                          <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-widest mb-1.5">
+                            Length (ft)
+                          </label>
+                          <input
+                            type="number"
+                            value={bwLength || ""}
+                            onChange={(e) => setBwLength(parseFloat(e.target.value))}
+                            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-700 text-sm font-medium focus:ring-2 focus:ring-indigo-500/50 focus:outline-none"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-[10px] font-bold text-slate-700 uppercase tracking-widest mb-1.5">
+                            Height (ft)
+                          </label>
+                          <input
+                            type="number"
+                            value={bwHeight || ""}
+                            onChange={(e) => setBwHeight(parseFloat(e.target.value))}
+                            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-700 text-sm font-medium focus:ring-2 focus:ring-indigo-500/50 focus:outline-none"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
                 </div>
               )}
             </div>
             
             <button
                onClick={() => setShowResults(true)}
-               className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-500 to-cyan-500 text-white font-bold px-8 py-4 rounded-2xl hover:shadow-lg hover:shadow-cyan-500/30 transition-all active:scale-95"
+               className="w-full flex items-center justify-center gap-2 bg-slate-800 text-white font-bold px-8 py-4 rounded-2xl hover:bg-slate-900 transition-all active:scale-95 shadow-md shadow-slate-900/10"
             >
-               Compute Estimate
+               Compute Total Cost
             </button>
           </section>
+          
           {/* Results Area */}
           <section className="lg:col-span-8 flex flex-col gap-6">
-            {!showResults ? (
-              <div className="bg-bg-primary/50 rounded-3xl p-8 border-2 border-dashed border-border-color flex flex-col items-center justify-center text-center sticky top-6 self-start h-full min-h-[400px] w-full">
-                 <Calculator className="w-16 h-16 text-slate-300 dark:text-slate-600 mb-4" />
-                 <h3 className="font-bold text-slate-700 dark:text-slate-300 text-lg">Waiting to Compute</h3>
-                 <p className="text-slate-500 text-sm mt-2 max-w-sm">Enter your dimensions on the left and click Compute Estimate to see the detailed material breakdown and rates.</p>
-              </div>
-            ) : (
-              <>
-                {/* Segmented Control & Actions */}
-                <div className="flex flex-col sm:flex-row gap-4 items-center justify-between relative">
-                  <div className="flex overflow-x-auto gap-2 p-1 border-b border-slate-100 sm:w-fit [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                    <ColorfulTab index={0} id="summary"
-                      label="Summary"
-                      icon={<LayoutDashboard className="w-[18px] h-[18px]" />}
-                      isActive={activeTab === "summary"}
-                      onClick={() => setActiveTab("summary")}
-                      colorTheme="indigo"
-                    />
-                    <ColorfulTab index={1} id="grey"
-                      label="Grey Structure"
-                      icon={<Layers className="w-[18px] h-[18px]" />}
-                      isActive={activeTab === "grey"}
-                      onClick={() => setActiveTab("grey")}
-                      colorTheme="slate"
-                    />
-                    <ColorfulTab index={2} id="finishing"
-                      label="Finishing"
-                      icon={<PaintRoller className="w-[18px] h-[18px]" />}
-                      isActive={activeTab === "finishing"}
-                      onClick={() => setActiveTab("finishing")}
-                      colorTheme="rose"
-                    />
-                    <ColorfulTab index={3} id="rcc"
-                      label="RCC Detailed"
-                      icon={<Spline className="w-[18px] h-[18px]" />}
-                      isActive={activeTab === "rcc"}
-                      onClick={() => setActiveTab("rcc")}
-                      colorTheme="amber"
-                    />
-                    <ColorfulTab index={4} id="master"
-                      label="Master Quantities"
-                      icon={<Calculator className="w-[18px] h-[18px]" />}
-                      isActive={activeTab === "master"}
-                      onClick={() => setActiveTab("master")}
-                      colorTheme="emerald"
-                    />
-                    <ColorfulTab index={5} id="rates"
-                      label="Material Rates"
-                      icon={<Database className="w-[18px] h-[18px]" />}
-                      isActive={activeTab === "rates"}
-                      onClick={() => setActiveTab("rates")}
-                      colorTheme="rose"
-                    />
-                  </div>
-                  <button
-                    onClick={() => setActiveTab("rates")}
-                    className="flex items-center gap-2 text-indigo-600 bg-indigo-50 hover:bg-indigo-50 font-bold px-4 py-2.5 rounded-xl shadow-sm border border-indigo-100 transition-colors shrink-0 whitespace-nowrap"
-                  >
-                    <Database className="w-[18px] h-[18px]" /> View / Edit Rates
-                  </button>
+            <div className="sticky top-6 z-10 bg-indigo-600 rounded-[2rem] p-6 shadow-xl shadow-indigo-500/20 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2">
+              <div className="flex items-center gap-4">
+                <div className="p-4 bg-white/10 rounded-2xl">
+                  <Calculator className="w-8 h-8 text-indigo-100" />
                 </div>
-                <div className="bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_rgb(0,0,0,0.04)] border border-slate-100 flex-1 relative overflow-hidden transition-all duration-300">
-                  {activeTab === "summary" && (
-                    <div className="animate-in fade-in zoom-in-95 duration-500 h-full flex flex-col">
-                      <h3 className="text-xl font-bold text-slate-800 mb-6">
-                        Total Project Estimate
-                      </h3>
-                      <div className="flex flex-col md:flex-row items-center justify-between gap-8 flex-1">
-                        <div
-                          className="w-full md:w-1/2 h-80 relative"
-                          id="export-chart-target"
-                        >
-                          <StyledChart 
-                            data={summaryData.map(d => ({ ...d, fill: d.color }))}
-                            type="pie"
-                            title="Cost Breakdown"
-                            valueFormatter={(val) => formatCurrency(val, false)}
-                          />
-                        </div>
-                        <div className="w-full md:w-1/2 space-y-6">
-                          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-                            <div className="absolute top-0 left-0 w-1.5 h-full bg-slate-500" />
-                            <div className="text-slate-700 dark:text-slate-300 text-xs md:text-sm font-bold uppercase tracking-widest mb-1 pl-2 truncate">
-                              Grey Structure
-                            </div>
-                            <div
-                              className="text-xl sm:text-2xl font-black text-text-primary pl-2 truncate"
-                              title={formatCurrency(estimates.totalGrey)}
-                            >
-                              {formatCurrency(estimates.totalGrey)}
-                            </div>
-                            <div className="text-slate-700 dark:text-slate-300 text-xs md:text-sm font-medium mt-1 pl-2 truncate">
-                              Foundation, Framing, Masonry
-                            </div>
-                          </div>
-                          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-                            <div className="absolute top-0 left-0 w-1.5 h-full bg-violet-500" />
-                            <div className="text-violet-600 text-xs md:text-sm font-bold uppercase tracking-widest mb-1 pl-2 truncate">
-                              Finishing Works
-                            </div>
-                            <div
-                              className="text-xl sm:text-2xl font-black text-violet-800 dark:text-violet-400 pl-2 truncate"
-                              title={formatCurrency(estimates.totalFinishing)}
-                            >
-                              {formatCurrency(estimates.totalFinishing)}
-                            </div>
-                            <div className="text-violet-500/80 text-xs md:text-sm font-medium mt-1 pl-2 truncate">
-                              {getQualityLabel(finishQuality)} Grade Finishing
-                            </div>
-                          </div>
-                          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
-                            <div className="absolute top-0 left-0 w-1.5 h-full bg-indigo-500" />
-                            <div className="text-indigo-600 dark:text-indigo-400 text-xs md:text-sm font-bold uppercase tracking-widest mb-1 pl-2 truncate">
-                              Total Cost
-                            </div>
-                            <div
-                              className="text-2xl sm:text-3xl font-black text-indigo-800 dark:text-indigo-300 pl-2 truncate"
-                              title={formatCurrency(estimates.totalCost)}
-                            >
-                              {formatCurrency(estimates.totalCost)}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="mt-10 pt-8 border-t border-slate-100/60" id="overview-bar-chart">
-                        <StyledChart 
-                          data={combinedCostData.map(d => ({ ...d, fill: d.color })).slice(0, 10)}
-                          type="bar"
-                          title="Cost Breakdown Comparison (Top 10)"
-                          valueFormatter={(val) => formatCurrency(val, false)}
-                        />
-                      </div>
-                    </div>
+                <div>
+                  <h3 className="text-indigo-200 text-xs font-bold uppercase tracking-widest mb-0.5">Total Estimated Cost</h3>
+                  <p className="text-3xl sm:text-4xl font-black tabular-nums">{formatCurrency(estimates.totalCost)}</p>
+                </div>
+              </div>
+              <div className="flex gap-6 mt-4 sm:mt-0 w-full sm:w-auto p-4 sm:p-0 bg-white/5 sm:bg-transparent rounded-2xl sm:rounded-none">
+                <div>
+                  <div className="text-indigo-200 text-[10px] font-bold uppercase tracking-wider mb-0.5">Basic Structure</div>
+                  <div className="text-lg font-bold tabular-nums">{formatCurrency(estimates.totalGrey)}</div>
+                </div>
+                <div className="w-px h-8 bg-indigo-400/30 self-center hidden sm:block"></div>
+                <div>
+                  <div className="text-indigo-200 text-[10px] font-bold uppercase tracking-wider mb-0.5">Finishing</div>
+                  <div className="text-lg font-bold tabular-nums">{formatCurrency(estimates.totalFinishing)}</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Visual Summary */}
+            <div className="bg-white p-6 sm:p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 mb-2">
+              <h3 className="text-xl font-bold text-slate-800 mb-6">
+                Cost Breakdown Visuals
+              </h3>
+              <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                <div
+                  className="w-full md:w-1/2 h-80 relative"
+                  id="export-chart-target"
+                >
+                  <StyledChart 
+                    data={summaryData.map(d => ({ ...d, fill: d.color }))}
+                    type="pie"
+                    title="Cost Breakdown"
+                    valueFormatter={(val) => formatCurrency(val, false)}
+                  />
+                </div>
+                <div className="w-full md:w-1/2 h-80 relative mt-4 md:mt-0 pt-8 border-t md:border-t-0 md:border-l border-slate-100/60 pl-0 md:pl-8">
+                  <StyledChart 
+                    data={combinedCostData.map(d => ({ ...d, fill: d.color })).slice(0, 10)}
+                    type="bar"
+                    title="Top Metrics"
+                    valueFormatter={(val) => formatCurrency(val, true)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Detailed Mathematical Breakdown Accordion */}
+            <div className="bg-white p-6 sm:p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 mb-8">
+              <div
+                className="flex justify-between items-center cursor-pointer"
+                onClick={() => setIsMathOpen(!isMathOpen)}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-3 bg-slate-50 text-slate-600 rounded-2xl">
+                    <Calculator className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-slate-800">View Detailed Mathematical Breakdown</h3>
+                    <p className="text-xs font-medium text-slate-500">Access raw math derivations and master rate sheets</p>
+                  </div>
+                </div>
+                <div className="p-2 bg-transparent text-slate-500 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors shrink-0">
+                  {isMathOpen ? (
+                    <ChevronUp className="w-5 h-5" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5" />
                   )}
-                  {activeTab === "grey" && (
+                </div>
+              </div>
+
+              {isMathOpen && (
+                <div className="mt-8 pt-8 border-t border-slate-100 animate-in fade-in slide-in-from-top-4 duration-300">
+                  {/* Segmented Control & Actions */}
+                  <div className="flex flex-col sm:flex-row gap-4 items-center justify-between relative mb-6">
+                    <div className="flex overflow-x-auto gap-2 p-1 border-b border-slate-100 w-full sm:w-fit [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                      <ColorfulTab index={0} id="grey"
+                        label="Basic Structure"
+                        icon={<Layers className="w-[18px] h-[18px]" />}
+                        isActive={activeTab === "grey"}
+                        onClick={() => setActiveTab("grey")}
+                        colorTheme="slate"
+                      />
+                      <ColorfulTab index={1} id="finishing"
+                        label="Finishing"
+                        icon={<PaintRoller className="w-[18px] h-[18px]" />}
+                        isActive={activeTab === "finishing"}
+                        onClick={() => setActiveTab("finishing")}
+                        colorTheme="rose"
+                      />
+                      <ColorfulTab index={2} id="rcc"
+                        label="RCC Detailed"
+                        icon={<Spline className="w-[18px] h-[18px]" />}
+                        isActive={activeTab === "rcc"}
+                        onClick={() => setActiveTab("rcc")}
+                        colorTheme="amber"
+                      />
+                      <ColorfulTab index={3} id="master"
+                        label="Master Quantities"
+                        icon={<Calculator className="w-[18px] h-[18px]" />}
+                        isActive={activeTab === "master"}
+                        onClick={() => setActiveTab("master")}
+                        colorTheme="emerald"
+                      />
+                      <ColorfulTab index={4} id="rates"
+                        label="Material Rates"
+                        icon={<Database className="w-[18px] h-[18px]" />}
+                        isActive={activeTab === "rates"}
+                        onClick={() => setActiveTab("rates")}
+                        colorTheme="rose"
+                      />
+                    </div>
+                  </div>
+                  <div className="relative overflow-hidden transition-all duration-300">
+                    {activeTab === "grey" && (
                     <div className="animate-in fade-in slide-in-from-right-8 duration-500 h-full flex flex-col">
                       <MaterialSummary
                         title="Grey Structure Breakdown"
@@ -1325,7 +1059,7 @@ export default function HouseEstimator() {
                               description={formatCurrency(estimates.costCement)}
                               status="normal"
                               comparisonText="8% more than average"
-                              explanation="The total volume of cement required for foundation, superstructure, and plaster work. Store in a damp-proof area."
+                              explanation="The total volume of cement required for foundation, walls, roof, and plaster work. Store in a damp-proof area."
                            />
                            <ResultCard
                               title="Steel"
@@ -1429,7 +1163,7 @@ export default function HouseEstimator() {
                                 colSpan={4}
                                 className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"
                               >
-                                Superstructure
+                                Above-Ground Work (Walls & Roof)
                               </td>
                             </tr>
                             {greySuperstructureData.map((item, idx) => (
@@ -1753,18 +1487,66 @@ export default function HouseEstimator() {
                     </div>
                   )}
                 </div>
-              </>
+              </div>
             )}
-          </section>
-        </div>
-        </div>
-        )}
+          </div>
+        </section>
       </div>
-      
-      <GlobalSettingsModal
+    </div>
+  </div>
+  
+  <GlobalSettingsModal
         isOpen={isGlobalSettingsOpen}
         onClose={() => setIsGlobalSettingsOpen(false)}
       />
+
+      {/* Room Customization Modal */}
+      {isRoomModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 w-full max-w-lg border border-slate-100 flex flex-col max-h-[90vh]">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="text-xl font-bold text-slate-800">Room Configuration</h2>
+                <p className="text-sm font-medium text-slate-500">Define the quantities of each room type</p>
+              </div>
+              <button onClick={() => setIsRoomModalOpen(false)} className="p-2 bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-700 rounded-full transition-colors">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="overflow-y-auto pr-2 grid grid-cols-2 gap-4">
+              {(Object.keys(geoState.rooms) as Array<keyof typeof geoState.rooms>).map((room) => (
+                <div key={room} className="flex flex-col gap-1.5 p-3 rounded-2xl border border-slate-100 bg-slate-50/50">
+                  <label className="text-[10px] font-bold text-gray-600 uppercase tracking-wide truncate">
+                    {room.replace(/([A-Z])/g, " $1").trim()}
+                  </label>
+                  <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-lg p-0.5 w-full shadow-sm">
+                    <button
+                      onClick={() => dispatch({ type: "DECREMENT_ROOM", payload: room })}
+                      className="w-8 h-8 rounded-md text-slate-700 font-bold hover:bg-slate-100 flex items-center justify-center shrink-0 transition-colors"
+                    >
+                      -
+                    </button>
+                    <span className="font-bold text-sm flex-1 text-center tabular-nums">
+                      {geoState.rooms[room]}
+                    </span>
+                    <button
+                      onClick={() => dispatch({ type: "INCREMENT_ROOM", payload: room })}
+                      className="w-8 h-8 rounded-md text-slate-700 font-bold hover:bg-slate-100 flex items-center justify-center shrink-0 transition-colors"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-8 pt-4 border-t border-slate-100">
+               <button onClick={() => setIsRoomModalOpen(false)} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-[0_4px_14px_0_rgba(79,70,229,0.39)] active:scale-95 flex justify-center items-center gap-2">
+                 <CheckCircle2 className="w-5 h-5" /> Save Configuration
+               </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <CalculationHistory
         calculatorId="house_estimator_v1"

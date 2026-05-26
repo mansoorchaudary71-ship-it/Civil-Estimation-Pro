@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
-import { Sliders, ChevronDown, ChevronUp } from "lucide-react";
+import { Sliders, ChevronDown, ChevronUp, HelpCircle } from "lucide-react";
 export type SpecsState = {
   foundationDepth: string;
   termiteProofing: boolean;
@@ -81,16 +81,27 @@ export default function AdvancedSpecs({
     label: string,
     specKey: keyof SpecsState,
     options: string[],
+    tooltip?: string
   ) => (
-    <div className="space-y-2 col-span-2">
-      <label className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest">
-        {label}
-      </label>
+    <div className="space-y-2 col-span-2 relative">
+      <div className="flex justify-between items-center">
+        <label className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest flex items-center gap-1">
+          {label}
+        </label>
+        {tooltip && (
+          <div className="relative group/tooltip flex items-center">
+            <HelpCircle className="w-3.5 h-3.5 text-slate-400 cursor-help" />
+            <div className="absolute bottom-full right-0 mb-2 w-48 opacity-0 group-hover/tooltip:opacity-100 transition-opacity bg-slate-800 text-white text-[10px] p-2 rounded-lg pointer-events-none z-10 font-normal tracking-wide shadow-xl">
+              {tooltip}
+            </div>
+          </div>
+        )}
+      </div>
       <div className="relative">
         <select
           value={specs[specKey] as string}
           onChange={(e) => updateSpec(specKey, e.target.value)}
-          className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium appearance-none text-sm"
+          className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium appearance-none text-sm cursor-pointer hover:bg-slate-50 transition-colors"
         >
           {options.map((opt) => (
             <option key={opt} value={opt}>
@@ -200,7 +211,7 @@ export default function AdvancedSpecs({
               className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
             >
               <span className="font-bold text-sm text-slate-800">
-                2. Superstructure (Grey Structure)
+                2. Above-Ground Work (Walls & Roof)
               </span>
               {openCategory === 1 ? (
                 <ChevronUp className="w-4 h-4 text-slate-700 dark:text-slate-300" />
@@ -223,12 +234,12 @@ export default function AdvancedSpecs({
                   "1:3",
                   "1:4",
                   "1:5",
-                ])}
+                ], "Proportion of Cement to Sand used for brick joining.")}
                 {renderDropdown("Concrete Mix Ratio", "concreteMixRatio", [
                   "1:1.5:3",
                   "1:2:4",
                   "1:3:6",
-                ])}
+                ], "Proportion of Cement to Sand to Crush. Defines structural strength.")}
                 {renderNumber("Slab Thickness (in)", "slabThickness")}
                 {renderNumber("Lintel Thickness (in)", "lintelThickness")}
               </div>
