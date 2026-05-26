@@ -585,12 +585,13 @@ export default function ShareButtonWithPopup({
   };
 
   return (
-    <>
+    <div className={containerClassName || "relative inline-flex items-center gap-3 z-[100] font-sans"} ref={menuRef}>
       <button
         type="button"
         onClick={(e) => {
           e.preventDefault();
-          setIsOpen(true);
+          e.stopPropagation();
+          setIsOpen((prev) => !prev);
         }}
         className={triggerClassName || "bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white px-5 py-2.5 rounded-full font-bold transition-all hover:scale-105 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-teal-500/30 shadow-md flex items-center justify-center gap-2 text-sm"}
         title="Share Results"
@@ -695,6 +696,6 @@ export default function ShareButtonWithPopup({
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

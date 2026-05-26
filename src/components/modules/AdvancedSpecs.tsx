@@ -2,58 +2,92 @@ import React, { useState } from "react";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { Sliders, ChevronDown, ChevronUp, HelpCircle } from "lucide-react";
 export type SpecsState = {
+  // 1. Foundation & Substructure
   foundationDepth: string;
   termiteProofing: boolean;
   dpcLayers: string;
   backfillSand: string;
+  excavationVolume: string; // New
+  soilTreatment: string; // New
+  
+  // 2. Above-Ground Work (Civil & Superstructure)
   brickQuality: string;
   steelGrade: string;
   cementSandRatio: string;
   concreteMixRatio: string;
   slabThickness: string;
   lintelThickness: string;
+  roofInsulation: string; // New added to civil
+  boundaryWallSpecs: string; // New
+  
+  // 3. Finishing & Surfaces
   flooringType: string;
   internalWallFinish: string;
   exteriorFinish: string;
   ceilingType: string;
-  roofTreatment: string;
+  plastering: string; // New
+  waterproofing: string; // New
+  
+  // 4. Woodwork & Openings
   mainGate: string;
   windowFrames: string;
+  windowGlass: string; // New
   mainDoor: string;
   internalDoors: string;
   includeWardrobes: boolean;
   wardrobeMaterial: string;
+  kitchenWoodwork: string; // New
+  
+  // 5. MEP
   plumbingPipes: string;
   sanitaryFittings: string;
   electricalWiring: string;
   switchesBoards: string;
+  acCopperPiping: string; // New
+  generalLighting: string; // New
+  waterTankCapacity: string; // New
+  kitchenSinks: string; // New
+  geyserPoints: string; // New
 };
+
 export const initialSpecs: SpecsState = {
   foundationDepth: "3",
   termiteProofing: true,
   dpcLayers: "Single",
   backfillSand: "Ravi",
+  excavationVolume: "Standard (Auto-calculated)",
+  soilTreatment: "Standard Chemical",
   brickQuality: "A-Class",
   steelGrade: "Grade 60",
   cementSandRatio: "1:4",
   concreteMixRatio: "1:2:4",
   slabThickness: "6",
   lintelThickness: "9",
+  roofInsulation: "Standard (Bitumen + Poly)",
+  boundaryWallSpecs: "Standard 9-inch",
   flooringType: "Porcelain Tiles",
   internalWallFinish: "Plastic Emulsion",
   exteriorFinish: "Weather Shield",
   ceilingType: "False Ceiling (Gypsum)",
-  roofTreatment: "Standard (Bitumen coating + Polythene sheet + Mud)",
+  plastering: "1:4 Cement Sand",
+  waterproofing: "Standard DP",
   mainGate: "16-gauge Steel",
   windowFrames: "Aluminum (1.2mm)",
+  windowGlass: "5mm Clear",
   mainDoor: "Solid Ash Wood",
   internalDoors: "Flush Doors",
   includeWardrobes: true,
   wardrobeMaterial: "Lasani",
+  kitchenWoodwork: "UV Sheets",
   plumbingPipes: "PPRC standard",
   sanitaryFittings: "Standard",
   electricalWiring: "3/0.29 & 7/0.29 Standard",
   switchesBoards: "Local Standard",
+  acCopperPiping: "Standard 22 Gauge",
+  generalLighting: "Standard SMD/LED",
+  waterTankCapacity: "1000 Gallons",
+  kitchenSinks: "Double Bowl Stainless",
+  geyserPoints: "2 Points",
 };
 interface Props {
   specs: SpecsState;
@@ -200,6 +234,17 @@ export default function AdvancedSpecs({
                 {renderDropdown("Backfill Sand Quality", "backfillSand", [
                   "Ravi",
                   "Chenab",
+                  "Local",
+                ])}
+                {renderDropdown("Excavation Volume", "excavationVolume", [
+                  "Standard (Auto-calculated)",
+                  "Custom High",
+                  "Custom Low",
+                ])}
+                {renderDropdown("Soil Treatment", "soilTreatment", [
+                  "Standard Chemical",
+                  "Premium Anti-Termite",
+                  "None",
                 ])}
               </div>
             )}
@@ -242,6 +287,16 @@ export default function AdvancedSpecs({
                 ], "Proportion of Cement to Sand to Crush. Defines structural strength.")}
                 {renderNumber("Slab Thickness (in)", "slabThickness")}
                 {renderNumber("Lintel Thickness (in)", "lintelThickness")}
+                {renderDropdown("Roof Insulation", "roofInsulation", [
+                  "Standard (Bitumen + Poly)",
+                  "Premium (Jumbolon + PU)",
+                  "Basic (Mud)",
+                ])}
+                {renderDropdown("Boundary Wall", "boundaryWallSpecs", [
+                  "Standard 9-inch",
+                  "Lightweight 4.5-inch",
+                  "Precast Concrete",
+                ])}
               </div>
             )}
           </div>
@@ -266,6 +321,7 @@ export default function AdvancedSpecs({
                   "Ceramic Tiles",
                   "Porcelain Tiles",
                   "Marble",
+                  "Wooden",
                   "Terrazzo",
                 ])}
                 {renderDropdown("Internal Paint", "internalWallFinish", [
@@ -285,15 +341,16 @@ export default function AdvancedSpecs({
                   "False Ceiling (Gypsum)",
                   "POP",
                 ])}
-                {renderDropdown(
-                  "Roof Treatment & Insulation",
-                  "roofTreatment",
-                  [
-                    "Standard (Bitumen coating + Polythene sheet + Mud)",
-                    "Premium (Jumbolon insulation + Waterproofing chemicals + Brick tiles)",
-                    "Luxury (Polyurethane spray + imported tiles)",
-                  ],
-                )}
+                {renderDropdown("Plastering Quality", "plastering", [
+                  "1:4 Cement Sand",
+                  "1:6 Cement Sand",
+                  "Premium Smooth",
+                ])}
+                {renderDropdown("Waterproofing", "waterproofing", [
+                  "Standard DP",
+                  "Chemical Coating",
+                  "Membrane Sheet",
+                ])}
               </div>
             )}
           </div>
@@ -324,6 +381,11 @@ export default function AdvancedSpecs({
                   "Aluminum (1.6mm)",
                   "UPVC",
                 ])}
+                {renderDropdown("Window Glass", "windowGlass", [
+                  "5mm Clear",
+                  "8mm Tempered",
+                  "Double Glazed",
+                ])}
                 {renderDropdown("Main Door Material", "mainDoor", [
                   "Solid Ash Wood",
                   "Solid Diyar",
@@ -341,6 +403,12 @@ export default function AdvancedSpecs({
                     "Lasani",
                     "Solid Wood",
                   ])}
+                {renderDropdown("Kitchen Woodwork", "kitchenWoodwork", [
+                  "UV Sheets",
+                  "Acrylic",
+                  "Lasani",
+                  "Solid Wood",
+                ])}
               </div>
             )}
           </div>
@@ -361,23 +429,48 @@ export default function AdvancedSpecs({
             </button>
             {openCategory === 4 && (
               <div className="p-4 grid grid-cols-2 gap-4 border-t border-slate-100">
+                {renderDropdown("Electrical Wiring", "electricalWiring", [
+                  "3/0.29 & 7/0.29 Standard",
+                  "Premium Brand",
+                ])}
+                {renderDropdown("Switches & Sockets", "switchesBoards", [
+                  "Local Standard",
+                  "Premium",
+                  "Smart Switches",
+                ])}
+                {renderDropdown("AC Copper Piping", "acCopperPiping", [
+                  "Standard 22 Gauge",
+                  "Premium 20 Gauge",
+                ])}
+                {renderDropdown("General Lighting", "generalLighting", [
+                  "Standard SMD/LED",
+                  "Premium COB/Profile",
+                  "Basic LED",
+                ])}
                 {renderDropdown("Plumbing Pipes", "plumbingPipes", [
                   "PPRC standard",
                   "PPRC Premium",
                   "UPVC",
                 ])}
-                {renderDropdown(
-                  "Sanitary Fittings Quality",
-                  "sanitaryFittings",
-                  ["Standard", "Premium", "Luxury"],
-                )}
-                {renderDropdown("Electrical Wiring", "electricalWiring", [
-                  "3/0.29 & 7/0.29 Standard",
-                  "Premium Brand",
+                {renderDropdown("Sanitary Ware Quality", "sanitaryFittings", [
+                  "Standard", 
+                  "Premium", 
+                  "Luxury",
                 ])}
-                {renderDropdown("Switches & Boards", "switchesBoards", [
-                  "Local Standard",
-                  "Premium",
+                {renderDropdown("Water Tank", "waterTankCapacity", [
+                  "500 Gallons",
+                  "1000 Gallons",
+                  "1500 Gallons",
+                ])}
+                {renderDropdown("Kitchen Sinks", "kitchenSinks", [
+                  "Single Bowl",
+                  "Double Bowl Stainless",
+                  "Handmade Luxury",
+                ])}
+                {renderDropdown("Geyser Points", "geyserPoints", [
+                  "1 Point",
+                  "2 Points",
+                  "3+ Points",
                 ])}
               </div>
             )}

@@ -180,6 +180,14 @@ export default function HouseEstimator() {
   /* Master Unit System Toggle */ const masterUnit =
     settings.measurement === "SI" ? "metric" : "imperial";
   const [isRoomModalOpen, setIsRoomModalOpen] = useState(false);
+  const [roomConfigs, setRoomConfigs] = useState({
+    bedroom: { length: 14, width: 12, height: 10, wardrobeLength: 6 },
+    washroom: { length: 8, width: 6, wcType: "Wall Hung", showerSetup: "Glass Enclosure", vanity: "Standard" },
+    kitchen: { length: 12, width: 10, counterLength: 15, cabinets: "UV/Acrylic", backsplash: "Ceramic" },
+    livingRoom: { length: 16, width: 14, featureWall: "Yes", chandelierPoints: 1 },
+    basement: { depth: 10, retainingWall: "RCC 9-Inch" }
+  });
+  const [activeRoomTab, setActiveRoomTab] = useState<"bedroom"|"washroom"|"kitchen"|"living"|"basement">("bedroom");
   /* Boundary Wall State */ const [
     includeBoundaryWall,
     setIncludeBoundaryWall,
@@ -264,8 +272,8 @@ export default function HouseEstimator() {
     /* 25% + bonus for bedrooms */ const costMep =
       builtUpArea * (finishRate * baseMepPct) * mepMultiplier;
     /* Roof Treatment & Insulation Cost */ let roofMultiplier = 1;
-    if (specs?.roofTreatment?.includes("Premium")) roofMultiplier = 1.6;
-    if (specs?.roofTreatment?.includes("Luxury")) roofMultiplier = 2.5;
+    if (specs?.roofInsulation?.includes("Premium")) roofMultiplier = 1.6;
+    if (specs?.roofInsulation?.includes("Luxury")) roofMultiplier = 2.5;
     const roofArea =
       geoState.stories > 0 ? builtUpArea / geoState.stories : builtUpArea;
     const costRoofing = roofArea * (finishRate * 0.15) * roofMultiplier;
@@ -444,8 +452,8 @@ export default function HouseEstimator() {
     finishQuality === 1 ? 1 : finishQuality === 2 ? 1.6 : 2.5;
   const finishRate = rates.laborFinish * qualityMultiplier;
   let roofMultiplier = 1;
-  if (specs?.roofTreatment?.includes("Premium")) roofMultiplier = 1.6;
-  if (specs?.roofTreatment?.includes("Luxury")) roofMultiplier = 2.5;
+  if (specs?.roofInsulation?.includes("Premium")) roofMultiplier = 1.6;
+  if (specs?.roofInsulation?.includes("Luxury")) roofMultiplier = 2.5;
   const finishingCostData = [
     {
       name: `Tiles & Floor${isCustomRate("laborFinish") ? "*" : ""}`,
@@ -1503,45 +1511,175 @@ export default function HouseEstimator() {
       {/* Room Customization Modal */}
       {isRoomModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 w-full max-w-lg border border-slate-100 flex flex-col max-h-[90vh]">
-            <div className="flex items-center justify-between mb-6">
+          <div className="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl border border-slate-100 flex flex-col max-h-[90vh] overflow-hidden">
+            <div className="flex items-center justify-between p-6 border-b border-slate-100 bg-slate-50/50">
               <div>
-                <h2 className="text-xl font-bold text-slate-800">Room Configuration</h2>
-                <p className="text-sm font-medium text-slate-500">Define the quantities of each room type</p>
+                <h2 className="text-xl font-bold text-slate-800">Advanced Room Specs</h2>
+                <p className="text-sm font-medium text-slate-500">Configure exact dimensions and features per room</p>
               </div>
-              <button onClick={() => setIsRoomModalOpen(false)} className="p-2 bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-700 rounded-full transition-colors">
+              <button onClick={() => setIsRoomModalOpen(false)} className="p-2 bg-white border border-slate-200 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="overflow-y-auto pr-2 grid grid-cols-2 gap-4">
-              {(Object.keys(geoState.rooms) as Array<keyof typeof geoState.rooms>).map((room) => (
-                <div key={room} className="flex flex-col gap-1.5 p-3 rounded-2xl border border-slate-100 bg-slate-50/50">
-                  <label className="text-[10px] font-bold text-gray-600 uppercase tracking-wide truncate">
-                    {room.replace(/([A-Z])/g, " $1").trim()}
-                  </label>
-                  <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-lg p-0.5 w-full shadow-sm">
-                    <button
-                      onClick={() => dispatch({ type: "DECREMENT_ROOM", payload: room })}
-                      className="w-8 h-8 rounded-md text-slate-700 font-bold hover:bg-slate-100 flex items-center justify-center shrink-0 transition-colors"
-                    >
-                      -
-                    </button>
-                    <span className="font-bold text-sm flex-1 text-center tabular-nums">
-                      {geoState.rooms[room]}
-                    </span>
-                    <button
-                      onClick={() => dispatch({ type: "INCREMENT_ROOM", payload: room })}
-                      className="w-8 h-8 rounded-md text-slate-700 font-bold hover:bg-slate-100 flex items-center justify-center shrink-0 transition-colors"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-              ))}
+            
+            <div className="flex border-b border-slate-100 overflow-x-auto no-scrollbar">
+               {(["bedroom", "washroom", "kitchen", "living", "basement"] as const).map(tab => (
+                 <button
+                   key={tab}
+                   onClick={() => setActiveRoomTab(tab)}
+                   className={`px-6 py-4 text-sm font-bold uppercase tracking-wider whitespace-nowrap border-b-2 transition-colors ${
+                     activeRoomTab === tab 
+                     ? "border-indigo-600 text-indigo-700 bg-indigo-50/50" 
+                     : "border-transparent text-slate-500 hover:text-slate-700 hover:bg-slate-50"
+                   }`}
+                 >
+                   {tab === "living" ? "Drawing/Living" : tab}
+                 </button>
+               ))}
             </div>
-            <div className="mt-8 pt-4 border-t border-slate-100">
-               <button onClick={() => setIsRoomModalOpen(false)} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl transition-all shadow-[0_4px_14px_0_rgba(79,70,229,0.39)] active:scale-95 flex justify-center items-center gap-2">
-                 <CheckCircle2 className="w-5 h-5" /> Save Configuration
+
+            <div className="flex-1 overflow-y-auto p-6 bg-slate-50/30">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                
+                {activeRoomTab === "bedroom" && (
+                  <>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Typical Length (ft)</label>
+                       <input type="number" value={roomConfigs.bedroom.length} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                    </div>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Typical Width (ft)</label>
+                       <input type="number" value={roomConfigs.bedroom.width} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                    </div>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Ceiling Height (ft)</label>
+                       <input type="number" value={roomConfigs.bedroom.height} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, height: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                    </div>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Wardrobe Length (ft)</label>
+                       <input type="number" value={roomConfigs.bedroom.wardrobeLength} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, wardrobeLength: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                    </div>
+                  </>
+                )}
+
+                {activeRoomTab === "washroom" && (
+                  <>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Length (ft)</label>
+                       <input type="number" value={roomConfigs.washroom.length} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                    </div>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Width (ft)</label>
+                       <input type="number" value={roomConfigs.washroom.width} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                    </div>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Commode / WC Type</label>
+                       <select value={roomConfigs.washroom.wcType} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, wcType: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                         <option>Floor Mounted (Asian)</option>
+                         <option>Floor Mounted (Western)</option>
+                         <option>Wall Hung (Concealed)</option>
+                       </select>
+                    </div>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Shower Setup</label>
+                       <select value={roomConfigs.washroom.showerSetup} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, showerSetup: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                         <option>Standard Mixer</option>
+                         <option>Glass Enclosure</option>
+                         <option>Jacuzzi Tub</option>
+                       </select>
+                    </div>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Vanity / Basin</label>
+                       <select value={roomConfigs.washroom.vanity} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, vanity: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                         <option>Standard Ceramic</option>
+                         <option>Custom PVC Vanity</option>
+                         <option>Corian Marble Top</option>
+                       </select>
+                    </div>
+                  </>
+                )}
+
+                {activeRoomTab === "kitchen" && (
+                  <>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Length (ft)</label>
+                       <input type="number" value={roomConfigs.kitchen.length} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                    </div>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Width (ft)</label>
+                       <input type="number" value={roomConfigs.kitchen.width} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                    </div>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Countertop (Length ft)</label>
+                       <input type="number" value={roomConfigs.kitchen.counterLength} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, counterLength: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                    </div>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Cabinets Material</label>
+                       <select value={roomConfigs.kitchen.cabinets} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, cabinets: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                         <option>Lasani Wood</option>
+                         <option>UV/Acrylic</option>
+                         <option>Solid Ash/Oak</option>
+                       </select>
+                    </div>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Backsplash</label>
+                       <select value={roomConfigs.kitchen.backsplash} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, backsplash: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                         <option>Ceramic Tiles</option>
+                         <option>Glass/Mosaic</option>
+                         <option>Corian Full Wall</option>
+                       </select>
+                    </div>
+                  </>
+                )}
+
+                {activeRoomTab === "living" && (
+                  <>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Length (ft)</label>
+                       <input type="number" value={roomConfigs.livingRoom.length} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                    </div>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Width (ft)</label>
+                       <input type="number" value={roomConfigs.livingRoom.width} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                    </div>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Feature Wall Setup</label>
+                       <select value={roomConfigs.livingRoom.featureWall} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, featureWall: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                         <option>None</option>
+                         <option>Yes (Wallpaper/Paint)</option>
+                         <option>Yes (Wood Paneling / Marble)</option>
+                       </select>
+                    </div>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Chandelier Points</label>
+                       <input type="number" value={roomConfigs.livingRoom.chandelierPoints} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, chandelierPoints: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                    </div>
+                  </>
+                )}
+
+                {activeRoomTab === "basement" && (
+                  <>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Excavation Depth (ft)</label>
+                       <input type="number" value={roomConfigs.basement.depth} onChange={e => setRoomConfigs(p => ({...p, basement: {...p.basement, depth: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                    </div>
+                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Retaining Wall Spec</label>
+                       <select value={roomConfigs.basement.retainingWall} onChange={e => setRoomConfigs(p => ({...p, basement: {...p.basement, retainingWall: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                         <option>Standard Brick 13.5-inch</option>
+                         <option>RCC 9-Inch</option>
+                         <option>RCC 12-Inch Heavy</option>
+                       </select>
+                    </div>
+                  </>
+                )}
+                
+              </div>
+            </div>
+            
+            <div className="p-6 border-t border-slate-100 bg-white">
+               <button onClick={() => setIsRoomModalOpen(false)} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-4 rounded-2xl transition-all shadow-[0_4px_14px_0_rgba(79,70,229,0.39)] active:scale-95 flex justify-center items-center gap-2">
+                 <CheckCircle2 className="w-5 h-5" /> Save Detail Configurations
                </button>
             </div>
           </div>

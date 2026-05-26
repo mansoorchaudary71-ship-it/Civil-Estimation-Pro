@@ -421,9 +421,9 @@ export function CalculationHistory({
             title={estimationName || "Calculation"}
             data={currentResults || currentInputs || {}}
             exportFormat={savePayload || { inputs: currentInputs || {}, breakdown: currentResults || {} }}
-            containerClassName="flex-1 min-w-[70px] m-0 p-0 flex pointer-events-auto"
+            containerClassName="flex-1 min-w-[70px] m-0 p-0 flex pointer-events-auto items-stretch"
             popupPosition="top"
-            triggerClassName="w-full flex-col sm:flex-row flex items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-purple-50 dark:hover:bg-purple-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-purple-700 dark:hover:text-purple-300 group border border-transparent hover:border-purple-200 dark:hover:border-purple-500/20"
+            triggerClassName="w-full h-full flex-col sm:flex-row flex items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-purple-50 dark:hover:bg-purple-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-purple-700 dark:hover:text-purple-300 group border border-transparent hover:border-purple-200 dark:hover:border-purple-500/20"
             triggerContent={
               <>
                 <Share2 className="w-[18px] h-[18px] text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
