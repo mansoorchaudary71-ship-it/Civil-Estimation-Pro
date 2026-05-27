@@ -17,7 +17,8 @@ import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import { useAuth } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
-import { generateProfessionalPDF, formatTitleCase, formatCapitalize, filterValidParameters } from "../../utils/pdfGenerator";
+import { GlobalReportEngine } from '../../utils/GlobalReportEngine';
+import { formatTitleCase, formatCapitalize, filterValidParameters } from '../../utils/pdfGenerator';
 
 export interface ShareMenuProps {
   activeTab: string;
@@ -182,74 +183,70 @@ export default function ShareButtonWithPopup({
     setIsOpen(false);
     toast.success(`✅ File saved as ${fileName}`);
   };
-  const generatePDF = async (
-    exportType: "pdf" | "whatsapp" | "email" = "pdf",
-  ) => {
-    const cItem = exportFormat?.cartItem as any;
-    const customTableData = exportFormat?.customTableData;
-    const rates: any = (exportFormat as any)?.rates || {};
-    let chartData: { label: string; value: number; color: string }[] = [];
+    const getBoqData = () => {
+    const boqData: any[] = [];
+    let chartData: any[] = [];
     let grandTotal = 0;
-    let tableRows: any[][] = [];
-    const addRow = (
-      item: string,
-      qty: number,
-      unitLabel: string,
-      typeRateId: string,
-    ) => {
-      if (qty > 0) {
-        const cost = qty * (rates[typeRateId] || 0);
-        grandTotal += cost;
-        tableRows.push([
-          item,
-          `${qty.toFixed(2)}\n(@ Rs ${rates[typeRateId] || 0}/${unitLabel})`,
-          unitLabel,
-          cost.toFixed(2),
-        ]);
-        let color = "#cbd5e1";
-        if (item.includes("Cement")) color = "#60a5fa";
-        else if (item.includes("Sand")) color = "#fbbf24";
-        else if (item.includes("Aggregate")) color = "#94a3b8";
-        else if (item.includes("Water")) color = "#22d3ee";
-        else if (item.includes("Steel")) color = "#818cf8";
-        else if (item.includes("Brick")) color = "#f43f5e";
-        else if (item.includes("Block")) color = "#fb923c";
-        chartData.push({ label: item, value: cost, color });
-      }
-    };
+    
+    const rates: any = (exportFormat as any)?.rates || {};
+    const customTableData = exportFormat?.customTableData;
+    const cItem = exportFormat?.cartItem as any;
+    
     if (customTableData) {
       customTableData.forEach((row) => {
-        tableRows.push([
-          row.item,
-          `${row.quantityStr}\n(@ Rs ${row.rate || 0}/${row.unitStr})`,
-          row.unitStr,
-          row.cost.toFixed(2),
-        ]);
-        grandTotal += row.cost;
-        chartData.push({
-          label: row.item,
-          value: row.cost,
-          color: row.color || "#cbd5e1",
+        boqData.push({
+          category: "",
+          itemDescription: row.item,
+          quantity: typeof row.quantityStr === 'string' ? parseFloat(row.quantityStr) || 0 : row.quantityStr,
+          unit: row.unitStr,
+          rate: typeof row.rate === 'string' ? parseFloat(row.rate) || 0 : (row.rate || 0),
+          amount: row.cost
         });
+        grandTotal += row.cost;
+        chartData.push({ label: row.item, value: row.cost, color: row.color || "#3B82F6" });
       });
     } else if (cItem) {
       const isSI = cItem.unitVol === "m³";
+      
+      const addRow = (item: string, qty: number, unitLabel: string, typeRateId: string) => {
+        if (qty > 0) {
+          const rate = rates[typeRateId] || 0;
+          const cost = qty * rate;
+          boqData.push({
+            category: "",
+            itemDescription: item,
+            quantity: qty,
+            unit: unitLabel,
+            rate: rate,
+            amount: cost
+          });
+          grandTotal += cost;
+          let color = "#cbd5e1";
+          if (item.includes("Cement")) color = "#60a5fa";
+          else if (item.includes("Sand")) color = "#fbbf24";
+          else if (item.includes("Aggregate")) color = "#94a3b8";
+          else if (item.includes("Water")) color = "#22d3ee";
+          else if (item.includes("Steel")) color = "#818cf8";
+          else if (item.includes("Brick")) color = "#f43f5e";
+          else if (item.includes("Block")) color = "#fb923c";
+          chartData.push({ label: item, value: cost, color });
+        }
+      };
+      
       addRow("Cement", cItem.cementBags || 0, "Bag", "cement");
       addRow("Sand", cItem.sandVol || 0, cItem.unitVol, "sand");
       addRow("Aggregate", cItem.aggregateVol || 0, cItem.unitVol, "aggregate");
       addRow("Water", isSI ? (cItem.waterLiters || 0) : ((cItem.waterLiters / 3.78541) || 0), isSI ? "L" : "Gal", "water");
       if (cItem.steelKg) addRow("Steel", cItem.steelKg, "kg", "steel");
-      if (cItem.bricksCount)
-        addRow("Bricks", cItem.bricksCount, "nos", "bricks");
-      if (cItem.blocksCount)
-        addRow("Blocks", cItem.blocksCount, "nos", "blocks");
+      if (cItem.bricksCount) addRow("Bricks", cItem.bricksCount, "nos", "bricks");
+      if (cItem.blocksCount) addRow("Blocks", cItem.blocksCount, "nos", "blocks");
     } else {
       Object.entries(exportFormat?.breakdown || data).forEach(([k, v]) => {
         const vLower = String(v).toLowerCase();
         let cost = 0;
-        let rateStr = "-";
-        
+        let rate = 0;
         let inferredKey = k.toLowerCase();
+        
         if (inferredKey.includes("cement")) inferredKey = "cement";
         else if (inferredKey.includes("sand")) inferredKey = "sand";
         else if (inferredKey.includes("aggregate") || inferredKey.includes("crush")) inferredKey = "aggregate";
@@ -260,310 +257,114 @@ export default function ShareButtonWithPopup({
 
         if (rates && rates[inferredKey]) {
           const rawNum = parseFloat(vLower.replace(/[^0-9.-]+/g, "")) || 0;
-          cost = rawNum * rates[inferredKey];
-          rateStr = `${rates[inferredKey]}`;
+          rate = rates[inferredKey];
+          cost = rawNum * rate;
         }
 
-        const quantityText = rateStr !== "-" ? `${String(v)}\n(@ Rs ${rateStr})` : String(v);
-        tableRows.push([k, quantityText, "-", cost > 0 ? cost.toFixed(2) : "-"]);
+        const qty = parseFloat(String(v)) || 0;
+        boqData.push({
+          category: "",
+          itemDescription: k,
+          quantity: qty,
+          unit: "",
+          rate: rate,
+          amount: cost
+        });
         
         if (cost > 0) {
           grandTotal += cost;
-          chartData.push({ label: k, value: cost, color: "#8b5cf6" });
+          chartData.push({ label: k, value: cost });
         }
       });
     }
 
-    const doc = await generateProfessionalPDF({
-      title,
-      toolId: activeTab,
-      inputs: {
-        "Structure Type": title,
-        ...(exportFormat?.inputs || {}),
-      },
-      tableData: tableRows,
-      chartData: chartData.length > 0 ? chartData : undefined,
-      grandTotal,
-    });
+    const barData = [...chartData].sort((a,b) => b.value - a.value).slice(0, 5);
+    return { boqData, chartData, barData, grandTotal };
+  };
 
-    const fileName = `${getFileNamePrefix()}.pdf`;
-    if (exportType === "whatsapp" || exportType === "email") {
-      const pdfBlob = doc.output("blob");
-      const file = new File([pdfBlob], fileName, { type: "application/pdf" });
-      if (
-        navigator.share &&
-        navigator.canShare &&
-        navigator.canShare({ files: [file] })
-      ) {
-        navigator
-          .share({
+  const getReportPayload = () => {
+    const { boqData, chartData, barData, grandTotal } = getBoqData();
+    const cleanInputs = filterValidParameters(exportFormat?.inputs || {});
+    const coveredAreaObj = cleanInputs["Covered Area"] || cleanInputs["Plot Area"];
+    const coveredArea = typeof coveredAreaObj === 'string' ? parseFloat(coveredAreaObj.replace(/[^\d.-]/g, '')) : (coveredAreaObj || 0);
+    
+    return {
+      toolName: title,
+      metadata: {
+        totalEstimatedCost: grandTotal,
+        costPerSqFt: coveredArea > 0 ? (grandTotal / coveredArea) : undefined,
+        totalCoveredArea: coveredArea > 0 ? coveredArea : undefined,
+        structureType: cleanInputs["Structure Type"] || "Standard",
+        ...cleanInputs
+      },
+      chartData: {
+        donut: chartData,
+        bar: barData
+      },
+      boqData
+    };
+  };
+
+  const generatePDF = async (
+    exportType: "pdf" | "whatsapp" | "email" = "pdf",
+  ) => {
+    try {
+      const payload = getReportPayload();
+      const doc = await GlobalReportEngine.generatePDF(payload);
+
+      const fileName = `${getFileNamePrefix()}.pdf`;
+      if (exportType === "whatsapp" || exportType === "email") {
+        const pdfBlob = doc.output("blob");
+        const file = new File([pdfBlob], fileName, { type: "application/pdf" });
+        if (
+          navigator.share &&
+          navigator.canShare &&
+          navigator.canShare({ files: [file] })
+        ) {
+          await navigator.share({
             title: title,
             text: "Here is the estimation PDF generated via Civil Estimation Pro.",
             files: [file],
-          })
-          .then(() => toast.success("Shared successfully"))
-          .catch((e) => {
-            console.error("Error sharing", e);
           });
-        setIsOpen(false);
+          toast.success("Shared successfully");
+          setIsOpen(false);
+        } else {
+          toast(
+            `Direct file sharing via ${exportType} is not supported. The PDF will be downloaded.`,
+            { icon: "ℹ️" },
+          );
+          doc.save(fileName);
+          setIsOpen(false);
+          toast.success(`✅ File saved as ${fileName}`);
+        }
       } else {
-        toast(
-          `Direct file sharing via ${exportType === "whatsapp" ? "WhatsApp" : "Email"} is not supported on this device/browser. The PDF will be downloaded so you can share it manually.`,
-          { icon: "ℹ️" },
-        );
         doc.save(fileName);
         setIsOpen(false);
         toast.success(`✅ File saved as ${fileName}`);
       }
-    } else {
-      doc.save(fileName);
-      setIsOpen(false);
-      toast.success(`✅ File saved as ${fileName}`);
+    } catch(e) {
+      console.error(e);
+      toast.error('Failed to generate PDF');
     }
   };
+
   const generateExcel = async () => {
-    const workbook = new ExcelJS.Workbook();
-    const sheet = workbook.addWorksheet("Estimate");
-    /* 1. Title Banner (A1:E2) */ sheet.mergeCells("A1:E2");
-    const titleCell = sheet.getCell("A1");
-    titleCell.value = `${title}`;
-    titleCell.font = {
-      name: "Helvetica",
-      size: 16,
-      bold: true,
-      color: { argb: "FFFFFFFF" },
-    };
-    titleCell.fill = {
-      type: "pattern",
-      pattern: "solid",
-      fgColor: { argb: "FF282A65" },
-    };
-    /* Navy Blue */ titleCell.alignment = {
-      vertical: "middle",
-      horizontal: "left",
-      indent: 1,
-    };
-    /* Add date aligned to the right inside the banner. We will just use cell D1, E1 if we didn't merge across. Since we merged A1:E2, we can't easily put right-aligned text in the same cell without rich text, but rich text horizontal alignment is tricky. Alternatively, we can unmerge A1:E2, merge A1:C2 for title, D1:E2 for dates. Let's do that! */ sheet.unMergeCells(
-      "A1:E2",
-    );
-    sheet.mergeCells("A1:C2");
-    const titleCellA = sheet.getCell("A1");
-    titleCellA.value = `${title}`;
-    titleCellA.font = {
-      name: "Helvetica",
-      size: 16,
-      bold: true,
-      color: { argb: "FFFFFFFF" },
-    };
-    titleCellA.fill = {
-      type: "pattern",
-      pattern: "solid",
-      fgColor: { argb: "FF282A65" },
-    };
-    titleCellA.alignment = {
-      vertical: "middle",
-      horizontal: "left",
-      indent: 1,
-    };
-    sheet.mergeCells("D1:E2");
-    const dateCell = sheet.getCell("D1");
-    const dateStr = new Date().toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-    });
-    dateCell.value = `Date Generated: ${dateStr}\nRates Valid As Of: ${dateStr}`;
-    dateCell.font = { name: "Helvetica", size: 9, color: { argb: "FFFFFFFF" } };
-    dateCell.fill = {
-      type: "pattern",
-      pattern: "solid",
-      fgColor: { argb: "FF282A65" },
-    };
-    dateCell.alignment = {
-      vertical: "middle",
-      horizontal: "right",
-      wrapText: true,
-      indent: 1,
-    };
-    /* Set height of row 1, 2 */ sheet.getRow(1).height = 18;
-    sheet.getRow(2).height = 18;
-    /* 2. Project Details (rows 4-x) */ const inputsInfo = filterValidParameters({
-      "Structure Type": title,
-      ...(exportFormat?.inputs || {}),
-    });
-    let currentRow = 4;
-    Object.entries(inputsInfo).forEach(([key, val]) => {
-      sheet.getCell(`A${currentRow}`).value = `${formatTitleCase(key)}: `;
-      sheet.getCell(`A${currentRow}`).font = { bold: true };
-      sheet.getCell(`B${currentRow}`).value = val;
-      currentRow++;
-    });
-    currentRow += 1;
-    /* Spacing */ /* 3. Main BOQ Table Header */ const headerRow =
-      sheet.getRow(currentRow);
-    headerRow.values = [
-      "Material / Item",
-      "Quantity",
-      "Unit",
-      "Rate (Rs)",
-      "Amount",
-    ];
-    headerRow.font = { bold: true, color: { argb: "FFFFFFFF" } };
-    headerRow.alignment = { horizontal: "center" };
-    for (let c = 1; c <= 5; c++) {
-      headerRow.getCell(c).fill = {
-        type: "pattern",
-        pattern: "solid",
-        fgColor: { argb: "FF282A65" },
-      };
-    }
-    currentRow++;
-    /* Section Divider */ const sectionRow = sheet.getRow(currentRow);
-    sheet.mergeCells(`A${currentRow}:E${currentRow}`);
-    sectionRow.getCell(1).value = `Details - ${title}`;
-    sectionRow.getCell(1).font = { bold: true };
-    sectionRow.getCell(1).fill = {
-      type: "pattern",
-      pattern: "solid",
-      fgColor: { argb: "FFF0F0F0" },
-    };
-    /* Light Grey */ currentRow++;
-    /* Add Data */ const cItem = exportFormat?.cartItem as any;
-    const customTableData = exportFormat?.customTableData;
-    const rates: any = (exportFormat as any)?.rates || {};
-    let startAmtRow = currentRow;
-    const addRow = (
-      item: string,
-      qty: number,
-      unitLabel: string,
-      typeRateId: string,
-    ) => {
-      if (qty > 0) {
-        const row = sheet.getRow(currentRow);
-        row.getCell(1).value = item;
-        row.getCell(2).value = qty;
-        row.getCell(2).numFmt = "#,##0.00";
-        row.getCell(2).alignment = { horizontal: "right" };
-        row.getCell(3).value = unitLabel;
-        row.getCell(3).alignment = { horizontal: "center" };
-        row.getCell(4).value = rates[typeRateId] || 0;
-        row.getCell(4).numFmt = '"Rs "#,##0.00';
-        /* Amount = Qty * Rate */ row.getCell(5).value = {
-          formula: `B${currentRow}*D${currentRow}`,
-          date1904: false,
-        } as any;
-        row.getCell(5).numFmt = '"Rs "#,##0.00';
-        currentRow++;
-      }
-    };
-    if (customTableData) {
-      customTableData.forEach((r) => {
-        const row = sheet.getRow(currentRow);
-        row.getCell(1).value = r.item;
-        row.getCell(2).value = r.quantityStr;
-        /* if it's a number, align right and maybe give it formatting */ if (
-          typeof r.quantityStr === "number"
-        ) {
-          row.getCell(2).numFmt = "#,##0.00";
-        }
-        row.getCell(2).alignment = { horizontal: "right" };
-        row.getCell(3).value = r.unitStr;
-        row.getCell(3).alignment = { horizontal: "center" };
-        row.getCell(4).value = Number(r.rate) || 0;
-        row.getCell(4).numFmt = '"Rs "#,##0.00';
-        row.getCell(5).value = r.cost;
-        row.getCell(5).numFmt = '"Rs "#,##0.00';
-        currentRow++;
-      });
-    } else if (cItem) {
-      const isSI = cItem.unitVol === "m³";
-      addRow("Cement", cItem.cementBags || 0, "Bag", "cement");
-      addRow("Sand", cItem.sandVol || 0, cItem.unitVol, "sand");
-      addRow("Aggregate", cItem.aggregateVol || 0, cItem.unitVol, "aggregate");
-      addRow("Water", isSI ? cItem.waterLiters : (cItem.waterLiters / 3.78541) || 0, isSI ? "L" : "Gal", "water");
-      if (cItem.steelKg) addRow("Steel", cItem.steelKg, "kg", "steel");
-      if (cItem.bricksCount)
-        addRow("Bricks", cItem.bricksCount, "nos", "bricks");
-      if (cItem.blocksCount)
-        addRow("Blocks", cItem.blocksCount, "nos", "blocks");
-    } else {
-      Object.entries(exportFormat?.breakdown || data).forEach(([k, v]) => {
-        const row = sheet.getRow(currentRow);
-        const vLower = String(v).toLowerCase();
-        let cost = 0;
-        let inferredKey = k.toLowerCase();
-        
-        if (inferredKey.includes("cement")) inferredKey = "cement";
-        else if (inferredKey.includes("sand")) inferredKey = "sand";
-        else if (inferredKey.includes("aggregate") || inferredKey.includes("crush")) inferredKey = "aggregate";
-        else if (inferredKey.includes("water")) inferredKey = "water";
-        else if (inferredKey.includes("steel")) inferredKey = "steel";
-        else if (inferredKey.includes("brick")) inferredKey = "bricks";
-        else if (inferredKey.includes("block")) inferredKey = "blocks";
+    try {
+      const payload = getReportPayload();
+      const workbook = await GlobalReportEngine.generateExcel(payload);
 
-        if (rates && rates[inferredKey]) {
-          const rawNum = parseFloat(vLower.replace(/[^0-9.-]+/g, "")) || 0;
-          cost = rawNum * rates[inferredKey];
-        }
-
-        row.getCell(1).value = formatCapitalize(k.replace(/\*/g, ''));
-        row.getCell(2).value = String(v);
-        row.getCell(3).value = "-";
-        row.getCell(4).value = rates && rates[inferredKey] ? rates[inferredKey] : "-";
-        row.getCell(5).value = cost || "-";
-        if (cost) {
-          row.getCell(5).numFmt = '"Rs "#,##0.00';
-        }
-        currentRow++;
+      const buffer = await workbook.xlsx.writeBuffer();
+      const blob = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
+      const fileName = `${getFileNamePrefix()}.xlsx`;
+      saveAs(blob, fileName);
+      setIsOpen(false);
+      toast.success(`✅ File saved as ${fileName}`);
+    } catch(e) {
+      console.error(e);
+      toast.error('Failed to generate Excel file');
     }
-    let endAmtRow = currentRow - 1;
-    /* Grand Total Row */ const grandRow = sheet.getRow(currentRow);
-    sheet.mergeCells(`A${currentRow}:D${currentRow}`);
-    grandRow.getCell(1).value = "Grand Total Estimated";
-    grandRow.getCell(1).font = { bold: true, color: { argb: "FF282A65" } };
-    grandRow.getCell(1).fill = {
-      type: "pattern",
-      pattern: "solid",
-      fgColor: { argb: "FFE6F0FA" },
-    };
-    /* Very light blue */ grandRow.getCell(1).alignment = {
-      horizontal: "right",
-    };
-    const formulaStr =
-      endAmtRow >= startAmtRow ? `SUM(E${startAmtRow}:E${endAmtRow})` : "0";
-    grandRow.getCell(5).value = { formula: formulaStr, date1904: false } as any;
-    grandRow.getCell(5).font = { bold: true, color: { argb: "FF282A65" } };
-    grandRow.getCell(5).fill = {
-      type: "pattern",
-      pattern: "solid",
-      fgColor: { argb: "FFE6F0FA" },
-    };
-    grandRow.getCell(5).numFmt = '"Rs "#,##0.00';
-    currentRow += 2;
-    sheet.getCell(`A${currentRow}`).value =
-      "* Denotes a user-defined custom rate. This is a system-generated estimate. Actual prices may vary based on market conditions.";
-    sheet.getCell(`A${currentRow}`).font = {
-      size: 9,
-      italic: true,
-      color: { argb: "FF888888" },
-    };
-    /* Auto fit columns */ sheet.columns.forEach((column, i) => {
-      let maxLen = 12;
-      column.eachCell!({ includeEmpty: false }, (cell) => {
-        if (!cell.isMerged && cell.value) {
-          const str = cell.value.toString();
-          if (str.length > maxLen) maxLen = str.length;
-        }
-      });
-      if (i === 0) maxLen = Math.max(maxLen, 25);
-      column.width = maxLen + 4;
-    });
-    const fileName = `${getFileNamePrefix()}.xlsx`;
-    const buffer = await workbook.xlsx.writeBuffer();
-    saveAs(new Blob([buffer]), fileName);
-    setIsOpen(false);
-    toast.success(`✅ File saved as ${fileName}`);
   };
   const handleNativeShareOrMenu = (e: React.MouseEvent) => {
     e.preventDefault();

@@ -203,6 +203,8 @@ export const getDiagramBase64ForTool = (toolId: string): Promise<string | null> 
   });
 };
 
+import { GlobalReportEngine } from "./GlobalReportEngine";
+
 export const generateProfessionalPDF = async ({
   title,
   toolId,
@@ -218,232 +220,38 @@ export const generateProfessionalPDF = async ({
   chartData?: { label: string; value: number; color: string }[];
   grandTotal: number;
 }): Promise<jsPDF> => {
-  const doc = new jsPDF();
-  const pageWidth = doc.internal.pageSize.width;
-  const pageHeight = doc.internal.pageSize.height;
-
-  // Generate QR Code containing the current URL
-  let qrCodeDataURL = "";
-  try {
-    const currentUrl = typeof window !== 'undefined' ? window.location.href : 'https://ais-dev.web.app/';
-    qrCodeDataURL = await QRCode.toDataURL(currentUrl, {
-      margin: 1,
-      color: { dark: '#000000', light: '#ffffff' }
-    });
-  } catch (err) {
-    console.error("Failed to generate QR code", err);
-  }
-
-  // 1. Header (Navy Blue Banner)
-  doc.setFillColor(40, 42, 101);
-  doc.rect(0, 0, pageWidth, 40, "F");
-  
-  doc.setTextColor(255, 255, 255);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(22);
-  doc.text(formatCapitalize(title), 14, 22);
-  
-  doc.setFontSize(10);
-  doc.setFont("helvetica", "normal");
-  const dateStr = new Date().toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-  doc.text(`Generated: ${dateStr}`, pageWidth - 45, 18, { align: "right" });
-  doc.text(`Estimation Pro`, pageWidth - 45, 26, { align: "right" });
-  
-  // Rate Tag
-  doc.setFillColor(79, 70, 229); // Indigo Tag
-  doc.rect(14, 27, 85, 6, "F");
-  doc.setFontSize(8);
-  doc.text("Costing Basis: Custom Market Rates / Selected MRS", 16, 31.5);
-  doc.setFontSize(10);
-
-  if (qrCodeDataURL) {
-    doc.addImage(qrCodeDataURL, "PNG", pageWidth - 36, 5, 28, 28);
-  }
-
-  let currentY = 50;
-
-  // 2. Project Parameters
   const cleanInputs = filterValidParameters(inputs || {});
-  if (Object.keys(cleanInputs).length > 0) {
-    doc.setTextColor(40, 42, 101);
-    doc.setFontSize(14);
-    doc.setFont("helvetica", "bold");
-    doc.text("Project Parameters", 14, currentY);
-    
-    doc.setDrawColor(200, 200, 200);
-    doc.setLineWidth(0.5);
-    doc.line(14, currentY + 3, pageWidth - 14, currentY + 3);
-    
-    currentY += 12;
-    doc.setFontSize(10);
-    doc.setTextColor(50, 50, 50);
-    
-    let isLeft = true;
-    for (const [key, val] of Object.entries(cleanInputs)) {
-      const x = isLeft ? 14 : pageWidth / 2 + 10;
-      doc.setFont("helvetica", "bold");
-      const label = `${formatTitleCase(key)}:`;
-      doc.text(label, x, currentY);
-      doc.setFont("helvetica", "normal");
-      doc.text(String(val), x + doc.getTextWidth(label) + 2, currentY);
-      
-      if (!isLeft) currentY += 8;
-      isLeft = !isLeft;
-    }
-    if (!isLeft) currentY += 8;
-  }
-
-  // 3. Educational Diagram (Optional based on toolId)
-  if (toolId) {
-    const diagramBase64 = await getDiagramBase64ForTool(toolId);
-    if (diagramBase64) {
-      if (currentY > pageHeight - 80) {
-        doc.addPage();
-        currentY = 20;
-      }
-      doc.addImage(diagramBase64, "PNG", 14, currentY, 80, 40);
-      currentY += 45;
-    }
-  }
-
-  // 4. Visual Summary (Chart)
-  if (chartData && chartData.length > 0) {
-    if (currentY > pageHeight - 100) {
-      doc.addPage();
-      currentY = 20;
-    }
-    const totalText = `Rs ${Math.round(grandTotal).toLocaleString('en-US')}`;
-    const chartBase64 = await createDonutChartBase64(chartData, totalText);
-    
-    if (chartBase64) {
-      doc.addImage(chartBase64, "PNG", pageWidth / 2 - 45, currentY, 90, 90);
-      currentY += 95;
-    }
-  } else {
-    currentY += 5;
-  }
-
-  // 5. Professional Material/Item Table
-  const tableBody: any[] = [];
-  tableData.forEach((row) => {
-    // Format the first column (Item Name) to title case and spaced
-    if (row[0] && typeof row[0] === 'string') {
-      row[0] = formatCapitalize(row[0].replace(/\*/g, ''));
-    }
-    tableBody.push(row);
+  const boqData = tableData.map(row => {
+     let costStr = String(row[row.length - 1]).replace(/[^0-9.-]+/g, "");
+     let cost = parseFloat(costStr) || 0;
+     let qStr = String(row[1]).split('\n')[0];
+     let qty = parseFloat(qStr.replace(/[^0-9.-]+/g, "")) || 0;
+     return {
+       category: "",
+       itemDescription: String(row[0]),
+       quantity: qty,
+       unit: String(row[2]),
+       rate: qty > 0 ? (cost / qty) : 0,
+       amount: cost
+     };
   });
-
-  autoTable(doc, {
-    startY: currentY,
-    head: [["Item / Description", "Quantity & Rate", "Unit", "Amount (Rs)"]],
-    body: tableBody,
-    theme: "grid",
-    headStyles: {
-      fillColor: [40, 42, 101],
-      textColor: [255, 255, 255],
-      font: "helvetica",
-      fontStyle: "bold",
+  
+  const barData = [...(chartData || [])].sort((a, b) => b.value - a.value).slice(0, 5);
+  
+  const payload = {
+    toolName: title,
+    metadata: {
+      totalEstimatedCost: grandTotal,
+      structureType: cleanInputs["Structure Type"] || title,
+      ...cleanInputs
     },
-    alternateRowStyles: {
-       fillColor: [248, 250, 252],
+    chartData: {
+      donut: chartData || [],
+      bar: barData
     },
-    styles: {
-      font: "helvetica",
-      fontSize: 10,
-      cellPadding: 5,
-      valign: "middle",
-      lineColor: [226, 232, 240],
-    },
-    columnStyles: {
-      0: { fontStyle: "bold", textColor: [30, 41, 59] },
-      3: { halign: "right", textColor: [15, 23, 42], fontStyle: "bold" },
-    },
-    margin: { left: 14, right: 14 },
-  });
-
-  const finalY = (doc as any).lastAutoTable.finalY || currentY + 10;
-
-  // 6. Grand Total Row
-  autoTable(doc, {
-    startY: finalY,
-    body: [["Grand Total Estimated", `Rs ${grandTotal.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`]],
-    theme: "grid",
-    styles: { font: "helvetica", fontSize: 13, cellPadding: 8 },
-    columnStyles: {
-      0: {
-        fontStyle: "bold",
-        fillColor: [240, 248, 255],
-        textColor: [40, 42, 101],
-        halign: "right"
-      },
-      1: {
-        halign: "right",
-        fontStyle: "bold",
-        fillColor: [240, 248, 255],
-        textColor: [40, 42, 101],
-        cellWidth: 60,
-      },
-    },
-    margin: { left: 14, right: 14 },
-  });
-
-  let endingY = (doc as any).lastAutoTable.finalY + 15;
+    boqData
+  };
   
-  // 7. Formula Elaboration
-  if (endingY > pageHeight - 60) {
-     doc.addPage();
-     endingY = 20;
-  }
-  
-  doc.setFillColor(243, 244, 246);
-  doc.rect(14, endingY, pageWidth - 28, 25, "F");
-  
-  doc.setFontSize(11);
-  doc.setTextColor(30, 41, 59);
-  doc.setFont("helvetica", "bold");
-  doc.text("How it's Calculated (Standard AI Studio Engineering Logic)", 18, endingY + 8);
-  doc.setFontSize(9);
-  doc.setFont("helvetica", "normal");
-  doc.setTextColor(71, 85, 105);
-  
-  let formulaText = "Amounts(Rs) = Quantity × Unit Rate. Constants: Dry Volume Multipliers used appropriately.";
-  if (toolId?.includes("concrete")) {
-    formulaText = `Dry Concrete Volume = Wet Volume × ${CIVIL_CONSTANTS.DRY_CONCRETE_FACTOR}. Cement volume in bags uses ${CIVIL_CONSTANTS.CEMENT_BAG_VOLUME_M3} m³ per 50kg bag.`;
-  } else if (toolId?.includes("brick")) {
-    formulaText = `Dry Mortar Volume = Wet Mortar Volume × ${CIVIL_CONSTANTS.DRY_MORTAR_FACTOR}. Brick count includes 10mm mortar thickness allowance.`;
-  } else if (toolId?.includes("steel")) {
-    formulaText = "Steel Unit Weight = d² / 162.28 (kg/m). Total cost factors in unit rates and exact piece cutting calculations.";
-  } else if (toolId?.includes("earth")) {
-    formulaText = "Excavation/Volume accounts for standard 1.15 to 1.2 soil bulking factor based on soil type.";
-  }
-  
-  doc.text(formulaText, 18, endingY + 16);
-  endingY += 35;
-
-  // Footer text & Pro Tip
-  if (endingY > pageHeight - 30) {
-    endingY = pageHeight - 30; // Just push it up if we are really low
-  }
-  
-  const randomTip = PRO_TIPS[Math.floor(Math.random() * PRO_TIPS.length)];
-  doc.setFontSize(9);
-  doc.setTextColor(40, 42, 101); // Indigo color for tip
-  doc.setFont("helvetica", "bold");
-  doc.text(randomTip, 14, pageHeight - 25);
-
-  doc.setFontSize(8);
-  doc.setTextColor(150, 150, 150);
-  doc.setFont("helvetica", "normal");
-  doc.text(
-    "* Denotes a user-defined custom rate. This is a system-generated estimate.\nActual prices may vary based on market conditions and site-specific complexities.",
-    14,
-    pageHeight - 15,
-  );
-
-  return doc;
+  return await GlobalReportEngine.generatePDF(payload);
 };
 

@@ -39,7 +39,7 @@ export function UniversalTabs({
               onClick={() => onTabChange(tab.id)}
               className={`
                 relative flex items-center justify-center gap-2.5 px-6 py-3 text-sm font-bold transition-all whitespace-nowrap
-                rounded-t-xl
+                rounded-t-md rounded-b-none
                 ${
                   isActive
                     ? `bg-white dark:bg-[#151821] shadow-sm shadow-slate-200/50 dark:shadow-black/20 z-20 ${colorTheme.text}`
@@ -55,7 +55,7 @@ export function UniversalTabs({
               {tab.label}
               {/* Active / Inactive Border Indicator */}
               <div
-                className={`absolute bottom-0 left-0 right-0 border-b-[3px] ${
+                className={`absolute bottom-0 left-0 right-0 border-b-[5px] ${
                   isActive ? colorTheme.border : "border-transparent"
                 }`}
                 style={{ marginBottom: "-1px" }} // cover the container's bottom border

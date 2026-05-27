@@ -89,89 +89,61 @@ export const generatePDFReport = async (boqItems: BOQItem[], measurements: Measu
   doc.save(`BOQ_Report_${details.projectId}.pdf`);
 };
 
+import { GlobalReportEngine } from "./GlobalReportEngine";
+
 export const generateExcelReport = async (boqItems: BOQItem[], measurements: Measurement[], scalePxPerUnit: number, globalUnitName: string, details: ReportDetails, currencySymbol: string = "$") => {
-  const workbook = new ExcelJS.Workbook();
-  workbook.creator = 'Estimator AI';
-  workbook.created = new Date();
-
-  const sheet = workbook.addWorksheet('BOQ Report');
-
-  // Report Header
-  sheet.mergeCells('A1:F1');
-  sheet.getCell('A1').value = 'Bill of Quantities (BOQ) Report';
-  sheet.getCell('A1').font = { size: 16, bold: true };
-  sheet.getCell('A1').alignment = { vertical: 'middle', horizontal: 'center' };
-
-  sheet.getCell('A3').value = 'Project Name:';
-  sheet.getCell('B3').value = details.projectName;
-  sheet.getCell('D3').value = 'Client:';
-  sheet.getCell('E3').value = details.clientName;
-
-  sheet.getCell('A4').value = 'Project ID:';
-  sheet.getCell('B4').value = details.projectId;
-  sheet.getCell('D4').value = 'Location:';
-  sheet.getCell('E4').value = details.siteLocation;
-
-  sheet.getCell('D5').value = 'Date:';
-  sheet.getCell('E5').value = details.date;
-
-  // Table Headers
-  sheet.getRow(7).values = ['Item ID', 'Description', 'Unit', 'Quantity', `Rate (${currencySymbol})`, `Amount (${currencySymbol})`];
-  sheet.getRow(7).font = { bold: true, color: { argb: 'FFFFFFFF' } };
-  
-  // Header background color
-  ['A', 'B', 'C', 'D', 'E', 'F'].forEach(col => {
-    sheet.getCell(`${col}7`).fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FF2980B9' }
-    };
-  });
-
-  // Data
   let grandTotal = 0;
-  let currentRow = 8;
-
-  boqItems.forEach(item => {
+  const boqData = boqItems.map(item => {
     const qty = getMappedQty(item, measurements, scalePxPerUnit, globalUnitName);
     const amount = qty * item.rate;
     grandTotal += amount;
-    
-    sheet.getRow(currentRow).values = [
-      item.id,
-      item.desc,
-      item.unit,
-      parseFloat(qty.toFixed(2)),
-      parseFloat(item.rate.toFixed(2)),
-      parseFloat(amount.toFixed(2))
-    ];
-    currentRow++;
+    return {
+      category: "",
+      itemDescription: `${item.id} - ${item.desc}`,
+      quantity: qty,
+      unit: item.unit,
+      rate: item.rate,
+      amount: amount
+    };
   });
-
-  // Formatting for numbers
-  const numColD = sheet.getColumn('D');
-  numColD.numFmt = '#,##0.00';
-  const numColE = sheet.getColumn('E');
-  numColE.numFmt = '#,##0.00';
-  const numColF = sheet.getColumn('F');
-  numColF.numFmt = '#,##0.00';
-
-  // Grand Total row
-  currentRow++;
-  sheet.getCell(`E${currentRow}`).value = 'Grand Total';
-  sheet.getCell(`E${currentRow}`).font = { bold: true };
-  sheet.getCell(`F${currentRow}`).value = grandTotal;
-  sheet.getCell(`F${currentRow}`).font = { bold: true };
-  sheet.getCell(`F${currentRow}`).numFmt = '#,##0.00';
-
-  // Set widths
-  sheet.getColumn('A').width = 10;
-  sheet.getColumn('B').width = 40;
-  sheet.getColumn('C').width = 10;
-  sheet.getColumn('D').width = 15;
-  sheet.getColumn('E').width = 15;
-  sheet.getColumn('F').width = 20;
-
+  
+  const payload = {
+    toolName: "Bill of Quantities (BOQ)",
+    reportId: details.projectId,
+    metadata: {
+      totalEstimatedCost: grandTotal,
+      projectName: details.projectName,
+      clientName: details.clientName,
+      siteLocation: details.siteLocation,
+      date: details.date
+    },
+    chartData: {
+      donut: boqData.map(d => ({ label: d.itemDescription, value: d.amount })),
+      bar: [...boqData].sort((a,b) => b.amount - a.amount).slice(0, 5).map(d => ({ label: d.itemDescription, value: d.amount }))
+    },
+    boqData
+  };
+  
+  const workbook = await GlobalReportEngine.generateExcel(payload);
   const buffer = await workbook.xlsx.writeBuffer();
-  saveAs(new Blob([buffer]), `BOQ_Report_${details.projectId}.xlsx`);
+  const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  const fileName = `BOQ_Report_${details.projectId}.xlsx`;
+  
+  // @ts-ignore
+  if (typeof window !== 'undefined' && typeof window.saveAs !== 'undefined') {
+    // @ts-ignore
+    window.saveAs(blob, fileName);
+  } else {
+    // Basic download fallback
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 0);
+  }
 };

@@ -1,48 +1,11 @@
-import ExcelJS from 'exceljs';
-import { saveAs } from 'file-saver';
-import { generateProfessionalPDF, formatCapitalize } from './pdfGenerator';
+const fs = require('fs');
 
-interface BOQItem {
-  id: string;
-  division: string;
-  description: string;
-  unit: string;
-  quantity: number;
-  rate: number;
-}
+const file = 'src/utils/boq-reports.ts';
+let content = fs.readFileSync(file, 'utf8');
 
-export const generateBOQPDF = async (items: BOQItem[], projectName: string, subtotal: number, contingencyAmt: number, gstAmt: number, grandTotal: number, currency: string) => {
-  const tableRows: any[] = [];
-  
-  items.forEach((item) => {
-    tableRows.push([
-      item.division,
-      item.description,
-      `${item.quantity.toFixed(2)} (@ ${currency}${item.rate.toFixed(2)})`,
-      item.unit,
-      (item.quantity * item.rate).toFixed(2)
-    ]);
-  });
+const regex = /export const generateBOQExcel = async \([\s\S]*$/m;
 
-  tableRows.push(["", "", "", "Subtotal", subtotal.toFixed(2)]);
-  tableRows.push(["", "", "", "Contingency", contingencyAmt.toFixed(2)]);
-  tableRows.push(["", "", "", "GST/VAT", gstAmt.toFixed(2)]);
-  tableRows.push(["", "", "", "Grand Total", grandTotal.toFixed(2)]);
-
-  const doc = await generateProfessionalPDF({
-    title: "Bill of Quantities (BOQ)",
-    inputs: {
-      "Project Name": projectName,
-      "Date": new Date().toLocaleDateString()
-    },
-    tableData: tableRows,
-    grandTotal
-  });
-
-  doc.save(`${projectName.replace(/\s+/g, '_')}_BOQ.pdf`);
-};
-
-import { GlobalReportEngine } from "./GlobalReportEngine";
+const newGen = `import { GlobalReportEngine } from "./GlobalReportEngine";
 
 export const generateBOQExcel = async (items: BOQItem[], projectName: string, subtotal: number, contingencyAmt: number, gstAmt: number, grandTotal: number, currency: string) => {
   const boqData = items.map(item => {
@@ -76,7 +39,7 @@ export const generateBOQExcel = async (items: BOQItem[], projectName: string, su
   const workbook = await GlobalReportEngine.generateExcel(payload);
   const buffer = await workbook.xlsx.writeBuffer();
   const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-  const fileName = `${projectName.replace(/\s+/g, '_')}_BOQ.xlsx`;
+  const fileName = \`\${projectName.replace(/\\s+/g, '_')}_BOQ.xlsx\`;
   
   // @ts-ignore
   if (typeof window !== 'undefined' && typeof window.saveAs !== 'undefined') {
@@ -96,3 +59,7 @@ export const generateBOQExcel = async (items: BOQItem[], projectName: string, su
     }, 0);
   }
 };
+`;
+
+content = content.replace(regex, newGen);
+fs.writeFileSync(file, content);
