@@ -90,98 +90,95 @@ export default function TopNavbar({
 
   return (
     <>
-      <nav className="w-full sticky top-0 z-40 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md px-5 py-4 md:px-8 border-b border-border-color/50 shadow-sm transition-colors duration-300">
-        <div className="w-full flex items-center justify-between mx-auto max-w-[1400px]">
+      <div className="w-full sticky top-0 z-50 pt-2 md:pt-6 px-4 md:px-6 pointer-events-none transition-all duration-300">
+        <nav className="mx-auto max-w-[1400px] w-full pointer-events-auto bg-white/60 dark:bg-[#0a0a0a]/60 backdrop-blur-2xl border border-white/80 dark:border-white/10 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)] rounded-full px-3 py-2 md:px-5 md:py-3 transition-colors duration-500">
+          <div className="w-full flex items-center justify-between">
           
           {/* Left: Logo */}
-          <div className="flex items-center gap-2 md:gap-3 justify-start cursor-pointer group shrink-0" onClick={() => onNavigate?.('home' as ModuleId)}>
-            <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center transition-all duration-300 text-[var(--accent-vibrant)] group-hover:scale-105 group-hover:rotate-3 shadow-glass bg-bg-card rounded-xl p-1.5">
+          <div className="flex items-center gap-3 justify-start cursor-pointer group shrink-0" onClick={() => onNavigate?.('home' as ModuleId)}>
+            <div className="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center transition-all duration-300 text-indigo-600 dark:text-indigo-400 group-hover:scale-105 group-hover:rotate-6 bg-white dark:bg-white/5 border border-slate-200/50 dark:border-white/10 shadow-sm rounded-xl p-1.5">
               <Logo className="w-full h-full" />
             </div>
-            <span className="hidden md:block font-sans font-black text-[20px] md:text-[24px] text-[var(--primary-dark)] dark:text-white tracking-tight">
+            <span className="hidden lg:block font-heading font-black text-[20px] md:text-[22px] text-slate-900 dark:text-white tracking-tight">
               Civil Estimation Pro
             </span>
           </div>
 
-          {/* Center: Slash navigation links (Desktop/Tablet >= 768px) */}
-          <div className="hidden md:flex items-center justify-start xl:ml-12 bg-white/60 dark:bg-slate-800/60 backdrop-blur-md px-6 py-2.5 rounded-full shadow-sm border border-white/80 dark:border-slate-700/50">
-            {navItems.filter(link => link.id !== 'home').map((link, index, arr) => (
-              <React.Fragment key={link.name}>
-                <button 
-                  onClick={() => onNavigate?.(link.id)}
-                  className="text-[14px] font-semibold text-slate-500 hover:text-[var(--primary-dark)] dark:text-slate-400 dark:hover:text-white transition-colors tracking-tight"
-                >
-                  {link.name}
-                </button>
-                {index < arr.length - 1 && (
-                  <span className="mx-4 text-slate-300 dark:text-slate-600 font-light select-none">/</span>
-                )}
-              </React.Fragment>
+          {/* Center: Nav links (Desktop/Tablet >= 768px) */}
+          <div className="hidden md:flex items-center justify-center gap-1 xl:ml-8 bg-black/5 dark:bg-white/5 px-1.5 py-1.5 rounded-full border border-black/5 dark:border-white/5">
+            {navItems.filter(link => link.id !== 'home').map((link) => (
+              <button 
+                key={link.name}
+                onClick={() => onNavigate?.(link.id)}
+                className="px-4 py-2 rounded-full text-[14px] font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-white dark:hover:bg-slate-800 hover:shadow-sm transition-all duration-300 tracking-tight"
+              >
+                {link.name}
+              </button>
             ))}
           </div>
 
           {/* Right: Action Buttons & Menu Toggle */}
           <div className="flex items-center justify-end flex-1 gap-2 md:gap-4">
             
-            <div className="flex items-center gap-2 md:gap-4">
-              <div className="hidden md:block">
+            <div className="flex items-center gap-2 md:gap-3">
+              <div className="hidden lg:block">
                 <DarkModeToggle />
               </div>
 
-              <div className="hidden md:flex items-center gap-3">
+              <div className="hidden md:flex items-center">
                 <button 
                   onClick={() => onNavigate?.('contact' as ModuleId)}
-                  className="w-10 h-10 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center justify-center text-slate-500 hover:text-[var(--accent-vibrant)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                  className="w-10 h-10 rounded-full bg-white/50 dark:bg-white/5 border border-slate-200/50 dark:border-white/10 flex items-center justify-center text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 hover:bg-white dark:hover:bg-slate-800 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 active:scale-95"
                   title="Support"
                 >
-                  <div className="font-bold text-lg">?</div>
+                  <div className="font-bold text-lg font-heading">?</div>
                 </button>
               </div>
 
               {!isAuthenticated ? (
                 <button 
                   onClick={signInWithGoogle}
-                  className="px-3 md:px-4 h-8 md:h-9 rounded-full bg-slate-900 dark:bg-white shadow-sm border border-slate-800 dark:border-slate-200 flex items-center justify-center gap-1.5 md:gap-2 text-white dark:text-slate-900 transition-all duration-300 whitespace-nowrap"
+                  className="px-4 md:px-5 h-9 md:h-10 rounded-full bg-white/50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 flex items-center justify-center gap-2 text-slate-700 hover:text-slate-900 hover:bg-white dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 shadow-sm hover:shadow-md transition-all duration-300 font-bold text-xs md:text-sm tracking-tight hover:scale-105 active:scale-95 whitespace-nowrap"
                   title="Sign In"
                 >
-                  <span className="text-xs md:text-sm font-semibold tracking-tight">Sign In</span>
+                  Sign In
                 </button>
               ) : (
                 <div ref={profileRef} className="relative">
                   <button 
                     onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                    className="h-8 md:h-10 pl-1 md:pl-1.5 pr-1.5 md:pr-2 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center gap-1 md:gap-2 text-[12px] md:text-[14px] font-semibold text-slate-700 dark:text-slate-200 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                    className="h-9 md:h-10 pl-1 md:pl-1.5 pr-2 md:pr-3 rounded-full bg-white/50 dark:bg-white/5 shadow-sm border border-slate-200/50 dark:border-white/10 flex items-center gap-2 text-[12px] md:text-[14px] font-bold text-slate-700 dark:text-slate-200 hover:shadow-md hover:bg-white dark:hover:bg-white/10 hover:scale-105 active:scale-95 transition-all duration-300"
                   >
                     {user?.photoURL ? (
-                        <img src={user.photoURL} alt="User Avatar" title="User Profile Photo" loading="lazy" className="w-6 h-6 md:w-7 md:h-7 rounded-full object-cover shadow-sm border border-slate-200 dark:border-slate-600" />
+                        <img src={user.photoURL} alt="User Avatar" title="User Profile Photo" loading="lazy" className="w-7 h-7 md:w-8 md:h-8 rounded-full object-cover shadow-sm border border-slate-200 dark:border-slate-600" />
                     ) : (
-                        <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center border border-slate-200 dark:border-slate-600">
-                          <User className="w-3 h-3 md:w-4 md:h-4 text-slate-500" />
+                        <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center border border-slate-200 dark:border-slate-600">
+                          <User className="w-3.5 h-3.5 md:w-4 md:h-4 text-slate-500" />
                         </div>
                     )}
-                    <span className="hidden sm:block truncate max-w-[80px] md:max-w-[100px]">{user?.displayName?.split(' ')[0] || 'Account'}</span>
+                    <span className="hidden sm:block truncate max-w-[80px] md:max-w-[100px] tracking-tight">{user?.displayName?.split(' ')[0] || 'Account'}</span>
                     <div className="w-4 h-4 md:w-5 md:h-5 rounded-full flex items-center justify-center text-slate-400">
-                      <ChevronDown className={`w-3 h-3 md:w-3.5 md:h-3.5 transition-transform duration-300 ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`w-3.5 h-3.5 md:w-4 md:h-4 transition-transform duration-300 ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
                     </div>
                   </button>
 
                   {isProfileMenuOpen && (
-                    <div className="absolute right-0 top-[140%] w-56 bg-bg-card border border-border-color rounded-xl shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 z-50">
-                      <div className="px-4 py-3 border-b border-border-color bg-bg-primary/50">
-                        <p className="text-sm font-bold text-text-primary truncate">{user?.displayName || 'User'}</p>
+                    <div className="absolute right-0 top-[120%] w-56 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-slate-200/50 dark:border-white/10 rounded-2xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 focus-mode-none z-50">
+                      <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800/50 bg-slate-50/50 dark:bg-slate-800/20">
+                        <p className="text-sm font-bold text-slate-900 dark:text-white truncate tracking-tight">{user?.displayName || 'User'}</p>
                         <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
                       </div>
                       <div className="p-2 space-y-1">
-                        <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                        <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                           <User className="w-4 h-4" /> My Profile
                         </button>
-                        <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                        <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                           <Settings className="w-4 h-4" /> Account Settings
                         </button>
-                        <div className="h-px bg-slate-200 dark:bg-slate-800 my-1" />
+                        <div className="h-px bg-slate-100 dark:bg-slate-800 my-2" />
                         <button 
                           onClick={handleSignOut}
-                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
                         >
                           <LogOut className="w-4 h-4" /> Sign Out
                         </button>
@@ -191,33 +188,38 @@ export default function TopNavbar({
                 </div>
               )}
               
-              <button 
-                onClick={() => onNavigate?.('house' as ModuleId)}
-                className="px-3 md:px-6 py-1.5 md:py-2.5 rounded-full text-[12px] md:text-[14px] font-bold text-white bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 transition-all duration-300 whitespace-nowrap shadow-[0_4px_14px_rgba(99,102,241,0.3)] hover:shadow-[0_6px_20px_rgba(34,211,238,0.4)] hover:-translate-y-0.5"
-              >
-                <span className="hidden md:inline">Start Estimating</span>
-                <span className="inline md:hidden">Start</span>
-              </button>
+              <div className="relative group/btn hidden sm:block">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-full blur-md opacity-30 group-hover/btn:opacity-60 transition-opacity duration-500"></div>
+                <button 
+                  onClick={() => onNavigate?.('house' as ModuleId)}
+                  className="relative px-5 md:px-7 py-2 md:py-2.5 rounded-full text-[13px] md:text-[15px] font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 shadow-[0_2px_10px_rgba(79,70,229,0.3)] hover:shadow-[0_8px_24px_rgba(79,70,229,0.5)] transition-all duration-300 whitespace-nowrap hover:scale-[1.02] active:scale-[0.98] overflow-hidden"
+                >
+                  <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]"></div>
+                  <span className="relative z-10 hidden md:inline tracking-wide">Start Estimating</span>
+                  <span className="relative z-10 inline md:hidden tracking-wide">Start</span>
+                </button>
+              </div>
             </div>
 
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden w-8 h-8 rounded-full bg-bg-card shadow-sm border border-border-color flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-300"
+              className="md:hidden w-10 h-10 rounded-full bg-white/50 dark:bg-white/5 border border-slate-200/50 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300 shadow-sm"
             >
-              {isMobileMenuOpen ? <X className="w-4 h-4" strokeWidth={2} /> : <Menu className="w-4 h-4" strokeWidth={2} />}
+              {isMobileMenuOpen ? <X className="w-5 h-5" strokeWidth={2} /> : <Menu className="w-5 h-5" strokeWidth={2} />}
             </button>
           </div>
         </div>
-      </nav>
+        </nav>
+      </div>
 
       {/* ------------------------------------------- */}
       {/* MOBILE HAMBURGER MENU OVERLAY               */}
       {/* ------------------------------------------- */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white dark:bg-slate-900 shadow-xl border-b border-slate-200 dark:border-slate-800 animate-in slide-in-from-top-4 fade-in duration-300 ease-out z-[90]">
-          <div className="flex flex-col max-h-[85vh] overflow-y-auto">
+        <div className="md:hidden fixed top-[88px] left-4 right-4 bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-2xl shadow-2xl border border-slate-200/50 dark:border-white/10 rounded-3xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 ease-out z-[90]">
+          <div className="flex flex-col max-h-[75vh] overflow-y-auto">
             {/* Nav Items */}
-            <nav className="flex flex-col py-2 border-b border-slate-100 dark:border-slate-800/50">
+            <nav className="flex flex-col p-2">
               {navItems.map((item) => (
                 <button
                   key={item.id}
@@ -225,25 +227,26 @@ export default function TopNavbar({
                     setIsMobileMenuOpen(false);
                     onNavigate?.(item.id);
                   }}
-                  className="px-6 py-4 text-left text-[16px] font-bold text-slate-800 dark:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                  className="px-6 py-4 rounded-2xl text-left text-[16px] font-bold text-slate-800 dark:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
                 >
                   {item.name}
                 </button>
               ))}
-              <div className="flex flex-col p-4 px-6 gap-3">
+              <div className="flex flex-col p-4 gap-3">
                 <button
                   onClick={() => {
                     setIsMobileMenuOpen(false);
                     onNavigate?.('house' as ModuleId);
                   }}
-                  className="w-full py-3.5 rounded-full text-[14px] font-bold text-white bg-gradient-to-r from-indigo-500 to-cyan-500 shadow-md text-center transition-transform active:scale-[0.98]"
+                  className="relative w-full py-3.5 rounded-full text-[15px] font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 shadow-md text-center transition-transform active:scale-[0.98] overflow-hidden group"
                 >
+                  <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-[shimmer_2s_infinite]"></div>
                   Start Estimating
                 </button>
                 {!isAuthenticated ? (
                   <button
                     onClick={signInWithGoogle}
-                    className="w-full py-3.5 rounded-full text-[14px] font-bold bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-md text-center transition-transform active:scale-[0.98]"
+                    className="w-full py-3.5 rounded-full text-[15px] font-bold bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-white shadow-sm border border-slate-200 dark:border-white/5 text-center transition-transform active:scale-[0.98]"
                   >
                     Sign In
                   </button>
