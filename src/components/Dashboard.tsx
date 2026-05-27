@@ -13,6 +13,8 @@ import {
 import { SEO } from "./SEO";
 import Logo from "./Logo";
 import RecentEstimates from "./RecentEstimates";
+import EstimationWorkflow from "./EstimationWorkflow";
+import ExcelPromo from "./ExcelPromo";
 
 import PostLoginDashboard from "./PostLoginDashboard";
 import { useSettings } from "../context/SettingsContext";
@@ -22,8 +24,12 @@ export const ALL_MODULES = [
   { id: "qs-workflow", title: "Guided QS Workflow", desc: "Walks users through a complete sequence: Project Setup, Drawings, Substructure, Superstructure, Masonry, Services, BOQ Compilation, and final Report.", category: "Quantity Estimator", icon: Activity, styleStyle: "solid", colorClass: "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30", difficulty: "Intermediate", estimatedTime: "~20 mins", isNew: true, isPopular: true },
 
   // 📦 QUANTITY ESTIMATOR
+  { id: "quick-estimation", title: "Quick Rough Estimation", desc: "Get a lightning-fast preliminary budget and timeline in under 5 seconds based on simple inputs.", category: "Quantity Estimator", icon: Calculator, styleStyle: "solid", colorClass: "bg-indigo-600 text-white shadow-lg", difficulty: "Beginner", estimatedTime: "~1 min", isNew: true },
   { id: "master-quantity", title: "Master Quantity & Estimation", desc: "23 comprehensive calculators for specialized construction items.", category: "Quantity Estimator", icon: ClipboardList, styleStyle: "solid", colorClass: "bg-[var(--accent-blue)] text-[var(--primary-dark)] shadow-[0_8px_30px_rgba(0,207,232,0.3)]", iconClass: "text-[var(--primary-dark)] opacity-90", difficulty: "Advanced", estimatedTime: "~20 mins" },
   { id: "house", title: "House Estimator", desc: "Calculate complete residential construction costs from excavation to finishing. Contractors benefit by getting an accurate Civil Estimation Pro material breakdown instantly.", category: "Quantity Estimator", icon: Home, premium: true, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Advanced", estimatedTime: "~15 mins", isPopular: true },
+  { id: "material-takeoff", title: "Material Takeoff Sheet", desc: "Auto-calculate cement, sand, aggregate, block, and finishing material quantities based on built-up area and floors.", category: "Quantity Estimator", icon: Calculator, styleStyle: "solid", colorClass: "bg-orange-500 text-white shadow-lg", difficulty: "Beginner", estimatedTime: "~3 mins", isNew: true },
+  { id: "cost-summary", title: "Cost Summary Sheet", desc: "Consolidate structural, finishing, and labour costs into a master cost summary with overhead and contingency calculations.", category: "Quantity Estimator", icon: ClipboardList, styleStyle: "solid", colorClass: "bg-emerald-600 text-white shadow-lg", difficulty: "Beginner", estimatedTime: "~6 mins", isNew: true },
+  { id: "measurement-sheet", title: "Measurement Sheet Calculator", desc: "Interactive civil engineering measurement sheet with auto-calculating sections for excavation, PCC, RCC, and finishes.", category: "Quantity Estimator", icon: ClipboardList, styleStyle: "solid", colorClass: "bg-purple-600 text-white shadow-lg", difficulty: "Beginner", estimatedTime: "~5 mins", isNew: true },
   { id: "boq", title: "Professional BOQ Generator", desc: "Calculate and format standardized Bills of Quantities for construction projects. Quantity surveyors rely on Civil Estimation Pro to export precise, itemized cost documents.", category: "Quantity Estimator", icon: ClipboardList, styleStyle: "solid", colorClass: "bg-blue-600 text-white shadow-lg", difficulty: "Advanced", estimatedTime: "~5 mins", isNew: true },
   { id: "takeoff", title: "Plan Measure", desc: "Area & linear extraction.", category: "Quantity Estimator", icon: Ruler, styleStyle: "solid", colorClass: "bg-[var(--accent-purple)] text-white shadow-[0_8px_30px_rgba(115,103,240,0.3)]", iconClass: "text-white opacity-90", difficulty: "Advanced", estimatedTime: "~10 mins", isPopular: true },
   { id: "rates", title: "Live DB Rates", desc: "Centralized database for local market prices.", category: "Quantity Estimator", icon: TrendingUp, styleStyle: "glass", colorClass: "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white", difficulty: "Beginner", estimatedTime: "~1 min", isPopular: true },
@@ -464,6 +470,9 @@ export default function Dashboard({
           </div>
         </div>
 
+        {/* Complete Estimation Workflow Section */}
+        <EstimationWorkflow onSelectModule={onSelectModule} />
+
         {/* Tool category cards */}
         <div className="w-full max-w-[1400px] mx-auto px-4 lg:px-8 mb-16" id="search-bar-container">
           <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
@@ -707,6 +716,11 @@ export default function Dashboard({
                  </button>
               </form>
            </div>
+        </div>
+
+        {/* Free Excel Promo Section */}
+        <div className="w-full mb-16">
+          <ExcelPromo />
         </div>
 
       </div>

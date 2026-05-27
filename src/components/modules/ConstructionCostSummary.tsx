@@ -1,0 +1,390 @@
+import React, { useState, useEffect } from "react";
+import { PieChart, Pie, Cell, Tooltip as RechartsTooltip, ResponsiveContainer, Legend } from "recharts";
+import { Download, PieChart as PieChartIcon, DollarSign, Settings2, Home } from "lucide-react";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
+
+interface CostItem {
+  id: string;
+  name: string;
+  amount: number;
+}
+
+const COLORS = ["#8b5cf6", "#f97316", "#3b82f6", "#10b981", "#ef4444", "#6366f1"];
+
+const ConstructionCostSummary: React.FC = () => {
+  const [totalArea, setTotalArea] = useState<number>(2000);
+  
+  // Grey Structure Items
+  const [greyStructure, setGreyStructure] = useState<CostItem[]>([
+    { id: "gs1", name: "Foundation & Earthworks", amount: 450000 },
+    { id: "gs2", name: "Columns & Beams", amount: 800000 },
+    { id: "gs3", name: "RCC Slabs", amount: 1200000 },
+    { id: "gs4", name: "Brick Masonry", amount: 600000 },
+  ]);
+
+  // Finishing Items
+  const [finishing, setFinishing] = useState<CostItem[]>([
+    { id: "f1", name: "Floor & Wall Tiles", amount: 500000 },
+    { id: "f2", name: "Paint Work", amount: 250000 },
+    { id: "f3", name: "Doors & Windows", amount: 400000 },
+    { id: "f4", name: "Plastering", amount: 300000 },
+  ]);
+
+  // Labour Items
+  const [labour, setLabour] = useState<CostItem[]>([
+    { id: "l1", name: "Skilled Labour (Masons, Carpenters)", amount: 800000 },
+    { id: "l2", name: "Unskilled Labour (Helpers)", amount: 400000 },
+  ]);
+
+  // Percentages
+  const [overheadProfitPct, setOverheadProfitPct] = useState<number>(15);
+  const [contingencyPct, setContingencyPct] = useState<number>(5);
+
+  const updateItem = (category: "grey" | "finish" | "labour", id: string, amount: string) => {
+    const value = parseFloat(amount) || 0;
+    if (category === "grey") {
+      setGreyStructure(prev => prev.map(item => item.id === id ? { ...item, amount: value } : item));
+    } else if (category === "finish") {
+      setFinishing(prev => prev.map(item => item.id === id ? { ...item, amount: value } : item));
+    } else if (category === "labour") {
+      setLabour(prev => prev.map(item => item.id === id ? { ...item, amount: value } : item));
+    }
+  };
+
+  const greyTotal = greyStructure.reduce((sum, item) => sum + item.amount, 0);
+  const finishTotal = finishing.reduce((sum, item) => sum + item.amount, 0);
+  const labourTotal = labour.reduce((sum, item) => sum + item.amount, 0);
+  
+  const subTotal = greyTotal + finishTotal + labourTotal;
+  const overheadProfitAmount = (subTotal * overheadProfitPct) / 100;
+  const contingencyAmount = (subTotal * contingencyPct) / 100;
+  
+  const grandTotal = subTotal + overheadProfitAmount + contingencyAmount;
+  const costPerSqFt = totalArea > 0 ? grandTotal / totalArea : 0;
+
+  const chartData = [
+    { name: "Grey Structure", value: greyTotal },
+    { name: "Finishing", value: finishTotal },
+    { name: "Labour", value: labourTotal },
+    { name: "Overhead & Profit", value: overheadProfitAmount },
+    { name: "Contingency", value: contingencyAmount },
+  ].filter(d => d.value > 0);
+
+  const exportToPDF = () => {
+    const doc = new (jsPDF as any)();
+    
+    doc.setFontSize(20);
+    doc.setTextColor(88, 28, 135); // Purple 900
+    doc.text("Construction Cost Summary", 14, 22);
+    
+    doc.setFontSize(12);
+    doc.setTextColor(100);
+    doc.text(`Total Built-up Area: ${totalArea.toLocaleString()} sq ft`, 14, 32);
+    doc.text(`Cost per sq ft: ${costPerSqFt.toLocaleString(undefined, { maximumFractionDigits: 2 })}`, 14, 40);
+
+    let currentY = 50;
+
+    const generateTable = (title: string, data: CostItem[], total: number) => {
+      doc.setFontSize(14);
+      doc.setTextColor(0);
+      doc.text(title, 14, currentY);
+      
+      const body = data.map(item => [item.name, item.amount.toLocaleString()]);
+      body.push(["SUBTOTAL", total.toLocaleString()]);
+
+      doc.autoTable({
+        startY: currentY + 5,
+        head: [["Description", "Amount"]],
+        body: body,
+        theme: "grid",
+        headStyles: { fillColor: [249, 115, 22] }, // Orange 500
+        columnStyles: {
+          0: { cellWidth: 120 },
+          1: { cellWidth: 40, halign: 'right' }
+        },
+        willDrawCell: function(data: any) {
+          if (data.row.index === body.length - 1 && data.section === 'body') {
+            doc.setFont("helvetica", "bold");
+          }
+        }
+      });
+      currentY = doc.lastAutoTable.finalY + 15;
+    };
+
+    generateTable("1. Grey Structure Cost", greyStructure, greyTotal);
+    generateTable("2. Finishing Cost", finishing, finishTotal);
+    generateTable("3. Labour Cost", labour, labourTotal);
+
+    // Final Summary Block
+    // Check if new page needed
+    if (currentY > 220) {
+      doc.addPage();
+      currentY = 20;
+    }
+
+    doc.setFontSize(14);
+    doc.text("4. Additional Costs & Grand Total", 14, currentY);
+    
+    doc.autoTable({
+      startY: currentY + 5,
+      head: [["Item", "Percentage", "Amount"]],
+      body: [
+        ["Base Construction Subtotal", "-", subTotal.toLocaleString()],
+        ["Overhead & Profit", `${overheadProfitPct}%`, overheadProfitAmount.toLocaleString()],
+        ["Contingency", `${contingencyPct}%`, contingencyAmount.toLocaleString()],
+        ["GRAND TOTAL", "-", grandTotal.toLocaleString()]
+      ],
+      theme: "grid",
+      headStyles: { fillColor: [88, 28, 135] }, // Purple 900
+      columnStyles: {
+        0: { cellWidth: 80 },
+        1: { cellWidth: 40, halign: 'center' },
+        2: { cellWidth: 40, halign: 'right' }
+      },
+      willDrawCell: function(data: any) {
+        if (data.row.index === 3 && data.section === 'body') {
+          doc.setFont("helvetica", "bold");
+          doc.setTextColor(88, 28, 135);
+        }
+      }
+    });
+
+    doc.save("Construction_Cost_Summary.pdf");
+  };
+
+  return (
+    <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800 p-4 md:p-8 flex flex-col w-full">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+        <div>
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+            <PieChartIcon className="w-6 h-6 text-purple-600" />
+            Cost Summary Sheet
+          </h2>
+          <p className="text-slate-500 dark:text-slate-400 mt-1">
+            Consolidate estimates into a master summary with overheads and cost per sq ft analysis.
+          </p>
+        </div>
+        <button
+          onClick={exportToPDF}
+          className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-xl font-medium transition-colors whitespace-nowrap"
+        >
+          <Download className="w-4 h-4" />
+          Export Report
+        </button>
+      </div>
+
+      <div className="mb-8 bg-purple-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-purple-100 dark:border-slate-700">
+        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+          Total Built-Up Area (sq ft)
+        </label>
+        <div className="relative max-w-sm">
+          <Home className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <input
+            type="number"
+            value={totalArea}
+            onChange={(e) => setTotalArea(parseFloat(e.target.value) || 0)}
+            className="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl px-4 py-2.5 pl-10 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-purple-500 outline-none"
+          />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Left Column: Inputs */}
+        <div className="space-y-8">
+          
+          {/* Grey Structure */}
+          <div>
+            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-4 border-b border-slate-200 dark:border-slate-700 pb-2">
+              1. Grey Structure Cost
+            </h3>
+            <div className="space-y-3">
+              {greyStructure.map(item => (
+                <div key={item.id} className="flex items-center justify-between gap-4">
+                  <label className="text-slate-600 dark:text-slate-400 flex-1">{item.name}</label>
+                  <div className="relative w-40">
+                    <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400" />
+                    <input
+                      type="number"
+                      value={item.amount}
+                      onChange={(e) => updateItem("grey", item.id, e.target.value)}
+                      className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
+                    />
+                  </div>
+                </div>
+              ))}
+              <div className="flex justify-between items-center pt-2 font-semibold text-slate-800 dark:text-slate-200">
+                <span>Subtotal:</span>
+                <span>{greyTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Finishing */}
+          <div>
+            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-4 border-b border-slate-200 dark:border-slate-700 pb-2">
+              2. Finishing Cost
+            </h3>
+            <div className="space-y-3">
+              {finishing.map(item => (
+                <div key={item.id} className="flex items-center justify-between gap-4">
+                  <label className="text-slate-600 dark:text-slate-400 flex-1">{item.name}</label>
+                  <div className="relative w-40">
+                    <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400" />
+                    <input
+                      type="number"
+                      value={item.amount}
+                      onChange={(e) => updateItem("finish", item.id, e.target.value)}
+                      className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
+                    />
+                  </div>
+                </div>
+              ))}
+              <div className="flex justify-between items-center pt-2 font-semibold text-slate-800 dark:text-slate-200">
+                <span>Subtotal:</span>
+                <span>{finishTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Labour */}
+          <div>
+            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-4 border-b border-slate-200 dark:border-slate-700 pb-2">
+              3. Labour Cost
+            </h3>
+            <div className="space-y-3">
+              {labour.map(item => (
+                <div key={item.id} className="flex items-center justify-between gap-4">
+                  <label className="text-slate-600 dark:text-slate-400 flex-1">{item.name}</label>
+                  <div className="relative w-40">
+                    <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400" />
+                    <input
+                      type="number"
+                      value={item.amount}
+                      onChange={(e) => updateItem("labour", item.id, e.target.value)}
+                      className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
+                    />
+                  </div>
+                </div>
+              ))}
+              <div className="flex justify-between items-center pt-2 font-semibold text-slate-800 dark:text-slate-200">
+                <span>Subtotal:</span>
+                <span>{labourTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              </div>
+            </div>
+          </div>
+          
+          {/* O&P / Contingency */}
+          <div className="bg-orange-50 dark:bg-orange-900/10 p-5 rounded-xl border border-orange-100 dark:border-orange-800/30">
+            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-4 flex items-center gap-2">
+              <Settings2 className="w-5 h-5 text-orange-500" />
+              Additional Factors
+            </h3>
+            
+            <div className="space-y-6">
+              <div>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Overhead & Profit (%)</label>
+                  <span className="bg-white dark:bg-slate-800 px-2 py-1 rounded text-orange-600 font-bold border border-slate-200 dark:border-slate-700">{overheadProfitPct}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="5"
+                  max="25"
+                  step="1"
+                  value={overheadProfitPct}
+                  onChange={(e) => setOverheadProfitPct(parseInt(e.target.value))}
+                  className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-orange-500"
+                />
+              </div>
+
+              <div>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Contingency (%)</label>
+                  <span className="bg-white dark:bg-slate-800 px-2 py-1 rounded text-orange-600 font-bold border border-slate-200 dark:border-slate-700">{contingencyPct}%</span>
+                </div>
+                <input
+                  type="range"
+                  min="2"
+                  max="10"
+                  step="1"
+                  value={contingencyPct}
+                  onChange={(e) => setContingencyPct(parseInt(e.target.value))}
+                  className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-orange-500"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Visualization & Summary */}
+        <div className="flex flex-col gap-6">
+          <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 h-[400px]">
+            <h3 className="text-center font-bold text-slate-700 dark:text-slate-300 mb-4">Cost Distribution breakdown</h3>
+            <ResponsiveContainer width="100%" height="90%">
+              <PieChart>
+                <Pie
+                  data={chartData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={80}
+                  outerRadius={120}
+                  paddingAngle={5}
+                  dataKey="value"
+                >
+                  {chartData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <RechartsTooltip 
+                  formatter={(value: number) => value.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                  contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                />
+                <Legend verticalAlign="bottom" height={36} />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-2xl p-6 text-white shadow-xl">
+            <h3 className="text-purple-200 text-sm font-medium uppercase tracking-wider mb-4">Final Cost Summary</h3>
+            
+            <div className="space-y-3 mb-6">
+              <div className="flex justify-between items-center border-b border-purple-800/50 pb-2">
+                <span className="text-purple-100">Base Subtotal</span>
+                <span className="font-semibold">{subTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-purple-800/50 pb-2">
+                <span className="text-purple-100">Overhead & Profit ({overheadProfitPct}%)</span>
+                <span className="font-semibold">{overheadProfitAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-purple-800/50 pb-2">
+                <span className="text-purple-100">Contingency ({contingencyPct}%)</span>
+                <span className="font-semibold">{contingencyAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <div className="text-purple-200 text-sm mb-1">Grand Total Estimation</div>
+              <div className="text-4xl font-bold tracking-tight text-white mb-4">
+                {/* using standard large formatting */}
+                {grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </div>
+              
+              <div className="bg-white/10 rounded-xl p-4 flex items-center justify-between">
+                <div>
+                  <div className="text-purple-200 text-xs uppercase tracking-wider mb-1">Cost Per Sq Ft</div>
+                  <div className="text-2xl font-bold">{costPerSqFt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                </div>
+                <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+                  <PieChartIcon className="w-6 h-6 text-white" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ConstructionCostSummary;

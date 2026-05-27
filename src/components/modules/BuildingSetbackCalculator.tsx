@@ -95,7 +95,7 @@ export default function BuildingSetbackCalculator() {
            </div>
         </div>
 
-        <MaterialSummary items={results} onUpdateRate={() => {}} showRates={false} />
+        <MaterialSummary items={results} onUpdateRate={() => {}} showRates={false} totalValue={0} />
       </div>
     </div>
   );

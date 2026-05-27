@@ -109,6 +109,7 @@ export default function RoomAreaCalculator() {
             items={results}
             onUpdateRate={() => {}}
             showRates={false}
+            totalValue={0}
         />
       </div>
     </div>

@@ -80,6 +80,7 @@ export default function StaircaseDesignReference() {
           ]} 
           onUpdateRate={() => {}} 
           showRates={false} 
+          totalValue={0}
         />
        </div>
     </div>

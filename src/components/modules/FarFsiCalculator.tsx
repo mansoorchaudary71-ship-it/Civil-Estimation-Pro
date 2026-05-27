@@ -50,7 +50,7 @@ export default function FarFsiCalculator() {
            </p>
         </div>
 
-        <MaterialSummary items={results} onUpdateRate={() => {}} showRates={false} />
+        <MaterialSummary items={results} onUpdateRate={() => {}} showRates={false} totalValue={0} />
       </div>
     </div>
   );

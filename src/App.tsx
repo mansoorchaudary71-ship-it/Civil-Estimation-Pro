@@ -41,6 +41,10 @@ import EnergyMepCalculator from "./components/modules/EnergyMepCalculator";
 import RainwaterHarvesting from "./components/modules/RainwaterHarvesting";
 import InteriorsFinishesEstimator from "./components/modules/InteriorsFinishes";
 import RoadPavementEstimator from "./components/modules/RoadPavementEstimator";
+import MeasurementSheetCalculator from "./components/modules/MeasurementSheetCalculator";
+import MaterialTakeoffSheet from "./components/modules/MaterialTakeoffSheet";
+import ConstructionCostSummary from "./components/modules/ConstructionCostSummary";
+import QuickRoughEstimation from "./components/modules/QuickRoughEstimation";
 import SettingsModal from "./components/modules/SettingsModal";
 import AuthModal from "./components/auth/AuthModal";
 import ProfileSettings from "./components/auth/ProfileSettings";
@@ -64,7 +68,7 @@ import StaircaseDesignReference from "./components/modules/StaircaseDesignRefere
 import DoorWindowSchedule from "./components/modules/DoorWindowSchedule";
 import VentilationChecker from "./components/modules/VentilationChecker";
 import ReinforcementVisualizer from "./components/modules/ReinforcementVisualizer";
-import BOQGenerator from "./components/modules/BOQGenerator";
+import BOQGenerator from "./components/modules/AdvancedBoqGenerator";
 import MixDesignCalculator from "./components/modules/MixDesignCalculator";
 import RetainingWallCalculator from "./components/modules/RetainingWallCalculator";
 import LabourCalculator from "./components/modules/LabourCalculator";
@@ -131,6 +135,10 @@ export const ALL_TOOLS = [
   { id: "ai", title: "AI Assistant", category: "AI & Automation", icon: <Sparkles className="w-4 h-4" /> },
   { id: "takeoff", title: "2D Takeoff", category: "AI & Automation", icon: <MapIcon className="w-4 h-4" /> },
   { id: "house", title: "House Estimator", category: "Core Estimators", icon: <Home className="w-4 h-4" /> },
+  { id: "quick-estimation", title: "Quick Rough Est.", category: "Core Estimators", icon: <Calculator className="w-4 h-4" /> },
+  { id: "measurement-sheet", title: "Measurement Sheet", category: "Core Estimators", icon: <Calculator className="w-4 h-4" /> },
+  { id: "material-takeoff", title: "Material Takeoff Sheet", category: "Core Estimators", icon: <Calculator className="w-4 h-4" /> },
+  { id: "cost-summary", title: "Cost Summary Sheet", category: "Core Estimators", icon: <Calculator className="w-4 h-4" /> },
   { id: "master-quantity", title: "Master Quantity", category: "Core Estimators", icon: <Calculator className="w-4 h-4" /> },
   { id: "concrete-masonry-hub", title: "Concrete & Masonry Hub", category: "Core Estimators", icon: <Layers className="w-4 h-4" /> },
   { id: "steel-hub", title: "Steel & Reinforcement Hub", category: "Core Estimators", icon: <Layers className="w-4 h-4" /> },
@@ -263,6 +271,10 @@ export default function App() {
               {activeModule === "gradient-calculator" && <ModuleWrapper title="Gradient & Slope Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><GradientCalculator /></ModuleWrapper>}
               {activeModule === "concrete-masonry-hub" && <ModuleWrapper title="Concrete & Masonry Hub" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ConcreteMasonryHub onNavigate={handleSelectModule} /></ModuleWrapper>}
               {activeModule === "master-quantity" && <ModuleWrapper title="Master Quantity Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MasterQuantityEstimator /></ModuleWrapper>}
+              {activeModule === "measurement-sheet" && <ModuleWrapper title="Measurement Sheet Calculator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MeasurementSheetCalculator /></ModuleWrapper>}
+              {activeModule === "quick-estimation" && <ModuleWrapper title="Quick Rough Estimation" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><QuickRoughEstimation onNavigate={handleSelectModule} /></ModuleWrapper>}
+              {activeModule === "material-takeoff" && <ModuleWrapper title="Material Takeoff Sheet" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MaterialTakeoffSheet /></ModuleWrapper>}
+              {activeModule === "cost-summary" && <ModuleWrapper title="Cost Summary Sheet" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><ConstructionCostSummary /></ModuleWrapper>}
               {activeModule === "master-rcc" && <ModuleWrapper title="Master RCC Estimator" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MasterRccStructure /></ModuleWrapper>}
               {activeModule === "metal-weight" && <ModuleWrapper title="Metal Weight" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><MetalWeightCalculator /></ModuleWrapper>}
               {activeModule === "calculators" && <ModuleWrapper title="Construction Material" activeModule={activeModule} setActiveModule={handleSelectModule} setIsSidebarOpen={setIsSidebarOpen} setIsSettingsOpen={setIsSettingsOpen}><Calculators /></ModuleWrapper>}
