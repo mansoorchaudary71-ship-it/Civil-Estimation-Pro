@@ -24,6 +24,16 @@ export default function TopNavbar({
   const [isSettingsDrawerOpen, setIsSettingsDrawerOpen] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
   const [isAuthLoading, setIsAuthLoading] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   
   const { settings, updateSettings } = useSettings();
   
@@ -118,22 +128,21 @@ export default function TopNavbar({
 
   return (
     <>
-      <div className="w-full sticky top-0 z-50 pt-2 md:pt-6 px-4 md:px-6 pointer-events-none transition-all duration-300">
-        <nav className="mx-auto max-w-[1400px] w-full pointer-events-auto bg-white/60 dark:bg-[#0a0a0a]/60 backdrop-blur-2xl border border-white/80 dark:border-white/10 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)] rounded-full px-3 py-2 md:px-5 md:py-3 transition-colors duration-500">
-          <div className="w-full flex items-center justify-between">
+      <header className={`w-full sticky top-0 z-50 transition-all duration-300 pointer-events-auto bg-white/75 dark:bg-[#0a0a0a]/75 backdrop-blur-xl ${scrolled ? 'border-b border-gray-200/50 dark:border-white/10 shadow-sm' : 'border-b border-transparent'} flex items-center h-16 md:h-18 px-4 md:px-6`}>
+        <div className="mx-auto max-w-[1400px] w-full flex items-center justify-between">
           
           {/* Left: Logo */}
           <div className="flex items-center gap-3 justify-start cursor-pointer group shrink-0" onClick={() => onNavigate?.('home' as ModuleId)}>
             <div className="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center transition-all duration-300 text-indigo-600 dark:text-indigo-400 group-hover:scale-105 group-hover:rotate-6 bg-white dark:bg-white/5 border border-slate-200/50 dark:border-white/10 shadow-sm rounded-xl p-1.5">
               <Logo className="w-full h-full" />
             </div>
-            <span className="hidden lg:block font-heading font-black text-[20px] md:text-[22px] text-slate-900 dark:text-white tracking-tight">
+            <span className="font-heading font-black text-[20px] md:text-[22px] text-slate-900 dark:text-white tracking-tight">
               Civil Estimation Pro
             </span>
           </div>
 
-          {/* Center: Nav links (Desktop/Tablet >= 768px) */}
-          <div className="hidden md:flex items-center justify-center gap-1 xl:ml-8 bg-black/5 dark:bg-white/5 px-1.5 py-1.5 rounded-full border border-black/5 dark:border-white/5">
+          {/* Center: Nav links (Desktop/Tablet >= 1024px) */}
+          <div className="hidden lg:flex items-center justify-center gap-1 xl:ml-8 bg-black/5 dark:bg-white/5 px-1.5 py-1.5 rounded-full border border-black/5 dark:border-white/5">
             {navItems.filter(link => link.id !== 'home').map((link) => (
               <button 
                 key={link.name}
@@ -163,63 +172,66 @@ export default function TopNavbar({
                 </button>
               </div>
 
-              {!isAuthenticated ? (
-                <div className="relative">
-                  <button 
-                    onClick={() => onOpenAuth?.()}
-                    disabled={isAuthLoading}
-                    className="px-4 md:px-5 h-9 md:h-10 rounded-full bg-white/50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 flex items-center justify-center gap-2 text-slate-700 hover:text-slate-900 hover:bg-white dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 shadow-sm hover:shadow-md transition-all duration-300 font-bold text-xs md:text-sm tracking-tight hover:scale-105 active:scale-95 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
-                    title="Sign In"
-                  >
-                    Sign In
-                  </button>
-                </div>
-              ) : (
-                <div ref={profileRef} className="relative">
-                  <button 
-                    onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                    className="h-9 md:h-10 pl-1 md:pl-1.5 pr-2 md:pr-3 rounded-full bg-white/50 dark:bg-white/5 shadow-sm border border-slate-200/50 dark:border-white/10 flex items-center gap-2 text-[12px] md:text-[14px] font-bold text-slate-700 dark:text-slate-200 hover:shadow-md hover:bg-white dark:hover:bg-white/10 hover:scale-105 active:scale-95 transition-all duration-300"
-                  >
-                    {user?.photoURL ? (
-                        <img src={user.photoURL} alt="User Avatar" title="User Profile Photo" loading="lazy" className="w-7 h-7 md:w-8 md:h-8 rounded-full object-cover shadow-sm border border-slate-200 dark:border-slate-600" />
-                    ) : (
-                        <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center border border-slate-200 dark:border-slate-600">
-                          <User className="w-3.5 h-3.5 md:w-4 md:h-4 text-slate-500" />
-                        </div>
-                    )}
-                    <span className="hidden sm:block truncate max-w-[80px] md:max-w-[100px] tracking-tight">{user?.displayName?.split(' ')[0] || 'Account'}</span>
-                    <div className="w-4 h-4 md:w-5 md:h-5 rounded-full flex items-center justify-center text-slate-400">
-                      <ChevronDown className={`w-3.5 h-3.5 md:w-4 md:h-4 transition-transform duration-300 ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
-                    </div>
-                  </button>
+              {/* Desktop Auth / Profile */}
+              <div className="hidden md:block">
+                {!isAuthenticated ? (
+                  <div className="relative">
+                    <button 
+                      onClick={() => onOpenAuth?.()}
+                      disabled={isAuthLoading}
+                      className="px-4 md:px-5 h-9 md:h-10 rounded-full bg-white/50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 flex items-center justify-center gap-2 text-slate-700 hover:text-slate-900 hover:bg-white dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 shadow-sm hover:shadow-md transition-all duration-300 font-bold text-xs md:text-sm tracking-tight hover:scale-105 active:scale-95 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                      title="Sign In"
+                    >
+                      Sign In
+                    </button>
+                  </div>
+                ) : (
+                  <div ref={profileRef} className="relative">
+                    <button 
+                      onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                      className="h-9 md:h-10 pl-1 md:pl-1.5 pr-2 md:pr-3 rounded-full bg-white/50 dark:bg-white/5 shadow-sm border border-slate-200/50 dark:border-white/10 flex items-center gap-2 text-[12px] md:text-[14px] font-bold text-slate-700 dark:text-slate-200 hover:shadow-md hover:bg-white dark:hover:bg-white/10 hover:scale-105 active:scale-95 transition-all duration-300"
+                    >
+                      {user?.photoURL ? (
+                          <img src={user.photoURL} alt="User Avatar" title="User Profile Photo" loading="lazy" className="w-7 h-7 md:w-8 md:h-8 rounded-full object-cover shadow-sm border border-slate-200 dark:border-slate-600 ring-2 ring-white dark:ring-slate-800" />
+                      ) : (
+                          <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center border border-slate-200 dark:border-slate-600 ring-2 ring-white dark:ring-slate-800">
+                            <User className="w-3.5 h-3.5 md:w-4 md:h-4 text-slate-500" />
+                          </div>
+                      )}
+                      <span className="hidden sm:block truncate max-w-[80px] md:max-w-[100px] tracking-tight">{user?.displayName?.split(' ')[0] || 'Account'}</span>
+                      <div className="w-4 h-4 md:w-5 md:h-5 rounded-full flex items-center justify-center text-slate-400">
+                        <ChevronDown className={`w-3.5 h-3.5 md:w-4 md:h-4 transition-transform duration-300 ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
+                      </div>
+                    </button>
 
-                  {isProfileMenuOpen && (
-                    <div className="absolute right-0 top-[120%] w-56 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-slate-200/50 dark:border-white/10 rounded-2xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 focus-mode-none z-50">
-                      <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800/50 bg-slate-50/50 dark:bg-slate-800/20">
-                        <p className="text-sm font-bold text-slate-900 dark:text-white truncate tracking-tight">{user?.displayName || 'User'}</p>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
+                    {isProfileMenuOpen && (
+                      <div className="absolute right-0 top-[120%] w-56 bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl border border-slate-200/50 dark:border-white/10 rounded-2xl shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 focus-mode-none z-50">
+                        <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800/50 bg-slate-50/50 dark:bg-slate-800/20">
+                          <p className="text-sm font-bold text-slate-900 dark:text-white truncate tracking-tight">{user?.displayName || 'User'}</p>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
+                        </div>
+                        <div className="p-2 space-y-1">
+                          <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                            <User className="w-4 h-4" /> My Profile
+                          </button>
+                          <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                            <Settings className="w-4 h-4" /> Account Settings
+                          </button>
+                          <div className="h-px bg-slate-100 dark:bg-slate-800 my-2" />
+                          <button 
+                            onClick={handleSignOut}
+                            className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
+                          >
+                            <LogOut className="w-4 h-4" /> Sign Out
+                          </button>
+                        </div>
                       </div>
-                      <div className="p-2 space-y-1">
-                        <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                          <User className="w-4 h-4" /> My Profile
-                        </button>
-                        <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                          <Settings className="w-4 h-4" /> Account Settings
-                        </button>
-                        <div className="h-px bg-slate-100 dark:bg-slate-800 my-2" />
-                        <button 
-                          onClick={handleSignOut}
-                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
-                        >
-                          <LogOut className="w-4 h-4" /> Sign Out
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
+                    )}
+                  </div>
+                )}
+              </div>
               
-              <div className="relative group/btn hidden sm:block">
+              <div className="relative group/btn hidden lg:block">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-full blur-md opacity-30 group-hover/btn:opacity-60 transition-opacity duration-500"></div>
                 <button 
                   onClick={() => onNavigate?.('house' as ModuleId)}
@@ -232,16 +244,42 @@ export default function TopNavbar({
               </div>
             </div>
 
-            <button 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden w-10 h-10 rounded-full bg-white/50 dark:bg-white/5 border border-slate-200/50 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300 shadow-sm"
-            >
-              {isMobileMenuOpen ? <X className="w-5 h-5" strokeWidth={2} /> : <Menu className="w-5 h-5" strokeWidth={2} />}
-            </button>
+            {/* Mobile Action Cluster */}
+            <div className="md:hidden flex items-center gap-1.5 p-1 rounded-full bg-gray-100/50 dark:bg-slate-800/50 border border-gray-200/50 dark:border-white/5 backdrop-blur-sm shadow-sm">
+              <button 
+                onClick={() => {
+                  if (isAuthenticated) {
+                     onOpenProfile?.();
+                  } else {
+                     onOpenAuth?.();
+                  }
+                }}
+                className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-transform duration-150 active:scale-95"
+              >
+                {isAuthenticated && user?.photoURL ? (
+                  <img src={user.photoURL} alt="Avatar" className="w-9 h-9 rounded-full object-cover ring-2 ring-white dark:ring-slate-800 shadow-sm" />
+                ) : (
+                  <div className="w-9 h-9 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center ring-2 ring-white dark:ring-slate-800 shadow-sm">
+                    <User className="w-4 h-4 text-slate-500 dark:text-slate-300" />
+                  </div>
+                )}
+              </button>
+              <button 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="w-11 h-11 rounded-full flex items-center justify-center text-slate-700 dark:text-slate-200 transition-transform duration-150 active:scale-95"
+                aria-label="Toggle Menu"
+              >
+                {isMobileMenuOpen ? (
+                  <X className="w-5 h-5" strokeWidth={2} />
+                ) : (
+                  <Menu className="w-5 h-5" strokeWidth={2} />
+                )}
+              </button>
+            </div>
+            
           </div>
         </div>
-        </nav>
-      </div>
+      </header>
 
       {/* ------------------------------------------- */}
       {/* MOBILE HAMBURGER MENU OVERLAY               */}

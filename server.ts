@@ -1542,7 +1542,7 @@ async function startServer() {
       let text = response.text || "[]";
       // Remove any markdown formatting
       text = text.replace(/```json/g, '').replace(/```/g, '').trim();
-      let parsed = [];
+      let parsed: any = [];
       try {
         parsed = JSON.parse(text);
         if (!Array.isArray(parsed)) {

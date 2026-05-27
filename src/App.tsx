@@ -215,8 +215,6 @@ export default function App() {
   }, {} as Record<string, typeof ALL_TOOLS[0][]>);
   
   const { user, logOut } = useAuth();
-  
-  const socialProof = React.useMemo(() => getSocialProof(activeModule), [activeModule]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -484,6 +482,8 @@ function ModuleWrapper({
   children: React.ReactNode;
 }) {
   const moduleDef = ALL_MODULES.find(m => m.id === activeModule);
+  
+  const socialProof = React.useMemo(() => getSocialProof(activeModule), [activeModule]);
 
   const genericFaqs = moduleDef ? [
     { q: `Is the ${moduleDef.title} Calculator free to use?`, a: `Yes, all core calculation features for the ${moduleDef.title.toLowerCase()} are completely free for all users.` },

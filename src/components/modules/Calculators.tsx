@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { UniversalTabs } from "../ui/UniversalTabs";
 import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import {
@@ -29,7 +30,6 @@ import {
   SteelCalculator,
 } from "../../utils/calculators";
 
-import ColorfulTab from "../ui/ColorfulTab";
 import UnitToggleGroup from "../ui/UnitToggleGroup";
 import MasterQuantityEstimator from "./MasterQuantityEstimator";
 import { saveEstimate } from "../../lib/estimates";
@@ -1393,21 +1393,12 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
           </div>
         )}
         {!hideHeader && (
-          <div className="flex overflow-x-auto pb-4 gap-2 mb-4 p-1 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-            {fullTabs.map((tab, idx) => {
-              const colors = ["indigo", "rose", "emerald", "amber", "cyan", "fuchsia", "teal"];
-              const color = colors[idx % colors.length] as any;
-              return (
-                <ColorfulTab index={idx} key={tab.id}
-                  id={tab.id}
-                  label={tab.label}
-                  icon={<tab.icon className="w-4 h-4" />}
-                  isActive={activeTab === tab.id}
-                  onClick={() => { setActiveTab(tab.id); resetEstimate(); }}
-                  colorTheme={color}
-                />
-              );
-            })}
+          <div className="mb-4">
+            <UniversalTabs 
+              tabs={fullTabs.map(t => ({ id: t.id, label: t.label, icon: <t.icon className="w-4 h-4" /> }))}
+              activeTab={activeTab}
+              onTabChange={(id) => { setActiveTab(id as any); resetEstimate(); }}
+            />
           </div>
         )}
         <div className="bg-bg-card p-6 md:p-8 rounded-xl shadow-md border border-border-color transition-all duration-300 relative">

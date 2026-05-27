@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { UniversalTabs } from "../ui/UniversalTabs";
 
 import {
   Ruler,
@@ -31,7 +32,6 @@ import {
   Monitor,
   Banknote,
 } from "lucide-react";
-import ColorfulTab from "../ui/ColorfulTab";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { Category, unitsData, convertValue } from "../../utils/unitConverter";
 
@@ -269,22 +269,12 @@ export default function UnitConverter() {
           standard precision.
         </p>{" "}
         {/* Categories Tabs */}
-        <div className="flex overflow-x-auto pb-4 gap-2 mb-10 p-1">
-          {categories.map((c, idx) => {
-            const Icon = c.icon;
-            const isActive = activeCategory === c.id;
-            const baseColor = c.color.split("-")[1];
-            return (
-              <ColorfulTab index={idx} key={c.id}
-                id={c.id}
-                label={c.label}
-                icon={<Icon className="w-5 h-5" />}
-                isActive={isActive}
-                onClick={() => setActiveCategory(c.id)}
-                colorTheme={baseColor as any}
-              />
-            );
-          })}
+        <div className="mb-10">
+          <UniversalTabs 
+            tabs={categories.map(c => ({ id: c.id, label: c.label, icon: <c.icon className="w-5 h-5" /> }))}
+            activeTab={activeCategory}
+            onTabChange={(id) => setActiveCategory(id as Category)}
+          />
         </div>
         {/* Conversion UI */}{" "}
         <div className="bg-bg-card rounded-[2.5rem] p-8 md:p-12 border border-border-color shadow-xl shadow-slate-200/50 dark:shadow-none">

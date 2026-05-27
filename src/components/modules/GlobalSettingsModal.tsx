@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { UniversalTabs } from "../ui/UniversalTabs";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { X, Check, Database, Ruler, Palette } from "lucide-react";
 import { useMarketRates } from "../../context/MarketRatesContext";
 import { useSettings, ModulePreferences } from "../../context/SettingsContext";
-import ColorfulTab from "../ui/ColorfulTab";
 interface GlobalSettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -153,20 +153,8 @@ export default function GlobalSettingsModal({
         {/* Tabs */}{" "}
         <div className="flex overflow-x-auto px-6 py-4 border-b border-slate-200/50 dark:border-slate-800/50 shrink-0 gap-2 p-1">
           {" "}
-          <ColorfulTab index={0} id="rates"
-            label="Market Rates"
-            icon={<Database className="w-4 h-4" />}
-            isActive={activeTab === "rates"}
-            onClick={() => setActiveTab("rates")}
-            colorTheme="indigo"
-          />
-          <ColorfulTab index={1} id="prefs"
-            label="Module Preferences"
-            icon={<Ruler className="w-4 h-4" />}
-            isActive={activeTab === "prefs"}
-            onClick={() => setActiveTab("prefs")}
-            colorTheme="rose"
-          />
+          <UniversalTabs tabs={[{id: "rates", label: "Market Rates", icon: <Database className="w-4 h-4" />}]} activeTab={activeTab === "rates" ? "rates" : ""} onTabChange={() => setActiveTab("rates")} />
+          <UniversalTabs tabs={[{id: "prefs", label: "Module Preferences", icon: <Ruler className="w-4 h-4" />}]} activeTab={activeTab === "prefs" ? "prefs" : ""} onTabChange={() => setActiveTab("prefs")} />
         </div>{" "}
         {/* Content */}{" "}
         <div className="p-6 overflow-y-auto flex-1 space-y-2">

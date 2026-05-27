@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { UniversalTabs } from "../ui/UniversalTabs";
 import { Route, Droplet, ArrowRight, Layers, Calculator } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { CalculationHistory } from "../ui/CalculationHistory";
-import ColorfulTab from "../ui/ColorfulTab";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
 
@@ -15,27 +15,9 @@ export default function AsphaltPavingCalculator() {
     <div className="w-full text-gray-900 font-sans md:p-4">
       <div className="max-w-7xl mx-auto pb-4">
       <div className="flex overflow-x-auto pb-4 gap-2 mb-8 p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-        <ColorfulTab index={0} id="asphalt"
-          label="Asphalt"
-          icon={<Layers className="w-5 h-5" />}
-          isActive={activeTab === "asphalt"}
-          onClick={() => setActiveTab("asphalt")}
-          colorTheme="slate"
-        />
-        <ColorfulTab index={1} id="prime"
-          label="Prime Coat"
-          icon={<Droplet className="w-5 h-5" />}
-          isActive={activeTab === "prime"}
-          onClick={() => setActiveTab("prime")}
-          colorTheme="amber"
-        />
-        <ColorfulTab index={2} id="tack"
-          label="Tack Coat"
-          icon={<Droplet className="w-5 h-5" />}
-          isActive={activeTab === "tack"}
-          onClick={() => setActiveTab("tack")}
-          colorTheme="blue"
-        />
+        <UniversalTabs tabs={[{id: "asphalt", label: "Asphalt", icon: <Layers className="w-5 h-5" />}]} activeTab={activeTab === "asphalt" ? "asphalt" : ""} onTabChange={() => setActiveTab("asphalt")} />
+        <UniversalTabs tabs={[{id: "prime", label: "Prime Coat", icon: <Droplet className="w-5 h-5" />}]} activeTab={activeTab === "prime" ? "prime" : ""} onTabChange={() => setActiveTab("prime")} />
+        <UniversalTabs tabs={[{id: "tack", label: "Tack Coat", icon: <Droplet className="w-5 h-5" />}]} activeTab={activeTab === "tack" ? "tack" : ""} onTabChange={() => setActiveTab("tack")} />
       </div>
 
       <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden">

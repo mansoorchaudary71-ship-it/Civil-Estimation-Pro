@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { UniversalTabs } from "../ui/UniversalTabs";
 import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 
 import { saveEstimate } from "../../lib/estimates";
@@ -13,7 +14,6 @@ import {
   Layers,
   Construction,
 } from "lucide-react";
-import ColorfulTab from "../ui/ColorfulTab";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
 export interface ManholeResults {
@@ -180,20 +180,8 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
           </label>{" "}
           <div className="flex overflow-x-auto pb-4 gap-2 mb-2 p-1 w-full max-w-sm">
             {" "}
-            <ColorfulTab index={0} id="circular"
-              label="Circular"
-              icon={<CircleDashed className="w-4 h-4" />}
-              isActive={mhType === "circular"}
-              onClick={() => setMhType("circular")}
-              colorTheme="teal"
-            />
-            <ColorfulTab index={1} id="rectangular"
-              label="Rectangular"
-              icon={<Square className="w-4 h-4" />}
-              isActive={mhType === "rectangular"}
-              onClick={() => setMhType("rectangular")}
-              colorTheme="indigo"
-            />
+            <UniversalTabs tabs={[{id: "circular", label: "Circular", icon: <CircleDashed className="w-4 h-4" />}]} activeTab={mhType === "circular" ? "circular" : ""} onTabChange={() => setMhType("circular")} />
+            <UniversalTabs tabs={[{id: "rectangular", label: "Rectangular", icon: <Square className="w-4 h-4" />}]} activeTab={mhType === "rectangular" ? "rectangular" : ""} onTabChange={() => setMhType("rectangular")} />
           </div>{" "}
         </div>{" "}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

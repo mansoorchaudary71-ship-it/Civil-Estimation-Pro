@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+import { UniversalTabs } from "../ui/UniversalTabs";
 import {
   Circle,
   Square,
@@ -21,7 +22,6 @@ import { ResultCard } from "../ui/ResultCard";
 import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
-import ColorfulTab from "../ui/ColorfulTab";
 type Profile =
   | "Round bar"
   | "Square bar"
@@ -284,21 +284,12 @@ export default function MetalWeightCalculator() {
           </div>
         </div>
         {/* Profiles Grid */}
-        <div className="flex overflow-x-auto pb-4 gap-2 mb-8 p-1">
-          {profiles.map((p, idx) => {
-            const Icon = p.icon;
-            const baseColor = p.color.split("-")[1];
-            return (
-              <ColorfulTab index={idx} key={p.id}
-                id={p.id}
-                label={p.label}
-                icon={<Icon className="w-5 h-5" />}
-                isActive={activeProfile === p.id}
-                onClick={() => setActiveProfile(p.id as Profile)}
-                colorTheme={baseColor as any}
-              />
-            );
-          })}
+        <div className="mb-8">
+          <UniversalTabs 
+            tabs={profiles.map(p => ({ id: p.id, label: p.label, icon: <p.icon className="w-5 h-5" /> }))}
+            activeTab={activeProfile}
+            onTabChange={(id) => setActiveProfile(id as Profile)}
+          />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Inputs Section */}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { UniversalTabs } from "../ui/UniversalTabs";
 import { Zap, Droplet, Wind } from "lucide-react";
 import { cn } from "../../lib/utils";
-import ColorfulTab from "../ui/ColorfulTab";
 import { useSettings } from "../../context/SettingsContext";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
@@ -31,27 +31,9 @@ export default function EnergyMepCalculator() {
       </div>
 
       <div className="flex overflow-x-auto pb-4 gap-2 mb-8 p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-        <ColorfulTab index={0} id="solar"
-          label="Solar Rooftop"
-          icon={<Zap className="w-5 h-5" />}
-          isActive={activeTab === "solar"}
-          onClick={() => setActiveTab("solar")}
-          colorTheme="amber"
-        />
-        <ColorfulTab index={1} id="water"
-          label="Solar Water Heater"
-          icon={<Droplet className="w-5 h-5" />}
-          isActive={activeTab === "water"}
-          onClick={() => setActiveTab("water")}
-          colorTheme="blue"
-        />
-        <ColorfulTab index={2} id="ac"
-          label="AC Initial Sizing"
-          icon={<Wind className="w-5 h-5" />}
-          isActive={activeTab === "ac"}
-          onClick={() => setActiveTab("ac")}
-          colorTheme="teal"
-        />
+        <UniversalTabs tabs={[{id: "solar", label: "Solar Rooftop", icon: <Zap className="w-5 h-5" />}]} activeTab={activeTab === "solar" ? "solar" : ""} onTabChange={() => setActiveTab("solar")} />
+        <UniversalTabs tabs={[{id: "water", label: "Solar Water Heater", icon: <Droplet className="w-5 h-5" />}]} activeTab={activeTab === "water" ? "water" : ""} onTabChange={() => setActiveTab("water")} />
+        <UniversalTabs tabs={[{id: "ac", label: "AC Initial Sizing", icon: <Wind className="w-5 h-5" />}]} activeTab={activeTab === "ac" ? "ac" : ""} onTabChange={() => setActiveTab("ac")} />
       </div>
 
       <div className="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden mb-6">

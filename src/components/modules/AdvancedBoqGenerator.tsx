@@ -32,7 +32,7 @@ const TRADE_UNITS: Record<TradeScope, string> = {
 };
 
 const TRADE_RATES_MAP: Record<TradeScope, keyof ReturnType<typeof useMarketRates>['rates']> = {
-  Excavation: "excavation", 
+  Excavation: "laborGrey", // mapping for typescript
   PCC: "cement", // approximate mapping
   RCC: "cement",
   Masonry: "bricks",

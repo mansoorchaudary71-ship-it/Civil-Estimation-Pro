@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import { UniversalTabs } from "../ui/UniversalTabs";
 import { SEO } from "../SEO";
 import { Hammer, Weight, Circle, Droplets, Download, Box } from "lucide-react";
 import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
 import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
 import { CalculationHistory } from "../ui/CalculationHistory";
-import ColorfulTab from "../ui/ColorfulTab";
 
 export default function AggregateTestsCalculator() {
   const { isProcessing, hasData, processEstimate, resetEstimate } = useEstimateProcessing();
@@ -137,21 +137,11 @@ export default function AggregateTestsCalculator() {
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex overflow-x-auto gap-2 pb-2 mb-6 px-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          {tabs.map((tab, idx) => {
-            const Icon = tab.icon;
-            return (
-              <ColorfulTab index={idx} key={tab.id}
-                id={tab.id}
-                label={tab.label}
-                icon={<Icon className="w-5 h-5" />}
-                isActive={activeTab === tab.id}
-                onClick={() => { setActiveTab(tab.id as any); resetEstimate(); }}
-                colorTheme="amber"
-              />
-            );
-          })}
-        </div>
+        <UniversalTabs 
+          tabs={tabs.map(t => ({ id: t.id, label: t.label, icon: t.icon ? <t.icon className="w-5 h-5" /> : undefined }))} 
+          activeTab={activeTab} 
+          onTabChange={(id) => { setActiveTab(id as any); resetEstimate(); }} 
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative items-start">
           <div 

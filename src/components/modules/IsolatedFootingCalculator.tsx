@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { UniversalTabs } from "../ui/UniversalTabs";
 import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import {
   Maximize,
@@ -14,7 +15,6 @@ import { useSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
-import ColorfulTab from "../ui/ColorfulTab";
 import { FieldTooltip } from "../ui/FieldTooltip";
 import { NumberInput } from "../ui/NumberInput";
 

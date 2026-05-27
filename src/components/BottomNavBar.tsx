@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ModuleId } from './Sidebar';
-import { useSettings } from '../context/SettingsContext';
-import { ALL_MODULES } from './Dashboard';
+import { Compass, Clock, Bookmark, User as UserIcon } from 'lucide-react';
+import { motion } from 'motion/react';
 
 interface BottomNavBarProps {
   activeModule: ModuleId;
@@ -10,71 +10,109 @@ interface BottomNavBarProps {
 }
 
 export default function BottomNavBar({ activeModule, onSelectModule, onOpenProfile }: BottomNavBarProps) {
-  const { settings } = useSettings();
-  
-  // Get 5 most used tools, or default to some popular ones
-  const defaultTools = ['house', 'calculators', 'takeoff', 'rates', 'formwork'];
-  
-  let topTools: string[] = [];
-  if (settings.usedTools && settings.usedTools.length > 0) {
-    topTools = [...settings.usedTools].reverse().slice(0, 5); // Just using most recent as 'most used' for now
-  } 
-  
-  // Fill the rest with defaults
-  if (topTools.length < 5) {
-    const remaining = defaultTools.filter(id => !topTools.includes(id));
-    topTools = [...topTools, ...remaining].slice(0, 5);
-  }
+  const [localActive, setLocalActive] = useState('home');
 
-  const bottomModules = topTools.map(id => ALL_MODULES.find(m => m.id === id)).filter(Boolean);
+  useEffect(() => {
+    // Optionally sync with external activeModule if it matches our bottom nav categories
+    if (['home', 'my-estimates', 'saved', 'profile'].includes(activeModule)) {
+      setLocalActive(activeModule === 'my-estimates' ? 'recent' : activeModule);
+    }
+  }, [activeModule]);
+
+  const NAV_ITEMS = [
+    { id: 'home', label: 'All Tools', icon: Compass },
+    { id: 'recent', label: 'Recent', icon: Clock },
+    { id: 'saved', label: 'Saved', icon: Bookmark },
+    { id: 'profile', label: 'Profile', icon: UserIcon }
+  ];
+
+  const handleTabClick = (id: string) => {
+    setLocalActive(id);
+    if (id === 'profile') {
+      onOpenProfile();
+    } else if (id === 'recent') {
+      onSelectModule('my-estimates' as ModuleId);
+    } else if (id === 'saved') {
+      onSelectModule('saved' as ModuleId);
+    } else {
+      onSelectModule(id as ModuleId);
+    }
+  };
 
   return (
-    <div className="fixed bottom-[15px] left-0 right-0 z-[80] flex justify-center md:hidden pointer-events-none">
+    // REPLACE THIS SECTION
+    <div className="fixed bottom-0 left-0 right-0 z-[80] md:hidden w-full pointer-events-none">
       <nav 
-        className="pointer-events-auto flex items-center justify-around w-[95%] max-w-md px-1 py-3 rounded-3xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-[10px] border border-white/50 dark:border-slate-700/50 shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
+        className="w-full h-[64px] pointer-events-auto"
+        style={{
+          boxShadow: '0 -4px 24px rgba(0,0,0,0.08)',
+          backgroundColor: 'rgba(255,255,255,0.92)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderTop: '1px solid rgba(0,0,0,0.08)',
+          paddingBottom: 'env(safe-area-inset-bottom)',
+        }}
       >
-        {bottomModules.map(m => {
-          if (!m) return null;
-          const isActive = activeModule === m.id;
-          return (
-            <NavItem 
-              key={m.id}
-              icon={<m.icon strokeWidth={2.5} />} 
-              label={m.title.slice(0, 8) + (m.title.length > 8 ? '.' : '')} 
-              isActive={isActive} 
-              onClick={() => onSelectModule(m.id as ModuleId)} 
-            />
-          );
-        })}
+        <div className="flex w-full h-[64px]">
+          {NAV_ITEMS.map((item) => {
+            const isActive = localActive === item.id;
+            const Icon = item.icon;
+            
+            return (
+              <button
+                key={item.id}
+                onClick={() => handleTabClick(item.id)}
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+                className="relative flex-1 flex flex-col items-center justify-center h-full active:bg-[#E8541A]/[0.15] transition-colors"
+                aria-label={item.label}
+              >
+                <div className="relative flex flex-col items-center justify-center z-10 w-full h-full">
+                  <motion.div
+                    whileTap={{ scale: 0.88 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 14 }}
+                    className="relative flex flex-col items-center justify-center pointer-events-none"
+                    style={{ padding: '6px 18px' }}
+                  >
+                    {/* Floating Pill Active Indicator */}
+                    {isActive && (
+                      <motion.div
+                        layoutId="bottom-nav-pill"
+                        className="absolute inset-0 bg-[#E8541A] z-[-1]"
+                        style={{ borderRadius: '20px' }}
+                        transition={{
+                          type: "tween",
+                          ease: [0.34, 1.56, 0.64, 1],
+                          duration: 0.4
+                        }}
+                      />
+                    )}
+                    
+                    <Icon 
+                      size={22} 
+                      strokeWidth={1.5} 
+                      className={`mb-[2px] transition-colors duration-300 ${
+                        isActive ? 'text-white' : 'text-[#9CA3AF]'
+                      }`}
+                      fill={isActive ? "currentColor" : "none"}
+                    />
+                    <span 
+                      className={`font-semibold tracking-[0.3px] transition-colors duration-300 ${
+                        isActive ? 'text-white' : 'text-[#9CA3AF]'
+                      }`}
+                      style={{ 
+                        fontSize: '10px',
+                        fontFamily: "'DM Sans', 'Plus Jakarta Sans', sans-serif"
+                      }}
+                    >
+                      {item.label}
+                    </span>
+                  </motion.div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
       </nav>
     </div>
   );
 }
-
-function NavItem({ icon, label, isActive, onClick }: { icon: React.ReactNode, label: string, isActive: boolean, onClick: () => void }) {
-  return (
-    <button 
-      onClick={onClick}
-      className={`group relative flex flex-col items-center justify-center flex-1 w-0 gap-1 rounded-2xl transition-all duration-300 ease-out ${isActive ? 'text-indigo-600 dark:text-cyan-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'}`}
-    >
-      <div className={`flex items-center justify-center transition-all duration-300 ease-out ${isActive ? '-translate-y-1 scale-110' : 'group-hover:scale-110 group-hover:-translate-y-0.5 group-active:scale-95'} [&>svg]:w-[22px] [&>svg]:h-[22px]`}>
-        {isActive ? (
-          <div className="relative">
-             <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-cyan-400 blur-sm opacity-40 rounded-full" />
-             <div className="relative text-[var(--accent-vibrant)] dark:text-cyan-400">
-                 {icon}
-             </div>
-          </div>
-        ) : (
-          icon
-        )}
-      </div>
-      <span className={`text-[9px] font-bold tracking-wide whitespace-nowrap transition-all duration-300 ${isActive ? 'opacity-100 font-extrabold' : 'opacity-70 group-hover:opacity-100'}`}>
-        {label}
-      </span>
-      {/* Active Indicator Line */}
-      <div className={`absolute -bottom-2 w-8 h-1 rounded-full bg-gradient-to-r from-indigo-500 to-cyan-400 shadow-[0_2px_8px_rgba(99,102,241,0.5)] transition-all duration-300 ${isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-0'}`} />
-    </button>
-  );
-}
-

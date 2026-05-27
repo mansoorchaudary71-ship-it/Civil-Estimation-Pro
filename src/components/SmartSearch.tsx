@@ -76,7 +76,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
     const results = ALL_MODULES.map(module => {
       let score = 0;
       const title = module.title.toLowerCase();
-      const desc = module.description.toLowerCase();
+      const desc = (module.desc || "").toLowerCase();
       const category = module.category.toLowerCase();
       
       // Fuzzy matching

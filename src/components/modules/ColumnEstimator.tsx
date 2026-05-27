@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { UniversalTabs } from "../ui/UniversalTabs";
 import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import {
   Columns,
@@ -16,7 +17,6 @@ import { useSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
-import ColorfulTab from "../ui/ColorfulTab";
 import { FieldTooltip } from "../ui/FieldTooltip";
 
 const mixRatios: Record<string, { c: number; s: number; a: number }> = {
@@ -263,19 +263,16 @@ export default function ColumnEstimator() {
                 <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-3">
                   Column Shape
                 </label>
-                <div className="flex overflow-x-auto pb-4 gap-2 mb-6 p-1">
-                  {(["rectangular", "square", "circular"] as const).map(
-                    (s, idx) => (
-                      <ColorfulTab index={idx} key={s}
-                        id={s}
-                        label={s.charAt(0).toUpperCase() + s.slice(1)}
-                        isActive={shape === s}
-                        onClick={() => setShape(s)}
-                        colorTheme={s === 'rectangular' ? 'indigo' : s === 'square' ? 'teal' : 'amber'}
-                        icon={s === "circular" ? <CircleDashed className="w-4 h-4" /> : <Square className="w-4 h-4" />}
-                      />
-                    ),
-                  )}
+                <div className="mb-6">
+                  <UniversalTabs 
+                    tabs={(["rectangular", "square", "circular"] as const).map(s => ({ 
+                      id: s, 
+                      label: s.charAt(0).toUpperCase() + s.slice(1), 
+                      icon: s === 'circular' ? <CircleDashed className="w-4 h-4" /> : <Square className="w-4 h-4" /> 
+                    }))}
+                    activeTab={shape}
+                    onTabChange={(id) => setShape(id as any)}
+                  />
                 </div>
               </div>
               <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/50 p-2 rounded-xl border border-slate-200 dark:border-slate-700">

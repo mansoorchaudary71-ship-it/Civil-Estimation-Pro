@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
+import { UniversalTabs } from "../ui/UniversalTabs";
 import { Layers, Info, CheckCircle2, ChevronRight, Calculator, Ruler, Hash, Cylinder, ArrowRight } from "lucide-react";
-import ColorfulTab from "../ui/ColorfulTab";
 import { useGlobalSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { ResultCard } from "../ui/ResultCard";

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { UniversalTabs } from "../ui/UniversalTabs";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { Route, Layers, Droplet, Waves, Send, Settings2 } from "lucide-react";
 import { SEO } from "../SEO";
@@ -6,7 +7,6 @@ import RoadEstimator from "./RoadEstimator";
 import RigidPavementEstimator from "./RigidPavementEstimator";
 import AsphaltPavingCalculator from "./AsphaltPavingCalculator";
 import SewerageEstimator from "./SewerageEstimator";
-import ColorfulTab from "../ui/ColorfulTab";
 
 type Tab = "flexible" | "rigid" | "asphalt" | "sewerage";
 
@@ -74,21 +74,11 @@ export default function RoadPavementEstimator({ onNavigate }: { onNavigate?: (id
         </div>
       </div>
 
-      <div className="flex overflow-x-auto gap-2 pb-2 mb-6 px-4 md:px-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-        {tabs.map((tab, idx) => {
-          const Icon = tab.icon;
-          return (
-            <ColorfulTab index={idx} key={tab.id}
-              id={tab.id}
-              label={tab.label}
-              icon={<Icon className="w-5 h-5" />}
-              isActive={activeTab === tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              colorTheme="amber"
-            />
-          );
-        })}
-      </div>
+      <UniversalTabs 
+          tabs={tabs.map(t => ({ id: t.id, label: t.label, icon: t.icon ? <t.icon className="w-5 h-5" /> : undefined }))} 
+          activeTab={activeTab} 
+          onTabChange={(id) => setActiveTab(id as any)} 
+        />
 
       <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
         <div className="mt-2">

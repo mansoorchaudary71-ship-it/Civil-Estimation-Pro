@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { UniversalTabs } from "../ui/UniversalTabs";
 import { Building2, Grid2X2, Columns, Droplet, PaintBucket, Layers, Square, Boxes, BookOpen } from "lucide-react";
 import { SEO } from "../SEO";
-import ColorfulTab from "../ui/ColorfulTab";
 
 import SlabEstimator from "./SlabEstimator";
 import ColumnEstimator from "./ColumnEstimator";
@@ -63,21 +63,11 @@ export default function ConcreteMasonryHub({ isEmbedded = false, onNavigate }: C
       )}
 
       <div className="flex flex-col gap-4 px-1 md:px-0">
-        <div className="flex overflow-x-auto gap-2 pb-2 p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          {tabs.map((tab, idx) => {
-            const Icon = tab.icon;
-            return (
-              <ColorfulTab index={idx} key={tab.id}
-                id={tab.id}
-                label={tab.label}
-                icon={<Icon className="w-5 h-5" />}
-                isActive={activeTab === tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                colorTheme="slate"
-              />
-            );
-          })}
-        </div>
+        <UniversalTabs 
+          tabs={tabs.map(t => ({ id: t.id, label: t.label, icon: t.icon ? <t.icon className="w-5 h-5" /> : undefined }))} 
+          activeTab={activeTab} 
+          onTabChange={(id) => setActiveTab(id as any)} 
+        />
 
         {/* Content Area */}
         <div className="animate-in fade-in slide-in-from-right-2 duration-300">

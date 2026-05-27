@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+import { UniversalTabs } from "../ui/UniversalTabs";
 import {
   Box,
   Cylinder,
@@ -39,7 +40,6 @@ type Shape =
   | "Prism";
 type System = "Metric" | "Imperial";
 import { useGlobalSettings } from "../../context/SettingsContext";
-import ColorfulTab from "../ui/ColorfulTab";
 export default function VolumeEstimator() {
   const { user } = useAuth();
   const { currentUnit, setCurrentUnit } = useGlobalSettings();
@@ -367,21 +367,12 @@ export default function VolumeEstimator() {
             </div>
           </div>
         </div>
-        <div className="flex overflow-x-auto pb-4 gap-2 mb-8 p-1">
-          {shapes.map((s, idx) => {
-            const Icon = s.icon;
-            const baseColor = s.color.split("-")[1];
-            return (
-              <ColorfulTab index={idx} key={s.id}
-                id={s.id}
-                label={s.label}
-                icon={<Icon className="w-5 h-5" />}
-                isActive={activeShape === s.id}
-                onClick={() => setActiveShape(s.id as Shape)}
-                colorTheme={baseColor as any}
-              />
-            );
-          })}
+        <div className="mb-8">
+          <UniversalTabs 
+            tabs={shapes.map(s => ({ id: s.id, label: s.label, icon: <s.icon className="w-5 h-5" /> }))}
+            activeTab={activeShape}
+            onTabChange={(id) => setActiveShape(id as Shape)}
+          />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Inputs */}

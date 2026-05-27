@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useReducer } from "react";
+import { UniversalTabs } from "../ui/UniversalTabs";
 import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { ResultCard } from "../ui/ResultCard";
@@ -49,7 +50,6 @@ import MasterRccStructure from "./MasterRccStructure";
 import MasterQuantityEstimator from "./MasterQuantityEstimator";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { SEO } from "../SEO";
-import ColorfulTab from "../ui/ColorfulTab";
 import UnitToggleGroup from "../ui/UnitToggleGroup";
 type GeometryState = {
   plotSizeUnit: "marla" | "sqyd" | "sqft";
@@ -1178,41 +1178,11 @@ export default function HouseEstimator() {
                   {/* Segmented Control & Actions */}
                   <div className="flex flex-col sm:flex-row gap-4 items-center justify-between relative mb-6">
                     <div className="flex overflow-x-auto gap-2 p-1 border-b border-slate-100 w-full sm:w-fit [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                      <ColorfulTab index={0} id="grey"
-                        label="Basic Structure"
-                        icon={<Layers className="w-[18px] h-[18px]" />}
-                        isActive={activeTab === "grey"}
-                        onClick={() => setActiveTab("grey")}
-                        colorTheme="slate"
-                      />
-                      <ColorfulTab index={1} id="finishing"
-                        label="Finishing"
-                        icon={<PaintRoller className="w-[18px] h-[18px]" />}
-                        isActive={activeTab === "finishing"}
-                        onClick={() => setActiveTab("finishing")}
-                        colorTheme="rose"
-                      />
-                      <ColorfulTab index={2} id="rcc"
-                        label="RCC Detailed"
-                        icon={<Spline className="w-[18px] h-[18px]" />}
-                        isActive={activeTab === "rcc"}
-                        onClick={() => setActiveTab("rcc")}
-                        colorTheme="amber"
-                      />
-                      <ColorfulTab index={3} id="master"
-                        label="Master Quantities"
-                        icon={<Calculator className="w-[18px] h-[18px]" />}
-                        isActive={activeTab === "master"}
-                        onClick={() => setActiveTab("master")}
-                        colorTheme="emerald"
-                      />
-                      <ColorfulTab index={4} id="rates"
-                        label="Material Rates"
-                        icon={<Database className="w-[18px] h-[18px]" />}
-                        isActive={activeTab === "rates"}
-                        onClick={() => setActiveTab("rates")}
-                        colorTheme="rose"
-                      />
+                      <UniversalTabs tabs={[{id: "grey", label: "Basic Structure", icon: <Layers className="w-[18px] h-[18px]" />}]} activeTab={activeTab === "grey" ? "grey" : ""} onTabChange={() => setActiveTab("grey")} />
+                      <UniversalTabs tabs={[{id: "finishing", label: "Finishing", icon: <PaintRoller className="w-[18px] h-[18px]" />}]} activeTab={activeTab === "finishing" ? "finishing" : ""} onTabChange={() => setActiveTab("finishing")} />
+                      <UniversalTabs tabs={[{id: "rcc", label: "RCC Detailed", icon: <Spline className="w-[18px] h-[18px]" />}]} activeTab={activeTab === "rcc" ? "rcc" : ""} onTabChange={() => setActiveTab("rcc")} />
+                      <UniversalTabs tabs={[{id: "master", label: "Master Quantities", icon: <Calculator className="w-[18px] h-[18px]" />}]} activeTab={activeTab === "master" ? "master" : ""} onTabChange={() => setActiveTab("master")} />
+                      <UniversalTabs tabs={[{id: "rates", label: "Material Rates", icon: <Database className="w-[18px] h-[18px]" />}]} activeTab={activeTab === "rates" ? "rates" : ""} onTabChange={() => setActiveTab("rates")} />
                     </div>
                   </div>
                   <div className="relative overflow-hidden transition-all duration-300">
