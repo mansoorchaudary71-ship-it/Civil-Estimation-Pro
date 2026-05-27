@@ -321,6 +321,35 @@ export default function Sidebar({
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const [expandedTool, setExpandedTool] = useState<ModuleId | null>(null);
   const [activeSubTool, setActiveSubTool] = useState<string | null>(null);
+  
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(false);
+
+  // Clear auth error after 5 seconds
+  useEffect(() => {
+    if (authError) {
+      const timer = setTimeout(() => setAuthError(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [authError]);
+
+  const handleGoogleSignIn = async () => {
+    try {
+      setAuthError(null);
+      setIsAuthLoading(true);
+      await signInWithGoogle();
+      onClose?.();
+    } catch (error: any) {
+      console.error(error);
+      if (error?.code === 'auth/popup-blocked') {
+        setAuthError("Popup blocked. Please open this app in a new tab to sign in.");
+      } else {
+        setAuthError(error?.message || "Failed to sign in.");
+      }
+    } finally {
+      setIsAuthLoading(false);
+    }
+  };
 
   useEffect(() => {
     let foundTool = null;
@@ -621,12 +650,18 @@ export default function Sidebar({
           ) : (
             <div className="flex flex-col gap-2">
               <button
-                onClick={() => { onClose?.(); signInWithGoogle?.(); }}
-                className="w-full flex items-center justify-center gap-3 py-3 rounded-xl text-[14px] font-bold text-slate-700 dark:text-slate-200 bg-bg-card border border-border-color shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
+                onClick={handleGoogleSignIn}
+                disabled={isAuthLoading}
+                className="w-full flex items-center justify-center gap-3 py-3 rounded-xl text-[14px] font-bold text-slate-700 dark:text-slate-200 bg-bg-card border border-border-color shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors disabled:opacity-50"
               >
                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Login Button Logo" title="Google External Sign in Auth" loading="lazy" className="w-5 h-5 bg-white rounded-full p-0.5" />
-                Sign In with Google
+                {isAuthLoading ? "..." : "Sign In with Google"}
               </button>
+              {authError && (
+                <div className="text-red-500 text-xs text-center border border-red-500/20 bg-red-500/10 rounded overflow-hidden p-2 mt-1">
+                  {authError}
+                </div>
+              )}
             </div>
           )}
         </div>

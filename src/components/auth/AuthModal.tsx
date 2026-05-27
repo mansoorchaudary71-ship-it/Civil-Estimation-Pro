@@ -38,6 +38,10 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         return "Please enter a valid email address.";
       case 'auth/network-request-failed':
         return "Network error. Please check your internet connection.";
+      case 'auth/popup-blocked':
+        return "Popup blocked. Please open this app in a new tab to sign in.";
+      case 'auth/popup-closed-by-user':
+        return "Sign-in popup was closed before completion.";
       default:
         // Attempt to clean up generic Firebase errors if they leak through
         const msg = error?.message || 'An unexpected error occurred. Please try again.';

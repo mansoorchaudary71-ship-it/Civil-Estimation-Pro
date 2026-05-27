@@ -22,6 +22,8 @@ export default function TopNavbar({
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSettingsDrawerOpen, setIsSettingsDrawerOpen] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(false);
   
   const { settings, updateSettings } = useSettings();
   
@@ -29,6 +31,32 @@ export default function TopNavbar({
   const { user, logOut, signInWithGoogle } = useAuth();
   
   const isAuthenticated = !!user;
+
+  // Clear auth error after 5 seconds
+  useEffect(() => {
+    if (authError) {
+      const timer = setTimeout(() => setAuthError(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [authError]);
+
+  const handleGoogleSignIn = async () => {
+    try {
+      setAuthError(null);
+      setIsAuthLoading(true);
+      await signInWithGoogle();
+      setIsMobileMenuOpen(false);
+    } catch (error: any) {
+      console.error(error);
+      if (error?.code === 'auth/popup-blocked') {
+        setAuthError("Popup blocked. Please open this app in a new tab to sign in.");
+      } else {
+        setAuthError(error?.message || "Failed to sign in.");
+      }
+    } finally {
+      setIsAuthLoading(false);
+    }
+  };
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -136,13 +164,16 @@ export default function TopNavbar({
               </div>
 
               {!isAuthenticated ? (
-                <button 
-                  onClick={signInWithGoogle}
-                  className="px-4 md:px-5 h-9 md:h-10 rounded-full bg-white/50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 flex items-center justify-center gap-2 text-slate-700 hover:text-slate-900 hover:bg-white dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 shadow-sm hover:shadow-md transition-all duration-300 font-bold text-xs md:text-sm tracking-tight hover:scale-105 active:scale-95 whitespace-nowrap"
-                  title="Sign In"
-                >
-                  Sign In
-                </button>
+                <div className="relative">
+                  <button 
+                    onClick={() => onOpenAuth?.()}
+                    disabled={isAuthLoading}
+                    className="px-4 md:px-5 h-9 md:h-10 rounded-full bg-white/50 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 flex items-center justify-center gap-2 text-slate-700 hover:text-slate-900 hover:bg-white dark:text-slate-200 dark:hover:text-white dark:hover:bg-white/10 shadow-sm hover:shadow-md transition-all duration-300 font-bold text-xs md:text-sm tracking-tight hover:scale-105 active:scale-95 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                    title="Sign In"
+                  >
+                    Sign In
+                  </button>
+                </div>
               ) : (
                 <div ref={profileRef} className="relative">
                   <button 
@@ -245,7 +276,7 @@ export default function TopNavbar({
                 </button>
                 {!isAuthenticated ? (
                   <button
-                    onClick={signInWithGoogle}
+                    onClick={() => { setIsMobileMenuOpen(false); onOpenAuth?.(); }}
                     className="w-full py-3.5 rounded-full text-[15px] font-bold bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-white shadow-sm border border-slate-200 dark:border-white/5 text-center transition-transform active:scale-[0.98]"
                   >
                     Sign In
@@ -355,13 +386,21 @@ export default function TopNavbar({
                   </div>
                 </div>
               ) : (
-                <button
-                  onClick={() => { setIsMobileMenuOpen(false); signInWithGoogle(); }}
-                  className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl text-[15px] font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors mb-3"
-                >
-                  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Login" loading="lazy" className="w-5 h-5 bg-white rounded-full p-0.5" />
-                  Sign In with Google
-                </button>
+                <div className="flex flex-col gap-2 mb-3">
+                  <button
+                    onClick={handleGoogleSignIn}
+                    disabled={isAuthLoading}
+                    className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl text-[15px] font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors disabled:opacity-50"
+                  >
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Login" loading="lazy" className="w-5 h-5 bg-white rounded-full p-0.5" />
+                    {isAuthLoading ? "..." : "Sign In with Google"}
+                  </button>
+                  {authError && (
+                    <div className="text-red-500 text-xs text-center border border-red-500/20 bg-red-500/10 rounded overflow-hidden p-2">
+                      {authError}
+                    </div>
+                  )}
+                </div>
               )}
               
               <button 
