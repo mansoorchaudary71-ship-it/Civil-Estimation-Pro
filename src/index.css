@@ -64,39 +64,64 @@
 
 @layer base {
   :root {
-    --bg-primary: #f8fafc;
-    --bg-card: #ffffff;
-    --text-primary: #0f172a;
-    /* Deep Purples and Energetic Oranges */
-    --accent-purple: #6B21A8; /* Deep Purple */
-    --accent-orange: #FF5A1F; /* Energetic Orange */
-    --border-color: rgba(124, 58, 237, 0.05); /* very soft purple border instead of harsh gray */
+    /* The 60-30-10 Color Strategy for Enterprise UI */
+    
+    /* The Dominant Base (60%) */
+    --bg-main: #F8F9FA;
+    --bg-surface: #FFFFFF;
+    --bg-surface-glass: rgba(255, 255, 255, 0.7);
+
+    /* The Secondary Anchor (30%) */
+    --text-primary: #1A1D20;
+    --text-secondary: #5F6368;
+    --border-light: rgba(26, 29, 32, 0.08);
+
+    /* The Accent (10%) */
+    --accent-primary: #FF6D00;
+    --accent-gradient: linear-gradient(135deg, #8A2BE2 0%, #FF6D00 100%);
+    --accent-glow: rgba(255, 109, 0, 0.3);
+
+    /* Fallbacks for existing variables used in UI */
+    --bg-primary: var(--bg-main);
+    --bg-card: var(--bg-surface);
+    --border-color: var(--border-light);
+    --primary-dark: var(--text-primary);
+    --accent-purple: #8A2BE2;
+    --accent-orange: var(--accent-primary);
     
     --background: 210 40% 98%;
     --foreground: 0 0% 7%;
     
-    /* Modern Dashboard Palette */
-    --primary-dark: #1E293B;
-    --accent-vibrant: #FF5A1F;
+    /* Modern Dashboard Palette Fallbacks */
+    --accent-vibrant: var(--accent-primary);
     --accent-blue: #00CFE8;
     --accent-teal: #20C997;
-    --glass-surface: rgba(255, 255, 255, 0.7);
+    --glass-surface: var(--bg-surface-glass);
 
     --civil-dark-bg: #0b071a;
-    --civil-amber: var(--accent-vibrant);
+    --civil-amber: var(--accent-primary);
     --civil-teal: var(--accent-teal);
     --civil-coral: #E04A22;
-    --civil-indigo: var(--accent-purple);
+    --civil-indigo: #8A2BE2;
     --civil-white-text: rgba(255,255,255,0.9);
   }
 
   .dark {
-    --bg-primary: #1a1a2e;
-    --bg-card: #16213e;
-    --text-primary: #e2e8f0;
-    --accent-purple: #7c3aed;
-    --accent-orange: #f97316;
-    --border-color: rgba(167, 139, 250, 0.1);
+    /* The Dominant Base (60%) Dark */
+    --bg-main: #0B0E14;
+    --bg-surface: #151821;
+    --bg-surface-glass: rgba(21, 24, 33, 0.7);
+
+    /* The Secondary Anchor (30%) Dark */
+    --text-primary: #FFFFFF;
+    --text-secondary: #9FA4A8;
+    --border-light: rgba(255, 255, 255, 0.08);
+
+    /* Fallbacks for existing variables */
+    --bg-primary: var(--bg-main);
+    --bg-card: var(--bg-surface);
+    --border-color: var(--border-light);
+    --primary-dark: var(--text-primary);
     
     --background: 232 28% 14%;
     --foreground: 214 32% 91%;
@@ -133,17 +158,7 @@
   }
 
   body {
-    background: linear-gradient(135deg, 
-      rgba(255, 230, 240, 0.4) 0%, 
-      rgba(230, 240, 255, 0.4) 25%, 
-      rgba(255, 245, 220, 0.4) 50%, 
-      rgba(240, 230, 255, 0.4) 75%, 
-      rgba(255, 230, 240, 0.4) 100%
-    );
-    background-color: var(--bg-primary);
-    background-size: 400% 400%;
-    animation: dynamicGradient 25s ease-in-out infinite;
-    background-attachment: fixed;
+    background-color: var(--bg-main);
     color: var(--text-primary);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -152,17 +167,7 @@
   }
 
   .dark body {
-    background: linear-gradient(135deg, 
-      rgba(76, 5, 25, 0.1) 0%, 
-      rgba(30, 27, 75, 0.1) 25%, 
-      rgba(66, 32, 6, 0.1) 50%, 
-      rgba(59, 7, 100, 0.1) 75%, 
-      rgba(76, 5, 25, 0.1) 100%
-    );
-    background-color: var(--bg-primary);
-    background-size: 400% 400%;
-    animation: dynamicGradient 25s ease-in-out infinite;
-    background-attachment: fixed;
+    background-color: var(--bg-main);
     color: var(--text-primary);
     min-height: 100vh;
   }
@@ -170,21 +175,21 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-sans); /* Clean and standard */
     font-weight: 700; /* Bold and punchy */
-    color: var(--primary-dark);
+    color: var(--text-primary);
     letter-spacing: -0.01em;
   }
 
   .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
-    color: #FFFFFF;
+    color: var(--text-primary);
   }
 
   p {
-    color: #4A5568;
+    color: var(--text-secondary);
     line-height: 1.6;
   }
 
   .dark p {
-    color: #A3AED0;
+    color: var(--text-secondary);
   }
 }
 
@@ -252,44 +257,46 @@
 
 @layer utilities {
   .shadow-glass {
-    box-shadow: var(--shadow-global);
+    box-shadow: 0 4px 16px var(--border-light) !important;
   }
 
-  /* Make background translucent to show animated gradients */
-  .bg-white {
-    background-color: rgba(255, 255, 255, 0.6) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
+  /* Text overrides */
+  .text-black, .text-slate-900, .text-gray-900 {
+    color: var(--text-primary) !important;
+  }
+  
+  .text-slate-500, .text-slate-600, .text-slate-700, .text-gray-500, .text-gray-600 {
+    color: var(--text-secondary) !important;
   }
 
-  .bg-slate-50 {
-    background-color: rgba(248, 250, 252, 0.6) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
-  }
-
-  .bg-slate-100, .bg-gray-50, .bg-gray-100 {
-    background-color: rgba(241, 245, 249, 0.6) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
+  /* Make background translucent and use bg-surface-glass */
+  .bg-white, .bg-slate-50, .bg-slate-100, .bg-gray-50, .bg-gray-100 {
+    background-color: var(--bg-surface-glass) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-color: var(--border-light) !important;
   }
   
-  .dark .dark\:bg-slate-900 {
-    background-color: rgba(15, 23, 42, 0.5) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
-  }
-  
-  .dark .dark\:bg-slate-800, .dark .dark\:bg-gray-800 {
-    background-color: rgba(30, 41, 59, 0.5) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
-  }
-  
+  .dark .dark\:bg-slate-900, 
+  .dark .dark\:bg-slate-800, .dark .dark\:bg-gray-800,
   .dark .dark\:bg-\[\#151821\], .dark .dark\:bg-\[\#0e0d07\] {
-    background-color: rgba(21, 24, 33, 0.5) !important;
-    backdrop-filter: blur(24px) !important;
-    -webkit-backdrop-filter: blur(24px) !important;
+    background-color: var(--bg-surface-glass) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border-color: var(--border-light) !important;
+  }
+
+  /* Primary Action Button Overrides (Start Estimating CTA) */
+  button[class*="bg-gradient-"], a[class*="bg-gradient-"] {
+    background: var(--accent-gradient) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 8px 16px var(--accent-glow) !important;
+    border: none !important;
+  }
+  
+  /* Text override for button text children */
+  button[class*="bg-gradient-"] *, a[class*="bg-gradient-"] * {
+    color: #FFFFFF !important;
   }
 
   .text-fluid-metric {
