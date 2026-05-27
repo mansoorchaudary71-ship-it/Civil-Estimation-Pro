@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Spline, Triangle } from 'lucide-react';
 import { MaterialSummary } from '../ui/MaterialSummary';
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function StaircaseDesignReference() {
   const [totalHeight, setTotalHeight] = useState<number>(3.0); // floor to floor
@@ -83,6 +84,8 @@ export default function StaircaseDesignReference() {
           totalValue={0}
         />
        </div>
-    </div>
+    
+      <CalculationHistory calculatorId="staircasedesignreference_tool" currentInputs={{}} />
+</div>
   );
 }

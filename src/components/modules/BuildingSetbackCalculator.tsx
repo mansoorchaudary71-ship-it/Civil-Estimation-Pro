@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Home, ArrowLeftRight, ArrowDownUp } from 'lucide-react';
 import { MaterialSummary } from '../ui/MaterialSummary';
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function BuildingSetbackCalculator() {
   const [plotArea, setPlotArea] = useState<number>(300);
@@ -97,6 +98,8 @@ export default function BuildingSetbackCalculator() {
 
         <MaterialSummary items={results} onUpdateRate={() => {}} showRates={false} totalValue={0} />
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="buildingsetbackcalculator_tool" currentInputs={{}} />
+</div>
   );
 }

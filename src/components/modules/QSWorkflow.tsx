@@ -5,6 +5,7 @@ import {
   ClipboardList, Activity, Construction, DollarSign, Building, Shovel
 } from 'lucide-react';
 import { ResponsiveContainer, PieChart as RechartsPieChart, Pie, Cell, Tooltip, Legend } from 'recharts';
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 type Step = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
@@ -537,7 +538,9 @@ export default function QSWorkflow() {
           .print-block { display: block !important; }
         }
       `}} />
-    </div>
+    
+      <CalculationHistory calculatorId="qsworkflow_tool" currentInputs={{}} />
+</div>
   );
 }
 

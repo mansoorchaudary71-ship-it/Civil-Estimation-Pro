@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { MaterialSummary } from '../ui/MaterialSummary';
 import { Square, Triangle, Circle, Layers, Ruler, Map as MapIcon, Home, Compass } from 'lucide-react';
 import { ResponsiveContainer, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceArea } from 'recharts';
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function AreaSpaceCalculator() {
   const [activeTab, setActiveTab] = useState<'shape' | 'property' | 'plot' | 'roof'>('shape');
@@ -423,6 +424,8 @@ export default function AreaSpaceCalculator() {
            </div>
         </div>
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="areaspacecalculator_tool" currentInputs={{}} />
+</div>
   );
 }

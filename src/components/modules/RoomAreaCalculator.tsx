@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Ruler, Layout, RefreshCw } from 'lucide-react';
 import { MaterialSummary } from '../ui/MaterialSummary';
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function RoomAreaCalculator() {
   const [length, setLength] = useState<number>(4);
@@ -112,6 +113,8 @@ export default function RoomAreaCalculator() {
             totalValue={0}
         />
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="roomareacalculator_tool" currentInputs={{}} />
+</div>
   );
 }

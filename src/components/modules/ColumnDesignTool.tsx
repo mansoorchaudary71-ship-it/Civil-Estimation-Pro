@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Building2 } from 'lucide-react';
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function ColumnDesignTool() {
   const [load, setLoad] = useState('1500');
@@ -25,6 +26,8 @@ export default function ColumnDesignTool() {
             <p className="text-pink-800 dark:text-pink-200 font-medium text-center">Interactive interaction diagrams and bi-axial design calculations would appear here based on the selected section size and reinforcement arrangement.</p>
          </div>
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="columndesigntool_tool" currentInputs={{}} />
+</div>
   );
 }

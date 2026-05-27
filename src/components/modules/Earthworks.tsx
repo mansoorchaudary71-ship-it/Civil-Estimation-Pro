@@ -4,6 +4,7 @@ import StandardEarthworks from "./EarthworksBase";
 import ChainageVolumeEstimator from "./ChainageVolume";
 import GridEarthworkEstimator from "./GridEarthwork";
 import SlopeStability from "./SlopeStability"; // We will create this
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 type HubTab = "general" | "chainage" | "grid" | "slope";
 
@@ -64,7 +65,9 @@ export default function EarthworksEstimator() {
           {activeTab === "slope" && <SlopeStability />}
         </div>
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="earthworks_tool" currentInputs={{}} />
+</div>
   );
 }
 

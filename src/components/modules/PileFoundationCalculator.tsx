@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pickaxe } from 'lucide-react';
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function PileFoundationCalculator() {
   return (
@@ -12,6 +13,8 @@ export default function PileFoundationCalculator() {
             <p className="text-slate-700 dark:text-slate-300 font-medium">Calculation of skin friction, end bearing capacity, and group efficiency for bored and driven piles.</p>
          </div>
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="pilefoundationcalculator_tool" currentInputs={{}} />
+</div>
   );
 }

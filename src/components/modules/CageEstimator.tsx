@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Calculator, Copy, RotateCw, RefreshCw } from "lucide-react";
 import { useGlobalSettings } from "../../context/SettingsContext";
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function CageEstimator() {
   const { currentUnit } = useGlobalSettings();
@@ -227,6 +228,8 @@ export default function CageEstimator() {
            )}
         </div>
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="cageestimator_tool" currentInputs={{}} />
+</div>
   );
 }

@@ -6,6 +6,7 @@ import ReinforcementVisualizer from "./ReinforcementVisualizer";
 import FormworkEstimator from "./FormworkEstimator";
 import { Grid2X2, Package, Search, BarChart2, Layers, RotateCw, PenTool, LayoutDashboard } from "lucide-react";
 import CageEstimator from "./CageEstimator"; // We will create this
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 type HubTab = "bbs" | "section-weight" | "bar-estimation" | "cage-estimator" | "detailing" | "formwork";
 
@@ -71,6 +72,8 @@ export default function SteelReinforcementHub() {
           {activeTab === "formwork" && <FormworkEstimator />}
         </div>
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="steelreinforcementhub_tool" currentInputs={{}} />
+</div>
   );
 }

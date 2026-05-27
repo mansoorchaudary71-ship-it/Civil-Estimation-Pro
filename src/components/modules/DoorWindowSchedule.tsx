@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Columns, Save } from 'lucide-react';
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 interface Entry {
   id: string;
@@ -106,6 +107,8 @@ export default function DoorWindowSchedule() {
             </button>
          </div>
        </div>
-    </div>
+    
+      <CalculationHistory calculatorId="doorwindowschedule_tool" currentInputs={{}} />
+</div>
   );
 }

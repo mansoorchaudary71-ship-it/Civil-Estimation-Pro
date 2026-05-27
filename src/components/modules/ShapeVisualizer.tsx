@@ -1,4 +1,5 @@
 import React from 'react';
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 type SVGShapeVisualizerProps = {
   shape: string;
@@ -244,6 +245,8 @@ export const SVGShapeVisualizer: React.FC<SVGShapeVisualizerProps> = ({ shape, d
       <svg width="100%" height={containerSize} viewBox={`0 0 ${containerSize} ${containerSize}`}>
         {svgContent}
       </svg>
-    </div>
+    
+      <CalculationHistory calculatorId="shapevisualizer_tool" currentInputs={{}} />
+</div>
   );
 };

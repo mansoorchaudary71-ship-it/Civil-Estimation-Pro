@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layers } from 'lucide-react';
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function PrestressedConcreteEstimator() {
   return (
@@ -12,6 +13,8 @@ export default function PrestressedConcreteEstimator() {
             <p className="text-pink-800 dark:text-pink-200 font-medium">Evaluate tendon profiles, compute prestress losses (friction, anchorage slip, elastic shortening), and design sections per IS 1343:2012.</p>
          </div>
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="prestressedconcreteestimator_tool" currentInputs={{}} />
+</div>
   );
 }

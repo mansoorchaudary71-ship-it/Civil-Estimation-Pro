@@ -11,6 +11,7 @@ import IsolatedFootingCalculator from "./IsolatedFootingCalculator";
 import RetainingWallCalculator from "./RetainingWallCalculator";
 import ConstructionMaterialEstimator from "./Calculators"; // to be wrapped
 import MasterRccStructure from "./MasterRccStructure";
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 type HubTab = "slab" | "column" | "beam" | "staircase" | "foundation" | "retaining-wall" | "general-concrete" | "bricks-blocks" | "plaster-finishes";
 
@@ -118,6 +119,8 @@ export default function ConcreteMasonryHub({ isEmbedded = false, onNavigate }: C
         </div>
       </div>
     
-    </div>
+    
+      <CalculationHistory calculatorId="concretemasonryhub_tool" currentInputs={{}} />
+</div>
   );
 }

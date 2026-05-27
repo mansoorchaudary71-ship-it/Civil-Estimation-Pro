@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { X, Droplets, Ruler, Square, Grid2X2, Hammer, Zap, Badge } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function WashroomEstimator({ onClose }: { onClose?: () => void }) {
   const [unit, setUnit] = useState<"ft" | "m">("ft");
@@ -148,7 +149,9 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
         />
         {suffix && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">{suffix}</span>}
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="washroomestimator_tool" currentInputs={{}} />
+</div>
   );
 
   return (

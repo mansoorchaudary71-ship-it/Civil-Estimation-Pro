@@ -3,6 +3,7 @@ import { PieChart, Pie, Cell, Tooltip as RechartsTooltip, ResponsiveContainer, L
 import { Download, PieChart as PieChartIcon, DollarSign, Settings2, Home } from "lucide-react";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 interface CostItem {
   id: string;
@@ -383,7 +384,9 @@ const ConstructionCostSummary: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="constructioncostsummary_tool" currentInputs={{}} />
+</div>
   );
 };
 

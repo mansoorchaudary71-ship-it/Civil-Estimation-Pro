@@ -8,6 +8,7 @@ import BeamCalculator from "./BeamCalculator";
 import BarBendingSchedule from "./BarBendingSchedule";
 import StaircaseCalculator from "./StaircaseCalculator";
 import ColorfulTab from "../ui/ColorfulTab";
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 type RccTab = "slab" | "column" | "beam" | "staircase" | "bbs";
 
@@ -75,6 +76,8 @@ export default function MasterRccStructure({ isEmbedded = false, onNavigate }: M
         </div>
       </div>
     
-      </div>
+      
+      <CalculationHistory calculatorId="masterrccstructure_tool" currentInputs={{}} />
+</div>
   );
 }

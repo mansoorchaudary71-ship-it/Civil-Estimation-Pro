@@ -10,7 +10,8 @@ import {
   Paintbrush,
   ArrowUpRight,
   Sliders,
-} from "lucide-react";
+} from "lucide-react";import { CalculationHistory } from '../ui/CalculationHistory';
+
 export default function HouseSpecs() {
   const { specs, updateSpecs } = useHouseSpecs();
   return (
@@ -370,6 +371,8 @@ function ToggleGroup({ value, onChange, options }: any) {
         </button>
       ))}
     
-      </div>
+      
+      <CalculationHistory calculatorId="housespecs_tool" currentInputs={{}} />
+</div>
   );
 }

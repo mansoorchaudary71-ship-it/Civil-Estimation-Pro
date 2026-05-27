@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import { Calculator, MapPin, Building, Home, ArrowRight, AlertTriangle, Clock } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 import { useSettings } from "../../context/SettingsContext";
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 type ConstructionType = "grey" | "standard" | "premium";
 type LocationType = "lahore" | "karachi" | "islamabad" | "other";
@@ -322,6 +323,8 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
         </div>
 
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="quickroughestimation_tool" currentInputs={{}} />
+</div>
   );
 }

@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Plus, Trash2, Download, Section } from "lucide-react";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 // We use an extended jsPDF type to include autoTable
 interface jsPDFCustom extends jsPDF {
@@ -300,7 +301,9 @@ const MeasurementSheetCalculator: React.FC = () => {
         </button>
       </div>
 
-    </div>
+    
+      <CalculationHistory calculatorId="measurementsheetcalculator_tool" currentInputs={{}} />
+</div>
   );
 };
 

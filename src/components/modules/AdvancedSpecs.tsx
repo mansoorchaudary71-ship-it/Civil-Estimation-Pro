@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { Sliders, ChevronDown, ChevronUp, HelpCircle } from "lucide-react";
+import { CalculationHistory } from '../ui/CalculationHistory';
 export type SpecsState = {
   // 1. Foundation & Substructure
   foundationDepth: string;
@@ -478,6 +479,8 @@ export default function AdvancedSpecs({
         </div>
       )}
     
-      </div>
+      
+      <CalculationHistory calculatorId="advancedspecs_tool" currentInputs={{}} />
+</div>
   );
 }

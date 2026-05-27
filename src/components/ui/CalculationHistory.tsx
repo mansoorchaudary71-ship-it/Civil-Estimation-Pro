@@ -360,7 +360,10 @@ export function CalculationHistory({
       )}
 
       {/* Bottom Navigation Action Bar */}
-      <div className="fixed bottom-6 left-0 lg:left-[300px] right-0 z-[60] flex justify-center w-full lg:w-auto font-sans px-2 pointer-events-none">
+      <div 
+        className="fixed bottom-0 left-0 right-0 z-[60] flex justify-center w-full font-sans px-2 pointer-events-none"
+        style={{ paddingBottom: "max(env(safe-area-inset-bottom), 16px)" }}
+      >
         <div className="flex items-stretch justify-between w-full max-w-[420px] sm:max-w-[550px] rounded-full border border-slate-300/80 dark:border-slate-600/60 p-1.5 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md pointer-events-auto shadow-xl gap-1 mx-auto flex-nowrap overflow-visible">
           
           {/* Dashboard Button */}
@@ -384,7 +387,7 @@ export function CalculationHistory({
             <History className="w-[18px] h-[18px] text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
             <span className="text-[11px] sm:text-[13px] font-bold truncate">History</span>
             {history.length > 0 && (
-              <span className="absolute top-0 right-1 sm:right-2 flex h-4 w-4 items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-white shadow-sm ring-2 ring-white dark:ring-slate-900 z-10">
+              <span className="absolute top-0 right-1 sm:right-2 flex h-4 w-4 items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-white shadow-sm ring-2 ring-white dark:ring-slate-900 z-10 border-none">
                 {history.length}
               </span>
             )}

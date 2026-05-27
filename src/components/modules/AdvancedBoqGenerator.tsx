@@ -3,6 +3,7 @@ import { Download, Save, Printer, Plus, Trash2, FileSpreadsheet, Building, Calcu
 import { useSettings } from "../../context/SettingsContext";
 import { useMarketRates } from "../../context/MarketRatesContext";
 import { generateBOQExcel, generateBOQPDF } from "../../utils/boq-reports";
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 type TradeScope = "Excavation" | "PCC" | "RCC" | "Masonry" | "Plaster" | "Tiles" | "Paint" | "Steel";
 
@@ -515,6 +516,8 @@ export default function AdvancedBoqGenerator() {
           </div>
         )}
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="advancedboqgenerator_tool" currentInputs={{}} />
+</div>
   );
 }

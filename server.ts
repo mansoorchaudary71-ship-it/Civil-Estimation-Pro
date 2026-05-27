@@ -1,4 +1,5 @@
 import express from "express";
+import { GoogleGenAI } from "@google/genai";
 import { createServer as createViteServer } from "vite";
 import cron from "node-cron";
 import Database from "better-sqlite3";
@@ -28,6 +29,25 @@ async function startServer() {
       last_updated DATETIME
     )
   `);
+
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS search_analytics (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      query TEXT,
+      clicked_tool TEXT,
+      created_at DATETIME
+    )
+  `);
+
+  app.post("/api/analytics/search", (req, res) => {
+    try {
+      const { query, clickedTool } = req.body;
+      db.prepare("INSERT INTO search_analytics (query, clicked_tool, created_at) VALUES (?, ?, ?)").run(query, clickedTool || null, new Date().toISOString());
+      res.json({ success: true });
+    } catch(e) {
+      res.status(500).json({ error: "Analytics failed" });
+    }
+  });
 
   // Initial Seed if empty
   const row = db.prepare('SELECT * FROM market_rates ORDER BY id DESC LIMIT 1').get();
@@ -1435,6 +1455,108 @@ async function startServer() {
     } catch (e) {
       console.error(e);
       res.status(500).json({ error: "Failed to process post" });
+    }
+  });
+
+  const ALL_MODULES_DATA = [
+    { id: "qs-workflow", title: "Guided QS Workflow", category: "Quantity Estimator" },
+    { id: "quick-estimation", title: "Quick Rough Estimation", category: "Quantity Estimator" },
+    { id: "master-quantity", title: "Master Quantity & Estimation", category: "Quantity Estimator" },
+    { id: "house", title: "House Estimator", category: "Quantity Estimator" },
+    { id: "material-takeoff", title: "Material Takeoff Sheet", category: "Quantity Estimator" },
+    { id: "cost-summary", title: "Cost Summary Sheet", category: "Quantity Estimator" },
+    { id: "measurement-sheet", title: "Measurement Sheet Calculator", category: "Quantity Estimator" },
+    { id: "boq", title: "Professional BOQ Generator", category: "Quantity Estimator" },
+    { id: "takeoff", title: "Plan Measure", category: "Quantity Estimator" },
+    { id: "rates", title: "Live DB Rates", category: "Quantity Estimator" },
+    { id: "interiors-finishes", title: "Interiors & Finishes", category: "Quantity Estimator" },
+    { id: "area-space-calculator", title: "Area & Space Calculator", category: "Quantity Estimator" },
+    { id: "volume-estimator", title: "Volume & Tank Capacity", category: "Quantity Estimator" },
+    { id: "metal-weight", title: "Metal Weight", category: "Quantity Estimator" },
+    { id: "unit-converter", title: "Unit Converter", category: "Quantity Estimator" },
+    { id: "ai", title: "AI Assistant", category: "Quantity Estimator" },
+    { id: "master-rcc", title: "Master RCC Estimator", category: "Concrete Tech" },
+    { id: "calculators", title: "Construction Material", category: "Concrete Tech" },
+    { id: "mix-design", title: "Concrete Mix Design", category: "Concrete Tech" },
+    { id: "bbs-generator", title: "BBS Generator", category: "Concrete Tech" },
+    { id: "reinforcement", title: "Reinforcement Detailing Visualizer", category: "Concrete Tech" },
+    { id: "isolated-footing", title: "Isolated Footing Calculator", category: "Concrete Tech" },
+    { id: "retaining-wall", title: "Retaining Wall Estimator", category: "Concrete Tech" },
+    { id: "staircase-calculator", title: "Staircase Calculator", category: "Concrete Tech" },
+    { id: "aggregate-tests", title: "Aggregate Tests", category: "Concrete Tech" },
+    { id: "formwork", title: "Formwork & Scaffold", category: "Concrete Tech" },
+    { id: "road-pavement", title: "Road & Pavement Estimator", category: "Road Construction" },
+    { id: "earthworks", title: "Earthworks & Excavation", category: "Road Construction" },
+    { id: "chainage", title: "Chainage Volume", category: "Road Construction" },
+    { id: "gradient-calculator", title: "Gradient & Slope", category: "Road Construction" },
+    { id: "anti-termite", title: "Anti-Termite Calculator", category: "Road Construction" },
+    { id: "geotechnical", title: "Geotechnical & Soil Tests", category: "Soil Tests" },
+    { id: "cbr-test", title: "CBR Test Calculator", category: "Soil Tests" },
+    { id: "master-sieve", title: "Master Sieve Analysis", category: "Soil Tests" },
+    { id: "aggregate-blending", title: "Aggregate Blending", category: "Soil Tests" },
+    { id: "direct-shear", title: "Direct Shear Test", category: "Soil Tests" },
+    { id: "permeability-test", title: "Permeability Calculator", category: "Soil Tests" },
+    { id: "mep-calculator", title: "Energy & MEP Calculators", category: "MEP" },
+    { id: "solar-roof", title: "Solar Roof Calculator", category: "MEP" },
+    { id: "rainwater-harvesting", title: "Rainwater Harvesting", category: "MEP" },
+    { id: "projects", title: "Project Manager", category: "Analysis & Tools" },
+    { id: "tracker", title: "Site Progress Tracker", category: "Analysis & Tools" },
+    { id: "labour-calculator", title: "Labour & Workforce", category: "Analysis & Tools" },
+    { id: "beam-design", title: "Beam Design Tool", category: "Structural Design" },
+    { id: "column-design", title: "Column Design Tool", category: "Structural Design" },
+    { id: "raft-foundation", title: "Raft Foundation Designer", category: "Structural Design" },
+    { id: "water-tank-design", title: "Water Tank Design", category: "Structural Design" },
+    { id: "pile-foundation", title: "Pile Foundation Calculator", category: "Structural Design" },
+    { id: "prestressed-concrete", title: "Pre-stressed Concrete Estimator", category: "Structural Design" },
+    { id: "room-area-calculator", title: "Room Area Calculator", category: "Architectural References & Space Planning" },
+    { id: "building-setback-calculator", title: "Building Setback Calculator", category: "Architectural References & Space Planning" },
+    { id: "far-fsi-calculator", title: "FAR/FSI Calculator", category: "Architectural References & Space Planning" },
+    { id: "staircase-design-reference", title: "Staircase Design Reference", category: "Architectural References & Space Planning" },
+    { id: "door-window-schedule", title: "Door & Window Schedule", category: "Architectural References & Space Planning" },
+    { id: "ventilation-checker", title: "Ventilation & Lighting Checker", category: "Architectural References & Space Planning" }
+  ];
+
+  app.post("/api/search", async (req, res) => {
+    try {
+      const { query } = req.body;
+      if (!query) {
+        return res.status(400).json({ error: "Query is required" });
+      }
+
+      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      const prompt = `You are a search engine for a Civil Engineering Estimation Platform. You know all 51 tools on the platform. When a user types any query in any language or broken English or technical jargon you must return the top 3 most relevant tools in JSON format with fields toolId, toolName, category, matchReason, confidenceScore. Understand construction intent deeply. A query like concrete ratio M25 means Concrete Mix Design. Cut fill volume means Earthworks and Excavation. Always return valid JSON only with no explanation text.
+
+      Here is the list of tools:
+      ${JSON.stringify(ALL_MODULES_DATA)}
+
+      User Query: "${query}"`;
+
+      const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+        config: {
+          responseMimeType: "application/json",
+        }
+      });
+      
+      let text = response.text || "[]";
+      // Remove any markdown formatting
+      text = text.replace(/```json/g, '').replace(/```/g, '').trim();
+      let parsed = [];
+      try {
+        parsed = JSON.parse(text);
+        if (!Array.isArray(parsed)) {
+          parsed = parsed.results || parsed.tools || parsed.data || [];
+        }
+      } catch (e) {
+        console.error("Failed to parse Gemini JSON output", text);
+        return res.json({ results: [] });
+      }
+      
+      res.json({ results: parsed });
+    } catch (e) {
+      console.error(e);
+      res.status(500).json({ error: "Search failed" });
     }
   });
 

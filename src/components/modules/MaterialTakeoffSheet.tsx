@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Calculator, ClipboardCopy, Building, Layers, Settings, ChevronRight } from "lucide-react";
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 type QualityType = "standard" | "premium" | "luxury";
 
@@ -248,7 +249,9 @@ const MaterialTakeoffSheet: React.FC = () => {
           </tfoot>
         </table>
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="materialtakeoffsheet_tool" currentInputs={{}} />
+</div>
   );
 };
 

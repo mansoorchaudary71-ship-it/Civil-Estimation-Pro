@@ -1,5 +1,6 @@
 import React from 'react';
 import { Waves } from 'lucide-react';
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function WaterTankDesign() {
   return (
@@ -13,6 +14,8 @@ export default function WaterTankDesign() {
             <p className="text-pink-600 dark:text-pink-400 text-sm">Supports Rectangular and Circular overhead and underground scenarios.</p>
          </div>
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="watertankdesign_tool" currentInputs={{}} />
+</div>
   );
 }

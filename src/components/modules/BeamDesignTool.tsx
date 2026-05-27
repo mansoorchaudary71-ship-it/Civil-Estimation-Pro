@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Layers, Activity, ShieldCheck, FileSpreadsheet } from 'lucide-react';
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function BeamDesignTool() {
   const [span, setSpan] = useState('5');
@@ -66,6 +67,8 @@ export default function BeamDesignTool() {
             </div>
          </div>
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="beamdesigntool_tool" currentInputs={{}} />
+</div>
   );
 }

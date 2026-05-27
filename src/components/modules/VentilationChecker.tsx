@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Wind, Sun } from 'lucide-react';
 import { MaterialSummary } from '../ui/MaterialSummary';
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function VentilationChecker() {
   const [floorArea, setFloorArea] = useState<number>(20);
@@ -58,6 +59,8 @@ export default function VentilationChecker() {
             </div>
          </div>
        </div>
-    </div>
+    
+      <CalculationHistory calculatorId="ventilationchecker_tool" currentInputs={{}} />
+</div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ShieldAlert, Calculator, Layers, Search } from "lucide-react";
 import { ResultCard } from "../ui/ResultCard";
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function SlopeStability() {
   const [cohesion, setCohesion] = useState("20");
@@ -156,6 +157,8 @@ export default function SlopeStability() {
            </div>
         </div>
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="slopestability_tool" currentInputs={{}} />
+</div>
   );
 }

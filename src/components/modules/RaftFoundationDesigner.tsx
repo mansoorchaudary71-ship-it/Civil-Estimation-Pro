@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Grid2X2 } from 'lucide-react';
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function RaftFoundationDesigner() {
   const [sbc, setSbc] = useState('150');
@@ -25,6 +26,8 @@ export default function RaftFoundationDesigner() {
             <p className="text-slate-600 dark:text-slate-300 font-medium text-center">Advanced mesh analysis, punching shear checks at column locations, and settlement estimations (per IS 2950) are verified here.</p>
          </div>
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="raftfoundationdesigner_tool" currentInputs={{}} />
+</div>
   );
 }

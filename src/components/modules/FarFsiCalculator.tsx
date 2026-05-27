@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Columns, ArrowUpRight } from 'lucide-react';
 import { MaterialSummary } from '../ui/MaterialSummary';
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function FarFsiCalculator() {
   const [plotArea, setPlotArea] = useState<number>(500);
@@ -52,6 +53,8 @@ export default function FarFsiCalculator() {
 
         <MaterialSummary items={results} onUpdateRate={() => {}} showRates={false} totalValue={0} />
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="farfsicalculator_tool" currentInputs={{}} />
+</div>
   );
 }

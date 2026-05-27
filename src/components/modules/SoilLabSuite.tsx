@@ -7,6 +7,7 @@ import DirectShearTestCalculator from "./DirectShearTestCalculator";
 import CbrTestCalculator from "./CbrTestCalculator";
 import PermeabilityCalculator from "./PermeabilityCalculator";
 import AggregateTestsCalculator from "./AggregateTestsCalculator";
+import { CalculationHistory } from '../ui/CalculationHistory';
 
 type HubTab = "index" | "gradation" | "strength" | "aggregates";
 
@@ -358,6 +359,8 @@ function UnconfinedCompressionTest() {
            <div className="text-4xl font-black text-emerald-600">{cu.toFixed(1)} kPa</div>
          </div>
       </div>
-    </div>
+    
+      <CalculationHistory calculatorId="soillabsuite_tool" currentInputs={{}} />
+</div>
   );
 }
