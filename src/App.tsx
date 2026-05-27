@@ -160,6 +160,40 @@ export const ALL_TOOLS = [
   { id: "rates", title: "Market Rates", category: "Analysis & Tools", icon: <LineChart className="w-4 h-4" /> },
 ];
 
+// Lightweight deterministic hashing utility for social proof
+const getHashStr = (str: string) => {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  return Math.abs(hash);
+};
+
+// Generate deterministic social proof metrics based on module/tool ID
+const getSocialProof = (id: string) => {
+  const seed = getHashStr(id || 'default');
+  
+  // Rating between 4.4 and 4.9
+  const ratingBase = 4.4;
+  const ratingRange = 0.5;
+  const rating = (ratingBase + ((seed % 100) / 100) * ratingRange).toFixed(1);
+  
+  // Reviews between 45 and 350
+  const reviewMin = 45;
+  const reviewRange = 305; // 350 - 45
+  const reviews = reviewMin + (seed % reviewRange);
+
+  // Users between 1500 and 25000
+  const userMin = 1500;
+  const userRange = 23500; // 25000 - 1500
+  const usersRaw = userMin + (seed % userRange);
+  const users = (usersRaw / 1000).toFixed(1) + 'k+';
+  
+  return { rating, reviews, users };
+};
+
 export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeModule, setActiveModule] = useState<ModuleId>("home");
@@ -181,6 +215,8 @@ export default function App() {
   }, {} as Record<string, typeof ALL_TOOLS[0][]>);
   
   const { user, logOut } = useAuth();
+  
+  const socialProof = React.useMemo(() => getSocialProof(activeModule), [activeModule]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -601,12 +637,12 @@ function ModuleWrapper({
                           <span className="text-amber-500 flex">
                             {"★".repeat(5)}
                           </span>
-                          <span className="font-medium ml-1">4.9/5</span>
-                          <span>(128 reviews)</span>
+                          <span className="font-medium ml-1">{socialProof.rating}/5</span>
+                          <span>({socialProof.reviews} reviews)</span>
                         </div>
                         <div className="flex items-center gap-1.5">
                           <Users className="w-4 h-4" />
-                          <span>Calculated by 10,000+ engineers</span>
+                          <span>Calculated by {socialProof.users} engineers</span>
                         </div>
                         <div className="flex items-center gap-1.5">
                           <Clock className="w-4 h-4" />
