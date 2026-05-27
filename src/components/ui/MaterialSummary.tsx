@@ -12,6 +12,9 @@ export interface MaterialSummaryProps {
   icon?: React.ReactNode;
   children?: React.ReactNode;
   className?: string;
+  items?: any[];
+  onUpdateRate?: () => void;
+  showRates?: boolean;
 }
 
 export function MaterialSummary({
