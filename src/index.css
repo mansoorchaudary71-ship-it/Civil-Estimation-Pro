@@ -102,6 +102,12 @@
     --foreground: 214 32% 91%;
   }
 
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
   @keyframes dynamicGradient {
     0% { background-position: 0% 0%; }
     25% { background-position: 100% 50%; }
