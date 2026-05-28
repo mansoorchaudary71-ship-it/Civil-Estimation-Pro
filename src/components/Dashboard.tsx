@@ -148,11 +148,11 @@ const ToolCard = ({ mod, onSelect, isUsed, idx = 0 }: { mod: any, onSelect: (id:
       onClick={() => onSelect(mod.id)}
       id={`module-card-${mod.id}`}
       title={mod.desc}
-      className={`group relative flex flex-col h-full w-full p-6 text-left rounded-[32px] cursor-pointer transition-all duration-500 ease-out outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 hover:-translate-y-2 glass-card-hover bg-[#0f172a]/60 backdrop-blur-xl border border-white/10`}
+      className={`group relative flex flex-col h-full w-full p-6 text-left rounded-[32px] cursor-pointer transition-all duration-500 ease-out outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-blue)] focus-visible:ring-offset-2 hover:-translate-y-2 bg-white/70 backdrop-blur-xl border border-slate-200/60 shadow-[0_8px_24px_rgba(149,157,165,0.1)] hover:shadow-[0_12px_40px_rgba(149,157,165,0.2)]`}
     >
       {/* Subtle background glow effect on hover */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[32px] pointer-events-none overflow-hidden">
-        <div className={`absolute top-0 right-0 w-32 h-32 opacity-20 blur-3xl rounded-full ${theme.bg}`}></div>
+        <div className={`absolute top-0 right-0 w-32 h-32 opacity-[0.08] dark:opacity-20 blur-3xl rounded-full ${theme.bg}`}></div>
       </div>
 
       {/* Badges absolutely positioned overlapping border */}
@@ -176,29 +176,29 @@ const ToolCard = ({ mod, onSelect, isUsed, idx = 0 }: { mod: any, onSelect: (id:
 
       {/* Header (Icon + Title) */}
       <div className="flex items-start gap-4 mb-4 w-full pr-8 flex-shrink-0 relative z-10">
-        <div className={`w-14 h-14 rounded-full flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110 shadow-lg ${
-          isSolid ? 'bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-md border border-white/20' : `${theme.bg} shadow-[0_0_20px_rgba(255,255,255,0.1)]`
+        <div className={`w-14 h-14 rounded-full flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110 shadow-md ${
+          isSolid ? 'bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-white/20 dark:to-white/5 border border-slate-200 dark:border-white/20' : `${theme.bg} shadow-sm`
         }`}>
-          <mod.icon className={`w-6 h-6 text-white`} strokeWidth={2.5} />
+          <mod.icon className={`w-6 h-6 ${isSolid ? 'text-indigo-600 dark:text-white' : 'text-white'}`} strokeWidth={2.5} />
         </div>
         <div className="flex-1 text-left flex flex-col justify-center min-h-[56px]">
-          <h4 className={`text-[18px] font-bold tracking-tight leading-snug line-clamp-2 text-white`}>
+          <h4 className={`text-[18px] font-bold tracking-tight leading-snug line-clamp-2 text-slate-900 dark:text-white`}>
             {mod.title}
           </h4>
-          <span className={`text-[10px] font-black uppercase tracking-widest mt-1 block line-clamp-1 ${isSolid ? 'text-white/80' : theme.textRaw}`}>
+          <span className={`text-[10px] font-black uppercase tracking-widest mt-1 block line-clamp-1 ${isSolid ? 'text-slate-500 dark:text-white/80' : theme.textRaw}`}>
             {mod.category}
           </span>
         </div>
       </div>
       
       {/* Body (Description) */}
-      <p className={`text-[14px] leading-relaxed line-clamp-2 mb-6 text-left w-full flex-grow text-slate-300 group-hover:text-slate-200 transition-colors relative z-10`}>
+      <p className={`text-[14px] leading-relaxed line-clamp-2 mb-6 text-left w-full flex-grow text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors relative z-10`}>
         {mod.desc}
       </p>
 
       {/* Footer (Difficulty + Time) */}
-      <div className="w-full flex flex-wrap items-center justify-between gap-y-2 mt-auto pt-5 border-t border-white/10 flex-shrink-0 relative z-10">
-        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors bg-white/5 border border-white/10 text-slate-300 group-hover:border-white/20`} title={`Difficulty: ${mod.difficulty || 'Beginner'}`}>
+      <div className="w-full flex flex-wrap items-center justify-between gap-y-2 mt-auto pt-5 border-t border-slate-100 dark:border-white/10 flex-shrink-0 relative z-10">
+        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 group-hover:border-slate-300 dark:group-hover:border-white/20`} title={`Difficulty: ${mod.difficulty || 'Beginner'}`}>
            <span className={`w-2 h-2 rounded-full ${diffColors[(mod.difficulty as string)] || diffColors['Beginner']}`} />
            <span className="text-[11px] font-bold leading-none">
              {mod.difficulty || 'Beginner'}
@@ -207,12 +207,12 @@ const ToolCard = ({ mod, onSelect, isUsed, idx = 0 }: { mod: any, onSelect: (id:
         
         <div className="flex items-center gap-2">
            {isUsed && (
-             <span className="flex items-center gap-1.5 text-[11px] font-bold leading-none text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full" title="You have used this tool">
+             <span className="flex items-center gap-1.5 text-[11px] font-bold leading-none text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 px-3 py-1.5 rounded-full" title="You have used this tool">
                <CheckSquare className="w-3 h-3" /> Used
              </span>
            )}
-           <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors bg-white/5 border border-white/10 text-slate-300 group-hover:border-white/20`} title="Estimated time">
-              <Clock className="w-3.5 h-3.5 text-indigo-400" />
+           <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors bg-blue-50 dark:bg-white/5 border border-blue-100 dark:border-white/10 text-blue-700 dark:text-slate-300 group-hover:bg-blue-100 dark:group-hover:border-white/20`} title="Estimated time">
+              <Clock className="w-3.5 h-3.5 text-blue-500 dark:text-indigo-400" />
               <span className="text-[11px] font-bold leading-none">
                 {mod.estimatedTime || '~2 mins'}
               </span>
@@ -344,7 +344,7 @@ export default function Dashboard({
 
   // Handle particle creation purely via CSS in a style tag directly
   return (
-    <div className="relative flex-1 w-full flex flex-col font-sans mb-12 bg-[#0a0f1c] text-white">
+    <div className="relative flex-1 w-full flex flex-col font-sans mb-12 bg-slate-50 dark:bg-[#0a0f1c] text-slate-900 dark:text-white">
       <SEO 
         title="Dashboard" 
         description="Civil Estimation Pro: Advanced estimators for live construction rate analysis, house estimating, and comprehensive BOQ calculators." 
@@ -382,13 +382,13 @@ export default function Dashboard({
       `}</style>
       
       {/* Subtle, animated gradient mesh background that gently shifts colors */}
-      <div className="absolute inset-0 z-0 opacity-40 pointer-events-none mix-blend-screen" style={{
-        background: 'radial-gradient(circle at 15% 50%, rgba(76, 29, 149, 0.3), transparent 40%), radial-gradient(circle at 85% 30%, rgba(30, 58, 138, 0.3), transparent 40%), radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.2), transparent 50%)',
+      <div className="absolute inset-0 z-0 opacity-40 dark:opacity-40 pointer-events-none mix-blend-multiply dark:mix-blend-screen" style={{
+        background: 'radial-gradient(circle at 15% 50%, rgba(76, 29, 149, 0.05), transparent 40%), radial-gradient(circle at 85% 30%, rgba(30, 58, 138, 0.05), transparent 40%), radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.05), transparent 50%)',
         filter: 'blur(80px)'
       }}></div>
 
       {/* Blueprint Grid Overlay for engineering feel */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-10" style={{ maskImage: "linear-gradient(to bottom, white 0%, white 40%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, white 0%, white 40%, transparent 100%)" }}>
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-5 dark:opacity-10" style={{ maskImage: "linear-gradient(to bottom, black 0%, black 40%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 40%, transparent 100%)" }}>
          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="blueprint-grid-small" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -422,13 +422,13 @@ export default function Dashboard({
                   onClick={() => setActiveCategory(category)}
                   className={`group relative overflow-hidden flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ease-out border outline-none
                     ${activeCategory === category 
-                      ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white border-transparent shadow-[0_0_20px_rgba(139,92,246,0.4)] scale-105 z-10" 
-                      : "bg-white/5 backdrop-blur-md text-slate-300 border-white/10 hover:border-purple-500/50 hover:text-white hover:bg-white/10"
+                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-transparent shadow-md scale-105 z-10" 
+                      : "bg-white dark:bg-white/5 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:border-blue-500/50 hover:text-blue-700 dark:hover:text-white dark:hover:bg-white/10 shadow-sm dark:shadow-none"
                     }`}
                 >
                   <span className="relative z-10 tracking-tight">{category}</span>
                   <span className={`relative z-10 text-[10px] px-2 py-0.5 rounded-full ${
-                    activeCategory === category ? 'bg-white/20 text-white' : 'bg-white/10 text-slate-400 group-hover:text-slate-200 group-hover:bg-white/20'
+                    activeCategory === category ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400 group-hover:text-blue-700 dark:group-hover:text-slate-200 group-hover:bg-blue-50 dark:group-hover:bg-white/20'
                   }`}>
                     {count}
                   </span>
@@ -453,7 +453,7 @@ export default function Dashboard({
         {/* Header and Search */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
           <div>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight flex items-center gap-3">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--primary-dark)] dark:text-white tracking-tight flex items-center gap-3">
               {activeCategory}
             </h2>
             <div className="flex items-center gap-4 mt-2">
@@ -517,44 +517,44 @@ export default function Dashboard({
         
         {/* Featured Tool Spotlight */}
         <div className="w-full mt-24 mb-16">
-           <div className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-[3rem] p-8 md:p-12 relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center gap-10">
+           <div className="bg-gradient-to-br from-indigo-50 to-blue-50 border border-blue-100 rounded-[3rem] p-8 md:p-12 relative overflow-hidden shadow-md flex flex-col md:flex-row items-center gap-10">
               {/* Background Accents */}
-              <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-80 h-80 bg-indigo-500/30 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-96 h-96 bg-purple-200/50 rounded-full blur-3xl pointer-events-none" />
+              <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-80 h-80 bg-indigo-200/50 rounded-full blur-3xl pointer-events-none" />
               
               <div className="flex-1 relative z-10 text-center md:text-left">
-                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/20 border border-purple-400/30 rounded-full text-purple-200 text-xs font-bold tracking-wider uppercase mb-6">
+                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-100 border border-indigo-200 rounded-full text-indigo-700 text-xs font-bold tracking-wider uppercase mb-6 shadow-sm">
                     <Sparkles className="w-4 h-4" /> Featured Tool of the Week
                  </div>
-                 <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-4 drop-shadow-sm">
+                 <h2 className="text-3xl md:text-5xl font-black tracking-tight text-[var(--primary-dark)] mb-4 drop-shadow-sm">
                     Master RCC Estimator
                  </h2>
-                 <p className="text-indigo-200 text-lg md:text-xl font-medium mb-8 max-w-xl mx-auto md:mx-0">
+                 <p className="text-slate-600 text-lg md:text-xl font-medium mb-8 max-w-xl mx-auto md:mx-0">
                     The unified hub for Slab, Column, Beam, Staircase, and BBS calculations. Save hours of manual work with auto-generated steel weight estimations.
                  </p>
                  <button 
                     onClick={() => handleSelect('master-rcc')}
-                    className="px-8 py-4 bg-white text-indigo-900 rounded-full font-bold text-lg hover:bg-indigo-50 transition-all hover:scale-105 active:scale-95 shadow-lg group"
+                    className="px-8 py-4 bg-indigo-600 text-white rounded-full font-bold text-lg hover:bg-indigo-700 transition-all hover:scale-105 active:scale-95 shadow-md group"
                  >
                     Try it Now <ArrowRight className="inline ml-2 group-hover:translate-x-1 transition-transform" />
                  </button>
               </div>
               
               <div className="relative z-10 w-full max-w-md pointer-events-none hidden md:block">
-                 <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-[2rem] p-6 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                 <div className="bg-white/80 backdrop-blur-md border border-white shadow-xl rounded-[2rem] p-6 transform rotate-3 hover:rotate-0 transition-transform duration-500">
                     <div className="flex items-center gap-4 mb-6">
-                       <div className="w-14 h-14 bg-emerald-500 rounded-2xl flex items-center justify-center">
-                          <Building2 className="w-8 h-8 text-white" />
+                       <div className="w-14 h-14 bg-emerald-100 border border-emerald-200 rounded-2xl flex items-center justify-center">
+                          <Building2 className="w-8 h-8 text-emerald-600" />
                        </div>
                        <div className="flex flex-col">
-                          <span className="text-white font-bold text-lg">RCC Master</span>
-                          <span className="text-emerald-300 font-medium text-sm">Concrete Tech</span>
+                          <span className="text-slate-900 font-bold text-lg">RCC Master</span>
+                          <span className="text-slate-500 font-medium text-sm">Concrete Tech</span>
                        </div>
                     </div>
                     <div className="space-y-3">
-                       <div className="h-3 bg-white/20 rounded-full w-full"></div>
-                       <div className="h-3 bg-white/20 rounded-full w-4/5"></div>
-                       <div className="h-3 bg-white/20 rounded-full w-5/6"></div>
+                       <div className="h-3 bg-slate-200 rounded-full w-full"></div>
+                       <div className="h-3 bg-slate-200 rounded-full w-4/5"></div>
+                       <div className="h-3 bg-slate-200 rounded-full w-5/6"></div>
                     </div>
                  </div>
               </div>

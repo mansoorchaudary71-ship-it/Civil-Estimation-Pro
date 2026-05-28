@@ -109,13 +109,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     const root = window.document.documentElement;
 
     const applyTheme = () => {
-      root.classList.remove('light', 'dark');
-      if (settings.theme === 'system') {
-        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        root.classList.add(systemTheme);
-      } else {
-        root.classList.add(settings.theme);
-      }
+      root.classList.remove('dark');
+      root.classList.add('light');
       
       // Apply font size scaling
       if (settings.fontSize === 'small') {

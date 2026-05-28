@@ -84,7 +84,8 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
       <div className="flex flex-col gap-4 mb-4 relative z-10 w-full overflow-hidden rounded-[40px]">
         
         {/* Welcome & Button */}
-        <div className="flex flex-col items-center text-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 md:p-12 shadow-sm relative group w-full box-border">
+        <div className="flex flex-col items-center text-center gap-4 bg-white/70 backdrop-blur-3xl border border-white/40 rounded-[40px] p-6 sm:p-8 md:p-12 shadow-md hover:shadow-xl transition-shadow relative group w-full box-border">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/10 pointer-events-none rounded-[40px]"></div>
           <div className="z-10 relative flex flex-col items-center">
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-black text-[var(--primary-dark)] dark:text-white tracking-tight mb-3">
               Welcome back{user?.displayName ? `, ${user.displayName.split(' ')[0]}` : ''}
@@ -140,12 +141,12 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
 
       {loading ? (
         <div className="flex-1 flex items-center justify-center min-h-[200px]">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></div>
         </div>
       ) : estimates.length > 0 ? (
-        <div className="flex flex-col bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-sm">
+        <div className="flex flex-col bg-white/70 backdrop-blur-xl border border-white/50 rounded-[32px] overflow-hidden shadow-md">
           {recentEstimates.map((est, index) => (
-            <div key={est.id} className={`flex items-center justify-between p-4 sm:p-5 ${index !== recentEstimates.length - 1 ? 'border-b border-slate-100 dark:border-slate-800/50' : ''} hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group/est`}>
+            <div key={est.id} className={`flex items-center justify-between p-4 sm:p-5 ${index !== recentEstimates.length - 1 ? 'border-b border-slate-200/50' : ''} hover:bg-white/50 transition-colors group/est`}>
               <div className="flex items-center gap-4">
                 <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center shrink-0">
                   <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 dark:text-blue-400" />
