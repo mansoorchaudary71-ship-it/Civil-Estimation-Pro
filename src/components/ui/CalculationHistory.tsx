@@ -1,10 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { History, Save, Trash2, ChevronRight, X, CloudUpload, Home, Share2, Printer } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import {
+  History,
+  Save,
+  Trash2,
+  ChevronRight,
+  X,
+  CloudUpload,
+  Home,
+  Share2,
+  Printer,
+  User,
+} from "lucide-react";
 import { saveEstimate, getToolEstimates } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
 import ShareButtonWithPopup from "../modules/ShareMenu";
-import { CalculationExplanation, CalculationExplanationOptions } from "./CalculationExplanation";
+import {
+  CalculationExplanation,
+  CalculationExplanationOptions,
+} from "./CalculationExplanation";
 
 interface HistoryItem {
   id: string;
@@ -19,15 +33,24 @@ interface CalculationHistoryProps {
   calculatorId: string;
   currentInputs: Record<string, any>;
   currentResults?: Record<string, any>;
-  summaryGeneration?: (inputs: Record<string, any>, results: Record<string, any>) => string;
+  summaryGeneration?: (
+    inputs: Record<string, any>,
+    results: Record<string, any>,
+  ) => string;
   onRestore?: (inputs: Record<string, any>) => void;
   savePayload?: any;
   estimationName?: string;
   explanation?: CalculationExplanationOptions;
 }
 
-function getDefaultExplanation(calculatorId: string, currentInputs: any, currentResults: any): CalculationExplanationOptions | undefined {
-  const hasInputs = currentInputs && Object.values(currentInputs).some((v: any) => v && v !== "0" && v !== 0);
+function getDefaultExplanation(
+  calculatorId: string,
+  currentInputs: any,
+  currentResults: any,
+): CalculationExplanationOptions | undefined {
+  const hasInputs =
+    currentInputs &&
+    Object.values(currentInputs).some((v: any) => v && v !== "0" && v !== 0);
 
   // Return generic formulas based on calculatorId if hasInputs is false
   if (!hasInputs) {
@@ -39,154 +62,279 @@ function getDefaultExplanation(calculatorId: string, currentInputs: any, current
         genericFormula = [
           { label: "Rectangular Area", formula: "Length × Width" },
           { label: "Circular Area", formula: "π × Radius²" },
-          { label: "Triangular Area", formula: "0.5 × Base × Height" }
+          { label: "Triangular Area", formula: "0.5 × Base × Height" },
         ];
         break;
       case calculatorId.includes("takeoff"):
-        genericFormula = [{ label: "BOQ Line Item Amount", formula: "Quantity × Unit Rate" }];
+        genericFormula = [
+          { label: "BOQ Line Item Amount", formula: "Quantity × Unit Rate" },
+        ];
         break;
       case calculatorId.includes("volume_estimator"):
         return undefined; // Handled manually
       case calculatorId.includes("metal_weight"):
-        genericFormula = [{ label: "Steel Weight", formula: "(D² / 162.28) × Length × No. of bars" }];
+        genericFormula = [
+          {
+            label: "Steel Weight",
+            formula: "(D² / 162.28) × Length × No. of bars",
+          },
+        ];
         notes = [
           "D = Diameter of Bar in mm",
           "L = Total Length of Bar in m",
-          "Formula is derived from the density of steel (7850 kg/m³)"
+          "Formula is derived from the density of steel (7850 kg/m³)",
         ];
         break;
       case calculatorId.includes("slab_estimator"):
         genericFormula = [
           { label: "Concrete Volume", formula: "Length × Width × Thickness" },
-          { label: "Steel Weight", formula: "(D² / 162.28) × Total Length × No. of Bars" }
+          {
+            label: "Steel Weight",
+            formula: "(D² / 162.28) × Total Length × No. of Bars",
+          },
         ];
         notes = ["Dry Concrete Volume = Wet Volume × 1.54"];
         break;
       case calculatorId.includes("column"):
         genericFormula = [
           { label: "Concrete Volume", formula: "Length × Width × Depth" },
-          { label: "Main Steel Weight", formula: "(D² / 162.28) × Length × No. of Main Bars" },
+          {
+            label: "Main Steel Weight",
+            formula: "(D² / 162.28) × Length × No. of Main Bars",
+          },
           { label: "Number of Ties", formula: "(Length / Spacing) + 1" },
-          { label: "Tie Cut Length", formula: "2 × (A + B) + Hook Lengths" }
+          { label: "Tie Cut Length", formula: "2 × (A + B) + Hook Lengths" },
         ];
-        notes = ["Dry Concrete Volume = Wet Volume × 1.54", "A & B are inner dimensions after subtracting Clear Cover"];
+        notes = [
+          "Dry Concrete Volume = Wet Volume × 1.54",
+          "A & B are inner dimensions after subtracting Clear Cover",
+        ];
         break;
       case calculatorId.includes("beam"):
         genericFormula = [
           { label: "Concrete Volume", formula: "Length × Width × Depth" },
-          { label: "Main Steel Weight", formula: "(D² / 162.28) × Length × Total Bars" },
+          {
+            label: "Main Steel Weight",
+            formula: "(D² / 162.28) × Length × Total Bars",
+          },
           { label: "Stirrup Cut Length", formula: "2 × (A + B) + 24D" },
-          { label: "Number of Stirrups", formula: "(Length / Spacing) + 1" }
+          { label: "Number of Stirrups", formula: "(Length / Spacing) + 1" },
         ];
         break;
       case calculatorId.includes("brickwork"):
         genericFormula = [
           { label: "Volume of Wall", formula: "Length × Height × Thickness" },
-          { label: "No. of Bricks", formula: "Volume of Wall / Volume of 1 Brick with Mortar" },
-          { label: "Dry Mortar", formula: "Total Mortar Volume × 1.33" }
+          {
+            label: "No. of Bricks",
+            formula: "Volume of Wall / Volume of 1 Brick with Mortar",
+          },
+          { label: "Dry Mortar", formula: "Total Mortar Volume × 1.33" },
         ];
-        notes = ["1.33 is the dry volume conversion factor for mortar", "Standard Mortar Joint is typically 10mm"];
+        notes = [
+          "1.33 is the dry volume conversion factor for mortar",
+          "Standard Mortar Joint is typically 10mm",
+        ];
         break;
       case calculatorId.includes("staircase"):
         genericFormula = [
-          { label: "Volume of Steps", formula: "0.5 × Tread × Riser × Width × Number of Steps" },
-          { label: "Waist Slab Volume", formula: "Length of Waist × Thickness × Width" }
+          {
+            label: "Volume of Steps",
+            formula: "0.5 × Tread × Riser × Width × Number of Steps",
+          },
+          {
+            label: "Waist Slab Volume",
+            formula: "Length of Waist × Thickness × Width",
+          },
         ];
         break;
-      case calculatorId.includes("house_estimator") || calculatorId.includes("rate_analysis"):
+      case calculatorId.includes("house_estimator") ||
+        calculatorId.includes("rate_analysis"):
         genericFormula = [
-          { label: "Total Cost", formula: "Σ (Material Cost + Labor Cost + Equipment) * (1 + Profit Margin)" }
+          {
+            label: "Total Cost",
+            formula:
+              "Σ (Material Cost + Labor Cost + Equipment) * (1 + Profit Margin)",
+          },
         ];
         break;
       case calculatorId.includes("formwork"):
-        genericFormula = [{ label: "Formwork Area", formula: "Perimeter of Section × Height/Depth" }];
+        genericFormula = [
+          {
+            label: "Formwork Area",
+            formula: "Perimeter of Section × Height/Depth",
+          },
+        ];
         notes = ["Consider surface area exposed to concrete casting"];
         break;
       case calculatorId.includes("manhole"):
         genericFormula = [
-          { label: "Cylindrical Excavation Volume", formula: "π × Radius² × Depth" },
-          { label: "Rectangular Volume", formula: "Length × Width × Depth" }
+          {
+            label: "Cylindrical Excavation Volume",
+            formula: "π × Radius² × Depth",
+          },
+          { label: "Rectangular Volume", formula: "Length × Width × Depth" },
         ];
         break;
       case calculatorId.includes("sewerage"):
         genericFormula = [
-          { label: "Trench Excavation", formula: "Trench Width × Trench Depth × Trench Length" },
-          { label: "Pipe Volume", formula: "π × ((OD² - ID²) / 4) × Length" }
+          {
+            label: "Trench Excavation",
+            formula: "Trench Width × Trench Depth × Trench Length",
+          },
+          { label: "Pipe Volume", formula: "π × ((OD² - ID²) / 4) × Length" },
         ];
         break;
       case calculatorId.includes("trench_excavation"):
         genericFormula = [
-          { label: "Rectangular Trench Volume", formula: "Length × Width × Depth" },
-          { label: "Trapezoidal Trench Volume", formula: "L × (Top Width + Bottom Width) / 2 × Depth" }
+          {
+            label: "Rectangular Trench Volume",
+            formula: "Length × Width × Depth",
+          },
+          {
+            label: "Trapezoidal Trench Volume",
+            formula: "L × (Top Width + Bottom Width) / 2 × Depth",
+          },
         ];
         break;
-      case calculatorId.includes("asphalt") || calculatorId.includes("rigid_pavement"):
+      case calculatorId.includes("asphalt") ||
+        calculatorId.includes("rigid_pavement"):
         genericFormula = [
           { label: "Pavement Volume", formula: "Length × Width × Thickness" },
-          { label: "Tonnage (Asphalt)", formula: "Volume × Density (e.g., 2.33 t/m³)" }
+          {
+            label: "Tonnage (Asphalt)",
+            formula: "Volume × Density (e.g., 2.33 t/m³)",
+          },
         ];
         break;
       case calculatorId.includes("coat_calc"):
-        genericFormula = [{ label: "Emulsion Requirement", formula: "Total Area × Application Rate" }];
+        genericFormula = [
+          {
+            label: "Emulsion Requirement",
+            formula: "Total Area × Application Rate",
+          },
+        ];
         break;
       case calculatorId.includes("property_area"):
         genericFormula = [
-          { label: "Carpet Area", formula: "Σ (Inner dimensions of all rooms)" },
-          { label: "Built-up Area", formula: "Carpet Area + Wall Area + Balcony Area" },
-          { label: "Super Built-up Area", formula: "Built-up Area + Proportionate Common Area" }
+          {
+            label: "Carpet Area",
+            formula: "Σ (Inner dimensions of all rooms)",
+          },
+          {
+            label: "Built-up Area",
+            formula: "Carpet Area + Wall Area + Balcony Area",
+          },
+          {
+            label: "Super Built-up Area",
+            formula: "Built-up Area + Proportionate Common Area",
+          },
         ];
         break;
       case calculatorId.includes("energy") || calculatorId.includes("mep"):
-        genericFormula = [{ label: "Total Load (Wh)", formula: "Σ (Power rating × Quantity × Usage Hours)" }];
+        genericFormula = [
+          {
+            label: "Total Load (Wh)",
+            formula: "Σ (Power rating × Quantity × Usage Hours)",
+          },
+        ];
         break;
       case calculatorId.includes("sieve") || calculatorId.includes("aggregate"):
         genericFormula = [
-          { label: "Percentage Retained", formula: "(Weight of Sieve / Total Weight) × 100" },
-          { label: "Cumulative % Passing", formula: "100 - Cumulative % Retained" }
+          {
+            label: "Percentage Retained",
+            formula: "(Weight of Sieve / Total Weight) × 100",
+          },
+          {
+            label: "Cumulative % Passing",
+            formula: "100 - Cumulative % Retained",
+          },
         ];
         break;
-      case calculatorId.includes("earthworks") || calculatorId.includes("chainage") || calculatorId.includes("grid_earthwork"):
+      case calculatorId.includes("earthworks") ||
+        calculatorId.includes("chainage") ||
+        calculatorId.includes("grid_earthwork"):
         genericFormula = [
-          { label: "Grid Volume Method", formula: "(Area of single grid / 4) × (Σh1 + 2Σh2 + 3Σh3 + 4Σh4)" },
-          { label: "Trapezoidal Method", formula: "Length × (Area1 + Area2) / 2" },
-          { label: "Prismoidal Method", formula: "(Length / 6) × (A1 + 4*Am + A2)" }
+          {
+            label: "Grid Volume Method",
+            formula: "(Area of single grid / 4) × (Σh1 + 2Σh2 + 3Σh3 + 4Σh4)",
+          },
+          {
+            label: "Trapezoidal Method",
+            formula: "Length × (Area1 + Area2) / 2",
+          },
+          {
+            label: "Prismoidal Method",
+            formula: "(Length / 6) × (A1 + 4*Am + A2)",
+          },
         ];
         break;
       case calculatorId.includes("unit_converter"):
-        genericFormula = [{ label: "Unit Conversion", formula: "Input Value × Conversion Factor" }];
+        genericFormula = [
+          {
+            label: "Unit Conversion",
+            formula: "Input Value × Conversion Factor",
+          },
+        ];
         break;
       case calculatorId.includes("gradient"):
         genericFormula = [
           { label: "Gradient (%)", formula: "(Rise / Run) × 100" },
-          { label: "Slope Angle", formula: "arctan(Rise / Run)" }
+          { label: "Slope Angle", formula: "arctan(Rise / Run)" },
         ];
         break;
       case calculatorId.includes("solar_roof"):
         genericFormula = [
-          { label: "Number of Panels", formula: "Usable Roof Area / Area per Panel" },
-          { label: "System Capacity (kW)", formula: "Number of Panels × Panel Wattage" }
+          {
+            label: "Number of Panels",
+            formula: "Usable Roof Area / Area per Panel",
+          },
+          {
+            label: "System Capacity (kW)",
+            formula: "Number of Panels × Panel Wattage",
+          },
         ];
         break;
       case calculatorId.includes("tiles"):
         genericFormula = [
           { label: "Total Area", formula: "Length × Width" },
-          { label: "Number of Tiles", formula: "(Total Area / Area of 1 Tile) × (1 + Wastage %)" }
+          {
+            label: "Number of Tiles",
+            formula: "(Total Area / Area of 1 Tile) × (1 + Wastage %)",
+          },
         ];
         break;
       case calculatorId.includes("paint"):
         genericFormula = [
-          { label: "Paintable Area", formula: "Total Wall Area - Area of Openings (Doors/Windows)" },
-          { label: "Paint Estimation", formula: "(Paintable Area / Paint Coverage per Litre) × Double Coat Factor" }
+          {
+            label: "Paintable Area",
+            formula: "Total Wall Area - Area of Openings (Doors/Windows)",
+          },
+          {
+            label: "Paint Estimation",
+            formula:
+              "(Paintable Area / Paint Coverage per Litre) × Double Coat Factor",
+          },
         ];
         break;
       case calculatorId.includes("bbs"):
         genericFormula = [
-          { label: "Cutting Length", formula: "Clear Span + Development Lengths - Bend Deductions" },
-          { label: "Total Steel Weight", formula: "(D² / 162.28) × Total Cutting Length" }
+          {
+            label: "Cutting Length",
+            formula: "Clear Span + Development Lengths - Bend Deductions",
+          },
+          {
+            label: "Total Steel Weight",
+            formula: "(D² / 162.28) × Total Cutting Length",
+          },
         ];
         break;
       default:
-        genericFormula = [{ label: "Calculation", formula: "Main Input(s) × Relevant Formula Factor" }];
+        genericFormula = [
+          {
+            label: "Calculation",
+            formula: "Main Input(s) × Relevant Formula Factor",
+          },
+        ];
         break;
     }
 
@@ -194,19 +342,19 @@ function getDefaultExplanation(calculatorId: string, currentInputs: any, current
   }
 
   // If hasInputs is true, we fallback to a generic breakdown,
-  // or preferably let the component pass `explanation` directly 
+  // or preferably let the component pass `explanation` directly
   // since active breakdown varies heavily by specific input values.
   const breakdowns = [];
   if (currentResults && Object.keys(currentResults).length > 0) {
-     for (const [key, value] of Object.entries(currentResults)) {
-       if (typeof value === "string" || typeof value === "number") {
-         breakdowns.push({
-           label: key,
-           formula: "Derived from calculation",
-           result: String(value)
-         });
-       }
-     }
+    for (const [key, value] of Object.entries(currentResults)) {
+      if (typeof value === "string" || typeof value === "number") {
+        breakdowns.push({
+          label: key,
+          formula: "Derived from calculation",
+          result: String(value),
+        });
+      }
+    }
   }
 
   return { hasInputs, activeBreakdown: breakdowns };
@@ -220,7 +368,7 @@ export function CalculationHistory({
   onRestore,
   savePayload,
   estimationName = "Estimate",
-  explanation
+  explanation,
 }: CalculationHistoryProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [history, setHistory] = useState<HistoryItem[]>([]);
@@ -231,8 +379,105 @@ export function CalculationHistory({
   const [saveType, setSaveType] = useState("General");
   const { user } = useAuth();
 
-  const finalExplanationOpts = explanation || getDefaultExplanation(calculatorId, currentInputs, currentResults);
+  const finalExplanationOpts =
+    explanation ||
+    getDefaultExplanation(calculatorId, currentInputs, currentResults);
 
+  useEffect(() => {
+    const handleUpdate = () => {
+      window.dispatchEvent(
+        new CustomEvent("update-calc-data", {
+          detail: {
+            calculatorId,
+            estimationName,
+            currentInputs,
+            currentResults,
+            savePayload,
+            historyLength: history.length,
+            isSavingLocal,
+            isSavingCloud,
+          },
+        }),
+      );
+    };
+    handleUpdate();
+    return () => {
+      window.dispatchEvent(new CustomEvent("clear-calc-data"));
+    };
+  }, [
+    calculatorId,
+    estimationName,
+    currentInputs,
+    currentResults,
+    savePayload,
+    history.length,
+    isSavingLocal,
+    isSavingCloud,
+  ]);
+
+  const saveHistory = useCallback(() => {
+    if (!currentInputs || Object.keys(currentInputs).length === 0) return;
+
+    setIsSavingLocal(true);
+    let summary = "Calculation";
+    if (summaryGeneration && currentResults) {
+      summary = summaryGeneration(currentInputs, currentResults);
+    } else {
+      summary = `${Object.values(currentInputs)[0] || "Unknown"} - ${new Date().toLocaleDateString()}`;
+    }
+
+    const newItem: HistoryItem = {
+      id: Date.now().toString(),
+      name: `Local Save ${new Date().toLocaleTimeString()}`,
+      date: Date.now(),
+      inputs: { ...currentInputs },
+      results: { ...(currentResults || {}) },
+      summary,
+    };
+
+    const newHistory = [newItem, ...history].slice(0, 50);
+    setHistory(newHistory);
+    localStorage.setItem(
+      `calc_history_${calculatorId}`,
+      JSON.stringify(newHistory),
+    );
+
+    setTimeout(() => {
+      setIsSavingLocal(false);
+    }, 500);
+  }, [calculatorId, currentInputs, currentResults, history, summaryGeneration]);
+
+  const handleCloudSave = useCallback(async () => {
+    if (!user) {
+      toast.error("Please login to save to cloud");
+      return;
+    }
+    setSaveName(`My ${estimationName}`);
+    setSaveType("General");
+    setIsSaveModalOpen(true);
+  }, [user, estimationName]);
+
+  useEffect(() => {
+    const handleGlobalSave = () => {
+      if (!currentInputs || Object.keys(currentInputs).length === 0) {
+        toast.error("Nothing to save yet");
+        return;
+      }
+      saveHistory();
+      if (user) {
+        handleCloudSave();
+      }
+    };
+    const handleGlobalHistory = () => setIsOpen(true);
+
+    window.addEventListener("trigger-global-save", handleGlobalSave);
+    window.addEventListener("trigger-global-history", handleGlobalHistory);
+
+    return () => {
+      window.removeEventListener("trigger-global-save", handleGlobalSave);
+      window.removeEventListener("trigger-global-history", handleGlobalHistory);
+    };
+  }, [currentInputs, user, saveHistory, handleCloudSave]);
 
   useEffect(() => {
     async function fetchHistory() {
@@ -246,7 +491,7 @@ export function CalculationHistory({
               date: est.createdAt,
               inputs: est.payload?.inputs || est.payload,
               results: est.payload?.results || est.payload?.breakdown || {},
-              summary: est.name
+              summary: est.name,
             }));
             setHistory(mapped);
             return; // Use cloud history
@@ -255,13 +500,13 @@ export function CalculationHistory({
           console.error("Failed to load cloud history:", err);
         }
       }
-      
+
       const saved = localStorage.getItem(`calc_history_${calculatorId}`);
       if (saved) {
         try {
           setHistory(JSON.parse(saved));
         } catch (e) {
-          console.error('Failed to parse history', e);
+          console.error("Failed to parse history", e);
         }
       } else {
         setHistory([]);
@@ -270,60 +515,20 @@ export function CalculationHistory({
     fetchHistory();
   }, [calculatorId, user, isOpen]);
 
-  const saveHistory = () => {
-    if (!currentInputs || Object.keys(currentInputs).length === 0) return;
-    
-    setIsSavingLocal(true);
-    let summary = 'Calculation';
-    if (summaryGeneration && currentResults) {
-      summary = summaryGeneration(currentInputs, currentResults);
-    } else {
-      summary = `${Object.values(currentInputs)[0] || 'Unknown'} - ${new Date().toLocaleDateString()}`;
-    }
-
-    const newItem: HistoryItem = {
-      id: Date.now().toString(),
-      name: `Local Save ${new Date().toLocaleTimeString()}`,
-      date: Date.now(),
-      inputs: { ...currentInputs },
-      results: { ...(currentResults || {}) },
-      summary
-    };
-
-    const newHistory = [newItem, ...history].slice(0, 50);
-    setHistory(newHistory);
-    localStorage.setItem(`calc_history_${calculatorId}`, JSON.stringify(newHistory));
-    toast.success("Saved to local history");
-    
-    setTimeout(() => {
-      setIsSavingLocal(false);
-    }, 500);
-  };
-
-  const handleCloudSave = async () => {
-    if (!user) {
-      toast.error("Please login to save to cloud");
-      return;
-    }
-    setSaveName(`My ${estimationName}`);
-    setSaveType("General");
-    setIsSaveModalOpen(true);
-  };
-
   const confirmCloudSave = async () => {
     if (!saveName.trim()) {
       toast.error("Please enter a name");
       return;
     }
-    
+
     const payloadToSave = savePayload || {
       inputs: currentInputs,
-      breakdown: currentResults || {}
+      breakdown: currentResults || {},
     };
-    
+
     // Add calculatorId to payload so we can retrieve it
     payloadToSave.calculatorId = calculatorId;
-    
+
     setIsSavingCloud(true);
     try {
       await saveEstimate(saveName, payloadToSave, saveType);
@@ -337,19 +542,28 @@ export function CalculationHistory({
   };
 
   const deleteItem = (id: string) => {
-    if (window.confirm("Are you sure you want to permanently delete this calculation?")) {
-      const newHistory = history.filter(h => h.id !== id);
+    if (
+      window.confirm(
+        "Are you sure you want to permanently delete this calculation?",
+      )
+    ) {
+      const newHistory = history.filter((h) => h.id !== id);
       setHistory(newHistory);
-      localStorage.setItem(`calc_history_${calculatorId}`, JSON.stringify(newHistory));
+      localStorage.setItem(
+        `calc_history_${calculatorId}`,
+        JSON.stringify(newHistory),
+      );
     }
   };
 
   const handleGoHome = () => {
-    window.dispatchEvent(new CustomEvent('go-home'));
+    window.dispatchEvent(new CustomEvent("go-home"));
   };
 
-  const baseBtnClass = "relative flex flex-col items-center justify-center p-3 rounded-2xl transition-all duration-300 hover:scale-[1.03] active:scale-95 group focus:outline-none";
-  const iconWrapperClass = "w-[42px] h-[42px] rounded-2xl flex items-center justify-center transition-all shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]";
+  const baseBtnClass =
+    "relative flex flex-col items-center justify-center p-3 rounded-2xl transition-all duration-300 hover:scale-[1.03] active:scale-95 group focus:outline-none";
+  const iconWrapperClass =
+    "w-[42px] h-[42px] rounded-2xl flex items-center justify-center transition-all shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] dark:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]";
 
   return (
     <>
@@ -359,107 +573,20 @@ export function CalculationHistory({
         </div>
       )}
 
-      {/* Bottom Navigation Action Bar */}
-      <div 
-        className="fixed bottom-0 left-0 right-0 z-[60] flex justify-center w-full font-sans px-2 pointer-events-none"
-        style={{ paddingBottom: "max(env(safe-area-inset-bottom), 16px)" }}
-      >
-        <div className="flex items-stretch justify-between w-full max-w-[420px] sm:max-w-[550px] rounded-full border border-slate-300/80 dark:border-slate-600/60 p-1.5 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md pointer-events-auto shadow-xl gap-1 mx-auto flex-nowrap overflow-visible">
-          
-          {/* Dashboard Button */}
-          <button
-            type="button"
-            onClick={handleGoHome}
-            className="flex-1 min-w-[60px] sm:min-w-[70px] min-h-[50px] flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-blue-50 dark:hover:bg-blue-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-300 group border border-transparent hover:border-blue-200 dark:hover:border-blue-500/20"
-            aria-label="Back to Dashboard"
-          >
-            <Home className="w-[18px] h-[18px] text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
-            <span className="text-[11px] sm:text-[13px] font-bold truncate">Home</span>
-          </button>
-
-          {/* History Button */}
-          <button
-            type="button"
-            onClick={() => setIsOpen(true)}
-            className="flex-1 min-w-[60px] sm:min-w-[70px] min-h-[50px] flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-orange-700 dark:hover:text-orange-300 group relative border border-transparent hover:border-orange-200 dark:hover:border-orange-500/20"
-            aria-label="View History"
-          >
-            <History className="w-[18px] h-[18px] text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
-            <span className="text-[11px] sm:text-[13px] font-bold truncate">History</span>
-            {history.length > 0 && (
-              <span className="absolute top-0 right-1 sm:right-2 flex h-4 w-4 items-center justify-center rounded-full bg-orange-500 text-[10px] font-bold text-white shadow-sm ring-2 ring-white dark:ring-slate-900 z-10 border-none">
-                {history.length}
-              </span>
-            )}
-          </button>
-
-          {/* Save Button */}
-          <button
-            type="button"
-            onClick={() => {
-              if (!currentInputs || Object.keys(currentInputs).length === 0) {
-                toast.error("Nothing to save yet");
-                return;
-              }
-              saveHistory();
-              if (user) {
-                handleCloudSave();
-              }
-            }}
-            disabled={isSavingLocal || isSavingCloud}
-            className="flex-1 min-w-[60px] sm:min-w-[70px] min-h-[50px] flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-emerald-50 dark:hover:bg-emerald-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-emerald-700 dark:hover:text-emerald-300 disabled:opacity-50 group border border-transparent hover:border-emerald-200 dark:hover:border-emerald-500/20"
-            aria-label="Save Calculation"
-          >
-            {isSavingLocal || isSavingCloud ? (
-              <Save className="w-[18px] h-[18px] text-emerald-600 dark:text-emerald-400 animate-pulse flex-shrink-0" strokeWidth={2} />
-            ) : (
-              <Save className="w-[18px] h-[18px] text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
-            )}
-            <span className="text-[11px] sm:text-[13px] font-bold truncate">Save</span>
-          </button>
-
-          {/* Share Button */}
-          <ShareButtonWithPopup
-            activeTab={calculatorId}
-            title={estimationName || "Calculation"}
-            data={currentResults || currentInputs || {}}
-            exportFormat={savePayload || { inputs: currentInputs || {}, breakdown: currentResults || {} }}
-            containerClassName="flex-1 min-w-[60px] sm:min-w-[70px] m-0 p-0 flex pointer-events-auto items-stretch h-full min-h-[50px]"
-            popupPosition="top"
-            triggerClassName="w-full h-full min-h-[50px] flex-col sm:flex-row flex items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-purple-50 dark:hover:bg-purple-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-purple-700 dark:hover:text-purple-300 group border border-transparent hover:border-purple-200 dark:hover:border-purple-500/20"
-            triggerContent={
-              <>
-                <Share2 className="w-[18px] h-[18px] text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
-                <span className="text-[11px] sm:text-[13px] font-bold truncate">Share</span>
-              </>
-            }
-          />
-          
-          {/* Print Button */}
-          <button
-            type="button"
-            onClick={() => window.print()}
-            className="flex-1 min-w-[60px] sm:min-w-[70px] min-h-[50px] flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 px-1 py-2 sm:py-2.5 rounded-full hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-all text-slate-700 dark:text-slate-300 hover:text-rose-700 dark:hover:text-rose-300 group border border-transparent hover:border-rose-200 dark:hover:border-rose-500/20"
-            aria-label="Print Calculation"
-          >
-            <Printer className="w-[18px] h-[18px] text-rose-600 dark:text-rose-400 group-hover:scale-110 transition-transform flex-shrink-0" strokeWidth={2} />
-            <span className="text-[11px] sm:text-[13px] font-bold truncate">Print</span>
-          </button>
-
-        </div>
-      </div>
-
       {isOpen && (
         <div className="fixed inset-0 z-50 overflow-hidden">
-          <div className="absolute inset-0 bg-slate-900/30 backdrop-blur-sm transition-opacity" onClick={() => setIsOpen(false)} />
-          
+          <div
+            className="absolute inset-0 bg-slate-900/30 backdrop-blur-sm transition-opacity"
+            onClick={() => setIsOpen(false)}
+          />
+
           <div className="fixed inset-y-0 right-0 max-w-sm w-full bg-bg-card shadow-2xl border-l border-border-color flex flex-col transform transition-transform duration-300 ease-in-out">
             <div className="flex items-center justify-between p-5 border-b border-border-color/50">
               <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
                 <History className="w-5 h-5 text-indigo-600" />
                 Calculation History
               </h2>
-              <button 
+              <button
                 onClick={() => setIsOpen(false)}
                 className="p-2 -mr-2 text-slate-700 hover:text-slate-600 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               >
@@ -472,28 +599,37 @@ export function CalculationHistory({
                 <div className="flex flex-col items-center justify-center h-48 text-slate-700 dark:text-slate-700">
                   <History className="w-12 h-12 mb-3 opacity-20" />
                   <p>No history saved yet.</p>
-                  <p className="text-sm mt-1">Save a calculation to see it here.</p>
+                  <p className="text-sm mt-1">
+                    Save a calculation to see it here.
+                  </p>
                 </div>
               ) : (
                 history.map((item) => (
-                  <div key={item.id} className="bg-bg-primary/50 border border-border-color/60 rounded-xl p-4 transition-all hover:border-indigo-300 dark:hover:border-indigo-500/50 group">
+                  <div
+                    key={item.id}
+                    className="bg-bg-primary/50 border border-border-color/60 rounded-xl p-4 transition-all hover:border-indigo-300 dark:hover:border-indigo-500/50 group"
+                  >
                     <div className="flex justify-between items-start mb-2">
                       <div className="pr-4">
-                        <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm truncate">{item.name}</h3>
-                        <p className="text-[11px] text-slate-700 dark:text-slate-700">{new Date(item.date).toLocaleString('en-US')}</p>
+                        <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm truncate">
+                          {item.name}
+                        </h3>
+                        <p className="text-[11px] text-slate-700 dark:text-slate-700">
+                          {new Date(item.date).toLocaleString("en-US")}
+                        </p>
                       </div>
-                      <button 
+                      <button
                         onClick={() => deleteItem(item.id)}
                         className="text-slate-700 hover:text-red-500 p-1 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors opacity-0 group-hover:opacity-100 shrink-0"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
-                    
+
                     <p className="text-xs text-slate-600 dark:text-slate-300 mb-3 bg-bg-card p-2 rounded border border-border-color/50 line-clamp-2">
                       {item.summary}
                     </p>
-                    
+
                     <button
                       onClick={() => {
                         if (onRestore) onRestore(item.inputs);
@@ -507,12 +643,14 @@ export function CalculationHistory({
                 ))
               )}
             </div>
-            
+
             {history.length > 0 && (
               <div className="p-4 border-t border-border-color/50">
                 <button
                   onClick={() => {
-                    if (window.confirm('Clear all history for this calculator?')) {
+                    if (
+                      window.confirm("Clear all history for this calculator?")
+                    ) {
                       setHistory([]);
                       localStorage.removeItem(`calc_history_${calculatorId}`);
                     }
@@ -529,9 +667,12 @@ export function CalculationHistory({
 
       {isSaveModalOpen && (
         <div className="fixed inset-0 z-[60] overflow-hidden flex items-center justify-center font-sans px-4">
-          <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" onClick={() => setIsSaveModalOpen(false)} />
+          <div
+            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"
+            onClick={() => setIsSaveModalOpen(false)}
+          />
           <div className="relative w-full max-w-md bg-bg-card shadow-2xl rounded-2xl border border-border-color flex flex-col transform transition-transform duration-300 ease-in-out p-6 pt-7 animate-in zoom-in-95">
-            <button 
+            <button
               onClick={() => setIsSaveModalOpen(false)}
               className="absolute top-4 right-4 p-2 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
@@ -542,14 +683,20 @@ export function CalculationHistory({
                 <CloudUpload className="w-6 h-6 text-indigo-600" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-text-primary tracking-tight">Save Estimate</h2>
-                <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Save to your cloud profile</p>
+                <h2 className="text-xl font-bold text-text-primary tracking-tight">
+                  Save Estimate
+                </h2>
+                <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+                  Save to your cloud profile
+                </p>
               </div>
             </div>
 
             <div className="space-y-4 mb-8">
               <div>
-                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5 ml-0.5">Project Name</label>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5 ml-0.5">
+                  Project Name
+                </label>
                 <input
                   type="text"
                   value={saveName}
@@ -559,9 +706,11 @@ export function CalculationHistory({
                   autoFocus
                 />
               </div>
-              
+
               <div>
-                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5 ml-0.5">Estimate Type</label>
+                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5 ml-0.5">
+                  Estimate Type
+                </label>
                 <div className="relative">
                   <select
                     value={saveType}

@@ -27,8 +27,8 @@ export function UniversalTabs({
   ];
 
   return (
-    <div className={`flex w-full overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden border-b border-slate-200 dark:border-slate-800 ${className}`}>
-      <div className="flex px-2 min-w-max">
+    <div className={`w-full overflow-x-auto pb-3 md:pb-4 scroll-smooth ${className}`}>
+      <div className="flex px-1 min-w-max border-b border-slate-200 dark:border-slate-800">
         {tabs.map((tab, index) => {
           const isActive = activeTab === tab.id;
           const colorTheme = COLOR_PALETTE[index % COLOR_PALETTE.length];
@@ -38,11 +38,11 @@ export function UniversalTabs({
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
               className={`
-                relative flex items-center justify-center gap-2.5 px-6 py-3 text-sm font-bold transition-all whitespace-nowrap
-                rounded-t-md rounded-b-none
+                relative flex items-center justify-center gap-2.5 px-5 md:px-6 py-3 text-sm font-bold transition-all whitespace-nowrap
+                rounded-t-xl rounded-b-none
                 ${
                   isActive
-                    ? `bg-white dark:bg-[#151821] shadow-sm shadow-slate-200/50 dark:shadow-black/20 z-20 ${colorTheme.text}`
+                    ? `bg-white dark:bg-[#151821] shadow-[0_-4px_12px_rgba(0,0,0,0.03)] dark:shadow-black/20 z-20 ${colorTheme.text}`
                     : "bg-transparent hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-500 dark:text-slate-400 z-10"
                 }
               `}
@@ -55,7 +55,7 @@ export function UniversalTabs({
               {tab.label}
               {/* Active / Inactive Border Indicator */}
               <div
-                className={`absolute bottom-0 left-0 right-0 border-b-[5px] ${
+                className={`absolute bottom-0 left-0 right-0 border-b-[4px] md:border-b-[5px] ${
                   isActive ? colorTheme.border : "border-transparent"
                 }`}
                 style={{ marginBottom: "-1px" }} // cover the container's bottom border
