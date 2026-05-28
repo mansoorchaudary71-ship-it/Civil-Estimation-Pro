@@ -19,6 +19,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
 import { GlobalReportEngine } from '../../utils/GlobalReportEngine';
 import { formatTitleCase, formatCapitalize, filterValidParameters } from '../../utils/pdfGenerator';
+import { CopyButton } from '../ui/CopyButton';
 
 export interface ShareMenuProps {
   activeTab: string;
@@ -415,6 +416,10 @@ export default function ShareButtonWithPopup({
               </div>
 
               <div className="p-4 flex flex-col gap-2 max-h-[70vh] overflow-y-auto">
+                <div className="mb-2">
+                  <CopyButton textToCopy={typeof window !== 'undefined' ? window.location.href : 'https://civilestimationpro.com'} />
+                </div>
+                
                 <button
                   onClick={() => generatePDF("pdf")}
                   className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-200 text-sm font-bold bg-rose-50 text-rose-700 hover:bg-rose-100 hover:text-rose-900 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/20 dark:hover:text-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-500 active:scale-[0.98]"

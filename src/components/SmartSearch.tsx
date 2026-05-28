@@ -216,7 +216,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
   return (
     <div className="relative w-full z-50" ref={dropdownRef}>
       <div 
-        className={`flex items-center w-full h-[60px] md:h-[70px] bg-[var(--bg-surface-glass)] backdrop-blur-xl border border-[var(--border-light)] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-full shadow-sm hover:shadow-md ${isFocused || showDropdown && query ? 'ring-2 ring-[var(--accent-primary)] ring-opacity-50 border-transparent bg-white dark:bg-[#151821]' : ''}`}
+        className={`flex items-center w-full h-[60px] md:h-[70px] bg-[var(--bg-surface-glass)] backdrop-blur-xl border border-[var(--border-light)] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-full shadow-sm hover:shadow-md ${isFocused || showDropdown && query ? 'ring-2 ring-[var(--accent-primary)] ring-opacity-50 border-transparent bg-white' : ''}`}
         onClick={() => inputRef.current?.focus()}
       >
         <div className="pl-6 md:pl-8 pr-4 flex items-center justify-center h-full">
@@ -271,9 +271,9 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                       <div 
                         key={`local-${idx}`} 
                         onClick={() => handleSelect(result.toolId)}
-                        className="group cursor-pointer flex flex-col sm:flex-row items-center gap-4 bg-transparent hover:bg-white/60 dark:hover:bg-white/5 p-3 rounded-2xl transition-all duration-200 hover:shadow-sm hover:-translate-y-[1px]"
+                        className="group cursor-pointer flex flex-col sm:flex-row items-center gap-4 bg-transparent hover:bg-slate-50 p-3 rounded-2xl transition-all duration-200 hover:shadow-sm hover:-translate-y-[1px]"
                       >
-                        <div className="w-12 h-12 shrink-0 rounded-xl flex items-center justify-center shadow-sm bg-white dark:bg-slate-800 border border-[var(--border-light)] text-[var(--accent-primary)] group-hover:scale-105 transition-transform duration-300">
+                        <div className="w-12 h-12 shrink-0 rounded-xl flex items-center justify-center shadow-sm bg-white border border-[var(--border-light)] text-[var(--accent-primary)] group-hover:scale-105 transition-transform duration-300">
                            {fullModuleData?.icon ? <fullModuleData.icon className="w-6 h-6" /> : <Box className="w-6 h-6" />}
                         </div>
                         
@@ -332,7 +332,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                           <div 
                             key={`ai-${idx}`} 
                             onClick={() => handleSelect(result.toolId)}
-                            className="group cursor-pointer flex flex-col sm:flex-row items-center gap-4 bg-transparent hover:bg-white/80 dark:hover:bg-white/10 p-3 rounded-2xl transition-all duration-200 hover:shadow-sm border border-transparent hover:border-[var(--accent-primary)]/20"
+                            className="group cursor-pointer flex flex-col sm:flex-row items-center gap-4 bg-transparent hover:bg-slate-50 p-3 rounded-2xl transition-all duration-200 hover:shadow-sm border border-transparent hover:border-[var(--accent-primary)]/20"
                           >
                             <div className="w-12 h-12 shrink-0 rounded-xl flex items-center justify-center shadow-sm bg-[var(--bg-main)] border border-[var(--border-light)] text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors duration-300">
                                {fullModuleData?.icon ? <fullModuleData.icon className="w-6 h-6" /> : <Box className="w-6 h-6" />}

@@ -139,7 +139,7 @@ export default function ExcelPromo() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-sm font-semibold text-slate-300">WhatsApp Number</label>
+                <label className="text-sm font-semibold text-slate-700">WhatsApp Number</label>
                 <div className="relative">
                   <Smartphone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                   <input 
@@ -147,8 +147,8 @@ export default function ExcelPromo() {
                     required 
                     value={formData.whatsapp}
                     onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
-                    placeholder="+92 300 0000000"
-                    className="w-full bg-black/20 border border-white/10 rounded-xl py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-white placeholder:text-slate-500"
+                    placeholder="+91 900 0000000"
+                    className="w-full bg-white border border-slate-200 rounded-xl py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-400"
                   />
                 </div>
               </div>

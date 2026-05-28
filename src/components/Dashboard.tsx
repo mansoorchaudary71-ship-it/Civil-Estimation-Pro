@@ -131,92 +131,81 @@ export const getCategoryTheme = (category: string, id: string) => {
 };
 
 const ToolCard = ({ mod, onSelect, isUsed, idx = 0 }: { mod: any, onSelect: (id: string) => void, isUsed?: boolean, idx?: number }) => {
-  const theme = getCategoryTheme(mod.category, mod.id);
   const diffColors: Record<string, string> = {
-    "Beginner": "bg-emerald-400",
-    "Intermediate": "bg-amber-400",
-    "Advanced": "bg-rose-500"
+    "Beginner": "bg-green-500",
+    "Intermediate": "bg-yellow-500",
+    "Advanced": "bg-red-500"
   };
-
-  const isSolid = mod.styleStyle === "solid";
 
   return (
     <motion.button
       initial={{ opacity: 0, scale: 0.95, y: 30 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: idx * 0.05, ease: [0.2, 0.8, 0.2, 1] }}
+      transition={{ duration: 0.4, delay: idx * 0.05, ease: [0.2, 0.8, 0.2, 1] }}
       onClick={() => onSelect(mod.id)}
       id={`module-card-${mod.id}`}
       title={mod.desc}
-      className={`group relative flex flex-col h-full w-full p-6 text-left rounded-[32px] cursor-pointer transition-all duration-500 ease-out outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-blue)] focus-visible:ring-offset-2 hover:-translate-y-2 bg-white/70 backdrop-blur-xl border border-slate-200/60 shadow-[0_8px_24px_rgba(149,157,165,0.1)] hover:shadow-[0_12px_40px_rgba(149,157,165,0.2)]`}
+      className={`group relative flex flex-col h-full w-full p-6 text-left rounded-2xl cursor-pointer transition-all duration-300 ease-out outline-none focus-visible:ring-2 focus-visible:ring-purple-600 bg-white border border-slate-100 shadow-sm hover:shadow-lg hover:scale-[1.02]`}
     >
-      {/* Subtle background glow effect on hover */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[32px] pointer-events-none overflow-hidden">
-        <div className={`absolute top-0 right-0 w-32 h-32 opacity-[0.08] dark:opacity-20 blur-3xl rounded-full ${theme.bg}`}></div>
-      </div>
-
-      {/* Badges absolutely positioned overlapping border */}
+      {/* Badges on top right */}
       <div className="absolute -top-3 -right-3 flex flex-col items-end gap-2 z-20 pointer-events-none">
         {mod.isPopular && (
-          <span className={`text-[11px] font-black uppercase tracking-widest bg-gradient-to-r from-orange-400 to-rose-500 text-white py-1.5 px-4 rounded-full shadow-lg shadow-orange-500/30`}>
+          <span className={`text-[10px] font-black uppercase tracking-widest bg-orange-500 text-white py-1.5 px-3 rounded-full shadow-md`}>
             Popular
           </span>
         )}
-        {mod.isNew && (
-          <span className={`text-[11px] font-black uppercase tracking-widest bg-gradient-to-r from-indigo-500 to-purple-500 text-white py-1.5 px-4 rounded-full shadow-lg shadow-purple-500/30`}>
-            New
+        {mod.premium && (
+          <span className={`text-[10px] font-black uppercase tracking-widest bg-orange-500 text-white py-1.5 px-3 rounded-full shadow-md`}>
+            Pro
           </span>
         )}
-        {mod.premium && (
-          <span className={`text-[11px] font-black uppercase tracking-widest bg-gradient-to-r from-amber-400 to-orange-500 text-white py-1.5 px-4 rounded-full shadow-lg shadow-amber-500/30 flex items-center gap-1 group-hover:scale-110 transition-transform`}>
-            <Sparkles className="w-3 h-3 flex-shrink-0" /> Pro
+        {mod.isNew && (
+          <span className={`text-[10px] font-black uppercase tracking-widest bg-purple-600 text-white py-1.5 px-3 rounded-full shadow-md`}>
+            New
           </span>
         )}
       </div>
 
-      {/* Header (Icon + Title) */}
-      <div className="flex items-start gap-4 mb-4 w-full pr-8 flex-shrink-0 relative z-10">
-        <div className={`w-14 h-14 rounded-full flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110 shadow-md ${
-          isSolid ? 'bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-white/20 dark:to-white/5 border border-slate-200 dark:border-white/20' : `${theme.bg} shadow-sm`
-        }`}>
-          <mod.icon className={`w-6 h-6 ${isSolid ? 'text-indigo-600 dark:text-white' : 'text-white'}`} strokeWidth={2.5} />
+      {/* Header (Icon) */}
+      <div className="flex items-center gap-4 mb-4">
+        <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 shadow-sm bg-slate-50 text-purple-600 border border-slate-100">
+          <mod.icon className="w-6 h-6" strokeWidth={2} />
         </div>
-        <div className="flex-1 text-left flex flex-col justify-center min-h-[56px]">
-          <h4 className={`text-[18px] font-bold tracking-tight leading-snug line-clamp-2 text-slate-900 dark:text-white`}>
-            {mod.title}
-          </h4>
-          <span className={`text-[10px] font-black uppercase tracking-widest mt-1 block line-clamp-1 ${isSolid ? 'text-slate-500 dark:text-white/80' : theme.textRaw}`}>
-            {mod.category}
-          </span>
+        <div className="flex flex-col">
+           <h4 className="text-lg font-bold text-slate-800 leading-tight">
+             {mod.title}
+           </h4>
+           <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-1">
+             {mod.category}
+           </span>
         </div>
       </div>
       
       {/* Body (Description) */}
-      <p className={`text-[14px] leading-relaxed line-clamp-2 mb-6 text-left w-full flex-grow text-slate-500 dark:text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors relative z-10`}>
+      <p className="text-sm leading-relaxed mb-6 text-left w-full flex-grow text-slate-500 line-clamp-3">
         {mod.desc}
       </p>
 
-      {/* Footer (Difficulty + Time) */}
-      <div className="w-full flex flex-wrap items-center justify-between gap-y-2 mt-auto pt-5 border-t border-slate-100 dark:border-white/10 flex-shrink-0 relative z-10">
-        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 group-hover:border-slate-300 dark:group-hover:border-white/20`} title={`Difficulty: ${mod.difficulty || 'Beginner'}`}>
+      {/* Footer (Difficulty + Time + Used Inline Pills) */}
+      <div className="w-full flex items-center flex-wrap gap-2 mt-auto pt-4 border-t border-slate-100">
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-600" title={`Difficulty: ${mod.difficulty || 'Beginner'}`}>
            <span className={`w-2 h-2 rounded-full ${diffColors[(mod.difficulty as string)] || diffColors['Beginner']}`} />
-           <span className="text-[11px] font-bold leading-none">
+           <span className="text-[10px] font-bold uppercase">
              {mod.difficulty || 'Beginner'}
            </span>
         </div>
         
-        <div className="flex items-center gap-2">
-           {isUsed && (
-             <span className="flex items-center gap-1.5 text-[11px] font-bold leading-none text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 px-3 py-1.5 rounded-full" title="You have used this tool">
-               <CheckSquare className="w-3 h-3" /> Used
-             </span>
-           )}
-           <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors bg-blue-50 dark:bg-white/5 border border-blue-100 dark:border-white/10 text-blue-700 dark:text-slate-300 group-hover:bg-blue-100 dark:group-hover:border-white/20`} title="Estimated time">
-              <Clock className="w-3.5 h-3.5 text-blue-500 dark:text-indigo-400" />
-              <span className="text-[11px] font-bold leading-none">
-                {mod.estimatedTime || '~2 mins'}
-              </span>
-           </div>
+        {isUsed && (
+          <span className="flex items-center gap-1 px-2.5 py-1 text-[10px] font-bold uppercase text-emerald-600 bg-emerald-50 border border-emerald-100 rounded-full">
+            Used
+          </span>
+        )}
+
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-600" title="Estimated time">
+          <Clock className="w-3 h-3 text-slate-400" />
+          <span className="text-[10px] font-bold uppercase">
+            {mod.estimatedTime || '~2 mins'}
+          </span>
         </div>
       </div>
     </motion.button>
@@ -344,175 +333,125 @@ export default function Dashboard({
 
   // Handle particle creation purely via CSS in a style tag directly
   return (
-    <div className="relative flex-1 w-full flex flex-col font-sans mb-12 bg-slate-50 dark:bg-[#0a0f1c] text-slate-900 dark:text-white">
-      <SEO 
-        title="Dashboard" 
-        description="Civil Estimation Pro: Advanced estimators for live construction rate analysis, house estimating, and comprehensive BOQ calculators." 
-        canonicalUrl="https://civilestimationpro.com" 
-      />
-
-      <style>{`
-        .glass-card-hover {
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-        }
-        .glass-card-hover:hover {
-          box-shadow: 0 8px 32px 0 rgba(138, 43, 226, 0.15);
-          border-color: rgba(138, 43, 226, 0.5);
-          transform: translateY(-4px) translateZ(0) scale(1.01);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-        }
-        @keyframes custom-bounce {
-          0%, 100% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(-15px) rotate(15deg); }
-        }
-        .waving-hand {
-          display: inline-block;
-          animation: custom-bounce 1.5s ease-in-out infinite;
-          transform-origin: bottom right;
-        }
-        @keyframes float-up {
-          from { opacity: 0; transform: translateY(30px) translateZ(0); }
-          to { opacity: 1; transform: translateY(0) translateZ(0); }
-        }
-        .stagger-in {
-          animation: float-up 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
-        }
-      `}</style>
-      
-      {/* Subtle, animated gradient mesh background that gently shifts colors */}
-      <div className="absolute inset-0 z-0 opacity-40 dark:opacity-40 pointer-events-none mix-blend-multiply dark:mix-blend-screen" style={{
-        background: 'radial-gradient(circle at 15% 50%, rgba(76, 29, 149, 0.05), transparent 40%), radial-gradient(circle at 85% 30%, rgba(30, 58, 138, 0.05), transparent 40%), radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.05), transparent 50%)',
-        filter: 'blur(80px)'
-      }}></div>
-
-      {/* Blueprint Grid Overlay for engineering feel */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-5 dark:opacity-10" style={{ maskImage: "linear-gradient(to bottom, black 0%, black 40%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 40%, transparent 100%)" }}>
-         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="blueprint-grid-small" width="20" height="20" patternUnits="userSpaceOnUse">
-                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.3"/>
-              </pattern>
-              <pattern id="blueprint-grid-large" width="100" height="100" patternUnits="userSpaceOnUse">
-                <rect width="100" height="100" fill="url(#blueprint-grid-small)"/>
-                <path d="M 100 0 L 0 0 0 100" fill="none" stroke="currentColor" strokeWidth="1"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#blueprint-grid-large)" className="text-indigo-400" />
-         </svg>
-      </div>
+    <>
+      <div className="relative flex-1 w-full flex flex-col font-sans mb-12 bg-slate-50 text-slate-900">
+        <SEO 
+          title="Dashboard" 
+          description="Civil Estimation Pro: Advanced estimators for live construction rate analysis, house estimating, and comprehensive BOQ calculators." 
+          canonicalUrl="https://civilestimationpro.com" 
+        />
 
       <div className="flex-1 w-full flex flex-col relative z-10 w-full overflow-hidden">
         
         {/* PREMIUM HERO & WORKFLOW SECTION */}
         <PremiumHero />
 
-        {/* Tool category pills */}
-        <div className="w-full max-w-[1400px] mx-auto px-4 lg:px-8 mb-16 mt-8" id="search-bar-container">
-          <div className="flex flex-wrap justify-center gap-3">
-            {categories.map((category) => {
-              const count = category === "All Tools" 
-                ? ALL_MODULES.length 
-                : ALL_MODULES.filter(m => m.category === category).length;
-                
-              return (
-                <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={`group relative overflow-hidden flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ease-out border outline-none
-                    ${activeCategory === category 
-                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-transparent shadow-md scale-105 z-10" 
-                      : "bg-white dark:bg-white/5 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:border-blue-500/50 hover:text-blue-700 dark:hover:text-white dark:hover:bg-white/10 shadow-sm dark:shadow-none"
-                    }`}
-                >
-                  <span className="relative z-10 tracking-tight">{category}</span>
-                  <span className={`relative z-10 text-[10px] px-2 py-0.5 rounded-full ${
-                    activeCategory === category ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-400 group-hover:text-blue-700 dark:group-hover:text-slate-200 group-hover:bg-blue-50 dark:group-hover:bg-white/20'
-                  }`}>
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {user && (
-          <div className="w-full mb-12 px-4 lg:px-8">
-            <PostLoginDashboard onSelectModule={handleSelect} />
-          </div>
-        )}
-
-    {/* BENTO BOX GRID LAYOUT */}
-    <div className="w-full max-w-[1400px] mx-auto px-4 lg:px-8 mt-4 grid grid-cols-1 lg:grid-cols-12 gap-8 z-20 relative">
-      
-      {/* RIGHT COLUMN: Main Tool Container */}
-      <div className="lg:col-span-12 xl:col-span-12 bg-transparent lg:p-4 flex flex-col min-h-[700px]">
-        
-        {/* Header and Search */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--primary-dark)] dark:text-white tracking-tight flex items-center gap-3">
-              {activeCategory}
-            </h2>
-            <div className="flex items-center gap-4 mt-2">
-              <p className="text-slate-500 font-medium">Select a calculator to initiate a new estimate.</p>
-              {settings.usedTools && (
-                <div className="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-full text-xs font-bold border border-blue-100 dark:border-blue-800 hidden md:block">
-                  You've used {settings.usedTools.length}/{ALL_MODULES.length} tools
-                </div>
-              )}
-            </div>
-          </div>
+        {/* MAIN LAYOUT WITH SIDEBAR */}
+        <div className="w-full max-w-[1400px] mx-auto px-4 lg:px-8 mt-12 mb-24 grid grid-cols-1 lg:grid-cols-12 gap-8 z-20 relative">
           
-          <div className="w-full md:max-w-[500px] xl:max-w-[600px] shrink-0" id="search-bar-container">
-            <SmartSearch onSelect={(id) => {
-              if (id === 'ai') setIsAiChatOpen(true);
-              else handleSelect(id as any);
-            }} />
+          {/* LEFT SIDEBAR: Category Navigation */}
+          <div className="hidden lg:block lg:col-span-3 lg:border-r border-slate-200 lg:pr-6">
+             <div className="sticky top-24 flex flex-col gap-2">
+               <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2 px-3">Categories</h3>
+                {categories.map((category) => {
+                  const count = category === "All Tools" 
+                    ? ALL_MODULES.length 
+                    : ALL_MODULES.filter(m => m.category === category).length;
+                    
+                  const isActive = activeCategory === category;
+                  return (
+                    <button
+                      key={category}
+                      onClick={() => setActiveCategory(category)}
+                      className={`w-full flex items-center justify-between px-4 py-4 rounded-xl text-left transition-all duration-200 ${
+                        isActive 
+                          ? "bg-purple-900 text-white shadow-md font-bold" 
+                          : "bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold"
+                      }`}
+                    >
+                      <span className="tracking-tight line-clamp-1">{category}</span>
+                      <span className={`text-[10px] shrink-0 font-bold px-2 py-1 rounded-md ${
+                        isActive ? 'bg-purple-800 text-white' : 'bg-white text-slate-500 border border-slate-200'
+                      }`}>
+                        {count} Tools
+                      </span>
+                    </button>
+                  );
+                })}
+             </div>
           </div>
-        </div>
 
-        {/* Recommended for You */}
-        {activeCategory === "All Tools" && !searchTerm && recommendedModules.length > 0 && (
-          <div className="mb-14 fade-in">
-            <h3 className="text-xl font-bold flex flex-col tracking-tight text-[var(--primary-dark)] dark:text-white mb-6">
-              Recommended for {settings.role}
-              <div className="h-1 w-12 bg-blue-500 rounded-full mt-2" />
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
-              {recommendedModules.map((m, idx) => (
-                <ToolCard key={`rec-${m.id}`} mod={m} onSelect={handleSelect} isUsed={settings.usedTools && settings.usedTools.includes(m.id)} idx={idx} />
-              ))}
-            </div>
+          {/* Mobile Categories (Horizontal Scroll) */}
+          <div className="lg:hidden col-span-1 border-b border-slate-200 pb-4 overflow-x-auto no-scrollbar -mx-4 px-4">
+             <div className="flex gap-2 min-w-max">
+                {categories.map((category) => {
+                  const isActive = activeCategory === category;
+                  return (
+                    <button
+                      key={category}
+                      onClick={() => setActiveCategory(category)}
+                      className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
+                        isActive 
+                          ? "bg-purple-900 text-white shadow-md" 
+                          : "bg-slate-100 text-slate-700"
+                      }`}
+                    >
+                      {category}
+                    </button>
+                  );
+                })}
+             </div>
           </div>
-        )}
 
-        {/* Tools Grid */}
-        <div className="flex flex-col w-full">
-            {groupsToDisplay.length === 0 ? (
-              <div className="py-24 text-center flex flex-col items-center">
-                <Search className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
-                <h3 className="text-xl font-bold text-[var(--primary-dark)] dark:text-slate-200">No calculators found</h3>
-                <p className="text-slate-500 mt-2">Try adjusting your search term or category.</p>
-              </div>
-            ) : (
-              groupsToDisplay.map((groupName) => (
-                <div key={groupName} className="flex flex-col mb-8 sm:mb-10 last:mb-0">
-                   {activeCategory === "All Tools" && (
-                     <h3 className="text-sm font-semibold text-slate-500 dark:text-slate-400 pl-4 sm:pl-6 mb-3 uppercase tracking-wider">
-                       {groupName}
-                     </h3>
-                   )}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    {groupedModules[groupName].map((mod, idx) => (
-                      <ToolCard key={mod.id} mod={mod} onSelect={handleSelect} isUsed={settings.usedTools && settings.usedTools.includes(mod.id)} idx={idx} />
-                    ))}
-                  </div>
+          {/* RIGHT COLUMN: Main Tool Container */}
+          <div className="lg:col-span-9 flex flex-col min-h-[700px]">
+        
+            {/* Header and Search */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+              <div>
+                <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
+                  {activeCategory}
+                </h2>
+                <div className="flex items-center gap-4 mt-2">
+                  <p className="text-slate-500 font-medium">Select a calculator to initiate a new estimate.</p>
                 </div>
-              ))
-            )}
+              </div>
+              
+              <div className="w-full md:max-w-[400px] shrink-0">
+                <SmartSearch onSelect={(id) => {
+                  if (id === 'ai') setIsAiChatOpen(true);
+                  else handleSelect(id as any);
+                }} />
+              </div>
+            </div>
+
+            {/* Tools Grid */}
+            <div className="flex flex-col w-full">
+                {groupsToDisplay.length === 0 ? (
+                  <div className="py-24 text-center flex flex-col items-center">
+                    <Search className="w-12 h-12 text-slate-300 mb-4" />
+                    <h3 className="text-xl font-bold text-slate-900">No calculators found</h3>
+                    <p className="text-slate-500 mt-2">Try adjusting your search term or category.</p>
+                  </div>
+                ) : (
+                  groupsToDisplay.map((groupName) => (
+                    <div key={groupName} className="flex flex-col mb-8 sm:mb-10 last:mb-0">
+                       {activeCategory === "All Tools" && (
+                         <h3 className="text-sm font-bold text-slate-400 pl-4 sm:pl-2 mb-3 uppercase tracking-wider">
+                           {groupName}
+                         </h3>
+                       )}
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
+                        {groupedModules[groupName].map((mod, idx) => (
+                          <ToolCard key={mod.id} mod={mod} onSelect={handleSelect} isUsed={settings.usedTools && settings.usedTools.includes(mod.id)} idx={idx} />
+                        ))}
+                      </div>
+                    </div>
+                  ))
+                )}
+            </div>
+            
+          </div>
         </div>
         
         {/* Featured Tool Spotlight */}
@@ -563,7 +502,7 @@ export default function Dashboard({
 
         {/* Testimonials */}
         <div className="w-full mb-24 text-center">
-           <h3 className="text-2xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white mb-12">
+           <h3 className="text-2xl md:text-4xl font-black tracking-tight text-slate-900 mb-12">
               Trusted by 10,000+ Engineers
            </h3>
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -572,18 +511,18 @@ export default function Dashboard({
                 { name: "Rajesh Kumar", role: "Civil Engineer", company: "Structural Design", country: "India", text: "The Concrete Mix Design tool is phenomenal. Generating a compliant mix design report traditionally took up a lot of my drafting time, but now it's instantaneous. It computes target mean strength and water-cement ratios flawlessly.", rating: 5 },
                 { name: "Emily Watson", role: "Civil Engineering Student", company: "University Level", country: "UK", text: "This platform has been a lifesaver for my university projects. The visual BBS generator helped me finally understand bar bending schedules and deductions. It turns confusing theoretical formulas into clear, practical outputs.", rating: 5 }
               ].map((t, idx) => (
-                <div key={idx} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 flex flex-col items-center text-center shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <div key={idx} className="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col items-center text-center shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                    <div className="flex gap-1 mb-4">
                      {[...Array(t.rating)].map((_, i) => <Sparkles key={i} className="w-5 h-5 text-amber-500 fill-amber-500" />)}
                    </div>
-                   <p className="text-slate-600 dark:text-slate-400 font-medium mb-6 italic leading-relaxed text-sm">
+                   <p className="text-slate-600 font-medium mb-6 italic leading-relaxed text-sm">
                      "{t.text}"
                    </p>
                    <div className="mt-auto flex flex-col items-center">
-                      <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center text-indigo-700 dark:text-indigo-400 font-bold mb-3">
+                      <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-700 font-bold mb-3">
                         {t.name.charAt(0)}
                       </div>
-                      <span className="font-bold text-slate-900 dark:text-white">{t.name}</span>
+                      <span className="font-bold text-slate-900">{t.name}</span>
                       <span className="text-xs font-medium text-slate-500">{t.role} • {t.company}</span>
                       <span className="text-xs text-slate-400 mt-0.5">{t.country}</span>
                    </div>
@@ -594,18 +533,18 @@ export default function Dashboard({
 
         {/* Newsletter Signup */}
         <div className="w-full mb-16 max-w-4xl mx-auto">
-           <div className="bg-gradient-to-r from-orange-50 to-orange-100 dark:from-orange-950/30 dark:to-orange-900/10 border border-orange-200 dark:border-orange-900/50 rounded-[3rem] p-8 md:p-12 text-center shadow-lg">
-              <h3 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-4 tracking-tight">
+           <div className="bg-gradient-to-r from-orange-50 to-orange-100 border border-orange-200 rounded-[3rem] p-8 md:p-12 text-center shadow-lg">
+              <h3 className="text-2xl md:text-3xl font-black text-slate-900 mb-4 tracking-tight">
                  Get Weekly Construction Cost Updates
               </h3>
-              <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-xl mx-auto font-medium text-lg">
+              <p className="text-slate-600 mb-8 max-w-xl mx-auto font-medium text-lg">
                  Join our newsletter to receive the latest material rate variations and estimation tips directly in your inbox.
               </p>
               <form className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto" onSubmit={(e) => e.preventDefault()}>
                  <input 
                     type="email" 
                     placeholder="Enter your email address" 
-                    className="flex-1 px-6 py-4 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500 dark:text-white"
+                    className="flex-1 px-6 py-4 rounded-full border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
                  />
                  <button 
                     type="submit" 
@@ -629,25 +568,25 @@ export default function Dashboard({
     <div className={`fixed inset-0 z-50 transition-all duration-500 ${isAiChatOpen ? "opacity-100 visible pointer-events-auto" : "opacity-0 invisible pointer-events-none"}`}>
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/20 dark:bg-black/40 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/20 backdrop-blur-sm"
         onClick={() => setIsAiChatOpen(false)}
       />
 
       {/* Bottom Sheet Modal */}
       <div 
-        className={`fixed bottom-0 left-0 right-0 h-[65vh] bg-bg-card shadow-[0_-20px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_-20px_40px_rgba(0,0,0,0.4)] rounded-t-[40px] transform transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col ${isAiChatOpen ? "translate-y-0" : "translate-y-full"}`}
+        className={`fixed bottom-0 left-0 right-0 h-[65vh] bg-white shadow-[0_-20px_40px_rgba(0,0,0,0.1)] rounded-t-[40px] transform transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col ${isAiChatOpen ? "translate-y-0" : "translate-y-full"}`}
       >
         {/* Drag handle */}
         <div className="w-full flex justify-center pt-5 pb-3 shrink-0 cursor-pointer" onClick={() => setIsAiChatOpen(false)}>
-          <div className="w-16 h-1.5 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors" />
+          <div className="w-16 h-1.5 rounded-full bg-slate-200 hover:bg-slate-300 transition-colors" />
         </div>
 
-        <div className="px-6 flex items-center justify-between pb-2 border-b border-border-color">
-          <h3 className="font-bold text-lg text-text-primary flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-indigo-500" />
+        <div className="px-6 flex items-center justify-between pb-2 border-b border-slate-100">
+          <h3 className="font-bold text-lg text-slate-900 flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-purple-600" />
             AI Assistant
           </h3>
-          <button onClick={() => setIsAiChatOpen(false)} className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400">
+          <button onClick={() => setIsAiChatOpen(false)} className="p-2 rounded-full hover:bg-slate-100 text-slate-400">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -657,11 +596,11 @@ export default function Dashboard({
           {aiMessages.map((msg, i) => (
             <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               {msg.role === 'system' && (
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shrink-0 mr-3 mt-1 shadow-sm">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center shrink-0 mr-3 mt-1 shadow-sm">
                   <Sparkles className="w-4 h-4 text-white" />
                 </div>
               )}
-              <div className={`px-5 py-3 rounded-2xl max-w-[85%] font-medium text-[15px] leading-relaxed shadow-sm ${msg.role === 'user' ? 'bg-indigo-600 text-white rounded-tr-sm' : 'bg-slate-50 border border-slate-100 dark:bg-slate-800 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-tl-sm'}`}>
+              <div className={`px-5 py-3 rounded-2xl max-w-[85%] font-medium text-[15px] leading-relaxed shadow-sm ${msg.role === 'user' ? 'bg-purple-600 text-white rounded-tr-sm' : 'bg-slate-50 border border-slate-100 text-slate-700 rounded-tl-sm'}`}>
                 {msg.content}
               </div>
             </div>
@@ -670,10 +609,10 @@ export default function Dashboard({
         </div>
 
         {/* Input area */}
-        <div className="p-6 pt-4 shrink-0 w-full max-w-4xl mx-auto bg-bg-card border-t border-slate-50 dark:border-slate-800/50">
+        <div className="p-6 pt-4 shrink-0 w-full max-w-4xl mx-auto bg-white border-t border-slate-100">
           <div className="relative group">
-            <div className="absolute -inset-[2px] bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500 rounded-full opacity-60 group-focus-within:opacity-100 blur-[3px] transition-all duration-300"></div>
-            <div className="relative flex items-center bg-bg-card rounded-full px-5 py-2.5 border border-transparent shadow-sm">
+            <div className="absolute -inset-[2px] bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full opacity-60 group-focus-within:opacity-100 blur-[3px] transition-all duration-300"></div>
+            <div className="relative flex items-center bg-white rounded-full px-5 py-2.5 border border-transparent shadow-sm">
               <input 
                 type="text" 
                 value={aiMessage} 
@@ -688,10 +627,10 @@ export default function Dashboard({
                   }
                 }}
                 placeholder="Ask your assistant..." 
-                className="w-full bg-transparent border-none outline-none text-[16px] text-slate-800 dark:text-slate-100 px-2 py-2 placeholder:text-slate-400"
+                className="w-full bg-transparent border-none outline-none text-[16px] text-slate-800 px-2 py-2 placeholder:text-slate-400"
               />
               <button 
-                className="p-2.5 bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-500/20 text-white rounded-full transition-all hover:scale-105 active:scale-95 ml-2 shrink-0"
+                className="p-2.5 bg-purple-600 hover:bg-purple-700 shadow-md shadow-purple-500/20 text-white rounded-full transition-all hover:scale-105 active:scale-95 ml-2 shrink-0"
                 onClick={() => {
                   if (aiMessage.trim()) {
                     setAiMessages(prev => [...prev, { role: 'user', content: aiMessage.trim() }]);
@@ -709,7 +648,6 @@ export default function Dashboard({
         </div>
       </div>
     </div>
-      </div>
-    </div>
+    </>
   );
 }
