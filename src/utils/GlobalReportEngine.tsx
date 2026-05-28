@@ -1,7 +1,80 @@
+import React from "react";
+import { createRoot } from "react-dom/client";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import ExcelJS from "exceljs";
 import QRCode from "qrcode";
+import html2canvas from "html2canvas";
+import { PieChart, Pie, Cell, Legend } from "recharts";
+
+const createDonutBase64React = async (data: any[]): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    try {
+      const container = document.createElement("div");
+      container.style.width = "350px";
+      container.style.height = "300px";
+      container.style.position = "fixed";
+      container.style.top = "-9999px";
+      container.style.background = "#ffffff";
+      document.body.appendChild(container);
+
+      const root = createRoot(container);
+      const COLORS = ["#3B82F6", "#10B981", "#F59E0B", "#EF4444", "#8B5CF6", "#EC4899", "#06B6D4"];
+
+      const mappedData = data.map((d, i) => ({
+        ...d,
+        name: d.label || d.name || `Item ${i + 1}`
+      }));
+
+      const ChartComponent = () => (
+        <PieChart width={350} height={300}>
+          <Pie
+            data={mappedData}
+            cx={175}
+            cy={130}
+            innerRadius={60}
+            outerRadius={90}
+            paddingAngle={2}
+            dataKey="value"
+            nameKey="name"
+            isAnimationActive={false}
+          >
+            {mappedData.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.color || COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+          <Legend 
+            wrapperStyle={{ fontSize: "12px", fontFamily: "helvetica, sans-serif", color: "#1e293b" }}
+            layout="horizontal" 
+            verticalAlign="bottom" 
+            align="center" 
+          />
+        </PieChart>
+      );
+
+      root.render(<ChartComponent />);
+
+      setTimeout(async () => {
+        try {
+          const canvas = await html2canvas(container, {
+            backgroundColor: null,
+            scale: 2
+          });
+          const base64 = canvas.toDataURL("image/png");
+          root.unmount();
+          document.body.removeChild(container);
+          resolve(base64);
+        } catch (e) {
+          root.unmount();
+          if (document.body.contains(container)) document.body.removeChild(container);
+          reject(e);
+        }
+      }, 100);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 
 export interface ReportData {
   toolName: string;
@@ -225,17 +298,26 @@ export const GlobalReportEngine = {
     // 2. 3D Hero Graphic Placeholder & Project Parameters
     currentY = 55;
 
-    // Hero Placeholder
-    doc.setFillColor(241, 245, 249); // slate-100
-    doc.roundedRect(14, currentY, 70, 60, 2, 2, "F");
-    doc.setDrawColor(203, 213, 225); // slate-300
-    doc.roundedRect(14, currentY, 70, 60, 2, 2, "S");
-    
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(10);
-    doc.setTextColor(148, 163, 184); // slate-400
-    doc.text("3D Hero Graphic", 49, currentY + 28, { align: "center" });
-    doc.text("Placeholder", 49, currentY + 34, { align: "center" });
+    // Live Hero Graphic (Donut Chart)
+    if (safeData.chartData?.donut?.length > 0) {
+      try {
+        const donutBase64 = await createDonutBase64React(safeData.chartData.donut);
+        if (donutBase64) {
+          doc.addImage(donutBase64, 'PNG', 14, currentY, 70, 60);
+        }
+      } catch (e) {
+        console.error("Failed to generate donut chart for PDF hero:", e);
+        doc.setFillColor(241, 245, 249); 
+        doc.roundedRect(14, currentY, 70, 60, 2, 2, "F");
+      }
+    } else {
+      doc.setFillColor(241, 245, 249); // slate-100
+      doc.roundedRect(14, currentY, 70, 60, 2, 2, "F");
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      doc.setTextColor(148, 163, 184);
+      doc.text("No Cost Data", 49, currentY + 30, { align: "center" });
+    }
 
     // Project Parameters Grid (Right-Aligned next to Hero)
     doc.setFont("helvetica", "bold");
