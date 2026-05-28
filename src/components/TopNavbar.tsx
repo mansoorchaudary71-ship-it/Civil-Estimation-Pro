@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Menu, X, User, LogOut, Settings, ChevronDown, ArrowRight } from 'lucide-react';
+import { Menu, X, User, LogOut, Settings, ChevronDown, ArrowRight, Sun } from 'lucide-react';
 import { CurrencySelector } from './ui/CurrencySelector';
 import { GlobalSettingsToggle } from './ui/GlobalSettingsToggle';
 import { DarkModeToggle } from './ui/DarkModeToggle';
@@ -136,7 +136,7 @@ export default function TopNavbar({
             <div className="w-10 h-10 flex items-center justify-center transition-all duration-300 bg-gradient-to-br from-orange-400 to-orange-600 shadow-md rounded-xl text-xl">
               🏗️
             </div>
-            <span className="font-extrabold text-xl text-slate-900 tracking-tight">
+            <span className="font-extrabold text-xl lg:text-2xl tracking-tight bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent drop-shadow-sm">
               Civil Estimation Pro
             </span>
           </div>
@@ -199,9 +199,21 @@ export default function TopNavbar({
 
             <button 
               onClick={() => onNavigate?.('house' as ModuleId)}
-              className="px-5 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-to-r from-purple-500 to-purple-600 shadow-md hover:shadow-lg transition-transform active:scale-95"
+              className="hidden sm:inline-flex px-6 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 shadow-[0_8px_20px_-6px_rgba(236,72,153,0.6)] hover:shadow-[0_12px_24px_-6px_rgba(236,72,153,0.8)] transition-all active:scale-95 border-none"
             >
-              Start Esti...
+              Start Estimating
+            </button>
+            
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden w-10 h-10 rounded-full flex items-center justify-center text-slate-700 transition-transform duration-150 active:scale-95 hover:bg-slate-50"
+              aria-label="Toggle Menu"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-5 h-5" strokeWidth={2} />
+              ) : (
+                <Menu className="w-5 h-5" strokeWidth={2} />
+              )}
             </button>
           </div>
         </div>

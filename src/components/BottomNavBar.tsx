@@ -41,19 +41,14 @@ export default function BottomNavBar({ activeModule, onSelectModule, onOpenProfi
 
   return (
     // REPLACE THIS SECTION
-    <div className="fixed bottom-0 left-0 right-0 z-[80] md:hidden w-full pointer-events-none">
+    <div className="fixed bottom-4 left-4 right-4 z-[80] md:hidden pointer-events-none flex justify-center">
       <nav 
-        className="w-full h-[64px] pointer-events-auto"
+        className="w-full max-w-sm h-[68px] pointer-events-auto bg-white/70 backdrop-blur-xl border border-white/60 shadow-[0_16px_40px_-8px_rgba(26,26,58,0.2)] rounded-full px-2"
         style={{
-          boxShadow: '0 -4px 24px rgba(0,0,0,0.08)',
-          backgroundColor: 'rgba(255,255,255,0.92)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          borderTop: '1px solid rgba(0,0,0,0.08)',
-          paddingBottom: 'env(safe-area-inset-bottom)',
+          paddingBottom: 'max(env(safe-area-inset-bottom), 0px)', // adjust for safe area only if necessary, but it's floating so it usually is fine without it.
         }}
       >
-        <div className="flex w-full h-[64px]">
+        <div className="flex w-full h-[68px] items-center">
           {NAV_ITEMS.map((item) => {
             const isActive = localActive === item.id;
             const Icon = item.icon;
@@ -63,45 +58,43 @@ export default function BottomNavBar({ activeModule, onSelectModule, onOpenProfi
                 key={item.id}
                 onClick={() => handleTabClick(item.id)}
                 style={{ WebkitTapHighlightColor: 'transparent' }}
-                className="relative flex-1 flex flex-col items-center justify-center h-full active:bg-[#E8541A]/[0.15] transition-colors"
+                className="relative flex-1 flex flex-col items-center justify-center h-14 rounded-full active:scale-95 transition-all outline-none"
                 aria-label={item.label}
               >
                 <div className="relative flex flex-col items-center justify-center z-10 w-full h-full">
                   <motion.div
-                    whileTap={{ scale: 0.88 }}
+                    whileTap={{ scale: 0.9 }}
                     transition={{ type: "spring", stiffness: 400, damping: 14 }}
-                    className="relative flex flex-col items-center justify-center pointer-events-none"
-                    style={{ padding: '6px 18px' }}
+                    className="relative flex flex-col items-center justify-center pointer-events-none w-full h-full rounded-full"
                   >
                     {/* Floating Pill Active Indicator */}
                     {isActive && (
                       <motion.div
                         layoutId="bottom-nav-pill"
-                        className="absolute inset-0 bg-[#E8541A] z-[-1]"
-                        style={{ borderRadius: '20px' }}
+                        className="absolute inset-x-1 inset-y-0.5 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 shadow-[0_4px_16px_rgba(236,72,153,0.4)] rounded-full z-[-1]"
                         transition={{
-                          type: "tween",
-                          ease: [0.34, 1.56, 0.64, 1],
-                          duration: 0.4
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 25,
                         }}
                       />
                     )}
                     
                     <Icon 
-                      size={22} 
-                      strokeWidth={1.5} 
-                      className={`mb-[2px] transition-colors duration-300 ${
-                        isActive ? 'text-white' : 'text-[#9CA3AF]'
+                      size={20} 
+                      strokeWidth={isActive ? 2 : 1.5} 
+                      className={`mb-1 transition-colors duration-300 ${
+                        isActive ? 'text-white' : 'text-[#4A4E69]'
                       }`}
                       fill={isActive ? "currentColor" : "none"}
                     />
                     <span 
-                      className={`font-semibold tracking-[0.3px] transition-colors duration-300 ${
-                        isActive ? 'text-white' : 'text-[#9CA3AF]'
+                      className={`font-semibold tracking-wide transition-colors duration-300 ${
+                        isActive ? 'text-white' : 'text-[#4A4E69]'
                       }`}
                       style={{ 
-                        fontSize: '10px',
-                        fontFamily: "'DM Sans', 'Plus Jakarta Sans', sans-serif"
+                        fontSize: '9px',
+                        textTransform: 'uppercase'
                       }}
                     >
                       {item.label}
