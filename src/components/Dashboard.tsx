@@ -138,83 +138,82 @@ const ToolCard = ({ mod, onSelect, isUsed, idx = 0 }: { mod: any, onSelect: (id:
     "Advanced": "bg-rose-500"
   };
 
-  const pillClass = mod.styleStyle === "solid"
-    ? "bg-black/10 border border-white/10 text-white"
-    : "bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/50 text-slate-600 dark:text-slate-400 group-hover:border-slate-300 dark:group-hover:border-slate-600";
-    
+  const isSolid = mod.styleStyle === "solid";
+
   return (
     <motion.button
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: idx * 0.05, ease: "easeOut" }}
+      initial={{ opacity: 0, scale: 0.95, y: 30 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: idx * 0.05, ease: [0.2, 0.8, 0.2, 1] }}
       onClick={() => onSelect(mod.id)}
       id={`module-card-${mod.id}`}
       title={mod.desc}
-      className={`group relative flex flex-col h-full w-full p-6 text-left rounded-3xl cursor-pointer transition-all duration-300 ease-out outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-purple)] focus-visible:ring-offset-2 hover:-translate-y-2 hover:shadow-xl dark:hover:shadow-black/50 border ${theme.border} ${
-        mod.styleStyle === "solid"
-          ? `${theme.bg} text-white`
-          : "bg-[var(--bg-card)] hover:bg-[var(--bg-primary)]"
-      }`}
+      className={`group relative flex flex-col h-full w-full p-6 text-left rounded-[32px] cursor-pointer transition-all duration-500 ease-out outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 hover:-translate-y-2 glass-card-hover bg-[#0f172a]/60 backdrop-blur-xl border border-white/10`}
     >
+      {/* Subtle background glow effect on hover */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[32px] pointer-events-none overflow-hidden">
+        <div className={`absolute top-0 right-0 w-32 h-32 opacity-20 blur-3xl rounded-full ${theme.bg}`}></div>
+      </div>
+
       {/* Badges absolutely positioned overlapping border */}
       <div className="absolute -top-3 -right-3 flex flex-col items-end gap-2 z-20 pointer-events-none">
         {mod.isPopular && (
-          <span className={`text-[11px] font-black uppercase tracking-widest bg-gradient-to-r from-orange-400 to-rose-500 text-white py-1 px-3 rounded-full shadow-lg shadow-orange-500/30 ring-4 ${mod.styleStyle === "solid" ? "ring-transparent" : "ring-[var(--bg-card)]"}`}>
+          <span className={`text-[11px] font-black uppercase tracking-widest bg-gradient-to-r from-orange-400 to-rose-500 text-white py-1.5 px-4 rounded-full shadow-lg shadow-orange-500/30`}>
             Popular
           </span>
         )}
         {mod.isNew && (
-          <span className={`text-[11px] font-black uppercase tracking-widest bg-gradient-to-r from-[var(--accent-purple)] to-indigo-500 text-white py-1 px-3 rounded-full shadow-lg shadow-purple-500/30 ring-4 ${mod.styleStyle === "solid" ? "ring-transparent" : "ring-[var(--bg-card)]"}`}>
+          <span className={`text-[11px] font-black uppercase tracking-widest bg-gradient-to-r from-indigo-500 to-purple-500 text-white py-1.5 px-4 rounded-full shadow-lg shadow-purple-500/30`}>
             New
           </span>
         )}
         {mod.premium && (
-          <span className={`text-[11px] font-black uppercase tracking-widest bg-gradient-to-r from-amber-400 to-orange-500 text-white py-1 px-3 rounded-full shadow-lg shadow-amber-500/30 ring-4 ${mod.styleStyle === "solid" ? "ring-transparent" : "ring-[var(--bg-card)]"} flex items-center gap-1 group-hover:scale-110 transition-transform`}>
+          <span className={`text-[11px] font-black uppercase tracking-widest bg-gradient-to-r from-amber-400 to-orange-500 text-white py-1.5 px-4 rounded-full shadow-lg shadow-amber-500/30 flex items-center gap-1 group-hover:scale-110 transition-transform`}>
             <Sparkles className="w-3 h-3 flex-shrink-0" /> Pro
           </span>
         )}
       </div>
 
       {/* Header (Icon + Title) */}
-      <div className="flex items-start gap-4 mb-4 w-full pr-8 flex-shrink-0">
-        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105 shadow-sm ${
-          mod.styleStyle === 'solid' ? 'bg-white/25 backdrop-blur-sm' : theme.bg
+      <div className="flex items-start gap-4 mb-4 w-full pr-8 flex-shrink-0 relative z-10">
+        <div className={`w-14 h-14 rounded-full flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110 shadow-lg ${
+          isSolid ? 'bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-md border border-white/20' : `${theme.bg} shadow-[0_0_20px_rgba(255,255,255,0.1)]`
         }`}>
-          <mod.icon className={`w-6 h-6 ${mod.styleStyle === 'solid' ? 'text-white' : theme.text}`} strokeWidth={2.5} />
+          <mod.icon className={`w-6 h-6 text-white`} strokeWidth={2.5} />
         </div>
-        <div className="flex-1 text-left flex flex-col justify-center min-h-[48px]">
-          <h4 className={`text-[17px] font-bold tracking-tight leading-snug line-clamp-2 ${mod.styleStyle === 'solid' ? 'text-white' : 'text-[var(--text-primary)]'}`}>
+        <div className="flex-1 text-left flex flex-col justify-center min-h-[56px]">
+          <h4 className={`text-[18px] font-bold tracking-tight leading-snug line-clamp-2 text-white`}>
             {mod.title}
           </h4>
-          <span className={`text-[10px] font-black uppercase tracking-wider mt-1 block line-clamp-1 ${mod.styleStyle === 'solid' ? 'text-white/80' : theme.textRaw}`}>
+          <span className={`text-[10px] font-black uppercase tracking-widest mt-1 block line-clamp-1 ${isSolid ? 'text-white/80' : theme.textRaw}`}>
             {mod.category}
           </span>
         </div>
       </div>
       
       {/* Body (Description) */}
-      <p className={`text-[14px] leading-relaxed line-clamp-2 mb-6 text-left w-full flex-grow ${mod.styleStyle === 'solid' ? 'text-white/90' : 'text-[var(--color-slate-500)] dark:text-slate-400 transition-colors'}`}>
+      <p className={`text-[14px] leading-relaxed line-clamp-2 mb-6 text-left w-full flex-grow text-slate-300 group-hover:text-slate-200 transition-colors relative z-10`}>
         {mod.desc}
       </p>
 
       {/* Footer (Difficulty + Time) */}
-      <div className="w-full flex flex-wrap items-center justify-between gap-y-2 mt-auto pt-5 border-t border-black/5 dark:border-white/10 flex-shrink-0">
-        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors ${pillClass}`} title={`Difficulty: ${mod.difficulty || 'Beginner'}`}>
-           <span className={`w-2.5 h-2.5 rounded-full ${diffColors[(mod.difficulty as string)] || diffColors['Beginner']}`} />
-           <span className="text-[11.5px] font-bold leading-none">
+      <div className="w-full flex flex-wrap items-center justify-between gap-y-2 mt-auto pt-5 border-t border-white/10 flex-shrink-0 relative z-10">
+        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition-colors bg-white/5 border border-white/10 text-slate-300 group-hover:border-white/20`} title={`Difficulty: ${mod.difficulty || 'Beginner'}`}>
+           <span className={`w-2 h-2 rounded-full ${diffColors[(mod.difficulty as string)] || diffColors['Beginner']}`} />
+           <span className="text-[11px] font-bold leading-none">
              {mod.difficulty || 'Beginner'}
            </span>
         </div>
         
         <div className="flex items-center gap-2">
            {isUsed && (
-             <span className="flex items-center gap-1.5 text-[11.5px] font-bold leading-none text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-full" title="You have used this tool">
-               <CheckSquare className="w-3.5 h-3.5" /> Used
+             <span className="flex items-center gap-1.5 text-[11px] font-bold leading-none text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full" title="You have used this tool">
+               <CheckSquare className="w-3 h-3" /> Used
              </span>
            )}
-           <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors ${pillClass}`} title="Estimated time">
-              <Clock className="w-3.5 h-3.5" />
-              <span className="text-[11.5px] font-bold leading-none">
+           <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors bg-white/5 border border-white/10 text-slate-300 group-hover:border-white/20`} title="Estimated time">
+              <Clock className="w-3.5 h-3.5 text-indigo-400" />
+              <span className="text-[11px] font-bold leading-none">
                 {mod.estimatedTime || '~2 mins'}
               </span>
            </div>
@@ -345,7 +344,7 @@ export default function Dashboard({
 
   // Handle particle creation purely via CSS in a style tag directly
   return (
-    <div className="relative flex-1 w-full flex flex-col font-sans mb-12">
+    <div className="relative flex-1 w-full flex flex-col font-sans mb-12 bg-[#0a0f1c] text-white">
       <SEO 
         title="Dashboard" 
         description="Civil Estimation Pro: Advanced estimators for live construction rate analysis, house estimating, and comprehensive BOQ calculators." 
@@ -353,6 +352,17 @@ export default function Dashboard({
       />
 
       <style>{`
+        .glass-card-hover {
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+        }
+        .glass-card-hover:hover {
+          box-shadow: 0 8px 32px 0 rgba(138, 43, 226, 0.15);
+          border-color: rgba(138, 43, 226, 0.5);
+          transform: translateY(-4px) translateZ(0) scale(1.01);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+        }
         @keyframes custom-bounce {
           0%, 100% { transform: translateY(0) rotate(0deg); }
           50% { transform: translateY(-15px) rotate(15deg); }
@@ -363,27 +373,33 @@ export default function Dashboard({
           transform-origin: bottom right;
         }
         @keyframes float-up {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; transform: translateY(30px) translateZ(0); }
+          to { opacity: 1; transform: translateY(0) translateZ(0); }
         }
         .stagger-in {
-          animation: float-up 0.5s ease backwards;
+          animation: float-up 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
         }
       `}</style>
       
-      {/* Expanded Subtle Blueprint Grid Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-[0.035] dark:opacity-[0.06]" style={{ maskImage: "linear-gradient(to bottom, white 0%, white 60%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, white 0%, white 60%, transparent 100%)" }}>
+      {/* Subtle, animated gradient mesh background that gently shifts colors */}
+      <div className="absolute inset-0 z-0 opacity-40 pointer-events-none mix-blend-screen" style={{
+        background: 'radial-gradient(circle at 15% 50%, rgba(76, 29, 149, 0.3), transparent 40%), radial-gradient(circle at 85% 30%, rgba(30, 58, 138, 0.3), transparent 40%), radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.2), transparent 50%)',
+        filter: 'blur(80px)'
+      }}></div>
+
+      {/* Blueprint Grid Overlay for engineering feel */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden opacity-10" style={{ maskImage: "linear-gradient(to bottom, white 0%, white 40%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, white 0%, white 40%, transparent 100%)" }}>
          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="blueprint-grid-small" width="20" height="20" patternUnits="userSpaceOnUse">
-                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.3"/>
               </pattern>
               <pattern id="blueprint-grid-large" width="100" height="100" patternUnits="userSpaceOnUse">
                 <rect width="100" height="100" fill="url(#blueprint-grid-small)"/>
-                <path d="M 100 0 L 0 0 0 100" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+                <path d="M 100 0 L 0 0 0 100" fill="none" stroke="currentColor" strokeWidth="1"/>
               </pattern>
             </defs>
-            <rect width="100%" height="100%" fill="url(#blueprint-grid-large)" className="text-indigo-900 dark:text-indigo-100" />
+            <rect width="100%" height="100%" fill="url(#blueprint-grid-large)" className="text-indigo-400" />
          </svg>
       </div>
 
@@ -392,9 +408,9 @@ export default function Dashboard({
         {/* PREMIUM HERO & WORKFLOW SECTION */}
         <PremiumHero />
 
-        {/* Tool category cards */}
+        {/* Tool category pills */}
         <div className="w-full max-w-[1400px] mx-auto px-4 lg:px-8 mb-16 mt-8" id="search-bar-container">
-          <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
+          <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => {
               const count = category === "All Tools" 
                 ? ALL_MODULES.length 
@@ -404,26 +420,18 @@ export default function Dashboard({
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`group relative overflow-hidden flex flex-col p-5 rounded-[2rem] text-left transition-all duration-300 ease-out border outline-none 
+                  className={`group relative overflow-hidden flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ease-out border outline-none
                     ${activeCategory === category 
-                      ? "bg-purple-600 text-white border-purple-500 shadow-[0_8px_30px_rgba(147,51,234,0.3)] scale-[1.02] z-10" 
-                      : "bg-white/80 dark:bg-slate-900/80 backdrop-blur-md text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-800 hover:border-purple-300 dark:hover:border-purple-700 hover:text-purple-600 dark:hover:text-purple-400 hover:shadow-xl hover:-translate-y-1 bg-gradient-to-br hover:from-purple-50 hover:to-orange-50 dark:hover:from-purple-900/20 dark:hover:to-orange-900/20"
+                      ? "bg-gradient-to-r from-indigo-500 to-purple-600 text-white border-transparent shadow-[0_0_20px_rgba(139,92,246,0.4)] scale-105 z-10" 
+                      : "bg-white/5 backdrop-blur-md text-slate-300 border-white/10 hover:border-purple-500/50 hover:text-white hover:bg-white/10"
                     }`}
                 >
-                  {/* Hover background effect */}
-                  <div className="absolute inset-0 bg-white/0 group-hover:bg-white/20 transition-colors duration-300" />
-                  
-                  <div className="relative z-10 flex flex-col h-full justify-between">
-                    <span className="font-bold text-sm md:text-base leading-tight mb-4 tracking-tight pr-2">{category}</span>
-                    <div className={`mt-auto inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1.5 rounded-full w-max mt-2 transition-colors duration-300 ${
-                      activeCategory === category 
-                        ? 'bg-white/20 text-white' 
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-500 group-hover:bg-purple-100 group-hover:text-purple-700 dark:group-hover:bg-purple-900/50 dark:group-hover:text-purple-300'
-                    }`}>
-                      <Layers className="w-3 h-3" />
-                      {count} Tools
-                    </div>
-                  </div>
+                  <span className="relative z-10 tracking-tight">{category}</span>
+                  <span className={`relative z-10 text-[10px] px-2 py-0.5 rounded-full ${
+                    activeCategory === category ? 'bg-white/20 text-white' : 'bg-white/10 text-slate-400 group-hover:text-slate-200 group-hover:bg-white/20'
+                  }`}>
+                    {count}
+                  </span>
                 </button>
               );
             })}
@@ -445,7 +453,7 @@ export default function Dashboard({
         {/* Header and Search */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
           <div>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[var(--primary-dark)] dark:text-white tracking-tight flex items-center gap-3">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight flex items-center gap-3">
               {activeCategory}
             </h2>
             <div className="flex items-center gap-4 mt-2">
@@ -560,10 +568,7 @@ export default function Dashboard({
            </h3>
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                { name: "Ahmed Al-Farsi", role: "Project Manager", company: "Commercial Construction", country: "UAE", text: "Civil Estimation Pro has literally given me my weekends back. Using the Professional BOQ Generator, I can compile complete client tenders in 15 minutes instead of hours. The accuracy of the embedded ISO code checks makes our bids bulletproof.", rating: 5 },
-                { name: "Maria Gonzalez", role: "Quantity Surveyor", company: "Infrastructure Firm", country: "Spain", text: "The earthworks and chainage volume calculator is by far the best I've used online. It handles complex slope inputs effortlessly and provides exact cut/fill volumes. Saved my team days of tedious manual spreadsheet work.", rating: 5 },
-                { name: "John Davis", role: "Contractor", company: "Residential Builders", country: "United States", text: "As a small builder, getting quick material estimates is crucial. The House Estimator tool is incredibly accurate for our grey structure planning. I just input the plot size, and within a minute I have the exact bricks, cement, and steel needed.", rating: 5 },
-                { name: "Liam O'Connor", role: "Site Engineer", company: "MEP & Fit-out Contractors", country: "Ireland", text: "I constantly use the Unit Converter and Volume & Tank Capacity tools while on site. Being able to access these reliably on my phone has streamlined my daily quality checks. Highly recommend for any field engineer.", rating: 5 },
+                { name: "Ahmed Raza", role: "Sr. Estimator", company: "Buildex Construction", country: "Pakistan", text: "Civil Estimation Pro has revolutionized how we bid for projects in Lahore. The material breakdown is incredibly accurate, especially the steel unit weight formulas. Saving at least 15 hours a week.", rating: 5 },
                 { name: "Rajesh Kumar", role: "Civil Engineer", company: "Structural Design", country: "India", text: "The Concrete Mix Design tool is phenomenal. Generating a compliant mix design report traditionally took up a lot of my drafting time, but now it's instantaneous. It computes target mean strength and water-cement ratios flawlessly.", rating: 5 },
                 { name: "Emily Watson", role: "Civil Engineering Student", company: "University Level", country: "UK", text: "This platform has been a lifesaver for my university projects. The visual BBS generator helped me finally understand bar bending schedules and deductions. It turns confusing theoretical formulas into clear, practical outputs.", rating: 5 }
               ].map((t, idx) => (
