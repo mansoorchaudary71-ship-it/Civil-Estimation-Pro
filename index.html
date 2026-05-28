@@ -3,13 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <!-- Performance SEO -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@400;500;600&display=swap" />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" />
-    
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=clash-display@200,400,700,500,600,300&f[]=satoshi@900,700,500,300,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+    />
+
     <!-- Core Styles Inline -->
     <style>
       :root {
@@ -19,132 +31,185 @@
       body {
         margin: 0;
         padding: 0;
-        font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        font-family:
+          "Plus Jakarta Sans",
+          system-ui,
+          -apple-system,
+          sans-serif;
         background-color: #f8fafc;
       }
     </style>
-    
+
     <!-- PWA Manifest & Theme Color -->
     <meta name="theme-color" content="#2980b9" />
-    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="apple-touch-icon" href="/icon-192x192.png" />
-    
+
     <!-- SEO Metadata -->
-    <meta name="description" content="Access 40+ free civil engineering calculators. Generate accurate building material estimates, BBS, Mix Designs, and BOQs instantly. Start estimating for free!" />
-    <meta name="keywords" content="civil engineering, live construction rate analysis, estimating software, BOQ, construction cost calculator, material estimator, building materials, quantity surveying" />
+    <meta
+      name="description"
+      content="Access 40+ free civil engineering calculators. Generate accurate building material estimates, BBS, Mix Designs, and BOQs instantly. Start estimating for free!"
+    />
+    <meta
+      name="keywords"
+      content="civil engineering, live construction rate analysis, estimating software, BOQ, construction cost calculator, material estimator, building materials, quantity surveying"
+    />
     <meta name="author" content="Civil Estimation Pro" />
     <meta name="robots" content="index, follow" />
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://civilestimationpro.com/" />
-    <meta property="og:title" content="Civil Estimation Pro: Free Construction BOQ & Cost Calculators" />
-    <meta property="og:description" content="Access 40+ free civil engineering calculators. Generate accurate building material estimates, BBS, Mix Designs, and BOQs instantly. Start estimating for free!" />
-    
+    <meta
+      property="og:title"
+      content="Civil Estimation Pro: Free Construction BOQ & Cost Calculators"
+    />
+    <meta
+      property="og:description"
+      content="Access 40+ free civil engineering calculators. Generate accurate building material estimates, BBS, Mix Designs, and BOQs instantly. Start estimating for free!"
+    />
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://civilestimationpro.com/" />
-    <meta name="twitter:title" content="Civil Estimation Pro: Free Construction BOQ & Cost Calculators" />
-    <meta name="twitter:description" content="Access 40+ free civil engineering calculators. Generate accurate building material estimates, BBS, Mix Designs, and BOQs instantly. Start estimating for free!" />
-    
+    <meta
+      name="twitter:title"
+      content="Civil Estimation Pro: Free Construction BOQ & Cost Calculators"
+    />
+    <meta
+      name="twitter:description"
+      content="Access 40+ free civil engineering calculators. Generate accurate building material estimates, BBS, Mix Designs, and BOQs instantly. Start estimating for free!"
+    />
+
     <link rel="canonical" href="https://civilestimationpro.com/" />
 
     <!-- Core JSON-LD Schemas -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "SoftwareApplication",
-          "name": "Civil Estimation Pro",
-          "applicationCategory": "EngineeringApplication",
-          "operatingSystem": "WebBrowser",
-          "url": "https://civilestimationpro.com/",
-          "description": "Free, browser-based suite of civil engineering calculators including BOQ generator, concrete mix design, earthworks estimation, and more.",
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-          },
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "ratingCount": "128",
-            "bestRating": "5",
-            "worstRating": "1"
-          }
-        },
-        {
-          "@type": "Organization",
-          "name": "Civil Estimation Pro",
-          "url": "https://civilestimationpro.com/",
-          "logo": "https://civilestimationpro.com/icon-192x192.png",
-          "sameAs": []
-        },
-        {
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "What is Civil Estimation Pro?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Civil Estimation Pro is a free suite of over 40 browser-based civil engineering and construction estimation tools. It helps engineers and quantity surveyors calculate material quantities, generate Bills of Quantities (BOQs), and conduct cost analyses." }
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "Civil Estimation Pro",
+            "applicationCategory": "EngineeringApplication",
+            "operatingSystem": "WebBrowser",
+            "url": "https://civilestimationpro.com/",
+            "description": "Free, browser-based suite of civil engineering calculators including BOQ generator, concrete mix design, earthworks estimation, and more.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
             },
-            {
-              "@type": "Question",
-              "name": "How is the dry volume of concrete calculated?",
-              "acceptedAnswer": { "@type": "Answer", "text": "To account for voids, shrinkage, and wastage, our concrete calculators strictly use a dry volume multiplier. The dry volume is obtained by multiplying the wet volume by a constant factor of 1.54." }
-            },
-            {
-              "@type": "Question",
-              "name": "Is the civil engineering estimation tool really free?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Yes, all core capabilities including our quantity estimators, BOQ generators, concrete tech calculators, and structural estimations are completely free to use online." }
-            },
-            {
-              "@type": "Question",
-              "name": "What standard formulas does the tool use for steel weight?",
-              "acceptedAnswer": { "@type": "Answer", "text": "We derive the weight of steel reinforcement per meter using the standard formula D²/162.28, where D is the bar diameter in millimeters, ensuring accurate measurements for your BBS." }
-            },
-            {
-              "@type": "Question",
-              "name": "How do you calculate clear cover deductions for slabs and beams?",
-              "acceptedAnswer": { "@type": "Answer", "text": "The effective depth is calculated by taking the complete thickness of the concrete section, subtracting the clear cover required by construction codes, and deducting half the diameter of the main reinforcement bar." }
-            },
-            {
-              "@type": "Question",
-              "name": "Can I use Civil Estimation Pro on my mobile device?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Absolutely, Civil Estimation Pro is fully responsive. You can use it directly in your browser on smartphones and tablets, which makes it perfect for quick calculations while on the actual construction site." }
-            },
-            {
-              "@type": "Question",
-              "name": "What is the concrete mix design calculator based on?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Our Concrete Mix Design calculator follows IS 10262 standards to generate accurate proportions for varying grades of concrete, including strength, water-cement ratio, and aggregate adjustments." }
-            },
-            {
-              "@type": "Question",
-              "name": "How does the tool estimate the total number of bricks needed?",
-              "acceptedAnswer": { "@type": "Answer", "text": "The calculator requires the gross wall volume and standard brick size in your region. It adds standard mortar joint thickness (usually 10mm) to the brick volume, and divides the wall volume by this combined sum to output exact counts." }
-            },
-            {
-              "@type": "Question",
-              "name": "Can I export my construction estimates to a BOQ?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Yes, the Professional BOQ Generator tool allows you to format and export professional Bills of Quantities and itemized cost estimates in tabular formats directly from the application." }
-            },
-            {
-              "@type": "Question",
-              "name": "How are deductions made for plastering and painting?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Our calculators adhere to standard surveying guidelines: omitting door and window openings by deducting their specific areas, accounting for soffits, side jambs, and adjusting material outputs automatically depending on the opening threshold dimensions." }
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.9",
+              "ratingCount": "128",
+              "bestRating": "5",
+              "worstRating": "1"
             }
-          ]
-        }
-      ]
-    }
+          },
+          {
+            "@type": "Organization",
+            "name": "Civil Estimation Pro",
+            "url": "https://civilestimationpro.com/",
+            "logo": "https://civilestimationpro.com/icon-192x192.png",
+            "sameAs": []
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is Civil Estimation Pro?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Civil Estimation Pro is a free suite of over 40 browser-based civil engineering and construction estimation tools. It helps engineers and quantity surveyors calculate material quantities, generate Bills of Quantities (BOQs), and conduct cost analyses."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How is the dry volume of concrete calculated?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "To account for voids, shrinkage, and wastage, our concrete calculators strictly use a dry volume multiplier. The dry volume is obtained by multiplying the wet volume by a constant factor of 1.54."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is the civil engineering estimation tool really free?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, all core capabilities including our quantity estimators, BOQ generators, concrete tech calculators, and structural estimations are completely free to use online."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What standard formulas does the tool use for steel weight?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We derive the weight of steel reinforcement per meter using the standard formula D²/162.28, where D is the bar diameter in millimeters, ensuring accurate measurements for your BBS."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do you calculate clear cover deductions for slabs and beams?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The effective depth is calculated by taking the complete thickness of the concrete section, subtracting the clear cover required by construction codes, and deducting half the diameter of the main reinforcement bar."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I use Civil Estimation Pro on my mobile device?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Absolutely, Civil Estimation Pro is fully responsive. You can use it directly in your browser on smartphones and tablets, which makes it perfect for quick calculations while on the actual construction site."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is the concrete mix design calculator based on?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Our Concrete Mix Design calculator follows IS 10262 standards to generate accurate proportions for varying grades of concrete, including strength, water-cement ratio, and aggregate adjustments."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How does the tool estimate the total number of bricks needed?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The calculator requires the gross wall volume and standard brick size in your region. It adds standard mortar joint thickness (usually 10mm) to the brick volume, and divides the wall volume by this combined sum to output exact counts."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I export my construction estimates to a BOQ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, the Professional BOQ Generator tool allows you to format and export professional Bills of Quantities and itemized cost estimates in tabular formats directly from the application."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How are deductions made for plastering and painting?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Our calculators adhere to standard surveying guidelines: omitting door and window openings by deducting their specific areas, accounting for soffits, side jambs, and adjusting material outputs automatically depending on the opening threshold dimensions."
+                }
+              }
+            ]
+          }
+        ]
+      }
     </script>
 
-    <title>Civil Estimation Pro: Free Construction BOQ & Cost Calculators</title>
+    <title>
+      Civil Estimation Pro: Free Construction BOQ & Cost Calculators
+    </title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-

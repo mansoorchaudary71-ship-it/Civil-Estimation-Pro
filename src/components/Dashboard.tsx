@@ -69,9 +69,13 @@ import RecentEstimates from "./RecentEstimates";
 import PremiumHero from "./PremiumHero";
 import ExcelPromo from "./ExcelPromo";
 import SmartSearch from "./SmartSearch";
+import HeroSection from "./HeroSection";
+import SocialProofSection from "./SocialProofSection";
+import WorkspaceSection from "./WorkspaceSection";
 
 import PostLoginDashboard from "./PostLoginDashboard";
 import { useSettings } from "../context/SettingsContext";
+import ToolCard from "./ToolCard";
 
 export const ALL_MODULES = [
   // 🚀 Guided Workflows
@@ -896,132 +900,6 @@ export const getCategoryTheme = (category: string, id: string) => {
   }
 };
 
-const ToolCard = ({
-  mod,
-  onSelect,
-  isUsed,
-  idx = 0,
-}: {
-  mod: any;
-  onSelect: (id: string) => void;
-  isUsed?: boolean;
-  idx?: number;
-}) => {
-  const diffColors: Record<string, string> = {
-    Beginner: "bg-[#10B981]",
-    Intermediate: "bg-[#F59E0B]",
-    Advanced: "bg-[#EF4444]",
-  };
-
-  const getIconGradient = (category: string) => {
-    if (category.includes("Concrete"))
-      return "from-orange-400 to-pink-500 shadow-[0_4px_12px_rgba(236,72,153,0.3)]";
-    if (category.includes("Quantity"))
-      return "from-purple-500 to-indigo-600 shadow-[0_4px_12px_rgba(99,102,241,0.3)]";
-    if (category.includes("Road"))
-      return "from-teal-400 to-emerald-500 shadow-[0_4px_12px_rgba(16,185,129,0.3)]";
-    if (category.includes("Water"))
-      return "from-blue-400 to-cyan-500 shadow-[0_4px_12px_rgba(6,182,212,0.3)]";
-    return "from-indigo-400 to-purple-500 shadow-[0_4px_12px_rgba(139,92,246,0.3)]";
-  };
-
-  const iconGradientClass = `bg-gradient-to-br ${getIconGradient(mod.category)} text-white`;
-
-  const theme = getCategoryTheme(mod.category, mod.id);
-
-  return (
-    <motion.button
-      initial={{ opacity: 0, scale: 0.97 }}
-      animate={{ opacity: 1, scale: 1 }}
-      whileTap={{ scale: 0.97 }}
-      transition={{ duration: 0.2 }}
-      onClick={() => onSelect(mod.id)}
-      id={`module-card-${mod.id}`}
-      title={mod.desc}
-      className={`group relative flex flex-col h-full w-full p-6 text-left rounded-3xl cursor-pointer transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-purple-600 no-scale bg-[#FDFBF7]/90 dark:bg-slate-800/90 backdrop-blur-md border-2 ${theme.border} shadow-[0_4px_16px_rgba(26,26,58,0.04)] hover:shadow-[0_16px_40px_-4px_rgba(26,26,58,0.15)] hover:-translate-y-1`}
-    >
-      {/* Badges on top right */}
-      <div className="absolute -top-3 -right-2 flex items-center gap-1.5 z-20 pointer-events-none px-2">
-        {mod.premium && (
-          <span className="text-[10px] font-bold uppercase tracking-widest bg-gradient-to-r from-[#1A1A3A] to-[#2C3040] text-white py-1 px-2.5 rounded-full shadow-sm border border-white/20">
-            Pro
-          </span>
-        )}
-        {mod.isPopular && (
-          <span className="text-[10px] font-bold uppercase tracking-widest bg-gradient-to-r from-amber-400 to-orange-400 text-white py-1 px-2.5 rounded-full shadow-sm border border-white/50">
-            Popular
-          </span>
-        )}
-        {mod.isNew && (
-          <span className="text-[10px] font-bold uppercase tracking-widest bg-gradient-to-r from-purple-500 to-fuchsia-500 text-white py-1 px-2.5 rounded-full shadow-[0_0_12px_rgba(168,85,247,0.5)] border border-white/50 animate-pulse">
-            New
-          </span>
-        )}
-      </div>
-
-      {/* Header */}
-      <div className="flex items-center gap-4 mb-4">
-        <div
-          className={`w-[42px] h-[42px] rounded-2xl flex items-center justify-center shrink-0 ${iconGradientClass}`}
-        >
-          <mod.icon className="w-5 h-5" strokeWidth={2.5} />
-        </div>
-        <div className="flex flex-col">
-          <span
-            className={`text-[10px] font-bold uppercase tracking-widest text-[#4A4E69]/70`}
-          >
-            {mod.category}
-          </span>
-          <h4
-            className={`text-[14px] font-bold leading-tight mt-0.5 text-[#1A1A3A]`}
-          >
-            {mod.title}
-          </h4>
-        </div>
-      </div>
-
-      {/* Body */}
-      <p
-        className={`text-[12px] leading-relaxed mb-5 text-left w-full flex-grow line-clamp-2 text-[#4A4E69]`}
-      >
-        {mod.desc}
-      </p>
-
-      {/* Footer */}
-      <div
-        className={`w-full flex items-center flex-wrap gap-2 mt-auto pt-4 border-t-[1px] border-slate-200 dark:border-slate-700/60`}
-      >
-        <div
-          className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#F8F9FA] border border-slate-200/60`}
-          title={`Difficulty: ${mod.difficulty || "Beginner"}`}
-        >
-          <span
-            className={`w-1.5 h-1.5 rounded-full ${diffColors[mod.difficulty as string] || diffColors["Beginner"]}`}
-          />
-          <span className="text-[9px] font-bold uppercase text-slate-500">
-            {mod.difficulty || "Beginner"}
-          </span>
-        </div>
-
-        {isUsed && (
-          <span className="flex items-center gap-1 px-2 py-0.5 text-[9px] font-bold uppercase text-emerald-700 bg-emerald-50 rounded-full border border-emerald-200 shadow-[0_0_8px_rgba(16,185,129,0.3)]">
-            ✓ Used
-          </span>
-        )}
-
-        <div
-          className={`flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#F8F9FA] border border-slate-200/60`}
-        >
-          <Clock className="w-[10px] h-[10px] text-slate-400" />
-          <span className="text-[9px] font-bold uppercase text-slate-500">
-            {mod.estimatedTime || "~2 mins"}
-          </span>
-        </div>
-      </div>
-    </motion.button>
-  );
-};
-
 export default function Dashboard({
   onSelectModule,
   onOpenSidebar,
@@ -1176,73 +1054,24 @@ export default function Dashboard({
           canonicalUrl="https://civilestimationpro.com"
         />
 
-        <div className="w-full max-w-[900px] mx-auto px-4 z-10 w-full overflow-hidden flex flex-col">
-          {/* HERO SECTION */}
-          <div className="flex flex-col items-center justify-center text-center mt-16 mb-12">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-2 text-slate-900">
-              Free Civil Engineering
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 drop-shadow-sm">
-                Estimation Platform
-              </span>
-            </h1>
-            <p className="text-slate-600 text-base md:text-lg max-w-[600px] mt-6 mb-10">
-              Calculate material quantities, generate BOQs, and estimate project
-              costs instantly with 40+ professional engineering tools.
-            </p>
+        <div className="w-full max-w-7xl mx-auto px-4 z-10 w-full overflow-visible flex flex-col">
+          {user ? (
+            <WorkspaceSection onSelect={handleSelect} />
+          ) : (
+            <>
+              {/* HERO SECTION */}
+              <HeroSection onStart={() => handleSelect("house")} />
 
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              <button
-                onClick={() => handleSelect("house")}
-                className="px-8 py-4 rounded-full font-bold text-white bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 shadow-[0_8px_20px_-6px_rgba(236,72,153,0.6)] hover:shadow-[0_12px_24px_-6px_rgba(236,72,153,0.8)] transition-all text-lg border-none"
-              >
-                Start Estimating for Free
-              </button>
-              <button
-                onClick={() => {
-                  document
-                    .getElementById("tools-section")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="px-8 py-4 rounded-full font-bold text-slate-700 bg-white/60 backdrop-blur-md border border-slate-200 hover:bg-white transition-all text-lg shadow-sm"
-              >
-                View All Tools ›
-              </button>
-            </div>
-          </div>
-
-          {/* STATS BAR */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20 relative px-2">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 via-pink-500/5 to-purple-600/5 blur-3xl -z-10 rounded-full pointer-events-none" />
-
-            <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-[12px] border border-white rounded-[2rem] p-5 shadow-[0_8px_24px_rgba(26,26,58,0.04)]">
-              <span className="text-3xl mb-2">📦</span>
-              <span className="text-[13px] font-bold text-slate-800">
-                40+ Pro Tools
-              </span>
-            </div>
-            <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-[12px] border border-white rounded-[2rem] p-5 shadow-[0_8px_24px_rgba(26,26,58,0.04)]">
-              <span className="text-3xl mb-2">✅</span>
-              <span className="text-[13px] font-bold text-slate-800">
-                100% Free Forever
-              </span>
-            </div>
-            <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-[12px] border border-white rounded-[2rem] p-5 shadow-[0_8px_24px_rgba(26,26,58,0.04)]">
-              <span className="text-3xl mb-2">🗺️</span>
-              <span className="text-[13px] font-bold text-slate-800">
-                15+ Countries Trusted
-              </span>
-            </div>
-            <div className="flex flex-col items-center text-center bg-white/60 backdrop-blur-[12px] border border-white rounded-[2rem] p-5 shadow-[0_8px_24px_rgba(26,26,58,0.04)]">
-              <span className="text-3xl mb-2">🤖</span>
-              <span className="text-[13px] font-bold text-slate-800">
-                AI Powered
-              </span>
-            </div>
-          </div>
+              {/* SOCIAL PROOF SECTION */}
+              <SocialProofSection />
+            </>
+          )}
 
           {/* MAIN GRID */}
-          <div className="flex flex-col gap-10" id="tools-section">
+          <div
+            className="flex flex-col gap-10 max-w-[900px] mx-auto w-full"
+            id="tools-section"
+          >
             {/* SEARCH BAR */}
             <div className="w-full relative">
               <SmartSearch
@@ -1309,7 +1138,7 @@ export default function Dashboard({
                         {groupName}
                       </h3>
                     )}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
                       {groupedModules[groupName].map((mod, idx) => (
                         <ToolCard
                           key={mod.id}

@@ -1,39 +1,58 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=JetBrains+Mono:wght@400;500;600&family=DM+Sans:wght@400;500;700&family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
-@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700,900&display=swap');
 
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-bg-primary: var(--bg-primary);
-  --color-bg-card: var(--bg-card);
-  --color-text-primary: var(--text-primary);
-  --color-border-color: var(--border-color);
+  --color-bg-primary: var(--color-background);
+  --color-bg-card: var(--color-surface);
+  --color-text-primary: var(--color-text-primary);
+  --color-border-color: var(--border-light);
   
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-heading: "Plus Jakarta Sans", "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+  --color-text-secondary: var(--color-text-secondary);
+
+  --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Clash Display", "Satoshi", ui-sans-serif, system-ui, sans-serif;
   --font-clash: "Clash Display", ui-sans-serif, system-ui, sans-serif;
   --font-dm: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-bebas: "Bebas Neue", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 32px;
+  --text-4xl: 40px;
+  --text-5xl: 56px;
+  --text-6xl: 72px;
+
   /* Global UI Constants - Curvy Design Language */
-  --radius-sm: 12px;
-  --radius-md: 16px;
+  --radius-sm: 8px; /* cards */
+  --radius-md: 12px; /* modals */
+  --radius-badge: 4px; /* badges */
   --radius-lg: 20px;
   --radius-xl: 24px;
   --radius-2xl: 32px;
   --radius-3xl: 40px;
-  --radius-global: 24px;
+  --radius-global: 8px;
 
   /* Soft, diffused drop shadows with rich indigo/slate blue (NO BLACK) */
-  --shadow-sm: 0 4px 16px rgba(26, 26, 58, 0.04);
-  --shadow: 0 8px 24px rgba(26, 26, 58, 0.06);
-  --shadow-md: 0 12px 32px -4px rgba(26, 26, 58, 0.08);
-  --shadow-lg: 0 16px 40px -4px rgba(26, 26, 58, 0.12);
-  --shadow-xl: 0 24px 48px -8px rgba(26, 26, 58, 0.15);
-  --shadow-global: var(--shadow-lg);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-glow-primary: var(--glow-primary);
+  --shadow-glow-secondary: var(--glow-secondary);
+  --shadow-global: var(--shadow-md);
   
   /* WCAG High Contrast Overrides for Secondary text */
   --color-slate-400: #6B7280;
@@ -50,6 +69,19 @@
 
 @layer base {
   :root {
+    /* Civil SaaS Theme */
+    --color-background: #0A0F1E;
+    --color-surface: #111827;
+    --color-primary: #F59E0B;
+    --color-secondary: #06B6D4;
+    --color-success: #10B981;
+    --color-warning: #F59E0B;
+    --color-error: #EF4444;
+    --color-text-primary: #F9FAFB;
+    --color-text-secondary: #9CA3AF;
+    --glow-primary: 0 0 15px rgba(245, 158, 11, 0.5);
+    --glow-secondary: 0 0 15px rgba(6, 182, 212, 0.5);
+
     /* The 60-30-10 Color Strategy for Enterprise UI */
     
     /* The Dominant Base (60%) */
@@ -321,18 +353,34 @@
 }
 
 @layer components {
-  /* Enforce Curvy Design Language globally */
+  /* Enforce Civil SaaS Design Language globally */
   .rounded-sm, .rounded {
+    border-radius: 6px !important;
+  }
+  .rounded-badge, .rounded-full {
+    /* Not overriding full, but handling standard radii */
+  }
+  /* Badges use 4px, Cards use 8px, Modals use 12px */
+  .rounded-badge {
+    border-radius: 4px !important;
+  }
+  .rounded-card {
     border-radius: 8px !important;
   }
-  .rounded-md, .rounded-lg {
-    border-radius: 16px !important;
+  .rounded-modal {
+    border-radius: 12px !important;
+  }
+  .rounded-md {
+    border-radius: 8px !important;
+  }
+  .rounded-lg {
+    border-radius: 12px !important;
   }
   .rounded-xl, .rounded-2xl {
-    border-radius: 24px !important;
+    border-radius: 16px !important;
   }
   .rounded-3xl, .rounded-\[3rem\] {
-    border-radius: 32px !important;
+    border-radius: 24px !important;
   }
   
   /* Soften all harsh gray borders */

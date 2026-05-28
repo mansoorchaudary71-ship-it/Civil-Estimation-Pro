@@ -536,7 +536,7 @@ export default function App() {
 
                   <main
                     id="main-content"
-                    className="flex-1 flex flex-col bg-transparent relative w-full min-h-0 md:px-6 md:pb-6 md:pt-4 transition-all duration-300"
+                    className="flex-1 flex flex-col bg-transparent relative w-full min-h-0 pt-[80px] md:px-6 md:pb-6 md:pt-[100px] transition-all duration-300"
                   >
                     <div className="w-full h-full flex-1 flex flex-col min-h-0 relative transition-all duration-300">
                       <div className="md:border md:border-slate-200 dark:md:border-slate-700/40 md:shadow-sm md:bg-white/50 dark:md:bg-slate-900/50 md:backdrop-blur-sm md:rounded-[32px] flex-1 flex flex-col min-h-0 relative w-full transition-colors duration-300">

@@ -1,382 +1,318 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Menu, X, User, LogOut, Settings, ChevronDown, ArrowRight, Sun } from 'lucide-react';
-import { CurrencySelector } from './ui/CurrencySelector';
-import { GlobalSettingsToggle } from './ui/GlobalSettingsToggle';
-import { DarkModeToggle } from './ui/DarkModeToggle';
-import { useAuth } from '../contexts/AuthContext';
-import { useSettings, MeasurementSystem, Currency } from '../context/SettingsContext';
-import { ModuleId } from './Sidebar';
-import Logo from './Logo';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import {
+  Menu,
+  X,
+  ChevronDown,
+  Calculator,
+  Building,
+  Box,
+  Truck,
+  Building2,
+  Cpu,
+  Search,
+  ArrowRight,
+} from "lucide-react";
 
-export default function TopNavbar({ 
-  onOpenSidebar, 
-  onOpenAuth, 
+export default function TopNavbar({
+  onNavigate,
+  onOpenSidebar,
+  onOpenAuth,
   onOpenProfile,
-  onNavigate
-}: { 
+}: {
+  onNavigate?: (id: string) => void;
   onOpenSidebar?: () => void;
   onOpenAuth?: () => void;
   onOpenProfile?: () => void;
-  onNavigate?: (id: ModuleId) => void;
 }) {
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSettingsDrawerOpen, setIsSettingsDrawerOpen] = useState(false);
-  const [authError, setAuthError] = useState<string | null>(null);
-  const [isAuthLoading, setIsAuthLoading] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [toolsDropdownOpen, setToolsDropdownOpen] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      // Find the main scroll container, if not just use window
+      const scrollY =
+        document.querySelector(".overflow-y-auto")?.scrollTop || window.scrollY;
+      setScrolled(scrollY > 60);
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-  
-  const { settings, updateSettings } = useSettings();
-  
-  const profileRef = useRef<HTMLDivElement>(null);
-  const { user, logOut, signInWithGoogle } = useAuth();
-  
-  const isAuthenticated = !!user;
 
-  // Clear auth error after 5 seconds
-  useEffect(() => {
-    if (authError) {
-      const timer = setTimeout(() => setAuthError(null), 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [authError]);
-
-  const handleGoogleSignIn = async () => {
-    try {
-      setAuthError(null);
-      setIsAuthLoading(true);
-      await signInWithGoogle();
-      setIsMobileMenuOpen(false);
-    } catch (error: any) {
-      console.error(error);
-      if (error?.code === 'auth/popup-blocked') {
-        setAuthError("Popup blocked. Please open this app in a new tab to sign in.");
-      } else {
-        setAuthError(error?.message || "Failed to sign in.");
-      }
-    } finally {
-      setIsAuthLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
-        setIsProfileMenuOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    if (isMobileMenuOpen || isSettingsDrawerOpen) {
-      document.body.style.overflow = 'hidden';
+    const container = document.querySelector(".overflow-y-auto");
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
     } else {
-      document.body.style.overflow = 'unset';
+      window.addEventListener("scroll", handleScroll);
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      if (container) {
+        container.removeEventListener("scroll", handleScroll);
+      } else {
+        window.removeEventListener("scroll", handleScroll);
+      }
     };
-  }, [isMobileMenuOpen, isSettingsDrawerOpen]);
+  }, []);
 
-  const handleSignOut = async () => {
-    await logOut();
-    setIsProfileMenuOpen(false);
-    setIsMobileMenuOpen(false);
-  };
-
-  const navItems = [
-    { name: 'Home', id: 'home' as ModuleId },
-    { name: 'Estimator', id: 'house' as ModuleId },
-    { name: 'Materials', id: 'calculators' as ModuleId },
-    { name: 'Reports', id: 'my-estimates' as ModuleId },
-    { name: 'Contact', id: 'contact' as ModuleId },
+  const categories = [
+    {
+      title: "Quantity Estimator",
+      icon: Calculator,
+      count: 12,
+      id: "master-quantity",
+    },
+    { title: "Concrete Tech", icon: Box, count: 8, id: "master-rcc" },
+    { title: "Structural Design", icon: Building, count: 6, id: "house" },
+    { title: "Road Construction", icon: Truck, count: 4, id: "road-pavement" },
+    {
+      title: "Architectural",
+      icon: Building2,
+      count: 5,
+      id: "interiors-finishes",
+    },
+    { title: "AI Tools", icon: Cpu, count: 2, id: "ai" },
   ];
-
-  const touchStartX = useRef<number | null>(null);
-  
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const currentX = e.touches[0].clientX;
-    const diff = touchStartX.current - currentX;
-    
-    // Swipe left to close drawer (since it slides from left)
-    if (diff > 50) {
-      setIsMobileMenuOpen(false);
-      touchStartX.current = null;
-    }
-  };
-
-  const handleTouchEnd = () => {
-    touchStartX.current = null;
-  };
 
   return (
     <>
-      <header className={`w-full sticky top-0 z-50 transition-all duration-300 pointer-events-auto bg-white backdrop-blur-md border-b border-slate-200 shadow-sm flex items-center h-16 px-4 md:px-6`}>
-        <div className="mx-auto max-w-[900px] w-full flex items-center justify-between">
-          
-          {/* Left: Logo */}
-          <div className="flex items-center gap-3 justify-start cursor-pointer group shrink-0" onClick={() => onNavigate?.('home' as ModuleId)}>
-            <div className="w-10 h-10 flex items-center justify-center transition-all duration-300 bg-gradient-to-br from-orange-400 to-orange-600 shadow-md rounded-xl text-xl">
-              🏗️
+      <header
+        className={`fixed top-0 left-0 right-0 z-[110] transition-all duration-300 ${
+          scrolled
+            ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200 py-3"
+            : "bg-transparent py-5"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
+          {/* Logo Left */}
+          <div
+            className="flex items-center gap-3 cursor-pointer"
+            onClick={() => onNavigate && onNavigate("home")}
+          >
+            <div
+              className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-indigo-800 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30 font-bold text-xl tracking-tighter"
+              style={{ fontFamily: "Clash Display, sans-serif" }}
+            >
+              C
             </div>
-            <span className="font-extrabold text-xl lg:text-2xl tracking-tight bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent drop-shadow-sm">
+            <span
+              className={`font-bold text-lg hidden sm:block ${scrolled ? "text-slate-900" : "text-slate-800"}`}
+              style={{ fontFamily: "Clash Display, sans-serif" }}
+            >
               Civil Estimation Pro
             </span>
           </div>
 
-          {/* Center: Nav links (Desktop) */}
-          <div className="hidden lg:flex items-center justify-center gap-6 flex-1 ml-8">
-            {navItems.filter(link => link.id !== 'home').map((link) => (
-              <button 
-                key={link.name}
-                onClick={() => onNavigate?.(link.id)}
-                className="text-[15px] font-semibold text-slate-600 hover:text-purple-600 transition-colors"
+          {/* Center Navigation (Desktop) */}
+          <nav className="hidden md:flex items-center gap-8">
+            {/* Tools Mega Menu */}
+            <div
+              className="relative group"
+              onMouseEnter={() => setToolsDropdownOpen(true)}
+              onMouseLeave={() => setToolsDropdownOpen(false)}
+            >
+              <button
+                className={`flex items-center gap-1.5 font-bold transition-colors outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded p-1 ${scrolled ? "text-slate-600 hover:text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
+                aria-haspopup="menu"
+                aria-expanded={toolsDropdownOpen}
+                onClick={() => setToolsDropdownOpen(!toolsDropdownOpen)}
               >
-                {link.name}
+                Tools{" "}
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform duration-200 ${toolsDropdownOpen ? "rotate-180" : ""}`}
+                />
               </button>
-            ))}
+
+              <AnimatePresence>
+                {toolsDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[600px] bg-white rounded-2xl shadow-[0_12px_40px_-8px_rgba(0,0,0,0.15)] border border-slate-100 p-6 overflow-hidden"
+                  >
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+                      {categories.map((cat, idx) => (
+                        <div
+                          key={idx}
+                          role="button"
+                          tabIndex={0}
+                          className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer group/item outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                          onClick={() => {
+                            setToolsDropdownOpen(false);
+                            onNavigate && onNavigate(cat.id);
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              setToolsDropdownOpen(false);
+                              onNavigate && onNavigate(cat.id);
+                            }
+                          }}
+                        >
+                          <div className="mt-0.5 w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 group-hover/item:bg-indigo-600 group-hover/item:text-white transition-colors">
+                            <cat.icon className="w-5 h-5" />
+                          </div>
+                          <div>
+                            <div className="font-bold text-sm text-slate-900 group-hover/item:text-indigo-600 transition-colors">
+                              {cat.title}
+                            </div>
+                            <div className="text-xs font-medium text-slate-500 mt-0.5">
+                              {cat.count} Calculators
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <button
+              className={`font-bold transition-colors ${scrolled ? "text-slate-600 hover:text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
+              onClick={() => onNavigate && onNavigate("pricing")}
+            >
+              Pricing
+            </button>
+            <button
+              className={`font-bold transition-colors ${scrolled ? "text-slate-600 hover:text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
+              onClick={() => onNavigate && onNavigate("blog")}
+            >
+              Blog
+            </button>
+          </nav>
+
+          {/* Right Section (Desktop) */}
+          <div className="hidden md:flex items-center gap-4">
+            <button
+              className={`font-bold px-4 py-2 transition-colors ${scrolled ? "text-slate-600 hover:text-slate-900" : "text-slate-600 hover:text-slate-900"}`}
+              onClick={() => onOpenAuth && onOpenAuth()}
+            >
+              Sign In
+            </button>
+            <button
+              className="bg-[#F59E0B] hover:bg-[#fbbf24] text-slate-900 font-bold px-6 py-2.5 rounded-full shadow-[0_4px_16px_-4px_rgba(245,158,11,0.5)] hover:shadow-[0_8px_20px_-4px_rgba(245,158,11,0.6)] transition-all hover:-translate-y-0.5"
+              onClick={() => onNavigate && onNavigate("house")}
+            >
+              Start Free
+            </button>
           </div>
 
-          {/* Right: Action Buttons */}
-          <div className="flex items-center justify-end gap-3 flex-shrink-0">
-            
-            <button 
-              onClick={() => onNavigate?.('contact' as ModuleId)}
-              className="w-10 h-10 rounded-full flex items-center justify-center text-slate-500 hover:text-purple-600 hover:bg-slate-50 transition-colors"
-              title="Toggle Theme"
-            >
-              <Sun className="w-5 h-5" />
-            </button>
-            
-            <button 
-              onClick={() => onNavigate?.('contact' as ModuleId)}
-              className="w-10 h-10 rounded-full flex items-center justify-center text-slate-500 hover:text-purple-600 hover:bg-slate-50 transition-colors hidden sm:flex"
-              title="Support"
-            >
-              <div className="font-bold text-lg font-heading">?</div>
-            </button>
-
-            {!isAuthenticated ? (
-                <button 
-                  onClick={() => onOpenAuth?.()}
-                  disabled={isAuthLoading}
-                  className="hidden sm:inline-flex px-4 py-2 text-sm font-semibold text-purple-600 border border-purple-600 rounded-full hover:bg-purple-50 transition-colors"
-                >
-                  Sign In
-                </button>
-            ) : (
-                <button 
-                  onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                  className="h-10 pl-1 pr-3 rounded-full bg-slate-50 border border-slate-200 flex items-center gap-2 text-sm font-bold text-slate-700 hover:bg-slate-100 transition-colors"
-                >
-                  {user?.photoURL ? (
-                      <img src={user.photoURL} alt="User Avatar" className="w-8 h-8 rounded-full" />
-                  ) : (
-                      <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center">
-                        <User className="w-4 h-4 text-slate-500" />
-                      </div>
-                  )}
-                  <span className="hidden sm:block truncate max-w-[80px]">{user?.displayName?.split(' ')[0] || 'Account'}</span>
-                </button>
-            )}
-
-            <button 
-              onClick={() => onNavigate?.('house' as ModuleId)}
-              className="hidden sm:inline-flex px-6 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 shadow-[0_8px_20px_-6px_rgba(236,72,153,0.6)] hover:shadow-[0_12px_24px_-6px_rgba(236,72,153,0.8)] transition-all active:scale-95 border-none"
-            >
-              Start Estimating
-            </button>
-            
-            <button 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden w-10 h-10 rounded-full flex items-center justify-center text-slate-700 transition-transform duration-150 active:scale-95 hover:bg-slate-50"
-              aria-label="Toggle Menu"
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-5 h-5" strokeWidth={2} />
-              ) : (
-                <Menu className="w-5 h-5" strokeWidth={2} />
-              )}
-            </button>
-          </div>
+          {/* Mobile Hamburger */}
+          <button
+            className="md:hidden p-2 text-slate-700"
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="Open Menu"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
         </div>
       </header>
 
-      {/* ------------------------------------------- */}
-      {/* MOBILE HAMBURGER MENU OVERLAY               */}
-      {/* ------------------------------------------- */}
-      {isMobileMenuOpen && (
-        <>
-          {/* Backdrop */}
-          <div 
-            className="md:hidden fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-[90] animate-in fade-in duration-300"
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-
-          {/* Drawer Sidebar */}
-          <div className="md:hidden fixed inset-y-0 right-0 w-[85vw] max-w-[340px] bg-white/90 backdrop-blur-3xl shadow-2xl border-l border-white/40 z-[100] flex flex-col animate-in slide-in-from-right duration-300">
-             
-            {/* Header / Start Estimating CTA */}
-            <div className="flex items-center justify-between p-4 border-b border-slate-200/50">
-               <button
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    onNavigate?.('house' as ModuleId);
-                  }}
-                  className="flex-1 py-3 px-4 rounded-full text-sm font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 shadow-[0_4px_14px_rgba(79,70,229,0.3)] text-center transition-transform active:scale-[0.98]"
-                >
-                  Start Estimating
-               </button>
-               <button onClick={() => setIsMobileMenuOpen(false)} className="ml-3 w-10 h-10 rounded-full bg-slate-100/80 flex items-center justify-center text-slate-500 hover:text-slate-900 transition-colors">
-                  <X className="w-5 h-5" />
-               </button>
+      {/* Mobile Overlay Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[120] bg-white flex flex-col pt-4 overflow-y-auto"
+          >
+            <div className="px-5 flex items-center justify-between mb-8">
+              <div
+                className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-indigo-800 flex items-center justify-center text-white shadow-lg font-bold text-xl tracking-tighter"
+                style={{ fontFamily: "Clash Display, sans-serif" }}
+              >
+                C
+              </div>
+              <button
+                className="p-2 text-slate-400 hover:text-slate-700 bg-slate-50 rounded-full"
+                onClick={() => setMobileMenuOpen(false)}
+                aria-label="Close Menu"
+              >
+                <X className="w-6 h-6" />
+              </button>
             </div>
 
-            {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto pb-6">
-              
-              {/* Primary Navigation */}
-              <nav className="flex flex-col gap-1 px-4 py-6">
-                {navItems.map((item) => (
+            <div className="px-5 mb-8">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder="Search tools..."
+                  className="w-full bg-slate-100 text-slate-900 font-medium rounded-2xl py-4 pl-12 pr-4 outline-none focus:ring-2 focus:ring-indigo-500 transition-shadow"
+                />
+              </div>
+            </div>
+
+            <div className="flex-1 px-5 flex flex-col gap-6">
+              <div
+                className="font-bold text-slate-900 text-2xl"
+                style={{ fontFamily: "Clash Display, sans-serif" }}
+              >
+                Categories
+              </div>
+              <div className="flex flex-col gap-5">
+                {categories.map((cat, idx) => (
                   <button
-                    key={item.id}
+                    key={idx}
+                    className="flex items-center justify-between group outline-none"
                     onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      onNavigate?.(item.id);
+                      setMobileMenuOpen(false);
+                      onNavigate && onNavigate(cat.id);
                     }}
-                    className="flex items-center px-4 py-3.5 rounded-full text-left text-[15px] font-bold text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 transition-colors"
                   >
-                    {item.name}
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                        <cat.icon className="w-6 h-6" />
+                      </div>
+                      <div className="text-left">
+                        <div className="font-bold text-base text-slate-900">
+                          {cat.title}
+                        </div>
+                        <div className="text-sm font-medium text-slate-500">
+                          {cat.count} Calculators
+                        </div>
+                      </div>
+                    </div>
+                    <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-indigo-500 transition-colors" />
                   </button>
                 ))}
-              </nav>
-
-              {/* Preferences Grouping */}
-              <div className="px-4">
-                <div className="bg-white/50 rounded-3xl border border-white/60 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] p-5 flex flex-col gap-5 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent pointer-events-none"></div>
-                  
-                  <span className="text-[11px] font-black tracking-widest uppercase text-slate-400 mb-1 relative z-10">Preferences</span>
-                  
-                  <div className="flex items-center justify-between relative z-10">
-                    <span className="text-[14px] font-bold text-slate-700">Theme</span>
-                    <DarkModeToggle isMobile />
-                  </div>
-                  
-                  <div className="flex items-center justify-between relative z-10">
-                    <span className="text-[14px] font-bold text-slate-700">Help / Support</span>
-                    <button 
-                      onClick={() => {
-                        setIsMobileMenuOpen(false);
-                        onNavigate?.('contact' as ModuleId);
-                      }}
-                      className="w-8 h-8 rounded-full bg-slate-200/50 flex items-center justify-center text-slate-600 transition-colors"
-                    >
-                      <div className="font-bold text-md cursor-pointer">?</div>
-                    </button>
-                  </div>
-                  
-                  <div className="flex flex-col gap-2.5 relative z-10">
-                     <label className="text-[14px] font-bold text-slate-700">Unit System</label>
-                     <div className="flex bg-slate-200/50 rounded-xl p-1 shadow-inner">
-                       <button
-                         onClick={() => updateSettings({ measurement: 'FPS' })}
-                         className={`flex-1 py-2 text-[13px] font-bold rounded-lg transition-all duration-300 ${settings.measurement === 'FPS' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'}`}
-                       >
-                         Imperial (ft)
-                       </button>
-                       <button
-                         onClick={() => updateSettings({ measurement: 'SI' })}
-                         className={`flex-1 py-2 text-[13px] font-bold rounded-lg transition-all duration-300 ${settings.measurement === 'SI' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'}`}
-                       >
-                         Metric (m)
-                       </button>
-                     </div>
-                  </div>
-
-                  <div className="flex flex-col gap-2.5 relative z-10">
-                     <label className="text-[14px] font-bold text-slate-700">Currency</label>
-                     <select
-                       value={settings.currency}
-                       onChange={(e) => updateSettings({ currency: e.target.value as Currency })}
-                       className="w-full bg-slate-200/50 rounded-xl py-2.5 px-3 text-[13px] font-bold text-slate-700 outline-none shadow-inner border border-transparent focus:border-indigo-500/30 transition-all cursor-pointer"
-                     >
-                       <option value="USD">USD ($) - US Dollar</option>
-                       <option value="PKR">PKR (Rs) - Pakistani Rupee</option>
-                       <option value="INR">INR (₹) - Indian Rupee</option>
-                       <option value="AED">AED - UAE Dirham</option>
-                       <option value="SAR">SAR - Saudi Riyal</option>
-                       <option value="BDT">BDT (৳) - Bangladeshi Taka</option>
-                       <option value="GBP">GBP (£) - British Pound</option>
-                     </select>
-                  </div>
-                </div>
               </div>
-
             </div>
 
-            {/* Fixed Bottom: User Profile & Account Actions */}
-            <div className="shrink-0 p-4 border-t border-slate-200/50 bg-white/40 backdrop-blur-md">
-              {isAuthenticated ? (
-                <div className="flex items-center gap-3 p-3 bg-white/60 rounded-2xl shadow-sm border border-white/60 backdrop-blur-sm">
-                  <div className="w-10 h-10 rounded-full shrink-0 flex items-center justify-center text-slate-600 font-bold overflow-hidden ring-2 ring-indigo-500/20 bg-slate-100">
-                    {user?.photoURL ? (
-                      <img src={user.photoURL} alt="User Profile" loading="lazy" className="w-full h-full object-cover" />
-                    ) : (
-                      <span>{user?.displayName?.[0]?.toUpperCase() || <User className="w-5 h-5" />}</span>
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0 pr-1 cursor-pointer" onClick={() => { setIsMobileMenuOpen(false); onOpenProfile?.(); }}>
-                    <p className="text-[14px] font-bold text-slate-900 truncate">{user?.displayName || "Account"}</p>
-                    <p className="text-[11px] text-slate-500 truncate">{user?.email}</p>
-                  </div>
-                  <button
-                    onClick={handleSignOut}
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-rose-500/80 hover:text-rose-600 bg-rose-50/50 hover:bg-rose-100 transition-colors shrink-0"
-                    title="Log out"
-                  >
-                    <LogOut className="w-4 h-4 ml-0.5" />
-                  </button>
-                </div>
-              ) : (
-                <div className="flex flex-col gap-2 relative z-10 w-full mb-1">
-                  <button
-                    onClick={handleGoogleSignIn}
-                    disabled={isAuthLoading}
-                    className="w-full flex items-center justify-center gap-3 py-3.5 px-4 rounded-full text-[14px] font-bold text-slate-700 bg-white/80 shadow-sm border border-slate-200/60 hover:bg-white transition-colors disabled:opacity-50"
-                  >
-                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Login" loading="lazy" className="w-5 h-5 bg-white rounded-full p-0.5 shadow-sm" />
-                    {isAuthLoading ? "Signing in..." : "Sign in with Google"}
-                  </button>
-                  {authError && (
-                    <div className="text-red-500 text-[11px] text-center border border-red-500/20 bg-red-500/10 rounded-lg p-2 font-medium">
-                      {authError}
-                    </div>
-                  )}
-                </div>
-              )}
+            <div className="p-5 mt-auto bg-slate-50 flex flex-col gap-3">
+              <button
+                className="w-full py-4 text-center font-bold text-slate-900 hover:bg-slate-200/50 rounded-xl transition-colors"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onNavigate && onNavigate("pricing");
+                }}
+              >
+                Pricing
+              </button>
+              <button
+                className="w-full py-4 text-center font-bold text-slate-900 hover:bg-slate-200/50 rounded-xl transition-colors"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenAuth && onOpenAuth();
+                }}
+              >
+                Sign In
+              </button>
+              <button
+                className="w-full py-4 rounded-xl font-bold text-slate-900 bg-[#F59E0B] hover:bg-[#fbbf24] shadow-[0_4px_16px_-4px_rgba(245,158,11,0.5)] transition-all"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onNavigate && onNavigate("house");
+                }}
+              >
+                Start Estimating Free
+              </button>
             </div>
-
-          </div>
-        </>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
