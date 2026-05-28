@@ -33,6 +33,7 @@ const DEFAULT_COLORS = [
 
 const generateBarChartBase64 = async (data: { label: string; value: number; color?: string }[]): Promise<string | null> => {
   return new Promise((resolve) => {
+    if (!data || data.length === 0) return resolve(null);
     let svg = `<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
@@ -40,8 +41,8 @@ const generateBarChartBase64 = async (data: { label: string; value: number; colo
         </filter>
       </defs>
       <rect width="800" height="400" fill="#ffffff" />
-      <text x="400" y="40" text-anchor="middle" font-family="helvetica, sans-serif" font-size="24" fill="#1e293b" font-weight="bold">Top 5 Cost Drivers</text>
-      <g transform="translate(200, 80)">`;
+      <text x="400" y="40" text-anchor="middle" font-family="helvetica, sans-serif" font-size="24" fill="#1e293b" font-weight="bold">Top Costs Breakdown</text>
+      <g transform="translate(250, 80)">`;
 
     const maxValue = Math.max(...data.map(d => d.value), 1);
     const barHeight = 40;
@@ -49,7 +50,7 @@ const generateBarChartBase64 = async (data: { label: string; value: number; colo
 
     data.slice(0, 5).forEach((d, i) => {
       const y = i * (barHeight + barSpacing);
-      const width = (d.value / maxValue) * 500;
+      const width = Math.max(10, (d.value / maxValue) * 450);
       const color = d.color || DEFAULT_COLORS[i % DEFAULT_COLORS.length];
 
       svg += `<text x="-20" y="${y + barHeight / 2 + 6}" text-anchor="end" font-family="helvetica, sans-serif" font-size="16" fill="#475569" font-weight="bold">${d.label}</text>`;
@@ -85,6 +86,7 @@ export const createDonutChartBase64New = (
   totalText: string
 ): Promise<string | null> => {
   return new Promise((resolve) => {
+    if (!data || data.length === 0) return resolve(null);
     let svg = `<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
@@ -136,7 +138,7 @@ export const createDonutChartBase64New = (
       
       <g transform="translate(800, 150)">`;
 
-    data.forEach((d, i) => {
+    data.slice(0, 8).forEach((d, i) => {
       if (d.value <= 0) return;
       const y = i * 60;
       const pct = ((d.value / total) * 100).toFixed(1);
@@ -146,6 +148,10 @@ export const createDonutChartBase64New = (
       svg += `<text x="40" y="${y}" font-family="helvetica, sans-serif" font-size="28" fill="#1e293b" font-weight="bold">${d.label}</text>`;
       svg += `<text x="40" y="${y + 30}" font-family="helvetica, sans-serif" font-size="22" fill="#64748b" font-weight="normal">Rs ${Math.round(d.value).toLocaleString('en-US')} (${pct}%)</text>`;
     });
+
+    if (data.length > 8) {
+       svg += `<text x="40" y="${8 * 60}" font-family="helvetica, sans-serif" font-size="24" fill="#94a3b8" font-style="italic">...and others</text>`;
+    }
 
     svg += `</g></svg>`;
 
@@ -178,6 +184,7 @@ export const GlobalReportEngine = {
     const pageHeight = doc.internal.pageSize.height;
     const safeData = data || {} as ReportData;
 
+    // 1. Premium Header
     doc.setFillColor(15, 23, 42); 
     doc.rect(0, 0, pageWidth, 45, "F");
 
@@ -192,10 +199,11 @@ export const GlobalReportEngine = {
       console.error(err);
     }
 
+    // Company & Report Title
     doc.setTextColor(255, 255, 255);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
-    doc.text(safeData.toolName?.toUpperCase() || 'ESTIMATION REPORT', 14, 20);
+    doc.text(safeData.toolName?.toUpperCase() || 'EXECUTIVE ESTIMATION REPORT', 14, 20);
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -205,7 +213,7 @@ export const GlobalReportEngine = {
     doc.setFontSize(9);
     doc.setTextColor(255, 255, 255);
     doc.text(`Report ID: ${safeData.reportId || 'EST-' + Math.floor(Math.random()*10000)}`, pageWidth - 45, 18, { align: "right" });
-    const dateStr = new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
+    const dateStr = safeData.metadata.date || new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
     doc.text(`Date: ${dateStr}`, pageWidth - 45, 26, { align: "right" });
 
     if (qrCodeDataURL) {
@@ -214,49 +222,131 @@ export const GlobalReportEngine = {
 
     let currentY = 55;
 
-    doc.setFillColor(248, 250, 252);
-    doc.rect(14, currentY, (pageWidth - 34) / 4, 25, "F");
-    doc.rect(14 + (pageWidth - 34) / 4 + 2, currentY, (pageWidth - 34) / 4, 25, "F");
-    doc.rect(14 + ((pageWidth - 34) / 4) * 2 + 4, currentY, (pageWidth - 34) / 4, 25, "F");
-    doc.rect(14 + ((pageWidth - 34) / 4) * 3 + 6, currentY, (pageWidth - 34) / 4, 25, "F");
+    // 2. Project Parameters Grid
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.setTextColor(15, 23, 42);
+    doc.text("Project Parameters", 14, currentY);
+    currentY += 8;
 
-    let cardX = 16;
-    const cardWidth = (pageWidth - 34) / 4;
-
-    const drawCard = (idx: number, title: string, value: string) => {
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(9);
-      doc.setTextColor(100, 116, 139);
-      doc.text(title, cardX + (cardWidth * idx) + (idx * 2), currentY + 8);
-      doc.setFontSize(12);
-      doc.setTextColor(15, 23, 42);
-      doc.text(value, cardX + (cardWidth * idx) + (idx * 2), currentY + 18);
-    };
-
-    drawCard(0, "TOTAL EST. COST", `Rs ${Math.round(safeData.metadata.totalEstimatedCost || 0).toLocaleString()}`);
-    drawCard(1, "COST PER SQ.FT", safeData.metadata.costPerSqFt ? `Rs ${Math.round(safeData.metadata.costPerSqFt).toLocaleString()}` : "-");
-    drawCard(2, "COVERED AREA", safeData.metadata.totalCoveredArea ? `${safeData.metadata.totalCoveredArea} sq.ft` : "-");
-    drawCard(3, "STRUCTURE TYPE", safeData.metadata.structureType || "Standard");
-
-    currentY += 35;
-
-    if (safeData.chartData?.donut?.length > 0) {
-      const totalTxt = `Rs ${Math.round(safeData.metadata.totalEstimatedCost || 0).toLocaleString()}`;
-      const donutBase64 = await createDonutChartBase64New(safeData.chartData.donut, totalTxt);
-      if (donutBase64) {
-        doc.addImage(donutBase64, "PNG", 14, currentY, 90, 60);
+    const ignoreKeys = ['totalEstimatedCost', 'costPerSqFt', 'totalCoveredArea', 'structureType', 'projectName', 'date', 'contingency', 'gst', 'totalCost'];
+    const paramsMap: {label: string; value: any}[] = [];
+    
+    if (safeData.metadata.projectName) paramsMap.push({ label: "Project Name", value: safeData.metadata.projectName });
+    if (safeData.metadata.clientName) paramsMap.push({ label: "Client Name", value: safeData.metadata.clientName });
+    if (safeData.metadata.structureType) paramsMap.push({ label: "Structure Type", value: safeData.metadata.structureType });
+    if (safeData.metadata.totalCoveredArea) paramsMap.push({ label: "Covered Area", value: safeData.metadata.totalCoveredArea + " sq.ft" });
+    
+    Object.keys(safeData.metadata).forEach(k => {
+      if (!ignoreKeys.includes(k) && safeData.metadata[k] !== undefined) {
+         const label = k.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+         paramsMap.push({ label, value: safeData.metadata[k] });
       }
+    });
+
+    const colWidth = (pageWidth - 28) / 3;
+    paramsMap.forEach((param, index) => {
+       const col = index % 3;
+       const row = Math.floor(index / 3);
+       const yPos = currentY + (row * 12);
+       
+       doc.setFont("helvetica", "bold");
+       doc.setFontSize(8);
+       doc.setTextColor(107, 114, 128); // Muted gray
+       doc.text(param.label.toUpperCase(), 14 + (col * colWidth), yPos);
+       
+       doc.setFont("helvetica", "bold");
+       doc.setFontSize(10);
+       doc.setTextColor(15, 23, 42); // Dark slate
+       doc.text(String(param.value), 14 + (col * colWidth), yPos + 5);
+    });
+
+    const paramRows = Math.ceil(paramsMap.length / 3);
+    currentY += (paramRows * 12) + 8;
+
+    // 3. Executive Summary text
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.setTextColor(15, 23, 42);
+    doc.text("Executive Summary", 14, currentY);
+    currentY += 6;
+
+    let highestDriver = "materials";
+    let highestPct = "0.0";
+    if (safeData.chartData?.donut?.length > 0) {
+      const sorted = [...safeData.chartData.donut].sort((a,b) => b.value - a.value);
+      highestDriver = sorted[0].label;
+      const total = safeData.metadata.totalEstimatedCost || sorted.reduce((sum, d) => sum + d.value, 0);
+      if (total > 0) highestPct = ((sorted[0].value / total) * 100).toFixed(1);
     }
     
-    if (safeData.chartData?.bar?.length > 0) {
-      const barBase64 = await generateBarChartBase64(safeData.chartData.bar);
-      if (barBase64) {
-        doc.addImage(barBase64, "PNG", 110, currentY, 85, 45);
+    const summaryText = `This executive estimate report is prepared for a ${safeData.metadata.totalCoveredArea || 'custom'} sq.ft ${safeData.metadata.structureType || safeData.toolName.toLowerCase()}. The total estimated budget is Rs ${Math.round(safeData.metadata.totalEstimatedCost || 0).toLocaleString()}. The primary cost driver is ${highestDriver}, accounting for ${highestPct}% of the overall budget. See the charts and tables below for a detailed distribution.`;
+    
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.setTextColor(71, 85, 105);
+    
+    const splitText = doc.splitTextToSize(summaryText, pageWidth - 28);
+    doc.text(splitText, 14, currentY);
+    currentY += (splitText.length * 4) + 6;
+
+    // Summary Cards (3 cards)
+    doc.setFillColor(248, 250, 252);
+    doc.rect(14, currentY, (pageWidth - 34) / 3, 22, "F");
+    doc.rect(14 + (pageWidth - 34) / 3 + 3, currentY, (pageWidth - 34) / 3, 22, "F");
+    doc.rect(14 + ((pageWidth - 34) / 3) * 2 + 6, currentY, (pageWidth - 34) / 3, 22, "F");
+
+    let cardX = 17;
+    const cardWidth3 = (pageWidth - 34) / 3;
+
+    const drawCard3 = (idx: number, title: string, value: string) => {
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(8);
+      doc.setTextColor(100, 116, 139);
+      doc.text(title, cardX + (cardWidth3 * idx) + (idx * 3), currentY + 7);
+      doc.setFontSize(12);
+      doc.setTextColor(15, 23, 42);
+      doc.text(value, cardX + (cardWidth3 * idx) + (idx * 3), currentY + 16);
+    };
+
+    drawCard3(0, "TOTAL EST. COST", `Rs ${Math.round(safeData.metadata.totalEstimatedCost || 0).toLocaleString()}`);
+    drawCard3(1, "COST PER SQ.FT", safeData.metadata.costPerSqFt ? `Rs ${Math.round(safeData.metadata.costPerSqFt).toLocaleString()}` : "N/A");
+    drawCard3(2, "GENERATION DATE", dateStr);
+
+    currentY += 32;
+
+    // 4. Data Visualizations
+    if (safeData.chartData?.donut?.length > 0 || safeData.chartData?.bar?.length > 0) {
+      if (currentY + 50 > pageHeight) {
+        doc.addPage();
+        currentY = 20;
+      }
+      
+      const totalTxt = `Rs ${Math.round(safeData.metadata.totalEstimatedCost || 0).toLocaleString()}`;
+      let donutBase64 = null;
+      let barBase64 = null;
+      
+      if (safeData.chartData?.donut?.length > 0) {
+        donutBase64 = await createDonutChartBase64New(safeData.chartData.donut, totalTxt);
+      }
+      if (safeData.chartData?.bar?.length > 0) {
+        barBase64 = await generateBarChartBase64(safeData.chartData.bar);
+      }
+      
+      if (donutBase64 && barBase64) {
+         doc.addImage(donutBase64, "PNG", 14, currentY, 85, 56);
+         doc.addImage(barBase64, "PNG", 105, currentY, 90, 45);
+         currentY += 65;
+      } else if (donutBase64) {
+         doc.addImage(donutBase64, "PNG", 50, currentY, 110, 73);
+         currentY += 80;
+      } else if (barBase64) {
+         doc.addImage(barBase64, "PNG", 40, currentY, 130, 65);
+         currentY += 70;
       }
     }
 
-    currentY += 65;
-
+    // Wrap Table
     const tableBody = (safeData.boqData || []).map(row => [
       row.category || "",
       row.itemDescription || "",
@@ -322,40 +412,80 @@ export const GlobalReportEngine = {
      workbook.created = new Date();
      workbook.modified = new Date();
 
-     // Tab 1: Dashboard
-     const dashSheet = workbook.addWorksheet('Dashboard', { views: [{ showGridLines: false }] });
+     // Tab 1: Executive Dashboard
+     const dashSheet = workbook.addWorksheet('Executive Dashboard', { views: [{ showGridLines: false }] });
      
      dashSheet.getColumn("B").width = 30;
      dashSheet.getColumn("C").width = 25;
 
-     dashSheet.mergeCells("B2:D3");
+     // Header
+     dashSheet.mergeCells("B2:E3");
      const titleCell = dashSheet.getCell("B2");
-     titleCell.value = (safeData.toolName || 'ESTIMATION REPORT').toUpperCase();
-     titleCell.font = { name: 'Arial', family: 2, size: 24, bold: true, color: { argb: 'FF0F172A' } };
+     titleCell.value = (safeData.toolName || 'EXECUTIVE ESTIMATION REPORT').toUpperCase();
+     titleCell.font = { name: 'Arial', size: 24, bold: true, color: { argb: 'FFFFFFFF' } };
+     titleCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } };
+     titleCell.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
      
-     const dateCell = dashSheet.getCell("B4");
-     dateCell.value = `Generated: ${new Date().toLocaleDateString()}`;
+     const headerRight = dashSheet.getCell("D2");
+     // style merge background
+     for(let col = 2; col <= 6; col++) {
+        dashSheet.getCell(2, col).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } };
+        dashSheet.getCell(3, col).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } };
+     }
+     
+     const dateCell = dashSheet.getCell("B5");
+     dateCell.value = `Generated: ${safeData.metadata.date || new Date().toLocaleDateString()}`;
      dateCell.font = { italic: true, color: { argb: 'FF64748B' } };
 
-     dashSheet.getCell("B6").value = "Executive Summary";
-     dashSheet.getCell("B6").font = { bold: true, size: 14, color: { argb: 'FF0F172A' } };
+     dashSheet.getCell("B7").value = "Executive Summary";
+     dashSheet.getCell("B7").font = { bold: true, size: 14, color: { argb: 'FF0F172A' } };
      
-     dashSheet.getCell("B8").value = "Total Estimated Cost";
-     dashSheet.getCell("C8").value = safeData.metadata.totalEstimatedCost || 0;
-     dashSheet.getCell("C8").numFmt = '"Rs "#,##0';
-     dashSheet.getCell("C8").font = { bold: true, color: { argb: 'FFE8541A' } };
+     // Project Parameters
+     const ignoreKeys = ['totalEstimatedCost', 'costPerSqFt', 'totalCoveredArea', 'structureType', 'projectName', 'date', 'contingency', 'gst', 'totalCost'];
+     const paramsMap: {label: string; value: any}[] = [];
+     
+     if (safeData.metadata.projectName) paramsMap.push({ label: "Project Name", value: safeData.metadata.projectName });
+     if (safeData.metadata.clientName) paramsMap.push({ label: "Client Name", value: safeData.metadata.clientName });
+     if (safeData.metadata.structureType) paramsMap.push({ label: "Structure Type", value: safeData.metadata.structureType });
+     if (safeData.metadata.totalCoveredArea) paramsMap.push({ label: "Covered Area", value: safeData.metadata.totalCoveredArea + " sq.ft" });
+     
+     Object.keys(safeData.metadata).forEach(k => {
+       if (!ignoreKeys.includes(k) && safeData.metadata[k] !== undefined) {
+          const label = k.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+          paramsMap.push({ label, value: safeData.metadata[k] });
+       }
+     });
 
-     dashSheet.getCell("B9").value = "Cost per Sq.Ft";
-     dashSheet.getCell("C9").value = safeData.metadata.costPerSqFt || 0;
-     dashSheet.getCell("C9").numFmt = '"Rs "#,##0';
+     let startRow = 9;
+     paramsMap.forEach((p, idx) => {
+         const row = startRow + idx;
+         dashSheet.getCell(`B${row}`).value = p.label;
+         dashSheet.getCell(`B${row}`).font = { bold: true, color: { argb: 'FF64748B' } };
+         dashSheet.getCell(`C${row}`).value = p.value;
+         dashSheet.getCell(`C${row}`).font = { bold: true, color: { argb: 'FF0F172A' } };
+     });
+     
+     startRow = startRow + paramsMap.length + 1;
 
-     dashSheet.getCell("B10").value = "Total Covered Area (sq.ft)";
-     dashSheet.getCell("C10").value = safeData.metadata.totalCoveredArea || 0;
+     dashSheet.getCell(`B${startRow}`).value = "Total Estimated Cost";
+     dashSheet.getCell(`C${startRow}`).value = safeData.metadata.totalEstimatedCost || 0;
+     dashSheet.getCell(`C${startRow}`).numFmt = '"Rs "#,##0';
+     dashSheet.getCell(`C${startRow}`).font = { bold: true, size: 12, color: { argb: 'FFE8541A' } };
 
-     dashSheet.getCell("B11").value = "Structure Type";
-     dashSheet.getCell("C11").value = safeData.metadata.structureType || "Standard";
+     dashSheet.getCell(`B${startRow+1}`).value = "Cost per Sq.Ft";
+     dashSheet.getCell(`C${startRow+1}`).value = safeData.metadata.costPerSqFt || 0;
+     dashSheet.getCell(`C${startRow+1}`).numFmt = '"Rs "#,##0';
+     dashSheet.getCell(`C${startRow+1}`).font = { bold: true, size: 12 };
 
-     // If charts exist, we embed the donut chart
+     for(let r=9; r<=startRow+1; r++) {
+         const cellB = dashSheet.getCell(`B${r}`);
+         const cellC = dashSheet.getCell(`C${r}`);
+         cellB.border = { bottom: {style:'thin', color:{argb:'FFE2E8F0'}} };
+         cellB.fill = { type: 'pattern', pattern: 'solid', fgColor: {argb: 'FFF8FAFC'} };
+         cellC.border = { bottom: {style:'thin', color:{argb:'FFE2E8F0'}} };
+     }
+
+     // If charts exist, embed the donut chart dynamically on the right
      if (safeData.chartData?.donut?.length > 0) {
        try {
          const donutBase64 = await createDonutChartBase64New(safeData.chartData.donut, `Rs ${Math.round(safeData.metadata.totalEstimatedCost || 0).toLocaleString()}`);
@@ -365,19 +495,11 @@ export const GlobalReportEngine = {
              extension: 'png',
            });
            dashSheet.addImage(imageId, {
-             tl: { col: 4, row: 5 },
-             ext: { width: 500, height: 333 }
+             tl: { col: 4, row: 7 },
+             ext: { width: 550, height: 366 }
            });
          }
        } catch (e) { console.error("Could not append image to excel", e); }
-     }
-
-     for(let r=8; r<=11; r++) {
-         const cellB = dashSheet.getCell(`B${r}`);
-         const cellC = dashSheet.getCell(`C${r}`);
-         cellB.border = { top: {style:'thin', color:{argb:'FFE2E8F0'}}, bottom: {style:'thin', color:{argb:'FFE2E8F0'}} };
-         cellB.fill = { type: 'pattern', pattern: 'solid', fgColor: {argb: 'FFF8FAFC'} };
-         cellC.border = { top: {style:'thin', color:{argb:'FFE2E8F0'}}, bottom: {style:'thin', color:{argb:'FFE2E8F0'}} };
      }
 
      // Tab 2: Detailed BOQ
@@ -408,9 +530,8 @@ export const GlobalReportEngine = {
          rate: row.rate,
        });
 
-       // INTERACTIVE FORMULA
        const amtCell = excelRow.getCell(6);
-       amtCell.value = { formula: `D${rowNum}*E${rowNum}`, result: row.quantity * row.rate };
+       amtCell.value = { formula: `D${rowNum}*E${rowNum}`, result: row.quantity * row.rate } as any;
        
        excelRow.getCell(4).numFmt = '#,##0.00';
        excelRow.getCell(5).numFmt = '"Rs "#,##0';
@@ -432,9 +553,9 @@ export const GlobalReportEngine = {
      footerRow.font = { bold: true, size: 12, color: { argb: 'FF0F172A' } };
      
      const totalCell = footerRow.getCell(6);
-     totalCell.value = { formula: `SUM(F2:F${lastRow})` };
+     totalCell.value = { formula: `SUM(F2:F${lastRow})` } as any;
      totalCell.numFmt = '"Rs "#,##0';
-     totalCell.font = { bold: true, color: { argb: 'FFE8541A' } }; // Orange brand
+     totalCell.font = { bold: true, color: { argb: 'FFE8541A' } }; 
 
      return workbook;
   }

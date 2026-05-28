@@ -1,6 +1,6 @@
 import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
-import { generateProfessionalPDF, formatCapitalize } from './pdfGenerator';
+import { GlobalReportEngine } from "./GlobalReportEngine";
 
 interface BOQItem {
   id: string;
@@ -12,37 +12,37 @@ interface BOQItem {
 }
 
 export const generateBOQPDF = async (items: BOQItem[], projectName: string, subtotal: number, contingencyAmt: number, gstAmt: number, grandTotal: number, currency: string) => {
-  const tableRows: any[] = [];
+  const boqData = items.map(item => {
+    return {
+      category: item.division,
+      itemDescription: item.description,
+      quantity: item.quantity,
+      unit: item.unit,
+      rate: item.rate,
+      amount: item.quantity * item.rate
+    };
+  });
   
-  items.forEach((item) => {
-    tableRows.push([
-      item.division,
-      item.description,
-      `${item.quantity.toFixed(2)} (@ ${currency}${item.rate.toFixed(2)})`,
-      item.unit,
-      (item.quantity * item.rate).toFixed(2)
-    ]);
-  });
-
-  tableRows.push(["", "", "", "Subtotal", subtotal.toFixed(2)]);
-  tableRows.push(["", "", "", "Contingency", contingencyAmt.toFixed(2)]);
-  tableRows.push(["", "", "", "GST/VAT", gstAmt.toFixed(2)]);
-  tableRows.push(["", "", "", "Grand Total", grandTotal.toFixed(2)]);
-
-  const doc = await generateProfessionalPDF({
-    title: "Bill of Quantities (BOQ)",
-    inputs: {
-      "Project Name": projectName,
-      "Date": new Date().toLocaleDateString()
+  const payload = {
+    toolName: "Bill of Quantities (BOQ)",
+    metadata: {
+      totalEstimatedCost: grandTotal,
+      projectName: projectName,
+      subtotal: subtotal,
+      contingency: contingencyAmt,
+      gst: gstAmt,
+      date: new Date().toLocaleDateString()
     },
-    tableData: tableRows,
-    grandTotal
-  });
+    chartData: {
+      donut: boqData.map(d => ({ label: d.itemDescription, value: d.amount })),
+      bar: [...boqData].sort((a,b) => b.amount - a.amount).slice(0, 5).map(d => ({ label: d.itemDescription, value: d.amount }))
+    },
+    boqData
+  };
 
+  const doc = await GlobalReportEngine.generatePDF(payload);
   doc.save(`${projectName.replace(/\s+/g, '_')}_BOQ.pdf`);
 };
-
-import { GlobalReportEngine } from "./GlobalReportEngine";
 
 export const generateBOQExcel = async (items: BOQItem[], projectName: string, subtotal: number, contingencyAmt: number, gstAmt: number, grandTotal: number, currency: string) => {
   const boqData = items.map(item => {

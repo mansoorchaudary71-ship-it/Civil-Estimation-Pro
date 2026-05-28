@@ -285,173 +285,159 @@ export default function TopNavbar({
       {/* MOBILE HAMBURGER MENU OVERLAY               */}
       {/* ------------------------------------------- */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed top-[88px] left-4 right-4 bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-2xl shadow-2xl border border-slate-200/50 dark:border-white/10 rounded-3xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 ease-out z-[90]">
-          <div className="flex flex-col max-h-[75vh] overflow-y-auto">
-            {/* Nav Items */}
-            <nav className="flex flex-col p-2">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    onNavigate?.(item.id);
-                  }}
-                  className="px-6 py-4 rounded-2xl text-left text-[16px] font-bold text-slate-800 dark:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
-                >
-                  {item.name}
-                </button>
-              ))}
-              <div className="flex flex-col p-4 gap-3">
-                <button
+        <>
+          {/* Backdrop */}
+          <div 
+            className="md:hidden fixed inset-0 bg-slate-900/20 dark:bg-black/60 backdrop-blur-sm z-[90] animate-in fade-in duration-300"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+
+          {/* Drawer Sidebar */}
+          <div className="md:hidden fixed inset-y-0 right-0 w-[85vw] max-w-[340px] bg-white/80 dark:bg-slate-900/80 backdrop-blur-3xl shadow-2xl border-l border-white/40 dark:border-white/10 z-[100] flex flex-col animate-in slide-in-from-right duration-300">
+             
+            {/* Header / Start Estimating CTA */}
+            <div className="flex items-center justify-between p-4 border-b border-slate-200/50 dark:border-white/5">
+               <button
                   onClick={() => {
                     setIsMobileMenuOpen(false);
                     onNavigate?.('house' as ModuleId);
                   }}
-                  className="relative w-full py-3.5 rounded-full text-[15px] font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 shadow-md text-center transition-transform active:scale-[0.98] overflow-hidden group"
+                  className="flex-1 py-3 px-4 rounded-full text-sm font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 shadow-[0_4px_14px_rgba(79,70,229,0.3)] text-center transition-transform active:scale-[0.98]"
                 >
-                  <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-[shimmer_2s_infinite]"></div>
                   Start Estimating
-                </button>
-                {!isAuthenticated ? (
-                  <button
-                    onClick={() => { setIsMobileMenuOpen(false); onOpenAuth?.(); }}
-                    className="w-full py-3.5 rounded-full text-[15px] font-bold bg-slate-100 dark:bg-white/10 text-slate-900 dark:text-white shadow-sm border border-slate-200 dark:border-white/5 text-center transition-transform active:scale-[0.98]"
-                  >
-                    Sign In
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      handleSignOut();
-                    }}
-                    className="w-full py-3.5 rounded-full text-[14px] font-bold bg-rose-50 text-rose-600 dark:bg-rose-500/10 dark:text-rose-400 text-center transition-transform active:scale-[0.98]"
-                  >
-                    Sign Out
-                  </button>
-                )}
-              </div>
-            </nav>
-
-            <div className="px-6 py-4 flex flex-col gap-6 bg-slate-50/50 dark:bg-slate-800/20">
-              <div className="flex flex-col gap-4">
-                <span className="text-[11px] font-bold tracking-widest uppercase text-slate-500 dark:text-slate-400">Preferences</span>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Theme</span>
-                  <DarkModeToggle isMobile />
-                </div>
-                
-                <div className="flex items-center justify-between mt-1">
-                  <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Help / Support</span>
-                  <button 
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      onNavigate?.('contact' as ModuleId);
-                    }}
-                    className="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 transition-colors"
-                  >
-                    <div className="font-bold text-md cursor-pointer">?</div>
-                  </button>
-                </div>
-                
-                <div className="flex flex-col gap-2 mt-2">
-                   <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Unit System</label>
-                   <div className="flex bg-slate-200/50 dark:bg-slate-800 rounded-lg p-1">
-                     <button
-                       onClick={() => updateSettings({ measurement: 'FPS' })}
-                       className={`flex-1 py-2 text-sm font-bold rounded-md transition-colors ${settings.measurement === 'FPS' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 dark:text-slate-400'}`}
-                     >
-                       Imperial (ft)
-                     </button>
-                     <button
-                       onClick={() => updateSettings({ measurement: 'SI' })}
-                       className={`flex-1 py-2 text-sm font-bold rounded-md transition-colors ${settings.measurement === 'SI' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 dark:text-slate-400'}`}
-                     >
-                       Metric (m)
-                     </button>
-                   </div>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                   <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Currency</label>
-                   <select
-                     value={settings.currency}
-                     onChange={(e) => updateSettings({ currency: e.target.value as Currency })}
-                     className="w-full bg-slate-200/50 dark:bg-slate-800 rounded-lg py-2.5 px-3 text-sm font-bold text-slate-900 dark:text-white outline-none"
-                   >
-                     <option value="USD">USD ($) - US Dollar</option>
-                     <option value="PKR">PKR (Rs) - Pakistani Rupee</option>
-                     <option value="INR">INR (₹) - Indian Rupee</option>
-                     <option value="AED">AED - UAE Dirham</option>
-                     <option value="SAR">SAR - Saudi Riyal</option>
-                     <option value="BDT">BDT (৳) - Bangladeshi Taka</option>
-                     <option value="GBP">GBP (£) - British Pound</option>
-                   </select>
-                </div>
-              </div>
+               </button>
+               <button onClick={() => setIsMobileMenuOpen(false)} className="ml-3 w-10 h-10 rounded-full bg-slate-100/80 dark:bg-slate-800/80 flex items-center justify-center text-slate-500 hover:text-slate-900 dark:text-slate-400 transition-colors">
+                  <X className="w-5 h-5" />
+               </button>
             </div>
 
-            {/* Footer Auth & Action */}
-            <div className="p-6 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-              {isAuthenticated ? (
-                <div className="flex flex-col gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 font-bold overflow-hidden">
-                      {user?.photoURL ? (
-                        <img src={user.photoURL} alt="User Profile" loading="lazy" className="w-full h-full object-cover" />
-                      ) : (
-                        <span>{user?.displayName?.[0]?.toUpperCase() || <User className="w-5 h-5" />}</span>
-                      )}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-[14px] font-bold text-slate-900 dark:text-white truncate">{user?.displayName || "User"}</p>
-                      <p className="text-[12px] text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
-                    </div>
+            {/* Scrollable Content */}
+            <div className="flex-1 overflow-y-auto pb-6">
+              
+              {/* Primary Navigation */}
+              <nav className="flex flex-col gap-1 px-4 py-6">
+                {navItems.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      onNavigate?.(item.id);
+                    }}
+                    className="flex items-center px-4 py-3.5 rounded-full text-left text-[15px] font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 hover:bg-slate-100/80 dark:hover:bg-slate-800/80 dark:hover:text-white transition-colors"
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </nav>
+
+              {/* Preferences Grouping */}
+              <div className="px-4">
+                <div className="bg-white/50 dark:bg-slate-800/40 rounded-3xl border border-white/60 dark:border-white/5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] dark:shadow-none p-5 flex flex-col gap-5 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent dark:from-white/5 dark:to-transparent pointer-events-none"></div>
+                  
+                  <span className="text-[11px] font-black tracking-widest uppercase text-slate-400 dark:text-slate-500 mb-1 relative z-10">Preferences</span>
+                  
+                  <div className="flex items-center justify-between relative z-10">
+                    <span className="text-[14px] font-bold text-slate-700 dark:text-slate-300">Theme</span>
+                    <DarkModeToggle isMobile />
                   </div>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => { setIsMobileMenuOpen(false); onOpenProfile?.(); }}
-                      className="flex-1 py-2.5 rounded-xl text-[14px] font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  
+                  <div className="flex items-center justify-between relative z-10">
+                    <span className="text-[14px] font-bold text-slate-700 dark:text-slate-300">Help / Support</span>
+                    <button 
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        onNavigate?.('contact' as ModuleId);
+                      }}
+                      className="w-8 h-8 rounded-full bg-slate-200/50 dark:bg-slate-700/50 flex items-center justify-center text-slate-600 dark:text-slate-300 transition-colors"
                     >
-                      Account
+                      <div className="font-bold text-md cursor-pointer">?</div>
                     </button>
-                    <button
-                      onClick={handleSignOut}
-                      className="flex-1 py-2.5 rounded-xl text-[14px] font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors"
-                    >
-                      Sign Out
-                    </button>
+                  </div>
+                  
+                  <div className="flex flex-col gap-2.5 relative z-10">
+                     <label className="text-[14px] font-bold text-slate-700 dark:text-slate-300">Unit System</label>
+                     <div className="flex bg-slate-200/50 dark:bg-slate-900/50 rounded-xl p-1 shadow-inner">
+                       <button
+                         onClick={() => updateSettings({ measurement: 'FPS' })}
+                         className={`flex-1 py-2 text-[13px] font-bold rounded-lg transition-all duration-300 ${settings.measurement === 'FPS' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 dark:text-slate-400'}`}
+                       >
+                         Imperial (ft)
+                       </button>
+                       <button
+                         onClick={() => updateSettings({ measurement: 'SI' })}
+                         className={`flex-1 py-2 text-[13px] font-bold rounded-lg transition-all duration-300 ${settings.measurement === 'SI' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 dark:text-slate-400'}`}
+                       >
+                         Metric (m)
+                       </button>
+                     </div>
+                  </div>
+
+                  <div className="flex flex-col gap-2.5 relative z-10">
+                     <label className="text-[14px] font-bold text-slate-700 dark:text-slate-300">Currency</label>
+                     <select
+                       value={settings.currency}
+                       onChange={(e) => updateSettings({ currency: e.target.value as Currency })}
+                       className="w-full bg-slate-200/50 dark:bg-slate-900/50 rounded-xl py-2.5 px-3 text-[13px] font-bold text-slate-700 dark:text-slate-300 outline-none shadow-inner border border-transparent focus:border-indigo-500/30 transition-all cursor-pointer"
+                     >
+                       <option value="USD">USD ($) - US Dollar</option>
+                       <option value="PKR">PKR (Rs) - Pakistani Rupee</option>
+                       <option value="INR">INR (₹) - Indian Rupee</option>
+                       <option value="AED">AED - UAE Dirham</option>
+                       <option value="SAR">SAR - Saudi Riyal</option>
+                       <option value="BDT">BDT (৳) - Bangladeshi Taka</option>
+                       <option value="GBP">GBP (£) - British Pound</option>
+                     </select>
                   </div>
                 </div>
+              </div>
+
+            </div>
+
+            {/* Fixed Bottom: User Profile & Account Actions */}
+            <div className="shrink-0 p-4 border-t border-slate-200/50 dark:border-white/5 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md">
+              {isAuthenticated ? (
+                <div className="flex items-center gap-3 p-3 bg-white/60 dark:bg-slate-800/60 rounded-2xl shadow-sm border border-white/60 dark:border-white/5 backdrop-blur-sm">
+                  <div className="w-10 h-10 rounded-full shrink-0 flex items-center justify-center text-slate-600 dark:text-slate-300 font-bold overflow-hidden ring-2 ring-indigo-500/20 bg-slate-100 dark:bg-slate-700">
+                    {user?.photoURL ? (
+                      <img src={user.photoURL} alt="User Profile" loading="lazy" className="w-full h-full object-cover" />
+                    ) : (
+                      <span>{user?.displayName?.[0]?.toUpperCase() || <User className="w-5 h-5" />}</span>
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0 pr-1 cursor-pointer" onClick={() => { setIsMobileMenuOpen(false); onOpenProfile?.(); }}>
+                    <p className="text-[14px] font-bold text-slate-900 dark:text-white truncate">{user?.displayName || "Account"}</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">{user?.email}</p>
+                  </div>
+                  <button
+                    onClick={handleSignOut}
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-rose-500/80 hover:text-rose-600 bg-rose-50/50 hover:bg-rose-100 dark:bg-rose-500/10 dark:hover:bg-rose-500/20 transition-colors shrink-0"
+                    title="Log out"
+                  >
+                    <LogOut className="w-4 h-4 ml-0.5" />
+                  </button>
+                </div>
               ) : (
-                <div className="flex flex-col gap-2 mb-3">
+                <div className="flex flex-col gap-2 relative z-10 w-full mb-1">
                   <button
                     onClick={handleGoogleSignIn}
                     disabled={isAuthLoading}
-                    className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl text-[15px] font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors disabled:opacity-50"
+                    className="w-full flex items-center justify-center gap-3 py-3.5 px-4 rounded-full text-[14px] font-bold text-slate-700 dark:text-slate-200 bg-white/80 dark:bg-slate-800/80 shadow-sm border border-slate-200/60 dark:border-white/5 hover:bg-white dark:hover:bg-slate-700 transition-colors disabled:opacity-50"
                   >
-                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Login" loading="lazy" className="w-5 h-5 bg-white rounded-full p-0.5" />
-                    {isAuthLoading ? "..." : "Sign In with Google"}
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Login" loading="lazy" className="w-5 h-5 bg-white rounded-full p-0.5 shadow-sm" />
+                    {isAuthLoading ? "Signing in..." : "Sign in with Google"}
                   </button>
                   {authError && (
-                    <div className="text-red-500 text-xs text-center border border-red-500/20 bg-red-500/10 rounded overflow-hidden p-2">
+                    <div className="text-red-500 text-[11px] text-center border border-red-500/20 bg-red-500/10 rounded-lg p-2 font-medium">
                       {authError}
                     </div>
                   )}
                 </div>
               )}
-              
-              <button 
-                onClick={() => { setIsMobileMenuOpen(false); onNavigate?.('house' as ModuleId); }}
-                className="w-full mt-3 px-6 py-3 rounded-xl text-[15px] font-bold text-white bg-gradient-to-r from-indigo-500 to-cyan-500 shadow-md"
-              >
-                Start Estimating
-              </button>
             </div>
-            
-            <div className="h-24 shrink-0"></div>
+
           </div>
-        </div>
+        </>
       )}
     </>
   );
