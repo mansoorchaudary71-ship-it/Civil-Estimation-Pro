@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   History,
   Save,
@@ -441,6 +441,7 @@ export function CalculationHistory({
       `calc_history_${calculatorId}`,
       JSON.stringify(newHistory),
     );
+    toast.success("Saved to local history");
 
     setTimeout(() => {
       setIsSavingLocal(false);

@@ -137,6 +137,7 @@ import {
   ClipboardList,
   FlaskConical,
   Layout,
+  Type,
 } from "lucide-react";
 
 import { Grid2X2, Waves, Pickaxe, Building2 } from "lucide-react";
@@ -552,7 +553,7 @@ export default function App() {
                         ].includes(activeModule) ? (
                           <div
                             ref={scrollRef}
-                            className="flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto pb-[90px] md:pb-0"
+                            className="flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto pb-[64px] md:pb-0"
                           >
                             <div className="flex flex-col min-h-full relative w-full">
                               {activeModule === "home" && (
@@ -619,7 +620,7 @@ export default function App() {
                             </div>
                           </div>
                         ) : (
-                          <div className="flex-1 flex flex-col min-h-0 relative w-full bg-transparent pb-[90px] md:pb-32">
+                          <div className="flex-1 flex flex-col min-h-0 relative w-full bg-transparent pb-[64px] md:pb-32">
                             {/* We remove AppHeader for Desktop, handle differently inside module wrappers if needed, but for now we keep ModuleWrapper and conditionally hide AppHeader inside it on desktop */}
                             {activeModule === "tracker" && (
                               <ModuleWrapper
@@ -1334,30 +1335,63 @@ import Breadcrumb, { BreadcrumbItem } from "./components/Breadcrumb";
 
 function FontSizeControls() {
   const { settings, updateSettings } = useSettings();
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
-    <div className="flex items-center space-x-1 bg-black/5 dark:bg-white/10 rounded-lg p-1 mr-2 px-2">
+    <div className="relative mr-2" ref={dropdownRef}>
       <button
-        onClick={() => updateSettings({ fontSize: "small" })}
-        className={`px-2 py-1 text-xs font-bold rounded-md ${settings.fontSize === "small" ? "bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400" : "text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"}`}
-        aria-label="Decrease text size"
+        onClick={() => setIsOpen(!isOpen)}
+        className={`p-1.5 rounded-lg transition-colors flex items-center justify-center ${isOpen ? "bg-black/10 dark:bg-white/20 text-slate-800 dark:text-slate-200" : "hover:bg-black/5 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400"}`}
+        aria-label="Text Size settings"
       >
-        A-
+        <Type className="w-5 h-5" />
       </button>
-      <button
-        onClick={() => updateSettings({ fontSize: "medium" })}
-        className={`px-2 py-1 text-sm font-bold rounded-md ${settings.fontSize === "medium" ? "bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400" : "text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"}`}
-        aria-label="Default text size"
-      >
-        A
-      </button>
-      <button
-        onClick={() => updateSettings({ fontSize: "large" })}
-        className={`px-2 py-1 text-base font-bold rounded-md ${settings.fontSize === "large" ? "bg-white dark:bg-slate-700 shadow-sm text-indigo-600 dark:text-indigo-400" : "text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"}`}
-        aria-label="Increase text size"
-      >
-        A+
-      </button>
+
+      {isOpen && (
+        <div className="absolute right-0 top-full mt-2 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-100 dark:border-slate-700 p-1 flex items-center space-x-1 z-50">
+          <button
+            onClick={() => {
+              updateSettings({ fontSize: "small" });
+              setIsOpen(false);
+            }}
+            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${settings.fontSize === "small" ? "bg-indigo-50 dark:bg-slate-700 text-indigo-600 dark:text-indigo-400" : "text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700/50"}`}
+          >
+            A-
+          </button>
+          <button
+            onClick={() => {
+              updateSettings({ fontSize: "medium" });
+              setIsOpen(false);
+            }}
+            className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${settings.fontSize === "medium" ? "bg-indigo-50 dark:bg-slate-700 text-indigo-600 dark:text-indigo-400" : "text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700/50"}`}
+          >
+            A
+          </button>
+          <button
+            onClick={() => {
+              updateSettings({ fontSize: "large" });
+              setIsOpen(false);
+            }}
+            className={`px-3 py-1.5 text-base font-bold rounded-lg transition-colors ${settings.fontSize === "large" ? "bg-indigo-50 dark:bg-slate-700 text-indigo-600 dark:text-indigo-400" : "text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700/50"}`}
+          >
+            A+
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -1622,7 +1656,7 @@ function ModuleWrapper({
         id="main-calculator-content"
         tabIndex={-1}
       >
-        <div className="min-h-full flex flex-col items-center pb-[140px] md:pb-[140px]">
+        <div className="min-h-full flex flex-col items-center pb-[72px] md:pb-[96px]">
           <div className="w-full max-w-full">
             {/* Added breadcrumb for desktop */}
             <div className="hidden md:flex ml-8 mt-6 mb-2 items-center justify-between pr-8">

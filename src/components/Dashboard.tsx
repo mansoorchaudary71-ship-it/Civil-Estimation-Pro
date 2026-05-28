@@ -938,7 +938,7 @@ const ToolCard = ({
       onClick={() => onSelect(mod.id)}
       id={`module-card-${mod.id}`}
       title={mod.desc}
-      className={`group relative flex flex-col h-full w-full p-6 text-left rounded-3xl cursor-pointer transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-purple-600 no-scale bg-white/90 backdrop-blur-md border-2 ${theme.border} shadow-[0_4px_16px_rgba(26,26,58,0.04)] hover:shadow-[0_16px_40px_-4px_rgba(26,26,58,0.15)] hover:-translate-y-1`}
+      className={`group relative flex flex-col h-full w-full p-6 text-left rounded-3xl cursor-pointer transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-purple-600 no-scale bg-[#FDFBF7]/90 dark:bg-slate-800/90 backdrop-blur-md border-2 ${theme.border} shadow-[0_4px_16px_rgba(26,26,58,0.04)] hover:shadow-[0_16px_40px_-4px_rgba(26,26,58,0.15)] hover:-translate-y-1`}
     >
       {/* Badges on top right */}
       <div className="absolute -top-3 -right-2 flex items-center gap-1.5 z-20 pointer-events-none px-2">
@@ -989,7 +989,7 @@ const ToolCard = ({
 
       {/* Footer */}
       <div
-        className={`w-full flex items-center flex-wrap gap-2 mt-auto pt-4 border-t border-slate-100/60`}
+        className={`w-full flex items-center flex-wrap gap-2 mt-auto pt-4 border-t-[1px] border-slate-200 dark:border-slate-700/60`}
       >
         <div
           className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#F8F9FA] border border-slate-200/60`}
