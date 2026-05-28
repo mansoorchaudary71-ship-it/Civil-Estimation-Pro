@@ -128,149 +128,81 @@ export default function TopNavbar({
 
   return (
     <>
-      <header className={`w-full sticky top-0 z-50 transition-all duration-300 pointer-events-auto bg-white backdrop-blur-md ${scrolled ? 'border-b border-slate-200 shadow-sm' : 'border-b border-transparent'} flex items-center h-16 md:h-18 px-4 md:px-6`}>
-        <div className="mx-auto max-w-[1400px] w-full flex items-center justify-between">
+      <header className={`w-full sticky top-0 z-50 transition-all duration-300 pointer-events-auto bg-white backdrop-blur-md border-b border-slate-200 shadow-sm flex items-center h-16 px-4 md:px-6`}>
+        <div className="mx-auto max-w-[900px] w-full flex items-center justify-between">
           
           {/* Left: Logo */}
-          <div className="flex items-center gap-2 justify-start cursor-pointer group shrink-0" onClick={() => onNavigate?.('home' as ModuleId)}>
-            <div className="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center transition-all duration-300 text-purple-600 group-hover:scale-105 group-hover:rotate-6 bg-slate-50 border border-slate-200 shadow-sm rounded-xl p-1.5">
-              <Logo className="w-full h-full" />
+          <div className="flex items-center gap-3 justify-start cursor-pointer group shrink-0" onClick={() => onNavigate?.('home' as ModuleId)}>
+            <div className="w-10 h-10 flex items-center justify-center transition-all duration-300 bg-gradient-to-br from-orange-400 to-orange-600 shadow-md rounded-xl text-xl">
+              🏗️
             </div>
-            <span className="font-heading font-black text-xl md:text-2xl text-slate-900 tracking-tight">
+            <span className="font-extrabold text-xl text-slate-900 tracking-tight">
               Civil Estimation Pro
             </span>
           </div>
 
-          {/* Center: Nav links (Desktop/Tablet >= 1024px) */}
-          <div className="hidden lg:flex items-center justify-center gap-2 xl:ml-8">
+          {/* Center: Nav links (Desktop) */}
+          <div className="hidden lg:flex items-center justify-center gap-6 flex-1 ml-8">
             {navItems.filter(link => link.id !== 'home').map((link) => (
               <button 
                 key={link.name}
                 onClick={() => onNavigate?.(link.id)}
-                className="px-4 py-2 rounded-full text-sm font-semibold text-slate-600 hover:text-purple-600 hover:bg-slate-50 transition-all duration-300"
+                className="text-[15px] font-semibold text-slate-600 hover:text-purple-600 transition-colors"
               >
                 {link.name}
               </button>
             ))}
           </div>
 
-          {/* Right: Action Buttons & Menu Toggle */}
-          <div className="flex items-center justify-end flex-1 gap-2 md:gap-4">
+          {/* Right: Action Buttons */}
+          <div className="flex items-center justify-end gap-3 flex-shrink-0">
             
-            <div className="flex items-center gap-3">
-
-              <div className="hidden md:flex items-center">
-                <button 
-                  onClick={() => onNavigate?.('contact' as ModuleId)}
-                  className="w-10 h-10 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 hover:text-purple-600 hover:bg-slate-100 shadow-sm transition-all duration-300 active:scale-95"
-                  title="Support"
-                >
-                  <div className="font-bold text-lg font-heading">?</div>
-                </button>
-              </div>
-
-              {/* Desktop Auth / Profile */}
-              <div className="hidden md:block">
-                {!isAuthenticated ? (
-                  <div className="relative">
-                    <button 
-                      onClick={() => onOpenAuth?.()}
-                      disabled={isAuthLoading}
-                      className="text-sm font-bold text-purple-600 hover:text-purple-700 px-2 underline-offset-4 hover:underline transition-all whitespace-nowrap"
-                      title="Sign In"
-                    >
-                      Sign In
-                    </button>
-                  </div>
-                ) : (
-                  <div ref={profileRef} className="relative">
-                    <button 
-                      onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-                      className="h-10 pl-1.5 pr-3 rounded-full bg-slate-50 shadow-sm border border-slate-200 flex items-center gap-2 text-sm font-bold text-slate-700 hover:bg-slate-100 transition-all duration-300"
-                    >
-                      {user?.photoURL ? (
-                          <img src={user.photoURL} alt="User Avatar" className="w-8 h-8 rounded-full object-cover shadow-sm border border-slate-200 ring-2 ring-white" />
-                      ) : (
-                          <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center border border-slate-200 ring-2 ring-white">
-                            <User className="w-4 h-4 text-slate-500" />
-                          </div>
-                      )}
-                      <span className="hidden sm:block truncate max-w-[100px] tracking-tight">{user?.displayName?.split(' ')[0] || 'Account'}</span>
-                      <div className="w-5 h-5 rounded-full flex items-center justify-center text-slate-400">
-                        <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isProfileMenuOpen ? 'rotate-180' : ''}`} />
-                      </div>
-                    </button>
-
-                    {isProfileMenuOpen && (
-                      <div className="absolute right-0 top-[120%] w-56 bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden z-50">
-                        <div className="px-4 py-3 border-b border-slate-100 bg-slate-50">
-                          <p className="text-sm font-bold text-slate-900 truncate tracking-tight">{user?.displayName || 'User'}</p>
-                          <p className="text-xs text-slate-500 truncate">{user?.email}</p>
-                        </div>
-                        <div className="p-2 space-y-1">
-                          <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-colors">
-                            <User className="w-4 h-4" /> My Profile
-                          </button>
-                          <button onClick={() => { setIsProfileMenuOpen(false); onOpenProfile?.(); }} className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-colors">
-                            <Settings className="w-4 h-4" /> Account Settings
-                          </button>
-                          <div className="h-px bg-slate-100 my-2" />
-                          <button 
-                            onClick={handleSignOut}
-                            className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold text-red-600 hover:bg-red-50 transition-colors"
-                          >
-                            <LogOut className="w-4 h-4" /> Sign Out
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-              
-              <div className="hidden lg:block">
-                <button 
-                  onClick={() => onNavigate?.('house' as ModuleId)}
-                  className="px-6 py-2.5 rounded-full text-sm font-bold text-white bg-purple-600 hover:bg-purple-700 shadow-md hover:shadow-lg transition-all duration-300 active:scale-95"
-                >
-                  Start Estimating
-                </button>
-              </div>
-            </div>
-
-            {/* Mobile Action Cluster */}
-            <div className="md:hidden flex items-center gap-1.5 p-1 rounded-full bg-slate-50 border border-slate-200 backdrop-blur-sm shadow-sm">
-              <button 
-                onClick={() => {
-                  if (isAuthenticated) {
-                     onOpenProfile?.();
-                  } else {
-                     onOpenAuth?.();
-                  }
-                }}
-                className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-transform duration-150 active:scale-95"
-              >
-                {isAuthenticated && user?.photoURL ? (
-                  <img src={user.photoURL} alt="Avatar" className="w-9 h-9 rounded-full object-cover ring-2 ring-white shadow-sm" />
-                ) : (
-                  <div className="w-9 h-9 rounded-full bg-slate-200 flex items-center justify-center ring-2 ring-white shadow-sm">
-                    <User className="w-4 h-4 text-slate-500" />
-                  </div>
-                )}
-              </button>
-              <button 
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="w-11 h-11 rounded-full flex items-center justify-center text-slate-700 transition-transform duration-150 active:scale-95"
-                aria-label="Toggle Menu"
-              >
-                {isMobileMenuOpen ? (
-                  <X className="w-5 h-5" strokeWidth={2} />
-                ) : (
-                  <Menu className="w-5 h-5" strokeWidth={2} />
-                )}
-              </button>
-            </div>
+            <button 
+              onClick={() => onNavigate?.('contact' as ModuleId)}
+              className="w-10 h-10 rounded-full flex items-center justify-center text-slate-500 hover:text-purple-600 hover:bg-slate-50 transition-colors"
+              title="Toggle Theme"
+            >
+              <Sun className="w-5 h-5" />
+            </button>
             
+            <button 
+              onClick={() => onNavigate?.('contact' as ModuleId)}
+              className="w-10 h-10 rounded-full flex items-center justify-center text-slate-500 hover:text-purple-600 hover:bg-slate-50 transition-colors hidden sm:flex"
+              title="Support"
+            >
+              <div className="font-bold text-lg font-heading">?</div>
+            </button>
+
+            {!isAuthenticated ? (
+                <button 
+                  onClick={() => onOpenAuth?.()}
+                  disabled={isAuthLoading}
+                  className="hidden sm:inline-flex px-4 py-2 text-sm font-semibold text-purple-600 border border-purple-600 rounded-full hover:bg-purple-50 transition-colors"
+                >
+                  Sign In
+                </button>
+            ) : (
+                <button 
+                  onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                  className="h-10 pl-1 pr-3 rounded-full bg-slate-50 border border-slate-200 flex items-center gap-2 text-sm font-bold text-slate-700 hover:bg-slate-100 transition-colors"
+                >
+                  {user?.photoURL ? (
+                      <img src={user.photoURL} alt="User Avatar" className="w-8 h-8 rounded-full" />
+                  ) : (
+                      <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center">
+                        <User className="w-4 h-4 text-slate-500" />
+                      </div>
+                  )}
+                  <span className="hidden sm:block truncate max-w-[80px]">{user?.displayName?.split(' ')[0] || 'Account'}</span>
+                </button>
+            )}
+
+            <button 
+              onClick={() => onNavigate?.('house' as ModuleId)}
+              className="px-5 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-to-r from-purple-500 to-purple-600 shadow-md hover:shadow-lg transition-transform active:scale-95"
+            >
+              Start Esti...
+            </button>
           </div>
         </div>
       </header>

@@ -132,78 +132,124 @@ export const getCategoryTheme = (category: string, id: string) => {
 
 const ToolCard = ({ mod, onSelect, isUsed, idx = 0 }: { mod: any, onSelect: (id: string) => void, isUsed?: boolean, idx?: number }) => {
   const diffColors: Record<string, string> = {
-    "Beginner": "bg-green-500",
-    "Intermediate": "bg-yellow-500",
-    "Advanced": "bg-red-500"
+    "Beginner": "bg-[#10B981]",
+    "Intermediate": "bg-[#F59E0B]",
+    "Advanced": "bg-[#EF4444]"
   };
+
+  // Determine standard, gradient, or special card styles
+  let cardClass = "bg-white border border-slate-200 shadow-sm hover:shadow-lg text-slate-800";
+  let titleClass = "text-slate-900";
+  let descClass = "text-slate-500";
+  let categoryClass = "text-slate-400";
+  let iconWrapClass = "bg-slate-50 text-slate-600 border border-slate-200";
+  let footerBorderClass = "border-slate-100";
+  let pillClass = "bg-white border text-slate-600 border-slate-200";
+  let dotPillClass = pillClass;
+
+  const orangeCards = ["master-rcc", "calculators"];
+  const purpleCards = ["boq", "takeoff", "qs-workflow", "master-quantity", "ai", "projects"];
+  const tealCards = ["road-pavement"];
+  const blueCards = ["mep-calculator"];
+
+  if (orangeCards.includes(mod.id)) {
+    cardClass = "bg-gradient-to-br from-orange-500 to-orange-600 shadow-lg text-white border-none";
+    titleClass = "text-white"; descClass = "text-orange-50"; categoryClass = "text-white/70";
+    iconWrapClass = "bg-white/20 text-white border-none backdrop-blur-sm";
+    footerBorderClass = "border-white/20";
+    pillClass = "bg-white/20 text-white border-none backdrop-blur-sm";
+    dotPillClass = "bg-white/90 text-slate-800 border-none backdrop-blur-sm";
+  } else if (purpleCards.includes(mod.id)) {
+    cardClass = "bg-gradient-to-br from-purple-600 to-purple-700 shadow-lg text-white border-none";
+    titleClass = "text-white"; descClass = "text-purple-50"; categoryClass = "text-white/70";
+    iconWrapClass = "bg-white/20 text-white border-none backdrop-blur-sm";
+    footerBorderClass = "border-white/20";
+    pillClass = "bg-white/20 text-white border-none backdrop-blur-sm";
+    dotPillClass = "bg-white/90 text-slate-800 border-none backdrop-blur-sm";
+  } else if (tealCards.includes(mod.id)) {
+    cardClass = "bg-gradient-to-br from-teal-500 to-teal-600 shadow-lg text-white border-none";
+    titleClass = "text-white"; descClass = "text-teal-50"; categoryClass = "text-white/70";
+    iconWrapClass = "bg-white/20 text-white border-none backdrop-blur-sm";
+    footerBorderClass = "border-white/20";
+    pillClass = "bg-white/20 text-white border-none backdrop-blur-sm";
+    dotPillClass = "bg-white/90 text-slate-800 border-none backdrop-blur-sm";
+  } else if (blueCards.includes(mod.id)) {
+    cardClass = "bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg text-white border-none";
+    titleClass = "text-white"; descClass = "text-blue-50"; categoryClass = "text-white/70";
+    iconWrapClass = "bg-white/20 text-white border-none backdrop-blur-sm";
+    footerBorderClass = "border-white/20";
+    pillClass = "bg-white/20 text-white border-none backdrop-blur-sm";
+    dotPillClass = "bg-white/90 text-slate-800 border-none backdrop-blur-sm";
+  }
 
   return (
     <motion.button
-      initial={{ opacity: 0, scale: 0.95, y: 30 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: idx * 0.05, ease: [0.2, 0.8, 0.2, 1] }}
+      initial={{ opacity: 0, scale: 0.97 }}
+      animate={{ opacity: 1, scale: 1 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ duration: 0.2 }}
       onClick={() => onSelect(mod.id)}
       id={`module-card-${mod.id}`}
       title={mod.desc}
-      className={`group relative flex flex-col h-full w-full p-6 text-left rounded-2xl cursor-pointer transition-all duration-300 ease-out outline-none focus-visible:ring-2 focus-visible:ring-purple-600 bg-white border border-slate-100 shadow-sm hover:shadow-lg hover:scale-[1.02]`}
+      className={`group relative flex flex-col h-full w-full p-5 text-left rounded-2xl cursor-pointer transition-all outline-none focus-visible:ring-2 focus-visible:ring-purple-600 ${cardClass}`}
     >
       {/* Badges on top right */}
-      <div className="absolute -top-3 -right-3 flex flex-col items-end gap-2 z-20 pointer-events-none">
-        {mod.isPopular && (
-          <span className={`text-[10px] font-black uppercase tracking-widest bg-orange-500 text-white py-1.5 px-3 rounded-full shadow-md`}>
-            Popular
-          </span>
-        )}
-        {mod.premium && (
-          <span className={`text-[10px] font-black uppercase tracking-widest bg-orange-500 text-white py-1.5 px-3 rounded-full shadow-md`}>
+      <div className="absolute -top-3 -right-2 flex items-center gap-1.5 z-20 pointer-events-none px-2">
+         {mod.premium && (
+          <span className="text-[10px] font-bold uppercase tracking-widest bg-gradient-to-r from-purple-500 to-purple-600 text-white py-1 px-2.5 rounded-full shadow-sm border border-white/50">
             Pro
           </span>
-        )}
-        {mod.isNew && (
-          <span className={`text-[10px] font-black uppercase tracking-widest bg-purple-600 text-white py-1.5 px-3 rounded-full shadow-md`}>
+         )}
+         {mod.isPopular && (
+          <span className="text-[10px] font-bold uppercase tracking-widest bg-yellow-400 text-slate-900 py-1 px-2.5 rounded-full shadow-sm border border-white/50">
+            Popular
+          </span>
+         )}
+         {mod.isNew && (
+          <span className="text-[10px] font-bold uppercase tracking-widest bg-blue-500 text-white py-1 px-2.5 rounded-full shadow-sm border border-white/50">
             New
           </span>
-        )}
+         )}
       </div>
 
-      {/* Header (Icon) */}
-      <div className="flex items-center gap-4 mb-4">
-        <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 shadow-sm bg-slate-50 text-purple-600 border border-slate-100">
-          <mod.icon className="w-6 h-6" strokeWidth={2} />
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-3">
+        <div className={`w-[38px] h-[38px] rounded-xl flex items-center justify-center shrink-0 ${iconWrapClass}`}>
+          <mod.icon className="w-5 h-5" strokeWidth={2} />
         </div>
         <div className="flex flex-col">
-           <h4 className="text-lg font-bold text-slate-800 leading-tight">
-             {mod.title}
-           </h4>
-           <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-1">
+           <span className={`text-[9px] font-bold uppercase tracking-widest ${categoryClass}`}>
              {mod.category}
            </span>
+           <h4 className={`text-[13px] font-bold leading-tight mt-0.5 ${titleClass}`}>
+             {mod.title}
+           </h4>
         </div>
       </div>
       
-      {/* Body (Description) */}
-      <p className="text-sm leading-relaxed mb-6 text-left w-full flex-grow text-slate-500 line-clamp-3">
+      {/* Body */}
+      <p className={`text-[11px] leading-relaxed mb-4 text-left w-full flex-grow line-clamp-2 ${descClass}`}>
         {mod.desc}
       </p>
 
-      {/* Footer (Difficulty + Time + Used Inline Pills) */}
-      <div className="w-full flex items-center flex-wrap gap-2 mt-auto pt-4 border-t border-slate-100">
-        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-600" title={`Difficulty: ${mod.difficulty || 'Beginner'}`}>
-           <span className={`w-2 h-2 rounded-full ${diffColors[(mod.difficulty as string)] || diffColors['Beginner']}`} />
-           <span className="text-[10px] font-bold uppercase">
+      {/* Footer */}
+      <div className={`w-full flex items-center flex-wrap gap-2 mt-auto pt-3 border-t ${footerBorderClass}`}>
+        <div className={`flex items-center gap-1.5 px-2 py-0.5 rounded-full ${dotPillClass}`} title={`Difficulty: ${mod.difficulty || 'Beginner'}`}>
+           <span className={`w-1.5 h-1.5 rounded-full ${diffColors[(mod.difficulty as string)] || diffColors['Beginner']}`} />
+           <span className="text-[9px] font-bold uppercase">
              {mod.difficulty || 'Beginner'}
            </span>
         </div>
         
         {isUsed && (
-          <span className="flex items-center gap-1 px-2.5 py-1 text-[10px] font-bold uppercase text-emerald-600 bg-emerald-50 border border-emerald-100 rounded-full">
-            Used
+          <span className="flex items-center gap-1 px-2 py-0.5 text-[9px] font-bold uppercase text-white bg-green-500 rounded-full border border-green-600 shadow-sm">
+            ✓ Used
           </span>
         )}
 
-        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-600" title="Estimated time">
-          <Clock className="w-3 h-3 text-slate-400" />
-          <span className="text-[10px] font-bold uppercase">
+        <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full ${pillClass}`}>
+          <Clock className="w-[10px] h-[10px]" />
+          <span className="text-[9px] font-bold uppercase">
             {mod.estimatedTime || '~2 mins'}
           </span>
         </div>
@@ -334,99 +380,114 @@ export default function Dashboard({
   // Handle particle creation purely via CSS in a style tag directly
   return (
     <>
-      <div className="relative flex-1 w-full flex flex-col font-sans mb-12 bg-slate-50 text-slate-900">
+      <div className="relative flex-1 w-full flex flex-col font-sans mb-12 bg-white text-slate-900 border-none">
         <SEO 
           title="Dashboard" 
           description="Civil Estimation Pro: Advanced estimators for live construction rate analysis, house estimating, and comprehensive BOQ calculators." 
           canonicalUrl="https://civilestimationpro.com" 
         />
 
-      <div className="flex-1 w-full flex flex-col relative z-10 w-full overflow-hidden">
-        
-        {/* PREMIUM HERO & WORKFLOW SECTION */}
-        <PremiumHero />
-
-        {/* MAIN LAYOUT WITH SIDEBAR */}
-        <div className="w-full max-w-[1400px] mx-auto px-4 lg:px-8 mt-12 mb-24 grid grid-cols-1 lg:grid-cols-12 gap-8 z-20 relative">
+        <div className="w-full max-w-[900px] mx-auto px-4 z-10 w-full overflow-hidden flex flex-col">
           
-          {/* LEFT SIDEBAR: Category Navigation */}
-          <div className="hidden lg:block lg:col-span-3 lg:border-r border-slate-200 lg:pr-6">
-             <div className="sticky top-24 flex flex-col gap-2">
-               <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2 px-3">Categories</h3>
-                {categories.map((category) => {
-                  const count = category === "All Tools" 
-                    ? ALL_MODULES.length 
-                    : ALL_MODULES.filter(m => m.category === category).length;
-                    
-                  const isActive = activeCategory === category;
-                  return (
-                    <button
-                      key={category}
-                      onClick={() => setActiveCategory(category)}
-                      className={`w-full flex items-center justify-between px-4 py-4 rounded-xl text-left transition-all duration-200 ${
-                        isActive 
-                          ? "bg-purple-900 text-white shadow-md font-bold" 
-                          : "bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold"
-                      }`}
-                    >
-                      <span className="tracking-tight line-clamp-1">{category}</span>
-                      <span className={`text-[10px] shrink-0 font-bold px-2 py-1 rounded-md ${
-                        isActive ? 'bg-purple-800 text-white' : 'bg-white text-slate-500 border border-slate-200'
-                      }`}>
-                        {count} Tools
-                      </span>
-                    </button>
-                  );
-                })}
+          {/* HERO SECTION */}
+          <div className="flex flex-col items-center justify-center text-center mt-16 mb-12">
+             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-2 text-slate-900">
+               Free Civil Engineering<br/>
+               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-orange-500">Estimation Platform</span>
+             </h1>
+             <p className="text-slate-600 text-base md:text-lg max-w-[600px] mt-4 mb-8">
+               Calculate material quantities, generate BOQs, and estimate project costs instantly with 40+ professional engineering tools.
+             </p>
+
+             <div className="flex items-center gap-2 mb-8">
+               <div className="flex -space-x-2">
+                 <div className="w-8 h-8 rounded-full bg-blue-100 border-2 border-white flex items-center justify-center text-xs font-bold text-blue-700">A</div>
+                 <div className="w-8 h-8 rounded-full bg-teal-100 border-2 border-white flex items-center justify-center text-xs font-bold text-teal-700">R</div>
+                 <div className="w-8 h-8 rounded-full bg-purple-100 border-2 border-white flex items-center justify-center text-xs font-bold text-purple-700">E</div>
+               </div>
+               <span className="text-sm font-semibold text-orange-600 ml-2">10,000+ Engineers Trust Us</span>
+             </div>
+
+             <div className="flex flex-col sm:flex-row items-center gap-4">
+               <button 
+                 onClick={() => handleSelect('house')}
+                 className="px-6 py-3 rounded-full font-bold text-white bg-gradient-to-r from-orange-500 to-orange-600 shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+               >
+                 Start Estimating for Free
+               </button>
+               <button 
+                 onClick={() => {
+                   document.getElementById('tools-section')?.scrollIntoView({ behavior: 'smooth' });
+                 }}
+                 className="px-6 py-3 rounded-full font-bold text-slate-700 border border-slate-200 hover:bg-slate-50 transition-all font-semibold"
+               >
+                 View All Tools ›
+               </button>
              </div>
           </div>
 
-          {/* Mobile Categories (Horizontal Scroll) */}
-          <div className="lg:hidden col-span-1 border-b border-slate-200 pb-4 overflow-x-auto no-scrollbar -mx-4 px-4">
-             <div className="flex gap-2 min-w-max">
-                {categories.map((category) => {
-                  const isActive = activeCategory === category;
-                  return (
-                    <button
-                      key={category}
-                      onClick={() => setActiveCategory(category)}
-                      className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
-                        isActive 
-                          ? "bg-purple-900 text-white shadow-md" 
-                          : "bg-slate-100 text-slate-700"
-                      }`}
-                    >
-                      {category}
-                    </button>
-                  );
-                })}
-             </div>
+          {/* STATS BAR */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-6 border-y border-slate-100 mb-12">
+            <div className="flex flex-col items-center text-center">
+              <span className="text-xl mb-1">📦</span>
+              <span className="text-xs font-bold text-slate-700">40+ Professional Tools</span>
+            </div>
+            <div className="flex flex-col items-center text-center">
+              <span className="text-xl mb-1">✅</span>
+              <span className="text-xs font-bold text-slate-700">100% Free Forever</span>
+            </div>
+            <div className="flex flex-col items-center text-center">
+              <span className="text-xl mb-1">🗺️</span>
+              <span className="text-xs font-bold text-slate-700">15+ Countries Trusted</span>
+            </div>
+            <div className="flex flex-col items-center text-center">
+              <span className="text-xl mb-1">🤖</span>
+              <span className="text-xs font-bold text-slate-700">AI Powered Estimates</span>
+            </div>
           </div>
 
-          {/* RIGHT COLUMN: Main Tool Container */}
-          <div className="lg:col-span-9 flex flex-col min-h-[700px]">
-        
-            {/* Header and Search */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-              <div>
-                <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
-                  {activeCategory}
-                </h2>
-                <div className="flex items-center gap-4 mt-2">
-                  <p className="text-slate-500 font-medium">Select a calculator to initiate a new estimate.</p>
-                </div>
-              </div>
-              
-              <div className="w-full md:max-w-[400px] shrink-0">
-                <SmartSearch onSelect={(id) => {
-                  if (id === 'ai') setIsAiChatOpen(true);
-                  else handleSelect(id as any);
-                }} />
-              </div>
+          {/* MAIN GRID */}
+          <div className="flex flex-col gap-10" id="tools-section">
+            
+            {/* SEARCH BAR */}
+            <div className="w-full relative">
+               <SmartSearch onSelect={(id) => {
+                 if (id === 'ai') setIsAiChatOpen(true);
+                 else handleSelect(id as any);
+               }} />
             </div>
 
-            {/* Tools Grid */}
-            <div className="flex flex-col w-full">
+            {/* CATEGORY FILTER GRID (2 columns) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {categories.map((category) => {
+                const count = category === "All Tools" 
+                  ? ALL_MODULES.length 
+                  : ALL_MODULES.filter(m => m.category === category).length;
+                  
+                const isActive = activeCategory === category;
+                return (
+                  <button
+                    key={category}
+                    onClick={() => setActiveCategory(category)}
+                    className={`flex items-center justify-between px-5 py-3.5 rounded-xl text-left transition-all duration-200 border ${
+                      isActive 
+                        ? "bg-gradient-to-r from-purple-600 to-purple-700 text-white border-transparent shadow-md font-bold" 
+                        : "bg-white text-slate-700 font-semibold border-slate-200 hover:border-purple-300"
+                    }`}
+                  >
+                    <span className="tracking-tight text-sm">{category}</span>
+                    <span className={`text-[10px] shrink-0 font-bold px-2 py-0.5 rounded-md ${
+                      isActive ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'
+                    }`}>
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* TOOLS GRID */}
+            <div className="flex flex-col w-full mb-16">
                 {groupsToDisplay.length === 0 ? (
                   <div className="py-24 text-center flex flex-col items-center">
                     <Search className="w-12 h-12 text-slate-300 mb-4" />
@@ -435,13 +496,13 @@ export default function Dashboard({
                   </div>
                 ) : (
                   groupsToDisplay.map((groupName) => (
-                    <div key={groupName} className="flex flex-col mb-8 sm:mb-10 last:mb-0">
+                    <div key={groupName} className="flex flex-col mb-8 last:mb-0">
                        {activeCategory === "All Tools" && (
-                         <h3 className="text-sm font-bold text-slate-400 pl-4 sm:pl-2 mb-3 uppercase tracking-wider">
+                         <h3 className="text-xs font-bold text-slate-400 pl-1 mb-4 uppercase tracking-wider">
                            {groupName}
                          </h3>
                        )}
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full">
                         {groupedModules[groupName].map((mod, idx) => (
                           <ToolCard key={mod.id} mod={mod} onSelect={handleSelect} isUsed={settings.usedTools && settings.usedTools.includes(mod.id)} idx={idx} />
                         ))}
@@ -450,119 +511,42 @@ export default function Dashboard({
                   ))
                 )}
             </div>
-            
-          </div>
-        </div>
-        
-        {/* Featured Tool Spotlight */}
-        <div className="w-full mt-24 mb-16">
-           <div className="bg-gradient-to-br from-indigo-50 to-blue-50 border border-blue-100 rounded-[3rem] p-8 md:p-12 relative overflow-hidden shadow-md flex flex-col md:flex-row items-center gap-10">
-              {/* Background Accents */}
-              <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-96 h-96 bg-purple-200/50 rounded-full blur-3xl pointer-events-none" />
-              <div className="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/3 w-80 h-80 bg-indigo-200/50 rounded-full blur-3xl pointer-events-none" />
-              
-              <div className="flex-1 relative z-10 text-center md:text-left">
-                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-100 border border-indigo-200 rounded-full text-indigo-700 text-xs font-bold tracking-wider uppercase mb-6 shadow-sm">
-                    <Sparkles className="w-4 h-4" /> Featured Tool of the Week
+
+            {/* FEATURED BANNER */}
+            <div className="w-full mb-24 rounded-3xl overflow-hidden bg-gradient-to-br from-[#4C1D95] to-[#7C3AED] p-8 md:p-10 text-white relative shadow-lg flex flex-col md:flex-row items-center gap-8 border-none">
+              <div className="flex-1 z-10 text-center md:text-left">
+                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full text-white text-[10px] font-bold tracking-wider uppercase mb-5 backdrop-blur-sm">
+                    ⭐ FEATURED TOOL OF THE WEEK
                  </div>
-                 <h2 className="text-3xl md:text-5xl font-black tracking-tight text-[var(--primary-dark)] mb-4 drop-shadow-sm">
+                 <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">
                     Master RCC Estimator
                  </h2>
-                 <p className="text-slate-600 text-lg md:text-xl font-medium mb-8 max-w-xl mx-auto md:mx-0">
+                 <p className="text-purple-100 text-sm md:text-base font-medium mb-6 max-w-md mx-auto md:mx-0">
                     The unified hub for Slab, Column, Beam, Staircase, and BBS calculations. Save hours of manual work with auto-generated steel weight estimations.
                  </p>
                  <button 
                     onClick={() => handleSelect('master-rcc')}
-                    className="px-8 py-4 bg-indigo-600 text-white rounded-full font-bold text-lg hover:bg-indigo-700 transition-all hover:scale-105 active:scale-95 shadow-md group"
+                    className="px-6 py-3 bg-white text-purple-700 rounded-full font-bold text-sm hover:scale-105 transition-transform"
                  >
-                    Try it Now <ArrowRight className="inline ml-2 group-hover:translate-x-1 transition-transform" />
+                    Try it Now ›
                  </button>
               </div>
-              
-              <div className="relative z-10 w-full max-w-md pointer-events-none hidden md:block">
-                 <div className="bg-white/80 backdrop-blur-md border border-white shadow-xl rounded-[2rem] p-6 transform rotate-3 hover:rotate-0 transition-transform duration-500">
-                    <div className="flex items-center gap-4 mb-6">
-                       <div className="w-14 h-14 bg-emerald-100 border border-emerald-200 rounded-2xl flex items-center justify-center">
-                          <Building2 className="w-8 h-8 text-emerald-600" />
-                       </div>
-                       <div className="flex flex-col">
-                          <span className="text-slate-900 font-bold text-lg">RCC Master</span>
-                          <span className="text-slate-500 font-medium text-sm">Concrete Tech</span>
-                       </div>
+              <div className="z-10 bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/20 shadow-xl relative min-w-[240px]">
+                 <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-xl bg-orange-500/20 flex flex-col items-center justify-center text-xl">
+                      🏗️
                     </div>
-                    <div className="space-y-3">
-                       <div className="h-3 bg-slate-200 rounded-full w-full"></div>
-                       <div className="h-3 bg-slate-200 rounded-full w-4/5"></div>
-                       <div className="h-3 bg-slate-200 rounded-full w-5/6"></div>
+                    <div className="flex flex-col">
+                       <span className="font-bold text-sm">RCC Master</span>
+                       <span className="text-purple-200 text-xs">Concrete Tech</span>
                     </div>
                  </div>
               </div>
-           </div>
-        </div>
+            </div>
 
-        {/* Testimonials */}
-        <div className="w-full mb-24 text-center">
-           <h3 className="text-2xl md:text-4xl font-black tracking-tight text-slate-900 mb-12">
-              Trusted by 10,000+ Engineers
-           </h3>
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                { name: "Ahmed Raza", role: "Sr. Estimator", company: "Buildex Construction", country: "Pakistan", text: "Civil Estimation Pro has revolutionized how we bid for projects in Lahore. The material breakdown is incredibly accurate, especially the steel unit weight formulas. Saving at least 15 hours a week.", rating: 5 },
-                { name: "Rajesh Kumar", role: "Civil Engineer", company: "Structural Design", country: "India", text: "The Concrete Mix Design tool is phenomenal. Generating a compliant mix design report traditionally took up a lot of my drafting time, but now it's instantaneous. It computes target mean strength and water-cement ratios flawlessly.", rating: 5 },
-                { name: "Emily Watson", role: "Civil Engineering Student", company: "University Level", country: "UK", text: "This platform has been a lifesaver for my university projects. The visual BBS generator helped me finally understand bar bending schedules and deductions. It turns confusing theoretical formulas into clear, practical outputs.", rating: 5 }
-              ].map((t, idx) => (
-                <div key={idx} className="bg-white border border-slate-200 rounded-3xl p-8 flex flex-col items-center text-center shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                   <div className="flex gap-1 mb-4">
-                     {[...Array(t.rating)].map((_, i) => <Sparkles key={i} className="w-5 h-5 text-amber-500 fill-amber-500" />)}
-                   </div>
-                   <p className="text-slate-600 font-medium mb-6 italic leading-relaxed text-sm">
-                     "{t.text}"
-                   </p>
-                   <div className="mt-auto flex flex-col items-center">
-                      <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-700 font-bold mb-3">
-                        {t.name.charAt(0)}
-                      </div>
-                      <span className="font-bold text-slate-900">{t.name}</span>
-                      <span className="text-xs font-medium text-slate-500">{t.role} • {t.company}</span>
-                      <span className="text-xs text-slate-400 mt-0.5">{t.country}</span>
-                   </div>
-                </div>
-              ))}
-           </div>
+          </div>
         </div>
-
-        {/* Newsletter Signup */}
-        <div className="w-full mb-16 max-w-4xl mx-auto">
-           <div className="bg-gradient-to-r from-orange-50 to-orange-100 border border-orange-200 rounded-[3rem] p-8 md:p-12 text-center shadow-lg">
-              <h3 className="text-2xl md:text-3xl font-black text-slate-900 mb-4 tracking-tight">
-                 Get Weekly Construction Cost Updates
-              </h3>
-              <p className="text-slate-600 mb-8 max-w-xl mx-auto font-medium text-lg">
-                 Join our newsletter to receive the latest material rate variations and estimation tips directly in your inbox.
-              </p>
-              <form className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto" onSubmit={(e) => e.preventDefault()}>
-                 <input 
-                    type="email" 
-                    placeholder="Enter your email address" 
-                    className="flex-1 px-6 py-4 rounded-full border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
-                 />
-                 <button 
-                    type="submit" 
-                    className="px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-full transition-colors shadow-md"
-                 >
-                    Subscribe
-                 </button>
-              </form>
-           </div>
-        </div>
-
-        {/* Free Excel Promo Section */}
-        <div className="w-full mb-16">
-          <ExcelPromo />
-        </div>
-
       </div>
-    </div>
 
     {/* AI Chat Bottom Sheet Modal */}
     <div className={`fixed inset-0 z-50 transition-all duration-500 ${isAiChatOpen ? "opacity-100 visible pointer-events-auto" : "opacity-0 invisible pointer-events-none"}`}>
