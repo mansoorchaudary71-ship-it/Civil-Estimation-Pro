@@ -35,7 +35,7 @@ const AnimatedCounter = ({ end, duration = 2000, prefix = "", suffix = "", delay
       const step = (timestamp: number) => {
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        const easeProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
         setCount(Math.floor(easeProgress * end));
         
         if (progress < 1) {
@@ -53,26 +53,144 @@ const AnimatedCounter = ({ end, duration = 2000, prefix = "", suffix = "", delay
   return <span>{prefix}{count.toLocaleString()}{suffix}</span>;
 };
 
-export default function App() {
+export default function PremiumHero() {
   const [heroRef, heroInView] = useIntersectionObserver({ threshold: 0.1 });
   const [workflowRef, workflowInView] = useIntersectionObserver({ threshold: 0.2 });
   const [statsRef, statsInView] = useIntersectionObserver({ threshold: 0.5 });
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   return (
     <div className="w-full bg-[#080B14] text-[#F0F4FF] overflow-hidden font-sans relative selection:bg-[#F5A623] selection:text-[#080B14]" style={{ cursor: 'crosshair' }}>
       
-      {/* Background Elements */}
+      {/* --- CSS Variables & Keyframes --- */}
+      <style>{`
+        :root {
+          --obsidian: #080B14;
+          --surface: #0D1220;
+          --amber: #F5A623;
+          --cyan: #00D4FF;
+          --violet: #7B4FFF;
+          --text-muted: #6B7A9F;
+        }
+
+        .gradient-text-amber-cyan {
+          background: linear-gradient(90deg, var(--amber), var(--cyan));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes mesh-shift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float-gentle {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-12px); }
+        }
+
+        @keyframes orb-drift-1 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(-30px, 40px) scale(1.1); }
+        }
+
+        @keyframes orb-drift-2 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(40px, -20px) scale(0.9); }
+        }
+
+        @keyframes shimmer-sweep {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(200%); }
+        }
+
+        @keyframes word-slide-up {
+          0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+          100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        @keyframes line-draw {
+          0% { stroke-dashoffset: 1000; }
+          100% { stroke-dashoffset: 0; }
+        }
+
+        @keyframes chart-bar-grow {
+          0% { height: 0%; opacity: 0; }
+          100% { opacity: 1; }
+        }
+
+        @keyframes underline-draw {
+          0% { width: 0%; }
+          100% { width: 100%; }
+        }
+
+        .mesh-bg {
+          background: radial-gradient(circle at top right, rgba(123, 79, 255, 0.15), transparent 40%),
+                      radial-gradient(circle at bottom left, rgba(0, 212, 255, 0.1), transparent 40%),
+                      radial-gradient(circle at center, rgba(245, 166, 35, 0.1), transparent 50%);
+          background-size: 200% 200%;
+          animation: mesh-shift 8s ease-in-out infinite;
+        }
+
+        .dot-pattern {
+          background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+          background-size: 24px 24px;
+        }
+
+        .glass-card {
+          background: var(--surface);
+          backdrop-filter: blur(20px);
+          border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .workflow-card:hover {
+          transform: translateY(-8px);
+          border-color: rgba(255, 255, 255, 0.2);
+        }
+        .workflow-card:hover .workflow-icon {
+          transform: rotate(360deg);
+        }
+
+        .btn-shimmer::after {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; width: 50%; height: 100%;
+          background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+          transform: skewX(-20deg) translateX(-150%);
+          transition: none;
+        }
+        .btn-shimmer:hover::after {
+          animation: shimmer-sweep 0.8s ease-in-out forwards;
+        }
+
+        .stagger-1 { animation: word-slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+        .stagger-2 { animation: word-slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both; }
+        .stagger-3 { animation: word-slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both; }
+        .fade-in-up { animation: word-slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both; }
+      `}</style>
+
+      {/* --- Background Elements --- */}
       <div className="absolute inset-0 mesh-bg z-0" />
       <div className="absolute inset-0 dot-pattern opacity-[0.03] z-0" />
       
       <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-[#F5A623] opacity-[0.04] blur-[100px] z-0" style={{ animation: 'orb-drift-1 12s infinite alternate ease-in-out' }} />
       <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#00D4FF] opacity-[0.04] blur-[120px] z-0" style={{ animation: 'orb-drift-2 15s infinite alternate ease-in-out' }} />
 
-      {/* HERO SECTION */}
-      <div ref={heroRef as any} className="relative z-10 w-full max-w-[1400px] mx-auto min-h-[90vh] flex flex-col lg:flex-row items-center pt-24 pb-16 px-6 lg:px-12">
+      {/* --- HERO SECTION --- */}
+      <div ref={heroRef} className="relative z-10 w-full max-w-[1400px] mx-auto min-h-[90vh] flex flex-col lg:flex-row items-center pt-24 pb-16 px-6 lg:px-12">
         
-        {/* Left Column */}
+        {/* Left Column (60%) */}
         <div className="w-full lg:w-[60%] flex flex-col justify-center space-y-8 pr-0 lg:pr-12">
+          
           <div className="fade-in-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card w-fit border border-[#00D4FF]/20 bg-[#0D1220]/80">
             <span className="w-2 h-2 rounded-full bg-[#00D4FF] animate-pulse shadow-[0_0_8px_#00D4FF]" />
             <span className="text-xs font-semibold uppercase tracking-widest text-[#00D4FF]">AI-Powered · Trusted by 10,000+ Engineers</span>
@@ -84,7 +202,7 @@ export default function App() {
             <span className="block stagger-3 gradient-text-amber-cyan">Dominate.</span>
           </h1>
 
-          <p className="fade-in-up text-lg md:text-xl font-dm text-[#6B7A9F] max-w-xl leading-relaxed">
+          <p className="fade-in-up text-lg md:text-xl font-dm text-var(--text-muted) text-[#6B7A9F] max-w-xl leading-relaxed">
             The precision of a lead engineer, the speed of modern AI. Generate pixel-perfect BOQs, takeoff sheets, and material estimates in seconds.
           </p>
 
@@ -101,7 +219,7 @@ export default function App() {
 
           <div className="fade-in-up flex items-center gap-4 pt-8">
             <div className="flex -space-x-3">
-              {[1,2,3].map((i) => (
+              {[1,2,3,4].map((i) => (
                 <div key={i} className="w-10 h-10 rounded-full border-2 border-[#080B14] bg-[#0D1220] flex items-center justify-center overflow-hidden">
                   <div className="w-full h-full bg-gradient-to-br from-slate-700 to-slate-800" />
                 </div>
@@ -109,14 +227,17 @@ export default function App() {
             </div>
             <p className="text-sm font-dm text-[#6B7A9F]">Join <strong className="text-[#F0F4FF]">10,000+</strong> engineers across <strong className="text-[#F0F4FF]">15+</strong> countries</p>
           </div>
+
         </div>
 
-        {/* Right Column */}
+        {/* Right Column (40%) */}
         <div className="w-full lg:w-[40%] mt-16 lg:mt-0 perspective-[1000px] fade-in-up" style={{ animationDelay: '0.6s' }}>
-          <div className="relative glass-card rounded-2xl p-6 border-[#F5A623]/20 shadow-[0_0_40px_rgba(245,166,35,0.1)] w-full aspect-[4/5] max-h-[600px] flex flex-col transform-gpu rotate-y-[0deg] rotate-x-[0deg]" style={{ animation: 'float-gentle 4s ease-in-out infinite' }}>
+          <div className="relative glass-card rounded-2xl p-6 border-[#F5A623]/20 shadow-[0_0_40px_rgba(245,166,35,0.1)] w-full aspect-[4/5] max-h-[600px] flex flex-col transform-gpu rotate-y-[-5deg] rotate-x-[5deg]" style={{ animation: 'float-gentle 4s ease-in-out infinite' }}>
             
-            <div className="absolute inset-0 opacity-[0.05] pointer-events-none rounded-2xl overflow-hidden" style={{ backgroundImage: 'linear-gradient(#00D4FF 1px, transparent 1px), linear-gradient(90deg, #00D4FF 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+            {/* Blueprint Grid Overlay */}
+            <div className="absolute inset-0 blueprint-grid opacity-[0.05] pointer-events-none rounded-2xl overflow-hidden" style={{ backgroundImage: 'linear-gradient(#00D4FF 1px, transparent 1px), linear-gradient(90deg, #00D4FF 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
 
+            {/* Mockup Header */}
             <div className="flex justify-between items-center mb-6 pb-4 border-b border-white/5 relative z-10">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
@@ -128,6 +249,7 @@ export default function App() {
 
             <h3 className="font-dm font-bold text-lg mb-6 relative z-10">Live Cost Analysis</h3>
 
+            {/* Mockup Body Elements */}
             <div className="space-y-4 mb-6 relative z-10">
               {[
                 { label: "Concrete Grade M25", val: "Rs 4,50,000", w: "80%" },
@@ -140,12 +262,13 @@ export default function App() {
                     <span className="text-[#F0F4FF] font-mono">{item.val}</span>
                   </div>
                   <div className="w-full h-2 rounded-full bg-white/5 overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-[#7B4FFF] to-[#00D4FF] block" style={{ width: item.w, animation: `chart-bar-grow 1s ease-out ${1.5 + (i * 0.2)}s backwards` }} />
+                    <div className="h-full bg-gradient-to-r from-[#7B4FFF] to-[#00D4FF]" style={{ width: item.w, animation: `chart-bar-grow 1s ease-out ${1.5 + (i * 0.2)}s backwards` }} />
                   </div>
                 </div>
               ))}
             </div>
 
+            {/* Mockup Bottom Stats */}
             <div className="mt-auto grid grid-cols-2 gap-4 relative z-10">
               <div className="glass-card p-3 rounded-xl border border-white/5 text-center">
                 <p className="text-[10px] text-[#6B7A9F] uppercase tracking-wide mb-1 font-dm">Accuracy</p>
@@ -165,10 +288,10 @@ export default function App() {
         </div>
       </div>
 
-      {/* DASHBOARD KEY WORKFLOW */}
+      {/* --- DASHBOARD / WORKFLOW SECTION --- */}
       <div className="relative z-10 w-full max-w-[1400px] mx-auto py-24 px-6 lg:px-12 border-t border-white/5">
         
-        <div className="text-center mb-16 relative w-fit mx-auto" ref={workflowRef as any}>
+        <div className="text-center mb-16 relative w-fit mx-auto" ref={workflowRef}>
           <h2 className="text-[40px] md:text-[56px] font-clash font-bold">
             Complete Estimation Workflow
           </h2>
@@ -178,6 +301,7 @@ export default function App() {
         </div>
 
         <div className="relative">
+          {/* Connecting Line (Desktop only) */}
           <div className="hidden lg:block absolute top-[60px] left-[10%] right-[10%] h-[2px] bg-white/5 z-0" />
           <svg className="hidden lg:block absolute top-[60px] left-[10%] w-[80%] h-[2px] z-0 overflow-visible" preserveAspectRatio="none">
             {workflowInView && (
@@ -223,8 +347,9 @@ export default function App() {
           </div>
         </div>
 
-        {/* STATS BAR */}
-        <div ref={statsRef as any} className="mt-20 w-full glass-card border-t border-b border-white/5 py-12 px-6 flex flex-wrap justify-between gap-8 md:gap-4 relative overflow-hidden group">
+        {/* --- STATS BAR --- */}
+        <div ref={statsRef} className="mt-20 w-full glass-card border-t border-b border-white/5 py-12 px-6 flex flex-wrap justify-between gap-8 md:gap-4 relative overflow-hidden group">
+          
           <div className="absolute inset-0 bg-gradient-to-r from-[#F5A623]/5 via-[#00D4FF]/5 to-[#7B4FFF]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
           
           {[
@@ -243,7 +368,9 @@ export default function App() {
             </div>
           ))}
         </div>
+
       </div>
+
     </div>
   );
 }

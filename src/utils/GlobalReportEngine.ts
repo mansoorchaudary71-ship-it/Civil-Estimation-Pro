@@ -222,15 +222,29 @@ export const GlobalReportEngine = {
 
     let currentY = 55;
 
-    // 2. Project Parameters Grid
+    // 2. 3D Hero Graphic Placeholder & Project Parameters
+    currentY = 55;
+
+    // Hero Placeholder
+    doc.setFillColor(241, 245, 249); // slate-100
+    doc.roundedRect(14, currentY, 70, 60, 2, 2, "F");
+    doc.setDrawColor(203, 213, 225); // slate-300
+    doc.roundedRect(14, currentY, 70, 60, 2, 2, "S");
+    
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.setTextColor(148, 163, 184); // slate-400
+    doc.text("3D Hero Graphic", 49, currentY + 28, { align: "center" });
+    doc.text("Placeholder", 49, currentY + 34, { align: "center" });
+
+    // Project Parameters Grid (Right-Aligned next to Hero)
     doc.setFont("helvetica", "bold");
     doc.setFontSize(12);
-    doc.setTextColor(15, 23, 42);
-    doc.text("Project Parameters", 14, currentY);
-    currentY += 8;
+    doc.setTextColor(15, 23, 42); // slate-900
+    doc.text("Project Parameters", 90, currentY + 4);
 
     const ignoreKeys = ['totalEstimatedCost', 'costPerSqFt', 'totalCoveredArea', 'structureType', 'projectName', 'date', 'contingency', 'gst', 'totalCost'];
-    const paramsMap: {label: string; value: any}[] = [];
+    const paramsMap = [];
     
     if (safeData.metadata.projectName) paramsMap.push({ label: "Project Name", value: safeData.metadata.projectName });
     if (safeData.metadata.clientName) paramsMap.push({ label: "Client Name", value: safeData.metadata.clientName });
@@ -244,25 +258,30 @@ export const GlobalReportEngine = {
       }
     });
 
-    const colWidth = (pageWidth - 28) / 3;
+    const paramColWidth = (pageWidth - 90 - 14) / 2;
+    let paramGridY = currentY + 12;
     paramsMap.forEach((param, index) => {
-       const col = index % 3;
-       const row = Math.floor(index / 3);
-       const yPos = currentY + (row * 12);
+       const col = index % 2;
+       const row = Math.floor(index / 2);
+       const yPos = paramGridY + (row * 12);
+       if (yPos > currentY + 55) return; // limit rows safely
        
        doc.setFont("helvetica", "bold");
        doc.setFontSize(8);
-       doc.setTextColor(107, 114, 128); // Muted gray
-       doc.text(param.label.toUpperCase(), 14 + (col * colWidth), yPos);
+       doc.setTextColor(100, 116, 139); // slate-500
+       doc.text(param.label.toUpperCase(), 90 + (col * paramColWidth), yPos);
        
        doc.setFont("helvetica", "bold");
        doc.setFontSize(10);
-       doc.setTextColor(15, 23, 42); // Dark slate
-       doc.text(String(param.value), 14 + (col * colWidth), yPos + 5);
+       doc.setTextColor(15, 23, 42); // slate-900
+       
+       // Handle long strings
+       let strVal = String(param.value);
+       if (strVal.length > 25) strVal = strVal.substring(0, 22) + "...";
+       doc.text(strVal, 90 + (col * paramColWidth), yPos + 5);
     });
 
-    const paramRows = Math.ceil(paramsMap.length / 3);
-    currentY += (paramRows * 12) + 8;
+    currentY += 70;
 
     // 3. Executive Summary text
     doc.setFont("helvetica", "bold");
@@ -280,7 +299,7 @@ export const GlobalReportEngine = {
       if (total > 0) highestPct = ((sorted[0].value / total) * 100).toFixed(1);
     }
     
-    const summaryText = `This executive estimate report is prepared for a ${safeData.metadata.totalCoveredArea || 'custom'} sq.ft ${safeData.metadata.structureType || safeData.toolName.toLowerCase()}. The total estimated budget is Rs ${Math.round(safeData.metadata.totalEstimatedCost || 0).toLocaleString()}. The primary cost driver is ${highestDriver}, accounting for ${highestPct}% of the overall budget. See the charts and tables below for a detailed distribution.`;
+    const summaryText = `This estimate is prepared for a ${safeData.metadata.totalCoveredArea || 'custom'} sq.ft ${safeData.metadata.structureType || safeData.toolName.toLowerCase()}. The total estimated budget is Rs ${Math.round(safeData.metadata.totalEstimatedCost || 0).toLocaleString()}. The primary cost driver is ${highestDriver}, accounting for ${highestPct}% of the overall budget.`;
     
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -290,30 +309,43 @@ export const GlobalReportEngine = {
     doc.text(splitText, 14, currentY);
     currentY += (splitText.length * 4) + 6;
 
-    // Summary Cards (3 cards)
-    doc.setFillColor(248, 250, 252);
-    doc.rect(14, currentY, (pageWidth - 34) / 3, 22, "F");
-    doc.rect(14 + (pageWidth - 34) / 3 + 3, currentY, (pageWidth - 34) / 3, 22, "F");
-    doc.rect(14 + ((pageWidth - 34) / 3) * 2 + 6, currentY, (pageWidth - 34) / 3, 22, "F");
+    // 4 Premium KPI Cards
+    const numCards = 4;
+    const cardGap = 4;
+    const availableWidth = pageWidth - 28;
+    const cardWidth = (availableWidth - (cardGap * (numCards - 1))) / numCards;
+    
+    const drawKpiCard = (idx, title, value) => {
+      const x = 14 + (idx * (cardWidth + cardGap));
+      
+      // Shadow layer
+      doc.setFillColor(226, 232, 240); // slate-200
+      doc.roundedRect(x + 1, currentY + 1, cardWidth, 20, 1.5, 1.5, "F");
+      
+      // Card body
+      doc.setFillColor(248, 250, 252); // slate-50
+      doc.setDrawColor(226, 232, 240); // slate-200
+      doc.roundedRect(x, currentY, cardWidth, 20, 1.5, 1.5, "FD");
 
-    let cardX = 17;
-    const cardWidth3 = (pageWidth - 34) / 3;
-
-    const drawCard3 = (idx: number, title: string, value: string) => {
       doc.setFont("helvetica", "bold");
-      doc.setFontSize(8);
+      doc.setFontSize(7);
       doc.setTextColor(100, 116, 139);
-      doc.text(title, cardX + (cardWidth3 * idx) + (idx * 3), currentY + 7);
-      doc.setFontSize(12);
+      doc.text(title, x + (cardWidth / 2), currentY + 7, { align: "center" });
+
+      doc.setFontSize(10);
       doc.setTextColor(15, 23, 42);
-      doc.text(value, cardX + (cardWidth3 * idx) + (idx * 3), currentY + 16);
+      
+      let finalVal = value;
+      if (finalVal.length > 15) finalVal = finalVal.substring(0, 14) + "..";
+      doc.text(finalVal, x + (cardWidth / 2), currentY + 14, { align: "center" });
     };
 
-    drawCard3(0, "TOTAL EST. COST", `Rs ${Math.round(safeData.metadata.totalEstimatedCost || 0).toLocaleString()}`);
-    drawCard3(1, "COST PER SQ.FT", safeData.metadata.costPerSqFt ? `Rs ${Math.round(safeData.metadata.costPerSqFt).toLocaleString()}` : "N/A");
-    drawCard3(2, "GENERATION DATE", dateStr);
+    drawKpiCard(0, "GRAND TOTAL", `Rs ${Math.round(safeData.metadata.totalEstimatedCost || 0).toLocaleString()}`);
+    drawKpiCard(1, "COST PER SQ.FT", safeData.metadata.costPerSqFt ? `Rs ${Math.round(safeData.metadata.costPerSqFt).toLocaleString()}` : "N/A");
+    drawKpiCard(2, "BUILT-UP AREA", safeData.metadata.totalCoveredArea ? `${safeData.metadata.totalCoveredArea} sq.ft` : "N/A");
+    drawKpiCard(3, "MAIN COST DRIVER", highestDriver);
 
-    currentY += 32;
+    currentY += 28;
 
     // 4. Data Visualizations
     if (safeData.chartData?.donut?.length > 0 || safeData.chartData?.bar?.length > 0) {
@@ -467,7 +499,13 @@ export const GlobalReportEngine = {
      
      startRow = startRow + paramsMap.length + 1;
 
-     dashSheet.getCell(`B${startRow}`).value = "Total Estimated Cost";
+     let highestDriver = "Materials";
+     if (safeData.chartData?.donut?.length > 0) {
+       const sorted = [...safeData.chartData.donut].sort((a,b) => b.value - a.value);
+       highestDriver = sorted[0].label;
+     }
+
+     dashSheet.getCell(`B${startRow}`).value = "Grand Total";
      dashSheet.getCell(`C${startRow}`).value = safeData.metadata.totalEstimatedCost || 0;
      dashSheet.getCell(`C${startRow}`).numFmt = '"Rs "#,##0';
      dashSheet.getCell(`C${startRow}`).font = { bold: true, size: 12, color: { argb: 'FFE8541A' } };
@@ -477,7 +515,15 @@ export const GlobalReportEngine = {
      dashSheet.getCell(`C${startRow+1}`).numFmt = '"Rs "#,##0';
      dashSheet.getCell(`C${startRow+1}`).font = { bold: true, size: 12 };
 
-     for(let r=9; r<=startRow+1; r++) {
+     dashSheet.getCell(`B${startRow+2}`).value = "Built-Up Area";
+     dashSheet.getCell(`C${startRow+2}`).value = safeData.metadata.totalCoveredArea ? `${safeData.metadata.totalCoveredArea} sq.ft` : "N/A";
+     dashSheet.getCell(`C${startRow+2}`).font = { bold: true, size: 12 };
+
+     dashSheet.getCell(`B${startRow+3}`).value = "Primary Cost Driver";
+     dashSheet.getCell(`C${startRow+3}`).value = highestDriver;
+     dashSheet.getCell(`C${startRow+3}`).font = { bold: true, size: 12 };
+
+     for(let r=9; r<=startRow+3; r++) {
          const cellB = dashSheet.getCell(`B${r}`);
          const cellC = dashSheet.getCell(`C${r}`);
          cellB.border = { bottom: {style:'thin', color:{argb:'FFE2E8F0'}} };

@@ -13,7 +13,7 @@ import {
 import { SEO } from "./SEO";
 import Logo from "./Logo";
 import RecentEstimates from "./RecentEstimates";
-import EstimationWorkflow from "./EstimationWorkflow";
+import PremiumHero from "./PremiumHero";
 import ExcelPromo from "./ExcelPromo";
 import SmartSearch from "./SmartSearch";
 
@@ -387,95 +387,13 @@ export default function Dashboard({
          </svg>
       </div>
 
-      <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col relative z-10">
+      <div className="flex-1 w-full flex flex-col relative z-10 w-full overflow-hidden">
         
-        {/* MASSIVE HERO SECTION */}
-        <div className="relative w-full max-w-[1400px] mx-auto mt-12 md:mt-24 mb-16 px-4 lg:px-8 flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-bottom-8 duration-700 z-10">
-          
-          <h1 className="text-5xl md:text-6xl font-sans font-black tracking-tight text-[var(--primary-dark)] dark:text-white mb-6 max-w-4xl mx-auto drop-shadow-sm flex flex-col justify-center items-center text-center">
-            <span className="block mb-2">Free Civil Engineering</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-purple-500 to-orange-500 font-extrabold drop-shadow-sm pb-2">
-              Estimation Platform
-            </span>
-          </h1>
-          
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8 font-medium text-center">
-            Calculate material quantities, generate BOQs, and estimate project costs instantly with 40+ professional engineering tools.
-          </p>
-          
-          <div className="inline-flex items-center gap-3 mb-10 px-5 py-2.5 bg-purple-50 dark:bg-purple-900/30 rounded-full border border-purple-100 dark:border-purple-800/50 shadow-sm animate-in fade-in zoom-in duration-1000 delay-300">
-             <div className="flex -space-x-3 mr-2">
-                <img src="https://i.pravatar.cc/100?img=11" className="w-9 h-9 rounded-full border-2 border-white dark:border-slate-900 shadow-sm" alt="Civil Engineer Avatar 1" title="Expert Civil Engineer" loading="lazy" />
-                <img src="https://i.pravatar.cc/100?img=12" className="w-9 h-9 rounded-full border-2 border-white dark:border-slate-900 shadow-sm" alt="Civil Engineer Avatar 2" title="Expert Quantity Surveyor" loading="lazy" />
-                <img src="https://i.pravatar.cc/100?img=13" className="w-9 h-9 rounded-full border-2 border-white dark:border-slate-900 shadow-sm" alt="Civil Engineer Avatar 3" title="Expert Site Engineer" loading="lazy" />
-             </div>
-             <span className="font-bold text-purple-700 dark:text-purple-300 tracking-wide text-sm md:text-base cursor-default">{engineersCount === 10000 ? '10,000+' : engineersCount.toLocaleString('en-US')} Engineers Trust Us</span>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
-            <button
-               onClick={() => {
-                 const elm = document.getElementById('search-bar-container');
-                 elm?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-               }}
-               className="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-purple-600 to-orange-500 text-white rounded-full font-bold text-lg shadow-[0_8px_30px_rgba(147,51,234,0.3)] hover:shadow-[0_8px_40px_rgba(147,51,234,0.4)] transition-all hover:-translate-y-1 active:scale-95"
-            >
-              Start Estimating for Free
-            </button>
-            <button
-               onClick={() => {
-                 const elm = document.getElementById('category-filter-section');
-                 elm?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-               }}
-               className="w-full sm:w-auto px-10 py-4 bg-white dark:bg-slate-800 text-slate-700 dark:text-white rounded-full font-bold text-lg shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all hover:-translate-y-1 flex items-center justify-center gap-2 group active:scale-95"
-            >
-              View All Tools <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform"/>
-            </button>
-          </div>
-
-          {/* Stats Bar */}
-          <div className="w-full max-w-5xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[2rem] border border-white dark:border-slate-800 shadow-[0_20px_50px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.2)] relative overflow-hidden">
-               {/* Shine effect */}
-               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-[100%] hover:animate-[shimmer_2s_infinite] dark:via-white/5 pointer-events-none" />
-               
-               <div className="flex flex-col items-center text-center p-2 group">
-                  <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-                    <Box className="w-6 h-6 text-purple-600 dark:text-purple-400"/>
-                  </div>
-                  <h4 className="font-extrabold text-2xl text-slate-900 dark:text-white mb-1 tracking-tight">40+</h4>
-                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Professional Tools</p>
-               </div>
-               <div className="flex flex-col items-center text-center p-2 group">
-                  <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
-                    <CheckSquare className="w-6 h-6 text-emerald-600 dark:text-emerald-400"/>
-                  </div>
-                  <h4 className="font-extrabold text-2xl text-slate-900 dark:text-white mb-1 tracking-tight">100%</h4>
-                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Free Forever</p>
-               </div>
-               <div className="flex flex-col items-center text-center p-2 group">
-                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-                    <Map className="w-6 h-6 text-blue-600 dark:text-blue-400"/>
-                  </div>
-                  <h4 className="font-extrabold text-2xl text-slate-900 dark:text-white mb-1 tracking-tight">15+</h4>
-                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Countries Trusted</p>
-               </div>
-               <div className="flex flex-col items-center text-center p-2 group">
-                  <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
-                    <Sparkles className="w-6 h-6 text-orange-600 dark:text-orange-400"/>
-                  </div>
-                  <h4 className="font-extrabold text-2xl text-slate-900 dark:text-white mb-1 tracking-tight">AI</h4>
-                  <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Powered Estimates</p>
-               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Complete Estimation Workflow Section */}
-        <EstimationWorkflow onSelectModule={onSelectModule} />
+        {/* PREMIUM HERO & WORKFLOW SECTION */}
+        <PremiumHero />
 
         {/* Tool category cards */}
-        <div className="w-full max-w-[1400px] mx-auto px-4 lg:px-8 mb-16" id="search-bar-container">
+        <div className="w-full max-w-[1400px] mx-auto px-4 lg:px-8 mb-16 mt-8" id="search-bar-container">
           <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
             {categories.map((category) => {
               const count = category === "All Tools" 
