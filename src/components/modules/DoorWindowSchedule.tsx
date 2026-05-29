@@ -46,7 +46,7 @@ export default function DoorWindowSchedule() {
     <div className="w-full max-w-5xl mx-auto space-y-6">
        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
          <div className="flex justify-between items-center mb-6">
-           <h2 className="text-2xl font-bold flex items-center gap-2">
+           <h2 className="text-2xl font-semibold flex items-center gap-2">
              <Columns className="w-6 h-6 text-teal-500" />
              Door & Window Schedule Generator
            </h2>

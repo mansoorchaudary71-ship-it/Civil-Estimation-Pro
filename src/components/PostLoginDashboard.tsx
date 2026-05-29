@@ -125,7 +125,7 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
     {/* Recent Estimates Section */}
     <div className="w-full flex flex-col gap-4 mt-2">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2 tracking-tight">
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-white flex items-center gap-2 tracking-tight">
           <Clock className="w-5 h-5 text-[var(--accent-blue)]" />
           Recent Estimates
         </h2>

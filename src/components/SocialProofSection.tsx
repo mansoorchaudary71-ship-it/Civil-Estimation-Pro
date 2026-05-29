@@ -244,7 +244,7 @@ export default function SocialProofSection() {
                 <Globe2 className="w-8 h-8" strokeWidth={1.5} />
               </div>
               <h3
-                className="text-2xl font-bold text-white mb-2"
+                className="text-2xl font-semibold text-white mb-2"
                 style={{ fontFamily: '"Clash Display", sans-serif' }}
               >
                 Used in 15+ Countries
@@ -426,7 +426,7 @@ export default function SocialProofSection() {
                 className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300"
               >
                 <span
-                  className="text-xl md:text-2xl font-bold tracking-tight text-slate-300 hover:text-white tracking-tight leading-none"
+                  className="text-xl md:text-2xl font-semibold tracking-tight text-slate-300 hover:text-white tracking-tight leading-none"
                   style={{ fontFamily: '"Clash Display", sans-serif' }}
                 >
                   {logo}

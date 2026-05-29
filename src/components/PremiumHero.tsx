@@ -56,7 +56,7 @@ export default function PremiumHero() {
             <div className="w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center mb-4 text-purple-600">
               <stat.icon className="w-6 h-6" />
             </div>
-            <h3 className="text-3xl font-bold tabular-nums tracking-tight text-slate-900 mb-1">{stat.val}</h3>
+            <h3 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-900 mb-1">{stat.val}</h3>
             <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">{stat.lab}</p>
           </div>
         ))}

@@ -151,7 +151,7 @@ export default function GradientCalculator() {
               <div className="p-2.5 bg-emerald-600 rounded-xl shadow-lg shadow-emerald-500/30 text-white">
                 <Activity className="w-6 h-6" />
               </div>
-              <h1 className="text-3xl font-bold tracking-tight text-slate-800">Gradient & Slope</h1>
+              <h1 className="text-3xl font-semibold tracking-tight text-slate-800">Gradient & Slope</h1>
             </div>
             <p className="text-gray-500 dark:text-gray-400 ml-1">Dynamic bidirectional slope and elevation calculator</p>
           </div>
@@ -174,7 +174,7 @@ export default function GradientCalculator() {
                   <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl">
                     <Triangle className="w-5 h-5" />
                   </div>
-                  <h2 className="text-xl font-bold tracking-tight text-slate-800">Slope Parameters</h2>
+                  <h2 className="text-xl font-semibold tracking-tight text-slate-800">Slope Parameters</h2>
                 </div>
                 
                 <p className="text-sm text-slate-500 mb-6 font-medium">Enter any 2 parameters to auto-calculate the rest.</p>
@@ -252,7 +252,7 @@ export default function GradientCalculator() {
                   <div className="p-2.5 bg-slate-700 rounded-xl">
                     <ArrowRight className="w-5 h-5 text-emerald-400" />
                   </div>
-                  <h2 className="text-xl font-bold tracking-tight">Elevation Finder</h2>
+                  <h2 className="text-xl font-semibold tracking-tight">Elevation Finder</h2>
                 </div>
                 
                 <div className="flex items-center gap-4 mb-6 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700 w-max">

@@ -409,7 +409,7 @@ export default function Sidebar({
       >
         {/* Header Row */}
         <div className="flex items-center justify-between px-6 py-5 shrink-0 lg:hidden">
-          <div className="text-[20px] font-bold tabular-nums tracking-tight tracking-tighter text-text-primary uppercase">
+          <div className="text-[20px] font-semibold tabular-nums tracking-tight tracking-tighter text-text-primary uppercase">
             Esti<span className="text-indigo-600 dark:text-indigo-400">Pro</span>
           </div>
           <div className="flex items-center space-x-2 text-slate-900 dark:text-slate-100 lg:hidden">

@@ -158,7 +158,7 @@ const ConstructionCostSummary: React.FC = () => {
     <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800 p-4 md:p-8 flex flex-col w-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+          <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2">
             <PieChartIcon className="w-6 h-6 text-purple-600" />
             Cost Summary Sheet
           </h2>
@@ -374,7 +374,7 @@ const ConstructionCostSummary: React.FC = () => {
               <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 flex items-center justify-between">
                 <div>
                   <div className="text-purple-200 text-xs uppercase tracking-wider mb-1">Cost Per Sq Ft</div>
-                  <div className="text-2xl font-bold">{costPerSqFt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                  <div className="text-2xl font-semibold">{costPerSqFt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                 </div>
                 <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
                   <PieChartIcon className="w-6 h-6 text-slate-900 dark:text-white" />

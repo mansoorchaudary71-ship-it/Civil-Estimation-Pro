@@ -660,7 +660,7 @@ export default function HouseEstimator() {
               <span className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
                 Built-up
               </span>
-              <span className="text-2xl font-bold tabular-nums tracking-tight text-indigo-600 tracking-tighter whitespace-nowrap">
+              <span className="text-2xl font-semibold tabular-nums tracking-tight text-indigo-600 tracking-tighter whitespace-nowrap">
                 {builtUpArea.toFixed(0)}
                 <span className="text-sm font-medium text-indigo-400">
                   sq.ft
@@ -798,7 +798,7 @@ export default function HouseEstimator() {
                    <h3 className="text-sm font-bold text-gray-700">Finish Quality</h3>
                 </div>
                 <div className="flex justify-between items-end mb-2">
-                  <span className="text-xl font-bold tabular-nums tracking-tight text-violet-600 tracking-tighter whitespace-nowrap">
+                  <span className="text-xl font-semibold tabular-nums tracking-tight text-violet-600 tracking-tighter whitespace-nowrap">
                     {getQualityLabel(finishQuality)}
                   </span>
                   <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
@@ -1123,7 +1123,7 @@ export default function HouseEstimator() {
 
             {/* Visual Summary */}
             <div className="bg-white p-6 sm:p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 mb-2">
-              <h3 className="text-xl font-bold text-slate-800 mb-6">
+              <h3 className="text-xl font-semibold text-slate-800 mb-6">
                 Cost Breakdown Visuals
               </h3>
               <div className="flex flex-col md:flex-row items-center justify-between gap-8">
@@ -1248,7 +1248,7 @@ export default function HouseEstimator() {
                            />
                         </div>
                       </MaterialSummary>
-                      <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">
+                      <h3 className="text-xl font-semibold text-slate-800 mt-8 mb-4">
                         Detailed Exact BOQ
                       </h3>
                       <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm mb-8">
@@ -1425,7 +1425,7 @@ export default function HouseEstimator() {
                             ))}
                          </div>
                       </MaterialSummary>
-                      <h3 className="text-xl font-bold text-slate-800 mt-8 mb-4">
+                      <h3 className="text-xl font-semibold text-slate-800 mt-8 mb-4">
                         Detailed Exact BOQ
                       </h3>
                       <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm mb-8">
@@ -1554,7 +1554,7 @@ export default function HouseEstimator() {
                           <Database className="w-6 h-6" />
                         </div>
                         <div>
-                          <h2 className="text-2xl font-bold tracking-tight text-slate-800">
+                          <h2 className="text-2xl font-semibold tracking-tight text-slate-800">
                             Configure Material Rates
                           </h2>
                           <p className="text-slate-700 dark:text-slate-300 font-medium text-sm mt-1">
@@ -1654,7 +1654,7 @@ export default function HouseEstimator() {
           <div className="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl border border-slate-100 flex flex-col max-h-[90vh] overflow-hidden">
             <div className="flex items-center justify-between p-6 border-b border-slate-100 bg-slate-50/50">
               <div>
-                <h2 className="text-xl font-bold text-slate-800">Advanced Room Specs</h2>
+                <h2 className="text-xl font-semibold text-slate-800">Advanced Room Specs</h2>
                 <p className="text-sm font-medium text-slate-500">Configure exact dimensions and features per room</p>
               </div>
               <button onClick={() => setIsRoomModalOpen(false)} className="p-2 bg-white border border-slate-200 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">

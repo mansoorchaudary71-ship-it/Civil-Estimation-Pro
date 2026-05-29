@@ -15,7 +15,7 @@ export default function RelatedCalculators({ diameter_mm, isMetric = true }: Rel
 
   return (
     <section className="mt-12 bg-slate-50 rounded-2xl p-8 border border-slate-200">
-      <h2 className="text-2xl font-bold text-slate-900 mb-6">
+      <h2 className="text-2xl font-semibold text-slate-900 mb-6">
         Quick Links & Related Calculators
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

@@ -63,7 +63,7 @@ export default function InteractiveSteelCalculator({
               </svg>
             </div>
             <div>
-              <h2 className="text-xl font-bold text-slate-800">
+              <h2 className="text-xl font-semibold text-slate-800">
                 Bar Specifications
               </h2>
               <p className="text-sm text-slate-500 mt-1">
@@ -85,7 +85,7 @@ export default function InteractiveSteelCalculator({
                   type="number"
                   readOnly
                   value={initialDiameter}
-                  className="block w-full rounded-xl border-slate-200 bg-slate-50 py-4 pl-5 pr-16 text-xl font-bold text-slate-700 shadow-sm border focus:ring-0 focus:border-slate-300 transition-colors cursor-default"
+                  className="block w-full rounded-xl border-slate-200 bg-slate-50 py-4 pl-5 pr-16 text-xl font-semibold text-slate-700 shadow-sm border focus:ring-0 focus:border-slate-300 transition-colors cursor-default"
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-5 pointer-events-none">
                   <span className="text-slate-400 font-semibold text-lg">
@@ -106,7 +106,7 @@ export default function InteractiveSteelCalculator({
                   onChange={(e) => setLength(e.target.value)}
                   min="0"
                   step="0.01"
-                  className="block w-full border-none py-4 pl-5 pr-4 text-xl font-bold text-slate-900 focus:ring-0 bg-transparent"
+                  className="block w-full border-none py-4 pl-5 pr-4 text-xl font-semibold text-slate-900 focus:ring-0 bg-transparent"
                 />
                 <div className="flex items-center bg-slate-50 border-l border-slate-200 px-2">
                   <select
@@ -154,10 +154,10 @@ export default function InteractiveSteelCalculator({
               Total Estimated Weight
             </div>
             <div className="flex items-baseline gap-2 mb-10 text-wrap break-all">
-              <span className="text-6xl sm:text-7xl font-bold tabular-nums tracking-tight tracking-tighter text-white">
+              <span className="text-6xl sm:text-7xl font-semibold tabular-nums tracking-tight tracking-tighter text-white">
                 {weight}
               </span>
-              <span className="text-2xl font-bold text-slate-400 whitespace-nowrap">kg</span>
+              <span className="text-2xl font-semibold text-slate-400 whitespace-nowrap">kg</span>
             </div>
 
             <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-5 border border-slate-700/50">

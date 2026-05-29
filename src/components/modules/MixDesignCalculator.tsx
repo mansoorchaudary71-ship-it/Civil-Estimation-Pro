@@ -180,7 +180,7 @@ export default function MixDesignCalculator() {
       {/* HEADER */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm no-print">
         <div>
-          <h2 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
+          <h2 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
             <div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-2xl">
               <Droplet className="w-8 h-8" />
             </div>
@@ -348,25 +348,25 @@ export default function MixDesignCalculator() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
                 <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-1">Total Binder</p>
-                <p className="text-2xl md:text-3xl font-bold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400 tabular-nums">
+                <p className="text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400 tabular-nums">
                   {totalCementitious} <span className="text-sm font-bold text-slate-400">kg/m³</span>
                 </p>
              </div>
              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
                 <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-1">Water Content</p>
-                <p className="text-2xl md:text-3xl font-bold tabular-nums tracking-tight text-sky-500 dark:text-sky-400 tabular-nums">
+                <p className="text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-sky-500 dark:text-sky-400 tabular-nums">
                   {Math.round(actualWaterContent)} <span className="text-sm font-bold text-slate-400">L/m³</span>
                 </p>
              </div>
              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
                 <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-1">Fine Aggregation</p>
-                <p className="text-2xl md:text-3xl font-bold tabular-nums tracking-tight text-amber-500 dark:text-amber-400 tabular-nums">
+                <p className="text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-amber-500 dark:text-amber-400 tabular-nums">
                   {weightSand} <span className="text-sm font-bold text-slate-400">kg/m³</span>
                 </p>
              </div>
              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
                 <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-1">Coarse Agg</p>
-                <p className="text-2xl md:text-3xl font-bold tabular-nums tracking-tight text-teal-600 dark:text-teal-400 tabular-nums">
+                <p className="text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-teal-600 dark:text-teal-400 tabular-nums">
                   {weightCA} <span className="text-sm font-bold text-slate-400">kg/m³</span>
                 </p>
              </div>
@@ -438,7 +438,7 @@ export default function MixDesignCalculator() {
       {/* PRINTABLE REPORT SECTION (Visually styled for screen, clean for print) */}
       <div className="print-only max-w-4xl mx-auto bg-white text-black p-8 font-serif hide-on-screen">
           <div className="border-b-2 border-black pb-4 mb-6 text-center">
-             <h1 className="text-3xl font-bold tabular-nums tracking-tight uppercase tracking-widest text-black">Concrete Mix Design Report</h1>
+             <h1 className="text-3xl font-semibold tabular-nums tracking-tight uppercase tracking-widest text-black">Concrete Mix Design Report</h1>
              <p className="text-sm mt-2 font-bold text-gray-600">IS 10262:2019 / IS 456:2000 Compliance</p>
           </div>
 

@@ -114,7 +114,7 @@ export function RelatedCalculators({ category, currentSlug }: RelatedCalculators
   return (
     <section className="mt-16 bg-slate-900 rounded-3xl p-8 sm:p-10 border border-slate-800">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-white">Silo Link Grid: Continue Exploring</h2>
+        <h2 className="text-2xl font-semibold text-white">Silo Link Grid: Continue Exploring</h2>
         <p className="text-slate-500 dark:text-slate-400 mt-2">Discover sequential tools, categorical hubs, and related structural estimators.</p>
       </div>
       

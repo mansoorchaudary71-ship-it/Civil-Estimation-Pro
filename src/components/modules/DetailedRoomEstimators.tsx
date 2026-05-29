@@ -77,7 +77,7 @@ function ResultTable({ title, icon: Icon, items, onRateChange }: { title: string
               <tr key={i} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50">
                 <td className="py-3 px-4 font-medium text-slate-700 dark:text-slate-300">{item.name}</td>
                 <td className="py-3 px-4 text-slate-500 text-xs font-semibold">{item.unit}</td>
-                <td className="py-3 px-4 text-right font-bold tabular-nums tracking-tight text-purple-600 dark:text-purple-400 text-base">{item.qty.toLocaleString(undefined, {maximumFractionDigits: 1})}</td>
+                <td className="py-3 px-4 text-right font-semibold tabular-nums tracking-tight text-purple-600 dark:text-purple-400 text-base">{item.qty.toLocaleString(undefined, {maximumFractionDigits: 1})}</td>
                 <td className="py-2 px-4">
                   <input
                     type="number"
@@ -129,17 +129,17 @@ function BaseEstimatorWrapper({ title, inputs, renderInputs, calculate }: {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
       <div className="lg:col-span-4 space-y-6">
-        <h3 className="text-2xl font-bold tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight">{title} Estimator</h3>
+        <h3 className="text-2xl font-semibold tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight">{title} Estimator</h3>
         <div className="space-y-6">
           {renderInputs()}
         </div>
       </div>
       <div className="lg:col-span-8 bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700">
         <div className="flex justify-between items-end mb-8">
-          <h3 className="text-xl font-bold text-slate-800 dark:text-slate-900 dark:text-white tracking-tight">Calculation Results</h3>
+          <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-900 dark:text-white tracking-tight">Calculation Results</h3>
           <div className="text-right">
             <span className="text-xs font-bold text-slate-500 uppercase tracking-widest block">Grand Total</span>
-            <span className="text-3xl font-bold tabular-nums tracking-tight text-purple-600 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-500">{grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+            <span className="text-3xl font-semibold tabular-nums tracking-tight text-purple-600 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-500">{grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
           </div>
         </div>
         <div className="space-y-2">

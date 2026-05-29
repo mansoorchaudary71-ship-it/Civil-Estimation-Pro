@@ -65,7 +65,7 @@ export default function GridEarthworkEstimator() {
     <div className="w-full bg-transparent text-gray-900 font-sans mt-4">
       <div className="space-y-8">
         <div className="mb-4">
-          <h2 className="text-2xl font-bold bg-gradient-to-r   bg-clip-text text-transparent pb-1">
+          <h2 className="text-2xl font-semibold bg-gradient-to-r   bg-clip-text text-transparent pb-1">
             Grid Method Volume
           </h2>
           <GlobalSettingsToggle align="left" showCurrency={false} />
@@ -77,7 +77,7 @@ export default function GridEarthworkEstimator() {
                 <div className="p-2.5 bg-blue-50 text-indigo-600 rounded-xl">
                   <Grid2X2 className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold tracking-tight text-gray-800">
+                <h2 className="text-xl font-semibold tracking-tight text-gray-800">
                   Grid Dimensions
                 </h2>
               </div>
@@ -117,7 +117,7 @@ export default function GridEarthworkEstimator() {
                 <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
                   <Layers className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold tracking-tight text-gray-800">
+                <h2 className="text-xl font-semibold tracking-tight text-gray-800">
                   Corner Elevations
                 </h2>
               </div>

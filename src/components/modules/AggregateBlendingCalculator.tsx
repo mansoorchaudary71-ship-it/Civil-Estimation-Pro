@@ -150,7 +150,7 @@ export default function AggregateBlendingCalculator() {
            <ArrowRightLeft className="w-4 h-4 text-[var(--accent-vibrant)]" />
            <span className="text-xs font-bold text-[var(--accent-vibrant)] uppercase tracking-wider">Mix Design Toolkit</span>
         </div>
-        <h2 className="text-2xl md:text-3xl font-heading font-bold tabular-nums tracking-tight text-text-primary mb-2">Aggregate Blending Calculator</h2>
+        <h2 className="text-2xl md:text-3xl font-heading font-semibold tabular-nums tracking-tight text-text-primary mb-2">Aggregate Blending Calculator</h2>
         <p className="text-slate-500 max-w-3xl text-sm leading-relaxed">
           Blend 2 to 4 different aggregate stockpiles to meet target grading specifications. Use the interactive sliders to adjust proportions and instantly preview the blended gradation envelope.
         </p>

@@ -9,7 +9,7 @@ export default function ColumnDesignTool() {
   return (
     <div className="flex flex-col gap-8 w-full max-w-4xl mx-auto">
       <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
-         <h2 className="text-xl font-bold mb-6 text-slate-800 dark:text-slate-100 flex items-center gap-2">
+         <h2 className="text-xl font-semibold mb-6 text-slate-800 dark:text-slate-100 flex items-center gap-2">
             <Building2 className="text-pink-600" /> Column Design (IS 456 & 13920)
          </h2>
          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

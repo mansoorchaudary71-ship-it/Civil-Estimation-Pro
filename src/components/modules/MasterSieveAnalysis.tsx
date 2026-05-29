@@ -178,7 +178,7 @@ export default function MasterSieveAnalysis() {
              <FileSpreadsheet className="w-4 h-4 text-[#F26B1D]" />
              <span className="text-xs font-bold text-[#F26B1D] uppercase tracking-wider">Geotechnical Lab</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-heading font-bold tabular-nums tracking-tight text-text-primary mb-2">Master Sieve Analysis</h2>
+          <h2 className="text-2xl md:text-3xl font-heading font-semibold tabular-nums tracking-tight text-text-primary mb-2">Master Sieve Analysis</h2>
           <p className="text-slate-500 max-w-2xl text-sm leading-relaxed">
             Dynamic gradation validator driven by specification databases. Select category, grading, and enter retained weights to validate against limits and generate custom gradation curves.
           </p>
@@ -357,7 +357,7 @@ export default function MasterSieveAnalysis() {
           
           <div className="bg-[#F26B1D] text-slate-900 dark:text-white rounded-2xl p-6 shadow-[0_8px_30px_rgba(242,107,29,0.3)] border border-[#F26B1D]/50 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-[150px] h-[150px] bg-white/20 blur-[50px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
-            <h3 className="text-xl font-heading font-bold tabular-nums tracking-tight mb-2 relative z-10">Instant Report</h3>
+            <h3 className="text-xl font-heading font-semibold tabular-nums tracking-tight mb-2 relative z-10">Instant Report</h3>
             <p className="text-orange-100 text-sm mb-6 relative z-10 font-medium">Generate a professional specification-compliant testing report instantly.</p>
             <button 
               onClick={handleSave}

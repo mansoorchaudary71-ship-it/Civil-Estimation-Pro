@@ -133,7 +133,7 @@ export default function GlobalSettingsModal({
           {" "}
           <div>
             {" "}
-            <h3 className="text-xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
+            <h3 className="text-xl font-semibold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
               {" "}
               Global Settings{" "}
             </h3>{" "}

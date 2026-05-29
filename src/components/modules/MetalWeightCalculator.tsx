@@ -244,7 +244,7 @@ export default function MetalWeightCalculator() {
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold tabular-nums tracking-tight mb-2 flex items-center gap-3">
+        <h1 className="text-3xl font-semibold tabular-nums tracking-tight mb-2 flex items-center gap-3">
           <Weight className="w-8 h-8 text-neutral-600 dark:text-neutral-400" />
           Metal Weight Calculator
         </h1>

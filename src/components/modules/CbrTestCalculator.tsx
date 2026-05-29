@@ -140,7 +140,7 @@ export default function CbrTestCalculator() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
+            <h2 className="text-3xl font-semibold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
               <Activity className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
               CBR Test Calculator
             </h2>
@@ -300,12 +300,12 @@ export default function CbrTestCalculator() {
                   <div className="grid grid-cols-2 gap-4 mb-8">
                     <div className="bg-white/60 dark:bg-slate-900/40 p-4 rounded-2xl border border-black/5 dark:border-white/5 shadow-sm">
                       <span className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest block mb-1">CBR @ 2.5mm</span>
-                      <div className="text-2xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.cbr25.toFixed(1)}%</div>
+                      <div className="text-2xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.cbr25.toFixed(1)}%</div>
                       <span className="text-[10px] text-slate-400 font-mono mt-1 block">Load: {estimateData.load25.toFixed(1)} kg</span>
                     </div>
                     <div className="bg-white/60 dark:bg-slate-900/40 p-4 rounded-2xl border border-black/5 dark:border-white/5 shadow-sm">
                       <span className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest block mb-1">CBR @ 5.0mm</span>
-                      <div className="text-2xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.cbr50.toFixed(1)}%</div>
+                      <div className="text-2xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.cbr50.toFixed(1)}%</div>
                       <span className="text-[10px] text-slate-400 font-mono mt-1 block">Load: {estimateData.load50.toFixed(1)} kg</span>
                     </div>
                   </div>
@@ -313,7 +313,7 @@ export default function CbrTestCalculator() {
                   <div className="bg-white dark:bg-slate-900 rounded-2xl border border-black/5 dark:border-slate-100 dark:border-slate-800 shadow-sm p-5 flex items-center justify-between mb-8">
                      <div>
                        <span className="block text-xs font-bold uppercase tracking-widest text-slate-500">Soil Quality Index</span>
-                       <span className="text-lg font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.soilClass}</span>
+                       <span className="text-lg font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.soilClass}</span>
                      </div>
                      <Activity className="w-8 h-8 text-slate-300 dark:text-slate-700" />
                   </div>
@@ -376,7 +376,7 @@ export default function CbrTestCalculator() {
                 <div className="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/50 rounded-full flex items-center justify-center mb-6 shadow-highlight">
                   <Activity className="w-10 h-10 text-indigo-600 dark:text-indigo-400 opacity-80" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-700 dark:text-slate-300 mb-2">Ready to Plot Load-Penetration</h3>
+                <h3 className="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-2">Ready to Plot Load-Penetration</h3>
                 <p className="text-slate-500 max-w-sm text-sm leading-relaxed mb-6">
                   Input your lab dial readings in the left panel. The interactive CBR curve and corrected values will appear here automatically.
                 </p>

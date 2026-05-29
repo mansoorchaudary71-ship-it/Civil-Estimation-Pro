@@ -150,7 +150,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
               <Columns className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-text-primary">
+              <h3 className="text-xl font-semibold text-text-primary">
                 Brickwork Estimator
               </h3>
               <p className="text-sm font-medium text-slate-500 dark:text-slate-400">

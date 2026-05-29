@@ -182,7 +182,7 @@ export default function FormworkEstimator() {
                   </div>{" "}
                   <div>
                     {" "}
-                    <h2 className="text-xl font-bold text-gray-800">
+                    <h2 className="text-xl font-semibold text-gray-800">
                       Shuttering Elements
                     </h2>{" "}
                     <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">
@@ -343,7 +343,7 @@ export default function FormworkEstimator() {
                   <button
                     key={factor}
                     onClick={() => setRepetitionFactor(factor)}
-                    className={`w-12 h-12 rounded-2xl font-bold tabular-nums tracking-tight transition-all ${repetitionFactor === factor ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200"}`}
+                    className={`w-12 h-12 rounded-2xl font-semibold tabular-nums tracking-tight transition-all ${repetitionFactor === factor ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200"}`}
                   >
                     {" "}
                     x{factor}{" "}

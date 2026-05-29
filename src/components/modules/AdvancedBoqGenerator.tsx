@@ -185,7 +185,7 @@ export default function AdvancedBoqGenerator() {
     <div className="w-full max-w-7xl mx-auto space-y-6">
       <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col md:flex-row justify-between items-center gap-6">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-3">
+          <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-3">
             <Building className="w-7 h-7 text-purple-600" />
             Professional BOQ Auto-Generator
           </h2>
@@ -280,7 +280,7 @@ export default function AdvancedBoqGenerator() {
 
         {step === 2 && (
           <div className="space-y-8 animate-in fade-in duration-300">
-            <h3 className="text-xl font-bold text-slate-800 dark:text-slate-900 dark:text-white border-b-2 border-purple-500 pb-2">Measurement Input</h3>
+            <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-900 dark:text-white border-b-2 border-purple-500 pb-2">Measurement Input</h3>
             
             {scopes.map(scope => (
               <div key={scope} className="bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
@@ -355,7 +355,7 @@ export default function AdvancedBoqGenerator() {
 
         {step === 3 && (
           <div className="space-y-8 animate-in fade-in duration-300">
-            <h3 className="text-xl font-bold text-slate-800 dark:text-slate-900 dark:text-white border-b-2 border-purple-500 pb-2">Rate Entry & Overrides</h3>
+            <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-900 dark:text-white border-b-2 border-purple-500 pb-2">Rate Entry & Overrides</h3>
             <p className="text-slate-500 dark:text-slate-400 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl text-sm border border-blue-100 dark:border-blue-800">
               Base rates have been auto-populated from Live DB. Review and override if necessary before generating final BOQ.
             </p>
@@ -427,7 +427,7 @@ export default function AdvancedBoqGenerator() {
               
               <div className="border-b-4 border-purple-800 pb-6 mb-8 flex justify-between items-end">
                 <div>
-                  <h1 className="text-3xl font-bold tabular-nums tracking-tight text-purple-900 uppercase tracking-tight mb-2">Bill of Quantities</h1>
+                  <h1 className="text-3xl font-semibold tabular-nums tracking-tight text-purple-900 uppercase tracking-tight mb-2">Bill of Quantities</h1>
                   <h2 className="text-xl font-semibold text-slate-700">{projectData.name}</h2>
                 </div>
                 <div className="text-right text-sm text-slate-500 space-y-1">

@@ -95,7 +95,7 @@ export default function DiscussionWidget({ moduleId, toolName }: { moduleId: str
   return (
     <div className="mt-8 p-6 rounded-[2rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-        <h2 className="text-xl font-bold text-slate-900 dark:text-white">Discussion & Comments</h2>
+        <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Discussion & Comments</h2>
         <span className="text-sm font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1 rounded-full border border-indigo-100 dark:border-indigo-800">
           {comments.length} engineers found this helpful
         </span>

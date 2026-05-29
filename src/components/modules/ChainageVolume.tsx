@@ -158,7 +158,7 @@ export default function ChainageVolumeEstimator() {
                 <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
                   <Layers className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold tracking-tight text-gray-800">
+                <h2 className="text-xl font-semibold tracking-tight text-gray-800">
                   Road Parameters
                 </h2>
               </div>
@@ -204,7 +204,7 @@ export default function ChainageVolumeEstimator() {
                   <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
                     <Map className="w-5 h-5" />
                   </div>
-                  <h2 className="text-xl font-bold tracking-tight text-gray-800">
+                  <h2 className="text-xl font-semibold tracking-tight text-gray-800">
                     Station Data
                   </h2>
                 </div>

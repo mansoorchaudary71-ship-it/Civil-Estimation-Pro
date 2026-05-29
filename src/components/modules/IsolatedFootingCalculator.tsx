@@ -192,7 +192,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
         {!isEmbedded && (
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold tabular-nums tracking-tight mb-2 flex items-center gap-3 text-text-primary">
+              <h1 className="text-3xl font-semibold tabular-nums tracking-tight mb-2 flex items-center gap-3 text-text-primary">
                 <Box className="w-8 h-8 text-[#E55A2B] dark:text-[#ff8a65]" />
                 Isolated Footing Calculator
               </h1>
@@ -491,7 +491,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                     <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
                       <div className="p-4 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
                         <span className="font-bold text-slate-700 dark:text-slate-200">Total Steel Required</span>
-                        <span className="text-xl font-bold tabular-nums tracking-tight text-rose-600 dark:text-rose-400">{totalSteel.toFixed(2)} kg</span>
+                        <span className="text-xl font-semibold tabular-nums tracking-tight text-rose-600 dark:text-rose-400">{totalSteel.toFixed(2)} kg</span>
                       </div>
                       <div className="p-4 space-y-4">
                         <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Bottom Mesh</div>

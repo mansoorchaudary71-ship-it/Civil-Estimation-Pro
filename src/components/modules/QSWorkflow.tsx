@@ -130,7 +130,7 @@ export default function QSWorkflow() {
       {/* HEADER SECTION */}
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm mb-6 flex justify-between items-center no-print">
          <div>
-           <h2 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
+           <h2 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
              <div className="p-3 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-2xl">
                <Activity className="w-8 h-8" />
              </div>
@@ -183,7 +183,7 @@ export default function QSWorkflow() {
          {/* -- STEP 1 -- */}
          {currentStep === 1 && (
             <div className="animate-in slide-in-from-right-4 duration-300">
-               <h3 className="text-2xl font-bold mb-6">1. Project Setup</h3>
+               <h3 className="text-2xl font-semibold mb-6">1. Project Setup</h3>
                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                  <div><label className="block text-sm font-bold mb-2">Project Name</label><input type="text" value={projectData.name} onChange={e=>setProjectData({...projectData, name: e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl" /></div>
                  <div><label className="block text-sm font-bold mb-2">Location</label><input type="text" value={projectData.location} onChange={e=>setProjectData({...projectData, location: e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl" /></div>
@@ -203,7 +203,7 @@ export default function QSWorkflow() {
          {/* -- STEP 2 -- */}
          {currentStep === 2 && (
             <div className="animate-in slide-in-from-right-4 duration-300">
-               <h3 className="text-2xl font-bold mb-6">2. Drawings & Plan Measure</h3>
+               <h3 className="text-2xl font-semibold mb-6">2. Drawings & Plan Measure</h3>
                <div className={`p-10 border-2 border-dashed rounded-2xl text-center mb-6 \${drawingsLoaded ? 'border-emerald-500 bg-emerald-50/50' : 'border-slate-300 dark:border-slate-700'}`}>
                   {drawingsLoaded ? (
                      <div className="flex flex-col items-center">
@@ -232,7 +232,7 @@ export default function QSWorkflow() {
          {/* -- STEP 3 -- */}
          {currentStep === 3 && (
             <div className="animate-in slide-in-from-right-4 duration-300">
-               <h3 className="text-2xl font-bold mb-4 flex items-center gap-2"><Shovel className="w-6 h-6 text-amber-600" /> 3. Substructure Quantities</h3>
+               <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2"><Shovel className="w-6 h-6 text-amber-600" /> 3. Substructure Quantities</h3>
                <p className="text-slate-500 mb-6 font-medium">Extract quantities for below-ground works as per IS 1200 Part 1 & 2.</p>
                
                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -255,7 +255,7 @@ export default function QSWorkflow() {
          {/* -- STEP 4 -- */}
          {currentStep === 4 && (
             <div className="animate-in slide-in-from-right-4 duration-300">
-               <h3 className="text-2xl font-bold mb-4 flex items-center gap-2"><Building className="w-6 h-6 text-blue-600" /> 4. Superstructure Quantities</h3>
+               <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2"><Building className="w-6 h-6 text-blue-600" /> 4. Superstructure Quantities</h3>
                <p className="text-slate-500 mb-6 font-medium">Extract lengths and volumes for structural frame above plinth level.</p>
                
                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -282,7 +282,7 @@ export default function QSWorkflow() {
          {/* -- STEP 5 -- */}
          {currentStep === 5 && (
             <div className="animate-in slide-in-from-right-4 duration-300">
-               <h3 className="text-2xl font-bold mb-4 flex items-center gap-2"><Paintbrush className="w-6 h-6 text-rose-500" /> 5. Masonry & Finishes</h3>
+               <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2"><Paintbrush className="w-6 h-6 text-rose-500" /> 5. Masonry & Finishes</h3>
                <p className="text-slate-500 mb-6 font-medium">Blockwork, plastering, floor finishes, and painting.</p>
                
                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -309,7 +309,7 @@ export default function QSWorkflow() {
          {/* -- STEP 6 -- */}
          {currentStep === 6 && (
             <div className="animate-in slide-in-from-right-4 duration-300">
-               <h3 className="text-2xl font-bold mb-4 flex items-center gap-2"><ZapIcon className="w-6 h-6 text-sky-500" /> 6. MEP & Services</h3>
+               <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2"><ZapIcon className="w-6 h-6 text-sky-500" /> 6. MEP & Services</h3>
                <p className="text-slate-500 mb-6 font-medium">Plumbing, electrical, and special infrastructure calculations.</p>
                
                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -337,7 +337,7 @@ export default function QSWorkflow() {
          {currentStep === 7 && (
             <div className="animate-in slide-in-from-right-4 duration-300">
                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-2xl font-bold flex items-center gap-2"><ClipboardList className="w-6 h-6 text-emerald-600" /> 7. Expected BOQ Compiler</h3>
+                  <h3 className="text-2xl font-semibold flex items-center gap-2"><ClipboardList className="w-6 h-6 text-emerald-600" /> 7. Expected BOQ Compiler</h3>
                   <p className="font-medium text-emerald-600 bg-emerald-50 px-4 py-1.5 rounded-full">Rates populated from Live DB</p>
                </div>
                <p className="text-slate-500 mb-6 font-medium">Verify standard item descriptions and auto-calculated final quantities.</p>
@@ -366,8 +366,8 @@ export default function QSWorkflow() {
                      </tbody>
                      <tfoot>
                         <tr className="bg-slate-50 dark:bg-slate-800/80">
-                           <td colSpan={4} className="p-4 text-right font-bold tabular-nums tracking-tight uppercase tracking-wider">Estimated Project Total</td>
-                           <td className="p-4 text-right font-bold tabular-nums tracking-tight text-xl text-emerald-600">₹{totalCost.toLocaleString()}</td>
+                           <td colSpan={4} className="p-4 text-right font-semibold tabular-nums tracking-tight uppercase tracking-wider">Estimated Project Total</td>
+                           <td className="p-4 text-right font-semibold tabular-nums tracking-tight text-xl text-emerald-600">₹{totalCost.toLocaleString()}</td>
                         </tr>
                      </tfoot>
                   </table>
@@ -420,15 +420,15 @@ export default function QSWorkflow() {
                <div className="grid grid-cols-3 gap-6 mb-10">
                   <div className="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
                      <p className="text-sm font-bold text-slate-500 mb-2 uppercase tracking-widest">Total Estimated Cost</p>
-                     <p className="text-3xl font-bold tabular-nums tracking-tight text-indigo-700">₹{totalCost.toLocaleString()}</p>
+                     <p className="text-3xl font-semibold tabular-nums tracking-tight text-indigo-700">₹{totalCost.toLocaleString()}</p>
                   </div>
                   <div className="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
                      <p className="text-sm font-bold text-slate-500 mb-2 uppercase tracking-widest">Plinth Area</p>
-                     <p className="text-3xl font-bold tabular-nums tracking-tight">{totalPlinthArea.toLocaleString()} <span className="text-lg text-slate-500">sq.ft</span></p>
+                     <p className="text-3xl font-semibold tabular-nums tracking-tight">{totalPlinthArea.toLocaleString()} <span className="text-lg text-slate-500">sq.ft</span></p>
                   </div>
                   <div className="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
                      <p className="text-sm font-bold text-slate-500 mb-2 uppercase tracking-widest">Cost Per Sq.Ft</p>
-                     <p className="text-3xl font-bold tabular-nums tracking-tight">₹{Math.round(totalCost / totalPlinthArea).toLocaleString()}</p>
+                     <p className="text-3xl font-semibold tabular-nums tracking-tight">₹{Math.round(totalCost / totalPlinthArea).toLocaleString()}</p>
                   </div>
                </div>
 

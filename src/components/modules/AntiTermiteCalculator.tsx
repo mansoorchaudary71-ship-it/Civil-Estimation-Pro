@@ -93,7 +93,7 @@ export default function AntiTermiteCalculator() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
+            <h2 className="text-3xl font-semibold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
               <Bug className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
               Anti-Termite Treatment
             </h2>
@@ -289,15 +289,15 @@ export default function AntiTermiteCalculator() {
                   <div className="space-y-3 mb-6">
                      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl flex justify-between items-center group hover:border-indigo-200 dark:hover:border-indigo-800/60 transition-colors">
                        <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold">Floor / Slab Emulsion</span>
-                       <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200 font-mono">{Math.round(estimateData.emulsionFloor).toLocaleString()} {estimateData.volumeUnit}</span>
+                       <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-200 font-mono">{Math.round(estimateData.emulsionFloor).toLocaleString()} {estimateData.volumeUnit}</span>
                      </div>
                      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl flex justify-between items-center group hover:border-indigo-200 dark:hover:border-indigo-800/60 transition-colors">
                        <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold">Trench / Perimeter Emulsion</span>
-                       <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200 font-mono">{Math.round(estimateData.emulsionTrench).toLocaleString()} {estimateData.volumeUnit}</span>
+                       <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-200 font-mono">{Math.round(estimateData.emulsionTrench).toLocaleString()} {estimateData.volumeUnit}</span>
                      </div>
                      <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-4 rounded-xl flex justify-between items-center">
                        <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold">Dilution Ratio Used</span>
-                       <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200 font-mono">1 : {estimateData.dilutionRatio}</span>
+                       <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-200 font-mono">1 : {estimateData.dilutionRatio}</span>
                      </div>
                   </div>
                 </div>
@@ -307,7 +307,7 @@ export default function AntiTermiteCalculator() {
                 <div className="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/50 rounded-full flex items-center justify-center mb-6 shadow-highlight">
                   <Bug className="w-10 h-10 text-indigo-600 dark:text-indigo-400 opacity-80" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-700 dark:text-slate-300 mb-2">Configure Treatment</h3>
+                <h3 className="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-2">Configure Treatment</h3>
                 <p className="text-slate-500 max-w-sm text-sm leading-relaxed mb-6">
                   Input the foundation dimensions and chemical dilution. The total required emulsion volume and pure concentrate amounts will be calculated.
                 </p>

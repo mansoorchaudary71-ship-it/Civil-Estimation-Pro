@@ -54,7 +54,7 @@ export default function ProjectManager() {
     <div className="w-full max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm">
         <div>
-          <h2 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
+          <h2 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
              <div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-2xl">
                <FolderOpen className="w-8 h-8" />
              </div>
@@ -79,7 +79,7 @@ export default function ProjectManager() {
 
       {isCreating && (
         <form onSubmit={handleCreate} className="bg-white dark:bg-slate-900 border border-indigo-100 dark:border-indigo-900/30 p-6 rounded-[2rem] shadow-sm transform transition-all">
-          <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
             <Plus className="text-indigo-500" /> Create New Project
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -147,7 +147,7 @@ export default function ProjectManager() {
                `}</style>
             </div>
              
-             <h3 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">Welcome to Project Manager</h3>
+             <h3 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">Welcome to Project Manager</h3>
              <p className="text-slate-500 dark:text-slate-400 text-lg max-w-2xl mx-auto">
                Group your estimates, track material quantities, and manage multi-stage construction projects in one centralized dashboard.
              </p>
@@ -254,7 +254,7 @@ export default function ProjectManager() {
 
               <div className="flex justify-between items-start mb-4 relative z-10">
                  <div>
-                   <h3 className="text-xl font-bold text-slate-800 dark:text-slate-900 dark:text-white leading-tight">{proj.name}</h3>
+                   <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-900 dark:text-white leading-tight">{proj.name}</h3>
                    <div className="flex items-center gap-2 mt-2">
                      <span className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-bold rounded-full">{proj.type}</span>
                      {activeProjectId === proj.id && (
@@ -343,7 +343,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
             const totals = i === 0 ? t1 : t2;
             return (
          <div key={proj.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2rem] shadow-sm">
-            <h1 className="text-2xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+            <h1 className="text-2xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                <span className="w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm">{i+1}</span>
                {proj.name}
             </h1>
@@ -351,7 +351,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
             <div className="space-y-6">
               <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
                  <p className="text-sm font-bold text-slate-500 mb-1">Total Cost estimate</p>
-                 <p className="text-3xl font-bold tabular-nums tracking-tight text-emerald-600 dark:text-emerald-400">${totals.cost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                 <p className="text-3xl font-semibold tabular-nums tracking-tight text-emerald-600 dark:text-emerald-400">${totals.cost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                  {i === 1 && t1.cost !== 0 && (
                     <p className={`text-sm font-bold ${t2.cost > t1.cost ? 'text-rose-500' : 'text-emerald-500'} mt-1`}>
                        {Math.abs(t2.cost - t1.cost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} difference
@@ -370,7 +370,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
                        return (
                           <div key={m} className="flex justify-between items-center text-sm">
                             <span className="font-semibold text-slate-600 dark:text-slate-400">{m}</span>
-                            <span className={`font-bold tabular-nums tracking-tight ${higher ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300'}`}>
+                            <span className={`font-semibold tabular-nums tracking-tight ${higher ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300'}`}>
                                {v > 0 ? v.toFixed(1) : '-'}
                             </span>
                           </div>
@@ -469,15 +469,15 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                 <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6">
                    <div className="bg-emerald-50 dark:bg-emerald-500/10 p-5 rounded-2xl border border-emerald-100 dark:border-emerald-500/20">
                      <p className="text-emerald-700 dark:text-emerald-400 font-bold text-sm uppercase tracking-wider mb-1">Total Estimated Cost</p>
-                     <p className="text-3xl font-bold tabular-nums tracking-tight text-emerald-600 dark:text-emerald-300">${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                     <p className="text-3xl font-semibold tabular-nums tracking-tight text-emerald-600 dark:text-emerald-300">${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                    </div>
                    <div className="bg-indigo-50 dark:bg-indigo-500/10 p-5 rounded-2xl border border-indigo-100 dark:border-indigo-500/20">
                      <p className="text-indigo-700 dark:text-indigo-400 font-bold text-sm uppercase tracking-wider mb-1">Calculations Run</p>
-                     <p className="text-3xl font-bold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-300">{project.estimates.length}</p>
+                     <p className="text-3xl font-semibold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-300">{project.estimates.length}</p>
                    </div>
                    <div className="bg-amber-50 dark:bg-amber-500/10 p-5 rounded-2xl border border-amber-100 dark:border-amber-500/20">
                      <p className="text-amber-700 dark:text-amber-400 font-bold text-sm uppercase tracking-wider mb-1">Total Materials</p>
-                     <p className="text-3xl font-bold tabular-nums tracking-tight text-amber-600 dark:text-amber-300">{Object.keys(aggregatedMaterials).length}</p>
+                     <p className="text-3xl font-semibold tabular-nums tracking-tight text-amber-600 dark:text-amber-300">{Object.keys(aggregatedMaterials).length}</p>
                    </div>
                 </div>
              </div>
@@ -485,7 +485,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
 
            {/* Timeline & Operations */}
            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2rem] shadow-sm">
-              <h2 className="text-xl font-bold mb-6 text-slate-800 dark:text-slate-900 dark:text-white">Calculation Timeline</h2>
+              <h2 className="text-xl font-semibold mb-6 text-slate-800 dark:text-slate-900 dark:text-white">Calculation Timeline</h2>
               {project.estimates.length === 0 ? (
                  <div className="text-center py-10 text-slate-400 font-medium bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-dashed border-slate-200 dark:border-slate-700">
                     <AlertCircle className="w-10 h-10 mx-auto mb-3 opacity-50" />
@@ -577,7 +577,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                                <span className="font-bold text-sm text-slate-700 dark:text-slate-200 capitalize">{name}</span>
                              </div>
                              <div className="flex flex-col items-end">
-                               <span className="font-bold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400">{data.quantity.toFixed(1)} {data.unit}</span>
+                               <span className="font-semibold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400">{data.quantity.toFixed(1)} {data.unit}</span>
                              </div>
                           </div>
                         )

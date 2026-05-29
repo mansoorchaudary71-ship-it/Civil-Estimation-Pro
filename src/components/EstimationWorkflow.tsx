@@ -79,7 +79,7 @@ export default function EstimationWorkflow({ onSelectModule }: EstimationWorkflo
                       <step.icon className="w-6 h-6" />
                     </div>
                     {/* Number Badge */}
-                    <div className="absolute -top-4 -right-4 w-9 h-9 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold tabular-nums tracking-tight rounded-full flex items-center justify-center shadow-md text-sm border-4 border-white dark:border-slate-900">
+                    <div className="absolute -top-4 -right-4 w-9 h-9 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold tabular-nums tracking-tight rounded-full flex items-center justify-center shadow-md text-sm border-4 border-white dark:border-slate-900">
                       {step.number}
                     </div>
                   </div>

@@ -46,7 +46,7 @@ export default function ConcreteMasonryHub({ isEmbedded = false, onNavigate }: C
           />
           
           <div className="mb-6 md:mb-8 px-4 md:px-0">
-            <h1 className="text-3xl font-bold tracking-tight text-text-primary mb-2 flex items-center gap-3">
+            <h1 className="text-3xl font-semibold tracking-tight text-text-primary mb-2 flex items-center gap-3">
               <Building2 className="w-8 h-8 text-indigo-600 dark:text-blue-400" />
               Concrete & Masonry Hub
             </h1>

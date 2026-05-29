@@ -1296,7 +1296,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
     content = (
       <div className="bg-transparent border p-12 rounded-3xl text-center text-slate-700 dark:text-slate-300 max-w-xl mx-auto mt-8">
         <Layers className="w-12 h-12 mx-auto text-slate-300 mb-4" />
-        <h3 className="text-xl font-bold text-slate-700 mb-2">
+        <h3 className="text-xl font-semibold text-slate-700 mb-2">
           Use Standard Modules
         </h3>
         <p>
@@ -1365,7 +1365,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
         {!hideHeader && (
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
             <div>
-              <h1 className="text-3xl font-bold tabular-nums tracking-tight text-gray-900 mb-2">
+              <h1 className="text-3xl font-semibold tabular-nums tracking-tight text-gray-900 mb-2">
                 Construction Material Estimator
               </h1>
               <p className="text-gray-700 dark:text-gray-300 font-medium">
@@ -1656,7 +1656,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                         <span className="text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider text-sm flex items-center gap-2">
                           Estimated Cost
                         </span>
-                        <div className="bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 px-5 py-2 rounded-full text-2xl font-bold tabular-nums tracking-tight">
+                        <div className="bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 px-5 py-2 rounded-full text-2xl font-semibold tabular-nums tracking-tight">
                           {formatCurrency(
                             currentCartItem.cementBags * rates.cement +
                               currentCartItem.sandVol * rates.sand +
@@ -1743,7 +1743,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
         </div>
         {cart.length > 0 && (
           <div className="mt-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 border-l-[4px] border-l-[#6B46C1] rounded-[2rem] p-6 md:p-8 shadow-sm relative">
-            <h2 className="text-xl font-bold tabular-nums tracking-tight mb-6 text-slate-800 dark:text-slate-100">
+            <h2 className="text-xl font-semibold tabular-nums tracking-tight mb-6 text-slate-800 dark:text-slate-100">
               Project Cart ({cart.length} Elements)
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

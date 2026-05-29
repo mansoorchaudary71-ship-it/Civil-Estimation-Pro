@@ -1714,7 +1714,7 @@ function ModuleWrapper({
                   {moduleDef && (
                     <div className="mb-6 p-6 rounded-[2rem] bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
-                        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+                        <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">
                           {moduleDef.title} Calculator
                         </h1>
                         {moduleDef.isPopular && (

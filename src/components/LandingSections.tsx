@@ -77,7 +77,7 @@ export function HowItWorksSection() {
               </div>
             </div>
             <h3
-              className="text-xl font-bold text-slate-900 mb-3"
+              className="text-xl font-semibold text-slate-900 mb-3"
               style={{ fontFamily: '"Clash Display", sans-serif' }}
             >
               {step.title}
@@ -472,7 +472,7 @@ export function ProjectTypesSection({
               </div>
 
               <h3
-                className="text-xl font-bold text-slate-900 mb-4"
+                className="text-xl font-semibold text-slate-900 mb-4"
                 style={{ fontFamily: '"Clash Display", sans-serif' }}
               >
                 {pt.title}

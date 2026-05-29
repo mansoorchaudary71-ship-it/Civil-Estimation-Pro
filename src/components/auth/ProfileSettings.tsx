@@ -64,7 +64,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
           className="relative w-full max-w-md overflow-hidden bg-bg-card rounded-[28px] shadow-2xl border border-border-color"
         >
           <div className="flex items-center justify-between px-6 py-5 border-b border-border-color">
-            <h2 className="text-xl font-bold text-text-primary">Profile Settings</h2>
+            <h2 className="text-xl font-semibold text-text-primary">Profile Settings</h2>
             <button
               onClick={onClose}
               className="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"

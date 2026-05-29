@@ -77,7 +77,7 @@ export default function CageEstimator() {
   return (
     <div className="animate-in fade-in duration-300">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold tabular-nums tracking-tight text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-2 mb-2">
+        <h2 className="text-2xl font-semibold tabular-nums tracking-tight text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-2 mb-2">
           <RotateCw className="w-6 h-6 text-emerald-500" />
           Cage / Spiral Estimator
         </h2>
@@ -197,7 +197,7 @@ export default function CageEstimator() {
 
            {results && (
              <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                <h3 className="text-sm font-bold tabular-nums tracking-tight text-slate-400 uppercase tracking-widest mb-4">Detailed Breakdown</h3>
+                <h3 className="text-sm font-semibold tabular-nums tracking-tight text-slate-400 uppercase tracking-widest mb-4">Detailed Breakdown</h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
                     <span className="text-slate-600 dark:text-slate-400 font-medium">Core/Mean Dia</span>

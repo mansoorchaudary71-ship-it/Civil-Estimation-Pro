@@ -550,7 +550,7 @@ export default function MasterQuantityEstimator({
         {!isEmbedded && (
           <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
             <div>
-              <h1 className="text-3xl font-bold tabular-nums tracking-tight mb-2 flex items-center gap-3">
+              <h1 className="text-3xl font-semibold tabular-nums tracking-tight mb-2 flex items-center gap-3">
                 <Calculator className="w-8 h-8 text-indigo-600 dark:text-blue-400" />
                 Master Quantity Estimator
               </h1>

@@ -114,7 +114,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           </button>
 
           <div className="px-8 pt-10 pb-8">
-            <h2 className="text-2xl font-bold text-text-primary mb-2">
+            <h2 className="text-2xl font-semibold text-text-primary mb-2">
               {isLogin ? 'Welcome back' : 'Create an account'}
             </h2>
             <p className="text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-8">

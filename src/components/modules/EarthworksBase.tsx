@@ -66,7 +66,7 @@ export default function StandardEarthworks() {
     <div className="w-full bg-transparent text-gray-900 font-sans">
       <div className="space-y-8 mt-4">
         <div className="mb-4">
-           <h2 className="text-2xl font-bold bg-gradient-to-r   bg-clip-text text-transparent pb-1">
+           <h2 className="text-2xl font-semibold bg-gradient-to-r   bg-clip-text text-transparent pb-1">
              Standard Area/Depth Method
            </h2>
            <GlobalSettingsToggle align="left" />
@@ -79,7 +79,7 @@ export default function StandardEarthworks() {
                 <div className="p-2.5 bg-blue-50 text-indigo-600 rounded-xl">
                   <Ruler className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold tracking-tight text-gray-800">
+                <h2 className="text-xl font-semibold tracking-tight text-gray-800">
                   Volume Calculation
                 </h2>
               </div>
@@ -181,7 +181,7 @@ export default function StandardEarthworks() {
                 <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
                   <Truck className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold tracking-tight text-gray-800">
+                <h2 className="text-xl font-semibold tracking-tight text-gray-800">
                   Factors & Hauling
                 </h2>
               </div>
@@ -230,7 +230,7 @@ export default function StandardEarthworks() {
                 <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl">
                   <DollarSign className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-bold tracking-tight text-gray-800">
+                <h2 className="text-xl font-semibold tracking-tight text-gray-800">
                   Cost Estimation
                 </h2>
               </div>

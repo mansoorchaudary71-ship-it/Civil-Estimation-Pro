@@ -214,7 +214,7 @@ export default function AreaSpaceCalculator() {
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500 pb-[120px]">
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm">
-        <h2 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
+        <h2 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
           <div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-600 dark:text-indigo-400 rounded-2xl">
             <Ruler className="w-8 h-8" />
           </div>
@@ -261,7 +261,7 @@ export default function AreaSpaceCalculator() {
           {/* TAB 1: SHAPES */}
           {activeTab === "shape" && (
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
-              <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+              <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
                 <Square className="w-5 h-5 text-indigo-500" /> 2D Shape
                 Calculator
               </h3>
@@ -638,7 +638,7 @@ export default function AreaSpaceCalculator() {
           {/* TAB 2: PROPERTY AREA */}
           {activeTab === "property" && (
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
-              <h3 className="text-xl font-bold mb-2 flex items-center gap-2">
+              <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
                 <Home className="w-5 h-5 text-purple-500" /> Property Area
                 Metrics & RERA
               </h3>
@@ -733,7 +733,7 @@ export default function AreaSpaceCalculator() {
           {activeTab === "plot" && (
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-xl font-bold flex items-center gap-2">
+                <h3 className="text-xl font-semibold flex items-center gap-2">
                   <MapIcon className="w-5 h-5 text-emerald-500" /> Plot & Land
                   Measurement
                 </h3>
@@ -850,7 +850,7 @@ export default function AreaSpaceCalculator() {
           {/* TAB 4: ROOF PITCH */}
           {activeTab === "roof" && (
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
-              <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+              <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
                 <Triangle className="w-5 h-5 text-amber-500" /> Roof Area &
                 Pitch Calculator
               </h3>
@@ -927,7 +927,7 @@ export default function AreaSpaceCalculator() {
               </div>
 
               <div className="mt-8 p-5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded-2xl flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-white dark:bg-amber-800/50 flex items-center justify-center font-bold tabular-nums tracking-tight text-amber-500 text-xl border-2 border-amber-200 dark:border-amber-700/50 shrink-0">
+                <div className="w-16 h-16 rounded-full bg-white dark:bg-amber-800/50 flex items-center justify-center font-semibold tabular-nums tracking-tight text-amber-500 text-xl border-2 border-amber-200 dark:border-amber-700/50 shrink-0">
                   {Math.ceil(
                     (1 / Math.cos((roofParams.pitchAngle * Math.PI) / 180)) *
                       100,
@@ -951,7 +951,7 @@ export default function AreaSpaceCalculator() {
         {/* RESULTS PANEL (RIGHT) */}
         <div className="lg:col-span-4 space-y-6">
           <div className="bg-white dark:bg-slate-900 p-8 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm sticky top-6">
-            <h3 className="font-bold tabular-nums tracking-tight text-xl mb-6 flex items-center gap-2">
+            <h3 className="font-semibold tabular-nums tracking-tight text-xl mb-6 flex items-center gap-2">
               <Layers className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
               Calculation Results
             </h3>
@@ -962,7 +962,7 @@ export default function AreaSpaceCalculator() {
                   <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
                     Total Net Area
                   </p>
-                  <p className="text-3xl font-bold tabular-nums tracking-tight">
+                  <p className="text-3xl font-semibold tabular-nums tracking-tight">
                     {shapeData.area.toFixed(2)}{" "}
                     <span className="text-lg opacity-50">sq units</span>
                   </p>
@@ -971,7 +971,7 @@ export default function AreaSpaceCalculator() {
                   <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
                     Perimeter
                   </p>
-                  <p className="text-xl font-bold">
+                  <p className="text-xl font-semibold">
                     {shapeData.perimeter.toFixed(2)}{" "}
                     <span className="text-sm opacity-50">linear units</span>
                   </p>
@@ -985,7 +985,7 @@ export default function AreaSpaceCalculator() {
                   <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
                     RERA Carpet Area
                   </p>
-                  <p className="text-2xl font-bold tabular-nums tracking-tight text-purple-600 dark:text-purple-400">
+                  <p className="text-2xl font-semibold tabular-nums tracking-tight text-purple-600 dark:text-purple-400">
                     {propertyCalc.reraCarpetArea.toFixed(2)}{" "}
                     <span className="text-sm opacity-50">m²</span>
                   </p>
@@ -1031,7 +1031,7 @@ export default function AreaSpaceCalculator() {
                   <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
                     Total Land Area
                   </p>
-                  <p className="text-3xl font-bold tabular-nums tracking-tight text-emerald-600 dark:text-emerald-400">
+                  <p className="text-3xl font-semibold tabular-nums tracking-tight text-emerald-600 dark:text-emerald-400">
                     {Number.isNaN(boundsArea.total)
                       ? "Invalid"
                       : boundsArea.total.toFixed(2)}{" "}
@@ -1052,7 +1052,7 @@ export default function AreaSpaceCalculator() {
                   <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
                     Plot Perimeter
                   </p>
-                  <p className="text-xl font-bold">
+                  <p className="text-xl font-semibold">
                     {boundsArea.perimeter.toFixed(2)}{" "}
                     <span className="text-sm opacity-50">units</span>
                   </p>
@@ -1066,7 +1066,7 @@ export default function AreaSpaceCalculator() {
                   <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
                     True Sloped Area
                   </p>
-                  <p className="text-3xl font-bold tabular-nums tracking-tight text-amber-600 dark:text-amber-400">
+                  <p className="text-3xl font-semibold tabular-nums tracking-tight text-amber-600 dark:text-amber-400">
                     {roofCalc.trueRoofArea.toFixed(2)}{" "}
                     <span className="text-lg opacity-50">m²</span>
                   </p>
@@ -1081,7 +1081,7 @@ export default function AreaSpaceCalculator() {
                       +10% Waste
                     </span>
                   </p>
-                  <p className="text-xl font-bold">
+                  <p className="text-xl font-semibold">
                     {roofCalc.trueMaterialArea.toFixed(2)}{" "}
                     <span className="text-sm opacity-50">m²</span>
                   </p>

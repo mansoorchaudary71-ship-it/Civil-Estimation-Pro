@@ -1194,7 +1194,7 @@ export default function Dashboard({
               {groupsToDisplay.length === 0 ? (
                 <div className="py-24 text-center flex flex-col items-center">
                   <Search className="w-12 h-12 text-slate-300 mb-4" />
-                  <h3 className="text-xl font-bold text-slate-900">
+                  <h3 className="text-xl font-semibold text-slate-900">
                     No calculators found
                   </h3>
                   <p className="text-slate-500 mt-2">

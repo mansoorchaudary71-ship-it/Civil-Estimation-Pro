@@ -72,7 +72,7 @@ export default function CountertopModule() {
     <div className="bg-bg-card border border-border-color rounded-3xl p-6 shadow-sm">
       <div className="flex items-center gap-3 mb-6">
         <Square className="w-6 h-6 text-indigo-600" />
-        <h2 className="text-xl font-bold tracking-tight text-text-primary">Countertop (Platform) Estimator</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-text-primary">Countertop (Platform) Estimator</h2>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

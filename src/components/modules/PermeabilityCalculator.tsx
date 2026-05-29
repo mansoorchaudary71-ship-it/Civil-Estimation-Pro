@@ -77,7 +77,7 @@ export default function PermeabilityCalculator() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
+            <h2 className="text-3xl font-semibold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
               <Droplets className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
               Permeability Calculator
             </h2>
@@ -295,7 +295,7 @@ export default function PermeabilityCalculator() {
                   <div className="bg-slate-50 dark:bg-slate-800 rounded-2xl border border-black/5 dark:border-slate-100 dark:border-slate-800 shadow-sm p-5 flex items-center justify-between mb-8">
                      <div>
                        <span className="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Soil Classification</span>
-                       <span className="text-lg font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.soilClass}</span>
+                       <span className="text-lg font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.soilClass}</span>
                      </div>
                      <Droplets className="w-8 h-8 text-slate-300 dark:text-slate-700" />
                   </div>
@@ -305,45 +305,45 @@ export default function PermeabilityCalculator() {
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
                      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                        <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Method</span>
-                       <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{estimateData.method === 'constant' ? 'Constant Head' : 'Falling Head'}</span>
+                       <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{estimateData.method === 'constant' ? 'Constant Head' : 'Falling Head'}</span>
                      </div>
                      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                        <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Length (L)</span>
-                       <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{lengthSample || "0"} cm</span>
+                       <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{lengthSample || "0"} cm</span>
                      </div>
                      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                        <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Sample Area (A)</span>
-                       <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{areaSample || "0"} cm²</span>
+                       <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{areaSample || "0"} cm²</span>
                      </div>
                      
                      {estimateData.method === 'constant' ? (
                         <>
                           <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                             <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Q Volume</span>
-                            <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{qVolume || "0"} cm³</span>
+                            <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{qVolume || "0"} cm³</span>
                           </div>
                           <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                             <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Const. Head (h)</span>
-                            <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{constantHead || "0"} cm</span>
+                            <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{constantHead || "0"} cm</span>
                           </div>
                           <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                             <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Time (t)</span>
-                            <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{timeConstant || "0"} sec</span>
+                            <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{timeConstant || "0"} sec</span>
                           </div>
                         </>
                      ) : (
                         <>
                           <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                             <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Standpipe Area (a)</span>
-                            <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{areaStandpipe || "0"} cm²</span>
+                            <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{areaStandpipe || "0"} cm²</span>
                           </div>
                           <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                             <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Heads (h1, h2)</span>
-                            <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{headInitial || "0"} / {headFinal || "0"} cm</span>
+                            <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{headInitial || "0"} / {headFinal || "0"} cm</span>
                           </div>
                           <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                             <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Time (t)</span>
-                            <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{timeFalling || "0"} sec</span>
+                            <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{timeFalling || "0"} sec</span>
                           </div>
                         </>
                      )}
@@ -355,7 +355,7 @@ export default function PermeabilityCalculator() {
                 <div className="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/50 rounded-full flex items-center justify-center mb-6 shadow-highlight">
                   <Droplets className="w-10 h-10 text-indigo-600 dark:text-indigo-400 opacity-80" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-700 dark:text-slate-300 mb-2">Determine Permeability</h3>
+                <h3 className="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-2">Determine Permeability</h3>
                 <p className="text-slate-500 max-w-sm text-sm leading-relaxed mb-6">
                   Select your test method and input the laboratory readings. The permeability coefficient (k) and soil classification will be computed automatically.
                 </p>

@@ -41,7 +41,7 @@ export default function InteriorsFinishesEstimator() {
     <div className="w-full pb-20 mt-4">
       <div className="max-w-4xl mx-auto space-y-8">
         <header className="mb-4">
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-2 flex items-center gap-3">
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-900 mb-2 flex items-center gap-3">
             <PaintBucket className="w-8 h-8 text-amber-600" />
             Interiors & Finishes
           </h1>

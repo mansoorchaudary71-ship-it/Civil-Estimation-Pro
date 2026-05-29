@@ -90,7 +90,7 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
             </div>
 
             <div className="px-6 pb-2 pt-1 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Tools Directory</h2>
+              <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-100">Tools Directory</h2>
               <button 
                 className="w-8 h-8 rounded-full bg-bg-primary flex items-center justify-center text-slate-500 hover:text-slate-800 transition-colors"
                 onClick={onClose}

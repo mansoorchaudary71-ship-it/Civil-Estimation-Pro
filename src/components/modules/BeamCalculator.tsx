@@ -184,7 +184,7 @@ export default function BeamCalculator() {
         description="Calculate concrete volume and longitudinal/stirrup steel weights for reinforced concrete beams."
       />
       <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-2 flex items-center gap-3">
+        <h1 className="text-3xl font-semibold tracking-tight text-slate-900 mb-2 flex items-center gap-3">
           <Columns className="w-8 h-8 text-indigo-600 rotate-90" />
           Beam Calculator
         </h1>
@@ -425,11 +425,11 @@ export default function BeamCalculator() {
                       <div className="grid grid-cols-2 gap-4">
                         <div className="bg-white/60 p-4 rounded-xl border border-indigo-100">
                           <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Single Element Wt</span>
-                          <span className="text-xl md:text-2xl font-bold tabular-nums tracking-tight text-slate-800">{(results.elementWeightKg / 1000).toFixed(2)}<span className="text-sm font-medium ml-1 text-slate-500">Tons</span></span>
+                          <span className="text-xl md:text-2xl font-semibold tabular-nums tracking-tight text-slate-800">{(results.elementWeightKg / 1000).toFixed(2)}<span className="text-sm font-medium ml-1 text-slate-500">Tons</span></span>
                         </div>
                         <div className="bg-white/80 p-4 rounded-xl border border-indigo-200 shadow-sm">
                           <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Min. Crane Capacity</span>
-                          <span className="text-xl md:text-2xl font-bold tabular-nums tracking-tight text-indigo-700">{results.craneCapacityTonnes.toFixed(2)}<span className="text-sm font-medium ml-1 text-indigo-600/80">Tons</span></span>
+                          <span className="text-xl md:text-2xl font-semibold tabular-nums tracking-tight text-indigo-700">{results.craneCapacityTonnes.toFixed(2)}<span className="text-sm font-medium ml-1 text-indigo-600/80">Tons</span></span>
                         </div>
                       </div>
                     </div>

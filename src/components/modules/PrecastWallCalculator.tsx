@@ -69,7 +69,7 @@ export default function PrecastWallCalculator() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
+            <h2 className="text-3xl font-semibold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
               <BrickWall className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
               Precast Wall Calculator
             </h2>
@@ -260,7 +260,7 @@ export default function PrecastWallCalculator() {
                         </tr>
                         <tr className="bg-slate-100/50 dark:bg-slate-800/30">
                           <td colSpan={3} className="px-4 py-3 font-bold text-slate-800 dark:text-slate-200 text-right">Total Estimates</td>
-                          <td className="px-4 py-3 text-right font-bold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400">${estimateData.totalCost.toLocaleString()}</td>
+                          <td className="px-4 py-3 text-right font-semibold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400">${estimateData.totalCost.toLocaleString()}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -269,11 +269,11 @@ export default function PrecastWallCalculator() {
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm text-center">
                       <span className="text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest block mb-1">Total Bays Formed</span>
-                      <div className="text-xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.numberOfBays}</div>
+                      <div className="text-xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.numberOfBays}</div>
                     </div>
                     <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm text-center">
                       <span className="text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest block mb-1">Slabs per Bay</span>
-                      <div className="text-xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.slabsPerBay}</div>
+                      <div className="text-xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.slabsPerBay}</div>
                     </div>
                   </div>
                 </div>
@@ -283,7 +283,7 @@ export default function PrecastWallCalculator() {
                 <div className="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/50 rounded-full flex items-center justify-center mb-6 shadow-highlight">
                   <BrickWall className="w-10 h-10 text-indigo-600 dark:text-indigo-400 opacity-80" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-700 dark:text-slate-300 mb-2">Build the Wall</h3>
+                <h3 className="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-2">Build the Wall</h3>
                 <p className="text-slate-500 max-w-sm text-sm leading-relaxed mb-6">
                   Input the plot dimensions and precast component specs. A complete tabular Bill of Materials and cost breakdown will be generated instantly.
                 </p>

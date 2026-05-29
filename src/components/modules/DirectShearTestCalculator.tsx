@@ -153,7 +153,7 @@ export default function DirectShearTestCalculator() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
+            <h2 className="text-3xl font-semibold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
               <Layers className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
               Direct Shear Test
             </h2>
@@ -284,7 +284,7 @@ export default function DirectShearTestCalculator() {
                     <div>
                       <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-1 block">Failure Envelope Eq.</span>
                       <div className="flex items-baseline gap-2">
-                        <span className="text-2xl font-bold tabular-nums tracking-tight tracking-tight text-indigo-600 dark:text-indigo-400 font-mono">
+                        <span className="text-2xl font-semibold tabular-nums tracking-tight tracking-tight text-indigo-600 dark:text-indigo-400 font-mono">
                           {estimateData.eq}
                         </span>
                       </div>
@@ -365,7 +365,7 @@ export default function DirectShearTestCalculator() {
                 <div className="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/50 rounded-full flex items-center justify-center mb-6 shadow-highlight">
                   <Activity className="w-10 h-10 text-indigo-600 dark:text-indigo-400 opacity-80" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-700 dark:text-slate-300 mb-2">Ready to Plot Envelope</h3>
+                <h3 className="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-2">Ready to Plot Envelope</h3>
                 <p className="text-slate-500 max-w-sm text-sm leading-relaxed mb-6">
                   Input your lab dial readings in the left panel. The interactive Mohr-Coulomb failure envelope and test points will appear here automatically.
                 </p>
