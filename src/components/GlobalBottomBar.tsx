@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Home, History, Save, User, Share2 } from "lucide-react";
+import {
+  Home,
+  History,
+  Save,
+  User,
+  Share2,
+  Calculator,
+  Search,
+} from "lucide-react";
 import ShareButtonWithPopup from "./modules/ShareMenu";
 import toast from "react-hot-toast";
 
@@ -89,12 +97,50 @@ export default function GlobalBottomBar() {
           )}
         </button>
 
+        {/* Calculator Button (Mobile Only) */}
+        <button
+          type="button"
+          onClick={() => window.dispatchEvent(new CustomEvent("go-dashboard"))}
+          className="flex-1 md:hidden min-w-[50px] sm:min-w-[56px] min-h-[44px] flex flex-col items-center justify-center gap-0.5 px-1 py-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-all text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 group"
+          aria-label="Calculator"
+        >
+          <Calculator
+            className="w-[18px] h-[18px] text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform flex-shrink-0"
+            strokeWidth={2}
+          />
+          <span className="text-[10px] sm:text-[11px] font-semibold leading-none">
+            Tools
+          </span>
+        </button>
+
+        {/* Search Button (Mobile Only) */}
+        <button
+          type="button"
+          onClick={() => {
+            window.dispatchEvent(new CustomEvent("go-dashboard"));
+            setTimeout(
+              () => window.dispatchEvent(new CustomEvent("focus-search")),
+              100,
+            );
+          }}
+          className="flex-1 md:hidden min-w-[50px] sm:min-w-[56px] min-h-[44px] flex flex-col items-center justify-center gap-0.5 px-1 py-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-all text-slate-500 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400 group"
+          aria-label="Search Tools"
+        >
+          <Search
+            className="w-[18px] h-[18px] text-teal-600 dark:text-teal-400 group-hover:scale-110 transition-transform flex-shrink-0"
+            strokeWidth={2}
+          />
+          <span className="text-[10px] sm:text-[11px] font-semibold leading-none">
+            Search
+          </span>
+        </button>
+
         {/* Save Button */}
         <button
           type="button"
           onClick={triggerSave}
           disabled={disabled}
-          className="flex-1 min-w-[50px] sm:min-w-[56px] min-h-[44px] flex flex-col items-center justify-center gap-0.5 px-1 py-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-all text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 disabled:opacity-50 group"
+          className="hidden md:flex flex-1 min-w-[50px] sm:min-w-[56px] min-h-[44px] flex-col items-center justify-center gap-0.5 px-1 py-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-all text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 disabled:opacity-50 group"
           aria-label="Save Calculation"
         >
           {disabled ? (
@@ -125,7 +171,7 @@ export default function GlobalBottomBar() {
                 breakdown: calcData.currentResults || {},
               }
             }
-            containerClassName="flex-1 min-w-[50px] sm:min-w-[56px] m-0 p-0 flex pointer-events-auto items-stretch h-full min-h-[44px]"
+            containerClassName="hidden md:flex flex-1 min-w-[50px] sm:min-w-[56px] m-0 p-0 pointer-events-auto items-stretch h-full min-h-[44px]"
             popupPosition="top"
             triggerClassName="w-full h-full min-h-[44px] flex flex-col items-center justify-center gap-0.5 px-1 py-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-all text-slate-500 hover:text-purple-600 dark:text-slate-400 dark:hover:text-purple-400 group"
             triggerContent={
@@ -144,7 +190,7 @@ export default function GlobalBottomBar() {
           <button
             type="button"
             onClick={() => toast.error("Please open a tool to share")}
-            className="flex-1 min-w-[50px] sm:min-w-[56px] min-h-[44px] flex flex-col items-center justify-center gap-0.5 px-1 py-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-all text-slate-500 hover:text-purple-600 dark:text-slate-400 dark:hover:text-purple-400 group"
+            className="hidden md:flex flex-1 min-w-[50px] sm:min-w-[56px] min-h-[44px] flex-col items-center justify-center gap-0.5 px-1 py-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-all text-slate-500 hover:text-purple-600 dark:text-slate-400 dark:hover:text-purple-400 group"
           >
             <Share2
               className="w-[18px] h-[18px] text-purple-600 dark:text-purple-400 group-hover:scale-110 transition-transform flex-shrink-0"

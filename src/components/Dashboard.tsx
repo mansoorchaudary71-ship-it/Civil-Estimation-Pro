@@ -917,6 +917,9 @@ export default function Dashboard({
   const { settings, trackToolUse } = useSettings();
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("All Tools");
+  const [filterMode, setFilterMode] = useState("All");
+  const [sortMode, setSortMode] = useState("Popular");
+  const [isSortOpen, setIsSortOpen] = useState(false);
   const [isAiChatOpen, setIsAiChatOpen] = useState(false);
   const [aiMessage, setAiMessage] = useState("");
   const [aiMessages, setAiMessages] = useState<
@@ -1020,22 +1023,52 @@ export default function Dashboard({
     "Analysis & Tools",
   ];
 
-  const filteredModules = ALL_MODULES.filter((m) => {
-    const searchWords = searchTerm.toLowerCase().split(/\s+/).filter(Boolean);
-    const matchesSearch =
-      searchWords.length === 0 ||
-      searchWords.every(
-        (word) =>
-          m.title.toLowerCase().includes(word) ||
-          m.desc.toLowerCase().includes(word) ||
-          m.category.toLowerCase().includes(word),
-      );
+  const filterPills = ["All", "Most Used", "New", "Beginner", "Advanced", "Saved"];
+  const sortOptions = ["Popular", "Newest", "A-Z", "Time (Quickest first)"];
 
-    const matchesCategory =
-      activeCategory === "All Tools" || m.category === activeCategory;
+  const filteredModules = [...ALL_MODULES]
+    .filter((m) => {
+      // 1. Search Filter
+      const searchWords = searchTerm.toLowerCase().split(/\s+/).filter(Boolean);
+      const matchesSearch =
+        searchWords.length === 0 ||
+        searchWords.every(
+          (word) =>
+            m.title.toLowerCase().includes(word) ||
+            m.desc.toLowerCase().includes(word) ||
+            m.category.toLowerCase().includes(word),
+        );
 
-    return matchesSearch && matchesCategory;
-  });
+      // 2. Category Filter (now used internally if we still needed it, but let's keep it just in case)
+      const matchesCategory =
+        activeCategory === "All Tools" || m.category === activeCategory;
+
+      // 3. Mode Filter
+      let matchesMode = true;
+      if (filterMode === "Most Used") matchesMode = m.isPopular === true;
+      if (filterMode === "New") matchesMode = m.isNew === true;
+      if (filterMode === "Beginner") matchesMode = m.difficulty === "Beginner";
+      if (filterMode === "Advanced") matchesMode = m.difficulty === "Advanced";
+      if (filterMode === "Saved") matchesMode = settings?.usedTools?.includes(m.id) ?? false;
+
+      return matchesSearch && matchesCategory && matchesMode;
+    })
+    .sort((a, b) => {
+      if (sortMode === "A-Z") return a.title.localeCompare(b.title);
+      if (sortMode === "Popular") {
+        const usageA = a.usageCount || Math.floor((a.id.length * 1024 + 5000) % 30000);
+        const usageB = b.usageCount || Math.floor((b.id.length * 1024 + 5000) % 30000);
+        return usageB - usageA;
+      }
+      if (sortMode === "Newest") return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
+      if (sortMode === "Time (Quickest first)") {
+        const getMins = (t: string) => parseInt(t.replace(/\D/g, "")) || 5;
+        return getMins(a.estimatedTime || "5") - getMins(b.estimatedTime || "5");
+      }
+      return 0;
+    });
+
+  const totalFilteredCount = filteredModules.length;
 
   const groupsToDisplay: string[] = [];
   const groupedModules: Record<string, typeof ALL_MODULES> = {};
@@ -1092,44 +1125,53 @@ export default function Dashboard({
               />
             </div>
 
-            {/* CATEGORY FILTER ROW */}
-            <div className="flex overflow-x-auto gap-3 pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar snap-x">
-              {categories.map((category) => {
-                const count =
-                  category === "All Tools"
-                    ? ALL_MODULES.length
-                    : ALL_MODULES.filter((m) => m.category === category).length;
-
-                const isActive = activeCategory === category;
-                return (
+            {/* FILTER & SORT ROW */}
+            <div className="flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-4 py-2 z-20 relative">
+              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2 lg:pb-0 font-medium text-sm w-full lg:w-auto -mx-4 px-4 lg:mx-0 lg:px-0">
+                {filterPills.map((pill) => (
                   <button
-                    key={category}
-                    onClick={() => setActiveCategory(category)}
-                    className={`flex items-center gap-3 px-5 py-2.5 rounded-full whitespace-nowrap transition-all duration-300 snap-center border cursor-pointer group ${
-                      isActive
-                        ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white border-transparent shadow-[0_8px_16px_-4px_rgba(236,72,153,0.4)] font-bold scale-105"
-                        : "bg-white/60 backdrop-blur-md text-[#2C3040] font-bold border-white/60 shadow-sm hover:bg-white/80"
-                    }`}
+                    key={pill}
+                    onClick={() => setFilterMode(pill)}
+                    className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors font-semibold border shadow-sm ${filterMode === pill ? "bg-slate-900 border-slate-900 text-white" : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"}`}
                   >
-                    <span className="tracking-tight text-[14px]">
-                      {category}
-                    </span>
-                    <span
-                      className={`min-w-[26px] h-[26px] flex items-center justify-center rounded-full text-[11px] font-bold transition-colors ${
-                        isActive
-                          ? "bg-white/25 text-white"
-                          : "bg-indigo-100/80 text-indigo-700 group-hover:bg-indigo-100"
-                      }`}
-                    >
-                      {count}
-                    </span>
+                    {pill}
                   </button>
-                );
-              })}
+                ))}
+              </div>
+              
+              <div className="flex items-center justify-between lg:justify-end gap-4 text-sm text-slate-500 flex-shrink-0">
+                <span className="font-medium px-2">Showing {totalFilteredCount} of {ALL_MODULES.length} tools</span>
+                
+                <div className="relative">
+                  <button
+                    onClick={() => setIsSortOpen(!isSortOpen)}
+                    className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors text-slate-700 shadow-sm"
+                  >
+                    Sort: <span className="font-semibold text-slate-900">{sortMode}</span>
+                    <ChevronDown className="w-4 h-4 ml-1" />
+                  </button>
+                  {isSortOpen && (
+                    <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-slate-100 shadow-2xl rounded-xl overflow-hidden z-50 py-1">
+                      {sortOptions.map((opt) => (
+                        <button
+                          key={opt}
+                          onClick={() => {
+                            setSortMode(opt);
+                            setIsSortOpen(false);
+                          }}
+                          className={`w-full text-left px-4 py-2.5 text-sm hover:bg-slate-50 transition-colors ${sortMode === opt ? "bg-indigo-50/80 text-indigo-700 font-semibold" : "text-slate-600 font-medium"}`}
+                        >
+                          {opt}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
 
             {/* TOOLS GRID */}
-            <div className="flex flex-col w-full mb-16">
+            <div className="flex flex-col w-full mb-16 relative">
               {groupsToDisplay.length === 0 ? (
                 <div className="py-24 text-center flex flex-col items-center">
                   <Search className="w-12 h-12 text-slate-300 mb-4" />
@@ -1137,17 +1179,15 @@ export default function Dashboard({
                     No calculators found
                   </h3>
                   <p className="text-slate-500 mt-2">
-                    Try adjusting your search term or category.
+                    Try adjusting your search term or filter.
                   </p>
                 </div>
               ) : (
                 groupsToDisplay.map((groupName) => (
-                  <div key={groupName} className="flex flex-col mb-8 last:mb-0">
-                    {activeCategory === "All Tools" && (
-                      <h3 className="text-xs font-bold text-slate-400 pl-1 mb-4 uppercase tracking-wider">
-                        {groupName}
-                      </h3>
-                    )}
+                  <div key={groupName} className="flex flex-col mb-12 last:mb-0 relative">
+                    <h3 className="sticky top-[64px] z-30 bg-white/95 backdrop-blur-md py-4 text-sm font-bold text-slate-900 uppercase tracking-widest border-b border-slate-100 mb-6 shadow-sm -mx-4 px-4 sm:mx-0 sm:px-0">
+                      {groupName}
+                    </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
                       {groupedModules[groupName].map((mod, idx) => (
                         <ToolCard

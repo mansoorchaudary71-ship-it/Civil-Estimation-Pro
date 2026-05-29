@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Play,
   Star,
@@ -9,31 +9,13 @@ import {
   Truck,
 } from "lucide-react";
 import { motion } from "motion/react";
+import CountUp from "react-countup";
 
 export default function HeroSection({ onStart }: { onStart: () => void }) {
-  const [engineersCount, setEngineersCount] = useState(0);
-
-  useEffect(() => {
-    let startTimestamp: number;
-    const duration = 2000;
-    const target = 24000;
-
-    const step = (timestamp: number) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      setEngineersCount(Math.floor(easeProgress * target));
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      }
-    };
-    window.requestAnimationFrame(step);
-  }, []);
-
   return (
     <div className="w-full relative overflow-hidden bg-[#0A0F1E] rounded-[2.5rem] mb-16 pt-16 pb-20 px-6 lg:px-12 mt-8 shadow-2xl border border-slate-800">
       <div className="absolute inset-0 z-0 overflow-hidden rounded-[2.5rem]">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0A0F1E] via-[#0A0F1E] to-[#141b2d] z-0"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0F1E] to-[#1a1f3a] z-0"></div>
         {/* Ambient Glows */}
         <div className="absolute -top-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-indigo-500/10 blur-[120px] mix-blend-screen pointer-events-none"></div>
         <div className="absolute -bottom-[30%] -left-[10%] w-[60%] h-[60%] rounded-full bg-amber-500/10 blur-[120px] mix-blend-screen pointer-events-none"></div>
@@ -74,28 +56,26 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
           </div>
 
           <h1
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] mb-6"
+            className="text-4xl md:text-[56px] font-bold text-white leading-[1.1] mb-6"
             style={{ fontFamily: '"Clash Display", sans-serif' }}
           >
             Build Anything.
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F59E0B] to-[#fbbf24]">
-              Estimate Everything.
-            </span>
+            Estimate Everything.
           </h1>
 
           <p
             className="text-slate-400 text-lg md:text-xl max-w-[600px] mb-8 font-medium leading-relaxed"
             style={{ fontFamily: "Satoshi, sans-serif" }}
           >
-            The only platform civil engineers, contractors & architects trust
-            for instant, accurate quantity calculations.
+            50+ AI-powered calculators trusted by 24,847 engineers across 15
+            countries. From BOQ to BBS in seconds.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-10">
             <button
               onClick={onStart}
-              className="btn-micro w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-slate-900 bg-[#F59E0B] hover:bg-[#fbbf24] shadow-[0_0_20px_rgba(245,158,11,0.3)] text-base flex items-center justify-center gap-2 group"
+              className="btn-micro w-full sm:w-auto px-8 py-4 rounded-full font-bold text-slate-900 bg-[#F59E0B] hover:bg-[#fbbf24] shadow-[0_0_20px_rgba(245,158,11,0.3)] text-base flex items-center justify-center gap-2 group"
               style={{ fontFamily: "Satoshi, sans-serif" }}
             >
               Start Estimating Free{" "}
@@ -104,53 +84,30 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
               </span>
             </button>
             <button
-              className="w-full sm:w-auto px-8 py-4 rounded-xl font-bold text-white bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all text-base flex items-center justify-center gap-2 backdrop-blur-md"
+              className="btn-micro w-full sm:w-auto px-8 py-4 rounded-full font-bold text-white bg-transparent hover:bg-white/5 border border-white/20 transition-all text-base flex items-center justify-center gap-2"
               style={{ fontFamily: "Satoshi, sans-serif" }}
             >
               <Play className="w-4 h-4 fill-white text-white" />
-              Watch Demo
+              Watch 2-min Demo
             </button>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
-            <div className="flex -space-x-3">
-              <img
-                className="w-10 h-10 rounded-full border-2 border-[#0A0F1E]"
-                src="https://i.pravatar.cc/100?img=11"
-                alt="User 1"
-              />
-              <img
-                className="w-10 h-10 rounded-full border-2 border-[#0A0F1E]"
-                src="https://i.pravatar.cc/100?img=33"
-                alt="User 2"
-              />
-              <img
-                className="w-10 h-10 rounded-full border-2 border-[#0A0F1E]"
-                src="https://i.pravatar.cc/100?img=12"
-                alt="User 3"
-              />
-              <div className="w-10 h-10 rounded-full border-2 border-[#0A0F1E] bg-slate-800 flex items-center justify-center text-xs font-bold text-white shadow-sm">
-                +
-              </div>
-            </div>
-            <div className="flex flex-col items-center sm:items-start">
-              <div className="flex gap-1 mb-1">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <Star
-                    key={i}
-                    className="w-3.5 h-3.5 fill-[#F59E0B] text-[#F59E0B]"
-                  />
-                ))}
-              </div>
-              <p
-                className="text-xs text-slate-400 font-medium"
+          <div className="flex flex-wrap items-center gap-3">
+            {[
+              { label: "24,847+ Engineers", icon: "✦" },
+              { label: "2.1M Calculations", icon: "✦" },
+              { label: "15+ Countries", icon: "✦" },
+              { label: "4.9★ Rating", icon: "✦" },
+            ].map((badge, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-700/50 bg-slate-800/30 text-xs font-medium text-slate-300 backdrop-blur-sm"
                 style={{ fontFamily: "Satoshi, sans-serif" }}
               >
-                Trusted by {engineersCount.toLocaleString()}+ engineers{" "}
-                <br className="hidden sm:block" />
-                across 15 countries | 2.1M calculations
-              </p>
-            </div>
+                <span className="text-amber-500">{badge.icon}</span>
+                {badge.label}
+              </div>
+            ))}
           </div>
         </div>
 
@@ -235,7 +192,14 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
                 className="text-sm font-bold text-white leading-tight"
                 style={{ fontFamily: "Satoshi, sans-serif" }}
               >
-                45.2 m³
+                <CountUp
+                  start={0}
+                  end={45.2}
+                  decimals={1}
+                  duration={2.5}
+                  separator=","
+                />{" "}
+                m³
               </div>
             </div>
           </motion.div>
@@ -264,7 +228,8 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
                 className="text-sm font-bold text-white leading-tight"
                 style={{ fontFamily: "Satoshi, sans-serif" }}
               >
-                1,240 Units
+                <CountUp start={0} end={1240} duration={2.5} separator="," />{" "}
+                Units
               </div>
             </div>
           </motion.div>
@@ -293,7 +258,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
                 className="text-sm font-bold text-white leading-tight"
                 style={{ fontFamily: "Satoshi, sans-serif" }}
               >
-                8,450 kg
+                <CountUp start={0} end={8450} duration={2.5} separator="," /> kg
               </div>
             </div>
           </motion.div>

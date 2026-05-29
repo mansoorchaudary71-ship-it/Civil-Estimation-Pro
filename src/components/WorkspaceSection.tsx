@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { getMyEstimates, saveEstimate } from "../lib/estimates";
 import CountUp from "react-countup";
+import { getCategoryThemeNew } from "./ToolCard";
 
 export default function WorkspaceSection({
   onSelect,
@@ -194,30 +195,33 @@ export default function WorkspaceSection({
           </div>
 
           <div className="flex overflow-x-auto md:grid md:grid-cols-2 gap-4 pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 snap-x">
-            {recentTools.map((mod, idx) => (
-              <motion.button
-                key={`recent-${mod.id}-${idx}`}
-                whileHover={{ y: -4 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => onSelect(mod.id)}
-                className="min-w-[260px] md:min-w-0 bg-white border border-slate-200 rounded-[20px] p-5 text-left flex flex-col hover:shadow-lg transition-all snap-start group"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-slate-50 text-slate-600 group-hover:bg-indigo-600 group-hover:text-white flex items-center justify-center transition-colors">
-                    <mod.icon className="w-6 h-6" />
+            {recentTools.map((mod, idx) => {
+              const theme = getCategoryThemeNew(mod.category);
+              return (
+                <motion.button
+                  key={`recent-${mod.id}-${idx}`}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => onSelect(mod.id)}
+                  className={`min-w-[260px] md:min-w-0 bg-white border ${theme.border} rounded-[20px] p-5 text-left flex flex-col hover:shadow-lg transition-all snap-start group`}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-slate-50 text-slate-600 group-hover:bg-indigo-600 group-hover:text-white flex items-center justify-center transition-colors">
+                      <mod.icon className="w-6 h-6" />
+                    </div>
+                    <div className="px-2.5 py-1 bg-slate-100 text-slate-500 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                      {mod.lastUsed}
+                    </div>
                   </div>
-                  <div className="px-2.5 py-1 bg-slate-100 text-slate-500 rounded-full text-[10px] font-bold uppercase tracking-wider">
-                    {mod.lastUsed}
-                  </div>
-                </div>
-                <h4 className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors mb-1">
-                  {mod.title}
-                </h4>
-                <p className="text-xs text-slate-500 font-medium">
-                  {mod.category}
-                </p>
-              </motion.button>
-            ))}
+                  <h4 className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors mb-1">
+                    {mod.title}
+                  </h4>
+                  <p className="text-xs text-slate-500 font-medium">
+                    {mod.category}
+                  </p>
+                </motion.button>
+              );
+            })}
           </div>
         </div>
 
