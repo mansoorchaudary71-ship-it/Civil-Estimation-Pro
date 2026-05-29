@@ -75,10 +75,12 @@ export default function ToolCard({
   mod,
   onSelect,
   isUsed,
+  idx,
 }: {
   mod: any;
   onSelect: (id: string) => void;
   isUsed?: boolean;
+  idx?: number;
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(isUsed || false);
@@ -86,8 +88,14 @@ export default function ToolCard({
 
   return (
     <motion.button
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 40, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{
+        duration: 0.5,
+        delay: (idx || 0) * 0.06,
+        ease: [0.22, 1, 0.36, 1],
+      }}
       whileTap={{ scale: 0.98 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}

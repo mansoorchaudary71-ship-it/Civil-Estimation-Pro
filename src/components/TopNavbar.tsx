@@ -127,7 +127,7 @@ export default function TopNavbar({
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[600px] bg-white rounded-2xl shadow-[0_12px_40px_-8px_rgba(0,0,0,0.15)] border border-slate-100 p-6 overflow-hidden"
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[600px] bg-white/90 backdrop-blur-md rounded-2xl shadow-[0_12px_40px_-8px_rgba(0,0,0,0.15)] border border-slate-100 p-6 overflow-hidden"
                   >
                     <div className="grid grid-cols-2 gap-x-6 gap-y-4">
                       {categories.map((cat, idx) => (

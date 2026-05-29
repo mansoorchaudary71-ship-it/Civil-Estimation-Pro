@@ -158,6 +158,7 @@ export default function SocialProofSection() {
                 <img
                   src={t.avatar}
                   alt={t.name}
+                  loading="lazy"
                   className="w-12 h-12 rounded-full border-2 border-indigo-50 shadow-sm"
                 />
                 <div>

@@ -73,6 +73,12 @@ import HeroSection from "./HeroSection";
 import SocialProofSection from "./SocialProofSection";
 import WorkspaceSection from "./WorkspaceSection";
 
+import {
+  HowItWorksSection,
+  FeatureComparisonSection,
+  ProjectTypesSection,
+} from "./LandingSections";
+
 import PostLoginDashboard from "./PostLoginDashboard";
 import { useSettings } from "../context/SettingsContext";
 import ToolCard from "./ToolCard";
@@ -1064,6 +1070,10 @@ export default function Dashboard({
 
               {/* SOCIAL PROOF SECTION */}
               <SocialProofSection />
+
+              <HowItWorksSection />
+              <ProjectTypesSection onSelect={handleSelect} />
+              <FeatureComparisonSection />
             </>
           )}
 

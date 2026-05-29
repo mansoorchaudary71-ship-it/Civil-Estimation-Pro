@@ -17,6 +17,7 @@ import {
   Check,
 } from "lucide-react";
 import { getMyEstimates, saveEstimate } from "../lib/estimates";
+import CountUp from "react-countup";
 
 export default function WorkspaceSection({
   onSelect,
@@ -146,7 +147,9 @@ export default function WorkspaceSection({
               Efficiency
             </div>
             <div className="text-sm font-bold text-indigo-900">
-              You've saved 3.2 hours this month
+              You've saved{" "}
+              <CountUp start={0} end={3.2} decimals={1} duration={2.5} /> hours
+              this month
             </div>
           </div>
         </div>
