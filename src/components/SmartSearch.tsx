@@ -231,6 +231,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
           )}
         </div>
         <input
+          id="smart-search-input"
           ref={inputRef}
           type="text"
           value={query}

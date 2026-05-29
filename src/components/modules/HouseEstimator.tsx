@@ -1193,6 +1193,8 @@ export default function HouseEstimator() {
                         totalLabel="Total Grey Structure Cost"
                         totalValue={formatCurrency(estimates.totalGrey)}
                         totalUnit=""
+                        relatedToolIds={['brickwork', 'concrete-mix']}
+                        onRecalculate={() => {}}
                       >
                         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mt-6">
                            <ResultCard
@@ -1408,6 +1410,8 @@ export default function HouseEstimator() {
                         totalValue={formatCurrency(estimates.totalFinishing)}
                         totalUnit=""
                         subtitle={`Based on ${getQualityLabel(finishQuality)} Grade settings (${specs.flooringType}, ${specs.wardrobeMaterial})`}
+                        relatedToolIds={['interiors-finishes', 'master-quantity']}
+                        onRecalculate={() => {}}
                       >
                          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
                             {finishingCostData.map((item, idx) => (

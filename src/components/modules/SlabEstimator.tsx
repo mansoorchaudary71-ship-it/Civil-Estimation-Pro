@@ -405,6 +405,8 @@ export default function SlabEstimator() {
               totalValue={results.concreteVolumeDry.toFixed(2)}
               totalUnit="m³"
               subtitle={`Wet Volume: ${results.concreteVolumeWet.toFixed(2)} m³`}
+              relatedToolIds={['concrete-mix', 'beam-calc']}
+              onRecalculate={() => {}}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <ResultCard

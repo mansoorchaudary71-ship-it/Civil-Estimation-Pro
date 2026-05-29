@@ -12,6 +12,9 @@ import {
   Factory,
   HardHat,
   ArrowRight,
+  Info,
+  CheckCircle2,
+  XCircle,
 } from "lucide-react";
 
 export function HowItWorksSection() {
@@ -89,130 +92,287 @@ export function HowItWorksSection() {
   );
 }
 
-export function FeatureComparisonSection() {
+export function FeatureComparisonSection({
+  onNavigate,
+}: {
+  onNavigate?: (id: string) => void;
+}) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   const features = [
     {
       name: "Speed of Calculation",
+      tooltip: "Time taken to complete a full BOQ or material estimate.",
       app: "Instant",
       excel: "Slow",
       qs: "Days/Weeks",
     },
-    { name: "Accuracy & Code Compliance", app: true, excel: false, qs: true },
     {
-      name: "Cost",
-      app: "Low Monthly",
-      excel: "Variable",
-      qs: "High ($200+/hr)",
+      name: "Accuracy & Code Compliance",
+      tooltip: "Adherence to local and international civil engineering codes.",
+      app: true,
+      excel: false,
+      qs: true,
     },
-    { name: "Mobile Accessibility", app: true, excel: false, qs: false },
-    { name: "1-Click BOQ Export", app: true, excel: false, qs: false },
-    { name: "AI Assistance", app: true, excel: false, qs: false },
+    {
+      name: "Mobile Accessibility",
+      tooltip:
+        "Use tools directly from the construction site on any smartphone.",
+      app: true,
+      excel: false,
+      qs: false,
+    },
+    {
+      name: "1-Click BOQ Export",
+      tooltip:
+        "Generate professional PDF and Excel Bill of Quantities instantly.",
+      app: true,
+      excel: false,
+      qs: false,
+    },
+    {
+      name: "AI Assistance",
+      tooltip:
+        "Built-in AI to answer specific structural and material questions.",
+      app: true,
+      excel: false,
+      qs: false,
+    },
+    {
+      name: "Price per month",
+      tooltip: "Total monthly cost for unlimited usage.",
+      app: "$29/mo",
+      excel: "~$0 (10hrs/week labor)",
+      qs: "$200+/hr",
+    },
   ];
 
   return (
     <div
-      className="w-full py-16 md:py-24 bg-slate-50 border-y border-slate-100"
+      className="w-full py-20 md:py-32 bg-slate-50 border-y border-slate-100 relative overflow-hidden"
       ref={ref}
     >
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-[10px] font-bold tracking-widest uppercase mb-4 border border-indigo-100">
-            Why Choose Us
+      <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:20px_20px] opacity-40"></div>
+
+      <div className="max-w-6xl mx-auto px-4 relative z-10">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-50 text-amber-600 rounded-full text-[10px] font-bold tracking-widest uppercase mb-4 border border-amber-100">
+            Compare
           </div>
           <h2
-            className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight"
+            className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight"
             style={{ fontFamily: '"Clash Display", sans-serif' }}
           >
             The Smarter Way to Estimate
           </h2>
+          <p
+            className="text-slate-500 font-medium text-lg max-w-2xl mx-auto"
+            style={{ fontFamily: "Satoshi, sans-serif" }}
+          >
+            See why thousands of engineers are abandoning spreadsheets for a
+            dedicated estimation platform.
+          </p>
         </div>
 
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           transition={{ duration: 0.6 }}
-          className="bg-white rounded-[24px] border border-slate-200 overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+          className="bg-white rounded-[2rem] border border-slate-200 overflow-visible shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative"
         >
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[700px]">
+          <div className="overflow-x-auto w-full pb-4 md:pb-0">
+            <table className="w-full text-left border-collapse min-w-[800px]">
               <thead>
                 <tr>
-                  <th className="p-4 md:p-6 bg-slate-50/50 text-slate-500 font-bold text-sm tracking-wider uppercase border-b border-slate-200 w-1/3">
+                  <th className="p-4 md:p-8 bg-slate-50 text-slate-500 font-bold text-sm tracking-wider uppercase border-b border-slate-200 w-1/3 rounded-tl-[2rem]">
                     Features
                   </th>
-                  <th className="p-4 md:p-6 bg-indigo-50 border-b border-indigo-100 w-1/4">
-                    <div
-                      className="font-extrabold text-indigo-600 text-lg md:text-xl relative inline-block"
-                      style={{ fontFamily: '"Clash Display", sans-serif' }}
-                    >
-                      Civil Estimation Pro
-                      <div className="absolute -top-3 -right-6 hidden sm:block">
-                        <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse inline-block"></span>
+                  <th className="p-0 border-b border-amber-500/30 w-1/4 relative bg-amber-50/10">
+                    <div className="absolute -top-[1.25rem] left-0 right-0 flex justify-center z-20">
+                      <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-bold uppercase tracking-widest py-1.5 px-4 rounded-full shadow-lg border border-amber-400">
+                        Most Popular Choice
+                      </div>
+                    </div>
+                    {/* Glowing highlight borders for the column */}
+                    <div className="absolute inset-0 border-x border-t-2 border-amber-400 bg-amber-500/5 mix-blend-multiply rounded-t-2xl shadow-[inset_0_4px_20px_rgba(245,158,11,0.1)] pointer-events-none z-0"></div>
+                    <div className="relative p-4 md:p-8 z-10 text-center">
+                      <div
+                        className="font-extrabold text-amber-600 text-lg md:text-2xl relative inline-block"
+                        style={{ fontFamily: '"Clash Display", sans-serif' }}
+                      >
+                        Civil Estimation Pro
                       </div>
                     </div>
                   </th>
-                  <th className="p-4 md:p-6 border-b border-slate-200 text-slate-900 font-bold w-1/5">
+                  <th className="p-4 md:p-8 border-b border-slate-200 text-slate-400 font-bold text-center w-1/5">
                     Excel Spreadsheets
                   </th>
-                  <th className="p-4 md:p-6 border-b border-slate-200 text-slate-900 font-bold w-1/5">
+                  <th className="p-4 md:p-8 border-b border-slate-200 text-slate-400 font-bold text-center w-1/5 rounded-tr-[2rem]">
                     Hiring a QS
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {features.map((feature, idx) => (
-                  <tr
-                    key={idx}
-                    className="hover:bg-slate-50/50 transition-colors"
-                  >
-                    <td className="p-4 md:p-6 font-medium text-slate-700">
-                      {feature.name}
-                    </td>
+                {features.map((feature, idx) => {
+                  const isLast = idx === features.length - 1;
+                  return (
+                    <tr
+                      key={idx}
+                      className="hover:bg-slate-50/50 transition-colors group relative"
+                    >
+                      <td
+                        className={`p-4 md:p-6 pl-8 font-semibold text-slate-700 relative ${isLast ? "rounded-bl-[2rem]" : ""}`}
+                      >
+                        <div className="flex items-center gap-2">
+                          {feature.name}
+                          <div className="group/tooltip relative flex items-center justify-center cursor-help">
+                            <Info className="w-4 h-4 text-slate-300 hover:text-slate-500 transition-colors" />
+                            <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover/tooltip:block w-48 bg-slate-900 text-white text-xs p-2 rounded-lg text-center shadow-xl z-50 pointer-events-none">
+                              {feature.tooltip}
+                              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 rotate-45"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
 
-                    <td className="p-4 md:p-6 bg-indigo-50/30">
-                      {typeof feature.app === "boolean" ? (
-                        <Check className="w-6 h-6 text-indigo-500 font-bold" />
-                      ) : (
-                        <span className="font-bold text-indigo-600">
-                          {feature.app}
-                        </span>
-                      )}
-                    </td>
+                      <td className={`p-4 md:p-6 text-center relative`}>
+                        {/* Highlight Column Background */}
+                        <div
+                          className={`absolute inset-0 border-x border-amber-400 bg-amber-500/5 ${isLast ? "border-b-2 rounded-b-2xl" : ""} pointer-events-none z-0`}
+                        ></div>
+                        <div className="relative z-10 flex justify-center">
+                          {typeof feature.app === "boolean" ? (
+                            <motion.div
+                              initial={{ scale: 0.8, opacity: 0 }}
+                              animate={
+                                inView
+                                  ? { scale: 1, opacity: 1 }
+                                  : { scale: 0.8, opacity: 0 }
+                              }
+                              transition={{
+                                duration: 0.4,
+                                delay: 0.2 + idx * 0.1,
+                              }}
+                            >
+                              <CheckCircle2 className="w-6 h-6 text-amber-500 font-bold" />
+                            </motion.div>
+                          ) : (
+                            <span className="font-bold text-amber-600 text-lg">
+                              {feature.app}
+                            </span>
+                          )}
+                        </div>
+                      </td>
 
-                    <td className="p-4 md:p-6">
-                      {typeof feature.excel === "boolean" ? (
-                        feature.excel ? (
-                          <Check className="w-5 h-5 text-emerald-500" />
-                        ) : (
-                          <X className="w-5 h-5 text-slate-300" />
-                        )
-                      ) : (
-                        <span className="text-slate-500 font-medium">
-                          {feature.excel}
-                        </span>
-                      )}
-                    </td>
+                      <td className="p-4 md:p-6 text-center">
+                        <div className="flex justify-center">
+                          {typeof feature.excel === "boolean" ? (
+                            feature.excel ? (
+                              <motion.div
+                                initial={{ scale: 0.8, opacity: 0 }}
+                                animate={
+                                  inView
+                                    ? { scale: 1, opacity: 1 }
+                                    : { scale: 0.8, opacity: 0 }
+                                }
+                                transition={{
+                                  duration: 0.4,
+                                  delay: 0.3 + idx * 0.1,
+                                }}
+                              >
+                                <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                              </motion.div>
+                            ) : (
+                              <motion.div
+                                initial={{ scale: 0.8, opacity: 0 }}
+                                animate={
+                                  inView
+                                    ? { scale: 1, opacity: 1 }
+                                    : { scale: 0.8, opacity: 0 }
+                                }
+                                transition={{
+                                  duration: 0.4,
+                                  delay: 0.3 + idx * 0.1,
+                                }}
+                              >
+                                <XCircle className="w-5 h-5 text-slate-300" />
+                              </motion.div>
+                            )
+                          ) : (
+                            <span className="text-slate-500 font-medium">
+                              {feature.excel}
+                            </span>
+                          )}
+                        </div>
+                      </td>
 
-                    <td className="p-4 md:p-6">
-                      {typeof feature.qs === "boolean" ? (
-                        feature.qs ? (
-                          <Check className="w-5 h-5 text-emerald-500" />
-                        ) : (
-                          <X className="w-5 h-5 text-slate-300" />
-                        )
-                      ) : (
-                        <span className="text-slate-500 font-medium">
-                          {feature.qs}
-                        </span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
+                      <td
+                        className={`p-4 md:p-6 text-center ${isLast ? "rounded-br-[2rem]" : ""}`}
+                      >
+                        <div className="flex justify-center">
+                          {typeof feature.qs === "boolean" ? (
+                            feature.qs ? (
+                              <motion.div
+                                initial={{ scale: 0.8, opacity: 0 }}
+                                animate={
+                                  inView
+                                    ? { scale: 1, opacity: 1 }
+                                    : { scale: 0.8, opacity: 0 }
+                                }
+                                transition={{
+                                  duration: 0.4,
+                                  delay: 0.4 + idx * 0.1,
+                                }}
+                              >
+                                <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                              </motion.div>
+                            ) : (
+                              <motion.div
+                                initial={{ scale: 0.8, opacity: 0 }}
+                                animate={
+                                  inView
+                                    ? { scale: 1, opacity: 1 }
+                                    : { scale: 0.8, opacity: 0 }
+                                }
+                                transition={{
+                                  duration: 0.4,
+                                  delay: 0.4 + idx * 0.1,
+                                }}
+                              >
+                                <XCircle className="w-5 h-5 text-slate-300" />
+                              </motion.div>
+                            )
+                          ) : (
+                            <span className="text-slate-500 font-medium whitespace-nowrap">
+                              {feature.qs}
+                            </span>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mt-12 text-center"
+        >
+          <button
+            onClick={() => {
+              if (onNavigate) onNavigate("dashboard");
+              window.scrollTo(0, 0);
+            }}
+            className="inline-flex items-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl shadow-[0_8px_20px_rgba(15,23,42,0.15)] hover:shadow-[0_12px_25px_rgba(15,23,42,0.25)] transition-all transform hover:-translate-y-1"
+          >
+            Join 24,847 engineers who already switched
+            <ArrowRight className="w-5 h-5 ml-1" />
+          </button>
         </motion.div>
       </div>
     </div>

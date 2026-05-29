@@ -86,6 +86,7 @@ import IsolatedFootingCalculator from "./components/modules/IsolatedFootingCalcu
 
 import { WelcomeModal } from "./components/ui/WelcomeModal";
 import { HelpGuideModal } from "./components/ui/HelpGuideModal";
+import { ProductTour } from "./components/ui/ProductTour";
 import LoadingScreen from "./components/ui/LoadingScreen";
 import CustomCursor from "./components/ui/CustomCursor";
 import SkipToContent from "./components/ui/SkipToContent";
@@ -107,6 +108,7 @@ import Careers from "./components/pages/Careers";
 import Contact from "./components/pages/Contact";
 import Blog from "./components/pages/Blog";
 import LegalPages from "./components/pages/LegalPages";
+import PricingPage from "./components/pages/PricingPage";
 import {
   Menu,
   Settings as SettingsIcon,
@@ -518,6 +520,7 @@ export default function App() {
               <ProjectProvider>
                 <div className="flex flex-col h-[100dvh] w-full bg-transparent font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
                   <Toaster position="bottom-right" />
+                  <ProductTour />
                   <GlobalBottomBar />
 
                   <TopNavbar
@@ -583,9 +586,7 @@ export default function App() {
                                   />
                                 )}
                                 {activeModule === "pricing" && (
-                                  <div className="p-8 pt-12 text-center text-slate-500">
-                                    Pricing options coming soon.
-                                  </div>
+                                  <PricingPage />
                                 )}
                                 {activeModule === "about" && (
                                   <div className="p-8 pt-12">

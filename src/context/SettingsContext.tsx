@@ -4,7 +4,8 @@ export type Currency = 'PKR' | 'USD' | 'INR' | 'AED' | 'SAR' | 'GBP' | 'BDT' | '
 export type MeasurementSystem = 'FPS' | 'SI';
 export type Theme = 'light' | 'dark' | 'system';
 export type FontSize = 'small' | 'medium' | 'large';
-export type UserRole = 'Civil Engineer' | 'Quantity Surveyor' | 'Student' | 'Contractor' | undefined;
+export type UserRole = 'Civil Engineer' | 'Quantity Surveyor' | 'Student' | 'Contractor' | 'Architect' | undefined;
+export type ProjectType = 'Residential' | 'Commercial' | 'Infrastructure' | 'Industrial' | undefined;
 
 export interface MaterialRates {
   cement: number;
@@ -35,8 +36,13 @@ interface SettingsState {
   rates: MaterialRates;
   modulePreferences?: ModulePreferences;
   role?: UserRole;
+  projectType?: ProjectType;
   onboardingComplete?: boolean;
+  hasSeenTour?: boolean;
   usedTools?: string[];
+  hasExportedBOQ?: boolean;
+  hasRunCalculation?: boolean;
+  favoriteTools?: string[];
 }
 
 interface SettingsContextType {
@@ -54,8 +60,13 @@ const defaultSettings: SettingsState = {
   theme: 'system',
   fontSize: 'medium',
   role: undefined,
+  projectType: undefined,
   onboardingComplete: false,
+  hasSeenTour: false,
   usedTools: [],
+  hasExportedBOQ: false,
+  hasRunCalculation: false,
+  favoriteTools: [],
   rates: {
     cement: 1200,   // per 50kg bag
     steel: 260000,  // per ton

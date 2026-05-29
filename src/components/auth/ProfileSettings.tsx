@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { X, User, Camera, Loader2 } from 'lucide-react';
+import { X, User, Camera, Loader2, Moon, Sun } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useSettings } from '../../context/SettingsContext';
 
 interface ProfileSettingsProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface ProfileSettingsProps {
 
 export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProps) {
   const { user, updateUserDisplayName, updateUserProfilePhoto } = useAuth();
+  const { settings, updateSettings } = useSettings();
   
   const [name, setName] = useState('');
   const [photoURL, setPhotoURL] = useState('');
@@ -44,6 +46,12 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const isDarkMode = settings.theme === 'dark' || (settings.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+  const toggleTheme = () => {
+    updateSettings({ theme: isDarkMode ? 'light' : 'dark' });
   };
 
   return (
@@ -81,7 +89,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">Display Name</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">Display Name</label>
                 <div className="relative flex items-center">
                   <User className="absolute left-3.5 w-5 h-5 text-slate-700 dark:text-slate-300" />
                   <input
@@ -94,7 +102,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">Photo URL</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">Photo URL</label>
                 <div className="relative flex items-center">
                   <Camera className="absolute left-3.5 w-5 h-5 text-slate-700 dark:text-slate-300" />
                   <input
@@ -105,6 +113,26 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
                      className="w-full pl-11 pr-4 py-3 bg-bg-primary border border-border-color rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
                   />
                 </div>
+              </div>
+
+              {/* Theme Toggle */}
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2 uppercase tracking-wider">Appearance</label>
+                <button
+                  type="button"
+                  onClick={toggleTheme}
+                  className="w-full flex items-center justify-between p-3 bg-bg-primary border border-border-color rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    {isDarkMode ? <Moon className="w-5 h-5 text-indigo-500" /> : <Sun className="w-5 h-5 text-amber-500" />}
+                    <span className="text-sm font-bold text-text-primary">
+                      {isDarkMode ? 'Dark Mode' : 'Light Mode'}
+                    </span>
+                  </div>
+                  <div className={`w-10 h-6 rounded-full p-1 relative transition-colors ${isDarkMode ? 'bg-indigo-600' : 'bg-slate-300'}`}>
+                    <div className={`w-4 h-4 rounded-full bg-white transition-all transform ${isDarkMode ? 'translate-x-4' : 'translate-x-0'}`} />
+                  </div>
+                </button>
               </div>
             </div>
 

@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Layers, FolderPlus, CheckCircle, ChevronDown } from 'lucide-react';
+import { Layers, FolderPlus, CheckCircle, ChevronDown, RefreshCw, Sparkles, ArrowRight } from 'lucide-react';
 import { useProjects } from '../../context/ProjectContext';
+import { useCountUp } from '../../hooks/useCountUp';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from 'recharts';
+import { ALL_MODULES } from '../Dashboard';
 
 export interface MaterialSummaryProps {
   title?: string;
@@ -15,6 +18,16 @@ export interface MaterialSummaryProps {
   items?: any[];
   onUpdateRate?: () => void;
   showRates?: boolean;
+  onRecalculate?: () => void;
+  relatedToolIds?: string[];
+}
+
+const COLORS = ['#6B46C1', '#F97316', '#10B981', '#3B82F6', '#EC4899', '#F59E0B', '#8B5CF6'];
+
+function extractNumeric(str: string | number) {
+  const s = String(str).replace(/,/g, '');
+  const match = s.match(/-?[\d.]+/);
+  return match ? parseFloat(match[0]) : 0;
 }
 
 export function MaterialSummary({
@@ -25,16 +38,31 @@ export function MaterialSummary({
   totalLabel,
   icon,
   children,
-  className = ""
+  className = "",
+  onRecalculate,
+  relatedToolIds = [],
 }: MaterialSummaryProps) {
   const { projects, activeProjectId, addEstimateToProject } = useProjects();
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saved'>('idle');
   const [showProjectSelect, setShowProjectSelect] = useState(false);
   const activeProj = projects.find(p => p.id === activeProjectId);
+  const [isRecalculating, setIsRecalculating] = useState(false);
 
-  const handleSave = (projectId: string) => {
-    // Attempt to extract material data from children
-    const extractedMaterials: Record<string, { quantity: number; unit: string }> = {};
+  // Animate totalValue
+  const rawTotalValue = extractNumeric(totalValue);
+  const totalValueStr = String(totalValue);
+  const prefix = totalValueStr.includes('Rs') ? 'Rs ' : totalValueStr.includes('$') ? '$' : '';
+  const animatedTotal = useCountUp(rawTotalValue, 1000);
+  
+  const handleRecalculate = () => {
+    setIsRecalculating(true);
+    if (onRecalculate) onRecalculate();
+    setTimeout(() => setIsRecalculating(false), 800);
+  };
+
+  const { extractedMaterials, chartData } = useMemo(() => {
+    const materials: Record<string, { quantity: number; unit: string }> = {};
+    const chart: { name: string; value: number }[] = [];
     
     // Quick helper to recursively parse React children
     const parseChildren = (node: React.ReactNode) => {
@@ -48,20 +76,27 @@ export function MaterialSummary({
                 let unit = props.unit || 'units';
                 if (!unit && props.title.toLowerCase().includes('cost')) unit = '$';
                 
-                // Try to parse the value
                 const valStr = String(props.value).replace(/,/g, '').replace(/[a-zA-Z]/g, '');
                 const num = parseFloat(valStr) || 0;
-                extractedMaterials[props.title] = { quantity: num, unit };
+                materials[props.title] = { quantity: num, unit };
+                
+                // Only add to chart if it's substantial and not a sum/total string
+                if (num > 0 && !props.title.toLowerCase().includes('total')) {
+                   chart.push({ name: props.title, value: num });
+                }
              }
              if (props.children) parseChildren(props.children);
           } else if (child.props && (child.props as any).children) {
-             parseChildren((child.props as any).children); // HTML elements with children
+             parseChildren((child.props as any).children);
           }
        });
     };
     
     parseChildren(children);
+    return { extractedMaterials: materials, chartData: chart };
+  }, [children]);
 
+  const handleSave = (projectId: string) => {
     let parsedCost = 0;
     const costStr = String(totalValue).replace(/,/g, '').replace(/[^\d.-]/g, '');
     parsedCost = parseFloat(costStr) || 0;
@@ -78,6 +113,10 @@ export function MaterialSummary({
     setShowProjectSelect(false);
     setTimeout(() => setSaveStatus('idle'), 3000);
   };
+
+  // Find related tools
+  const relatedModules = ALL_MODULES.filter(m => relatedToolIds.includes(m.id)).slice(0, 3);
+
 
   return (
     <motion.div
@@ -130,28 +169,110 @@ export function MaterialSummary({
       </div>
 
       {/* Hero Total Section */}
-      <div className="mb-10 relative z-10 w-full">
-        {totalLabel && (
-          <p className="text-slate-500 dark:text-slate-400 font-semibold text-sm sm:text-base mb-3">{totalLabel}</p>
-        )}
-        <div className="flex flex-row items-baseline flex-wrap gap-x-2 gap-y-1 max-w-full overflow-hidden">
-          <span className="text-[clamp(2.5rem,8vw,4.5rem)] leading-none font-black tracking-tighter bg-gradient-to-r from-[#6B46C1] to-orange-500 bg-clip-text text-transparent break-words max-w-full">
-            {totalValue}
-          </span>
-          <div className="flex flex-col text-left shrink-0">
-            {totalUnit && (
-              <span className="text-xl sm:text-2xl font-bold text-slate-700 dark:text-slate-300">{totalUnit}</span>
-            )}
-            {subtitle && (
-              <span className="text-sm font-medium text-slate-400 dark:text-slate-500">{subtitle}</span>
-            )}
+      <div className="mb-10 relative z-10 w-full flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          {totalLabel && (
+            <p className="text-slate-500 dark:text-slate-400 font-semibold text-sm sm:text-base mb-3">{totalLabel}</p>
+          )}
+          <div className="flex flex-row items-baseline flex-wrap gap-x-2 gap-y-1 max-w-full overflow-hidden">
+            <span className="text-[clamp(2.5rem,8vw,4.5rem)] leading-none font-black tracking-tighter bg-gradient-to-r from-[#6B46C1] to-orange-500 bg-clip-text text-transparent break-words max-w-full">
+              {prefix}{animatedTotal.toLocaleString('en-US', { minimumFractionDigits: prefix === 'Rs ' ? 0 : 2, maximumFractionDigits: prefix === 'Rs ' ? 0 : 2 })}
+            </span>
+            <div className="flex flex-col text-left shrink-0">
+              {totalUnit && (
+                <span className="text-xl sm:text-2xl font-bold text-slate-700 dark:text-slate-300">{totalUnit}</span>
+              )}
+              {subtitle && (
+                <span className="text-sm font-medium text-slate-400 dark:text-slate-500">{subtitle}</span>
+              )}
+            </div>
           </div>
         </div>
+
+        {onRecalculate && (
+          <button 
+            onClick={handleRecalculate}
+            disabled={isRecalculating}
+            className="flex items-center gap-2 px-5 py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl font-bold transition-all disabled:opacity-50"
+          >
+            <RefreshCw className={`w-5 h-5 ${isRecalculating ? 'animate-spin' : ''}`} />
+            Recalculate Values
+          </button>
+        )}
       </div>
 
-      {/* Children (Cards/Breakdowns) */}
-      <div className="flex flex-col gap-4 relative z-10">
-        {children}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
+        <div className="lg:col-span-2 flex flex-col gap-4">
+          {children}
+        </div>
+        
+        {/* Visual Summary Column */}
+        {(chartData.length > 0 || relatedModules.length > 0) && (
+          <div className="flex flex-col gap-6">
+            {chartData.length > 0 && (
+              <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
+                <h4 className="text-sm font-bold text-slate-700 border-b border-slate-200 dark:border-slate-700 dark:text-slate-300 uppercase tracking-widest pb-3 mb-4">
+                  Visual Breakdown
+                </h4>
+                <div className="h-[250px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={chartData}
+                        innerRadius={60}
+                        outerRadius={80}
+                        paddingAngle={5}
+                        dataKey="value"
+                      >
+                        {chartData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke="transparent" />
+                        ))}
+                      </Pie>
+                      <RechartsTooltip 
+                        formatter={(value: number) => value.toLocaleString('en-US', { maximumFractionDigits: 2 })}
+                        contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
+                      />
+                      <Legend 
+                        layout="vertical"
+                        verticalAlign="bottom"
+                        wrapperStyle={{ fontSize: '11px', paddingTop: '20px' }}
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            )}
+
+            {relatedModules.length > 0 && (
+              <div className="bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl p-6 border border-indigo-100 dark:border-indigo-800/50">
+                <h4 className="flex items-center gap-2 text-sm font-bold text-indigo-900 dark:text-indigo-100 uppercase tracking-widest mb-4">
+                  <Sparkles className="w-4 h-4 text-indigo-500" />
+                  Similar Tools
+                </h4>
+                <div className="flex flex-col gap-3">
+                  {relatedModules.map(mod => (
+                    <button 
+                      key={mod.id}
+                      onClick={() => window.location.href = `/?tool=${mod.id}`}
+                      className="flex items-center justify-between p-3 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl border border-indigo-100 dark:border-indigo-800 transition-all text-left group"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-500/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+                          <mod.icon className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <p className="font-bold text-slate-800 dark:text-slate-200 text-sm group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{mod.title}</p>
+                          <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate max-w-[120px]">{mod.desc}</p>
+                        </div>
+                      </div>
+                      <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </motion.div>
   );

@@ -1,147 +1,198 @@
 import React, { useState } from 'react';
-import { Layers, Bot, FileText, CheckCircle2, ChevronRight, HardHat, GraduationCap, Calculator, Ruler } from 'lucide-react';
-import { useSettings, UserRole, MeasurementSystem, Currency } from '../../context/SettingsContext';
+import { Building2, Pickaxe, Factory, Home, CheckCircle2, ChevronRight, HardHat, GraduationCap, Calculator, Ruler, ArrowRight, ArrowLeft } from 'lucide-react';
+import { useSettings, UserRole, ProjectType } from '../../context/SettingsContext';
 
 export function WelcomeModal() {
-  const { settings, updateSettings } = useSettings();
+  const { settings, updateSettings, trackToolUse } = useSettings();
   
+  const [step, setStep] = useState(1);
+  const [projectType, setProjectType] = useState<ProjectType>(settings.projectType);
   const [role, setRole] = useState<UserRole>(settings.role);
-  const [unit, setUnit] = useState<MeasurementSystem>(settings.measurement || 'SI');
-  const [currency, setCurrency] = useState<Currency>(settings.currency || 'USD');
+  const [selectedTool, setSelectedTool] = useState<string | null>(null);
 
   if (settings.onboardingComplete) return null;
 
   const handleComplete = () => {
     updateSettings({
       role,
-      measurement: unit,
-      currency,
+      projectType,
       onboardingComplete: true
     });
+    if (selectedTool) {
+      trackToolUse(selectedTool);
+    }
   };
 
-  const roles = [
-    { id: 'Civil Engineer', icon: <HardHat className="w-5 h-5" />, label: 'Civil Engineer' },
-    { id: 'Quantity Surveyor', icon: <Calculator className="w-5 h-5" />, label: 'Quantity Surveyor' },
-    { id: 'Student', icon: <GraduationCap className="w-5 h-5" />, label: 'Student' },
-    { id: 'Contractor', icon: <Ruler className="w-5 h-5" />, label: 'Contractor' }
+  const projectTypes = [
+    { id: 'Residential', icon: <Home className="w-6 h-6" />, label: 'Residential', desc: 'Homes & Housing' },
+    { id: 'Commercial', icon: <Building2 className="w-6 h-6" />, label: 'Commercial', desc: 'Offices & Retail' },
+    { id: 'Infrastructure', icon: <Pickaxe className="w-6 h-6" />, label: 'Infrastructure', desc: 'Roads & Bridges' },
+    { id: 'Industrial', icon: <Factory className="w-6 h-6" />, label: 'Industrial', desc: 'Warehouses & Plants' }
   ];
 
+  const roles = [
+    { id: 'Civil Engineer', icon: <HardHat className="w-6 h-6" />, label: 'Engineer' },
+    { id: 'Contractor', icon: <Ruler className="w-6 h-6" />, label: 'Contractor' },
+    { id: 'Architect', icon: <Building2 className="w-6 h-6" />, label: 'Architect' },
+    { id: 'Student', icon: <GraduationCap className="w-6 h-6" />, label: 'Student' }
+  ];
+
+  const getRecommendedTools = () => {
+    if (role === 'Student') return [
+      { id: 'concrete-mix', name: 'Concrete Mix Design', desc: 'IS/ACI standard mix calculations' },
+      { id: 'bbs-generator', name: 'BBS Generator', desc: 'Learn standard bar bending schedules' },
+      { id: 'unit-converter', name: 'Unit Converter', desc: 'Essential engineering conversions' }
+    ];
+    if (role === 'Contractor') return [
+      { id: 'quick-rough', name: 'Rough Estimator', desc: 'Quick quotes for clients' },
+      { id: 'house', name: 'House Estimator', desc: 'Full residential breakdown' },
+      { id: 'brickwork', name: 'Brickwork Calc', desc: 'Fast material ordering' }
+    ];
+    if (projectType === 'Infrastructure') return [
+      { id: 'road-pavement', name: 'Road Estimator', desc: 'Pavement layers & materials' },
+      { id: 'chainage-volume', name: 'Chainage Volume', desc: 'Earthwork cross-sections' },
+      { id: 'earthworks', name: 'Grid Earthwork', desc: 'Cut/fill mass haul' }
+    ];
+    return [
+      { id: 'master-quantity', name: 'Master Quantity', desc: 'Comprehensive material takeoffs' },
+      { id: 'boq-generator', name: 'BOQ Generator', desc: 'Professional bill of quantities' },
+      { id: 'concrete-mix', name: 'Concrete Design', desc: 'Detailed structural mix' }
+    ];
+  };
+
+  const recommendedTools = getRecommendedTools();
+
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-md p-4 animate-in fade-in duration-300 font-sans">
-      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-100 dark:border-slate-800 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-900/60 backdrop-blur-md p-4 animate-in fade-in duration-300 font-sans">
+      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col min-h-[500px]">
         
-        <div className="p-8 pb-6 border-b border-slate-100 dark:border-slate-800 text-center">
-          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-2">
-            Welcome to Civil AI
+        <div className="p-8 pb-4">
+          {/* Progress Indicator */}
+          <div className="flex gap-2 mb-8">
+            <div className={`h-1.5 flex-1 rounded-full transition-colors ${step >= 1 ? 'bg-indigo-600' : 'bg-slate-100 dark:bg-slate-800'}`} />
+            <div className={`h-1.5 flex-1 rounded-full transition-colors ${step >= 2 ? 'bg-indigo-600' : 'bg-slate-100 dark:bg-slate-800'}`} />
+            <div className={`h-1.5 flex-1 rounded-full transition-colors ${step >= 3 ? 'bg-indigo-600' : 'bg-slate-100 dark:bg-slate-800'}`} />
+          </div>
+
+          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-2" style={{ fontFamily: '"Clash Display", sans-serif' }}>
+            {step === 1 && "What do you work on?"}
+            {step === 2 && "What's your role?"}
+            {step === 3 && "Pick your first tool."}
           </h1>
-          <p className="text-slate-500 dark:text-slate-400">
-            The ultimate toolset for modern civil engineering & quantity surveying.
+          <p className="text-slate-500 dark:text-slate-400 font-medium">
+            {step === 1 && "Start by telling us what type of projects you estimate most often."}
+            {step === 2 && "This helps us personalize your dashboard and recommendations."}
+            {step === 3 && "Based on your answers, here are the best tools to start with."}
           </p>
         </div>
 
-        <div className="overflow-y-auto p-8 bg-slate-50 dark:bg-slate-900/50 flex-1 space-y-8">
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 shadow-sm">
-              <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                <Layers className="w-5 h-5" />
-              </div>
-              <h3 className="font-semibold text-slate-900 dark:text-white text-sm">30+ Pro Tools</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Estimators, calculators, and rate analysis tools.</p>
+        <div className="px-8 pb-8 flex-1">
+          {step === 1 && (
+            <div className="grid grid-cols-2 gap-4 mt-4">
+              {projectTypes.map(pt => (
+                <button
+                  key={pt.id}
+                  onClick={() => setProjectType(pt.id as ProjectType)}
+                  className={`flex flex-col items-start gap-4 p-5 rounded-2xl border-2 text-left transition-all group ${
+                    projectType === pt.id 
+                      ? 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' 
+                      : 'border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-800/50 hover:bg-slate-50 dark:hover:bg-slate-800'
+                  }`}
+                >
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${
+                    projectType === pt.id 
+                      ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30' 
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-500 group-hover:bg-indigo-100 group-hover:text-indigo-600 dark:group-hover:bg-indigo-500/20 dark:group-hover:text-indigo-400'
+                  }`}>
+                    {pt.icon}
+                  </div>
+                  <div>
+                    <h3 className={`font-bold text-lg mb-1 ${projectType === pt.id ? 'text-indigo-900 dark:text-indigo-100' : 'text-slate-900 dark:text-white'}`}>{pt.label}</h3>
+                    <p className={`text-sm ${projectType === pt.id ? 'text-indigo-700 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400'}`}>{pt.desc}</p>
+                  </div>
+                  {projectType === pt.id && <CheckCircle2 className="w-5 h-5 absolute top-5 right-5 text-indigo-600" />}
+                </button>
+              ))}
             </div>
-            <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 shadow-sm">
-              <div className="w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
-                <Bot className="w-5 h-5" />
-              </div>
-              <h3 className="font-semibold text-slate-900 dark:text-white text-sm">AI Assistant</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Smart takeoff, chat analysis, and data validation.</p>
-            </div>
-            <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center gap-2 shadow-sm">
-              <div className="w-10 h-10 rounded-full bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
-                <FileText className="w-5 h-5" />
-              </div>
-              <h3 className="font-semibold text-slate-900 dark:text-white text-sm">Export Reports</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400">One-click detailed BOQ generation (PDF/Excel).</p>
-            </div>
-          </div>
+          )}
 
-          <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
-              1. Choose Your Role
-            </h3>
-            <div className="grid grid-cols-2 gap-3">
+          {step === 2 && (
+            <div className="grid grid-cols-2 gap-4 mt-4">
               {roles.map(r => (
                 <button
                   key={r.id}
                   onClick={() => setRole(r.id as UserRole)}
-                  className={`flex items-center gap-3 p-3 rounded-lg border text-left transition-all ${
+                  className={`flex items-center gap-4 p-5 rounded-2xl border-2 text-left transition-all relative ${
                     role === r.id 
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300' 
-                      : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-blue-300'
+                      ? 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' 
+                      : 'border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-800/50 hover:bg-slate-50 dark:hover:bg-slate-800'
                   }`}
                 >
-                  <div className={role === r.id ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400'}>{r.icon}</div>
-                  <span className="font-medium text-sm">{r.label}</span>
-                  {role === r.id && <CheckCircle2 className="w-4 h-4 ml-auto text-blue-500" />}
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${role === r.id ? 'bg-indigo-100 text-indigo-600 dark:bg-indigo-900/50 dark:text-indigo-400' : 'bg-slate-100 text-slate-400 dark:bg-slate-800'}`}>
+                    {r.icon}
+                  </div>
+                  <span className={`font-bold ${role === r.id ? 'text-indigo-900 dark:text-indigo-100' : 'text-slate-900 dark:text-white'}`}>{r.label}</span>
+                  {role === r.id && <CheckCircle2 className="w-5 h-5 absolute right-5 text-indigo-600" />}
                 </button>
               ))}
             </div>
-          </div>
+          )}
 
-          <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
-              2. System Preferences
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              
-              <div>
-                <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 block mb-2">Unit System</label>
-                <div className="flex bg-white dark:bg-slate-800 rounded-lg p-1 border border-slate-200 dark:border-slate-700">
-                  <button
-                    onClick={() => setUnit('FPS')}
-                    className={`flex-1 py-1.5 text-sm font-medium rounded-md transition-colors ${unit === 'FPS' ? 'bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
-                  >
-                    Imperial (ft, sqft)
-                  </button>
-                  <button
-                    onClick={() => setUnit('SI')}
-                    className={`flex-1 py-1.5 text-sm font-medium rounded-md transition-colors ${unit === 'SI' ? 'bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}
-                  >
-                    Metric (m, m²)
-                  </button>
-                </div>
-              </div>
-
-              <div>
-                <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 block mb-2">Primary Currency</label>
-                <select
-                  value={currency}
-                  onChange={(e) => setCurrency(e.target.value as Currency)}
-                  className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg py-2 px-3 text-sm font-medium text-slate-900 dark:text-white shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          {step === 3 && (
+            <div className="flex flex-col gap-3 mt-4">
+              {recommendedTools.map(tool => (
+                <button
+                  key={tool.id}
+                  onClick={() => setSelectedTool(tool.id)}
+                  className={`flex items-center justify-between p-5 rounded-2xl border-2 text-left transition-all group ${
+                    selectedTool === tool.id 
+                      ? 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20 shadow-[0_0_0_4px_rgba(79,70,229,0.1)]' 
+                      : 'border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-800/50 hover:bg-slate-50 dark:hover:bg-slate-800'
+                  }`}
                 >
-                  <option value="USD">USD ($) - US Dollar</option>
-                  <option value="PKR">PKR (Rs) - Pakistani Rupee</option>
-                  <option value="INR">INR (₹) - Indian Rupee</option>
-                  <option value="AED">AED - UAE Dirham</option>
-                  <option value="SAR">SAR - Saudi Riyal</option>
-                  <option value="GBP">GBP (£) - British Pound</option>
-                </select>
-              </div>
-
+                  <div>
+                    <h3 className={`font-bold text-lg mb-1 ${selectedTool === tool.id ? 'text-indigo-900 dark:text-indigo-100' : 'text-slate-900 dark:text-white'}`}>{tool.name}</h3>
+                    <p className={`text-sm ${selectedTool === tool.id ? 'text-indigo-700 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400'}`}>{tool.desc}</p>
+                  </div>
+                  <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center ${selectedTool === tool.id ? 'border-indigo-600 text-indigo-600 bg-white' : 'border-slate-200 text-transparent'}`}>
+                    {selectedTool === tool.id && <div className="w-3 h-3 rounded-full bg-indigo-600" />}
+                  </div>
+                </button>
+              ))}
             </div>
-          </div>
+          )}
         </div>
 
-        <div className="p-6 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-end">
-          <button
-            onClick={handleComplete}
-            disabled={!role}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:hover:bg-blue-600 text-white px-6 py-2.5 rounded-lg font-semibold transition-colors"
-          >
-            Get Started
-            <ChevronRight className="w-5 h-5" />
-          </button>
+        <div className="p-6 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/80">
+          {step > 1 ? (
+             <button
+              onClick={() => setStep(step - 1)}
+              className="flex items-center gap-2 px-4 py-2 text-slate-500 hover:text-slate-700 font-medium transition-colors"
+             >
+               <ArrowLeft className="w-4 h-4" /> Back
+             </button>
+          ) : (
+             <div />
+          )}
+
+          {step < 3 ? (
+            <button
+              onClick={() => setStep(step + 1)}
+              disabled={(step === 1 && !projectType) || (step === 2 && !role)}
+              className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 disabled:opacity-50 disabled:hover:bg-slate-900 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-sm hover:shadow-md"
+            >
+              Continue
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          ) : (
+            <button
+              onClick={handleComplete}
+              className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-[0_8px_20px_rgba(79,70,229,0.25)] hover:shadow-[0_12px_25px_rgba(79,70,229,0.35)] hover:-translate-y-0.5"
+            >
+              Let's Build It
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          )}
         </div>
       </div>
     </div>

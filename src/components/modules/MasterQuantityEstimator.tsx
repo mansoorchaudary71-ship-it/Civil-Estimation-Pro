@@ -484,6 +484,8 @@ export default function MasterQuantityEstimator({
              totalLabel="Calculation Details"
              totalValue={Object.keys(results).length > 0 ? "Ready" : "Pending"}
              totalUnit=""
+             relatedToolIds={['boq-generator', 'price-database']}
+             onRecalculate={() => {}}
            >
              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 mb-8">
                {Object.entries(results).map(([key, val]) => (

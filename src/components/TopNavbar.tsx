@@ -106,6 +106,7 @@ export default function TopNavbar({
               onMouseLeave={() => setToolsDropdownOpen(false)}
             >
               <button
+                id="app-sidebar-trigger"
                 className={`flex items-center gap-1.5 font-bold transition-colors outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded px-2 py-1 ${
                   scrolled
                     ? "text-slate-300 hover:text-white"

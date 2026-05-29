@@ -455,6 +455,11 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                 totalLabel="Total Concrete Vol"
                 totalValue={concreteVol.toFixed(2)}
                 totalUnit="m³"
+                relatedToolIds={['column-estimator', 'beam-calc', 'concrete-mix']}
+                onRecalculate={() => {
+                   // This is a minimal demo trigger for the recalculate visual feedback
+                   // Since React state instantly updates, we don't 'actually' need to do anything here for this tool
+                }}
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
                   <div>

@@ -1023,7 +1023,14 @@ export default function Dashboard({
     "Analysis & Tools",
   ];
 
-  const filterPills = ["All", "Most Used", "New", "Beginner", "Advanced", "Saved"];
+  const filterPills = [
+    "All",
+    "Most Used",
+    "New",
+    "Beginner",
+    "Advanced",
+    "Saved",
+  ];
   const sortOptions = ["Popular", "Newest", "A-Z", "Time (Quickest first)"];
 
   const filteredModules = [...ALL_MODULES]
@@ -1049,21 +1056,28 @@ export default function Dashboard({
       if (filterMode === "New") matchesMode = m.isNew === true;
       if (filterMode === "Beginner") matchesMode = m.difficulty === "Beginner";
       if (filterMode === "Advanced") matchesMode = m.difficulty === "Advanced";
-      if (filterMode === "Saved") matchesMode = settings?.usedTools?.includes(m.id) ?? false;
+      if (filterMode === "Saved")
+        matchesMode = settings?.usedTools?.includes(m.id) ?? false;
 
       return matchesSearch && matchesCategory && matchesMode;
     })
     .sort((a, b) => {
       if (sortMode === "A-Z") return a.title.localeCompare(b.title);
       if (sortMode === "Popular") {
-        const usageA = a.usageCount || Math.floor((a.id.length * 1024 + 5000) % 30000);
-        const usageB = b.usageCount || Math.floor((b.id.length * 1024 + 5000) % 30000);
+        const usageA =
+          (a as any).usageCount ||
+          Math.floor((a.id.length * 1024 + 5000) % 30000);
+        const usageB =
+          (b as any).usageCount ||
+          Math.floor((b.id.length * 1024 + 5000) % 30000);
         return usageB - usageA;
       }
       if (sortMode === "Newest") return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
       if (sortMode === "Time (Quickest first)") {
         const getMins = (t: string) => parseInt(t.replace(/\D/g, "")) || 5;
-        return getMins(a.estimatedTime || "5") - getMins(b.estimatedTime || "5");
+        return (
+          getMins(a.estimatedTime || "5") - getMins(b.estimatedTime || "5")
+        );
       }
       return 0;
     });
@@ -1138,16 +1152,21 @@ export default function Dashboard({
                   </button>
                 ))}
               </div>
-              
+
               <div className="flex items-center justify-between lg:justify-end gap-4 text-sm text-slate-500 flex-shrink-0">
-                <span className="font-medium px-2">Showing {totalFilteredCount} of {ALL_MODULES.length} tools</span>
-                
+                <span className="font-medium px-2">
+                  Showing {totalFilteredCount} of {ALL_MODULES.length} tools
+                </span>
+
                 <div className="relative">
                   <button
                     onClick={() => setIsSortOpen(!isSortOpen)}
                     className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors text-slate-700 shadow-sm"
                   >
-                    Sort: <span className="font-semibold text-slate-900">{sortMode}</span>
+                    Sort:{" "}
+                    <span className="font-semibold text-slate-900">
+                      {sortMode}
+                    </span>
                     <ChevronDown className="w-4 h-4 ml-1" />
                   </button>
                   {isSortOpen && (
@@ -1184,7 +1203,10 @@ export default function Dashboard({
                 </div>
               ) : (
                 groupsToDisplay.map((groupName) => (
-                  <div key={groupName} className="flex flex-col mb-12 last:mb-0 relative">
+                  <div
+                    key={groupName}
+                    className="flex flex-col mb-12 last:mb-0 relative"
+                  >
                     <h3 className="sticky top-[64px] z-30 bg-white/95 backdrop-blur-md py-4 text-sm font-bold text-slate-900 uppercase tracking-widest border-b border-slate-100 mb-6 shadow-sm -mx-4 px-4 sm:mx-0 sm:px-0">
                       {groupName}
                     </h3>
