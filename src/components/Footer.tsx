@@ -18,7 +18,7 @@ export default function Footer({ onNavigate }: { activeModule?: ModuleId, onNavi
         <div className="flex flex-col xl:flex-row items-center justify-between gap-10 bg-white/60 dark:bg-white/[0.03] backdrop-blur-2xl border border-white/80 dark:border-white/10 rounded-[2.5rem] p-8 md:p-12 mb-20 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.3)]">
           
           <div className="flex-1 flex flex-col items-start gap-5 text-left max-w-2xl">
-             <h3 className="font-heading font-black text-3xl md:text-5xl text-slate-900 dark:text-white tracking-tight leading-[1.1]">
+             <h3 className="font-heading font-bold tabular-nums tracking-tight text-3xl md:text-5xl text-slate-900 dark:text-white tracking-tight leading-[1.1]">
                Build better,<br/>
                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400">
                  estimate faster.
@@ -75,9 +75,9 @@ export default function Footer({ onNavigate }: { activeModule?: ModuleId, onNavi
               onClick={() => onNavigate?.("home")}
             >
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center mr-3 shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform duration-300">
-                <span className="text-white font-black text-xl italic tracking-tighter">C</span>
+                <span className="text-white font-bold tabular-nums tracking-tight text-xl italic tracking-tighter">C</span>
               </div>
-              <span className="font-heading font-black text-2xl tracking-tighter text-slate-900 dark:text-white whitespace-nowrap">
+              <span className="font-heading font-bold tabular-nums tracking-tight text-2xl tracking-tighter text-slate-900 dark:text-white whitespace-nowrap">
                 Civil Estimation Pro
               </span>
             </div>

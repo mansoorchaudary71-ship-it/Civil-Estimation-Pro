@@ -186,7 +186,7 @@ export default function RecentEstimates({
     return (
       <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col font-sans mb-auto">
         <div className="mb-8 flex flex-col items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500 text-center mt-6">
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-text-primary flex items-center justify-center gap-2">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight tracking-tight text-text-primary flex items-center justify-center gap-2">
             My Projects
           </h1>
           <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium text-base">
@@ -220,7 +220,7 @@ export default function RecentEstimates({
   return (
     <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col font-sans pb-12">
       <div className="mb-8 flex flex-col items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500 text-center mt-6">
-        <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-text-primary flex items-center justify-center gap-2">
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight tracking-tight text-text-primary flex items-center justify-center gap-2">
           My Projects
         </h1>
         <p className="text-slate-500 dark:text-slate-400 mt-1 font-medium text-base">
@@ -302,7 +302,7 @@ export default function RecentEstimates({
                     <span className="truncate">{est.typeLabel}</span>
                   </div>
 
-                  <h3 className="text-[18px] md:text-[20px] font-extrabold text-text-primary mb-2 leading-[1.2]">
+                  <h3 className="text-[18px] md:text-[20px] font-bold tracking-tight text-text-primary mb-2 leading-[1.2]">
                     {est.title}
                   </h3>
 

@@ -246,7 +246,7 @@ export default function ColumnEstimator() {
       <div className="max-w-4xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-black mb-2 flex items-center gap-3 text-text-primary">
+            <h1 className="text-3xl font-bold tabular-nums tracking-tight mb-2 flex items-center gap-3 text-text-primary">
               <Columns className="w-8 h-8 text-indigo-600 dark:text-blue-400" />
               Column Concrete Estimator
             </h1>
@@ -521,11 +521,11 @@ export default function ColumnEstimator() {
                       <div className="grid grid-cols-2 gap-4">
                         <div className="bg-white/60 dark:bg-slate-900/40 p-4 rounded-xl border border-amber-100 dark:border-amber-900/50">
                           <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Single Element Wt</span>
-                          <span className="text-xl md:text-2xl font-black text-slate-800 dark:text-slate-100">{(elementWeightKg / 1000).toFixed(2)}<span className="text-sm font-medium ml-1 text-slate-500">Tons</span></span>
+                          <span className="text-xl md:text-2xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-100">{(elementWeightKg / 1000).toFixed(2)}<span className="text-sm font-medium ml-1 text-slate-500">Tons</span></span>
                         </div>
                         <div className="bg-white/80 dark:bg-slate-900/60 p-4 rounded-xl border border-amber-200 dark:border-amber-800/50 shadow-sm">
                           <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Min. Crane Capacity</span>
-                          <span className="text-xl md:text-2xl font-black text-amber-700 dark:text-amber-400">{craneCapacityTonnes.toFixed(2)}<span className="text-sm font-medium ml-1 text-amber-600/80 dark:text-amber-500/80">Tons</span></span>
+                          <span className="text-xl md:text-2xl font-bold tabular-nums tracking-tight text-amber-700 dark:text-amber-400">{craneCapacityTonnes.toFixed(2)}<span className="text-sm font-medium ml-1 text-amber-600/80 dark:text-amber-500/80">Tons</span></span>
                         </div>
                       </div>
                     </div>

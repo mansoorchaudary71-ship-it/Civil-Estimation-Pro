@@ -47,7 +47,7 @@ export default function SettingsModal({
         {/* Mobile Close Button */}
         <button
           onClick={onClose}
-          className="md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-bg-primary text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:text-slate-700 dark:text-slate-300 dark:hover:text-white transition-colors"
+          className="md:hidden absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-bg-primary text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:text-slate-700 dark:text-slate-300 dark:hover:text-slate-900 dark:text-white transition-colors"
         >
           <X className="w-4 h-4" />
         </button>
@@ -55,7 +55,7 @@ export default function SettingsModal({
         <div className="w-full md:w-64 bg-transparent/50 dark:bg-slate-950/50 border-r border-slate-200/50 dark:border-slate-800/50 p-6 flex flex-col shrink-0 overflow-y-auto">
           <div className="flex items-center gap-3 mb-10 pt-2">
             <div className="w-10 h-10 bg-gradient-to-tr   rounded-2xl flex items-center justify-center shadow-md shadow-blue-500/20">
-              <SettingsIcon className="w-5 h-5 text-white" />
+              <SettingsIcon className="w-5 h-5 text-slate-900 dark:text-white" />
             </div>
             <div>
               <h2 className="text-xl font-bold text-text-primary leading-tight">
@@ -97,7 +97,7 @@ export default function SettingsModal({
             </h3>
             <button
               onClick={onClose}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-bg-card hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-800 dark:text-slate-700 dark:text-slate-300 dark:hover:text-white border border-border-color shadow-sm transition-all"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-bg-card hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-800 dark:text-slate-700 dark:text-slate-300 dark:hover:text-slate-900 dark:text-white border border-border-color shadow-sm transition-all"
             >
               <X className="w-5 h-5" />
             </button>
@@ -112,12 +112,12 @@ export default function SettingsModal({
                 <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
                   <div className="flex items-center gap-6">
                     <div className="relative group">
-                      <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-sky-400  flex items-center justify-center text-3xl font-bold text-white shadow-lg overflow-hidden relative">
+                      <div className="w-24 h-24 rounded-full bg-gradient-to-tr from-sky-400  flex items-center justify-center text-3xl font-bold text-slate-900 dark:text-white shadow-lg overflow-hidden relative">
                         <span className="relative z-10 w-full h-full flex items-center justify-center">
                           {name.charAt(0)}
                         </span>
                         <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-20">
-                          <Camera className="w-6 h-6 text-white" />
+                          <Camera className="w-6 h-6 text-slate-900 dark:text-white" />
                         </div>
                       </div>
                     </div>
@@ -311,7 +311,7 @@ export default function SettingsModal({
             <div className="mt-12 max-w-xl mx-auto md:mx-0 flex justify-end">
               <button
                 onClick={onClose}
-                className="px-8 py-3.5 bg-gradient-to-r   hover:from-blue-700 hover: text-white font-bold rounded-2xl shadow-md hover:shadow-lg transition-all"
+                className="px-8 py-3.5 bg-gradient-to-r   hover:from-blue-700 hover: text-slate-900 dark:text-white font-bold rounded-2xl shadow-md hover:shadow-lg transition-all"
               >
                 Save Changes
               </button>

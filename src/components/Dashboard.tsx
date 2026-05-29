@@ -1235,7 +1235,7 @@ export default function Dashboard({
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full text-white text-[10px] font-bold tracking-wider uppercase mb-5 backdrop-blur-sm">
                   ⭐ FEATURED TOOL OF THE WEEK
                 </div>
-                <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-3">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight tracking-tight mb-3">
                   Master RCC Estimator
                 </h2>
                 <p className="text-purple-100 text-sm md:text-base font-medium mb-6 max-w-md mx-auto md:mx-0">

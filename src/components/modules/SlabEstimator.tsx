@@ -179,7 +179,7 @@ export default function SlabEstimator() {
       />
       <div className="mb-8 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-slate-900 mb-2 flex items-center gap-3">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-2 flex items-center gap-3">
             <Grid2X2 className="w-8 h-8 text-indigo-600" />
             Slab Estimator
           </h1>
@@ -388,11 +388,11 @@ export default function SlabEstimator() {
                       <div className="grid grid-cols-2 gap-4">
                         <div className="bg-white/60 p-4 rounded-xl border border-teal-100">
                           <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Single Element Wt</span>
-                          <span className="text-xl md:text-2xl font-black text-slate-800">{(results.elementWeightKg / 1000).toFixed(2)}<span className="text-sm font-medium ml-1 text-slate-500">Tons</span></span>
+                          <span className="text-xl md:text-2xl font-bold tabular-nums tracking-tight text-slate-800">{(results.elementWeightKg / 1000).toFixed(2)}<span className="text-sm font-medium ml-1 text-slate-500">Tons</span></span>
                         </div>
                         <div className="bg-white/80 p-4 rounded-xl border border-teal-200 shadow-sm">
                           <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Min. Crane Capacity</span>
-                          <span className="text-xl md:text-2xl font-black text-teal-700">{results.craneCapacityTonnes.toFixed(2)}<span className="text-sm font-medium ml-1 text-teal-600/80">Tons</span></span>
+                          <span className="text-xl md:text-2xl font-bold tabular-nums tracking-tight text-teal-700">{results.craneCapacityTonnes.toFixed(2)}<span className="text-sm font-medium ml-1 text-teal-600/80">Tons</span></span>
                         </div>
                       </div>
                     </div>
@@ -432,8 +432,8 @@ export default function SlabEstimator() {
                 />
               </div>
 
-              <div className="mt-8 pt-6 border-t border-slate-200/50 dark:border-white/10">
-                <div className="mb-4 text-[10px] sm:text-xs font-extrabold text-slate-500 dark:text-white/50 uppercase tracking-[0.15em]">
+              <div className="mt-8 pt-6 border-t border-slate-200/50 dark:border-slate-100 dark:border-slate-800">
+                <div className="mb-4 text-[10px] sm:text-xs font-bold tracking-tight text-slate-500 dark:text-slate-400 dark:text-slate-500 uppercase tracking-[0.15em]">
                   Rebar Breakdown
                 </div>
                 <div className="bg-white/50 dark:bg-white rounded-2xl p-4 shadow-sm text-slate-900 border border-slate-200/50 dark:border-slate-100 backdrop-blur-md">

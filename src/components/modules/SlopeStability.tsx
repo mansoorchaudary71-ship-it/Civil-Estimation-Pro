@@ -61,7 +61,7 @@ export default function SlopeStability() {
   return (
     <div className="w-full text-gray-900 font-sans p-6 md:p-8 animate-in fade-in duration-300">
       <div className="mb-8">
-        <h2 className="text-3xl font-black text-slate-900 dark:text-white flex items-center gap-3 mb-2">
+        <h2 className="text-3xl font-bold tabular-nums tracking-tight text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3 mb-2">
           <ShieldAlert className="w-8 h-8 text-amber-500" />
           Slope Stability (Bishop Simplified)
         </h2>
@@ -73,7 +73,7 @@ export default function SlopeStability() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Inputs */}
         <div className="bg-white dark:bg-slate-800 p-6 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
-          <h3 className="text-xl font-bold mb-6 flex items-center gap-2 text-slate-800 dark:text-white">
+          <h3 className="text-xl font-bold mb-6 flex items-center gap-2 text-slate-800 dark:text-slate-900 dark:text-white">
             <Layers className="w-5 h-5 text-amber-500" /> Soil & Geometry
           </h3>
           <div className="space-y-4">
@@ -135,8 +135,8 @@ export default function SlopeStability() {
         <div className="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 flex flex-col justify-center relative overflow-hidden">
            <Calculator className="absolute right-[-20px] bottom-[-20px] w-64 h-64 text-amber-500/5 dark:text-amber-500/10 pointer-events-none" />
            <div className="relative z-10 text-center">
-             <h4 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-2">Factor of Safety (FOS)</h4>
-             <div className="text-7xl font-black tracking-tighter mb-4 text-slate-800 dark:text-white">
+             <h4 className="text-sm font-bold tabular-nums tracking-tight text-slate-400 uppercase tracking-widest mb-2">Factor of Safety (FOS)</h4>
+             <div className="text-7xl font-bold tabular-nums tracking-tight tracking-tighter mb-4 text-slate-800 dark:text-slate-900 dark:text-white">
                 {results ? results.fos : "---"}
              </div>
              

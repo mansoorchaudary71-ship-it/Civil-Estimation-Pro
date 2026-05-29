@@ -176,7 +176,7 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
         {!isEmbedded && (
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-black mb-2 flex items-center gap-3 text-text-primary">
+              <h1 className="text-3xl font-bold tabular-nums tracking-tight mb-2 flex items-center gap-3 text-text-primary">
                 <ShieldCheck className="w-8 h-8 text-[#E55A2B] dark:text-[#ff8a65]" />
                 Retaining Wall Estimator
               </h1>
@@ -270,11 +270,11 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
                 <div className="grid grid-cols-2 gap-4 mb-2">
                   <div className={`p-4 rounded-2xl border ${isSlidingSafe ? 'bg-emerald-50 border-emerald-200 dark:bg-emerald-900/20' : 'bg-rose-50 border-rose-200 dark:bg-rose-900/20'}`}>
                     <h4 className="font-bold text-sm text-slate-800 dark:text-slate-200 mb-1">Sliding (FS &gt; 1.5)</h4>
-                    <p className={`text-2xl font-black ${isSlidingSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{FS_sliding.toFixed(2)}</p>
+                    <p className={`text-2xl font-bold tabular-nums tracking-tight ${isSlidingSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{FS_sliding.toFixed(2)}</p>
                   </div>
                   <div className={`p-4 rounded-2xl border ${isOverturnSafe ? 'bg-emerald-50 border-emerald-200 dark:bg-emerald-900/20' : 'bg-rose-50 border-rose-200 dark:bg-rose-900/20'}`}>
                     <h4 className="font-bold text-sm text-slate-800 dark:text-slate-200 mb-1">Overturning (FS &gt; 2.0)</h4>
-                    <p className={`text-2xl font-black ${isOverturnSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{FS_overturn.toFixed(2)}</p>
+                    <p className={`text-2xl font-bold tabular-nums tracking-tight ${isOverturnSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{FS_overturn.toFixed(2)}</p>
                   </div>
                 </div>
                 
@@ -380,7 +380,7 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
                     <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
                       <div className="p-4 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
                         <span className="font-bold text-slate-700 dark:text-slate-200">Stem Steel Weight</span>
-                        <span className="text-xl font-black text-rose-600 dark:text-rose-400">{totalSteel.toFixed(1)} kg</span>
+                        <span className="text-xl font-bold tabular-nums tracking-tight text-rose-600 dark:text-rose-400">{totalSteel.toFixed(1)} kg</span>
                       </div>
                     </div>
                   </div>

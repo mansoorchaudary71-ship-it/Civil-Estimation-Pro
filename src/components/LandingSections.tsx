@@ -48,7 +48,7 @@ export function HowItWorksSection() {
           How It Works
         </div>
         <h2
-          className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight"
+          className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-4 tracking-tight"
           style={{ fontFamily: '"Clash Display", sans-serif' }}
         >
           From Drawing to BOQ in 3 Steps
@@ -160,7 +160,7 @@ export function FeatureComparisonSection({
             Compare
           </div>
           <h2
-            className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight"
+            className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mb-6 tracking-tight"
             style={{ fontFamily: '"Clash Display", sans-serif' }}
           >
             The Smarter Way to Estimate
@@ -197,7 +197,7 @@ export function FeatureComparisonSection({
                     <div className="absolute inset-0 border-x border-t-2 border-amber-400 bg-amber-500/5 mix-blend-multiply rounded-t-2xl shadow-[inset_0_4px_20px_rgba(245,158,11,0.1)] pointer-events-none z-0"></div>
                     <div className="relative p-4 md:p-8 z-10 text-center">
                       <div
-                        className="font-extrabold text-amber-600 text-lg md:text-2xl relative inline-block"
+                        className="font-bold tracking-tight text-amber-600 text-lg md:text-2xl relative inline-block"
                         style={{ fontFamily: '"Clash Display", sans-serif' }}
                       >
                         Civil Estimation Pro
@@ -445,7 +445,7 @@ export function ProjectTypesSection({
             Versatile Solutions
           </div>
           <h2
-            className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight"
+            className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-4 tracking-tight"
             style={{ fontFamily: '"Clash Display", sans-serif' }}
           >
             Built for Every Project Type

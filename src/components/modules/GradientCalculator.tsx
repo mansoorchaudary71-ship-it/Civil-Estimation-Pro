@@ -247,7 +247,7 @@ export default function GradientCalculator() {
              </div>
              
              {/* Elevation section */}
-             <div className="bg-gradient-to-br from-slate-800 to-slate-900 px-6 py-6 rounded-[1.5rem] shadow-xl text-white">
+             <div className="bg-gradient-to-br from-slate-800 to-slate-900 px-6 py-6 rounded-[1.5rem] shadow-xl text-slate-900 dark:text-white">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
                   <div className="p-2.5 bg-slate-700 rounded-xl">
                     <ArrowRight className="w-5 h-5 text-emerald-400" />
@@ -275,7 +275,7 @@ export default function GradientCalculator() {
                      <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 ml-1">Start Elevation</label>
                      <input
                        type="number"
-                       className="w-full bg-slate-800/50 border border-slate-700 text-white rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none"
+                       className="w-full bg-slate-800/50 border border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none"
                        value={startElevation}
                        onChange={(e) => setStartElevation(e.target.value)}
                        placeholder="e.g. 100.5"
@@ -283,7 +283,7 @@ export default function GradientCalculator() {
                    </div>
                    <div>
                      <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 ml-1">Final Elevation</label>
-                     <div className="w-full bg-slate-800/80 border border-slate-700 text-white rounded-xl px-4 py-3 text-lg font-bold min-h-[50px] flex items-center">
+                     <div className="w-full bg-slate-800/80 border border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 text-lg font-bold min-h-[50px] flex items-center">
                         {finalElevation ? finalElevation : '--'}
                      </div>
                    </div>

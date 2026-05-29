@@ -74,7 +74,7 @@ export function SEOContent({ category, data }: SEOContentProps) {
 
   return (
     <article className="prose prose-indigo max-w-none text-slate-600 mt-8 font-sans">
-      <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight capitalize mb-2 border-b pb-4">
+      <h1 className="text-3xl font-bold tracking-tight text-slate-900 tracking-tight capitalize mb-2 border-b pb-4">
         {data.target_keyword}
       </h1>
       

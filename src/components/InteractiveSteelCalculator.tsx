@@ -154,7 +154,7 @@ export default function InteractiveSteelCalculator({
               Total Estimated Weight
             </div>
             <div className="flex items-baseline gap-2 mb-10 text-wrap break-all">
-              <span className="text-6xl sm:text-7xl font-black tracking-tighter text-white">
+              <span className="text-6xl sm:text-7xl font-bold tabular-nums tracking-tight tracking-tighter text-white">
                 {weight}
               </span>
               <span className="text-2xl font-bold text-slate-400 whitespace-nowrap">kg</span>

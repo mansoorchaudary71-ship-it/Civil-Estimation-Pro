@@ -159,7 +159,7 @@ export default function SocialProofSection() {
             Wall of Love
           </div>
           <h2
-            className="text-3xl md:text-5xl font-extrabold text-white mb-6 tracking-tight"
+            className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6 tracking-tight"
             style={{ fontFamily: '"Clash Display", sans-serif' }}
           >
             Trusted by the Top 1% of Engineers
@@ -190,7 +190,7 @@ export default function SocialProofSection() {
                 <stat.icon className="w-6 h-6" strokeWidth={2} />
               </div>
               <div
-                className="text-3xl md:text-4xl font-extrabold text-white tracking-tight flex items-baseline"
+                className="text-3xl md:text-4xl font-bold tracking-tight text-white tracking-tight flex items-baseline"
                 style={{ fontFamily: '"Clash Display", sans-serif' }}
               >
                 {inView ? (
@@ -426,7 +426,7 @@ export default function SocialProofSection() {
                 className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300"
               >
                 <span
-                  className="text-xl md:text-2xl font-extrabold text-slate-300 hover:text-white tracking-tight leading-none"
+                  className="text-xl md:text-2xl font-bold tracking-tight text-slate-300 hover:text-white tracking-tight leading-none"
                   style={{ fontFamily: '"Clash Display", sans-serif' }}
                 >
                   {logo}

@@ -346,7 +346,7 @@ const ConstructionCostSummary: React.FC = () => {
             </ResponsiveContainer>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-2xl p-6 text-white shadow-xl">
+          <div className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-2xl p-6 text-slate-900 dark:text-white shadow-xl">
             <h3 className="text-purple-200 text-sm font-medium uppercase tracking-wider mb-4">Final Cost Summary</h3>
             
             <div className="space-y-3 mb-6">
@@ -366,18 +366,18 @@ const ConstructionCostSummary: React.FC = () => {
 
             <div className="pt-2">
               <div className="text-purple-200 text-sm mb-1">Grand Total Estimation</div>
-              <div className="text-4xl font-bold tracking-tight text-white mb-4">
+              <div className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white mb-4">
                 {/* using standard large formatting */}
                 {grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </div>
               
-              <div className="bg-white/10 rounded-xl p-4 flex items-center justify-between">
+              <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 flex items-center justify-between">
                 <div>
                   <div className="text-purple-200 text-xs uppercase tracking-wider mb-1">Cost Per Sq Ft</div>
                   <div className="text-2xl font-bold">{costPerSqFt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                 </div>
                 <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                  <PieChartIcon className="w-6 h-6 text-white" />
+                  <PieChartIcon className="w-6 h-6 text-slate-900 dark:text-white" />
                 </div>
               </div>
             </div>

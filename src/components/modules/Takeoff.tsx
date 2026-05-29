@@ -1143,27 +1143,27 @@ export default function Takeoff() {
             <button onClick={closeTutorial} className="absolute right-4 top-4 p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors rounded-full hover:bg-slate-100 dark:hover:bg-slate-800">
               <X className="w-5 h-5"/>
             </button>
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-6">Welcome to 2D Takeoff Engine</h2>
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-900 dark:text-white mb-6">Welcome to 2D Takeoff Engine</h2>
             
             <div className="space-y-6 mb-8">
               <div className="flex gap-4 items-start">
                 <div className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold shrink-0 border border-blue-100 dark:border-blue-800">1</div>
                 <div>
-                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Upload your blueprint image</h4>
+                  <h4 className="font-semibold text-slate-900 dark:text-slate-900 dark:text-white mb-1">Upload your blueprint image</h4>
                   <p className="text-sm text-slate-600 dark:text-slate-400">Add any floor plan (JPG, PNG, PDF exported as image) or try the demo.</p>
                 </div>
               </div>
               <div className="flex gap-4 items-start">
                 <div className="w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold shrink-0 border border-emerald-100 dark:border-emerald-800">2</div>
                 <div>
-                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Set the scale</h4>
+                  <h4 className="font-semibold text-slate-900 dark:text-slate-900 dark:text-white mb-1">Set the scale</h4>
                   <p className="text-sm text-slate-600 dark:text-slate-400">Click the ruler tool, draw a line over a known dimension, and set its real-world length.</p>
                 </div>
               </div>
               <div className="flex gap-4 items-start">
                 <div className="w-8 h-8 rounded-full bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center font-bold shrink-0 border border-orange-100 dark:border-orange-800">3</div>
                 <div>
-                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Measure and extract</h4>
+                  <h4 className="font-semibold text-slate-900 dark:text-slate-900 dark:text-white mb-1">Measure and extract</h4>
                   <p className="text-sm text-slate-600 dark:text-slate-400">Draw lines/areas to extract material quantities or drop Smart Assemblies onto the canvas.</p>
                 </div>
               </div>

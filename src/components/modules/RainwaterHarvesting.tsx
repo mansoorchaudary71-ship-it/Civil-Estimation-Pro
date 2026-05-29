@@ -52,7 +52,7 @@ export default function RainwaterHarvesting() {
       <div className="max-w-5xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-black mb-2 flex items-center gap-3 text-text-primary">
+            <h1 className="text-3xl font-bold tabular-nums tracking-tight mb-2 flex items-center gap-3 text-text-primary">
               <CloudRain className="w-8 h-8 text-[#0284c7] dark:text-[#38bdf8]" />
               Rainwater Harvesting
             </h1>
@@ -173,7 +173,7 @@ export default function RainwaterHarvesting() {
                     <h3 className="text-sm font-bold text-sky-800 dark:text-sky-300 uppercase tracking-tight">Annual Yield</h3>
                   </div>
                   <div className="mt-1">
-                    <span className="text-2xl font-black text-sky-600 dark:text-sky-400">{annualVolLiters.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
+                    <span className="text-2xl font-bold tabular-nums tracking-tight text-sky-600 dark:text-sky-400">{annualVolLiters.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
                     <span className="text-sm text-sky-500 ml-1 font-semibold">Liters/yr</span>
                   </div>
                   <div className="text-xs text-sky-600/70 font-medium mt-0.5">({annualVolM3.toFixed(1)} cubic meters)</div>
@@ -185,7 +185,7 @@ export default function RainwaterHarvesting() {
                     <h3 className="text-sm font-bold text-indigo-800 dark:text-indigo-300 uppercase tracking-tight">Rec. Tank</h3>
                   </div>
                   <div className="mt-1">
-                    <span className="text-2xl font-black text-indigo-600 dark:text-indigo-400">{recommendedTankLiters.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
+                    <span className="text-2xl font-bold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400">{recommendedTankLiters.toLocaleString(undefined, {maximumFractionDigits: 0})}</span>
                     <span className="text-sm text-indigo-500 ml-1 font-semibold">Liters</span>
                   </div>
                   <div className="text-xs text-indigo-600/70 font-medium mt-0.5">({recommendedTankM3.toFixed(1)} cubic meters)</div>
@@ -197,7 +197,7 @@ export default function RainwaterHarvesting() {
                     <h3 className="text-sm font-bold text-emerald-800 dark:text-emerald-300 uppercase tracking-tight">Payback</h3>
                   </div>
                   <div className="mt-1">
-                    <span className="text-2xl font-black text-emerald-600 dark:text-emerald-400">{paybackPeriod.toFixed(1)}</span>
+                    <span className="text-2xl font-bold tabular-nums tracking-tight text-emerald-600 dark:text-emerald-400">{paybackPeriod.toFixed(1)}</span>
                     <span className="text-sm text-emerald-500 ml-1 font-semibold">Years</span>
                   </div>
                   <div className="text-xs text-emerald-600/70 font-medium mt-0.5">Saves {formatCurrency(annualSavings)}/yr</div>
@@ -209,7 +209,7 @@ export default function RainwaterHarvesting() {
                     <h3 className="text-sm font-bold text-rose-800 dark:text-rose-300 uppercase tracking-tight">CO2 Offset</h3>
                   </div>
                   <div className="mt-1">
-                    <span className="text-2xl font-black text-rose-600 dark:text-rose-400">{co2Savings.toFixed(1)}</span>
+                    <span className="text-2xl font-bold tabular-nums tracking-tight text-rose-600 dark:text-rose-400">{co2Savings.toFixed(1)}</span>
                     <span className="text-sm text-rose-500 ml-1 font-semibold">kg CO₂e/yr</span>
                   </div>
                   <div className="text-xs text-rose-600/70 font-medium mt-0.5">Vs. pumped water</div>

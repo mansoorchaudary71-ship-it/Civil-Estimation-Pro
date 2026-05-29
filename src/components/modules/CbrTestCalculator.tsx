@@ -140,7 +140,7 @@ export default function CbrTestCalculator() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
               <Activity className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
               CBR Test Calculator
             </h2>
@@ -170,7 +170,7 @@ export default function CbrTestCalculator() {
               <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
               
               <div className="flex items-center justify-between mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
-                <h3 className="font-bold text-lg text-slate-800 dark:text-white">Test Readings</h3>
+                <h3 className="font-bold text-lg text-slate-800 dark:text-slate-900 dark:text-white">Test Readings</h3>
                 <button 
                   onClick={addRow}
                   className="flex items-center gap-1 text-xs font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition-colors border border-indigo-100"
@@ -195,7 +195,7 @@ export default function CbrTestCalculator() {
                           step="0.5"
                           value={row.penetration}
                           onChange={(e) => handleDataChange(idx, "penetration", e.target.value)}
-                          className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                          className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                         />
                       </div>
                       <div className="col-span-5 relative">
@@ -203,7 +203,7 @@ export default function CbrTestCalculator() {
                           type="number"
                           value={row.load}
                           onChange={(e) => handleDataChange(idx, "load", e.target.value)}
-                          className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                          className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                         />
                       </div>
                       <div className="col-span-2 flex justify-end">
@@ -228,7 +228,7 @@ export default function CbrTestCalculator() {
                      type="number"
                      value={minSpec}
                      onChange={(e) => setMinSpec(e.target.value)}
-                     className="w-full max-w-[200px] bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 font-bold"
+                     className="w-full max-w-[200px] bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 font-bold"
                    />
                    <span className="absolute left-[170px] top-1/2 -translate-y-1/2 text-slate-400 text-sm font-bold">%</span>
                  </div>
@@ -285,7 +285,7 @@ export default function CbrTestCalculator() {
                     <div>
                       <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-1 block">Final Design CBR</span>
                       <div className="flex items-baseline gap-2">
-                        <span className={`text-5xl font-black tracking-tight ${estimateData.passed ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'}`}>
+                        <span className={`text-4xl md:text-5xl font-semibold tabular-nums tracking-tight tracking-tight ${estimateData.passed ? 'text-emerald-700 dark:text-emerald-400' : 'text-rose-700 dark:text-rose-400'}`}>
                           {estimateData.finalCbr.toFixed(1)}%
                         </span>
                       </div>
@@ -300,26 +300,26 @@ export default function CbrTestCalculator() {
                   <div className="grid grid-cols-2 gap-4 mb-8">
                     <div className="bg-white/60 dark:bg-slate-900/40 p-4 rounded-2xl border border-black/5 dark:border-white/5 shadow-sm">
                       <span className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest block mb-1">CBR @ 2.5mm</span>
-                      <div className="text-2xl font-black text-slate-800 dark:text-white">{estimateData.cbr25.toFixed(1)}%</div>
+                      <div className="text-2xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.cbr25.toFixed(1)}%</div>
                       <span className="text-[10px] text-slate-400 font-mono mt-1 block">Load: {estimateData.load25.toFixed(1)} kg</span>
                     </div>
                     <div className="bg-white/60 dark:bg-slate-900/40 p-4 rounded-2xl border border-black/5 dark:border-white/5 shadow-sm">
                       <span className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest block mb-1">CBR @ 5.0mm</span>
-                      <div className="text-2xl font-black text-slate-800 dark:text-white">{estimateData.cbr50.toFixed(1)}%</div>
+                      <div className="text-2xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.cbr50.toFixed(1)}%</div>
                       <span className="text-[10px] text-slate-400 font-mono mt-1 block">Load: {estimateData.load50.toFixed(1)} kg</span>
                     </div>
                   </div>
                   
-                  <div className="bg-white dark:bg-slate-900 rounded-2xl border border-black/5 dark:border-white/10 shadow-sm p-5 flex items-center justify-between mb-8">
+                  <div className="bg-white dark:bg-slate-900 rounded-2xl border border-black/5 dark:border-slate-100 dark:border-slate-800 shadow-sm p-5 flex items-center justify-between mb-8">
                      <div>
                        <span className="block text-xs font-bold uppercase tracking-widest text-slate-500">Soil Quality Index</span>
-                       <span className="text-lg font-black text-slate-800 dark:text-white">{estimateData.soilClass}</span>
+                       <span className="text-lg font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.soilClass}</span>
                      </div>
                      <Activity className="w-8 h-8 text-slate-300 dark:text-slate-700" />
                   </div>
 
                   {/* Chart section */}
-                  <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-black/5 dark:border-white/10 shadow-sm h-[300px] w-full pt-6">
+                  <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-black/5 dark:border-slate-100 dark:border-slate-800 shadow-sm h-[300px] w-full pt-6">
                      <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Load vs. Penetration Curve</h3>
                      <ResponsiveContainer width="100%" height="85%">
                        <AreaChart data={[...testData].sort((a, b) => a.penetration - b.penetration)}>

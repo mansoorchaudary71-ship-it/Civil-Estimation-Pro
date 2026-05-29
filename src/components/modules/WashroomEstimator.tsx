@@ -145,7 +145,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
           type="number" 
           value={val} 
           onChange={(e)=>setVal(e.target.value)} 
-          className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-slate-800 dark:text-white font-semibold focus:ring-2 focus:ring-purple-500 outline-none transition-all"
+          className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-slate-800 dark:text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-purple-500 outline-none transition-all"
         />
         {suffix && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">{suffix}</span>}
       </div>
@@ -164,18 +164,18 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
       <div className="bg-gradient-to-r from-[var(--accent-purple)] to-indigo-600 p-6 sm:p-8 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
-            <Droplets className="w-6 h-6 text-white" />
+            <Droplets className="w-6 h-6 text-slate-900 dark:text-white" />
           </div>
           <div>
             <div className="flex items-center gap-3">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Washroom Estimator</h2>
-              <span className="bg-orange-500 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-full tracking-widest shadow-lg">PRO</span>
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white tracking-tight">Washroom Estimator</h2>
+              <span className="bg-orange-500 text-white text-[10px] font-bold tabular-nums tracking-tight uppercase px-2.5 py-1 rounded-full tracking-widest shadow-lg">PRO</span>
             </div>
-            <p className="text-indigo-100 font-medium mt-1">Complete material takeoff for bathrooms</p>
+            <p className="text-slate-600 dark:text-slate-400 font-medium mt-1">Complete material takeoff for bathrooms</p>
           </div>
         </div>
         {onClose && (
-          <button onClick={onClose} className="p-2 bg-black/10 hover:bg-black/20 rounded-full transition-colors text-white">
+          <button onClick={onClose} className="p-2 bg-black/10 hover:bg-black/20 rounded-full transition-colors text-slate-900 dark:text-white">
             <X className="w-6 h-6" />
           </button>
         )}
@@ -194,7 +194,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
           <section>
             <div className="flex items-center gap-2 mb-4 border-b border-slate-200 dark:border-slate-800 pb-2">
               <Ruler className="w-5 h-5 text-purple-600" />
-              <h3 className="text-lg font-bold text-slate-800 dark:text-white">Dimensions</h3>
+              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white">Dimensions</h3>
             </div>
             <div className="grid grid-cols-3 gap-4">
               {renderInput("Length", length, setLength, "0", unit)}
@@ -229,7 +229,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
           <section>
             <div className="flex items-center gap-2 mb-4 border-b border-slate-200 dark:border-slate-800 pb-2">
               <Grid2X2 className="w-5 h-5 text-purple-600" />
-              <h3 className="text-lg font-bold text-slate-800 dark:text-white">Finishes & Ceiling</h3>
+              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white">Finishes & Ceiling</h3>
             </div>
             <div className="grid grid-cols-2 gap-4">
               {renderInput("Floor Tile Area", floorTileArea, setFloorTileArea, "0", `sq${unit}`)}
@@ -250,7 +250,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
           <section>
             <div className="flex items-center gap-2 mb-4 border-b border-slate-200 dark:border-slate-800 pb-2">
               <Zap className="w-5 h-5 text-purple-600" />
-              <h3 className="text-lg font-bold text-slate-800 dark:text-white">Plumbing & Electrical</h3>
+              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white">Plumbing & Electrical</h3>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-4 gap-x-3">
               {renderInput("Commode/WC", commode, setCommode, "0", "nos")}
@@ -270,7 +270,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
         {/* Results Column */}
         <div className="lg:col-span-7 h-full flex flex-col">
           <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm flex-1 border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
-            <h3 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">Bill of Quantities</h3>
+            <h3 className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-900 dark:text-white mb-6">Bill of Quantities</h3>
             
             <div className="flex-1 overflow-y-auto pr-2 space-y-6">
               
@@ -289,7 +289,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
                       {results.civil.map((item, i) => (
                         <tr key={i} className="hover:bg-white dark:hover:bg-slate-800 transition-colors">
                           <td className="py-3 px-4 font-medium text-slate-700 dark:text-slate-300">{item.name}</td>
-                          <td className="py-3 px-4 text-right font-black text-purple-600 dark:text-purple-400 text-base">{item.qty}</td>
+                          <td className="py-3 px-4 text-right font-bold tabular-nums tracking-tight text-purple-600 dark:text-purple-400 text-base">{item.qty}</td>
                           <td className="py-3 px-4 text-slate-500 text-xs font-semibold">{item.unit}</td>
                         </tr>
                       ))}
@@ -313,7 +313,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
                        {results.finishes.map((item, i) => (
                          <tr key={i} className="hover:bg-white dark:hover:bg-slate-800 transition-colors">
                            <td className="py-3 px-4 font-medium text-slate-700 dark:text-slate-300">{item.name}</td>
-                           <td className="py-3 px-4 text-right font-black text-purple-600 dark:text-purple-400 text-base">{item.qty}</td>
+                           <td className="py-3 px-4 text-right font-bold tabular-nums tracking-tight text-purple-600 dark:text-purple-400 text-base">{item.qty}</td>
                            <td className="py-3 px-4 text-slate-500 text-xs font-semibold">{item.unit}</td>
                          </tr>
                        ))}
@@ -337,7 +337,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
                        {results.mep.map((item, i) => (
                          <tr key={i} className="hover:bg-white dark:hover:bg-slate-800 transition-colors">
                            <td className="py-3 px-4 font-medium text-slate-700 dark:text-slate-300">{item.name}</td>
-                           <td className="py-3 px-4 text-right font-black text-purple-600 dark:text-purple-400 text-base">{item.qty}</td>
+                           <td className="py-3 px-4 text-right font-bold tabular-nums tracking-tight text-purple-600 dark:text-purple-400 text-base">{item.qty}</td>
                            <td className="py-3 px-4 text-slate-500 text-xs font-semibold">{item.unit}</td>
                          </tr>
                        ))}

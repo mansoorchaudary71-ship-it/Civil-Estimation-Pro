@@ -139,7 +139,7 @@ export default function ReinforcementVisualizer() {
           {/* Controls */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700">
-              <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-4">
+              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white mb-4">
                 Geometry Inputs
               </h3>
 
@@ -198,7 +198,7 @@ export default function ReinforcementVisualizer() {
             </div>
 
             <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700">
-              <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-4">
+              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white mb-4">
                 Reinforcement
               </h3>
               <div className="space-y-4">
@@ -346,7 +346,7 @@ export default function ReinforcementVisualizer() {
           {/* Visualization Viewer */}
           <div className="lg:col-span-7 flex flex-col">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-bold text-slate-800 dark:text-white px-2">
+              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white px-2">
                 Cross Section Preview
               </h3>
               <div className="flex gap-2">

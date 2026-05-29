@@ -214,8 +214,8 @@ export default function AreaSpaceCalculator() {
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500 pb-[120px]">
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm">
-        <h2 className="text-3xl font-black text-slate-800 dark:text-white tracking-tight flex items-center gap-3">
-          <div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-2xl">
+        <h2 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
+          <div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-600 dark:text-indigo-400 rounded-2xl">
             <Ruler className="w-8 h-8" />
           </div>
           Area & Space Calculator
@@ -715,7 +715,7 @@ export default function AreaSpaceCalculator() {
               </div>
 
               <div className="mt-8 p-5 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800/50 rounded-2xl">
-                <h4 className="font-bold text-purple-900 dark:text-purple-300 mb-2">
+                <h4 className="font-bold text-purple-900 dark:text-purple-600 dark:text-purple-400 mb-2">
                   RERA Carpet Area vs Traditional
                 </h4>
                 <p className="text-sm text-purple-800 dark:text-purple-400">
@@ -927,7 +927,7 @@ export default function AreaSpaceCalculator() {
               </div>
 
               <div className="mt-8 p-5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded-2xl flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-white dark:bg-amber-800/50 flex items-center justify-center font-black text-amber-500 text-xl border-2 border-amber-200 dark:border-amber-700/50 shrink-0">
+                <div className="w-16 h-16 rounded-full bg-white dark:bg-amber-800/50 flex items-center justify-center font-bold tabular-nums tracking-tight text-amber-500 text-xl border-2 border-amber-200 dark:border-amber-700/50 shrink-0">
                   {Math.ceil(
                     (1 / Math.cos((roofParams.pitchAngle * Math.PI) / 180)) *
                       100,
@@ -935,10 +935,10 @@ export default function AreaSpaceCalculator() {
                   x
                 </div>
                 <div>
-                  <h4 className="font-bold text-amber-900 dark:text-amber-300">
+                  <h4 className="font-bold text-amber-900 dark:text-amber-600 dark:text-amber-400">
                     Pitch Multiplier (Secant)
                   </h4>
-                  <p className="text-sm text-amber-800 dark:text-amber-400">
+                  <p className="text-sm text-amber-800 dark:text-amber-600 dark:text-amber-400">
                     Multiply the horizontal area by this factor to find the
                     sloped area automatically.
                   </p>
@@ -950,25 +950,25 @@ export default function AreaSpaceCalculator() {
 
         {/* RESULTS PANEL (RIGHT) */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-slate-800 dark:bg-slate-900 text-white p-6 rounded-[2rem] shadow-xl sticky top-6">
-            <h3 className="font-black text-xl mb-6 flex items-center gap-2">
-              <Layers className="w-5 h-5 text-indigo-400" />
+          <div className="bg-white dark:bg-slate-900 p-8 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm sticky top-6">
+            <h3 className="font-bold tabular-nums tracking-tight text-xl mb-6 flex items-center gap-2">
+              <Layers className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
               Calculation Results
             </h3>
 
             {activeTab === "shape" && (
               <div className="space-y-4">
-                <div className="p-4 bg-white/10 rounded-2xl">
-                  <p className="text-white/60 text-xs font-bold uppercase tracking-widest mb-1">
+                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-2xl">
+                  <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
                     Total Net Area
                   </p>
-                  <p className="text-3xl font-black">
+                  <p className="text-3xl font-bold tabular-nums tracking-tight">
                     {shapeData.area.toFixed(2)}{" "}
                     <span className="text-lg opacity-50">sq units</span>
                   </p>
                 </div>
-                <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
-                  <p className="text-white/60 text-xs font-bold uppercase tracking-widest mb-1">
+                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
                     Perimeter
                   </p>
                   <p className="text-xl font-bold">
@@ -981,44 +981,44 @@ export default function AreaSpaceCalculator() {
 
             {activeTab === "property" && (
               <div className="space-y-3">
-                <div className="p-4 bg-white/10 rounded-2xl mb-2">
-                  <p className="text-white/60 text-xs font-bold uppercase tracking-widest mb-1">
+                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-2xl mb-2">
+                  <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
                     RERA Carpet Area
                   </p>
-                  <p className="text-2xl font-black text-purple-300">
+                  <p className="text-2xl font-bold tabular-nums tracking-tight text-purple-600 dark:text-purple-400">
                     {propertyCalc.reraCarpetArea.toFixed(2)}{" "}
                     <span className="text-sm opacity-50">m²</span>
                   </p>
-                  <p className="text-xs text-white/50 mt-1">
+                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
                     Net Usable + Internal Walls
                   </p>
                 </div>
-                <div className="flex justify-between items-center py-2 border-b border-white/10">
-                  <span className="text-sm text-white/70">
+                <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800">
+                  <span className="text-sm text-slate-600 dark:text-slate-400">
                     Trad. Carpet Area
                   </span>
                   <span className="font-bold">
                     {propertyCalc.traditionalCarpet.toFixed(2)} m²
                   </span>
                 </div>
-                <div className="flex justify-between items-center py-2 border-b border-white/10">
-                  <span className="text-sm text-white/70 flex flex-col">
+                <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800">
+                  <span className="text-sm text-slate-600 dark:text-slate-400 flex flex-col">
                     <span>Plinth Area</span>
-                    <span className="text-[10px] text-white/40">(IS 3861)</span>
+                    <span className="text-[10px] text-slate-900 dark:text-white/40">(IS 3861)</span>
                   </span>
                   <span className="font-bold">
                     {propertyCalc.plinthArea.toFixed(2)} m²
                   </span>
                 </div>
-                <div className="flex justify-between items-center py-2 border-b border-white/10">
-                  <span className="text-sm text-white/70">Built-Up Area</span>
+                <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800">
+                  <span className="text-sm text-slate-600 dark:text-slate-400">Built-Up Area</span>
                   <span className="font-bold text-sky-300">
                     {propertyCalc.builtUpArea.toFixed(2)} m²
                   </span>
                 </div>
                 <div className="flex justify-between items-center py-2">
-                  <span className="text-sm text-white/70">Super Built-Up</span>
-                  <span className="font-bold text-emerald-300">
+                  <span className="text-sm text-slate-600 dark:text-slate-400">Super Built-Up</span>
+                  <span className="font-bold text-emerald-600 dark:text-emerald-400">
                     {propertyCalc.superBuiltUpArea.toFixed(2)} m²
                   </span>
                 </div>
@@ -1027,17 +1027,17 @@ export default function AreaSpaceCalculator() {
 
             {activeTab === "plot" && plotMethod === "boundaries" && (
               <div className="space-y-4">
-                <div className="p-4 bg-white/10 rounded-2xl">
-                  <p className="text-white/60 text-xs font-bold uppercase tracking-widest mb-1">
+                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-2xl">
+                  <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
                     Total Land Area
                   </p>
-                  <p className="text-3xl font-black text-emerald-400">
+                  <p className="text-3xl font-bold tabular-nums tracking-tight text-emerald-600 dark:text-emerald-400">
                     {Number.isNaN(boundsArea.total)
                       ? "Invalid"
                       : boundsArea.total.toFixed(2)}{" "}
                     <span className="text-lg opacity-50">sq units</span>
                   </p>
-                  <p className="text-xs text-white/50 mt-2">
+                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
                     North Triangle:{" "}
                     {Number.isNaN(boundsArea.area1)
                       ? "N/A"
@@ -1048,8 +1048,8 @@ export default function AreaSpaceCalculator() {
                       : boundsArea.area2.toFixed(1)}
                   </p>
                 </div>
-                <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
-                  <p className="text-white/60 text-xs font-bold uppercase tracking-widest mb-1">
+                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
                     Plot Perimeter
                   </p>
                   <p className="text-xl font-bold">
@@ -1062,20 +1062,20 @@ export default function AreaSpaceCalculator() {
 
             {activeTab === "roof" && (
               <div className="space-y-4">
-                <div className="p-4 bg-white/10 rounded-2xl">
-                  <p className="text-white/60 text-xs font-bold uppercase tracking-widest mb-1">
+                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-2xl">
+                  <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
                     True Sloped Area
                   </p>
-                  <p className="text-3xl font-black text-amber-400">
+                  <p className="text-3xl font-bold tabular-nums tracking-tight text-amber-600 dark:text-amber-400">
                     {roofCalc.trueRoofArea.toFixed(2)}{" "}
                     <span className="text-lg opacity-50">m²</span>
                   </p>
-                  <p className="text-xs text-white/50 mt-1">
+                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
                     Includes eave overhangs
                   </p>
                 </div>
-                <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
-                  <p className="text-white/60 text-xs font-bold uppercase tracking-widest flex items-center justify-between mb-1">
+                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+                  <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest flex items-center justify-between mb-1">
                     Calculated Mat. Qty{" "}
                     <span className="py-0.5 px-2 bg-rose-500/20 text-rose-300 rounded font-bold text-[10px]">
                       +10% Waste

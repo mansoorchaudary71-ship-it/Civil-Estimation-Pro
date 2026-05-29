@@ -90,7 +90,7 @@ export default function SolarRoofCalculator() {
            <Sun className="w-4 h-4 text-amber-500" />
            <span className="text-xs font-bold text-amber-500 uppercase tracking-wider">Renewable Energy</span>
         </div>
-        <h2 className="text-2xl md:text-3xl font-heading font-black text-text-primary mb-2">Solar Roof Calculator</h2>
+        <h2 className="text-2xl md:text-3xl font-heading font-bold tabular-nums tracking-tight text-text-primary mb-2">Solar Roof Calculator</h2>
         <p className="text-slate-500 max-w-3xl text-sm leading-relaxed">
           Estimate the required solar system size, number of panels, and ROI based on your electricity bill and available roof space.
         </p>
@@ -205,7 +205,7 @@ export default function SolarRoofCalculator() {
                       value={results.numPanels}
                       unit="units"
                       variant="primary"
-                      icon={<Home className="w-5 h-5 text-white" />}
+                      icon={<Home className="w-5 h-5 text-slate-900 dark:text-white" />}
                     />
                     <ResultCard
                       title="Annual Energy Gen."
@@ -226,7 +226,7 @@ export default function SolarRoofCalculator() {
               </div>
 
               {/* Financial Summary */}
-              <div className="bg-gradient-to-br from-slate-900 to-[#111111] dark:from-[#111111] dark:to-[#0a0a0a] rounded-2xl p-8 text-white relative overflow-hidden shadow-xl border border-white/10 group">
+              <div className="bg-gradient-to-br from-slate-900 to-[#111111] dark:from-[#111111] dark:to-[#0a0a0a] rounded-2xl p-8 text-slate-900 dark:text-white relative overflow-hidden shadow-xl border border-slate-100 dark:border-slate-800 group">
                 <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-amber-500/20 blur-[80px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none group-hover:scale-110 transition-transform duration-1000"></div>
                 <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-emerald-500/20 blur-[60px] rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
                 
@@ -237,14 +237,14 @@ export default function SolarRoofCalculator() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
                   <div>
                     <p className="text-slate-400 font-medium mb-1">Estimated System Cost</p>
-                    <p className="text-4xl font-black">${results.systemCost.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
+                    <p className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight">${results.systemCost.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
                     <p className="text-xs text-slate-500 mt-2">Gross cost before federal/local tax incentives</p>
                   </div>
                   
                   <div>
                     <p className="text-slate-400 font-medium mb-1">Estimated Payback Period</p>
                     <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                      <p className="text-4xl font-black text-amber-400">{results.paybackPeriod.toFixed(1)}</p>
+                      <p className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-amber-400">{results.paybackPeriod.toFixed(1)}</p>
                       <span className="text-lg font-bold text-amber-400/80">Years</span>
                     </div>
                     <p className="text-xs text-slate-500 mt-2">Time to recover the initial investment</p>
@@ -253,7 +253,7 @@ export default function SolarRoofCalculator() {
                   <div>
                     <p className="text-slate-400 font-medium mb-1">Lifetime ROI (25 yrs)</p>
                     <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                      <p className="text-4xl font-black text-emerald-400">{results.roi.toFixed(0)}</p>
+                      <p className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-emerald-400">{results.roi.toFixed(0)}</p>
                       <span className="text-lg font-bold text-emerald-400/80">%</span>
                     </div>
                     <p className="text-xs text-slate-500 mt-2">Total return on investment over 25 years</p>

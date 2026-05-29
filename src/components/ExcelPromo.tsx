@@ -20,7 +20,7 @@ export default function ExcelPromo() {
             <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mb-6 shadow-xl">
               <Check className="w-12 h-12 text-green-500" />
             </div>
-            <h2 className="text-3xl md:text-5xl font-black mb-4 uppercase tracking-tight text-white drop-shadow-md">
+            <h2 className="text-3xl md:text-4xl md:text-5xl font-semibold tabular-nums tracking-tight mb-4 uppercase tracking-tight text-white drop-shadow-md">
               Success! Check your Email
             </h2>
             <p className="text-lg md:text-xl font-bold text-amber-900 mb-8 max-w-xl mx-auto">
@@ -51,10 +51,10 @@ export default function ExcelPromo() {
           {/* Left Column: Content */}
           <div className="space-y-8">
             <div>
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black uppercase tracking-wider text-xs px-4 py-1.5 rounded-full mb-6 shadow-md shadow-orange-500/20">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold tabular-nums tracking-tight uppercase tracking-wider text-xs px-4 py-1.5 rounded-full mb-6 shadow-md shadow-orange-500/20">
                 <Gift className="w-4 h-4" /> 100% Free Download
               </div>
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-4 tracking-tight drop-shadow-sm">
+              <h2 className="text-4xl md:text-4xl md:text-5xl font-semibold tabular-nums tracking-tight text-slate-900 leading-tight mb-4 tracking-tight drop-shadow-sm">
                 Get the Ultimate <br className="hidden md:block"/>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">
                   Excel Estimation Pack
@@ -155,7 +155,7 @@ export default function ExcelPromo() {
 
               <button 
                 type="submit" 
-                className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-black text-[17px] py-4 rounded-xl flex items-center justify-center gap-2 shadow-[0_8px_30px_rgba(249,115,22,0.3)] hover:shadow-[0_8px_40px_rgba(249,115,22,0.5)] transition-all hover:-translate-y-1 active:scale-95 border border-white/10 mt-4"
+                className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-bold tabular-nums tracking-tight text-[17px] py-4 rounded-xl flex items-center justify-center gap-2 shadow-[0_8px_30px_rgba(249,115,22,0.3)] hover:shadow-[0_8px_40px_rgba(249,115,22,0.5)] transition-all hover:-translate-y-1 active:scale-95 border border-white/10 mt-4"
               >
                 <Download className="w-6 h-6" />
                 GET FREE EXCEL PACK

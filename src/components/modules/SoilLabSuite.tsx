@@ -36,7 +36,7 @@ export default function SoilLabSuite() {
     <div className="w-full h-full flex flex-col md:flex-row bg-slate-50 dark:bg-slate-900 overflow-hidden">
       {/* Sidebar for Sub-Navigation */}
       <div className="w-full md:w-64 flex-shrink-0 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col pt-6 px-4 gap-2">
-        <h2 className="text-xl font-black text-slate-800 dark:text-white px-2 mb-4">
+        <h2 className="text-xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white px-2 mb-4">
           Soil & Materials Lab
         </h2>
         
@@ -53,8 +53,8 @@ export default function SoilLabSuite() {
             onClick={() => setActiveTab(tab.id)}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all text-sm ${
                activeTab === tab.id
-                ? "bg-slate-900 text-white shadow-md translate-x-1"
-                : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white"
+                ? "bg-slate-900 text-slate-900 dark:text-white shadow-md translate-x-1"
+                : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-900 dark:text-white"
             }`}
           >
             <tab.icon className="w-5 h-5" />
@@ -136,7 +136,7 @@ function WaterContentCalc() {
       </div>
       <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-center text-center">
          <h4 className="text-sm font-bold text-slate-500 uppercase mb-2">Water Content (w)</h4>
-         <div className="text-6xl font-black text-indigo-600">{wc.toFixed(2)}%</div>
+         <div className="text-5xl md:text-6xl font-semibold tabular-nums tracking-tight text-indigo-600">{wc.toFixed(2)}%</div>
       </div>
     </div>
   );
@@ -172,7 +172,7 @@ function SpecificGravityCalc() {
       </div>
       <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-center text-center">
          <h4 className="text-sm font-bold text-slate-500 uppercase mb-2">Specific Gravity (G)</h4>
-         <div className="text-6xl font-black text-indigo-600">{g > 0 ? g.toFixed(3) : "0.000"}</div>
+         <div className="text-5xl md:text-6xl font-semibold tabular-nums tracking-tight text-indigo-600">{g > 0 ? g.toFixed(3) : "0.000"}</div>
          {g > 0 && (g < 2.5 || g > 2.9) && <div className="text-xs text-rose-500 mt-2 font-bold">Unusual value (typically 2.6 - 2.8)</div>}
       </div>
     </div>
@@ -211,15 +211,15 @@ function AtterbergLimitsCalc() {
       <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-center text-center gap-6">
          <div>
            <h4 className="text-sm font-bold text-slate-500 uppercase mb-1">Liquid Limit (LL)</h4>
-           <div className="text-3xl font-black text-indigo-600">{LL.toFixed(1)}%</div>
+           <div className="text-3xl font-bold tabular-nums tracking-tight text-indigo-600">{LL.toFixed(1)}%</div>
          </div>
          <div>
            <h4 className="text-sm font-bold text-slate-500 uppercase mb-1">Plastic Limit (PL)</h4>
-           <div className="text-3xl font-black text-emerald-600">{PL > 0 ? PL.toFixed(1) + "%" : "---"}</div>
+           <div className="text-3xl font-bold tabular-nums tracking-tight text-emerald-600">{PL > 0 ? PL.toFixed(1) + "%" : "---"}</div>
          </div>
          <div className="border-t pt-4">
            <h4 className="text-sm font-bold text-slate-500 uppercase mb-1">Plasticity Index (PI)</h4>
-           <div className="text-4xl font-black text-amber-600">{(LL > 0 && PL > 0) ? PI.toFixed(1) + "%" : "---"}</div>
+           <div className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-amber-600">{(LL > 0 && PL > 0) ? PI.toFixed(1) + "%" : "---"}</div>
          </div>
       </div>
     </div>
@@ -286,11 +286,11 @@ function HydrometerCalc() {
       <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-center text-center gap-6">
          <div>
            <h4 className="text-sm font-bold text-slate-500 uppercase mb-1">Particle Diameter (D)</h4>
-           <div className="text-3xl font-black text-indigo-600">{D.toFixed(4)} mm</div>
+           <div className="text-3xl font-bold tabular-nums tracking-tight text-indigo-600">{D.toFixed(4)} mm</div>
          </div>
          <div className="border-t pt-4">
            <h4 className="text-sm font-bold text-slate-500 uppercase mb-1">% Finer (N)</h4>
-           <div className="text-4xl font-black text-emerald-600">{Math.max(0, Math.min(100, N)).toFixed(1)}%</div>
+           <div className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-emerald-600">{Math.max(0, Math.min(100, N)).toFixed(1)}%</div>
          </div>
       </div>
     </div>
@@ -352,11 +352,11 @@ function UnconfinedCompressionTest() {
       <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-center text-center gap-6">
          <div>
            <h4 className="text-sm font-bold text-slate-500 uppercase mb-1">Unconfined Compressive Strength (qu)</h4>
-           <div className="text-4xl font-black text-indigo-600">{qu.toFixed(1)} kPa</div>
+           <div className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-indigo-600">{qu.toFixed(1)} kPa</div>
          </div>
          <div className="border-t pt-4">
            <h4 className="text-sm font-bold text-slate-500 uppercase mb-1">Undrained Shear Strength (cu)</h4>
-           <div className="text-4xl font-black text-emerald-600">{cu.toFixed(1)} kPa</div>
+           <div className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-emerald-600">{cu.toFixed(1)} kPa</div>
          </div>
       </div>
     

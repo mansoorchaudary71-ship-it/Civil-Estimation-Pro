@@ -61,13 +61,13 @@ export default function StaircaseDesignReference() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
            <div className={`p-4 rounded-xl border \${isErgonomic ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800' : 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800'}`}>
-              <p className="font-bold mb-1 text-slate-800 dark:text-white">Ergonomics (2R + G = 600-640)</p>
+              <p className="font-bold mb-1 text-slate-800 dark:text-slate-900 dark:text-white">Ergonomics (2R + G = 600-640)</p>
               <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">Score: <span className="font-bold">{checkValue.toFixed(1)} mm</span> (Actual Riser: {actualRiser.toFixed(1)}mm)</p>
               {isErgonomic ? <span className="text-emerald-600 font-bold text-sm">✓ Comfortable</span> : <span className="text-rose-600 font-bold text-sm">✗ Out of bounds</span>}
            </div>
 
            <div className={`p-4 rounded-xl border \${isWidthOk ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800' : 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800'}`}>
-              <p className="font-bold mb-1 text-slate-800 dark:text-white">Minimum Width Check</p>
+              <p className="font-bold mb-1 text-slate-800 dark:text-slate-900 dark:text-white">Minimum Width Check</p>
               <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">Required: {minWidth}m. Provided: {width}m</p>
               {isWidthOk ? <span className="text-emerald-600 font-bold text-sm">✓ Compliant</span> : <span className="text-rose-600 font-bold text-sm">✗ Needs wider stairs</span>}
            </div>

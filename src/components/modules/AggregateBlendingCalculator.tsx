@@ -150,7 +150,7 @@ export default function AggregateBlendingCalculator() {
            <ArrowRightLeft className="w-4 h-4 text-[var(--accent-vibrant)]" />
            <span className="text-xs font-bold text-[var(--accent-vibrant)] uppercase tracking-wider">Mix Design Toolkit</span>
         </div>
-        <h2 className="text-2xl md:text-3xl font-heading font-black text-text-primary mb-2">Aggregate Blending Calculator</h2>
+        <h2 className="text-2xl md:text-3xl font-heading font-bold tabular-nums tracking-tight text-text-primary mb-2">Aggregate Blending Calculator</h2>
         <p className="text-slate-500 max-w-3xl text-sm leading-relaxed">
           Blend 2 to 4 different aggregate stockpiles to meet target grading specifications. Use the interactive sliders to adjust proportions and instantly preview the blended gradation envelope.
         </p>
@@ -224,7 +224,7 @@ export default function AggregateBlendingCalculator() {
                       <td className="py-2 px-2">
                         <input 
                           type="number"
-                          className="w-full px-2 py-1.5 rounded bg-bg-primary border border-border-color focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none text-sm font-medium dark:text-white"
+                          className="w-full px-2 py-1.5 rounded bg-bg-primary border border-border-color focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none text-sm font-medium dark:text-slate-900 dark:text-white"
                           value={row.binA}
                           onChange={(e) => handleBinDataChange(idx, 'binA', e.target.value)}
                         />
@@ -232,7 +232,7 @@ export default function AggregateBlendingCalculator() {
                       <td className="py-2 px-2">
                         <input 
                           type="number"
-                          className="w-full px-2 py-1.5 rounded bg-bg-primary border border-border-color focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none text-sm font-medium dark:text-white"
+                          className="w-full px-2 py-1.5 rounded bg-bg-primary border border-border-color focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none text-sm font-medium dark:text-slate-900 dark:text-white"
                           value={row.binB}
                           onChange={(e) => handleBinDataChange(idx, 'binB', e.target.value)}
                         />
@@ -240,7 +240,7 @@ export default function AggregateBlendingCalculator() {
                       <td className="py-2 px-2">
                         <input 
                           type="number"
-                          className="w-full px-2 py-1.5 rounded bg-bg-primary border border-border-color focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none text-sm font-medium dark:text-white"
+                          className="w-full px-2 py-1.5 rounded bg-bg-primary border border-border-color focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none text-sm font-medium dark:text-slate-900 dark:text-white"
                           value={row.binC}
                           onChange={(e) => handleBinDataChange(idx, 'binC', e.target.value)}
                         />
@@ -248,7 +248,7 @@ export default function AggregateBlendingCalculator() {
                       <td className="py-2 px-2">
                         <input 
                           type="number"
-                          className="w-full px-2 py-1.5 rounded bg-bg-primary border border-border-color focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none text-sm font-medium dark:text-white"
+                          className="w-full px-2 py-1.5 rounded bg-bg-primary border border-border-color focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none text-sm font-medium dark:text-slate-900 dark:text-white"
                           value={row.binD}
                           onChange={(e) => handleBinDataChange(idx, 'binD', e.target.value)}
                         />

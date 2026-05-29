@@ -8,7 +8,7 @@ export default function PremiumHero() {
       <div className="w-full max-w-[1200px] mx-auto text-center flex flex-col items-center justify-center">
         
         {/* Headline */}
-        <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold text-slate-900 tracking-tight leading-[1.1] mb-6">
+        <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 tracking-tight leading-[1.1] mb-6">
           Free Civil Engineering <br className="hidden md:block" />
           <span className="text-purple-600">Estimation</span> Platform
         </h1>
@@ -56,7 +56,7 @@ export default function PremiumHero() {
             <div className="w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center mb-4 text-purple-600">
               <stat.icon className="w-6 h-6" />
             </div>
-            <h3 className="text-3xl font-black text-slate-900 mb-1">{stat.val}</h3>
+            <h3 className="text-3xl font-bold tabular-nums tracking-tight text-slate-900 mb-1">{stat.val}</h3>
             <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">{stat.lab}</p>
           </div>
         ))}

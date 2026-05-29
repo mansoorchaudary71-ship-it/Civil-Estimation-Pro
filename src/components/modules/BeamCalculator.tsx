@@ -184,7 +184,7 @@ export default function BeamCalculator() {
         description="Calculate concrete volume and longitudinal/stirrup steel weights for reinforced concrete beams."
       />
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-slate-900 mb-2 flex items-center gap-3">
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-2 flex items-center gap-3">
           <Columns className="w-8 h-8 text-indigo-600 rotate-90" />
           Beam Calculator
         </h1>
@@ -425,11 +425,11 @@ export default function BeamCalculator() {
                       <div className="grid grid-cols-2 gap-4">
                         <div className="bg-white/60 p-4 rounded-xl border border-indigo-100">
                           <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Single Element Wt</span>
-                          <span className="text-xl md:text-2xl font-black text-slate-800">{(results.elementWeightKg / 1000).toFixed(2)}<span className="text-sm font-medium ml-1 text-slate-500">Tons</span></span>
+                          <span className="text-xl md:text-2xl font-bold tabular-nums tracking-tight text-slate-800">{(results.elementWeightKg / 1000).toFixed(2)}<span className="text-sm font-medium ml-1 text-slate-500">Tons</span></span>
                         </div>
                         <div className="bg-white/80 p-4 rounded-xl border border-indigo-200 shadow-sm">
                           <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Min. Crane Capacity</span>
-                          <span className="text-xl md:text-2xl font-black text-indigo-700">{results.craneCapacityTonnes.toFixed(2)}<span className="text-sm font-medium ml-1 text-indigo-600/80">Tons</span></span>
+                          <span className="text-xl md:text-2xl font-bold tabular-nums tracking-tight text-indigo-700">{results.craneCapacityTonnes.toFixed(2)}<span className="text-sm font-medium ml-1 text-indigo-600/80">Tons</span></span>
                         </div>
                       </div>
                     </div>
@@ -465,11 +465,11 @@ export default function BeamCalculator() {
                 />
               </div>
 
-              <div className="mt-8 pt-6 border-t border-slate-200/50 dark:border-white/10">
-                <p className="text-[10px] sm:text-xs font-extrabold text-slate-500 dark:text-white/50 uppercase tracking-[0.15em] mb-4">Stirrup Cut Length Breakdown ({results.stirrupsCount} sets)</p>
+              <div className="mt-8 pt-6 border-t border-slate-200/50 dark:border-slate-100 dark:border-slate-800">
+                <p className="text-[10px] sm:text-xs font-bold tracking-tight text-slate-500 dark:text-slate-400 dark:text-slate-500 uppercase tracking-[0.15em] mb-4">Stirrup Cut Length Breakdown ({results.stirrupsCount} sets)</p>
                 <ul className="space-y-3 bg-white/50 dark:bg-white/5 rounded-2xl p-4 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-slate-200/50 dark:border-white/5 backdrop-blur-md">
                   {results.stirrupTypes.map((tie, index) => (
-                    <li key={index} className="flex justify-between items-end border-b border-slate-700/10 dark:border-white/10 pb-2 last:border-0 last:pb-0">
+                    <li key={index} className="flex justify-between items-end border-b border-slate-700/10 dark:border-slate-100 dark:border-slate-800 pb-2 last:border-0 last:pb-0">
                       <div>
                         <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{tie.name}</p>
                         <p className="text-xs text-slate-500">{tie.countPerSet} per set</p>
@@ -483,7 +483,7 @@ export default function BeamCalculator() {
             </div>
           ) : (
             <div className="bg-slate-50/80 dark:bg-[#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 dark:border-white/5 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.2)]">
-              <span className="text-slate-400 dark:text-white/40 font-medium tracking-wide">Enter beam dimensions and reinforcement details to calculate material requirements.</span>
+              <span className="text-slate-400 dark:text-slate-900 dark:text-white/40 font-medium tracking-wide">Enter beam dimensions and reinforcement details to calculate material requirements.</span>
             </div>
           )}
         </div>

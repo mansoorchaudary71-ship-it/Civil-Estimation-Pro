@@ -1365,7 +1365,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
         {!hideHeader && (
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
             <div>
-              <h1 className="text-3xl font-black text-gray-900 mb-2">
+              <h1 className="text-3xl font-bold tabular-nums tracking-tight text-gray-900 mb-2">
                 Construction Material Estimator
               </h1>
               <p className="text-gray-700 dark:text-gray-300 font-medium">
@@ -1419,7 +1419,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                   <button
                     onClick={() => processEstimate(() => {})}
                     disabled={isProcessing}
-                    className="w-full bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white font-bold py-4 px-6 rounded-full shadow-[0_4px_20px_rgba(99,102,241,0.3)] hover:shadow-[0_6px_25px_rgba(34,211,238,0.4)] transition-all mt-4"
+                    className="w-full bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-slate-900 dark:text-white font-bold py-4 px-6 rounded-full shadow-[0_4px_20px_rgba(99,102,241,0.3)] hover:shadow-[0_6px_25px_rgba(34,211,238,0.4)] transition-all mt-4"
                   >
                     {isProcessing ? "Computing Estimate..." : "Compute Estimate"}
                   </button>
@@ -1442,8 +1442,8 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                       totalValue="Computed"
                       totalUnit=""
                     >
-                      <div className="flex justify-end mb-4 border-b border-slate-200/50 dark:border-white/10 pb-4">
-                        <label className="flex items-center gap-2 cursor-pointer text-xs bg-slate-800/10 dark:bg-white/10 p-2 rounded-lg hover:bg-slate-800/20 dark:hover:bg-white/20 transition">
+                      <div className="flex justify-end mb-4 border-b border-slate-200/50 dark:border-slate-100 dark:border-slate-800 pb-4">
+                        <label className="flex items-center gap-2 cursor-pointer text-xs bg-slate-800/10 dark:bg-slate-50 dark:bg-slate-800/50 p-2 rounded-lg hover:bg-slate-800/20 dark:hover:bg-white/20 transition">
                           <input
                             type="checkbox"
                             checked={showCost}
@@ -1479,7 +1479,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                           {key}
                         </span>
                         <span
-                          className={`${key.includes("Units Required") ? "font-mono font-bold text-white uppercase text-xl" : "font-mono font-bold text-white"} text-left sm:text-right`}
+                          className={`${key.includes("Units Required") ? "font-mono font-bold text-slate-900 dark:text-white uppercase text-xl" : "font-mono font-bold text-slate-900 dark:text-white"} text-left sm:text-right`}
                         >
                           {val}
                         </span>
@@ -1498,7 +1498,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                               type="number"
                               min="0"
                               step="any"
-                              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-white font-mono focus:ring-2 focus:ring-[#6B46C1]/50 outline-none transition-all"
+                              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-900 dark:text-white font-mono focus:ring-2 focus:ring-[#6B46C1]/50 outline-none transition-all"
                               value={rates.cement}
                               onChange={(e) => {
                                 const val = parseFloat(e.target.value);
@@ -1520,7 +1520,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                               type="number"
                               min="0"
                               step="any"
-                              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-white font-mono focus:ring-2 focus:ring-[#6B46C1]/50 outline-none transition-all"
+                              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-900 dark:text-white font-mono focus:ring-2 focus:ring-[#6B46C1]/50 outline-none transition-all"
                               value={rates.sand}
                               onChange={(e) => {
                                 const val = parseFloat(e.target.value);
@@ -1542,7 +1542,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                               type="number"
                               min="0"
                               step="any"
-                              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-white font-mono focus:ring-2 focus:ring-[#6B46C1]/50 outline-none transition-all"
+                              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-900 dark:text-white font-mono focus:ring-2 focus:ring-[#6B46C1]/50 outline-none transition-all"
                               value={rates.aggregate}
                               onChange={(e) => {
                                 const val = parseFloat(e.target.value);
@@ -1565,7 +1565,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                                 type="number"
                                 min="0"
                                 step="any"
-                                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-white font-mono focus:ring-2 focus:ring-[#6B46C1]/50 outline-none transition-all"
+                                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-900 dark:text-white font-mono focus:ring-2 focus:ring-[#6B46C1]/50 outline-none transition-all"
                                 value={rates.steel}
                                 onChange={(e) => {
                                   const val = parseFloat(e.target.value);
@@ -1588,7 +1588,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                                 type="number"
                                 min="0"
                                 step="any"
-                                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-white font-mono focus:ring-2 focus:ring-[#6B46C1]/50 outline-none transition-all"
+                                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-900 dark:text-white font-mono focus:ring-2 focus:ring-[#6B46C1]/50 outline-none transition-all"
                                 value={rates.bricks}
                                 onChange={(e) => {
                                   const val = parseFloat(e.target.value);
@@ -1611,7 +1611,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                                 type="number"
                                 min="0"
                                 step="any"
-                                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-white font-mono focus:ring-2 focus:ring-[#6B46C1]/50 outline-none transition-all"
+                                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-900 dark:text-white font-mono focus:ring-2 focus:ring-[#6B46C1]/50 outline-none transition-all"
                                 value={rates.blocks}
                                 onChange={(e) => {
                                   const val = parseFloat(e.target.value);
@@ -1633,7 +1633,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                               type="number"
                               min="0"
                               step="any"
-                              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-white font-mono focus:ring-2 focus:ring-[#6B46C1]/50 outline-none transition-all"
+                              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-slate-800 dark:text-slate-900 dark:text-white font-mono focus:ring-2 focus:ring-[#6B46C1]/50 outline-none transition-all"
                               value={rates.water}
                               onChange={(e) => {
                                 const val = parseFloat(e.target.value);
@@ -1656,7 +1656,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                         <span className="text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider text-sm flex items-center gap-2">
                           Estimated Cost
                         </span>
-                        <div className="bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 px-5 py-2 rounded-full text-2xl font-black">
+                        <div className="bg-emerald-500 text-white shadow-lg shadow-emerald-500/20 px-5 py-2 rounded-full text-2xl font-bold tabular-nums tracking-tight">
                           {formatCurrency(
                             currentCartItem.cementBags * rates.cement +
                               currentCartItem.sandVol * rates.sand +
@@ -1743,7 +1743,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
         </div>
         {cart.length > 0 && (
           <div className="mt-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 border-l-[4px] border-l-[#6B46C1] rounded-[2rem] p-6 md:p-8 shadow-sm relative">
-            <h2 className="text-xl font-black mb-6 text-slate-800 dark:text-slate-100">
+            <h2 className="text-xl font-bold tabular-nums tracking-tight mb-6 text-slate-800 dark:text-slate-100">
               Project Cart ({cart.length} Elements)
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -1770,40 +1770,40 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                   </div>
                 ))}
               </div>
-              <div className="bg-gradient-to-br from-[#6B46C1] to-orange-500 p-6 rounded-2xl border border-white/20 self-start text-white">
-                <h3 className="font-bold text-white/80 text-sm uppercase tracking-widest mb-6">
+              <div className="bg-gradient-to-br from-[#6B46C1] to-orange-500 p-6 rounded-2xl border border-white/20 self-start text-slate-900 dark:text-white">
+                <h3 className="font-bold text-slate-900 dark:text-white/80 text-sm uppercase tracking-widest mb-6">
                   Accumulated Total
                 </h3>
                 <div className="space-y-4">
                   <div className="flex justify-between border-b border-indigo-500/30 pb-3">
-                    <span className="text-indigo-100/70 font-semibold">
+                    <span className="text-slate-600 dark:text-slate-400/70 font-semibold">
                       Cement
                     </span>
-                    <span className="font-mono font-bold text-white">
+                    <span className="font-mono font-bold text-slate-900 dark:text-white">
                       {totalCement.toFixed(2)} Bags
                     </span>
                   </div>
                   <div className="flex justify-between border-b border-indigo-500/30 pb-3">
-                    <span className="text-indigo-100/70 font-semibold">
+                    <span className="text-slate-600 dark:text-slate-400/70 font-semibold">
                       Sand
                     </span>
-                    <span className="font-mono font-bold text-white">
+                    <span className="font-mono font-bold text-slate-900 dark:text-white">
                       {totalSand.toFixed(2)} {isSI ? "m³" : "cft"}
                     </span>
                   </div>
                   <div className="flex justify-between border-b border-indigo-500/30 pb-3">
-                    <span className="text-indigo-100/70 font-semibold">
+                    <span className="text-slate-600 dark:text-slate-400/70 font-semibold">
                       Aggregate
                     </span>
-                    <span className="font-mono font-bold text-white">
+                    <span className="font-mono font-bold text-slate-900 dark:text-white">
                       {totalAgg.toFixed(2)} {isSI ? "m³" : "cft"}
                     </span>
                   </div>
                   <div className="flex justify-between pt-1">
-                    <span className="text-indigo-100/70 font-semibold">
+                    <span className="text-slate-600 dark:text-slate-400/70 font-semibold">
                       Water
                     </span>
-                    <span className="font-mono font-bold text-white uppercase text-right">
+                    <span className="font-mono font-bold text-slate-900 dark:text-white uppercase text-right">
                       {isSI ? `${totalWater.toFixed(1)} L` : `${(totalWater / 3.78541).toFixed(1)} Gal`}
                     </span>
                   </div>

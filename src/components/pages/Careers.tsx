@@ -14,7 +14,7 @@ export default function Careers() {
         <div className="inline-flex items-center justify-center p-4 bg-purple-50 dark:bg-purple-900/30 rounded-3xl mb-2 shadow-[0_8px_16px_-6px_rgba(168,85,247,0.2)]">
           <Briefcase className="w-8 h-8 text-purple-600 dark:text-purple-400" strokeWidth={1.5} />
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-text-primary tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-text-primary tracking-tight">
           Join Our Team
         </h1>
         <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">

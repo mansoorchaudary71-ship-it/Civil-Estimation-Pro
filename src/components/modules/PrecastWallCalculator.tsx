@@ -69,7 +69,7 @@ export default function PrecastWallCalculator() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
               <BrickWall className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
               Precast Wall Calculator
             </h2>
@@ -91,7 +91,7 @@ export default function PrecastWallCalculator() {
             <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
               
-              <h3 className="font-bold text-lg text-slate-800 dark:text-white mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
+              <h3 className="font-bold text-lg text-slate-800 dark:text-slate-900 dark:text-white mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
                 Boundary Dimensions
               </h3>
 
@@ -102,7 +102,7 @@ export default function PrecastWallCalculator() {
                     type="number"
                     value={totalLength}
                     onChange={(e) => setTotalLength(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                   />
                 </div>
                 <div>
@@ -111,12 +111,12 @@ export default function PrecastWallCalculator() {
                     type="number"
                     value={wallHeight}
                     onChange={(e) => setWallHeight(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                   />
                 </div>
               </div>
 
-              <h3 className="font-bold text-lg text-slate-800 dark:text-white mb-6 border-b border-slate-100 dark:border-slate-800 pb-4 mt-8">
+              <h3 className="font-bold text-lg text-slate-800 dark:text-slate-900 dark:text-white mb-6 border-b border-slate-100 dark:border-slate-800 pb-4 mt-8">
                 Precast Component Specs
               </h3>
 
@@ -127,7 +127,7 @@ export default function PrecastWallCalculator() {
                     type="number"
                     value={postSpacing}
                     onChange={(e) => setPostSpacing(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                   />
                 </div>
                 <div>
@@ -136,12 +136,12 @@ export default function PrecastWallCalculator() {
                     type="number"
                     value={slabHeight}
                     onChange={(e) => setSlabHeight(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                   />
                 </div>
               </div>
 
-              <h3 className="font-bold text-lg text-slate-800 dark:text-white mb-6 border-b border-slate-100 dark:border-slate-800 pb-4 mt-8">
+              <h3 className="font-bold text-lg text-slate-800 dark:text-slate-900 dark:text-white mb-6 border-b border-slate-100 dark:border-slate-800 pb-4 mt-8">
                 Cost & Rates
               </h3>
 
@@ -152,7 +152,7 @@ export default function PrecastWallCalculator() {
                     type="number"
                     value={postRate}
                     onChange={(e) => setPostRate(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
                   />
                 </div>
                 <div>
@@ -161,7 +161,7 @@ export default function PrecastWallCalculator() {
                     type="number"
                     value={slabRate}
                     onChange={(e) => setSlabRate(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
                   />
                 </div>
                 <div>
@@ -170,7 +170,7 @@ export default function PrecastWallCalculator() {
                     type="number"
                     value={laborRatePerRunningMeter}
                     onChange={(e) => setLaborRate(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
                   />
                 </div>
               </div>
@@ -220,7 +220,7 @@ export default function PrecastWallCalculator() {
                     <div>
                       <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-1 block">Total BOM Cost</span>
                       <div className="flex items-baseline gap-2">
-                        <span className="text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+                        <span className="text-4xl md:text-5xl font-semibold tabular-nums tracking-tight tracking-tight text-slate-900 dark:text-slate-900 dark:text-white">
                           ${estimateData.totalCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                         </span>
                       </div>
@@ -260,7 +260,7 @@ export default function PrecastWallCalculator() {
                         </tr>
                         <tr className="bg-slate-100/50 dark:bg-slate-800/30">
                           <td colSpan={3} className="px-4 py-3 font-bold text-slate-800 dark:text-slate-200 text-right">Total Estimates</td>
-                          <td className="px-4 py-3 text-right font-black text-indigo-600 dark:text-indigo-400">${estimateData.totalCost.toLocaleString()}</td>
+                          <td className="px-4 py-3 text-right font-bold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400">${estimateData.totalCost.toLocaleString()}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -269,11 +269,11 @@ export default function PrecastWallCalculator() {
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm text-center">
                       <span className="text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest block mb-1">Total Bays Formed</span>
-                      <div className="text-xl font-black text-slate-800 dark:text-white">{estimateData.numberOfBays}</div>
+                      <div className="text-xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.numberOfBays}</div>
                     </div>
                     <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm text-center">
                       <span className="text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest block mb-1">Slabs per Bay</span>
-                      <div className="text-xl font-black text-slate-800 dark:text-white">{estimateData.slabsPerBay}</div>
+                      <div className="text-xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.slabsPerBay}</div>
                     </div>
                   </div>
                 </div>

@@ -54,7 +54,7 @@ export default function ProjectManager() {
     <div className="w-full max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm">
         <div>
-          <h2 className="text-3xl font-black text-slate-800 dark:text-white tracking-tight flex items-center gap-3">
+          <h2 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
              <div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-2xl">
                <FolderOpen className="w-8 h-8" />
              </div>
@@ -119,7 +119,7 @@ export default function ProjectManager() {
             <div className="flex justify-center mb-6">
                <div className="flex items-center gap-3">
                   <div className="w-16 h-16 rounded-2xl bg-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 transform transition duration-500 hover:scale-110">
-                     <Building className="w-7 h-7 text-white" />
+                     <Building className="w-7 h-7 text-slate-900 dark:text-white" />
                   </div>
                   <div className="flex flex-col gap-1 w-10">
                      <div className="h-1.5 bg-indigo-500/30 rounded-full overflow-hidden">
@@ -127,7 +127,7 @@ export default function ProjectManager() {
                      </div>
                   </div>
                   <div className="w-16 h-16 rounded-2xl bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/20 transform transition duration-500 hover:scale-110 animation-delay-200">
-                     <BarChart3 className="w-7 h-7 text-white" />
+                     <BarChart3 className="w-7 h-7 text-slate-900 dark:text-white" />
                   </div>
                   <div className="flex flex-col gap-1 w-10">
                      <div className="h-1.5 bg-emerald-500/30 rounded-full overflow-hidden">
@@ -135,7 +135,7 @@ export default function ProjectManager() {
                      </div>
                   </div>
                   <div className="w-16 h-16 rounded-2xl bg-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/20 transform transition duration-500 hover:scale-110 animation-delay-400">
-                     <FileText className="w-7 h-7 text-white" />
+                     <FileText className="w-7 h-7 text-slate-900 dark:text-white" />
                   </div>
                </div>
                <style>{`
@@ -147,7 +147,7 @@ export default function ProjectManager() {
                `}</style>
             </div>
              
-             <h3 className="text-3xl font-black text-slate-800 dark:text-white">Welcome to Project Manager</h3>
+             <h3 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">Welcome to Project Manager</h3>
              <p className="text-slate-500 dark:text-slate-400 text-lg max-w-2xl mx-auto">
                Group your estimates, track material quantities, and manage multi-stage construction projects in one centralized dashboard.
              </p>
@@ -164,7 +164,7 @@ export default function ProjectManager() {
                    <div className="w-12 h-12 rounded-full border-2 border-indigo-100 dark:border-indigo-900/50 flex items-center justify-center mb-4 bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm">
                       <step.icon className="w-5 h-5" />
                    </div>
-                   <h4 className="font-bold text-slate-800 dark:text-white mb-2">{step.title}</h4>
+                   <h4 className="font-bold text-slate-800 dark:text-slate-900 dark:text-white mb-2">{step.title}</h4>
                    <p className="text-sm text-slate-500 dark:text-slate-400">{step.desc}</p>
                 </div>
              ))}
@@ -173,7 +173,7 @@ export default function ProjectManager() {
           {/* Setup Actions */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
              <div className="bg-white dark:bg-slate-900 border border-indigo-100 dark:border-indigo-900/30 p-8 rounded-[2rem] shadow-sm flex flex-col justify-center">
-                <h4 className="font-bold text-lg mb-1 text-slate-800 dark:text-white">Quick Start Templates</h4>
+                <h4 className="font-bold text-lg mb-1 text-slate-800 dark:text-slate-900 dark:text-white">Quick Start Templates</h4>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mb-5">Begin with a predefined project framework.</p>
                 <div className="space-y-3">
                    <button 
@@ -216,15 +216,15 @@ export default function ProjectManager() {
                 </div>
              </div>
 
-             <div className="bg-slate-800 dark:bg-slate-900 border border-slate-700 p-8 rounded-[2rem] shadow-lg flex flex-col justify-center text-center text-white relative overflow-hidden group">
+             <div className="bg-slate-800 dark:bg-slate-900 border border-slate-700 p-8 rounded-[2rem] shadow-lg flex flex-col justify-center text-center text-slate-900 dark:text-white relative overflow-hidden group">
                 <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 group-hover:rotate-12 transition-all duration-700 pointer-events-none">
                    <Upload className="w-40 h-40" />
                 </div>
                 <div className="relative z-10 w-full">
-                   <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-white/10 group-hover:scale-110 transition-transform">
+                   <div className="w-12 h-12 bg-slate-50 dark:bg-slate-800/50 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-100 dark:border-slate-800 group-hover:scale-110 transition-transform">
                       <FileText className="w-6 h-6 text-slate-300" />
                    </div>
-                   <h4 className="font-bold text-xl mb-2 text-white">Import Existing Data</h4>
+                   <h4 className="font-bold text-xl mb-2 text-slate-900 dark:text-white">Import Existing Data</h4>
                    <p className="text-slate-400 text-sm mb-8 px-4">Restore a previously saved project from a JSON or CSV file to continue your work without losing history.</p>
                    
                    <label className="cursor-pointer inline-flex w-[80%] items-center justify-center gap-2 px-6 py-4 bg-indigo-500 hover:bg-indigo-400 text-white rounded-xl font-bold transition shadow-[0_0_15px_rgba(99,102,241,0.3)] hover:shadow-[0_0_25px_rgba(99,102,241,0.5)]">
@@ -254,7 +254,7 @@ export default function ProjectManager() {
 
               <div className="flex justify-between items-start mb-4 relative z-10">
                  <div>
-                   <h3 className="text-xl font-bold text-slate-800 dark:text-white leading-tight">{proj.name}</h3>
+                   <h3 className="text-xl font-bold text-slate-800 dark:text-slate-900 dark:text-white leading-tight">{proj.name}</h3>
                    <div className="flex items-center gap-2 mt-2">
                      <span className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-bold rounded-full">{proj.type}</span>
                      {activeProjectId === proj.id && (
@@ -343,7 +343,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
             const totals = i === 0 ? t1 : t2;
             return (
          <div key={proj.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2rem] shadow-sm">
-            <h1 className="text-2xl font-black text-slate-800 dark:text-white mb-6 flex items-center gap-2">
+            <h1 className="text-2xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                <span className="w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm">{i+1}</span>
                {proj.name}
             </h1>
@@ -351,7 +351,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
             <div className="space-y-6">
               <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
                  <p className="text-sm font-bold text-slate-500 mb-1">Total Cost estimate</p>
-                 <p className="text-3xl font-black text-emerald-600 dark:text-emerald-400">${totals.cost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                 <p className="text-3xl font-bold tabular-nums tracking-tight text-emerald-600 dark:text-emerald-400">${totals.cost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                  {i === 1 && t1.cost !== 0 && (
                     <p className={`text-sm font-bold ${t2.cost > t1.cost ? 'text-rose-500' : 'text-emerald-500'} mt-1`}>
                        {Math.abs(t2.cost - t1.cost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} difference
@@ -370,7 +370,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
                        return (
                           <div key={m} className="flex justify-between items-center text-sm">
                             <span className="font-semibold text-slate-600 dark:text-slate-400">{m}</span>
-                            <span className={`font-black ${higher ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300'}`}>
+                            <span className={`font-bold tabular-nums tracking-tight ${higher ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300'}`}>
                                {v > 0 ? v.toFixed(1) : '-'}
                             </span>
                           </div>
@@ -450,7 +450,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                       <span className="px-3 py-1 bg-indigo-50 text-indigo-600 font-bold rounded-full text-xs uppercase tracking-wider mb-3 inline-block">
                          {project.type}
                       </span>
-                      <h1 className="text-4xl font-black text-slate-900 dark:text-white mb-2">{project.name}</h1>
+                      <h1 className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-slate-900 dark:text-slate-900 dark:text-white mb-2">{project.name}</h1>
                       <div className="flex items-center gap-4 text-slate-500 font-medium">
                          <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /> {project.location}</span>
                          <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> Started {project.startDate ? new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(new Date(project.startDate)) : 'N/A'}</span>
@@ -469,15 +469,15 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                 <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6">
                    <div className="bg-emerald-50 dark:bg-emerald-500/10 p-5 rounded-2xl border border-emerald-100 dark:border-emerald-500/20">
                      <p className="text-emerald-700 dark:text-emerald-400 font-bold text-sm uppercase tracking-wider mb-1">Total Estimated Cost</p>
-                     <p className="text-3xl font-black text-emerald-600 dark:text-emerald-300">${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                     <p className="text-3xl font-bold tabular-nums tracking-tight text-emerald-600 dark:text-emerald-300">${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                    </div>
                    <div className="bg-indigo-50 dark:bg-indigo-500/10 p-5 rounded-2xl border border-indigo-100 dark:border-indigo-500/20">
                      <p className="text-indigo-700 dark:text-indigo-400 font-bold text-sm uppercase tracking-wider mb-1">Calculations Run</p>
-                     <p className="text-3xl font-black text-indigo-600 dark:text-indigo-300">{project.estimates.length}</p>
+                     <p className="text-3xl font-bold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-300">{project.estimates.length}</p>
                    </div>
                    <div className="bg-amber-50 dark:bg-amber-500/10 p-5 rounded-2xl border border-amber-100 dark:border-amber-500/20">
                      <p className="text-amber-700 dark:text-amber-400 font-bold text-sm uppercase tracking-wider mb-1">Total Materials</p>
-                     <p className="text-3xl font-black text-amber-600 dark:text-amber-300">{Object.keys(aggregatedMaterials).length}</p>
+                     <p className="text-3xl font-bold tabular-nums tracking-tight text-amber-600 dark:text-amber-300">{Object.keys(aggregatedMaterials).length}</p>
                    </div>
                 </div>
              </div>
@@ -485,7 +485,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
 
            {/* Timeline & Operations */}
            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2rem] shadow-sm">
-              <h2 className="text-xl font-bold mb-6 text-slate-800 dark:text-white">Calculation Timeline</h2>
+              <h2 className="text-xl font-bold mb-6 text-slate-800 dark:text-slate-900 dark:text-white">Calculation Timeline</h2>
               {project.estimates.length === 0 ? (
                  <div className="text-center py-10 text-slate-400 font-medium bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-dashed border-slate-200 dark:border-slate-700">
                     <AlertCircle className="w-10 h-10 mx-auto mb-3 opacity-50" />
@@ -501,7 +501,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                        </div>
                        <div className="flex-1">
                           <div className="flex justify-between">
-                            <h4 className="font-bold text-slate-800 dark:text-white text-lg">{est.name}</h4>
+                            <h4 className="font-bold text-slate-800 dark:text-slate-900 dark:text-white text-lg">{est.name}</h4>
                             <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">${(Number(est.cost) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                           </div>
                           <p className="text-sm text-slate-500 font-medium mb-2">{new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(new Date(est.date))} • {est.category}</p>
@@ -532,7 +532,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
          {/* Sidebar Summary */}
          <div className="w-full lg:w-80 space-y-6">
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] shadow-sm">
-               <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-white">Cost Breakdown</h3>
+               <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-900 dark:text-white">Cost Breakdown</h3>
                {pieData.length > 0 ? (
                  <div className="h-48 w-full">
                     <ResponsiveContainer width="100%" height="100%">
@@ -557,14 +557,14 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                          <span className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS[i % COLORS.length] }}></span>
                          <span className="font-medium text-slate-600 dark:text-slate-300">{d.name}</span>
                        </div>
-                       <span className="font-bold text-slate-800 dark:text-white">${d.value.toLocaleString('en-US')}</span>
+                       <span className="font-bold text-slate-800 dark:text-slate-900 dark:text-white">${d.value.toLocaleString('en-US')}</span>
                     </div>
                   ))}
                </div>
             </div>
 
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] shadow-sm">
-               <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-white">Aggregated Materials</h3>
+               <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-900 dark:text-white">Aggregated Materials</h3>
                <div className="space-y-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
                   {Object.entries(aggregatedMaterials).length === 0 ? (
                      <p className="text-slate-500 text-sm">No materials calculated.</p>
@@ -577,7 +577,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                                <span className="font-bold text-sm text-slate-700 dark:text-slate-200 capitalize">{name}</span>
                              </div>
                              <div className="flex flex-col items-end">
-                               <span className="font-black text-indigo-600 dark:text-indigo-400">{data.quantity.toFixed(1)} {data.unit}</span>
+                               <span className="font-bold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400">{data.quantity.toFixed(1)} {data.unit}</span>
                              </div>
                           </div>
                         )

@@ -388,7 +388,7 @@ export default function SewerageEstimator() {
                       <span className="text-amber-800 font-bold text-base">
                         Net Backfill Volume
                       </span>
-                      <span className="text-amber-900 font-black text-2xl whitespace-nowrap">
+                      <span className="text-amber-900 font-bold tabular-nums tracking-tight text-2xl whitespace-nowrap">
                         {netBackfillVol.toFixed(2)} m³
                       </span>
                     </div>
@@ -610,7 +610,7 @@ export default function SewerageEstimator() {
                       Ending Invert Level
                     </div>
                     <div className="flex items-end gap-2">
-                      <span className="text-5xl font-black text-indigo-600 tracking-tighter whitespace-nowrap">
+                      <span className="text-4xl md:text-5xl font-semibold tabular-nums tracking-tight text-indigo-600 tracking-tighter whitespace-nowrap">
                         {endIL.toFixed(3)}
                       </span>
                       <span className="text-xl font-medium text-blue-500 mb-1">
@@ -681,7 +681,7 @@ export default function SewerageEstimator() {
                     </div>
                     <div className="flex items-center justify-between mt-1">
                       <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                        <span className="text-6xl font-black text-indigo-600 tracking-tighter leading-none">
+                        <span className="text-5xl md:text-6xl font-semibold tabular-nums tracking-tight text-indigo-600 tracking-tighter leading-none">
                           {pipeCount}
                         </span>
                         <span className="text-lg font-medium text-indigo-600">
@@ -849,7 +849,7 @@ export default function SewerageEstimator() {
                             </span>
                           </div>
                           <div className="text-right">
-                            <span className="text-purple-900 font-black text-2xl whitespace-nowrap">
+                            <span className="text-purple-900 font-bold tabular-nums tracking-tight text-2xl whitespace-nowrap">
                               {beddingWeightTons.toFixed(2)}
                             </span>
                             <span className="text-purple-600 font-bold">
@@ -982,7 +982,7 @@ export default function SewerageEstimator() {
                         Discharge (Liters/sec)
                       </span>
                       <div className="text-right">
-                        <span className="text-cyan-900 font-black text-2xl whitespace-nowrap">
+                        <span className="text-cyan-900 font-bold tabular-nums tracking-tight text-2xl whitespace-nowrap">
                           {dischargeCapacityL.toFixed(2)}
                         </span>
                         <span className="text-cyan-600 font-bold">

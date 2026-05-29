@@ -69,7 +69,7 @@ export default function Contact() {
   return (
     <div className="max-w-5xl mx-auto space-y-12 pb-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="text-center space-y-4">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-text-primary tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-text-primary tracking-tight">
           Get in Touch
         </h1>
         <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">

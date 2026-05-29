@@ -130,7 +130,7 @@ export default function QSWorkflow() {
       {/* HEADER SECTION */}
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm mb-6 flex justify-between items-center no-print">
          <div>
-           <h2 className="text-3xl font-black text-slate-800 dark:text-white tracking-tight flex items-center gap-3">
+           <h2 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
              <div className="p-3 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-2xl">
                <Activity className="w-8 h-8" />
              </div>
@@ -217,7 +217,7 @@ export default function QSWorkflow() {
                         <Map className="w-12 h-12 text-slate-400 mb-3" />
                         <h4 className="font-bold text-lg">Upload Architectural / Structural Drawings</h4>
                         <p className="text-slate-500 text-sm mb-4">PDF, DWG or Image formats</p>
-                        <button onClick={() => setDrawingsLoaded(true)} className="px-6 py-2 bg-slate-800 text-white rounded-lg font-bold">Simulate Upload</button>
+                        <button onClick={() => setDrawingsLoaded(true)} className="px-6 py-2 bg-slate-800 text-slate-900 dark:text-white rounded-lg font-bold">Simulate Upload</button>
                      </div>
                   )}
                </div>
@@ -366,8 +366,8 @@ export default function QSWorkflow() {
                      </tbody>
                      <tfoot>
                         <tr className="bg-slate-50 dark:bg-slate-800/80">
-                           <td colSpan={4} className="p-4 text-right font-black uppercase tracking-wider">Estimated Project Total</td>
-                           <td className="p-4 text-right font-black text-xl text-emerald-600">₹{totalCost.toLocaleString()}</td>
+                           <td colSpan={4} className="p-4 text-right font-bold tabular-nums tracking-tight uppercase tracking-wider">Estimated Project Total</td>
+                           <td className="p-4 text-right font-bold tabular-nums tracking-tight text-xl text-emerald-600">₹{totalCost.toLocaleString()}</td>
                         </tr>
                      </tfoot>
                   </table>
@@ -406,7 +406,7 @@ export default function QSWorkflow() {
                {/* Report Header */}
                <div className="flex justify-between items-start pt-6 border-b-2 border-slate-800 pb-6 mb-8">
                   <div>
-                    <h1 className="text-4xl font-black uppercase tracking-widest text-slate-900 mb-2">{projectData.name}</h1>
+                    <h1 className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight uppercase tracking-widest text-slate-900 mb-2">{projectData.name}</h1>
                     <p className="text-lg font-bold text-slate-600">{projectData.type} Structure • {projectData.location}</p>
                   </div>
                   <div className="text-right">
@@ -420,15 +420,15 @@ export default function QSWorkflow() {
                <div className="grid grid-cols-3 gap-6 mb-10">
                   <div className="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
                      <p className="text-sm font-bold text-slate-500 mb-2 uppercase tracking-widest">Total Estimated Cost</p>
-                     <p className="text-3xl font-black text-indigo-700">₹{totalCost.toLocaleString()}</p>
+                     <p className="text-3xl font-bold tabular-nums tracking-tight text-indigo-700">₹{totalCost.toLocaleString()}</p>
                   </div>
                   <div className="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
                      <p className="text-sm font-bold text-slate-500 mb-2 uppercase tracking-widest">Plinth Area</p>
-                     <p className="text-3xl font-black">{totalPlinthArea.toLocaleString()} <span className="text-lg text-slate-500">sq.ft</span></p>
+                     <p className="text-3xl font-bold tabular-nums tracking-tight">{totalPlinthArea.toLocaleString()} <span className="text-lg text-slate-500">sq.ft</span></p>
                   </div>
                   <div className="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
                      <p className="text-sm font-bold text-slate-500 mb-2 uppercase tracking-widest">Cost Per Sq.Ft</p>
-                     <p className="text-3xl font-black">₹{Math.round(totalCost / totalPlinthArea).toLocaleString()}</p>
+                     <p className="text-3xl font-bold tabular-nums tracking-tight">₹{Math.round(totalCost / totalPlinthArea).toLocaleString()}</p>
                   </div>
                </div>
 

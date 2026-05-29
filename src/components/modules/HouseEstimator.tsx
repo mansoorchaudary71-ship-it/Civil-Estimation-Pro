@@ -644,7 +644,7 @@ export default function HouseEstimator() {
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         <header className="mb-8 block">
           <div>
-            <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight  text-white bg-clip-text text-transparent pb-2">
+            <h1 className="text-4xl lg:text-5xl font-bold tracking-tight tracking-tight  text-slate-900 dark:text-white bg-clip-text text-transparent pb-2">
               Complete House Estimator
             </h1>
             <p className="text-gray-500 dark:text-gray-400 mt-2 text-lg font-medium">
@@ -660,7 +660,7 @@ export default function HouseEstimator() {
               <span className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
                 Built-up
               </span>
-              <span className="text-2xl font-black text-indigo-600 tracking-tighter whitespace-nowrap">
+              <span className="text-2xl font-bold tabular-nums tracking-tight text-indigo-600 tracking-tighter whitespace-nowrap">
                 {builtUpArea.toFixed(0)}
                 <span className="text-sm font-medium text-indigo-400">
                   sq.ft
@@ -715,7 +715,7 @@ export default function HouseEstimator() {
                   Plot Size 
                   <span className="relative">
                     <AlertCircle className="w-3.5 h-3.5 text-slate-400" />
-                    <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max px-3 py-1.5 bg-slate-800 text-white text-[10px] rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                    <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max px-3 py-1.5 bg-slate-800 text-slate-900 dark:text-white text-[10px] rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
                       Total land area limits the maximum covered area
                     </span>
                   </span>
@@ -798,7 +798,7 @@ export default function HouseEstimator() {
                    <h3 className="text-sm font-bold text-gray-700">Finish Quality</h3>
                 </div>
                 <div className="flex justify-between items-end mb-2">
-                  <span className="text-xl font-black text-violet-600 tracking-tighter whitespace-nowrap">
+                  <span className="text-xl font-bold tabular-nums tracking-tight text-violet-600 tracking-tighter whitespace-nowrap">
                     {getQualityLabel(finishQuality)}
                   </span>
                   <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
@@ -983,7 +983,7 @@ export default function HouseEstimator() {
                       Covered Area (Per Floor)
                       <span className="relative">
                         <AlertCircle className="w-3.5 h-3.5 text-slate-400" />
-                        <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max max-w-[200px] whitespace-normal px-3 py-1.5 bg-slate-800 text-white text-[10px] rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10 text-center">
+                        <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max max-w-[200px] whitespace-normal px-3 py-1.5 bg-slate-800 text-slate-900 dark:text-white text-[10px] rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10 text-center">
                           Total floor area constructed for a single story. Must be less than plot size.
                         </span>
                       </span>
@@ -1089,7 +1089,7 @@ export default function HouseEstimator() {
             
             <button
                onClick={() => setShowResults(true)}
-               className="w-full flex items-center justify-center gap-2 bg-slate-800 text-white font-bold px-8 py-4 rounded-2xl hover:bg-slate-900 transition-all active:scale-95 shadow-md shadow-slate-900/10"
+               className="w-full flex items-center justify-center gap-2 bg-slate-800 text-slate-900 dark:text-white font-bold px-8 py-4 rounded-2xl hover:bg-slate-900 transition-all active:scale-95 shadow-md shadow-slate-900/10"
             >
                Compute Total Cost
             </button>
@@ -1099,24 +1099,24 @@ export default function HouseEstimator() {
           <section className="lg:col-span-8 flex flex-col gap-6">
             <div className="sticky top-6 z-10 bg-indigo-600 rounded-[2rem] p-6 shadow-xl shadow-indigo-500/20 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2">
               <div className="flex items-center gap-4">
-                <div className="p-4 bg-white/10 rounded-2xl">
-                  <Calculator className="w-8 h-8 text-indigo-100" />
+                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-2xl">
+                  <Calculator className="w-8 h-8 text-slate-600 dark:text-slate-400" />
                 </div>
                 <div>
                   <h3 className="text-indigo-200 text-xs font-bold uppercase tracking-widest mb-0.5">Total Estimated Cost</h3>
-                  <p className="text-3xl sm:text-4xl font-black tabular-nums text-white dark:text-white drop-shadow-sm">{formatCurrency(estimates.totalCost)}</p>
+                  <p className="text-3xl sm:text-3xl md:text-4xl font-semibold tabular-nums tracking-tight tabular-nums text-slate-900 dark:text-white dark:text-slate-900 dark:text-white drop-shadow-sm">{formatCurrency(estimates.totalCost)}</p>
                   <p className="text-indigo-200 text-[10px] mt-1 font-medium">Rates based on current regional market — verify with local suppliers.</p>
                 </div>
               </div>
               <div className="flex gap-6 mt-4 sm:mt-0 w-full sm:w-auto p-4 sm:p-0 bg-white/5 sm:bg-transparent rounded-2xl sm:rounded-none">
                 <div>
                   <div className="text-indigo-200 text-[10px] font-bold uppercase tracking-wider mb-0.5">Basic Structure</div>
-                  <div className="text-lg font-bold tabular-nums text-white dark:text-white">{formatCurrency(estimates.totalGrey)}</div>
+                  <div className="text-lg font-bold tabular-nums text-slate-900 dark:text-white dark:text-slate-900 dark:text-white">{formatCurrency(estimates.totalGrey)}</div>
                 </div>
                 <div className="w-px h-8 bg-indigo-400/30 self-center hidden sm:block"></div>
                 <div>
                   <div className="text-indigo-200 text-[10px] font-bold uppercase tracking-wider mb-0.5">Finishings</div>
-                  <div className="text-lg font-bold tabular-nums text-white dark:text-white">{formatCurrency(estimates.totalFinishing)}</div>
+                  <div className="text-lg font-bold tabular-nums text-slate-900 dark:text-white dark:text-slate-900 dark:text-white">{formatCurrency(estimates.totalFinishing)}</div>
                 </div>
               </div>
             </div>
@@ -1554,7 +1554,7 @@ export default function HouseEstimator() {
                           <Database className="w-6 h-6" />
                         </div>
                         <div>
-                          <h2 className="text-2xl font-extrabold text-slate-800">
+                          <h2 className="text-2xl font-bold tracking-tight text-slate-800">
                             Configure Material Rates
                           </h2>
                           <p className="text-slate-700 dark:text-slate-300 font-medium text-sm mt-1">

@@ -96,12 +96,12 @@ export default function RoomAreaCalculator() {
 
         <div className={`p-4 rounded-xl border mb-6 flex items-start gap-4 \${isCompliant ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800' : 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800'}`}>
           <div className="flex-1">
-             <p className="font-bold mb-1 text-slate-800 dark:text-white">NBC 2016 Compliance Check</p>
+             <p className="font-bold mb-1 text-slate-800 dark:text-slate-900 dark:text-white">NBC 2016 Compliance Check</p>
              <p className="text-sm text-slate-600 dark:text-slate-400">
                Required min. area: <strong>{reqArea} m²</strong>. Provided: <strong>{carpetArea.toFixed(2)} m²</strong>
              </p>
           </div>
-          <div className="font-black text-xl">
+          <div className="font-bold tabular-nums tracking-tight text-xl">
              {isCompliant ? <span className="text-emerald-500">PASS</span> : <span className="text-rose-500">FAIL</span>}
           </div>
         </div>

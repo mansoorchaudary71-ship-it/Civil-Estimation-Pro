@@ -78,7 +78,7 @@ export default function RateAnalysis() {
     <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         <header className="mb-8">
-          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent pb-2">
+          <h1 className="text-4xl lg:text-5xl font-bold tracking-tight tracking-tight bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent pb-2">
             Rate Analysis & Market Pricing
           </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-2 text-lg font-medium">
@@ -232,7 +232,7 @@ export default function RateAnalysis() {
                         handleRateChange("overheadMarkup", e.target.value)
                       }
                     />
-                    <span className="text-lg font-black text-slate-700 dark:text-slate-300">
+                    <span className="text-lg font-bold tabular-nums tracking-tight text-slate-700 dark:text-slate-300">
                       %
                     </span>
                   </div>
@@ -242,12 +242,12 @@ export default function RateAnalysis() {
           </section>
           {/* Composite Rate Analyzer */}
           <section className="lg:col-span-5 space-y-6">
-            <div className="bg-gradient-to-b from-slate-800 to-slate-900 p-8 rounded-[2rem] shadow-2xl relative overflow-hidden text-white/90">
+            <div className="bg-gradient-to-b from-slate-800 to-slate-900 p-8 rounded-[2rem] shadow-2xl relative overflow-hidden text-slate-900 dark:text-white/90">
               <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/20 rounded-full blur-[80px]" />
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-8">
                   <div className="flex items-center gap-3">
-                    <div className="p-2.5 bg-white/10 rounded-xl backdrop-blur border border-white/10">
+                    <div className="p-2.5 bg-slate-50 dark:bg-slate-800/50 rounded-xl backdrop-blur border border-slate-100 dark:border-slate-800">
                       <Activity className="w-5 h-5 text-teal-400" />
                     </div>
                     <h3 className="text-lg font-bold">
@@ -256,10 +256,10 @@ export default function RateAnalysis() {
                   </div>
                 </div>
                 <div className="mb-6">
-                  <h4 className="text-2xl font-black text-white leading-tight">
+                  <h4 className="text-2xl font-bold tabular-nums tracking-tight text-slate-900 dark:text-white leading-tight">
                     1.0 m³ Concrete
                   </h4>
-                  <p className="text-teal-400/80 font-mono text-sm mt-1 mb-4 border-b border-white/10 pb-4">
+                  <p className="text-teal-400/80 font-mono text-sm mt-1 mb-4 border-b border-slate-100 dark:border-slate-800 pb-4">
                     Mix Ratio 1:2:4 | 1.54 Dry Vol
                   </p>
                   <div className="h-48 w-full mb-6 relative">
@@ -391,7 +391,7 @@ export default function RateAnalysis() {
                     </div>
                   </div>
                 </div>
-                <div className="pt-6 border-t border-white/10 space-y-4">
+                <div className="pt-6 border-t border-slate-100 dark:border-slate-800 space-y-4">
                   <div className="flex justify-between items-center text-sm font-medium text-slate-300">
                     <span>Subtotal</span>
                     <span className="font-mono">
@@ -406,12 +406,12 @@ export default function RateAnalysis() {
                       +{formatCurrency(compositeCalc.overheadCost)}
                     </span>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-md rounded-2xl px-4 py-3 border border-white/10 mt-4 flex items-center justify-between">
-                    <span className="text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.15em] text-slate-300">
+                  <div className="bg-slate-50 dark:bg-slate-800/50 backdrop-blur-md rounded-2xl px-4 py-3 border border-slate-100 dark:border-slate-800 mt-4 flex items-center justify-between">
+                    <span className="text-[10px] sm:text-xs font-bold tracking-tight uppercase tracking-[0.15em] text-slate-300">
                       Analyzed Rate
                     </span>
                     <div className="flex items-end gap-1">
-                      <span className="text-4xl sm:text-5xl tracking-tight font-black text-text-primary leading-none whitespace-nowrap">
+                      <span className="text-4xl sm:text-5xl tracking-tight font-bold tabular-nums tracking-tight text-text-primary leading-none whitespace-nowrap">
                         {formatCurrency(compositeCalc.finalRate)}
                       </span>
                       <span className="text-sm font-medium text-teal-400 pb-0.5">

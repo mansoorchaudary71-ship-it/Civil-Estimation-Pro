@@ -21,7 +21,7 @@ export default function EnergyMepCalculator() {
   return (
     <div className="max-w-4xl mx-auto pb-20">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-slate-900 mb-2 flex items-center gap-3">
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-2 flex items-center gap-3">
           <Zap className="w-8 h-8 text-indigo-600" />
           Energy & MEP Calculators
         </h1>

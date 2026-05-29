@@ -651,12 +651,12 @@ export default function RoadEstimator() {
               style={{ minHeight: "360px" }}
             >
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
-              <div className="relative z-10 flex items-center justify-between mb-8 text-white">
+              <div className="relative z-10 flex items-center justify-between mb-8 text-slate-900 dark:text-white">
                 <h2 className="text-xl font-bold tracking-tight flex items-center gap-2">
                   <Layers className="w-5 h-5 text-amber-400" /> Cross-Section
                   Profile
                 </h2>
-                <div className="text-xs font-mono bg-white/10 px-3 py-1.5 rounded-lg border border-white/10">
+                <div className="text-xs font-mono bg-slate-50 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-100 dark:border-slate-800">
                   Camber: {c}% | Rise: {(riseAtCenter * 1000).toFixed(0)}mm
                 </div>
               </div>
@@ -913,7 +913,7 @@ export default function RoadEstimator() {
                     </div>
                     <div className="flex items-end justify-between">
                       <div className="flex items-end gap-2">
-                        <span className="text-xl font-black text-orange-600 leading-none">
+                        <span className="text-xl font-bold tabular-nums tracking-tight text-orange-600 leading-none">
                           {primeCoatVolume.toFixed(1)}
                         </span>
                         <span className="text-xs font-medium text-orange-400 mb-0.5">
@@ -936,7 +936,7 @@ export default function RoadEstimator() {
                     </div>
                     <div className="flex items-end justify-between">
                       <div className="flex items-end gap-2">
-                        <span className="text-xl font-black text-gray-800 leading-none">
+                        <span className="text-xl font-bold tabular-nums tracking-tight text-gray-800 leading-none">
                           {tackCoatVolume.toFixed(1)}
                         </span>
                         <span className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-0.5">
@@ -971,14 +971,14 @@ export default function RoadEstimator() {
                       const event = new CustomEvent('navigate-module', { detail: { moduleId: 'rates' } });
                       window.dispatchEvent(event);
                     }}
-                    className="shrink-0 text-xs font-bold px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors"
+                    className="shrink-0 text-xs font-bold px-4 py-2 bg-amber-600 hover:bg-amber-700 text-slate-900 dark:text-white rounded-lg transition-colors"
                   >
                     Set Live DB Rates
                   </button>
                 </div>
               )}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-sm mt-4">
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                <div className="bg-white/5 border border-slate-100 dark:border-slate-800 rounded-xl p-4">
                   <h4 className="font-semibold text-slate-400 mb-3 uppercase tracking-wider text-xs">
                     WBM Sub-components
                   </h4>
@@ -1007,7 +1007,7 @@ export default function RoadEstimator() {
                   </div>
                 </div>
                 
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                <div className="bg-white/5 border border-slate-100 dark:border-slate-800 rounded-xl p-4">
                   <h4 className="font-semibold text-slate-400 mb-3 uppercase tracking-wider text-xs">
                     Sub-base Material & Finances
                   </h4>

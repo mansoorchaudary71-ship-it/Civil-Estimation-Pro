@@ -550,7 +550,7 @@ export default function MasterQuantityEstimator({
         {!isEmbedded && (
           <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
             <div>
-              <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
+              <h1 className="text-3xl font-bold tabular-nums tracking-tight mb-2 flex items-center gap-3">
                 <Calculator className="w-8 h-8 text-indigo-600 dark:text-blue-400" />
                 Master Quantity Estimator
               </h1>
@@ -573,7 +573,7 @@ export default function MasterQuantityEstimator({
                 placeholder="Search tools..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-bg-card border border-border-color px-4 py-3 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 font-medium dark:text-white outline-none placeholder:text-slate-700 dark:text-slate-300"
+                className="w-full bg-bg-card border border-border-color px-4 py-3 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 font-medium dark:text-slate-900 dark:text-white outline-none placeholder:text-slate-700 dark:text-slate-300"
               />
               {searchTerm && (
                 <button

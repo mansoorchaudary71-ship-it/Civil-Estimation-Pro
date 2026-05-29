@@ -47,7 +47,7 @@ export default function VentilationChecker() {
                   <h4 className="font-bold flex items-center gap-2"><Sun className="w-4 h-4"/> Natural Lighting check</h4>
                   <p className="text-sm text-slate-600 mt-1">Required: {reqLightArea.toFixed(2)} m² (10% of floor area). Provided: {totalWindowArea.toFixed(2)} m²</p>
                </div>
-               <span className={`font-black \${isLightOk ? 'text-emerald-500' : 'text-rose-500'}`}>{isLightOk ? 'PASS' : 'FAIL'}</span>
+               <span className={`font-bold tabular-nums tracking-tight \${isLightOk ? 'text-emerald-500' : 'text-rose-500'}`}>{isLightOk ? 'PASS' : 'FAIL'}</span>
             </div>
 
             <div className={`p-4 rounded-xl border flex items-center justify-between \${isVentOk ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200' : 'bg-rose-50 dark:bg-rose-900/20 border-rose-200'}`}>
@@ -55,7 +55,7 @@ export default function VentilationChecker() {
                   <h4 className="font-bold flex items-center gap-2"><Wind className="w-4 h-4"/> Natural Ventilation check</h4>
                   <p className="text-sm text-slate-600 mt-1">Required openable: {reqVentArea.toFixed(2)} m² (5% of floor area). Provided: {ventArea.toFixed(2)} m²</p>
                </div>
-               <span className={`font-black \${isVentOk ? 'text-emerald-500' : 'text-rose-500'}`}>{isVentOk ? 'PASS' : 'FAIL'}</span>
+               <span className={`font-bold tabular-nums tracking-tight \${isVentOk ? 'text-emerald-500' : 'text-rose-500'}`}>{isVentOk ? 'PASS' : 'FAIL'}</span>
             </div>
          </div>
        </div>

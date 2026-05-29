@@ -153,7 +153,7 @@ export default function DirectShearTestCalculator() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
               <Layers className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
               Direct Shear Test
             </h2>
@@ -183,7 +183,7 @@ export default function DirectShearTestCalculator() {
               <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
               
               <div className="flex items-center justify-between mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
-                <h3 className="font-bold text-lg text-slate-800 dark:text-white">Sample Readings</h3>
+                <h3 className="font-bold text-lg text-slate-800 dark:text-slate-900 dark:text-white">Sample Readings</h3>
                 <button 
                   onClick={addRow}
                   className="flex items-center gap-1 text-xs font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition-colors border border-indigo-100"
@@ -207,7 +207,7 @@ export default function DirectShearTestCalculator() {
                           type="number"
                           value={row.normalStress}
                           onChange={(e) => handleDataChange(idx, "normalStress", e.target.value)}
-                          className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                          className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                         />
                       </div>
                       <div className="col-span-5 relative">
@@ -215,7 +215,7 @@ export default function DirectShearTestCalculator() {
                           type="number"
                           value={row.shearStress}
                           onChange={(e) => handleDataChange(idx, "shearStress", e.target.value)}
-                          className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                          className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                         />
                       </div>
                       <div className="col-span-2 flex justify-end">
@@ -284,7 +284,7 @@ export default function DirectShearTestCalculator() {
                     <div>
                       <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-1 block">Failure Envelope Eq.</span>
                       <div className="flex items-baseline gap-2">
-                        <span className="text-2xl font-black tracking-tight text-indigo-600 dark:text-indigo-400 font-mono">
+                        <span className="text-2xl font-bold tabular-nums tracking-tight tracking-tight text-indigo-600 dark:text-indigo-400 font-mono">
                           {estimateData.eq}
                         </span>
                       </div>
@@ -294,18 +294,18 @@ export default function DirectShearTestCalculator() {
                   <div className="grid grid-cols-2 gap-4 mb-8">
                     <div className="bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 p-5 rounded-2xl border border-indigo-100 dark:border-indigo-800/50 shadow-sm relative overflow-hidden text-center">
                       <span className="text-indigo-600/80 dark:text-indigo-400/80 text-xs font-bold uppercase tracking-widest block mb-2 relative z-10">Cohesion (c)</span>
-                      <div className="text-4xl font-black text-indigo-700 dark:text-indigo-300 relative z-10">{estimateData.cohesion.toFixed(2)}</div>
+                      <div className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-indigo-700 dark:text-indigo-300 relative z-10">{estimateData.cohesion.toFixed(2)}</div>
                       <span className="text-[10px] text-indigo-500/70 font-bold mt-1 block relative z-10">stress units</span>
                     </div>
                     <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 p-5 rounded-2xl border border-amber-100 dark:border-amber-800/50 shadow-sm relative overflow-hidden text-center">
                       <span className="text-amber-600/80 dark:text-amber-400/80 text-xs font-bold uppercase tracking-widest block mb-2 relative z-10">Friction Angle (φ)</span>
-                      <div className="text-4xl font-black text-amber-700 dark:text-amber-300 relative z-10">{estimateData.angleOfFriction.toFixed(1)}°</div>
+                      <div className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-amber-700 dark:text-amber-300 relative z-10">{estimateData.angleOfFriction.toFixed(1)}°</div>
                       <span className="text-[10px] text-amber-500/70 font-bold mt-1 block relative z-10">degrees</span>
                     </div>
                   </div>
                   
                   {/* Chart section */}
-                  <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-black/5 dark:border-white/10 shadow-sm h-[350px] w-full pt-6 mb-6">
+                  <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-black/5 dark:border-slate-100 dark:border-slate-800 shadow-sm h-[350px] w-full pt-6 mb-6">
                      <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4 text-center">Mohr-Coulomb Failure Envelope</h3>
                      <ResponsiveContainer width="100%" height="85%">
                        <ComposedChart>

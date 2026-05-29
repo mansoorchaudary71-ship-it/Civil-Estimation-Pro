@@ -83,7 +83,7 @@ export default function TopSoilFillCalculator() {
       <div className="mx-auto pt-4 md:pt-8 w-full">
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
               <Layers className="w-8 h-8 text-amber-600 dark:text-amber-400" />
               Top Soil & Fill Estimate
             </h2>
@@ -106,7 +106,7 @@ export default function TopSoilFillCalculator() {
               <div className="absolute top-0 left-0 w-1 h-full bg-amber-500"></div>
               
               <div className="flex items-center justify-between mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
-                <h3 className="font-bold text-lg text-slate-800 dark:text-white">Earthwork Area</h3>
+                <h3 className="font-bold text-lg text-slate-800 dark:text-slate-900 dark:text-white">Earthwork Area</h3>
               </div>
 
               <div className="grid grid-cols-2 gap-4 mb-6">
@@ -117,7 +117,7 @@ export default function TopSoilFillCalculator() {
                       type="number"
                       value={area}
                       onChange={(e) => { setArea(e.target.value); handleDataChange(); }}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-amber-500 transition-all font-semibold"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-amber-500 transition-all font-semibold"
                     />
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">{isMetric ? "sq m" : "sq ft"}</span>
                   </div>
@@ -129,7 +129,7 @@ export default function TopSoilFillCalculator() {
                       type="number"
                       value={depth}
                       onChange={(e) => { setDepth(e.target.value); handleDataChange(); }}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-amber-500 transition-all font-semibold"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-amber-500 transition-all font-semibold"
                     />
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">{isMetric ? "m" : "ft"}</span>
                   </div>
@@ -137,7 +137,7 @@ export default function TopSoilFillCalculator() {
               </div>
 
               <div className="flex items-center justify-between mb-6 border-b border-slate-100 dark:border-slate-800 pb-4 mt-8">
-                <h3 className="font-bold text-lg text-slate-800 dark:text-white">Material & Transport</h3>
+                <h3 className="font-bold text-lg text-slate-800 dark:text-slate-900 dark:text-white">Material & Transport</h3>
               </div>
 
               <div className="mb-4">
@@ -148,7 +148,7 @@ export default function TopSoilFillCalculator() {
                     setSelectedSoilIndex(parseInt(e.target.value));
                     handleDataChange();
                   }}
-                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-amber-500 transition-all font-semibold appearance-none"
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-amber-500 transition-all font-semibold appearance-none"
                 >
                   {soilTypes.map((t, idx) => (
                     <option key={idx} value={idx}>{t.name} (×{t.factor})</option>
@@ -167,7 +167,7 @@ export default function TopSoilFillCalculator() {
                       step="0.01"
                       value={customFactor}
                       onChange={(e) => { setCustomFactor(e.target.value); handleDataChange(); }}
-                      className="flex-1 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-amber-500"
+                      className="flex-1 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-amber-500"
                     />
                   </div>
                 </div>
@@ -181,7 +181,7 @@ export default function TopSoilFillCalculator() {
                     type="number"
                     value={truckCapacity}
                     onChange={(e) => { setTruckCapacity(e.target.value); handleDataChange(); }}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl pl-10 pr-4 py-3 font-mono text-sm focus:ring-2 focus:ring-amber-500 transition-all font-semibold"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl pl-10 pr-4 py-3 font-mono text-sm focus:ring-2 focus:ring-amber-500 transition-all font-semibold"
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-[10px] font-bold uppercase tracking-widest">{isMetric ? "cu m" : "cu ft"}</span>
                 </div>
@@ -190,7 +190,7 @@ export default function TopSoilFillCalculator() {
               <button
                 onClick={() => processEstimate(() => {})}
                 disabled={isProcessing}
-                className="w-full mt-6 bg-amber-600 hover:bg-amber-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-md shadow-amber-200 dark:shadow-none transition-all flex justify-center items-center gap-2 group border border-amber-500"
+                className="w-full mt-6 bg-amber-600 hover:bg-amber-700 text-slate-900 dark:text-white font-bold py-3.5 px-6 rounded-xl shadow-md shadow-amber-200 dark:shadow-none transition-all flex justify-center items-center gap-2 group border border-amber-500"
               >
                 {isProcessing ? "Calculating..." : "Calculate Loose Volume"}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -231,7 +231,7 @@ export default function TopSoilFillCalculator() {
                     <div>
                       <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-1 block">Truck Loads Required</span>
                       <div className="flex items-baseline gap-2">
-                        <span className="text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+                        <span className="text-4xl md:text-5xl font-semibold tabular-nums tracking-tight tracking-tight text-slate-900 dark:text-slate-900 dark:text-white">
                           {estimateData.truckLoads}
                         </span>
                         <span className="text-slate-500 text-lg font-bold">trips</span>
@@ -245,7 +245,7 @@ export default function TopSoilFillCalculator() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                     <div className="bg-amber-50 dark:bg-amber-900/20 p-5 rounded-2xl border border-amber-100 dark:border-amber-800/50 relative overflow-hidden">
                       <span className="text-amber-600/80 dark:text-amber-400/80 text-xs font-bold uppercase tracking-widest block mb-2 relative z-10 w-full">Loose Volume</span>
-                      <div className="text-4xl font-black text-amber-700 dark:text-amber-300 relative z-10 flex items-baseline gap-1">
+                      <div className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-amber-700 dark:text-amber-300 relative z-10 flex items-baseline gap-1">
                         {estimateData.looseVolume.toLocaleString(undefined, {maximumFractionDigits: 1})}
                         <span className="text-lg font-bold">{estimateData.volumeUnit}</span>
                       </div>
@@ -254,7 +254,7 @@ export default function TopSoilFillCalculator() {
                     
                     <div className="bg-slate-50 dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 relative overflow-hidden">
                       <span className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-widest block mb-2 relative z-10 w-full">Bank Volume</span>
-                      <div className="text-4xl font-black text-slate-700 dark:text-slate-300 relative z-10 flex items-baseline gap-1">
+                      <div className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-slate-700 dark:text-slate-300 relative z-10 flex items-baseline gap-1">
                         {estimateData.bankVolume.toLocaleString(undefined, {maximumFractionDigits: 1})}
                         <span className="text-lg font-bold">{estimateData.volumeUnit}</span>
                       </div>
@@ -267,15 +267,15 @@ export default function TopSoilFillCalculator() {
                   <div className="space-y-3 mb-6">
                      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl flex justify-between items-center group hover:border-amber-200 dark:hover:border-amber-800/60 transition-colors">
                        <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold">Expansion Amount</span>
-                       <span className="text-sm font-black text-slate-800 dark:text-slate-200 font-mono">+{(estimateData.looseVolume - estimateData.bankVolume).toFixed(1)} {estimateData.volumeUnit}</span>
+                       <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200 font-mono">+{(estimateData.looseVolume - estimateData.bankVolume).toFixed(1)} {estimateData.volumeUnit}</span>
                      </div>
                      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl flex justify-between items-center group hover:border-amber-200 dark:hover:border-amber-800/60 transition-colors">
                        <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold">Swell Factor</span>
-                       <span className="text-sm font-black text-slate-800 dark:text-slate-200 font-mono">{(estimateData.factor * 100 - 100).toFixed(0)}% ({estimateData.factor}x)</span>
+                       <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200 font-mono">{(estimateData.factor * 100 - 100).toFixed(0)}% ({estimateData.factor}x)</span>
                      </div>
                      <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-4 rounded-xl flex justify-between items-center">
                        <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold">Est. Trucks (Capacity {estimateData.capacity} {estimateData.volumeUnit})</span>
-                       <span className="text-sm font-black text-slate-800 dark:text-slate-200 font-mono">{estimateData.truckLoads} Loads</span>
+                       <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200 font-mono">{estimateData.truckLoads} Loads</span>
                      </div>
                   </div>
                 </div>

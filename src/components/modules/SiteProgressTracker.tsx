@@ -232,7 +232,7 @@ export default function SiteProgressTracker() {
     <div className="w-full max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500 pb-[120px]">
        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm">
          <div>
-           <h2 className="text-3xl font-black text-slate-800 dark:text-white tracking-tight flex items-center gap-3">
+           <h2 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
               <div className="p-3 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-2xl">
                 <BarChartIcon className="w-8 h-8" />
               </div>
@@ -271,7 +271,7 @@ export default function SiteProgressTracker() {
                    <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-50 dark:bg-emerald-500/5 rounded-full blur-[30px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
                    <p className="text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wider mb-2 relative z-10">Overall Progress</p>
                    <div className="flex items-end gap-2 relative z-10">
-                     <h3 className="text-4xl font-black text-slate-800 dark:text-white leading-none">{metrics.overallProgress.toFixed(1)}<span className="text-2xl text-slate-400">%</span></h3>
+                     <h3 className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white leading-none">{metrics.overallProgress.toFixed(1)}<span className="text-2xl text-slate-400">%</span></h3>
                    </div>
                    <div className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full mt-4 overflow-hidden relative z-10 border border-slate-200 dark:border-slate-700">
                       <div className="h-full bg-emerald-500 rounded-full transition-all duration-1000" style={{ width: `${metrics.overallProgress}%` }}></div>
@@ -281,7 +281,7 @@ export default function SiteProgressTracker() {
                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm relative overflow-hidden flex flex-col justify-center">
                    <p className="text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wider mb-2 relative z-10">Cost & Burn</p>
                    <div className="flex items-end gap-2 relative z-10">
-                     <h3 className="text-3xl font-black text-slate-800 dark:text-white leading-none">${(metrics.totalCost / 1000).toFixed(1)}k</h3>
+                     <h3 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white leading-none">${(metrics.totalCost / 1000).toFixed(1)}k</h3>
                      <span className="text-sm font-bold text-slate-500 mb-1">/ ${(metrics.totalBudget / 1000).toFixed(1)}k</span>
                    </div>
                    <p className={`text-xs font-bold mt-3 relative z-10 ${metrics.totalCost > metrics.totalBudget ? 'text-rose-500' : 'text-emerald-500'}`}>
@@ -292,11 +292,11 @@ export default function SiteProgressTracker() {
                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm relative overflow-hidden flex flex-col justify-center">
                    <p className="text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wider mb-2 relative z-10">Schedule Status <span className="text-indigo-500 ml-1">(SPI: {metrics.SPI.toFixed(2)})</span></p>
                    {metrics.daysAheadBehind > 0 ? (
-                      <h3 className="text-3xl font-black text-emerald-500 leading-none">{metrics.daysAheadBehind} <span className="text-lg text-emerald-600/50">Days Ahead</span></h3>
+                      <h3 className="text-3xl font-bold tabular-nums tracking-tight text-emerald-500 leading-none">{metrics.daysAheadBehind} <span className="text-lg text-emerald-600/50">Days Ahead</span></h3>
                    ) : metrics.daysAheadBehind < 0 ? (
-                      <h3 className={`text-3xl font-black ${Math.abs(metrics.daysAheadBehind) <= 7 ? 'text-amber-500' : 'text-rose-500'} leading-none`}>{Math.abs(metrics.daysAheadBehind)} <span className="text-lg opacity-50">Days Behind</span></h3>
+                      <h3 className={`text-3xl font-bold tabular-nums tracking-tight ${Math.abs(metrics.daysAheadBehind) <= 7 ? 'text-amber-500' : 'text-rose-500'} leading-none`}>{Math.abs(metrics.daysAheadBehind)} <span className="text-lg opacity-50">Days Behind</span></h3>
                    ) : (
-                      <h3 className="text-3xl font-black text-slate-500 leading-none">On Track</h3>
+                      <h3 className="text-3xl font-bold tabular-nums tracking-tight text-slate-500 leading-none">On Track</h3>
                    )}
                    <p className="text-xs font-bold mt-3 relative z-10 text-slate-400">Based on expected % vs actual %</p>
                 </div>
@@ -318,7 +318,7 @@ export default function SiteProgressTracker() {
              {/* S-Curve & Histograms Grid */}
              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm p-6 overflow-hidden">
-                   <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-6">S-Curve (Planned vs Actual Value)</h3>
+                   <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white mb-6">S-Curve (Planned vs Actual Value)</h3>
                    <div className="h-64 w-full" id="s-curve-chart">
                       <ResponsiveContainer width="100%" height="100%">
                         <AreaChart data={chartData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
@@ -347,7 +347,7 @@ export default function SiteProgressTracker() {
                 </div>
 
                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm p-6 overflow-hidden">
-                   <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-6">Resource Allocation</h3>
+                   <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white mb-6">Resource Allocation</h3>
                    <div className="h-64 w-full" id="resource-histogram">
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={chartData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
@@ -366,7 +366,7 @@ export default function SiteProgressTracker() {
 
              {/* Dynamic CSS Gantt Chart */}
              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm overflow-hidden p-6">
-                <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-6">Execution Timeline</h3>
+                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white mb-6">Execution Timeline</h3>
                 
                 <div className="relative">
                    {/* Grid lines */}
@@ -388,7 +388,7 @@ export default function SiteProgressTracker() {
 
                          return (
                             <div key={phase.id} className="flex items-center gap-4 group cursor-pointer" onClick={() => setSelectedPhase(phase.id)}>
-                               <div className={`w-32 truncate text-sm font-bold text-right transition-colors ${isSelected ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white'}`}>
+                               <div className={`w-32 truncate text-sm font-bold text-right transition-colors ${isSelected ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-900 dark:text-white'}`}>
                                   {phase.name}
                                </div>
                                <div className="flex-1 h-10 relative bg-slate-50/50 dark:bg-slate-800/30 rounded-xl border border-transparent group-hover:border-slate-200 dark:group-hover:border-slate-700 transition">
@@ -418,7 +418,7 @@ export default function SiteProgressTracker() {
              {activePhase ? (
                 <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] shadow-sm sticky top-6">
                    <div className="flex justify-between items-center mb-6">
-                      <h3 className="font-bold text-xl text-slate-800 dark:text-white">{activePhase.name}</h3>
+                      <h3 className="font-bold text-xl text-slate-800 dark:text-slate-900 dark:text-white">{activePhase.name}</h3>
                       <button onClick={() => setSelectedPhase(null)} className="text-slate-400 hover:text-slate-600"><ChevronRight className="w-5 h-5 rotate-180" /></button>
                    </div>
                    
@@ -433,7 +433,7 @@ export default function SiteProgressTracker() {
                             className="w-full accent-indigo-600"
                             disabled={isClientDemo}
                          />
-                         <div className="text-right mt-1 font-black text-indigo-600 dark:text-indigo-400">{activePhase.progress}%</div>
+                         <div className="text-right mt-1 font-bold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400">{activePhase.progress}%</div>
                       </div>
 
                       <div className="grid grid-cols-2 gap-3">
@@ -535,7 +535,7 @@ export default function SiteProgressTracker() {
                                            newPhotos.splice(idx, 1);
                                            handleUpdatePhase(activePhase.id, 'photos', newPhotos);
                                         }}
-                                        className="absolute top-2 right-2 p-1.5 bg-black/50 text-white rounded-lg opacity-0 group-hover:opacity-100 transition"
+                                        className="absolute top-2 right-2 p-1.5 bg-black/50 text-slate-900 dark:text-white rounded-lg opacity-0 group-hover:opacity-100 transition"
                                      >
                                         <Trash2 className="w-3 h-3" />
                                      </button>

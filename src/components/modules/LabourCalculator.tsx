@@ -129,7 +129,7 @@ export default function LabourCalculator() {
       <div className="max-w-6xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-black mb-2 flex items-center gap-3 text-text-primary">
+            <h1 className="text-3xl font-bold tabular-nums tracking-tight mb-2 flex items-center gap-3 text-text-primary">
               <Users className="w-8 h-8 text-[#E55A2B] dark:text-[#ff8a65]" />
               Labour & Workforce Estimator
             </h1>
@@ -140,7 +140,7 @@ export default function LabourCalculator() {
           <div className="flex gap-4 items-center">
             <button 
               onClick={handleExportPDF}
-              className="flex items-center gap-2 px-4 py-2 bg-slate-800 dark:bg-slate-700 text-white rounded-xl shadow hover:bg-slate-700 dark:hover:bg-slate-600 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-slate-800 dark:bg-slate-700 text-slate-900 dark:text-white rounded-xl shadow hover:bg-slate-700 dark:hover:bg-slate-600 transition-colors"
             >
               <Download className="w-4 h-4" /> Export Bill
             </button>
@@ -252,7 +252,7 @@ export default function LabourCalculator() {
                         
                         <div className="col-span-2 md:col-span-4 lg:col-span-1 flex flex-col justify-end pb-1 lg:items-end">
                            <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1 lg:hidden">Item Total</div>
-                           <div className="text-lg font-black text-indigo-600 dark:text-indigo-400">
+                           <div className="text-lg font-bold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400">
                              {formatCurrency(itemCost)}
                            </div>
                         </div>
@@ -278,16 +278,16 @@ export default function LabourCalculator() {
 
           {/* Sidebar Summary */}
           <div className="space-y-6">
-            <div className="bg-slate-800 dark:bg-slate-900 rounded-3xl p-6 text-white shadow-lg border border-slate-700">
-              <h3 className="font-bold text-slate-400 uppercase tracking-wider text-xs mb-4">Overall Project Labour</h3>
+            <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+              <h3 className="font-bold text-slate-500 uppercase tracking-wider text-xs mb-4">Overall Project Labour</h3>
               
               <div className="space-y-5">
                 <div>
-                  <p className="text-3xl font-black">{formatCurrency(totalCost)}</p>
-                  <p className="text-sm text-slate-400 mt-1">Total Labour Estimate</p>
+                  <p className="text-3xl font-bold tabular-nums tracking-tight text-slate-900 dark:text-white">{formatCurrency(totalCost)}</p>
+                  <p className="text-sm text-slate-500 mt-1">Total Labour Estimate</p>
                 </div>
                 
-                <div className="w-full h-px bg-slate-700"></div>
+                <div className="w-full h-px bg-slate-100 dark:bg-slate-800"></div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>

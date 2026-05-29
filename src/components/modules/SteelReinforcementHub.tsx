@@ -28,7 +28,7 @@ export default function SteelReinforcementHub() {
     <div className="w-full h-full flex flex-col md:flex-row bg-slate-50 dark:bg-slate-900 overflow-hidden">
       {/* Sidebar for Sub-Navigation */}
       <div className="w-full md:w-64 flex-shrink-0 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col pt-6 px-4 gap-2">
-        <h2 className="text-xl font-black text-slate-800 dark:text-white px-2 mb-4">
+        <h2 className="text-xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white px-2 mb-4">
           Steel Hub
         </h2>
         
@@ -51,8 +51,8 @@ export default function SteelReinforcementHub() {
             onClick={() => setActiveTab(tab.id)}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all text-sm ${
               activeTab === tab.id
-                ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-md translate-x-1"
-                : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white"
+                ? "bg-slate-900 text-slate-900 dark:text-white dark:bg-white dark:text-slate-900 shadow-md translate-x-1"
+                : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-900 dark:text-white"
             }`}
           >
             <tab.icon className="w-5 h-5" />

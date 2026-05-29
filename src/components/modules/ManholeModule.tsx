@@ -326,7 +326,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
                   title="Wet Concrete Volume"
                   value={totalWetConcrete.toFixed(2)}
                   unit="m³"
-                  icon={<Droplets className="w-4 h-4 text-white" />}
+                  icon={<Droplets className="w-4 h-4 text-slate-900 dark:text-white" />}
                   description="Base + Wall + Slab"
                   variant="primary"
                 />

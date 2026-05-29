@@ -117,7 +117,7 @@ export default function Blog() {
               </div>
             </div>
 
-            <h1 className="text-3xl md:text-5xl font-extrabold text-text-primary mb-6 leading-tight">
+            <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-text-primary mb-6 leading-tight">
               {selectedPost.title}
             </h1>
 
@@ -148,7 +148,7 @@ export default function Blog() {
         description="Insights, updates, and engineering tutorials from our experts." 
       />
       <div className="text-center space-y-4">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-text-primary tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-text-primary tracking-tight">
           Civil Estimation Pro Blog
         </h1>
         <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">

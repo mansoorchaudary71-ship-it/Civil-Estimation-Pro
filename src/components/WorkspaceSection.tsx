@@ -173,7 +173,7 @@ export default function WorkspaceSection({
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
         <div>
           <h2
-            className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3"
+            className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 tracking-tight flex items-center gap-3"
             style={{ fontFamily: '"Clash Display", sans-serif' }}
           >
             {greeting}, {user.displayName?.split(" ")[0] || "Engineer"}.
@@ -193,7 +193,7 @@ export default function WorkspaceSection({
               <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                 Calculations
               </div>
-              <div className="text-lg font-black text-slate-900 mt-0.5">
+              <div className="text-lg font-bold tabular-nums tracking-tight text-slate-900 mt-0.5">
                 <CountUp start={0} end={42} duration={2} /> <span className="text-sm font-medium text-slate-500">this month</span>
               </div>
             </div>
@@ -206,7 +206,7 @@ export default function WorkspaceSection({
               <div className="text-xs font-bold text-indigo-400 uppercase tracking-wider">
                 Time Saved
               </div>
-              <div className="text-lg font-black text-indigo-900 mt-0.5">
+              <div className="text-lg font-bold tabular-nums tracking-tight text-indigo-900 mt-0.5">
                 <CountUp start={0} end={14.5} decimals={1} duration={2.5} /> <span className="text-sm font-medium text-indigo-700">hrs</span>
               </div>
             </div>
@@ -219,7 +219,7 @@ export default function WorkspaceSection({
                <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                  Current Streak
                </div>
-               <div className="text-lg font-black text-white mt-0.5">
+               <div className="text-lg font-bold tabular-nums tracking-tight text-white mt-0.5">
                  <CountUp start={0} end={7} duration={1.5} /> <span className="text-sm font-medium text-slate-400">days</span>
                </div>
              </div>

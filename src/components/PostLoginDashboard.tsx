@@ -87,7 +87,7 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
         <div className="flex flex-col items-center text-center gap-4 bg-white/70 backdrop-blur-3xl border border-white/40 rounded-[40px] p-6 sm:p-8 md:p-12 shadow-md hover:shadow-xl transition-shadow relative group w-full box-border">
           <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/10 pointer-events-none rounded-[40px]"></div>
           <div className="z-10 relative flex flex-col items-center">
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-black text-[var(--primary-dark)] dark:text-white tracking-tight mb-3">
+            <h1 className="text-2xl md:text-3xl lg:text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-[var(--primary-dark)] dark:text-white tracking-tight mb-3">
               Welcome back{user?.displayName ? `, ${user.displayName.split(' ')[0]}` : ''}
             </h1>
             <p className="text-slate-500 dark:text-slate-400 font-medium text-sm md:text-base max-w-xl mx-auto leading-relaxed">

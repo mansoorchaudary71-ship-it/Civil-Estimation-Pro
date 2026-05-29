@@ -98,7 +98,7 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
       <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h2 className="text-2xl font-black text-slate-800 dark:text-slate-100 uppercase tracking-tight flex items-center gap-3">
+            <h2 className="text-2xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-100 uppercase tracking-tight flex items-center gap-3">
               <Calculator className="w-8 h-8 text-blue-600" />
               Quick Rough Estimation
             </h2>
@@ -131,8 +131,8 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
               <label className="flex items-center justify-between text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                 <span>Total Area</span>
                 <div className="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-0.5">
-                  <button onClick={() => setAreaUnit("marla")} className={`px-2 py-1 space-x-1 rounded-md text-xs font-bold transition-all ${areaUnit === "marla" ? 'bg-white dark:bg-slate-700 shadow-sm text-slate-800 dark:text-white' : 'text-slate-500'}`}>Marla</button>
-                  <button onClick={() => setAreaUnit("sqft")} className={`px-2 py-1 rounded-md text-xs font-bold transition-all ${areaUnit === "sqft" ? 'bg-white dark:bg-slate-700 shadow-sm text-slate-800 dark:text-white' : 'text-slate-500'}`}>Sq.ft</button>
+                  <button onClick={() => setAreaUnit("marla")} className={`px-2 py-1 space-x-1 rounded-md text-xs font-bold transition-all ${areaUnit === "marla" ? 'bg-white dark:bg-slate-700 shadow-sm text-slate-800 dark:text-slate-900 dark:text-white' : 'text-slate-500'}`}>Marla</button>
+                  <button onClick={() => setAreaUnit("sqft")} className={`px-2 py-1 rounded-md text-xs font-bold transition-all ${areaUnit === "sqft" ? 'bg-white dark:bg-slate-700 shadow-sm text-slate-800 dark:text-slate-900 dark:text-white' : 'text-slate-500'}`}>Sq.ft</button>
                 </div>
               </label>
               <div className="relative">
@@ -214,37 +214,37 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
           {results ? (
             <>
               {/* Grand Total Highlight */}
-              <div className="bg-gradient-to-br from-indigo-900 to-blue-900 p-8 rounded-3xl shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
+              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-3xl shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
                   <Calculator className="w-48 h-48" />
                 </div>
                 
                 <div className="relative z-10">
-                  <h3 className="text-indigo-200 font-semibold mb-2 uppercase tracking-wide text-sm">Estimated Project Budget Range</h3>
-                  <div className="flex items-baseline gap-2 text-white">
+                  <h3 className="text-slate-500 dark:text-slate-400 font-bold mb-2 uppercase tracking-widest text-sm">Estimated Project Budget Range</h3>
+                  <div className="flex items-baseline gap-2 text-slate-900 dark:text-white">
                     <span className="text-3xl font-medium opacity-80">{settings.currency}</span>
-                    <span className="text-4xl lg:text-5xl font-black tracking-tight">
+                    <span className="text-4xl lg:text-4xl md:text-5xl font-semibold tabular-nums tracking-tight tracking-tight">
                       {results.minCost.toLocaleString(undefined, { maximumFractionDigits: 0 })}
                     </span>
                     <span className="text-xl font-bold opacity-80 px-2">—</span>
-                    <span className="text-4xl lg:text-5xl font-black tracking-tight">
+                    <span className="text-4xl lg:text-4xl md:text-5xl font-semibold tabular-nums tracking-tight tracking-tight">
                       {results.maxCost.toLocaleString(undefined, { maximumFractionDigits: 0 })}
                     </span>
                   </div>
                   <div className="flex flex-wrap items-center gap-4 mt-4 text-sm font-medium">
-                    <div className="bg-white/10 px-3 py-1.5 rounded-lg text-indigo-100">
+                    <div className="bg-slate-50 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400">
                       Total: {totalSqft.toLocaleString()} sq.ft
                     </div>
-                    <div className="bg-white/10 px-3 py-1.5 rounded-lg text-indigo-100">
+                    <div className="bg-slate-50 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400">
                       {settings.currency} {results.costPerSqft.toLocaleString(undefined, { maximumFractionDigits: 0 })} / sq.ft
                     </div>
                   </div>
                 </div>
 
-                <div className="relative z-10 bg-white/10 backdrop-blur-sm p-4 rounded-2xl flex items-center gap-4 text-white border border-white/10">
-                  <div className="bg-indigo-500/50 p-3 rounded-full"><Clock className="w-6 h-6" /></div>
+                <div className="relative z-10 bg-slate-50 dark:bg-slate-800/50 backdrop-blur-sm p-4 rounded-2xl flex items-center gap-4 text-slate-900 dark:text-white border border-slate-100 dark:border-slate-800">
+                  <div className="bg-indigo-100 dark:bg-indigo-500/20 p-3 rounded-full text-indigo-600 dark:text-indigo-400"><Clock className="w-6 h-6" /></div>
                   <div>
-                    <div className="text-xs text-indigo-200 uppercase tracking-wider font-semibold">Rough Timeline</div>
+                    <div className="text-xs text-indigo-600 dark:text-indigo-400 uppercase tracking-wider font-semibold">Rough Timeline</div>
                     <div className="text-xl font-bold">{results.timeline}</div>
                   </div>
                 </div>
@@ -283,20 +283,20 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
                   <div className="space-y-4">
                     <div className="flex justify-between items-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50">
                       <div className="flex items-center gap-3"><div className="w-3 h-3 rounded-full bg-slate-800" /> <span className="font-semibold text-slate-700 dark:text-slate-300">Steel / Rebar</span></div>
-                      <div className="font-bold text-slate-900 dark:text-white">{formatCurrency(results.steelCost)}</div>
+                      <div className="font-bold text-slate-900 dark:text-slate-900 dark:text-white">{formatCurrency(results.steelCost)}</div>
                     </div>
                     <div className="flex justify-between items-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50">
                       <div className="flex items-center gap-3"><div className="w-3 h-3 rounded-full bg-slate-400" /> <span className="font-semibold text-slate-700 dark:text-slate-300">Cement</span></div>
-                      <div className="font-bold text-slate-900 dark:text-white">{formatCurrency(results.cementCost)}</div>
+                      <div className="font-bold text-slate-900 dark:text-slate-900 dark:text-white">{formatCurrency(results.cementCost)}</div>
                     </div>
                     <div className="flex justify-between items-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50">
                       <div className="flex items-center gap-3"><div className="w-3 h-3 rounded-full bg-orange-600" /> <span className="font-semibold text-slate-700 dark:text-slate-300">Bricks / Blocks</span></div>
-                      <div className="font-bold text-slate-900 dark:text-white">{formatCurrency(results.bricksCost)}</div>
+                      <div className="font-bold text-slate-900 dark:text-slate-900 dark:text-white">{formatCurrency(results.bricksCost)}</div>
                     </div>
                     {constType !== "grey" && (
                       <div className="flex justify-between items-center p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50">
                         <div className="flex items-center gap-3"><div className="w-3 h-3 rounded-full bg-blue-500" /> <span className="font-semibold text-slate-700 dark:text-slate-300">Tiles, Paint & Finishes</span></div>
-                        <div className="font-bold text-slate-900 dark:text-white">{formatCurrency(results.tilesPaintCost)}</div>
+                        <div className="font-bold text-slate-900 dark:text-slate-900 dark:text-white">{formatCurrency(results.tilesPaintCost)}</div>
                       </div>
                     )}
                   </div>

@@ -18,7 +18,7 @@ export default function HouseSpecs() {
     <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         <header className="mb-10">
-          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r   bg-clip-text text-transparent pb-2">
+          <h1 className="text-4xl lg:text-5xl font-bold tracking-tight tracking-tight bg-gradient-to-r   bg-clip-text text-transparent pb-2">
             Material Specs & Finishing
           </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-2 text-lg font-medium">

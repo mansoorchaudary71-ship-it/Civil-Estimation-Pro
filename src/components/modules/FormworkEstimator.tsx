@@ -152,7 +152,7 @@ export default function FormworkEstimator() {
         {" "}
         <header className="mb-10">
           {" "}
-          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-amber-600 to-rose-600 bg-clip-text text-transparent pb-2">
+          <h1 className="text-4xl lg:text-5xl font-bold tracking-tight tracking-tight bg-gradient-to-r from-amber-600 to-rose-600 bg-clip-text text-transparent pb-2">
             {" "}
             Formwork & Scaffolding{" "}
           </h1>{" "}
@@ -192,7 +192,7 @@ export default function FormworkEstimator() {
                 </div>{" "}
                 <button
                   onClick={addElement}
-                  className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-amber-500/30 transition-all hover:scale-105 active:scale-95"
+                  className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 dark:text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-amber-500/30 transition-all hover:scale-105 active:scale-95"
                 >
                   {" "}
                   <Plus className="w-4 h-4" /> Add Item{" "}
@@ -304,7 +304,7 @@ export default function FormworkEstimator() {
                     </div>{" "}
                     <button
                       onClick={() => removeElement(el.id)}
-                      className="w-10 h-10 flex items-center justify-center bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white rounded-xl transition-colors ml-auto md:ml-0 self-end md:self-center"
+                      className="w-10 h-10 flex items-center justify-center bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-slate-900 dark:text-white rounded-xl transition-colors ml-auto md:ml-0 self-end md:self-center"
                     >
                       {" "}
                       <Trash2 className="w-4 h-4" />{" "}
@@ -343,7 +343,7 @@ export default function FormworkEstimator() {
                   <button
                     key={factor}
                     onClick={() => setRepetitionFactor(factor)}
-                    className={`w-12 h-12 rounded-2xl font-black transition-all ${repetitionFactor === factor ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200"}`}
+                    className={`w-12 h-12 rounded-2xl font-bold tabular-nums tracking-tight transition-all ${repetitionFactor === factor ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200"}`}
                   >
                     {" "}
                     x{factor}{" "}
@@ -383,8 +383,8 @@ export default function FormworkEstimator() {
                 />
               </div>
 
-              <div className="mt-8 pt-6 border-t border-slate-200/50 dark:border-white/10">
-                  <div className="mb-4 text-[10px] sm:text-xs font-extrabold text-slate-500 dark:text-white/50 uppercase tracking-[0.15em]">
+              <div className="mt-8 pt-6 border-t border-slate-200/50 dark:border-slate-100 dark:border-slate-800">
+                  <div className="mb-4 text-[10px] sm:text-xs font-bold tracking-tight text-slate-500 dark:text-slate-400 dark:text-slate-500 uppercase tracking-[0.15em]">
                     Area Breakdown
                   </div>{" "}
                   <div className="h-48 w-full relative">

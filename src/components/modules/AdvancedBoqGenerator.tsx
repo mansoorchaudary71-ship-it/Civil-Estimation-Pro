@@ -177,7 +177,7 @@ export default function AdvancedBoqGenerator() {
       <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${step === num ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/30' : 'bg-slate-200 dark:bg-slate-800 text-slate-500'}`}>
         {num}
       </div>
-      <span className={`font-semibold hidden md:block ${step === num ? 'text-slate-800 dark:text-white' : 'text-slate-500'}`}>{title}</span>
+      <span className={`font-semibold hidden md:block ${step === num ? 'text-slate-800 dark:text-slate-900 dark:text-white' : 'text-slate-500'}`}>{title}</span>
     </div>
   );
 
@@ -280,7 +280,7 @@ export default function AdvancedBoqGenerator() {
 
         {step === 2 && (
           <div className="space-y-8 animate-in fade-in duration-300">
-            <h3 className="text-xl font-bold text-slate-800 dark:text-white border-b-2 border-purple-500 pb-2">Measurement Input</h3>
+            <h3 className="text-xl font-bold text-slate-800 dark:text-slate-900 dark:text-white border-b-2 border-purple-500 pb-2">Measurement Input</h3>
             
             {scopes.map(scope => (
               <div key={scope} className="bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
@@ -355,7 +355,7 @@ export default function AdvancedBoqGenerator() {
 
         {step === 3 && (
           <div className="space-y-8 animate-in fade-in duration-300">
-            <h3 className="text-xl font-bold text-slate-800 dark:text-white border-b-2 border-purple-500 pb-2">Rate Entry & Overrides</h3>
+            <h3 className="text-xl font-bold text-slate-800 dark:text-slate-900 dark:text-white border-b-2 border-purple-500 pb-2">Rate Entry & Overrides</h3>
             <p className="text-slate-500 dark:text-slate-400 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl text-sm border border-blue-100 dark:border-blue-800">
               Base rates have been auto-populated from Live DB. Review and override if necessary before generating final BOQ.
             </p>
@@ -427,7 +427,7 @@ export default function AdvancedBoqGenerator() {
               
               <div className="border-b-4 border-purple-800 pb-6 mb-8 flex justify-between items-end">
                 <div>
-                  <h1 className="text-3xl font-black text-purple-900 uppercase tracking-tight mb-2">Bill of Quantities</h1>
+                  <h1 className="text-3xl font-bold tabular-nums tracking-tight text-purple-900 uppercase tracking-tight mb-2">Bill of Quantities</h1>
                   <h2 className="text-xl font-semibold text-slate-700">{projectData.name}</h2>
                 </div>
                 <div className="text-right text-sm text-slate-500 space-y-1">
@@ -504,7 +504,7 @@ export default function AdvancedBoqGenerator() {
                   <div className="flex justify-between items-center mb-2 text-slate-600">
                     <span className="font-bold uppercase tracking-wider text-sm">Grand Total Amount</span>
                   </div>
-                  <div className="text-4xl font-black text-purple-900 tabular-nums flex justify-between items-center bg-purple-50 p-4 rounded-xl border border-purple-200">
+                  <div className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-purple-900 tabular-nums flex justify-between items-center bg-purple-50 p-4 rounded-xl border border-purple-200">
                     <span className="text-xl text-purple-600 font-bold">{settings.currency}</span>
                     {grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </div>

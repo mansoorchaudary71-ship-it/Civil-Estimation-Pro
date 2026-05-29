@@ -44,7 +44,7 @@ export default function LegalPages({ page, onNavigate }: LegalPageProps) {
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-blue-100/50 dark:bg-blue-900/30 text-indigo-600 dark:text-blue-400 mb-4 shadow-[0_8px_16px_-6px_rgba(37,99,235,0.2)]">
           <current.icon className="w-8 h-8" strokeWidth={1.5} />
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-text-primary tracking-tight">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-text-primary tracking-tight">
           {current.title}
         </h1>
         <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">

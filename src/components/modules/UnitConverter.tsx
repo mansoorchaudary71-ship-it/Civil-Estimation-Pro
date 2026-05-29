@@ -259,7 +259,7 @@ export default function UnitConverter() {
       {" "}
       <div className="max-w-6xl mx-auto">
         {" "}
-        <h1 className="text-3xl font-black mb-2 flex items-center gap-3">
+        <h1 className="text-3xl font-bold tabular-nums tracking-tight mb-2 flex items-center gap-3">
           {" "}
           <RefreshCcw className="w-8 h-8 text-fuchsia-500" /> Universal Unit
           Converter{" "}
@@ -306,14 +306,14 @@ export default function UnitConverter() {
                 type="number"
                 value={fromValue}
                 onChange={(e) => handleFromValueChange(e.target.value)}
-                className="w-full bg-transparent border-0 text-4xl sm:text-5xl font-black text-text-primary placeholder-slate-300 dark:placeholder-slate-700 focus:ring-0 focus:outline-none p-0 text-center whitespace-nowrap"
+                className="w-full bg-transparent border-0 text-4xl sm:text-4xl md:text-5xl font-semibold tabular-nums tracking-tight text-text-primary placeholder-slate-300 dark:placeholder-slate-700 focus:ring-0 focus:outline-none p-0 text-center whitespace-nowrap"
                 placeholder="0"
               />{" "}
             </div>{" "}
             {/* SWAP BUTTON */}{" "}
             <button
               onClick={handleSwap}
-              className="p-5 rounded-full bg-fuchsia-100 dark:bg-fuchsia-900/30 text-fuchsia-600 dark:text-fuchsia-400 hover:bg-fuchsia-600 hover:text-white dark:hover:bg-fuchsia-500 transition-all shadow-lg hover:rotate-180 duration-500 flex-shrink-0"
+              className="p-5 rounded-full bg-fuchsia-100 dark:bg-fuchsia-900/30 text-fuchsia-600 dark:text-fuchsia-400 hover:bg-fuchsia-600 hover:text-slate-900 dark:text-white dark:hover:bg-fuchsia-500 transition-all shadow-lg hover:rotate-180 duration-500 flex-shrink-0"
               title="Swap Units"
             >
               {" "}
@@ -338,7 +338,7 @@ export default function UnitConverter() {
                 ))}{" "}
               </select>{" "}
               <div
-                className="w-full overflow-hidden text-center text-4xl sm:text-5xl font-black text-text-primary py-2"
+                className="w-full overflow-hidden text-center text-4xl sm:text-4xl md:text-5xl font-semibold tabular-nums tracking-tight text-text-primary py-2"
                 style={{ minHeight: "60px" }}
               >
                 {" "}

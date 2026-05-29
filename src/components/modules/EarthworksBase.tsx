@@ -326,7 +326,7 @@ export default function StandardEarthworks() {
                       const event = new CustomEvent('navigate-module', { detail: { moduleId: 'rates' } });
                       window.dispatchEvent(event);
                     }}
-                    className="shrink-0 text-xs font-bold px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors"
+                    className="shrink-0 text-xs font-bold px-4 py-2 bg-amber-600 hover:bg-amber-700 text-slate-900 dark:text-white rounded-lg transition-colors"
                   >
                     Set Live DB Rates
                   </button>

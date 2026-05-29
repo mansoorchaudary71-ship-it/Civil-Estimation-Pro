@@ -77,7 +77,7 @@ export default function PermeabilityCalculator() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
               <Droplets className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
               Permeability Calculator
             </h2>
@@ -101,7 +101,7 @@ export default function PermeabilityCalculator() {
               <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
               
               <div className="flex items-center justify-between mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
-                <h3 className="font-bold text-lg text-slate-800 dark:text-white">Test Method</h3>
+                <h3 className="font-bold text-lg text-slate-800 dark:text-slate-900 dark:text-white">Test Method</h3>
                 
                 {/* Master UI Toggle */}
                 <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl w-[240px]">
@@ -135,7 +135,7 @@ export default function PermeabilityCalculator() {
                     type="number"
                     value={lengthSample}
                     onChange={(e) => setLengthSample(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                   />
                 </div>
                 <div>
@@ -144,7 +144,7 @@ export default function PermeabilityCalculator() {
                     type="number"
                     value={areaSample}
                     onChange={(e) => setAreaSample(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                   />
                 </div>
               </div>
@@ -158,7 +158,7 @@ export default function PermeabilityCalculator() {
                         type="number"
                         value={qVolume}
                         onChange={(e) => setQVolume(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                       />
                     </div>
                     <div>
@@ -167,7 +167,7 @@ export default function PermeabilityCalculator() {
                         type="number"
                         value={timeConstant}
                         onChange={(e) => setTimeConstant(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                       />
                     </div>
                   </div>
@@ -177,7 +177,7 @@ export default function PermeabilityCalculator() {
                       type="number"
                       value={constantHead}
                       onChange={(e) => setConstantHead(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                     />
                   </div>
                 </div>
@@ -190,7 +190,7 @@ export default function PermeabilityCalculator() {
                         type="number"
                         value={areaStandpipe}
                         onChange={(e) => setAreaStandpipe(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                       />
                     </div>
                     <div>
@@ -199,7 +199,7 @@ export default function PermeabilityCalculator() {
                         type="number"
                         value={timeFalling}
                         onChange={(e) => setTimeFalling(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                       />
                     </div>
                   </div>
@@ -210,7 +210,7 @@ export default function PermeabilityCalculator() {
                         type="number"
                         value={headInitial}
                         onChange={(e) => setHeadInitial(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                       />
                     </div>
                     <div>
@@ -219,7 +219,7 @@ export default function PermeabilityCalculator() {
                         type="number"
                         value={headFinal}
                         onChange={(e) => setHeadFinal(e.target.value)}
-                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                        className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                       />
                     </div>
                   </div>
@@ -284,7 +284,7 @@ export default function PermeabilityCalculator() {
                     <div>
                       <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-1 block">Permeability Coefficient (k)</span>
                       <div className="flex items-baseline gap-2">
-                        <span className="text-5xl font-black tracking-tight text-indigo-600 dark:text-indigo-400">
+                        <span className="text-4xl md:text-5xl font-semibold tabular-nums tracking-tight tracking-tight text-indigo-600 dark:text-indigo-400">
                           {estimateData.k.toExponential(3)}
                         </span>
                         <span className="text-lg font-bold text-slate-400">cm/s</span>
@@ -292,10 +292,10 @@ export default function PermeabilityCalculator() {
                     </div>
                   </div>
 
-                  <div className="bg-slate-50 dark:bg-slate-800 rounded-2xl border border-black/5 dark:border-white/10 shadow-sm p-5 flex items-center justify-between mb-8">
+                  <div className="bg-slate-50 dark:bg-slate-800 rounded-2xl border border-black/5 dark:border-slate-100 dark:border-slate-800 shadow-sm p-5 flex items-center justify-between mb-8">
                      <div>
                        <span className="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-1">Soil Classification</span>
-                       <span className="text-lg font-black text-slate-800 dark:text-white">{estimateData.soilClass}</span>
+                       <span className="text-lg font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.soilClass}</span>
                      </div>
                      <Droplets className="w-8 h-8 text-slate-300 dark:text-slate-700" />
                   </div>
@@ -305,45 +305,45 @@ export default function PermeabilityCalculator() {
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
                      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                        <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Method</span>
-                       <span className="text-sm font-black text-slate-800 dark:text-slate-200">{estimateData.method === 'constant' ? 'Constant Head' : 'Falling Head'}</span>
+                       <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{estimateData.method === 'constant' ? 'Constant Head' : 'Falling Head'}</span>
                      </div>
                      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                        <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Length (L)</span>
-                       <span className="text-sm font-black text-slate-800 dark:text-slate-200">{lengthSample || "0"} cm</span>
+                       <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{lengthSample || "0"} cm</span>
                      </div>
                      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                        <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Sample Area (A)</span>
-                       <span className="text-sm font-black text-slate-800 dark:text-slate-200">{areaSample || "0"} cm²</span>
+                       <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{areaSample || "0"} cm²</span>
                      </div>
                      
                      {estimateData.method === 'constant' ? (
                         <>
                           <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                             <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Q Volume</span>
-                            <span className="text-sm font-black text-slate-800 dark:text-slate-200">{qVolume || "0"} cm³</span>
+                            <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{qVolume || "0"} cm³</span>
                           </div>
                           <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                             <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Const. Head (h)</span>
-                            <span className="text-sm font-black text-slate-800 dark:text-slate-200">{constantHead || "0"} cm</span>
+                            <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{constantHead || "0"} cm</span>
                           </div>
                           <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                             <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Time (t)</span>
-                            <span className="text-sm font-black text-slate-800 dark:text-slate-200">{timeConstant || "0"} sec</span>
+                            <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{timeConstant || "0"} sec</span>
                           </div>
                         </>
                      ) : (
                         <>
                           <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                             <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Standpipe Area (a)</span>
-                            <span className="text-sm font-black text-slate-800 dark:text-slate-200">{areaStandpipe || "0"} cm²</span>
+                            <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{areaStandpipe || "0"} cm²</span>
                           </div>
                           <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                             <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Heads (h1, h2)</span>
-                            <span className="text-sm font-black text-slate-800 dark:text-slate-200">{headInitial || "0"} / {headFinal || "0"} cm</span>
+                            <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{headInitial || "0"} / {headFinal || "0"} cm</span>
                           </div>
                           <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
                             <span className="text-[10px] uppercase tracking-wider text-slate-500 font-bold block mb-1">Time (t)</span>
-                            <span className="text-sm font-black text-slate-800 dark:text-slate-200">{timeFalling || "0"} sec</span>
+                            <span className="text-sm font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-200">{timeFalling || "0"} sec</span>
                           </div>
                         </>
                      )}

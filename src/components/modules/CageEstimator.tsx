@@ -77,7 +77,7 @@ export default function CageEstimator() {
   return (
     <div className="animate-in fade-in duration-300">
       <div className="mb-8">
-        <h2 className="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-2 mb-2">
+        <h2 className="text-2xl font-bold tabular-nums tracking-tight text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-2 mb-2">
           <RotateCw className="w-6 h-6 text-emerald-500" />
           Cage / Spiral Estimator
         </h2>
@@ -190,38 +190,38 @@ export default function CageEstimator() {
              <RefreshCw className="absolute -right-6 -bottom-6 w-32 h-32 text-emerald-500 opacity-20" />
               <h3 className="text-emerald-100 text-sm font-bold uppercase tracking-widest mb-1 relative z-10">Total Rebar Weight</h3>
               <div className="flex items-end gap-2 relative z-10">
-                <span className="text-5xl font-black tracking-tight">{results ? results.totalWeight : "0.00"}</span>
+                <span className="text-4xl md:text-5xl font-semibold tabular-nums tracking-tight tracking-tight">{results ? results.totalWeight : "0.00"}</span>
                 <span className="text-xl text-emerald-200 mb-1 font-bold">kg</span>
               </div>
            </div>
 
            {results && (
              <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-                <h3 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-4">Detailed Breakdown</h3>
+                <h3 className="text-sm font-bold tabular-nums tracking-tight text-slate-400 uppercase tracking-widest mb-4">Detailed Breakdown</h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
                     <span className="text-slate-600 dark:text-slate-400 font-medium">Core/Mean Dia</span>
-                    <span className="font-bold text-slate-900 dark:text-white">{results.coreDiameter} mm</span>
+                    <span className="font-bold text-slate-900 dark:text-slate-900 dark:text-white">{results.coreDiameter} mm</span>
                   </div>
                   <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
                     <span className="text-slate-600 dark:text-slate-400 font-medium">{cageType === "spiral" ? "Loop Length" : "Ring Length"}</span>
-                    <span className="font-bold text-slate-900 dark:text-white">{results.loopLength} m</span>
+                    <span className="font-bold text-slate-900 dark:text-slate-900 dark:text-white">{results.loopLength} m</span>
                   </div>
                   <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
                     <span className="text-slate-600 dark:text-slate-400 font-medium">No. of Loops/Rings</span>
-                    <span className="font-bold text-slate-900 dark:text-white">{results.noOfPitch} nos</span>
+                    <span className="font-bold text-slate-900 dark:text-slate-900 dark:text-white">{results.noOfPitch} nos</span>
                   </div>
                    <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
                     <span className="text-slate-600 dark:text-slate-400 font-medium">Lap Allowance</span>
-                    <span className="font-bold text-slate-900 dark:text-white">{results.lapAdjustment} m (x{results.totalLaps})</span>
+                    <span className="font-bold text-slate-900 dark:text-slate-900 dark:text-white">{results.lapAdjustment} m (x{results.totalLaps})</span>
                   </div>
                   <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
                     <span className="text-slate-600 dark:text-slate-400 font-medium">Total Cut Length</span>
-                    <span className="font-bold text-slate-900 dark:text-white">{results.totalLength} m</span>
+                    <span className="font-bold text-slate-900 dark:text-slate-900 dark:text-white">{results.totalLength} m</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-slate-600 dark:text-slate-400 font-medium">Unit Weight</span>
-                    <span className="font-bold text-slate-900 dark:text-white">{results.unitWeight} kg/m</span>
+                    <span className="font-bold text-slate-900 dark:text-slate-900 dark:text-white">{results.unitWeight} kg/m</span>
                   </div>
                 </div>
              </div>

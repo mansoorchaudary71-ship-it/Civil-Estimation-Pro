@@ -18,9 +18,8 @@
   --color-error: var(--color-error);
   --color-text-secondary: var(--color-text-secondary);
 
-  --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
-  --font-heading:
-    "Clash Display", "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-clash: "Clash Display", ui-sans-serif, system-ui, sans-serif;
   --font-dm: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-bebas: "Bebas Neue", ui-sans-serif, system-ui, sans-serif;
@@ -217,11 +216,16 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-sans); /* Clean and standard */
-    font-weight: 700; /* Bold and punchy */
+    font-family: var(--font-heading);
+    font-weight: 600;
     color: var(--text-primary);
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
   }
+
+  h1 { font-weight: 700; letter-spacing: -0.04em; line-height: 1.1; }
+  h2 { font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; }
+  h3 { font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
 
   .dark h1,
   .dark h2,
@@ -233,8 +237,10 @@
   }
 
   p {
+    font-family: var(--font-sans);
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.65;
+    letter-spacing: -0.01em;
   }
 
   .dark p {

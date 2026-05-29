@@ -228,7 +228,7 @@ export default function BOQGenerator() {
               type="text"
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
-              className="text-2xl sm:text-3xl font-black text-slate-800 dark:text-white bg-transparent border-none outline-none hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl px-2 py-1 -ml-2 transition-colors w-full max-w-md"
+              className="text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white bg-transparent border-none outline-none hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl px-2 py-1 -ml-2 transition-colors w-full max-w-md"
             />
             <p className="text-slate-500 dark:text-slate-400 font-medium ml-1">
               Professional Bill of Quantities Generator
@@ -293,7 +293,7 @@ export default function BOQGenerator() {
         <div className="lg:col-span-3 space-y-6">
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm overflow-hidden">
             <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/30">
-              <h3 className="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
+              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white flex items-center gap-2">
                 <FileText className="w-5 h-5 text-indigo-500" /> BOQ Items
               </h3>
               <button
@@ -427,7 +427,7 @@ export default function BOQGenerator() {
                                 />
                               </div>
                             </td>
-                            <td className="p-4 align-top text-right font-black text-slate-800 dark:text-white tabular-nums">
+                            <td className="p-4 align-top text-right font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tabular-nums">
                               {(item.quantity * item.rate).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </td>
                             <td className="p-2 align-top text-center">
@@ -454,7 +454,7 @@ export default function BOQGenerator() {
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 border-l-[4px] border-l-[#6B46C1] p-6 rounded-[2rem] shadow-sm relative overflow-hidden">
             {/* Pattern overlay */}
             <div
-              className="absolute inset-0 opacity-5 dark:opacity-5 text-slate-800 dark:text-white"
+              className="absolute inset-0 opacity-5 dark:opacity-5 text-slate-800 dark:text-slate-900 dark:text-white"
               style={{
                 backgroundImage:
                   "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
@@ -470,7 +470,7 @@ export default function BOQGenerator() {
             <div className="space-y-4 relative z-10">
               <div className="flex justify-between items-center text-sm">
                 <span className="text-slate-500 dark:text-slate-400">Subtotal</span>
-                <span className="font-bold text-slate-800 dark:text-white tabular-nums">
+                <span className="font-bold text-slate-800 dark:text-slate-900 dark:text-white tabular-nums">
                   ${subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </div>
@@ -487,7 +487,7 @@ export default function BOQGenerator() {
                       onChange={(e) =>
                         setContingencyPct(Number(e.target.value) || 0)
                       }
-                      className="w-12 px-1 py-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded text-right text-xs"
+                      className="w-12 px-1 py-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-900 dark:text-white rounded text-right text-xs"
                     />
                     <span className="font-bold tabular-nums text-orange-500">
                       +$
@@ -503,7 +503,7 @@ export default function BOQGenerator() {
               <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-1">
                 <div className="flex justify-between items-center text-sm">
                   <span className="text-slate-500 dark:text-slate-400">Taxable Amount</span>
-                  <span className="font-bold text-slate-800 dark:text-white tabular-nums">
+                  <span className="font-bold text-slate-800 dark:text-slate-900 dark:text-white tabular-nums">
                     ${taxableAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </span>
                 </div>
@@ -516,7 +516,7 @@ export default function BOQGenerator() {
                       type="number"
                       value={gstPct}
                       onChange={(e) => setGstPct(Number(e.target.value) || 0)}
-                      className="w-12 px-1 py-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white rounded text-right text-xs"
+                      className="w-12 px-1 py-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-900 dark:text-white rounded text-right text-xs"
                     />
                     <span className="font-bold tabular-nums text-rose-500 dark:text-rose-400">
                       +$
@@ -533,7 +533,7 @@ export default function BOQGenerator() {
                 <span className="text-slate-500 dark:text-slate-400 text-xs uppercase tracking-widest font-bold">
                   Grand Total
                 </span>
-                <p className="text-3xl font-black bg-gradient-to-r from-[#6B46C1] to-orange-500 bg-clip-text text-transparent mt-1 tabular-nums tracking-tight">
+                <p className="text-3xl font-bold tabular-nums tracking-tight bg-gradient-to-r from-[#6B46C1] to-orange-500 bg-clip-text text-transparent mt-1 tabular-nums tracking-tight">
                   $
                   {grandTotal.toLocaleString('en-US', {
                     minimumFractionDigits: 2,
@@ -554,7 +554,7 @@ export default function BOQGenerator() {
                 <div className="text-xs font-bold uppercase text-slate-500 mb-1">
                   Divisions
                 </div>
-                <div className="text-2xl font-black text-indigo-600 dark:text-indigo-400">
+                <div className="text-2xl font-bold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400">
                   {Object.keys(groupedItems).length}
                 </div>
               </div>
@@ -562,7 +562,7 @@ export default function BOQGenerator() {
                 <div className="text-xs font-bold uppercase text-slate-500 mb-1">
                   Total QTY
                 </div>
-                <div className="text-2xl font-black text-emerald-600 dark:text-emerald-400">
+                <div className="text-2xl font-bold tabular-nums tracking-tight text-emerald-600 dark:text-emerald-400">
                   {items
                     .reduce((s, i) => s + i.quantity, 0)
                     .toLocaleString('en-US', { maximumFractionDigits: 0 })}

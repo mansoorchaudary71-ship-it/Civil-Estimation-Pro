@@ -43,7 +43,7 @@ export default function RoadPavementEstimator({ onNavigate }: { onNavigate?: (id
       
       <div className="mb-6 md:mb-8 px-4 md:px-0 flex flex-col md:flex-row md:items-start justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-text-primary mb-2 flex items-center gap-3">
+          <h1 className="text-3xl font-bold tracking-tight text-text-primary mb-2 flex items-center gap-3">
             <Route className="w-8 h-8 text-amber-600 dark:text-amber-500" />
             Road & Pavement Estimator
           </h1>
@@ -66,7 +66,7 @@ export default function RoadPavementEstimator({ onNavigate }: { onNavigate?: (id
           </div>
           <button
             onClick={handleUseInBOQ}
-            className="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl shadow-sm hover:shadow-md transition-all text-sm w-full sm:w-auto justify-center"
+            className="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-slate-900 dark:text-white font-bold rounded-xl shadow-sm hover:shadow-md transition-all text-sm w-full sm:w-auto justify-center"
           >
             <Send className="w-4 h-4" />
             Use these quantities in BOQ Generator
