@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PricingBackgroundWrapper from '../PricingBackgroundWrapper';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, X, Building2, Zap, ArrowRight, ShieldCheck, HelpCircle, ChevronDown, Sparkles } from 'lucide-react';
 import { cn } from "../../lib/utils";
@@ -49,6 +50,7 @@ export default function PricingPage() {
   };
 
   return (
+    <PricingBackgroundWrapper>
     <div className="min-h-screen bg-slate-50 dark:bg-[#0B1120] text-slate-900 dark:text-slate-100 font-sans pb-24 overflow-x-hidden">
       
       {/* 14-day Free Trial Banner */}
@@ -303,5 +305,6 @@ export default function PricingPage() {
 
       </div>
     </div>
+    </PricingBackgroundWrapper>
   );
 }
