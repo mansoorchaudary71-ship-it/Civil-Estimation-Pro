@@ -128,7 +128,12 @@ export default function SocialProofSection() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <div className="w-full py-16 md:py-24 mb-16 bg-slate-50 rounded-[3rem] border border-slate-200 overflow-hidden relative">
+    <div className="w-full py-16 md:py-24 mb-16 bg-slate-50/20 rounded-[3rem] border border-slate-200 overflow-hidden relative">
+      {/* Background Mesh Gradient Elements */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-sky-300/40 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[50%] rounded-full bg-violet-300/40 blur-[120px] pointer-events-none" />
+      <div className="absolute top-[30%] left-[20%] w-[60%] h-[50%] rounded-full bg-indigo-200/40 blur-[120px] pointer-events-none" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-50 text-indigo-700 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase mb-6">Wall of Love</div>
