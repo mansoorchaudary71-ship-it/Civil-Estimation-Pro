@@ -128,11 +128,12 @@ export default function SocialProofSection() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <div className="w-full py-16 md:py-24 mb-16 bg-slate-50/20 rounded-[3rem] border border-slate-200 overflow-hidden relative">
+    <div className="w-full py-16 md:py-24 mb-16 rounded-[3rem] border border-slate-200 overflow-hidden relative">
       {/* Background Mesh Gradient Elements */}
-      <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-sky-300/40 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[50%] rounded-full bg-violet-300/40 blur-[120px] pointer-events-none" />
-      <div className="absolute top-[30%] left-[20%] w-[60%] h-[50%] rounded-full bg-indigo-200/40 blur-[120px] pointer-events-none" />
+      <div className="absolute inset-0 bg-[#f8fafc] pointer-events-none" /> {/* Creamy off-white base */}
+      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-[100%] bg-sky-200/60 blur-[120px] pointer-events-none opacity-80" /> {/* Pale icy blue */}
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[60%] rounded-[100%] bg-fuchsia-200/50 blur-[130px] pointer-events-none opacity-80" /> {/* Subtle lavender */}
+      <div className="absolute top-[20%] left-[20%] w-[50%] h-[50%] rounded-[100%] bg-indigo-100/60 blur-[100px] pointer-events-none opacity-70" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-16">
