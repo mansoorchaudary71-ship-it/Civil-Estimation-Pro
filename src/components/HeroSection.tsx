@@ -1,268 +1,175 @@
-import React from "react";
-import {
-  Play,
-  Star,
-  CheckCircle,
-  Calculator,
-  Box,
-  Compass,
-  Truck,
-} from "lucide-react";
-import { motion } from "motion/react";
-import CountUp from "react-countup";
+import React from 'react';
+import { Play, ArrowRight, CheckCircle, Calculator, Box, Truck, TrendingUp, Layers } from 'lucide-react';
+import { motion } from 'motion/react';
+import CountUp from 'react-countup';
 
 export default function HeroSection({ onStart }: { onStart: () => void }) {
   return (
-    <div className="w-full relative overflow-hidden bg-[#F5F5F7] rounded-b-[2.5rem] mb-16 pt-16 pb-20 px-6 lg:px-12 mt-0 shadow-2xl border border-slate-200">
+    <div className="w-full relative overflow-hidden bg-slate-50 rounded-b-[2.5rem] mb-16 pt-24 pb-32 px-4 lg:px-12 mt-0 z-10">
+      
+      {/* Background patterns and glowing orbs to match UI */}
       <div className="absolute inset-0 z-0 overflow-hidden rounded-b-[2.5rem]">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0F1E] to-[#1a1f3a] z-0"></div>
-        {/* Ambient Glows */}
-        <div className="absolute -top-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-indigo-500/10 blur-[120px] mix-blend-screen pointer-events-none"></div>
-        <div className="absolute -bottom-[30%] -left-[10%] w-[60%] h-[60%] rounded-full bg-amber-500/10 blur-[120px] mix-blend-screen pointer-events-none"></div>
-
-        {/* Animated blueprint grid */}
-        <div
-          className="absolute inset-0 opacity-[0.06] flex"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236366f1' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            backgroundSize: "60px 60px",
-          }}
-        >
-          <motion.div
-            style={{
-              width: "200%",
-              height: "200%",
-              backgroundImage: "inherit",
-              backgroundSize: "inherit",
-            }}
-            animate={{ x: [0, -60], y: [0, -60] }}
-            transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
-          ></motion.div>
-        </div>
+        <div className="absolute -top-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-indigo-500/10 blur-[120px] mix-blend-multiply pointer-events-none"></div>
+        <div className="absolute -bottom-[30%] -left-[10%] w-[60%] h-[60%] rounded-full bg-amber-500/10 blur-[120px] mix-blend-multiply pointer-events-none"></div>
+        
+        {/* Subtle grid */}
+        <div className="absolute inset-0 opacity-[0.4] mix-blend-multiply" style={{ backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)', backgroundSize: '32px 32px' }}></div>
       </div>
 
-      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 max-w-7xl mx-auto">
-        {/* Left Content Column */}
-        <div className="flex-1 flex flex-col items-start text-left shrink-0 max-w-2xl w-full">
-          <div
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-bold tracking-widest uppercase mb-6"
-            
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex justify-center items-center py-10 lg:py-16">
+        
+        {/* Centered Content */}
+        <div className="flex flex-col items-center justify-center text-center w-full max-w-3xl mx-auto relative z-20">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-100 bg-indigo-50/80 backdrop-blur-sm text-sm font-bold text-indigo-600 tracking-wide uppercase mb-10 shadow-sm"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+            <span className="relative flex h-2.5 w-2.5 mr-1">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-indigo-500"></span>
             </span>
-            Civil Estimation Pro
-          </div>
+            Next-Gen Estimation AI
+          </motion.div>
 
-          <h1
-            className="text-4xl md:text-[56px] font-bold text-white leading-[1.1] mb-6"
-            
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-extrabold tracking-tighter text-slate-900 leading-[1.05] mb-8"
           >
-            Build Anything.
-            <br />
-            Estimate Everything.
-          </h1>
+            Estimate <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">Smarter.</span><br/>
+            Build <span className="text-[#F59E0B]">Faster.</span>
+          </motion.h1>
 
-          <p
-            className="text-slate-400 text-lg md:text-xl max-w-[600px] mb-8 font-medium leading-relaxed"
-            
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg md:text-xl text-slate-600 font-medium mb-12 max-w-2xl px-4 leading-relaxed"
           >
-            50+ AI-powered calculators trusted by 24,847 engineers across 15
-            countries. From BOQ to BBS in seconds.
-          </p>
+            The all-in-one calculation platform for modern civil engineers, architects, and quantity surveyors. Accurate structural and building estimates in seconds.
+          </motion.p>
 
-          <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-col sm:flex-row items-center gap-5 w-full sm:w-auto px-4"
+          >
             <button
               onClick={onStart}
-              className="btn-micro w-full sm:w-auto px-8 py-4 rounded-full font-bold text-slate-900 bg-[#F59E0B] hover:bg-[#fbbf24] shadow-[0_0_20px_rgba(245,158,11,0.3)] text-base flex items-center justify-center gap-2 group"
-              
+              className="w-full sm:w-auto px-10 py-4 rounded-full font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-[0_8px_30px_rgba(79,70,229,0.3)] transition-all transform hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(79,70,229,0.4)] flex items-center justify-center gap-2"
             >
-              Start Estimating Free{" "}
-              <span className="text-lg leading-none transition-transform group-hover:translate-x-1">
-                &rarr;
-              </span>
+              Start Free Trial
+              <ArrowRight className="w-5 h-5 text-white/90" />
             </button>
             <button
-              className="btn-micro w-full sm:w-auto px-8 py-4 rounded-full font-bold text-white bg-transparent hover:bg-white/5 border border-white/20 transition-all text-base flex items-center justify-center gap-2"
-              
+              className="w-full sm:w-auto px-10 py-4 rounded-full font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 transition-all shadow-sm hover:shadow text-base flex items-center justify-center gap-2"
             >
-              <Play className="w-4 h-4 fill-white text-white" />
-              Watch 2-min Demo
+              <Play className="w-4 h-4 fill-slate-700 text-slate-700" />
+              Watch Demo
             </button>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3">
-            {[
-              { label: "24,847+ Engineers", icon: "✦" },
-              { label: "2.1M Calculations", icon: "✦" },
-              { label: "15+ Countries", icon: "✦" },
-              { label: "4.9★ Rating", icon: "✦" },
-            ].map((badge, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-[16px] border border-slate-200 bg-[#F5F5F7] text-xs font-medium text-slate-900 backdrop-blur-sm"
-                
-              >
-                <span className="text-amber-500">{badge.icon}</span>
-                {badge.label}
-              </div>
-            ))}
-          </div>
+          </motion.div>
         </div>
 
-        {/* Right Animated Visual Column */}
-        <div className="flex-1 relative w-full h-[350px] lg:h-[450px] flex items-center justify-center perspective-[1000px] mt-10 lg:mt-0">
-          {/* Isometric Base */}
-          <motion.div
-            initial={{ rotateX: 65, rotateZ: -45, y: 50, opacity: 0 }}
-            animate={{ rotateX: 65, rotateZ: -45, y: 0, opacity: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="w-56 h-56 lg:w-72 lg:h-72 bg-[#F5F5F7] border border-slate-200 absolute bottom-12 lg:bottom-10 rounded-[24px] shadow-[0_0_60px_rgba(245,158,11,0.15)] backdrop-blur-sm"
-          >
-            {/* Grid on base */}
-            <div
-              className="absolute inset-0 opacity-20 rounded-[24px] overflow-hidden"
-              style={{
-                backgroundImage:
-                  "linear-gradient(#F59E0B 1px, transparent 1px), linear-gradient(90deg, #F59E0B 1px, transparent 1px)",
-                backgroundSize: "10% 10%",
-              }}
-            ></div>
-          </motion.div>
-
-          {/* Building Tiers */}
-          <motion.div
-            initial={{ rotateX: 65, rotateZ: -45, z: 0, opacity: 0, y: 0 }}
-            animate={{ rotateX: 65, rotateZ: -45, z: 40, opacity: 1, y: -40 }}
-            transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-            className="w-40 h-40 lg:w-48 lg:h-48 bg-[#F5F5F7] border border-slate-600 absolute bottom-12 lg:bottom-10 rounded-[16px] shadow-2xl backdrop-blur-md"
-          >
-            <div
-              className="absolute inset-0 opacity-10 rounded-[16px] overflow-hidden"
-              style={{
-                backgroundImage:
-                  "linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)",
-                backgroundSize: "25% 25%",
-              }}
-            ></div>
-          </motion.div>
-          <motion.div
-            initial={{ rotateX: 65, rotateZ: -45, z: 0, opacity: 0, y: 0 }}
-            animate={{ rotateX: 65, rotateZ: -45, z: 80, opacity: 1, y: -80 }}
-            transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-            className="w-24 h-24 lg:w-32 lg:h-32 bg-slate-600/95 border border-slate-500 absolute bottom-12 lg:bottom-10 rounded-[16px] shadow-2xl flex items-center justify-center backdrop-blur-md overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#F59E0B]/20 to-transparent" />
-            <div
-              className="absolute inset-0 opacity-10 rounded-[16px] overflow-hidden"
-              style={{
-                backgroundImage:
-                  "linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)",
-                backgroundSize: "33% 33%",
-              }}
-            ></div>
-          </motion.div>
-          <motion.div
-            initial={{ rotateX: 65, rotateZ: -45, z: 0, opacity: 0, y: 0 }}
-            animate={{ rotateX: 65, rotateZ: -45, z: 120, opacity: 1, y: -120 }}
-            transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
-            className="w-12 h-12 lg:w-16 lg:h-16 bg-[#F59E0B] border border-amber-400 absolute bottom-12 lg:bottom-10 rounded-[16px] flex items-center justify-center shadow-[0_0_40px_rgba(245,158,11,0.6)]"
-          >
-            <Box className="w-6 h-6 lg:w-8 lg:h-8 text-slate-900" />
-          </motion.div>
-
-          {/* Floating Calculation Panels */}
-          <motion.div
-            animate={{ y: [0, -15, 0] }}
-            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-            className="absolute top-0 right-10 lg:-left-4 text-left bg-[#141b2d]/80 border border-slate-700/80 p-3 rounded-[24px] shadow-xl flex items-center gap-3 backdrop-blur-md z-20"
-          >
-            <div className="w-10 h-10 rounded-[24px] bg-emerald-500/20 flex items-center justify-center text-emerald-400">
-              <CheckCircle className="w-5 h-5" />
+        {/* Floating Background Cards */}
+        {/* Card 1 - Top Left */}
+        <motion.div 
+          animate={{ y: [0, -10, 0] }}
+          transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+          className="hidden xl:flex absolute top-[5%] left-[2%] 2xl:left-[8%] w-64 bg-white/90 backdrop-blur-xl rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.06)] border border-slate-100 p-5 flex-col gap-3 z-0 pointer-events-none"
+          style={{ transform: 'rotate(-6deg) translateZ(0)' }}
+        >
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-blue-600">
+              <Layers className="w-6 h-6" />
             </div>
-            <div className="pr-2">
-              <div
-                className="text-[10px] text-slate-400 font-bold uppercase tracking-wider"
-                
-              >
-                RCC Slab Vol.
+            <div>
+              <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Concrete Slab</div>
+              <div className="text-base font-black text-slate-800">45.2 m³</div>
+            </div>
+          </div>
+          <div className="w-full h-8 bg-slate-50 rounded-xl border border-slate-100 overflow-hidden relative">
+            <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 to-indigo-500 w-[70%]"></div>
+          </div>
+        </motion.div>
+
+        {/* Card 2 - Bottom Left */}
+        <motion.div 
+          animate={{ y: [0, 15, 0] }}
+          transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }}
+          className="hidden lg:flex absolute bottom-[10%] left-[0%] lg:left-[5%] xl:left-[12%] w-72 bg-white/95 backdrop-blur-xl rounded-[28px] shadow-[0_30px_60px_rgba(0,0,0,0.08)] border border-slate-100 p-6 flex-col gap-4 z-30 pointer-events-none"
+          style={{ transform: 'rotate(8deg) translateZ(0)' }}
+        >
+          <div className="flex justify-between items-start">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-[20px] bg-amber-50 flex items-center justify-center text-amber-500 shadow-sm border border-amber-100/50">
+                <Truck className="w-7 h-7" />
               </div>
-              <div
-                className="text-sm font-bold text-white leading-tight"
-                
-              >
-                <CountUp
-                  start={0}
-                  end={45.2}
-                  decimals={1}
-                  duration={2.5}
-                  separator=","
-                />{" "}
-                m³
+              <div>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">Logistics</div>
+                <div className="text-lg font-black text-slate-800 leading-tight mt-0.5">1,240 Bags</div>
               </div>
             </div>
-          </motion.div>
-
-          <motion.div
-            animate={{ y: [0, 20, 0] }}
-            transition={{
-              repeat: Infinity,
-              duration: 5,
-              ease: "easeInOut",
-              delay: 1,
-            }}
-            className="absolute top-24 -right-2 lg:-right-6 text-left bg-[#141b2d]/80 border border-slate-700/80 p-3 rounded-[24px] shadow-xl flex items-center gap-3 backdrop-blur-md z-20"
-          >
-            <div className="w-10 h-10 rounded-[24px] bg-amber-500/20 flex items-center justify-center text-amber-500">
-              <Truck className="w-5 h-5" />
+            <div className="px-2 py-1 bg-emerald-50 text-emerald-600 rounded-lg border border-emerald-100/50 text-[11px] font-bold flex items-center gap-1 shadow-sm">
+              <TrendingUp className="w-3 h-3" />
+              +5%
             </div>
-            <div className="pr-2">
-              <div
-                className="text-[10px] text-slate-400 font-bold uppercase tracking-wider"
-                
-              >
-                Cement Bags
-              </div>
-              <div
-                className="text-sm font-bold text-white leading-tight"
-                
-              >
-                <CountUp start={0} end={1240} duration={2.5} separator="," />{" "}
-                Units
-              </div>
-            </div>
-          </motion.div>
+          </div>
+          <div className="flex gap-2 w-full mt-2">
+            <div className="flex-1 h-2.5 rounded-full bg-amber-400"></div>
+            <div className="flex-1 h-2.5 rounded-full bg-amber-200"></div>
+            <div className="flex-1 h-2.5 rounded-full bg-slate-100"></div>
+          </div>
+        </motion.div>
 
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{
-              repeat: Infinity,
-              duration: 3.5,
-              ease: "easeInOut",
-              delay: 0.5,
-            }}
-            className="absolute bottom-6 left-0 lg:left-8 text-left bg-[#141b2d]/80 border border-slate-700/80 p-3 rounded-[24px] shadow-xl flex items-center gap-3 backdrop-blur-md z-20"
-          >
-            <div className="w-10 h-10 rounded-[24px] bg-blue-500/20 flex items-center justify-center text-blue-400">
+        {/* Card 3 - Top Right */}
+        <motion.div 
+          animate={{ y: [0, -12, 0] }}
+          transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 0.5 }}
+          className="hidden lg:flex absolute top-[8%] right-[2%] xl:right-[6%] w-[260px] bg-white/90 backdrop-blur-xl rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.06)] border border-slate-100 p-6 flex-col z-0 pointer-events-none"
+          style={{ transform: 'rotate(5deg) translateZ(0)' }}
+        >
+          <div className="flex justify-between items-center mb-5">
+            <div className="w-10 h-10 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-500 border border-indigo-100/50">
               <Calculator className="w-5 h-5" />
             </div>
-            <div className="pr-2">
-              <div
-                className="text-[10px] text-slate-400 font-bold uppercase tracking-wider"
-                
-              >
-                Steel Wt.
+            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Steel Wt.</div>
+          </div>
+          <div className="text-4xl font-black text-slate-900 tracking-tighter leading-none">
+            <CountUp start={0} end={8450} duration={2.5} separator="," />
+          </div>
+          <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-2">Kilograms</div>
+        </motion.div>
+
+        {/* Card 4 - Bottom Right */}
+        <motion.div 
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 5.5, ease: "easeInOut", delay: 1.5 }}
+          className="hidden md:flex absolute bottom-[12%] right-[0%] lg:right-[8%] w-[280px] bg-white/95 backdrop-blur-xl rounded-[28px] shadow-[0_25px_50px_rgba(0,0,0,0.08)] border border-slate-100 p-6 z-30 pointer-events-none"
+          style={{ transform: 'rotate(-5deg) translateZ(0)' }}
+        >
+          <div className="flex flex-col gap-5">
+            <div className="flex items-center gap-4">
+              <div className="p-3 rounded-2xl bg-purple-50 text-purple-600 border border-purple-100/50">
+                <Box className="w-6 h-6" />
               </div>
-              <div
-                className="text-sm font-bold text-white leading-tight"
-                
-              >
-                <CountUp start={0} end={8450} duration={2.5} separator="," /> kg
+              <div className="flex-1">
+                <div className="h-2.5 w-1/2 bg-slate-200 rounded-full mb-3"></div>
+                <div className="h-2.5 w-3/4 bg-slate-100 rounded-full"></div>
               </div>
             </div>
-          </motion.div>
-        </div>
+            <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100 flex justify-between items-center">
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Cost Est.</span>
+              <span className="text-base font-black text-slate-800">
+                $<CountUp start={0} end={14500} duration={2.5} separator="," />
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
       </div>
     </div>
   );
