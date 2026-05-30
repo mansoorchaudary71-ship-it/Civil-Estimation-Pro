@@ -39,10 +39,10 @@ export default function MasterRccStructure({ isEmbedded = false, onNavigate }: M
           
           <div className="mb-6 md:mb-8 px-4 md:px-0">
             <h1 className="text-3xl font-semibold tracking-tight text-text-primary mb-2 flex items-center gap-3">
-              <Building2 className="w-8 h-8 text-indigo-600 dark:text-blue-400" />
+              <Building2 className="w-8 h-8 text-indigo-600" />
               Master RCC Estimator
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 font-medium">
+            <p className="text-slate-500 font-medium">
               A unified hub for advanced reinforced concrete and steel estimation tools.
             </p>
           </div>

@@ -125,22 +125,22 @@ export default function LabourCalculator() {
   };
 
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8">
+    <div className="w-full h-full overflow-y-auto bg-transparent text-text-primary p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-semibold tabular-nums tracking-tight mb-2 flex items-center gap-3 text-text-primary">
-              <Users className="w-8 h-8 text-[#E55A2B] dark:text-[#ff8a65]" />
+              <Users className="w-8 h-8 text-[#E55A2B] [#ff8a65]" />
               Labour & Workforce Estimator
             </h1>
-            <p className="text-slate-500 dark:text-slate-300 font-medium">
+            <p className="text-slate-500 font-medium">
               Calculate piece-rate labour cost, worker allocation, and daily burn rates for your project.
             </p>
           </div>
           <div className="flex gap-4 items-center">
             <button 
               onClick={handleExportPDF}
-              className="flex items-center gap-2 px-4 py-2 bg-slate-800 dark:bg-slate-700 text-slate-900 dark:text-white rounded-xl shadow hover:bg-slate-700 dark:hover:bg-slate-600 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-white shadow-sm border border-slate-200 text-slate-900 rounded-[24px] shadow hover:bg-slate-700 transition-colors"
             >
               <Download className="w-4 h-4" /> Export Bill
             </button>
@@ -150,14 +150,14 @@ export default function LabourCalculator() {
         
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
           {/* Main Workspace */}
-          <div className="lg:col-span-3 bg-bg-card rounded-3xl shadow-sm border border-border-color overflow-hidden">
+          <div className="lg:col-span-3 bg-bg-card rounded-[24px] shadow-sm border border-border-color overflow-hidden">
             <div className="p-6 md:p-8 space-y-6">
               
-              <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-2">
-                <h3 className="font-bold text-lg text-slate-800 dark:text-slate-200">Work Items</h3>
+              <div className="flex justify-between items-center border-b border-slate-100 pb-2">
+                <h3 className="font-bold text-lg text-slate-800">Work Items</h3>
                 <button 
                   onClick={handleAddTask}
-                  className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors text-sm"
+                  className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 text-indigo-600 font-bold rounded-[16px] hover:bg-indigo-100 transition-colors text-sm"
                 >
                   <Plus className="w-4 h-4" /> Add Task
                 </button>
@@ -170,7 +170,7 @@ export default function LabourCalculator() {
                   const wagePerWorker = (task.workers > 0 && task.days > 0) ? (itemCost / (task.workers * task.days)) : 0;
 
                   return (
-                    <div key={task.id} className="p-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm space-y-4 transition-all duration-300 hover:border-indigo-300 dark:hover:border-indigo-500/50 relative">
+                    <div key={task.id} className="p-5 bg-white border border-slate-200 rounded-[24px] shadow-sm space-y-4 transition-all duration-300 hover:border-indigo-300 relative">
                       {tasks.length > 1 && (
                         <button 
                           onClick={() => handleRemoveTask(task.id)}
@@ -182,41 +182,41 @@ export default function LabourCalculator() {
                       )}
                       
                       <div className="flex items-center gap-3 pr-10">
-                        <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-slate-500 dark:text-slate-400 text-xs">
+                        <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-500 text-xs">
                           {index + 1}
                         </div>
                         <select 
                           value={task.name}
                           onChange={(e) => updateTask(task.id, 'name', e.target.value)}
-                          className="flex-1 bg-transparent border-none text-lg font-bold text-slate-800 dark:text-slate-100 focus:ring-0 p-0 cursor-pointer"
+                          className="flex-1 bg-transparent border-none text-lg font-bold text-slate-800 focus:ring-0 p-0 cursor-pointer"
                         >
                           {commonTasks.map(ct => (
-                            <option key={ct.name} value={ct.name} className="dark:bg-slate-800">{ct.name}</option>
+                            <option key={ct.name} value={ct.name} className="">{ct.name}</option>
                           ))}
                         </select>
                       </div>
 
                       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
                         <div className="space-y-1">
-                          <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Quantity</label>
+                          <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Quantity</label>
                           <div className="flex gap-2">
                             <input 
                               type="number" 
                               value={task.qty} 
                               onChange={(e) => updateTask(task.id, 'qty', parseFloat(e.target.value) || 0)}
-                              className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50 min-w-0"
+                              className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50 min-w-0"
                             />
                             <input 
                               type="text" 
                               value={task.unit} 
                               onChange={(e) => updateTask(task.id, 'unit', e.target.value)}
-                              className="w-16 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-2 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50 text-center text-sm"
+                              className="w-16 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-2 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50 text-center text-sm"
                             />
                           </div>
                         </div>
 
                         <div className="space-y-1">
-                          <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Rate/Unit</label>
+                          <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Rate/Unit</label>
                           <div className="relative">
                             <span className="absolute left-3 top-2.5 text-slate-400 text-sm">
                                 {settings.currency.substring(0,2)}
@@ -225,48 +225,48 @@ export default function LabourCalculator() {
                               type="number" 
                               value={task.rate} 
                               onChange={(e) => updateTask(task.id, 'rate', parseFloat(e.target.value) || 0)}
-                              className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl pl-8 pr-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50 min-w-0"
+                              className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] pl-8 pr-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50 min-w-0"
                             />
                           </div>
                         </div>
 
                         <div className="space-y-1">
-                          <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Workers</label>
+                          <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Workers</label>
                           <input 
                             type="number"
                             value={task.workers} 
                             onChange={(e) => updateTask(task.id, 'workers', parseInt(e.target.value) || 0)}
-                            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
+                            className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
                           />
                         </div>
 
                         <div className="space-y-1">
-                          <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Days (Est.)</label>
+                          <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Days (Est.)</label>
                           <input 
                             type="number" 
                             value={task.days} 
                             onChange={(e) => updateTask(task.id, 'days', parseFloat(e.target.value) || 0)}
-                            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
+                            className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
                           />
                         </div>
                         
                         <div className="col-span-2 md:col-span-4 lg:col-span-1 flex flex-col justify-end pb-1 lg:items-end">
-                           <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1 lg:hidden">Item Total</div>
-                           <div className="text-lg font-semibold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400">
+                           <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1 lg:hidden">Item Total</div>
+                           <div className="text-lg font-semibold tabular-nums tracking-tight text-indigo-600">
                              {formatCurrency(itemCost)}
                            </div>
                         </div>
                       </div>
                       
                       {/* Sub-analytics for the item */}
-                      <div className="pt-3 flex flex-wrap gap-4 text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-100 dark:border-slate-700/50">
+                      <div className="pt-3 flex flex-wrap gap-4 text-xs font-medium text-slate-500 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-3 rounded-[24px] border border-slate-100">
                          <div className="flex items-center gap-1.5">
                             <TrendingDown className="w-3.5 h-3.5 text-rose-500" />
-                            Daily Burn: <span className="font-bold text-slate-700 dark:text-slate-200">{formatCurrency(itemBurnRate)}</span>
+                            Daily Burn: <span className="font-bold text-slate-700">{formatCurrency(itemBurnRate)}</span>
                          </div>
                          <div className="flex items-center gap-1.5">
                             <Users className="w-3.5 h-3.5 text-sky-500" />
-                            Est. Per Worker: <span className="font-bold text-slate-700 dark:text-slate-200">{formatCurrency(wagePerWorker)}/day</span>
+                            Est. Per Worker: <span className="font-bold text-slate-700">{formatCurrency(wagePerWorker)}/day</span>
                          </div>
                       </div>
                     </div>
@@ -278,16 +278,16 @@ export default function LabourCalculator() {
 
           {/* Sidebar Summary */}
           <div className="space-y-6">
-            <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+            <div className="bg-white rounded-[24px] p-6 shadow-sm border border-slate-200">
               <h3 className="font-bold text-slate-500 uppercase tracking-wider text-xs mb-4">Overall Project Labour</h3>
               
               <div className="space-y-5">
                 <div>
-                  <p className="text-3xl font-semibold tabular-nums tracking-tight text-slate-900 dark:text-white">{formatCurrency(totalCost)}</p>
+                  <p className="text-3xl font-semibold tabular-nums tracking-tight text-slate-900">{formatCurrency(totalCost)}</p>
                   <p className="text-sm text-slate-500 mt-1">Total Labour Estimate</p>
                 </div>
                 
-                <div className="w-full h-px bg-slate-100 dark:bg-slate-800"></div>
+                <div className="w-full h-px bg-slate-100"></div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -302,7 +302,7 @@ export default function LabourCalculator() {
                   </div>
                 </div>
                 
-                <div className="w-full h-px bg-slate-700"></div>
+                <div className="w-full h-px bg-[#F5F5F7]"></div>
 
                 <div>
                    <p className="text-lg font-bold text-sky-400 flex items-center gap-1">
@@ -313,11 +313,11 @@ export default function LabourCalculator() {
               </div>
             </div>
 
-            <div className="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800/30 rounded-3xl p-6">
-              <h3 className="font-bold text-indigo-800 dark:text-indigo-300 text-sm mb-2 flex items-center gap-2">
+            <div className="bg-indigo-50 border border-indigo-100 rounded-[24px] p-6">
+              <h3 className="font-bold text-indigo-800 text-sm mb-2 flex items-center gap-2">
                 <CheckCircle className="w-4 h-4" /> Piece-Rate Advice
               </h3>
-              <p className="text-xs text-indigo-700 dark:text-indigo-400 leading-relaxed">
+              <p className="text-xs text-indigo-700 leading-relaxed">
                 Piece-rate estimating (by volume/area) reduces risk compared to daily wages. The daily burn rates here are derived from the total piece-rate amount divided by the estimated timeline constraint.
               </p>
             </div>

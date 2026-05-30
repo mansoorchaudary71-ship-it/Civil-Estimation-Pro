@@ -347,7 +347,7 @@ export default function MasterQuantityEstimator({
     /* A simplified generic layout for each calculator for the sake of completion. */ let content = null;
     return (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full items-start">
-        <div className="bg-bg-card border border-border-color rounded-3xl px-4 py-3 shadow-sm">
+        <div className="bg-bg-card border border-border-color rounded-[24px] px-4 py-3 shadow-sm">
           <h3 className="font-bold mb-6 text-lg">
             Input Parameters
           </h3>
@@ -355,25 +355,25 @@ export default function MasterQuantityEstimator({
             {activeCalc !== "rebar_cage" && (
               <>
                 <div>
-                  <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">
+                  <label className="text-xs font-bold text-gray-500 uppercase">
                     Length ({unitL})
                   </label>
                   <input
                     type="number"
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
-                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-transparent border border-slate-200 p-3 rounded-[24px] mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                  <label className="text-xs font-bold text-gray-700 uppercase">
                     {activeCalc === "concrete_tube" ? "Outer Diameter" : "Width"} ({unitL})
                   </label>
                   <input
                     type="number"
                     value={width}
                     onChange={(e) => setWidth(e.target.value)}
-                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-transparent border border-slate-200 p-3 rounded-[24px] mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </>
@@ -390,40 +390,40 @@ export default function MasterQuantityEstimator({
               "concrete_tube"
             ].includes(activeCalc) && (
               <div>
-                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                <label className="text-xs font-bold text-gray-700 uppercase">
                   {["form_work", "precast_boundary"].includes(activeCalc) ? "Height" : activeCalc === "concrete_tube" ? "Inner Diameter" : "Depth"} ({unitL})
                 </label>
                 <input
                   type="number"
                   value={depth}
                   onChange={(e) => setDepth(e.target.value)}
-                  className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-transparent border border-slate-200 p-3 rounded-[24px] mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             )}
             {activeCalc !== "rebar_cage" && (
               <div>
-                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                <label className="text-xs font-bold text-gray-700 uppercase">
                   Wastage (%)
                 </label>
                 <input
                   type="number"
                   value={wastage}
                   onChange={(e) => setWastage(e.target.value)}
-                  className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-transparent border border-slate-200 p-3 rounded-[24px] mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             )}
             {["concrete", "plaster", "concrete_test"].includes(activeCalc) && (
               <div>
-                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                <label className="text-xs font-bold text-gray-700 uppercase">
                   Mix Ratio
                 </label>
                 <input
                   type="text"
                   value={mixRatioStr}
                   onChange={(e) => setMixRatioStr(e.target.value)}
-                  className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-transparent border border-slate-200 p-3 rounded-[24px] mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   placeholder="e.g. 1:2:4"
                 />
               </div>
@@ -431,47 +431,47 @@ export default function MasterQuantityEstimator({
             {activeCalc === "rebar_cage" && (
               <>
                 <div>
-                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                  <label className="text-xs font-bold text-gray-700 uppercase">
                     Total Rebar Weight (kg)
                   </label>
                   <input
                     type="number"
                     value={rebarWeight}
                     onChange={(e) => setRebarWeight(e.target.value)}
-                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-transparent border border-slate-200 p-3 rounded-[24px] mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                  <label className="text-xs font-bold text-gray-700 uppercase">
                     Steel Grade
                   </label>
                   <input
                     type="number"
                     value={steelGrade}
                     onChange={(e) => setSteelGrade(e.target.value)}
-                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-transparent border border-slate-200 p-3 rounded-[24px] mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                  <label className="text-xs font-bold text-gray-700 uppercase">
                     Spacing (mm)
                   </label>
                   <input
                     type="number"
                     value={rebarSpacing}
                     onChange={(e) => setRebarSpacing(e.target.value)}
-                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-transparent border border-slate-200 p-3 rounded-[24px] mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase">
+                  <label className="text-xs font-bold text-gray-700 uppercase">
                     Cost per Ton (Rs)
                   </label>
                   <input
                     type="number"
                     value={costPerTon}
                     onChange={(e) => setCostPerTon(e.target.value)}
-                    className="w-full bg-transparent dark:bg-slate-800 border border-slate-200 p-3 rounded-xl mt-1 font-bold focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-transparent border border-slate-200 p-3 rounded-[24px] mt-1 font-bold focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </>
@@ -536,7 +536,7 @@ export default function MasterQuantityEstimator({
       className={
         isEmbedded
           ? "w-full"
-          : "w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8"
+          : "w-full h-full overflow-y-auto bg-transparent  text-text-primary p-6 md:p-8"
       }
     >
       {!isEmbedded && (
@@ -551,10 +551,10 @@ export default function MasterQuantityEstimator({
           <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
             <div>
               <h1 className="text-3xl font-semibold tabular-nums tracking-tight mb-2 flex items-center gap-3">
-                <Calculator className="w-8 h-8 text-indigo-600 dark:text-blue-400" />
+                <Calculator className="w-8 h-8 text-indigo-600" />
                 Master Quantity Estimator
               </h1>
-              <p className="text-slate-500 dark:text-slate-400 dark:text-slate-700 dark:text-slate-300 font-medium">
+              <p className="text-slate-500 font-medium">
                 Comprehensive suite of 23 civil engineering calculators for
                 accurate material estimation.
               </p>
@@ -573,12 +573,12 @@ export default function MasterQuantityEstimator({
                 placeholder="Search tools..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-bg-card border border-border-color px-4 py-3 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 font-medium dark:text-slate-900 dark:text-white outline-none placeholder:text-slate-700 dark:text-slate-300"
+                className="w-full bg-bg-card border border-border-color px-4 py-3 rounded-[24px] shadow-sm focus:ring-2 focus:ring-blue-500 font-medium outline-none placeholder:text-slate-700"
               />
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm("")}
-                  className="absolute right-3 top-3.5 text-slate-700 dark:text-slate-300 hover:text-slate-600"
+                  className="absolute right-3 top-3.5 text-slate-700 hover:text-slate-600"
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -596,10 +596,10 @@ export default function MasterQuantityEstimator({
                 
                 const isExpanded = expandedGroup === group || searchTerm !== "";
                 return (
-                  <div key={group} className="bg-bg-card border border-border-color rounded-xl overflow-hidden shadow-sm">
+                  <div key={group} className="bg-bg-card border border-border-color rounded-[24px] overflow-hidden shadow-sm">
                     <button
                       onClick={() => setExpandedGroup(isExpanded && searchTerm === "" ? null : group)}
-                      className="w-full flex items-center justify-between px-4 py-3 text-left font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
+                      className="w-full flex items-center justify-between px-4 py-3 text-left font-bold text-slate-700 hover:bg-slate-50 transition-colors"
                     >
                       <span className="uppercase text-xs tracking-widest">{group}</span>
                       <svg className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -615,13 +615,13 @@ export default function MasterQuantityEstimator({
                             <button
                               key={calc.id}
                               onClick={() => setActiveCalc(calc.id)}
-                              className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all text-left ${
+                              className={`w-full flex items-center gap-3 px-3 py-2 rounded-[24px] transition-all text-left ${
                                 isActive 
-                                ? 'bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 font-bold' 
-                                : 'text-slate-600 dark:text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 font-medium'
+                                ? 'bg-indigo-500/10 text-indigo-700  font-bold' 
+                                : 'text-slate-600   hover:bg-slate-100 font-medium'
                               }`}
                             >
-                              <Icon className={`w-4 h-4 flex-shrink-0 ${isActive ? "text-indigo-600 dark:text-indigo-400" : "text-slate-700 dark:text-slate-300"}`} />
+                              <Icon className={`w-4 h-4 flex-shrink-0 ${isActive ? "text-indigo-600 " : "text-slate-700 "}`} />
                               <span className="text-sm truncate">{calc.label}</span>
                             </button>
                           );

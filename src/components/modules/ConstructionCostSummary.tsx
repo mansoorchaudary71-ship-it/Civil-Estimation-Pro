@@ -155,28 +155,28 @@ const ConstructionCostSummary: React.FC = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800 p-4 md:p-8 flex flex-col w-full">
+    <div className="bg-white rounded-[24px] shadow-sm border border-slate-200 p-4 md:p-8 flex flex-col w-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+          <h2 className="text-2xl font-semibold text-slate-800 flex items-center gap-2">
             <PieChartIcon className="w-6 h-6 text-purple-600" />
             Cost Summary Sheet
           </h2>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-slate-500 mt-1">
             Consolidate estimates into a master summary with overheads and cost per sq ft analysis.
           </p>
         </div>
         <button
           onClick={exportToPDF}
-          className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-xl font-medium transition-colors whitespace-nowrap"
+          className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-[24px] font-medium transition-colors whitespace-nowrap"
         >
           <Download className="w-4 h-4" />
           Export Report
         </button>
       </div>
 
-      <div className="mb-8 bg-purple-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-purple-100 dark:border-slate-700">
-        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+      <div className="mb-8 bg-purple-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-6 rounded-[24px] border border-purple-100">
+        <label className="block text-sm font-medium text-slate-700 mb-2">
           Total Built-Up Area (sq ft)
         </label>
         <div className="relative max-w-sm">
@@ -185,7 +185,7 @@ const ConstructionCostSummary: React.FC = () => {
             type="number"
             value={totalArea}
             onChange={(e) => setTotalArea(parseFloat(e.target.value) || 0)}
-            className="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl px-4 py-2.5 pl-10 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-purple-500 outline-none"
+            className="w-full bg-white border border-slate-300 rounded-[24px] px-4 py-2.5 pl-10 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none"
           />
         </div>
       </div>
@@ -196,25 +196,25 @@ const ConstructionCostSummary: React.FC = () => {
           
           {/* Grey Structure */}
           <div>
-            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-4 border-b border-slate-200 dark:border-slate-700 pb-2">
+            <h3 className="text-lg font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2">
               1. Grey Structure Cost
             </h3>
             <div className="space-y-3">
               {greyStructure.map(item => (
                 <div key={item.id} className="flex items-center justify-between gap-4">
-                  <label className="text-slate-600 dark:text-slate-400 flex-1">{item.name}</label>
+                  <label className="text-slate-600 flex-1">{item.name}</label>
                   <div className="relative w-40">
                     <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400" />
                     <input
                       type="number"
                       value={item.amount}
                       onChange={(e) => updateItem("grey", item.id, e.target.value)}
-                      className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
+                      className="w-full bg-white border border-slate-300 rounded-[16px] py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
                     />
                   </div>
                 </div>
               ))}
-              <div className="flex justify-between items-center pt-2 font-semibold text-slate-800 dark:text-slate-200">
+              <div className="flex justify-between items-center pt-2 font-semibold text-slate-800">
                 <span>Subtotal:</span>
                 <span>{greyTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
               </div>
@@ -223,25 +223,25 @@ const ConstructionCostSummary: React.FC = () => {
 
           {/* Finishing */}
           <div>
-            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-4 border-b border-slate-200 dark:border-slate-700 pb-2">
+            <h3 className="text-lg font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2">
               2. Finishing Cost
             </h3>
             <div className="space-y-3">
               {finishing.map(item => (
                 <div key={item.id} className="flex items-center justify-between gap-4">
-                  <label className="text-slate-600 dark:text-slate-400 flex-1">{item.name}</label>
+                  <label className="text-slate-600 flex-1">{item.name}</label>
                   <div className="relative w-40">
                     <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400" />
                     <input
                       type="number"
                       value={item.amount}
                       onChange={(e) => updateItem("finish", item.id, e.target.value)}
-                      className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
+                      className="w-full bg-white border border-slate-300 rounded-[16px] py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
                     />
                   </div>
                 </div>
               ))}
-              <div className="flex justify-between items-center pt-2 font-semibold text-slate-800 dark:text-slate-200">
+              <div className="flex justify-between items-center pt-2 font-semibold text-slate-800">
                 <span>Subtotal:</span>
                 <span>{finishTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
               </div>
@@ -250,25 +250,25 @@ const ConstructionCostSummary: React.FC = () => {
 
           {/* Labour */}
           <div>
-            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-4 border-b border-slate-200 dark:border-slate-700 pb-2">
+            <h3 className="text-lg font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2">
               3. Labour Cost
             </h3>
             <div className="space-y-3">
               {labour.map(item => (
                 <div key={item.id} className="flex items-center justify-between gap-4">
-                  <label className="text-slate-600 dark:text-slate-400 flex-1">{item.name}</label>
+                  <label className="text-slate-600 flex-1">{item.name}</label>
                   <div className="relative w-40">
                     <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400" />
                     <input
                       type="number"
                       value={item.amount}
                       onChange={(e) => updateItem("labour", item.id, e.target.value)}
-                      className="w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
+                      className="w-full bg-white border border-slate-300 rounded-[16px] py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
                     />
                   </div>
                 </div>
               ))}
-              <div className="flex justify-between items-center pt-2 font-semibold text-slate-800 dark:text-slate-200">
+              <div className="flex justify-between items-center pt-2 font-semibold text-slate-800">
                 <span>Subtotal:</span>
                 <span>{labourTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
               </div>
@@ -276,8 +276,8 @@ const ConstructionCostSummary: React.FC = () => {
           </div>
           
           {/* O&P / Contingency */}
-          <div className="bg-orange-50 dark:bg-orange-900/10 p-5 rounded-xl border border-orange-100 dark:border-orange-800/30">
-            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-4 flex items-center gap-2">
+          <div className="bg-orange-50 p-5 rounded-[24px] border border-orange-100">
+            <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
               <Settings2 className="w-5 h-5 text-orange-500" />
               Additional Factors
             </h3>
@@ -285,8 +285,8 @@ const ConstructionCostSummary: React.FC = () => {
             <div className="space-y-6">
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Overhead & Profit (%)</label>
-                  <span className="bg-white dark:bg-slate-800 px-2 py-1 rounded text-orange-600 font-bold border border-slate-200 dark:border-slate-700">{overheadProfitPct}%</span>
+                  <label className="text-sm font-medium text-slate-700">Overhead & Profit (%)</label>
+                  <span className="bg-white px-2 py-1 rounded text-orange-600 font-bold border border-slate-200">{overheadProfitPct}%</span>
                 </div>
                 <input
                   type="range"
@@ -295,14 +295,14 @@ const ConstructionCostSummary: React.FC = () => {
                   step="1"
                   value={overheadProfitPct}
                   onChange={(e) => setOverheadProfitPct(parseInt(e.target.value))}
-                  className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-orange-500"
+                  className="w-full h-2 bg-slate-200 rounded-[16px] appearance-none cursor-pointer accent-orange-500"
                 />
               </div>
 
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Contingency (%)</label>
-                  <span className="bg-white dark:bg-slate-800 px-2 py-1 rounded text-orange-600 font-bold border border-slate-200 dark:border-slate-700">{contingencyPct}%</span>
+                  <label className="text-sm font-medium text-slate-700">Contingency (%)</label>
+                  <span className="bg-white px-2 py-1 rounded text-orange-600 font-bold border border-slate-200">{contingencyPct}%</span>
                 </div>
                 <input
                   type="range"
@@ -311,7 +311,7 @@ const ConstructionCostSummary: React.FC = () => {
                   step="1"
                   value={contingencyPct}
                   onChange={(e) => setContingencyPct(parseInt(e.target.value))}
-                  className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-orange-500"
+                  className="w-full h-2 bg-slate-200 rounded-[16px] appearance-none cursor-pointer accent-orange-500"
                 />
               </div>
             </div>
@@ -320,8 +320,8 @@ const ConstructionCostSummary: React.FC = () => {
 
         {/* Right Column: Visualization & Summary */}
         <div className="flex flex-col gap-6">
-          <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 h-[400px]">
-            <h3 className="text-center font-bold text-slate-700 dark:text-slate-300 mb-4">Cost Distribution breakdown</h3>
+          <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] p-6 border border-slate-200 h-[400px]">
+            <h3 className="text-center font-bold text-slate-700 mb-4">Cost Distribution breakdown</h3>
             <ResponsiveContainer width="100%" height="90%">
               <PieChart>
                 <Pie
@@ -346,7 +346,7 @@ const ConstructionCostSummary: React.FC = () => {
             </ResponsiveContainer>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-2xl p-6 text-slate-900 dark:text-white shadow-xl">
+          <div className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-[24px] p-6 text-slate-900 shadow-xl">
             <h3 className="text-purple-200 text-sm font-medium uppercase tracking-wider mb-4">Final Cost Summary</h3>
             
             <div className="space-y-3 mb-6">
@@ -366,18 +366,18 @@ const ConstructionCostSummary: React.FC = () => {
 
             <div className="pt-2">
               <div className="text-purple-200 text-sm mb-1">Grand Total Estimation</div>
-              <div className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white mb-4">
+              <div className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tracking-tight text-slate-900 mb-4">
                 {/* using standard large formatting */}
                 {grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </div>
               
-              <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 flex items-center justify-between">
+              <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] p-4 flex items-center justify-between">
                 <div>
                   <div className="text-purple-200 text-xs uppercase tracking-wider mb-1">Cost Per Sq Ft</div>
                   <div className="text-2xl font-semibold">{costPerSqFt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
                 </div>
                 <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                  <PieChartIcon className="w-6 h-6 text-slate-900 dark:text-white" />
+                  <PieChartIcon className="w-6 h-6 text-slate-900" />
                 </div>
               </div>
             </div>

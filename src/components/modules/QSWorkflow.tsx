@@ -128,20 +128,20 @@ export default function QSWorkflow() {
     <div className="w-full max-w-7xl mx-auto pb-24 animate-in fade-in duration-500">
       
       {/* HEADER SECTION */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm mb-6 flex justify-between items-center no-print">
+      <div className="bg-white border border-slate-200 p-6 md:p-8 rounded-[2rem] shadow-sm mb-6 flex justify-between items-center no-print">
          <div>
-           <h2 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
-             <div className="p-3 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-2xl">
+           <h2 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 tracking-tight flex items-center gap-3">
+             <div className="p-3 bg-blue-50 text-blue-600 rounded-[24px]">
                <Activity className="w-8 h-8" />
              </div>
              Guided QS Workflow
            </h2>
-           <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">
+           <p className="text-slate-500 mt-2 font-medium">
              Complete end-to-end quantity take-off following IS 1200 sequences.
            </p>
          </div>
          {currentStep === 8 && (
-           <button onClick={() => window.print()} className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl flex items-center gap-2 transition-colors">
+           <button onClick={() => window.print()} className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-[24px] flex items-center gap-2 transition-colors">
               <Printer className="w-4 h-4" /> Export PDF
            </button>
          )}
@@ -160,16 +160,16 @@ export default function QSWorkflow() {
                 <div className="flex flex-col items-center cursor-pointer" onClick={() => setCurrentStep(num as Step)}>
                    <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg transition-all \${
                      isActive ? 'bg-blue-600 text-white shadow-lg ring-4 ring-blue-600/20' : 
-                     isCompleted ? 'bg-emerald-500 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
+                     isCompleted ? 'bg-emerald-500 text-white' : 'bg-slate-100  text-slate-400'
                    }`}>
                      {isCompleted ? <CheckCircle className="w-6 h-6" /> : <Icon className="w-6 h-6" />}
                    </div>
-                   <span className={`text-xs font-bold mt-2 whitespace-nowrap \${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500'}`}>
+                   <span className={`text-xs font-bold mt-2 whitespace-nowrap \${isActive ? 'text-blue-600 ' : 'text-slate-500'}`}>
                      Step {num}: {step.title}
                    </span>
                 </div>
                 {num !== 8 && (
-                  <div className={`flex-1 h-1 mx-2 rounded-full \${isCompleted ? 'bg-emerald-500' : 'bg-slate-200 dark:bg-slate-700'}`}></div>
+                  <div className={`flex-1 h-1 mx-2 rounded-full \${isCompleted ? 'bg-emerald-500' : 'bg-slate-200 '}`}></div>
                 )}
               </React.Fragment>
             );
@@ -178,19 +178,19 @@ export default function QSWorkflow() {
       </div>
 
       {/* WIZARD CONTENT BOX */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm p-6 md:p-10 no-print">
+      <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm p-6 md:p-10 no-print">
          
          {/* -- STEP 1 -- */}
          {currentStep === 1 && (
             <div className="animate-in slide-in-from-right-4 duration-300">
                <h3 className="text-2xl font-semibold mb-6">1. Project Setup</h3>
                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                 <div><label className="block text-sm font-bold mb-2">Project Name</label><input type="text" value={projectData.name} onChange={e=>setProjectData({...projectData, name: e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl" /></div>
-                 <div><label className="block text-sm font-bold mb-2">Location</label><input type="text" value={projectData.location} onChange={e=>setProjectData({...projectData, location: e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl" /></div>
-                 <div><label className="block text-sm font-bold mb-2">Client</label><input type="text" value={projectData.client} onChange={e=>setProjectData({...projectData, client: e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl" /></div>
+                 <div><label className="block text-sm font-bold mb-2">Project Name</label><input type="text" value={projectData.name} onChange={e=>setProjectData({...projectData, name: e.target.value})} className="w-full px-4 py-3 bg-slate-50 border rounded-[24px]" /></div>
+                 <div><label className="block text-sm font-bold mb-2">Location</label><input type="text" value={projectData.location} onChange={e=>setProjectData({...projectData, location: e.target.value})} className="w-full px-4 py-3 bg-slate-50 border rounded-[24px]" /></div>
+                 <div><label className="block text-sm font-bold mb-2">Client</label><input type="text" value={projectData.client} onChange={e=>setProjectData({...projectData, client: e.target.value})} className="w-full px-4 py-3 bg-slate-50 border rounded-[24px]" /></div>
                  <div>
                    <label className="block text-sm font-bold mb-2">Structure Type</label>
-                   <select value={projectData.type} onChange={e=>setProjectData({...projectData, type: e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl">
+                   <select value={projectData.type} onChange={e=>setProjectData({...projectData, type: e.target.value})} className="w-full px-4 py-3 bg-slate-50 border rounded-[24px]">
                      <option>Residential</option>
                      <option>Commercial</option>
                      <option>Industrial</option>
@@ -204,7 +204,7 @@ export default function QSWorkflow() {
          {currentStep === 2 && (
             <div className="animate-in slide-in-from-right-4 duration-300">
                <h3 className="text-2xl font-semibold mb-6">2. Drawings & Plan Measure</h3>
-               <div className={`p-10 border-2 border-dashed rounded-2xl text-center mb-6 \${drawingsLoaded ? 'border-emerald-500 bg-emerald-50/50' : 'border-slate-300 dark:border-slate-700'}`}>
+               <div className={`p-10 border-2 border-dashed rounded-[24px] text-center mb-6 \${drawingsLoaded ? 'border-emerald-500 bg-emerald-50/50' : 'border-slate-300'}`}>
                   {drawingsLoaded ? (
                      <div className="flex flex-col items-center">
                         <CheckCircle className="w-12 h-12 text-emerald-500 mb-3" />
@@ -217,14 +217,14 @@ export default function QSWorkflow() {
                         <Map className="w-12 h-12 text-slate-400 mb-3" />
                         <h4 className="font-bold text-lg">Upload Architectural / Structural Drawings</h4>
                         <p className="text-slate-500 text-sm mb-4">PDF, DWG or Image formats</p>
-                        <button onClick={() => setDrawingsLoaded(true)} className="px-6 py-2 bg-slate-800 text-slate-900 dark:text-white rounded-lg font-bold">Simulate Upload</button>
+                        <button onClick={() => setDrawingsLoaded(true)} className="px-6 py-2 bg-white text-slate-900 rounded-[16px] font-bold border border-slate-200 shadow-sm">Simulate Upload</button>
                      </div>
                   )}
                </div>
 
                <div>
                  <label className="block text-sm font-bold mb-2">Estimated Total Plinth Area (sq.ft)</label>
-                 <input type="number" value={totalPlinthArea} onChange={e=>setTotalPlinthArea(+e.target.value)} className="w-full md:w-1/2 px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl" />
+                 <input type="number" value={totalPlinthArea} onChange={e=>setTotalPlinthArea(+e.target.value)} className="w-full md:w-1/2 px-4 py-3 bg-slate-50 border rounded-[24px]" />
                </div>
             </div>
          )}
@@ -236,17 +236,17 @@ export default function QSWorkflow() {
                <p className="text-slate-500 mb-6 font-medium">Extract quantities for below-ground works as per IS 1200 Part 1 & 2.</p>
                
                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                 <div className="bg-amber-50/50 dark:bg-amber-900/10 p-5 rounded-2xl border border-amber-100 dark:border-amber-900/30">
+                 <div className="bg-amber-50/50 p-5 rounded-[24px] border border-amber-100">
                     <label className="block text-sm font-bold mb-2">Earthwork (Excavation) - m³</label>
-                    <input type="number" value={substructure.excavation} onChange={e=>setSubstructure({...substructure, excavation: +e.target.value})} className="w-full px-4 py-3 bg-white dark:bg-slate-800 border-amber-200 rounded-xl font-bold" />
+                    <input type="number" value={substructure.excavation} onChange={e=>setSubstructure({...substructure, excavation: +e.target.value})} className="w-full px-4 py-3 bg-white border-amber-200 rounded-[24px] font-bold" />
                  </div>
-                 <div className="bg-amber-50/50 dark:bg-amber-900/10 p-5 rounded-2xl border border-amber-100 dark:border-amber-900/30">
+                 <div className="bg-amber-50/50 p-5 rounded-[24px] border border-amber-100">
                     <label className="block text-sm font-bold mb-2">Footing PCC/RCC - m³</label>
-                    <input type="number" value={substructure.footingConc} onChange={e=>setSubstructure({...substructure, footingConc: +e.target.value})} className="w-full px-4 py-3 bg-white dark:bg-slate-800 border-amber-200 rounded-xl font-bold" />
+                    <input type="number" value={substructure.footingConc} onChange={e=>setSubstructure({...substructure, footingConc: +e.target.value})} className="w-full px-4 py-3 bg-white border-amber-200 rounded-[24px] font-bold" />
                  </div>
-                 <div className="bg-amber-50/50 dark:bg-amber-900/10 p-5 rounded-2xl border border-amber-100 dark:border-amber-900/30">
+                 <div className="bg-amber-50/50 p-5 rounded-[24px] border border-amber-100">
                     <label className="block text-sm font-bold mb-2">Plinth Beam RCC - m³</label>
-                    <input type="number" value={substructure.plinthBeam} onChange={e=>setSubstructure({...substructure, plinthBeam: +e.target.value})} className="w-full px-4 py-3 bg-white dark:bg-slate-800 border-amber-200 rounded-xl font-bold" />
+                    <input type="number" value={substructure.plinthBeam} onChange={e=>setSubstructure({...substructure, plinthBeam: +e.target.value})} className="w-full px-4 py-3 bg-white border-amber-200 rounded-[24px] font-bold" />
                  </div>
                </div>
             </div>
@@ -261,19 +261,19 @@ export default function QSWorkflow() {
                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                  <div>
                     <label className="block text-sm font-bold mb-2">Columns RCC - m³</label>
-                    <input type="number" value={superstructure.columns} onChange={e=>setSuperstructure({...superstructure, columns: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl font-bold" />
+                    <input type="number" value={superstructure.columns} onChange={e=>setSuperstructure({...superstructure, columns: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 border rounded-[24px] font-bold" />
                  </div>
                  <div>
                     <label className="block text-sm font-bold mb-2">Beams RCC - m³</label>
-                    <input type="number" value={superstructure.beams} onChange={e=>setSuperstructure({...superstructure, beams: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl font-bold" />
+                    <input type="number" value={superstructure.beams} onChange={e=>setSuperstructure({...superstructure, beams: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 border rounded-[24px] font-bold" />
                  </div>
                  <div>
                     <label className="block text-sm font-bold mb-2">Slabs RCC - m³</label>
-                    <input type="number" value={superstructure.slabs} onChange={e=>setSuperstructure({...superstructure, slabs: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl font-bold" />
+                    <input type="number" value={superstructure.slabs} onChange={e=>setSuperstructure({...superstructure, slabs: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 border rounded-[24px] font-bold" />
                  </div>
                  <div>
                     <label className="block text-sm font-bold mb-2">Staircase RCC - m³</label>
-                    <input type="number" value={superstructure.staircase} onChange={e=>setSuperstructure({...superstructure, staircase: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl font-bold" />
+                    <input type="number" value={superstructure.staircase} onChange={e=>setSuperstructure({...superstructure, staircase: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 border rounded-[24px] font-bold" />
                  </div>
                </div>
             </div>
@@ -288,19 +288,19 @@ export default function QSWorkflow() {
                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                  <div>
                     <label className="block text-sm font-bold mb-2">Brickwork/Blockwork - m³</label>
-                    <input type="number" value={masonry.brickwork} onChange={e=>setMasonry({...masonry, brickwork: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl font-bold" />
+                    <input type="number" value={masonry.brickwork} onChange={e=>setMasonry({...masonry, brickwork: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 border rounded-[24px] font-bold" />
                  </div>
                  <div>
                     <label className="block text-sm font-bold mb-2">Plastering (Int & Ext) - m²</label>
-                    <input type="number" value={masonry.plaster} onChange={e=>setMasonry({...masonry, plaster: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl font-bold" />
+                    <input type="number" value={masonry.plaster} onChange={e=>setMasonry({...masonry, plaster: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 border rounded-[24px] font-bold" />
                  </div>
                  <div>
                     <label className="block text-sm font-bold mb-2">Flooring/Tiling - m²</label>
-                    <input type="number" value={masonry.flooring} onChange={e=>setMasonry({...masonry, flooring: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl font-bold" />
+                    <input type="number" value={masonry.flooring} onChange={e=>setMasonry({...masonry, flooring: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 border rounded-[24px] font-bold" />
                  </div>
                  <div>
                     <label className="block text-sm font-bold mb-2">Painting & Finishes - m²</label>
-                    <input type="number" value={masonry.painting} onChange={e=>setMasonry({...masonry, painting: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl font-bold" />
+                    <input type="number" value={masonry.painting} onChange={e=>setMasonry({...masonry, painting: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 border rounded-[24px] font-bold" />
                  </div>
                </div>
             </div>
@@ -315,19 +315,19 @@ export default function QSWorkflow() {
                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                  <div>
                     <label className="block text-sm font-bold mb-2">Plumbing (No. of Output Points)</label>
-                    <input type="number" value={services.plumbingPoints} onChange={e=>setServices({...services, plumbingPoints: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl font-bold" />
+                    <input type="number" value={services.plumbingPoints} onChange={e=>setServices({...services, plumbingPoints: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 border rounded-[24px] font-bold" />
                  </div>
                  <div>
                     <label className="block text-sm font-bold mb-2">Electrical (No. of Output Points)</label>
-                    <input type="number" value={services.electricalPoints} onChange={e=>setServices({...services, electricalPoints: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl font-bold" />
+                    <input type="number" value={services.electricalPoints} onChange={e=>setServices({...services, electricalPoints: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 border rounded-[24px] font-bold" />
                  </div>
                  <div>
                     <label className="block text-sm font-bold mb-2">Rainwater Harvesting Capacity (L)</label>
-                    <input type="number" value={services.rainwaterCapacity} onChange={e=>setServices({...services, rainwaterCapacity: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl font-bold" />
+                    <input type="number" value={services.rainwaterCapacity} onChange={e=>setServices({...services, rainwaterCapacity: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 border rounded-[24px] font-bold" />
                  </div>
                  <div>
                     <label className="block text-sm font-bold mb-2">Solar Generation (kW)</label>
-                    <input type="number" value={services.solarSize} onChange={e=>setServices({...services, solarSize: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border rounded-xl font-bold" />
+                    <input type="number" value={services.solarSize} onChange={e=>setServices({...services, solarSize: +e.target.value})} className="w-full px-4 py-3 bg-slate-50 border rounded-[24px] font-bold" />
                  </div>
                </div>
             </div>
@@ -342,9 +342,9 @@ export default function QSWorkflow() {
                </div>
                <p className="text-slate-500 mb-6 font-medium">Verify standard item descriptions and auto-calculated final quantities.</p>
                
-               <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
+               <div className="overflow-x-auto rounded-[24px] border border-slate-200">
                   <table className="w-full text-sm text-left">
-                     <thead className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                     <thead className="bg-slate-100 text-slate-700">
                        <tr>
                           <th className="p-4 font-bold">Category</th>
                           <th className="p-4 font-bold">CPWD Standard Item Description</th>
@@ -353,19 +353,19 @@ export default function QSWorkflow() {
                           <th className="p-4 font-bold text-right">Total (₹)</th>
                        </tr>
                      </thead>
-                     <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+                     <tbody className="divide-y divide-slate-200">
                        {boqItems.map((item, idx) => (
-                          <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                          <tr key={idx} className="hover:bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
                              <td className="p-4 text-slate-500">{item.section}</td>
                              <td className="p-4 font-semibold">{item.item}</td>
                              <td className="p-4 text-right">{item.qty} {item.unit}</td>
                              <td className="p-4 text-right">₹{item.rate.toLocaleString()}</td>
-                             <td className="p-4 text-right font-bold text-indigo-600 dark:text-indigo-400">₹{item.amount.toLocaleString()}</td>
+                             <td className="p-4 text-right font-bold text-indigo-600">₹{item.amount.toLocaleString()}</td>
                           </tr>
                        ))}
                      </tbody>
                      <tfoot>
-                        <tr className="bg-slate-50 dark:bg-slate-800/80">
+                        <tr className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
                            <td colSpan={4} className="p-4 text-right font-semibold tabular-nums tracking-tight uppercase tracking-wider">Estimated Project Total</td>
                            <td className="p-4 text-right font-semibold tabular-nums tracking-tight text-xl text-emerald-600">₹{totalCost.toLocaleString()}</td>
                         </tr>
@@ -378,17 +378,17 @@ export default function QSWorkflow() {
 
          {/* SUB NAVIGATION BUTTONS */}
          {currentStep < 8 && (
-           <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 flex justify-between">
+           <div className="mt-8 pt-6 border-t border-slate-200 flex justify-between">
               <button 
                 onClick={handlePrev}
                 disabled={currentStep === 1}
-                className={`px-6 py-3 rounded-xl font-bold flex items-center gap-2 \${currentStep === 1 ? 'opacity-0' : 'bg-slate-100 hover:bg-slate-200'}`}
+                className={`px-6 py-3 rounded-[24px] font-bold flex items-center gap-2 \${currentStep === 1 ? 'opacity-0' : 'bg-slate-100 hover:bg-slate-200'}`}
               >
                  <ArrowLeft className="w-4 h-4" /> Previous
               </button>
               <button 
                 onClick={handleNext}
-                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold flex items-center gap-2"
+                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-[24px] font-bold flex items-center gap-2"
               >
                  {currentStep === 7 ? 'Generate Report' : 'Next Step'} <ArrowRight className="w-4 h-4" />
               </button>
@@ -406,7 +406,7 @@ export default function QSWorkflow() {
                {/* Report Header */}
                <div className="flex justify-between items-start pt-6 border-b-2 border-slate-800 pb-6 mb-8">
                   <div>
-                    <h1 className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight uppercase tracking-widest text-slate-900 mb-2">{projectData.name}</h1>
+                    <h1 className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight uppercase tracking-widest text-slate-900 mb-2">{projectData.name}</h1>
                     <p className="text-lg font-bold text-slate-600">{projectData.type} Structure • {projectData.location}</p>
                   </div>
                   <div className="text-right">
@@ -418,15 +418,15 @@ export default function QSWorkflow() {
 
                {/* Summary Cards */}
                <div className="grid grid-cols-3 gap-6 mb-10">
-                  <div className="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+                  <div className="p-6 bg-slate-50 border border-slate-200 rounded-[24px]">
                      <p className="text-sm font-bold text-slate-500 mb-2 uppercase tracking-widest">Total Estimated Cost</p>
                      <p className="text-3xl font-semibold tabular-nums tracking-tight text-indigo-700">₹{totalCost.toLocaleString()}</p>
                   </div>
-                  <div className="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+                  <div className="p-6 bg-slate-50 border border-slate-200 rounded-[24px]">
                      <p className="text-sm font-bold text-slate-500 mb-2 uppercase tracking-widest">Plinth Area</p>
                      <p className="text-3xl font-semibold tabular-nums tracking-tight">{totalPlinthArea.toLocaleString()} <span className="text-lg text-slate-500">sq.ft</span></p>
                   </div>
-                  <div className="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+                  <div className="p-6 bg-slate-50 border border-slate-200 rounded-[24px]">
                      <p className="text-sm font-bold text-slate-500 mb-2 uppercase tracking-widest">Cost Per Sq.Ft</p>
                      <p className="text-3xl font-semibold tabular-nums tracking-tight">₹{Math.round(totalCost / totalPlinthArea).toLocaleString()}</p>
                   </div>

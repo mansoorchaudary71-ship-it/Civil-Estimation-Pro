@@ -69,7 +69,7 @@ export default function CountertopModule() {
   const uA = isMetric ? "m²" : "sq.ft";
 
   return (
-    <div className="bg-bg-card border border-border-color rounded-3xl p-6 shadow-sm">
+    <div className="bg-bg-card border border-border-color rounded-[24px] p-6 shadow-sm">
       <div className="flex items-center gap-3 mb-6">
         <Square className="w-6 h-6 text-indigo-600" />
         <h2 className="text-xl font-semibold tracking-tight text-text-primary">Countertop (Platform) Estimator</h2>
@@ -78,13 +78,13 @@ export default function CountertopModule() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="space-y-6">
           <div>
-            <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-2 block">Layout Shape</label>
+            <label className="text-xs font-bold text-gray-500 uppercase mb-2 block">Layout Shape</label>
             <div className="flex gap-2">
               {(["Straight", "L-Shape", "U-Shape"] as const).map(s => (
                 <button
                   key={s}
                   onClick={() => setShape(s)}
-                  className={`px-4 py-2 rounded-xl text-sm font-bold transition-all border ${shape === s ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-bg-primary border-border-color text-slate-600 dark:text-slate-300 hover:bg-slate-100'}`}
+                  className={`px-4 py-2 rounded-[24px] text-sm font-bold transition-all border ${shape === s ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-bg-primary border-border-color text-slate-600  hover:bg-slate-100'}`}
                 >
                   {s}
                 </button>
@@ -94,62 +94,62 @@ export default function CountertopModule() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1">
+              <label className="text-xs font-bold text-gray-700 uppercase block mb-1">
                 Main Length ({uL})
               </label>
               <input
                 type="number"
                 value={lengthA}
                 onChange={(e) => setLengthA(e.target.value)}
-                className="w-full bg-bg-primary border border-border-color p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full bg-white border border-border-color p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
               />
             </div>
             {(shape === "L-Shape" || shape === "U-Shape") && (
               <div>
-                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1">
+                <label className="text-xs font-bold text-gray-700 uppercase block mb-1">
                   Side Length B ({uL})
                 </label>
                 <input
                   type="number"
                   value={lengthB}
                   onChange={(e) => setLengthB(e.target.value)}
-                  className="w-full bg-bg-primary border border-border-color p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                  className="w-full bg-white border border-border-color p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
                 />
               </div>
             )}
             {shape === "U-Shape" && (
               <div>
-                <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1">
+                <label className="text-xs font-bold text-gray-700 uppercase block mb-1">
                   Side Length C ({uL})
                 </label>
                 <input
                   type="number"
                   value={lengthC}
                   onChange={(e) => setLengthC(e.target.value)}
-                  className="w-full bg-bg-primary border border-border-color p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                  className="w-full bg-white border border-border-color p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
                 />
               </div>
             )}
             <div>
-              <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1">
+              <label className="text-xs font-bold text-gray-700 uppercase block mb-1">
                 Platform Depth ({uL})
               </label>
               <input
                 type="number"
                 value={depth}
                 onChange={(e) => setDepth(e.target.value)}
-                className="w-full bg-bg-primary border border-border-color p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full bg-white border border-border-color p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
               />
             </div>
             <div>
-              <label className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase block mb-1">
+              <label className="text-xs font-bold text-gray-700 uppercase block mb-1">
                 Skirting Height ({uL})
               </label>
               <input
                 type="number"
                 value={skirtingHeight}
                 onChange={(e) => setSkirtingHeight(e.target.value)}
-                className="w-full bg-bg-primary border border-border-color p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full bg-white border border-border-color p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
               />
             </div>
           </div>
@@ -158,34 +158,34 @@ export default function CountertopModule() {
             <h4 className="font-bold text-sm text-text-primary">Cutout Deductions</h4>
             <div className="flex items-center justify-between gap-3 w-full relative z-10">
               <input type="checkbox" id="hasSink" checked={hasSink} onChange={e => setHasSink(e.target.checked)} className="rounded text-indigo-600 w-4 h-4" />
-              <label htmlFor="hasSink" className="text-sm font-bold text-slate-700 dark:text-slate-300">Include Sink Cutout</label>
+              <label htmlFor="hasSink" className="text-sm font-bold text-slate-700">Include Sink Cutout</label>
             </div>
             {hasSink && (
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-[10px] font-bold text-gray-500 uppercase block mb-1">Length ({uL})</label>
-                  <input type="number" value={sinkLength} onChange={e => setSinkLength(e.target.value)} className="w-full bg-bg-primary border border-slate-200 p-2 rounded-lg text-sm" />
+                  <input type="number" value={sinkLength} onChange={e => setSinkLength(e.target.value)} className="w-full bg-white border border-slate-200 p-2 rounded-[16px] text-sm" />
                 </div>
                 <div>
                   <label className="text-[10px] font-bold text-gray-500 uppercase block mb-1">Width ({uL})</label>
-                  <input type="number" value={sinkWidth} onChange={e => setSinkWidth(e.target.value)} className="w-full bg-bg-primary border border-slate-200 p-2 rounded-lg text-sm" />
+                  <input type="number" value={sinkWidth} onChange={e => setSinkWidth(e.target.value)} className="w-full bg-white border border-slate-200 p-2 rounded-[16px] text-sm" />
                 </div>
               </div>
             )}
 
             <div className="flex items-center gap-2 mb-2 mt-4">
               <input type="checkbox" id="hasHob" checked={hasHob} onChange={e => setHasHob(e.target.checked)} className="rounded text-indigo-600 w-4 h-4" />
-              <label htmlFor="hasHob" className="text-sm font-bold text-slate-700 dark:text-slate-300">Include Stove/Hob Cutout</label>
+              <label htmlFor="hasHob" className="text-sm font-bold text-slate-700">Include Stove/Hob Cutout</label>
             </div>
             {hasHob && (
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-[10px] font-bold text-gray-500 uppercase block mb-1">Length ({uL})</label>
-                  <input type="number" value={hobLength} onChange={e => setHobLength(e.target.value)} className="w-full bg-bg-primary border border-slate-200 p-2 rounded-lg text-sm" />
+                  <input type="number" value={hobLength} onChange={e => setHobLength(e.target.value)} className="w-full bg-white border border-slate-200 p-2 rounded-[16px] text-sm" />
                 </div>
                 <div>
                   <label className="text-[10px] font-bold text-gray-500 uppercase block mb-1">Width ({uL})</label>
-                  <input type="number" value={hobWidth} onChange={e => setHobWidth(e.target.value)} className="w-full bg-bg-primary border border-slate-200 p-2 rounded-lg text-sm" />
+                  <input type="number" value={hobWidth} onChange={e => setHobWidth(e.target.value)} className="w-full bg-white border border-slate-200 p-2 rounded-[16px] text-sm" />
                 </div>
               </div>
             )}

@@ -17,15 +17,15 @@ export function DetailedRoomEstimators() {
   return (
     <div className="w-full flex justify-center animate-in fade-in slide-in-from-top-4 duration-500 pb-16">
       <div className="w-full max-w-6xl">
-        <div className="flex gap-2 p-1 bg-white/50 backdrop-blur-md rounded-2xl w-fit mx-auto mb-8 shadow-sm border border-slate-200 dark:bg-slate-800/50 dark:border-slate-700 overflow-x-auto max-w-full">
+        <div className="flex gap-2 p-1 bg-white/50 backdrop-blur-md rounded-[24px] w-fit mx-auto mb-8 shadow-sm border border-slate-200 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 overflow-x-auto max-w-full">
           {tabs.map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-6 py-3 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${
+              className={`px-6 py-3 rounded-[24px] text-sm font-bold transition-all whitespace-nowrap ${
                 activeTab === tab
                   ? "bg-purple-600 text-white shadow-md shadow-purple-500/20"
-                  : "text-slate-600 hover:text-slate-900 hover:bg-white/60 dark:text-slate-400 dark:hover:text-slate-200"
+                  : "text-slate-600 hover:text-slate-900 hover:bg-white/60 "
               }`}
             >
               {tab}
@@ -40,7 +40,7 @@ export function DetailedRoomEstimators() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="bg-slate-50 dark:bg-slate-900 rounded-[2rem] shadow-xl border border-slate-200 dark:border-slate-800 p-6 md:p-8"
+            className="bg-slate-50 rounded-[2rem] shadow-xl border border-slate-200 p-6 md:p-8"
           >
             {activeTab === "Kitchen" && <KitchenEstimator />}
             {activeTab === "Bedroom" && <BedroomEstimator />}
@@ -61,33 +61,33 @@ function ResultTable({ title, icon: Icon, items, onRateChange }: { title: string
       <h4 className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
         <Icon className="w-4 h-4 text-purple-500"/> {title}
       </h4>
-      <div className="bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
+      <div className="bg-white shadow-sm border border-slate-200 rounded-[24px] overflow-hidden">
         <table className="w-full text-left text-sm">
-          <thead className="bg-slate-50 dark:bg-slate-900/50">
+          <thead className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
             <tr>
-              <th className="py-3 px-4 font-semibold text-slate-600 dark:text-slate-400">Item</th>
-              <th className="py-3 px-4 font-semibold text-slate-600 dark:text-slate-400">Unit</th>
-              <th className="py-3 px-4 font-semibold text-right text-slate-600 dark:text-slate-400">Qty</th>
-              <th className="py-3 px-4 font-semibold text-right text-slate-600 dark:text-slate-400 w-32">Rate</th>
-              <th className="py-3 px-4 font-semibold text-right text-slate-600 dark:text-slate-400">Total</th>
+              <th className="py-3 px-4 font-semibold text-slate-600">Item</th>
+              <th className="py-3 px-4 font-semibold text-slate-600">Unit</th>
+              <th className="py-3 px-4 font-semibold text-right text-slate-600">Qty</th>
+              <th className="py-3 px-4 font-semibold text-right text-slate-600 w-32">Rate</th>
+              <th className="py-3 px-4 font-semibold text-right text-slate-600">Total</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+          <tbody className="divide-y divide-slate-100">
             {items.map((item, i) => (
-              <tr key={i} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50">
-                <td className="py-3 px-4 font-medium text-slate-700 dark:text-slate-300">{item.name}</td>
+              <tr key={i} className="hover:bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
+                <td className="py-3 px-4 font-medium text-slate-700">{item.name}</td>
                 <td className="py-3 px-4 text-slate-500 text-xs font-semibold">{item.unit}</td>
-                <td className="py-3 px-4 text-right font-semibold tabular-nums tracking-tight text-purple-600 dark:text-purple-400 text-base">{item.qty.toLocaleString(undefined, {maximumFractionDigits: 1})}</td>
+                <td className="py-3 px-4 text-right font-semibold tabular-nums tracking-tight text-purple-600 text-base">{item.qty.toLocaleString(undefined, {maximumFractionDigits: 1})}</td>
                 <td className="py-2 px-4">
                   <input
                     type="number"
                     min="0"
                     placeholder="0.00"
-                    className="w-full bg-slate-100 dark:bg-slate-900 border-none rounded-lg px-2 py-1.5 text-right text-sm focus:ring-2 focus:ring-purple-500 focus:outline-none text-slate-800 dark:text-slate-200 font-medium"
+                    className="w-full bg-slate-100 border-none rounded-[16px] px-2 py-1.5 text-right text-sm focus:ring-2 focus:ring-purple-500 focus:outline-none text-slate-800 font-medium"
                     onChange={(e) => onRateChange(item.name, parseFloat(e.target.value) || 0)}
                   />
                 </td>
-                <td className="py-3 px-4 text-right font-bold text-slate-800 dark:text-slate-200">
+                <td className="py-3 px-4 text-right font-bold text-slate-800">
                   {item.total ? (item.total).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) : "0.00"}
                 </td>
               </tr>
@@ -129,14 +129,14 @@ function BaseEstimatorWrapper({ title, inputs, renderInputs, calculate }: {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
       <div className="lg:col-span-4 space-y-6">
-        <h3 className="text-2xl font-semibold tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight">{title} Estimator</h3>
+        <h3 className="text-2xl font-semibold tracking-tight text-slate-800 tracking-tight">{title} Estimator</h3>
         <div className="space-y-6">
           {renderInputs()}
         </div>
       </div>
-      <div className="lg:col-span-8 bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700">
+      <div className="lg:col-span-8 bg-white p-6 sm:p-8 rounded-[2rem] shadow-sm border border-slate-100">
         <div className="flex justify-between items-end mb-8">
-          <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-900 dark:text-white tracking-tight">Calculation Results</h3>
+          <h3 className="text-xl font-semibold text-slate-800 tracking-tight">Calculation Results</h3>
           <div className="text-right">
             <span className="text-xs font-bold text-slate-500 uppercase tracking-widest block">Grand Total</span>
             <span className="text-3xl font-semibold tabular-nums tracking-tight text-purple-600 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-500">{grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
@@ -160,7 +160,7 @@ function CommonNumInput({ label, val, setVal, unit }: { label: string, val: stri
         <input 
           type="number" 
           value={val} onChange={(e)=>setVal(e.target.value)}
-          className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm font-semibold focus:ring-2 focus:ring-purple-500 outline-none transition-all text-slate-800 dark:text-slate-100"
+          className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2.5 text-sm font-semibold focus:ring-2 focus:ring-purple-500 outline-none transition-all text-slate-800"
         />
         {unit && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-bold text-slate-400">{unit}</span>}
       </div>
@@ -234,13 +234,13 @@ function KitchenEstimator() {
 
   return <BaseEstimatorWrapper title="Kitchen" inputs={null} calculate={cb} renderInputs={() => (
     <div className="grid grid-cols-2 gap-4">
-      <div className="col-span-2 border-b border-slate-200 dark:border-slate-800 pb-2 mb-2"><h4 className="font-bold text-slate-700 dark:text-slate-300">Room Dimensions</h4></div>
+      <div className="col-span-2 border-b border-slate-200 pb-2 mb-2"><h4 className="font-bold text-slate-700">Room Dimensions</h4></div>
       <CommonNumInput label="Length" val={L} setVal={setL} unit="ft" />
       <CommonNumInput label="Width" val={W} setVal={setW} unit="ft" />
       <CommonNumInput label="Height" val={H} setVal={setH} unit="ft" />
       <CommonNumInput label="Deductions" val={doorSqft} setVal={setDoorSqft} unit="sqft" />
       
-      <div className="col-span-2 border-b border-slate-200 dark:border-slate-800 pb-2 mt-4 mb-2"><h4 className="font-bold text-slate-700 dark:text-slate-300">Kitchen Specifics</h4></div>
+      <div className="col-span-2 border-b border-slate-200 pb-2 mt-4 mb-2"><h4 className="font-bold text-slate-700">Kitchen Specifics</h4></div>
       <CommonNumInput label="Countertop Length" val={counterL} setVal={setCounterL} unit="ft" />
       <CommonNumInput label="Countertop Width" val={counterW} setVal={setCounterW} unit="ft" />
       <CommonNumInput label="Lower Cabinets" val={lowerCabL} setVal={setLowerCabL} unit="l.ft" />
@@ -475,7 +475,7 @@ function BasementEstimator() {
       <CommonNumInput label="Excavation Depth" val={depth} setVal={setDepth} unit="ft" />
       <div className="flex flex-col gap-1.5">
         <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Soil Bulking Factor</label>
-        <select value={bulkingF} onChange={e=>setBulkingF(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm font-semibold focus:ring-2 focus:ring-purple-500 outline-none transition-all text-slate-800 dark:text-slate-100">
+        <select value={bulkingF} onChange={e=>setBulkingF(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2.5 text-sm font-semibold focus:ring-2 focus:ring-purple-500 outline-none transition-all text-slate-800">
           <option value="1.15">Hard Soil (1.15)</option>
           <option value="1.25">Normal Soil (1.25)</option>
           <option value="1.35">Loose Soil (1.35)</option>

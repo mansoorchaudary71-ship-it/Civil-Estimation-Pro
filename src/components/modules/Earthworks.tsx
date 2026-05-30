@@ -20,10 +20,10 @@ export default function EarthworksEstimator() {
   ];
 
   return (
-    <div className="w-full h-full flex flex-col md:flex-row bg-slate-50 dark:bg-slate-900 overflow-hidden">
+    <div className="w-full h-full flex flex-col md:flex-row bg-slate-50 overflow-hidden">
       {/* Sidebar for Sub-Navigation */}
-      <div className="w-full md:w-64 flex-shrink-0 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col pt-6 px-4 gap-2">
-        <h2 className="text-xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white px-2 mb-4">
+      <div className="w-full md:w-64 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col pt-6 px-4 gap-2">
+        <h2 className="text-xl font-semibold tabular-nums tracking-tight text-slate-800 px-2 mb-4">
           Earthworks
         </h2>
         
@@ -32,7 +32,7 @@ export default function EarthworksEstimator() {
           <select 
             value={designStandard}
             onChange={(e) => setDesignStandard(e.target.value)}
-            className="w-full mt-1 bg-slate-100 dark:bg-slate-800 border-none p-2 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-300 outline-none"
+            className="w-full mt-1 bg-slate-100 border-none p-2 rounded-[16px] text-xs font-semibold text-slate-700 outline-none"
           >
             <option value="IS 1200 Part 27 (Measurement)">IS 1200 Part 27 (Measurement)</option>
             <option value="IS 3764 (Excavation Safety)">IS 3764 (Safety)</option>
@@ -44,10 +44,10 @@ export default function EarthworksEstimator() {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all text-sm ${
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-[24px] font-bold transition-all text-sm ${
               activeTab === tab.id
-                ? "bg-amber-600 text-slate-900 dark:text-white shadow-md translate-x-1"
-                : "text-slate-600 dark:text-slate-400 hover:bg-amber-50 hover:text-amber-700 dark:hover:bg-slate-800 dark:hover:text-amber-500"
+                ? "bg-amber-600 text-slate-900  shadow-md translate-x-1"
+                : "text-slate-600  hover:bg-amber-50 hover:text-amber-700"
             }`}
           >
             <tab.icon className="w-5 h-5" />

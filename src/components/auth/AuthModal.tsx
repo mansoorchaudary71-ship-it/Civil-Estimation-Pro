@@ -99,7 +99,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#F5F5F7] backdrop-blur-sm">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -108,7 +108,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         >
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 p-2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors z-10"
+            className="absolute top-5 right-5 p-2 text-slate-500 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors z-10"
           >
             <X className="w-5 h-5" />
           </button>
@@ -117,7 +117,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
             <h2 className="text-2xl font-semibold text-text-primary mb-2">
               {isLogin ? 'Welcome back' : 'Create an account'}
             </h2>
-            <p className="text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300 mb-8">
+            <p className="text-sm text-slate-700 mb-8">
               {isLogin ? 'Sign in to access your estimates' : 'Sign up to save your estimation data safely'}
             </p>
 
@@ -125,7 +125,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               {!isLogin && (
                 <div>
                   <div className="relative flex items-center">
-                    <User className="absolute left-3.5 w-5 h-5 text-slate-700 dark:text-slate-300" />
+                    <User className="absolute left-3.5 w-5 h-5 text-slate-700" />
                     <input
                       type="text"
                       placeholder="Full Name"
@@ -135,7 +135,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                         setError('');
                       }}
                       required
-                      className="w-full pl-11 pr-4 py-3 bg-bg-primary border border-border-color rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
+                      className="w-full pl-11 pr-4 py-3 bg-white border border-border-color rounded-[24px] text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
                     />
                   </div>
                 </div>
@@ -143,7 +143,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               
               <div>
                 <div className="relative flex items-center">
-                  <AtSign className="absolute left-3.5 w-5 h-5 text-slate-700 dark:text-slate-300" />
+                  <AtSign className="absolute left-3.5 w-5 h-5 text-slate-700" />
                   <input
                     type="email"
                     placeholder="Email Address"
@@ -153,14 +153,14 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       setError('');
                     }}
                     required
-                    className="w-full pl-11 pr-4 py-3 bg-bg-primary border border-border-color rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
+                    className="w-full pl-11 pr-4 py-3 bg-white border border-border-color rounded-[24px] text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
                   />
                 </div>
               </div>
 
               <div>
                 <div className="relative flex items-center">
-                  <Lock className="absolute left-3.5 w-5 h-5 text-slate-700 dark:text-slate-300" />
+                  <Lock className="absolute left-3.5 w-5 h-5 text-slate-700" />
                   <input
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
@@ -170,12 +170,12 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       setError('');
                     }}
                     required
-                    className="w-full pl-11 pr-12 py-3 bg-bg-primary border border-border-color rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
+                    className="w-full pl-11 pr-12 py-3 bg-white border border-border-color rounded-[24px] text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3.5 text-slate-700 dark:text-slate-300 hover:text-slate-600 dark:hover:text-slate-300 focus:outline-none"
+                    className="absolute right-3.5 text-slate-700 hover:text-slate-600 focus:outline-none"
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
@@ -183,7 +183,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               </div>
 
               {error && (
-                <div className="p-3 text-sm text-red-500 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-xl">
+                <div className="p-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded-[24px]">
                   {error}
                 </div>
               )}
@@ -191,7 +191,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-sm text-sm transition-all flex justify-center items-center h-12"
+                className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-[24px] shadow-sm text-sm transition-all flex justify-center items-center h-12"
               >
                 {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : (isLogin ? 'Sign In' : 'Sign Up')}
               </button>
@@ -199,7 +199,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
             <div className="my-6 flex items-center">
               <div className="flex-1 border-t border-border-color"></div>
-              <span className="px-4 text-xs font-medium text-slate-700 dark:text-slate-300 uppercase tracking-wider">or</span>
+              <span className="px-4 text-xs font-medium text-slate-700 uppercase tracking-wider">or</span>
               <div className="flex-1 border-t border-border-color"></div>
             </div>
 
@@ -207,7 +207,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               type="button"
               onClick={handleGoogleSignIn}
               disabled={isLoading}
-              className="w-full py-3 px-4 bg-bg-card border border-border-color hover:bg-slate-50 dark:hover:bg-slate-700 text-text-primary font-medium rounded-xl shadow-sm text-sm transition-all focus:ring-4 focus:ring-slate-500/10 flex items-center justify-center gap-3 h-12"
+              className="w-full py-3 px-4 bg-bg-card border border-border-color hover:bg-slate-50 text-text-primary font-medium rounded-[24px] shadow-sm text-sm transition-all focus:ring-4 focus:ring-slate-500/10 flex items-center justify-center gap-3 h-12"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -218,7 +218,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
               Sign in with Google
             </button>
 
-            <p className="mt-8 text-center text-sm text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300">
+            <p className="mt-8 text-center text-sm text-slate-700">
               {isLogin ? "Don't have an account? " : "Already have an account? "}
               <button
                 type="button"
@@ -226,7 +226,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   setIsLogin(!isLogin);
                   setError('');
                 }}
-                className="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors"
+                className="font-semibold text-indigo-600 hover:text-indigo-500 transition-colors"
               >
                 {isLogin ? 'Sign up' : 'Log in'}
               </button>

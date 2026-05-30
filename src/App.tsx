@@ -99,7 +99,6 @@ import Dashboard, {
 import RecentEstimates from "./components/RecentEstimates";
 import Sidebar, { ModuleId } from "./components/Sidebar";
 export type { ModuleId };
-import GlobalBottomBar from "./components/GlobalBottomBar";
 import TopNavbar from "./components/TopNavbar";
 import Footer from "./components/Footer";
 import Logo from "./components/Logo";
@@ -518,11 +517,10 @@ export default function App() {
           <MarketRatesProvider>
             <TakeoffProvider>
               <ProjectProvider>
-                <div className="flex flex-col h-[100dvh] w-full bg-transparent font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
+                <div className="flex flex-col h-[100dvh] w-full bg-transparent font-sans text-slate-900 transition-colors duration-300">
                   <Toaster position="bottom-right" />
                   <ProductTour />
-                  <GlobalBottomBar />
-
+                  
                   <TopNavbar
                     onOpenSidebar={() => setIsSidebarOpen(true)}
                     onOpenAuth={() => setIsAuthOpen(true)}
@@ -549,10 +547,10 @@ export default function App() {
 
                     <main
                       id="main-content"
-                      className="flex-1 flex flex-col bg-transparent relative w-full min-h-0 pt-[80px] md:px-6 md:pb-6 md:pt-[100px] transition-all duration-300"
+                      className="flex-1 flex flex-col bg-transparent relative w-full min-h-0 pt-[80px] transition-all duration-300"
                     >
                       <div className="w-full h-full flex-1 flex flex-col min-h-0 relative transition-all duration-300">
-                        <div className="md:border md:border-slate-200 dark:md:border-slate-700/40 md:shadow-sm md:bg-white/50 dark:md:bg-slate-900/50 md:backdrop-blur-sm md:rounded-[32px] flex-1 flex flex-col min-h-0 relative w-full transition-colors duration-300">
+                        <div className="flex-1 flex flex-col min-h-0 relative w-full transition-colors duration-300 md:bg-white/50 md:backdrop-blur-sm">
                           {[
                             "home",
                             "my-estimates",
@@ -566,7 +564,7 @@ export default function App() {
                           ].includes(activeModule) ? (
                             <div
                               ref={scrollRef}
-                              className="flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto pb-[64px] md:pb-0"
+                              className="flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto"
                             >
                               <div className="flex flex-col min-h-full relative w-full">
                                 {activeModule === "home" && (
@@ -633,7 +631,7 @@ export default function App() {
                               </div>
                             </div>
                           ) : (
-                            <div className="flex-1 flex flex-col min-h-0 relative w-full bg-transparent pb-[64px] md:pb-32">
+                            <div className="flex-1 flex flex-col min-h-0 relative w-full bg-transparent">
                               {/* We remove AppHeader for Desktop, handle differently inside module wrappers if needed, but for now we keep ModuleWrapper and conditionally hide AppHeader inside it on desktop */}
                               {activeModule === "tracker" && (
                                 <ModuleWrapper
@@ -1326,7 +1324,7 @@ export default function App() {
                   {/* Floating Help Button */}
                   <button
                     onClick={() => setIsHelpOpen(true)}
-                    className="fixed bottom-[84px] md:bottom-8 right-4 md:right-8 z-50 p-3 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all hover:scale-110 flex items-center justify-center group focus:outline-none"
+                    className="fixed bottom-4 md:bottom-8 right-4 md:right-8 z-50 p-3 bg-white text-slate-600 rounded-full shadow-lg border border-slate-200 hover:bg-slate-50 transition-all hover:scale-110 flex items-center justify-center group focus:outline-none"
                     title="Help Guide"
                   >
                     <HelpCircle className="w-6 h-6 group-hover:text-amber-500 transition-colors" />
@@ -1371,20 +1369,20 @@ function FontSizeControls() {
     <div className="relative mr-2" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`p-1.5 rounded-lg transition-colors flex items-center justify-center ${isOpen ? "bg-black/10 dark:bg-white/20 text-slate-800 dark:text-slate-200" : "hover:bg-black/5 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400"}`}
+        className={`p-1.5 rounded-lg transition-colors flex items-center justify-center ${isOpen ? "bg-black/10  text-slate-800 " : "hover:bg-black/5 text-slate-500 "}`}
         aria-label="Text Size settings"
       >
         <Type className="w-5 h-5" />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-100 dark:border-slate-700 p-1 flex items-center space-x-1 z-50">
+        <div className="absolute right-0 top-full mt-2 bg-white rounded-xl shadow-lg border border-slate-100 p-1 flex items-center space-x-1 z-50">
           <button
             onClick={() => {
               updateSettings({ fontSize: "small" });
               setIsOpen(false);
             }}
-            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${settings.fontSize === "small" ? "bg-indigo-50 dark:bg-slate-700 text-indigo-600 dark:text-indigo-400" : "text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700/50"}`}
+            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${settings.fontSize === "small" ? "bg-indigo-50  text-indigo-600 " : "text-slate-500 hover:bg-slate-50"}`}
           >
             A-
           </button>
@@ -1393,7 +1391,7 @@ function FontSizeControls() {
               updateSettings({ fontSize: "medium" });
               setIsOpen(false);
             }}
-            className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${settings.fontSize === "medium" ? "bg-indigo-50 dark:bg-slate-700 text-indigo-600 dark:text-indigo-400" : "text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700/50"}`}
+            className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${settings.fontSize === "medium" ? "bg-indigo-50  text-indigo-600 " : "text-slate-500 hover:bg-slate-50"}`}
           >
             A
           </button>
@@ -1402,7 +1400,7 @@ function FontSizeControls() {
               updateSettings({ fontSize: "large" });
               setIsOpen(false);
             }}
-            className={`px-3 py-1.5 text-base font-bold rounded-lg transition-colors ${settings.fontSize === "large" ? "bg-indigo-50 dark:bg-slate-700 text-indigo-600 dark:text-indigo-400" : "text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700/50"}`}
+            className={`px-3 py-1.5 text-base font-bold rounded-lg transition-colors ${settings.fontSize === "large" ? "bg-indigo-50  text-indigo-600 " : "text-slate-500 hover:bg-slate-50"}`}
           >
             A+
           </button>
@@ -1429,10 +1427,10 @@ function AppHeader({
   ];
 
   return (
-    <header className="md:hidden flex items-center px-4 py-2.5 mx-2 mt-3 mb-3 bg-[#FFFFFF] dark:bg-slate-900 border border-black/5 dark:border-white/5 rounded-2xl shadow-[0_2px_10px_rgba(0,0,0,0.02)] sticky top-3 z-30 shrink-0 min-h-[50px] transition-all duration-300">
+    <header className="md:hidden flex items-center px-4 py-2.5 m-0 bg-[#FFFFFF] border-b border-black/5 sticky top-3 z-30 shrink-0 min-h-[50px] transition-all duration-300">
       <button
         onClick={onOpenSidebar}
-        className="p-2 mr-3 -ml-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 text-[#888888] dark:text-slate-400 transition-all"
+        className="p-2 mr-3 -ml-2 rounded-lg hover:bg-black/5 text-[#888888] transition-all"
         aria-label="Open sidebar"
       >
         <Menu className="w-5 h-5" />
@@ -1442,7 +1440,7 @@ function AppHeader({
         className="flex items-center gap-2 mr-5 shrink-0 hidden cursor-pointer transition-transform hover:scale-105"
         onClick={onGoHome}
       >
-        <Logo className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+        <Logo className="w-6 h-6 text-indigo-600" />
       </div>
 
       {onGoHome ? (
@@ -1450,7 +1448,7 @@ function AppHeader({
           <Breadcrumb items={breadcrumbItems} />
         </div>
       ) : (
-        <h1 className="text-base font-bold text-indigo-600 dark:text-indigo-400 flex-1 min-w-0 truncate pr-2">
+        <h1 className="text-base font-bold text-indigo-600 flex-1 min-w-0 truncate pr-2">
           {title}
         </h1>
       )}
@@ -1459,7 +1457,7 @@ function AppHeader({
 
       <button
         onClick={onOpenSettings}
-        className="p-2 -mr-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 text-[#888888] dark:text-slate-400 transition-all"
+        className="p-2 -mr-2 rounded-lg hover:bg-black/5 text-[#888888] transition-all"
         aria-label="Open settings"
       >
         <SettingsIcon className="w-5 h-5" />
@@ -1672,7 +1670,7 @@ function ModuleWrapper({
         id="main-calculator-content"
         tabIndex={-1}
       >
-        <div className="min-h-full flex flex-col items-center pb-[72px] md:pb-[96px]">
+        <div className="min-h-full flex flex-col items-center ">
           <div className="w-full max-w-full">
             {/* Added breadcrumb for desktop */}
             <div className="hidden md:flex ml-8 mt-6 mb-2 items-center justify-between pr-8">
@@ -1687,7 +1685,7 @@ function ModuleWrapper({
                 ]}
               />
               <div className="flex items-center gap-4">
-                <span className="text-sm font-semibold text-slate-500 dark:text-slate-400">
+                <span className="text-sm font-semibold text-slate-500">
                   Text Size:
                 </span>
                 <FontSizeControls />
@@ -1712,24 +1710,24 @@ function ModuleWrapper({
                   }
                 >
                   {moduleDef && (
-                    <div className="mb-6 p-6 rounded-[2rem] bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800">
+                    <div className="mb-6 p-6 rounded-[2rem] bg-slate-50 border border-slate-200">
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
-                        <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">
+                        <h1 className="text-2xl font-semibold text-slate-900">
                           {moduleDef.title} Calculator
                         </h1>
                         {moduleDef.isPopular && (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-400 text-sm font-semibold whitespace-nowrap">
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-sm font-semibold whitespace-nowrap">
                             🔥 Most popular this week
                           </span>
                         )}
                       </div>
 
-                      <p className="text-slate-600 dark:text-slate-300 leading-relaxed max-w-4xl text-base mb-4">
+                      <p className="text-slate-600 leading-relaxed max-w-4xl text-base mb-4">
                         {moduleDef.desc}
                       </p>
 
                       {/* Social Signals */}
-                      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-600 dark:text-slate-400">
+                      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-600">
                         <div className="flex items-center gap-1">
                           <span className="text-amber-500 flex">
                             {"★".repeat(5)}
@@ -1765,8 +1763,8 @@ function ModuleWrapper({
 
                   {moduleDef && (
                     <>
-                      <div className="mt-8 mb-6 p-6 rounded-[2rem] bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800">
-                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed max-w-4xl text-base mb-8">
+                      <div className="mt-8 mb-6 p-6 rounded-[2rem] bg-slate-50 border border-slate-200">
+                        <p className="text-slate-600 leading-relaxed max-w-4xl text-base mb-8">
                           Your calculation updates strictly in real-time above.
                           All numerical estimations generated by the{" "}
                           <strong>{moduleDef.title} Calculator</strong> are
@@ -1777,10 +1775,10 @@ function ModuleWrapper({
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                           <div>
-                            <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4">
+                            <h2 className="text-lg font-semibold text-slate-800 mb-4">
                               How to Use the {moduleDef.title} Calculator
                             </h2>
-                            <ol className="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-400">
+                            <ol className="list-decimal list-inside space-y-2 text-slate-600">
                               <li>
                                 Select your preferred units of measurement
                               </li>
@@ -1802,10 +1800,10 @@ function ModuleWrapper({
                             </ol>
                           </div>
                           <div>
-                            <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4">
+                            <h2 className="text-lg font-semibold text-slate-800 mb-4">
                               {moduleDef.title} Details
                             </h2>
-                            <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-sm">
+                            <p className="text-slate-600 leading-relaxed text-sm">
                               This tool is specifically designed for civil
                               engineers, contractors, and students to calculate
                               requirements with unparalleled speed and accuracy.
@@ -1817,19 +1815,19 @@ function ModuleWrapper({
                           </div>
                         </div>
 
-                        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4">
+                        <h2 className="text-lg font-semibold text-slate-800 mb-4">
                           Frequently Asked Questions
                         </h2>
                         <div className="space-y-3">
                           {genericFaqs.map((faq, index) => (
                             <div
                               key={index}
-                              className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800"
+                              className="bg-white p-4 rounded-xl border border-slate-200"
                             >
-                              <h3 className="font-medium text-sm text-slate-800 dark:text-slate-200">
+                              <h3 className="font-medium text-sm text-slate-800">
                                 {faq.q}
                               </h3>
-                              <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+                              <p className="text-sm text-slate-600 mt-2">
                                 {faq.a}
                               </p>
                             </div>
@@ -1838,8 +1836,8 @@ function ModuleWrapper({
                       </div>
 
                       {/* Related Tools */}
-                      <div className="mt-8 mb-6 p-6 rounded-[2rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-                        <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4">
+                      <div className="mt-8 mb-6 p-6 rounded-[2rem] bg-white border border-slate-200">
+                        <h2 className="text-lg font-semibold text-slate-800 mb-4">
                           Related Engineering Tools
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1855,12 +1853,12 @@ function ModuleWrapper({
                                 onClick={() =>
                                   setActiveModule(related.id as any)
                                 }
-                                className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl text-left border border-slate-200 dark:border-slate-800 hover:border-indigo-500 transition-colors"
+                                className="bg-slate-50 p-4 rounded-xl text-left border border-slate-200 hover:border-indigo-500 transition-colors"
                               >
-                                <h3 className="font-semibold text-slate-800 dark:text-slate-200 text-sm mb-1">
+                                <h3 className="font-semibold text-slate-800 text-sm mb-1">
                                   {related.title}
                                 </h3>
-                                <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">
+                                <p className="text-xs text-slate-600 line-clamp-2">
                                   {related.desc}
                                 </p>
                               </button>

@@ -9,7 +9,7 @@ export default function PrestressedConcreteEstimator() {
          <h2 className="text-xl font-semibold mb-6 text-slate-800 dark:text-slate-100 flex items-center gap-2">
             <Layers className="text-pink-600" /> Pre-stressed Concrete Estimator
          </h2>
-         <div className="p-6 bg-pink-50 dark:bg-pink-900/20 rounded-2xl border border-pink-100 dark:border-pink-900 text-center">
+         <div className="p-6 bg-pink-50 dark:bg-pink-900/20 rounded-[24px] border border-pink-100 dark:border-pink-900 text-center">
             <p className="text-pink-800 dark:text-pink-200 font-medium">Evaluate tendon profiles, compute prestress losses (friction, anchorage slip, elastic shortening), and design sections per IS 1343:2012.</p>
          </div>
       </div>

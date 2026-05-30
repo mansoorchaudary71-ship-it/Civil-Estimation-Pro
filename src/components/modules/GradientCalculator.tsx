@@ -148,17 +148,17 @@ export default function GradientCalculator() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 bg-white p-6 rounded-[2rem] shadow-sm border border-slate-200">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <div className="p-2.5 bg-emerald-600 rounded-xl shadow-lg shadow-emerald-500/30 text-white">
+              <div className="p-2.5 bg-emerald-600 rounded-[24px] shadow-lg shadow-emerald-500/30 text-white">
                 <Activity className="w-6 h-6" />
               </div>
               <h1 className="text-3xl font-semibold tracking-tight text-slate-800">Gradient & Slope</h1>
             </div>
-            <p className="text-gray-500 dark:text-gray-400 ml-1">Dynamic bidirectional slope and elevation calculator</p>
+            <p className="text-gray-500 ml-1">Dynamic bidirectional slope and elevation calculator</p>
           </div>
           <div className="mt-6 flex flex-wrap gap-4 items-center">
              <button
                 onClick={clearAll}
-                className="px-4 py-2 text-sm font-semibold rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors"
+                className="px-4 py-2 text-sm font-semibold rounded-[24px] bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors"
              >
                 Clear All
              </button>
@@ -171,7 +171,7 @@ export default function GradientCalculator() {
           <section className="lg:col-span-7 space-y-6">
              <div className="bg-white px-6 py-6 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
                 <div className="flex items-center gap-3 mb-6 border-b border-slate-50 pb-4">
-                  <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl">
+                  <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-[24px]">
                     <Triangle className="w-5 h-5" />
                   </div>
                   <h2 className="text-xl font-semibold tracking-tight text-slate-800">Slope Parameters</h2>
@@ -184,7 +184,7 @@ export default function GradientCalculator() {
                      <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2 ml-1">Rise (Vertical Δ)</label>
                      <input
                        type="number"
-                       className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all"
+                       className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all"
                        value={rise}
                        onChange={(e) => handleInputChange('rise', e.target.value)}
                        placeholder="e.g. 5"
@@ -194,7 +194,7 @@ export default function GradientCalculator() {
                      <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2 ml-1">Run (Horizontal Δ)</label>
                      <input
                        type="number"
-                       className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all"
+                       className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all"
                        value={run}
                        onChange={(e) => handleInputChange('run', e.target.value)}
                        placeholder="e.g. 100"
@@ -206,7 +206,7 @@ export default function GradientCalculator() {
                      <div className="relative">
                        <input
                          type="number"
-                         className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all pr-8"
+                         className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all pr-8"
                          value={slopePercent}
                          onChange={(e) => handleInputChange('percent', e.target.value)}
                          placeholder="e.g. 5"
@@ -217,7 +217,7 @@ export default function GradientCalculator() {
                    
                    <div>
                      <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2 ml-1">Gradient Ratio 1:N</label>
-                     <div className="relative flex items-center bg-slate-50 border border-slate-200 rounded-xl focus-within:ring-2 focus-within:ring-emerald-500/50 focus-within:border-emerald-500 transition-all overflow-hidden">
+                     <div className="relative flex items-center bg-slate-50 border border-slate-200 rounded-[24px] focus-within:ring-2 focus-within:ring-emerald-500/50 focus-within:border-emerald-500 transition-all overflow-hidden">
                        <span className="pl-4 pr-2 text-slate-800 font-bold bg-slate-100 h-full py-3 border-r border-slate-200">1 :</span>
                        <input
                          type="number"
@@ -234,7 +234,7 @@ export default function GradientCalculator() {
                      <div className="relative">
                        <input
                          type="number"
-                         className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all pr-8"
+                         className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all pr-8"
                          value={angleDeg}
                          onChange={(e) => handleInputChange('angle', e.target.value)}
                          placeholder="e.g. 2.86"
@@ -247,24 +247,24 @@ export default function GradientCalculator() {
              </div>
              
              {/* Elevation section */}
-             <div className="bg-gradient-to-br from-slate-800 to-slate-900 px-6 py-6 rounded-[1.5rem] shadow-xl text-slate-900 dark:text-white">
-                <div className="flex items-center gap-3 mb-6 border-b border-slate-700 pb-4">
-                  <div className="p-2.5 bg-slate-700 rounded-xl">
+             <div className="bg-gradient-to-br from-slate-800 to-slate-900 px-6 py-6 rounded-[1.5rem] shadow-xl text-slate-900">
+                <div className="flex items-center gap-3 mb-6 border-b border-slate-200 pb-4">
+                  <div className="p-2.5 bg-[#F5F5F7] rounded-[24px]">
                     <ArrowRight className="w-5 h-5 text-emerald-400" />
                   </div>
                   <h2 className="text-xl font-semibold tracking-tight">Elevation Finder</h2>
                 </div>
                 
-                <div className="flex items-center gap-4 mb-6 bg-slate-800/80 p-1.5 rounded-xl border border-slate-700 w-max">
+                <div className="flex items-center gap-4 mb-6 bg-slate-50 border border-slate-200 p-1.5 rounded-[24px] border border-slate-200 w-max">
                    <button 
                      onClick={() => setIsCut(true)}
-                     className={`px-4 py-2 text-sm font-semibold rounded-lg transition-all ${isCut ? 'bg-emerald-500 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'}`}
+                     className={`px-4 py-2 text-sm font-semibold rounded-[24px] transition-all ${isCut ? 'bg-emerald-500 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'}`}
                    >
                      Cut (Downward)
                    </button>
                    <button 
                      onClick={() => setIsCut(false)}
-                     className={`px-4 py-2 text-sm font-semibold rounded-lg transition-all ${!isCut ? 'bg-emerald-500 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'}`}
+                     className={`px-4 py-2 text-sm font-semibold rounded-[24px] transition-all ${!isCut ? 'bg-emerald-500 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'}`}
                    >
                      Fill (Upward)
                    </button>
@@ -275,7 +275,7 @@ export default function GradientCalculator() {
                      <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 ml-1">Start Elevation</label>
                      <input
                        type="number"
-                       className="w-full bg-slate-800/50 border border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none"
+                       className="w-full bg-slate-50 border border-slate-200 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none"
                        value={startElevation}
                        onChange={(e) => setStartElevation(e.target.value)}
                        placeholder="e.g. 100.5"
@@ -283,7 +283,7 @@ export default function GradientCalculator() {
                    </div>
                    <div>
                      <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 ml-1">Final Elevation</label>
-                     <div className="w-full bg-slate-800/80 border border-slate-700 text-slate-900 dark:text-white rounded-xl px-4 py-3 text-lg font-bold min-h-[50px] flex items-center">
+                     <div className="w-full bg-slate-50 border border-slate-200 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 text-lg font-bold min-h-[50px] flex items-center">
                         {finalElevation ? finalElevation : '--'}
                      </div>
                    </div>

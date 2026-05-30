@@ -120,13 +120,13 @@ export default function AdvancedSpecs({
   ) => (
     <div className="space-y-2 col-span-2 relative">
       <div className="flex justify-between items-center">
-        <label className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest flex items-center gap-1">
+        <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1">
           {label}
         </label>
         {tooltip && (
           <div className="relative group/tooltip flex items-center">
             <HelpCircle className="w-3.5 h-3.5 text-slate-400 cursor-help" />
-            <div className="absolute bottom-full right-0 mb-2 w-48 opacity-0 group-hover/tooltip:opacity-100 transition-opacity bg-slate-800 text-slate-900 dark:text-white text-[10px] p-2 rounded-lg pointer-events-none z-10 font-normal tracking-wide shadow-xl">
+            <div className="absolute bottom-full right-0 mb-2 w-48 opacity-0 group-hover/tooltip:opacity-100 transition-opacity bg-white text-slate-900 text-[10px] p-2 rounded-[16px] pointer-events-none z-10 font-normal tracking-wide shadow-xl border border-slate-200 shadow-sm">
               {tooltip}
             </div>
           </div>
@@ -136,7 +136,7 @@ export default function AdvancedSpecs({
         <select
           value={specs[specKey] as string}
           onChange={(e) => updateSpec(specKey, e.target.value)}
-          className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium appearance-none text-sm cursor-pointer hover:bg-slate-50 transition-colors"
+          className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium appearance-none text-sm cursor-pointer hover:bg-slate-50 transition-colors"
         >
           {options.map((opt) => (
             <option key={opt} value={opt}>
@@ -144,7 +144,7 @@ export default function AdvancedSpecs({
             </option>
           ))}
         </select>
-        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400 pointer-events-none" />
+        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
       </div>
     </div>
   );
@@ -154,7 +154,7 @@ export default function AdvancedSpecs({
     placeholder?: string,
   ) => (
     <div className="space-y-2 col-span-2 sm:col-span-1">
-      <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
+      <label className="text-[10px] font-bold text-gray-700 uppercase tracking-widest">
         {label}
       </label>
       <input
@@ -162,12 +162,12 @@ export default function AdvancedSpecs({
         value={specs[specKey] as string}
         onChange={(e) => updateSpec(specKey, e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm"
+        className="w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm"
       />
     </div>
   );
   const renderToggle = (label: string, specKey: keyof SpecsState) => (
-    <div className="flex items-center justify-between col-span-2 bg-transparent border border-slate-200 rounded-xl px-4 py-2.5">
+    <div className="flex items-center justify-between col-span-2 bg-transparent border border-slate-200 rounded-[24px] px-4 py-2.5">
       <span className="text-sm font-bold text-slate-700">{label}</span>
       <label className="relative inline-flex items-center cursor-pointer">
         <input
@@ -187,14 +187,14 @@ export default function AdvancedSpecs({
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-teal-50 text-teal-600 rounded-2xl">
+          <div className="p-3 bg-teal-50 text-teal-600 rounded-[24px]">
             <Sliders className="w-6 h-6" />
           </div>
           <h2 className="text-lg font-bold text-gray-800">
             Advanced Specifications
           </h2>
         </div>
-        <div className="p-2 bg-transparent text-slate-700 dark:text-slate-300 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors">
+        <div className="p-2 bg-transparent text-slate-700 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors">
           {isOpen ? (
             <ChevronUp className="w-5 h-5" />
           ) : (
@@ -203,14 +203,14 @@ export default function AdvancedSpecs({
         </div>
       </div>
       {!isOpen && (
-        <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">
+        <p className="text-sm text-slate-700 font-medium">
           Using standard smart defaults for accurate initial estimates.
         </p>
       )}
       {isOpen && (
         <div className="mt-6 space-y-3 animate-in fade-in zoom-in-95">
           {/* 1. Foundation & Substructure */}
-          <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
+          <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(0)}
               className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
@@ -219,9 +219,9 @@ export default function AdvancedSpecs({
                 1. Foundation & Substructure
               </span>
               {openCategory === 0 ? (
-                <ChevronUp className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+                <ChevronUp className="w-4 h-4 text-slate-700" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+                <ChevronDown className="w-4 h-4 text-slate-700" />
               )}
             </button>
             {openCategory === 0 && (
@@ -251,7 +251,7 @@ export default function AdvancedSpecs({
             )}
           </div>
           {/* 2. Superstructure (Grey Structure) */}
-          <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
+          <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(1)}
               className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
@@ -260,9 +260,9 @@ export default function AdvancedSpecs({
                 2. Above-Ground Work (Walls & Roof)
               </span>
               {openCategory === 1 ? (
-                <ChevronUp className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+                <ChevronUp className="w-4 h-4 text-slate-700" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+                <ChevronDown className="w-4 h-4 text-slate-700" />
               )}
             </button>
             {openCategory === 1 && (
@@ -302,7 +302,7 @@ export default function AdvancedSpecs({
             )}
           </div>
           {/* 3. Finishing & Surfaces */}
-          <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
+          <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(2)}
               className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
@@ -311,9 +311,9 @@ export default function AdvancedSpecs({
                 3. Finishing & Surfaces
               </span>
               {openCategory === 2 ? (
-                <ChevronUp className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+                <ChevronUp className="w-4 h-4 text-slate-700" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+                <ChevronDown className="w-4 h-4 text-slate-700" />
               )}
             </button>
             {openCategory === 2 && (
@@ -356,7 +356,7 @@ export default function AdvancedSpecs({
             )}
           </div>
           {/* 4. Woodwork & Openings (Doors/Windows) */}
-          <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
+          <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(3)}
               className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
@@ -365,9 +365,9 @@ export default function AdvancedSpecs({
                 4. Woodwork & Openings
               </span>
               {openCategory === 3 ? (
-                <ChevronUp className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+                <ChevronUp className="w-4 h-4 text-slate-700" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+                <ChevronDown className="w-4 h-4 text-slate-700" />
               )}
             </button>
             {openCategory === 3 && (
@@ -414,7 +414,7 @@ export default function AdvancedSpecs({
             )}
           </div>
           {/* 5. MEP (Mechanical, Electrical, Plumbing) */}
-          <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
+          <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-white">
             <button
               onClick={() => toggleCategory(4)}
               className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
@@ -423,9 +423,9 @@ export default function AdvancedSpecs({
                 5. MEP Services
               </span>
               {openCategory === 4 ? (
-                <ChevronUp className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+                <ChevronUp className="w-4 h-4 text-slate-700" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+                <ChevronDown className="w-4 h-4 text-slate-700" />
               )}
             </button>
             {openCategory === 4 && (

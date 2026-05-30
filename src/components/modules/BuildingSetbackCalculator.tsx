@@ -48,7 +48,7 @@ export default function BuildingSetbackCalculator() {
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6">
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
+      <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm">
         <h2 className="text-2xl font-semibold flex items-center gap-2 mb-6">
           <ArrowLeftRight className="w-6 h-6 text-purple-500" />
           Building Setback Calculator
@@ -58,37 +58,37 @@ export default function BuildingSetbackCalculator() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           <div>
             <label className="block text-sm font-semibold mb-2">Plot Frontage (m)</label>
-            <input type="number" value={plotFrontage} onChange={(e) => { setPlotFrontage(parseFloat(e.target.value) || 0); setPlotArea((parseFloat(e.target.value) || 0) * plotDepth); }} className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl" />
+            <input type="number" value={plotFrontage} onChange={(e) => { setPlotFrontage(parseFloat(e.target.value) || 0); setPlotArea((parseFloat(e.target.value) || 0) * plotDepth); }} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px]" />
           </div>
           <div>
             <label className="block text-sm font-semibold mb-2">Plot Depth (m)</label>
-            <input type="number" value={plotDepth} onChange={(e) => { setPlotDepth(parseFloat(e.target.value) || 0); setPlotArea(plotFrontage * (parseFloat(e.target.value) || 0)); }} className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl" />
+            <input type="number" value={plotDepth} onChange={(e) => { setPlotDepth(parseFloat(e.target.value) || 0); setPlotArea(plotFrontage * (parseFloat(e.target.value) || 0)); }} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px]" />
           </div>
           <div>
             <label className="block text-sm font-semibold mb-2">Total Plot Area (m²)</label>
-            <input type="number" value={plotArea} className="w-full bg-slate-100 dark:bg-slate-700 border border-transparent px-4 py-3 rounded-xl font-bold" disabled />
+            <input type="number" value={plotArea} className="w-full bg-slate-100 border border-transparent px-4 py-3 rounded-[24px] font-bold" disabled />
           </div>
           <div>
             <label className="block text-sm font-semibold mb-2">Building Type</label>
-            <select value={buildingType} onChange={(e) => setBuildingType(e.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl">
+            <select value={buildingType} onChange={(e) => setBuildingType(e.target.value)} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px]">
               <option value="residential">Residential</option>
               <option value="commercial">Commercial/Public</option>
             </select>
           </div>
           <div>
             <label className="block text-sm font-semibold mb-2">Approach Road Width (m)</label>
-            <input type="number" value={roadWidth} onChange={(e) => setRoadWidth(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl" />
+            <input type="number" value={roadWidth} onChange={(e) => setRoadWidth(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px]" />
           </div>
         </div>
 
         {/* Visual Diagram */}
-        <div className="relative w-full h-64 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 mb-8 flex items-center justify-center rounded-xl overflow-hidden">
+        <div className="relative w-full h-64 bg-slate-100 border border-slate-200 mb-8 flex items-center justify-center rounded-[24px] overflow-hidden">
            <div className="absolute top-2 text-xs font-bold text-slate-400">Rear Setback: {rearSetback}m</div>
            <div className="absolute bottom-2 text-xs font-bold text-slate-400">Front Setback: {frontSetback}m &darr; Road {roadWidth}m Wide</div>
            <div className="absolute left-2 text-xs font-bold text-slate-400" style={{writingMode: 'vertical-rl'}}>Side: {sideMargin}m</div>
            <div className="absolute right-2 text-xs font-bold text-slate-400" style={{writingMode: 'vertical-rl'}}>Side: {sideMargin}m</div>
            
-           <div className="bg-indigo-500/20 border-2 border-indigo-500 flex items-center justify-center text-indigo-700 dark:text-indigo-300 font-bold text-center" style={{ 
+           <div className="bg-indigo-500/20 border-2 border-indigo-500 flex items-center justify-center text-indigo-700 font-bold text-center" style={{ 
                width: `\${Math.max(20, (buildableFrontage/plotFrontage)*100)}%`, 
                height: `\${Math.max(20, (buildableDepth/plotDepth)*100)}%` 
            }}>

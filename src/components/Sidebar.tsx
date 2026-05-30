@@ -395,7 +395,7 @@ export default function Sidebar({
       {/* Mobile Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[100] transition-opacity lg:hidden"
+          className="fixed inset-0 bg-[#F5F5F7] backdrop-blur-sm z-[100] transition-opacity lg:hidden"
           onClick={onClose}
         />
       )}
@@ -403,17 +403,17 @@ export default function Sidebar({
       {/* Main Drawer */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-[110] transform transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col w-[85vw] max-w-[320px] bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border-r border-slate-200/50 dark:border-slate-800/50 h-[100dvh] shadow-2xl lg:relative lg:translate-x-0 lg:w-full lg:max-w-[300px]",
+          "fixed inset-y-0 left-0 z-[110] transform transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col w-[85vw] max-w-[320px] bg-white/70  backdrop-blur-xl border-r border-slate-200/50  h-[100dvh] shadow-2xl lg:relative lg:translate-x-0 lg:w-full lg:max-w-[300px]",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         {/* Header Row */}
         <div className="flex items-center justify-between px-6 py-5 shrink-0 lg:hidden">
           <div className="text-[20px] font-semibold tabular-nums tracking-tight tracking-tighter text-text-primary uppercase">
-            Esti<span className="text-indigo-600 dark:text-indigo-400">Pro</span>
+            Esti<span className="text-indigo-600">Pro</span>
           </div>
-          <div className="flex items-center space-x-2 text-slate-900 dark:text-slate-100 lg:hidden">
-            <button onClick={onClose} aria-label="Close menu" className="hover:text-slate-500 transition-colors bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm p-2 rounded-full shadow-sm">
+          <div className="flex items-center space-x-2 text-slate-900 lg:hidden">
+            <button onClick={onClose} aria-label="Close menu" className="hover:text-slate-500 transition-colors bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-sm">
               <X className="w-5 h-5 stroke-[2]" />
             </button>
           </div>
@@ -433,7 +433,7 @@ export default function Sidebar({
                    if (input) input.focus();
                 }, 300);
               }}
-              className="flex-1 flex items-center justify-between h-[46px] px-5 rounded-[24px] border border-[#ff9f43] dark:border-[#ff7f50] text-[#ff9f43] dark:text-[#ff7f50] bg-transparent hover:bg-[#ff9f43]/5 dark:hover:bg-[#ff7f50]/10 transition-colors"
+              className="flex-1 flex items-center justify-between h-[46px] px-5 rounded-[24px] border border-[#ff9f43] [#ff7f50] text-[#ff9f43] [#ff7f50] bg-transparent hover:bg-[#ff9f43]/5[#ff7f50]/10 transition-colors"
             >
               <span className="text-[14px] font-medium opacity-80">Search tools.</span>
             </button>
@@ -446,7 +446,7 @@ export default function Sidebar({
                    if (input) input.focus();
                 }, 300);
               }}
-              className="w-[46px] h-[46px] shrink-0 rounded-full border border-[#ff9f43] dark:border-[#ff7f50] text-[#ff9f43] dark:text-[#ff7f50] flex items-center justify-center hover:bg-[#ff9f43]/5 dark:hover:bg-[#ff7f50]/10 transition-colors"
+              className="w-[46px] h-[46px] shrink-0 rounded-full border border-[#ff9f43] [#ff7f50] text-[#ff9f43] [#ff7f50] flex items-center justify-center hover:bg-[#ff9f43]/5[#ff7f50]/10 transition-colors"
             >
               <Search className="w-5 h-5" strokeWidth={2.5} />
             </button>
@@ -460,7 +460,7 @@ export default function Sidebar({
                 "flex items-center gap-4 px-3 py-3 w-full rounded-[20px] transition-all duration-300",
                 activeModule === "home"
                   ? "bg-bg-primary/60"
-                  : "hover:bg-slate-50/50 dark:hover:bg-slate-800/40"
+                  : "hover:bg-slate-50/50"
               )}
             >
               <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-sm bg-[#54a0ff]")}>
@@ -468,7 +468,7 @@ export default function Sidebar({
               </div>
               <span className={cn(
                 "flex-1 text-left text-[15px] font-medium tracking-tight",
-                activeModule === "home" ? "text-text-primary font-semibold" : "text-slate-700 dark:text-slate-300"
+                activeModule === "home" ? "text-text-primary font-semibold" : "text-slate-700 "
               )}>Dashboard</span>
             </button>
             <button
@@ -477,7 +477,7 @@ export default function Sidebar({
                 "flex items-center gap-4 px-3 py-3 w-full rounded-[20px] transition-all duration-300",
                 activeModule === "takeoff"
                   ? "bg-bg-primary/60"
-                  : "hover:bg-slate-50/50 dark:hover:bg-slate-800/40"
+                  : "hover:bg-slate-50/50"
               )}
             >
               <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-sm bg-[#1dd1a1]")}>
@@ -485,7 +485,7 @@ export default function Sidebar({
               </div>
               <span className={cn(
                 "flex-1 text-left text-[15px] font-medium tracking-tight",
-                activeModule === "takeoff" ? "text-text-primary font-semibold" : "text-slate-700 dark:text-slate-300"
+                activeModule === "takeoff" ? "text-text-primary font-semibold" : "text-slate-700 "
               )}>2D Takeoff</span>
             </button>
             <button
@@ -494,7 +494,7 @@ export default function Sidebar({
                 "flex items-center gap-4 px-3 py-3 w-full rounded-[20px] transition-all duration-300",
                 activeModule === "ai"
                   ? "bg-bg-primary/60"
-                  : "hover:bg-slate-50/50 dark:hover:bg-slate-800/40"
+                  : "hover:bg-slate-50/50"
               )}
             >
               <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-sm bg-[#8b6cff]")}>
@@ -502,15 +502,15 @@ export default function Sidebar({
               </div>
               <span className={cn(
                 "flex-1 text-left text-[15px] font-medium tracking-tight",
-                activeModule === "ai" ? "text-text-primary font-semibold" : "text-slate-700 dark:text-slate-300"
+                activeModule === "ai" ? "text-text-primary font-semibold" : "text-slate-700 "
               )}>AI Civil Assistant</span>
             </button>
           </div>
 
-          <div className="w-full h-px bg-slate-200/50 dark:bg-slate-700/50 mb-6" />
+          <div className="w-full h-px bg-slate-200/50 mb-6" />
 
           <div className="flex flex-col gap-2 pb-6">
-            <h3 className="px-4 text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3">Core Estimators</h3>
+            <h3 className="px-4 text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-3">Core Estimators</h3>
             
             {SIDEBAR_DATA.map((category, idx) => {
               const isCategoryExpanded = expandedCategory === category.id;
@@ -522,7 +522,7 @@ export default function Sidebar({
                     onClick={() => setExpandedCategory(isCategoryExpanded ? null : category.id)}
                     className="flex justify-between items-center px-4 py-3 w-full group"
                   >
-                    <span className="text-[12px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider group-hover:text-slate-800 dark:group-hover:text-slate-200 transition-colors">
+                    <span className="text-[12px] font-bold text-slate-500 uppercase tracking-wider group-hover:text-slate-800 transition-colors">
                       {category.label}
                     </span>
                     <ChevronDown className={cn("w-4 h-4 text-slate-400 transition-transform duration-300", isCategoryExpanded && "rotate-180")} />
@@ -555,7 +555,7 @@ export default function Sidebar({
                                 "flex items-center gap-4 px-3 py-3 w-full rounded-[20px] transition-all",
                                 isToolExpanded || activeModule === tool.id
                                   ? "bg-bg-primary/60"
-                                  : "hover:bg-slate-50/50 dark:hover:bg-slate-800/40"
+                                  : "hover:bg-slate-50/50"
                               )}
                             >
                               <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-sm", iconBg)}>
@@ -563,7 +563,7 @@ export default function Sidebar({
                               </div>
                               <span className={cn(
                                 "flex-1 text-left text-[15px] font-medium tracking-tight",
-                                isToolExpanded || activeModule === tool.id ? "text-text-primary font-semibold" : "text-slate-700 dark:text-slate-300"
+                                isToolExpanded || activeModule === tool.id ? "text-text-primary font-semibold" : "text-slate-700 "
                               )}>
                                 {tool.label}
                               </span>
@@ -590,11 +590,11 @@ export default function Sidebar({
                                         "text-left py-2.5 text-[14px] transition-all relative group",
                                         isSubActive 
                                           ? "text-text-primary font-medium" 
-                                          : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
+                                          : "text-slate-500  hover:text-slate-800"
                                       )}
                                     >
                                       {isSubActive && (
-                                        <span className="absolute left-[-26px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-slate-800 dark:bg-slate-200" />
+                                        <span className="absolute left-[-26px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-white border border-slate-200 shadow-sm" />
                                       )}
                                       <span className="relative z-10 transition-transform duration-200 block group-hover:translate-x-1">
                                         {subTool.label}
@@ -616,7 +616,7 @@ export default function Sidebar({
         </nav>
 
         {/* Footer actions */}
-        <div className="p-4 border-t border-slate-200/50 dark:border-slate-800/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md shrink-0">
+        <div className="p-4 border-t border-slate-200/50 bg-white/50 backdrop-blur-md shrink-0">
           {isAuthenticated ? (
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-3 mb-1 px-2">
@@ -628,20 +628,20 @@ export default function Sidebar({
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[14px] font-bold text-slate-800 dark:text-slate-200 truncate">{user?.displayName || "User"}</p>
+                  <p className="text-[14px] font-bold text-slate-800 truncate">{user?.displayName || "User"}</p>
                   <p className="text-[12px] text-slate-500 truncate">{user?.email}</p>
                 </div>
               </div>
               <div className="flex gap-2">
                 <button
                   onClick={() => { onClose?.(); onOpenProfile?.(); }}
-                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-[13px] font-bold text-slate-700 dark:text-slate-300 bg-bg-card border border-border-color shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-[24px] text-[13px] font-bold text-slate-700 bg-bg-card border border-border-color shadow-sm hover:bg-slate-50 transition-colors"
                 >
                   <Settings className="w-4 h-4" /> Account
                 </button>
                 <button
                   onClick={async () => { await logOut(); onClose?.(); }}
-                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-[13px] font-bold text-red-600 dark:text-red-400 bg-bg-card border border-border-color shadow-sm hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-100 dark:hover:border-red-800 transition-colors"
+                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-[24px] text-[13px] font-bold text-red-600 bg-bg-card border border-border-color shadow-sm hover:bg-red-50 hover:border-red-100 transition-colors"
                 >
                   <LogOut className="w-4 h-4" /> Sign Out
                 </button>
@@ -652,7 +652,7 @@ export default function Sidebar({
               <button
                 onClick={handleGoogleSignIn}
                 disabled={isAuthLoading}
-                className="w-full flex items-center justify-center gap-3 py-3 rounded-xl text-[14px] font-bold text-slate-700 dark:text-slate-200 bg-bg-card border border-border-color shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-3 py-3 rounded-[24px] text-[14px] font-bold text-slate-700 bg-bg-card border border-border-color shadow-sm hover:bg-slate-50 transition-colors disabled:opacity-50"
               >
                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Login Button Logo" title="Google External Sign in Auth" loading="lazy" className="w-5 h-5 bg-white rounded-full p-0.5" />
                 {isAuthLoading ? "..." : "Sign In with Google"}

@@ -28,7 +28,7 @@ export default function ExcelPromo() {
             </p>
             <button 
               onClick={() => setIsSubmitted(false)}
-              className="px-6 py-2 bg-black/10 hover:bg-black/20 text-slate-900 font-bold rounded-lg transition-colors"
+              className="px-6 py-2 bg-black/10 hover:bg-black/20 text-slate-900 font-bold rounded-[16px] transition-colors"
             >
               Back to Form
             </button>
@@ -97,7 +97,7 @@ export default function ExcelPromo() {
           </div>
 
           {/* Right Column: Lead Form */}
-          <div className="bg-slate-50/80 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-slate-200 shadow-xl relative">
+          <div className="bg-slate-50/80 backdrop-blur-xl rounded-[24px] p-6 md:p-8 border border-slate-200 shadow-xl relative">
             <div className="absolute -top-4 -right-4 w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center border-4 border-white shadow-lg z-10 animate-pulse">
                <Smartphone className="w-5 h-5 text-white" />
             </div>
@@ -118,7 +118,7 @@ export default function ExcelPromo() {
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                     placeholder="Engineer Name"
-                    className="w-full bg-white border border-slate-200 rounded-xl py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-400"
+                    className="w-full bg-white border border-slate-200 rounded-[24px] py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-400"
                   />
                 </div>
               </div>
@@ -133,7 +133,7 @@ export default function ExcelPromo() {
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                     placeholder="your@email.com"
-                    className="w-full bg-white border border-slate-200 rounded-xl py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-400"
+                    className="w-full bg-white border border-slate-200 rounded-[24px] py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-400"
                   />
                 </div>
               </div>
@@ -148,14 +148,14 @@ export default function ExcelPromo() {
                     value={formData.whatsapp}
                     onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
                     placeholder="+91 900 0000000"
-                    className="w-full bg-white border border-slate-200 rounded-xl py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-400"
+                    className="w-full bg-white border border-slate-200 rounded-[24px] py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-400"
                   />
                 </div>
               </div>
 
               <button 
                 type="submit" 
-                className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-semibold tabular-nums tracking-tight text-[17px] py-4 rounded-xl flex items-center justify-center gap-2 shadow-[0_8px_30px_rgba(249,115,22,0.3)] hover:shadow-[0_8px_40px_rgba(249,115,22,0.5)] transition-all hover:-translate-y-1 active:scale-95 border border-white/10 mt-4"
+                className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-semibold tabular-nums tracking-tight text-[17px] py-4 rounded-[24px] flex items-center justify-center gap-2 shadow-[0_8px_30px_rgba(249,115,22,0.3)] hover:shadow-[0_8px_40px_rgba(249,115,22,0.5)] transition-all hover:-translate-y-1 active:scale-95 border border-white/10 mt-4"
               >
                 <Download className="w-6 h-6" />
                 GET FREE EXCEL PACK

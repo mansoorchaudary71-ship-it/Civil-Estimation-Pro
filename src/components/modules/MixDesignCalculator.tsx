@@ -178,20 +178,20 @@ export default function MixDesignCalculator() {
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500 pb-[120px]">
       {/* HEADER */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm no-print">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white border border-slate-200 p-6 md:p-8 rounded-[2rem] shadow-sm no-print">
         <div>
-          <h2 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
-            <div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-2xl">
+          <h2 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 tracking-tight flex items-center gap-3">
+            <div className="p-3 bg-indigo-50 text-indigo-600 rounded-[24px]">
               <Droplet className="w-8 h-8" />
             </div>
             Advanced Concrete Mix Design
           </h2>
-          <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">
+          <p className="text-slate-500 mt-2 font-medium">
             IS 10262:2019 compliant with SCMs, Admixtures, and International Code Comparison.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <button onClick={handlePrint} className="text-xs font-bold px-4 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center gap-2 border border-slate-200 dark:border-slate-700">
+          <button onClick={handlePrint} className="text-xs font-bold px-4 py-2.5 bg-slate-100 text-slate-700 rounded-[24px] hover:bg-slate-200 transition-colors flex items-center gap-2 border border-slate-200">
             <Printer className="w-4 h-4" /> Print Report
           </button>
         </div>
@@ -200,35 +200,35 @@ export default function MixDesignCalculator() {
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 no-print">
         {/* PARAMS PANEL */}
         <div className="xl:col-span-4 space-y-6">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm p-6 relative overflow-hidden">
-            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white mb-5 flex items-center gap-2 relative z-10">
+          <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm p-6 relative overflow-hidden">
+            <h3 className="text-lg font-bold text-slate-800 mb-5 flex items-center gap-2 relative z-10">
               <Settings className="w-5 h-5 text-indigo-500" /> Mix Parameters
             </h3>
             
             <div className="space-y-4 relative z-10">
               <div className="grid grid-cols-2 gap-3">
                  <div>
-                   <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center">
+                   <label className="block text-sm font-bold text-slate-700 mb-1.5 flex items-center">
                      Grade (MPa)
                    </label>
                    <div className="flex items-center gap-2">
                      <span className="font-bold text-slate-400">M</span>
-                     <input type="number" value={fck} onChange={(e) => setFck(Number(e.target.value) || 20)} className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" min={15} max={80} />
+                     <input type="number" value={fck} onChange={(e) => setFck(Number(e.target.value) || 20)} className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-[24px] outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" min={15} max={80} />
                    </div>
                  </div>
                  <div>
-                   <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center">
+                   <label className="block text-sm font-bold text-slate-700 mb-1.5 flex items-center">
                      Target W/C
                    </label>
-                   <input type="number" step="0.01" value={targetWc} onChange={(e) => setTargetWc(Number(e.target.value))} className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" />
+                   <input type="number" step="0.01" value={targetWc} onChange={(e) => setTargetWc(Number(e.target.value))} className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-[24px] outline-none focus:ring-2 focus:ring-indigo-500 font-semibold" />
                  </div>
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center">
+                <label className="block text-sm font-bold text-slate-700 mb-1.5 flex items-center">
                   Exposure Condition (IS 456)
                 </label>
-                <select value={exposure} onChange={(e) => setExposure(e.target.value as Exposure)} className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold">
+                <select value={exposure} onChange={(e) => setExposure(e.target.value as Exposure)} className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-[24px] outline-none focus:ring-2 focus:ring-indigo-500 font-semibold">
                   {Object.keys(EXPOSURE_LIMITS).map((exp) => (
                     <option key={exp} value={exp}>{exp}</option>
                   ))}
@@ -237,16 +237,16 @@ export default function MixDesignCalculator() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Agg Size (mm)</label>
-                  <select value={aggSize} onChange={(e) => setAggSize(Number(e.target.value))} className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold">
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">Agg Size (mm)</label>
+                  <select value={aggSize} onChange={(e) => setAggSize(Number(e.target.value))} className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-[24px] outline-none focus:ring-2 focus:ring-indigo-500 font-semibold">
                     <option value={10}>10 mm</option>
                     <option value={20}>20 mm</option>
                     <option value={40}>40 mm</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Slump (mm)</label>
-                  <select value={slump} onChange={(e) => setSlump(Number(e.target.value))} className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-semibold">
+                  <label className="block text-xs font-bold text-slate-700 mb-1.5">Slump (mm)</label>
+                  <select value={slump} onChange={(e) => setSlump(Number(e.target.value))} className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-[24px] outline-none focus:ring-2 focus:ring-indigo-500 font-semibold">
                     <option value={50}>50 mm</option>
                     <option value={75}>75 mm</option>
                     <option value={100}>100 mm</option>
@@ -258,49 +258,49 @@ export default function MixDesignCalculator() {
               </div>
             </div>
             
-            <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 relative z-10">
-               <h3 className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2">
+            <div className="mt-6 pt-6 border-t border-slate-100 relative z-10">
+               <h3 className="text-sm font-bold text-slate-700 mb-4 flex items-center gap-2">
                  <Beaker className="w-4 h-4 text-emerald-500" /> SCMs & Admixtures
                </h3>
 
                <div className="space-y-4">
                   <div>
                     <div className="flex justify-between items-center mb-1">
-                      <label className="text-xs font-bold text-slate-600 dark:text-slate-400">Fly Ash (IS 3812)</label>
-                      <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">{scmFlyAsh}%</span>
+                      <label className="text-xs font-bold text-slate-600">Fly Ash (IS 3812)</label>
+                      <span className="text-xs font-bold text-emerald-600">{scmFlyAsh}%</span>
                     </div>
                     <input type="range" min="0" max="35" value={scmFlyAsh} onChange={(e) => { setScmFlyAsh(Number(e.target.value)); setScmGgbs(0); }} className="w-full accent-emerald-500" />
                   </div>
                   <div>
                     <div className="flex justify-between items-center mb-1">
-                      <label className="text-xs font-bold text-slate-600 dark:text-slate-400">GGBS (IS 16714)</label>
-                      <span className="text-xs font-bold text-purple-600 dark:text-purple-400">{scmGgbs}%</span>
+                      <label className="text-xs font-bold text-slate-600">GGBS (IS 16714)</label>
+                      <span className="text-xs font-bold text-purple-600">{scmGgbs}%</span>
                     </div>
                     <input type="range" min="0" max="70" value={scmGgbs} onChange={(e) => { setScmGgbs(Number(e.target.value)); setScmFlyAsh(0); }} className="w-full accent-purple-500" />
                   </div>
                   <div>
                     <div className="flex justify-between items-center mb-1">
-                      <label className="text-xs font-bold text-slate-600 dark:text-slate-400">Silica Fume (IS 15388)</label>
-                      <span className="text-xs font-bold text-sky-600 dark:text-sky-400">{scmSilicaFume}%</span>
+                      <label className="text-xs font-bold text-slate-600">Silica Fume (IS 15388)</label>
+                      <span className="text-xs font-bold text-sky-600">{scmSilicaFume}%</span>
                     </div>
                     <input type="range" min="0" max="10" value={scmSilicaFume} onChange={(e) => setScmSilicaFume(Number(e.target.value))} className="w-full accent-sky-500" />
                   </div>
 
                   <div className="pt-2">
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center">
+                    <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center">
                       Water Reducing Admixture
                     </label>
-                    <select value={admixWaterReducer} onChange={(e) => setAdmixWaterReducer(e.target.value)} className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold">
+                    <select value={admixWaterReducer} onChange={(e) => setAdmixWaterReducer(e.target.value)} className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-[24px] outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold">
                       <option value="None">None</option>
                       <option value="Plasticizer">Plasticizer (12% Red.)</option>
                       <option value="Superplasticizer">Superplasticizer (25% Red.)</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5 flex items-center">
+                    <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center">
                       Temperature Control
                     </label>
-                    <select value={admixType} onChange={(e) => setAdmixType(e.target.value)} className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold">
+                    <select value={admixType} onChange={(e) => setAdmixType(e.target.value)} className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-[24px] outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-semibold">
                       <option value="Normal">Normal</option>
                       <option value="Retarder">Retarder (IS 7861-1)</option>
                       <option value="Accelerator">Accelerator (IS 7861-2)</option>
@@ -314,31 +314,31 @@ export default function MixDesignCalculator() {
         {/* RESULTS & CHECKS PANEL */}
         <div className="xl:col-span-8 space-y-6">
           {/* IS 456 DURABILITY CHECKS */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] shadow-sm">
-              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white flex items-center gap-2 mb-4">
+          <div className="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm">
+              <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2 mb-4">
                  <ShieldCheck className="w-5 h-5 text-rose-500" /> IS 456:2000 Durability Compliance ({exposure})
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                 <div className={`p-4 rounded-2xl border flex items-center justify-between \${passGrade ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800' : 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800'}`}>
+                 <div className={`p-4 rounded-[24px] border flex items-center justify-between \${passGrade ? 'bg-emerald-50  border-emerald-200 ' : 'bg-rose-50  border-rose-200 '}`}>
                     <div>
                       <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Min. Grade</h4>
-                      <p className="font-bold text-slate-800 dark:text-slate-200">M{fck} <span className="text-xs font-normal opacity-70">(Req: M{minGradeReq})</span></p>
+                      <p className="font-bold text-slate-800">M{fck} <span className="text-xs font-normal opacity-70">(Req: M{minGradeReq})</span></p>
                     </div>
                     {passGrade ? <CheckCircle className="w-6 h-6 text-emerald-500" /> : <XCircle className="w-6 h-6 text-rose-500" />}
                  </div>
 
-                 <div className={`p-4 rounded-2xl border flex items-center justify-between \${passCement ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800' : 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800'}`}>
+                 <div className={`p-4 rounded-[24px] border flex items-center justify-between \${passCement ? 'bg-emerald-50  border-emerald-200 ' : 'bg-rose-50  border-rose-200 '}`}>
                     <div>
                       <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Min. Cementitious</h4>
-                      <p className="font-bold text-slate-800 dark:text-slate-200">{totalCementitious} kg <span className="text-xs font-normal opacity-70">(Req: {minCementReq})</span></p>
+                      <p className="font-bold text-slate-800">{totalCementitious} kg <span className="text-xs font-normal opacity-70">(Req: {minCementReq})</span></p>
                     </div>
                     {passCement ? <CheckCircle className="w-6 h-6 text-emerald-500" /> : <XCircle className="w-6 h-6 text-rose-500" />}
                  </div>
 
-                 <div className={`p-4 rounded-2xl border flex items-center justify-between \${passWc ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800' : 'bg-rose-50 dark:bg-rose-900/20 border-rose-200 dark:border-rose-800'}`}>
+                 <div className={`p-4 rounded-[24px] border flex items-center justify-between \${passWc ? 'bg-emerald-50  border-emerald-200 ' : 'bg-rose-50  border-rose-200 '}`}>
                     <div>
                       <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Max W/C Ratio</h4>
-                      <p className="font-bold text-slate-800 dark:text-slate-200">{finalWc.toFixed(2)} <span className="text-xs font-normal opacity-70">(Max: {maxWcAllowed})</span></p>
+                      <p className="font-bold text-slate-800">{finalWc.toFixed(2)} <span className="text-xs font-normal opacity-70">(Max: {maxWcAllowed})</span></p>
                     </div>
                     {passWc ? <CheckCircle className="w-6 h-6 text-emerald-500" /> : <XCircle className="w-6 h-6 text-rose-500" />}
                  </div>
@@ -346,34 +346,34 @@ export default function MixDesignCalculator() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
+             <div className="bg-white border border-slate-200 p-5 rounded-[2rem] shadow-sm">
                 <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-1">Total Binder</p>
-                <p className="text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400 tabular-nums">
+                <p className="text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-indigo-600 tabular-nums">
                   {totalCementitious} <span className="text-sm font-bold text-slate-400">kg/m³</span>
                 </p>
              </div>
-             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
+             <div className="bg-white border border-slate-200 p-5 rounded-[2rem] shadow-sm">
                 <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-1">Water Content</p>
-                <p className="text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-sky-500 dark:text-sky-400 tabular-nums">
+                <p className="text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-sky-500 tabular-nums">
                   {Math.round(actualWaterContent)} <span className="text-sm font-bold text-slate-400">L/m³</span>
                 </p>
              </div>
-             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
+             <div className="bg-white border border-slate-200 p-5 rounded-[2rem] shadow-sm">
                 <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-1">Fine Aggregation</p>
-                <p className="text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-amber-500 dark:text-amber-400 tabular-nums">
+                <p className="text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-amber-500 tabular-nums">
                   {weightSand} <span className="text-sm font-bold text-slate-400">kg/m³</span>
                 </p>
              </div>
-             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-[2rem] shadow-sm">
+             <div className="bg-white border border-slate-200 p-5 rounded-[2rem] shadow-sm">
                 <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-1">Coarse Agg</p>
-                <p className="text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-teal-600 dark:text-teal-400 tabular-nums">
+                <p className="text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-teal-600 tabular-nums">
                   {weightCA} <span className="text-sm font-bold text-slate-400">kg/m³</span>
                 </p>
              </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm p-6 overflow-hidden">
+             <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm p-6 overflow-hidden">
                 <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">By Weight Composition</h3>
                 <div className="h-48">
                    <ResponsiveContainer width="100%" height="100%">
@@ -400,31 +400,31 @@ export default function MixDesignCalculator() {
              </div>
 
              {/* INTERNATIONAL COMPARISON */}
-             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm overflow-hidden flex flex-col">
-               <div className="p-6 border-b border-slate-100 dark:border-slate-800">
+             <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm overflow-hidden flex flex-col">
+               <div className="p-6 border-b border-slate-100">
                  <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
                    <TableIcon className="w-4 h-4 text-indigo-500" /> Code Comparison (Est.)
                  </h3>
                </div>
-               <div className="overflow-x-auto flex-1 p-2 bg-slate-50/50 dark:bg-slate-900/20">
+               <div className="overflow-x-auto flex-1 p-2 bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
                  <table className="w-full text-left text-xs whitespace-nowrap">
                     <thead className="bg-transparent">
                       <tr>
-                        <th className="px-4 py-2 font-bold text-slate-600 dark:text-slate-400">Standard Code</th>
-                        <th className="px-2 py-2 font-bold text-slate-600 dark:text-slate-400 text-right">Bind.</th>
-                        <th className="px-2 py-2 font-bold text-slate-600 dark:text-slate-400 text-right">Wat.</th>
-                        <th className="px-2 py-2 font-bold text-slate-600 dark:text-slate-400 text-right">FA</th>
-                        <th className="px-2 py-2 font-bold text-slate-600 dark:text-slate-400 text-right">CA</th>
+                        <th className="px-4 py-2 font-bold text-slate-600">Standard Code</th>
+                        <th className="px-2 py-2 font-bold text-slate-600 text-right">Bind.</th>
+                        <th className="px-2 py-2 font-bold text-slate-600 text-right">Wat.</th>
+                        <th className="px-2 py-2 font-bold text-slate-600 text-right">FA</th>
+                        <th className="px-2 py-2 font-bold text-slate-600 text-right">CA</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
+                    <tbody className="divide-y divide-slate-100">
                       {intlComparison.map((row, idx) => (
-                        <tr key={idx} className={idx===0 ? "bg-indigo-50 dark:bg-indigo-900/20 font-bold rounded" : ""}>
-                           <td className="px-4 py-3 text-slate-800 dark:text-slate-200">{row.code}</td>
-                           <td className="px-2 py-3 text-right tabular-nums text-slate-700 dark:text-slate-300">{row.cementitious}</td>
-                           <td className="px-2 py-3 text-right tabular-nums text-slate-700 dark:text-slate-300">{row.water}</td>
-                           <td className="px-2 py-3 text-right tabular-nums text-slate-700 dark:text-slate-300">{row.sand}</td>
-                           <td className="px-2 py-3 text-right tabular-nums text-slate-700 dark:text-slate-300">{row.ca}</td>
+                        <tr key={idx} className={idx===0 ? "bg-indigo-50  font-bold rounded" : ""}>
+                           <td className="px-4 py-3 text-slate-800">{row.code}</td>
+                           <td className="px-2 py-3 text-right tabular-nums text-slate-700">{row.cementitious}</td>
+                           <td className="px-2 py-3 text-right tabular-nums text-slate-700">{row.water}</td>
+                           <td className="px-2 py-3 text-right tabular-nums text-slate-700">{row.sand}</td>
+                           <td className="px-2 py-3 text-right tabular-nums text-slate-700">{row.ca}</td>
                         </tr>
                       ))}
                     </tbody>

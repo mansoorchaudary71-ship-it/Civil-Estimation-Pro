@@ -213,14 +213,14 @@ export default function AreaSpaceCalculator() {
 
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500 pb-[120px]">
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm">
-        <h2 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
-          <div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-600 dark:text-indigo-400 rounded-2xl">
+      <div className="bg-white border border-slate-200 p-6 md:p-8 rounded-[2rem] shadow-sm">
+        <h2 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 tracking-tight flex items-center gap-3">
+          <div className="p-3 bg-indigo-50 text-indigo-600 rounded-[24px]">
             <Ruler className="w-8 h-8" />
           </div>
           Area & Space Calculator
         </h2>
-        <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">
+        <p className="text-slate-500 mt-2 font-medium">
           Calculate dimensional areas, RERA compliant property spaces, plot
           measurements, and roof material planning.
         </p>
@@ -260,7 +260,7 @@ export default function AreaSpaceCalculator() {
         <div className="lg:col-span-8 space-y-6">
           {/* TAB 1: SHAPES */}
           {activeTab === "shape" && (
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
+            <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm">
               <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
                 <Square className="w-5 h-5 text-indigo-500" /> 2D Shape
                 Calculator
@@ -327,7 +327,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           handleShapeParam("length", +e.target.value)
                         }
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                     <div>
@@ -340,7 +340,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           handleShapeParam("width", +e.target.value)
                         }
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                   </>
@@ -356,7 +356,7 @@ export default function AreaSpaceCalculator() {
                       onChange={(e) =>
                         handleShapeParam("length", +e.target.value)
                       }
-                      className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                      className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                     />
                   </div>
                 )}
@@ -371,7 +371,7 @@ export default function AreaSpaceCalculator() {
                       onChange={(e) =>
                         handleShapeParam("radius", +e.target.value)
                       }
-                      className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                      className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                     />
                   </div>
                 )}
@@ -387,7 +387,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           handleShapeParam("sideA", +e.target.value)
                         }
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                     <div>
@@ -400,7 +400,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           handleShapeParam("sideB", +e.target.value)
                         }
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                     <div>
@@ -413,7 +413,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           handleShapeParam("sideC", +e.target.value)
                         }
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                   </>
@@ -430,7 +430,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           handleShapeParam("sideA", +e.target.value)
                         }
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                     <div>
@@ -443,7 +443,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           handleShapeParam("sideB", +e.target.value)
                         }
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                     <div>
@@ -456,7 +456,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           handleShapeParam("height", +e.target.value)
                         }
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                   </>
@@ -473,7 +473,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           handleShapeParam("l1", +e.target.value)
                         }
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                     <div>
@@ -486,7 +486,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           handleShapeParam("l2", +e.target.value)
                         }
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                     <div>
@@ -499,7 +499,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           handleShapeParam("w1", +e.target.value)
                         }
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                     <div>
@@ -512,7 +512,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           handleShapeParam("w2", +e.target.value)
                         }
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                   </>
@@ -529,7 +529,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           handleShapeParam("tTop", +e.target.value)
                         }
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                     <div>
@@ -542,7 +542,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           handleShapeParam("tTopThickness", +e.target.value)
                         }
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                     <div>
@@ -555,7 +555,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           handleShapeParam("tTotalHeight", +e.target.value)
                         }
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                     <div>
@@ -568,7 +568,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           handleShapeParam("tLegWidth", +e.target.value)
                         }
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                   </>
@@ -591,7 +591,7 @@ export default function AreaSpaceCalculator() {
                             newC[idx].x = +e.target.value;
                             setPolygonCoords(newC);
                           }}
-                          className="w-1/2 px-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                          className="w-1/2 px-4 py-2 bg-slate-50 border border-slate-200 rounded-[24px]"
                           placeholder="X"
                         />
                         <input
@@ -602,7 +602,7 @@ export default function AreaSpaceCalculator() {
                             newC[idx].y = +e.target.value;
                             setPolygonCoords(newC);
                           }}
-                          className="w-1/2 px-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                          className="w-1/2 px-4 py-2 bg-slate-50 border border-slate-200 rounded-[24px]"
                           placeholder="Y"
                         />
                         <button
@@ -611,7 +611,7 @@ export default function AreaSpaceCalculator() {
                               polygonCoords.filter((_, i) => i !== idx),
                             )
                           }
-                          className="px-3 bg-rose-50 text-rose-500 rounded-xl font-bold"
+                          className="px-3 bg-rose-50 text-rose-500 rounded-[24px] font-bold"
                         >
                           X
                         </button>
@@ -621,7 +621,7 @@ export default function AreaSpaceCalculator() {
                       onClick={() =>
                         setPolygonCoords([...polygonCoords, { x: 0, y: 0 }])
                       }
-                      className="w-full py-2 bg-slate-100 dark:bg-slate-800 font-bold rounded-xl mt-2"
+                      className="w-full py-2 bg-slate-100 font-bold rounded-[24px] mt-2"
                     >
                       + Add Vertex
                     </button>
@@ -637,7 +637,7 @@ export default function AreaSpaceCalculator() {
 
           {/* TAB 2: PROPERTY AREA */}
           {activeTab === "property" && (
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
+            <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm">
               <h3 className="text-xl font-semibold mb-2 flex items-center gap-2">
                 <Home className="w-5 h-5 text-purple-500" /> Property Area
                 Metrics & RERA
@@ -657,7 +657,7 @@ export default function AreaSpaceCalculator() {
                     onChange={(e) =>
                       handlePropParam("carpetReq", +e.target.value)
                     }
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                   />
                 </div>
                 <div>
@@ -670,7 +670,7 @@ export default function AreaSpaceCalculator() {
                     onChange={(e) =>
                       handlePropParam("internalWallsPerc", +e.target.value)
                     }
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                   />
                 </div>
                 <div>
@@ -683,7 +683,7 @@ export default function AreaSpaceCalculator() {
                     onChange={(e) =>
                       handlePropParam("externalWallsPerc", +e.target.value)
                     }
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                   />
                 </div>
                 <div>
@@ -696,7 +696,7 @@ export default function AreaSpaceCalculator() {
                     onChange={(e) =>
                       handlePropParam("balconyArea", +e.target.value)
                     }
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                   />
                 </div>
                 <div>
@@ -709,16 +709,16 @@ export default function AreaSpaceCalculator() {
                     onChange={(e) =>
                       handlePropParam("commonAreaPerc", +e.target.value)
                     }
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                   />
                 </div>
               </div>
 
-              <div className="mt-8 p-5 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800/50 rounded-2xl">
-                <h4 className="font-bold text-purple-900 dark:text-purple-600 dark:text-purple-400 mb-2">
+              <div className="mt-8 p-5 bg-purple-50 border border-purple-200 rounded-[24px]">
+                <h4 className="font-bold text-purple-900 mb-2">
                   RERA Carpet Area vs Traditional
                 </h4>
-                <p className="text-sm text-purple-800 dark:text-purple-400">
+                <p className="text-sm text-purple-800">
                   RERA 2016 defines "carpet area" to include the area covered by
                   internal partition walls but explicitly excludes external
                   walls, services shafts, exclusive balconies, and terraces.
@@ -731,7 +731,7 @@ export default function AreaSpaceCalculator() {
 
           {/* TAB 3: PLOT MEASUREMENT */}
           {activeTab === "plot" && (
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
+            <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-xl font-semibold flex items-center gap-2">
                   <MapIcon className="w-5 h-5 text-emerald-500" /> Plot & Land
@@ -744,7 +744,7 @@ export default function AreaSpaceCalculator() {
                       e.target.value as "boundaries" | "coordinates",
                     )
                   }
-                  className="text-sm border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 rounded-lg font-bold"
+                  className="text-sm border border-slate-200 bg-white px-3 py-2 rounded-[16px] font-bold"
                 >
                   <option value="boundaries">Boundary Sides</option>
                   <option value="coordinates">Coordinates</option>
@@ -769,7 +769,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           setPlotBounds({ ...plotBounds, n: +e.target.value })
                         }
-                        className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                     <div>
@@ -782,7 +782,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           setPlotBounds({ ...plotBounds, s: +e.target.value })
                         }
-                        className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                     <div>
@@ -795,7 +795,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           setPlotBounds({ ...plotBounds, e: +e.target.value })
                         }
-                        className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                     <div>
@@ -808,7 +808,7 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           setPlotBounds({ ...plotBounds, w: +e.target.value })
                         }
-                        className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-[24px]"
                       />
                     </div>
                     <div>
@@ -821,13 +821,13 @@ export default function AreaSpaceCalculator() {
                         onChange={(e) =>
                           setPlotBounds({ ...plotBounds, d: +e.target.value })
                         }
-                        className="w-full px-4 py-2.5 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 rounded-xl"
+                        className="w-full px-4 py-2.5 bg-indigo-50 border border-indigo-200 rounded-[24px]"
                       />
                     </div>
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-10 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl">
+                <div className="text-center py-10 border-2 border-dashed border-slate-200 rounded-[24px]">
                   <Compass className="w-10 h-10 text-slate-300 mx-auto mb-3" />
                   <p className="font-bold text-slate-500">
                     Coordinate Input Selected
@@ -849,7 +849,7 @@ export default function AreaSpaceCalculator() {
 
           {/* TAB 4: ROOF PITCH */}
           {activeTab === "roof" && (
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
+            <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm">
               <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
                 <Triangle className="w-5 h-5 text-amber-500" /> Roof Area &
                 Pitch Calculator
@@ -872,7 +872,7 @@ export default function AreaSpaceCalculator() {
                         floorArea: +e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                   />
                 </div>
                 <div>
@@ -888,7 +888,7 @@ export default function AreaSpaceCalculator() {
                         pitchAngle: +e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                   />
                 </div>
                 <div>
@@ -905,7 +905,7 @@ export default function AreaSpaceCalculator() {
                         overhang: +e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                   />
                 </div>
                 <div>
@@ -921,13 +921,13 @@ export default function AreaSpaceCalculator() {
                         perimeterLength: +e.target.value,
                       })
                     }
-                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-[24px]"
                   />
                 </div>
               </div>
 
-              <div className="mt-8 p-5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded-2xl flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-white dark:bg-amber-800/50 flex items-center justify-center font-semibold tabular-nums tracking-tight text-amber-500 text-xl border-2 border-amber-200 dark:border-amber-700/50 shrink-0">
+              <div className="mt-8 p-5 bg-amber-50 border border-amber-200 rounded-[24px] flex items-center gap-4">
+                <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center font-semibold tabular-nums tracking-tight text-amber-500 text-xl border-2 border-amber-200 shrink-0">
                   {Math.ceil(
                     (1 / Math.cos((roofParams.pitchAngle * Math.PI) / 180)) *
                       100,
@@ -935,10 +935,10 @@ export default function AreaSpaceCalculator() {
                   x
                 </div>
                 <div>
-                  <h4 className="font-bold text-amber-900 dark:text-amber-600 dark:text-amber-400">
+                  <h4 className="font-bold text-amber-900">
                     Pitch Multiplier (Secant)
                   </h4>
-                  <p className="text-sm text-amber-800 dark:text-amber-600 dark:text-amber-400">
+                  <p className="text-sm text-amber-800">
                     Multiply the horizontal area by this factor to find the
                     sloped area automatically.
                   </p>
@@ -950,16 +950,16 @@ export default function AreaSpaceCalculator() {
 
         {/* RESULTS PANEL (RIGHT) */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white dark:bg-slate-900 p-8 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm sticky top-6">
+          <div className="bg-white p-8 border border-slate-200 rounded-[2rem] shadow-sm sticky top-6">
             <h3 className="font-semibold tabular-nums tracking-tight text-xl mb-6 flex items-center gap-2">
-              <Layers className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+              <Layers className="w-5 h-5 text-indigo-600" />
               Calculation Results
             </h3>
 
             {activeTab === "shape" && (
               <div className="space-y-4">
-                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-2xl">
-                  <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
+                <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-100 rounded-[24px]">
+                  <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">
                     Total Net Area
                   </p>
                   <p className="text-3xl font-semibold tabular-nums tracking-tight">
@@ -967,8 +967,8 @@ export default function AreaSpaceCalculator() {
                     <span className="text-lg opacity-50">sq units</span>
                   </p>
                 </div>
-                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
-                  <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
+                <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-100">
+                  <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">
                     Perimeter
                   </p>
                   <p className="text-xl font-semibold">
@@ -981,44 +981,44 @@ export default function AreaSpaceCalculator() {
 
             {activeTab === "property" && (
               <div className="space-y-3">
-                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-2xl mb-2">
-                  <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
+                <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-100 rounded-[24px] mb-2">
+                  <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">
                     RERA Carpet Area
                   </p>
-                  <p className="text-2xl font-semibold tabular-nums tracking-tight text-purple-600 dark:text-purple-400">
+                  <p className="text-2xl font-semibold tabular-nums tracking-tight text-purple-600">
                     {propertyCalc.reraCarpetArea.toFixed(2)}{" "}
                     <span className="text-sm opacity-50">m²</span>
                   </p>
-                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+                  <p className="text-xs text-slate-400 mt-1">
                     Net Usable + Internal Walls
                   </p>
                 </div>
-                <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800">
-                  <span className="text-sm text-slate-600 dark:text-slate-400">
+                <div className="flex justify-between items-center py-2 border-b border-slate-100">
+                  <span className="text-sm text-slate-600">
                     Trad. Carpet Area
                   </span>
                   <span className="font-bold">
                     {propertyCalc.traditionalCarpet.toFixed(2)} m²
                   </span>
                 </div>
-                <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800">
-                  <span className="text-sm text-slate-600 dark:text-slate-400 flex flex-col">
+                <div className="flex justify-between items-center py-2 border-b border-slate-100">
+                  <span className="text-sm text-slate-600 flex flex-col">
                     <span>Plinth Area</span>
-                    <span className="text-[10px] text-slate-900 dark:text-white/40">(IS 3861)</span>
+                    <span className="text-[10px] text-slate-900">(IS 3861)</span>
                   </span>
                   <span className="font-bold">
                     {propertyCalc.plinthArea.toFixed(2)} m²
                   </span>
                 </div>
-                <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800">
-                  <span className="text-sm text-slate-600 dark:text-slate-400">Built-Up Area</span>
+                <div className="flex justify-between items-center py-2 border-b border-slate-100">
+                  <span className="text-sm text-slate-600">Built-Up Area</span>
                   <span className="font-bold text-sky-300">
                     {propertyCalc.builtUpArea.toFixed(2)} m²
                   </span>
                 </div>
                 <div className="flex justify-between items-center py-2">
-                  <span className="text-sm text-slate-600 dark:text-slate-400">Super Built-Up</span>
-                  <span className="font-bold text-emerald-600 dark:text-emerald-400">
+                  <span className="text-sm text-slate-600">Super Built-Up</span>
+                  <span className="font-bold text-emerald-600">
                     {propertyCalc.superBuiltUpArea.toFixed(2)} m²
                   </span>
                 </div>
@@ -1027,17 +1027,17 @@ export default function AreaSpaceCalculator() {
 
             {activeTab === "plot" && plotMethod === "boundaries" && (
               <div className="space-y-4">
-                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-2xl">
-                  <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
+                <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-100 rounded-[24px]">
+                  <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">
                     Total Land Area
                   </p>
-                  <p className="text-3xl font-semibold tabular-nums tracking-tight text-emerald-600 dark:text-emerald-400">
+                  <p className="text-3xl font-semibold tabular-nums tracking-tight text-emerald-600">
                     {Number.isNaN(boundsArea.total)
                       ? "Invalid"
                       : boundsArea.total.toFixed(2)}{" "}
                     <span className="text-lg opacity-50">sq units</span>
                   </p>
-                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
+                  <p className="text-xs text-slate-400 mt-2">
                     North Triangle:{" "}
                     {Number.isNaN(boundsArea.area1)
                       ? "N/A"
@@ -1048,8 +1048,8 @@ export default function AreaSpaceCalculator() {
                       : boundsArea.area2.toFixed(1)}
                   </p>
                 </div>
-                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
-                  <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
+                <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-100">
+                  <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">
                     Plot Perimeter
                   </p>
                   <p className="text-xl font-semibold">
@@ -1062,20 +1062,20 @@ export default function AreaSpaceCalculator() {
 
             {activeTab === "roof" && (
               <div className="space-y-4">
-                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-2xl">
-                  <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
+                <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-100 rounded-[24px]">
+                  <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">
                     True Sloped Area
                   </p>
-                  <p className="text-3xl font-semibold tabular-nums tracking-tight text-amber-600 dark:text-amber-400">
+                  <p className="text-3xl font-semibold tabular-nums tracking-tight text-amber-600">
                     {roofCalc.trueRoofArea.toFixed(2)}{" "}
                     <span className="text-lg opacity-50">m²</span>
                   </p>
-                  <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">
+                  <p className="text-xs text-slate-400 mt-1">
                     Includes eave overhangs
                   </p>
                 </div>
-                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-800">
-                  <p className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest flex items-center justify-between mb-1">
+                <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-100">
+                  <p className="text-slate-500 text-xs font-bold uppercase tracking-widest flex items-center justify-between mb-1">
                     Calculated Mat. Qty{" "}
                     <span className="py-0.5 px-2 bg-rose-500/20 text-rose-300 rounded font-bold text-[10px]">
                       +10% Waste

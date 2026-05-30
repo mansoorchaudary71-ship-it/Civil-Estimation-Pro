@@ -381,7 +381,7 @@ export default function ShareButtonWithPopup({
           e.stopPropagation();
           setIsOpen((prev) => !prev);
         }}
-        className={triggerClassName || "bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-900 dark:text-white px-5 py-2.5 rounded-full font-bold transition-all hover:scale-105 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-teal-500/30 shadow-md flex items-center justify-center gap-2 text-sm"}
+        className={triggerClassName || "bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-900  px-5 py-2.5 rounded-full font-bold transition-all hover:scale-105 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-teal-500/30 shadow-md flex items-center justify-center gap-2 text-sm"}
         title="Share Results"
       >
         {triggerContent || (
@@ -395,22 +395,22 @@ export default function ShareButtonWithPopup({
       {isOpen && typeof document !== "undefined" && createPortal(
         <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-end sm:justify-center p-4 font-sans pointer-events-auto">
             <div 
-              className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+              className="absolute inset-0 bg-[#F5F5F7] backdrop-blur-sm"
               onClick={() => setIsOpen(false)}
             />
             
             <div
-              className={`relative w-full max-w-sm bg-white dark:bg-slate-900 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 rounded-[2rem] shadow-2xl z-10 overflow-hidden font-sans`}
+              className={`relative w-full max-w-sm bg-white  backdrop-blur-xl border border-slate-200/60 rounded-[2rem] shadow-2xl z-10 overflow-hidden font-sans`}
               style={{ animation: "modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
             >
               <style>{` @keyframes modalSlideUp { from { opacity: 0; transform: translateY(20px) scale(0.95); filter: blur(4px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } } `}</style>
               
-              <div className="pt-6 pb-4 px-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50">
+              <div className="pt-6 pb-4 px-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
                 <div>
-                  <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100">Share Export</h3>
+                  <h3 className="text-lg font-bold text-slate-800">Share Export</h3>
                   <p className="text-xs text-slate-500 font-medium">Select a format to export or share</p>
                 </div>
-                <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors text-slate-500">
+                <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-slate-200 rounded-full transition-colors text-slate-500">
                   <X className="w-5 h-5"/>
                 </button>
               </div>
@@ -422,9 +422,9 @@ export default function ShareButtonWithPopup({
                 
                 <button
                   onClick={() => generatePDF("pdf")}
-                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-200 text-sm font-bold bg-rose-50 text-rose-700 hover:bg-rose-100 hover:text-rose-900 dark:bg-rose-500/10 dark:text-rose-300 dark:hover:bg-rose-500/20 dark:hover:text-rose-200 focus:outline-none focus:ring-2 focus:ring-rose-500 active:scale-[0.98]"
+                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-[24px] transition-all duration-200 text-sm font-bold bg-rose-50 text-rose-700 hover:bg-rose-100 hover:text-rose-900 focus:outline-none focus:ring-2 focus:ring-rose-500 active:scale-[0.98]"
                 >
-                  <div className="p-2.5 rounded-[14px] bg-white dark:bg-rose-500/20 text-rose-500 dark:text-rose-400 shadow-sm shadow-rose-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
+                  <div className="p-2.5 rounded-[14px] bg-white text-rose-500 shadow-sm shadow-rose-200/50 transition-transform duration-300 group-hover:scale-110 shrink-0">
                     <FileText className="w-5 h-5" />
                   </div>
                   Download PDF Report
@@ -432,9 +432,9 @@ export default function ShareButtonWithPopup({
                 
                 <button
                   onClick={generateExcel}
-                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-200 text-sm font-bold bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:text-emerald-900 dark:bg-emerald-500/10 dark:text-emerald-300 dark:hover:bg-emerald-500/20 dark:hover:text-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 active:scale-[0.98]"
+                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-[24px] transition-all duration-200 text-sm font-bold bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:text-emerald-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 active:scale-[0.98]"
                 >
-                  <div className="p-2.5 rounded-[14px] bg-white dark:bg-emerald-500/20 text-emerald-500 dark:text-emerald-400 shadow-sm shadow-emerald-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
+                  <div className="p-2.5 rounded-[14px] bg-white text-emerald-500 shadow-sm shadow-emerald-200/50 transition-transform duration-300 group-hover:scale-110 shrink-0">
                     <FileSpreadsheet className="w-5 h-5" />
                   </div>
                   Export to Excel BOQ
@@ -442,9 +442,9 @@ export default function ShareButtonWithPopup({
                 
                 <button
                   onClick={handleWhatsAppHTML}
-                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-200 text-sm font-bold bg-green-50 text-green-700 hover:bg-green-100 hover:text-green-900 dark:bg-green-500/10 dark:text-green-300 dark:hover:bg-green-500/20 dark:hover:text-green-200 focus:outline-none focus:ring-2 focus:ring-green-500 active:scale-[0.98]"
+                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-[24px] transition-all duration-200 text-sm font-bold bg-green-50 text-green-700 hover:bg-green-100 hover:text-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 active:scale-[0.98]"
                 >
-                  <div className="p-2.5 rounded-[14px] bg-white dark:bg-green-500/20 text-green-500 dark:text-green-400 shadow-sm shadow-green-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
+                  <div className="p-2.5 rounded-[14px] bg-white text-green-500 shadow-sm shadow-green-200/50 transition-transform duration-300 group-hover:scale-110 shrink-0">
                     <MessageCircle className="w-5 h-5" />
                   </div>
                   Share via WhatsApp
@@ -457,9 +457,9 @@ export default function ShareButtonWithPopup({
                     setIsOpen(false);
                     toast.success("Opened LinkedIn");
                   }}
-                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-200 text-sm font-bold bg-[#e8f4fa] text-[#0a66c2] hover:bg-[#d0e8f5] hover:text-[#004182] dark:bg-[#0a66c2]/10 dark:text-[#70b5f9] dark:hover:bg-[#0a66c2]/20 dark:hover:text-[#a0cbfb] focus:outline-none focus:ring-2 focus:ring-[#0a66c2] active:scale-[0.98]"
+                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-[24px] transition-all duration-200 text-sm font-bold bg-[#e8f4fa] text-[#0a66c2] hover:bg-[#d0e8f5] hover:text-[#004182] [#0a66c2]/10 [#70b5f9][#0a66c2]/20[#a0cbfb] focus:outline-none focus:ring-2 focus:ring-[#0a66c2] active:scale-[0.98]"
                 >
-                  <div className="p-2.5 rounded-[14px] bg-white dark:bg-[#0a66c2]/20 text-[#0a66c2] dark:text-[#70b5f9] shadow-sm shadow-[#0a66c2]/30 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
+                  <div className="p-2.5 rounded-[14px] bg-white [#0a66c2]/20 text-[#0a66c2] [#70b5f9] shadow-sm shadow-[#0a66c2]/30 transition-transform duration-300 group-hover:scale-110 shrink-0">
                     <Share2 className="w-5 h-5" />
                   </div>
                   Share on LinkedIn
@@ -467,9 +467,9 @@ export default function ShareButtonWithPopup({
 
                 <button
                   onClick={handleEmailHTML}
-                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-200 text-sm font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-900 dark:bg-blue-500/10 dark:text-blue-300 dark:hover:bg-blue-500/20 dark:hover:text-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 active:scale-[0.98]"
+                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-[24px] transition-all duration-200 text-sm font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 active:scale-[0.98]"
                 >
-                  <div className="p-2.5 rounded-[14px] bg-white dark:bg-blue-500/20 text-blue-500 dark:text-blue-400 shadow-sm shadow-blue-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
+                  <div className="p-2.5 rounded-[14px] bg-white text-blue-500 shadow-sm shadow-blue-200/50 transition-transform duration-300 group-hover:scale-110 shrink-0">
                     <Mail className="w-5 h-5" />
                   </div>
                   Send summary via Email
@@ -477,9 +477,9 @@ export default function ShareButtonWithPopup({
                 
                 <button
                   onClick={handleDownloadText}
-                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-200 text-sm font-bold bg-indigo-50 text-indigo-700 hover:bg-indigo-50 hover:text-indigo-900 dark:bg-indigo-500/10 dark:text-indigo-300 dark:hover:bg-indigo-500/20 dark:hover:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 active:scale-[0.98]"
+                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-[24px] transition-all duration-200 text-sm font-bold bg-indigo-50 text-indigo-700 hover:bg-indigo-50 hover:text-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 active:scale-[0.98]"
                 >
-                  <div className="p-2.5 rounded-[14px] bg-white dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 shadow-sm shadow-indigo-200/50 dark:shadow-none transition-transform duration-300 group-hover:scale-110 shrink-0">
+                  <div className="p-2.5 rounded-[14px] bg-white text-indigo-600 shadow-sm shadow-indigo-200/50 transition-transform duration-300 group-hover:scale-110 shrink-0">
                     <Download className="w-5 h-5" />
                   </div>
                   Save as Text File

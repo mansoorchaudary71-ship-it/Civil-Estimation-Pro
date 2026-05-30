@@ -145,7 +145,7 @@ export default function SocialProofSection() {
   });
 
   return (
-    <div className="w-full py-16 md:py-24 mb-16 bg-[#0A0F1E] rounded-[3rem] border border-slate-800 overflow-hidden relative">
+    <div className="w-full py-16 md:py-24 mb-16 bg-[#F5F5F7] rounded-[3rem] border border-slate-200 overflow-hidden relative">
       {/* Background Dots/Grid */}
       <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:20px_20px] opacity-20"></div>
 
@@ -160,13 +160,13 @@ export default function SocialProofSection() {
           </div>
           <h2
             className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6 tracking-tight"
-            style={{ fontFamily: '"Clash Display", sans-serif' }}
+            
           >
             Trusted by the Top 1% of Engineers
           </h2>
           <p
             className="text-slate-400 font-medium text-lg md:text-xl max-w-2xl mx-auto"
-            style={{ fontFamily: "Satoshi, sans-serif" }}
+            
           >
             Join 24,847+ professionals across 15 countries relying on Civil
             Estimation Pro for precision and speed.
@@ -184,14 +184,14 @@ export default function SocialProofSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.5, delay: stat.id * 0.1 }}
-              className="flex flex-col items-center justify-center p-6 bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-slate-800 text-center hover:-translate-y-1 transition-transform"
+              className="flex flex-col items-center justify-center p-6 bg-[#F5F5F7] backdrop-blur-sm rounded-[24px] border border-slate-200 text-center hover:-translate-y-1 transition-transform"
             >
-              <div className="w-12 h-12 bg-indigo-500/20 rounded-2xl flex items-center justify-center text-indigo-400 mb-4 border border-indigo-500/30">
+              <div className="w-12 h-12 bg-indigo-500/20 rounded-[24px] flex items-center justify-center text-indigo-400 mb-4 border border-indigo-500/30">
                 <stat.icon className="w-6 h-6" strokeWidth={2} />
               </div>
               <div
                 className="text-3xl md:text-4xl font-bold tracking-tight text-white tracking-tight flex items-baseline"
-                style={{ fontFamily: '"Clash Display", sans-serif' }}
+                
               >
                 {inView ? (
                   <CountUp
@@ -213,7 +213,7 @@ export default function SocialProofSection() {
               </div>
               <div
                 className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mt-1"
-                style={{ fontFamily: "Satoshi, sans-serif" }}
+                
               >
                 {stat.label}
               </div>
@@ -227,7 +227,7 @@ export default function SocialProofSection() {
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             transition={{ duration: 0.6 }}
-            className="rounded-[2rem] bg-slate-800/40 p-8 border border-slate-700/50 relative overflow-hidden flex flex-col items-center justify-center min-h-[300px]"
+            className="rounded-[2rem] bg-[#F5F5F7] p-8 border border-slate-200 relative overflow-hidden flex flex-col items-center justify-center min-h-[300px]"
           >
             <div className="absolute inset-0 z-0 opacity-30 select-none flex items-center justify-center mix-blend-screen pointer-events-none">
               <svg
@@ -240,12 +240,12 @@ export default function SocialProofSection() {
             </div>
 
             <div className="z-10 text-center flex flex-col items-center">
-              <div className="w-16 h-16 bg-amber-500/20 rounded-2xl flex items-center justify-center text-amber-500 mb-6 border border-amber-500/30">
+              <div className="w-16 h-16 bg-amber-500/20 rounded-[24px] flex items-center justify-center text-amber-500 mb-6 border border-amber-500/30">
                 <Globe2 className="w-8 h-8" strokeWidth={1.5} />
               </div>
               <h3
                 className="text-2xl font-semibold text-white mb-2"
-                style={{ fontFamily: '"Clash Display", sans-serif' }}
+                
               >
                 Used in 15+ Countries
               </h3>
@@ -259,13 +259,13 @@ export default function SocialProofSection() {
                   (flag, idx) => (
                     <div
                       key={idx}
-                      className="w-10 h-10 rounded-full bg-slate-900/50 border border-slate-700/50 flex items-center justify-center text-xl shadow-lg hover:scale-110 transition-transform"
+                      className="w-10 h-10 rounded-full bg-[#F5F5F7] border border-slate-200 flex items-center justify-center text-xl shadow-lg hover:scale-110 transition-transform"
                     >
                       {flag}
                     </div>
                   ),
                 )}
-                <div className="w-10 h-10 rounded-full bg-slate-900/50 border border-slate-700/50 flex items-center justify-center text-xs font-bold text-slate-400 shadow-lg">
+                <div className="w-10 h-10 rounded-full bg-[#F5F5F7] border border-slate-200 flex items-center justify-center text-xs font-bold text-slate-700 shadow-lg">
                   +7
                 </div>
               </div>
@@ -297,7 +297,7 @@ export default function SocialProofSection() {
           >
             {/* Video Thumbnail Placeholder */}
             <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1541888086225-ee53158dc979?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center transition-transform duration-700 group-hover:scale-105"></div>
-            <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/40 transition-colors"></div>
+            <div className="absolute inset-0 bg-[#F5F5F7] group-hover:bg-indigo-50/40 transition-colors"></div>
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
 
             <div className="absolute inset-0 flex items-center justify-center">
@@ -339,7 +339,7 @@ export default function SocialProofSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.5, delay: 0.1 * idx }}
-              className="break-inside-avoid bg-slate-800/40 rounded-[24px] p-8 shadow-xl border border-slate-700/50 hover:bg-slate-800/60 hover:border-slate-600 transition-all group"
+              className="break-inside-avoid bg-[#F5F5F7] rounded-[24px] p-8 shadow-xl border border-slate-200 hover:bg-indigo-600/60 hover:border-slate-600 transition-all group"
             >
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-1">
@@ -362,7 +362,7 @@ export default function SocialProofSection() {
 
               <p
                 className="text-slate-300 flex-1 mb-6 leading-relaxed font-medium"
-                style={{ fontFamily: "Satoshi, sans-serif" }}
+                
               >
                 "{t.quote}"
               </p>
@@ -384,7 +384,7 @@ export default function SocialProofSection() {
                 <div>
                   <div
                     className="font-bold text-white flex items-center gap-2 text-[15px]"
-                    style={{ fontFamily: '"Clash Display", sans-serif' }}
+                    
                   >
                     {t.name}{" "}
                     <span className="text-lg leading-none" title={t.flag}>
@@ -393,7 +393,7 @@ export default function SocialProofSection() {
                   </div>
                   <div
                     className="text-xs font-medium text-slate-400 mt-0.5"
-                    style={{ fontFamily: "Satoshi, sans-serif" }}
+                    
                   >
                     {t.title},{" "}
                     <span className="text-indigo-400 font-semibold group-hover:text-indigo-300 transition-colors">
@@ -415,7 +415,7 @@ export default function SocialProofSection() {
         >
           <div
             className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-10"
-            style={{ fontFamily: "Satoshi, sans-serif" }}
+            
           >
             Trusted by teams at
           </div>
@@ -427,7 +427,7 @@ export default function SocialProofSection() {
               >
                 <span
                   className="text-xl md:text-2xl font-semibold tracking-tight text-slate-300 hover:text-white tracking-tight leading-none"
-                  style={{ fontFamily: '"Clash Display", sans-serif' }}
+                  
                 >
                   {logo}
                 </span>

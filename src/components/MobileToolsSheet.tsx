@@ -65,7 +65,7 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[60] md:hidden"
+            className="fixed inset-0 bg-[#F5F5F7] backdrop-blur-sm z-[60] md:hidden"
             onClick={onClose}
           />
           
@@ -82,17 +82,17 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
                 onClose();
               }
             }}
-            className="fixed bottom-0 left-0 right-0 z-[70] md:hidden flex flex-col bg-white/90 dark:bg-slate-900/90 backdrop-blur-2xl border-t border-border-color/50 shadow-[0_-8px_30px_rgba(0,0,0,0.12)] rounded-t-[32px] will-change-transform"
+            className="fixed bottom-0 left-0 right-0 z-[70] md:hidden flex flex-col bg-white/90 backdrop-blur-2xl border-t border-border-color/50 shadow-[0_-8px_30px_rgba(0,0,0,0.12)] rounded-t-[32px] will-change-transform"
             style={{ maxHeight: '85vh' }}
           >
             <div className="flex justify-center pt-3 pb-2 w-full touch-none cursor-grab active:cursor-grabbing">
-              <div className="w-12 h-1.5 bg-slate-300 dark:bg-slate-600 rounded-full" />
+              <div className="w-12 h-1.5 bg-slate-300 rounded-full" />
             </div>
 
             <div className="px-6 pb-2 pt-1 flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-100">Tools Directory</h2>
+              <h2 className="text-xl font-semibold text-slate-800">Tools Directory</h2>
               <button 
-                className="w-8 h-8 rounded-full bg-bg-primary flex items-center justify-center text-slate-500 hover:text-slate-800 transition-colors"
+                className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-slate-700 hover:text-slate-800 transition-colors"
                 onClick={onClose}
               >
                 <X className="w-5 h-5" />
@@ -107,7 +107,7 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     placeholder="Search tools & calculations..." 
-                    className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[15px] font-medium text-[var(--primary-dark)] dark:text-white placeholder:text-slate-400 pl-5 pr-3"
+                    className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[15px] font-medium text-[var(--primary-dark)] placeholder:text-slate-400 pl-5 pr-3"
                   />
                 </div>
                 <button className="w-[52px] h-[52px] flex items-center justify-center shrink-0 rounded-full border-2 border-indigo-500 text-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-cyan-500 hover:text-white hover:border-transparent transition-all">
@@ -125,7 +125,7 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
                       onSelectModule(tool.id as ModuleId);
                       onClose();
                     }}
-                    className="group relative flex items-center gap-4 w-full p-3.5 bg-bg-card/80 rounded-2xl border border-transparent shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-200 text-left active:scale-95"
+                    className="group relative flex items-center gap-4 w-full p-3.5 bg-bg-card/80 rounded-[24px] border border-transparent shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-200 text-left active:scale-95"
                   >
                     {/* Border Draw SVG Effect */}
                     <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
@@ -140,7 +140,7 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
                       />
                     </svg>
 
-                    <div className="flex-shrink-0 w-12 h-12 rounded-[14px] bg-bg-primary flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-indigo-500 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/20 transition-colors relative z-10">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-[14px] bg-white flex items-center justify-center text-slate-700 group-hover:text-indigo-500 group-hover:bg-indigo-50 transition-colors relative z-10">
                       {typeof tool.icon === 'function' ? (() => {
                         const Icon = tool.icon as any;
                         return <Icon className="w-6 h-6" />
@@ -149,7 +149,7 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
                       )}
                     </div>
                     <div className="flex-1 min-w-0 relative z-10">
-                      <h4 className="font-semibold text-base text-[var(--primary-dark)] dark:text-slate-200 truncate group-hover:text-[var(--accent-vibrant)] transition-colors">{tool.title}</h4>
+                      <h4 className="font-semibold text-base text-[var(--primary-dark)] truncate group-hover:text-[var(--accent-vibrant)] transition-colors">{tool.title}</h4>
                     </div>
                   </button>
                 ))}

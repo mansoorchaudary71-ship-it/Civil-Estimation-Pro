@@ -85,8 +85,8 @@ export default function SolarRoofCalculator() {
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-5xl mx-auto pb-20">
       
       {/* Header */}
-      <div className="bg-white dark:bg-[#151821] rounded-2xl p-6 md:p-8 mb-6 shadow-sm border border-slate-200 dark:border-white/5">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20 mb-3">
+      <div className="bg-white [#151821] rounded-[24px] p-6 md:p-8 mb-6 shadow-sm border border-slate-200">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[16px] bg-amber-500/10 border border-amber-500/20 mb-3">
            <Sun className="w-4 h-4 text-amber-500" />
            <span className="text-xs font-bold text-amber-500 uppercase tracking-wider">Renewable Energy</span>
         </div>
@@ -100,24 +100,24 @@ export default function SolarRoofCalculator() {
         
         {/* Left Column: Inputs */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-bg-card/80 backdrop-blur-md rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-white/5">
+          <div className="bg-bg-card/80 backdrop-blur-md rounded-[24px] p-6 shadow-sm border border-slate-200">
             <h3 className="text-lg font-bold text-text-primary mb-4 flex items-center gap-2">
               <Calculator className="w-5 h-5 text-amber-500" /> System Parameters
             </h3>
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Available Roof Area</label>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">Available Roof Area</label>
                 <div className="flex gap-2">
                   <input 
                     type="number"
                     min="0"
-                    className="flex-1 px-4 py-3 rounded-xl bg-bg-primary border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
+                    className="flex-1 px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 font-medium transition-all"
                     value={roofArea}
                     onChange={(e) => setRoofArea(e.target.value === "" ? "" : parseFloat(e.target.value))}
                   />
                   <select
-                    className="w-24 px-4 py-3 rounded-xl bg-bg-primary border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
+                    className="w-24 px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 font-medium transition-all"
                     value={areaUnit}
                     onChange={(e) => setAreaUnit(e.target.value as "sqm" | "sqft")}
                   >
@@ -128,32 +128,32 @@ export default function SolarRoofCalculator() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Avg. Monthly Electricity Bill ($)</label>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">Avg. Monthly Electricity Bill ($)</label>
                 <input 
                   type="number"
                   min="0"
-                  className="w-full px-4 py-3 rounded-xl bg-bg-primary border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
+                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 font-medium transition-all"
                   value={monthlyBill}
                   onChange={(e) => setMonthlyBill(e.target.value === "" ? "" : parseFloat(e.target.value))}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Electricity Rate ($/kWh)</label>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">Electricity Rate ($/kWh)</label>
                 <input 
                   type="number"
                   step="0.01"
                   min="0"
-                  className="w-full px-4 py-3 rounded-xl bg-bg-primary border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
+                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 font-medium transition-all"
                   value={electricityRate}
                   onChange={(e) => setElectricityRate(e.target.value === "" ? "" : parseFloat(e.target.value))}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Peak Sun Hours / Day</label>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">Peak Sun Hours / Day</label>
                 <select
-                  className="w-full px-4 py-3 rounded-xl bg-bg-primary border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
+                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 font-medium transition-all"
                   value={peakSunHours}
                   onChange={(e) => setPeakSunHours(parseFloat(e.target.value))}
                 >
@@ -164,7 +164,7 @@ export default function SolarRoofCalculator() {
                 </select>
               </div>
               
-              <div className="mt-4 p-4 rounded-xl bg-bg-primary border border-border-color text-xs text-slate-600 dark:text-slate-400">
+              <div className="mt-4 p-4 rounded-[24px] bg-white border border-border-color text-xs text-slate-600">
                 Assumes standard 400W panels (size ~2 m²) and a $2.50/W installation cost.
               </div>
             </div>
@@ -178,11 +178,11 @@ export default function SolarRoofCalculator() {
               
               {/* Top Banner Alert */}
               {!results.fitsOnRoof && (
-                <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-500/30 rounded-2xl p-4 flex items-start gap-4 shadow-sm">
+                <div className="bg-orange-50 border border-orange-200 rounded-[24px] p-4 flex items-start gap-4 shadow-sm">
                   <AlertCircle className="w-6 h-6 text-orange-500 shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-orange-800 dark:text-orange-400 font-bold mb-1">Roof Space Limited</h4>
-                    <p className="text-orange-700/80 dark:text-orange-300/80 text-sm">
+                    <h4 className="text-orange-800 font-bold mb-1">Roof Space Limited</h4>
+                    <p className="text-orange-700/80 text-sm">
                       To offset 100% of your bill, you need a <strong>{results.reqSystemSize.toFixed(1)} kW</strong> system. 
                       However, your roof area only fits a <strong>{results.recSystemSize.toFixed(1)} kW</strong> system.
                       We have adjusted the recommendation accordingly.
@@ -205,28 +205,28 @@ export default function SolarRoofCalculator() {
                       value={results.numPanels}
                       unit="units"
                       variant="primary"
-                      icon={<Home className="w-5 h-5 text-slate-900 dark:text-white" />}
+                      icon={<Home className="w-5 h-5 text-slate-900" />}
                     />
                     <ResultCard
                       title="Annual Energy Gen."
                       value={results.annualGeneration.toLocaleString('en-US', {maximumFractionDigits: 0})}
                       unit="kWh"
                       variant="neutral"
-                      icon={<Zap className="w-4 h-4 text-slate-700 dark:text-slate-300" />}
+                      icon={<Zap className="w-4 h-4 text-slate-700" />}
                     />
                     <ResultCard
                       title="Annual Savings"
                       value={`$${results.annualSavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}
                       unit=""
                       variant="neutral"
-                      icon={<DollarSign className="w-4 h-4 text-slate-700 dark:text-slate-300" />}
+                      icon={<DollarSign className="w-4 h-4 text-slate-700" />}
                     />
                   </div>
                 </MaterialSummary>
               </div>
 
               {/* Financial Summary */}
-              <div className="bg-gradient-to-br from-slate-900 to-[#111111] dark:from-[#111111] dark:to-[#0a0a0a] rounded-2xl p-8 text-slate-900 dark:text-white relative overflow-hidden shadow-xl border border-slate-100 dark:border-slate-800 group">
+              <div className="bg-gradient-to-br from-slate-900 to-[#111111] [#111111] [#0a0a0a] rounded-[24px] p-8 text-slate-900 relative overflow-hidden shadow-xl border border-slate-100 group">
                 <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-amber-500/20 blur-[80px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none group-hover:scale-110 transition-transform duration-1000"></div>
                 <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-emerald-500/20 blur-[60px] rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
                 
@@ -237,14 +237,14 @@ export default function SolarRoofCalculator() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
                   <div>
                     <p className="text-slate-400 font-medium mb-1">Estimated System Cost</p>
-                    <p className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight">${results.systemCost.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
+                    <p className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight">${results.systemCost.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
                     <p className="text-xs text-slate-500 mt-2">Gross cost before federal/local tax incentives</p>
                   </div>
                   
                   <div>
                     <p className="text-slate-400 font-medium mb-1">Estimated Payback Period</p>
                     <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                      <p className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-amber-400">{results.paybackPeriod.toFixed(1)}</p>
+                      <p className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight text-amber-400">{results.paybackPeriod.toFixed(1)}</p>
                       <span className="text-lg font-bold text-amber-400/80">Years</span>
                     </div>
                     <p className="text-xs text-slate-500 mt-2">Time to recover the initial investment</p>
@@ -253,7 +253,7 @@ export default function SolarRoofCalculator() {
                   <div>
                     <p className="text-slate-400 font-medium mb-1">Lifetime ROI (25 yrs)</p>
                     <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                      <p className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-emerald-400">{results.roi.toFixed(0)}</p>
+                      <p className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight text-emerald-400">{results.roi.toFixed(0)}</p>
                       <span className="text-lg font-bold text-emerald-400/80">%</span>
                     </div>
                     <p className="text-xs text-slate-500 mt-2">Total return on investment over 25 years</p>
@@ -263,8 +263,8 @@ export default function SolarRoofCalculator() {
 
             </div>
           ) : (
-            <div className="bg-bg-card/80 rounded-2xl p-12 shadow-sm border border-slate-200 dark:border-white/5 h-full flex flex-col items-center justify-center text-center text-slate-500 dark:text-slate-400">
-               <Sun className="w-16 h-16 text-slate-300 dark:text-slate-600 mb-4" />
+            <div className="bg-bg-card/80 rounded-[24px] p-12 shadow-sm border border-slate-200 h-full flex flex-col items-center justify-center text-center text-slate-500">
+               <Sun className="w-16 h-16 text-slate-300 mb-4" />
                <p className="font-semibold text-lg">Awaiting Input</p>
                <p className="text-sm max-w-sm mt-2">Please enter your roof area and electricity bill details to generate a solar estimate.</p>
             </div>

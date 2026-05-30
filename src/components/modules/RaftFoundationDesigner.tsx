@@ -22,7 +22,7 @@ export default function RaftFoundationDesigner() {
               <input type="number" className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3" value={area} onChange={e => setArea(e.target.value)} />
             </div>
          </div>
-         <div className="mt-8 p-6 bg-slate-50 dark:bg-slate-800 rounded-2xl">
+         <div className="mt-8 p-6 bg-slate-50 dark:bg-slate-800 rounded-[24px]">
             <p className="text-slate-600 dark:text-slate-300 font-medium text-center">Advanced mesh analysis, punching shear checks at column locations, and settlement estimations (per IS 2950) are verified here.</p>
          </div>
       </div>

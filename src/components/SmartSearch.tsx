@@ -218,7 +218,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
   return (
     <div className="relative w-full z-50 font-sans" ref={dropdownRef}>
       <div
-        className={`flex items-center w-full h-[60px] md:h-[70px] bg-white/80 backdrop-blur-xl border transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] ${isFocused || showDropdown ? "ring-4 ring-indigo-500/20 border-indigo-500 bg-white shadow-[0_8px_30px_rgb(99,102,241,0.1)]" : "border-slate-200 hover:border-slate-300"}`}
+        className={`flex items-center w-full h-[60px] md:h-[70px] bg-white/80 backdrop-blur-xl border transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] ${isFocused || showDropdown ? "ring-4 ring-indigo-500/20 border-indigo-500 bg-white shadow-[0_8px_30px_rgb(99,102,241,0.1)]" : "border-slate-200 hover:border-slate-300"}`}
         onClick={() => inputRef.current?.focus()}
       >
         <div className="pl-6 md:pl-8 pr-4 flex items-center justify-center h-full">
@@ -322,7 +322,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                         <button
                           key={i}
                           onClick={() => handleSelectQuery(sugg)}
-                          className="w-full text-left px-4 py-3 rounded-xl hover:bg-indigo-50/50 text-slate-600 hover:text-indigo-600 text-sm font-medium transition-colors flex items-center justify-between group"
+                          className="w-full text-left px-4 py-3 rounded-[24px] hover:bg-indigo-50/50 text-slate-600 hover:text-indigo-600 text-sm font-medium transition-colors flex items-center justify-between group"
                         >
                           <span>"{sugg}"</span>
                           <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-indigo-400 transition-colors" />
@@ -343,10 +343,10 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                           <div
                             key={mod.id}
                             onClick={() => handleSelectTool(mod.id)}
-                            className={`group cursor-pointer flex items-center gap-3 bg-transparent hover:bg-slate-50 border border-transparent hover:${theme.border} p-3 rounded-2xl transition-all duration-200`}
+                            className={`group cursor-pointer flex items-center gap-3 bg-transparent hover:bg-slate-50 border border-transparent hover:${theme.border} p-3 rounded-[24px] transition-all duration-200`}
                           >
                             <div
-                              className={`w-10 h-10 shrink-0 rounded-xl flex items-center justify-center ${theme.bg} ${theme.text} group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300`}
+                              className={`w-10 h-10 shrink-0 rounded-[24px] flex items-center justify-center ${theme.bg} ${theme.text} group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300`}
                             >
                               {mod.icon ? (
                                 <mod.icon className="w-5 h-5" />
@@ -386,10 +386,10 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                             <div
                               key={`local-${idx}`}
                               onClick={() => handleSelectTool(result.toolId)}
-                              className={`group cursor-pointer flex items-center gap-4 bg-transparent hover:bg-slate-50 border border-transparent hover:${theme.border} p-3 md:p-4 rounded-2xl transition-all duration-200`}
+                              className={`group cursor-pointer flex items-center gap-4 bg-transparent hover:bg-slate-50 border border-transparent hover:${theme.border} p-3 md:p-4 rounded-[24px] transition-all duration-200`}
                             >
                               <div
-                                className={`w-12 h-12 shrink-0 rounded-xl flex items-center justify-center ${theme.bg} ${theme.text} group-hover:bg-indigo-600 group-hover:text-white transition-transform duration-300 shadow-sm border ${theme.border} group-hover:border-transparent`}
+                                className={`w-12 h-12 shrink-0 rounded-[24px] flex items-center justify-center ${theme.bg} ${theme.text} group-hover:bg-indigo-600 group-hover:text-white transition-transform duration-300 shadow-sm border ${theme.border} group-hover:border-transparent`}
                               >
                                 {fullModuleData?.icon ? (
                                   <fullModuleData.icon className="w-6 h-6" />
@@ -433,7 +433,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                       </p>
                       <button
                         onClick={() => handleSelectTool("ai")}
-                        className="bg-slate-900 border border-slate-800 text-white font-bold py-3 px-6 rounded-xl inline-flex items-center gap-2 shadow-[0_8px_16px_rgba(0,0,0,0.15)] transition-all hover:bg-slate-800 hover:-translate-y-0.5 w-full sm:w-auto justify-center"
+                        className="bg-white border border-indigo-600 text-indigo-600 font-bold py-3 px-6 rounded-[24px] inline-flex items-center gap-2 shadow-[0_8px_16px_rgba(0,0,0,0.15)] transition-all hover:bg-indigo-600 hover:-translate-y-0.5 w-full sm:w-auto justify-center"
                       >
                         <Sparkles className="w-5 h-5 text-amber-400" />
                         Calculate with AI
@@ -445,7 +445,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                     <div className="pt-2 border-t border-slate-100 mt-2">
                       <button
                         onClick={() => handleSelectTool("ai")}
-                        className="w-full text-left px-4 py-3 rounded-xl hover:bg-indigo-50/50 text-slate-600 hover:text-indigo-600 text-sm font-medium transition-colors flex items-center justify-between group bg-slate-50"
+                        className="w-full text-left px-4 py-3 rounded-[24px] hover:bg-indigo-50/50 text-slate-600 hover:text-indigo-600 text-sm font-medium transition-colors flex items-center justify-between group bg-slate-50"
                       >
                         <span className="flex items-center gap-2">
                           <Sparkles className="w-4 h-4 text-indigo-500" />

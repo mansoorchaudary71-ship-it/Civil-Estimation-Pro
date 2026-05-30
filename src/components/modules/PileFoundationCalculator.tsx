@@ -9,7 +9,7 @@ export default function PileFoundationCalculator() {
          <h2 className="text-xl font-semibold mb-6 text-slate-800 dark:text-slate-100 flex items-center gap-2">
             <Pickaxe className="text-pink-600" /> Pile Foundation (IS 2911)
          </h2>
-         <div className="p-6 bg-slate-50 dark:bg-slate-800 rounded-2xl text-center">
+         <div className="p-6 bg-slate-50 dark:bg-slate-800 rounded-[24px] text-center">
             <p className="text-slate-700 dark:text-slate-300 font-medium">Calculation of skin friction, end bearing capacity, and group efficiency for bored and driven piles.</p>
          </div>
       </div>

@@ -175,7 +175,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
         {" "}
         <div className="flex flex-col mb-6">
           {" "}
-          <label className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 ml-1">
+          <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 ml-1">
             Shape
           </label>{" "}
           <div className="flex overflow-x-auto pb-4 gap-2 mb-2 p-1 w-full max-w-sm">
@@ -188,24 +188,24 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
           {" "}
           <div>
             {" "}
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
               Depth (m)
             </label>{" "}
             <input
               type="number"
-              className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
+              className="w-full bg-white border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
               value={mhDepth}
               onChange={(e) => setMhDepth(e.target.value)}
             />{" "}
           </div>{" "}
           <div>
             {" "}
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
               {mhType === "circular" ? "Inner Diameter" : "Inner Length"} (m)
             </label>{" "}
             <input
               type="number"
-              className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
+              className="w-full bg-white border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
               value={mhInnerLen}
               onChange={(e) => setMhInnerLen(e.target.value)}
             />{" "}
@@ -213,12 +213,12 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
           {mhType === "rectangular" && (
             <div>
               {" "}
-              <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+              <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                 Inner Width (m)
               </label>{" "}
               <input
                 type="number"
-                className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
+                className="w-full bg-white border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
                 value={mhInnerWid}
                 onChange={(e) => setMhInnerWid(e.target.value)}
               />{" "}
@@ -226,50 +226,50 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
           )}{" "}
           <div>
             {" "}
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
               Wall Thickness (m)
             </label>{" "}
             <input
               type="number"
               step="0.01"
-              className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
+              className="w-full bg-white border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
               value={mhWallThick}
               onChange={(e) => setMhWallThick(e.target.value)}
             />{" "}
           </div>{" "}
           <div>
             {" "}
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
               Base Thick (m)
             </label>{" "}
             <input
               type="number"
               step="0.01"
-              className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
+              className="w-full bg-white border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
               value={mhBaseThick}
               onChange={(e) => setMhBaseThick(e.target.value)}
             />{" "}
           </div>{" "}
           <div>
             {" "}
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
               Top Slab Thick (m)
             </label>{" "}
             <input
               type="number"
               step="0.01"
-              className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
+              className="w-full bg-white border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm"
               value={mhTopThick}
               onChange={(e) => setMhTopThick(e.target.value)}
             />{" "}
           </div>{" "}
           <div className="lg:col-span-2">
             {" "}
-            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+            <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
               Concrete Mix Grade
             </label>{" "}
             <select
-              className="w-full bg-white border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm appearance-none"
+              className="w-full bg-white border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-teal-500/50 transition-all shadow-sm appearance-none"
               value={concreteMix}
               onChange={(e) => setConcreteMix(e.target.value)}
             >
@@ -287,7 +287,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
         {" "}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {" "}
-          <div className="lg:col-span-1 flex flex-col items-center justify-center p-6 bg-transparent border border-slate-100 rounded-2xl">
+          <div className="lg:col-span-1 flex flex-col items-center justify-center p-6 bg-transparent border border-slate-100 rounded-[24px]">
             {" "}
             {/* Visual Icon representation based on shape */}{" "}
             <div
@@ -308,7 +308,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
               <h4 className="font-bold text-gray-800 mb-1">
                 {mhType === "circular" ? "Circular" : "Rectangular"} Manhole
               </h4>{" "}
-              <p className="text-xs text-gray-700 dark:text-gray-300 font-medium">
+              <p className="text-xs text-gray-700 font-medium">
                 Depth: {depth}m
               </p>{" "}
             </div>{" "}
@@ -326,7 +326,7 @@ export default function ManholeModule({ onStateChange }: ManholeModuleProps) {
                   title="Wet Concrete Volume"
                   value={totalWetConcrete.toFixed(2)}
                   unit="m³"
-                  icon={<Droplets className="w-4 h-4 text-slate-900 dark:text-white" />}
+                  icon={<Droplets className="w-4 h-4 text-slate-900" />}
                   description="Base + Wall + Slab"
                   variant="primary"
                 />

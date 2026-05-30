@@ -134,7 +134,7 @@ export const ALL_MODULES = [
     premium: true,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Advanced",
     estimatedTime: "~15 mins",
     isPopular: true,
@@ -209,7 +209,7 @@ export const ALL_MODULES = [
     icon: TrendingUp,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Beginner",
     estimatedTime: "~1 min",
     isPopular: true,
@@ -222,7 +222,7 @@ export const ALL_MODULES = [
     icon: Paintbrush,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Beginner",
     estimatedTime: "~3 mins",
   },
@@ -234,7 +234,7 @@ export const ALL_MODULES = [
     icon: Scaling,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~3 mins",
   },
@@ -246,7 +246,7 @@ export const ALL_MODULES = [
     icon: Container,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~3 mins",
   },
@@ -258,7 +258,7 @@ export const ALL_MODULES = [
     icon: Anvil,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~3 mins",
   },
@@ -270,7 +270,7 @@ export const ALL_MODULES = [
     icon: Repeat,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Beginner",
     estimatedTime: "~1 min",
   },
@@ -326,7 +326,7 @@ export const ALL_MODULES = [
     icon: Droplet,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Advanced",
     estimatedTime: "~4 mins",
     isNew: true,
@@ -339,7 +339,7 @@ export const ALL_MODULES = [
     icon: FileSpreadsheet,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Advanced",
     estimatedTime: "~10 mins",
   },
@@ -351,7 +351,7 @@ export const ALL_MODULES = [
     icon: Layers,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~3 mins",
     isNew: true,
@@ -364,7 +364,7 @@ export const ALL_MODULES = [
     icon: Box,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~3 mins",
     isNew: true,
@@ -377,7 +377,7 @@ export const ALL_MODULES = [
     icon: ShieldCheck,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Advanced",
     estimatedTime: "~5 mins",
     isNew: true,
@@ -390,7 +390,7 @@ export const ALL_MODULES = [
     icon: TrendingUp,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~5 mins",
   },
@@ -402,7 +402,7 @@ export const ALL_MODULES = [
     icon: Box,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~4 mins",
   },
@@ -414,7 +414,7 @@ export const ALL_MODULES = [
     icon: Hammer,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~4 mins",
   },
@@ -428,7 +428,7 @@ export const ALL_MODULES = [
     icon: Route,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Advanced",
     estimatedTime: "~15 mins",
   },
@@ -440,7 +440,7 @@ export const ALL_MODULES = [
     icon: Shovel,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~5 mins",
   },
@@ -452,7 +452,7 @@ export const ALL_MODULES = [
     icon: Map,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~5 mins",
   },
@@ -464,7 +464,7 @@ export const ALL_MODULES = [
     icon: Maximize2,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Beginner",
     estimatedTime: "~2 mins",
   },
@@ -476,7 +476,7 @@ export const ALL_MODULES = [
     icon: Bug,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Beginner",
     estimatedTime: "~2 mins",
     isNew: true,
@@ -491,7 +491,7 @@ export const ALL_MODULES = [
     icon: Cone,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~5 mins",
   },
@@ -503,7 +503,7 @@ export const ALL_MODULES = [
     icon: Activity,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~5 mins",
     isNew: true,
@@ -516,7 +516,7 @@ export const ALL_MODULES = [
     icon: LineChart,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Advanced",
     estimatedTime: "~8 mins",
   },
@@ -528,7 +528,7 @@ export const ALL_MODULES = [
     icon: Layers,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Advanced",
     estimatedTime: "~10 mins",
   },
@@ -540,7 +540,7 @@ export const ALL_MODULES = [
     icon: Layers,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~3 mins",
     isNew: true,
@@ -553,7 +553,7 @@ export const ALL_MODULES = [
     icon: Droplet,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~2 mins",
     isNew: true,
@@ -568,7 +568,7 @@ export const ALL_MODULES = [
     icon: Zap,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~5 mins",
     isNew: true,
@@ -581,7 +581,7 @@ export const ALL_MODULES = [
     icon: Sun,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Beginner",
     estimatedTime: "~2 mins",
     isNew: true,
@@ -594,7 +594,7 @@ export const ALL_MODULES = [
     icon: Droplet,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Beginner",
     estimatedTime: "~3 mins",
     isNew: true,
@@ -621,7 +621,7 @@ export const ALL_MODULES = [
     icon: BarChart,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Beginner",
     estimatedTime: "~3 mins",
     isNew: true,
@@ -634,7 +634,7 @@ export const ALL_MODULES = [
     icon: Users,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~2 mins",
     isNew: true,
@@ -649,7 +649,7 @@ export const ALL_MODULES = [
     icon: Layers,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Advanced",
     estimatedTime: "~10 mins",
     isNew: true,
@@ -662,7 +662,7 @@ export const ALL_MODULES = [
     icon: Building2,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Advanced",
     estimatedTime: "~10 mins",
     isNew: true,
@@ -675,7 +675,7 @@ export const ALL_MODULES = [
     icon: Grid2X2,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Advanced",
     estimatedTime: "~15 mins",
     isNew: true,
@@ -688,7 +688,7 @@ export const ALL_MODULES = [
     icon: Waves,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Advanced",
     estimatedTime: "~12 mins",
     isNew: true,
@@ -701,7 +701,7 @@ export const ALL_MODULES = [
     icon: Pickaxe,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Advanced",
     estimatedTime: "~8 mins",
     isNew: true,
@@ -714,7 +714,7 @@ export const ALL_MODULES = [
     icon: Layers,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Advanced",
     estimatedTime: "~10 mins",
     isNew: true,
@@ -729,7 +729,7 @@ export const ALL_MODULES = [
     icon: Square,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Beginner",
     estimatedTime: "~2 mins",
     isNew: true,
@@ -742,7 +742,7 @@ export const ALL_MODULES = [
     icon: ArrowRightLeft,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Beginner",
     estimatedTime: "~3 mins",
     isNew: true,
@@ -755,7 +755,7 @@ export const ALL_MODULES = [
     icon: Building,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Beginner",
     estimatedTime: "~2 mins",
     isNew: true,
@@ -768,7 +768,7 @@ export const ALL_MODULES = [
     icon: Triangle,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Intermediate",
     estimatedTime: "~4 mins",
     isNew: true,
@@ -781,7 +781,7 @@ export const ALL_MODULES = [
     icon: Layout,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Beginner",
     estimatedTime: "~5 mins",
     isNew: true,
@@ -794,7 +794,7 @@ export const ALL_MODULES = [
     icon: Sun,
     styleStyle: "glass",
     colorClass:
-      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-[var(--primary-dark)] dark:text-white",
+      "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
     difficulty: "Beginner",
     estimatedTime: "~2 mins",
     isNew: true,
@@ -812,96 +812,96 @@ interface DashboardProps {
 export const getCategoryTheme = (category: string, id: string) => {
   if (id === "ai") {
     return {
-      textRaw: "text-[#4338CA] dark:text-[#818CF8]",
+      textRaw: "text-[#4338CA] [#818CF8]",
       text: "text-white",
-      bg: "bg-[#4338CA] dark:bg-[#4338CA]",
+      bg: "bg-[#4338CA] [#4338CA]",
       stroke: "stroke-[#4338CA]",
       baseHex: "#4338CA",
-      border: "border-[#4338CA] dark:border-[#4338CA]",
+      border: "border-[#4338CA] [#4338CA]",
     };
   }
 
   switch (category) {
     case "Concrete Tech":
       return {
-        textRaw: "text-[#E55A2B] dark:text-[#ff8a65]",
+        textRaw: "text-[#E55A2B] [#ff8a65]",
         text: "text-white",
-        bg: "bg-[#E55A2B] dark:bg-[#E55A2B]",
+        bg: "bg-[#E55A2B] [#E55A2B]",
         stroke: "stroke-[#E55A2B]",
         baseHex: "#E55A2B",
-        border: "border-[#E55A2B] dark:border-[#E55A2B]",
+        border: "border-[#E55A2B] [#E55A2B]",
       };
     case "Quantity Estimator":
       return {
-        textRaw: "text-[#6B46C1] dark:text-[#9F7AEA]",
+        textRaw: "text-[#6B46C1] [#9F7AEA]",
         text: "text-white",
-        bg: "bg-[#6B46C1] dark:bg-[#6B46C1]",
+        bg: "bg-[#6B46C1] [#6B46C1]",
         stroke: "stroke-[#6B46C1]",
         baseHex: "#6B46C1",
-        border: "border-[#6B46C1] dark:border-[#6B46C1]",
+        border: "border-[#6B46C1] [#6B46C1]",
       };
     case "Structural Design":
       return {
-        textRaw: "text-[#BE185D] dark:text-[#F472B6]",
+        textRaw: "text-[#BE185D] [#F472B6]",
         text: "text-white",
-        bg: "bg-[#BE185D] dark:bg-[#BE185D]",
+        bg: "bg-[#BE185D] [#BE185D]",
         stroke: "stroke-[#BE185D]",
         baseHex: "#BE185D",
-        border: "border-[#BE185D] dark:border-[#BE185D]",
+        border: "border-[#BE185D] [#BE185D]",
       };
     case "Road Construction":
       return {
-        textRaw: "text-[#0D9488] dark:text-[#2DD4BF]",
+        textRaw: "text-[#0D9488] [#2DD4BF]",
         text: "text-white",
-        bg: "bg-[#0D9488] dark:bg-[#0D9488]",
+        bg: "bg-[#0D9488] [#0D9488]",
         stroke: "stroke-[#0D9488]",
         baseHex: "#0D9488",
-        border: "border-[#0D9488] dark:border-[#0D9488]",
+        border: "border-[#0D9488] [#0D9488]",
       };
     case "Soil Tests":
       return {
-        textRaw: "text-[#D97706] dark:text-[#FBBF24]",
+        textRaw: "text-[#D97706] [#FBBF24]",
         text: "text-white",
-        bg: "bg-[#D97706] dark:bg-[#D97706]",
+        bg: "bg-[#D97706] [#D97706]",
         stroke: "stroke-[#D97706]",
         baseHex: "#D97706",
-        border: "border-[#D97706] dark:border-[#D97706]",
+        border: "border-[#D97706] [#D97706]",
       };
     case "MEP":
       return {
-        textRaw: "text-[#2563EB] dark:text-[#60A5FA]",
+        textRaw: "text-[#2563EB] [#60A5FA]",
         text: "text-white",
-        bg: "bg-[#2563EB] dark:bg-[#2563EB]",
+        bg: "bg-[#2563EB] [#2563EB]",
         stroke: "stroke-[#2563EB]",
         baseHex: "#2563EB",
-        border: "border-[#2563EB] dark:border-[#2563EB]",
+        border: "border-[#2563EB] [#2563EB]",
       };
     case "Architectural References & Space Planning":
       return {
-        textRaw: "text-[#EC4899] dark:text-[#F472B6]",
+        textRaw: "text-[#EC4899] [#F472B6]",
         text: "text-white",
-        bg: "bg-[#EC4899] dark:bg-[#EC4899]",
+        bg: "bg-[#EC4899] [#EC4899]",
         stroke: "stroke-[#EC4899]",
         baseHex: "#EC4899",
-        border: "border-[#EC4899] dark:border-[#EC4899]",
+        border: "border-[#EC4899] [#EC4899]",
       };
     case "Analysis & Tools":
       return {
-        textRaw: "text-[#4338CA] dark:text-[#818CF8]",
+        textRaw: "text-[#4338CA] [#818CF8]",
         text: "text-white",
-        bg: "bg-[#4338CA] dark:bg-[#4338CA]",
+        bg: "bg-[#4338CA] [#4338CA]",
         stroke: "stroke-[#4338CA]",
         baseHex: "#4338CA",
-        border: "border-[#4338CA] dark:border-[#4338CA]",
+        border: "border-[#4338CA] [#4338CA]",
       };
     default:
       return {
-        textRaw: "text-[#4338CA] dark:text-[#818CF8]",
+        textRaw: "text-[#4338CA] [#818CF8]",
         text: "text-white",
-        bg: "bg-[#4338CA] dark:bg-[#4338CA]",
+        bg: "bg-[#4338CA] [#4338CA]",
         stroke: "stroke-[#4338CA]",
         baseHex: "#4338CA",
-        border: "border-slate-500 dark:border-slate-500",
+        border: "border-slate-500 ",
       };
   }
 };
@@ -1100,29 +1100,29 @@ export default function Dashboard({
   // Handle particle creation purely via CSS in a style tag directly
   return (
     <>
-      <div className="relative flex-1 w-full flex flex-col font-sans mb-12 bg-white text-slate-900 border-none">
+      <div className="relative flex-1 w-full flex flex-col font-sans bg-white text-slate-900 border-none">
         <SEO
           title="Dashboard"
           description="Civil Estimation Pro: Advanced estimators for live construction rate analysis, house estimating, and comprehensive BOQ calculators."
           canonicalUrl="https://civilestimationpro.com"
         />
 
-        <div className="w-full max-w-7xl mx-auto px-4 z-10 w-full overflow-visible flex flex-col">
-          {user ? (
-            <WorkspaceSection onSelect={handleSelect} />
+        {user ? (
+            <div className="w-full max-w-7xl mx-auto px-4 z-10 overflow-visible flex flex-col"><WorkspaceSection onSelect={handleSelect} /></div>
           ) : (
             <>
               {/* HERO SECTION */}
               <HeroSection onStart={() => handleSelect("house")} />
-
               {/* SOCIAL PROOF SECTION */}
               <SocialProofSection />
-
               <HowItWorksSection />
               <ProjectTypesSection onSelect={handleSelect} />
               <FeatureComparisonSection />
             </>
           )}
+
+<div className="w-full max-w-7xl mx-auto px-4 z-10 w-full overflow-visible flex flex-col mt-12">
+          
 
           {/* MAIN GRID */}
           <div
@@ -1146,7 +1146,7 @@ export default function Dashboard({
                   <button
                     key={pill}
                     onClick={() => setFilterMode(pill)}
-                    className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors font-semibold border shadow-sm ${filterMode === pill ? "bg-slate-900 border-slate-900 text-white" : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"}`}
+                    className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors font-semibold border shadow-sm ${filterMode === pill ? "bg-indigo-600 border-indigo-600 text-white" : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"}`}
                   >
                     {pill}
                   </button>
@@ -1161,7 +1161,7 @@ export default function Dashboard({
                 <div className="relative">
                   <button
                     onClick={() => setIsSortOpen(!isSortOpen)}
-                    className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors text-slate-700 shadow-sm"
+                    className="flex items-center gap-2 px-3 py-2 bg-white rounded-[16px] border border-slate-200 hover:bg-slate-50 transition-colors text-slate-700 shadow-sm"
                   >
                     Sort:{" "}
                     <span className="font-semibold text-slate-900">
@@ -1170,7 +1170,7 @@ export default function Dashboard({
                     <ChevronDown className="w-4 h-4 ml-1" />
                   </button>
                   {isSortOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-slate-100 shadow-2xl rounded-xl overflow-hidden z-50 py-1">
+                    <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-slate-100 shadow-2xl rounded-[24px] overflow-hidden z-50 py-1">
                       {sortOptions.map((opt) => (
                         <button
                           key={opt}
@@ -1230,7 +1230,7 @@ export default function Dashboard({
             </div>
 
             {/* FEATURED BANNER */}
-            <div className="w-full mb-24 rounded-3xl overflow-hidden bg-gradient-to-br from-[#4C1D95] to-[#7C3AED] p-8 md:p-10 text-white relative shadow-lg flex flex-col md:flex-row items-center gap-8 border-none">
+            <div className="w-full mb-0 rounded-[24px] overflow-hidden bg-gradient-to-br from-[#4C1D95] to-[#7C3AED] p-8 md:p-10 text-white relative shadow-lg flex flex-col md:flex-row items-center gap-8 border-none">
               <div className="flex-1 z-10 text-center md:text-left">
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full text-white text-[10px] font-bold tracking-wider uppercase mb-5 backdrop-blur-sm">
                   ⭐ FEATURED TOOL OF THE WEEK
@@ -1250,9 +1250,9 @@ export default function Dashboard({
                   Try it Now ›
                 </button>
               </div>
-              <div className="z-10 bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/20 shadow-xl relative min-w-[240px]">
+              <div className="z-10 bg-white/10 backdrop-blur-md rounded-[24px] p-5 border border-white/20 shadow-xl relative min-w-[240px]">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-orange-500/20 flex flex-col items-center justify-center text-xl">
+                  <div className="w-12 h-12 rounded-[24px] bg-orange-500/20 flex flex-col items-center justify-center text-xl">
                     🏗️
                   </div>
                   <div className="flex flex-col">
@@ -1316,7 +1316,7 @@ export default function Dashboard({
                   </div>
                 )}
                 <div
-                  className={`px-5 py-3 rounded-2xl max-w-[85%] font-medium text-[15px] leading-relaxed shadow-sm ${msg.role === "user" ? "bg-purple-600 text-white rounded-tr-sm" : "bg-slate-50 border border-slate-100 text-slate-700 rounded-tl-sm"}`}
+                  className={`px-5 py-3 rounded-[24px] max-w-[85%] font-medium text-[15px] leading-relaxed shadow-sm ${msg.role === "user" ? "bg-purple-600 text-white rounded-tr-sm" : "bg-slate-50 border border-slate-100 text-slate-700 rounded-tl-sm"}`}
                 >
                   {msg.content}
                 </div>

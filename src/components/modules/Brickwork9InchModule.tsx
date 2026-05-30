@@ -144,21 +144,21 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
   return (
     <div className={`w-full ${hideHistory ? '' : 'bg-bg-card border border-border-color rounded-[2rem] overflow-hidden shadow-md mt-4'}`}>
       {!hideHistory && (
-        <div className="px-6 md:px-8 py-5 border-b border-border-color flex flex-col md:flex-row items-start md:items-center justify-between bg-transparent dark:bg-slate-800/50 gap-4">
+        <div className="px-6 md:px-8 py-5 border-b border-border-color flex flex-col md:flex-row items-start md:items-center justify-between bg-transparent rounded-[24px] border border-slate-200 shadow-sm text-slate-800 gap-4">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-xl">
+            <div className="p-2.5 bg-orange-100 text-orange-600 rounded-[24px]">
               <Columns className="w-5 h-5" />
             </div>
             <div>
               <h3 className="text-xl font-semibold text-text-primary">
                 Brickwork Estimator
               </h3>
-              <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+              <p className="text-sm font-medium text-slate-500">
                 Calculate bricks, cement, and sand for a 9-inch wall.
               </p>
             </div>
           </div>
-          <span className="px-3 py-1.5 bg-transparent dark:bg-slate-800 border border-border-color text-slate-700 dark:text-slate-300 text-xs font-bold uppercase tracking-wider rounded-lg shadow-sm">
+          <span className="px-3 py-1.5 bg-transparent border border-border-color text-slate-700 text-xs font-bold uppercase tracking-wider rounded-[16px] shadow-sm">
             Load Bearing (230mm)
           </span>
         </div>
@@ -176,38 +176,38 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
+                  <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-2">
                     Length ({results.isSI ? 'm' : 'ft'})
                   </label>
                   <input
                     type="number"
                     value={wallLength}
                     onChange={(e) => setWallLength(e.target.value)}
-                    className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 dark:hover:border-slate-600 shadow-sm transition-all"
+                    className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
                     placeholder="e.g. 5"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
+                  <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-2">
                     Height ({results.isSI ? 'm' : 'ft'})
                   </label>
                   <input
                     type="number"
                     value={wallHeight}
                     onChange={(e) => setWallHeight(e.target.value)}
-                    className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 dark:hover:border-slate-600 shadow-sm transition-all"
+                    className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
                     placeholder="e.g. 3"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
+                  <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-2">
                     Deductions ({results.isSI ? 'm²' : 'sq.ft'})
                   </label>
                   <input
                     type="number"
                     value={deductions}
                     onChange={(e) => setDeductions(e.target.value)}
-                    className="w-full bg-transparent dark:bg-slate-900 border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 dark:hover:border-slate-600 shadow-sm transition-all"
+                    className="w-full bg-transparent border border-border-color text-text-primary rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
                     placeholder="e.g. 1.5"
                   />
                 </div>
@@ -222,13 +222,13 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
               </h4>
               <div className="flex flex-col gap-6">
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
+                  <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-2">
                     Brick Size
                   </label>
                   <div className="flex flex-col sm:flex-row gap-3 w-full">
                     <button
                       onClick={() => setBrickType("standard")}
-                      className={`flex-1 flex flex-col items-start justify-center py-3.5 px-5 text-sm font-bold rounded-2xl transition-all border ${brickType === "standard" ? "bg-orange-50 dark:bg-orange-500/10 border-orange-200 dark:border-orange-500/30 text-orange-700 dark:text-orange-400 shadow-[0_4px_20px_rgba(249,115,22,0.1)]" : "bg-bg-card border-border-color text-slate-700 dark:text-slate-300 hover:border-orange-200 hover:bg-orange-50/50"}`}
+                      className={`flex-1 flex flex-col items-start justify-center py-3.5 px-5 text-sm font-bold rounded-[24px] transition-all border ${brickType === "standard" ? "bg-orange-50  border-orange-200  text-orange-700  shadow-[0_4px_20px_rgba(249,115,22,0.1)]" : "bg-bg-card border-border-color text-slate-700  hover:border-orange-200 hover:bg-orange-50/50"}`}
                     >
                       <div className="flex items-center gap-2 mb-1.5">
                         <div className={`w-4 h-4 rounded-full border-[3px] flex items-center justify-center shrink-0 ${brickType === "standard" ? "border-orange-500 bg-bg-card" : "border-slate-300"}`}>
@@ -236,13 +236,13 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                         </div>
                         <span className="tracking-wide">Standard</span>
                       </div>
-                      <span className={`text-[11px] font-medium ml-6 opacity-80 ${brickType === "standard" ? "text-orange-700 dark:text-orange-300" : "text-slate-500 dark:text-slate-400"}`}>
+                      <span className={`text-[11px] font-medium ml-6 opacity-80 ${brickType === "standard" ? "text-orange-700 " : "text-slate-500 "}`}>
                         230 × 110 × 75 mm
                       </span>
                     </button>
                     <button
                       onClick={() => setBrickType("modular")}
-                      className={`flex-1 flex flex-col items-start justify-center py-3.5 px-5 text-sm font-bold rounded-2xl transition-all border ${brickType === "modular" ? "bg-orange-50 dark:bg-orange-500/10 border-orange-200 dark:border-orange-500/30 text-orange-700 dark:text-orange-400 shadow-[0_4px_20px_rgba(249,115,22,0.1)]" : "bg-bg-card border-border-color text-slate-700 dark:text-slate-300 hover:border-orange-200 hover:bg-orange-50/50"}`}
+                      className={`flex-1 flex flex-col items-start justify-center py-3.5 px-5 text-sm font-bold rounded-[24px] transition-all border ${brickType === "modular" ? "bg-orange-50  border-orange-200  text-orange-700  shadow-[0_4px_20px_rgba(249,115,22,0.1)]" : "bg-bg-card border-border-color text-slate-700  hover:border-orange-200 hover:bg-orange-50/50"}`}
                     >
                       <div className="flex items-center gap-2 mb-1.5">
                         <div className={`w-4 h-4 rounded-full border-[3px] flex items-center justify-center shrink-0 ${brickType === "modular" ? "border-orange-500 bg-bg-card" : "border-slate-300"}`}>
@@ -250,7 +250,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                         </div>
                         <span className="tracking-wide">Modular</span>
                       </div>
-                      <span className={`text-[11px] font-medium ml-6 opacity-80 ${brickType === "modular" ? "text-orange-700 dark:text-orange-300" : "text-slate-500 dark:text-slate-400"}`}>
+                      <span className={`text-[11px] font-medium ml-6 opacity-80 ${brickType === "modular" ? "text-orange-700 " : "text-slate-500 "}`}>
                         190 × 90 × 90 mm
                       </span>
                     </button>
@@ -259,7 +259,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
 
                 <div className="flex flex-col gap-4">
                     <div>
-                      <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
+                      <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-2">
                         Mortar Mix Preset
                       </label>
                       <div className="relative">
@@ -274,7 +274,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                               setSandRatio(s);
                             }
                           }}
-                          className="w-full appearance-none bg-bg-card/80 border border-border-color text-text-primary rounded-2xl px-5 py-3.5 pr-10 focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 dark:hover:border-slate-600 shadow-sm transition-all cursor-pointer font-semibold"
+                          className="w-full appearance-none bg-bg-card/80 border border-border-color text-text-primary rounded-[24px] px-5 py-3.5 pr-10 focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all cursor-pointer font-semibold"
                         >
                           <option value="1:3">1:3 (Rich Mix)</option>
                           <option value="1:4">1:4 (Standard Mix)</option>
@@ -288,25 +288,25 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                     </div>
                     <div className="flex flex-col sm:flex-row gap-4">
                       <div className="flex-1">
-                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
+                        <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-2">
                           Cement Ratio
                         </label>
                         <input
                           type="number"
                           value={cementRatio}
                           onChange={(e) => { setCementRatio(e.target.value); setMixRatioPreset("custom"); }}
-                          className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 dark:hover:border-slate-600 shadow-sm transition-all"
+                          className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
                         />
                       </div>
                       <div className="flex-1">
-                        <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
+                        <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-2">
                           Sand Ratio
                         </label>
                         <input
                           type="number"
                           value={sandRatio}
                           onChange={(e) => { setSandRatio(e.target.value); setMixRatioPreset("custom"); }}
-                          className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 dark:hover:border-slate-600 shadow-sm transition-all"
+                          className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
                         />
                       </div>
                     </div>
@@ -314,24 +314,24 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                 </div>
 
               <div className="mt-8 flex items-center gap-3">
-                <label className="relative flex cursor-pointer items-center rounded-full p-1 hover:bg-orange-50 dark:hover:bg-orange-500/10 transition-colors">
+                <label className="relative flex cursor-pointer items-center rounded-full p-1 hover:bg-orange-50 transition-colors">
                   <input
                     type="checkbox"
-                    className="peer cursor-pointer appearance-none rounded-xl border-2 border-border-color transition-all checked:border-orange-500 checked:bg-orange-500 w-6 h-6 ml-1"
+                    className="peer cursor-pointer appearance-none rounded-[24px] border-2 border-border-color transition-all checked:border-orange-500 checked:bg-orange-500 w-6 h-6 ml-1"
                     checked={includeWastage}
                     onChange={(e) => setIncludeWastage(e.target.checked)}
                   />
-                  <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-900 dark:text-white opacity-0 transition-opacity peer-checked:opacity-100 ml-0.5">
+                  <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-900 opacity-0 transition-opacity peer-checked:opacity-100 ml-0.5">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" strokeWidth="1">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
                     </svg>
                   </div>
                 </label>
                 <div className="flex flex-col cursor-pointer select-none" onClick={() => setIncludeWastage(!includeWastage)}>
-                  <span className="text-[13px] font-bold text-slate-800 dark:text-slate-200">
+                  <span className="text-[13px] font-bold text-slate-800">
                     Include 10% Wastage
                   </span>
-                  <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400">
+                  <span className="text-[11px] font-medium text-slate-500">
                     Adds extra margin for bricks & mortar
                   </span>
                 </div>
@@ -376,8 +376,8 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                </div>
               </MaterialSummary>
 
-              <div className="px-4 py-3 bg-transparent dark:bg-slate-800/80 border border-border-color rounded-2xl flex justify-center text-center mt-2">
-                <span className="flex items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-300 dark:text-slate-700 dark:text-slate-300">
+              <div className="px-4 py-3 bg-transparent rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-border-color rounded-[24px] flex justify-center text-center mt-2">
+                <span className="flex items-center gap-1.5 text-xs font-bold text-slate-700">
                   <Droplets className="w-4 h-4 text-blue-400" />
                   Dry Mortar: {results.dryMortarVol.toFixed(3)} {results.isSI ? 'm³' : 'cft'}
                 </span>

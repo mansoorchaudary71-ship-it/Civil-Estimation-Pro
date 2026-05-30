@@ -120,10 +120,10 @@ export default function ToolCard({
                 <Lock className="w-3 h-3" />
               )}
               {/* Tooltip */}
-              <div className="absolute left-0 bottom-full mb-2 hidden group-hover/pro:flex flex-col whitespace-nowrap bg-slate-900 text-white text-[10px] px-3 py-2 rounded-lg shadow-xl border border-slate-700 z-50 pointer-events-none">
+              <div className="absolute left-0 bottom-full mb-2 hidden group-hover/pro:flex flex-col whitespace-nowrap bg-white text-slate-900 text-[10px] px-3 py-2 rounded-[16px] shadow-xl border border-slate-700 z-50 pointer-events-none">
                 <div className="font-bold text-amber-400 mb-0.5">Premium Tool</div>
                 <div className="text-slate-300">Upgrade for $29/mo to unlock</div>
-                <div className="absolute -bottom-1 left-4 w-2 h-2 bg-slate-900 border-b border-r border-slate-700 rotate-45 transform" />
+                <div className="absolute -bottom-1 left-4 w-2 h-2 bg-white border-b border-r border-slate-700 rotate-45 transform border border-slate-200 shadow-sm" />
               </div>
             </div>
           )}
@@ -181,7 +181,7 @@ export default function ToolCard({
 
         <div className="relative z-10 flex">
           <div
-            className={`w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg bg-gradient-to-br ${theme.gradient} text-white transition-transform duration-300 md:group-hover:scale-110 md:group-hover:-translate-y-2`}
+            className={`w-16 h-16 rounded-[24px] flex items-center justify-center shadow-lg bg-gradient-to-br ${theme.gradient} text-white transition-transform duration-300 md:group-hover:scale-110 md:group-hover:-translate-y-2`}
           >
             <mod.icon className="w-8 h-8" strokeWidth={2} />
           </div>
@@ -198,7 +198,7 @@ export default function ToolCard({
           </div>
           <h3
             className="text-base font-semibold text-slate-900 leading-tight mb-2 group-hover:text-indigo-600 transition-colors"
-            style={{ fontFamily: '"Clash Display", sans-serif' }}
+            
           >
             {mod.title}
           </h3>
@@ -231,7 +231,7 @@ export default function ToolCard({
 
         {/* Hover Reveal Button overlaying the footer area slightly */}
         <div className="absolute left-0 right-0 bottom-0 p-6 translate-y-[20px] md:group-hover:translate-y-0 transition-all duration-300 opacity-0 md:group-hover:opacity-100 pointer-events-none md:pointer-events-auto bg-gradient-to-t from-white via-white to-transparent pt-12">
-          <div className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20 transition-colors">
+          <div className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-[24px] flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20 transition-colors">
             Open Tool <ArrowRight className="w-4 h-4" />
           </div>
         </div>

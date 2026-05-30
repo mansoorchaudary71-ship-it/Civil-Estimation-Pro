@@ -64,7 +64,7 @@ function BOQRow({
         {row.id}
       </td>
       <td className="py-2 px-3 text-slate-900">{row.desc}</td>
-      <td className="py-2 px-3 text-slate-500 dark:text-slate-400">
+      <td className="py-2 px-3 text-slate-500">
         <select
           value={row.unit}
           onChange={(e) => updateBoqItem(row.id, { unit: e.target.value })}
@@ -91,7 +91,7 @@ function BOQRow({
                   isManualOverride: !row.isManualOverride,
                 })
               }
-              className={`p-1 rounded ${row.isManualOverride ? "text-gray-500 dark:text-gray-400 hover:text-slate-800" : "text-blue-400 bg-blue-400/10"}`}
+              className={`p-1 rounded ${row.isManualOverride ? "text-gray-500  hover:text-slate-800" : "text-blue-400 bg-blue-400/10"}`}
               title={
                 row.isManualOverride
                   ? "Using manual override. Click to use linked."
@@ -143,9 +143,9 @@ function BOQRow({
               className="fixed inset-0 z-10"
               onClick={() => setDropdownOpen(false)}
             />
-            <div className="absolute right-3 top-8 w-44 bg-white border border-slate-200 rounded-lg shadow-xl z-20 py-2 flex flex-col gap-1 max-h-48 overflow-y-auto">
+            <div className="absolute right-3 top-8 w-44 bg-white border border-slate-200 rounded-[16px] shadow-xl z-20 py-2 flex flex-col gap-1 max-h-48 overflow-y-auto">
               <div className="px-2 pb-1 border-b border-slate-200 mb-1">
-                <span className="text-[10px] text-slate-700 dark:text-slate-300 font-semibold uppercase">
+                <span className="text-[10px] text-slate-700 font-semibold uppercase">
                   Measurements
                 </span>
               </div>
@@ -195,7 +195,7 @@ function BOQRow({
                       <span className="truncate flex-1" title={m.name}>
                         {m.name}
                       </span>
-                      <div className="flex items-center gap-1 text-[9px] text-slate-700 dark:text-slate-300 mt-0.5">
+                      <div className="flex items-center gap-1 text-[9px] text-slate-700 mt-0.5">
                         <span>{typeIcon}</span>
                         <span className="font-mono">{valStr}</span>
                       </div>
@@ -204,7 +204,7 @@ function BOQRow({
                 );
               })}
               {measurements.length === 0 && (
-                <div className="px-3 py-2 text-xs text-slate-700 dark:text-slate-300">
+                <div className="px-3 py-2 text-xs text-slate-700">
                   No measurements
                 </div>
               )}
@@ -212,7 +212,7 @@ function BOQRow({
           </>
         )}
       </td>
-      <td className="py-2 px-3 font-mono text-right text-slate-700 dark:text-slate-300">
+      <td className="py-2 px-3 font-mono text-right text-slate-700">
         {formatCurrency(row.rate)}
       </td>
       <td className="py-2 px-3 font-mono text-right font-medium">
@@ -319,11 +319,11 @@ export default function LiveBOQ() {
   };
   return (
     <div className="flex flex-col h-full text-slate-900 p-8 relative">
-      <div className="flex-1 bg-white border border-slate-200 rounded-xl flex flex-col overflow-hidden">
+      <div className="flex-1 bg-white border border-slate-200 rounded-[24px] flex flex-col overflow-hidden">
         {/* Header */}
         <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between shrink-0 flex-wrap gap-4">
           <div>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-slate-700">
               Live Bill of Quantities (BOQ)
             </h2>
             <span className="text-xs font-mono text-green-500 mt-1 block">
@@ -346,21 +346,21 @@ export default function LiveBOQ() {
         {/* Search */}
         <div className="px-6 py-4 border-b border-slate-200 bg-transparent/20 flex gap-4">
           <div className="relative flex-1 max-w-sm">
-            <Search className="w-[14px] h-[14px] absolute left-3 top-2.5 text-slate-700 dark:text-slate-300" />
+            <Search className="w-[14px] h-[14px] absolute left-3 top-2.5 text-slate-700" />
             <input
               type="text"
               placeholder="Search items..."
-              className="w-full bg-transparent border border-slate-200 rounded-lg px-3 pl-8 py-1.5 text-xs focus:outline-none focus:border-blue-500 text-slate-800"
+              className="w-full bg-transparent border border-slate-200 rounded-[16px] px-3 pl-8 py-1.5 text-xs focus:outline-none focus:border-blue-500 text-slate-800"
             />
           </div>
-          <button className="flex items-center gap-1.5 px-3 py-1.5 bg-transparent border border-slate-200 rounded text-xs hover:bg-slate-200 transition-colors text-slate-700 dark:text-slate-300">
+          <button className="flex items-center gap-1.5 px-3 py-1.5 bg-transparent border border-slate-200 rounded text-xs hover:bg-slate-200 transition-colors text-slate-700">
             <Filter className="w-[14px] h-[14px]" /> Filters
           </button>
         </div>
         {/* Table Content */}
         <div className="flex-1 overflow-auto p-4">
           <table className="w-full text-left text-xs">
-            <thead className="text-slate-700 dark:text-slate-300 border-b border-slate-200">
+            <thead className="text-slate-700 border-b border-slate-200">
               <tr>
                 <th className="py-2 px-3 font-normal w-20">Item</th>
                 <th className="py-2 px-3 font-normal">Description</th>
@@ -394,11 +394,11 @@ export default function LiveBOQ() {
               <tr>
                 <th
                   colSpan={6}
-                  className="py-3 px-3 text-right text-[10px] text-slate-700 dark:text-slate-300 uppercase font-semibold"
+                  className="py-3 px-3 text-right text-[10px] text-slate-700 uppercase font-semibold"
                 >
                   Total Estimated Cost
                 </th>
-                <th className="py-3 px-3 font-mono text-right text-sm text-slate-900 dark:text-slate-900 dark:text-white font-semibold tabular-nums tracking-tight bg-slate-100 dark:bg-slate-800 rounded-br-lg">
+                <th className="py-3 px-3 font-mono text-right text-sm text-slate-900 font-semibold tabular-nums tracking-tight bg-slate-100 rounded-br-lg">
                   {formatCurrency(totalCost)}
                 </th>
               </tr>
@@ -414,14 +414,14 @@ export default function LiveBOQ() {
       {/* Export Modal */}
       {showExportModal && (
         <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-50">
-          <div className="bg-white border border-slate-200 rounded-lg p-6 max-w-sm w-full shadow-2xl">
+          <div className="bg-white border border-slate-200 rounded-[16px] p-6 max-w-sm w-full shadow-2xl">
             <h3 className="text-sm font-semibold mb-4 text-slate-900 flex items-center gap-2">
               <Download className="w-[16px] h-[16px] text-blue-400" /> Generate
               Professional Report
             </h3>
             <div className="flex flex-col gap-4 mb-6">
               <div>
-                <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+                <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
                   Project Name
                 </label>
                 <input
@@ -437,7 +437,7 @@ export default function LiveBOQ() {
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+                <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
                   Client Name
                 </label>
                 <input
@@ -453,7 +453,7 @@ export default function LiveBOQ() {
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+                <label className="block text-[10px] font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
                   Site Location
                 </label>
                 <input
@@ -503,7 +503,7 @@ export default function LiveBOQ() {
               <button
                 onClick={() => setShowExportModal(false)}
                 disabled={isPdfLoading || isExcelLoading}
-                className="px-4 py-2 text-xs text-slate-700 dark:text-slate-300 hover:text-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 text-xs text-slate-700 hover:text-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Cancel
               </button>

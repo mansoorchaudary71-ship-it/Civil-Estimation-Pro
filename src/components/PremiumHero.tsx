@@ -52,7 +52,7 @@ export default function PremiumHero() {
           { val: "15+", lab: "Countries Trusted", icon: Globe },
           { val: "AI", lab: "Powered Estimates", icon: Sparkles }
         ].map((stat, i) => (
-          <div key={i} className="flex flex-col items-center p-6 bg-white rounded-2xl border border-slate-200 shadow-sm text-center">
+          <div key={i} className="flex flex-col items-center p-6 bg-white rounded-[24px] border border-slate-200 shadow-sm text-center">
             <div className="w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center mb-4 text-purple-600">
               <stat.icon className="w-6 h-6" />
             </div>

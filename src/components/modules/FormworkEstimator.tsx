@@ -152,11 +152,11 @@ export default function FormworkEstimator() {
         {" "}
         <header className="mb-10">
           {" "}
-          <h1 className="text-4xl lg:text-5xl font-bold tracking-tight tracking-tight bg-gradient-to-r from-amber-600 to-rose-600 bg-clip-text text-transparent pb-2">
+          <h1 className="text-[clamp(1.75rem,5vw,2.5rem)] break-all lg:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-bold tracking-tight tracking-tight bg-gradient-to-r from-amber-600 to-rose-600 bg-clip-text text-transparent pb-2">
             {" "}
             Formwork & Scaffolding{" "}
           </h1>{" "}
-          <p className="text-gray-500 dark:text-gray-400 mt-2 text-lg font-medium">
+          <p className="text-gray-500 mt-2 text-lg font-medium">
             {" "}
             Calculate accurate shuttering contact surface areas and standard
             material requirements.{" "}
@@ -176,7 +176,7 @@ export default function FormworkEstimator() {
                 {" "}
                 <div className="flex items-center gap-3">
                   {" "}
-                  <div className="p-3 bg-amber-50 rounded-2xl">
+                  <div className="p-3 bg-amber-50 rounded-[24px]">
                     {" "}
                     <Grid className="w-6 h-6 text-amber-600" />{" "}
                   </div>{" "}
@@ -185,14 +185,14 @@ export default function FormworkEstimator() {
                     <h2 className="text-xl font-semibold text-gray-800">
                       Shuttering Elements
                     </h2>{" "}
-                    <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">
+                    <p className="text-sm text-gray-700 font-medium">
                       Add columns, beams, or slabs
                     </p>{" "}
                   </div>{" "}
                 </div>{" "}
                 <button
                   onClick={addElement}
-                  className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 dark:text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-amber-500/30 transition-all hover:scale-105 active:scale-95"
+                  className="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-slate-900 px-4 py-2.5 rounded-[24px] text-sm font-bold shadow-lg shadow-amber-500/30 transition-all hover:scale-105 active:scale-95"
                 >
                   {" "}
                   <Plus className="w-4 h-4" /> Add Item{" "}
@@ -211,13 +211,13 @@ export default function FormworkEstimator() {
                       {" "}
                       <div className="col-span-2 md:col-span-2 space-y-1">
                         {" "}
-                        <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest block">
+                        <label className="text-[10px] font-bold text-gray-700 uppercase tracking-widest block">
                           Type & Name
                         </label>{" "}
                         <div className="flex gap-2">
                           {" "}
                           <select
-                            className="bg-gray-100 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-semibold text-gray-700 outline-none focus:ring-2 focus:ring-amber-500/30 w-24"
+                            className="bg-gray-100 border border-slate-200 rounded-[24px] px-3 py-2.5 text-sm font-semibold text-gray-700 outline-none focus:ring-2 focus:ring-amber-500/30 w-24"
                             value={el.type}
                             onChange={(e) =>
                               updateElement(el.id, "type", e.target.value)
@@ -230,7 +230,7 @@ export default function FormworkEstimator() {
                           </select>{" "}
                           <input
                             type="text"
-                            className="bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-amber-500/30"
+                            className="bg-white border border-gray-200 rounded-[24px] px-3 py-2.5 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-amber-500/30"
                             value={el.name}
                             onChange={(e) =>
                               updateElement(el.id, "name", e.target.value)
@@ -240,14 +240,14 @@ export default function FormworkEstimator() {
                       </div>{" "}
                       <div className="space-y-1">
                         {" "}
-                        <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest block">
+                        <label className="text-[10px] font-bold text-gray-700 uppercase tracking-widest block">
                           L ({unitStr})
                         </label>{" "}
                         <input
                           type="number"
                           min="0"
                           step="0.1"
-                          className="bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
+                          className="bg-white border border-gray-200 rounded-[24px] px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
                           value={el.length}
                           onChange={(e) =>
                             updateElement(el.id, "length", e.target.value)
@@ -256,14 +256,14 @@ export default function FormworkEstimator() {
                       </div>{" "}
                       <div className="space-y-1">
                         {" "}
-                        <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest block">
+                        <label className="text-[10px] font-bold text-gray-700 uppercase tracking-widest block">
                           W ({unitStr})
                         </label>{" "}
                         <input
                           type="number"
                           min="0"
                           step="0.1"
-                          className="bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
+                          className="bg-white border border-gray-200 rounded-[24px] px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
                           value={el.width}
                           onChange={(e) =>
                             updateElement(el.id, "width", e.target.value)
@@ -272,14 +272,14 @@ export default function FormworkEstimator() {
                       </div>{" "}
                       <div className="space-y-1">
                         {" "}
-                        <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest block">
+                        <label className="text-[10px] font-bold text-gray-700 uppercase tracking-widest block">
                           H/D ({unitStr})
                         </label>{" "}
                         <input
                           type="number"
                           min="0"
                           step="0.1"
-                          className="bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
+                          className="bg-white border border-gray-200 rounded-[24px] px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
                           value={el.height}
                           onChange={(e) =>
                             updateElement(el.id, "height", e.target.value)
@@ -288,13 +288,13 @@ export default function FormworkEstimator() {
                       </div>{" "}
                       <div className="space-y-1">
                         {" "}
-                        <label className="text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest block">
+                        <label className="text-[10px] font-bold text-gray-700 uppercase tracking-widest block">
                           Qty
                         </label>{" "}
                         <input
                           type="number"
                           min="0"
-                          className="bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
+                          className="bg-white border border-gray-200 rounded-[24px] px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
                           value={el.count}
                           onChange={(e) =>
                             updateElement(el.id, "count", e.target.value)
@@ -304,7 +304,7 @@ export default function FormworkEstimator() {
                     </div>{" "}
                     <button
                       onClick={() => removeElement(el.id)}
-                      className="w-10 h-10 flex items-center justify-center bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-slate-900 dark:text-white rounded-xl transition-colors ml-auto md:ml-0 self-end md:self-center"
+                      className="w-10 h-10 flex items-center justify-center bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-slate-900 rounded-[24px] transition-colors ml-auto md:ml-0 self-end md:self-center"
                     >
                       {" "}
                       <Trash2 className="w-4 h-4" />{" "}
@@ -314,7 +314,7 @@ export default function FormworkEstimator() {
                 {elements.length === 0 && (
                   <div className="text-center py-12 bg-transparent border-2 border-dashed border-gray-200 rounded-[2rem]">
                     {" "}
-                    <p className="text-gray-700 dark:text-gray-300 font-medium">
+                    <p className="text-gray-700 font-medium">
                       No formwork elements added.
                     </p>{" "}
                   </div>
@@ -332,7 +332,7 @@ export default function FormworkEstimator() {
                     Repetition Factor
                   </h3>{" "}
                 </div>{" "}
-                <p className="text-sm text-gray-700 dark:text-gray-300">
+                <p className="text-sm text-gray-700">
                   How many times will the shuttering be reused? This drastically
                   reduces material required.
                 </p>{" "}
@@ -343,7 +343,7 @@ export default function FormworkEstimator() {
                   <button
                     key={factor}
                     onClick={() => setRepetitionFactor(factor)}
-                    className={`w-12 h-12 rounded-2xl font-semibold tabular-nums tracking-tight transition-all ${repetitionFactor === factor ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-gray-700 dark:text-gray-300 hover:bg-gray-200"}`}
+                    className={`w-12 h-12 rounded-[24px] font-semibold tabular-nums tracking-tight transition-all ${repetitionFactor === factor ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-gray-700  hover:bg-gray-200"}`}
                   >
                     {" "}
                     x{factor}{" "}
@@ -383,8 +383,8 @@ export default function FormworkEstimator() {
                 />
               </div>
 
-              <div className="mt-8 pt-6 border-t border-slate-200/50 dark:border-slate-100 dark:border-slate-800">
-                  <div className="mb-4 text-[10px] sm:text-xs font-bold tracking-tight text-slate-500 dark:text-slate-400 dark:text-slate-500 uppercase tracking-[0.15em]">
+              <div className="mt-8 pt-6 border-t border-slate-200/50">
+                  <div className="mb-4 text-[10px] sm:text-xs font-bold tracking-tight text-slate-500 uppercase tracking-[0.15em]">
                     Area Breakdown
                   </div>{" "}
                   <div className="h-48 w-full relative">
@@ -425,7 +425,7 @@ export default function FormworkEstimator() {
                       </PieChart>{" "}
                     </ResponsiveContainer>{" "}
                   </div>{" "}
-                  <div className="flex justify-center gap-4 mt-2 text-[10px] font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
+                  <div className="flex justify-center gap-4 mt-2 text-[10px] font-bold text-gray-700 uppercase tracking-widest">
                     {" "}
                     <span className="flex items-center gap-1.5">
                       <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />{" "}

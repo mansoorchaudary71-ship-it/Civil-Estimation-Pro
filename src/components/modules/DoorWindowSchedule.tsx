@@ -44,13 +44,13 @@ export default function DoorWindowSchedule() {
 
   return (
     <div className="w-full max-w-5xl mx-auto space-y-6">
-       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
+       <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm">
          <div className="flex justify-between items-center mb-6">
            <h2 className="text-2xl font-semibold flex items-center gap-2">
              <Columns className="w-6 h-6 text-teal-500" />
              Door & Window Schedule Generator
            </h2>
-           <button onClick={downloadCSV} className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl font-bold transition flex items-center gap-2 text-sm">
+           <button onClick={downloadCSV} className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-[24px] font-bold transition flex items-center gap-2 text-sm">
              <Save className="w-4 h-4"/> Export CSV
            </button>
          </div>
@@ -58,7 +58,7 @@ export default function DoorWindowSchedule() {
          <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-50 dark:bg-slate-800/50 border-y border-slate-200 dark:border-slate-700">
+                <tr className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border-y border-slate-200">
                    <th className="p-3 text-sm font-bold text-slate-500">Mark</th>
                    <th className="p-3 text-sm font-bold text-slate-500">Width (m)</th>
                    <th className="p-3 text-sm font-bold text-slate-500">Height (m)</th>
@@ -69,32 +69,32 @@ export default function DoorWindowSchedule() {
                    <th className="p-3"></th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+              <tbody className="divide-y divide-slate-100">
                 {entries.map(e => (
                    <tr key={e.id}>
                      <td className="p-2">
-                        <input type="text" value={e.type} onChange={(ev)=>updateEntry(e.id, 'type', ev.target.value)} className="w-[120px] bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-lg text-sm" />
+                        <input type="text" value={e.type} onChange={(ev)=>updateEntry(e.id, 'type', ev.target.value)} className="w-[120px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
                      </td>
                      <td className="p-2">
-                        <input type="number" step="0.1" value={e.w} onChange={(ev)=>updateEntry(e.id, 'w', parseFloat(ev.target.value)||0)} className="w-[80px] bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-lg text-sm" />
+                        <input type="number" step="0.1" value={e.w} onChange={(ev)=>updateEntry(e.id, 'w', parseFloat(ev.target.value)||0)} className="w-[80px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
                      </td>
                      <td className="p-2">
-                        <input type="number" step="0.1" value={e.h} onChange={(ev)=>updateEntry(e.id, 'h', parseFloat(ev.target.value)||0)} className="w-[80px] bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-lg text-sm" />
+                        <input type="number" step="0.1" value={e.h} onChange={(ev)=>updateEntry(e.id, 'h', parseFloat(ev.target.value)||0)} className="w-[80px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
                      </td>
                      <td className="p-2">
-                        <input type="number" value={e.qty} onChange={(ev)=>updateEntry(e.id, 'qty', parseInt(ev.target.value)||0)} className="w-[60px] bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-lg text-sm" />
+                        <input type="number" value={e.qty} onChange={(ev)=>updateEntry(e.id, 'qty', parseInt(ev.target.value)||0)} className="w-[60px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
                      </td>
-                     <td className="p-2 text-sm font-bold text-slate-600 dark:text-slate-400">
+                     <td className="p-2 text-sm font-bold text-slate-600">
                         {((e.w * e.h) * e.qty).toFixed(2)}
                      </td>
                      <td className="p-2 text-sm font-mono text-slate-500">
                         {(e.w + 0.3).toFixed(2)}
                      </td>
                      <td className="p-2">
-                        <input type="text" value={e.notes} onChange={(ev)=>updateEntry(e.id, 'notes', ev.target.value)} className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3 py-2 rounded-lg text-sm" />
+                        <input type="text" value={e.notes} onChange={(ev)=>updateEntry(e.id, 'notes', ev.target.value)} className="w-full bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
                      </td>
                      <td className="p-2">
-                        <button onClick={()=>setEntries(entries.filter(x=>x.id!==e.id))} className="text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 p-2 rounded-lg transition">✕</button>
+                        <button onClick={()=>setEntries(entries.filter(x=>x.id!==e.id))} className="text-rose-500 hover:bg-rose-50 p-2 rounded-[16px] transition">✕</button>
                      </td>
                    </tr>
                 ))}
@@ -102,7 +102,7 @@ export default function DoorWindowSchedule() {
             </table>
          </div>
          <div className="mt-4">
-            <button onClick={addEntry} className="text-sm font-bold text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/30 px-4 py-2 rounded-lg hover:bg-teal-100 dark:hover:bg-teal-900/50 transition">
+            <button onClick={addEntry} className="text-sm font-bold text-teal-600 bg-teal-50 px-4 py-2 rounded-[16px] hover:bg-teal-100 transition">
               + Add Item
             </button>
          </div>

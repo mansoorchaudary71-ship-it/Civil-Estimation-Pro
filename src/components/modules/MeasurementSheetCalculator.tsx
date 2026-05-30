@@ -155,20 +155,20 @@ const MeasurementSheetCalculator: React.FC = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800 p-4 md:p-8 flex flex-col w-full">
+    <div className="bg-white rounded-[24px] shadow-sm border border-slate-200 p-4 md:p-8 flex flex-col w-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+          <h2 className="text-2xl font-semibold text-slate-800 flex items-center gap-2">
             <Section className="w-6 h-6 text-purple-600" />
             Measurement Sheet
           </h2>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-slate-500 mt-1">
             Calculate quantities dynamically for various construction items.
           </p>
         </div>
         <button
           onClick={exportPDF}
-          className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-5 py-2.5 rounded-xl font-medium transition-colors whitespace-nowrap"
+          className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-5 py-2.5 rounded-[24px] font-medium transition-colors whitespace-nowrap"
         >
           <Download className="w-4 h-4" />
           Export PDF
@@ -176,15 +176,15 @@ const MeasurementSheetCalculator: React.FC = () => {
       </div>
 
       {/* TABS */}
-      <div className="flex overflow-x-auto gap-2 pb-4 mb-4 no-scrollbar border-b border-slate-200 dark:border-slate-800">
+      <div className="flex overflow-x-auto gap-2 pb-4 mb-4 no-scrollbar border-b border-slate-200">
         {(Object.keys(TAB_TITLES) as TabType[]).map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-colors ${
+            className={`px-4 py-2 rounded-[24px] font-medium whitespace-nowrap transition-colors ${
               activeTab === tab 
-                ? "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400"
-                : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                ? "bg-purple-100  text-purple-700 "
+                : "text-slate-600  hover:bg-slate-100"
             }`}
           >
             {TAB_TITLES[tab]}
@@ -196,26 +196,26 @@ const MeasurementSheetCalculator: React.FC = () => {
       <div className="overflow-x-auto w-full">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-orange-50 dark:bg-orange-900/20 text-orange-800 dark:text-orange-400">
+            <tr className="bg-orange-50 text-orange-800">
               <th className="p-3 font-semibold rounded-tl-xl w-24">Item No</th>
               <th className="p-3 font-semibold min-w-[200px]">Description</th>
               <th className="p-3 font-semibold w-20">Nos</th>
               <th className="p-3 font-semibold w-24">L</th>
               <th className="p-3 font-semibold w-24">W</th>
               <th className="p-3 font-semibold w-24">H/D</th>
-              <th className="p-3 font-semibold w-32 border-l border-orange-200 dark:border-orange-800">Total</th>
+              <th className="p-3 font-semibold w-32 border-l border-orange-200">Total</th>
               <th className="p-3 font-semibold rounded-tr-xl w-16"></th>
             </tr>
           </thead>
           <tbody>
             {sheets[activeTab].map((row, idx) => (
-              <tr key={row.id} className="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50">
+              <tr key={row.id} className="border-b border-slate-100 hover:bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
                 <td className="p-2">
                   <input
                     type="text"
                     value={row.itemNo}
                     onChange={(e) => handleRowChange(activeTab, row.id, "itemNo", e.target.value)}
-                    className="w-full bg-transparent border-none outline-none focus:ring-0 px-1 text-slate-800 dark:text-slate-200"
+                    className="w-full bg-transparent border-none outline-none focus:ring-0 px-1 text-slate-800"
                     placeholder={`${idx + 1}`}
                   />
                 </td>
@@ -224,7 +224,7 @@ const MeasurementSheetCalculator: React.FC = () => {
                     type="text"
                     value={row.description}
                     onChange={(e) => handleRowChange(activeTab, row.id, "description", e.target.value)}
-                    className="w-full bg-transparent border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-slate-800 dark:text-slate-200"
+                    className="w-full bg-transparent border border-slate-200 rounded-[16px] px-3 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-slate-800"
                     placeholder="Enter description..."
                   />
                 </td>
@@ -233,7 +233,7 @@ const MeasurementSheetCalculator: React.FC = () => {
                     type="number"
                     value={row.nos}
                     onChange={(e) => handleRowChange(activeTab, row.id, "nos", e.target.value)}
-                    className="w-full bg-transparent border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800 dark:text-slate-200"
+                    className="w-full bg-transparent border border-slate-200 rounded-[16px] px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800"
                   />
                 </td>
                 <td className="p-2">
@@ -241,7 +241,7 @@ const MeasurementSheetCalculator: React.FC = () => {
                     type="number"
                     value={row.length}
                     onChange={(e) => handleRowChange(activeTab, row.id, "length", e.target.value)}
-                    className="w-full bg-transparent border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800 dark:text-slate-200"
+                    className="w-full bg-transparent border border-slate-200 rounded-[16px] px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800"
                   />
                 </td>
                 <td className="p-2">
@@ -249,7 +249,7 @@ const MeasurementSheetCalculator: React.FC = () => {
                     type="number"
                     value={row.width}
                     onChange={(e) => handleRowChange(activeTab, row.id, "width", e.target.value)}
-                    className="w-full bg-transparent border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800 dark:text-slate-200"
+                    className="w-full bg-transparent border border-slate-200 rounded-[16px] px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800"
                   />
                 </td>
                 <td className="p-2">
@@ -257,10 +257,10 @@ const MeasurementSheetCalculator: React.FC = () => {
                     type="number"
                     value={row.heightDepth}
                     onChange={(e) => handleRowChange(activeTab, row.id, "heightDepth", e.target.value)}
-                    className="w-full bg-transparent border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800 dark:text-slate-200"
+                    className="w-full bg-transparent border border-slate-200 rounded-[16px] px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800"
                   />
                 </td>
-                <td className="p-2 border-l border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 border-b-0 font-medium text-slate-900 dark:text-slate-100">
+                <td className="p-2 border-l border-slate-100 bg-slate-50 border-b-0 font-medium text-slate-900">
                   <div className="w-full text-right px-2">
                     {row.result > 0 ? row.result.toFixed(2) : "-"}
                   </div>
@@ -278,11 +278,11 @@ const MeasurementSheetCalculator: React.FC = () => {
             ))}
           </tbody>
           <tfoot>
-            <tr className="border-t-2 border-orange-200 dark:border-orange-800/50">
-              <td colSpan={6} className="p-4 text-right font-bold text-slate-700 dark:text-slate-300">
+            <tr className="border-t-2 border-orange-200">
+              <td colSpan={6} className="p-4 text-right font-bold text-slate-700">
                 SUBTOTAL
               </td>
-              <td className="p-4 text-right font-bold text-purple-700 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/10">
+              <td className="p-4 text-right font-bold text-purple-700 bg-purple-50">
                 {getSubtotal(activeTab).toFixed(2)}
               </td>
               <td></td>
@@ -294,7 +294,7 @@ const MeasurementSheetCalculator: React.FC = () => {
       <div className="mt-4 flex justify-start">
         <button
           onClick={() => addRow(activeTab)}
-          className="flex items-center gap-2 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 px-4 py-2 rounded-lg font-medium transition-colors"
+          className="flex items-center gap-2 text-purple-600 hover:bg-purple-50 px-4 py-2 rounded-[16px] font-medium transition-colors"
         >
           <Plus className="w-4 h-4" />
           Add Row

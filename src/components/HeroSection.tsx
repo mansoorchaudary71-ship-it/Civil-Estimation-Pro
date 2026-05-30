@@ -13,8 +13,8 @@ import CountUp from "react-countup";
 
 export default function HeroSection({ onStart }: { onStart: () => void }) {
   return (
-    <div className="w-full relative overflow-hidden bg-[#0A0F1E] rounded-[2.5rem] mb-16 pt-16 pb-20 px-6 lg:px-12 mt-8 shadow-2xl border border-slate-800">
-      <div className="absolute inset-0 z-0 overflow-hidden rounded-[2.5rem]">
+    <div className="w-full relative overflow-hidden bg-[#F5F5F7] rounded-b-[2.5rem] mb-16 pt-16 pb-20 px-6 lg:px-12 mt-0 shadow-2xl border border-slate-200">
+      <div className="absolute inset-0 z-0 overflow-hidden rounded-b-[2.5rem]">
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A0F1E] to-[#1a1f3a] z-0"></div>
         {/* Ambient Glows */}
         <div className="absolute -top-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-indigo-500/10 blur-[120px] mix-blend-screen pointer-events-none"></div>
@@ -46,7 +46,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
         <div className="flex-1 flex flex-col items-start text-left shrink-0 max-w-2xl w-full">
           <div
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-bold tracking-widest uppercase mb-6"
-            style={{ fontFamily: "Satoshi, sans-serif" }}
+            
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
@@ -57,7 +57,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
 
           <h1
             className="text-4xl md:text-[56px] font-bold text-white leading-[1.1] mb-6"
-            style={{ fontFamily: '"Clash Display", sans-serif' }}
+            
           >
             Build Anything.
             <br />
@@ -66,7 +66,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
 
           <p
             className="text-slate-400 text-lg md:text-xl max-w-[600px] mb-8 font-medium leading-relaxed"
-            style={{ fontFamily: "Satoshi, sans-serif" }}
+            
           >
             50+ AI-powered calculators trusted by 24,847 engineers across 15
             countries. From BOQ to BBS in seconds.
@@ -76,7 +76,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             <button
               onClick={onStart}
               className="btn-micro w-full sm:w-auto px-8 py-4 rounded-full font-bold text-slate-900 bg-[#F59E0B] hover:bg-[#fbbf24] shadow-[0_0_20px_rgba(245,158,11,0.3)] text-base flex items-center justify-center gap-2 group"
-              style={{ fontFamily: "Satoshi, sans-serif" }}
+              
             >
               Start Estimating Free{" "}
               <span className="text-lg leading-none transition-transform group-hover:translate-x-1">
@@ -85,7 +85,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             </button>
             <button
               className="btn-micro w-full sm:w-auto px-8 py-4 rounded-full font-bold text-white bg-transparent hover:bg-white/5 border border-white/20 transition-all text-base flex items-center justify-center gap-2"
-              style={{ fontFamily: "Satoshi, sans-serif" }}
+              
             >
               <Play className="w-4 h-4 fill-white text-white" />
               Watch 2-min Demo
@@ -101,8 +101,8 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             ].map((badge, i) => (
               <div
                 key={i}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-700/50 bg-slate-800/30 text-xs font-medium text-slate-300 backdrop-blur-sm"
-                style={{ fontFamily: "Satoshi, sans-serif" }}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-[16px] border border-slate-200 bg-[#F5F5F7] text-xs font-medium text-slate-900 backdrop-blur-sm"
+                
               >
                 <span className="text-amber-500">{badge.icon}</span>
                 {badge.label}
@@ -118,11 +118,11 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             initial={{ rotateX: 65, rotateZ: -45, y: 50, opacity: 0 }}
             animate={{ rotateX: 65, rotateZ: -45, y: 0, opacity: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="w-56 h-56 lg:w-72 lg:h-72 bg-slate-800/60 border border-slate-700/50 absolute bottom-12 lg:bottom-10 rounded-xl shadow-[0_0_60px_rgba(245,158,11,0.15)] backdrop-blur-sm"
+            className="w-56 h-56 lg:w-72 lg:h-72 bg-[#F5F5F7] border border-slate-200 absolute bottom-12 lg:bottom-10 rounded-[24px] shadow-[0_0_60px_rgba(245,158,11,0.15)] backdrop-blur-sm"
           >
             {/* Grid on base */}
             <div
-              className="absolute inset-0 opacity-20 rounded-xl overflow-hidden"
+              className="absolute inset-0 opacity-20 rounded-[24px] overflow-hidden"
               style={{
                 backgroundImage:
                   "linear-gradient(#F59E0B 1px, transparent 1px), linear-gradient(90deg, #F59E0B 1px, transparent 1px)",
@@ -136,10 +136,10 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             initial={{ rotateX: 65, rotateZ: -45, z: 0, opacity: 0, y: 0 }}
             animate={{ rotateX: 65, rotateZ: -45, z: 40, opacity: 1, y: -40 }}
             transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-            className="w-40 h-40 lg:w-48 lg:h-48 bg-slate-700/90 border border-slate-600 absolute bottom-12 lg:bottom-10 rounded-lg shadow-2xl backdrop-blur-md"
+            className="w-40 h-40 lg:w-48 lg:h-48 bg-[#F5F5F7] border border-slate-600 absolute bottom-12 lg:bottom-10 rounded-[16px] shadow-2xl backdrop-blur-md"
           >
             <div
-              className="absolute inset-0 opacity-10 rounded-lg overflow-hidden"
+              className="absolute inset-0 opacity-10 rounded-[16px] overflow-hidden"
               style={{
                 backgroundImage:
                   "linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)",
@@ -151,11 +151,11 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             initial={{ rotateX: 65, rotateZ: -45, z: 0, opacity: 0, y: 0 }}
             animate={{ rotateX: 65, rotateZ: -45, z: 80, opacity: 1, y: -80 }}
             transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-            className="w-24 h-24 lg:w-32 lg:h-32 bg-slate-600/95 border border-slate-500 absolute bottom-12 lg:bottom-10 rounded-lg shadow-2xl flex items-center justify-center backdrop-blur-md overflow-hidden"
+            className="w-24 h-24 lg:w-32 lg:h-32 bg-slate-600/95 border border-slate-500 absolute bottom-12 lg:bottom-10 rounded-[16px] shadow-2xl flex items-center justify-center backdrop-blur-md overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-[#F59E0B]/20 to-transparent" />
             <div
-              className="absolute inset-0 opacity-10 rounded-lg overflow-hidden"
+              className="absolute inset-0 opacity-10 rounded-[16px] overflow-hidden"
               style={{
                 backgroundImage:
                   "linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)",
@@ -167,7 +167,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             initial={{ rotateX: 65, rotateZ: -45, z: 0, opacity: 0, y: 0 }}
             animate={{ rotateX: 65, rotateZ: -45, z: 120, opacity: 1, y: -120 }}
             transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
-            className="w-12 h-12 lg:w-16 lg:h-16 bg-[#F59E0B] border border-amber-400 absolute bottom-12 lg:bottom-10 rounded-lg flex items-center justify-center shadow-[0_0_40px_rgba(245,158,11,0.6)]"
+            className="w-12 h-12 lg:w-16 lg:h-16 bg-[#F59E0B] border border-amber-400 absolute bottom-12 lg:bottom-10 rounded-[16px] flex items-center justify-center shadow-[0_0_40px_rgba(245,158,11,0.6)]"
           >
             <Box className="w-6 h-6 lg:w-8 lg:h-8 text-slate-900" />
           </motion.div>
@@ -176,21 +176,21 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
           <motion.div
             animate={{ y: [0, -15, 0] }}
             transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-            className="absolute top-0 right-10 lg:-left-4 text-left bg-[#141b2d]/80 border border-slate-700/80 p-3 rounded-2xl shadow-xl flex items-center gap-3 backdrop-blur-md z-20"
+            className="absolute top-0 right-10 lg:-left-4 text-left bg-[#141b2d]/80 border border-slate-700/80 p-3 rounded-[24px] shadow-xl flex items-center gap-3 backdrop-blur-md z-20"
           >
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center text-emerald-400">
+            <div className="w-10 h-10 rounded-[24px] bg-emerald-500/20 flex items-center justify-center text-emerald-400">
               <CheckCircle className="w-5 h-5" />
             </div>
             <div className="pr-2">
               <div
                 className="text-[10px] text-slate-400 font-bold uppercase tracking-wider"
-                style={{ fontFamily: "Satoshi, sans-serif" }}
+                
               >
                 RCC Slab Vol.
               </div>
               <div
                 className="text-sm font-bold text-white leading-tight"
-                style={{ fontFamily: "Satoshi, sans-serif" }}
+                
               >
                 <CountUp
                   start={0}
@@ -212,21 +212,21 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
               ease: "easeInOut",
               delay: 1,
             }}
-            className="absolute top-24 -right-2 lg:-right-6 text-left bg-[#141b2d]/80 border border-slate-700/80 p-3 rounded-2xl shadow-xl flex items-center gap-3 backdrop-blur-md z-20"
+            className="absolute top-24 -right-2 lg:-right-6 text-left bg-[#141b2d]/80 border border-slate-700/80 p-3 rounded-[24px] shadow-xl flex items-center gap-3 backdrop-blur-md z-20"
           >
-            <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-500">
+            <div className="w-10 h-10 rounded-[24px] bg-amber-500/20 flex items-center justify-center text-amber-500">
               <Truck className="w-5 h-5" />
             </div>
             <div className="pr-2">
               <div
                 className="text-[10px] text-slate-400 font-bold uppercase tracking-wider"
-                style={{ fontFamily: "Satoshi, sans-serif" }}
+                
               >
                 Cement Bags
               </div>
               <div
                 className="text-sm font-bold text-white leading-tight"
-                style={{ fontFamily: "Satoshi, sans-serif" }}
+                
               >
                 <CountUp start={0} end={1240} duration={2.5} separator="," />{" "}
                 Units
@@ -242,21 +242,21 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
               ease: "easeInOut",
               delay: 0.5,
             }}
-            className="absolute bottom-6 left-0 lg:left-8 text-left bg-[#141b2d]/80 border border-slate-700/80 p-3 rounded-2xl shadow-xl flex items-center gap-3 backdrop-blur-md z-20"
+            className="absolute bottom-6 left-0 lg:left-8 text-left bg-[#141b2d]/80 border border-slate-700/80 p-3 rounded-[24px] shadow-xl flex items-center gap-3 backdrop-blur-md z-20"
           >
-            <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400">
+            <div className="w-10 h-10 rounded-[24px] bg-blue-500/20 flex items-center justify-center text-blue-400">
               <Calculator className="w-5 h-5" />
             </div>
             <div className="pr-2">
               <div
                 className="text-[10px] text-slate-400 font-bold uppercase tracking-wider"
-                style={{ fontFamily: "Satoshi, sans-serif" }}
+                
               >
                 Steel Wt.
               </div>
               <div
                 className="text-sm font-bold text-white leading-tight"
-                style={{ fontFamily: "Satoshi, sans-serif" }}
+                
               >
                 <CountUp start={0} end={8450} duration={2.5} separator="," /> kg
               </div>

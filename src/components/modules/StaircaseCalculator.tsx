@@ -188,7 +188,7 @@ export default function StaircaseCalculator() {
 
   const InputGroup = ({ label, children }: { label: string, children: React.ReactNode }) => (
     <div>
-      <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-2">
+      <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-2">
         {label}
       </label>
       {children}
@@ -211,21 +211,21 @@ export default function StaircaseCalculator() {
     <div className="space-y-6 mt-4">
       <SEO title="Staircase Calculator" description="Calculate concrete and steel for stairs." />
       <div className="w-full bg-bg-card border border-border-color rounded-[2rem] overflow-hidden shadow-md">
-        <div className="px-6 md:px-8 py-5 border-b border-border-color flex flex-col md:flex-row items-start md:items-center justify-between bg-transparent dark:bg-slate-800/50 gap-4">
+        <div className="px-6 md:px-8 py-5 border-b border-border-color flex flex-col md:flex-row items-start md:items-center justify-between bg-transparent rounded-[24px] border border-slate-200 shadow-sm text-slate-800 gap-4">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-xl">
+            <div className="p-2.5 bg-indigo-100 text-indigo-600 rounded-[24px]">
               <Layers className="w-5 h-5" />
             </div>
             <div>
               <h3 className="text-xl font-bold text-text-primary">
                 Staircase Calculator
               </h3>
-              <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+              <p className="text-sm font-medium text-slate-500">
                 Calculate concrete and steel material for stairs.
               </p>
             </div>
           </div>
-          <span className="px-3 py-1.5 bg-transparent dark:bg-slate-800 border border-border-color text-slate-700 dark:text-slate-300 text-xs font-bold uppercase tracking-wider rounded-lg shadow-sm">
+          <span className="px-3 py-1.5 bg-transparent border border-border-color text-slate-700 text-xs font-bold uppercase tracking-wider rounded-[16px] shadow-sm">
             {stairShape}
           </span>
         </div>
@@ -235,23 +235,23 @@ export default function StaircaseCalculator() {
             <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <InputGroup label="Number of Steps">
-                  <NumberInput value={numSteps} onChange={(val) => setNumSteps(val.toString())} className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl font-semibold shadow-sm transition-all" />
+                  <NumberInput value={numSteps} onChange={(val) => setNumSteps(val.toString())} className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
                 </InputGroup>
                 <InputGroup label={`Rise (${uLen})`}>
-                  <NumberInput value={rise} onChange={(val) => setRise(val.toString())} placeholder="e.g. 0.15" step="0.01" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl font-semibold shadow-sm transition-all" />
+                  <NumberInput value={rise} onChange={(val) => setRise(val.toString())} placeholder="e.g. 0.15" step="0.01" className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
                 </InputGroup>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <InputGroup label={`Tread (${uLen})`}>
-                  <NumberInput value={tread} onChange={(val) => setTread(val.toString())} placeholder="e.g. 0.25" step="0.01" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl font-semibold shadow-sm transition-all" />
+                  <NumberInput value={tread} onChange={(val) => setTread(val.toString())} placeholder="e.g. 0.25" step="0.01" className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
                 </InputGroup>
                 <InputGroup label={`Width (${uLen})`}>
-                  <NumberInput value={stairWidth} onChange={(val) => setStairWidth(val.toString())} placeholder="e.g. 1.2" step="0.1" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl font-semibold shadow-sm transition-all" />
+                  <NumberInput value={stairWidth} onChange={(val) => setStairWidth(val.toString())} placeholder="e.g. 1.2" step="0.1" className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
                 </InputGroup>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <InputGroup label="Mix Ratio">
-                  <select value={concreteGrade} onChange={e => setConcreteGrade(e.target.value)} className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 dark:hover:border-slate-600 shadow-sm transition-all">
+                  <select value={concreteGrade} onChange={e => setConcreteGrade(e.target.value)} className="w-full bg-white border border-border-color text-text-primary rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 shadow-sm transition-all">
                     <option value="M10 (1:3:6)">M10 (1:3:6)</option>
                     <option value="M15 (1:2:4)">M15 (1:2:4)</option>
                     <option value="M20 (1:1.5:3)">M20 (1:1.5:3)</option>
@@ -259,12 +259,12 @@ export default function StaircaseCalculator() {
                   </select>
                 </InputGroup>
                 <InputGroup label="Wastage (%)">
-                  <NumberInput value={wastage} onChange={(val) => setWastage(val.toString())} placeholder="e.g. 5" className="w-full bg-bg-primary border border-border-color text-text-primary rounded-2xl font-semibold shadow-sm transition-all" />
+                  <NumberInput value={wastage} onChange={(val) => setWastage(val.toString())} placeholder="e.g. 5" className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
                 </InputGroup>
               </div>
               
               {warningText && (
-                <div className="p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-400 rounded-2xl text-sm font-bold flex items-start gap-3">
+                <div className="p-4 bg-amber-50 border border-amber-200 text-amber-700 rounded-[24px] text-sm font-bold flex items-start gap-3">
                   <Info className="w-5 h-5 shrink-0 mt-0.5" />
                   <p>{warningText}</p>
                 </div>

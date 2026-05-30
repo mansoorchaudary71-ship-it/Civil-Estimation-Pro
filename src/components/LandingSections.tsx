@@ -42,14 +42,14 @@ export function HowItWorksSection() {
   ];
 
   return (
-    <div className="w-full py-16 md:py-24" ref={ref}>
+    <div className="w-full py-12 md:py-16" ref={ref}>
       <div className="text-center mb-16">
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-[10px] font-bold tracking-widest uppercase mb-4 border border-indigo-100">
           How It Works
         </div>
         <h2
           className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-4 tracking-tight"
-          style={{ fontFamily: '"Clash Display", sans-serif' }}
+          
         >
           From Drawing to BOQ in 3 Steps
         </h2>
@@ -78,7 +78,7 @@ export function HowItWorksSection() {
             </div>
             <h3
               className="text-xl font-semibold text-slate-900 mb-3"
-              style={{ fontFamily: '"Clash Display", sans-serif' }}
+              
             >
               {step.title}
             </h3>
@@ -149,7 +149,7 @@ export function FeatureComparisonSection({
 
   return (
     <div
-      className="w-full py-20 md:py-32 bg-slate-50 border-y border-slate-100 relative overflow-hidden"
+      className="w-full py-12 md:py-16 bg-slate-50 border-y border-slate-100 relative overflow-hidden"
       ref={ref}
     >
       <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:20px_20px] opacity-40"></div>
@@ -161,13 +161,13 @@ export function FeatureComparisonSection({
           </div>
           <h2
             className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mb-6 tracking-tight"
-            style={{ fontFamily: '"Clash Display", sans-serif' }}
+            
           >
             The Smarter Way to Estimate
           </h2>
           <p
             className="text-slate-500 font-medium text-lg max-w-2xl mx-auto"
-            style={{ fontFamily: "Satoshi, sans-serif" }}
+            
           >
             See why thousands of engineers are abandoning spreadsheets for a
             dedicated estimation platform.
@@ -178,7 +178,7 @@ export function FeatureComparisonSection({
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           transition={{ duration: 0.6 }}
-          className="bg-white rounded-[2rem] border border-slate-200 overflow-visible shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative"
+          className="bg-white rounded-[24px] border border-slate-200 overflow-visible shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative"
         >
           <div className="overflow-x-auto w-full pb-4 md:pb-0">
             <table className="w-full text-left border-collapse min-w-[800px]">
@@ -198,7 +198,7 @@ export function FeatureComparisonSection({
                     <div className="relative p-4 md:p-8 z-10 text-center">
                       <div
                         className="font-bold tracking-tight text-amber-600 text-lg md:text-2xl relative inline-block"
-                        style={{ fontFamily: '"Clash Display", sans-serif' }}
+                        
                       >
                         Civil Estimation Pro
                       </div>
@@ -227,9 +227,9 @@ export function FeatureComparisonSection({
                           {feature.name}
                           <div className="group/tooltip relative flex items-center justify-center cursor-help">
                             <Info className="w-4 h-4 text-slate-300 hover:text-slate-500 transition-colors" />
-                            <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover/tooltip:block w-48 bg-slate-900 text-white text-xs p-2 rounded-lg text-center shadow-xl z-50 pointer-events-none">
+                            <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover/tooltip:block w-48 bg-white text-slate-900 text-xs p-2 rounded-[16px] text-center shadow-xl z-50 pointer-events-none border border-slate-200 shadow-sm">
                               {feature.tooltip}
-                              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 rotate-45"></div>
+                              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-white rotate-45 border border-slate-200 shadow-sm"></div>
                             </div>
                           </div>
                         </div>
@@ -368,7 +368,7 @@ export function FeatureComparisonSection({
               if (onNavigate) onNavigate("dashboard");
               window.scrollTo(0, 0);
             }}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl shadow-[0_8px_20px_rgba(15,23,42,0.15)] hover:shadow-[0_12px_25px_rgba(15,23,42,0.25)] transition-all transform hover:-translate-y-1"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white hover:bg-indigo-600 text-white font-bold rounded-[24px] shadow-[0_8px_20px_rgba(15,23,42,0.15)] hover:shadow-[0_12px_25px_rgba(15,23,42,0.25)] transition-all transform hover:-translate-y-1"
           >
             Join 24,847 engineers who already switched
             <ArrowRight className="w-5 h-5 ml-1" />
@@ -438,7 +438,7 @@ export function ProjectTypesSection({
   ];
 
   return (
-    <div className="w-full py-16 md:py-24" ref={ref}>
+    <div className="w-full py-12 md:py-16" ref={ref}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-[10px] font-bold tracking-widest uppercase mb-4 border border-indigo-100">
@@ -446,7 +446,7 @@ export function ProjectTypesSection({
           </div>
           <h2
             className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-4 tracking-tight"
-            style={{ fontFamily: '"Clash Display", sans-serif' }}
+            
           >
             Built for Every Project Type
           </h2>
@@ -466,14 +466,14 @@ export function ProjectTypesSection({
               className="bg-white rounded-[24px] border border-slate-200 p-6 flex flex-col hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.1)] transition-all group"
             >
               <div
-                className={`w-14 h-14 rounded-2xl ${pt.bgColor} flex items-center justify-center mb-6`}
+                className={`w-14 h-14 rounded-[24px] ${pt.bgColor} flex items-center justify-center mb-6`}
               >
                 <pt.icon className={`w-7 h-7 ${pt.color}`} />
               </div>
 
               <h3
                 className="text-xl font-semibold text-slate-900 mb-4"
-                style={{ fontFamily: '"Clash Display", sans-serif' }}
+                
               >
                 {pt.title}
               </h3>
@@ -492,7 +492,7 @@ export function ProjectTypesSection({
 
               <button
                 onClick={() => onSelect("smart-search")}
-                className="w-full py-3 px-4 rounded-xl text-sm font-bold bg-slate-50 text-slate-700 group-hover:bg-indigo-600 group-hover:text-white transition-colors flex items-center justify-center gap-2"
+                className="w-full py-3 px-4 rounded-[24px] text-sm font-bold bg-slate-50 text-slate-700 group-hover:bg-indigo-600 group-hover:text-white transition-colors flex items-center justify-center gap-2"
               >
                 Explore Tools <ArrowRight className="w-4 h-4" />
               </button>

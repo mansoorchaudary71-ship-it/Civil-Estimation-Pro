@@ -72,15 +72,15 @@
 @layer base {
   :root {
     /* Civil SaaS Theme */
-    --color-background: #0a0f1e;
-    --color-surface: #111827;
+    --color-background: #F5F5F7;
+    --color-surface: #FFFFFF;
     --color-primary: #f59e0b;
     --color-secondary: #06b6d4;
     --color-success: #10b981;
     --color-warning: #f59e0b;
     --color-error: #ef4444;
-    --color-text-primary: #f9fafb;
-    --color-text-secondary: #9ca3af;
+    --color-text-primary: #1A1A1A;
+    --color-text-secondary: #6B7280;
     --glow-primary: 0 0 15px rgba(245, 158, 11, 0.5);
     --glow-secondary: 0 0 15px rgba(6, 182, 212, 0.5);
 
@@ -127,24 +127,20 @@
   }
 
   .dark {
-    /* The Dominant Base (60%) Dark */
-    --bg-main: #1a1a3a;
-    --bg-surface: #2c3040;
-    --bg-surface-glass: rgba(44, 48, 64, 0.7);
+    /* The Dominant Base (60%) */
+    --bg-main: #f8f9fa;
+    --bg-surface: #ffffff;
+    --bg-surface-glass: rgba(255, 255, 255, 0.7);
 
-    /* The Secondary Anchor (30%) Dark */
-    --text-primary: #ffffff;
-    --text-secondary: #9ca3af;
-    --border-light: rgba(255, 255, 255, 0.08);
+    /* The Secondary Anchor (30%) - NO BLACK */
+    --text-primary: #1a1a3a;
+    --text-secondary: #4b5563;
+    --border-light: rgba(44, 48, 64, 0.08);
 
     /* Fallbacks for existing variables */
     --bg-primary: var(--bg-main);
     --bg-card: var(--bg-surface);
     --border-color: var(--border-light);
-    --primary-dark: var(--text-primary);
-
-    --background: 240 38% 16%;
-    --foreground: 214 32% 91%;
   }
 
   @keyframes shimmer {
@@ -205,7 +201,7 @@
   }
 
   .dark body {
-    background: linear-gradient(135deg, #1a1a3a 0%, #15152a 100%);
+    background: linear-gradient(135deg, #f8f9fa 0%, #f0f2f5 100%);
     color: var(--text-primary);
     min-height: 100vh;
   }
@@ -223,9 +219,9 @@
     line-height: 1.25;
   }
 
-  h1 { font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
-  h2 { font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
-  h3 { font-weight: 500; letter-spacing: -0.01em; line-height: 1.2; }
+  h1 { font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
+  h2 { font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+  h3 { font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
 
   .dark h1,
   .dark h2,
@@ -239,7 +235,7 @@
   p {
     font-family: var(--font-sans);
     color: var(--text-secondary);
-    line-height: 1.65;
+    line-height: 1.7;
     letter-spacing: -0.01em;
   }
 

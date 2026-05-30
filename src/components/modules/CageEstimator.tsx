@@ -77,30 +77,30 @@ export default function CageEstimator() {
   return (
     <div className="animate-in fade-in duration-300">
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold tabular-nums tracking-tight text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-2 mb-2">
+        <h2 className="text-2xl font-semibold tabular-nums tracking-tight text-slate-900 flex items-center gap-2 mb-2">
           <RotateCw className="w-6 h-6 text-emerald-500" />
           Cage / Spiral Estimator
         </h2>
-        <p className="text-slate-600 dark:text-slate-400">
+        <p className="text-slate-600">
           Calculate quantities for helical spirals or circular hoops used in piles and columns.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Input Form */}
-        <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
-          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-6 flex items-center gap-2">
+        <div className="bg-white rounded-[24px] p-6 shadow-sm border border-slate-200">
+          <h3 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2">
             <Calculator className="w-5 h-5 text-emerald-500" />
             Cage Parameters
           </h3>
           
           <div className="space-y-4">
-             <div className="flex bg-slate-100 dark:bg-slate-900 p-1 rounded-xl w-full">
+             <div className="flex bg-slate-100 p-1 rounded-[24px] w-full">
               <button
                 onClick={() => setCageType("spiral")}
-                className={`flex-1 py-3 rounded-lg text-sm font-bold transition-all ${
+                className={`flex-1 py-3 rounded-[24px] text-sm font-bold transition-all ${
                   cageType === "spiral"
-                    ? "bg-white dark:bg-slate-800 text-emerald-600 shadow-sm"
+                    ? "bg-white  text-emerald-600 shadow-sm"
                     : "text-slate-500 hover:text-slate-700"
                 }`}
               >
@@ -108,9 +108,9 @@ export default function CageEstimator() {
               </button>
               <button
                 onClick={() => setCageType("hoop")}
-                className={`flex-1 py-3 rounded-lg text-sm font-bold transition-all ${
+                className={`flex-1 py-3 rounded-[24px] text-sm font-bold transition-all ${
                   cageType === "hoop"
-                    ? "bg-white dark:bg-slate-800 text-emerald-600 shadow-sm"
+                    ? "bg-white  text-emerald-600 shadow-sm"
                     : "text-slate-500 hover:text-slate-700"
                 }`}
               >
@@ -125,7 +125,7 @@ export default function CageEstimator() {
                   type="number"
                   value={pileDiameter}
                   onChange={(e) => setPileDiameter(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-3 rounded-xl font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
                 />
               </div>
               <div>
@@ -134,7 +134,7 @@ export default function CageEstimator() {
                   type="number"
                   value={pileLength}
                   onChange={(e) => setPileLength(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-3 rounded-xl font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
                 />
               </div>
             </div>
@@ -146,7 +146,7 @@ export default function CageEstimator() {
                   type="number"
                   value={clearCover}
                   onChange={(e) => setClearCover(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-3 rounded-xl font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
                 />
               </div>
               <div>
@@ -155,7 +155,7 @@ export default function CageEstimator() {
                   type="number"
                   value={barDiameter}
                   onChange={(e) => setBarDiameter(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-3 rounded-xl font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
                 />
               </div>
             </div>
@@ -167,7 +167,7 @@ export default function CageEstimator() {
                   type="number"
                   value={pitch}
                   onChange={(e) => setPitch(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-3 rounded-xl font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
                 />
               </div>
               <div>
@@ -176,7 +176,7 @@ export default function CageEstimator() {
                   type="number"
                   value={lapLength}
                   onChange={(e) => setLapLength(e.target.value)}
-                  className="w-full mt-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-3 rounded-xl font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
+                  className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
                 />
               </div>
             </div>
@@ -186,42 +186,42 @@ export default function CageEstimator() {
 
         {/* Results */}
         <div className="bg-slate-50 space-y-6">
-           <div className="bg-emerald-600 rounded-3xl p-6 text-white shadow-lg relative overflow-hidden">
+           <div className="bg-emerald-600 rounded-[24px] p-6 text-white shadow-lg relative overflow-hidden">
              <RefreshCw className="absolute -right-6 -bottom-6 w-32 h-32 text-emerald-500 opacity-20" />
               <h3 className="text-emerald-100 text-sm font-bold uppercase tracking-widest mb-1 relative z-10">Total Rebar Weight</h3>
               <div className="flex items-end gap-2 relative z-10">
-                <span className="text-4xl md:text-5xl font-semibold tabular-nums tracking-tight tracking-tight">{results ? results.totalWeight : "0.00"}</span>
+                <span className="text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight tracking-tight">{results ? results.totalWeight : "0.00"}</span>
                 <span className="text-xl text-emerald-200 mb-1 font-bold">kg</span>
               </div>
            </div>
 
            {results && (
-             <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+             <div className="bg-white rounded-[24px] p-6 shadow-sm border border-slate-200">
                 <h3 className="text-sm font-semibold tabular-nums tracking-tight text-slate-400 uppercase tracking-widest mb-4">Detailed Breakdown</h3>
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
-                    <span className="text-slate-600 dark:text-slate-400 font-medium">Core/Mean Dia</span>
-                    <span className="font-bold text-slate-900 dark:text-slate-900 dark:text-white">{results.coreDiameter} mm</span>
+                  <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                    <span className="text-slate-600 font-medium">Core/Mean Dia</span>
+                    <span className="font-bold text-slate-900">{results.coreDiameter} mm</span>
                   </div>
-                  <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
-                    <span className="text-slate-600 dark:text-slate-400 font-medium">{cageType === "spiral" ? "Loop Length" : "Ring Length"}</span>
-                    <span className="font-bold text-slate-900 dark:text-slate-900 dark:text-white">{results.loopLength} m</span>
+                  <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                    <span className="text-slate-600 font-medium">{cageType === "spiral" ? "Loop Length" : "Ring Length"}</span>
+                    <span className="font-bold text-slate-900">{results.loopLength} m</span>
                   </div>
-                  <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
-                    <span className="text-slate-600 dark:text-slate-400 font-medium">No. of Loops/Rings</span>
-                    <span className="font-bold text-slate-900 dark:text-slate-900 dark:text-white">{results.noOfPitch} nos</span>
+                  <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                    <span className="text-slate-600 font-medium">No. of Loops/Rings</span>
+                    <span className="font-bold text-slate-900">{results.noOfPitch} nos</span>
                   </div>
-                   <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
-                    <span className="text-slate-600 dark:text-slate-400 font-medium">Lap Allowance</span>
-                    <span className="font-bold text-slate-900 dark:text-slate-900 dark:text-white">{results.lapAdjustment} m (x{results.totalLaps})</span>
+                   <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                    <span className="text-slate-600 font-medium">Lap Allowance</span>
+                    <span className="font-bold text-slate-900">{results.lapAdjustment} m (x{results.totalLaps})</span>
                   </div>
-                  <div className="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-3">
-                    <span className="text-slate-600 dark:text-slate-400 font-medium">Total Cut Length</span>
-                    <span className="font-bold text-slate-900 dark:text-slate-900 dark:text-white">{results.totalLength} m</span>
+                  <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                    <span className="text-slate-600 font-medium">Total Cut Length</span>
+                    <span className="font-bold text-slate-900">{results.totalLength} m</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-600 dark:text-slate-400 font-medium">Unit Weight</span>
-                    <span className="font-bold text-slate-900 dark:text-slate-900 dark:text-white">{results.unitWeight} kg/m</span>
+                    <span className="text-slate-600 font-medium">Unit Weight</span>
+                    <span className="font-bold text-slate-900">{results.unitWeight} kg/m</span>
                   </div>
                 </div>
              </div>

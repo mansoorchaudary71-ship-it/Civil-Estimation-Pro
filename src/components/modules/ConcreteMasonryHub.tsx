@@ -47,13 +47,13 @@ export default function ConcreteMasonryHub({ isEmbedded = false, onNavigate }: C
           
           <div className="mb-6 md:mb-8 px-4 md:px-0">
             <h1 className="text-3xl font-semibold tracking-tight text-text-primary mb-2 flex items-center gap-3">
-              <Building2 className="w-8 h-8 text-indigo-600 dark:text-blue-400" />
+              <Building2 className="w-8 h-8 text-indigo-600" />
               Concrete & Masonry Hub
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 font-medium">
+            <p className="text-slate-500 font-medium">
               Unified interface for RCC elements, retaining walls, foundations, blocks, and plaster.
               <br/>
-              <span className="text-xs text-indigo-600 dark:text-blue-400 flex items-center gap-1 mt-1 font-bold">
+              <span className="text-xs text-indigo-600 flex items-center gap-1 mt-1 font-bold">
                 <BookOpen className="w-3 h-3" />
                 Ref: IS 456:2000 / ACI 318 / BS 8110 for structural concrete elements.
               </span>
@@ -80,23 +80,23 @@ export default function ConcreteMasonryHub({ isEmbedded = false, onNavigate }: C
           {activeTab === "general-concrete" && <ConstructionMaterialEstimator forcedTab="concrete" hideHeader />}
           {activeTab === "bricks-blocks" && (
             <div className="space-y-4">
-              <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl w-fit">
+              <div className="flex bg-slate-100 p-1 rounded-[24px] w-fit">
                 <button
                   onClick={() => setBrickBlockTab("bricks")}
-                  className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${
+                  className={`px-6 py-2 rounded-[24px] text-sm font-bold transition-all ${
                     brickBlockTab === "bricks"
-                      ? "bg-white dark:bg-slate-700 text-indigo-600 shadow-sm"
-                      : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+                      ? "bg-white  text-indigo-600 shadow-sm"
+                      : "text-slate-500 hover:text-slate-700"
                   }`}
                 >
                   Brickwork
                 </button>
                 <button
                   onClick={() => setBrickBlockTab("blocks")}
-                  className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${
+                  className={`px-6 py-2 rounded-[24px] text-sm font-bold transition-all ${
                     brickBlockTab === "blocks"
-                      ? "bg-white dark:bg-slate-700 text-indigo-600 shadow-sm"
-                      : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+                      ? "bg-white  text-indigo-600 shadow-sm"
+                      : "text-slate-500 hover:text-slate-700"
                   }`}
                 >
                   Blockwork

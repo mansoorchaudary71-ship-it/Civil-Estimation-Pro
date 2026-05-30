@@ -56,7 +56,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm">
+      <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-[#F5F5F7] backdrop-blur-sm">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -67,7 +67,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
             <h2 className="text-xl font-semibold text-text-primary">Profile Settings</h2>
             <button
               onClick={onClose}
-              className="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="p-2 text-slate-500 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -75,11 +75,11 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
 
           <form onSubmit={handleSubmit} className="px-6 py-6 space-y-6">
             <div className="flex flex-col items-center gap-4">
-              <div className="relative w-24 h-24 rounded-full overflow-hidden bg-bg-primary border-4 border-white dark:border-slate-700 shadow-sm flex items-center justify-center group">
+              <div className="relative w-24 h-24 rounded-full overflow-hidden bg-white border-4 border-white shadow-sm flex items-center justify-center group">
                 {photoURL ? (
                   <img src={photoURL} alt="User Profile Details Settings Photo" title="Profile Avatar" loading="lazy" className="w-full h-full object-cover" />
                 ) : (
-                  <User className="w-10 h-10 text-slate-700 dark:text-slate-300" />
+                  <User className="w-10 h-10 text-slate-700" />
                 )}
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <Camera className="w-6 h-6 text-white" />
@@ -89,39 +89,39 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">Display Name</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1.5 uppercase tracking-wider">Display Name</label>
                 <div className="relative flex items-center">
-                  <User className="absolute left-3.5 w-5 h-5 text-slate-700 dark:text-slate-300" />
+                  <User className="absolute left-3.5 w-5 h-5 text-slate-700" />
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full pl-11 pr-4 py-3 bg-bg-primary border border-border-color rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
+                    className="w-full pl-11 pr-4 py-3 bg-white border border-border-color rounded-[24px] text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 uppercase tracking-wider">Photo URL</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1.5 uppercase tracking-wider">Photo URL</label>
                 <div className="relative flex items-center">
-                  <Camera className="absolute left-3.5 w-5 h-5 text-slate-700 dark:text-slate-300" />
+                  <Camera className="absolute left-3.5 w-5 h-5 text-slate-700" />
                   <input
                      type="url"
                      value={photoURL}
                      onChange={(e) => setPhotoURL(e.target.value)}
                      placeholder="https://example.com/avatar.png"
-                     className="w-full pl-11 pr-4 py-3 bg-bg-primary border border-border-color rounded-xl text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all dark:text-white"
+                     className="w-full pl-11 pr-4 py-3 bg-white border border-border-color rounded-[24px] text-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all"
                   />
                 </div>
               </div>
 
               {/* Theme Toggle */}
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2 uppercase tracking-wider">Appearance</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-2 uppercase tracking-wider">Appearance</label>
                 <button
                   type="button"
                   onClick={toggleTheme}
-                  className="w-full flex items-center justify-between p-3 bg-bg-primary border border-border-color rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                  className="w-full flex items-center justify-between p-3 bg-white border border-border-color rounded-[24px] hover:bg-slate-50 transition-colors"
                 >
                   <div className="flex items-center gap-3">
                     {isDarkMode ? <Moon className="w-5 h-5 text-indigo-500" /> : <Sun className="w-5 h-5 text-amber-500" />}
@@ -137,7 +137,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
             </div>
 
             {successMsg && (
-              <div className="p-3 text-sm text-emerald-600 bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 rounded-xl text-center font-medium">
+              <div className="p-3 text-sm text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-[24px] text-center font-medium">
                 {successMsg}
               </div>
             )}
@@ -145,7 +145,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
             <button
                type="submit"
                disabled={isLoading}
-               className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold  rounded-full shadow-sm text-sm transition-all focus:ring-4 focus:ring-indigo-500/50 flex justify-center items-center h-12"
+               className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-full shadow-sm text-sm transition-all focus:ring-4 focus:ring-indigo-500/50 flex justify-center items-center h-12"
             >
                {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Save Changes'}
             </button>

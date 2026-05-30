@@ -145,7 +145,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
           type="number" 
           value={val} 
           onChange={(e)=>setVal(e.target.value)} 
-          className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-slate-800 dark:text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-purple-500 outline-none transition-all"
+          className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-4 py-2.5 text-slate-800 dark:text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-purple-500 outline-none transition-all"
         />
         {suffix && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">{suffix}</span>}
       </div>
@@ -163,7 +163,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
     >
       <div className="bg-gradient-to-r from-[var(--accent-purple)] to-indigo-600 p-6 sm:p-8 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center">
+          <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-[24px] flex items-center justify-center">
             <Droplets className="w-6 h-6 text-slate-900 dark:text-white" />
           </div>
           <div>
@@ -186,9 +186,9 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
         {/* Input Form Column */}
         <div className="lg:col-span-5 space-y-8">
           {/* Unit Toggle */}
-          <div className="flex bg-slate-200/50 dark:bg-slate-800/50 p-1 rounded-xl w-fit">
-            <button onClick={()=>setUnit("ft")} className={`px-5 py-2 rounded-lg text-sm font-bold transition-all ${unit === "ft" ? "bg-white dark:bg-slate-700 shadow-sm text-purple-600 dark:text-purple-400" : "text-slate-500 hover:text-slate-700"}`}>Feet</button>
-            <button onClick={()=>setUnit("m")} className={`px-5 py-2 rounded-lg text-sm font-bold transition-all ${unit === "m" ? "bg-white dark:bg-slate-700 shadow-sm text-purple-600 dark:text-purple-400" : "text-slate-500 hover:text-slate-700"}`}>Meters</button>
+          <div className="flex bg-slate-200/50 dark:bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-200 dark:dark:border-slate-700 shadow-sm text-slate-800 dark:text-white p-1 rounded-[24px] w-fit">
+            <button onClick={()=>setUnit("ft")} className={`px-5 py-2 rounded-[24px] text-sm font-bold transition-all ${unit === "ft" ? "bg-white dark:bg-slate-700 shadow-sm text-purple-600 dark:text-purple-400" : "text-slate-500 hover:text-slate-700"}`}>Feet</button>
+            <button onClick={()=>setUnit("m")} className={`px-5 py-2 rounded-[24px] text-sm font-bold transition-all ${unit === "m" ? "bg-white dark:bg-slate-700 shadow-sm text-purple-600 dark:text-purple-400" : "text-slate-500 hover:text-slate-700"}`}>Meters</button>
           </div>
 
           <section>
@@ -205,23 +205,23 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Door (H x W)</label>
                 <div className="flex gap-2">
-                  <input type="number" value={doorH} onChange={e=>setDoorH(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm" placeholder="H" />
-                  <input type="number" value={doorW} onChange={e=>setDoorW(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm" placeholder="W" />
+                  <input type="number" value={doorH} onChange={e=>setDoorH(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm" placeholder="H" />
+                  <input type="number" value={doorW} onChange={e=>setDoorW(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm" placeholder="W" />
                 </div>
               </div>
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Window (H x W)</label>
                 <div className="flex gap-2">
-                  <input type="number" value={winH} onChange={e=>setWinH(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm" placeholder="H" />
-                  <input type="number" value={winW} onChange={e=>setWinW(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm" placeholder="W" />
+                  <input type="number" value={winH} onChange={e=>setWinH(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm" placeholder="H" />
+                  <input type="number" value={winW} onChange={e=>setWinW(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm" placeholder="W" />
                 </div>
               </div>
             </div>
             <div className="mt-4">
                 <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Wall Thickness</label>
                 <div className="flex gap-3">
-                  <button onClick={() => setWallThickness("4.5")} className={`flex-1 py-2.5 rounded-xl border text-sm font-bold transition-colors ${wallThickness === "4.5" ? "bg-purple-50 border-purple-200 text-purple-700" : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"}`}>4.5 inch</button>
-                  <button onClick={() => setWallThickness("9")} className={`flex-1 py-2.5 rounded-xl border text-sm font-bold transition-colors ${wallThickness === "9" ? "bg-purple-50 border-purple-200 text-purple-700" : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"}`}>9 inch</button>
+                  <button onClick={() => setWallThickness("4.5")} className={`flex-1 py-2.5 rounded-[24px] border text-sm font-bold transition-colors ${wallThickness === "4.5" ? "bg-purple-50 border-purple-200 text-purple-700" : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"}`}>4.5 inch</button>
+                  <button onClick={() => setWallThickness("9")} className={`flex-1 py-2.5 rounded-[24px] border text-sm font-bold transition-colors ${wallThickness === "9" ? "bg-purple-50 border-purple-200 text-purple-700" : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"}`}>9 inch</button>
                 </div>
             </div>
           </section>
@@ -237,7 +237,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
               {renderInput("Tile Height", tileHeight, setTileHeight, "0", unit)}
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Ceiling Type</label>
-                <select value={ceilingType} onChange={e=>setCeilingType(e.target.value as any)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm font-semibold outline-none focus:ring-2 focus:ring-purple-500">
+                <select value={ceilingType} onChange={e=>setCeilingType(e.target.value as any)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm font-semibold outline-none focus:ring-2 focus:ring-purple-500">
                   <option value="None">None</option>
                   <option value="Gypsum">Gypsum Board</option>
                   <option value="PVC">PVC Panels</option>
@@ -269,14 +269,14 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
 
         {/* Results Column */}
         <div className="lg:col-span-7 h-full flex flex-col">
-          <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm flex-1 border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
+          <div className="bg-white dark:bg-slate-800 rounded-[24px] p-6 sm:p-8 shadow-sm flex-1 border border-slate-200 dark:dark:border-slate-700 overflow-hidden flex flex-col">
             <h3 className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-900 dark:text-white mb-6">Bill of Quantities</h3>
             
             <div className="flex-1 overflow-y-auto pr-2 space-y-6">
               
               <div>
                 <h4 className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2"><Hammer className="w-4 h-4"/> Civil Works</h4>
-                <div className="bg-slate-50 dark:bg-slate-900/50 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm">
+                <div className="bg-slate-50 dark:bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-200 dark:dark:border-slate-700 shadow-sm text-slate-800 dark:text-white rounded-[24px] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm">
                   <table className="w-full text-left text-sm">
                     <thead className="bg-[#f8fafc] dark:bg-slate-800 text-slate-500">
                       <tr>
@@ -300,7 +300,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
 
               <div>
                  <h4 className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2"><Grid2X2 className="w-4 h-4"/> Tiles & Finishes</h4>
-                 <div className="bg-slate-50 dark:bg-slate-900/50 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm">
+                 <div className="bg-slate-50 dark:bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-200 dark:dark:border-slate-700 shadow-sm text-slate-800 dark:text-white rounded-[24px] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm">
                    <table className="w-full text-left text-sm">
                      <thead className="bg-[#f8fafc] dark:bg-slate-800 text-slate-500">
                        <tr>
@@ -324,7 +324,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
 
               <div>
                  <h4 className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2"><Zap className="w-4 h-4"/> Plumbing & Electrical</h4>
-                 <div className="bg-slate-50 dark:bg-slate-900/50 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm">
+                 <div className="bg-slate-50 dark:bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-200 dark:dark:border-slate-700 shadow-sm text-slate-800 dark:text-white rounded-[24px] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm">
                    <table className="w-full text-left text-sm">
                      <thead className="bg-[#f8fafc] dark:bg-slate-800 text-slate-500">
                        <tr>

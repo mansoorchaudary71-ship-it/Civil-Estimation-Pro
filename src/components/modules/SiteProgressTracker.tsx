@@ -230,34 +230,34 @@ export default function SiteProgressTracker() {
 
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500 pb-[120px]">
-       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm">
+       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white border border-slate-200 p-6 md:p-8 rounded-[2rem] shadow-sm">
          <div>
-           <h2 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
-              <div className="p-3 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-2xl">
+           <h2 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 tracking-tight flex items-center gap-3">
+              <div className="p-3 bg-emerald-50 text-emerald-600 rounded-[24px]">
                 <BarChartIcon className="w-8 h-8" />
               </div>
               Site Progress Tracker
            </h2>
-           <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">Track timelines, budgets, and visual progress.</p>
+           <p className="text-slate-500 mt-2 font-medium">Track timelines, budgets, and visual progress.</p>
          </div>
          <div className="flex flex-wrap gap-2">
-            <button onClick={() => exportToCSV(phases)} className="bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-4 py-2.5 rounded-xl font-bold transition flex items-center gap-2 text-sm">
+            <button onClick={() => exportToCSV(phases)} className="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-4 py-2.5 rounded-[24px] font-bold transition flex items-center gap-2 text-sm">
                <Download className="w-4 h-4" /> CSV
             </button>
-            <button onClick={() => exportToMSProject(phases)} className="bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-4 py-2.5 rounded-xl font-bold transition flex items-center gap-2 text-sm">
+            <button onClick={() => exportToMSProject(phases)} className="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-4 py-2.5 rounded-[24px] font-bold transition flex items-center gap-2 text-sm">
                <DownloadCloud className="w-4 h-4" /> XML
             </button>
-            <button onClick={handleShare} className="bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 px-4 py-2.5 rounded-xl font-bold transition flex items-center gap-2 text-sm">
+            <button onClick={handleShare} className="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-4 py-2.5 rounded-[24px] font-bold transition flex items-center gap-2 text-sm">
                <Share2 className="w-4 h-4" /> Share
             </button>
-            <button onClick={handleExportPDF} className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl font-bold transition flex items-center gap-2 text-sm">
+            <button onClick={handleExportPDF} className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-[24px] font-bold transition flex items-center gap-2 text-sm">
                <FileOutput className="w-4 h-4" /> Report
             </button>
          </div>
        </div>
 
        {isClientDemo && (
-          <div className="bg-indigo-600 text-white p-3 text-center rounded-xl font-bold text-sm mb-4 animate-pulse">
+          <div className="bg-indigo-600 text-white p-3 text-center rounded-[24px] font-bold text-sm mb-4 animate-pulse">
              Client View Active - Read Only Mode
           </div>
        )}
@@ -267,21 +267,21 @@ export default function SiteProgressTracker() {
           <div className="lg:col-span-3 space-y-6">
              {/* Scorecards */}
              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm relative overflow-hidden flex flex-col justify-center">
-                   <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-50 dark:bg-emerald-500/5 rounded-full blur-[30px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-                   <p className="text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wider mb-2 relative z-10">Overall Progress</p>
+                <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm relative overflow-hidden flex flex-col justify-center">
+                   <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-50 rounded-full blur-[30px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+                   <p className="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2 relative z-10">Overall Progress</p>
                    <div className="flex items-end gap-2 relative z-10">
-                     <h3 className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white leading-none">{metrics.overallProgress.toFixed(1)}<span className="text-2xl text-slate-400">%</span></h3>
+                     <h3 className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight text-slate-800 leading-none">{metrics.overallProgress.toFixed(1)}<span className="text-2xl text-slate-400">%</span></h3>
                    </div>
-                   <div className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full mt-4 overflow-hidden relative z-10 border border-slate-200 dark:border-slate-700">
+                   <div className="w-full h-2 bg-slate-100 rounded-full mt-4 overflow-hidden relative z-10 border border-slate-200">
                       <div className="h-full bg-emerald-500 rounded-full transition-all duration-1000" style={{ width: `${metrics.overallProgress}%` }}></div>
                    </div>
                 </div>
 
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm relative overflow-hidden flex flex-col justify-center">
-                   <p className="text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wider mb-2 relative z-10">Cost & Burn</p>
+                <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm relative overflow-hidden flex flex-col justify-center">
+                   <p className="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2 relative z-10">Cost & Burn</p>
                    <div className="flex items-end gap-2 relative z-10">
-                     <h3 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white leading-none">${(metrics.totalCost / 1000).toFixed(1)}k</h3>
+                     <h3 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 leading-none">${(metrics.totalCost / 1000).toFixed(1)}k</h3>
                      <span className="text-sm font-bold text-slate-500 mb-1">/ ${(metrics.totalBudget / 1000).toFixed(1)}k</span>
                    </div>
                    <p className={`text-xs font-bold mt-3 relative z-10 ${metrics.totalCost > metrics.totalBudget ? 'text-rose-500' : 'text-emerald-500'}`}>
@@ -289,8 +289,8 @@ export default function SiteProgressTracker() {
                    </p>
                 </div>
 
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm relative overflow-hidden flex flex-col justify-center">
-                   <p className="text-slate-500 dark:text-slate-400 font-bold text-xs uppercase tracking-wider mb-2 relative z-10">Schedule Status <span className="text-indigo-500 ml-1">(SPI: {metrics.SPI.toFixed(2)})</span></p>
+                <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm relative overflow-hidden flex flex-col justify-center">
+                   <p className="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2 relative z-10">Schedule Status <span className="text-indigo-500 ml-1">(SPI: {metrics.SPI.toFixed(2)})</span></p>
                    {metrics.daysAheadBehind > 0 ? (
                       <h3 className="text-3xl font-bold tabular-nums tracking-tight text-emerald-500 leading-none">{metrics.daysAheadBehind} <span className="text-lg text-emerald-600/50">Days Ahead</span></h3>
                    ) : metrics.daysAheadBehind < 0 ? (
@@ -303,12 +303,12 @@ export default function SiteProgressTracker() {
              </div>
 
              {notifications.length > 0 && (
-                <div className="bg-amber-50 dark:bg-amber-900/10 border-l-4 border-amber-500 p-4 rounded-r-xl relative overflow-hidden flex flex-col gap-2 shadow-sm mb-6 mt-6">
-                   <div className="flex items-center gap-2 text-amber-800 dark:text-amber-300 font-bold mb-1">
+                <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl relative overflow-hidden flex flex-col gap-2 shadow-sm mb-6 mt-6">
+                   <div className="flex items-center gap-2 text-amber-800 font-bold mb-1">
                       <Bell className="w-5 h-5 flex-shrink-0" /> Project Alerts & Milestones
                    </div>
                    {notifications.map((n, idx) => (
-                      <div key={idx} className="text-sm font-medium text-amber-700 dark:text-amber-400 flex items-start gap-2">
+                      <div key={idx} className="text-sm font-medium text-amber-700 flex items-start gap-2">
                          <span className="mt-1.5 block w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span> {n}
                       </div>
                    ))}
@@ -317,8 +317,8 @@ export default function SiteProgressTracker() {
 
              {/* S-Curve & Histograms Grid */}
              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm p-6 overflow-hidden">
-                   <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white mb-6">S-Curve (Planned vs Actual Value)</h3>
+                <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm p-6 overflow-hidden">
+                   <h3 className="text-lg font-bold text-slate-800 mb-6">S-Curve (Planned vs Actual Value)</h3>
                    <div className="h-64 w-full" id="s-curve-chart">
                       <ResponsiveContainer width="100%" height="100%">
                         <AreaChart data={chartData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
@@ -346,8 +346,8 @@ export default function SiteProgressTracker() {
                    </div>
                 </div>
 
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm p-6 overflow-hidden">
-                   <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white mb-6">Resource Allocation</h3>
+                <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm p-6 overflow-hidden">
+                   <h3 className="text-lg font-bold text-slate-800 mb-6">Resource Allocation</h3>
                    <div className="h-64 w-full" id="resource-histogram">
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={chartData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
@@ -365,14 +365,14 @@ export default function SiteProgressTracker() {
              </div>
 
              {/* Dynamic CSS Gantt Chart */}
-             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm overflow-hidden p-6">
-                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white mb-6">Execution Timeline</h3>
+             <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm overflow-hidden p-6">
+                <h3 className="text-lg font-bold text-slate-800 mb-6">Execution Timeline</h3>
                 
                 <div className="relative">
                    {/* Grid lines */}
                    <div className="absolute inset-0 flex justify-between px-32 ml-4">
                       {Array.from({length: 6}).map((_, i) => (
-                         <div key={i} className="w-px h-full bg-slate-100 dark:bg-slate-800/50"></div>
+                         <div key={i} className="w-px h-full bg-slate-100 rounded-[24px] border border-slate-200 shadow-sm text-slate-800"></div>
                       ))}
                    </div>
 
@@ -388,12 +388,12 @@ export default function SiteProgressTracker() {
 
                          return (
                             <div key={phase.id} className="flex items-center gap-4 group cursor-pointer" onClick={() => setSelectedPhase(phase.id)}>
-                               <div className={`w-32 truncate text-sm font-bold text-right transition-colors ${isSelected ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-900 dark:text-white'}`}>
+                               <div className={`w-32 truncate text-sm font-bold text-right transition-colors ${isSelected ? 'text-emerald-600 ' : 'text-slate-600  group-hover:text-slate-900 '}`}>
                                   {phase.name}
                                </div>
-                               <div className="flex-1 h-10 relative bg-slate-50/50 dark:bg-slate-800/30 rounded-xl border border-transparent group-hover:border-slate-200 dark:group-hover:border-slate-700 transition">
+                               <div className="flex-1 h-10 relative bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-transparent group-hover:border-slate-200 : transition">
                                   <div 
-                                     className={`absolute h-6 top-2 rounded-lg shadow-sm overflow-hidden border border-black/5 transition-all ${isSelected ? 'ring-2 ring-offset-2 ring-emerald-500 ring-offset-white dark:ring-offset-slate-900' : ''}`}
+                                     className={`absolute h-6 top-2 rounded-[24px] shadow-sm overflow-hidden border border-black/5 transition-all ${isSelected ? 'ring-2 ring-offset-2 ring-emerald-500 ring-offset-white ' : ''}`}
                                      style={{ left: `${leftPct}%`, width: `${widthPct}%`, backgroundColor: '#e2e8f0' }}
                                   >
                                      <div 
@@ -416,9 +416,9 @@ export default function SiteProgressTracker() {
           <div className="lg:col-span-1 space-y-6">
              {/* Detail Panel */}
              {activePhase ? (
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] shadow-sm sticky top-6">
+                <div className="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm sticky top-6">
                    <div className="flex justify-between items-center mb-6">
-                      <h3 className="font-bold text-xl text-slate-800 dark:text-slate-900 dark:text-white">{activePhase.name}</h3>
+                      <h3 className="font-bold text-xl text-slate-800">{activePhase.name}</h3>
                       <button onClick={() => setSelectedPhase(null)} className="text-slate-400 hover:text-slate-600"><ChevronRight className="w-5 h-5 rotate-180" /></button>
                    </div>
                    
@@ -433,7 +433,7 @@ export default function SiteProgressTracker() {
                             className="w-full accent-indigo-600"
                             disabled={isClientDemo}
                          />
-                         <div className="text-right mt-1 font-bold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400">{activePhase.progress}%</div>
+                         <div className="text-right mt-1 font-bold tabular-nums tracking-tight text-indigo-600">{activePhase.progress}%</div>
                       </div>
 
                       <div className="grid grid-cols-2 gap-3">
@@ -443,7 +443,7 @@ export default function SiteProgressTracker() {
                                type="date" 
                                value={activePhase.startDate} 
                                onChange={(e) => handleUpdatePhase(activePhase.id, 'startDate', e.target.value)}
-                               className="w-full px-2 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-semibold outline-none"
+                               className="w-full px-2 py-2 bg-slate-50 border border-slate-200 rounded-[16px] text-sm font-semibold outline-none"
                                disabled={isClientDemo}
                             />
                          </div>
@@ -453,7 +453,7 @@ export default function SiteProgressTracker() {
                                type="date" 
                                value={activePhase.endDate} 
                                onChange={(e) => handleUpdatePhase(activePhase.id, 'endDate', e.target.value)}
-                               className="w-full px-2 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-semibold outline-none"
+                               className="w-full px-2 py-2 bg-slate-50 border border-slate-200 rounded-[16px] text-sm font-semibold outline-none"
                                disabled={isClientDemo}
                             />
                          </div>
@@ -463,12 +463,12 @@ export default function SiteProgressTracker() {
                          <div>
                             <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">Budget</label>
                             <div className="flex items-center">
-                               <span className="bg-slate-100 dark:bg-slate-800 px-2 py-2 border border-r-0 border-slate-200 dark:border-slate-700 rounded-l-lg text-sm text-slate-500">$</span>
+                               <span className="bg-slate-100 px-2 py-2 border border-r-0 border-slate-200 rounded-l-lg text-sm text-slate-500">$</span>
                                <input 
                                   type="number" 
                                   value={activePhase.budget} 
                                   onChange={(e) => handleUpdatePhase(activePhase.id, 'budget', parseFloat(e.target.value)||0)}
-                                  className="w-full px-2 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-r-lg text-sm font-semibold outline-none"
+                                  className="w-full px-2 py-2 bg-slate-50 border border-slate-200 rounded-r-lg text-sm font-semibold outline-none"
                                   disabled={isClientDemo}
                                />
                             </div>
@@ -476,12 +476,12 @@ export default function SiteProgressTracker() {
                          <div>
                             <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">Actual Cost</label>
                             <div className="flex items-center">
-                               <span className="bg-slate-100 dark:bg-slate-800 px-2 py-2 border border-r-0 border-slate-200 dark:border-slate-700 rounded-l-lg text-sm text-slate-500">$</span>
+                               <span className="bg-slate-100 px-2 py-2 border border-r-0 border-slate-200 rounded-l-lg text-sm text-slate-500">$</span>
                                <input 
                                   type="number" 
                                   value={activePhase.actualCost} 
                                   onChange={(e) => handleUpdatePhase(activePhase.id, 'actualCost', parseFloat(e.target.value)||0)}
-                                  className={`w-full px-2 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-r-lg text-sm font-bold outline-none ${activePhase.actualCost > activePhase.budget ? 'text-rose-600' : 'text-emerald-600'}`}
+                                  className={`w-full px-2 py-2 bg-slate-50  border border-slate-200 rounded-r-lg text-sm font-bold outline-none ${activePhase.actualCost > activePhase.budget ? 'text-rose-600' : 'text-emerald-600'}`}
                                   disabled={isClientDemo}
                                />
                             </div>
@@ -495,7 +495,7 @@ export default function SiteProgressTracker() {
                                type="number" 
                                value={activePhase.workersPlanned || 0} 
                                onChange={(e) => handleUpdatePhase(activePhase.id, 'workersPlanned', parseInt(e.target.value)||0)}
-                               className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-semibold outline-none"
+                               className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-[16px] text-sm font-semibold outline-none"
                                disabled={isClientDemo}
                             />
                          </div>
@@ -505,29 +505,29 @@ export default function SiteProgressTracker() {
                                type="number" 
                                value={activePhase.workersActual || 0} 
                                onChange={(e) => handleUpdatePhase(activePhase.id, 'workersActual', parseInt(e.target.value)||0)}
-                               className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-semibold outline-none"
+                               className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-[16px] text-sm font-semibold outline-none"
                                disabled={isClientDemo}
                             />
                          </div>
                       </div>
 
-                      <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+                      <div className="pt-4 border-t border-slate-100">
                          <div className="flex justify-between items-center mb-3">
                             <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest">Site Photos ({activePhase.photos.length})</label>
-                            <button onClick={() => fileInputRef.current?.click()} className="text-xs font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1 hover:text-indigo-700">
+                            <button onClick={() => fileInputRef.current?.click()} className="text-xs font-bold text-indigo-600 flex items-center gap-1 hover:text-indigo-700">
                                <Upload className="w-3 h-3" /> Upload
                             </button>
                             <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handlePhotoUpload} />
                          </div>
                          
                          {activePhase.photos.length === 0 ? (
-                            <div className="h-24 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl flex items-center justify-center text-slate-400">
+                            <div className="h-24 border-2 border-dashed border-slate-200 rounded-[24px] flex items-center justify-center text-slate-400">
                                <ImageIcon className="w-6 h-6 opacity-50" />
                             </div>
                          ) : (
                             <div className="grid grid-cols-2 gap-2">
                                {activePhase.photos.map((p, idx) => (
-                                  <div key={idx} className="aspect-square rounded-xl bg-slate-100 overflow-hidden relative group">
+                                  <div key={idx} className="aspect-square rounded-[24px] bg-slate-100 overflow-hidden relative group">
                                      <img src={p} alt={`Site Progress Photo ${idx}`} title={`Progress Photo ${idx}`} loading="lazy" className="w-full h-full object-cover" />
                                      <button 
                                         onClick={() => {
@@ -535,7 +535,7 @@ export default function SiteProgressTracker() {
                                            newPhotos.splice(idx, 1);
                                            handleUpdatePhase(activePhase.id, 'photos', newPhotos);
                                         }}
-                                        className="absolute top-2 right-2 p-1.5 bg-black/50 text-slate-900 dark:text-white rounded-lg opacity-0 group-hover:opacity-100 transition"
+                                        className="absolute top-2 right-2 p-1.5 bg-black/50 text-slate-900 rounded-[16px] opacity-0 group-hover:opacity-100 transition"
                                      >
                                         <Trash2 className="w-3 h-3" />
                                      </button>
@@ -547,8 +547,8 @@ export default function SiteProgressTracker() {
                    </div>
                 </div>
              ) : (
-                <div className="bg-slate-50 dark:bg-slate-800/50 border-2 border-dashed border-slate-200 dark:border-slate-700 p-8 rounded-[2rem] text-center flex flex-col items-center justify-center min-h-[400px]">
-                   <Calendar className="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" />
+                <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border-2 border-dashed border-slate-200 p-8 rounded-[2rem] text-center flex flex-col items-center justify-center min-h-[400px]">
+                   <Calendar className="w-12 h-12 text-slate-300 mb-4" />
                    <h3 className="font-bold text-slate-500 mb-1">Select a Phase</h3>
                    <p className="text-sm text-slate-400">Click on any phase in the timeline to edit progress, budgets, and upload photos.</p>
                 </div>

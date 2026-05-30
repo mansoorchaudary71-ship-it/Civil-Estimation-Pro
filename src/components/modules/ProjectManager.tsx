@@ -52,15 +52,15 @@ export default function ProjectManager() {
 
   return (
     <div className="w-full max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 md:p-8 rounded-[2rem] shadow-sm">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white border border-slate-200 p-6 md:p-8 rounded-[2rem] shadow-sm">
         <div>
-          <h2 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
-             <div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 rounded-2xl">
+          <h2 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 tracking-tight flex items-center gap-3">
+             <div className="p-3 bg-indigo-50 text-indigo-600 rounded-[24px]">
                <FolderOpen className="w-8 h-8" />
              </div>
              Project Manager
           </h2>
-          <p className="text-slate-500 dark:text-slate-400 mt-2 font-medium">Manage and group your calculations by project.</p>
+          <p className="text-slate-500 mt-2 font-medium">Manage and group your calculations by project.</p>
         </div>
         <div className="flex gap-2">
            {compareIds[0] && compareIds[1] && (
@@ -78,22 +78,22 @@ export default function ProjectManager() {
       </div>
 
       {isCreating && (
-        <form onSubmit={handleCreate} className="bg-white dark:bg-slate-900 border border-indigo-100 dark:border-indigo-900/30 p-6 rounded-[2rem] shadow-sm transform transition-all">
+        <form onSubmit={handleCreate} className="bg-white border border-indigo-100 p-6 rounded-[2rem] shadow-sm transform transition-all">
           <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
             <Plus className="text-indigo-500" /> Create New Project
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">Project Name</label>
-              <input type="text" value={newProject.name} onChange={e => setNewProject({...newProject, name: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none" required placeholder="e.g. Al-Hamra Tower" />
+              <label className="block text-sm font-bold text-slate-700 mb-1.5">Project Name</label>
+              <input type="text" value={newProject.name} onChange={e => setNewProject({...newProject, name: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none" required placeholder="e.g. Al-Hamra Tower" />
             </div>
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">Location</label>
-              <input type="text" value={newProject.location} onChange={e => setNewProject({...newProject, location: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="City, Area" />
+              <label className="block text-sm font-bold text-slate-700 mb-1.5">Location</label>
+              <input type="text" value={newProject.location} onChange={e => setNewProject({...newProject, location: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="City, Area" />
             </div>
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">Type</label>
-              <select value={newProject.type} onChange={e => setNewProject({...newProject, type: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none">
+              <label className="block text-sm font-bold text-slate-700 mb-1.5">Type</label>
+              <select value={newProject.type} onChange={e => setNewProject({...newProject, type: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none">
                 <option>Residential</option>
                 <option>Commercial</option>
                 <option>Infrastructure</option>
@@ -101,13 +101,13 @@ export default function ProjectManager() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1.5">Start Date</label>
-              <input type="date" value={newProject.startDate} onChange={e => setNewProject({...newProject, startDate: e.target.value})} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-indigo-500 outline-none" />
+              <label className="block text-sm font-bold text-slate-700 mb-1.5">Start Date</label>
+              <input type="date" value={newProject.startDate} onChange={e => setNewProject({...newProject, startDate: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none" />
             </div>
           </div>
           <div className="flex gap-3 mt-6">
-            <button type="submit" className="px-6 py-2.5 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition">Save Project</button>
-            <button type="button" onClick={() => setIsCreating(false)} className="px-6 py-2.5 bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300 font-bold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition">Cancel</button>
+            <button type="submit" className="px-6 py-2.5 bg-indigo-600 text-white font-bold rounded-[24px] hover:bg-indigo-700 transition">Save Project</button>
+            <button type="button" onClick={() => setIsCreating(false)} className="px-6 py-2.5 bg-slate-100 text-slate-600 font-bold rounded-[24px] hover:bg-slate-200 transition">Cancel</button>
           </div>
         </form>
       )}
@@ -118,24 +118,24 @@ export default function ProjectManager() {
             {/* Animated Workflow Illustration */}
             <div className="flex justify-center mb-6">
                <div className="flex items-center gap-3">
-                  <div className="w-16 h-16 rounded-2xl bg-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 transform transition duration-500 hover:scale-110">
-                     <Building className="w-7 h-7 text-slate-900 dark:text-white" />
+                  <div className="w-16 h-16 rounded-[24px] bg-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 transform transition duration-500 hover:scale-110">
+                     <Building className="w-7 h-7 text-slate-900" />
                   </div>
                   <div className="flex flex-col gap-1 w-10">
                      <div className="h-1.5 bg-indigo-500/30 rounded-full overflow-hidden">
                         <div className="h-full bg-indigo-500 w-full animate-[translateX_2s_ease-in-out_infinite]" style={{ animationName: 'progress' }}></div>
                      </div>
                   </div>
-                  <div className="w-16 h-16 rounded-2xl bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/20 transform transition duration-500 hover:scale-110 animation-delay-200">
-                     <BarChart3 className="w-7 h-7 text-slate-900 dark:text-white" />
+                  <div className="w-16 h-16 rounded-[24px] bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/20 transform transition duration-500 hover:scale-110 animation-delay-200">
+                     <BarChart3 className="w-7 h-7 text-slate-900" />
                   </div>
                   <div className="flex flex-col gap-1 w-10">
                      <div className="h-1.5 bg-emerald-500/30 rounded-full overflow-hidden">
                         <div className="h-full bg-emerald-500 w-full animate-[translateX_2s_ease-in-out_infinite]" style={{ animationName: 'progress', animationDelay: '0.4s' }}></div>
                      </div>
                   </div>
-                  <div className="w-16 h-16 rounded-2xl bg-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/20 transform transition duration-500 hover:scale-110 animation-delay-400">
-                     <FileText className="w-7 h-7 text-slate-900 dark:text-white" />
+                  <div className="w-16 h-16 rounded-[24px] bg-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/20 transform transition duration-500 hover:scale-110 animation-delay-400">
+                     <FileText className="w-7 h-7 text-slate-900" />
                   </div>
                </div>
                <style>{`
@@ -147,48 +147,48 @@ export default function ProjectManager() {
                `}</style>
             </div>
              
-             <h3 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">Welcome to Project Manager</h3>
-             <p className="text-slate-500 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+             <h3 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800">Welcome to Project Manager</h3>
+             <p className="text-slate-500 text-lg max-w-2xl mx-auto">
                Group your estimates, track material quantities, and manage multi-stage construction projects in one centralized dashboard.
              </p>
           </div>
 
           {/* 3-Step Workflow Onboarding Card */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2rem] shadow-sm divide-y md:divide-y-0 md:divide-x divide-slate-100 dark:divide-slate-800 overflow-hidden mt-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 relative bg-white border border-slate-200 rounded-[2rem] shadow-sm divide-y md:divide-y-0 md:divide-x divide-slate-100 overflow-hidden mt-2">
              {[
                { icon: Plus, title: "1. Create Project", desc: "Set up a workspace for your site" },
                { icon: Play, title: "2. Run Calculations", desc: "Use estimators & save results" },
                { icon: FileText, title: "3. View Reports", desc: "Track aggregated materials & costs" }
              ].map((step, i) => (
-                <div key={i} className="p-8 flex flex-col items-center text-center bg-slate-50/30 dark:bg-slate-900/30 hover:bg-slate-50 dark:hover:bg-slate-800/80 transition cursor-default">
-                   <div className="w-12 h-12 rounded-full border-2 border-indigo-100 dark:border-indigo-900/50 flex items-center justify-center mb-4 bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm">
+                <div key={i} className="p-8 flex flex-col items-center text-center bg-slate-50/30 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 hover:bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 transition cursor-default">
+                   <div className="w-12 h-12 rounded-full border-2 border-indigo-100 flex items-center justify-center mb-4 bg-white text-indigo-600 shadow-sm">
                       <step.icon className="w-5 h-5" />
                    </div>
-                   <h4 className="font-bold text-slate-800 dark:text-slate-900 dark:text-white mb-2">{step.title}</h4>
-                   <p className="text-sm text-slate-500 dark:text-slate-400">{step.desc}</p>
+                   <h4 className="font-bold text-slate-800 mb-2">{step.title}</h4>
+                   <p className="text-sm text-slate-500">{step.desc}</p>
                 </div>
              ))}
           </div>
 
           {/* Setup Actions */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
-             <div className="bg-white dark:bg-slate-900 border border-indigo-100 dark:border-indigo-900/30 p-8 rounded-[2rem] shadow-sm flex flex-col justify-center">
-                <h4 className="font-bold text-lg mb-1 text-slate-800 dark:text-slate-900 dark:text-white">Quick Start Templates</h4>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mb-5">Begin with a predefined project framework.</p>
+             <div className="bg-white border border-indigo-100 p-8 rounded-[2rem] shadow-sm flex flex-col justify-center">
+                <h4 className="font-bold text-lg mb-1 text-slate-800">Quick Start Templates</h4>
+                <p className="text-sm text-slate-500 mb-5">Begin with a predefined project framework.</p>
                 <div className="space-y-3">
                    <button 
                      onClick={() => {
                         setNewProject({ name: 'My House Project', location: '', type: 'Residential', startDate: new Date().toISOString().split('T')[0] });
                         setIsCreating(true);
                      }}
-                     className="w-full flex items-center justify-between p-4 group bg-slate-50 hover:bg-indigo-50 dark:bg-slate-800 dark:hover:bg-indigo-900/30 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-800/50 transition-all"
+                     className="w-full flex items-center justify-between p-4 group bg-slate-50 hover:bg-indigo-50 rounded-[24px] border border-slate-100 hover:border-indigo-200 transition-all"
                    >
                       <div className="flex items-center gap-4">
-                         <div className="bg-white dark:bg-slate-700 p-3 rounded-xl shadow-sm border border-slate-100 dark:border-slate-600 group-hover:scale-110 transition-transform">
+                         <div className="bg-white p-3 rounded-[24px] shadow-sm border border-slate-100 group-hover:scale-110 transition-transform">
                             <Home className="w-5 h-5 text-indigo-500" />
                          </div>
                          <div className="text-left">
-                            <h5 className="font-bold text-slate-700 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition">Start Residential Project</h5>
+                            <h5 className="font-bold text-slate-700 group-hover:text-indigo-600 transition">Start Residential Project</h5>
                             <p className="text-xs text-slate-500 mt-0.5">Houses, apartments, buildings</p>
                          </div>
                       </div>
@@ -200,14 +200,14 @@ export default function ProjectManager() {
                         setNewProject({ name: 'Highway Expansion', location: '', type: 'Infrastructure', startDate: new Date().toISOString().split('T')[0] });
                         setIsCreating(true);
                      }}
-                     className="w-full flex items-center justify-between p-4 group bg-slate-50 hover:bg-emerald-50 dark:bg-slate-800 dark:hover:bg-emerald-900/30 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-emerald-200 dark:hover:border-emerald-800/50 transition-all"
+                     className="w-full flex items-center justify-between p-4 group bg-slate-50 hover:bg-emerald-50 rounded-[24px] border border-slate-100 hover:border-emerald-200 transition-all"
                    >
                       <div className="flex items-center gap-4">
-                         <div className="bg-white dark:bg-slate-700 p-3 rounded-xl shadow-sm border border-slate-100 dark:border-slate-600 group-hover:scale-110 transition-transform">
+                         <div className="bg-white p-3 rounded-[24px] shadow-sm border border-slate-100 group-hover:scale-110 transition-transform">
                             <Route className="w-5 h-5 text-emerald-500" />
                          </div>
                          <div className="text-left">
-                            <h5 className="font-bold text-slate-700 dark:text-slate-200 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">Start Road Project</h5>
+                            <h5 className="font-bold text-slate-700 group-hover:text-emerald-600 transition">Start Road Project</h5>
                             <p className="text-xs text-slate-500 mt-0.5">Highways, pavements, bridges</p>
                          </div>
                       </div>
@@ -216,18 +216,18 @@ export default function ProjectManager() {
                 </div>
              </div>
 
-             <div className="bg-slate-800 dark:bg-slate-900 border border-slate-700 p-8 rounded-[2rem] shadow-lg flex flex-col justify-center text-center text-slate-900 dark:text-white relative overflow-hidden group">
+             <div className="bg-white border p-8 rounded-[2rem] shadow-lg flex flex-col justify-center text-center text-slate-900 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 group-hover:rotate-12 transition-all duration-700 pointer-events-none">
                    <Upload className="w-40 h-40" />
                 </div>
                 <div className="relative z-10 w-full">
-                   <div className="w-12 h-12 bg-slate-50 dark:bg-slate-800/50 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-100 dark:border-slate-800 group-hover:scale-110 transition-transform">
+                   <div className="w-12 h-12 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-100 group-hover:scale-110 transition-transform">
                       <FileText className="w-6 h-6 text-slate-300" />
                    </div>
-                   <h4 className="font-bold text-xl mb-2 text-slate-900 dark:text-white">Import Existing Data</h4>
+                   <h4 className="font-bold text-xl mb-2 text-slate-900">Import Existing Data</h4>
                    <p className="text-slate-400 text-sm mb-8 px-4">Restore a previously saved project from a JSON or CSV file to continue your work without losing history.</p>
                    
-                   <label className="cursor-pointer inline-flex w-[80%] items-center justify-center gap-2 px-6 py-4 bg-indigo-500 hover:bg-indigo-400 text-white rounded-xl font-bold transition shadow-[0_0_15px_rgba(99,102,241,0.3)] hover:shadow-[0_0_25px_rgba(99,102,241,0.5)]">
+                   <label className="cursor-pointer inline-flex w-[80%] items-center justify-center gap-2 px-6 py-4 bg-indigo-500 hover:bg-indigo-400 text-white rounded-[24px] font-bold transition shadow-[0_0_15px_rgba(99,102,241,0.3)] hover:shadow-[0_0_25px_rgba(99,102,241,0.5)]">
                       <Upload className="w-5 h-5" /> Select File to Import
                       <input type="file" className="hidden" accept=".json,.csv" onChange={(e) => {
                          if (e.target.files && e.target.files.length > 0) {
@@ -244,46 +244,46 @@ export default function ProjectManager() {
           {projects.map(proj => {
              const isCompare = compareIds[0] === proj.id || compareIds[1] === proj.id;
              return (
-            <div key={proj.id} className={`group bg-white dark:bg-slate-900 border ${activeProjectId === proj.id ? 'border-indigo-500 ring-1 ring-indigo-500' : 'border-slate-200 dark:border-slate-800'} p-6 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col relative overflow-hidden`}>
+            <div key={proj.id} className={`group bg-white  border ${activeProjectId === proj.id ? 'border-indigo-500 ring-1 ring-indigo-500' : 'border-slate-200 '} p-6 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col relative overflow-hidden`}>
               
               {isCompare && (
                  <div className="absolute top-0 right-0 w-16 h-16 bg-emerald-500/10">
-                    <div className="absolute top-3 right-3 w-4 h-4 rounded-full bg-emerald-500 flex items-center justify-center border-2 border-white dark:border-slate-900 pointer-events-none"></div>
+                    <div className="absolute top-3 right-3 w-4 h-4 rounded-full bg-emerald-500 flex items-center justify-center border-2 border-white pointer-events-none"></div>
                  </div>
               )}
 
               <div className="flex justify-between items-start mb-4 relative z-10">
                  <div>
-                   <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-900 dark:text-white leading-tight">{proj.name}</h3>
+                   <h3 className="text-xl font-semibold text-slate-800 leading-tight">{proj.name}</h3>
                    <div className="flex items-center gap-2 mt-2">
-                     <span className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-bold rounded-full">{proj.type}</span>
+                     <span className="px-2.5 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full">{proj.type}</span>
                      {activeProjectId === proj.id && (
-                       <span className="px-2.5 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 text-xs font-bold rounded-full">Active</span>
+                       <span className="px-2.5 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-full">Active</span>
                      )}
                    </div>
                  </div>
               </div>
               
               <div className="space-y-2 mb-6">
-                 <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+                 <div className="flex items-center gap-2 text-sm text-slate-500">
                     <MapPin className="w-4 h-4" /> {proj.location}
                  </div>
-                 <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+                 <div className="flex items-center gap-2 text-sm text-slate-500">
                     <Calendar className="w-4 h-4" /> Started {proj.startDate ? new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date(proj.startDate)) : 'N/A'}
                  </div>
-                 <div className="flex items-center gap-2 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                 <div className="flex items-center gap-2 text-sm font-semibold text-slate-600">
                     <BarChart3 className="w-4 h-4" /> {proj.estimates.length} calculations saved
                  </div>
               </div>
               
               <div className="mt-auto flex flex-col gap-2">
                  <div className="flex gap-2">
-                   <button onClick={() => handleView(proj.id)} className="flex-1 py-2.5 bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 font-bold rounded-xl transition flex justify-center items-center gap-1">
+                   <button onClick={() => handleView(proj.id)} className="flex-1 py-2.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 font-bold rounded-[24px] transition flex justify-center items-center gap-1">
                       View Details <ChevronRight className="w-4 h-4" />
                    </button>
                    <button 
                      onClick={() => setActiveProjectId(activeProjectId === proj.id ? null : proj.id)} 
-                     className={`px-4 py-2.5 font-bold rounded-xl transition ${activeProjectId === proj.id ? 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400' : 'border border-indigo-200 text-indigo-600 hover:bg-indigo-50 dark:border-indigo-800 dark:text-indigo-400 dark:hover:bg-indigo-900/30'}`}
+                     className={`px-4 py-2.5 font-bold rounded-[24px] transition ${activeProjectId === proj.id ? 'bg-slate-100 text-slate-500  ' : 'border border-indigo-200 text-indigo-600 hover:bg-indigo-50  '}`}
                      title={activeProjectId === proj.id ? "Deactivate" : "Set as Active Project"}
                    >
                      {activeProjectId === proj.id ? "Disable" : "Set Active"}
@@ -292,7 +292,7 @@ export default function ProjectManager() {
                  
                  <button 
                    onClick={() => toggleCompareSelect(proj.id)}
-                   className={`w-full py-2 text-xs font-bold rounded-xl transition-colors border ${isCompare ? 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/30' : 'bg-transparent text-slate-400 border-slate-200 hover:border-slate-300 dark:border-slate-800 dark:hover:border-slate-700'}`}
+                   className={`w-full py-2 text-xs font-bold rounded-[24px] transition-colors border ${isCompare ? 'bg-emerald-50 text-emerald-700 border-emerald-200   ' : 'bg-transparent text-slate-400 border-slate-200 hover:border-slate-300  :'}`}
                  >
                    {isCompare ? "Selected for Compare" : "Select to Compare"}
                  </button>
@@ -342,16 +342,16 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
          {[p1, p2].map((proj, i) => {
             const totals = i === 0 ? t1 : t2;
             return (
-         <div key={proj.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2rem] shadow-sm">
-            <h1 className="text-2xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+         <div key={proj.id} className="bg-white border border-slate-200 p-8 rounded-[2rem] shadow-sm">
+            <h1 className="text-2xl font-semibold tabular-nums tracking-tight text-slate-800 mb-6 flex items-center gap-2">
                <span className="w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm">{i+1}</span>
                {proj.name}
             </h1>
             
             <div className="space-y-6">
-              <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
+              <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px]">
                  <p className="text-sm font-bold text-slate-500 mb-1">Total Cost estimate</p>
-                 <p className="text-3xl font-semibold tabular-nums tracking-tight text-emerald-600 dark:text-emerald-400">${totals.cost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                 <p className="text-3xl font-semibold tabular-nums tracking-tight text-emerald-600">${totals.cost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                  {i === 1 && t1.cost !== 0 && (
                     <p className={`text-sm font-bold ${t2.cost > t1.cost ? 'text-rose-500' : 'text-emerald-500'} mt-1`}>
                        {Math.abs(t2.cost - t1.cost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} difference
@@ -360,7 +360,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
               </div>
               
               <div>
-                 <h4 className="font-bold text-slate-700 dark:text-slate-300 mb-3 border-b border-slate-200 dark:border-slate-700 pb-2">Material Comparison</h4>
+                 <h4 className="font-bold text-slate-700 mb-3 border-b border-slate-200 pb-2">Material Comparison</h4>
                  <div className="space-y-3">
                     {allMaterialKeys.map(m => {
                        const v1 = t1.materials[m] || 0;
@@ -369,8 +369,8 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
                        const higher = (i === 0 && v1 > v2) || (i === 1 && v2 > v1);
                        return (
                           <div key={m} className="flex justify-between items-center text-sm">
-                            <span className="font-semibold text-slate-600 dark:text-slate-400">{m}</span>
-                            <span className={`font-semibold tabular-nums tracking-tight ${higher ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300'}`}>
+                            <span className="font-semibold text-slate-600">{m}</span>
+                            <span className={`font-semibold tabular-nums tracking-tight ${higher ? 'text-indigo-600 ' : 'text-slate-700 '}`}>
                                {v > 0 ? v.toFixed(1) : '-'}
                             </span>
                           </div>
@@ -439,7 +439,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
        <div className="flex flex-col lg:flex-row gap-6">
          {/* Main Summary Panel */}
          <div className="flex-1 space-y-6">
-           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2rem] shadow-sm relative overflow-hidden">
+           <div className="bg-white border border-slate-200 p-8 rounded-[2rem] shadow-sm relative overflow-hidden">
              <div className="absolute top-0 right-0 p-8 opacity-5">
                <Building className="w-48 h-48" />
              </div>
@@ -450,59 +450,59 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                       <span className="px-3 py-1 bg-indigo-50 text-indigo-600 font-bold rounded-full text-xs uppercase tracking-wider mb-3 inline-block">
                          {project.type}
                       </span>
-                      <h1 className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-slate-900 dark:text-slate-900 dark:text-white mb-2">{project.name}</h1>
+                      <h1 className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight text-slate-900 mb-2">{project.name}</h1>
                       <div className="flex items-center gap-4 text-slate-500 font-medium">
                          <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /> {project.location}</span>
                          <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> Started {project.startDate ? new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(new Date(project.startDate)) : 'N/A'}</span>
                       </div>
                    </div>
                    <div className="flex gap-2">
-                      <button onClick={handleShare} className="p-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl transition shadow-sm" title="Share Project">
+                      <button onClick={handleShare} className="p-3 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-[24px] transition shadow-sm" title="Share Project">
                          <Share2 className="w-5 h-5" />
                       </button>
-                      <button onClick={handleExportPDF} className="p-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-xl transition shadow-sm" title="Export PDF">
+                      <button onClick={handleExportPDF} className="p-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-[24px] transition shadow-sm" title="Export PDF">
                          <Printer className="w-5 h-5" />
                       </button>
                    </div>
                 </div>
 
                 <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6">
-                   <div className="bg-emerald-50 dark:bg-emerald-500/10 p-5 rounded-2xl border border-emerald-100 dark:border-emerald-500/20">
-                     <p className="text-emerald-700 dark:text-emerald-400 font-bold text-sm uppercase tracking-wider mb-1">Total Estimated Cost</p>
-                     <p className="text-3xl font-semibold tabular-nums tracking-tight text-emerald-600 dark:text-emerald-300">${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                   <div className="bg-emerald-50 p-5 rounded-[24px] border border-emerald-100">
+                     <p className="text-emerald-700 font-bold text-sm uppercase tracking-wider mb-1">Total Estimated Cost</p>
+                     <p className="text-3xl font-semibold tabular-nums tracking-tight text-emerald-600">${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                    </div>
-                   <div className="bg-indigo-50 dark:bg-indigo-500/10 p-5 rounded-2xl border border-indigo-100 dark:border-indigo-500/20">
-                     <p className="text-indigo-700 dark:text-indigo-400 font-bold text-sm uppercase tracking-wider mb-1">Calculations Run</p>
-                     <p className="text-3xl font-semibold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-300">{project.estimates.length}</p>
+                   <div className="bg-indigo-50 p-5 rounded-[24px] border border-indigo-100">
+                     <p className="text-indigo-700 font-bold text-sm uppercase tracking-wider mb-1">Calculations Run</p>
+                     <p className="text-3xl font-semibold tabular-nums tracking-tight text-indigo-600">{project.estimates.length}</p>
                    </div>
-                   <div className="bg-amber-50 dark:bg-amber-500/10 p-5 rounded-2xl border border-amber-100 dark:border-amber-500/20">
-                     <p className="text-amber-700 dark:text-amber-400 font-bold text-sm uppercase tracking-wider mb-1">Total Materials</p>
-                     <p className="text-3xl font-semibold tabular-nums tracking-tight text-amber-600 dark:text-amber-300">{Object.keys(aggregatedMaterials).length}</p>
+                   <div className="bg-amber-50 p-5 rounded-[24px] border border-amber-100">
+                     <p className="text-amber-700 font-bold text-sm uppercase tracking-wider mb-1">Total Materials</p>
+                     <p className="text-3xl font-semibold tabular-nums tracking-tight text-amber-600">{Object.keys(aggregatedMaterials).length}</p>
                    </div>
                 </div>
              </div>
            </div>
 
            {/* Timeline & Operations */}
-           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 rounded-[2rem] shadow-sm">
-              <h2 className="text-xl font-semibold mb-6 text-slate-800 dark:text-slate-900 dark:text-white">Calculation Timeline</h2>
+           <div className="bg-white border border-slate-200 p-8 rounded-[2rem] shadow-sm">
+              <h2 className="text-xl font-semibold mb-6 text-slate-800">Calculation Timeline</h2>
               {project.estimates.length === 0 ? (
-                 <div className="text-center py-10 text-slate-400 font-medium bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-dashed border-slate-200 dark:border-slate-700">
+                 <div className="text-center py-10 text-slate-400 font-medium bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-dashed border-slate-200">
                     <AlertCircle className="w-10 h-10 mx-auto mb-3 opacity-50" />
                     No calculation results saved to this project yet.
                  </div>
               ) : (
                 <div className="space-y-4">
                   {project.estimates.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((est, idx) => (
-                    <div key={est.id} className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition group border border-transparent hover:border-slate-100 dark:hover:border-slate-700">
+                    <div key={est.id} className="flex items-start gap-4 p-4 rounded-[24px] hover:bg-slate-50 transition group border border-transparent hover:border-slate-100 :">
                        <div className="flex flex-col items-center mt-1">
                          <div className="w-3 h-3 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]"></div>
-                         {idx !== project.estimates.length - 1 && <div className="w-0.5 h-full bg-slate-200 dark:bg-slate-700 my-1"></div>}
+                         {idx !== project.estimates.length - 1 && <div className="w-0.5 h-full bg-slate-200 my-1"></div>}
                        </div>
                        <div className="flex-1">
                           <div className="flex justify-between">
-                            <h4 className="font-bold text-slate-800 dark:text-slate-900 dark:text-white text-lg">{est.name}</h4>
-                            <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">${(Number(est.cost) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                            <h4 className="font-bold text-slate-800 text-lg">{est.name}</h4>
+                            <span className="text-sm font-bold text-indigo-600">${(Number(est.cost) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                           </div>
                           <p className="text-sm text-slate-500 font-medium mb-2">{new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(new Date(est.date))} • {est.category}</p>
                           
@@ -510,12 +510,12 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                           {est.materials && Object.keys(est.materials).length > 0 && (
                             <div className="flex flex-wrap gap-2 mt-2">
                                {Object.entries(est.materials).slice(0, 4).map(([mat, data]) => (
-                                 <span key={mat} className="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded text-xs font-semibold">
+                                 <span key={mat} className="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs font-semibold">
                                    {mat}: {data.quantity.toFixed(1)} {data.unit}
                                  </span>
                                ))}
                                {Object.keys(est.materials).length > 4 && (
-                                 <span className="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-500 rounded text-xs font-semibold">
+                                 <span className="px-2 py-1 bg-slate-100 text-slate-500 rounded text-xs font-semibold">
                                    +{Object.keys(est.materials).length - 4} more
                                  </span>
                                )}
@@ -531,8 +531,8 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
 
          {/* Sidebar Summary */}
          <div className="w-full lg:w-80 space-y-6">
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] shadow-sm">
-               <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-900 dark:text-white">Cost Breakdown</h3>
+            <div className="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm">
+               <h3 className="font-bold text-lg mb-4 text-slate-800">Cost Breakdown</h3>
                {pieData.length > 0 ? (
                  <div className="h-48 w-full">
                     <ResponsiveContainer width="100%" height="100%">
@@ -547,7 +547,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                     </ResponsiveContainer>
                  </div>
                ) : (
-                 <div className="h-48 flex items-center justify-center text-slate-400 text-sm italic border border-dashed rounded-xl border-slate-200 dark:border-slate-700">No data</div>
+                 <div className="h-48 flex items-center justify-center text-slate-400 text-sm italic border border-dashed rounded-[24px] border-slate-200">No data</div>
                )}
                
                <div className="space-y-3 mt-4">
@@ -555,16 +555,16 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                     <div key={d.name} className="flex justify-between items-center text-sm">
                        <div className="flex items-center gap-2">
                          <span className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS[i % COLORS.length] }}></span>
-                         <span className="font-medium text-slate-600 dark:text-slate-300">{d.name}</span>
+                         <span className="font-medium text-slate-600">{d.name}</span>
                        </div>
-                       <span className="font-bold text-slate-800 dark:text-slate-900 dark:text-white">${d.value.toLocaleString('en-US')}</span>
+                       <span className="font-bold text-slate-800">${d.value.toLocaleString('en-US')}</span>
                     </div>
                   ))}
                </div>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[2rem] shadow-sm">
-               <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-900 dark:text-white">Aggregated Materials</h3>
+            <div className="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm">
+               <h3 className="font-bold text-lg mb-4 text-slate-800">Aggregated Materials</h3>
                <div className="space-y-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
                   {Object.entries(aggregatedMaterials).length === 0 ? (
                      <p className="text-slate-500 text-sm">No materials calculated.</p>
@@ -572,12 +572,12 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                      Object.entries(aggregatedMaterials).map(([key, data]) => {
                         const [name, _] = key.split('_');
                         return (
-                          <div key={key} className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800 last:border-0">
+                          <div key={key} className="flex justify-between items-center py-2 border-b border-slate-100 last:border-0">
                              <div className="flex flex-col">
-                               <span className="font-bold text-sm text-slate-700 dark:text-slate-200 capitalize">{name}</span>
+                               <span className="font-bold text-sm text-slate-700 capitalize">{name}</span>
                              </div>
                              <div className="flex flex-col items-end">
-                               <span className="font-semibold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400">{data.quantity.toFixed(1)} {data.unit}</span>
+                               <span className="font-semibold tabular-nums tracking-tight text-indigo-600">{data.quantity.toFixed(1)} {data.unit}</span>
                              </div>
                           </div>
                         )

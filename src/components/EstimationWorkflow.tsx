@@ -14,8 +14,8 @@ export default function EstimationWorkflow({ onSelectModule }: EstimationWorkflo
       title: "Enter Measurements",
       description: "Log your dimensions securely",
       icon: Ruler,
-      color: "bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400",
-      border: "border-purple-200 dark:border-purple-800"
+      color: "bg-purple-100 text-purple-600  ",
+      border: "border-purple-200 "
     },
     {
       id: "boq",
@@ -23,8 +23,8 @@ export default function EstimationWorkflow({ onSelectModule }: EstimationWorkflo
       title: "Auto-Generate BOQ",
       description: "One-click rate formatting",
       icon: FileSpreadsheet,
-      color: "bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400",
-      border: "border-orange-200 dark:border-orange-800"
+      color: "bg-orange-100 text-orange-600  ",
+      border: "border-orange-200 "
     },
     {
       id: "material-takeoff",
@@ -32,8 +32,8 @@ export default function EstimationWorkflow({ onSelectModule }: EstimationWorkflo
       title: "Calculate Material",
       description: "Exact cement & steel qty",
       icon: Box,
-      color: "bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400",
-      border: "border-blue-200 dark:border-blue-800"
+      color: "bg-blue-100 text-blue-600  ",
+      border: "border-blue-200 "
     },
     {
       id: "cost-summary",
@@ -41,14 +41,14 @@ export default function EstimationWorkflow({ onSelectModule }: EstimationWorkflo
       title: "Export Cost Summary",
       description: "Final client-ready document",
       icon: ClipboardList,
-      color: "bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400",
-      border: "border-emerald-200 dark:border-emerald-800"
+      color: "bg-emerald-100 text-emerald-600  ",
+      border: "border-emerald-200 "
     }
   ];
 
   return (
     <div className="w-full max-w-[1400px] mx-auto px-4 lg:px-8 mb-20 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500">
-      <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 md:p-12 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden relative">
+      <div className="bg-white rounded-[2.5rem] p-8 md:p-12 border border-slate-200 shadow-xl overflow-hidden relative">
         {/* Background Decorative elements */}
         <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
           <Zap className="w-48 h-48" />
@@ -57,49 +57,49 @@ export default function EstimationWorkflow({ onSelectModule }: EstimationWorkflo
         <div className="absolute -right-10 -top-10 w-40 h-40 bg-orange-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="relative z-10 text-center max-w-2xl mx-auto mb-12">
-          <h2 className="text-3xl md:text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-slate-900 dark:text-white tracking-tight mb-4">
+          <h2 className="text-3xl md:text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-slate-900 tracking-tight mb-4">
             Complete Estimation Workflow
           </h2>
-          <p className="text-lg text-slate-600 dark:text-slate-400 font-medium">
+          <p className="text-lg text-slate-600 font-medium">
             No Engineer Needed. Complete BOQ in Minutes.
           </p>
         </div>
 
         <div className="relative z-10">
           {/* Connector Line for Desktop */}
-          <div className="hidden lg:block absolute top-[4rem] left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-purple-200 via-orange-200 to-emerald-200 dark:from-purple-900 dark:via-orange-900 dark:to-emerald-900 z-0"></div>
+          <div className="hidden lg:block absolute top-[4rem] left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-purple-200 via-orange-200 to-emerald-200 z-0"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4 relative z-10">
             {steps.map((step, index) => (
               <div key={step.id} className="relative group cursor-pointer" onClick={() => onSelectModule(step.id as ModuleId)}>
                 <div className="flex flex-col items-center text-center">
                   {/* Step Item Box */}
-                  <div className={`w-28 h-28 lg:w-32 lg:h-32 rounded-3xl bg-white dark:bg-slate-900 border-2 ${step.border} shadow-lg flex flex-col items-center justify-center transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-2xl relative mb-6 z-10`}>
-                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${step.color} mb-2`}>
+                  <div className={`w-28 h-28 lg:w-32 lg:h-32 rounded-[24px] bg-white  border-2 ${step.border} shadow-lg flex flex-col items-center justify-center transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-2xl relative mb-6 z-10`}>
+                    <div className={`w-12 h-12 rounded-[24px] flex items-center justify-center ${step.color} mb-2`}>
                       <step.icon className="w-6 h-6" />
                     </div>
                     {/* Number Badge */}
-                    <div className="absolute -top-4 -right-4 w-9 h-9 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold tabular-nums tracking-tight rounded-full flex items-center justify-center shadow-md text-sm border-4 border-white dark:border-slate-900">
+                    <div className="absolute -top-4 -right-4 w-9 h-9 bg-white text-slate-900 font-semibold tabular-nums tracking-tight rounded-full flex items-center justify-center shadow-md text-sm border-4 border-white">
                       {step.number}
                     </div>
                   </div>
 
-                  <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                  <h3 className="text-lg font-bold text-slate-800 mb-2 group-hover:text-purple-600 transition-colors">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-slate-500 dark:text-slate-400 px-4">
+                  <p className="text-sm text-slate-500 px-4">
                     {step.description}
                   </p>
 
                   {/* Connectors for mobile/tablet */}
                   {index < steps.length - 1 && (
-                    <div className="lg:hidden w-1 h-8 bg-slate-200 dark:bg-slate-800 mt-6 my-2 rounded-full"></div>
+                    <div className="lg:hidden w-1 h-8 bg-slate-200 mt-6 my-2 rounded-full"></div>
                   )}
                 </div>
 
                 {/* Arrow Connector for Desktop over the generic line */}
                 {index < steps.length - 1 && (
-                  <div className="hidden lg:flex absolute top-[calc(4rem-0.75rem)] -right-6 w-12 h-6 items-center justify-center z-20 text-slate-300 dark:text-slate-700 group-hover:text-purple-500 group-hover:translate-x-1 transition-all duration-300">
+                  <div className="hidden lg:flex absolute top-[calc(4rem-0.75rem)] -right-6 w-12 h-6 items-center justify-center z-20 text-slate-300 group-hover:text-purple-500 group-hover:translate-x-1 transition-all duration-300">
                     <ArrowRight className="w-6 h-6" />
                   </div>
                 )}

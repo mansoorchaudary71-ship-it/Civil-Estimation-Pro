@@ -289,13 +289,13 @@ export default function RoadEstimator() {
     <div className="w-full text-gray-900 font-sans md:p-4">
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex justify-end gap-2 mb-2">
-          <button onClick={sendToBOQ} className="text-xs font-bold px-3 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors border border-emerald-200 dark:border-emerald-800">
+          <button onClick={sendToBOQ} className="text-xs font-bold px-3 py-2 bg-emerald-50 text-emerald-600 rounded-[16px] hover:bg-emerald-100 transition-colors border border-emerald-200">
             Send to BOQ
           </button>
-          <button onClick={loadExample} className="text-xs font-bold px-3 py-2 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-lg hover:bg-amber-100 dark:hover:bg-amber-900/50 transition-colors">
+          <button onClick={loadExample} className="text-xs font-bold px-3 py-2 bg-amber-50 text-amber-600 rounded-[16px] hover:bg-amber-100 transition-colors">
             Load Example
           </button>
-          <button onClick={resetDefault} className="text-xs font-bold px-3 py-2 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+          <button onClick={resetDefault} className="text-xs font-bold px-3 py-2 bg-slate-100 text-slate-500 rounded-[16px] hover:bg-slate-200 transition-colors">
             Reset
           </button>
         </div>
@@ -304,7 +304,7 @@ export default function RoadEstimator() {
           <section className="lg:col-span-5 space-y-6">
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-amber-50 text-amber-600 rounded-xl">
+                <div className="p-2.5 bg-amber-50 text-amber-600 rounded-[24px]">
                   <Route className="w-5 h-5" />
                 </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800">
@@ -313,77 +313,77 @@ export default function RoadEstimator() {
               </div>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                     Length (meters)
                   </label>
                   <input
                     type="number"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
                   />
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                   <div className="col-span-1">
-                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                       Carriage (m)
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
                       value={width}
                       onChange={(e) => setWidth(e.target.value)}
                     />
                   </div>
                   <div className="col-span-1">
-                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
+                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
                       Camber (%)
                       <FieldTooltip content="Transverse slope of road carriageway for drainage. IRC:73-1980: Bituminous surface = 2-2.5%, Concrete = 1-1.5%, Water-bound macadam = 3-4%" />
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
                       value={camber}
                       onChange={(e) => setCamber(e.target.value)}
                     />
                   </div>
                   <div className="col-span-1">
                     <label
-                      className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1"
+                      className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1"
                       title="Shoulder Width (m)"
                     >
                       Shoulder (m)
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
                       value={shoulderWidth}
                       onChange={(e) => setShoulderWidth(e.target.value)}
                     />
                   </div>
                   <div className="col-span-1">
                     <label
-                      className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1"
+                      className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1"
                       title="Shoulder Cross-fall (%)"
                     >
                       Fall (%)
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-shadow"
                       value={shoulderFall}
                       onChange={(e) => setShoulderFall(e.target.value)}
                     />
                   </div>
                   <div className="col-span-1">
                     <label
-                      className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1"
+                      className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1"
                       title="Side Slope (1 Vertical : X Horizontal)"
                     >
                       Side Slope
                     </label>
-                    <div className="flex items-center gap-3 w-full bg-gray-50/50 border border-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-amber-500/50 transition-shadow">
-                      <span className="text-gray-700 dark:text-gray-300 font-semibold text-sm whitespace-nowrap">1 V :</span>
+                    <div className="flex items-center gap-3 w-full bg-gray-50/50 border border-gray-200 rounded-[24px] px-4 py-3 focus-within:ring-2 focus-within:ring-amber-500/50 transition-shadow">
+                      <span className="text-gray-700 font-semibold text-sm whitespace-nowrap">1 V :</span>
                       <input
                         type="number"
                         className="w-full bg-transparent text-gray-800 focus:outline-none -ml-1 text-sm md:text-base font-semibold"
@@ -391,7 +391,7 @@ export default function RoadEstimator() {
                         placeholder="e.g. 2"
                         onChange={(e) => setSideSlope(e.target.value)}
                       />
-                      <span className="text-gray-700 dark:text-gray-300 font-semibold text-sm whitespace-nowrap">H</span>
+                      <span className="text-gray-700 font-semibold text-sm whitespace-nowrap">H</span>
                     </div>
                   </div>
                 </div>
@@ -399,7 +399,7 @@ export default function RoadEstimator() {
             </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-orange-50 text-orange-600 rounded-xl">
+                <div className="p-2.5 bg-orange-50 text-orange-600 rounded-[24px]">
                   <Layers className="w-5 h-5" />
                 </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800">
@@ -409,23 +409,23 @@ export default function RoadEstimator() {
               <div className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                       Sub-Grade
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-shadow"
                       value={sgThickness}
                       onChange={(e) => setSgThickness(e.target.value)}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                       Sub-Base
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-shadow"
                       value={sbThickness}
                       onChange={(e) => setSbThickness(e.target.value)}
                     />
@@ -433,23 +433,23 @@ export default function RoadEstimator() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                       Base Course (WBM)
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-shadow"
                       value={wbmThickness}
                       onChange={(e) => setWbmThickness(e.target.value)}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                       Asphalt Course
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-shadow"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500 transition-shadow"
                       value={asphaltThickness}
                       onChange={(e) => setAsphaltThickness(e.target.value)}
                     />
@@ -459,7 +459,7 @@ export default function RoadEstimator() {
             </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-blue-50 text-indigo-600 rounded-xl">
+                <div className="p-2.5 bg-blue-50 text-indigo-600 rounded-[24px]">
                   <Droplets className="w-5 h-5" />
                 </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800">
@@ -468,14 +468,14 @@ export default function RoadEstimator() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                     Prime Coat
                   </label>
                   <input
                     type="number"
                     min="0"
                     step="any"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow"
                     value={primeRateInput}
                     onChange={(e) => {
                       const val = parseFloat(e.target.value);
@@ -485,14 +485,14 @@ export default function RoadEstimator() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                     Tack Coat
                   </label>
                   <input
                     type="number"
                     min="0"
                     step="any"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow"
                     value={tackRateInput}
                     onChange={(e) => {
                       const val = parseFloat(e.target.value);
@@ -505,7 +505,7 @@ export default function RoadEstimator() {
             </div>
             <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
-                <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl">
+                <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-[24px]">
                   <Calculator className="w-5 h-5" />
                 </div>
                 <h2 className="text-xl font-bold tracking-tight text-gray-800">
@@ -515,14 +515,14 @@ export default function RoadEstimator() {
               <div className="space-y-4">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                       Sub-Grade /{isPKR ? "CFT" : "m³"}
                     </label>
                     <input
                       type="number"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
                       value={rateSg}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -532,14 +532,14 @@ export default function RoadEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                       Sub-Base /{isPKR ? "CFT" : "m³"}
                     </label>
                     <input
                       type="number"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
                       value={rateSb}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -549,14 +549,14 @@ export default function RoadEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                       WBM /{isPKR ? "CFT" : "m³"}
                     </label>
                     <input
                       type="number"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
                       value={rateWbm}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -566,14 +566,14 @@ export default function RoadEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                       Asphalt /Ton
                     </label>
                     <input
                       type="number"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
                       value={rateAsp}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -583,14 +583,14 @@ export default function RoadEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                       Prime /Ton
                     </label>
                     <input
                       type="number"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
                       value={ratePrime}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -600,14 +600,14 @@ export default function RoadEstimator() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                       Tack /Ton
                     </label>
                     <input
                       type="number"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500"
                       value={rateTack}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -619,23 +619,23 @@ export default function RoadEstimator() {
                 </div>
                 <div className="grid grid-cols-2 gap-4 pt-2 border-t border-gray-50">
                   <div>
-                    <label className="block text-[10px] font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-[10px] font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                       Asphalt Density (t/m³)
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-600 text-sm rounded-xl px-3 py-2 focus:outline-none"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-600 text-sm rounded-[24px] px-3 py-2 focus:outline-none"
                       value={asphaltDensity}
                       onChange={(e) => setAsphaltDensity(e.target.value)}
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block text-[10px] font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
                       Bitumen Specific Gravity
                     </label>
                     <input
                       type="number"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-600 text-sm rounded-xl px-3 py-2 focus:outline-none"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-600 text-sm rounded-[24px] px-3 py-2 focus:outline-none"
                       value={bitumenSG}
                       onChange={(e) => setBitumenSG(e.target.value)}
                     />
@@ -651,17 +651,17 @@ export default function RoadEstimator() {
               style={{ minHeight: "360px" }}
             >
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
-              <div className="relative z-10 flex items-center justify-between mb-8 text-slate-900 dark:text-white">
+              <div className="relative z-10 flex items-center justify-between mb-8 text-slate-900">
                 <h2 className="text-xl font-bold tracking-tight flex items-center gap-2">
                   <Layers className="w-5 h-5 text-amber-400" /> Cross-Section
                   Profile
                 </h2>
-                <div className="text-xs font-mono bg-slate-50 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-100 dark:border-slate-800">
+                <div className="text-xs font-mono bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 px-3 py-1.5 rounded-[16px] border border-slate-100">
                   Camber: {c}% | Rise: {(riseAtCenter * 1000).toFixed(0)}mm
                 </div>
               </div>
               {/* Road SVG Diagram */}
-              <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+              <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
                 <svg
                   viewBox="0 0 1000 320"
                   preserveAspectRatio="xMidYMid meet"
@@ -858,9 +858,9 @@ export default function RoadEstimator() {
                 </svg>
               </div>
             </div>
-            <div className="flex flex-wrap  gap-4 items-center w-full">
+            <div className="flex flex-wrap gap-4 items-center w-full">
               <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-amber-200 transition-colors">
-                <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wider mb-4 flex items-center gap-2">
                   <Calculator className="w-4 h-4 text-amber-500" /> Layer
                   Quantities
                 </h3>
@@ -889,7 +889,7 @@ export default function RoadEstimator() {
                       <span className="font-bold text-gray-900 block">
                         {volAsphalt.toFixed(2)} m³
                       </span>
-                      <span className="text-xs text-gray-700 dark:text-gray-300 font-medium">
+                      <span className="text-xs text-gray-700 font-medium">
                         {asphaltTons.toFixed(2)} Tons
                       </span>
                     </div>
@@ -897,12 +897,12 @@ export default function RoadEstimator() {
                 </div>
               </div>
               <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:border-orange-200 transition-colors">
-                <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wider mb-4 flex items-center gap-2">
                   <Droplets className="w-4 h-4 text-orange-500" /> Bitumen
                   Coats
                 </h3>
                 <div className="space-y-4">
-                  <div className="bg-orange-50/50 px-4 py-3 rounded-xl border border-orange-100">
+                  <div className="bg-orange-50/50 px-4 py-3 rounded-[24px] border border-orange-100">
                     <div className="flex justify-between items-start mb-1">
                       <div className="text-orange-800 text-xs font-semibold">
                         Prime Coat (on WBM)
@@ -925,12 +925,12 @@ export default function RoadEstimator() {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-gray-50 px-4 py-3 rounded-xl border border-gray-200">
+                  <div className="bg-gray-50 px-4 py-3 rounded-[24px] border border-gray-200">
                     <div className="flex justify-between items-start mb-1">
                       <div className="text-gray-600 text-xs font-semibold">
                         Tack Coat
                       </div>
-                      <div className="text-gray-700 dark:text-gray-300 text-[10px] font-bold">
+                      <div className="text-gray-700 text-[10px] font-bold">
                         @ {tackCoatRate} L/m²
                       </div>
                     </div>
@@ -939,7 +939,7 @@ export default function RoadEstimator() {
                         <span className="text-xl font-bold tabular-nums tracking-tight text-gray-800 leading-none">
                           {tackCoatVolume.toFixed(1)}
                         </span>
-                        <span className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-0.5">
+                        <span className="text-xs font-medium text-gray-700 mb-0.5">
                           L
                         </span>
                       </div>
@@ -959,10 +959,10 @@ export default function RoadEstimator() {
                totalUnit=""
              >
               {totalCost === 0 && (
-                <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-4 rounded-xl mt-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
+                <div className="bg-amber-50 border border-amber-200 p-4 rounded-[24px] mt-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
                   <div className="flex items-center gap-3">
                     <span className="text-xl">⚠</span>
-                    <p className="text-sm font-bold text-amber-800 dark:text-amber-400">
+                    <p className="text-sm font-bold text-amber-800">
                       Material rates not set. Fill in the rates above or go to Live DB Rates to set current market prices first.
                     </p>
                   </div>
@@ -971,14 +971,14 @@ export default function RoadEstimator() {
                       const event = new CustomEvent('navigate-module', { detail: { moduleId: 'rates' } });
                       window.dispatchEvent(event);
                     }}
-                    className="shrink-0 text-xs font-bold px-4 py-2 bg-amber-600 hover:bg-amber-700 text-slate-900 dark:text-white rounded-lg transition-colors"
+                    className="shrink-0 text-xs font-bold px-4 py-2 bg-amber-600 hover:bg-amber-700 text-slate-900 rounded-[16px] transition-colors"
                   >
                     Set Live DB Rates
                   </button>
                 </div>
               )}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-sm mt-4">
-                <div className="bg-white/5 border border-slate-100 dark:border-slate-800 rounded-xl p-4">
+                <div className="bg-white/5 border border-slate-100 rounded-[24px] p-4">
                   <h4 className="font-semibold text-slate-400 mb-3 uppercase tracking-wider text-xs">
                     WBM Sub-components
                   </h4>
@@ -1007,7 +1007,7 @@ export default function RoadEstimator() {
                   </div>
                 </div>
                 
-                <div className="bg-white/5 border border-slate-100 dark:border-slate-800 rounded-xl p-4">
+                <div className="bg-white/5 border border-slate-100 rounded-[24px] p-4">
                   <h4 className="font-semibold text-slate-400 mb-3 uppercase tracking-wider text-xs">
                     Sub-base Material & Finances
                   </h4>

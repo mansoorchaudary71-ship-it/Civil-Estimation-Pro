@@ -28,7 +28,7 @@ const mixRatios: Record<string, { c: number; s: number; a: number }> = {
 function InputGroup({ label, children, colSpan = 1 }: { label: React.ReactNode; children: React.ReactNode, colSpan?: number }) {
   return (
     <div className={`flex flex-col gap-2 ${colSpan > 1 ? `md:col-span-${colSpan}` : ''}`}>
-      <label className="text-sm font-bold text-slate-700 dark:text-slate-300">{label}</label>
+      <label className="text-sm font-bold text-slate-700">{label}</label>
       {children}
     </div>
   );
@@ -187,29 +187,29 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
   };
 
   return (
-    <div className={isEmbedded ? "w-full space-y-6" : "w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8"}>
+    <div className={isEmbedded ? "w-full space-y-6" : "w-full h-full overflow-y-auto bg-transparent  text-text-primary p-6 md:p-8"}>
       <div className="max-w-5xl mx-auto space-y-6">
         {!isEmbedded && (
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
             <div>
               <h1 className="text-3xl font-semibold tabular-nums tracking-tight mb-2 flex items-center gap-3 text-text-primary">
-                <Box className="w-8 h-8 text-[#E55A2B] dark:text-[#ff8a65]" />
+                <Box className="w-8 h-8 text-[#E55A2B] [#ff8a65]" />
                 Isolated Footing Calculator
               </h1>
-              <p className="text-slate-500 dark:text-slate-300 font-medium">
+              <p className="text-slate-500 font-medium">
                 Calculate concrete, excavation, and steel mesh quantities for isolated foundations.
               </p>
             </div>
             <div className="flex flex-col items-end gap-2">
               <GlobalSettingsToggle align="left" showCurrency={false} />
               <div className="flex gap-2">
-                <button onClick={sendToBOQ} className="text-xs font-bold px-3 py-2 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors border border-emerald-200 dark:border-emerald-800">
+                <button onClick={sendToBOQ} className="text-xs font-bold px-3 py-2 bg-emerald-50 text-emerald-600 rounded-[16px] hover:bg-emerald-100 transition-colors border border-emerald-200">
                   Send to BOQ
                 </button>
-                <button onClick={loadExample} className="text-xs font-bold px-3 py-2 bg-[#E55A2B]/10 dark:bg-[#E55A2B]/20 text-[#E55A2B] dark:text-[#ff8a65] rounded-lg hover:bg-[#E55A2B]/20 dark:hover:bg-[#E55A2B]/30 transition-colors">
+                <button onClick={loadExample} className="text-xs font-bold px-3 py-2 bg-[#E55A2B]/10 [#E55A2B]/20 text-[#E55A2B] [#ff8a65] rounded-[16px] hover:bg-[#E55A2B]/20[#E55A2B]/30 transition-colors">
                   Load Example
                 </button>
-                <button onClick={resetDefault} className="text-xs font-bold px-3 py-2 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                <button onClick={resetDefault} className="text-xs font-bold px-3 py-2 bg-slate-100 text-slate-500 rounded-[16px] hover:bg-slate-200 transition-colors">
                   Reset
                 </button>
               </div>
@@ -217,16 +217,16 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
           </div>
         )}
         
-        <div className="bg-bg-card rounded-3xl shadow-md border border-border-color overflow-hidden">
+        <div className="bg-bg-card rounded-[24px] shadow-md border border-border-color overflow-hidden">
           <div className="p-6 md:p-8 space-y-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Inputs */}
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Load & SBC Check</h3>
+                  <h3 className="font-bold text-lg mb-4 text-slate-800 border-b border-slate-100 pb-2">Load & SBC Check</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <InputGroup label="Column Load (kN)">
-                      <NumberInput className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={load} onChange={(val) => setLoad(val.toString())} />
+                      <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={load} onChange={(val) => setLoad(val.toString())} />
                     </InputGroup>
                     <InputGroup label={
                       <span className="flex items-center">
@@ -234,54 +234,54 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                         <FieldTooltip content="Maximum load per unit area soil can carry without shear failure. IS 1904:1986: Soft clay = 50-100, Stiff clay = 100-200, Dense sand = 200-400, Rock = 1000-4000 kN/m²" />
                       </span>
                     }>
-                      <NumberInput className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={sbc} onChange={(val) => setSbc(val.toString())} />
+                      <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={sbc} onChange={(val) => setSbc(val.toString())} />
                     </InputGroup>
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Footing Details</h3>
+                  <h3 className="font-bold text-lg mb-4 text-slate-800 border-b border-slate-100 pb-2">Footing Details</h3>
                   <div className="grid grid-cols-3 gap-4">
                     <InputGroup label="Length (m)">
-                      <NumberInput step="0.1" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={footingL} onChange={(val) => setFootingL(val.toString())} />
+                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={footingL} onChange={(val) => setFootingL(val.toString())} />
                     </InputGroup>
                     <InputGroup label="Width (m)">
-                      <NumberInput step="0.1" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={footingW} onChange={(val) => setFootingW(val.toString())} />
+                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={footingW} onChange={(val) => setFootingW(val.toString())} />
                     </InputGroup>
                     <InputGroup label="Depth (m)">
-                      <NumberInput step="0.1" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={footingD} onChange={(val) => setFootingD(val.toString())} />
+                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={footingD} onChange={(val) => setFootingD(val.toString())} />
                     </InputGroup>
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Column & Earthworks</h3>
+                  <h3 className="font-bold text-lg mb-4 text-slate-800 border-b border-slate-100 pb-2">Column & Earthworks</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <InputGroup label="Column L×W (m)">
                       <div className="flex gap-2">
-                        <NumberInput step="0.1" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={columnL} onChange={(val) => setColumnL(val.toString())} placeholder="L" />
+                        <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={columnL} onChange={(val) => setColumnL(val.toString())} placeholder="L" />
                         <span className="text-slate-400 self-center">×</span>
-                        <NumberInput step="0.1" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={columnW} onChange={(val) => setColumnW(val.toString())} placeholder="W" />
+                        <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={columnW} onChange={(val) => setColumnW(val.toString())} placeholder="W" />
                       </div>
                     </InputGroup>
                     <InputGroup label="Concrete Mix">
-                      <select className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all appearance-none shadow-sm" value={mix} onChange={(e) => setMix(e.target.value)}>
+                      <select className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all appearance-none shadow-sm" value={mix} onChange={(e) => setMix(e.target.value)}>
                         {Object.keys(mixRatios).map((m) => (
                           <option key={m} value={m}>{m}</option>
                         ))}
                       </select>
                     </InputGroup>
                     <InputGroup label="Working Space (m)">
-                      <NumberInput step="0.1" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={workingSpace} onChange={(val) => setWorkingSpace(val.toString())} />
+                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={workingSpace} onChange={(val) => setWorkingSpace(val.toString())} />
                     </InputGroup>
                     <InputGroup label="Excavation Depth (m)">
-                      <NumberInput step="0.1" className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={excavationDepth} onChange={(val) => setExcavationDepth(val.toString())} />
+                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={excavationDepth} onChange={(val) => setExcavationDepth(val.toString())} />
                     </InputGroup>
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-lg mb-4 text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">Reinforcement Mesh</h3>
+                  <h3 className="font-bold text-lg mb-4 text-slate-800 border-b border-slate-100 pb-2">Reinforcement Mesh</h3>
                   <div className="grid grid-cols-3 gap-4 mb-3">
                     <div className="col-span-3">
                       <InputGroup label={
@@ -290,71 +290,71 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                           <FieldTooltip content="Minimum concrete cover to protect reinforcement from corrosion. IS 456:2000 Table 16: Mild exposure = 20mm, Moderate = 30mm, Severe = 45mm, Very Severe = 50mm" />
                         </span>
                       }>
-                        <NumberInput className="w-full bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-xl shadow-sm transition-all" value={clearCover} onChange={(val) => setClearCover(val.toString())} />
+                        <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={clearCover} onChange={(val) => setClearCover(val.toString())} />
                       </InputGroup>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/50">
+                    <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-200">
                       <p className="text-xs font-bold uppercase text-slate-500 mb-3 ml-1 tracking-wider">Bottom Mesh: X-Axis</p>
                       <div className="space-y-4">
                         <InputGroup label="Bar Dia (mm)">
-                           <select className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaX} onChange={e => setDiaX(e.target.value)}>
+                           <select className="w-full bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaX} onChange={e => setDiaX(e.target.value)}>
                              {[8, 10, 12, 16, 20].map(d => <option key={d} value={d}>{d}</option>)}
                            </select>
                         </InputGroup>
                         <InputGroup label="Spacing c/c (mm)">
-                           <NumberInput className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm transition-all" value={spacingX} onChange={(val) => setSpacingX(val.toString())} />
+                           <NumberInput className="w-full bg-white border border-slate-200 rounded-[24px] shadow-sm transition-all" value={spacingX} onChange={(val) => setSpacingX(val.toString())} />
                         </InputGroup>
                       </div>
                     </div>
-                    <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700/50">
+                    <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-200">
                       <p className="text-xs font-bold uppercase text-slate-500 mb-3 ml-1 tracking-wider">Bottom Mesh: Y-Axis</p>
                       <div className="space-y-4">
                         <InputGroup label="Bar Dia (mm)">
-                           <select className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaY} onChange={e => setDiaY(e.target.value)}>
+                           <select className="w-full bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaY} onChange={e => setDiaY(e.target.value)}>
                              {[8, 10, 12, 16, 20].map(d => <option key={d} value={d}>{d}</option>)}
                            </select>
                         </InputGroup>
                         <InputGroup label="Spacing c/c (mm)">
-                           <NumberInput className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm transition-all" value={spacingY} onChange={(val) => setSpacingY(val.toString())} />
+                           <NumberInput className="w-full bg-white border border-slate-200 rounded-[24px] shadow-sm transition-all" value={spacingY} onChange={(val) => setSpacingY(val.toString())} />
                         </InputGroup>
                       </div>
                     </div>
                   </div>
 
                   <div className="mt-4">
-                    <label className="flex items-center gap-3 cursor-pointer p-4 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl">
+                    <label className="flex items-center gap-3 cursor-pointer p-4 bg-slate-100 border border-slate-200 rounded-[24px]">
                       <input type="checkbox" className="w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" checked={hasTopMesh} onChange={e => setHasTopMesh(e.target.checked)} />
-                      <span className="font-bold text-slate-800 dark:text-slate-200">Include Top Mesh</span>
+                      <span className="font-bold text-slate-800">Include Top Mesh</span>
                     </label>
                   </div>
                   
                   {hasTopMesh && (
                     <div className="grid grid-cols-2 gap-4 mt-4 animate-in fade-in slide-in-from-top-2 duration-300">
-                      <div className="p-4 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-2xl border border-indigo-100 dark:border-indigo-800/30">
-                        <p className="text-xs font-bold uppercase text-indigo-700 dark:text-indigo-400 mb-3 ml-1 tracking-wider">Top Mesh: X-Axis</p>
+                      <div className="p-4 bg-indigo-50/50 rounded-[24px] border border-indigo-100">
+                        <p className="text-xs font-bold uppercase text-indigo-700 mb-3 ml-1 tracking-wider">Top Mesh: X-Axis</p>
                         <div className="space-y-4">
                           <InputGroup label="Bar Dia (mm)">
-                             <select className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaXTop} onChange={e => setDiaXTop(e.target.value)}>
+                             <select className="w-full bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaXTop} onChange={e => setDiaXTop(e.target.value)}>
                                {[8, 10, 12, 16, 20].map(d => <option key={d} value={d}>{d}</option>)}
                              </select>
                           </InputGroup>
                           <InputGroup label="Spacing c/c (mm)">
-                             <NumberInput className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm transition-all" value={spacingXTop} onChange={(val) => setSpacingXTop(val.toString())} />
+                             <NumberInput className="w-full bg-white border border-slate-200 rounded-[24px] shadow-sm transition-all" value={spacingXTop} onChange={(val) => setSpacingXTop(val.toString())} />
                           </InputGroup>
                         </div>
                       </div>
-                      <div className="p-4 bg-indigo-50/50 dark:bg-indigo-900/10 rounded-2xl border border-indigo-100 dark:border-indigo-800/30">
-                        <p className="text-xs font-bold uppercase text-indigo-700 dark:text-indigo-400 mb-3 ml-1 tracking-wider">Top Mesh: Y-Axis</p>
+                      <div className="p-4 bg-indigo-50/50 rounded-[24px] border border-indigo-100">
+                        <p className="text-xs font-bold uppercase text-indigo-700 mb-3 ml-1 tracking-wider">Top Mesh: Y-Axis</p>
                         <div className="space-y-4">
                           <InputGroup label="Bar Dia (mm)">
-                             <select className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaYTop} onChange={e => setDiaYTop(e.target.value)}>
+                             <select className="w-full bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaYTop} onChange={e => setDiaYTop(e.target.value)}>
                                {[8, 10, 12, 16, 20].map(d => <option key={d} value={d}>{d}</option>)}
                              </select>
                           </InputGroup>
                           <InputGroup label="Spacing c/c (mm)">
-                             <NumberInput className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm transition-all" value={spacingYTop} onChange={(val) => setSpacingYTop(val.toString())} />
+                             <NumberInput className="w-full bg-white border border-slate-200 rounded-[24px] shadow-sm transition-all" value={spacingYTop} onChange={(val) => setSpacingYTop(val.toString())} />
                           </InputGroup>
                         </div>
                       </div>
@@ -365,21 +365,21 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
 
               {/* Drawing & SBC Status */}
               <div>
-                <div className={`p-4 rounded-2xl border ${isSafe ? 'bg-emerald-50 border-emerald-200 dark:bg-emerald-900/20 dark:border-emerald-800/30' : 'bg-rose-50 border-rose-200 dark:bg-rose-900/20 dark:border-rose-800/30'} flex items-start gap-4 mb-6 shadow-sm`}>
-                  {isSafe ? <CheckCircle className="w-6 h-6 text-emerald-600 dark:text-emerald-400 mt-1" /> : <AlertTriangle className="w-6 h-6 text-rose-600 dark:text-rose-400 mt-1" />}
+                <div className={`p-4 rounded-[24px] border ${isSafe ? 'bg-emerald-50 border-emerald-200  ' : 'bg-rose-50 border-rose-200  '} flex items-start gap-4 mb-6 shadow-sm`}>
+                  {isSafe ? <CheckCircle className="w-6 h-6 text-emerald-600 mt-1" /> : <AlertTriangle className="w-6 h-6 text-rose-600 mt-1" />}
                   <div>
-                    <h4 className={`font-bold ${isSafe ? 'text-emerald-800 dark:text-emerald-300' : 'text-rose-800 dark:text-rose-300'}`}>
+                    <h4 className={`font-bold ${isSafe ? 'text-emerald-800 ' : 'text-rose-800 '}`}>
                       {isSafe ? 'Safe Bearing Capacity OK' : 'Bearing Capacity Exceeded'}
                     </h4>
-                    <p className={`text-sm mt-1 font-medium ${isSafe ? 'text-emerald-700 dark:text-emerald-400/80' : 'text-rose-700 dark:text-rose-400/80'}`}>
+                    <p className={`text-sm mt-1 font-medium ${isSafe ? 'text-emerald-700 ' : 'text-rose-700 '}`}>
                       Required Area: {reqArea.toFixed(2)} m² | Provided Area: {actualArea.toFixed(2)} m²
                     </p>
-                    {!isSafe && <p className="text-xs font-bold text-rose-600 dark:text-rose-400 mt-2">Increase footing dimensions to prevent settlement failures.</p>}
+                    {!isSafe && <p className="text-xs font-bold text-rose-600 mt-2">Increase footing dimensions to prevent settlement failures.</p>}
                   </div>
                 </div>
 
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[400px] shadow-sm">
-                  <h4 className="font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-sm mb-8">Cross-Section Profile</h4>
+                <div className="bg-white border border-slate-200 rounded-[24px] p-6 flex flex-col items-center justify-center min-h-[400px] shadow-sm">
+                  <h4 className="font-bold text-slate-500 uppercase tracking-wider text-sm mb-8">Cross-Section Profile</h4>
                   
                   {/* Schematic SVG */}
                   <svg width="100%" height="280" viewBox="0 0 300 240" className="max-w-full overflow-visible">
@@ -463,8 +463,8 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
                   <div>
-                    <h4 className="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2 mb-4">
-                      <Spade className="w-5 h-5 text-amber-600 dark:text-amber-500" />
+                    <h4 className="font-bold text-slate-800 flex items-center gap-2 mb-4">
+                      <Spade className="w-5 h-5 text-amber-600" />
                       Earthworks
                     </h4>
                     <div className="grid grid-cols-2 gap-4">
@@ -472,8 +472,8 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                       <ResultCard title="Backfilling" value={backfillVol.toFixed(2)} unit="m³" variant="neutral" />
                     </div>
                     
-                    <h4 className="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2 mt-8 mb-4">
-                      <Layers className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                    <h4 className="font-bold text-slate-800 flex items-center gap-2 mt-8 mb-4">
+                      <Layers className="w-5 h-5 text-indigo-600" />
                       Concrete Materials ({mix})
                     </h4>
                     <div className="grid grid-cols-2 gap-4">
@@ -484,56 +484,56 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                   </div>
 
                   <div>
-                    <h4 className="font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2 mb-4">
+                    <h4 className="font-bold text-slate-800 flex items-center gap-2 mb-4">
                       <ArrowDownToLine className="w-5 h-5 text-[#f43f5e]" />
                       Steel Reinforcement Check
                     </h4>
-                    <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm">
-                      <div className="p-4 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
-                        <span className="font-bold text-slate-700 dark:text-slate-200">Total Steel Required</span>
-                        <span className="text-xl font-semibold tabular-nums tracking-tight text-rose-600 dark:text-rose-400">{totalSteel.toFixed(2)} kg</span>
+                    <div className="bg-slate-50 border border-slate-200 rounded-[24px] overflow-hidden shadow-sm">
+                      <div className="p-4 bg-slate-100 border-b border-slate-200 flex justify-between items-center">
+                        <span className="font-bold text-slate-700">Total Steel Required</span>
+                        <span className="text-xl font-semibold tabular-nums tracking-tight text-rose-600">{totalSteel.toFixed(2)} kg</span>
                       </div>
                       <div className="p-4 space-y-4">
                         <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Bottom Mesh</div>
-                        <div className="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-3">
+                        <div className="flex justify-between items-center border-b border-slate-200 pb-3">
                           <div>
-                            <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">X-Axis Bars</p>
+                            <p className="font-semibold text-sm text-slate-800">X-Axis Bars</p>
                             <p className="text-xs text-slate-500 mt-0.5">{barsX} bars • Cut Length: {(cutLengthX/1000).toFixed(2)}m</p>
                           </div>
-                          <p className="font-bold text-slate-700 dark:text-slate-300">{wtX.toFixed(2)} kg</p>
+                          <p className="font-bold text-slate-700">{wtX.toFixed(2)} kg</p>
                         </div>
-                        <div className="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-3">
+                        <div className="flex justify-between items-center border-b border-slate-200 pb-3">
                           <div>
-                            <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">Y-Axis Bars</p>
+                            <p className="font-semibold text-sm text-slate-800">Y-Axis Bars</p>
                             <p className="text-xs text-slate-500 mt-0.5">{barsY} bars • Cut Length: {(cutLengthY/1000).toFixed(2)}m</p>
                           </div>
-                          <p className="font-bold text-slate-700 dark:text-slate-300">{wtY.toFixed(2)} kg</p>
+                          <p className="font-bold text-slate-700">{wtY.toFixed(2)} kg</p>
                         </div>
                         
                         {hasTopMesh && (
                           <>
                             <div className="text-xs font-bold text-indigo-500 uppercase tracking-wider mt-4 mb-2">Top Mesh</div>
-                            <div className="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-3">
+                            <div className="flex justify-between items-center border-b border-slate-200 pb-3">
                               <div>
-                                <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">X-Axis Bars</p>
+                                <p className="font-semibold text-sm text-slate-800">X-Axis Bars</p>
                                 <p className="text-xs text-slate-500 mt-0.5">{barsXTop} bars • Cut Length: {(cutLengthXTop/1000).toFixed(2)}m</p>
                               </div>
-                              <p className="font-bold text-slate-700 dark:text-slate-300">{wtXTop.toFixed(2)} kg</p>
+                              <p className="font-bold text-slate-700">{wtXTop.toFixed(2)} kg</p>
                             </div>
                             <div className="flex justify-between items-center pb-1">
                               <div>
-                                <p className="font-semibold text-sm text-slate-800 dark:text-slate-200">Y-Axis Bars</p>
+                                <p className="font-semibold text-sm text-slate-800">Y-Axis Bars</p>
                                 <p className="text-xs text-slate-500 mt-0.5">{barsYTop} bars • Cut Length: {(cutLengthYTop/1000).toFixed(2)}m</p>
                               </div>
-                              <p className="font-bold text-slate-700 dark:text-slate-300">{wtYTop.toFixed(2)} kg</p>
+                              <p className="font-bold text-slate-700">{wtYTop.toFixed(2)} kg</p>
                             </div>
                           </>
                         )}
                       </div>
                     </div>
                     
-                    <div className="mt-4 p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl border border-indigo-100 dark:border-indigo-800/30">
-                      <p className="text-sm font-medium text-indigo-800 dark:text-indigo-300">
+                    <div className="mt-4 p-4 bg-indigo-50 rounded-[24px] border border-indigo-100">
+                      <p className="text-sm font-medium text-indigo-800">
                         * Steel weight derived using D²/162.28. Hook lengths added based on footing depth {fD}m minus {clearCover}mm top/bottom covers.
                       </p>
                     </div>

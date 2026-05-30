@@ -174,7 +174,7 @@ export default function WorkspaceSection({
         <div>
           <h2
             className="text-2xl md:text-3xl font-semibold tracking-tight text-slate-900 tracking-tight flex items-center gap-3"
-            style={{ fontFamily: '"Clash Display", sans-serif' }}
+            
           >
             {greeting}, {user.displayName?.split(" ")[0] || "Engineer"}.
           </h2>
@@ -185,7 +185,7 @@ export default function WorkspaceSection({
 
         {/* Quick Stats */}
         <div className="flex gap-4 overflow-x-auto pb-2 md:pb-0 scrollbar-hide shrink-0">
-          <div className="bg-white border border-slate-200 rounded-2xl px-5 py-4 flex items-center gap-4 shadow-sm min-w-[200px]">
+          <div className="bg-white border border-slate-200 rounded-[24px] px-5 py-4 flex items-center gap-4 shadow-sm min-w-[200px]">
             <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
               <Calculator className="w-5 h-5" />
             </div>
@@ -198,7 +198,7 @@ export default function WorkspaceSection({
               </div>
             </div>
           </div>
-          <div className="bg-indigo-50 border border-indigo-100 rounded-2xl px-5 py-4 flex items-center gap-4 shadow-sm min-w-[200px]">
+          <div className="bg-indigo-50 border border-indigo-100 rounded-[24px] px-5 py-4 flex items-center gap-4 shadow-sm min-w-[200px]">
             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-indigo-500">
               <TrendingUp className="w-5 h-5" />
             </div>
@@ -211,8 +211,8 @@ export default function WorkspaceSection({
               </div>
             </div>
           </div>
-          <div className="bg-slate-900 rounded-2xl px-5 py-4 flex items-center gap-4 shadow-sm min-w-[200px]">
-             <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-emerald-400">
+          <div className="bg-white rounded-[24px] px-5 py-4 flex items-center gap-4 shadow-sm min-w-[200px]">
+             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-emerald-400 border border-slate-200 shadow-sm">
                <Flame className="w-5 h-5" />
              </div>
              <div>
@@ -283,7 +283,7 @@ export default function WorkspaceSection({
                         className="p-4 hover:bg-slate-50 transition-colors group flex items-center justify-between gap-4"
                       >
                         <div className="flex items-center gap-4 min-w-0 flex-1">
-                           <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-500 flex items-center justify-center shrink-0">
+                           <div className="w-10 h-10 rounded-[24px] bg-blue-50 text-blue-500 flex items-center justify-center shrink-0">
                              <FileText className="w-5 h-5" />
                            </div>
                            <div className="min-w-0 pr-4">
@@ -303,7 +303,7 @@ export default function WorkspaceSection({
                         </div>
                         <button 
                            onClick={() => { /* re-run logic */ }}
-                           className="px-3 py-1.5 bg-slate-100 text-slate-600 hover:bg-indigo-600 hover:text-white rounded-lg text-xs font-bold transition-colors flex items-center gap-1 shrink-0"
+                           className="px-3 py-1.5 bg-slate-100 text-slate-600 hover:bg-indigo-600 hover:text-white rounded-[16px] text-xs font-bold transition-colors flex items-center gap-1 shrink-0"
                         >
                            <RefreshCw className="w-3.5 h-3.5" /> Re-run
                         </button>
@@ -346,7 +346,7 @@ export default function WorkspaceSection({
                         <input
                           type="text"
                           placeholder="e.g. Tower Block Phase 1"
-                          className="flex-1 text-sm bg-white border border-slate-200 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
+                          className="flex-1 text-sm bg-white border border-slate-200 rounded-[16px] px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
                           value={newProjectName}
                           onChange={(e) => setNewProjectName(e.target.value)}
                           onKeyDown={(e) =>
@@ -357,7 +357,7 @@ export default function WorkspaceSection({
                         <button
                           onClick={handleCreateProject}
                           disabled={!newProjectName.trim()}
-                          className="w-9 h-9 flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-lg transition-colors shrink-0"
+                          className="w-9 h-9 flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-[16px] transition-colors shrink-0"
                         >
                           <Check className="w-4 h-4" />
                         </button>
@@ -366,7 +366,7 @@ export default function WorkspaceSection({
                             setIsCreatingProject(false);
                             setNewProjectName("");
                           }}
-                          className="w-9 h-9 flex items-center justify-center bg-white border border-slate-200 hover:bg-slate-100 text-slate-500 rounded-lg transition-colors shrink-0"
+                          className="w-9 h-9 flex items-center justify-center bg-white border border-slate-200 hover:bg-slate-100 text-slate-500 rounded-[16px] transition-colors shrink-0"
                         >
                           <X className="w-4 h-4" />
                         </button>
@@ -387,7 +387,7 @@ export default function WorkspaceSection({
                          key={`folder-${idx}`}
                          className="p-4 hover:bg-slate-50 transition-colors group flex items-start gap-3 cursor-pointer"
                        >
-                         <div className="w-10 h-10 rounded-lg bg-orange-50 text-orange-500 flex items-center justify-center shrink-0">
+                         <div className="w-10 h-10 rounded-[16px] bg-orange-50 text-orange-500 flex items-center justify-center shrink-0">
                            <FolderOpen className="w-5 h-5 fill-orange-200/50" />
                          </div>
                          <div className="flex-1 min-w-0">
@@ -432,7 +432,7 @@ export default function WorkspaceSection({
                       className="flex items-center justify-between p-4 bg-white hover:bg-slate-50 rounded-[20px] border border-slate-200 transition-all text-left group shadow-sm hover:shadow-md"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                        <div className="w-10 h-10 rounded-[24px] bg-slate-50 flex items-center justify-center text-slate-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
                           <mod.icon className="w-5 h-5" />
                         </div>
                         <div>
@@ -456,7 +456,7 @@ export default function WorkspaceSection({
               </h3>
               <div className="flex flex-col gap-3 relative z-10">
                  {notifications.map(note => (
-                    <div key={note.id} className="bg-white/80 backdrop-blur-sm p-3 rounded-xl border border-indigo-50/50 flex items-start gap-3">
+                    <div key={note.id} className="bg-white/80 backdrop-blur-sm p-3 rounded-[24px] border border-indigo-50/50 flex items-start gap-3">
                        <div className={`w-2 h-2 mt-1.5 rounded-full shrink-0 ${note.type === 'new' ? 'bg-amber-500' : 'bg-indigo-500'}`} />
                        <p className="text-sm font-medium text-slate-700 leading-snug">{note.text}</p>
                     </div>

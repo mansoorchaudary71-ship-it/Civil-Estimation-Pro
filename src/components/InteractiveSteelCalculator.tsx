@@ -36,12 +36,12 @@ export default function InteractiveSteelCalculator({
   }, [length, unit, initialDiameter]);
 
   return (
-    <main className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+    <main className="bg-white rounded-[24px] shadow-xl overflow-hidden border border-slate-200">
       <div className="grid grid-cols-1 lg:grid-cols-5">
         {/* Calculator Settings UI */}
         <div className="p-6 sm:p-10 lg:col-span-3 bg-white border-b lg:border-b-0 lg:border-r border-slate-200">
           <div className="flex items-center mb-8 pb-4 border-b border-slate-100">
-            <div className="bg-indigo-50 p-3 rounded-lg mr-4">
+            <div className="bg-indigo-50 p-3 rounded-[16px] mr-4">
               <svg
                 className="w-6 h-6 text-indigo-600"
                 fill="none"
@@ -85,7 +85,7 @@ export default function InteractiveSteelCalculator({
                   type="number"
                   readOnly
                   value={initialDiameter}
-                  className="block w-full rounded-xl border-slate-200 bg-slate-50 py-4 pl-5 pr-16 text-xl font-semibold text-slate-700 shadow-sm border focus:ring-0 focus:border-slate-300 transition-colors cursor-default"
+                  className="block w-full rounded-[24px] border-slate-200 bg-slate-50 py-4 pl-5 pr-16 text-xl font-semibold text-slate-700 shadow-sm border focus:ring-0 focus:border-slate-300 transition-colors cursor-default"
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-5 pointer-events-none">
                   <span className="text-slate-400 font-semibold text-lg">
@@ -99,7 +99,7 @@ export default function InteractiveSteelCalculator({
               <label className="flex items-center text-sm font-bold text-slate-700 mb-2">
                 Total Length
               </label>
-              <div className="relative focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 rounded-xl shadow-sm border border-slate-300 bg-white overflow-hidden flex transition-all">
+              <div className="relative focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 rounded-[24px] shadow-sm border border-slate-300 bg-white overflow-hidden flex transition-all">
                 <input
                   type="number"
                   value={length}
@@ -140,12 +140,12 @@ export default function InteractiveSteelCalculator({
         </div>
 
         {/* Results UI */}
-        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 dark:bg-[#252834]/90 backdrop-blur-md border border-slate-200/60 dark:border-white/5 shadow-sm dark:shadow-[0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
           <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-indigo-600 opacity-20 blur-3xl mix-blend-screen pointer-events-none"></div>
           <div className="absolute -bottom-24 -left-24 w-64 h-64 rounded-full bg-blue-500 opacity-20 blur-3xl mix-blend-screen pointer-events-none"></div>
 
           <div className="relative z-10">
-            <div className="inline-flex items-center px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs font-bold uppercase tracking-widest text-indigo-300 mb-6">
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-white border border-slate-700 text-xs font-bold uppercase tracking-widest text-indigo-300 mb-6">
               <span className="w-2 h-2 rounded-full bg-indigo-400 mr-2 animate-pulse"></span>
               Calculated Output
             </div>
@@ -160,7 +160,7 @@ export default function InteractiveSteelCalculator({
               <span className="text-2xl font-semibold text-slate-400 whitespace-nowrap">kg</span>
             </div>
 
-            <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-5 border border-slate-700/50">
+            <div className="bg-[#F5F5F7] backdrop-blur-sm rounded-[24px] p-5 border border-slate-200">
               <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center">
                 <svg
                   className="w-3.5 h-3.5 mr-1.5"
@@ -186,7 +186,7 @@ export default function InteractiveSteelCalculator({
                   <span className="text-sm text-slate-300">
                     Metric (per meter)
                   </span>
-                  <span className="font-mono text-[13px] sm:text-sm font-semibold text-indigo-300 bg-indigo-900/40 px-2 py-0.5 rounded">
+                  <span className="font-mono text-[13px] sm:text-sm font-semibold text-indigo-300 bg-indigo-100 px-2 py-0.5 rounded">
                     D² / 162.28 × L
                   </span>
                 </div>
@@ -198,7 +198,7 @@ export default function InteractiveSteelCalculator({
                   <span className="text-sm text-slate-300">
                     Imperial (per foot)
                   </span>
-                  <span className="font-mono text-[13px] sm:text-sm font-semibold text-indigo-300 bg-indigo-900/40 px-2 py-0.5 rounded">
+                  <span className="font-mono text-[13px] sm:text-sm font-semibold text-indigo-300 bg-indigo-100 px-2 py-0.5 rounded">
                     D² / 533 × L
                   </span>
                 </div>

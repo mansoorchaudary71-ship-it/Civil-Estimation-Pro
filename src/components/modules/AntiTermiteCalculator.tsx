@@ -93,18 +93,18 @@ export default function AntiTermiteCalculator() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <h2 className="text-3xl font-semibold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
-              <Bug className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
+            <h2 className="text-3xl font-semibold text-slate-900 flex items-center gap-3">
+              <Bug className="w-8 h-8 text-indigo-600" />
               Anti-Termite Treatment
             </h2>
-            <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 text-xs font-bold tracking-wide uppercase ml-2 border border-emerald-200 dark:border-emerald-800">
+            <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold tracking-wide uppercase ml-2 border border-emerald-200">
               Beginner
             </span>
-            <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-xs font-bold tracking-wide flex items-center gap-1 border border-slate-200 dark:border-slate-700">
+            <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-bold tracking-wide flex items-center gap-1 border border-slate-200">
               <Clock className="w-3.5 h-3.5" /> 2 MIN
             </span>
           </div>
-          <p className="text-slate-500 dark:text-slate-400 max-w-2xl text-sm leading-relaxed">
+          <p className="text-slate-500 max-w-2xl text-sm leading-relaxed">
             Estimate the total chemical emulsion volume and required concentrate for pre-construction termite soil treatment for building foundations and floor slabs.
           </p>
         </div>
@@ -112,11 +112,11 @@ export default function AntiTermiteCalculator() {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Input Panel */}
           <div className="w-full md:w-[45%] flex flex-col gap-6">
-            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden">
+            <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
               
-              <div className="flex items-center justify-between mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
-                <h3 className="font-bold text-lg text-slate-800 dark:text-slate-900 dark:text-white">Foundation Dimensions</h3>
+              <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
+                <h3 className="font-bold text-lg text-slate-800">Foundation Dimensions</h3>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
@@ -127,7 +127,7 @@ export default function AntiTermiteCalculator() {
                       type="number"
                       value={floorArea}
                       onChange={(e) => { setFloorArea(e.target.value); handleDataChange(); }}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                      className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                     />
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">{isMetric ? "sq m" : "sq ft"}</span>
                   </div>
@@ -139,7 +139,7 @@ export default function AntiTermiteCalculator() {
                       type="number"
                       value={perimeter}
                       onChange={(e) => { setPerimeter(e.target.value); handleDataChange(); }}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                      className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                     />
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">{isMetric ? "m" : "ft"}</span>
                   </div>
@@ -151,15 +151,15 @@ export default function AntiTermiteCalculator() {
                       type="number"
                       value={trenchDepth}
                       onChange={(e) => { setTrenchDepth(e.target.value); handleDataChange(); }}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                      className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                     />
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">{isMetric ? "m" : "ft"}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between mb-6 border-b border-slate-100 dark:border-slate-800 pb-4 mt-8">
-                <h3 className="font-bold text-lg text-slate-800 dark:text-slate-900 dark:text-white">Chemical Specs</h3>
+              <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4 mt-8">
+                <h3 className="font-bold text-lg text-slate-800">Chemical Specs</h3>
               </div>
 
               <div className="mb-4">
@@ -173,7 +173,7 @@ export default function AntiTermiteCalculator() {
                       handleDataChange();
                     }
                   }}
-                  className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold appearance-none"
+                  className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold appearance-none"
                 >
                   {chemicals.map(c => (
                     <option key={c.name} value={c.name}>{c.name}</option>
@@ -190,7 +190,7 @@ export default function AntiTermiteCalculator() {
                       type="number"
                       value={customRatio}
                       onChange={(e) => { setCustomRatio(e.target.value); handleDataChange(); }}
-                      className="flex-1 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500"
+                      className="flex-1 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500"
                     />
                   </div>
                 </div>
@@ -204,7 +204,7 @@ export default function AntiTermiteCalculator() {
                     type="number"
                     value={costPerLitre}
                     onChange={(e) => { setCostPerLitre(e.target.value); handleDataChange(); }}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl pl-8 pr-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] pl-8 pr-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-[10px] font-bold uppercase tracking-widest">per {isMetric ? "Liter" : "Gallon"}</span>
                 </div>
@@ -213,18 +213,18 @@ export default function AntiTermiteCalculator() {
               <button
                 onClick={() => processEstimate(() => {})}
                 disabled={isProcessing}
-                className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-md shadow-indigo-200 dark:shadow-none transition-all flex justify-center items-center gap-2 group border border-indigo-500"
+                className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-[24px] shadow-md shadow-indigo-200 transition-all flex justify-center items-center gap-2 group border border-indigo-500"
               >
                 {isProcessing ? "Computing..." : "Generate Estimate"}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
 
-            <div className="p-5 rounded-2xl border border-indigo-200 dark:border-indigo-800/50 bg-indigo-50/50 dark:bg-indigo-900/10 shadow-sm">
-              <h4 className="text-sm font-bold text-indigo-900 dark:text-indigo-300 mb-3 flex items-center gap-2">
+            <div className="p-5 rounded-[24px] border border-indigo-200 bg-indigo-50/50 shadow-sm">
+              <h4 className="text-sm font-bold text-indigo-900 mb-3 flex items-center gap-2">
                 <Calculator className="w-4 h-4" /> Math Logic & Formulas
               </h4>
-              <ul className="text-[11px] text-indigo-800/80 dark:text-indigo-300/80 space-y-2 list-disc list-inside leading-relaxed uppercase tracking-wider font-semibold">
+              <ul className="text-[11px] text-indigo-800/80 space-y-2 list-disc list-inside leading-relaxed uppercase tracking-wider font-semibold">
                 <li><strong className="lowercase">Floor Treatment</strong> = Floor Area × 5 Liters/sqm</li>
                 <li><strong className="lowercase">Trench Treatment</strong> = Perimeter × Depth × 7.5 Liters/sqm</li>
                 <li><strong className="lowercase">Total Emulsion</strong> = Floor Treatment + Trench Treatment</li>
@@ -232,12 +232,12 @@ export default function AntiTermiteCalculator() {
               </ul>
             </div>
             
-            <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h4 className="font-bold text-slate-800 dark:text-slate-200 mb-3 uppercase tracking-wide text-xs">Frequently Asked Questions</h4>
+            <div className="bg-white p-5 rounded-[24px] border border-slate-200 shadow-sm">
+              <h4 className="font-bold text-slate-800 mb-3 uppercase tracking-wide text-xs">Frequently Asked Questions</h4>
               <div className="space-y-3">
-                <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50">
-                  <p className="font-bold text-xs text-slate-700 dark:text-slate-300 mb-1">What is emulsion vs concentrate?</p>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">The "Concentrate" is the pure chemical you purchase in bottles. You mix it with water at a specific ratio to create the "Emulsion" which is flooded into the soil.</p>
+                <div className="p-3 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-100">
+                  <p className="font-bold text-xs text-slate-700 mb-1">What is emulsion vs concentrate?</p>
+                  <p className="text-[11px] text-slate-500">The "Concentrate" is the pure chemical you purchase in bottles. You mix it with water at a specific ratio to create the "Emulsion" which is flooded into the soil.</p>
                 </div>
               </div>
             </div>
@@ -249,13 +249,13 @@ export default function AntiTermiteCalculator() {
               <ProcessingSkeleton count={5} />
             ) : hasData && estimateData ? (
               <div className="space-y-6">
-                <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-lg relative overflow-hidden">
+                <div className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-lg relative overflow-hidden">
                   
-                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-6 mb-8">
+                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-100 pb-6 mb-8">
                     <div>
-                      <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-1 block">Total Treatment Cost</span>
+                      <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1 block">Total Treatment Cost</span>
                       <div className="flex items-baseline gap-2">
-                        <span className="text-4xl md:text-5xl font-semibold tabular-nums tracking-tight tracking-tight text-slate-900 dark:text-slate-900 dark:text-white">
+                        <span className="text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight tracking-tight text-slate-900">
                           ${estimateData.totalCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                         </span>
                       </div>
@@ -263,20 +263,20 @@ export default function AntiTermiteCalculator() {
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                    <div className="bg-indigo-50 dark:bg-indigo-900/20 p-5 rounded-2xl border border-indigo-100 dark:border-indigo-800/50 relative overflow-hidden">
+                    <div className="bg-indigo-50 p-5 rounded-[24px] border border-indigo-100 relative overflow-hidden">
                       <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
-                      <span className="text-indigo-600/80 dark:text-indigo-400/80 text-xs font-bold uppercase tracking-widest block mb-2 relative z-10 w-full truncate">Required Concentrate</span>
-                      <div className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-indigo-700 dark:text-indigo-300 relative z-10 flex items-baseline gap-1">
+                      <span className="text-indigo-600/80 text-xs font-bold uppercase tracking-widest block mb-2 relative z-10 w-full truncate">Required Concentrate</span>
+                      <div className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight text-indigo-700 relative z-10 flex items-baseline gap-1">
                         {estimateData.chemicalConcentrate.toLocaleString(undefined, {maximumFractionDigits: 1})}
                         <span className="text-lg font-bold">{estimateData.volumeUnit}</span>
                       </div>
                       <span className="text-[10px] text-indigo-500/70 font-bold mt-1 block relative z-10 uppercase tracking-widest">Pure Chemical Needed</span>
                     </div>
                     
-                    <div className="bg-cyan-50 dark:bg-cyan-900/20 p-5 rounded-2xl border border-cyan-100 dark:border-cyan-800/50 relative overflow-hidden">
+                    <div className="bg-cyan-50 p-5 rounded-[24px] border border-cyan-100 relative overflow-hidden">
                       <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
-                      <span className="text-cyan-600/80 dark:text-cyan-400/80 text-xs font-bold uppercase tracking-widest block mb-2 relative z-10 w-full truncate">Total Emulsion</span>
-                      <div className="text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-cyan-700 dark:text-cyan-300 relative z-10 flex items-baseline gap-1">
+                      <span className="text-cyan-600/80 text-xs font-bold uppercase tracking-widest block mb-2 relative z-10 w-full truncate">Total Emulsion</span>
+                      <div className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight text-cyan-700 relative z-10 flex items-baseline gap-1">
                         {estimateData.totalEmulsion.toLocaleString(undefined, {maximumFractionDigits: 0})}
                         <span className="text-lg font-bold">{estimateData.volumeUnit}</span>
                       </div>
@@ -284,30 +284,30 @@ export default function AntiTermiteCalculator() {
                     </div>
                   </div>
 
-                  <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-widest mb-4 border-b border-black/5 dark:border-white/5 pb-2">Application Breakdown</h4>
+                  <h4 className="text-sm font-bold text-slate-800 uppercase tracking-widest mb-4 border-b border-black/5 pb-2">Application Breakdown</h4>
                   
                   <div className="space-y-3 mb-6">
-                     <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl flex justify-between items-center group hover:border-indigo-200 dark:hover:border-indigo-800/60 transition-colors">
+                     <div className="bg-white border border-slate-100 p-4 rounded-[24px] flex justify-between items-center group hover:border-indigo-200 transition-colors">
                        <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold">Floor / Slab Emulsion</span>
-                       <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-200 font-mono">{Math.round(estimateData.emulsionFloor).toLocaleString()} {estimateData.volumeUnit}</span>
+                       <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 font-mono">{Math.round(estimateData.emulsionFloor).toLocaleString()} {estimateData.volumeUnit}</span>
                      </div>
-                     <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl flex justify-between items-center group hover:border-indigo-200 dark:hover:border-indigo-800/60 transition-colors">
+                     <div className="bg-white border border-slate-100 p-4 rounded-[24px] flex justify-between items-center group hover:border-indigo-200 transition-colors">
                        <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold">Trench / Perimeter Emulsion</span>
-                       <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-200 font-mono">{Math.round(estimateData.emulsionTrench).toLocaleString()} {estimateData.volumeUnit}</span>
+                       <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 font-mono">{Math.round(estimateData.emulsionTrench).toLocaleString()} {estimateData.volumeUnit}</span>
                      </div>
-                     <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 p-4 rounded-xl flex justify-between items-center">
+                     <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 p-4 rounded-[24px] flex justify-between items-center">
                        <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold">Dilution Ratio Used</span>
-                       <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-200 font-mono">1 : {estimateData.dilutionRatio}</span>
+                       <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 font-mono">1 : {estimateData.dilutionRatio}</span>
                      </div>
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="h-full min-h-[400px] flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border-2 border-dashed border-slate-200 dark:border-slate-800 p-8 text-center opacity-80">
-                <div className="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/50 rounded-full flex items-center justify-center mb-6 shadow-highlight">
-                  <Bug className="w-10 h-10 text-indigo-600 dark:text-indigo-400 opacity-80" />
+              <div className="h-full min-h-[400px] flex flex-col items-center justify-center bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[2rem] border-2 border-dashed border-slate-200 p-8 text-center opacity-80">
+                <div className="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mb-6 shadow-highlight">
+                  <Bug className="w-10 h-10 text-indigo-600 opacity-80" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-2">Configure Treatment</h3>
+                <h3 className="text-xl font-semibold text-slate-700 mb-2">Configure Treatment</h3>
                 <p className="text-slate-500 max-w-sm text-sm leading-relaxed mb-6">
                   Input the foundation dimensions and chemical dilution. The total required emulsion volume and pure concentrate amounts will be calculated.
                 </p>

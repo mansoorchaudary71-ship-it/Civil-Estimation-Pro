@@ -644,10 +644,10 @@ export default function HouseEstimator() {
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         <header className="mb-8 block">
           <div>
-            <h1 className="text-4xl lg:text-5xl font-bold tracking-tight tracking-tight  text-slate-900 dark:text-white bg-clip-text text-transparent pb-2">
+            <h1 className="text-[clamp(1.75rem,5vw,2.5rem)] break-all lg:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-bold tracking-tight tracking-tight text-slate-900 bg-clip-text text-transparent pb-2">
               Complete House Estimator
             </h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-2 text-lg font-medium">
+            <p className="text-gray-500 mt-2 text-lg font-medium">
               Precise civil engineering estimations for grey structure and
               finishing works.
             </p>
@@ -656,8 +656,8 @@ export default function HouseEstimator() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="bg-white px-4 py-3 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between gap-4">
-              <span className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-widest">
+            <div className="bg-white px-4 py-3 rounded-[24px] shadow-sm border border-gray-100 flex items-center justify-between gap-4">
+              <span className="text-sm font-bold text-gray-700 uppercase tracking-widest">
                 Built-up
               </span>
               <span className="text-2xl font-semibold tabular-nums tracking-tight text-indigo-600 tracking-tighter whitespace-nowrap">
@@ -677,7 +677,7 @@ export default function HouseEstimator() {
             {/* Quick Estimate Base Controls */}
             <div className="bg-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl space-y-6">
               <div className="flex items-center gap-3 mb-2">
-                <div className="p-3 bg-blue-50 text-indigo-600 rounded-2xl">
+                <div className="p-3 bg-blue-50 text-indigo-600 rounded-[24px]">
                   <Home className="w-6 h-6" />
                 </div>
                 <div>
@@ -692,7 +692,7 @@ export default function HouseEstimator() {
 
               {/* City Location */}
               <div>
-                <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-1.5 ml-1">
                   City / Location
                 </label>
                 <input
@@ -704,18 +704,18 @@ export default function HouseEstimator() {
                       siteLocation: e.target.value,
                     })
                   }
-                  className="bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all shadow-sm"
+                  className="bg-white border border-slate-200 rounded-[24px] px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all shadow-sm"
                   placeholder="e.g. DHA Phase 6"
                 />
               </div>
 
               {/* Plot Size */}
               <div>
-                <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1 group flex items-center gap-1 w-fit cursor-help">
+                <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-1.5 ml-1 group flex items-center gap-1 w-fit cursor-help">
                   Plot Size 
                   <span className="relative">
                     <AlertCircle className="w-3.5 h-3.5 text-slate-400" />
-                    <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max px-3 py-1.5 bg-slate-800 text-slate-900 dark:text-white text-[10px] rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                    <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max px-3 py-1.5 bg-white text-slate-900 text-[10px] rounded-[16px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all border border-slate-200 shadow-sm">
                       Total land area limits the maximum covered area
                     </span>
                   </span>
@@ -730,7 +730,7 @@ export default function HouseEstimator() {
                         payload: e.target.value,
                       })
                     }
-                    className="bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all font-medium shadow-sm w-full"
+                    className="bg-white border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all font-medium shadow-sm w-full"
                     placeholder="0"
                   />
                   <div className="w-full">
@@ -756,7 +756,7 @@ export default function HouseEstimator() {
               {/* Stories & Rooms Config */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
                     Stories
                   </label>
                   <div className="flex items-center gap-2">
@@ -767,7 +767,7 @@ export default function HouseEstimator() {
                           payload: Math.max(1, geoState.stories - 1),
                         })
                       }
-                      className="w-10 h-10 rounded-xl bg-slate-100 text-slate-600 font-bold hover:bg-slate-200 flex items-center justify-center"
+                      className="w-10 h-10 rounded-[24px] bg-slate-100 text-slate-600 font-bold hover:bg-slate-200 flex items-center justify-center"
                     >
                       -
                     </button>
@@ -781,7 +781,7 @@ export default function HouseEstimator() {
                           payload: geoState.stories + 1,
                         })
                       }
-                      className="w-10 h-10 rounded-xl bg-slate-100 text-slate-600 font-bold hover:bg-slate-200 flex items-center justify-center"
+                      className="w-10 h-10 rounded-[24px] bg-slate-100 text-slate-600 font-bold hover:bg-slate-200 flex items-center justify-center"
                     >
                       +
                     </button>
@@ -792,7 +792,7 @@ export default function HouseEstimator() {
               {/* Finish Quality */}
               <div className="pt-4 border-t border-slate-100 space-y-4">
                 <div className="flex items-center gap-2 mb-2">
-                   <div className="p-2 bg-violet-50 text-violet-600 rounded-xl">
+                   <div className="p-2 bg-violet-50 text-violet-600 rounded-[24px]">
                      <Sliders className="w-4 h-4" />
                    </div>
                    <h3 className="text-sm font-bold text-gray-700">Finish Quality</h3>
@@ -818,7 +818,7 @@ export default function HouseEstimator() {
                   step="1"
                   value={finishQuality}
                   onChange={(e) => setFinishQuality(parseInt(e.target.value))}
-                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-violet-600"
+                  className="w-full h-2 bg-slate-200 rounded-[16px] appearance-none cursor-pointer accent-violet-600"
                 />
                 <div className="flex justify-between text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-2">
                   <span>Std</span> <span>Prem</span> <span>Lux</span>
@@ -829,7 +829,7 @@ export default function HouseEstimator() {
             {/* International & Structural Setup */}
             <div className="bg-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl space-y-5">
               <div className="flex items-center gap-3 mb-2">
-                <div className="p-3 bg-teal-50 text-teal-600 rounded-2xl">
+                <div className="p-3 bg-teal-50 text-teal-600 rounded-[24px]">
                   <Database className="w-6 h-6" />
                 </div>
                 <div>
@@ -844,7 +844,7 @@ export default function HouseEstimator() {
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">Market Currency</label>
+                  <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-1.5 ml-1">Market Currency</label>
                   <select
                     value={currencyRate}
                     onChange={(e) => {
@@ -873,18 +873,18 @@ export default function HouseEstimator() {
                         setCustomRate("laborFinish", pst.laborFinish);
                       }
                     }}
-                    className="bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
+                    className="bg-white border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
                   >
                     {["PKR", "INR", "USD", "GBP", "AED", "SAR", "BDT", "LKR", "CUSTOM"].map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">Design Standard</label>
+                  <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-1.5 ml-1">Design Standard</label>
                   <select
                      value={designStandard}
                      onChange={(e) => setDesignStandard(e.target.value)}
-                     className="bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
+                     className="bg-white border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
                   >
                      <option>NBC Pakistan 2021</option>
                      <option>NBC India 2016</option>
@@ -896,11 +896,11 @@ export default function HouseEstimator() {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">Foundation Type</label>
+                  <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-1.5 ml-1">Foundation Type</label>
                   <select
                      value={foundationType}
                      onChange={(e) => setFoundationType(e.target.value)}
-                     className="bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
+                     className="bg-white border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
                   >
                      <option>Strip Foundation</option>
                      <option>Raft Foundation</option>
@@ -909,11 +909,11 @@ export default function HouseEstimator() {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">Structural System</label>
+                  <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-1.5 ml-1">Structural System</label>
                   <select
                      value={structuralSystem}
                      onChange={(e) => setStructuralSystem(e.target.value)}
-                     className="bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
+                     className="bg-white border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
                   >
                      <option>RCC Framed Structure</option>
                      <option>Load bearing masonry</option>
@@ -922,11 +922,11 @@ export default function HouseEstimator() {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1.5 ml-1">Seismic Zone</label>
+                  <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-widest mb-1.5 ml-1">Seismic Zone</label>
                   <select
                      value={seismicZone}
                      onChange={(e) => setSeismicZone(e.target.value)}
-                     className="bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
+                     className="bg-white border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
                   >
                      <option>Zone 1</option>
                      <option>Zone 2</option>
@@ -945,14 +945,14 @@ export default function HouseEstimator() {
                 onClick={() => setIsAccordionOpen(!isAccordionOpen)}
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-3 bg-slate-50 text-slate-600 rounded-2xl">
+                  <div className="p-3 bg-slate-50 text-slate-600 rounded-[24px]">
                     <Settings className="w-6 h-6" />
                   </div>
                   <h2 className="text-base font-bold text-gray-800">
                     Advanced Customization
                   </h2>
                 </div>
-                <div className="p-2 bg-transparent text-slate-500 dark:text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors">
+                <div className="p-2 bg-transparent text-slate-500 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors">
                   {isAccordionOpen ? (
                     <ChevronUp className="w-5 h-5" />
                   ) : (
@@ -964,14 +964,14 @@ export default function HouseEstimator() {
               {isAccordionOpen && (
                 <div className="mt-6 pt-6 border-t border-slate-100 space-y-6 animate-in slide-in-from-top-4 fade-in duration-300">
                   {/* Room Setup Button Trigger */}
-                  <div className="flex justify-between items-center bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
+                  <div className="flex justify-between items-center bg-indigo-50 p-4 rounded-[24px] border border-indigo-100">
                     <div>
                       <h3 className="text-sm font-bold text-indigo-900">Room Configuration</h3>
                       <p className="text-[10px] font-semibold text-indigo-600 uppercase tracking-wide">Customize layout specifics</p>
                     </div>
                     <button 
                       onClick={() => setIsRoomModalOpen(true)} 
-                      className="text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-xl transition-all shadow-sm active:scale-95 flex items-center gap-1"
+                      className="text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-[24px] transition-all shadow-sm active:scale-95 flex items-center gap-1"
                     >
                       Open Rooms <ChevronRight className="w-3 h-3" />
                     </button>
@@ -983,7 +983,7 @@ export default function HouseEstimator() {
                       Covered Area (Per Floor)
                       <span className="relative">
                         <AlertCircle className="w-3.5 h-3.5 text-slate-400" />
-                        <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max max-w-[200px] whitespace-normal px-3 py-1.5 bg-slate-800 text-slate-900 dark:text-white text-[10px] rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10 text-center">
+                        <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max max-w-[200px] whitespace-normal px-3 py-1.5 bg-white text-slate-900 text-[10px] rounded-[16px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10 text-center border border-slate-200 shadow-sm">
                           Total floor area constructed for a single story. Must be less than plot size.
                         </span>
                       </span>
@@ -998,7 +998,7 @@ export default function HouseEstimator() {
                             payload: e.target.value,
                           })
                         }
-                        className="w-full bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 font-medium shadow-sm"
+                        className="w-full bg-white border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 font-medium shadow-sm"
                         placeholder="0" 
                       />
                       <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-500 pointer-events-none">
@@ -1021,7 +1021,7 @@ export default function HouseEstimator() {
                           payload: e.target.value,
                         })
                       }
-                      className="w-full bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium text-sm shadow-sm"
+                      className="w-full bg-white border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium text-sm shadow-sm"
                     />
                   </div>
                   
@@ -1065,7 +1065,7 @@ export default function HouseEstimator() {
                             type="number"
                             value={bwLength || ""}
                             onChange={(e) => setBwLength(parseFloat(e.target.value))}
-                            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-700 text-sm font-medium focus:ring-2 focus:ring-indigo-500/50 focus:outline-none"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-[16px] px-3 py-2 text-slate-700 text-sm font-medium focus:ring-2 focus:ring-indigo-500/50 focus:outline-none"
                           />
                         </div>
                         <div>
@@ -1076,7 +1076,7 @@ export default function HouseEstimator() {
                             type="number"
                             value={bwHeight || ""}
                             onChange={(e) => setBwHeight(parseFloat(e.target.value))}
-                            className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-slate-700 text-sm font-medium focus:ring-2 focus:ring-indigo-500/50 focus:outline-none"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-[16px] px-3 py-2 text-slate-700 text-sm font-medium focus:ring-2 focus:ring-indigo-500/50 focus:outline-none"
                           />
                         </div>
                       </div>
@@ -1089,7 +1089,7 @@ export default function HouseEstimator() {
             
             <button
                onClick={() => setShowResults(true)}
-               className="w-full flex items-center justify-center gap-2 bg-slate-800 text-slate-900 dark:text-white font-bold px-8 py-4 rounded-2xl hover:bg-slate-900 transition-all active:scale-95 shadow-md shadow-slate-900/10"
+               className="w-full flex items-center justify-center gap-2 bg-white text-slate-900 font-bold px-8 py-4 rounded-[24px] hover:bg-indigo-700 transition-all active:scale-95 shadow-md shadow-slate-900/10"
             >
                Compute Total Cost
             </button>
@@ -1099,24 +1099,24 @@ export default function HouseEstimator() {
           <section className="lg:col-span-8 flex flex-col gap-6">
             <div className="sticky top-6 z-10 bg-indigo-600 rounded-[2rem] p-6 shadow-xl shadow-indigo-500/20 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2">
               <div className="flex items-center gap-4">
-                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 rounded-2xl">
-                  <Calculator className="w-8 h-8 text-slate-600 dark:text-slate-400" />
+                <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-100 rounded-[24px]">
+                  <Calculator className="w-8 h-8 text-slate-600" />
                 </div>
                 <div>
                   <h3 className="text-indigo-200 text-xs font-bold uppercase tracking-widest mb-0.5">Total Estimated Cost</h3>
-                  <p className="text-3xl sm:text-3xl md:text-4xl font-semibold tabular-nums tracking-tight tabular-nums text-slate-900 dark:text-white dark:text-slate-900 dark:text-white drop-shadow-sm">{formatCurrency(estimates.totalCost)}</p>
+                  <p className="text-3xl sm:text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight tabular-nums text-slate-900 drop-shadow-sm">{formatCurrency(estimates.totalCost)}</p>
                   <p className="text-indigo-200 text-[10px] mt-1 font-medium">Rates based on current regional market — verify with local suppliers.</p>
                 </div>
               </div>
-              <div className="flex gap-6 mt-4 sm:mt-0 w-full sm:w-auto p-4 sm:p-0 bg-white/5 sm:bg-transparent rounded-2xl sm:rounded-none">
+              <div className="flex gap-6 mt-4 sm:mt-0 w-full sm:w-auto p-4 sm:p-0 bg-white/5 sm:bg-transparent rounded-[24px] sm:rounded-[24px]">
                 <div>
                   <div className="text-indigo-200 text-[10px] font-bold uppercase tracking-wider mb-0.5">Basic Structure</div>
-                  <div className="text-lg font-bold tabular-nums text-slate-900 dark:text-white dark:text-slate-900 dark:text-white">{formatCurrency(estimates.totalGrey)}</div>
+                  <div className="text-lg font-bold tabular-nums text-slate-900">{formatCurrency(estimates.totalGrey)}</div>
                 </div>
                 <div className="w-px h-8 bg-indigo-400/30 self-center hidden sm:block"></div>
                 <div>
                   <div className="text-indigo-200 text-[10px] font-bold uppercase tracking-wider mb-0.5">Finishings</div>
-                  <div className="text-lg font-bold tabular-nums text-slate-900 dark:text-white dark:text-slate-900 dark:text-white">{formatCurrency(estimates.totalFinishing)}</div>
+                  <div className="text-lg font-bold tabular-nums text-slate-900">{formatCurrency(estimates.totalFinishing)}</div>
                 </div>
               </div>
             </div>
@@ -1156,7 +1156,7 @@ export default function HouseEstimator() {
                 onClick={() => setIsMathOpen(!isMathOpen)}
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-3 bg-slate-50 text-slate-600 rounded-2xl">
+                  <div className="p-3 bg-slate-50 text-slate-600 rounded-[24px]">
                     <Calculator className="w-6 h-6" />
                   </div>
                   <div>
@@ -1251,7 +1251,7 @@ export default function HouseEstimator() {
                       <h3 className="text-xl font-semibold text-slate-800 mt-8 mb-4">
                         Detailed Exact BOQ
                       </h3>
-                      <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm mb-8">
+                      <div className="border border-slate-200 rounded-[24px] overflow-hidden bg-white shadow-sm mb-8">
                         <table className="w-full text-sm text-left">
                           <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider">
                             <tr>
@@ -1273,7 +1273,7 @@ export default function HouseEstimator() {
                             <tr className="bg-transparent/50">
                               <td
                                 colSpan={4}
-                                className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"
+                                className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-700"
                               >
                                 Foundation Work
                               </td>
@@ -1291,12 +1291,12 @@ export default function HouseEstimator() {
                                     ? item.quantity.toLocaleString('en-US')
                                     : item.quantity}
                                   {item.rate && (
-                                    <div className="text-[10px] font-normal text-slate-700 dark:text-slate-300 mt-0.5 font-mono">
+                                    <div className="text-[10px] font-normal text-slate-700 mt-0.5 font-mono">
                                       @ {formatCurrency(item.rate)}/{item.unit}
                                     </div>
                                   )}
                                 </td>
-                                <td className="px-6 py-4 text-center font-medium text-slate-700 dark:text-slate-300">
+                                <td className="px-6 py-4 text-center font-medium text-slate-700">
                                   {item.unit}
                                 </td>
                                 <td className="px-6 py-4 text-right font-bold text-slate-800">
@@ -1307,7 +1307,7 @@ export default function HouseEstimator() {
                             <tr className="bg-transparent/50">
                               <td
                                 colSpan={4}
-                                className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300"
+                                className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-700"
                               >
                                 Above-Ground Work (Walls & Roof)
                               </td>
@@ -1325,12 +1325,12 @@ export default function HouseEstimator() {
                                     ? item.quantity.toLocaleString('en-US')
                                     : item.quantity}
                                   {item.rate && (
-                                    <div className="text-[10px] font-normal text-slate-700 dark:text-slate-300 mt-0.5 font-mono">
+                                    <div className="text-[10px] font-normal text-slate-700 mt-0.5 font-mono">
                                       @ {formatCurrency(item.rate)}/{item.unit}
                                     </div>
                                   )}
                                 </td>
-                                <td className="px-6 py-4 text-center font-medium text-slate-700 dark:text-slate-300">
+                                <td className="px-6 py-4 text-center font-medium text-slate-700">
                                   {item.unit}
                                 </td>
                                 <td className="px-6 py-4 text-right font-bold text-slate-800">
@@ -1428,7 +1428,7 @@ export default function HouseEstimator() {
                       <h3 className="text-xl font-semibold text-slate-800 mt-8 mb-4">
                         Detailed Exact BOQ
                       </h3>
-                      <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm mb-8">
+                      <div className="border border-slate-200 rounded-[24px] overflow-hidden bg-white shadow-sm mb-8">
                         <table className="w-full text-sm text-left">
                           <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider">
                             <tr>
@@ -1460,12 +1460,12 @@ export default function HouseEstimator() {
                                     ? Math.round(item.quantity).toLocaleString('en-US')
                                     : item.quantity}
                                   {item.rate && (
-                                    <div className="text-[10px] font-normal text-slate-700 dark:text-slate-300 mt-0.5 font-mono">
+                                    <div className="text-[10px] font-normal text-slate-700 mt-0.5 font-mono">
                                       @ {formatCurrency(item.rate)}/{item.unit}
                                     </div>
                                   )}
                                 </td>
-                                <td className="px-6 py-4 text-center font-medium text-slate-700 dark:text-slate-300">
+                                <td className="px-6 py-4 text-center font-medium text-slate-700">
                                   {item.unit}
                                 </td>
                                 <td className="px-6 py-4 text-right font-bold text-slate-800">
@@ -1550,20 +1550,20 @@ export default function HouseEstimator() {
                   {activeTab === "rates" && (
                     <div className="animate-in fade-in slide-in-from-bottom-8 duration-500 h-full flex flex-col text-left">
                       <div className="flex items-center gap-4 mb-6">
-                        <div className="p-3 bg-indigo-50 text-indigo-600 rounded-2xl">
+                        <div className="p-3 bg-indigo-50 text-indigo-600 rounded-[24px]">
                           <Database className="w-6 h-6" />
                         </div>
                         <div>
                           <h2 className="text-2xl font-semibold tracking-tight text-slate-800">
                             Configure Material Rates
                           </h2>
-                          <p className="text-slate-700 dark:text-slate-300 font-medium text-sm mt-1">
+                          <p className="text-slate-700 font-medium text-sm mt-1">
                             Review market rates and override with custom vendor quotes
                             if needed.
                           </p>
                         </div>
                       </div>
-                      <div className="flex-1 overflow-auto border border-slate-200 rounded-2xl mb-6">
+                      <div className="flex-1 overflow-auto border border-slate-200 rounded-[24px] mb-6">
                         <table className="w-full text-sm text-left">
                           <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider sticky top-0 z-10">
                             <tr>
@@ -1587,25 +1587,25 @@ export default function HouseEstimator() {
                               <tr key={item.key} className="hover:bg-transparent/80 transition-colors group">
                                 <td className="px-6 py-4 font-bold text-slate-700">
                                   <div className="flex items-center gap-3">
-                                    <div className={`flex items-center justify-center w-8 h-8 rounded-lg ${item.bg} group-hover:scale-110 transition-transform`}>
+                                    <div className={`flex items-center justify-center w-8 h-8 rounded-[24px] ${item.bg} group-hover:scale-110 transition-transform`}>
                                       <div className={`w-3 h-3 rounded-full ${item.color} shadow-sm`}></div>
                                     </div>
                                     <span>{item.name}</span>
                                   </div>
                                 </td>
-                                <td className="px-6 py-4 font-bold text-slate-700 dark:text-slate-300">
+                                <td className="px-6 py-4 font-bold text-slate-700">
                                   {formatCurrency(item.key === "bricks" ? marketRates[item.key] * 1000 : marketRates[item.key])}
                                 </td>
                                 <td className="px-6 py-3 bg-indigo-50/30">
                                   <div className="relative flex items-center">
-                                    <span className="absolute left-3 text-slate-700 dark:text-slate-300 font-bold mb-0.5">
+                                    <span className="absolute left-3 text-slate-700 font-bold mb-0.5">
                                       {settings.currency === "PKR" ? "Rs" : "$"}
                                     </span>
                                     <input
                                       type="number"
                                       min="0"
                                       step="any"
-                                      className={`w-full bg-white border ${customRates[item.key] !== undefined ? "border-indigo-300 ring-2 ring-indigo-500/20 text-indigo-700 font-bold" : "border-slate-200 text-slate-800"} rounded-xl py-2 pl-10 pr-3 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all`}
+                                      className={`w-full bg-white border ${customRates[item.key] !== undefined ? "border-indigo-300 ring-2 ring-indigo-500/20 text-indigo-700 font-bold" : "border-slate-200 text-slate-800"} rounded-[24px] py-2 pl-10 pr-3 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all`}
                                       placeholder="Default"
                                       value={customRates[item.key] !== undefined ? (item.key === "bricks" ? customRates[item.key]! * 1000 : customRates[item.key]) : ""}
                                       onChange={(e) => {
@@ -1627,7 +1627,7 @@ export default function HouseEstimator() {
                       <div className="flex flex-col sm:flex-row items-center justify-between mt-auto gap-4 pt-4 border-t border-slate-100">
                         <button
                           onClick={resetCustomRates}
-                          className="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-bold hover:text-slate-800 px-4 py-2 rounded-xl hover:bg-slate-100 transition-colors w-full sm:w-auto justify-center"
+                          className="flex items-center gap-2 text-slate-700 font-bold hover:text-slate-800 px-4 py-2 rounded-[24px] hover:bg-slate-100 transition-colors w-full sm:w-auto justify-center"
                         >
                           <RotateCcw className="w-4 h-4" /> Reset Defaults
                         </button>
@@ -1650,7 +1650,7 @@ export default function HouseEstimator() {
 
       {/* Room Customization Modal */}
       {isRoomModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#F5F5F7] backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl border border-slate-100 flex flex-col max-h-[90vh] overflow-hidden">
             <div className="flex items-center justify-between p-6 border-b border-slate-100 bg-slate-50/50">
               <div>
@@ -1683,54 +1683,54 @@ export default function HouseEstimator() {
                 
                 {activeRoomTab === "bedroom" && (
                   <>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Typical Length (ft)</label>
-                       <input type="number" value={roomConfigs.bedroom.length} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" value={roomConfigs.bedroom.length} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Typical Width (ft)</label>
-                       <input type="number" value={roomConfigs.bedroom.width} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" value={roomConfigs.bedroom.width} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Ceiling Height (ft)</label>
-                       <input type="number" value={roomConfigs.bedroom.height} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, height: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" value={roomConfigs.bedroom.height} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, height: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Wardrobe Length (ft)</label>
-                       <input type="number" value={roomConfigs.bedroom.wardrobeLength} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, wardrobeLength: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" value={roomConfigs.bedroom.wardrobeLength} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, wardrobeLength: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
                   </>
                 )}
 
                 {activeRoomTab === "washroom" && (
                   <>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Length (ft)</label>
-                       <input type="number" value={roomConfigs.washroom.length} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" value={roomConfigs.washroom.length} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Width (ft)</label>
-                       <input type="number" value={roomConfigs.washroom.width} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" value={roomConfigs.washroom.width} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Commode / WC Type</label>
-                       <select value={roomConfigs.washroom.wcType} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, wcType: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                       <select value={roomConfigs.washroom.wcType} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, wcType: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                          <option>Floor Mounted (Asian)</option>
                          <option>Floor Mounted (Western)</option>
                          <option>Wall Hung (Concealed)</option>
                        </select>
                     </div>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Shower Setup</label>
-                       <select value={roomConfigs.washroom.showerSetup} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, showerSetup: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                       <select value={roomConfigs.washroom.showerSetup} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, showerSetup: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                          <option>Standard Mixer</option>
                          <option>Glass Enclosure</option>
                          <option>Jacuzzi Tub</option>
                        </select>
                     </div>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Vanity / Basin</label>
-                       <select value={roomConfigs.washroom.vanity} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, vanity: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                       <select value={roomConfigs.washroom.vanity} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, vanity: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                          <option>Standard Ceramic</option>
                          <option>Custom PVC Vanity</option>
                          <option>Corian Marble Top</option>
@@ -1741,29 +1741,29 @@ export default function HouseEstimator() {
 
                 {activeRoomTab === "kitchen" && (
                   <>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Length (ft)</label>
-                       <input type="number" value={roomConfigs.kitchen.length} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" value={roomConfigs.kitchen.length} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Width (ft)</label>
-                       <input type="number" value={roomConfigs.kitchen.width} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" value={roomConfigs.kitchen.width} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Countertop (Length ft)</label>
-                       <input type="number" value={roomConfigs.kitchen.counterLength} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, counterLength: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" value={roomConfigs.kitchen.counterLength} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, counterLength: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Cabinets Material</label>
-                       <select value={roomConfigs.kitchen.cabinets} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, cabinets: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                       <select value={roomConfigs.kitchen.cabinets} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, cabinets: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                          <option>Lasani Wood</option>
                          <option>UV/Acrylic</option>
                          <option>Solid Ash/Oak</option>
                        </select>
                     </div>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Backsplash</label>
-                       <select value={roomConfigs.kitchen.backsplash} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, backsplash: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                       <select value={roomConfigs.kitchen.backsplash} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, backsplash: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                          <option>Ceramic Tiles</option>
                          <option>Glass/Mosaic</option>
                          <option>Corian Full Wall</option>
@@ -1774,38 +1774,38 @@ export default function HouseEstimator() {
 
                 {activeRoomTab === "living" && (
                   <>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Length (ft)</label>
-                       <input type="number" value={roomConfigs.livingRoom.length} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" value={roomConfigs.livingRoom.length} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Width (ft)</label>
-                       <input type="number" value={roomConfigs.livingRoom.width} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" value={roomConfigs.livingRoom.width} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Feature Wall Setup</label>
-                       <select value={roomConfigs.livingRoom.featureWall} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, featureWall: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                       <select value={roomConfigs.livingRoom.featureWall} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, featureWall: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                          <option>None</option>
                          <option>Yes (Wallpaper/Paint)</option>
                          <option>Yes (Wood Paneling / Marble)</option>
                        </select>
                     </div>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Chandelier Points</label>
-                       <input type="number" value={roomConfigs.livingRoom.chandelierPoints} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, chandelierPoints: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" value={roomConfigs.livingRoom.chandelierPoints} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, chandelierPoints: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
                   </>
                 )}
 
                 {activeRoomTab === "basement" && (
                   <>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Excavation Depth (ft)</label>
-                       <input type="number" value={roomConfigs.basement.depth} onChange={e => setRoomConfigs(p => ({...p, basement: {...p.basement, depth: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" value={roomConfigs.basement.depth} onChange={e => setRoomConfigs(p => ({...p, basement: {...p.basement, depth: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-white border border-slate-200 rounded-2xl flex flex-col gap-2">
+                    <div className="p-4 bg-white border border-slate-200 rounded-[24px] flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Retaining Wall Spec</label>
-                       <select value={roomConfigs.basement.retainingWall} onChange={e => setRoomConfigs(p => ({...p, basement: {...p.basement, retainingWall: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                       <select value={roomConfigs.basement.retainingWall} onChange={e => setRoomConfigs(p => ({...p, basement: {...p.basement, retainingWall: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                          <option>Standard Brick 13.5-inch</option>
                          <option>RCC 9-Inch</option>
                          <option>RCC 12-Inch Heavy</option>
@@ -1818,7 +1818,7 @@ export default function HouseEstimator() {
             </div>
             
             <div className="p-6 border-t border-slate-100 bg-white">
-               <button onClick={() => setIsRoomModalOpen(false)} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-4 rounded-2xl transition-all shadow-[0_4px_14px_0_rgba(79,70,229,0.39)] active:scale-95 flex justify-center items-center gap-2">
+               <button onClick={() => setIsRoomModalOpen(false)} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-4 rounded-[24px] transition-all shadow-[0_4px_14px_0_rgba(79,70,229,0.39)] active:scale-95 flex justify-center items-center gap-2">
                  <CheckCircle2 className="w-5 h-5" /> Save Detail Configurations
                </button>
             </div>

@@ -63,23 +63,23 @@ export function WelcomeModal() {
   const recommendedTools = getRecommendedTools();
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-900/60 backdrop-blur-md p-4 animate-in fade-in duration-300 font-sans">
-      <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col min-h-[500px]">
+    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-[#F5F5F7] backdrop-blur-md p-4 animate-in fade-in duration-300 font-sans">
+      <div className="bg-white border border-slate-100 rounded-[24px] w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col min-h-[500px]">
         
         <div className="p-8 pb-4">
           {/* Progress Indicator */}
           <div className="flex gap-2 mb-8">
-            <div className={`h-1.5 flex-1 rounded-full transition-colors ${step >= 1 ? 'bg-indigo-600' : 'bg-slate-100 dark:bg-slate-800'}`} />
-            <div className={`h-1.5 flex-1 rounded-full transition-colors ${step >= 2 ? 'bg-indigo-600' : 'bg-slate-100 dark:bg-slate-800'}`} />
-            <div className={`h-1.5 flex-1 rounded-full transition-colors ${step >= 3 ? 'bg-indigo-600' : 'bg-slate-100 dark:bg-slate-800'}`} />
+            <div className={`h-1.5 flex-1 rounded-full transition-colors ${step >= 1 ? 'bg-indigo-600' : 'bg-slate-100 '}`} />
+            <div className={`h-1.5 flex-1 rounded-full transition-colors ${step >= 2 ? 'bg-indigo-600' : 'bg-slate-100 '}`} />
+            <div className={`h-1.5 flex-1 rounded-full transition-colors ${step >= 3 ? 'bg-indigo-600' : 'bg-slate-100 '}`} />
           </div>
 
-          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-2" style={{ fontFamily: '"Clash Display", sans-serif' }}>
+          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-2" >
             {step === 1 && "What do you work on?"}
             {step === 2 && "What's your role?"}
             {step === 3 && "Pick your first tool."}
           </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
+          <p className="text-slate-500 font-medium">
             {step === 1 && "Start by telling us what type of projects you estimate most often."}
             {step === 2 && "This helps us personalize your dashboard and recommendations."}
             {step === 3 && "Based on your answers, here are the best tools to start with."}
@@ -93,22 +93,22 @@ export function WelcomeModal() {
                 <button
                   key={pt.id}
                   onClick={() => setProjectType(pt.id as ProjectType)}
-                  className={`flex flex-col items-start gap-4 p-5 rounded-2xl border-2 text-left transition-all group ${
+                  className={`flex flex-col items-start gap-4 p-5 rounded-[24px] border-2 text-left transition-all group ${
                     projectType === pt.id 
-                      ? 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' 
-                      : 'border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-800/50 hover:bg-slate-50 dark:hover:bg-slate-800'
+                      ? 'border-indigo-600 bg-indigo-50/50 ' 
+                      : 'border-slate-100  hover:border-indigo-200 hover:bg-slate-50'
                   }`}
                 >
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${
+                  <div className={`w-12 h-12 rounded-[24px] flex items-center justify-center transition-colors ${
                     projectType === pt.id 
                       ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/30' 
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-500 group-hover:bg-indigo-100 group-hover:text-indigo-600 dark:group-hover:bg-indigo-500/20 dark:group-hover:text-indigo-400'
+                      : 'bg-slate-100  text-slate-500 group-hover:bg-indigo-100 group-hover:text-indigo-600'
                   }`}>
                     {pt.icon}
                   </div>
                   <div>
-                    <h3 className={`font-bold text-lg mb-1 ${projectType === pt.id ? 'text-indigo-900 dark:text-indigo-100' : 'text-slate-900 dark:text-white'}`}>{pt.label}</h3>
-                    <p className={`text-sm ${projectType === pt.id ? 'text-indigo-700 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400'}`}>{pt.desc}</p>
+                    <h3 className={`font-bold text-lg mb-1 ${projectType === pt.id ? 'text-indigo-900 ' : 'text-slate-900 '}`}>{pt.label}</h3>
+                    <p className={`text-sm ${projectType === pt.id ? 'text-indigo-700 ' : 'text-slate-500 '}`}>{pt.desc}</p>
                   </div>
                   {projectType === pt.id && <CheckCircle2 className="w-5 h-5 absolute top-5 right-5 text-indigo-600" />}
                 </button>
@@ -122,16 +122,16 @@ export function WelcomeModal() {
                 <button
                   key={r.id}
                   onClick={() => setRole(r.id as UserRole)}
-                  className={`flex items-center gap-4 p-5 rounded-2xl border-2 text-left transition-all relative ${
+                  className={`flex items-center gap-4 p-5 rounded-[24px] border-2 text-left transition-all relative ${
                     role === r.id 
-                      ? 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20' 
-                      : 'border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-800/50 hover:bg-slate-50 dark:hover:bg-slate-800'
+                      ? 'border-indigo-600 bg-indigo-50/50 ' 
+                      : 'border-slate-100  hover:border-indigo-200 hover:bg-slate-50'
                   }`}
                 >
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${role === r.id ? 'bg-indigo-100 text-indigo-600 dark:bg-indigo-900/50 dark:text-indigo-400' : 'bg-slate-100 text-slate-400 dark:bg-slate-800'}`}>
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${role === r.id ? 'bg-indigo-100 text-indigo-600  ' : 'bg-slate-100 text-slate-400 '}`}>
                     {r.icon}
                   </div>
-                  <span className={`font-bold ${role === r.id ? 'text-indigo-900 dark:text-indigo-100' : 'text-slate-900 dark:text-white'}`}>{r.label}</span>
+                  <span className={`font-bold ${role === r.id ? 'text-indigo-900 ' : 'text-slate-900 '}`}>{r.label}</span>
                   {role === r.id && <CheckCircle2 className="w-5 h-5 absolute right-5 text-indigo-600" />}
                 </button>
               ))}
@@ -144,15 +144,15 @@ export function WelcomeModal() {
                 <button
                   key={tool.id}
                   onClick={() => setSelectedTool(tool.id)}
-                  className={`flex items-center justify-between p-5 rounded-2xl border-2 text-left transition-all group ${
+                  className={`flex items-center justify-between p-5 rounded-[24px] border-2 text-left transition-all group ${
                     selectedTool === tool.id 
-                      ? 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-900/20 shadow-[0_0_0_4px_rgba(79,70,229,0.1)]' 
-                      : 'border-slate-100 dark:border-slate-800 hover:border-indigo-200 dark:hover:border-indigo-800/50 hover:bg-slate-50 dark:hover:bg-slate-800'
+                      ? 'border-indigo-600 bg-indigo-50/50  shadow-[0_0_0_4px_rgba(79,70,229,0.1)]' 
+                      : 'border-slate-100  hover:border-indigo-200 hover:bg-slate-50'
                   }`}
                 >
                   <div>
-                    <h3 className={`font-bold text-lg mb-1 ${selectedTool === tool.id ? 'text-indigo-900 dark:text-indigo-100' : 'text-slate-900 dark:text-white'}`}>{tool.name}</h3>
-                    <p className={`text-sm ${selectedTool === tool.id ? 'text-indigo-700 dark:text-indigo-300' : 'text-slate-500 dark:text-slate-400'}`}>{tool.desc}</p>
+                    <h3 className={`font-bold text-lg mb-1 ${selectedTool === tool.id ? 'text-indigo-900 ' : 'text-slate-900 '}`}>{tool.name}</h3>
+                    <p className={`text-sm ${selectedTool === tool.id ? 'text-indigo-700 ' : 'text-slate-500 '}`}>{tool.desc}</p>
                   </div>
                   <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center ${selectedTool === tool.id ? 'border-indigo-600 text-indigo-600 bg-white' : 'border-slate-200 text-transparent'}`}>
                     {selectedTool === tool.id && <div className="w-3 h-3 rounded-full bg-indigo-600" />}
@@ -163,7 +163,7 @@ export function WelcomeModal() {
           )}
         </div>
 
-        <div className="p-6 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/80">
+        <div className="p-6 border-t border-slate-100 flex justify-between items-center bg-slate-50">
           {step > 1 ? (
              <button
               onClick={() => setStep(step - 1)}
@@ -179,7 +179,7 @@ export function WelcomeModal() {
             <button
               onClick={() => setStep(step + 1)}
               disabled={(step === 1 && !projectType) || (step === 2 && !role)}
-              className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 disabled:opacity-50 disabled:hover:bg-slate-900 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-sm hover:shadow-md"
+              className="flex items-center gap-2 bg-[#F5F5F7] hover:bg-indigo-600 disabled:opacity-50 disabled:hover:bg-indigo-600 text-white px-8 py-3 rounded-[24px] font-bold transition-all shadow-sm hover:shadow-md"
             >
               Continue
               <ArrowRight className="w-4 h-4" />
@@ -187,7 +187,7 @@ export function WelcomeModal() {
           ) : (
             <button
               onClick={handleComplete}
-              className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-[0_8px_20px_rgba(79,70,229,0.25)] hover:shadow-[0_12px_25px_rgba(79,70,229,0.35)] hover:-translate-y-0.5"
+              className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-[24px] font-bold transition-all shadow-[0_8px_20px_rgba(79,70,229,0.25)] hover:shadow-[0_12px_25px_rgba(79,70,229,0.35)] hover:-translate-y-0.5"
             >
               Let's Build It
               <ArrowRight className="w-4 h-4" />

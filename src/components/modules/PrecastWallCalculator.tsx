@@ -69,18 +69,18 @@ export default function PrecastWallCalculator() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
         <div className="mb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <h2 className="text-3xl font-semibold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-3">
-              <BrickWall className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
+            <h2 className="text-3xl font-semibold text-slate-900 flex items-center gap-3">
+              <BrickWall className="w-8 h-8 text-indigo-600" />
               Precast Wall Calculator
             </h2>
-            <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 text-xs font-bold tracking-wide uppercase ml-2 border border-emerald-200 dark:border-emerald-800">
+            <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold tracking-wide uppercase ml-2 border border-emerald-200">
               Beginner
             </span>
-            <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-xs font-bold tracking-wide flex items-center gap-1 border border-slate-200 dark:border-slate-700">
+            <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-bold tracking-wide flex items-center gap-1 border border-slate-200">
               <Clock className="w-3.5 h-3.5" /> 3 MIN
             </span>
           </div>
-          <p className="text-slate-500 dark:text-slate-400 max-w-2xl text-sm leading-relaxed">
+          <p className="text-slate-500 max-w-2xl text-sm leading-relaxed">
             Estimate quantities and costs for commercial boundary walls using precast concrete panels and H-columns. Get an instant Bill of Materials (BOM).
           </p>
         </div>
@@ -88,10 +88,10 @@ export default function PrecastWallCalculator() {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Input Panel */}
           <div className="w-full md:w-[45%] flex flex-col gap-6">
-            <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden">
+            <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
               
-              <h3 className="font-bold text-lg text-slate-800 dark:text-slate-900 dark:text-white mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
+              <h3 className="font-bold text-lg text-slate-800 mb-6 border-b border-slate-100 pb-4">
                 Boundary Dimensions
               </h3>
 
@@ -102,7 +102,7 @@ export default function PrecastWallCalculator() {
                     type="number"
                     value={totalLength}
                     onChange={(e) => setTotalLength(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                   />
                 </div>
                 <div>
@@ -111,12 +111,12 @@ export default function PrecastWallCalculator() {
                     type="number"
                     value={wallHeight}
                     onChange={(e) => setWallHeight(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                   />
                 </div>
               </div>
 
-              <h3 className="font-bold text-lg text-slate-800 dark:text-slate-900 dark:text-white mb-6 border-b border-slate-100 dark:border-slate-800 pb-4 mt-8">
+              <h3 className="font-bold text-lg text-slate-800 mb-6 border-b border-slate-100 pb-4 mt-8">
                 Precast Component Specs
               </h3>
 
@@ -127,7 +127,7 @@ export default function PrecastWallCalculator() {
                     type="number"
                     value={postSpacing}
                     onChange={(e) => setPostSpacing(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                   />
                 </div>
                 <div>
@@ -136,12 +136,12 @@ export default function PrecastWallCalculator() {
                     type="number"
                     value={slabHeight}
                     onChange={(e) => setSlabHeight(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
+                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
                   />
                 </div>
               </div>
 
-              <h3 className="font-bold text-lg text-slate-800 dark:text-slate-900 dark:text-white mb-6 border-b border-slate-100 dark:border-slate-800 pb-4 mt-8">
+              <h3 className="font-bold text-lg text-slate-800 mb-6 border-b border-slate-100 pb-4 mt-8">
                 Cost & Rates
               </h3>
 
@@ -152,7 +152,7 @@ export default function PrecastWallCalculator() {
                     type="number"
                     value={postRate}
                     onChange={(e) => setPostRate(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
+                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
                   />
                 </div>
                 <div>
@@ -161,7 +161,7 @@ export default function PrecastWallCalculator() {
                     type="number"
                     value={slabRate}
                     onChange={(e) => setSlabRate(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
+                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
                   />
                 </div>
                 <div>
@@ -170,7 +170,7 @@ export default function PrecastWallCalculator() {
                     type="number"
                     value={laborRatePerRunningMeter}
                     onChange={(e) => setLaborRate(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-900 dark:text-white rounded-xl px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
+                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
                   />
                 </div>
               </div>
@@ -178,18 +178,18 @@ export default function PrecastWallCalculator() {
               <button
                 onClick={() => processEstimate(() => {})}
                 disabled={isProcessing}
-                className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-md shadow-indigo-200 dark:shadow-none transition-all flex justify-center items-center gap-2 group border border-indigo-500"
+                className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-[24px] shadow-md shadow-indigo-200 transition-all flex justify-center items-center gap-2 group border border-indigo-500"
               >
                 {isProcessing ? "Computing..." : "Generate BOM"}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
 
-            <div className="p-5 rounded-2xl border border-indigo-200 dark:border-indigo-800/50 bg-indigo-50/50 dark:bg-indigo-900/10 shadow-sm">
-              <h4 className="text-sm font-bold text-indigo-900 dark:text-indigo-300 mb-3 flex items-center gap-2">
+            <div className="p-5 rounded-[24px] border border-indigo-200 bg-indigo-50/50 shadow-sm">
+              <h4 className="text-sm font-bold text-indigo-900 mb-3 flex items-center gap-2">
                 <Calculator className="w-4 h-4" /> Math Logic & Formulas
               </h4>
-              <ul className="text-[11px] text-indigo-800/80 dark:text-indigo-300/80 space-y-2 list-disc list-inside leading-relaxed uppercase tracking-wider font-semibold">
+              <ul className="text-[11px] text-indigo-800/80 space-y-2 list-disc list-inside leading-relaxed uppercase tracking-wider font-semibold">
                 <li>Bays = CEIL(Total Length / Post Spacing)</li>
                 <li>Posts Required = Total Bays + 1</li>
                 <li>Slabs per Bay = Wall height / Slab height</li>
@@ -197,12 +197,12 @@ export default function PrecastWallCalculator() {
               </ul>
             </div>
             
-            <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
-              <h4 className="font-bold text-slate-800 dark:text-slate-200 mb-3 uppercase tracking-wide text-xs">Frequently Asked Questions</h4>
+            <div className="bg-white p-5 rounded-[24px] border border-slate-200 shadow-sm">
+              <h4 className="font-bold text-slate-800 mb-3 uppercase tracking-wide text-xs">Frequently Asked Questions</h4>
               <div className="space-y-3">
-                <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-700/50">
-                  <p className="font-bold text-xs text-slate-700 dark:text-slate-300 mb-1">Why do we add 1 to the post count?</p>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">A linear wall segment requires a starting post and an ending post. For n bays, you need n+1 posts. If it's a closed loop enclosure, n posts = n bays.</p>
+                <div className="p-3 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-100">
+                  <p className="font-bold text-xs text-slate-700 mb-1">Why do we add 1 to the post count?</p>
+                  <p className="text-[11px] text-slate-500">A linear wall segment requires a starting post and an ending post. For n bays, you need n+1 posts. If it's a closed loop enclosure, n posts = n bays.</p>
                 </div>
               </div>
             </div>
@@ -214,24 +214,24 @@ export default function PrecastWallCalculator() {
               <ProcessingSkeleton count={5} />
             ) : hasData && estimateData ? (
               <div className="space-y-6">
-                <div className="bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-lg relative">
+                <div className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-lg relative">
                   
-                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-6 mb-6">
+                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-100 pb-6 mb-6">
                     <div>
-                      <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-1 block">Total BOM Cost</span>
+                      <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1 block">Total BOM Cost</span>
                       <div className="flex items-baseline gap-2">
-                        <span className="text-4xl md:text-5xl font-semibold tabular-nums tracking-tight tracking-tight text-slate-900 dark:text-slate-900 dark:text-white">
+                        <span className="text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight tracking-tight text-slate-900">
                           ${estimateData.totalCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200 uppercase tracking-widest mb-4">Material Breakdown</h4>
+                  <h4 className="text-sm font-bold text-slate-800 uppercase tracking-widest mb-4">Material Breakdown</h4>
                   
-                  <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden mb-8">
+                  <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-200 overflow-hidden mb-8">
                     <table className="w-full text-left text-sm">
-                      <thead className="bg-slate-100 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest text-[10px]">
+                      <thead className="bg-slate-100 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-widest text-[10px]">
                         <tr>
                           <th className="px-4 py-3">Component</th>
                           <th className="px-4 py-3 text-right">Quantity</th>
@@ -239,51 +239,51 @@ export default function PrecastWallCalculator() {
                           <th className="px-4 py-3 text-right">Amount</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-100 dark:divide-slate-700/50">
+                      <tbody className="divide-y divide-slate-100">
                         <tr>
-                          <td className="px-4 py-3 font-semibold text-slate-800 dark:text-slate-200">H-Column Posts</td>
+                          <td className="px-4 py-3 font-semibold text-slate-800">H-Column Posts</td>
                           <td className="px-4 py-3 text-right font-mono">{estimateData.numberOfPosts} nos</td>
                           <td className="px-4 py-3 text-right font-mono">${postRate}</td>
                           <td className="px-4 py-3 text-right font-mono font-bold">${estimateData.costPosts.toLocaleString()}</td>
                         </tr>
                         <tr>
-                          <td className="px-4 py-3 font-semibold text-slate-800 dark:text-slate-200">Precast Slabs</td>
+                          <td className="px-4 py-3 font-semibold text-slate-800">Precast Slabs</td>
                           <td className="px-4 py-3 text-right font-mono">{estimateData.totalSlabs} nos</td>
                           <td className="px-4 py-3 text-right font-mono">${slabRate}</td>
                           <td className="px-4 py-3 text-right font-mono font-bold">${estimateData.costSlabs.toLocaleString()}</td>
                         </tr>
                         <tr>
-                          <td className="px-4 py-3 font-semibold text-slate-800 dark:text-slate-200">Installation/Labor</td>
+                          <td className="px-4 py-3 font-semibold text-slate-800">Installation/Labor</td>
                           <td className="px-4 py-3 text-right font-mono">{totalLength} {estimateData.lengthOption}</td>
                           <td className="px-4 py-3 text-right font-mono">${laborRatePerRunningMeter}/{estimateData.lengthOption}</td>
                           <td className="px-4 py-3 text-right font-mono font-bold">${estimateData.costLabor.toLocaleString()}</td>
                         </tr>
-                        <tr className="bg-slate-100/50 dark:bg-slate-800/30">
-                          <td colSpan={3} className="px-4 py-3 font-bold text-slate-800 dark:text-slate-200 text-right">Total Estimates</td>
-                          <td className="px-4 py-3 text-right font-semibold tabular-nums tracking-tight text-indigo-600 dark:text-indigo-400">${estimateData.totalCost.toLocaleString()}</td>
+                        <tr className="bg-slate-100/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
+                          <td colSpan={3} className="px-4 py-3 font-bold text-slate-800 text-right">Total Estimates</td>
+                          <td className="px-4 py-3 text-right font-semibold tabular-nums tracking-tight text-indigo-600">${estimateData.totalCost.toLocaleString()}</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm text-center">
-                      <span className="text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest block mb-1">Total Bays Formed</span>
-                      <div className="text-xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.numberOfBays}</div>
+                    <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-4 rounded-[24px] border border-slate-200 shadow-sm text-center">
+                      <span className="text-slate-500 text-[10px] font-bold uppercase tracking-widest block mb-1">Total Bays Formed</span>
+                      <div className="text-xl font-semibold tabular-nums tracking-tight text-slate-800">{estimateData.numberOfBays}</div>
                     </div>
-                    <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm text-center">
-                      <span className="text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-widest block mb-1">Slabs per Bay</span>
-                      <div className="text-xl font-semibold tabular-nums tracking-tight text-slate-800 dark:text-slate-900 dark:text-white">{estimateData.slabsPerBay}</div>
+                    <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-4 rounded-[24px] border border-slate-200 shadow-sm text-center">
+                      <span className="text-slate-500 text-[10px] font-bold uppercase tracking-widest block mb-1">Slabs per Bay</span>
+                      <div className="text-xl font-semibold tabular-nums tracking-tight text-slate-800">{estimateData.slabsPerBay}</div>
                     </div>
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="h-full min-h-[400px] flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border-2 border-dashed border-slate-200 dark:border-slate-800 p-8 text-center bg-graph-pattern opacity-80 mix-blend-multiply dark:mix-blend-lighten">
-                <div className="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/50 rounded-full flex items-center justify-center mb-6 shadow-highlight">
-                  <BrickWall className="w-10 h-10 text-indigo-600 dark:text-indigo-400 opacity-80" />
+              <div className="h-full min-h-[400px] flex flex-col items-center justify-center bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[2rem] border-2 border-dashed border-slate-200 p-8 text-center bg-graph-pattern opacity-80 mix-blend-multiply">
+                <div className="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mb-6 shadow-highlight">
+                  <BrickWall className="w-10 h-10 text-indigo-600 opacity-80" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-2">Build the Wall</h3>
+                <h3 className="text-xl font-semibold text-slate-700 mb-2">Build the Wall</h3>
                 <p className="text-slate-500 max-w-sm text-sm leading-relaxed mb-6">
                   Input the plot dimensions and precast component specs. A complete tabular Bill of Materials and cost breakdown will be generated instantly.
                 </p>

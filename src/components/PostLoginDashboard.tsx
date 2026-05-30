@@ -87,10 +87,10 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
         <div className="flex flex-col items-center text-center gap-4 bg-white/70 backdrop-blur-3xl border border-white/40 rounded-[40px] p-6 sm:p-8 md:p-12 shadow-md hover:shadow-xl transition-shadow relative group w-full box-border">
           <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/10 pointer-events-none rounded-[40px]"></div>
           <div className="z-10 relative flex flex-col items-center">
-            <h1 className="text-2xl md:text-3xl lg:text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-[var(--primary-dark)] dark:text-white tracking-tight mb-3">
+            <h1 className="text-2xl md:text-3xl lg:text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-[var(--primary-dark)] tracking-tight mb-3">
               Welcome back{user?.displayName ? `, ${user.displayName.split(' ')[0]}` : ''}
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 font-medium text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+            <p className="text-slate-500 font-medium text-sm md:text-base max-w-xl mx-auto leading-relaxed">
               Ready to calculate your next project? Pick up where you left off or start a new estimate.
             </p>
           </div>
@@ -125,7 +125,7 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
     {/* Recent Estimates Section */}
     <div className="w-full flex flex-col gap-4 mt-2">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-white flex items-center gap-2 tracking-tight">
+        <h2 className="text-xl font-semibold text-slate-900 flex items-center gap-2 tracking-tight">
           <Clock className="w-5 h-5 text-[var(--accent-blue)]" />
           Recent Estimates
         </h2>
@@ -148,20 +148,20 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
           {recentEstimates.map((est, index) => (
             <div key={est.id} className={`flex items-center justify-between p-4 sm:p-5 ${index !== recentEstimates.length - 1 ? 'border-b border-slate-200/50' : ''} hover:bg-white/50 transition-colors group/est`}>
               <div className="flex items-center gap-4">
-                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center shrink-0">
-                  <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 dark:text-blue-400" />
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
+                  <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-semibold text-[16px] sm:text-[17px] text-slate-900 dark:text-white leading-tight mb-0.5">{est.name}</span>
-                  <div className="flex items-center gap-2 text-[13px] sm:text-[14px] text-slate-500 dark:text-slate-400">
+                  <span className="font-semibold text-[16px] sm:text-[17px] text-slate-900 leading-tight mb-0.5">{est.name}</span>
+                  <div className="flex items-center gap-2 text-[13px] sm:text-[14px] text-slate-500">
                     <span>{est.date}</span>
                     <span>•</span>
-                    <span className="text-slate-600 dark:text-slate-300 font-medium">{est.totalCost > 0 ? formatCurrency(est.totalCost) : '-'}</span>
+                    <span className="text-slate-600 font-medium">{est.totalCost > 0 ? formatCurrency(est.totalCost) : '-'}</span>
                   </div>
                 </div>
               </div>
               <button 
-                className="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-bold rounded-full transition-colors group-hover/est:bg-indigo-50 dark:group-hover/est:bg-indigo-900 group-hover/est:text-indigo-600 dark:group-hover/est:text-indigo-300"
+                className="px-5 py-2.5 bg-slate-100 text-slate-700 text-sm font-bold rounded-full transition-colors group-hover/est:bg-indigo-50 group-hover/est:text-indigo-600"
               >
                 Resume
               </button>
@@ -169,11 +169,11 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center p-12 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-3xl text-center">
-          <div className="w-16 h-16 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mb-4">
-            <FileText className="w-8 h-8 text-slate-400 dark:text-slate-500" />
+        <div className="flex flex-col items-center justify-center p-12 bg-slate-50 border border-slate-200 rounded-[24px] text-center">
+          <div className="w-16 h-16 rounded-[24px] bg-white border border-slate-200 flex items-center justify-center mb-4">
+            <FileText className="w-8 h-8 text-slate-400" />
           </div>
-          <p className="text-slate-900 dark:text-white font-bold text-lg mb-1">No recent estimates</p>
+          <p className="text-slate-900 font-bold text-lg mb-1">No recent estimates</p>
           <p className="text-slate-500 font-medium text-sm">Create a new estimate to get started</p>
         </div>
       )}

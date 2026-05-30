@@ -138,20 +138,20 @@ export default function ReinforcementVisualizer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mt-6">
           {/* Controls */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700">
-              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white mb-4">
+            <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-6 rounded-[24px] border border-slate-200">
+              <h3 className="text-lg font-bold text-slate-800 mb-4">
                 Geometry Inputs
               </h3>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-sm font-bold text-slate-700 mb-1">
                     Element Type
                   </label>
                   <select
                     value={type}
                     onChange={(e) => setType(e.target.value as ElementType)}
-                    className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                    className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] focus:ring-2 focus:ring-indigo-500 outline-none"
                   >
                     <option value="Beam">Beam</option>
                     <option value="Column">Column</option>
@@ -161,51 +161,51 @@ export default function ReinforcementVisualizer() {
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
                       Width (mm)
                     </label>
                     <input
                       type="number"
                       value={width}
                       onChange={(e) => setWidth(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
                       Depth (mm)
                     </label>
                     <input
                       type="number"
                       value={depth}
                       onChange={(e) => setDepth(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
                       Clear Cover (mm)
                     </label>
                     <input
                       type="number"
                       value={cover}
                       onChange={(e) => setCover(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
                     />
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-200 dark:border-slate-700">
-              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white mb-4">
+            <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-6 rounded-[24px] border border-slate-200">
+              <h3 className="text-lg font-bold text-slate-800 mb-4">
                 Reinforcement
               </h3>
               <div className="space-y-4">
                 {type !== "Slab" && (
-                  <div className="grid grid-cols-2 gap-3 pb-3 border-b border-slate-200 dark:border-slate-700">
+                  <div className="grid grid-cols-2 gap-3 pb-3 border-b border-slate-200">
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
                         Top Bars Count
                       </label>
                       <input
@@ -214,18 +214,18 @@ export default function ReinforcementVisualizer() {
                         onChange={(e) =>
                           setTopBarsCount(Number(e.target.value))
                         }
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                        className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
                         min={2}
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
                         Top Bar Dia (mm)
                       </label>
                       <select
                         value={topBarsDia}
                         onChange={(e) => setTopBarsDia(Number(e.target.value))}
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                        className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
                       >
                         {[8, 10, 12, 16, 20, 25, 32].map((d) => (
                           <option key={d} value={d}>
@@ -237,9 +237,9 @@ export default function ReinforcementVisualizer() {
                   </div>
                 )}
 
-                <div className="grid grid-cols-2 gap-3 pb-3 border-b border-slate-200 dark:border-slate-700">
+                <div className="grid grid-cols-2 gap-3 pb-3 border-b border-slate-200">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
                       {type === "Slab" ? "Main Bars" : "Bottom Bars"} Count
                     </label>
                     <input
@@ -248,18 +248,18 @@ export default function ReinforcementVisualizer() {
                       onChange={(e) =>
                         setBottomBarsCount(Number(e.target.value))
                       }
-                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
                       min={2}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
                       Bottom Bar Dia
                     </label>
                     <select
                       value={bottomBarsDia}
                       onChange={(e) => setBottomBarsDia(Number(e.target.value))}
-                      className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                      className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
                     >
                       {[8, 10, 12, 16, 20, 25, 32].map((d) => (
                         <option key={d} value={d}>
@@ -273,13 +273,13 @@ export default function ReinforcementVisualizer() {
                 {type !== "Slab" && (
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
                         Stirrup Dia (mm)
                       </label>
                       <select
                         value={stirrupDia}
                         onChange={(e) => setStirrupDia(Number(e.target.value))}
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                        className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
                       >
                         {[8, 10, 12].map((d) => (
                           <option key={d} value={d}>
@@ -289,7 +289,7 @@ export default function ReinforcementVisualizer() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
                         Spacing (c/c)
                       </label>
                       <input
@@ -298,7 +298,7 @@ export default function ReinforcementVisualizer() {
                         onChange={(e) =>
                           setStirrupSpacing(Number(e.target.value))
                         }
-                        className="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600 rounded-lg outline-none"
+                        className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
                       />
                     </div>
                   </div>
@@ -308,7 +308,7 @@ export default function ReinforcementVisualizer() {
 
             <div className="space-y-3">
               <div
-                className={`p-4 rounded-xl border flex items-start gap-3 ${coverCheck.pass ? "bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-500/10 dark:border-emerald-500/20 dark:text-emerald-400" : "bg-rose-50 border-rose-200 text-rose-800 dark:bg-rose-500/10 dark:border-rose-500/20 dark:text-rose-400"}`}
+                className={`p-4 rounded-[24px] border flex items-start gap-3 ${coverCheck.pass ? "bg-emerald-50 border-emerald-200 text-emerald-800   " : "bg-rose-50 border-rose-200 text-rose-800   "}`}
               >
                 {coverCheck.pass ? (
                   <CheckCircle className="w-5 h-5 shrink-0 mt-0.5" />
@@ -325,7 +325,7 @@ export default function ReinforcementVisualizer() {
 
               {type !== "Slab" && (
                 <div
-                  className={`p-4 rounded-xl border flex items-start gap-3 ${spacingCheck.pass ? "bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-500/10 dark:border-emerald-500/20 dark:text-emerald-400" : "bg-rose-50 border-rose-200 text-rose-800 dark:bg-rose-500/10 dark:border-rose-500/20 dark:text-rose-400"}`}
+                  className={`p-4 rounded-[24px] border flex items-start gap-3 ${spacingCheck.pass ? "bg-emerald-50 border-emerald-200 text-emerald-800   " : "bg-rose-50 border-rose-200 text-rose-800   "}`}
                 >
                   {spacingCheck.pass ? (
                     <CheckCircle className="w-5 h-5 shrink-0 mt-0.5" />
@@ -346,28 +346,28 @@ export default function ReinforcementVisualizer() {
           {/* Visualization Viewer */}
           <div className="lg:col-span-7 flex flex-col">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-bold text-slate-800 dark:text-slate-900 dark:text-white px-2">
+              <h3 className="text-lg font-bold text-slate-800 px-2">
                 Cross Section Preview
               </h3>
               <div className="flex gap-2">
                 <button
                   onClick={downloadSvg}
-                  className="px-3 py-1.5 bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 text-sm font-bold border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center gap-2"
+                  className="px-3 py-1.5 bg-white text-indigo-600 text-sm font-bold border border-slate-200 rounded-[16px] hover:bg-slate-50 transition flex items-center gap-2"
                 >
                   <FileImage className="w-4 h-4" /> SVG
                 </button>
                 <button
                   onClick={handleDownloadPng}
-                  className="px-3 py-1.5 bg-indigo-600 text-white text-sm font-bold rounded-lg hover:bg-indigo-700 transition flex items-center gap-2 shadow-sm"
+                  className="px-3 py-1.5 bg-indigo-600 text-white text-sm font-bold rounded-[16px] hover:bg-indigo-700 transition flex items-center gap-2 shadow-sm"
                 >
                   <Download className="w-4 h-4" /> PNG
                 </button>
               </div>
             </div>
 
-            <div className="flex-1 bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden relative min-h-[400px] flex items-center justify-center p-4">
+            <div className="flex-1 bg-white [#1e293b] border border-slate-200 rounded-[24px] overflow-hidden relative min-h-[400px] flex items-center justify-center p-4">
               <div
-                className="absolute inset-0 pattern-grid-lg text-slate-100 dark:text-slate-800/50 pointer-events-none"
+                className="absolute inset-0 pattern-grid-lg text-slate-100 pointer-events-none"
                 style={{
                   backgroundSize: "20px 20px",
                   backgroundImage:

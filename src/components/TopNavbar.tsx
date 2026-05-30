@@ -69,11 +69,7 @@ export default function TopNavbar({
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-[110] transition-all duration-300 ${
-          scrolled
-            ? "bg-[#0A0F1E]/80 backdrop-blur-md shadow-sm border-b border-slate-800 py-3"
-            : "bg-transparent py-5"
-        }`}
+        className={`fixed top-0 left-0 right-0 z-[110] transition-all duration-300 bg-white border-b border-slate-200 ${scrolled ? "py-3 shadow-sm" : "py-4"}`}
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
           {/* Logo Left */}
@@ -82,16 +78,16 @@ export default function TopNavbar({
             onClick={() => onNavigate && onNavigate("home")}
           >
             <div
-              className={`w-10 h-10 rounded-xl bg-gradient-to-br from-[#F59E0B] to-amber-600 flex items-center justify-center text-slate-900 shadow-lg font-bold text-xl tracking-tighter transition-all group-hover:scale-105 ${scrolled ? "shadow-amber-500/20" : ""}`}
-              style={{ fontFamily: "Clash Display, sans-serif" }}
+              className={`w-10 h-10 rounded-[24px] bg-gradient-to-br from-[#F59E0B] to-amber-600 flex items-center justify-center text-slate-900 shadow-lg font-bold text-xl tracking-tighter transition-all group-hover:scale-105 ${scrolled ? "shadow-amber-500/20" : ""}`}
+              
             >
               C
             </div>
             <span
               className={`font-bold text-lg hidden sm:block ${
-                scrolled ? "text-white" : "text-white"
+                scrolled ? "text-slate-900" : "text-slate-900"
               }`}
-              style={{ fontFamily: "Clash Display, sans-serif" }}
+              
             >
               Civil Estimation Pro
             </span>
@@ -109,8 +105,8 @@ export default function TopNavbar({
                 id="app-sidebar-trigger"
                 className={`flex items-center gap-1.5 font-bold transition-colors outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded px-2 py-1 ${
                   scrolled
-                    ? "text-slate-300 hover:text-white"
-                    : "text-slate-300 hover:text-white"
+                    ? "text-slate-700 hover:text-slate-900"
+                    : "text-slate-700 hover:text-slate-900"
                 }`}
                 aria-haspopup="menu"
                 aria-expanded={toolsDropdownOpen}
@@ -131,7 +127,7 @@ export default function TopNavbar({
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 15 }}
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[900px] bg-white/95 backdrop-blur-2xl rounded-3xl shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] border border-slate-100/50 p-6 flex flex-col gap-6"
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-[900px] bg-white/95 backdrop-blur-2xl rounded-[24px] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] border border-slate-100/50 p-6 flex flex-col gap-6"
                   >
                     {/* Search Bar inside Mega Menu */}
                     <div className="relative w-full">
@@ -139,7 +135,7 @@ export default function TopNavbar({
                       <input
                         type="text"
                         placeholder="Search 50+ tools, calculators, templates..."
-                        className="w-full bg-slate-50 border border-slate-200 text-slate-900 font-medium rounded-xl py-3 pl-12 pr-4 outline-none focus:ring-2 focus:ring-indigo-500 transition-shadow"
+                        className="w-full bg-slate-50 border border-slate-200 text-slate-900 font-medium rounded-[24px] py-3 pl-12 pr-4 outline-none focus:ring-2 focus:ring-indigo-500 transition-shadow"
                       />
                     </div>
 
@@ -160,14 +156,14 @@ export default function TopNavbar({
                                 return (
                                   <button
                                     key={mod.id}
-                                    className={`flex items-start gap-3 p-3 -mx-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer text-left group/item`}
+                                    className={`flex items-start gap-3 p-3 -mx-3 rounded-[24px] hover:bg-slate-50 transition-colors cursor-pointer text-left group/item`}
                                     onClick={() => {
                                       setToolsDropdownOpen(false);
                                       onNavigate && onNavigate(mod.id);
                                     }}
                                   >
                                     <div
-                                      className={`mt-0.5 w-10 h-10 shrink-0 rounded-lg ${theme.bg} ${theme.text} flex items-center justify-center group-hover/item:scale-110 transition-transform`}
+                                      className={`mt-0.5 w-10 h-10 shrink-0 rounded-[24px] ${theme.bg} ${theme.text} flex items-center justify-center group-hover/item:scale-110 transition-transform`}
                                     >
                                       <mod.icon className="w-5 h-5" />
                                     </div>
@@ -204,22 +200,22 @@ export default function TopNavbar({
                           Featured Tool
                         </h3>
                         <div
-                          className="relative flex-1 rounded-2xl bg-gradient-to-br from-indigo-500 rounded-xl overflow-hidden cursor-pointer group/featured p-6 flex flex-col justify-end min-h-[160px]"
+                          className="relative flex-1 rounded-[24px] bg-gradient-to-br from-indigo-500 rounded-[24px] overflow-hidden cursor-pointer group/featured p-6 flex flex-col justify-end min-h-[160px]"
                           onClick={() => {
                             setToolsDropdownOpen(false);
                             onNavigate && onNavigate(featuredTool.id);
                           }}
                         >
-                          <div className="absolute inset-0 bg-[#0A0F1E] z-0"></div>
+                          <div className="absolute inset-0 bg-[#F5F5F7] z-0"></div>
                           <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 to-transparent z-0"></div>
 
                           <featuredTool.icon className="absolute -right-4 -bottom-4 w-32 h-32 text-indigo-500/20 group-hover/featured:scale-110 group-hover/featured:rotate-[-10deg] transition-transform duration-500 z-0" />
 
                           <div className="relative z-10">
-                            <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white mb-4 shadow-xl">
+                            <div className="w-12 h-12 rounded-[24px] bg-white/10 backdrop-blur-md flex items-center justify-center text-slate-900 mb-4 shadow-xl">
                               <featuredTool.icon className="w-6 h-6" />
                             </div>
-                            <h4 className="font-bold text-white text-lg leading-tight mb-1">
+                            <h4 className="font-bold text-slate-900 text-lg leading-tight mb-1">
                               {featuredTool.title}
                             </h4>
                             <p className="text-indigo-200 text-sm line-clamp-2">
@@ -237,8 +233,8 @@ export default function TopNavbar({
             <button
               className={`font-bold transition-colors ${
                 scrolled
-                  ? "text-slate-300 hover:text-white"
-                  : "text-slate-300 hover:text-white"
+                  ? "text-slate-700 hover:text-slate-900"
+                  : "text-slate-700 hover:text-slate-900"
               }`}
               onClick={() => onNavigate && onNavigate("pricing")}
             >
@@ -247,8 +243,8 @@ export default function TopNavbar({
             <button
               className={`font-bold transition-colors ${
                 scrolled
-                  ? "text-slate-300 hover:text-white"
-                  : "text-slate-300 hover:text-white"
+                  ? "text-slate-700 hover:text-slate-900"
+                  : "text-slate-700 hover:text-slate-900"
               }`}
               onClick={() => onNavigate && onNavigate("blog")}
             >
@@ -259,7 +255,7 @@ export default function TopNavbar({
           {/* Right Section (Desktop) */}
           <div className="hidden md:flex items-center gap-5">
             <button
-              className="relative p-2 text-slate-300 hover:text-white transition-colors"
+              className="relative p-2 text-slate-700 hover:text-slate-900 transition-colors"
               aria-label="Notifications"
             >
               <Bell className="w-5 h-5" />
@@ -269,15 +265,15 @@ export default function TopNavbar({
             <button
               className={`font-bold px-3 py-2 transition-colors ${
                 scrolled
-                  ? "text-slate-300 hover:text-white"
-                  : "text-slate-300 hover:text-white"
+                  ? "text-slate-700 hover:text-slate-900"
+                  : "text-slate-700 hover:text-slate-900"
               }`}
               onClick={() => onOpenAuth && onOpenAuth()}
             >
               Log In
             </button>
             <button
-              className="btn-micro bg-[#F59E0B] hover:bg-[#fbbf24] text-slate-900 font-bold px-6 py-2.5 rounded-full shadow-[0_4px_16px_-4px_rgba(245,158,11,0.5)] hover:shadow-[0_8px_20px_-4px_rgba(245,158,11,0.6)] transition-all flex items-center justify-center gap-2"
+              className="btn-micro bg-white hover:bg-slate-50 text-slate-900 font-semibold px-7 py-2.5 rounded hover:-translate-y-0.5 shadow-md hover:shadow-lg transition-transform flex items-center justify-center gap-2"
               onClick={() => onNavigate && onNavigate("dashboard")}
             >
               Start Free
@@ -287,14 +283,14 @@ export default function TopNavbar({
           {/* Mobile Hamburger */}
           <div className="md:hidden flex items-center gap-4">
             <button
-              className="relative p-2 text-slate-300 hover:text-white transition-colors"
+              className="relative p-2 text-slate-700 hover:text-slate-900 transition-colors"
               aria-label="Notifications"
             >
               <Bell className="w-5 h-5" />
               <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 border-2 border-[#0A0F1E] rounded-full"></span>
             </button>
             <button
-              className="p-2 text-white"
+              className="p-2 text-slate-800"
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open Menu"
             >
@@ -316,8 +312,8 @@ export default function TopNavbar({
           >
             <div className="px-5 flex items-center justify-between mb-8">
               <div
-                className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#F59E0B] to-amber-600 flex items-center justify-center text-slate-900 shadow-lg font-bold text-xl tracking-tighter"
-                style={{ fontFamily: "Clash Display, sans-serif" }}
+                className="w-10 h-10 rounded-[24px] bg-gradient-to-br from-[#F59E0B] to-amber-600 flex items-center justify-center text-slate-900 shadow-lg font-bold text-xl tracking-tighter"
+                
               >
                 C
               </div>
@@ -336,7 +332,7 @@ export default function TopNavbar({
                 <input
                   type="text"
                   placeholder="Search tools..."
-                  className="w-full bg-slate-100 text-slate-900 font-medium rounded-2xl py-4 pl-12 pr-4 outline-none focus:ring-2 focus:ring-indigo-500 transition-shadow"
+                  className="w-full bg-slate-100 text-slate-900 font-medium rounded-[24px] py-4 pl-12 pr-4 outline-none focus:ring-2 focus:ring-indigo-500 transition-shadow"
                 />
               </div>
             </div>
@@ -344,7 +340,7 @@ export default function TopNavbar({
             <div className="flex-1 px-5 flex flex-col gap-6">
               <div
                 className="font-bold text-slate-900 text-2xl"
-                style={{ fontFamily: "Clash Display, sans-serif" }}
+                
               >
                 Categories
               </div>
@@ -359,7 +355,7 @@ export default function TopNavbar({
                     }}
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                      <div className="w-12 h-12 rounded-[24px] bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
                         <Box className="w-6 h-6" />
                       </div>
                       <div className="text-left">
@@ -379,7 +375,7 @@ export default function TopNavbar({
 
             <div className="p-5 mt-auto bg-slate-50 flex flex-col gap-3">
               <button
-                className="w-full py-4 text-center font-bold text-slate-900 hover:bg-slate-200/50 rounded-xl transition-colors"
+                className="w-full py-4 text-center font-bold text-slate-900 hover:bg-slate-200/50 rounded-[24px] transition-colors"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onNavigate && onNavigate("pricing");
@@ -388,7 +384,7 @@ export default function TopNavbar({
                 Pricing
               </button>
               <button
-                className="w-full py-4 text-center font-bold text-slate-900 hover:bg-slate-200/50 rounded-xl transition-colors"
+                className="w-full py-4 text-center font-bold text-slate-900 hover:bg-slate-200/50 rounded-[24px] transition-colors"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onOpenAuth && onOpenAuth();
@@ -397,7 +393,7 @@ export default function TopNavbar({
                 Sign In
               </button>
               <button
-                className="w-full py-4 rounded-xl font-bold text-slate-900 bg-[#F59E0B] hover:bg-[#fbbf24] shadow-[0_4px_16px_-4px_rgba(245,158,11,0.5)] transition-all"
+                className="w-full py-4 rounded-[24px] font-bold text-slate-900 bg-[#F59E0B] hover:bg-[#fbbf24] shadow-[0_4px_16px_-4px_rgba(245,158,11,0.5)] transition-all"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onNavigate && onNavigate("dashboard");

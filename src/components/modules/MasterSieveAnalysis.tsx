@@ -172,9 +172,9 @@ export default function MasterSieveAnalysis() {
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-6xl mx-auto pb-20">
       
       {/* Header */}
-      <div className="bg-white dark:bg-[#151821] rounded-2xl p-6 md:p-8 mb-6 shadow-sm border border-slate-200 dark:border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <div className="bg-white [#151821] rounded-[24px] p-6 md:p-8 mb-6 shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#F26B1D]/10 border border-[#F26B1D]/20 mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[16px] bg-[#F26B1D]/10 border border-[#F26B1D]/20 mb-3">
              <FileSpreadsheet className="w-4 h-4 text-[#F26B1D]" />
              <span className="text-xs font-bold text-[#F26B1D] uppercase tracking-wider">Geotechnical Lab</span>
           </div>
@@ -195,16 +195,16 @@ export default function MasterSieveAnalysis() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column: Inputs & Data entry */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white dark:bg-[#151821] rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-white/5">
+          <div className="bg-white [#151821] rounded-[24px] p-6 shadow-sm border border-slate-200">
             <h3 className="text-lg font-bold text-text-primary mb-6 flex items-center gap-2">
               <Calculator className="w-5 h-5 text-[#F26B1D]" /> Spec Selection & Input
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Category</label>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">Category</label>
                 <select 
-                  className="w-full px-4 py-3 rounded-xl bg-bg-primary/50 border border-border-color focus:ring-2 focus:ring-[#F26B1D] outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
+                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-[#F26B1D] outline-none text-slate-700 font-medium transition-all"
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
                 >
@@ -213,9 +213,9 @@ export default function MasterSieveAnalysis() {
               </div>
               
               <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Grading Spec</label>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">Grading Spec</label>
                 <select 
-                  className="w-full px-4 py-3 rounded-xl bg-bg-primary/50 border border-border-color focus:ring-2 focus:ring-[#F26B1D] outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
+                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-[#F26B1D] outline-none text-slate-700 font-medium transition-all"
                   value={selectedGrading}
                   onChange={(e) => setSelectedGrading(e.target.value)}
                 >
@@ -226,12 +226,12 @@ export default function MasterSieveAnalysis() {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Total Sample Wt. (gm)</label>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">Total Sample Wt. (gm)</label>
                 <input 
                   type="number"
                   min="0"
                   placeholder="e.g. 5000"
-                  className="w-full px-4 py-3 rounded-xl bg-bg-primary/50 border border-border-color focus:ring-2 focus:ring-[#F26B1D] outline-none text-slate-700 dark:text-slate-200 font-medium transition-all"
+                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-[#F26B1D] outline-none text-slate-700 font-medium transition-all"
                   value={totalWeight}
                   onChange={(e) => handleTotalWeightChange(e.target.value)}
                 />
@@ -255,26 +255,26 @@ export default function MasterSieveAnalysis() {
                     const hasInput = row.weightRetained !== "" || totalWeight !== "";
                     
                     return (
-                      <tr key={row.size} className="border-b border-border-color/50 hover:bg-slate-50 dark:hover:bg-slate-800/20 transition-colors">
-                        <td className="py-3 px-4 font-mono text-sm text-slate-800 dark:text-slate-200 font-medium">{row.size}</td>
+                      <tr key={row.size} className="border-b border-border-color/50 hover:bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 transition-colors">
+                        <td className="py-3 px-4 font-mono text-sm text-slate-800 font-medium">{row.size}</td>
                         <td className="py-2 px-4">
                           <input 
                             type="number"
                             min="0"
-                            className="w-24 px-3 py-1.5 rounded-lg bg-bg-card border border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-[#F26B1D] outline-none text-sm text-slate-700 dark:text-slate-200 font-medium transition-all"
+                            className="w-24 px-3 py-1.5 rounded-[16px] bg-bg-card border border-slate-300 focus:ring-2 focus:ring-[#F26B1D] outline-none text-sm text-slate-700 font-medium transition-all"
                             value={row.weightRetained}
                             onChange={(e) => handleWeightChange(idx, e.target.value)}
                           />
                         </td>
-                        <td className="py-3 px-4 text-sm font-medium text-slate-600 dark:text-slate-400">
+                        <td className="py-3 px-4 text-sm font-medium text-slate-600">
                           {row.cumulativeWeightRetained}
                         </td>
                         <td className="py-3 px-4 text-sm font-medium text-slate-500">
                           {row.minPassing} - {row.maxPassing}
                         </td>
-                        <td className={`py-3 px-4 text-sm font-bold ${hasInput ? (isPassing ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500 dark:text-red-400') : 'text-slate-600 dark:text-slate-400'}`}>
+                        <td className={`py-3 px-4 text-sm font-bold ${hasInput ? (isPassing ? 'text-emerald-600 ' : 'text-red-500 ') : 'text-slate-600 '}`}>
                           {hasInput ? (
-                            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md ${isPassing ? 'bg-emerald-50 dark:bg-emerald-900/20' : 'bg-red-50 dark:bg-red-900/20'}`}>
+                            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md ${isPassing ? 'bg-emerald-50 ' : 'bg-red-50 '}`}>
                               {row.percentPassing.toFixed(1)}%
                               {!isPassing && <AlertCircle className="w-3.5 h-3.5" />}
                             </span>
@@ -292,15 +292,15 @@ export default function MasterSieveAnalysis() {
 
         {/* Right Column: Chart */}
         <div className="space-y-6">
-          <div className="bg-white dark:bg-[#151821] rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-white/5 h-[500px] flex flex-col">
+          <div className="bg-white [#151821] rounded-[24px] p-6 shadow-sm border border-slate-200 h-[500px] flex flex-col">
             <h3 className="text-lg font-bold text-text-primary mb-6 flex items-center gap-2">
               <LineChart className="w-5 h-5 text-[#F26B1D]" /> Gradation Curve
             </h3>
             
             <div className="flex-1 w-full relative min-h-0">
                {totalWeight === "" ? (
-                 <div className="absolute inset-0 flex items-center justify-center bg-slate-50/50 dark:bg-slate-900/50 rounded-xl border border-dashed border-slate-300 dark:border-slate-700">
-                   <p className="text-slate-500 dark:text-slate-400 font-medium text-sm text-center px-4">
+                 <div className="absolute inset-0 flex items-center justify-center bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-dashed border-slate-300">
+                   <p className="text-slate-500 font-medium text-sm text-center px-4">
                      Enter Total Sample Weight and Sieve values to generate plot.
                    </p>
                  </div>
@@ -341,12 +341,12 @@ export default function MasterSieveAnalysis() {
                )}
             </div>
             {totalWeight !== "" && (
-              <div className="mt-4 pt-4 border-t border-slate-200 dark:border-white/5 flex flex-wrap gap-4 justify-between items-center bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl">
-                <div><span className="text-xs text-slate-500 block uppercase font-bold">D10</span><strong className="text-sm dark:text-slate-900 dark:text-white">{d10 ? `${d10.toFixed(3)}mm` : 'N/A'}</strong></div>
-                <div><span className="text-xs text-slate-500 block uppercase font-bold">D30</span><strong className="text-sm dark:text-slate-900 dark:text-white">{d30 ? `${d30.toFixed(3)}mm` : 'N/A'}</strong></div>
-                <div><span className="text-xs text-slate-500 block uppercase font-bold">D60</span><strong className="text-sm dark:text-slate-900 dark:text-white">{d60 ? `${d60.toFixed(3)}mm` : 'N/A'}</strong></div>
-                <div><span className="text-xs text-slate-500 block uppercase font-bold">Cu</span><strong className="text-sm dark:text-slate-900 dark:text-white">{cu ? cu.toFixed(2) : 'N/A'}</strong></div>
-                <div><span className="text-xs text-slate-500 block uppercase font-bold">Cc</span><strong className="text-sm dark:text-slate-900 dark:text-white">{cc ? cc.toFixed(2) : 'N/A'}</strong></div>
+              <div className="mt-4 pt-4 border-t border-slate-200 flex flex-wrap gap-4 justify-between items-center bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-3 rounded-[24px]">
+                <div><span className="text-xs text-slate-500 block uppercase font-bold">D10</span><strong className="text-sm">{d10 ? `${d10.toFixed(3)}mm` : 'N/A'}</strong></div>
+                <div><span className="text-xs text-slate-500 block uppercase font-bold">D30</span><strong className="text-sm">{d30 ? `${d30.toFixed(3)}mm` : 'N/A'}</strong></div>
+                <div><span className="text-xs text-slate-500 block uppercase font-bold">D60</span><strong className="text-sm">{d60 ? `${d60.toFixed(3)}mm` : 'N/A'}</strong></div>
+                <div><span className="text-xs text-slate-500 block uppercase font-bold">Cu</span><strong className="text-sm">{cu ? cu.toFixed(2) : 'N/A'}</strong></div>
+                <div><span className="text-xs text-slate-500 block uppercase font-bold">Cc</span><strong className="text-sm">{cc ? cc.toFixed(2) : 'N/A'}</strong></div>
                 <div className="shrink-0 max-w-[200px] text-right">
                   <span className="text-xs text-slate-500 block uppercase font-bold">USCS Class</span>
                   <strong className="text-sm text-[#F26B1D] truncate block" title={uscs}>{uscs}</strong>
@@ -355,14 +355,14 @@ export default function MasterSieveAnalysis() {
             )}
           </div>
           
-          <div className="bg-[#F26B1D] text-slate-900 dark:text-white rounded-2xl p-6 shadow-[0_8px_30px_rgba(242,107,29,0.3)] border border-[#F26B1D]/50 relative overflow-hidden group">
+          <div className="bg-[#F26B1D] text-slate-900 rounded-[24px] p-6 shadow-[0_8px_30px_rgba(242,107,29,0.3)] border border-[#F26B1D]/50 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-[150px] h-[150px] bg-white/20 blur-[50px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
             <h3 className="text-xl font-heading font-semibold tabular-nums tracking-tight mb-2 relative z-10">Instant Report</h3>
             <p className="text-orange-100 text-sm mb-6 relative z-10 font-medium">Generate a professional specification-compliant testing report instantly.</p>
             <button 
               onClick={handleSave}
               disabled={totalWeight === ""}
-              className="w-full flex items-center justify-center gap-2 bg-white text-[#F26B1D] font-bold py-3 px-4 rounded-xl shadow-sm hover:shadow-md transition-all group-hover:-translate-y-1 relative z-10 disabled:opacity-75 disabled:cursor-not-allowed">
+              className="w-full flex items-center justify-center gap-2 bg-white text-[#F26B1D] font-bold py-3 px-4 rounded-[24px] shadow-sm hover:shadow-md transition-all group-hover:-translate-y-1 relative z-10 disabled:opacity-75 disabled:cursor-not-allowed">
               <Download className="w-5 h-5" /> Export PDF
             </button>
           </div>
