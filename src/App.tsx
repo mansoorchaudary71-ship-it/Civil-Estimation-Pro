@@ -566,7 +566,7 @@ export default function App() {
                               ref={scrollRef}
                               className="flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto"
                             >
-                              <div className="flex flex-col min-h-full relative w-full">
+                              <div className="flex flex-col min-h-[100.1%] relative w-full bg-[#f8fafc] dark:bg-slate-900 shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-0 rounded-b-[30px] md:rounded-b-[50px] overflow-hidden border-b border-slate-200 dark:border-slate-800">
                                 {activeModule === "home" && (
                                   <Dashboard
                                     previousModule={previousModule}
@@ -624,11 +624,11 @@ export default function App() {
                                     onNavigate={handleSelectModule}
                                   />
                                 )}
-                                <Footer
-                                  activeModule={activeModule}
-                                  onNavigate={handleSelectModule}
-                                />
                               </div>
+                              <Footer
+                                activeModule={activeModule}
+                                onNavigate={handleSelectModule}
+                              />
                             </div>
                           ) : (
                             <div className="flex-1 flex flex-col min-h-0 relative w-full bg-transparent">

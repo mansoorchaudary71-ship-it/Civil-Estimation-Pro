@@ -267,22 +267,29 @@ export default function PricingPage() {
 
         {/* FAQs */}
         <div className="max-w-3xl mx-auto">
-          <h3 className="text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">Frequently Asked Questions</h3>
+          <h3 className="text-4xl md:text-6xl font-black tracking-tighter text-center text-slate-900 dark:text-white mb-20 uppercase">Frequently Asked Questions</h3>
           <div className="space-y-4">
             {FAQS.map((faq, idx) => (
               <div 
                 key={idx} 
-                className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl overflow-hidden transition-all duration-300 shadow-sm"
+                className="border-b border-slate-200/80 dark:border-slate-800"
               >
                 <button 
                   onClick={() => handleToggleFaq(idx)}
-                  className="w-full flex items-center justify-between p-6 text-left outline-none"
+                  className="w-full flex items-center justify-between py-8 text-left outline-none group"
                 >
-                  <span className="font-bold text-lg text-slate-900 dark:text-white pr-4">{faq.question}</span>
-                  <ChevronDown className={cn(
-                    "w-5 h-5 text-slate-400 transition-transform duration-300 shrink-0",
-                    openFaq === idx ? "rotate-180" : ""
-                  )} />
+                  <span className={cn(
+                    "text-2xl md:text-3xl font-black tracking-tight transition-colors duration-400 pr-4 drop-shadow-sm",
+                    openFaq === idx ? "text-cyan-500" : "text-slate-900 dark:text-white group-hover:text-slate-600 dark:group-hover:text-slate-300"
+                  )}>
+                    {faq.question}
+                  </span>
+                  <div className={cn(
+                    "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 shrink-0",
+                    openFaq === idx ? "rotate-180 bg-cyan-50 dark:bg-cyan-900/20 text-cyan-500" : "bg-slate-50 dark:bg-slate-800 text-slate-400 group-hover:bg-slate-100 dark:group-hover:bg-slate-700"
+                  )}>
+                    <ChevronDown className="w-6 h-6 border-none" />
+                  </div>
                 </button>
                 <AnimatePresence>
                   {openFaq === idx && (
@@ -290,9 +297,10 @@ export default function PricingPage() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
+                      transition={{ type: "spring", stiffness: 180, damping: 20 }}
                       className="overflow-hidden"
                     >
-                      <div className="p-6 pt-0 text-slate-600 dark:text-slate-400 font-medium leading-relaxed border-t border-slate-50 dark:border-slate-800/50">
+                      <div className="pb-8 pt-2 text-slate-500 dark:text-slate-400 md:text-lg font-medium leading-relaxed max-w-3xl border-t border-transparent">
                         {faq.answer}
                       </div>
                     </motion.div>

@@ -82,6 +82,7 @@ import {
 import PostLoginDashboard from "./PostLoginDashboard";
 import { useSettings } from "../context/SettingsContext";
 import ToolCard from "./ToolCard";
+import { BentoGrid } from "./BentoGrid";
 import { ScrollReveal } from "./ui/ScrollReveal";
 
 export const ALL_MODULES = [
@@ -1212,20 +1213,29 @@ export default function Dashboard({
                     <h3 className="sticky top-[64px] z-30 bg-white/95 backdrop-blur-md py-4 text-sm font-bold text-slate-900 uppercase tracking-widest border-b border-slate-100 mb-6 shadow-sm -mx-4 px-4 sm:mx-0 sm:px-0">
                       {groupName}
                     </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-                      {groupedModules[groupName].map((mod, idx) => (
-                        <ToolCard
-                          key={mod.id}
-                          mod={mod}
-                          onSelect={handleSelect}
-                          isUsed={
-                            settings.usedTools &&
-                            settings.usedTools.includes(mod.id)
-                          }
-                          idx={idx}
-                        />
-                      ))}
-                    </div>
+                    
+                    {groupName === 'Quantity Estimator' || groupName === 'Concrete Tech' ? (
+                      <BentoGrid 
+                        modules={groupedModules[groupName]} 
+                        onSelect={handleSelect} 
+                        usedTools={settings.usedTools} 
+                      />
+                    ) : (
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+                        {groupedModules[groupName].map((mod, idx) => (
+                          <ToolCard
+                            key={mod.id}
+                            mod={mod}
+                            onSelect={handleSelect}
+                            isUsed={
+                              settings.usedTools &&
+                              settings.usedTools.includes(mod.id)
+                            }
+                            idx={idx}
+                          />
+                        ))}
+                      </div>
+                    )}
                     </ScrollReveal>
                   </div>
                 ))

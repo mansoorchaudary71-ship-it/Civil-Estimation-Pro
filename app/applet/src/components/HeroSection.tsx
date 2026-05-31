@@ -1,7 +1,5 @@
-const fs = require('fs');
-
-const heroContent = `import React, { useRef } from 'react';
-import { Play, ArrowRight, Calculator, Box, Layers, BarChart, Settings, ListPlus, Home } from 'lucide-react';
+import React, { useRef } from 'react';
+import { Play, ArrowRight, Calculator, Box, Layers, BarChart, Settings, Home } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'motion/react';
 
 export default function HeroSection({ onStart }: { onStart: () => void }) {
@@ -35,7 +33,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
         <div 
           className="absolute inset-0 opacity-20 pointer-events-none"
           style={{
-            backgroundImage: \`linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)\`,
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)`,
             backgroundSize: '40px 40px'
           }}
         ></div>
@@ -113,7 +111,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             }}
           >
             {/* The Mockup Interface */}
-            <div className="w-full aspect-[16/9] rounded-[24px] bg-[rgba(10,15,30,0.8)] backdrop-blur-2xl border border-[rgba(255,255,255,0.1)] shadow-[0_20px_50px_-12px_rgba(0,229,255,0.3)] overflow-hidden flex flex-col">
+            <div className="w-full aspect-[16/9] rounded-[24px] bg-[rgba(10,15,30,0.8)] backdrop-blur-2xl border border-[rgba(255,255,255,0.1)] shadow-[0_30px_60px_-12px_rgba(0,229,255,0.15)] overflow-hidden flex flex-col">
               {/* Header */}
               <div className="h-14 border-b border-[rgba(255,255,255,0.08)] flex items-center px-6 gap-4">
                 <div className="flex gap-2">
@@ -143,7 +141,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
                   {/* Top Stats */}
                   <div className="flex gap-4">
                     {[1, 2, 3].map((i) => (
-                      <div key={i} className="h-28 flex-1 rounded-[16px] bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] p-4 flex flex-col justify-between">
+                      <div key={i} className="h-28 flex-1 rounded-[16px] bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.06)] p-4 flex flex-col justify-between backdrop-blur-lg">
                          <div className="h-6 w-8 bg-[rgba(0,229,255,0.2)] rounded-md"></div>
                          <div className="h-8 w-24 bg-[rgba(255,255,255,0.1)] rounded-md"></div>
                       </div>
@@ -151,10 +149,10 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
                   </div>
 
                   {/* Graph Area */}
-                  <div className="flex-1 rounded-[16px] bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] p-5 relative overflow-hidden">
+                  <div className="flex-1 rounded-[16px] bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.06)] p-5 relative overflow-hidden backdrop-blur-lg">
                      <div className="absolute bottom-0 left-0 w-full h-[60%] bg-gradient-to-t from-[rgba(0,229,255,0.1)] to-transparent pointer-events-none"></div>
                      <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
-                        <path d="M0,80 Q20,60 40,70 T80,30 T100,50 L100,100 L0,100 Z" fill="rgba(0,229,255,0.1)" stroke="rgba(0,229,255,0.6)" strokeWidth="1" />
+                        <path d="M0,80 Q20,60 40,70 T80,30 T100,50 L100,100 L0,100 Z" fill="rgba(0,229,255,0.1)" stroke="rgba(0,229,255,0.6)" strokeWidth="1.5" />
                      </svg>
                   </div>
                 </div>
@@ -181,7 +179,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
                 opacity: [0.3, 0.5, 0.3]
               }}
               transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-              className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-[#00E5FF] blur-[80px] rounded-full z-[-1] opacity-40 mix-blend-screen"
+              className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-[#00E5FF] blur-[80px] rounded-full z-[-1] opacity-30 mix-blend-screen"
             ></motion.div>
           </motion.div>
         </motion.div>
@@ -190,6 +188,3 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
     </div>
   );
 }
-`;
-
-fs.writeFileSync('src/components/HeroSection.tsx', heroContent);
