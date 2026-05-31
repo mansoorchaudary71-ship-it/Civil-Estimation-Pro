@@ -50,11 +50,11 @@ export function HowItWorksSection() {
   return (
     <div className="w-full py-12 md:py-16" ref={(node) => { ref(node); if(containerRef) containerRef.current = node; }}>
       <div className="text-center mb-16">
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-[10px] font-bold tracking-widest uppercase mb-4 border border-indigo-100">
+        <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#0072de]/10 dark:bg-[#0072de]/20 text-[#0072de] dark:text-[#3399ff] rounded-full text-[10px] font-bold tracking-widest uppercase mb-4 border border-indigo-100">
           How It Works
         </div>
         <h2
-          className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-4 tracking-tight"
+          className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-4 tracking-tight"
           
         >
           From Drawing to BOQ in 3 Steps
@@ -91,22 +91,22 @@ export function HowItWorksSection() {
             transition={{ duration: 0.5, delay: idx * 0.2 }}
             className="flex flex-col items-center text-center relative"
           >
-            <div className="w-24 h-24 rounded-full bg-white border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex items-center justify-center mb-6 relative">
+            <div className="w-24 h-24 rounded-full bg-white dark:bg-[#1a1b1e] border border-slate-100 dark:border-[#333] shadow-[0_8px_30px_rgb(0,0,0,0.04)] flex items-center justify-center mb-6 relative">
               <step.icon
-                className="w-10 h-10 text-indigo-600"
+                className="w-10 h-10 text-[#0072de] dark:text-[#3399ff]"
                 strokeWidth={1.5}
               />
               <motion.div 
                 initial={{ scale: 0, opacity: 0 }}
                 animate={inView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
                 transition={{ type: 'spring', bounce: 0.6, delay: idx * 0.2 + 0.3 }}
-                className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center shadow-md"
+                className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#0072de] text-white font-bold flex items-center justify-center shadow-md"
               >
                 {idx + 1}
               </motion.div>
             </div>
             <h3
-              className="text-xl font-semibold text-slate-900 mb-3"
+              className="text-xl font-semibold text-slate-900 dark:text-white mb-3"
               
             >
               {step.title}
@@ -178,7 +178,7 @@ export function FeatureComparisonSection({
 
   return (
     <div
-      className="w-full py-12 md:py-16 bg-slate-50 border-y border-slate-100 relative overflow-hidden"
+      className="w-full py-12 md:py-16 bg-slate-50 dark:bg-[#121212] border-y border-slate-100 dark:border-[#333] relative overflow-hidden"
       ref={ref}
     >
       <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:20px_20px] opacity-40"></div>
@@ -189,7 +189,7 @@ export function FeatureComparisonSection({
             Compare
           </div>
           <h2
-            className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mb-6 tracking-tight"
+            className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-6 tracking-tight"
             
           >
             The Smarter Way to Estimate
@@ -207,13 +207,13 @@ export function FeatureComparisonSection({
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           transition={{ duration: 0.6 }}
-          className="bg-white rounded-[24px] border border-slate-200 overflow-visible shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative"
+          className="bg-white dark:bg-[#1a1b1e] rounded-[24px] border border-slate-200 dark:border-[#333] overflow-visible shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative"
         >
           <div className="overflow-x-auto w-full pb-4 md:pb-0">
             <table className="w-full text-left border-collapse min-w-[800px]">
               <thead>
                 <tr>
-                  <th className="p-4 md:p-8 bg-slate-50 text-slate-500 font-bold text-sm tracking-wider uppercase border-b border-slate-200 w-1/3 rounded-tl-[2rem]">
+                  <th className="p-4 md:p-8 bg-slate-50 dark:bg-[#121212] text-slate-500 font-bold text-sm tracking-wider uppercase border-b border-slate-200 dark:border-[#333] w-1/3 rounded-tl-[2rem]">
                     Features
                   </th>
                   <th className="p-0 border-b border-amber-500/30 w-1/4 relative bg-amber-50/10">
@@ -233,10 +233,10 @@ export function FeatureComparisonSection({
                       </div>
                     </div>
                   </th>
-                  <th className="p-4 md:p-8 border-b border-slate-200 text-slate-400 font-bold text-center w-1/5">
+                  <th className="p-4 md:p-8 border-b border-slate-200 dark:border-[#333] text-slate-400 font-bold text-center w-1/5">
                     Excel Spreadsheets
                   </th>
-                  <th className="p-4 md:p-8 border-b border-slate-200 text-slate-400 font-bold text-center w-1/5 rounded-tr-[2rem]">
+                  <th className="p-4 md:p-8 border-b border-slate-200 dark:border-[#333] text-slate-400 font-bold text-center w-1/5 rounded-tr-[2rem]">
                     Hiring a QS
                   </th>
                 </tr>
@@ -247,18 +247,18 @@ export function FeatureComparisonSection({
                   return (
                     <tr
                       key={idx}
-                      className="hover:bg-slate-50/50 transition-colors group relative"
+                      className="hover:bg-slate-50 dark:bg-[#121212]/50 transition-colors group relative"
                     >
                       <td
-                        className={`p-4 md:p-6 pl-8 font-semibold text-slate-700 relative ${isLast ? "rounded-bl-[2rem]" : ""}`}
+                        className={`p-4 md:p-6 pl-8 font-semibold text-slate-700 dark:text-slate-300 relative ${isLast ? "rounded-bl-[2rem]" : ""}`}
                       >
                         <div className="flex items-center gap-2">
                           {feature.name}
                           <div className="group/tooltip relative flex items-center justify-center cursor-help">
                             <Info className="w-4 h-4 text-slate-300 hover:text-slate-500 transition-colors" />
-                            <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover/tooltip:block w-48 bg-white text-slate-900 text-xs p-2 rounded-[16px] text-center shadow-xl z-50 pointer-events-none border border-slate-200 shadow-sm">
+                            <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover/tooltip:block w-48 bg-white dark:bg-[#1a1b1e] text-slate-900 dark:text-white text-xs p-2 rounded-[16px] text-center shadow-xl z-50 pointer-events-none border border-slate-200 dark:border-[#333] shadow-sm">
                               {feature.tooltip}
-                              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-white rotate-45 border border-slate-200 shadow-sm"></div>
+                              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-white dark:bg-[#1a1b1e] rotate-45 border border-slate-200 dark:border-[#333] shadow-sm"></div>
                             </div>
                           </div>
                         </div>
@@ -397,7 +397,7 @@ export function FeatureComparisonSection({
               if (onNavigate) onNavigate("dashboard");
               window.scrollTo(0, 0);
             }}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-white hover:bg-indigo-600 text-white font-bold rounded-[24px] shadow-[0_8px_20px_rgba(15,23,42,0.15)] hover:shadow-[0_12px_25px_rgba(15,23,42,0.25)] transition-all transform hover:-translate-y-1"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white dark:bg-[#1a1b1e] hover:bg-[#0072de] text-white font-bold rounded-[24px] shadow-[0_8px_20px_rgba(15,23,42,0.15)] hover:shadow-[0_12px_25px_rgba(15,23,42,0.25)] transition-all transform hover:-translate-y-1"
           >
             Join 24,847 engineers who already switched
             <ArrowRight className="w-5 h-5 ml-1" />

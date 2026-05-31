@@ -5,11 +5,11 @@ import CountUp from 'react-countup';
 
 export default function HeroSection({ onStart }: { onStart: () => void }) {
   return (
-    <div className="w-full relative overflow-hidden bg-slate-50 rounded-b-[2.5rem] mb-16 pt-24 pb-32 px-4 lg:px-12 mt-0 z-10">
+    <div className="w-full relative overflow-hidden bg-slate-50 dark:bg-[#121212] rounded-b-[2.5rem] mb-16 pt-24 pb-32 px-4 lg:px-12 mt-0 z-10">
       
       {/* Background patterns and glowing orbs to match UI */}
       <div className="absolute inset-0 z-0 overflow-hidden rounded-b-[2.5rem]">
-        <div className="absolute -top-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-indigo-500/10 blur-[120px] mix-blend-multiply pointer-events-none"></div>
+        <div className="absolute -top-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-[#0072de]/10 dark:bg-[#0072de]/200/10 blur-[120px] mix-blend-multiply pointer-events-none"></div>
         <div className="absolute -bottom-[30%] -left-[10%] w-[60%] h-[60%] rounded-full bg-amber-500/10 blur-[120px] mix-blend-multiply pointer-events-none"></div>
         
         {/* Subtle grid */}
@@ -24,11 +24,11 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-100 bg-indigo-50/80 backdrop-blur-sm text-sm font-bold text-indigo-600 tracking-wide uppercase mb-10 shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-100 bg-[#0072de]/10 dark:bg-[#0072de]/20/80 backdrop-blur-sm text-sm font-bold text-[#0072de] dark:text-[#3399ff] tracking-wide uppercase mb-10 shadow-sm"
           >
             <span className="relative flex h-2.5 w-2.5 mr-1">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-indigo-500"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#0072de]/10 dark:bg-[#0072de]/200"></span>
             </span>
             Next-Gen Estimation AI
           </motion.div>
@@ -37,7 +37,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-extrabold tracking-tighter text-slate-900 leading-[1.05] mb-8"
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-extrabold tracking-tighter text-slate-900 dark:text-white leading-[1.05] mb-8"
           >
             Estimate <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">Smarter.</span><br/>
             Build <span className="text-[#F59E0B]">Faster.</span>
@@ -47,7 +47,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-600 font-medium mb-12 max-w-2xl px-4 leading-relaxed"
+            className="text-lg md:text-xl text-slate-600 dark:text-slate-400 font-medium mb-12 max-w-2xl px-4 leading-relaxed"
           >
             The all-in-one calculation platform for modern civil engineers, architects, and quantity surveyors. Accurate structural and building estimates in seconds.
           </motion.p>
@@ -66,9 +66,9 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
               <ArrowRight className="w-5 h-5 text-white/90" />
             </button>
             <button
-              className="w-full sm:w-auto px-10 py-4 rounded-full font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 transition-all shadow-sm hover:shadow text-base flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-10 py-4 rounded-full font-bold text-slate-700 dark:text-slate-300 bg-white dark:bg-[#252525] hover:bg-slate-50 dark:bg-[#121212] border border-slate-200 dark:border-[#333] transition-all shadow-sm hover:shadow text-base flex items-center justify-center gap-2"
             >
-              <Play className="w-4 h-4 fill-slate-700 text-slate-700" />
+              <Play className="w-4 h-4 fill-slate-700 text-slate-700 dark:text-slate-300" />
               Watch Demo
             </button>
           </motion.div>
@@ -79,7 +79,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
         <motion.div 
           animate={{ y: [0, -10, 0] }}
           transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-          className="hidden xl:flex absolute top-[5%] left-[2%] 2xl:left-[8%] w-64 bg-white/90 backdrop-blur-xl rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.06)] border border-slate-100 p-5 flex-col gap-3 z-0 pointer-events-none"
+          className="hidden xl:flex absolute top-[5%] left-[2%] 2xl:left-[8%] w-64 bg-white dark:bg-[#252525]/90 backdrop-blur-xl rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.06)] border border-slate-100 dark:border-[#333] p-5 flex-col gap-3 z-0 pointer-events-none"
           style={{ transform: 'rotate(-6deg) translateZ(0)' }}
         >
           <div className="flex items-center gap-3 mb-2">
@@ -88,10 +88,10 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             </div>
             <div>
               <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Concrete Slab</div>
-              <div className="text-base font-black text-slate-800">45.2 m³</div>
+              <div className="text-base font-black text-slate-800 dark:text-slate-200">45.2 m³</div>
             </div>
           </div>
-          <div className="w-full h-8 bg-slate-50 rounded-xl border border-slate-100 overflow-hidden relative">
+          <div className="w-full h-8 bg-slate-50 dark:bg-[#121212] rounded-xl border border-slate-100 dark:border-[#333] overflow-hidden relative">
             <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 to-indigo-500 w-[70%]"></div>
           </div>
         </motion.div>
@@ -100,7 +100,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
         <motion.div 
           animate={{ y: [0, 15, 0] }}
           transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }}
-          className="hidden lg:flex absolute bottom-[10%] left-[0%] lg:left-[5%] xl:left-[12%] w-72 bg-white/95 backdrop-blur-xl rounded-[28px] shadow-[0_30px_60px_rgba(0,0,0,0.08)] border border-slate-100 p-6 flex-col gap-4 z-30 pointer-events-none"
+          className="hidden lg:flex absolute bottom-[10%] left-[0%] lg:left-[5%] xl:left-[12%] w-72 bg-white dark:bg-[#252525]/95 backdrop-blur-xl rounded-[28px] shadow-[0_30px_60px_rgba(0,0,0,0.08)] border border-slate-100 dark:border-[#333] p-6 flex-col gap-4 z-30 pointer-events-none"
           style={{ transform: 'rotate(8deg) translateZ(0)' }}
         >
           <div className="flex justify-between items-start">
@@ -110,7 +110,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
               </div>
               <div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-tight">Logistics</div>
-                <div className="text-lg font-black text-slate-800 leading-tight mt-0.5">1,240 Bags</div>
+                <div className="text-lg font-black text-slate-800 dark:text-slate-200 leading-tight mt-0.5">1,240 Bags</div>
               </div>
             </div>
             <div className="px-2 py-1 bg-emerald-50 text-emerald-600 rounded-lg border border-emerald-100/50 text-[11px] font-bold flex items-center gap-1 shadow-sm">
@@ -129,16 +129,16 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
         <motion.div 
           animate={{ y: [0, -12, 0] }}
           transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 0.5 }}
-          className="hidden lg:flex absolute top-[8%] right-[2%] xl:right-[6%] w-[260px] bg-white/90 backdrop-blur-xl rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.06)] border border-slate-100 p-6 flex-col z-0 pointer-events-none"
+          className="hidden lg:flex absolute top-[8%] right-[2%] xl:right-[6%] w-[260px] bg-white dark:bg-[#252525]/90 backdrop-blur-xl rounded-[24px] shadow-[0_20px_40px_rgba(0,0,0,0.06)] border border-slate-100 dark:border-[#333] p-6 flex-col z-0 pointer-events-none"
           style={{ transform: 'rotate(5deg) translateZ(0)' }}
         >
           <div className="flex justify-between items-center mb-5">
-            <div className="w-10 h-10 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-500 border border-indigo-100/50">
+            <div className="w-10 h-10 rounded-2xl bg-[#0072de]/10 dark:bg-[#0072de]/20 flex items-center justify-center text-indigo-500 border border-indigo-100/50">
               <Calculator className="w-5 h-5" />
             </div>
             <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Steel Wt.</div>
           </div>
-          <div className="text-4xl font-black text-slate-900 tracking-tighter leading-none">
+          <div className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">
             <CountUp start={0} end={8450} duration={2.5} separator="," />
           </div>
           <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-2">Kilograms</div>
@@ -148,7 +148,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
         <motion.div 
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 5.5, ease: "easeInOut", delay: 1.5 }}
-          className="hidden md:flex absolute bottom-[12%] right-[0%] lg:right-[8%] w-[280px] bg-white/95 backdrop-blur-xl rounded-[28px] shadow-[0_25px_50px_rgba(0,0,0,0.08)] border border-slate-100 p-6 z-30 pointer-events-none"
+          className="hidden md:flex absolute bottom-[12%] right-[0%] lg:right-[8%] w-[280px] bg-white dark:bg-[#252525]/95 backdrop-blur-xl rounded-[28px] shadow-[0_25px_50px_rgba(0,0,0,0.08)] border border-slate-100 dark:border-[#333] p-6 z-30 pointer-events-none"
           style={{ transform: 'rotate(-5deg) translateZ(0)' }}
         >
           <div className="flex flex-col gap-5">
@@ -161,9 +161,9 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
                 <div className="h-2.5 w-3/4 bg-slate-100 rounded-full"></div>
               </div>
             </div>
-            <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100 flex justify-between items-center">
+            <div className="bg-slate-50 dark:bg-[#121212] rounded-2xl p-4 border border-slate-100 dark:border-[#333] flex justify-between items-center">
               <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Cost Est.</span>
-              <span className="text-base font-black text-slate-800">
+              <span className="text-base font-black text-slate-800 dark:text-slate-200">
                 $<CountUp start={0} end={14500} duration={2.5} separator="," />
               </span>
             </div>

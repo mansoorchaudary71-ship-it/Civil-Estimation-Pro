@@ -11,58 +11,13 @@ import {
 } from "lucide-react";
 
 export const getCategoryThemeNew = (category: string) => {
-  if (category.includes("Concrete") || category.includes("Masonry"))
-    return {
-      color: "orange",
-      bg: "bg-orange-50",
-      iconBg: "bg-orange-100/80",
-      text: "text-orange-600",
-      border: "border-orange-200",
-      gradient: "from-orange-500 to-amber-500",
-    };
-  if (category.includes("Structural") || category.includes("Water"))
-    return {
-      color: "blue",
-      bg: "bg-blue-50",
-      iconBg: "bg-blue-100/80",
-      text: "text-blue-600",
-      border: "border-blue-200",
-      gradient: "from-blue-500 to-cyan-500",
-    };
-  if (category.includes("Road") || category.includes("Site"))
-    return {
-      color: "green",
-      bg: "bg-emerald-50",
-      iconBg: "bg-emerald-100/80",
-      text: "text-emerald-600",
-      border: "border-emerald-200",
-      gradient: "from-emerald-500 to-teal-500",
-    };
-  if (category.includes("Quantity") || category.includes("Architectural"))
-    return {
-      color: "purple",
-      bg: "bg-purple-50",
-      iconBg: "bg-purple-100/80",
-      text: "text-purple-600",
-      border: "border-purple-200",
-      gradient: "from-purple-500 to-indigo-500",
-    };
-  if (category.includes("AI"))
-    return {
-      color: "teal",
-      bg: "bg-teal-50",
-      iconBg: "bg-teal-100/80",
-      text: "text-teal-600",
-      border: "border-teal-200",
-      gradient: "from-teal-400 to-emerald-400",
-    };
   return {
-    color: "indigo",
-    bg: "bg-indigo-50",
-    iconBg: "bg-indigo-100/80",
-    text: "text-indigo-600",
-    border: "border-indigo-200",
-    gradient: "from-indigo-500 to-blue-500",
+    color: `blue`,
+    bg: `bg-[#0072de]/10 dark:bg-[#0072de]/20`,
+    iconBg: `bg-[#0072de]/20 dark:bg-[#0072de]/30`,
+    text: `text-[#0072de] dark:text-[#3399ff]`,
+    border: `border-[#0072de]/20 dark:border-[#0072de]/40`,
+    gradient: `from-[#005bb5] to-[#0072de] dark:from-[#004a99] dark:to-[#005bb5]`,
   };
 };
 
@@ -97,7 +52,7 @@ export default function ToolCard({
         delay: (idx || 0) * 0.06,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="h-full w-full rounded-[24px]"
+      className="h-full w-full rounded-[32px]"
     >
       <Tilt
         tiltMaxAngleX={4}
@@ -110,14 +65,14 @@ export default function ToolCard({
         glareColor="#ffffff"
         glarePosition="all"
         glareBorderRadius="24px"
-        className="h-full w-full rounded-[24px]"
+        className="h-full w-full rounded-[32px]"
       >
         <motion.button
           whileTap={{ scale: 0.98 }}
           onHoverStart={() => setIsHovered(true)}
           onHoverEnd={() => setIsHovered(false)}
           onClick={() => onSelect(mod.id)}
-          className={`group relative flex flex-col h-full w-full text-left bg-white rounded-[24px] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 overflow-hidden transition-all duration-300 md:hover:shadow-[0_20px_40px_-12px_rgba(99,102,241,0.25)] border ${
+          className={`group relative flex flex-col h-full w-full text-left bg-white dark:bg-[#252525] rounded-[32px] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 overflow-hidden transition-all duration-300 md:hover:shadow-[0_20px_40px_-12px_rgba(99,102,241,0.25)] border ${
             mod.premium
               ? "border-amber-300/60 shadow-[0_4px_12px_rgba(245,158,11,0.05)] md:hover:shadow-[0_20px_40px_-12px_rgba(245,158,11,0.3)]"
               : `${theme.border} shadow-sm`
@@ -137,7 +92,7 @@ export default function ToolCard({
                 <Lock className="w-3 h-3" />
               )}
               {/* Tooltip */}
-              <div className="absolute left-0 bottom-full mb-2 hidden group-hover/pro:flex flex-col whitespace-nowrap bg-white text-slate-900 text-[10px] px-3 py-2 rounded-[16px] shadow-xl border border-slate-700 z-50 pointer-events-none">
+              <div className="absolute left-0 bottom-full mb-2 hidden group-hover/pro:flex flex-col whitespace-nowrap bg-white text-slate-900 dark:text-white text-[10px] px-3 py-2 rounded-[16px] shadow-xl border border-slate-700 z-50 pointer-events-none">
                 <div className="font-bold text-amber-400 mb-0.5">Premium Tool</div>
                 <div className="text-slate-300">Upgrade for $29/mo to unlock</div>
                 <div className="absolute -bottom-1 left-4 w-2 h-2 bg-white border-b border-r border-slate-700 rotate-45 transform border border-slate-200 shadow-sm" />
@@ -162,7 +117,7 @@ export default function ToolCard({
         <div
           role="button"
           tabIndex={0}
-          className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors backdrop-blur-md ${isBookmarked ? "bg-amber-100 text-amber-500" : "bg-white/80 text-slate-300 hover:text-slate-500"} shadow-sm border border-slate-100/50`}
+          className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors backdrop-blur-md ${isBookmarked ? "bg-amber-100 text-amber-500" : "bg-white/80 text-slate-300 hover:text-slate-500 dark:text-slate-400"} shadow-sm border border-slate-100/50`}
           onClick={(e) => {
             e.stopPropagation();
             setIsBookmarked(!isBookmarked);
@@ -198,7 +153,7 @@ export default function ToolCard({
 
         <div className="relative z-10 flex">
           <div
-            className={`w-16 h-16 rounded-[24px] flex items-center justify-center shadow-lg bg-gradient-to-br ${theme.gradient} text-white transition-transform duration-300 md:group-hover:scale-110 md:group-hover:-translate-y-2`}
+            className={`w-16 h-16 rounded-[32px] flex items-center justify-center shadow-lg bg-gradient-to-br ${theme.gradient} text-white transition-transform duration-300 md:group-hover:scale-110 md:group-hover:-translate-y-2`}
           >
             <mod.icon className="w-8 h-8" strokeWidth={2} />
           </div>
@@ -214,12 +169,12 @@ export default function ToolCard({
             {mod.category}
           </div>
           <h3
-            className="text-base font-semibold text-slate-900 leading-tight mb-2 group-hover:text-indigo-600 transition-colors"
+            className="text-base font-semibold text-slate-900 dark:text-white leading-tight mb-2 group-hover:text-indigo-600 transition-colors"
             
           >
             {mod.title}
           </h3>
-          <p className="text-sm text-slate-500 leading-relaxed min-h-[40px]">
+          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed min-h-[40px]">
             {mod.desc}
           </p>
         </div>
@@ -234,7 +189,7 @@ export default function ToolCard({
                 {mod.difficulty || "Beginner"}
               </span>
             </div>
-            <div className="flex items-center gap-1.5 px-2 py-1 rounded bg-slate-50 text-slate-500 border border-slate-100">
+            <div className="flex items-center gap-1.5 px-2 py-1 rounded bg-slate-50 dark:bg-[#121212] text-slate-500 dark:text-slate-400 border border-slate-100">
               <Clock className="w-3 h-3" />
               <span className="text-[10px] font-bold uppercase tracking-wider">
                 {mod.estimatedTime || "2 min"}
@@ -248,7 +203,7 @@ export default function ToolCard({
 
         {/* Hover Reveal Button overlaying the footer area slightly */}
         <div className="absolute left-0 right-0 bottom-0 p-6 translate-y-[20px] md:group-hover:translate-y-0 transition-all duration-300 opacity-0 md:group-hover:opacity-100 pointer-events-none md:pointer-events-auto bg-gradient-to-t from-white via-white to-transparent pt-12">
-          <div className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-[24px] flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20 transition-colors">
+          <div className="w-full bg-[#0072de] hover:bg-[#005bb5] text-white font-bold py-3 rounded-[32px] flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20 transition-colors">
             Open Tool <ArrowRight className="w-4 h-4" />
           </div>
         </div>

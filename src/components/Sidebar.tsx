@@ -395,7 +395,7 @@ export default function Sidebar({
       {/* Mobile Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-[#F5F5F7] backdrop-blur-sm z-[100] transition-opacity lg:hidden"
+          className="fixed inset-0 bg-[#F5F5F7] backdrop-blur-sm z-[100] transition-opacity "
           onClick={onClose}
         />
       )}
@@ -403,16 +403,19 @@ export default function Sidebar({
       {/* Main Drawer */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-[110] transform transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col w-[85vw] max-w-[320px] bg-white/70  backdrop-blur-xl border-r border-slate-200/50  h-[100dvh] shadow-2xl lg:relative lg:translate-x-0 lg:w-full lg:max-w-[300px]",
-          isOpen ? "translate-x-0" : "-translate-x-full"
+          "fixed bottom-0 left-0 right-0 z-[110] transform transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col w-full bg-[#FAFAFA]/95 dark:bg-[#121212]/95 backdrop-blur-2xl border-t border-slate-200/50 dark:border-white/5 h-[85vh] shadow-[0_-20px_60px_rgba(0,0,0,0.15)] dark:shadow-[0_-20px_60px_rgba(0,0,0,0.6)] rounded-t-[32px] mx-auto md:max-w-[400px]",
+          isOpen ? "translate-y-0" : "translate-y-[100%]"
         )}
       >
+        <div className="w-full flex justify-center mb-2 pb-2 mt-3 shrink-0 cursor-pointer" onClick={onClose}>
+           <div className="w-16 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700" />
+        </div>
         {/* Header Row */}
-        <div className="flex items-center justify-between px-6 py-5 shrink-0 lg:hidden">
+        <div className="flex items-center justify-between px-6 py-5 shrink-0 ">
           <div className="text-[20px] font-semibold tabular-nums tracking-tight tracking-tighter text-text-primary uppercase">
             Esti<span className="text-indigo-600">Pro</span>
           </div>
-          <div className="flex items-center space-x-2 text-slate-900 lg:hidden">
+          <div className="flex items-center space-x-2 text-slate-900 ">
             <button onClick={onClose} aria-label="Close menu" className="hover:text-slate-500 transition-colors bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-sm">
               <X className="w-5 h-5 stroke-[2]" />
             </button>

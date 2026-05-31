@@ -172,7 +172,7 @@ export const ALL_MODULES = [
     category: "Quantity Estimator",
     icon: ClipboardList,
     styleStyle: "solid",
-    colorClass: "bg-purple-600 text-white shadow-lg",
+    colorClass: "bg-[#0072de] text-white shadow-lg",
     difficulty: "Beginner",
     estimatedTime: "~5 mins",
     isNew: true,
@@ -1102,28 +1102,61 @@ export default function Dashboard({
   // Handle particle creation purely via CSS in a style tag directly
   return (
     <>
-      <div className="relative flex-1 w-full flex flex-col font-sans bg-transparent text-slate-900 border-none">
+      <style>{`
+        /* One UI signature scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 10px; }
+        @media (prefers-color-scheme: dark) {
+          ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2) !important; }
+          body { background-color: #121212 !important; color: #ffffff !important; }
+        }
+        html, body { overflow: hidden; height: 100vh; } 
+      `}</style>
+      <div className="relative flex-1 w-full flex flex-col h-screen font-sans bg-[#f8f9fa] dark:bg-[#121212] text-slate-900 dark:text-white border-none overflow-hidden">
         <SEO
           title="Dashboard"
           description="Civil Estimation Pro: Advanced estimators for live construction rate analysis, house estimating, and comprehensive BOQ calculators."
           canonicalUrl="https://civilestimationpro.com"
         />
 
-        {user ? (
-            <div className="w-full max-w-7xl mx-auto px-4 z-10 overflow-visible flex flex-col"><WorkspaceSection onSelect={handleSelect} /></div>
-          ) : (
-            <>
-              {/* HERO SECTION */}
-              <HeroSection onStart={() => handleSelect("house")} />
-              {/* SOCIAL PROOF SECTION */}
-              <ScrollReveal><SocialProofSection /></ScrollReveal>
-              <ScrollReveal yOffset={30}><HowItWorksSection /></ScrollReveal>
-              <ScrollReveal yOffset={30}><FeatureComparisonSection /></ScrollReveal>
-              <ScrollReveal yOffset={30}><ProjectsSection /></ScrollReveal>
-            </>
-          )}
+        {/* ONE UI: VIEWING AREA (Top 30%) */}
+        <div className="flex-shrink-0 h-[30vh] lg:h-[35vh] w-full flex flex-col justify-end px-6 xl:px-12 pb-8 relative overflow-hidden bg-[#f8f9fa] dark:bg-[#121212]">
+           {/* Background Mesh/Gradient */}
+           <div className="absolute top-[-50%] left-[-10%] w-[70%] h-[150%] rounded-full bg-[#0072de]/10 dark:bg-[#0072de]/20 blur-[80px] pointer-events-none"></div>
+           <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[100%] rounded-full bg-[#0072de]/5 dark:bg-[#0072de]/15 blur-[80px] pointer-events-none"></div>
+           
+           <div className="w-full max-w-7xl mx-auto z-10 flex flex-col items-start gap-1">
+              <h1 className="text-[2.5rem] md:text-5xl lg:text-[64px] font-black text-slate-900 dark:text-white tracking-tighter leading-[1.05]">
+                Civil Estimation
+              </h1>
+              <h1 className="text-[2.5rem] md:text-5xl lg:text-[64px] font-black tracking-tighter leading-[1.05] mb-2 text-[#0072de] dark:text-[#3399ff]">
+                Pro.
+              </h1>
+              {user && (
+                <p className="text-lg md:text-xl text-slate-500 font-medium max-w-lg mb-2">
+                  Welcome back, {user.displayName?.split(' ')[0] || 'Engineer'}.
+                </p>
+              )}
+           </div>
+        </div>
 
-<div className="w-full max-w-7xl mx-auto px-4 z-10 w-full overflow-visible flex flex-col mt-12">
+        {/* ONE UI: INTERACTION AREA (Bottom 70%) */}
+        <div className="flex-1 w-full bg-white dark:bg-[#1a1b1e] rounded-t-[32px] overflow-y-auto overflow-x-hidden shadow-[0_-12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_-5px_30px_rgba(0,0,0,0.5)] border border-slate-200/50 dark:border-[#333] pb-32">
+            <div className="w-full max-w-7xl mx-auto px-4 z-10 overflow-visible flex flex-col pt-8">
+              {user ? (
+                <div className="mb-12"><WorkspaceSection onSelect={handleSelect} /></div>
+              ) : (
+                <div className="mb-12">
+                  <HeroSection onStart={() => handleSelect("house")} />
+                  <ScrollReveal><SocialProofSection /></ScrollReveal>
+                  <ScrollReveal yOffset={30}><HowItWorksSection /></ScrollReveal>
+                  <ScrollReveal yOffset={30}><FeatureComparisonSection /></ScrollReveal>
+                  <ScrollReveal yOffset={30}><ProjectsSection /></ScrollReveal>
+                </div>
+              )}
+              
+              <div className="w-full max-w-7xl mx-auto w-full overflow-visible flex flex-col mt-4">
           
 
           {/* MAIN GRID */}
@@ -1148,7 +1181,7 @@ export default function Dashboard({
                   <button
                     key={pill}
                     onClick={() => setFilterMode(pill)}
-                    className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors font-semibold border shadow-sm ${filterMode === pill ? "bg-indigo-600 border-indigo-600 text-white" : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"}`}
+                    className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors font-semibold border shadow-sm ${filterMode === pill ? "bg-[#0072de] border-[#0072de] text-white" : "bg-white dark:bg-[#252525] border-slate-200 dark:border-[#333] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#2f2f2f]"}`}
                   >
                     {pill}
                   </button>
@@ -1163,16 +1196,16 @@ export default function Dashboard({
                 <div className="relative">
                   <button
                     onClick={() => setIsSortOpen(!isSortOpen)}
-                    className="flex items-center gap-2 px-3 py-2 bg-white rounded-[16px] border border-slate-200 hover:bg-slate-50 transition-colors text-slate-700 shadow-sm"
+                    className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-[#252525] rounded-[16px] border border-slate-200 dark:border-[#333] hover:bg-slate-50 dark:hover:bg-[#2f2f2f] transition-colors text-slate-700 dark:text-slate-300 dark:text-slate-300 shadow-sm"
                   >
                     Sort:{" "}
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-slate-900 dark:text-white">
                       {sortMode}
                     </span>
                     <ChevronDown className="w-4 h-4 ml-1" />
                   </button>
                   {isSortOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-slate-100 shadow-2xl rounded-[24px] overflow-hidden z-50 py-1">
+                    <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-[#252525] border border-slate-100 dark:border-[#333] shadow-2xl rounded-[24px] overflow-hidden z-50 py-1">
                       {sortOptions.map((opt) => (
                         <button
                           key={opt}
@@ -1196,7 +1229,7 @@ export default function Dashboard({
               {groupsToDisplay.length === 0 ? (
                 <div className="py-24 text-center flex flex-col items-center">
                   <Search className="w-12 h-12 text-slate-300 mb-4" />
-                  <h3 className="text-xl font-semibold text-slate-900">
+                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
                     No calculators found
                   </h3>
                   <p className="text-slate-500 mt-2">
@@ -1244,7 +1277,7 @@ export default function Dashboard({
 
             {/* FEATURED BANNER */}
             <ScrollReveal yOffset={30}>
-            <div className="w-full mb-0 rounded-[24px] overflow-hidden bg-gradient-to-br from-[#4C1D95] to-[#7C3AED] p-8 md:p-10 text-white relative shadow-lg flex flex-col md:flex-row items-center gap-8 border-none">
+            <div className="w-full mb-0 rounded-[24px] overflow-hidden bg-gradient-to-br from-[#005bb5] to-[#0072de] p-8 md:p-10 text-white relative shadow-lg flex flex-col md:flex-row items-center gap-8 border-none">
               <div className="flex-1 z-10 text-center md:text-left">
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full text-white text-[10px] font-bold tracking-wider uppercase mb-5 backdrop-blur-sm">
                   ⭐ FEATURED TOOL OF THE WEEK
@@ -1252,14 +1285,14 @@ export default function Dashboard({
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tight tracking-tight mb-3">
                   Master RCC Estimator
                 </h2>
-                <p className="text-purple-100 text-sm md:text-base font-medium mb-6 max-w-md mx-auto md:mx-0">
+                <p className="text-blue-100 text-sm md:text-base font-medium mb-6 max-w-md mx-auto md:mx-0">
                   The unified hub for Slab, Column, Beam, Staircase, and BBS
                   calculations. Save hours of manual work with auto-generated
                   steel weight estimations.
                 </p>
                 <button
                   onClick={() => handleSelect("master-rcc")}
-                  className="px-6 py-3 bg-white text-purple-700 rounded-full font-bold text-sm hover:scale-105 transition-transform"
+                  className="px-6 py-3 bg-white text-[#0072de] rounded-full font-bold text-sm hover:scale-105 transition-transform"
                 >
                   Try it Now ›
                 </button>
@@ -1280,6 +1313,8 @@ export default function Dashboard({
             </div>
             </ScrollReveal>
           </div>
+        </div>
+        </div>
         </div>
       </div>
 
@@ -1307,7 +1342,7 @@ export default function Dashboard({
 
           <div className="px-6 flex items-center justify-between pb-2 border-b border-slate-100">
             <h3 className="font-bold text-lg text-slate-900 flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-purple-600" />
+              <Sparkles className="w-5 h-5 text-[#0072de]" />
               AI Assistant
             </h3>
             <button
@@ -1326,12 +1361,12 @@ export default function Dashboard({
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 {msg.role === "system" && (
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center shrink-0 mr-3 mt-1 shadow-sm">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#3399ff] to-[#0072de] flex items-center justify-center shrink-0 mr-3 mt-1 shadow-sm">
                     <Sparkles className="w-4 h-4 text-white" />
                   </div>
                 )}
                 <div
-                  className={`px-5 py-3 rounded-[24px] max-w-[85%] font-medium text-[15px] leading-relaxed shadow-sm ${msg.role === "user" ? "bg-purple-600 text-white rounded-tr-sm" : "bg-slate-50 border border-slate-100 text-slate-700 rounded-tl-sm"}`}
+                  className={`px-5 py-3 rounded-[24px] max-w-[85%] font-medium text-[15px] leading-relaxed shadow-sm ${msg.role === "user" ? "bg-[#0072de] text-white rounded-tr-sm" : "bg-slate-50 dark:bg-[#252525] border border-slate-100 dark:border-[#333] text-slate-700 dark:text-slate-300 rounded-tl-sm"}`}
                 >
                   {msg.content}
                 </div>
@@ -1341,10 +1376,10 @@ export default function Dashboard({
           </div>
 
           {/* Input area */}
-          <div className="p-6 pt-4 shrink-0 w-full max-w-4xl mx-auto bg-white border-t border-slate-100">
+          <div className="p-6 pt-4 shrink-0 w-full max-w-4xl mx-auto bg-white dark:bg-[#1a1b1e] border-t border-slate-100 dark:border-[#333]">
             <div className="relative group">
-              <div className="absolute -inset-[2px] bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full opacity-60 group-focus-within:opacity-100 blur-[3px] transition-all duration-300"></div>
-              <div className="relative flex items-center bg-white rounded-full px-5 py-2.5 border border-transparent shadow-sm">
+              <div className="absolute -inset-[2px] bg-gradient-to-r from-[#3399ff] to-[#0072de] rounded-full opacity-60 group-focus-within:opacity-100 blur-[3px] transition-all duration-300"></div>
+              <div className="relative flex items-center bg-white dark:bg-[#252525] rounded-full px-5 py-2.5 border border-transparent shadow-sm">
                 <input
                   type="text"
                   value={aiMessage}
@@ -1369,10 +1404,10 @@ export default function Dashboard({
                     }
                   }}
                   placeholder="Ask your assistant..."
-                  className="w-full bg-transparent border-none outline-none text-[16px] text-slate-800 px-2 py-2 placeholder:text-slate-400"
+                  className="w-full bg-transparent border-none outline-none text-[16px] text-slate-800 dark:text-white px-2 py-2 placeholder:text-slate-400"
                 />
                 <button
-                  className="p-2.5 bg-purple-600 hover:bg-purple-700 shadow-md shadow-purple-500/20 text-white rounded-full transition-all hover:scale-105 active:scale-95 ml-2 shrink-0"
+                  className="p-2.5 bg-[#0072de] hover:bg-[#005bb5] shadow-md shadow-[#0072de]/20 text-white rounded-full transition-all hover:scale-105 active:scale-95 ml-2 shrink-0"
                   onClick={() => {
                     if (aiMessage.trim()) {
                       setAiMessages((prev) => [

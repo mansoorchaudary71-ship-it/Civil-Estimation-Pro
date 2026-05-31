@@ -131,7 +131,7 @@ const BentoCard = ({
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onClick={() => onSelect(mod.id)}
-          className={`group relative h-full w-full rounded-[24px] overflow-hidden cursor-pointer bg-[rgba(255,255,255,0.03)] backdrop-blur-[16px] border border-[rgba(255,255,255,0.08)] ${size === 'large' ? 'p-8' : 'p-6'} flex flex-col justify-between transition-all duration-300 transform-gpu hover:shadow-[0_20px_40px_-12px_rgba(255,255,255,0.15)] bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0.01)] hover:border-[rgba(255,255,255,0.2)]`}
+          className={`group relative h-full w-full rounded-[32px] overflow-hidden cursor-pointer bg-[rgba(255,255,255,0.03)] backdrop-blur-[16px] border border-[rgba(255,255,255,0.08)] ${size === 'large' ? 'p-8' : 'p-6'} flex flex-col justify-between transition-all duration-300 transform-gpu hover:shadow-[0_20px_40px_-12px_rgba(255,255,255,0.15)] bg-gradient-to-br from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0.01)] hover:border-[rgba(255,255,255,0.2)]`}
         >
           {/* Mouse follow radial gradient */}
           {isHovered && (
