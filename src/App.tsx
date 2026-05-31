@@ -517,7 +517,7 @@ export default function App() {
           <MarketRatesProvider>
             <TakeoffProvider>
               <ProjectProvider>
-                <div className="flex flex-col h-[100dvh] w-full bg-transparent font-sans text-slate-900 transition-colors duration-300">
+                <div className="flex flex-col h-[100dvh] w-full pale-purple-mesh bg-white/80 backdrop-blur-sm font-sans text-slate-900 transition-colors duration-300">
                   <Toaster position="bottom-right" />
                   <ProductTour />
                   

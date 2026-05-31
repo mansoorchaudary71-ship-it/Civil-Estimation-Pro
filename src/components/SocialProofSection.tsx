@@ -16,6 +16,26 @@ const TESTIMONIALS = [
   { name: "Fatima Zahra", title: "Architectural Drafter", company: "Design Studio", flag: "AE", quote: "The interiors and finishes section helps me quickly validate material quantities with my contractors. I trust the numbers completely.", rating: 4.9, metrics: "Streamlined communication", avatar: "https://i.pravatar.cc/150?img=5" }
 ];
 
+const AnimatedStat = ({ stat, inView }: { stat: any, inView: boolean }) => {
+  const [isFinished, setIsFinished] = React.useState(false);
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }} transition={{ duration: 0.5, delay: stat.id * 0.1 }} className="flex flex-col items-center justify-center p-6 md:p-8 bg-white/70 backdrop-blur-xl rounded-[24px] shadow-[0_8px_32px_rgba(0,0,0,0.04)] border border-slate-100 text-center hover:-translate-y-1 transition-all">
+      <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 mb-4 border border-indigo-100/50">
+        <stat.icon className="w-6 h-6" strokeWidth={2.5} />
+      </div>
+      <motion.div 
+        animate={isFinished ? { scale: [1, 1.1, 1] } : { scale: 1 }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className="text-4xl md:text-5xl lg:text-[3.5rem] font-black tracking-tighter text-slate-900 flex items-baseline font-heading">
+        {inView ? <CountUp start={0} end={stat.value} duration={2} decimals={stat.decimals || 0} prefix={stat.prefix || ""} separator="," onEnd={() => setIsFinished(true)} /> : "0"}
+        {stat.suffix && <span className="text-xl md:text-2xl ml-1 text-slate-500">{stat.suffix}</span>}
+      </motion.div>
+      <div className="text-[11px] font-bold text-slate-500 uppercase tracking-[0.2em] mt-3">{stat.label}</div>
+    </motion.div>
+  );
+};
+
 const STATS = [
   { id: 1, label: "Engineers", value: 24847, suffix: "+", icon: Users },
   { id: 2, label: "Calculations", value: 2.1, prefix: "", suffix: "M", decimals: 1, icon: Calculator },
@@ -39,16 +59,7 @@ export default function SocialProofSection() {
 
         <div ref={ref} className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8 mb-24">
           {STATS.map((stat) => (
-            <motion.div key={stat.id} initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }} transition={{ duration: 0.5, delay: stat.id * 0.1 }} className="flex flex-col items-center justify-center p-6 md:p-8 bg-white/70 backdrop-blur-xl rounded-[24px] shadow-[0_8px_32px_rgba(0,0,0,0.04)] border border-slate-100 text-center hover:-translate-y-1 transition-all">
-              <div className="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-indigo-600 mb-4 border border-indigo-100/50">
-                <stat.icon className="w-6 h-6" strokeWidth={2.5} />
-              </div>
-              <div className="text-4xl md:text-5xl lg:text-[3.5rem] font-black tracking-tighter text-slate-900 flex items-baseline font-heading">
-                {inView ? <CountUp start={0} end={stat.value} duration={2.5} decimals={stat.decimals || 0} prefix={stat.prefix || ""} separator="," /> : "0"}
-                {stat.suffix && <span className="text-xl md:text-2xl ml-1 text-slate-500">{stat.suffix}</span>}
-              </div>
-              <div className="text-[11px] font-bold text-slate-500 uppercase tracking-[0.2em] mt-3">{stat.label}</div>
-            </motion.div>
+            <AnimatedStat key={stat.id} stat={stat} inView={inView} />
           ))}
         </div>
 

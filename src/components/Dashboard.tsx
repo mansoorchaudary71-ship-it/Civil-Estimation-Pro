@@ -71,17 +71,18 @@ import ExcelPromo from "./ExcelPromo";
 import SmartSearch from "./SmartSearch";
 import HeroSection from "./HeroSection";
 import SocialProofSection from "./SocialProofSection";
+import ProjectsSection from "./ProjectsSection";
 import WorkspaceSection from "./WorkspaceSection";
 
 import {
   HowItWorksSection,
   FeatureComparisonSection,
-  ProjectTypesSection,
 } from "./LandingSections";
 
 import PostLoginDashboard from "./PostLoginDashboard";
 import { useSettings } from "../context/SettingsContext";
 import ToolCard from "./ToolCard";
+import { ScrollReveal } from "./ui/ScrollReveal";
 
 export const ALL_MODULES = [
   // 🚀 Guided Workflows
@@ -1100,7 +1101,7 @@ export default function Dashboard({
   // Handle particle creation purely via CSS in a style tag directly
   return (
     <>
-      <div className="relative flex-1 w-full flex flex-col font-sans bg-white text-slate-900 border-none">
+      <div className="relative flex-1 w-full flex flex-col font-sans bg-transparent text-slate-900 border-none">
         <SEO
           title="Dashboard"
           description="Civil Estimation Pro: Advanced estimators for live construction rate analysis, house estimating, and comprehensive BOQ calculators."
@@ -1114,10 +1115,10 @@ export default function Dashboard({
               {/* HERO SECTION */}
               <HeroSection onStart={() => handleSelect("house")} />
               {/* SOCIAL PROOF SECTION */}
-              <SocialProofSection />
-              <HowItWorksSection />
-              <ProjectTypesSection onSelect={handleSelect} />
-              <FeatureComparisonSection />
+              <ScrollReveal><SocialProofSection /></ScrollReveal>
+              <ScrollReveal yOffset={30}><HowItWorksSection /></ScrollReveal>
+              <ScrollReveal yOffset={30}><FeatureComparisonSection /></ScrollReveal>
+              <ScrollReveal yOffset={30}><ProjectsSection /></ScrollReveal>
             </>
           )}
 
@@ -1207,6 +1208,7 @@ export default function Dashboard({
                     key={groupName}
                     className="flex flex-col mb-12 last:mb-0 relative"
                   >
+                    <ScrollReveal yOffset={24}>
                     <h3 className="sticky top-[64px] z-30 bg-white/95 backdrop-blur-md py-4 text-sm font-bold text-slate-900 uppercase tracking-widest border-b border-slate-100 mb-6 shadow-sm -mx-4 px-4 sm:mx-0 sm:px-0">
                       {groupName}
                     </h3>
@@ -1224,12 +1226,14 @@ export default function Dashboard({
                         />
                       ))}
                     </div>
+                    </ScrollReveal>
                   </div>
                 ))
               )}
             </div>
 
             {/* FEATURED BANNER */}
+            <ScrollReveal yOffset={30}>
             <div className="w-full mb-0 rounded-[24px] overflow-hidden bg-gradient-to-br from-[#4C1D95] to-[#7C3AED] p-8 md:p-10 text-white relative shadow-lg flex flex-col md:flex-row items-center gap-8 border-none">
               <div className="flex-1 z-10 text-center md:text-left">
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full text-white text-[10px] font-bold tracking-wider uppercase mb-5 backdrop-blur-sm">
@@ -1257,13 +1261,14 @@ export default function Dashboard({
                   </div>
                   <div className="flex flex-col">
                     <span className="font-bold text-sm">RCC Master</span>
-                    <span className="text-purple-200 text-xs">
-                      Concrete Tech
+                    <span className="text-xs text-white/70">
+                      Slab, Beam, Col & Footing
                     </span>
                   </div>
                 </div>
               </div>
             </div>
+            </ScrollReveal>
           </div>
         </div>
       </div>

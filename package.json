@@ -45,6 +45,7 @@
     "react-intersection-observer": "^10.0.3",
     "react-konva": "^19.2.3",
     "react-markdown": "^10.1.0",
+    "react-parallax-tilt": "^1.7.329",
     "react-use": "^17.6.0",
     "recharts": "^3.8.1",
     "remark-gfm": "^4.0.1",

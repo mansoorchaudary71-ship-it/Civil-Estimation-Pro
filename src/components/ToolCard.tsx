@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import Tilt from "react-parallax-tilt";
 import {
   Lock,
   LockOpen,
@@ -87,7 +88,7 @@ export default function ToolCard({
   const theme = getCategoryThemeNew(mod.category);
 
   return (
-    <motion.button
+    <motion.div
       initial={{ opacity: 0, y: 40, scale: 0.95 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -96,16 +97,32 @@ export default function ToolCard({
         delay: (idx || 0) * 0.06,
         ease: [0.22, 1, 0.36, 1],
       }}
-      whileTap={{ scale: 0.98 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      onClick={() => onSelect(mod.id)}
-      className={`group relative flex flex-col h-full w-full text-left bg-white rounded-[24px] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 overflow-hidden transition-all duration-300 md:hover:-translate-y-2 md:hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.1)] border ${
-        mod.premium
-          ? "border-amber-300/60 shadow-[0_4px_12px_rgba(245,158,11,0.05)] md:hover:shadow-[0_20px_40px_-12px_rgba(245,158,11,0.2)]"
-          : `${theme.border} shadow-sm`
-      }`}
+      className="h-full w-full rounded-[24px]"
     >
+      <Tilt
+        tiltMaxAngleX={4}
+        tiltMaxAngleY={4}
+        perspective={1000}
+        scale={1.02}
+        transitionSpeed={400}
+        glareEnable={true}
+        glareMaxOpacity={0.12}
+        glareColor="#ffffff"
+        glarePosition="all"
+        glareBorderRadius="24px"
+        className="h-full w-full rounded-[24px]"
+      >
+        <motion.button
+          whileTap={{ scale: 0.98 }}
+          onHoverStart={() => setIsHovered(true)}
+          onHoverEnd={() => setIsHovered(false)}
+          onClick={() => onSelect(mod.id)}
+          className={`group relative flex flex-col h-full w-full text-left bg-white rounded-[24px] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 overflow-hidden transition-all duration-300 md:hover:shadow-[0_20px_40px_-12px_rgba(99,102,241,0.25)] border ${
+            mod.premium
+              ? "border-amber-300/60 shadow-[0_4px_12px_rgba(245,158,11,0.05)] md:hover:shadow-[0_20px_40px_-12px_rgba(245,158,11,0.3)]"
+              : `${theme.border} shadow-sm`
+          }`}
+        >
       {/* Top Bar with Tags */}
       <div className="absolute top-4 left-4 right-4 flex justify-between items-start z-20">
         <div className="flex flex-col items-start gap-1.5 focus:outline-none">
@@ -237,5 +254,7 @@ export default function ToolCard({
         </div>
       </div>
     </motion.button>
+    </Tilt>
+  </motion.div>
   );
 }
