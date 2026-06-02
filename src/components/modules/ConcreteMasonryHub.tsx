@@ -45,20 +45,7 @@ export default function ConcreteMasonryHub({ isEmbedded = false, onNavigate }: C
             description="Unified hub for all concrete and masonry calculations: slabs, columns, foundations, bricks, blocks, and plaster calculations."
           />
           
-          <div className="mb-6 md:mb-8 px-4 md:px-0">
-            <h1 className="text-3xl font-semibold tracking-tight text-text-primary mb-2 flex items-center gap-3">
-              <Building2 className="w-8 h-8 text-indigo-600" />
-              Concrete & Masonry Hub
-            </h1>
-            <p className="text-slate-500 font-medium">
-              Unified interface for RCC elements, retaining walls, foundations, blocks, and plaster.
-              <br/>
-              <span className="text-xs text-indigo-600 flex items-center gap-1 mt-1 font-bold">
-                <BookOpen className="w-3 h-3" />
-                Ref: IS 456:2000 / ACI 318 / BS 8110 for structural concrete elements.
-              </span>
-            </p>
-          </div>
+          
         </>
       )}
 

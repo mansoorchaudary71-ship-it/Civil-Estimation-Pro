@@ -40,18 +40,7 @@ export default function InteriorsFinishesEstimator() {
   return (
     <div className="w-full pb-20 mt-4">
       <div className="max-w-4xl mx-auto space-y-8">
-        <header className="mb-4">
-          <h1 className="text-3xl font-semibold tracking-tight text-slate-900 mb-2 flex items-center gap-3">
-            <PaintBucket className="w-8 h-8 text-amber-600" />
-            Interiors & Finishes
-          </h1>
-          <p className="text-slate-500 font-medium">
-            Estimate quantities for tiles, paint, doors/windows, wood framing, and anti-termite treatment.
-          </p>
-          <div className="mt-4">
-             <GlobalSettingsToggle align="left" showCurrency={false} />
-          </div>
-        </header>
+        
 
         <div className="space-y-4">
           <div className="bg-white rounded-[24px] shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-slate-200 overflow-hidden transition-all">

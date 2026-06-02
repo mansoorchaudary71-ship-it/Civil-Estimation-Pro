@@ -20,15 +20,7 @@ export default function EnergyMepCalculator() {
 
   return (
     <div className="max-w-4xl mx-auto pb-20">
-      <div className="mb-8">
-        <h1 className="text-3xl font-semibold tracking-tight text-slate-900 mb-2 flex items-center gap-3">
-          <Zap className="w-8 h-8 text-indigo-600" />
-          Energy & MEP Calculators
-        </h1>
-        <p className="text-slate-500 font-medium">
-          Estimate solar capacity, water heating requirements, and AC sizing for your projects.
-        </p>
-      </div>
+      
 
       <div className="flex overflow-x-auto pb-4 gap-2 mb-8 p-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         <UniversalTabs tabs={[{id: "solar", label: "Solar Rooftop", icon: <Zap className="w-5 h-5" />}]} activeTab={activeTab === "solar" ? "solar" : ""} onTabChange={() => setActiveTab("solar")} />

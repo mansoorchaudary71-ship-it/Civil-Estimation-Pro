@@ -405,10 +405,7 @@ export default function QSWorkflow() {
 
                {/* Report Header */}
                <div className="flex justify-between items-start pt-6 border-b-2 border-slate-800 pb-6 mb-8">
-                  <div>
-                    <h1 className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight uppercase tracking-widest text-slate-900 mb-2">{projectData.name}</h1>
-                    <p className="text-lg font-bold text-slate-600">{projectData.type} Structure • {projectData.location}</p>
-                  </div>
+                  
                   <div className="text-right">
                     <p className="font-bold text-slate-500 text-sm">CLIENT</p>
                     <p className="font-bold text-lg">{projectData.client}</p>

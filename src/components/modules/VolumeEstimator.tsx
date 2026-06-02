@@ -338,13 +338,8 @@ export default function VolumeEstimator() {
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-3xl font-bold tabular-nums tracking-tight mb-2 flex items-center gap-3">
-          <Database className="w-8 h-8 text-blue-500" /> Volume Estimator
-        </h1>
-        <p className="text-slate-500 dark:text-slate-400 dark:text-slate-700 dark:text-slate-300 mb-8 font-medium">
-          Calculate total volume, surface area, and liquid capacity of civil
-          engineering shapes.
-        </p>
+        
+        
         {/* Global Settings */}
         <div className="flex flex-wrap gap-4 mb-8 items-center bg-bg-card px-4 py-3 rounded-[24px] border border-border-color">
           <div>

@@ -437,10 +437,7 @@ export default function MixDesignCalculator() {
 
       {/* PRINTABLE REPORT SECTION (Visually styled for screen, clean for print) */}
       <div className="print-only max-w-4xl mx-auto bg-white text-black p-8 font-serif hide-on-screen">
-          <div className="border-b-2 border-black pb-4 mb-6 text-center">
-             <h1 className="text-3xl font-semibold tabular-nums tracking-tight uppercase tracking-widest text-black">Concrete Mix Design Report</h1>
-             <p className="text-sm mt-2 font-bold text-gray-600">IS 10262:2019 / IS 456:2000 Compliance</p>
-          </div>
+          
 
           <div className="grid grid-cols-2 gap-8 mb-8">
              <div>

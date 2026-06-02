@@ -17,18 +17,7 @@ export default function HouseSpecs() {
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
-        <header className="mb-10">
-          <h1 className="text-[clamp(1.75rem,5vw,2.5rem)] break-all lg:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-bold tracking-tight tracking-tight bg-gradient-to-r bg-clip-text text-transparent pb-2">
-            Material Specs & Finishing
-          </h1>
-          <p className="text-gray-500 mt-2 text-lg font-medium">
-            Define material specifications, structural mixes, and finish
-            qualities mapping to central dynamic rates.
-          </p>
-          <div className="mt-5 w-fit">
-            <GlobalSettingsToggle align="left" showCurrency={false} />
-          </div>
-        </header>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Brickwork Card */}
           <GlassCard

@@ -178,15 +178,7 @@ export default function SlabEstimator() {
         description="Calculate concrete volume and steel reinforcement for one-way and two-way reinforced concrete slabs."
       />
       <div className="mb-8 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 mb-2 flex items-center gap-3">
-            <Grid2X2 className="w-8 h-8 text-indigo-600" />
-            Slab Estimator
-          </h1>
-          <p className="text-slate-500 font-medium">
-            Estimate concrete volume and total structural steel weight for one-way and two-way spanning slabs.
-          </p>
-        </div>
+        
         <div className="flex gap-2">
           {results && (
             <button onClick={sendToBOQ} className="text-xs font-bold px-3 py-2 bg-emerald-50 text-emerald-600 rounded-[16px] hover:bg-emerald-100 transition-colors border border-emerald-200">

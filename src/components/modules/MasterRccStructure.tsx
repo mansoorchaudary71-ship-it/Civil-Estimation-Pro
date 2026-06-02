@@ -37,15 +37,7 @@ export default function MasterRccStructure({ isEmbedded = false, onNavigate }: M
             description="Unified hub for all concrete and steel calculations, including slabs, columns, beams, staircases, and Bar Bending Schedules."
           />
           
-          <div className="mb-6 md:mb-8 px-4 md:px-0">
-            <h1 className="text-3xl font-semibold tracking-tight text-text-primary mb-2 flex items-center gap-3">
-              <Building2 className="w-8 h-8 text-indigo-600" />
-              Master RCC Estimator
-            </h1>
-            <p className="text-slate-500 font-medium">
-              A unified hub for advanced reinforced concrete and steel estimation tools.
-            </p>
-          </div>
+          
         </>
       )}
 

@@ -150,21 +150,7 @@ export default function FormworkEstimator() {
       {" "}
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         {" "}
-        <header className="mb-10">
-          {" "}
-          <h1 className="text-[clamp(1.75rem,5vw,2.5rem)] break-all lg:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-bold tracking-tight tracking-tight bg-gradient-to-r from-amber-600 to-rose-600 bg-clip-text text-transparent pb-2">
-            {" "}
-            Formwork & Scaffolding{" "}
-          </h1>{" "}
-          <p className="text-gray-500 mt-2 text-lg font-medium">
-            {" "}
-            Calculate accurate shuttering contact surface areas and standard
-            material requirements.{" "}
-          </p>{" "}
-          <div className="mt-5 w-fit">
-            <GlobalSettingsToggle align="left" showCurrency={false} />
-          </div>{" "}
-        </header>{" "}
+        {" "}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {" "}
           {/* Elements Config Section */}{" "}

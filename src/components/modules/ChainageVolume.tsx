@@ -132,24 +132,7 @@ export default function ChainageVolumeEstimator() {
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-7xl mx-auto space-y-8">
-        <header className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6 bg-white p-6 rounded-[2rem] shadow-sm border border-gray-100">
-          <div>
-            <h1 className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all hover:tracking-wide transition-all duration-300 font-bold bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent pb-1 flex items-center gap-3">
-              <Map className="w-8 h-8 text-amber-500" /> Road Earthwork
-              Calculator
-            </h1>
-            <p className="text-gray-500 mt-2 font-medium">
-              Calculate road alignment cutting and filling volumes using the
-              accurate Prismoidal Formula.
-            </p>
-            <div className="mt-5 w-fit">
-              <GlobalSettingsToggle align="left" showCurrency={false} />
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-4 items-center">
-            
-          </div>
-        </header>
+        
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <section className="lg:col-span-8 space-y-6">
             {/* Global Parameters */}

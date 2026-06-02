@@ -642,33 +642,7 @@ export default function HouseEstimator() {
         canonicalUrl="https://civilestimationpro.com/house" 
       />
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
-        <header className="mb-8 block">
-          <div>
-            <h1 className="text-[clamp(1.75rem,5vw,2.5rem)] break-all lg:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-bold tracking-tight tracking-tight text-slate-900 bg-clip-text text-transparent pb-2">
-              Complete House Estimator
-            </h1>
-            <p className="text-gray-500 mt-2 text-lg font-medium">
-              Precise civil engineering estimations for grey structure and
-              finishing works.
-            </p>
-            <div className="mt-5 flex gap-4 w-fit">
-              <GlobalSettingsToggle align="left" />
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="bg-white px-4 py-3 rounded-[24px] shadow-sm border border-gray-100 flex items-center justify-between gap-4">
-              <span className="text-sm font-bold text-gray-700 uppercase tracking-widest">
-                Built-up
-              </span>
-              <span className="text-2xl font-semibold tabular-nums tracking-tight text-indigo-600 tracking-tighter whitespace-nowrap">
-                {builtUpArea.toFixed(0)}
-                <span className="text-sm font-medium text-indigo-400">
-                  sq.ft
-                </span>
-              </span>
-            </div>
-          </div>
-        </header>
+        
 
         <div className="space-y-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

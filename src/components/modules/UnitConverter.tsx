@@ -259,15 +259,8 @@ export default function UnitConverter() {
       {" "}
       <div className="max-w-6xl mx-auto">
         {" "}
-        <h1 className="text-3xl font-bold tabular-nums tracking-tight mb-2 flex items-center gap-3">
-          {" "}
-          <RefreshCcw className="w-8 h-8 text-fuchsia-500" /> Universal Unit
-          Converter{" "}
-        </h1>{" "}
-        <p className="text-slate-500 mb-8 font-medium">
-          Instantly convert across 15 engineering and scientific categories with
-          standard precision.
-        </p>{" "}
+        {" "}
+        {" "}
         {/* Categories Tabs */}
         <div className="mb-10">
           <UniversalTabs 

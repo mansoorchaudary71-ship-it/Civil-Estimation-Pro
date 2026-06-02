@@ -242,33 +242,7 @@ export default function MetalWeightCalculator() {
  "Total Weight": `${totalWeight.toFixed(2)} kg`,
  };
  return (
- <div className="w-full h-full overflow-y-auto bg-[#F5F5F7] text-text-primary p-6 md:p-8">
- <div className="max-w-6xl mx-auto">
- <h1 className="text-3xl font-semibold tabular-nums tracking-tight mb-2 flex items-center gap-3">
- <Weight className="w-8 h-8 text-neutral-600 " />
- Metal Weight Calculator
- </h1>
- <p className="text-slate-700 mb-8 font-medium">
- Calculate the mass and per-length weight of standard structural steel
- profiles.
- </p>
- {/* Global Settings */}
- <div className="flex flex-wrap gap-4 mb-8 items-center bg-white px-4 py-3 rounded-[24px] border border-border-color shadow-sm">
- <div className="flex-1 min-w-[200px]">
- <label className="text-xs font-bold text-gray-700 uppercase block mb-1.5">
- Material Density (kg/m³)
- </label>
- <input
- type="number"
- value={density}
- onChange={(e) => setDensity(e.target.value)}
- className="w-full bg-transparent bg-white border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-neutral-500"
- />
- <p className="text-[10px] text-slate-700 mt-1 pl-1">
- Steel: 7850 | Aluminum: 2700 | Stainless: 7930
- </p>
- </div>
- <div className="flex-1 min-w-[200px]">
+ <div className="w-full h-full overflow-y-auto bg-[#F5F5F7] text-text-primary p-6 md:p-8"><div className="max-w-4xl mx-auto"><div className="bg-white rounded-[32px] p-6 shadow-sm border border-slate-200 mb-8"><div className="flex flex-col md:flex-row gap-6 mb-6"><div className="flex-1 min-w-[200px]">
  <label className="text-xs font-bold text-gray-700 uppercase block mb-1.5">
  Element Length (m)
  </label>
@@ -603,8 +577,4 @@ export default function MetalWeightCalculator() {
  if (inputs.s !== undefined) setS(inputs.s);
  if (inputs.leg1 !== undefined) setLeg1(inputs.leg1);
  if (inputs.leg2 !== undefined) setLeg2(inputs.leg2);
- }}
- />
- </div>
- );
-}
+ }} /></div></div>); }

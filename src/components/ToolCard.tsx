@@ -11,13 +11,106 @@ import {
 } from "lucide-react";
 
 export const getCategoryThemeNew = (category: string) => {
+  const cat = category.toLowerCase();
+  
+  if (cat.includes('estimator')) {
+    return {
+      color: 'emerald',
+      bg: 'bg-emerald-50 dark:bg-emerald-900/40',
+      iconBg: 'bg-emerald-100 dark:bg-emerald-800/80',
+      text: 'text-emerald-800 dark:text-emerald-300',
+      border: 'border-emerald-200 dark:border-emerald-700/50',
+      gradient: 'from-emerald-600 to-emerald-400 dark:from-emerald-700 dark:to-emerald-500',
+    };
+  }
+  if (cat.includes('concrete')) {
+    return {
+      color: 'slate',
+      bg: 'bg-slate-50 dark:bg-slate-800/60',
+      iconBg: 'bg-slate-200 dark:bg-slate-700',
+      text: 'text-slate-800 dark:text-slate-200',
+      border: 'border-slate-300 dark:border-slate-600/50',
+      gradient: 'from-slate-600 to-slate-400 dark:from-slate-700 dark:to-slate-500',
+    };
+  }
+  if (cat.includes('road')) {
+    return {
+      color: 'amber',
+      bg: 'bg-amber-50 dark:bg-amber-900/40',
+      iconBg: 'bg-amber-100 dark:bg-amber-800/80',
+      text: 'text-amber-800 dark:text-amber-300',
+      border: 'border-amber-200 dark:border-amber-700/50',
+      gradient: 'from-amber-600 to-amber-400 dark:from-amber-700 dark:to-amber-500',
+    };
+  }
+  if (cat.includes('soil')) {
+    return {
+      color: 'stone',
+      bg: 'bg-stone-50 dark:bg-stone-800/60',
+      iconBg: 'bg-stone-200 dark:bg-stone-700',
+      text: 'text-stone-800 dark:text-orange-200',
+      border: 'border-stone-300 dark:border-stone-600/50',
+      gradient: 'from-orange-600 to-orange-400 dark:from-stone-700 dark:to-stone-500',
+    };
+  }
+  if (cat.includes('mep')) {
+    return {
+      color: 'cyan',
+      bg: 'bg-cyan-50 dark:bg-cyan-900/40',
+      iconBg: 'bg-cyan-100 dark:bg-cyan-800/80',
+      text: 'text-cyan-800 dark:text-cyan-300',
+      border: 'border-cyan-200 dark:border-cyan-700/50',
+      gradient: 'from-cyan-600 to-cyan-400 dark:from-cyan-700 dark:to-cyan-500',
+    };
+  }
+  if (cat.includes('analysis')) {
+    return {
+      color: 'indigo',
+      bg: 'bg-indigo-50 dark:bg-indigo-900/40',
+      iconBg: 'bg-indigo-100 dark:bg-indigo-800/80',
+      text: 'text-indigo-800 dark:text-indigo-300',
+      border: 'border-indigo-200 dark:border-indigo-700/50',
+      gradient: 'from-indigo-600 to-indigo-400 dark:from-indigo-700 dark:to-indigo-500',
+    };
+  }
+  if (cat.includes('structural')) {
+    return {
+      color: 'rose',
+      bg: 'bg-rose-50 dark:bg-rose-900/40',
+      iconBg: 'bg-rose-100 dark:bg-rose-800/80',
+      text: 'text-rose-800 dark:text-rose-300',
+      border: 'border-rose-200 dark:border-rose-700/50',
+      gradient: 'from-rose-600 to-rose-400 dark:from-rose-700 dark:to-rose-500',
+    };
+  }
+  if (cat.includes('architectur')) {
+    return {
+      color: 'fuchsia',
+      bg: 'bg-fuchsia-50 dark:bg-fuchsia-900/40',
+      iconBg: 'bg-fuchsia-100 dark:bg-fuchsia-800/80',
+      text: 'text-fuchsia-800 dark:text-fuchsia-300',
+      border: 'border-fuchsia-200 dark:border-fuchsia-700/50',
+      gradient: 'from-fuchsia-600 to-fuchsia-400 dark:from-fuchsia-700 dark:to-fuchsia-500',
+    };
+  }
+  if (cat.includes('interior')) {
+    return {
+      color: 'violet',
+      bg: 'bg-violet-50 dark:bg-violet-900/40',
+      iconBg: 'bg-violet-100 dark:bg-violet-800/80',
+      text: 'text-violet-800 dark:text-violet-300',
+      border: 'border-violet-200 dark:border-violet-700/50',
+      gradient: 'from-violet-600 to-violet-400 dark:from-violet-700 dark:to-violet-500',
+    };
+  }
+  
   return {
-    color: `blue`,
-    bg: `bg-[#0072de]/10 dark:bg-[#0072de]/20`,
-    iconBg: `bg-[#0072de]/20 dark:bg-[#0072de]/30`,
-    text: `text-[#0072de] dark:text-[#3399ff]`,
-    border: `border-[#0072de]/20 dark:border-[#0072de]/40`,
-    gradient: `from-[#005bb5] to-[#0072de] dark:from-[#004a99] dark:to-[#005bb5]`,
+    color: 'blue',
+    bg: 'bg-blue-50 dark:bg-blue-900/40',
+    iconBg: 'bg-blue-100 dark:bg-blue-800/80',
+    text: 'text-blue-800 dark:text-blue-300',
+    border: 'border-blue-200 dark:border-blue-700/50',
+    gradient: 'from-blue-600 to-blue-400 dark:from-blue-700 dark:to-blue-500',
   };
 };
 
@@ -65,14 +158,14 @@ export default function ToolCard({
         glareColor="#ffffff"
         glarePosition="all"
         glareBorderRadius="24px"
-        className="h-full w-full rounded-[32px]"
+        className="h-full w-full rounded-[24px]"
       >
         <motion.button
           whileTap={{ scale: 0.98 }}
           onHoverStart={() => setIsHovered(true)}
           onHoverEnd={() => setIsHovered(false)}
           onClick={() => onSelect(mod.id)}
-          className={`group relative flex flex-col h-full w-full text-left bg-white dark:bg-[#252525] rounded-[32px] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 overflow-hidden transition-all duration-300 md:hover:shadow-[0_20px_40px_-12px_rgba(99,102,241,0.25)] border ${
+          className={`group relative flex flex-col h-full w-full text-left ${theme.bg} rounded-[24px] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 overflow-hidden transition-all duration-300 md:hover:shadow-[0_20px_40px_-12px_rgba(99,102,241,0.25)] border ${
             mod.premium
               ? "border-amber-300/60 shadow-[0_4px_12px_rgba(245,158,11,0.05)] md:hover:shadow-[0_20px_40px_-12px_rgba(245,158,11,0.3)]"
               : `${theme.border} shadow-sm`
@@ -117,7 +210,7 @@ export default function ToolCard({
         <div
           role="button"
           tabIndex={0}
-          className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors backdrop-blur-md ${isBookmarked ? "bg-amber-100 text-amber-500" : "bg-white/80 text-slate-300 hover:text-slate-500 dark:text-slate-400"} shadow-sm border border-slate-100/50`}
+          className={`w-6 h-6 rounded-full flex items-center justify-center transition-colors backdrop-blur-md ${isBookmarked ? "bg-amber-100 text-amber-500" : "bg-white/80 text-slate-300 hover:text-slate-500 dark:text-slate-400"} shadow-sm border border-slate-100/50`}
           onClick={(e) => {
             e.stopPropagation();
             setIsBookmarked(!isBookmarked);
@@ -140,9 +233,9 @@ export default function ToolCard({
 
       {/* Hero Visual Area */}
       <div
-        className={`relative h-[160px] w-full p-6 flex flex-col justify-end transition-colors duration-500 ${theme.bg}`}
+        className={`relative h-[100px] w-full p-5 flex flex-col justify-end transition-colors duration-500 ${theme.bg}`}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent z-0 pointer-events-none" />
+        
 
         {/* Large Category Icon Overlay */}
         <div
@@ -153,16 +246,16 @@ export default function ToolCard({
 
         <div className="relative z-10 flex">
           <div
-            className={`w-16 h-16 rounded-[32px] flex items-center justify-center shadow-lg bg-gradient-to-br ${theme.gradient} text-white transition-transform duration-300 md:group-hover:scale-110 md:group-hover:-translate-y-2`}
+            className={`w-12 h-12 rounded-[24px] flex items-center justify-center shadow-lg bg-gradient-to-br ${theme.gradient} text-white transition-transform duration-300 md:group-hover:scale-110 md:group-hover:-translate-y-2`}
           >
-            <mod.icon className="w-8 h-8" strokeWidth={2} />
+            <mod.icon className="w-6 h-6" strokeWidth={2} />
           </div>
         </div>
       </div>
 
       {/* Content Area */}
-      <div className="flex flex-col flex-grow p-6 z-10 bg-white relative">
-        <div className="mb-4 flex-grow">
+      <div className="flex flex-col flex-grow p-4 z-10 bg-transparent relative">
+        <div className="mb-2 flex-grow">
           <div
             className={`text-[10px] font-bold uppercase tracking-widest mb-2 ${theme.text}`}
           >
@@ -202,8 +295,8 @@ export default function ToolCard({
         </div>
 
         {/* Hover Reveal Button overlaying the footer area slightly */}
-        <div className="absolute left-0 right-0 bottom-0 p-6 translate-y-[20px] md:group-hover:translate-y-0 transition-all duration-300 opacity-0 md:group-hover:opacity-100 pointer-events-none md:pointer-events-auto bg-gradient-to-t from-white via-white to-transparent pt-12">
-          <div className="w-full bg-[#0072de] hover:bg-[#005bb5] text-white font-bold py-3 rounded-[32px] flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20 transition-colors">
+        <div className="absolute left-0 right-0 bottom-0 p-4 translate-y-[20px] md:group-hover:translate-y-0 transition-all duration-300 opacity-0 md:group-hover:opacity-100 pointer-events-none md:pointer-events-auto bg-gradient-to-t from-white via-white to-transparent dark:from-[#252525] dark:via-[#252525] pt-12">
+          <div className={`w-full text-white font-bold py-3 rounded-[32px] flex items-center justify-center gap-2 shadow-lg transition-transform hover:scale-105 bg-gradient-to-br ${theme.gradient}`}>
             Open Tool <ArrowRight className="w-4 h-4" />
           </div>
         </div>

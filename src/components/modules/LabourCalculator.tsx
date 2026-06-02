@@ -128,15 +128,7 @@ export default function LabourCalculator() {
     <div className="w-full h-full overflow-y-auto bg-transparent text-text-primary p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-semibold tabular-nums tracking-tight mb-2 flex items-center gap-3 text-text-primary">
-              <Users className="w-8 h-8 text-[#E55A2B] [#ff8a65]" />
-              Labour & Workforce Estimator
-            </h1>
-            <p className="text-slate-500 font-medium">
-              Calculate piece-rate labour cost, worker allocation, and daily burn rates for your project.
-            </p>
-          </div>
+          
           <div className="flex gap-4 items-center">
             <button 
               onClick={handleExportPDF}

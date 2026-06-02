@@ -175,15 +175,7 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
       <div className="max-w-5xl mx-auto space-y-6">
         {!isEmbedded && (
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
-            <div>
-              <h1 className="text-3xl font-bold tabular-nums tracking-tight mb-2 flex items-center gap-3 text-text-primary">
-                <ShieldCheck className="w-8 h-8 text-[#E55A2B] [#ff8a65]" />
-                Retaining Wall Estimator
-              </h1>
-              <p className="text-slate-500 font-medium">
-                Calculate stability, concrete volume, and reinforcement for cantilever retaining walls.
-              </p>
-            </div>
+            
             <div className="flex flex-col items-end gap-2">
               <GlobalSettingsToggle align="left" showCurrency={false} />
               <button onClick={sendToBOQ} className="text-xs font-bold px-3 py-2 bg-emerald-50 text-emerald-600 rounded-[16px] hover:bg-emerald-100 transition-colors border border-emerald-200">

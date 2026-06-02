@@ -77,18 +77,7 @@ export default function RateAnalysis() {
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
-        <header className="mb-8">
-          <h1 className="text-[clamp(1.75rem,5vw,2.5rem)] break-all lg:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-bold tracking-tight tracking-tight bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent pb-2">
-            Rate Analysis & Market Pricing
-          </h1>
-          <p className="text-gray-500 mt-2 text-lg font-medium">
-            Centralized hub for local market rates. Updates here reflect
-            globally across all estimation modules.
-          </p>
-          <div className="mt-5 w-fit">
-            <GlobalSettingsToggle align="left" />
-          </div>
-        </header>
+        
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Rate Inputs */}
           <section className="lg:col-span-7 space-y-6">

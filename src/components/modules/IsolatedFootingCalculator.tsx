@@ -191,15 +191,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
       <div className="max-w-5xl mx-auto space-y-6">
         {!isEmbedded && (
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
-            <div>
-              <h1 className="text-3xl font-semibold tabular-nums tracking-tight mb-2 flex items-center gap-3 text-text-primary">
-                <Box className="w-8 h-8 text-[#E55A2B] [#ff8a65]" />
-                Isolated Footing Calculator
-              </h1>
-              <p className="text-slate-500 font-medium">
-                Calculate concrete, excavation, and steel mesh quantities for isolated foundations.
-              </p>
-            </div>
+            
             <div className="flex flex-col items-end gap-2">
               <GlobalSettingsToggle align="left" showCurrency={false} />
               <div className="flex gap-2">

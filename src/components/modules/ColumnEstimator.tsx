@@ -245,15 +245,7 @@ export default function ColumnEstimator() {
     <div className="w-full h-full overflow-y-auto bg-transparent text-text-primary p-6 md:p-8">
       <div className="max-w-4xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-semibold tabular-nums tracking-tight mb-2 flex items-center gap-3 text-text-primary">
-              <Columns className="w-8 h-8 text-indigo-600" />
-              Column Concrete Estimator
-            </h1>
-            <p className="text-slate-500 font-medium">
-              Calculate concrete volume and material breakdown for columns.
-            </p>
-          </div>
+          
           <GlobalSettingsToggle align="left" showCurrency={false} />
         </div>
                 <div className="bg-bg-card rounded-[24px] shadow-md border border-border-color overflow-hidden">

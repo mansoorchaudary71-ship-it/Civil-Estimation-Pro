@@ -71,7 +71,6 @@ import ExcelPromo from "./ExcelPromo";
 import SmartSearch from "./SmartSearch";
 import HeroSection from "./HeroSection";
 import SocialProofSection from "./SocialProofSection";
-import ProjectsSection from "./ProjectsSection";
 import WorkspaceSection from "./WorkspaceSection";
 
 import {
@@ -82,7 +81,6 @@ import {
 import PostLoginDashboard from "./PostLoginDashboard";
 import { useSettings } from "../context/SettingsContext";
 import ToolCard from "./ToolCard";
-import { BentoGrid } from "./BentoGrid";
 import { ScrollReveal } from "./ui/ScrollReveal";
 
 export const ALL_MODULES = [
@@ -1013,17 +1011,7 @@ export default function Dashboard({
     }
   }, [previousModule]);
 
-  const categories = [
-    "All Tools",
-    "Quantity Estimator",
-    "Structural Design",
-    "Concrete Tech",
-    "Architectural References & Space Planning",
-    "Road Construction",
-    "Soil Tests",
-    "MEP",
-    "Analysis & Tools",
-  ];
+  const categories = ["All Tools", ...Array.from(new Set(ALL_MODULES.map(m => m.category)))];
 
   const filterPills = [
     "All",
@@ -1111,9 +1099,9 @@ export default function Dashboard({
           ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2) !important; }
           body { background-color: #121212 !important; color: #ffffff !important; }
         }
-        html, body { overflow: hidden; height: 100vh; } 
+         
       `}</style>
-      <div className="relative flex-1 w-full flex flex-col h-screen font-sans bg-[#f8f9fa] dark:bg-[#121212] text-slate-900 dark:text-white border-none overflow-hidden">
+      <div className="relative flex-1 w-full flex flex-col font-sans bg-[#f8f9fa] dark:bg-[#121212] text-slate-900 dark:text-white border-none">
         <SEO
           title="Dashboard"
           description="Civil Estimation Pro: Advanced estimators for live construction rate analysis, house estimating, and comprehensive BOQ calculators."
@@ -1142,7 +1130,7 @@ export default function Dashboard({
         </div>
 
         {/* ONE UI: INTERACTION AREA (Bottom 70%) */}
-        <div className="flex-1 w-full bg-white dark:bg-[#1a1b1e] rounded-t-[32px] overflow-y-auto overflow-x-hidden shadow-[0_-12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_-5px_30px_rgba(0,0,0,0.5)] border border-slate-200/50 dark:border-[#333] pb-32">
+        <div className="flex-1 w-full bg-white dark:bg-[#1a1b1e] rounded-t-[32px] overflow-x-hidden shadow-[0_-12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_-5px_30px_rgba(0,0,0,0.5)] border border-slate-200/50 dark:border-[#333] pb-32">
             <div className="w-full max-w-7xl mx-auto px-4 z-10 overflow-visible flex flex-col pt-8">
               {user ? (
                 <div className="mb-12"><WorkspaceSection onSelect={handleSelect} /></div>
@@ -1152,7 +1140,6 @@ export default function Dashboard({
                   <ScrollReveal><SocialProofSection /></ScrollReveal>
                   <ScrollReveal yOffset={30}><HowItWorksSection /></ScrollReveal>
                   <ScrollReveal yOffset={30}><FeatureComparisonSection /></ScrollReveal>
-                  <ScrollReveal yOffset={30}><ProjectsSection /></ScrollReveal>
                 </div>
               )}
               
@@ -1164,17 +1151,56 @@ export default function Dashboard({
             className="flex flex-col gap-10 max-w-[900px] mx-auto w-full"
             id="tools-section"
           >
+            
             {/* SEARCH BAR */}
             <div className="w-full relative">
               <SmartSearch
                 onSelect={(id) => {
                   if (id === "ai") setIsAiChatOpen(true);
-                  else handleSelect(id as any);
+                  else handleSelect(id);
                 }}
               />
             </div>
 
-            {/* FILTER & SORT ROW */}
+            {/* CATEGORY FILTER TABS */}
+            <div className="w-full bg-[#0F172A] py-5 px-4 sm:px-6 rounded-3xl shadow-lg mb-2 mt-4 relative after:content-[''] after:absolute after:right-0 after:top-0 after:bottom-0 after:w-[40px] after:bg-gradient-to-r after:from-transparent after:to-[#0D1117] after:pointer-events-none md:after:hidden overflow-hidden">
+              <div 
+                className="flex md:flex-wrap gap-3 overflow-x-auto no-scrollbar relative items-center"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {categories.map((catName) => {
+                  const count = catName === 'All Tools' ? ALL_MODULES.length : ALL_MODULES.filter(m => m.category === catName).length;
+                  const cat = { name: catName, count };
+                  const isActive = activeCategory === cat.name;
+                  return (
+                    <button
+                      key={cat.name}
+                      onClick={() => setActiveCategory(cat.name)}
+                      className={`relative flex items-center justify-between md:justify-center flex-shrink-0 gap-3 px-4 py-3 rounded-2xl whitespace-nowrap transition-all duration-300 border ${
+                        isActive
+                          ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-[0_4px_15px_rgba(245,158,11,0.25)] border-transparent scale-100'
+                          : 'bg-[#1E293B] text-white/60 hover:text-amber-400 hover:bg-[#1E293B]/80 hover:shadow-md border-white/5'
+                      } font-dm-sans text-sm sm:text-base cursor-pointer`}
+                      style={{ fontFamily: "'DM Sans', sans-serif" }}
+                    >
+                      <span className={`${isActive ? 'font-bold' : 'font-medium'}`}>{cat.name}</span>
+                      <span className={`flex items-center justify-center px-2 py-0.5 text-[0.7rem] font-bold rounded-full ${isActive ? 'bg-white/20 text-white' : 'bg-amber-500/10 text-amber-500'}`}>
+                        {cat.count}
+                      </span>
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeCatIndicator"
+                          className="absolute -bottom-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-amber-400 rounded-full"
+                          initial={false}
+                          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                        />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+{/* FILTER & SORT ROW */}
             <div className="flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-4 py-2 z-20 relative">
               <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2 lg:pb-0 font-medium text-sm w-full lg:w-auto -mx-4 px-4 lg:mx-0 lg:px-0">
                 {filterPills.map((pill) => (
@@ -1242,34 +1268,24 @@ export default function Dashboard({
                     key={groupName}
                     className="flex flex-col mb-12 last:mb-0 relative"
                   >
-                    <ScrollReveal yOffset={24}>
                     <h3 className="sticky top-[64px] z-30 bg-white/95 backdrop-blur-md py-4 text-sm font-bold text-slate-900 uppercase tracking-widest border-b border-slate-100 mb-6 shadow-sm -mx-4 px-4 sm:mx-0 sm:px-0">
                       {groupName}
                     </h3>
                     
-                    {groupName === 'Quantity Estimator' || groupName === 'Concrete Tech' ? (
-                      <BentoGrid 
-                        modules={groupedModules[groupName]} 
-                        onSelect={handleSelect} 
-                        usedTools={settings.usedTools} 
-                      />
-                    ) : (
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-                        {groupedModules[groupName].map((mod, idx) => (
-                          <ToolCard
-                            key={mod.id}
-                            mod={mod}
-                            onSelect={handleSelect}
-                            isUsed={
-                              settings.usedTools &&
-                              settings.usedTools.includes(mod.id)
-                            }
-                            idx={idx}
-                          />
-                        ))}
-                      </div>
-                    )}
-                    </ScrollReveal>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+                      {groupedModules[groupName].map((mod, idx) => (
+                        <ToolCard
+                          key={mod.id}
+                          mod={mod}
+                          onSelect={handleSelect}
+                          isUsed={
+                            settings.usedTools &&
+                            settings.usedTools.includes(mod.id)
+                          }
+                          idx={idx}
+                        />
+                      ))}
+                    </div>
                   </div>
                 ))
               )}
@@ -1277,38 +1293,95 @@ export default function Dashboard({
 
             {/* FEATURED BANNER */}
             <ScrollReveal yOffset={30}>
-            <div className="w-full mb-0 rounded-[24px] overflow-hidden bg-gradient-to-br from-[#005bb5] to-[#0072de] p-8 md:p-10 text-white relative shadow-lg flex flex-col md:flex-row items-center gap-8 border-none">
-              <div className="flex-1 z-10 text-center md:text-left">
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full text-white text-[10px] font-bold tracking-wider uppercase mb-5 backdrop-blur-sm">
-                  ⭐ FEATURED TOOL OF THE WEEK
+            <div className="w-full mb-0 rounded-[24px] overflow-hidden bg-[#0F172A] relative shadow-2xl flex flex-col md:flex-row items-center gap-8 border border-[#1E293B] group">
+              {/* Engineering Blueprint Grid Background */}
+              <div 
+                className="absolute inset-0 z-0 opacity-[0.15] pointer-events-none"
+                style={{
+                  backgroundImage: 'linear-gradient(rgba(245, 158, 11, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(245, 158, 11, 0.4) 1px, transparent 1px)',
+                  backgroundSize: '20px 20px'
+                }}
+              />
+
+              {/* Rich amber gradient on the left half */}
+              <div className="absolute inset-0 z-0 bg-gradient-to-br from-amber-500/30 via-orange-600/10 to-transparent md:w-2/3 pointer-events-none" />
+
+              {/* Sweeping Light Beam Animation */}
+              <motion.div
+                initial={{ x: '-100%' }}
+                animate={{ x: '250%' }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'linear', repeatDelay: 1.5 }}
+                className="absolute inset-0 z-0 w-1/3 bg-gradient-to-r from-transparent via-amber-400/20 to-transparent -skew-x-12 pointer-events-none"
+              />
+
+              {/* Content Left */}
+              <div className="flex-1 z-10 p-8 md:p-10 text-center md:text-left relative">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-500/20 border border-amber-500/30 rounded-full text-amber-500 text-[10px] font-bold tracking-wider uppercase mb-5 backdrop-blur-md">
+                  <Sparkles className="w-3 h-3" />
+                  FEATURED TOOL OF THE WEEK
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight tracking-tight mb-3">
+                <h2 
+                  className="text-4xl md:text-5xl tracking-wide text-white mb-3"
+                  style={{ fontFamily: "'Bebas Neue', display" }}
+                >
                   Master RCC Estimator
                 </h2>
-                <p className="text-blue-100 text-sm md:text-base font-medium mb-6 max-w-md mx-auto md:mx-0">
+                <p className="text-slate-300 text-sm md:text-base mb-6 max-w-md mx-auto md:mx-0 font-medium leading-relaxed">
                   The unified hub for Slab, Column, Beam, Staircase, and BBS
                   calculations. Save hours of manual work with auto-generated
                   steel weight estimations.
                 </p>
                 <button
                   onClick={() => handleSelect("master-rcc")}
-                  className="px-6 py-3 bg-white text-[#0072de] rounded-full font-bold text-sm hover:scale-105 transition-transform"
+                  className="px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full font-bold text-sm shadow-[0_0_15px_rgba(245,158,11,0.4)] hover:shadow-[0_0_25px_rgba(245,158,11,0.6)] hover:scale-105 transition-all outline-none"
                 >
-                  Try it Now ›
+                  Try it Now →
                 </button>
               </div>
-              <div className="z-10 bg-white/10 backdrop-blur-md rounded-[24px] p-5 border border-white/20 shadow-xl relative min-w-[240px]">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-[24px] bg-orange-500/20 flex flex-col items-center justify-center text-xl">
-                    🏗️
+
+              {/* Right side floating glassmorphism card */}
+              <div className="z-10 p-8 md:p-10 w-full md:w-auto flex justify-center md:justify-end">
+                <motion.div 
+                  animate={{ y: [-5, 5, -5] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                  className="bg-white/5 backdrop-blur-xl rounded-[24px] p-6 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] relative min-w-[260px]"
+                >
+                  <div className="flex items-center gap-4 mb-5">
+                    <div className="w-12 h-12 rounded-2xl bg-[#0F172A] border border-amber-500/40 flex items-center justify-center text-xl shadow-[0_0_10px_rgba(245,158,11,0.2)]">
+                      <span className="text-amber-500">🏗️</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="font-bold text-sm text-white">RCC Master</span>
+                      <span className="text-[10px] uppercase tracking-wider text-amber-500/80 font-bold">
+                        Concrete Tech
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex flex-col">
-                    <span className="font-bold text-sm">RCC Master</span>
-                    <span className="text-xs text-white/70">
-                      Slab, Beam, Col & Footing
-                    </span>
+                  <div className="flex flex-col gap-3">
+                    {/* Animated skeleton bars */}
+                    <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                      <motion.div 
+                        className="bg-amber-500 h-full rounded-full" 
+                        animate={{ width: ["0%", "80%", "100%", "80%"] }} 
+                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                      />
+                    </div>
+                    <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                      <motion.div 
+                        className="bg-orange-500 h-full rounded-full" 
+                        animate={{ width: ["0%", "60%", "90%", "60%"] }} 
+                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                      />
+                    </div>
+                    <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
+                      <motion.div 
+                        className="bg-white/30 h-full rounded-full" 
+                        animate={{ width: ["0%", "40%", "70%", "40%"] }} 
+                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                      />
+                    </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
             </ScrollReveal>

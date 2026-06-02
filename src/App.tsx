@@ -437,6 +437,8 @@ const getSocialProof = (id: string) => {
   return { rating, reviews, users };
 };
 
+const formatToolTitle = (title: string) => title.toLowerCase().endsWith("calculator") ? title : `${title} Calculator`;
+
 export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeModule, setActiveModule] = useState<ModuleId>("home");
@@ -533,17 +535,16 @@ export default function App() {
           <MarketRatesProvider>
             <TakeoffProvider>
               <ProjectProvider>
-                <div className="flex flex-col h-[100dvh] w-full pale-purple-mesh bg-white/80 backdrop-blur-sm font-sans text-slate-900 transition-colors duration-300">
+                <div className="flex flex-col h-[100dvh] w-full  bg-white  font-sans text-slate-900 transition-colors duration-300">
                   <Toaster position="bottom-right" />
                   <ProductTour />
                   
-                  <GlobalBottomBar activeModule={activeModule} onNavigate={handleSelectModule} onOpenProfile={() => { setIsSidebarOpen(false); setIsProfileOpen(true); }} onOpenSearch={() => setIsSidebarOpen(true)} />
+                  {isStaticPage && <TopNavbar onNavigate={handleSelectModule} onOpenSidebar={() => setIsSidebarOpen(true)} />}
+                  {isStaticPage && <GlobalBottomBar activeModule={activeModule} onNavigate={handleSelectModule} onOpenProfile={() => setIsProfileOpen(true)} onOpenSearch={() => {}} />}
 
-                  <div className="flex flex-1 min-h-0 relative w-full">
+                  <div className={`flex flex-1 min-h-0 relative w-full ${isStaticPage ? "pt-14" : ""}`}>
                     {/* Main Sidebar (Mobile Overlay + Persistent Desktop) */}
-                    <Sidebar
-                      activeModule={activeModule}
-                      onSelectModule={handleSelectModule}
+                    <Sidebar activeModule={activeModule} onSelectModule={handleSelectModule}
                       isOpen={isSidebarOpen}
                       onClose={() => setIsSidebarOpen(false)}
                       onOpenAuth={() => {
@@ -561,11 +562,11 @@ export default function App() {
                       className="flex-1 flex flex-col bg-transparent relative w-full min-h-0 pt-0 transition-all duration-300"
                     >
                       <div className="w-full h-full flex-1 flex flex-col min-h-0 relative transition-all duration-300">
-                        <div className="flex-1 flex flex-col min-h-0 relative w-full transition-colors duration-300 md:bg-white/50 md:backdrop-blur-sm">
+                        <div className="flex-1 flex flex-col min-h-0 relative w-full transition-colors duration-300 md:bg-white/50 md:">
                           <>
                             <div
                               ref={scrollRef}
-                              className={`flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto transition-all duration-700 pb-28 ${!isStaticPage ? "scale-[0.97] blur-[6px] brightness-50 opacity-100 pointer-events-none" : ""}`}
+                              className="flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto pb-20 md:pb-0"
                             >
                               <div className="flex flex-col min-h-full relative w-full">
                                 {activeModule === "home" && (
@@ -626,31 +627,20 @@ export default function App() {
                                   />
                                 )}
                                 <Footer
-                                  activeModule={activeModule}
+                                  
                                   onNavigate={handleSelectModule}
                                 />
                               </div>
                             </div>
                             
                             <AnimatePresence>
-                              {!isStaticPage && (
-                                <motion.div
-                                  initial={{ y: "100%", opacity: 0 }}
-                                  animate={{ y: 0, opacity: 1 }}
-                                  exit={{ y: "100%", opacity: 0 }}
-                                  transition={{ type: "spring", damping: 28, stiffness: 220 }}
-                                  className="fixed bottom-0 left-0 right-0 h-[85vh] z-[30] bg-[#FAFAFA] dark:bg-[#121212] rounded-t-[32px] overflow-hidden shadow-[0_-20px_60px_rgba(0,0,0,0.15)] dark:shadow-[0_-20px_60px_rgba(0,0,0,0.6)] border-t border-slate-200/50 dark:border-[#333] flex flex-col pt-2"
-                                >
-                                  <div className="w-full flex justify-center mb-2 pb-2 mt-2 shrink-0 cursor-pointer" onClick={() => handleSelectModule("home")}>
-                                     <div className="w-16 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700" />
-                                  </div>
-                                  <div className="flex-1 overflow-y-auto w-full relative px-0 pb-[100px]">
+                              
 
                               {/* We remove AppHeader for Desktop, handle differently inside module wrappers if needed, but for now we keep ModuleWrapper and conditionally hide AppHeader inside it on desktop */}
                               {activeModule === "tracker" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Site Progress Tracker"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -659,9 +649,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "projects" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Project Manager"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -670,9 +660,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "labour-calculator" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Labour & Workforce"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -681,9 +671,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "qs-workflow" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Guided QS Workflow"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -692,9 +682,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "boq" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Professional BOQ Generator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -703,9 +693,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "mix-design" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Concrete Mix Design"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -714,9 +704,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "takeoff" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="2D Takeoff"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -725,9 +715,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "area-space-calculator" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Area & Space Calculator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -736,9 +726,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "volume-estimator" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Volume & Tank Capacity"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSettingsOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -747,9 +737,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "unit-converter" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Universal Unit Converter"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -758,9 +748,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "steel-hub" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Steel & Reinforcement Hub"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -769,9 +759,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "mep-calculator" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Energy & MEP Calculators"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -780,9 +770,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "rainwater-harvesting" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Rainwater Harvesting"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -791,9 +781,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "gradient-calculator" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Gradient & Slope Calculator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -802,9 +792,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "concrete-masonry-hub" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Concrete & Masonry Hub"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -815,9 +805,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "master-quantity" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Master Quantity Estimator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -826,9 +816,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "measurement-sheet" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Measurement Sheet Calculator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -837,9 +827,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "quick-estimation" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Quick Rough Estimation"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -850,9 +840,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "material-takeoff" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Material Takeoff Sheet"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -861,9 +851,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "cost-summary" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Cost Summary Sheet"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -872,9 +862,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "master-rcc" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Master RCC Estimator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -883,9 +873,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "metal-weight" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Metal Weight"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -894,9 +884,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "calculators" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Construction Material"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -905,9 +895,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "bbs-generator" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="BBS Generator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -916,9 +906,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "reinforcement" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Reinforcement Detailing Visualizer"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -927,9 +917,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "isolated-footing" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Isolated Footing Calculator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -938,9 +928,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "retaining-wall" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Retaining Wall Estimator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -949,9 +939,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "aggregate-tests" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Aggregate Tests"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -960,9 +950,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "chainage" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Chainage Volume"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -971,9 +961,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "geotechnical" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Geotechnical & Soil Tests"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -982,9 +972,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "cbr-test" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="CBR Test Calculator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -993,9 +983,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "master-sieve" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Master Sieve Analysis"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1004,9 +994,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "aggregate-blending" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Aggregate Blending"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1015,9 +1005,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "direct-shear" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Direct Shear Test"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1026,9 +1016,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "permeability-test" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Permeability Calculator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1037,9 +1027,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "ai" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="AI Assistant"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1048,9 +1038,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "earthworks" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Earthworks Suite"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1059,9 +1049,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "precast-wall" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Precast Wall Calculator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1070,9 +1060,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "soil-lab-suite" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Soil & Materials Lab Suite"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1082,9 +1072,9 @@ export default function App() {
                               )}
                               {/* Roof pitch calculator functionality moved to AreaSpaceCalculator */}
                               {activeModule === "anti-termite" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Anti-Termite Treatment Calculator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1093,9 +1083,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "solar-roof" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Solar Roof Calculator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1104,9 +1094,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "road-pavement" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Road & Pavement Estimator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1118,9 +1108,9 @@ export default function App() {
                               )}
 
                               {activeModule === "beam-design" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Beam Design Tool"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1129,9 +1119,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "column-design" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Column Design Tool"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1140,9 +1130,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "raft-foundation" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Raft Foundation Designer"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1151,9 +1141,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "water-tank-design" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Water Tank Design"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1162,9 +1152,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "pile-foundation" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Pile Foundation Calculator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1173,9 +1163,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "prestressed-concrete" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Pre-stressed Concrete Estimator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1185,9 +1175,9 @@ export default function App() {
                               )}
 
                               {activeModule === "room-area-calculator" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Room Area Calculator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1197,9 +1187,9 @@ export default function App() {
                               )}
                               {activeModule ===
                                 "building-setback-calculator" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Building Setback Calculator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1208,9 +1198,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "far-fsi-calculator" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="FAR/FSI Calculator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1220,9 +1210,9 @@ export default function App() {
                               )}
                               {activeModule ===
                                 "staircase-design-reference" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Staircase Design Reference"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1231,9 +1221,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "door-window-schedule" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Door & Window Schedule Generator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1242,9 +1232,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "ventilation-checker" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Ventilation & Lighting Checker"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1255,9 +1245,9 @@ export default function App() {
 
                               {/* Restored individual calculators */}
                               {activeModule === "staircase-calculator" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Staircase Calculator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1267,9 +1257,9 @@ export default function App() {
                               )}
 
                               {activeModule === "interiors-finishes" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Interiors & Finishes"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1278,9 +1268,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "house" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="House Estimator"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1289,9 +1279,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "formwork" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Formwork & Scaffold"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1300,18 +1290,15 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "rates" && (
-                                <ModuleWrapper
+                                <ModuleWrapper activeModule={activeModule}
                                   title="Market Rates"
-                                  activeModule={activeModule}
+                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
                                 >
                                   <RateAnalysis />
                                 </ModuleWrapper>
-                              )}
-                                  </div>
-                                </motion.div>
                               )}
                             </AnimatePresence>
                           </>
@@ -1399,7 +1386,7 @@ function FontSizeControls() {
               updateSettings({ fontSize: "small" });
               setIsOpen(false);
             }}
-            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${settings.fontSize === "small" ? "bg-indigo-50  text-indigo-600 " : "text-slate-500 hover:bg-slate-50"}`}
+            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${settings.fontSize === "small" ? "bg-indigo-50  text-black " : "text-slate-500 hover:bg-slate-50"}`}
           >
             A-
           </button>
@@ -1408,7 +1395,7 @@ function FontSizeControls() {
               updateSettings({ fontSize: "medium" });
               setIsOpen(false);
             }}
-            className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${settings.fontSize === "medium" ? "bg-indigo-50  text-indigo-600 " : "text-slate-500 hover:bg-slate-50"}`}
+            className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${settings.fontSize === "medium" ? "bg-indigo-50  text-black " : "text-slate-500 hover:bg-slate-50"}`}
           >
             A
           </button>
@@ -1417,7 +1404,7 @@ function FontSizeControls() {
               updateSettings({ fontSize: "large" });
               setIsOpen(false);
             }}
-            className={`px-3 py-1.5 text-base font-bold rounded-lg transition-colors ${settings.fontSize === "large" ? "bg-indigo-50  text-indigo-600 " : "text-slate-500 hover:bg-slate-50"}`}
+            className={`px-3 py-1.5 text-base font-bold rounded-lg transition-colors ${settings.fontSize === "large" ? "bg-indigo-50  text-black " : "text-slate-500 hover:bg-slate-50"}`}
           >
             A+
           </button>
@@ -1457,7 +1444,7 @@ function AppHeader({
         className="flex items-center gap-2 mr-5 shrink-0 hidden cursor-pointer transition-transform hover:scale-105"
         onClick={onGoHome}
       >
-        <Logo className="w-6 h-6 text-indigo-600" />
+        <Logo className="w-6 h-6 text-black" />
       </div>
 
       {onGoHome ? (
@@ -1465,7 +1452,7 @@ function AppHeader({
           <Breadcrumb items={breadcrumbItems} />
         </div>
       ) : (
-        <h1 className="text-base font-bold text-indigo-600 flex-1 min-w-0 truncate pr-2">
+        <h1 className="text-base font-bold text-black flex-1 min-w-0 truncate pr-2">
           {title}
         </h1>
       )}
@@ -1484,6 +1471,7 @@ function AppHeader({
 }
 
 import { CodeReferences } from "./components/ui/CodeReferences";
+import { GlobalSettingsToggle } from "./components/ui/GlobalSettingsToggle";
 
 function ModuleWrapper({
   title,
@@ -1510,48 +1498,48 @@ function ModuleWrapper({
   const genericFaqs = moduleDef
     ? [
         {
-          q: `Is the ${moduleDef.title} Calculator free to use?`,
+          q: `Is the ${formatToolTitle(moduleDef.title)} free to use?`,
           a: `Yes, all core calculation features for the ${moduleDef.title.toLowerCase()} are completely free for all users.`,
         },
         {
-          q: `How accurate are the results from the ${moduleDef.title} Calculator?`,
+          q: `How accurate are the results from the ${formatToolTitle(moduleDef.title)}?`,
           a: `Estimations follow standard civil engineering formulas and practices. Always verify critical computations.`,
         },
         {
           q: `Can I use this ${moduleDef.category.toLowerCase()} tool on my mobile phone?`,
-          a: `Absolutely. The ${moduleDef.title} Calculator is fully responsive and optimized for seamless use on smartphones and tablets.`,
+          a: `Absolutely. The ${formatToolTitle(moduleDef.title)} is fully responsive and optimized for seamless use on smartphones and tablets.`,
         },
         {
           q: `What engineering formulas does this tool use?`,
           a: `It strictly uses internationally recognized civil engineering formulas relevant to the ${moduleDef.category.toLowerCase()} field.`,
         },
         {
-          q: `Do I need to sign up to use the ${moduleDef.title} Calculator?`,
-          a: `No registration is required. You can use the ${moduleDef.title} Calculator immediately in your browser.`,
+          q: `Do I need to sign up to use the ${formatToolTitle(moduleDef.title)}?`,
+          a: `No registration is required. You can use the ${formatToolTitle(moduleDef.title)} immediately in your browser.`,
         },
         {
           q: `Is my calculation data saved securely?`,
-          a: `All calculations for the ${moduleDef.title} Calculator are processed locally in your browser to assure data privacy.`,
+          a: `All calculations for the ${formatToolTitle(moduleDef.title)} are processed locally in your browser to assure data privacy.`,
         },
         {
-          q: `Can I export the results from the ${moduleDef.title} Calculator?`,
+          q: `Can I export the results from the ${formatToolTitle(moduleDef.title)}?`,
           a: `Yes, you can copy the results or use our platform features to export the final calculations to PDF or save them.`,
         },
         {
-          q: `How often is the ${moduleDef.title} Calculator updated?`,
+          q: `How often is the ${formatToolTitle(moduleDef.title)} updated?`,
           a: `Our ${moduleDef.category.toLowerCase()} tools and standard rates are regularly updated to ensure high accuracy and reliability.`,
         },
         {
           q: `Are Metric and Imperial units both supported?`,
-          a: `The ${moduleDef.title} Calculator supports smart unit inputs allowing seamless operations for global projects.`,
+          a: `The ${formatToolTitle(moduleDef.title)} supports smart unit inputs allowing seamless operations for global projects.`,
         },
         {
-          q: `Who built the ${moduleDef.title} Calculator?`,
+          q: `Who built the ${formatToolTitle(moduleDef.title)}?`,
           a: `This tool was developed by Civil Estimation Pro's engineering validation team.`,
         },
         {
           q: `Can I request a new feature for the ${moduleDef.title}?`,
-          a: `We love user feedback. Reach out to us if you need more capabilities for the ${moduleDef.title} Calculator.`,
+          a: `We love user feedback. Reach out to us if you need more capabilities for the ${formatToolTitle(moduleDef.title)}.`,
         },
         {
           q: `Is this tool suitable for students?`,
@@ -1559,14 +1547,14 @@ function ModuleWrapper({
         },
         {
           q: `Does this replace professional structural software?`,
-          a: `While highly accurate, the ${moduleDef.title} Calculator is designed for quick estimations and shouldn't replace certified comprehensive structural reports.`,
+          a: `While highly accurate, the ${formatToolTitle(moduleDef.title)} is designed for quick estimations and shouldn't replace certified comprehensive structural reports.`,
         },
         {
-          q: `Can I embed the ${moduleDef.title} Calculator on my site?`,
+          q: `Can I embed the ${formatToolTitle(moduleDef.title)} on my site?`,
           a: `Currently, the tool is exclusively available on Civil Estimation Pro.`,
         },
         {
-          q: `What if I encounter a bug in the ${moduleDef.title} Calculator?`,
+          q: `What if I encounter a bug in the ${formatToolTitle(moduleDef.title)}?`,
           a: `Please report it using our feedback form so we can immediately fix any issues.`,
         },
       ]
@@ -1576,16 +1564,16 @@ function ModuleWrapper({
     <div className="h-full flex flex-col min-h-0 bg-transparent relative">
       <a
         href="#main-calculator-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold shadow-lg"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 bg-black text-white px-4 py-2 rounded-lg font-bold shadow-lg"
       >
         Skip to calculation
       </a>
       {moduleDef && (
         <Helmet>
-          <title>{`${moduleDef.title} Calculator – Free Online ${moduleDef.category} Tool | Civil Estimation Pro`}</title>
+          <title>{`${formatToolTitle(moduleDef.title)} – Free Online ${moduleDef.category} Tool | Civil Estimation Pro`}</title>
           <meta
             name="description"
-            content={`Free ${moduleDef.title} Calculator online. ${moduleDef.desc} Easy, fast, and accurate engineering estimation tool.`}
+            content={`Free ${formatToolTitle(moduleDef.title)} online. ${moduleDef.desc} Easy, fast, and accurate engineering estimation tool.`}
           />
           <meta
             name="keywords"
@@ -1598,11 +1586,11 @@ function ModuleWrapper({
 
           <meta
             property="og:title"
-            content={`${moduleDef.title} Calculator | Civil Estimation Pro`}
+            content={`${formatToolTitle(moduleDef.title)} | Civil Estimation Pro`}
           />
           <meta
             property="og:description"
-            content={`Free ${moduleDef.title} Calculator online. ${moduleDef.desc} Easy, fast, and accurate engineering estimation tool.`}
+            content={`Free ${formatToolTitle(moduleDef.title)} online. ${moduleDef.desc} Easy, fast, and accurate engineering estimation tool.`}
           />
           <meta property="og:type" content="website" />
           <meta
@@ -1614,11 +1602,11 @@ function ModuleWrapper({
           <meta name="twitter:card" content="summary_large_image" />
           <meta
             name="twitter:title"
-            content={`${moduleDef.title} Calculator | Civil Estimation Pro`}
+            content={`${formatToolTitle(moduleDef.title)} | Civil Estimation Pro`}
           />
           <meta
             name="twitter:description"
-            content={`Free ${moduleDef.title} Calculator online. ${moduleDef.desc} Easy, fast, and accurate engineering estimation tool.`}
+            content={`Free ${formatToolTitle(moduleDef.title)} online. ${moduleDef.desc} Easy, fast, and accurate engineering estimation tool.`}
           />
 
           <script type="application/ld+json">
@@ -1627,7 +1615,7 @@ function ModuleWrapper({
               "@graph": [
                 {
                   "@type": "SoftwareApplication",
-                  name: `${moduleDef.title} Calculator`,
+                  name: `${formatToolTitle(moduleDef.title)}`,
                   applicationCategory: "WebApplication",
                   operatingSystem: "Web Browser",
                   offers: {
@@ -1675,12 +1663,7 @@ function ModuleWrapper({
           </script>
         </Helmet>
       )}
-      <AppHeader
-        title={title}
-        onOpenSidebar={() => setIsSidebarOpen(true)}
-        onOpenSettings={() => setIsSettingsOpen(true)}
-        onGoHome={() => setActiveModule("home")}
-      />
+      
 
       <div
         className="flex-1 overflow-y-auto w-full max-w-full"
@@ -1728,9 +1711,10 @@ function ModuleWrapper({
                 >
                   {moduleDef && (
                     <div className="mb-6 p-6 rounded-[2rem] bg-slate-50 border border-slate-200">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
-                        <h1 className="text-2xl font-semibold text-slate-900">
-                          {moduleDef.title} Calculator
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                        <h1 className="text-3xl font-semibold tracking-tight text-slate-900 flex items-center gap-3">
+                          {moduleDef.icon && React.createElement(moduleDef.icon, { className: "w-8 h-8 text-amber-600" })}
+                          {formatToolTitle(moduleDef.title)}
                         </h1>
                         {moduleDef.isPopular && (
                           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-sm font-semibold whitespace-nowrap">
@@ -1739,12 +1723,16 @@ function ModuleWrapper({
                         )}
                       </div>
 
-                      <p className="text-slate-600 leading-relaxed max-w-4xl text-base mb-4">
+                      <p className="text-slate-600 leading-relaxed max-w-4xl text-base mb-6 font-medium">
                         {moduleDef.desc}
                       </p>
 
+                      <div className="mt-4 text-xs font-semibold uppercase tracking-widest text-slate-400 mb-6">
+                         <GlobalSettingsToggle align="left" showCurrency={false} />
+                      </div>
+
                       {/* Social Signals */}
-                      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-600">
+                      <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-slate-600 border-t border-slate-200 pt-5">
                         <div className="flex items-center gap-1">
                           <span className="text-amber-500 flex">
                             {"★".repeat(5)}
@@ -1784,7 +1772,7 @@ function ModuleWrapper({
                         <p className="text-slate-600 leading-relaxed max-w-4xl text-base mb-8">
                           Your calculation updates strictly in real-time above.
                           All numerical estimations generated by the{" "}
-                          <strong>{moduleDef.title} Calculator</strong> are
+                          <strong>{formatToolTitle(moduleDef.title)}</strong> are
                           automatically derived using your defined input
                           parameters and globally recognized{" "}
                           {moduleDef.category.toLowerCase()} formulas.
@@ -1793,7 +1781,7 @@ function ModuleWrapper({
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                           <div>
                             <h2 className="text-lg font-semibold text-slate-800 mb-4">
-                              How to Use the {moduleDef.title} Calculator
+                              How to Use the {formatToolTitle(moduleDef.title)}
                             </h2>
                             <ol className="list-decimal list-inside space-y-2 text-slate-600">
                               <li>
@@ -1899,3 +1887,4 @@ function ModuleWrapper({
     </div>
   );
 }
+

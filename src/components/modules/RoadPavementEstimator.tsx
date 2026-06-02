@@ -42,15 +42,7 @@ export default function RoadPavementEstimator({ onNavigate }: { onNavigate?: (id
       />
       
       <div className="mb-6 md:mb-8 px-4 md:px-0 flex flex-col md:flex-row md:items-start justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-text-primary mb-2 flex items-center gap-3">
-            <Route className="w-8 h-8 text-amber-600 dark:text-amber-500" />
-            Road & Pavement Estimator
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 font-medium max-w-2xl">
-            A centralized hub for roadway, pavement, layer materials, and surface coat calculations.
-          </p>
-        </div>
+        
         <div className="flex flex-col gap-3 sm:flex-row items-center">
           <div className="flex items-center gap-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 shadow-sm">
             <Settings2 className="w-4 h-4 text-slate-500" />

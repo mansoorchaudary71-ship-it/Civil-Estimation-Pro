@@ -183,15 +183,7 @@ export default function BeamCalculator() {
         title="Comprehensive Beam Calculator | EstiPro"
         description="Calculate concrete volume and longitudinal/stirrup steel weights for reinforced concrete beams."
       />
-      <div className="mb-8">
-        <h1 className="text-3xl font-semibold tracking-tight text-slate-900 mb-2 flex items-center gap-3">
-          <Columns className="w-8 h-8 text-indigo-600 rotate-90" />
-          Beam Calculator
-        </h1>
-        <p className="text-slate-500 font-medium">
-          Comprehensive calculation for RCC beams including concrete volume, main longitudinal reinforcement, and stirrups.
-        </p>
-      </div>
+      
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="bg-white rounded-[24px] shadow-sm border border-slate-200 p-6 md:p-8">

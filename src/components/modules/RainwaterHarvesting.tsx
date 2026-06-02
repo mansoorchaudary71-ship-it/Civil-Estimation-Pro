@@ -51,15 +51,7 @@ export default function RainwaterHarvesting() {
     <div className="w-full h-full overflow-y-auto bg-transparent text-text-primary p-6 md:p-8">
       <div className="max-w-5xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <h1 className="text-3xl font-bold tabular-nums tracking-tight mb-2 flex items-center gap-3 text-text-primary">
-              <CloudRain className="w-8 h-8 text-[#0284c7] [#38bdf8]" />
-              Rainwater Harvesting
-            </h1>
-            <p className="text-slate-500 font-medium">
-              Calculate collectible rainwater volume, recommend tank sizes, and estimate financial & ecological savings.
-            </p>
-          </div>
+          
           <GlobalSettingsToggle align="left" showCurrency={true} />
         </div>
         

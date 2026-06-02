@@ -547,23 +547,7 @@ export default function MasterQuantityEstimator({
         />
       )}
       <div className={isEmbedded ? "w-full" : "max-w-7xl mx-auto"}>
-        {!isEmbedded && (
-          <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
-            <div>
-              <h1 className="text-3xl font-semibold tabular-nums tracking-tight mb-2 flex items-center gap-3">
-                <Calculator className="w-8 h-8 text-indigo-600" />
-                Master Quantity Estimator
-              </h1>
-              <p className="text-slate-500 font-medium">
-                Comprehensive suite of 23 civil engineering calculators for
-                accurate material estimation.
-              </p>
-            </div>
-            <div className="mt-5 flex gap-4 w-fit">
-              <GlobalSettingsToggle align="left" />
-            </div>
-          </div>
-        )}
+        
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Searchable Accordion / Tool Selection (Desktop & Mobile unified) */}
           <div className="w-full lg:w-80 flex-shrink-0 space-y-4">

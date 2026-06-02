@@ -1,77 +1,93 @@
 import React from 'react';
-import { Twitter, Github, Linkedin, Mail, ArrowRight, Globe, ChevronDown } from 'lucide-react';
+import { Twitter, Github, Linkedin, Mail } from 'lucide-react';
 import { ModuleId } from '../App';
-import { DarkModeToggle } from './ui/DarkModeToggle';
 
 export default function Footer({ onNavigate }: { activeModule?: ModuleId, onNavigate?: (id: ModuleId) => void }) {
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="relative w-full overflow-hidden shrink-0 z-20 bg-[#F5F5F7] border-t border-slate-200/50 pt-24 pb-12 mt-auto">
-      {/* Ambient glowing gradients */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none mix-blend-multiply"></div>
-      <div className="absolute top-0 right-1/4 w-[500px] h-[300px] bg-amber-500/5 rounded-full blur-[120px] pointer-events-none mix-blend-multiply"></div>
-
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 flex flex-col items-center">
-      
-        {/* Supporting Links arranged above or below */}
-        <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16 text-xs md:text-sm font-bold text-slate-500 tracking-widest uppercase mb-12 md:mb-16">
-          <button onClick={() => onNavigate?.('about')} className="hover:text-[#F59E0B] transition-colors">About Us</button>
-          <button onClick={() => onNavigate?.('pricing')} className="hover:text-[#F59E0B] transition-colors">Pricing</button>
-          <button onClick={() => onNavigate?.('contact')} className="hover:text-[#F59E0B] transition-colors">Contact</button>
-          <button onClick={() => onNavigate?.('blog')} className="hover:text-[#F59E0B] transition-colors">Blog</button>
-          <button onClick={() => onNavigate?.('privacy')} className="hover:text-[#F59E0B] transition-colors">Privacy</button>
-          <button onClick={() => onNavigate?.('terms')} className="hover:text-[#F59E0B] transition-colors">Terms</button>
-        </div>
-
-        {/* Centerpiece Huge Wordmark */}
-        <div className="w-full flex items-center justify-center pointer-events-none select-none mb-16 overflow-hidden">
-          <span 
-  className="text-[16vw] md:text-[10rem] lg:text-[12rem] font-black tracking-tighter text-slate-900 uppercase leading-[0.85] flex flex-col items-center justify-center text-center"
-  style={{ fontWeight: 900 }}
->
-  <span className="tracking-tighter">CIVIL</span>
-  <span className="tracking-tighter">ESTIMATION</span>
-  <span className="tracking-tighter text-[#F59E0B]">PRO</span>
-</span>
-        </div>
-
-        {/* Bottom Utility Bar */}
-        <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 pt-8 border-t border-slate-200/60">
+    <footer className="relative w-full overflow-hidden shrink-0 z-20 bg-[#080E1A] border-t border-amber-500/20 pt-20 pb-8 mt-auto shadow-[inset_0_1px_20px_rgba(245,158,11,0.05)]" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12">
+        
+        {/* Top Section */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-16">
           
-          <div className="flexItems-center text-center md:text-left order-3 md:order-1">
-             <p className="text-sm text-slate-500 font-medium">
-                © {currentYear} Civil Estimation Pro. All rights reserved.
+          {/* Brand & Tagline Col */}
+          <div className="col-span-1 md:col-span-1">
+            <div className="flex items-center gap-2 mb-4">
+              <h2 className="text-2xl font-bold text-white tracking-tight">
+                Civil Estimation <span className="text-amber-500">Pro</span>
+              </h2>
+            </div>
+            <p className="text-white/50 text-sm leading-relaxed max-w-xs">
+              Generate highly accurate engineering estimates in seconds. The complete toolkit for civil engineers.
+            </p>
+          </div>
+
+          {/* Links Cols */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 col-span-1 md:col-span-3 gap-8 md:gap-12">
+            {/* Company Column */}
+            <div className="flex flex-col gap-4">
+              <h3 className="text-[11px] font-bold text-amber-500/80 uppercase tracking-widest mb-2">Company</h3>
+              <div className="flex flex-col gap-3">
+                {['About Us', 'Careers', 'Contact', 'Blog'].map((link) => (
+                  <button key={link} className="group relative text-left text-sm text-white/60 hover:text-amber-500 transition-colors w-fit">
+                    <span className="relative z-10">{link}</span>
+                    <span className="absolute left-0 bottom-[-2px] w-0 h-[1px] bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Legal Column */}
+            <div className="flex flex-col gap-4">
+              <h3 className="text-[11px] font-bold text-amber-500/80 uppercase tracking-widest mb-2">Legal</h3>
+              <div className="flex flex-col gap-3">
+                {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
+                  <button key={link} className="group relative text-left text-sm text-white/60 hover:text-amber-500 transition-colors w-fit">
+                    <span className="relative z-10">{link}</span>
+                    <span className="absolute left-0 bottom-[-2px] w-0 h-[1px] bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Resources Column */}
+            <div className="flex flex-col gap-4">
+              <h3 className="text-[11px] font-bold text-amber-500/80 uppercase tracking-widest mb-2">Resources</h3>
+              <div className="flex flex-col gap-3">
+                {['Embed Calculator', 'Link Exchange', 'Directory Submissions'].map((link) => (
+                  <button key={link} className="group relative text-left text-sm text-white/60 hover:text-amber-500 transition-colors w-fit">
+                    <span className="relative z-10">{link}</span>
+                    <span className="absolute left-0 bottom-[-2px] w-0 h-[1px] bg-amber-500 transition-all duration-300 group-hover:w-full"></span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <div className="pt-8 border-t border-white/10 flex flex-col items-center justify-center gap-6">
+          <div className="flex items-center gap-4">
+            <a href="#" className="w-[36px] h-[36px] rounded-full flex items-center justify-center text-white/50 bg-transparent hover:bg-amber-500 hover:text-[#080E1A] transition-colors">
+              <Twitter className="w-4 h-4" />
+            </a>
+            <a href="#" className="w-[36px] h-[36px] rounded-full flex items-center justify-center text-white/50 bg-transparent hover:bg-amber-500 hover:text-[#080E1A] transition-colors">
+              <Github className="w-4 h-4" />
+            </a>
+            <a href="#" className="w-[36px] h-[36px] rounded-full flex items-center justify-center text-white/50 bg-transparent hover:bg-amber-500 hover:text-[#080E1A] transition-colors">
+              <Linkedin className="w-4 h-4" />
+            </a>
+            <a href="#" className="w-[36px] h-[36px] rounded-full flex items-center justify-center text-white/50 bg-transparent hover:bg-amber-500 hover:text-[#080E1A] transition-colors">
+              <Mail className="w-4 h-4" />
+            </a>
+          </div>
+
+          <div className="text-center w-full">
+             <p className="text-sm text-white/30">
+                © 2026 Civil Estimation Pro. All rights reserved.
              </p>
           </div>
-
-          <div className="flex items-center gap-4 order-2">
-             <div className="relative group/lang">
-               <button className="flex items-center gap-2 px-3 py-2 rounded-[24px] bg-white hover:bg-slate-50 border border-slate-200 transition-all font-medium text-sm text-slate-700 shadow-sm">
-                 <Globe className="w-4 h-4 text-slate-500" />
-                 English (US)
-                 <ChevronDown className="w-4 h-4 text-slate-400" />
-               </button>
-             </div>
-             <DarkModeToggle />
-          </div>
-
-          <div className="flex items-center gap-3 order-1 md:order-3">
-             <a href="#" className="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-500 hover:text-[#F59E0B] hover:border-amber-200 shadow-sm transition-all duration-300 hover:-translate-y-0.5">
-                <Twitter className="w-4 h-4" />
-             </a>
-             <a href="#" className="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-500 hover:text-[#F59E0B] hover:border-amber-200 shadow-sm transition-all duration-300 hover:-translate-y-0.5">
-                <Github className="w-4 h-4" />
-             </a>
-             <a href="#" className="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-500 hover:text-[#F59E0B] hover:border-amber-200 shadow-sm transition-all duration-300 hover:-translate-y-0.5">
-                <Linkedin className="w-4 h-4" />
-             </a>
-             <a href="#" className="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-500 hover:text-[#F59E0B] hover:border-amber-200 shadow-sm transition-all duration-300 hover:-translate-y-0.5">
-                <Mail className="w-4 h-4" />
-             </a>
-          </div>
         </div>
-
       </div>
     </footer>
   );
