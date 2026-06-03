@@ -7,6 +7,7 @@ import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
 
 import { FieldTooltip } from "../ui/FieldTooltip";
+import { NumberInput } from "../ui/NumberInput";
 
 export default function SlabEstimator() {
   const [slabType, setSlabType] = useState<"one-way" | "two-way">("two-way");
@@ -232,33 +233,30 @@ export default function SlabEstimator() {
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <InputGroup label="Long Span (ly) (m)">
-                <input
-                  type="number"
-                  min="0"
-                  value={ly}
-                  onChange={(e) => setLy(e.target.value)}
-                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                <NumberInput 
+                  value={ly} 
+                  onChange={(v) => setLy(v.toString())} 
+                  unit="m" 
+                  className="w-full bg-slate-50 border border-slate-200 rounded-[24px] shadow-sm transition-all text-slate-800" 
                 />
               </InputGroup>
               <InputGroup label="Short Span (lx) (m)">
-                <input
-                  type="number"
-                  min="0"
-                  value={lx}
-                  onChange={(e) => setLx(e.target.value)}
-                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                <NumberInput 
+                  value={lx} 
+                  onChange={(v) => setLx(v.toString())} 
+                  unit="m" 
+                  className="w-full bg-slate-50 border border-slate-200 rounded-[24px] shadow-sm transition-all text-slate-800" 
                 />
               </InputGroup>
             </div>
             
             <div className="grid grid-cols-2 gap-4">
               <InputGroup label="Thickness (mm)">
-                <input
-                  type="number"
-                  min="0"
-                  value={thickness}
-                  onChange={(e) => setThickness(e.target.value)}
-                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                <NumberInput 
+                  value={thickness} 
+                  onChange={(v) => setThickness(v.toString())} 
+                  unit="mm" 
+                  className="w-full bg-slate-50 border border-slate-200 rounded-[24px] shadow-sm transition-all text-slate-800" 
                 />
               </InputGroup>
               <InputGroup label={
@@ -267,12 +265,11 @@ export default function SlabEstimator() {
                   <FieldTooltip content="Minimum concrete cover to protect reinforcement from corrosion. IS 456:2000 Table 16: Mild exposure = 20mm, Moderate = 30mm, Severe = 45mm, Very Severe = 50mm" />
                 </span>
               }>
-                <input
-                  type="number"
-                  min="0"
-                  value={clearCover}
-                  onChange={(e) => setClearCover(e.target.value)}
-                  className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                <NumberInput 
+                  value={clearCover} 
+                  onChange={(v) => setClearCover(v.toString())} 
+                  unit="mm" 
+                  className="w-full bg-slate-50 border border-slate-200 rounded-[24px] shadow-sm transition-all text-slate-800" 
                 />
               </InputGroup>
             </div>
@@ -280,10 +277,20 @@ export default function SlabEstimator() {
             {isPrecast && (
               <div className="animate-in fade-in slide-in-from-top-2 duration-300 grid grid-cols-1 sm:grid-cols-2 gap-4 bg-teal-50/50 p-4 rounded-[24px] border border-teal-100 mt-4">
                 <InputGroup label="Concrete Density (kg/m³)">
-                  <input type="number" value={concreteDensity} onChange={(e) => setConcreteDensity(e.target.value)} className="w-full h-11 bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-teal-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-teal-500 outline-none transition-all shadow-sm" />
+                  <NumberInput 
+                    value={concreteDensity} 
+                    onChange={(v) => setConcreteDensity(v.toString())} 
+                    unit="kg/m³"
+                    className="w-full bg-white rounded-[24px] border shadow-sm text-slate-800 border-teal-200" 
+                  />
                 </InputGroup>
                 <InputGroup label="Lifting Radius (m)">
-                  <input type="number" value={riggingRadius} onChange={(e) => setRiggingRadius(e.target.value)} className="w-full h-11 bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-teal-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-teal-500 outline-none transition-all shadow-sm" />
+                  <NumberInput 
+                    value={riggingRadius} 
+                    onChange={(v) => setRiggingRadius(v.toString())} 
+                    unit="m"
+                    className="w-full bg-white rounded-[24px] border shadow-sm text-slate-800 border-teal-200" 
+                  />
                 </InputGroup>
               </div>
             )}
@@ -312,12 +319,11 @@ export default function SlabEstimator() {
                   </select>
                 </InputGroup>
                 <InputGroup label="Spacing (c/c) (mm)">
-                  <input
-                    type="number"
-                    min="0"
-                    value={mainSpacing}
-                    onChange={(e) => setMainSpacing(e.target.value)}
-                    className="w-full h-11 bg-white border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  <NumberInput 
+                    value={mainSpacing} 
+                    onChange={(v) => setMainSpacing(v.toString())} 
+                    unit="mm" 
+                    className="w-full bg-slate-50 border border-slate-200 rounded-[24px] shadow-sm transition-all text-slate-800" 
                   />
                 </InputGroup>
               </div>
@@ -340,12 +346,11 @@ export default function SlabEstimator() {
                   </select>
                 </InputGroup>
                 <InputGroup label="Spacing (c/c) (mm)">
-                  <input
-                    type="number"
-                    min="0"
-                    value={distSpacing}
-                    onChange={(e) => setDistSpacing(e.target.value)}
-                    className="w-full h-11 bg-white border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  <NumberInput 
+                    value={distSpacing} 
+                    onChange={(v) => setDistSpacing(v.toString())} 
+                    unit="mm" 
+                    className="w-full bg-slate-50 border border-slate-200 rounded-[24px] shadow-sm transition-all text-slate-800" 
                   />
                 </InputGroup>
               </div>

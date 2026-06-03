@@ -13,22 +13,16 @@ export default function GlobalBottomBar({
   onOpenSearch: () => void;
 }) {
   const navItems = [
-    { id: "home", icon: Home, label: "Home" },
-    { id: "search", icon: LayoutGrid, label: "Tools", action: onOpenSearch },
-    { id: "my-estimates", icon: FolderOpen, label: "Estimates" },
-    { id: "profile", icon: User, label: "Account", action: onOpenProfile },
+    { id: "home", icon: Home, label: "Home", color: "text-blue-600" },
+    { id: "search", icon: LayoutGrid, label: "Tools", action: onOpenSearch, color: "text-purple-600" },
+    { id: "my-estimates", icon: FolderOpen, label: "Estimates", color: "text-emerald-600" },
+    { id: "profile", icon: User, label: "Profile", action: onOpenProfile, color: "text-rose-600" },
   ];
 
   return (
     <div
-      className="fixed left-4 right-4 z-50 md:hidden font-sans pointer-events-auto rounded-full px-2 shadow-[0_8px_30px_rgba(0,0,0,0.3)] h-[56px] flex items-center justify-around"
-      style={{
-        bottom: "calc(1rem + env(safe-area-inset-bottom))",
-        background: "rgba(13, 17, 23, 0.95)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
-        border: "1px solid rgba(255, 255, 255, 0.08)",
-      }}
+      className="fixed z-[9998] md:hidden flex justify-around items-center h-[54px] left-6 right-6 rounded-[32px] overflow-hidden bg-white/70 dark:bg-[#121212]/70 backdrop-blur-2xl border border-white/60 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)]"
+      style={{ bottom: "calc(1rem + env(safe-area-inset-bottom))" }}
     >
       {navItems.map((item) => {
         const Icon = item.icon;
@@ -38,14 +32,15 @@ export default function GlobalBottomBar({
             key={item.id}
             type="button"
             onClick={() => item.action ? item.action() : onNavigate(item.id)}
-            className="relative flex flex-col items-center justify-center gap-0.5 flex-1 h-full transition-colors rounded-full"
+            className={`flex flex-col items-center justify-center flex-1 h-full gap-0.5 p-1 transition-all ${
+              isActive ? "bg-black/5 dark:bg-white/10" : "hover:bg-black/5 dark:hover:bg-white/5"
+            }`}
           >
             <Icon 
-              className={`w-5 h-5 ${isActive ? "text-[#F59E0B]" : "text-slate-400 hover:text-slate-200"}`} 
+              className={`w-[20px] h-[20px] ${item.color} ${isActive ? "opacity-100" : "opacity-80"}`} 
               strokeWidth={isActive ? 2.5 : 2}
-              fill={isActive ? "currentColor" : "none"}
             />
-            <span className={`text-[10px] font-medium tracking-tight ${isActive ? "text-[#F59E0B]" : "text-slate-400"}`}>
+            <span className={`text-[9px] font-semibold tracking-tight ${isActive ? "text-slate-900 dark:text-white" : "text-slate-600 dark:text-slate-400"}`}>
               {item.label}
             </span>
           </button>

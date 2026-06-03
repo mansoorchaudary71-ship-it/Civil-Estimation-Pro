@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Home, Clock, Save, Share2, User, X, MessageCircle, Mail, Copy } from "lucide-react";
+import { Home, Clock, Save, Share2, Printer, X, MessageCircle, Mail, Copy, FileDown } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function BottomNavBar({
@@ -39,57 +39,122 @@ export default function BottomNavBar({
     return null;
   }
 
-  const handleSave = () => {
-    const saved = JSON.parse(localStorage.getItem("saved_results") || "[]");
-    
-    // Attempt to read result if possible, or just save generic message
-    const resultElement = document.getElementById("estimation-result");
-    const resultText = resultElement ? resultElement.innerText : "Result saved successfully";
+  const handlePrint = () => {
+    // Adding no-print class handling if needed, or rely on global CSS
+    window.print();
+  };
 
-    if (!resultElement) {
-        toast("Nothing specific to save yet, but page bookmarked!", { icon: "ℹ️" });
-    } else {
-        toast.success("Result saved ✓");
+  const handleDownloadPDF = async () => {
+    try {
+      toast.loading("Generating PDF...", { id: "pdf-toast" });
+      const { generateProfessionalPDF } = await import('../utils/pdfGenerator');
+      
+      const inputs: any = { "Generated At": new Date().toLocaleString() };
+      const tableData: any[][] = [];
+      let totalCost = 0;
+      
+      const resultCards = document.querySelectorAll('h4');
+      resultCards.forEach(h4 => {
+         const title = h4.textContent?.trim() || "";
+         const titleLower = title.toLowerCase();
+         if (titleLower.includes('visual breakdown') || titleLower.includes('quick facts')) return;
+         
+         const parent = h4.closest('div.relative');
+         if(parent) {
+             const valueEl = parent.querySelector('span.text-\\[clamp\\(1\\.75rem\\,5vw\\,2\\.5rem\\)\\]');
+             if(valueEl) {
+                 let val = valueEl.textContent?.trim() || "";
+                 const unitEl = parent.querySelector('span.shrink-0');
+                 if(unitEl && unitEl.textContent) {
+                     val += " " + unitEl.textContent.trim();
+                 }
+                 if((titleLower.includes('total') && titleLower.includes('cost')) || titleLower.includes('estimated cost')) {
+                    const extractedNum = parseFloat(val.replace(/[^0-9.]/g, ''));
+                    if(!isNaN(extractedNum)) totalCost = extractedNum;
+                 } else {
+                     tableData.push([title, "", "", val]);
+                 }
+             }
+         }
+      });
+      // Try resolving custom event data if tools provide it overrides
+      const customPayload = (window as any).__GLOBAL_PDF_PAYLOAD;
+      if(customPayload && customPayload.tableData) {
+          const doc = await generateProfessionalPDF(customPayload);
+          doc.save(customPayload.filename || `Estimate_${activeModule}.pdf`);
+          toast.success("PDF Downloaded Successfully", { id: "pdf-toast" });
+          setIsShareOpen(false);
+          return;
+      }
+
+      if(tableData.length === 0) {
+          toast.error("No estimation data found to print.", { id: "pdf-toast" });
+          return;
+      }
+
+      const doc = await generateProfessionalPDF({
+        title: document.title || "Estimation Report",
+        toolId: activeModule,
+        inputs,
+        tableData,
+        grandTotal: totalCost
+      });
+      doc.save(`Estimate_${activeModule}.pdf`);
+      toast.success("PDF Downloaded", { id: "pdf-toast" });
+      setIsShareOpen(false);
+    } catch(err) {
+      console.error(err);
+      toast.error("Failed to generate PDF", { id: "pdf-toast" });
     }
+  };
 
-    const newSaved = [
-      {
-        toolName: activeModule,
-        result: resultText,
-        timestamp: new Date().toISOString(),
-      },
-      ...saved,
-    ].slice(0, 50); // Keep last 50
+  const handleSave = async () => {
+    try {
+      toast.loading("Saving estimate...", { id: "save-toast" });
+      const { saveEstimate } = await import('../lib/estimates');
+      
+      const inputs: any = { "Saved At": new Date().toLocaleString() };
+      const tableData: any[][] = [];
+      let totalCost = 0;
+      
+      const resultCards = document.querySelectorAll('h4');
+      resultCards.forEach(h4 => {
+         const title = h4.textContent?.trim() || "";
+         const parent = h4.closest('div.relative');
+         if(parent) {
+             const valueEl = parent.querySelector('span.text-\\[clamp\\(1\\.75rem\\,5vw\\,2\\.5rem\\)\\]');
+             if(valueEl) {
+                 let val = valueEl.textContent?.trim() || "";
+                 const unitEl = parent.querySelector('span.shrink-0');
+                 if(unitEl && unitEl.textContent) val += " " + unitEl.textContent.trim();
+                 
+                 if(title.toLowerCase().includes('cost')) {
+                    totalCost = parseFloat(val.replace(/[^0-9.]/g, '')) || totalCost;
+                 } else {
+                     tableData.push([title, "", "", val]);
+                 }
+             }
+         }
+      });
 
-    localStorage.setItem("saved_results", JSON.stringify(newSaved));
+      const payloadUrlData = (window as any).__GLOBAL_PDF_PAYLOAD;
+      
+      const payloadToSave = payloadUrlData || {
+        calculatorId: activeModule,
+        tableData,
+        grandTotal: totalCost
+      };
+
+      await saveEstimate(`Estimate for ${activeModule}`, payloadToSave, "material_calculation");
+      toast.success("Saved to My Estimates", { id: "save-toast" });
+    } catch(err) {
+      console.error(err);
+      toast.error("Failed to save estimate", { id: "save-toast" });
+    }
   };
 
   const handleShare = () => {
-    // Show our custom unified bottom share menu
     setIsShareOpen(true);
-  };
-
-  const handleNativeShare = async () => {
-    const url = window.location.href;
-    const title = document.title || "Civil Estimation Pro";
-    const resultElement = document.getElementById("estimation-result");
-    const resultText = resultElement ? resultElement.innerText : "Check out this civil engineering calculation.";
-
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title,
-          text: resultText,
-          url,
-        });
-        setIsShareOpen(false);
-        return;
-      } catch (err) {
-        console.log("Share aborted:", err);
-      }
-    } else {
-        copyToClipboard();
-    }
   };
 
   const copyToClipboard = () => {
@@ -99,17 +164,17 @@ export default function BottomNavBar({
   };
 
   const navItems = [
-    { id: "home", icon: Home, label: "Home", action: () => onNavigate("home") },
-    { id: "history", icon: Clock, label: "History", action: onOpenHistory },
-    { id: "save", icon: Save, label: "Save", action: handleSave },
-    { id: "share", icon: Share2, label: "Share", action: handleShare },
-    { id: "profile", icon: User, label: "Profile", action: onOpenProfile },
+    { id: "home", icon: Home, label: "Home", action: () => onNavigate("home"), color: "text-blue-600" },
+    { id: "history", icon: Clock, label: "History", action: onOpenHistory, color: "text-orange-600" },
+    { id: "save", icon: Save, label: "Save", action: handleSave, color: "text-emerald-600" },
+    { id: "share", icon: Share2, label: "Share", action: handleShare, color: "text-purple-600" },
+    { id: "print", icon: Printer, label: "Print", action: handlePrint, color: "text-slate-600" },
   ];
 
   return (
     <>
       <div
-        className="fixed left-4 right-4 z-[9998] bg-white border border-slate-200 md:hidden flex justify-around items-center shadow-[0_8px_30px_rgba(0,0,0,0.12)] rounded-full h-[56px] px-2"
+        className="fixed z-[9998] md:hidden flex justify-around items-center h-[54px] left-6 right-6 rounded-[32px] overflow-hidden bg-white/70 dark:bg-[#121212]/70 backdrop-blur-2xl border border-white/60 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)]"
         style={{ bottom: "calc(1rem + env(safe-area-inset-bottom))" }}
       >
         {navItems.map((item) => {
@@ -119,16 +184,15 @@ export default function BottomNavBar({
             <button
               key={item.id}
               onClick={item.action}
-              className={`flex flex-col items-center justify-center flex-1 h-full gap-0.5 p-0 transition-colors rounded-full ${
-                isActive ? "text-[#F59E0B]" : "text-slate-400"
-              } hover:bg-slate-50`}
+              className={`flex flex-col items-center justify-center flex-1 h-full gap-0.5 p-1 transition-all ${
+                isActive ? "bg-black/5 dark:bg-white/10" : "hover:bg-black/5 dark:hover:bg-white/5"
+              }`}
             >
               <item.icon 
-                className="w-5 h-5" 
+                className={`w-[20px] h-[20px] ${item.color} ${isActive ? "opacity-100" : "opacity-80"}`} 
                 strokeWidth={isActive ? 2.5 : 2} 
-                fill={isActive ? "currentColor" : "none"} 
               />
-              <span className="text-[10px] font-medium tracking-tight">
+              <span className={`text-[9px] font-semibold tracking-tight ${isActive ? "text-slate-900 dark:text-white" : "text-slate-600 dark:text-slate-400"}`}>
                 {item.label}
               </span>
             </button>
@@ -137,75 +201,121 @@ export default function BottomNavBar({
       </div>
 
       {isShareOpen && (
-        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-end p-4 font-sans pointer-events-auto md:hidden">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 font-sans px-4 sm:px-6">
           <div 
-            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+            className="absolute inset-0 bg-slate-900/60 backdrop-blur-[4px]"
             onClick={() => setIsShareOpen(false)}
           />
           <div
-            className="relative w-full bg-white rounded-t-3xl rounded-b-3xl shadow-2xl z-10 overflow-hidden font-sans border border-slate-200"
-            style={{ animation: "modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
+            className="relative w-full max-w-[340px] bg-white/95 dark:bg-[#1A1A1A]/95 backdrop-blur-3xl rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.2)] z-10 overflow-hidden font-sans border border-white/50 dark:border-white/10"
+            style={{ animation: "modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
           >
-            <style>{` @keyframes modalSlideUp { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: translateY(0); } } `}</style>
+            <style>{` @keyframes modalPop { 0% { opacity: 0; transform: scale(0.92) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } } `}</style>
             
-            <div className="pt-5 pb-4 px-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-              <div>
-                <h3 className="text-lg font-bold text-slate-800">Share Tool</h3>
-                <p className="text-xs text-slate-500 font-medium">Share your calculation or the tool link</p>
-              </div>
-              <button onClick={() => setIsShareOpen(false)} className="p-2 hover:bg-slate-200 rounded-full transition-colors text-slate-500 bg-white shadow-sm border border-slate-200">
-                <X className="w-5 h-5"/>
+            <div className="pt-7 pb-5 px-7 flex flex-col items-center text-center relative">
+              <button 
+                onClick={() => setIsShareOpen(false)} 
+                className="absolute right-5 top-5 p-2 bg-slate-100/80 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 rounded-full transition-colors text-slate-500 dark:text-slate-400"
+              >
+                <X className="w-4 h-4"/>
               </button>
+              <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-500/10 rounded-full flex items-center justify-center mb-3">
+                <Share2 className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+              </div>
+              <h3 className="text-[19px] font-bold text-slate-900 dark:text-white tracking-tight">Share Result</h3>
+              <p className="text-[13px] text-slate-500 dark:text-slate-400 font-medium mt-1">Send this calculation to yourself or others</p>
             </div>
 
-            <div className="p-4 flex flex-col gap-3">
+            <div className="px-6 pb-7 grid grid-cols-2 gap-3">
               <button
-                onClick={handleNativeShare}
-                className="w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 text-sm font-bold bg-[#F59E0B]/10 text-[#F59E0B] hover:bg-[#F59E0B]/20 active:scale-[0.98]"
+                onClick={() => {
+                  const url = encodeURIComponent(window.location.href);
+                  let resultText = "Check out this calculation tool: ";
+                  const resultCards = document.querySelectorAll('h4');
+                  if (resultCards.length > 0) {
+                      let breakdown = "";
+                      resultCards.forEach((h4, idx) => {
+                          if (idx > 4) return;
+                          const title = h4.textContent?.trim() || "";
+                          const parent = h4.closest('div.relative');
+                          if(parent) {
+                              const valueEl = parent.querySelector('span.text-\\[clamp\\(1\\.75rem\\,5vw\\,2\\.5rem\\)\\]');
+                              if (valueEl) {
+                                  let val = valueEl.textContent?.trim() || "";
+                                  const unitEl = parent.querySelector('span.shrink-0');
+                                  if(unitEl && unitEl.textContent) val += " " + unitEl.textContent.trim();
+                                  breakdown += `${title}: ${val}\n`;
+                              }
+                          }
+                      });
+                      if (breakdown) resultText = encodeURIComponent(`Check out my calculation result:\n\n${breakdown}\n\nLink: `);
+                  }
+                  window.open(`https://wa.me/?text=${resultText}${url}`, "_blank");
+                  setIsShareOpen(false);
+                }}
+                className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-[#F0FDF4] hover:shadow-[0_8px_20px_rgba(22,101,52,0.08)] dark:bg-white/5 dark:hover:bg-emerald-500/10 border border-transparent hover:border-[#BBF7D0] dark:hover:border-emerald-500/20 active:scale-95"
               >
-                <div className="p-2 rounded-xl bg-white text-[#F59E0B] shadow-sm shrink-0">
-                  <Share2 className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <MessageCircle className="w-[20px] h-[20px] fill-current" strokeWidth={1} />
                 </div>
-                Share Menu / More Options...
+                <span className="text-[12px] font-semibold text-slate-700 dark:text-slate-300 group-hover:text-emerald-700 dark:group-hover:text-emerald-400">WhatsApp</span>
               </button>
 
               <button
                 onClick={() => {
                   const url = encodeURIComponent(window.location.href);
-                  window.open(`https://wa.me/?text=${url}`, "_blank");
+                  const titleStr = encodeURIComponent(document.title);
+                  let resultText = encodeURIComponent(`Check out this calculation tool: ${window.location.href}`);
+                  // ... logic ...
+                  // omitted to keep small but wait I should put the same logic
+                  const resultCards = document.querySelectorAll('h4');
+                  if (resultCards.length > 0) {
+                      let breakdown = "";
+                      resultCards.forEach((h4, idx) => {
+                          if (idx > 4) return;
+                          const title = h4.textContent?.trim() || "";
+                          const parent = h4.closest('div.relative');
+                          if(parent) {
+                              const valueEl = parent.querySelector('span.text-\\[clamp\\(1\\.75rem\\,5vw\\,2\\.5rem\\)\\]');
+                              if (valueEl) {
+                                  let val = valueEl.textContent?.trim() || "";
+                                  const unitEl = parent.querySelector('span.shrink-0');
+                                  if(unitEl && unitEl.textContent) val += " " + unitEl.textContent.trim();
+                                  breakdown += `${title}: ${val}\n`;
+                              }
+                          }
+                      });
+                      if (breakdown) resultText = encodeURIComponent(`Check out my calculation result:\n\n${breakdown}\n\nLink: ${window.location.href}`);
+                  }
+                  window.open(`mailto:?subject=${titleStr}&body=${resultText}`, "_self");
                   setIsShareOpen(false);
                 }}
-                className="w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 text-sm font-bold bg-green-50 text-green-700 hover:bg-green-100 active:scale-[0.98]"
+                className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-[#EFF6FF] hover:shadow-[0_8px_20px_rgba(30,64,175,0.08)] dark:bg-white/5 dark:hover:bg-blue-500/10 border border-transparent hover:border-[#BFDBFE] dark:hover:border-blue-500/20 active:scale-95"
               >
-                <div className="p-2 rounded-xl bg-white text-green-500 shadow-sm shrink-0">
-                  <MessageCircle className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <Mail className="w-[20px] h-[20px]" strokeWidth={2.5} />
                 </div>
-                WhatsApp
+                <span className="text-[12px] font-semibold text-slate-700 dark:text-slate-300 group-hover:text-blue-700 dark:group-hover:text-blue-400">Email</span>
               </button>
 
               <button
-                onClick={() => {
-                  const url = encodeURIComponent(window.location.href);
-                  const title = encodeURIComponent(document.title);
-                  window.open(`mailto:?subject=${title}&body=Check out this link: ${url}`, "_self");
-                  setIsShareOpen(false);
-                }}
-                className="w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 text-sm font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 active:scale-[0.98]"
+                onClick={handleDownloadPDF}
+                className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-[#FEF2F2] hover:shadow-[0_8px_20px_rgba(153,27,27,0.08)] dark:bg-white/5 dark:hover:bg-rose-500/10 border border-transparent hover:border-[#FECACA] dark:hover:border-rose-500/20 active:scale-95"
               >
-                <div className="p-2 rounded-xl bg-white text-blue-500 shadow-sm shrink-0">
-                  <Mail className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-full bg-rose-100 text-rose-600 dark:bg-rose-500/20 dark:text-rose-400 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <FileDown className="w-[20px] h-[20px]" strokeWidth={2.5} />
                 </div>
-                Email
+                <span className="text-[12px] font-semibold text-slate-700 dark:text-slate-300 group-hover:text-rose-700 dark:group-hover:text-rose-400">PDF Report</span>
               </button>
 
               <button
                 onClick={copyToClipboard}
-                className="w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all duration-200 text-sm font-bold bg-slate-50 text-slate-700 hover:bg-slate-100 active:scale-[0.98]"
+                className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-slate-100 hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] dark:bg-white/5 dark:hover:bg-white/10 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 active:scale-95"
               >
-                <div className="p-2 rounded-xl bg-white text-slate-500 shadow-sm shrink-0">
-                  <Copy className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-full bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-300 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <Copy className="w-[18px] h-[18px]" strokeWidth={2.5} />
                 </div>
-                Copy Link
+                <span className="text-[12px] font-semibold text-slate-700 dark:text-slate-300">Copy Link</span>
               </button>
             </div>
           </div>

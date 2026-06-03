@@ -59,7 +59,7 @@ export async function getToolEstimates(calculatorId: string, limitCount = 50) {
 }
 
 export async function getMyEstimates() {
-
+  if (!auth.currentUser) return [];
   try {
     const q = query(collection(db, 'estimates'), where('userId', '==', auth.currentUser.uid));
     const snapshot = await getDocs(q);

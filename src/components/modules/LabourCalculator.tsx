@@ -11,6 +11,7 @@ import {
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { useSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { useGlobalPrint } from "../../hooks/useGlobalPrint";
 import { generateProfessionalPDF } from "../../utils/pdfGenerator";
 import { v4 as uuidv4 } from "uuid";
 import toast from "react-hot-toast";
@@ -87,7 +88,7 @@ export default function LabourCalculator() {
   const sequentialDays = calculateSumActualDays();
   const overallBurnRate = sequentialDays > 0 ? totalCost / sequentialDays : 0;
 
-  const handleExportPDF = async () => {
+  const getPrintData = () => {
     const tableData = tasks.map(t => {
       const itemCost = t.qty * t.rate;
       return [
@@ -104,19 +105,26 @@ export default function LabourCalculator() {
       color: `#${Math.floor(Math.random()*16777215).toString(16)}`
     }));
 
+    return {
+      title: "Labour & Workforce Estimate",
+      toolId: "labour-calculator",
+      filename: "Labour_Cost_Estimate.pdf",
+      inputs: {
+        "Total Tasks": tasks.length,
+        "Total Duration": `${sequentialDays} Days`,
+        "Total Workers": tasks.reduce((sum, t) => sum + t.workers, 0)
+      },
+      tableData,
+      chartData,
+      grandTotal: totalCost
+    };
+  };
+
+  useGlobalPrint(getPrintData);
+
+  const handleExportPDF = async () => {
     try {
-      const doc = await generateProfessionalPDF({
-        title: "Labour & Workforce Estimate",
-        toolId: "labour-calculator",
-        inputs: {
-          "Total Tasks": tasks.length,
-          "Total Duration": `${sequentialDays} Days`,
-          "Total Workers": tasks.reduce((sum, t) => sum + t.workers, 0)
-        },
-        tableData,
-        chartData,
-        grandTotal: totalCost
-      });
+      const doc = await generateProfessionalPDF(getPrintData());
       doc.save("Labour_Cost_Estimate.pdf");
       toast.success("PDF Downloaded Successfully");
     } catch (e) {

@@ -39,3 +39,53 @@
     scrollbar-width: none;
   }
 }
+
+@media print {
+  /* Hide all generic app UI by default */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Make sure background is white and text is readable */
+  html, body, #root {
+    background-color: white !important;
+    background-image: none !important;
+    color: black !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Show only the tool container and its descendants */
+  .themed-tool-container, 
+  .themed-tool-container * {
+    visibility: visible;
+  }
+
+  /* Reset positioning so it flows naturally in the print document */
+  .themed-tool-container {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Explicitly hide specific interactive elements inside the tool container */
+  .no-print, 
+  nav, header, footer, 
+  button, 
+  .fixed, 
+  .sticky {
+    display: none !important;
+  }
+
+  /* Keep table lines and inputs looking crisp */
+  input, select, textarea {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
+}

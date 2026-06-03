@@ -343,10 +343,10 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                           <div
                             key={mod.id}
                             onClick={() => handleSelectTool(mod.id)}
-                            className={`group cursor-pointer flex items-center gap-3 bg-transparent hover:bg-slate-50 dark:bg-[#121212] dark:hover:bg-[#2f2f2f] border border-transparent hover:${theme.border} p-3 rounded-[32px] transition-all duration-200`}
+                            className={`group cursor-pointer flex items-center gap-3 bg-transparent hover:bg-slate-50 dark:bg-[#121212] dark:hover:bg-[#2f2f2f] border-2 border-transparent hover:${theme.iconColorBorder} p-3 rounded-[32px] transition-all duration-200`}
                           >
                             <div
-                              className={`w-10 h-10 shrink-0 rounded-[32px] flex items-center justify-center ${theme.bg} ${theme.text} group-hover:bg-[#0072de] group-hover:text-white transition-colors duration-300`}
+                              className={`w-10 h-10 shrink-0 rounded-[32px] flex items-center justify-center ${theme.iconBg} ${theme.text} group-hover:bg-[#0072de] group-hover:text-white transition-colors duration-300`}
                             >
                               {mod.icon ? (
                                 <mod.icon className="w-5 h-5" />
@@ -386,10 +386,10 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                             <div
                               key={`local-${idx}`}
                               onClick={() => handleSelectTool(result.toolId)}
-                              className={`group cursor-pointer flex items-center gap-4 bg-transparent hover:bg-slate-50 dark:bg-[#121212] dark:hover:bg-[#2f2f2f] border border-transparent hover:${theme.border} p-3 md:p-4 rounded-[32px] transition-all duration-200`}
+                              className={`group cursor-pointer flex items-center gap-4 bg-transparent hover:bg-slate-50 dark:bg-[#121212] dark:hover:bg-[#2f2f2f] border-2 border-transparent hover:${theme.iconColorBorder} p-3 md:p-4 rounded-[32px] transition-all duration-200`}
                             >
                               <div
-                                className={`w-12 h-12 shrink-0 rounded-[32px] flex items-center justify-center ${theme.bg} ${theme.text} group-hover:bg-[#0072de] group-hover:text-white transition-transform duration-300 shadow-sm border ${theme.border} group-hover:border-transparent`}
+                                className={`w-12 h-12 shrink-0 rounded-[32px] flex items-center justify-center ${theme.iconBg} ${theme.text} group-hover:bg-[#0072de] group-hover:text-white transition-transform duration-300 shadow-sm border ${theme.border} group-hover:border-transparent`}
                               >
                                 {fullModuleData?.icon ? (
                                   <fullModuleData.icon className="w-6 h-6" />

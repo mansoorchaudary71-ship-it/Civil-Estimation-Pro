@@ -88,10 +88,8 @@ import { WelcomeModal } from "./components/ui/WelcomeModal";
 import { HelpGuideModal } from "./components/ui/HelpGuideModal";
 import { ProductTour } from "./components/ui/ProductTour";
 import LoadingScreen from "./components/ui/LoadingScreen";
-import CustomCursor from "./components/ui/CustomCursor";
 import SkipToContent from "./components/ui/SkipToContent";
 import SmoothScroll from "./components/ui/SmoothScroll";
-import ScrollToTop from "./components/ui/ScrollToTop";
 import Dashboard, {
   ALL_MODULES,
   getCategoryTheme,
@@ -529,8 +527,6 @@ export default function App() {
     <SmoothScroll>
       <SkipToContent />
       <LoadingScreen />
-      <CustomCursor />
-      <ScrollToTop />
       <SettingsProvider>
         <HouseSpecsProvider>
           <MarketRatesProvider>
@@ -540,7 +536,7 @@ export default function App() {
                   <Toaster position="bottom-right" />
                   <ProductTour />
                   
-                  {isStaticPage && <TopNavbar onNavigate={handleSelectModule} onOpenSidebar={() => setIsSidebarOpen(true)} />}
+                  <TopNavbar onNavigate={handleSelectModule} onOpenSidebar={() => setIsSidebarOpen(true)} />
                   {isStaticPage && <GlobalBottomBar activeModule={activeModule} onNavigate={handleSelectModule} onOpenProfile={() => setIsProfileOpen(true)} onOpenSearch={() => {}} />}
                   
                   <BottomNavBar 
@@ -550,7 +546,7 @@ export default function App() {
                     onOpenHistory={() => handleSelectModule("my-estimates")} 
                   />
 
-                  <div className={`flex flex-1 min-h-0 relative w-full ${isStaticPage ? "pt-14" : ""}`}>
+                  <div className={`flex flex-1 min-h-0 relative w-full pt-14`}>
                     {/* Main Sidebar (Mobile Overlay + Persistent Desktop) */}
                     <Sidebar activeModule={activeModule} onSelectModule={handleSelectModule}
                       isOpen={isSidebarOpen}
@@ -1333,15 +1329,6 @@ export default function App() {
                     onClose={() => setIsHelpOpen(false)}
                   />
 
-                  {/* Floating Help Button */}
-                  <button
-                    onClick={() => setIsHelpOpen(true)}
-                    className="fixed bottom-4 md:bottom-8 right-4 md:right-8 z-50 p-3 bg-white text-slate-600 rounded-full shadow-lg border border-slate-200 hover:bg-slate-50 transition-all hover:scale-110 flex items-center justify-center group focus:outline-none"
-                    title="Help Guide"
-                  >
-                    <HelpCircle className="w-6 h-6 group-hover:text-amber-500 transition-colors" />
-                  </button>
-
                   <MobileToolsSheet
                     isOpen={isMobileToolsOpen}
                     onClose={() => setIsMobileToolsOpen(false)}
@@ -1480,6 +1467,8 @@ function AppHeader({
 
 import { CodeReferences } from "./components/ui/CodeReferences";
 import { GlobalSettingsToggle } from "./components/ui/GlobalSettingsToggle";
+import { FeedbackWidget } from "./components/ui/FeedbackWidget";
+import { ProTipsWidget } from "./components/ui/ProTipsWidget";
 
 function ModuleWrapper({
   title,
@@ -1570,12 +1559,6 @@ function ModuleWrapper({
 
   return (
     <div className="h-full flex flex-col min-h-0 bg-transparent relative">
-      <a
-        href="#main-calculator-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 z-50 bg-black text-white px-4 py-2 rounded-lg font-bold shadow-lg"
-      >
-        Skip to calculation
-      </a>
       {moduleDef && (
         <Helmet>
           <title>{`${formatToolTitle(moduleDef.title)} – Free Online ${moduleDef.category} Tool | Civil Estimation Pro`}</title>
@@ -1712,60 +1695,27 @@ function ModuleWrapper({
               }
               return (
                 <div
-                  className="flex-1 shrink-0 px-4 md:px-8 pb-6 w-full themed-tool-container relative"
+                  className="flex-1 shrink-0 px-4 md:px-8 pt-4 pb-6 w-full md:w-[calc(100%-2rem)] md:mx-4 md:mb-4 themed-tool-container relative border-2 md:rounded-[2rem]"
                   style={
-                    { "--tool-theme-color": themeHex } as React.CSSProperties
+                    { 
+                      "--tool-theme-color": themeHex,
+                      borderColor: themeHex
+                    } as React.CSSProperties
                   }
                 >
                   {moduleDef && (
-                    <div className="mb-6 p-6 rounded-[2rem] bg-slate-50 border border-slate-200">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
-                        <h1 className="text-3xl font-semibold tracking-tight text-slate-900 flex items-center gap-3">
-                          {moduleDef.icon && React.createElement(moduleDef.icon, { className: "w-8 h-8 text-amber-600" })}
-                          {formatToolTitle(moduleDef.title)}
-                        </h1>
-                        {moduleDef.isPopular && (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-sm font-semibold whitespace-nowrap">
-                            🔥 Most popular this week
-                          </span>
-                        )}
-                      </div>
-
-                      <p className="text-slate-600 leading-relaxed max-w-4xl text-base mb-6 font-medium">
-                        {moduleDef.desc}
-                      </p>
-
-                      <div className="mt-4 text-xs font-semibold uppercase tracking-widest text-slate-400 mb-6">
-                         <GlobalSettingsToggle align="left" showCurrency={false} />
-                      </div>
-
-                      {/* Social Signals */}
-                      <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-slate-600 border-t border-slate-200 pt-5">
-                        <div className="flex items-center gap-1">
-                          <span className="text-amber-500 flex">
-                            {"★".repeat(5)}
-                          </span>
-                          <span className="font-medium ml-1">
-                            {socialProof.rating}/5
-                          </span>
-                          <span>({socialProof.reviews} reviews)</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <Users className="w-4 h-4" />
-                          <span>
-                            Calculated by {socialProof.users} engineers
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <Clock className="w-4 h-4" />
-                          <span>
-                            Last updated:{" "}
-                            {new Date().toLocaleDateString("en-US", {
-                              month: "short",
-                              year: "numeric",
-                            })}
-                          </span>
-                        </div>
+                    <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200 pb-4">
+                      <h1 className="text-3xl font-semibold tracking-tight text-slate-900 flex items-center gap-3">
+                        {moduleDef.icon && React.createElement(moduleDef.icon, { className: "w-8 h-8", style: { color: themeHex } })}
+                        {formatToolTitle(moduleDef.title)}
+                      </h1>
+                      <div className="text-xs font-semibold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                         {moduleDef.isPopular && (
+                           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-sm font-semibold whitespace-nowrap">
+                             🔥 Popular
+                           </span>
+                         )}
+                         <GlobalSettingsToggle align="right" showCurrency={false} />
                       </div>
                     </div>
                   )}
@@ -1776,6 +1726,8 @@ function ModuleWrapper({
 
                   {moduleDef && (
                     <>
+                      <ProTipsWidget moduleId={activeModule} />
+                      
                       <div className="mt-8 mb-6 p-6 rounded-[2rem] bg-slate-50 border border-slate-200">
                         <p className="text-slate-600 leading-relaxed max-w-4xl text-base mb-8">
                           Your calculation updates strictly in real-time above.
@@ -1878,6 +1830,9 @@ function ModuleWrapper({
                             ))}
                         </div>
                       </div>
+
+                      {/* Feedback Widget */}
+                      <FeedbackWidget toolName={moduleDef.title} />
 
                       {/* Comments / Discussion Widget */}
                       <DiscussionWidget

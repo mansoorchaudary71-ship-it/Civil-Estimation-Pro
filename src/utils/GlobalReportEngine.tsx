@@ -276,7 +276,10 @@ export const GlobalReportEngine = {
     doc.setTextColor(255, 255, 255);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
-    doc.text(safeData.toolName?.toUpperCase() || 'EXECUTIVE ESTIMATION REPORT', 14, 20);
+    let rawTitle = safeData.toolName?.toUpperCase() || 'EXECUTIVE ESTIMATION REPORT';
+    rawTitle = rawTitle.replace(/\s*\|\s*CIVIL ESTIMATION PRO/i, "");
+    if(rawTitle.length > 35) rawTitle = rawTitle.substring(0, 32) + "...";
+    doc.text(rawTitle, 14, 20);
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -325,11 +328,13 @@ export const GlobalReportEngine = {
     doc.setTextColor(15, 23, 42); // slate-900
     doc.text("Project Parameters", 90, currentY + 4);
 
-    const ignoreKeys = ['totalEstimatedCost', 'costPerSqFt', 'totalCoveredArea', 'structureType', 'projectName', 'date', 'contingency', 'gst', 'totalCost'];
+    const ignoreKeys = ['totalEstimatedCost', 'costPerSqFt', 'totalCoveredArea', 'structureType', 'projectName', 'date', 'contingency', 'gst', 'totalCost', 'location', 'preparedBy'];
     const paramsMap = [];
     
     if (safeData.metadata.projectName) paramsMap.push({ label: "Project Name", value: safeData.metadata.projectName });
     if (safeData.metadata.clientName) paramsMap.push({ label: "Client Name", value: safeData.metadata.clientName });
+    if (safeData.metadata.location) paramsMap.push({ label: "Location", value: safeData.metadata.location });
+    if (safeData.metadata.preparedBy) paramsMap.push({ label: "Prepared By", value: safeData.metadata.preparedBy });
     if (safeData.metadata.structureType) paramsMap.push({ label: "Structure Type", value: safeData.metadata.structureType });
     if (safeData.metadata.totalCoveredArea) paramsMap.push({ label: "Covered Area", value: safeData.metadata.totalCoveredArea + " sq.ft" });
     
@@ -381,7 +386,14 @@ export const GlobalReportEngine = {
       if (total > 0) highestPct = ((sorted[0].value / total) * 100).toFixed(1);
     }
     
-    const summaryText = `This estimate is prepared for a ${safeData.metadata.totalCoveredArea || 'custom'} sq.ft ${safeData.metadata.structureType || safeData.toolName.toLowerCase()}. The total estimated budget is Rs ${Math.round(safeData.metadata.totalEstimatedCost || 0).toLocaleString()}. The primary cost driver is ${highestDriver}, accounting for ${highestPct}% of the overall budget.`;
+    let structureStr = safeData.metadata.structureType || safeData.toolName.replace(/\s*\|\s*Civil Estimation Pro/i, "");
+    const areaStr = safeData.metadata.totalCoveredArea ? `${safeData.metadata.totalCoveredArea} sq.ft ` : "";
+    const totalEstParams = safeData.metadata.totalEstimatedCost || 0;
+    
+    let summaryText = `This estimate is prepared for the ${areaStr}${structureStr.trim()}. The total estimated budget is Rs ${Math.round(totalEstParams).toLocaleString()}.`;
+    if (totalEstParams > 0 && highestPct !== "0.0") {
+       summaryText += ` The primary cost driver is ${highestDriver}, accounting for ${highestPct}% of the overall budget.`;
+    }
     
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
@@ -422,10 +434,15 @@ export const GlobalReportEngine = {
       doc.text(finalVal, x + (cardWidth / 2), currentY + 14, { align: "center" });
     };
 
+    const formatCapitalize = (str: string) => {
+       if (!str) return "";
+       return str.charAt(0).toUpperCase() + str.slice(1);
+    };
+
     drawKpiCard(0, "GRAND TOTAL", `Rs ${Math.round(safeData.metadata.totalEstimatedCost || 0).toLocaleString()}`);
     drawKpiCard(1, "COST PER SQ.FT", safeData.metadata.costPerSqFt ? `Rs ${Math.round(safeData.metadata.costPerSqFt).toLocaleString()}` : "N/A");
     drawKpiCard(2, "BUILT-UP AREA", safeData.metadata.totalCoveredArea ? `${safeData.metadata.totalCoveredArea} sq.ft` : "N/A");
-    drawKpiCard(3, "MAIN COST DRIVER", highestDriver);
+    drawKpiCard(3, "MAIN COST DRIVER", formatCapitalize(highestDriver));
 
     currentY += 28;
 
@@ -461,18 +478,23 @@ export const GlobalReportEngine = {
     }
 
     // Wrap Table
-    const tableBody = (safeData.boqData || []).map(row => [
-      row.category || "",
-      row.itemDescription || "",
-      row.quantity.toLocaleString(undefined, {maximumFractionDigits: 2}),
-      row.unit || "",
-      row.rate.toLocaleString(),
-      row.amount.toLocaleString()
-    ]);
+    const tableBody = (safeData.boqData || []).map((row, index) => {
+      const q = row.quantity || 0;
+      const r = row.rate || 0;
+      const amount = q * r;
+      return [
+        index + 1,
+        row.itemDescription || "",
+        q > 0 ? q.toLocaleString(undefined, {maximumFractionDigits: 2}) : "-",
+        row.unit || "-",
+        r > 0 ? r.toLocaleString() : "-",
+        amount > 0 ? amount.toLocaleString() : "-"
+      ];
+    });
 
     autoTable(doc, {
       startY: currentY,
-      head: [["Category", "Item Description", "Qty", "Unit", "Rate (Rs)", "Amount (Rs)"]],
+      head: [["S.No", "Item Description", "Qty", "Unit", "Rate (Rs)", "Amount (Rs)"]],
       body: tableBody,
       theme: "grid",
       headStyles: {
@@ -502,10 +524,13 @@ export const GlobalReportEngine = {
     });
 
     const finalY = (doc as any).lastAutoTable.finalY || currentY + 10;
+    
+    const totalCost = safeData.metadata.totalEstimatedCost || 0;
+    const totalCostStr = totalCost > 0 ? `Rs ${Math.round(totalCost).toLocaleString()}` : "N/A";
 
     autoTable(doc, {
       startY: finalY,
-      body: [["GRAND TOTAL", `Rs ${Math.round(safeData.metadata.totalEstimatedCost || 0).toLocaleString()}`]],
+      body: [["GRAND TOTAL", totalCostStr]],
       theme: "plain",
       styles: { font: "helvetica", fontSize: 13, cellPadding: 6 },
       columnStyles: {
@@ -514,6 +539,48 @@ export const GlobalReportEngine = {
       },
       margin: { left: 14, right: 14 },
     });
+
+    let disclaimerY = (doc as any).lastAutoTable.finalY + 15;
+    if (disclaimerY + 30 > pageHeight) {
+      doc.addPage();
+      disclaimerY = 20;
+    }
+    
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.setTextColor(15, 23, 42);
+    doc.text("Terms & Conditions / Disclaimer", 14, disclaimerY);
+    
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(100, 116, 139);
+    const textLines = [
+      "1. This is a system-generated estimation report and is provided for informational and planning purposes only.",
+      "2. Estimated costs are based on average current market rates and standard construction assumptions. Actual local market rates may vary.",
+      "3. This estimate is exclusive of hidden ground conditions, architectural specialized finishes, and unforeseen structural changes.",
+      "4. Always verify structural designs, loads, and final BOQ with a certified professional Structural Engineer before execution."
+    ];
+    doc.text(textLines, 14, disclaimerY + 6);
+    
+    // Add page numbers and dynamic footer
+    const pageCount = (doc as any).internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFontSize(8);
+      doc.setTextColor(148, 163, 184); // slate-400
+      
+      const proTipPool = [
+        "Pro Tip: Ensure a water-cement ratio of 0.45-0.55 to prevent shrinkage cracks.",
+        "Pro Tip: Proper curing for 7-14 days significantly increases concrete strength.",
+        "Pro Tip: Always account for 3-5% wastage when estimating steel reinforcement.",
+        "Pro Tip: Apply a dry materials multiplier of 1.54 for concrete and 1.33 for mortar.",
+        "Pro Tip: Ensure proper soil compaction before laying raft foundations or footings."
+      ];
+      const randomTip = proTipPool[Math.floor(Math.random() * proTipPool.length)];
+      
+      doc.text(randomTip, 14, pageHeight - 10);
+      doc.text(`Page ${i} of ${pageCount}`, pageWidth - 14, pageHeight - 10, { align: "right" });
+    }
 
     return doc;
   },
@@ -535,7 +602,9 @@ export const GlobalReportEngine = {
      // Header
      dashSheet.mergeCells("B2:E3");
      const titleCell = dashSheet.getCell("B2");
-     titleCell.value = (safeData.toolName || 'EXECUTIVE ESTIMATION REPORT').toUpperCase();
+     let rawTitle = safeData.toolName?.toUpperCase() || 'EXECUTIVE ESTIMATION REPORT';
+     rawTitle = rawTitle.replace(/\s*\|\s*CIVIL ESTIMATION PRO/i, "");
+     titleCell.value = rawTitle;
      titleCell.font = { name: 'Arial', size: 24, bold: true, color: { argb: 'FFFFFFFF' } };
      titleCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } };
      titleCell.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
@@ -555,11 +624,13 @@ export const GlobalReportEngine = {
      dashSheet.getCell("B7").font = { bold: true, size: 14, color: { argb: 'FF0F172A' } };
      
      // Project Parameters
-     const ignoreKeys = ['totalEstimatedCost', 'costPerSqFt', 'totalCoveredArea', 'structureType', 'projectName', 'date', 'contingency', 'gst', 'totalCost'];
+     const ignoreKeys = ['totalEstimatedCost', 'costPerSqFt', 'totalCoveredArea', 'structureType', 'projectName', 'date', 'contingency', 'gst', 'totalCost', 'location', 'preparedBy'];
      const paramsMap: {label: string; value: any}[] = [];
      
      if (safeData.metadata.projectName) paramsMap.push({ label: "Project Name", value: safeData.metadata.projectName });
      if (safeData.metadata.clientName) paramsMap.push({ label: "Client Name", value: safeData.metadata.clientName });
+     if (safeData.metadata.location) paramsMap.push({ label: "Location", value: safeData.metadata.location });
+     if (safeData.metadata.preparedBy) paramsMap.push({ label: "Prepared By", value: safeData.metadata.preparedBy });
      if (safeData.metadata.structureType) paramsMap.push({ label: "Structure Type", value: safeData.metadata.structureType });
      if (safeData.metadata.totalCoveredArea) paramsMap.push({ label: "Covered Area", value: safeData.metadata.totalCoveredArea + " sq.ft" });
      
@@ -588,13 +659,22 @@ export const GlobalReportEngine = {
      }
 
      dashSheet.getCell(`B${startRow}`).value = "Grand Total";
-     dashSheet.getCell(`C${startRow}`).value = safeData.metadata.totalEstimatedCost || 0;
-     dashSheet.getCell(`C${startRow}`).numFmt = '"Rs "#,##0';
+     
+     if ((safeData.metadata.totalEstimatedCost || 0) > 0) {
+       dashSheet.getCell(`C${startRow}`).value = safeData.metadata.totalEstimatedCost;
+       dashSheet.getCell(`C${startRow}`).numFmt = '"Rs "#,##0';
+     } else {
+       dashSheet.getCell(`C${startRow}`).value = "N/A";
+     }
      dashSheet.getCell(`C${startRow}`).font = { bold: true, size: 12, color: { argb: 'FFE8541A' } };
 
      dashSheet.getCell(`B${startRow+1}`).value = "Cost per Sq.Ft";
-     dashSheet.getCell(`C${startRow+1}`).value = safeData.metadata.costPerSqFt || 0;
-     dashSheet.getCell(`C${startRow+1}`).numFmt = '"Rs "#,##0';
+     if ((safeData.metadata.costPerSqFt || 0) > 0) {
+       dashSheet.getCell(`C${startRow+1}`).value = safeData.metadata.costPerSqFt;
+       dashSheet.getCell(`C${startRow+1}`).numFmt = '"Rs "#,##0';
+     } else {
+       dashSheet.getCell(`C${startRow+1}`).value = "N/A";
+     }
      dashSheet.getCell(`C${startRow+1}`).font = { bold: true, size: 12 };
 
      dashSheet.getCell(`B${startRow+2}`).value = "Built-Up Area";
@@ -612,6 +692,21 @@ export const GlobalReportEngine = {
          cellB.fill = { type: 'pattern', pattern: 'solid', fgColor: {argb: 'FFF8FAFC'} };
          cellC.border = { bottom: {style:'thin', color:{argb:'FFE2E8F0'}} };
      }
+
+     const discRowStart = startRow + 6;
+     dashSheet.getCell(`B${discRowStart}`).value = "Terms & Conditions / Disclaimer";
+     dashSheet.getCell(`B${discRowStart}`).font = { bold: true, size: 12, color: { argb: 'FF0F172A' } };
+     
+     const terms = [
+       "1. This is a system-generated estimation report and is provided for informational and planning purposes only.",
+       "2. Estimated costs are based on average current market rates and standard construction assumptions.",
+       "3. This estimate is exclusive of hidden ground conditions, specialized finishes, and structural changes.",
+       "4. Always verify designs and BOQ with a certified professional Structural Engineer before execution."
+     ];
+     terms.forEach((term, idx) => {
+         dashSheet.getCell(`B${discRowStart + 1 + idx}`).value = term;
+         dashSheet.getCell(`B${discRowStart + 1 + idx}`).font = { size: 10, italic: true, color: { argb: 'FF64748B' } };
+     });
 
      // If charts exist, embed the donut chart dynamically on the right
      if (safeData.chartData?.donut?.length > 0) {
@@ -634,7 +729,7 @@ export const GlobalReportEngine = {
      const boqSheet = workbook.addWorksheet('Detailed BOQ', { views: [{ state: 'frozen', ySplit: 1 }] });
      
      boqSheet.columns = [
-       { header: 'Category', key: 'cat', width: 25 },
+       { header: 'S.No', key: 'sno', width: 10 },
        { header: 'Item Description', key: 'desc', width: 45 },
        { header: 'Unit', key: 'unit', width: 12 },
        { header: 'Quantity', key: 'qty', width: 15 },
@@ -651,7 +746,7 @@ export const GlobalReportEngine = {
      (safeData.boqData || []).forEach((row, index) => {
        const rowNum = index + 2;
        const excelRow = boqSheet.addRow({
-         cat: row.category,
+         sno: index + 1,
          desc: row.itemDescription,
          unit: row.unit,
          qty: row.quantity,
@@ -659,7 +754,7 @@ export const GlobalReportEngine = {
        });
 
        const amtCell = excelRow.getCell(6);
-       amtCell.value = { formula: `D${rowNum}*E${rowNum}`, result: row.quantity * row.rate } as any;
+       amtCell.value = { formula: `D${rowNum}*E${rowNum}`, result: (row.quantity || 0) * (row.rate || 0) } as any;
        
        excelRow.getCell(4).numFmt = '#,##0.00';
        excelRow.getCell(5).numFmt = '"Rs "#,##0';

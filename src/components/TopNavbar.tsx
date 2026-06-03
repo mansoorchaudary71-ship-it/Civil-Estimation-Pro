@@ -49,19 +49,19 @@ export default function TopNavbar({
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-[120] bg-slate-900/80 backdrop-blur-[12px] border-b border-white/10 transition-colors">
+      <header className="fixed top-0 left-0 right-0 z-[120] bg-white/90 backdrop-blur-[12px] border-b border-slate-200 transition-colors shadow-sm">
         <div className="max-w-7xl mx-auto px-4 md:px-6 h-14 flex items-center justify-between">
           <div 
             className="flex items-center gap-2 cursor-pointer group"
             onClick={() => { setActiveTab("Home"); onNavigate && onNavigate("home"); }}
           >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 text-white flex items-center justify-center font-bold text-xs tracking-tighter shadow-lg shadow-amber-500/20">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0072de] to-indigo-600 text-white flex items-center justify-center font-bold text-xs tracking-tighter shadow-lg shadow-[#0072de]/20">
               CE
             </div>
-            <span className="font-bold text-[16px] text-white tracking-tight hidden sm:block">
-              Civil Estimation <span className="text-amber-400">Pro</span>
+            <span className="font-bold text-[16px] text-slate-900 tracking-tight hidden sm:block">
+              Civil Estimation <span className="text-[#0072de]">Pro</span>
             </span>
-            <span className="font-bold text-[15px] text-white tracking-tight sm:hidden">
+            <span className="font-bold text-[15px] text-slate-900 tracking-tight sm:hidden">
               Civil Pro
             </span>
           </div>
@@ -71,8 +71,8 @@ export default function TopNavbar({
               <button 
                 key={link.name}
                 className={cn(
-                  "relative text-[14px] font-medium transition-colors hover:text-amber-400",
-                  activeTab === link.name ? "text-amber-400" : "text-slate-300"
+                  "relative text-[14px] font-medium transition-colors hover:text-[#0072de]",
+                  activeTab === link.name ? "text-[#0072de]" : "text-slate-600"
                 )}
                 onClick={() => handleNavigate(link)}
               >
@@ -80,7 +80,7 @@ export default function TopNavbar({
                 {activeTab === link.name && (
                   <motion.div 
                     layoutId="activeTabNav"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-amber-400 rounded-full"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#0072de] rounded-full"
                   />
                 )}
               </button>
@@ -89,14 +89,14 @@ export default function TopNavbar({
 
           <div className="flex items-center gap-3 md:gap-4">
              <button 
-               className="text-[13px] font-bold tracking-tight text-slate-900 bg-amber-400 hover:bg-amber-500 px-4 py-1.5 rounded-full transition-all shadow-md active:scale-95 flex items-center gap-1.5"
+               className="text-[13px] font-bold tracking-tight text-white bg-[#0072de] hover:bg-[#005bb5] px-4 py-1.5 rounded-full transition-all shadow-md active:scale-95 flex items-center gap-1.5"
                onClick={() => onNavigate && onNavigate("home")}
              >
                 Start Free
              </button>
 
              <button 
-               className="md:hidden p-1.5 text-white hover:text-amber-400 transition-colors"
+               className="md:hidden p-1.5 text-slate-600 hover:text-[#0072de] transition-colors"
                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                aria-label="Toggle mobile menu"
              >
@@ -117,7 +117,7 @@ export default function TopNavbar({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[115] bg-slate-900/95 backdrop-blur-xl md:hidden pt-20 px-6 pb-6 flex flex-col"
+            className="fixed inset-0 z-[115] bg-white/95 backdrop-blur-xl md:hidden pt-20 px-6 pb-6 flex flex-col border-b border-slate-200"
           >
             <nav className="flex flex-col gap-6 mt-8">
               {links.map((link, i) => (
@@ -132,17 +132,17 @@ export default function TopNavbar({
                   <div className="flex items-center gap-4">
                     <span className={cn(
                       "transition-colors",
-                      activeTab === link.name ? "text-amber-400" : "text-white group-hover:text-amber-300"
+                      activeTab === link.name ? "text-[#0072de]" : "text-slate-800 group-hover:text-[#0072de]"
                     )}>
                       {link.name}
                     </span>
                     {activeTab === link.name && (
-                        <div className="w-2 h-2 rounded-full bg-amber-400" />
+                        <div className="w-2 h-2 rounded-full bg-[#0072de]" />
                     )}
                   </div>
                   <ArrowRight className={cn(
                     "w-6 h-6 opacity-0 -translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0",
-                    activeTab === link.name ? "text-amber-400" : "text-white"
+                    activeTab === link.name ? "text-[#0072de]" : "text-slate-400"
                   )} />
                 </motion.button>
               ))}
@@ -150,7 +150,7 @@ export default function TopNavbar({
             
             <div className="mt-auto pb-4">
                <button 
-                 className="w-full text-base font-bold text-slate-900 bg-amber-400 hover:bg-amber-500 py-4 rounded-xl transition-all shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2"
+                 className="w-full text-base font-bold text-white bg-[#0072de] hover:bg-[#005bb5] py-4 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2"
                  onClick={() => { setIsMobileMenuOpen(false); onNavigate && onNavigate("home"); }}
                >
                   Get Started for Free

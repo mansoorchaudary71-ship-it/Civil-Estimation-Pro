@@ -222,17 +222,51 @@ export const generateProfessionalPDF = async ({
 }): Promise<jsPDF> => {
   const cleanInputs = filterValidParameters(inputs || {});
   const boqData = tableData.map(row => {
-     let costStr = String(row[row.length - 1]).replace(/[^0-9.-]+/g, "");
-     let cost = parseFloat(costStr) || 0;
-     let qStr = String(row[1]).split('\n')[0];
-     let qty = parseFloat(qStr.replace(/[^0-9.-]+/g, "")) || 0;
+     let qty = 1;
+     let amount = 0;
+     let unit = "";
+     let itemDesc = String(row[0] || "");
+     let rate = 0;
+     
+     // Detect if it's the 4-element generic scraped array from BottomNavBar: [title, "", "", val]
+     if (row.length === 4 && (!row[1] || row[1] === "") && (!row[2] || row[2] === "") && typeof row[3] === 'string') {
+        const val = row[3].trim();
+        
+        let extractedNum = parseFloat(val.replace(/[^0-9.-]+/g, ""));
+        let stringParts = val.replace(/[0-9.,-]+/g, "").trim();
+
+        // If it looks like a currency format, it's an amount, not qty.
+        if (val.toLowerCase().includes('rs') || val.toLowerCase().includes('₹') || val.toLowerCase().includes('cost') || itemDesc.toLowerCase().includes('cost') || itemDesc.toLowerCase().includes('amount')) {
+            amount = isNaN(extractedNum) ? 0 : extractedNum;
+            qty = 1;
+            unit = "LS";
+            rate = amount;
+        } else {
+            qty = isNaN(extractedNum) ? 0 : extractedNum;
+            unit = stringParts;
+            amount = 0;
+            rate = 0;
+        }
+     } else {
+        // Standard BOQ parsing
+        let costStr = String(row[row.length - 1] || "0").replace(/[^0-9.-]+/g, "");
+        amount = parseFloat(costStr) || 0;
+        let qStr = String(row[1] || "").split('\n')[0];
+        let extractedQty = parseFloat(qStr.replace(/[^0-9.-]+/g, ""));
+        if (!isNaN(extractedQty) && extractedQty > 0) qty = extractedQty;
+        else if (amount > 0) qty = 1;
+        
+        unit = String(row[2] || "");
+        rate = (qty > 0 && amount > 0) ? (amount / qty) : 0;
+     }
+     
      return {
        category: "",
-       itemDescription: String(row[0]),
+       itemDescription: itemDesc,
        quantity: qty,
-       unit: String(row[2]),
-       rate: qty > 0 ? (cost / qty) : 0,
-       amount: cost
+       unit: unit,
+       rate: rate,
+       amount: amount
      };
   });
   

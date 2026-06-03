@@ -536,7 +536,7 @@ export function CalculationHistory({
       toast.success("Saved to cloud Profile successfully!");
       setIsSaveModalOpen(false);
     } catch (e) {
-      toast.error("Failed to save to cloud.");
+      toast.error(e instanceof Error ? e.message : "Failed to save to cloud.");
     } finally {
       setIsSavingCloud(false);
     }

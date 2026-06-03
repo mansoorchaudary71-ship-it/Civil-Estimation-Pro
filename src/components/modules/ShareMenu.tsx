@@ -399,97 +399,103 @@ export default function ShareButtonWithPopup({
       </button>
 
       {isOpen && typeof document !== "undefined" && createPortal(
-        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-end sm:justify-center p-4 font-sans pointer-events-auto">
+        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-end sm:justify-center p-4 font-sans pointer-events-auto px-4 sm:px-6">
             <div 
-              className="absolute inset-0 bg-[#F5F5F7] backdrop-blur-sm"
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-[4px]"
               onClick={() => setIsOpen(false)}
             />
             
             <div
-              className={`relative w-full max-w-sm bg-white  backdrop-blur-xl border border-slate-200/60 rounded-[2rem] shadow-2xl z-10 overflow-hidden font-sans`}
-              style={{ animation: "modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
+              className={`relative w-full max-w-[340px] bg-white/95 dark:bg-[#1A1A1A]/95 backdrop-blur-3xl rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.2)] z-10 overflow-hidden font-sans border border-white/50 dark:border-white/10`}
+              style={{ animation: "modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
             >
-              <style>{` @keyframes modalSlideUp { from { opacity: 0; transform: translateY(20px) scale(0.95); filter: blur(4px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } } `}</style>
+              <style>{` @keyframes modalPop { 0% { opacity: 0; transform: scale(0.92) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } } `}</style>
               
-              <div className="pt-6 pb-4 px-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
-                <div>
-                  <h3 className="text-lg font-bold text-slate-800">Share Export</h3>
-                  <p className="text-xs text-slate-500 font-medium">Select a format to export or share</p>
-                </div>
-                <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-slate-200 rounded-full transition-colors text-slate-500">
-                  <X className="w-5 h-5"/>
+              <div className="pt-7 pb-5 px-7 flex flex-col items-center text-center relative">
+                <button 
+                  onClick={() => setIsOpen(false)} 
+                  className="absolute right-5 top-5 p-2 bg-slate-100/80 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 rounded-full transition-colors text-slate-500 dark:text-slate-400"
+                >
+                  <X className="w-4 h-4"/>
                 </button>
+                <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-500/10 rounded-full flex items-center justify-center mb-3">
+                  <Share2 className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+                </div>
+                <h3 className="text-[19px] font-bold text-slate-900 dark:text-white tracking-tight">Export & Share</h3>
+                <p className="text-[13px] text-slate-500 dark:text-slate-400 font-medium mt-1">Select a format to save or send</p>
               </div>
 
-              <div className="p-4 flex flex-col gap-2 max-h-[70vh] overflow-y-auto">
-                <div className="mb-2">
-                  <CopyButton textToCopy={typeof window !== 'undefined' ? window.location.href : 'https://civilestimationpro.com'} />
+              <div className="px-6 pb-7 max-h-[70vh] overflow-y-auto hide-scrollbar">
+                <div className="grid grid-cols-2 gap-3 mb-3">
+                  <button
+                    onClick={handleWhatsAppHTML}
+                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-[#F0FDF4] hover:shadow-[0_8px_20px_rgba(22,101,52,0.08)] dark:bg-white/5 dark:hover:bg-emerald-500/10 border border-transparent hover:border-[#BBF7D0] dark:hover:border-emerald-500/20 active:scale-95"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <MessageCircle className="w-[20px] h-[20px]" strokeWidth={2} />
+                    </div>
+                    <span className="text-[12px] font-semibold text-slate-700 dark:text-slate-300 group-hover:text-emerald-700 dark:group-hover:text-emerald-400">WhatsApp</span>
+                  </button>
+
+                  <button
+                    onClick={handleEmailHTML}
+                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-[#EFF6FF] hover:shadow-[0_8px_20px_rgba(30,64,175,0.08)] dark:bg-white/5 dark:hover:bg-blue-500/10 border border-transparent hover:border-[#BFDBFE] dark:hover:border-blue-500/20 active:scale-95"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Mail className="w-[20px] h-[20px]" strokeWidth={2.5} />
+                    </div>
+                    <span className="text-[12px] font-semibold text-slate-700 dark:text-slate-300 group-hover:text-blue-700 dark:group-hover:text-blue-400">Email</span>
+                  </button>
+
+                  <button
+                    onClick={() => generatePDF("pdf")}
+                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-[#FEF2F2] hover:shadow-[0_8px_20px_rgba(153,27,27,0.08)] dark:bg-white/5 dark:hover:bg-rose-500/10 border border-transparent hover:border-[#FECACA] dark:hover:border-rose-500/20 active:scale-95"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-rose-100 text-rose-600 dark:bg-rose-500/20 dark:text-rose-400 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <FileText className="w-[20px] h-[20px]" strokeWidth={2.5} />
+                    </div>
+                    <span className="text-[12px] font-semibold text-slate-700 dark:text-slate-300 group-hover:text-rose-700 dark:group-hover:text-rose-400 whitespace-nowrap">PDF Report</span>
+                  </button>
+                  
+                  <button
+                    onClick={generateExcel}
+                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-[#ECFCCB] hover:shadow-[0_8px_20px_rgba(63,98,18,0.08)] dark:bg-white/5 dark:hover:bg-lime-500/10 border border-transparent hover:border-[#D9F99D] dark:hover:border-lime-500/20 active:scale-95"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-lime-100 text-lime-700 dark:bg-lime-500/20 dark:text-lime-400 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <FileSpreadsheet className="w-[20px] h-[20px]" strokeWidth={2.5} />
+                    </div>
+                    <span className="text-[12px] font-semibold text-slate-700 dark:text-slate-300 group-hover:text-lime-700 dark:group-hover:text-lime-400 whitespace-nowrap">Excel BOQ</span>
+                  </button>
+                  
+                  <button
+                    onClick={() => {
+                      const url = encodeURIComponent(window.location.href);
+                      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, "_blank");
+                      setIsOpen(false);
+                      toast.success("Opened LinkedIn");
+                    }}
+                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-[#F0F9FF] hover:shadow-[0_8px_20px_rgba(3,105,161,0.08)] dark:bg-white/5 dark:hover:bg-sky-500/10 border border-transparent hover:border-[#BAE6FD] dark:hover:border-sky-500/20 active:scale-95"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-sky-100 text-sky-600 dark:bg-sky-500/20 dark:text-sky-400 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Share2 className="w-[20px] h-[20px]" strokeWidth={2.5} />
+                    </div>
+                    <span className="text-[12px] font-semibold text-slate-700 dark:text-slate-300 group-hover:text-sky-700 dark:group-hover:text-sky-400">LinkedIn</span>
+                  </button>
+
+                  <button
+                    onClick={handleDownloadText}
+                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-slate-100 hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] dark:bg-white/5 dark:hover:bg-white/10 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 active:scale-95"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-300 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Download className="w-[20px] h-[20px]" strokeWidth={2.5} />
+                    </div>
+                    <span className="text-[12px] font-semibold text-slate-700 dark:text-slate-300">Text File</span>
+                  </button>
                 </div>
                 
-                <button
-                  onClick={() => generatePDF("pdf")}
-                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-[24px] transition-all duration-200 text-sm font-bold bg-rose-50 text-rose-700 hover:bg-rose-100 hover:text-rose-900 focus:outline-none focus:ring-2 focus:ring-rose-500 active:scale-[0.98]"
-                >
-                  <div className="p-2.5 rounded-[14px] bg-white text-rose-500 shadow-sm shadow-rose-200/50 transition-transform duration-300 group-hover:scale-110 shrink-0">
-                    <FileText className="w-5 h-5" />
-                  </div>
-                  Download PDF Report
-                </button>
-                
-                <button
-                  onClick={generateExcel}
-                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-[24px] transition-all duration-200 text-sm font-bold bg-emerald-50 text-emerald-700 hover:bg-emerald-100 hover:text-emerald-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 active:scale-[0.98]"
-                >
-                  <div className="p-2.5 rounded-[14px] bg-white text-emerald-500 shadow-sm shadow-emerald-200/50 transition-transform duration-300 group-hover:scale-110 shrink-0">
-                    <FileSpreadsheet className="w-5 h-5" />
-                  </div>
-                  Export to Excel BOQ
-                </button>
-                
-                <button
-                  onClick={handleWhatsAppHTML}
-                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-[24px] transition-all duration-200 text-sm font-bold bg-green-50 text-green-700 hover:bg-green-100 hover:text-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 active:scale-[0.98]"
-                >
-                  <div className="p-2.5 rounded-[14px] bg-white text-green-500 shadow-sm shadow-green-200/50 transition-transform duration-300 group-hover:scale-110 shrink-0">
-                    <MessageCircle className="w-5 h-5" />
-                  </div>
-                  Share via WhatsApp
-                </button>
-                
-                <button
-                  onClick={() => {
-                    const url = encodeURIComponent(window.location.href);
-                    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, "_blank");
-                    setIsOpen(false);
-                    toast.success("Opened LinkedIn");
-                  }}
-                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-[24px] transition-all duration-200 text-sm font-bold bg-[#e8f4fa] text-[#0a66c2] hover:bg-[#d0e8f5] hover:text-[#004182] [#0a66c2]/10 [#70b5f9][#0a66c2]/20[#a0cbfb] focus:outline-none focus:ring-2 focus:ring-[#0a66c2] active:scale-[0.98]"
-                >
-                  <div className="p-2.5 rounded-[14px] bg-white [#0a66c2]/20 text-[#0a66c2] [#70b5f9] shadow-sm shadow-[#0a66c2]/30 transition-transform duration-300 group-hover:scale-110 shrink-0">
-                    <Share2 className="w-5 h-5" />
-                  </div>
-                  Share on LinkedIn
-                </button>
-
-                <button
-                  onClick={handleEmailHTML}
-                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-[24px] transition-all duration-200 text-sm font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 active:scale-[0.98]"
-                >
-                  <div className="p-2.5 rounded-[14px] bg-white text-blue-500 shadow-sm shadow-blue-200/50 transition-transform duration-300 group-hover:scale-110 shrink-0">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  Send summary via Email
-                </button>
-                
-                <button
-                  onClick={handleDownloadText}
-                  className="group relative w-full flex items-center gap-4 px-4 py-3 rounded-[24px] transition-all duration-200 text-sm font-bold bg-indigo-50 text-indigo-700 hover:bg-indigo-50 hover:text-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 active:scale-[0.98]"
-                >
-                  <div className="p-2.5 rounded-[14px] bg-white text-indigo-600 shadow-sm shadow-indigo-200/50 transition-transform duration-300 group-hover:scale-110 shrink-0">
-                    <Download className="w-5 h-5" />
-                  </div>
-                  Save as Text File
-                </button>
+                <div className="bg-slate-50 dark:bg-slate-800/50 p-2 rounded-[20px] border border-slate-200/60 dark:border-slate-700/50">
+                  <CopyButton textToCopy={typeof window !== 'undefined' ? window.location.href : 'https://civilestimationpro.com'} />
+                </div>
               </div>
           </div>
         </div>

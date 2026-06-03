@@ -50,27 +50,38 @@ const statusConfig = {
   },
 };
 
+import { getImperialConversion } from "../../utils/autoConverter";
+
 function parseAndFormat(
   strValue: string | number,
   title: string = "",
   unitNode: React.ReactNode = "",
+  isImperial: boolean = false
 ) {
   const str = String(strValue);
   const numericMatch = str.match(/-?[\d,.]+/);
   if (!numericMatch)
-    return { num: 0, prefix: str, suffix: "", decimals: 0, isNumeric: false };
+    return { num: 0, prefix: str, suffix: "", decimals: 0, isNumeric: false, displayUnit: typeof unitNode === "string" ? unitNode : "" };
 
   const numStr = numericMatch[0].replace(/,/g, "");
-  const num = parseFloat(numStr);
+  let num = parseFloat(numStr);
+  
+  let unitText = typeof unitNode === "string" ? unitNode : "";
+  const conversion = getImperialConversion(unitText);
+  let displayUnit = unitText;
+
+  if (isImperial && conversion) {
+     num = num * conversion.multiplyBy;
+     displayUnit = conversion.targetUnit;
+  }
+
   const index = str.indexOf(numericMatch[0]);
   let prefix = str.substring(0, index);
   let suffix = str.substring(index + numericMatch[0].length);
 
   // Decide decimal places based on context (from title or suffix/unit)
   const titleLower = title.toLowerCase();
-  const unitLower = (
-    typeof unitNode === "string" ? unitNode : suffix
-  ).toLowerCase();
+  const unitLower = displayUnit.toLowerCase() || suffix.toLowerCase();
   const origDecimalsMatch = numStr.match(/\.(\d+)/);
   let decimals = origDecimalsMatch ? origDecimalsMatch[1].length : 2;
 
@@ -80,15 +91,17 @@ function parseAndFormat(
     titleLower.includes("count") ||
     titleLower.includes("bricks") ||
     titleLower.includes("panels") ||
-    (typeof unitNode === "string" && unitNode.toLowerCase().includes("nos"))
+    displayUnit.toLowerCase().includes("nos")
   ) {
     decimals = 0;
   } else if (
     unitLower.includes("m³") ||
     unitLower.includes("cu.m") ||
     unitLower.includes("cft") ||
+    unitLower.includes("cu.ft") ||
     unitLower.includes("sq.m") ||
     unitLower.includes("sft") ||
+    unitLower.includes("sq.ft") ||
     unitLower.includes("ton")
   ) {
     decimals = 2;
@@ -123,9 +136,7 @@ function parseAndFormat(
     decimals = 0;
   }
 
-  // Ensure "Rs " formatting specifically requests PKR (Rs 1,115,500). Wait, the prompt said "Rs 1,115,500", but didn't state decimals as 0 for all currency, just "All currency in PKR must show: Rs 1,115,500". "2 for costs". I'll use 2 for costs unless it's Rs.
-
-  return { num, prefix, suffix, decimals, isNumeric: !isNaN(num) };
+  return { num, prefix, suffix, decimals, isNumeric: !isNaN(num), displayUnit };
 }
 
 export function ResultCard({
@@ -144,11 +155,15 @@ export function ResultCard({
   secondaryUnit,
   secondaryValue,
 }: ResultCardProps) {
-  const { formatCurrency } = useSettings();
+  const { settings, formatCurrency } = useSettings();
+  const isImperial = settings.measurement === 'FPS';
 
   // Parsing & Animation
-  const parsed = parseAndFormat(value, title, unit);
+  const parsed = parseAndFormat(value, title, unit, isImperial);
   const animatedRaw = useCountUp(parsed.num, 800);
+
+  // Derive the active unit for display
+  const activeUnit = typeof unit === "string" ? parsed.displayUnit : unit;
 
   // Conditionally animate if it is actually a number
   let displayValue = parsed.isNumeric
@@ -257,7 +272,7 @@ export function ResultCard({
         aria-live="polite"
       >
         <span className="sr-only">
-          Calculation updated: {title} is {displayValue} {unit}
+          Calculation updated: {title} is {displayValue} {activeUnit}
         </span>
         <div
           className="flex flex-wrap items-baseline gap-1.5 sm:gap-2"
@@ -268,9 +283,9 @@ export function ResultCard({
           >
             {displayValue}
           </span>
-          {unit && (
+          {activeUnit && (
             <span className="text-[13px] sm:text-sm font-semibold ml-1 shrink-0 text-slate-500">
-              {unit}
+              {activeUnit}
             </span>
           )}
         </div>

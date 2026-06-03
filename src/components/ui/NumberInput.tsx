@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
+import { useSettings } from '../../context/SettingsContext';
+import { getImperialConversion } from '../../utils/autoConverter';
 
 export interface NumberInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {
   label?: string;
@@ -14,25 +16,52 @@ export interface NumberInputProps extends Omit<React.InputHTMLAttributes<HTMLInp
 
 export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
   ({ className, containerClassName = '', label, unit, value, onChange, requirePositive = false, error, id, onBlur, onFocus, step = "any", ...props }, ref) => {
+    const { settings } = useSettings();
+    const isImperial = settings.measurement === 'FPS';
+    const conversion = getImperialConversion(unit);
+    const applyConversion = isImperial && conversion;
+
+    const displayUnit = applyConversion ? conversion.targetUnit : unit;
+    
+    // Convert internal value -> display value
+    const getDisplayValue = (val: number | string) => {
+      if (val === "" || val === null || val === undefined) return "";
+      const num = Number(val);
+      if (isNaN(num)) return "";
+      if (applyConversion) {
+        return Number((num * conversion.multiplyBy).toFixed(4)).toString();
+      }
+      return num.toString();
+    };
+
     const inputId = id || (label ? label.replace(/\s+/g, '-').toLowerCase() : undefined);
     
-    const [localValue, setLocalValue] = useState<string>(value?.toString() ?? "");
+    const [localValue, setLocalValue] = useState<string>(getDisplayValue(value));
     const [internalError, setInternalError] = useState<string | null>(null);
 
     useEffect(() => {
-      const parsedLocal = parseFloat(localValue);
       const parsedProp = (value === "" || value === null || value === undefined) ? NaN : Number(value);
+      const expectedDisplay = getDisplayValue(value);
       
       if (value === "") {
          if (localValue !== "") setLocalValue("");
-      } else if (!isNaN(parsedProp) && parsedProp !== parsedLocal) {
-         setLocalValue(value.toString());
-      }
-    }, [value]);
+      } else if (!isNaN(parsedProp)) {
+         // Because of floating point, converting back and forth can create minor diffs.
+         // We only update localValue if the diff is significant.
+         const parsedLocal = parseFloat(localValue);
+         let internalFromLocal = parsedLocal;
+         if (applyConversion) internalFromLocal = parsedLocal / conversion.multiplyBy;
 
-    const triggerChange = (newLocalValue: string, numValue: number | typeof NaN) => {
+         // Check if roughly equal
+         if (Math.abs(internalFromLocal - parsedProp) > 0.0001) {
+            setLocalValue(expectedDisplay);
+         }
+      }
+    }, [value, settings.measurement]); // depend on measurement so it updates when toggled
+
+    const triggerChange = (newLocalValue: string, displayNumValue: number | typeof NaN) => {
       setLocalValue(newLocalValue);
-      if (newLocalValue === "" || isNaN(numValue)) {
+      if (newLocalValue === "" || isNaN(displayNumValue)) {
         onChange("");
         if (requirePositive) {
           setInternalError("A valid value is required");
@@ -40,8 +69,10 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
           setInternalError(null);
         }
       } else {
-        onChange(numValue);
-        if (requirePositive && numValue <= 0) {
+        const internalNumValue = applyConversion ? (displayNumValue / conversion.multiplyBy) : displayNumValue;
+        onChange(internalNumValue);
+        
+        if (requirePositive && internalNumValue <= 0) {
           setInternalError("Value must be greater than 0");
         } else {
           setInternalError(null);
@@ -91,11 +122,20 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
 
     const displayError = error || internalError;
 
+    let displayLabel = label;
+    if (label && applyConversion && unit && displayUnit) {
+      displayLabel = label.replace(`(${unit})`, `(${displayUnit})`);
+      // Also try replacing without matching case just in case
+      if (displayLabel === label) {
+         displayLabel = label.replace(new RegExp(`\\(${unit}\\)`, 'i'), `(${displayUnit})`);
+      }
+    }
+
     return (
       <div className={`w-full ${containerClassName}`}>
-        {label && (
+        {displayLabel && (
           <label htmlFor={inputId} className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 ml-1">
-            {label}
+            {displayLabel}
           </label>
         )}
         <div className="relative flex items-center">
@@ -118,11 +158,11 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
                 ? 'border-red-400 dark:border-red-500/50 focus:ring-red-500/50 focus:border-red-500' 
                 : 'border-border-color/80 focus:ring-indigo-500/50 focus:border-indigo-500'
             } text-slate-800 dark:text-slate-100 rounded-xl px-4 py-3 ${
-              unit ? 'pr-20' : 'pr-8'
+              displayUnit ? 'pr-20' : 'pr-8'
             } focus:outline-none focus:ring-2 transition-all placeholder:text-slate-700 dark:placeholder:text-slate-400 font-semibold text-sm ${className || ''}`}
             {...props}
           />
-          <div className={`absolute right-0 top-0 bottom-0 flex items-center pr-2 ${unit ? 'mr-12' : ''}`}>
+          <div className={`absolute right-0 top-0 bottom-0 flex items-center pr-2 ${displayUnit ? 'mr-12' : ''}`}>
             <div className="flex flex-col border-l border-slate-200 dark:border-slate-700 pl-1">
               <button 
                 type="button" 
@@ -142,9 +182,9 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
               </button>
             </div>
           </div>
-          {unit && (
+          {displayUnit && (
             <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-              <span className="text-slate-500 dark:text-slate-400 text-sm font-bold select-none">{unit}</span>
+              <span className="text-slate-500 dark:text-slate-400 text-sm font-bold select-none">{displayUnit}</span>
             </div>
           )}
         </div>

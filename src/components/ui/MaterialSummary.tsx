@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useAnimation } from 'motion/react';
 import { Layers, FolderPlus, CheckCircle, ChevronDown, RefreshCw, Sparkles, ArrowRight } from 'lucide-react';
 import { useProjects } from '../../context/ProjectContext';
 import { useCountUp } from '../../hooks/useCountUp';
@@ -22,6 +22,9 @@ export interface MaterialSummaryProps {
   relatedToolIds?: string[];
 }
 
+import { useSettings } from '../../context/SettingsContext';
+import { getImperialConversion } from '../../utils/autoConverter';
+
 const COLORS = ['#6B46C1', '#F97316', '#10B981', '#3B82F6', '#EC4899', '#F59E0B', '#8B5CF6'];
 
 function extractNumeric(str: string | number) {
@@ -39,17 +42,28 @@ export function MaterialSummary({
   icon,
   children,
   className = "",
+  items = [],
   onRecalculate,
   relatedToolIds = [],
 }: MaterialSummaryProps) {
   const { projects, activeProjectId, addEstimateToProject } = useProjects();
+  const { settings } = useSettings();
+  const isImperial = settings.measurement === 'FPS';
+  
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saved'>('idle');
   const [showProjectSelect, setShowProjectSelect] = useState(false);
   const activeProj = projects.find(p => p.id === activeProjectId);
   const [isRecalculating, setIsRecalculating] = useState(false);
 
+  const conversion = getImperialConversion(totalUnit);
+  const applyConversion = isImperial && conversion;
+  const displayUnit = applyConversion ? conversion.targetUnit : totalUnit;
+
   // Animate totalValue
-  const rawTotalValue = extractNumeric(totalValue);
+  let rawTotalValue = extractNumeric(totalValue);
+  if (applyConversion && conversion) {
+     rawTotalValue = rawTotalValue * conversion.multiplyBy;
+  }
   const totalValueStr = String(totalValue);
   const prefix = totalValueStr.includes('Rs') ? 'Rs ' : totalValueStr.includes('$') ? '$' : '';
   const animatedTotal = useCountUp(rawTotalValue, 1000);
@@ -60,13 +74,30 @@ export function MaterialSummary({
     setTimeout(() => setIsRecalculating(false), 800);
   };
 
+  const controls = useAnimation();
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    // Initial mount animation is handled by framer motion initial/animate props
+    // We only want to trigger this when calculation updates after mount
+    if (hasMounted) {
+      controls.start({
+        opacity: [0.6, 1],
+        y: [10, 0],
+        transition: { duration: 0.4, ease: "easeOut" }
+      });
+    } else {
+      setHasMounted(true);
+    }
+  }, [totalValue, items, controls, hasMounted]);
+
   const { extractedMaterials, chartData } = useMemo(() => {
     const materials: Record<string, { quantity: number; unit: string }> = {};
     const chart: { name: string; value: number }[] = [];
     
     // Quick helper to recursively parse React children
     const parseChildren = (node: React.ReactNode) => {
-       React.Children.forEach(node, child => {
+        React.Children.forEach(node, child => {
           if (!React.isValidElement(child)) return;
           
           if (typeof child.type === 'function' || typeof child.type === 'object') {
@@ -77,7 +108,14 @@ export function MaterialSummary({
                 if (!unit && props.title.toLowerCase().includes('cost')) unit = '$';
                 
                 const valStr = String(props.value).replace(/,/g, '').replace(/[a-zA-Z]/g, '');
-                const num = parseFloat(valStr) || 0;
+                let num = parseFloat(valStr) || 0;
+                
+                const unitConversion = getImperialConversion(unit);
+                if (isImperial && unitConversion) {
+                   num = num * unitConversion.multiplyBy;
+                   unit = unitConversion.targetUnit;
+                }
+
                 materials[props.title] = { quantity: num, unit };
                 
                 // Only add to chart if it's substantial and not a sum/total string
@@ -94,7 +132,7 @@ export function MaterialSummary({
     
     parseChildren(children);
     return { extractedMaterials: materials, chartData: chart };
-  }, [children]);
+  }, [children, isImperial]);
 
   const handleSave = (projectId: string) => {
     let parsedCost = 0;
@@ -168,112 +206,115 @@ export function MaterialSummary({
         )}
       </div>
 
-      {/* Hero Total Section */}
-      <div className="mb-10 relative z-10 w-full flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div>
-          {totalLabel && (
-            <p className="text-slate-500 dark:text-slate-400 font-semibold text-sm sm:text-base mb-3">{totalLabel}</p>
-          )}
-          <div className="flex flex-row items-baseline flex-wrap gap-x-2 gap-y-1 max-w-full overflow-hidden">
-            <span className="text-[clamp(2.5rem,8vw,4.5rem)] leading-none font-black tracking-tighter bg-gradient-to-r from-[#6B46C1] to-orange-500 bg-clip-text text-transparent break-words max-w-full">
-              {prefix}{animatedTotal.toLocaleString('en-US', { minimumFractionDigits: prefix === 'Rs ' ? 0 : 2, maximumFractionDigits: prefix === 'Rs ' ? 0 : 2 })}
-            </span>
-            <div className="flex flex-col text-left shrink-0">
-              {totalUnit && (
-                <span className="text-xl sm:text-2xl font-bold text-slate-700 dark:text-slate-300">{totalUnit}</span>
-              )}
-              {subtitle && (
-                <span className="text-sm font-medium text-slate-400 dark:text-slate-500">{subtitle}</span>
-              )}
+      {/* Animated Results Area */}
+      <motion.div animate={controls}>
+        {/* Hero Total Section */}
+        <div className="mb-10 relative z-10 w-full flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            {totalLabel && (
+              <p className="text-slate-500 dark:text-slate-400 font-semibold text-sm sm:text-base mb-3">{totalLabel}</p>
+            )}
+            <div className="flex flex-row items-baseline flex-wrap gap-x-2 gap-y-1 max-w-full overflow-hidden">
+              <span className="text-[clamp(2.5rem,8vw,4.5rem)] leading-none font-black tracking-tighter bg-gradient-to-r from-[#6B46C1] to-orange-500 bg-clip-text text-transparent break-words max-w-full">
+                {prefix}{animatedTotal.toLocaleString('en-US', { minimumFractionDigits: prefix === 'Rs ' ? 0 : 2, maximumFractionDigits: prefix === 'Rs ' ? 0 : 2 })}
+              </span>
+              <div className="flex flex-col text-left shrink-0">
+                {displayUnit && (
+                  <span className="text-xl sm:text-2xl font-bold text-slate-700 dark:text-slate-300">{displayUnit}</span>
+                )}
+                {subtitle && (
+                  <span className="text-sm font-medium text-slate-400 dark:text-slate-500">{subtitle}</span>
+                )}
+              </div>
             </div>
           </div>
+
+          {onRecalculate && (
+            <button 
+              onClick={handleRecalculate}
+              disabled={isRecalculating}
+              className="flex items-center gap-2 px-5 py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl font-bold transition-all disabled:opacity-50"
+            >
+              <RefreshCw className={`w-5 h-5 ${isRecalculating ? 'animate-spin' : ''}`} />
+              Recalculate Values
+            </button>
+          )}
         </div>
 
-        {onRecalculate && (
-          <button 
-            onClick={handleRecalculate}
-            disabled={isRecalculating}
-            className="flex items-center gap-2 px-5 py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl font-bold transition-all disabled:opacity-50"
-          >
-            <RefreshCw className={`w-5 h-5 ${isRecalculating ? 'animate-spin' : ''}`} />
-            Recalculate Values
-          </button>
-        )}
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
-        <div className="lg:col-span-2 flex flex-col gap-4">
-          {children}
-        </div>
-        
-        {/* Visual Summary Column */}
-        {(chartData.length > 0 || relatedModules.length > 0) && (
-          <div className="flex flex-col gap-6">
-            {chartData.length > 0 && (
-              <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
-                <h4 className="text-sm font-bold text-slate-700 border-b border-slate-200 dark:border-slate-700 dark:text-slate-300 uppercase tracking-widest pb-3 mb-4">
-                  Visual Breakdown
-                </h4>
-                <div className="h-[250px] w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={chartData}
-                        innerRadius={60}
-                        outerRadius={80}
-                        paddingAngle={5}
-                        dataKey="value"
-                      >
-                        {chartData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke="transparent" />
-                        ))}
-                      </Pie>
-                      <RechartsTooltip 
-                        formatter={(value: number) => value.toLocaleString('en-US', { maximumFractionDigits: 2 })}
-                        contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
-                      />
-                      <Legend 
-                        layout="vertical"
-                        verticalAlign="bottom"
-                        wrapperStyle={{ fontSize: '11px', paddingTop: '20px' }}
-                      />
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-            )}
-
-            {relatedModules.length > 0 && (
-              <div className="bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl p-6 border border-indigo-100 dark:border-indigo-800/50">
-                <h4 className="flex items-center gap-2 text-sm font-bold text-indigo-900 dark:text-indigo-100 uppercase tracking-widest mb-4">
-                  <Sparkles className="w-4 h-4 text-indigo-500" />
-                  Similar Tools
-                </h4>
-                <div className="flex flex-col gap-3">
-                  {relatedModules.map(mod => (
-                    <button 
-                      key={mod.id}
-                      onClick={() => window.location.href = `/?tool=${mod.id}`}
-                      className="flex items-center justify-between p-3 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl border border-indigo-100 dark:border-indigo-800 transition-all text-left group"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-500/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
-                          <mod.icon className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <p className="font-bold text-slate-800 dark:text-slate-200 text-sm group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{mod.title}</p>
-                          <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate max-w-[120px]">{mod.desc}</p>
-                        </div>
-                      </div>
-                      <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
+          <div className="lg:col-span-2 flex flex-col gap-4">
+            {children}
           </div>
-        )}
-      </div>
+          
+          {/* Visual Summary Column */}
+          {(chartData.length > 0 || relatedModules.length > 0) && (
+            <div className="flex flex-col gap-6">
+              {chartData.length > 0 && (
+                <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
+                  <h4 className="text-sm font-bold text-slate-700 border-b border-slate-200 dark:border-slate-700 dark:text-slate-300 uppercase tracking-widest pb-3 mb-4">
+                    Visual Breakdown
+                  </h4>
+                  <div className="h-[250px] w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={chartData}
+                          innerRadius={60}
+                          outerRadius={80}
+                          paddingAngle={5}
+                          dataKey="value"
+                        >
+                          {chartData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke="transparent" />
+                          ))}
+                        </Pie>
+                        <RechartsTooltip 
+                          formatter={(value: number) => value.toLocaleString('en-US', { maximumFractionDigits: 2 })}
+                          contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
+                        />
+                        <Legend 
+                          layout="vertical"
+                          verticalAlign="bottom"
+                          wrapperStyle={{ fontSize: '11px', paddingTop: '20px' }}
+                        />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              )}
+
+              {relatedModules.length > 0 && (
+                <div className="bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl p-6 border border-indigo-100 dark:border-indigo-800/50">
+                  <h4 className="flex items-center gap-2 text-sm font-bold text-indigo-900 dark:text-indigo-100 uppercase tracking-widest mb-4">
+                    <Sparkles className="w-4 h-4 text-indigo-500" />
+                    Similar Tools
+                  </h4>
+                  <div className="flex flex-col gap-3">
+                    {relatedModules.map(mod => (
+                      <button 
+                        key={mod.id}
+                        onClick={() => window.location.href = `/?tool=${mod.id}`}
+                        className="flex items-center justify-between p-3 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl border border-indigo-100 dark:border-indigo-800 transition-all text-left group"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-full bg-indigo-50 dark:bg-indigo-500/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+                            <mod.icon className="w-4 h-4" />
+                          </div>
+                          <div>
+                            <p className="font-bold text-slate-800 dark:text-slate-200 text-sm group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{mod.title}</p>
+                            <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate max-w-[120px]">{mod.desc}</p>
+                          </div>
+                        </div>
+                        <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </motion.div>
     </motion.div>
   );
 }
