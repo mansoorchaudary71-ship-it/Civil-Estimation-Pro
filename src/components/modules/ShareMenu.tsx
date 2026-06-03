@@ -57,6 +57,12 @@ export default function ShareButtonWithPopup({
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const { user } = useAuth();
+
+  useEffect(() => {
+    const handleOpenShare = () => setIsOpen(true);
+    window.addEventListener("open-share-menu", handleOpenShare);
+    return () => window.removeEventListener("open-share-menu", handleOpenShare);
+  }, []);
   
   const getFileNamePrefix = () => {
     const dateObj = new Date();

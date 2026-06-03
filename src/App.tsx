@@ -100,7 +100,8 @@ import RecentEstimates from "./components/RecentEstimates";
 import Sidebar, { ModuleId } from "./components/Sidebar";
 export type { ModuleId };
 import TopNavbar from "./components/TopNavbar";
-import GlobalBottomBar from "./components/GlobalBottomBar";
+import BottomNavBar from './components/BottomNavBar';
+import GlobalBottomBar from './components/GlobalBottomBar';
 import { AnimatePresence, motion } from "motion/react";
 import Footer from "./components/Footer";
 import Logo from "./components/Logo";
@@ -541,6 +542,13 @@ export default function App() {
                   
                   {isStaticPage && <TopNavbar onNavigate={handleSelectModule} onOpenSidebar={() => setIsSidebarOpen(true)} />}
                   {isStaticPage && <GlobalBottomBar activeModule={activeModule} onNavigate={handleSelectModule} onOpenProfile={() => setIsProfileOpen(true)} onOpenSearch={() => {}} />}
+                  
+                  <BottomNavBar 
+                    activeModule={activeModule} 
+                    onNavigate={handleSelectModule} 
+                    onOpenProfile={() => setIsProfileOpen(true)} 
+                    onOpenHistory={() => handleSelectModule("my-estimates")} 
+                  />
 
                   <div className={`flex flex-1 min-h-0 relative w-full ${isStaticPage ? "pt-14" : ""}`}>
                     {/* Main Sidebar (Mobile Overlay + Persistent Desktop) */}

@@ -1108,287 +1108,141 @@ export default function Dashboard({
           canonicalUrl="https://civilestimationpro.com"
         />
 
-        {/* ONE UI: VIEWING AREA (Top 30%) */}
-        <div className="flex-shrink-0 h-[30vh] lg:h-[35vh] w-full flex flex-col justify-end px-6 xl:px-12 pb-8 relative overflow-hidden bg-[#f8f9fa] dark:bg-[#121212]">
-           {/* Background Mesh/Gradient */}
-           <div className="absolute top-[-50%] left-[-10%] w-[70%] h-[150%] rounded-full bg-[#0072de]/10 dark:bg-[#0072de]/20 blur-[80px] pointer-events-none"></div>
-           <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[100%] rounded-full bg-[#0072de]/5 dark:bg-[#0072de]/15 blur-[80px] pointer-events-none"></div>
-           
-           <div className="w-full max-w-7xl mx-auto z-10 flex flex-col items-start gap-1">
-              <h1 className="text-[2.5rem] md:text-5xl lg:text-[64px] font-black text-slate-900 dark:text-white tracking-tighter leading-[1.05]">
-                Civil Estimation
-              </h1>
-              <h1 className="text-[2.5rem] md:text-5xl lg:text-[64px] font-black tracking-tighter leading-[1.05] mb-2 text-[#0072de] dark:text-[#3399ff]">
-                Pro.
-              </h1>
-              {user && (
-                <p className="text-lg md:text-xl text-slate-500 font-medium max-w-lg mb-2">
-                  Welcome back, {user.displayName?.split(' ')[0] || 'Engineer'}.
-                </p>
-              )}
-           </div>
-        </div>
-
-        {/* ONE UI: INTERACTION AREA (Bottom 70%) */}
-        <div className="flex-1 w-full bg-white dark:bg-[#1a1b1e] rounded-t-[32px] overflow-x-hidden shadow-[0_-12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_-5px_30px_rgba(0,0,0,0.5)] border border-slate-200/50 dark:border-[#333] pb-32">
-            <div className="w-full max-w-7xl mx-auto px-4 z-10 overflow-visible flex flex-col pt-8">
-              {user ? (
-                <div className="mb-12"><WorkspaceSection onSelect={handleSelect} /></div>
-              ) : (
-                <div className="mb-12">
-                  <HeroSection onStart={() => handleSelect("house")} />
-                  <ScrollReveal><SocialProofSection /></ScrollReveal>
-                  <ScrollReveal yOffset={30}><HowItWorksSection /></ScrollReveal>
-                  <ScrollReveal yOffset={30}><FeatureComparisonSection /></ScrollReveal>
-                </div>
-              )}
-              
-              <div className="w-full max-w-7xl mx-auto w-full overflow-visible flex flex-col mt-4">
-          
-
-          {/* MAIN GRID */}
-          <div
-            className="flex flex-col gap-10 max-w-[900px] mx-auto w-full"
-            id="tools-section"
-          >
+        {!user ? (
+          <div className="w-full flex-1 flex flex-col pt-0 pb-32 bg-[#0B1120] overflow-x-hidden border-0 rounded-none">
+            <HeroSection onStart={() => handleSelect('house')} />
+            <ScrollReveal><SocialProofSection /></ScrollReveal>
+            <ScrollReveal yOffset={30}><HowItWorksSection /></ScrollReveal>
+            <ScrollReveal yOffset={30}><FeatureComparisonSection /></ScrollReveal>
             
-            {/* SEARCH BAR */}
-            <div className="w-full relative">
-              <SmartSearch
-                onSelect={(id) => {
-                  if (id === "ai") setIsAiChatOpen(true);
-                  else handleSelect(id);
-                }}
-              />
-            </div>
-
-            {/* CATEGORY FILTER TABS */}
-            <div className="w-full bg-[#0F172A] py-5 px-4 sm:px-6 rounded-3xl shadow-lg mb-2 mt-4 relative after:content-[''] after:absolute after:right-0 after:top-0 after:bottom-0 after:w-[40px] after:bg-gradient-to-r after:from-transparent after:to-[#0D1117] after:pointer-events-none md:after:hidden overflow-hidden">
-              <div 
-                className="flex md:flex-wrap gap-3 overflow-x-auto no-scrollbar relative items-center"
-                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-              >
-                {categories.map((catName) => {
-                  const count = catName === 'All Tools' ? ALL_MODULES.length : ALL_MODULES.filter(m => m.category === catName).length;
-                  const cat = { name: catName, count };
-                  const isActive = activeCategory === cat.name;
-                  return (
-                    <button
-                      key={cat.name}
-                      onClick={() => setActiveCategory(cat.name)}
-                      className={`relative flex items-center justify-between md:justify-center flex-shrink-0 gap-3 px-4 py-3 rounded-2xl whitespace-nowrap transition-all duration-300 border ${
-                        isActive
-                          ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-[0_4px_15px_rgba(245,158,11,0.25)] border-transparent scale-100'
-                          : 'bg-[#1E293B] text-white/60 hover:text-amber-400 hover:bg-[#1E293B]/80 hover:shadow-md border-white/5'
-                      } font-dm-sans text-sm sm:text-base cursor-pointer`}
-                      style={{ fontFamily: "'DM Sans', sans-serif" }}
-                    >
-                      <span className={`${isActive ? 'font-bold' : 'font-medium'}`}>{cat.name}</span>
-                      <span className={`flex items-center justify-center px-2 py-0.5 text-[0.7rem] font-bold rounded-full ${isActive ? 'bg-white/20 text-white' : 'bg-amber-500/10 text-amber-500'}`}>
-                        {cat.count}
-                      </span>
-                      {isActive && (
-                        <motion.div
-                          layoutId="activeCatIndicator"
-                          className="absolute -bottom-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-amber-400 rounded-full"
-                          initial={false}
-                          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                        />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-{/* FILTER & SORT ROW */}
-            <div className="flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-4 py-2 z-20 relative">
-              <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2 lg:pb-0 font-medium text-sm w-full lg:w-auto -mx-4 px-4 lg:mx-0 lg:px-0">
-                {filterPills.map((pill) => (
-                  <button
-                    key={pill}
-                    onClick={() => setFilterMode(pill)}
-                    className={`px-4 py-2 rounded-full whitespace-nowrap transition-colors font-semibold border shadow-sm ${filterMode === pill ? "bg-[#0072de] border-[#0072de] text-white" : "bg-white dark:bg-[#252525] border-slate-200 dark:border-[#333] text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#2f2f2f]"}`}
-                  >
-                    {pill}
-                  </button>
-                ))}
-              </div>
-
-              <div className="flex items-center justify-between lg:justify-end gap-4 text-sm text-slate-500 flex-shrink-0">
-                <span className="font-medium px-2">
-                  Showing {totalFilteredCount} of {ALL_MODULES.length} tools
-                </span>
-
-                <div className="relative">
-                  <button
-                    onClick={() => setIsSortOpen(!isSortOpen)}
-                    className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-[#252525] rounded-[16px] border border-slate-200 dark:border-[#333] hover:bg-slate-50 dark:hover:bg-[#2f2f2f] transition-colors text-slate-700 dark:text-slate-300 dark:text-slate-300 shadow-sm"
-                  >
-                    Sort:{" "}
-                    <span className="font-semibold text-slate-900 dark:text-white">
-                      {sortMode}
-                    </span>
-                    <ChevronDown className="w-4 h-4 ml-1" />
-                  </button>
-                  {isSortOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-[#252525] border border-slate-100 dark:border-[#333] shadow-2xl rounded-[24px] overflow-hidden z-50 py-1">
-                      {sortOptions.map((opt) => (
-                        <button
-                          key={opt}
-                          onClick={() => {
-                            setSortMode(opt);
-                            setIsSortOpen(false);
-                          }}
-                          className={`w-full text-left px-4 py-2.5 text-sm hover:bg-slate-50 transition-colors ${sortMode === opt ? "bg-indigo-50/80 text-indigo-700 font-semibold" : "text-slate-600 font-medium"}`}
-                        >
-                          {opt}
-                        </button>
-                      ))}
-                    </div>
-                  )}
+            <div className="w-full bg-slate-50 dark:bg-[#1a1b1e] py-16 -mt-8 relative z-10 rounded-t-[32px] border-t border-slate-200 dark:border-[#333]">
+              <div className="w-full max-w-7xl mx-auto px-4 overflow-visible flex flex-col">
+                <div className="flex flex-col gap-10 max-w-[900px] mx-auto w-full" id="tools-section">
+                  <div className="w-full relative">
+                    <SmartSearch onSelect={(id) => { if (id === 'ai') setIsAiChatOpen(true); else handleSelect(id); }} />
+                  </div>
+                  <div className="flex md:flex-wrap gap-3 overflow-x-auto no-scrollbar relative items-center mb-6">
+                      {categories.map((catName) => {
+                        const count = catName === 'All Tools' ? ALL_MODULES.length : ALL_MODULES.filter(m => m.category === catName).length;
+                        const cat = { name: catName, count };
+                        const isActive = activeCategory === cat.name;
+                        return (
+                          <button
+                            key={cat.name}
+                            onClick={() => setActiveCategory(cat.name)}
+                            className={isActive ? 'relative flex items-center justify-between md:justify-center flex-shrink-0 gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all duration-300 border bg-[#0072de] text-white border-transparent' : 'relative flex items-center justify-between md:justify-center flex-shrink-0 gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all duration-300 border bg-white dark:bg-[#252525] text-slate-600 border-slate-200 dark:border-[#333] hover:border-[#0072de]'}
+                          >
+                            <span className={isActive ? 'font-bold' : 'font-medium'}>{cat.name}</span>
+                            <span className={isActive ? 'bg-white/20 text-white flex items-center justify-center px-1.5 py-0.5 text-[0.65rem] font-bold rounded-full' : 'bg-slate-100 text-slate-500 flex items-center justify-center px-1.5 py-0.5 text-[0.65rem] font-bold rounded-full'}>{cat.count}</span>
+                          </button>
+                        );
+                      })}
+                  </div>
+                  <div className="flex flex-col gap-8 w-full mt-2">
+                     {groupsToDisplay.map((groupName) => {
+                       const toolsInGroup = groupedModules[groupName];
+                       if (!toolsInGroup || toolsInGroup.length === 0) return null;
+                       return (
+                         <div key={groupName} className="flex flex-col gap-5">
+                             <h2 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-3">
+                               {groupName}
+                               <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">{toolsInGroup.length}</span>
+                             </h2>
+                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                               {toolsInGroup.map((mod) => (
+                                 <ToolCard key={mod.id} mod={mod} onSelect={handleSelect} />
+                               ))}
+                             </div>
+                         </div>
+                       );
+                     })}
+                  </div>
+                  <div className="mt-8 mb-4 w-full relative group overflow-hidden rounded-[32px]">
+                     <div className="absolute inset-0 bg-gradient-to-r from-teal-900 via-emerald-900 to-[#0F172A] z-0"></div>
+                     <div className="relative z-10 p-8 flex flex-col md:flex-row items-center justify-between gap-8 h-full bg-black/10 backdrop-blur-sm">
+                       <div className="flex items-start md:items-center gap-6">
+                          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shrink-0 shadow-lg">
+                            <Sparkles className="w-8 h-8 text-white" />
+                          </div>
+                          <div>
+                            <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-2 drop-shadow-sm">
+                              Meet Your AI Estimator
+                            </h3>
+                            <p className="text-indigo-100/80 font-medium max-w-lg leading-relaxed mix-blend-plus-lighter">
+                              Describe your project naturally. We will automatically build your entire BOQ.
+                            </p>
+                          </div>
+                       </div>
+                       <button onClick={() => setIsAiChatOpen(true)} className="px-8 py-4 bg-white text-indigo-950 font-bold rounded-xl hover:bg-slate-50 transition-all">Start Chat</button>
+                     </div>
+                  </div>
                 </div>
               </div>
             </div>
-
-            {/* TOOLS GRID */}
-            <div className="flex flex-col w-full mb-16 relative">
-              {groupsToDisplay.length === 0 ? (
-                <div className="py-24 text-center flex flex-col items-center">
-                  <Search className="w-12 h-12 text-slate-300 mb-4" />
-                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white">
-                    No calculators found
-                  </h3>
-                  <p className="text-slate-500 mt-2">
-                    Try adjusting your search term or filter.
-                  </p>
-                </div>
-              ) : (
-                groupsToDisplay.map((groupName) => (
-                  <div
-                    key={groupName}
-                    className="flex flex-col mb-12 last:mb-0 relative"
-                  >
-                    <h3 className="sticky top-[64px] z-30 bg-white/95 backdrop-blur-md py-4 text-sm font-bold text-slate-900 uppercase tracking-widest border-b border-slate-100 mb-6 shadow-sm -mx-4 px-4 sm:mx-0 sm:px-0">
-                      {groupName}
-                    </h3>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-                      {groupedModules[groupName].map((mod, idx) => (
-                        <ToolCard
-                          key={mod.id}
-                          mod={mod}
-                          onSelect={handleSelect}
-                          isUsed={
-                            settings.usedTools &&
-                            settings.usedTools.includes(mod.id)
-                          }
-                          idx={idx}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-
-            {/* FEATURED BANNER */}
-            <ScrollReveal yOffset={30}>
-            <div className="w-full mb-0 rounded-[24px] overflow-hidden bg-[#0F172A] relative shadow-2xl flex flex-col md:flex-row items-center gap-8 border border-[#1E293B] group">
-              {/* Engineering Blueprint Grid Background */}
-              <div 
-                className="absolute inset-0 z-0 opacity-[0.15] pointer-events-none"
-                style={{
-                  backgroundImage: 'linear-gradient(rgba(245, 158, 11, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(245, 158, 11, 0.4) 1px, transparent 1px)',
-                  backgroundSize: '20px 20px'
-                }}
-              />
-
-              {/* Rich amber gradient on the left half */}
-              <div className="absolute inset-0 z-0 bg-gradient-to-br from-amber-500/30 via-orange-600/10 to-transparent md:w-2/3 pointer-events-none" />
-
-              {/* Sweeping Light Beam Animation */}
-              <motion.div
-                initial={{ x: '-100%' }}
-                animate={{ x: '250%' }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'linear', repeatDelay: 1.5 }}
-                className="absolute inset-0 z-0 w-1/3 bg-gradient-to-r from-transparent via-amber-400/20 to-transparent -skew-x-12 pointer-events-none"
-              />
-
-              {/* Content Left */}
-              <div className="flex-1 z-10 p-8 md:p-10 text-center md:text-left relative">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-500/20 border border-amber-500/30 rounded-full text-amber-500 text-[10px] font-bold tracking-wider uppercase mb-5 backdrop-blur-md">
-                  <Sparkles className="w-3 h-3" />
-                  FEATURED TOOL OF THE WEEK
-                </div>
-                <h2 
-                  className="text-4xl md:text-5xl tracking-wide text-white mb-3"
-                  style={{ fontFamily: "'Bebas Neue', display" }}
-                >
-                  Master RCC Estimator
-                </h2>
-                <p className="text-slate-300 text-sm md:text-base mb-6 max-w-md mx-auto md:mx-0 font-medium leading-relaxed">
-                  The unified hub for Slab, Column, Beam, Staircase, and BBS
-                  calculations. Save hours of manual work with auto-generated
-                  steel weight estimations.
-                </p>
-                <button
-                  onClick={() => handleSelect("master-rcc")}
-                  className="px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full font-bold text-sm shadow-[0_0_15px_rgba(245,158,11,0.4)] hover:shadow-[0_0_25px_rgba(245,158,11,0.6)] hover:scale-105 transition-all outline-none"
-                >
-                  Try it Now →
-                </button>
-              </div>
-
-              {/* Right side floating glassmorphism card */}
-              <div className="z-10 p-8 md:p-10 w-full md:w-auto flex justify-center md:justify-end">
-                <motion.div 
-                  animate={{ y: [-5, 5, -5] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                  className="bg-white/5 backdrop-blur-xl rounded-[24px] p-6 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] relative min-w-[260px]"
-                >
-                  <div className="flex items-center gap-4 mb-5">
-                    <div className="w-12 h-12 rounded-2xl bg-[#0F172A] border border-amber-500/40 flex items-center justify-center text-xl shadow-[0_0_10px_rgba(245,158,11,0.2)]">
-                      <span className="text-amber-500">🏗️</span>
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="font-bold text-sm text-white">RCC Master</span>
-                      <span className="text-[10px] uppercase tracking-wider text-amber-500/80 font-bold">
-                        Concrete Tech
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex flex-col gap-3">
-                    {/* Animated skeleton bars */}
-                    <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
-                      <motion.div 
-                        className="bg-amber-500 h-full rounded-full" 
-                        animate={{ width: ["0%", "80%", "100%", "80%"] }} 
-                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                      />
-                    </div>
-                    <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
-                      <motion.div 
-                        className="bg-orange-500 h-full rounded-full" 
-                        animate={{ width: ["0%", "60%", "90%", "60%"] }} 
-                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                      />
-                    </div>
-                    <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
-                      <motion.div 
-                        className="bg-white/30 h-full rounded-full" 
-                        animate={{ width: ["0%", "40%", "70%", "40%"] }} 
-                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                      />
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-            </ScrollReveal>
           </div>
-        </div>
-        </div>
-        </div>
+        ) : (
+          <>
+            <div className="flex-shrink-0 h-[30vh] lg:h-[35vh] w-full flex flex-col justify-end px-6 xl:px-12 pb-8 relative overflow-hidden bg-[#f8f9fa] dark:bg-[#121212]">
+               <div className="absolute top-[-50%] left-[-10%] w-[70%] h-[150%] rounded-full bg-[#0072de]/10 dark:bg-[#0072de]/20 blur-[80px] pointer-events-none"></div>
+               <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[100%] rounded-full bg-[#0072de]/5 dark:bg-[#0072de]/15 blur-[80px] pointer-events-none"></div>
+               
+               <div className="w-full max-w-7xl mx-auto z-10 flex flex-col items-start gap-1">
+                  <h1 className="text-[2.5rem] md:text-5xl lg:text-[64px] font-black text-slate-900 dark:text-white tracking-tighter leading-[1.05]">Civil Estimation</h1>
+                  <h1 className="text-[2.5rem] md:text-5xl lg:text-[64px] font-black tracking-tighter leading-[1.05] mb-2 text-[#0072de] dark:text-[#3399ff]">Pro.</h1>
+                  <p className="text-lg md:text-xl text-slate-500 font-medium max-w-lg mb-2">Welcome back, {user.displayName?.split(' ')[0] || 'Engineer'}.</p>
+               </div>
+            </div>
+
+            <div className="flex-1 w-full bg-white dark:bg-[#1a1b1e] rounded-t-[32px] overflow-x-hidden shadow-[0_-12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_-5px_30px_rgba(0,0,0,0.5)] border border-slate-200/50 dark:border-[#333] pb-32">
+                <div className="w-full max-w-7xl mx-auto px-4 z-10 overflow-visible flex flex-col pt-8">
+                  <div className="mb-12">
+                    <WorkspaceSection onSelect={handleSelect} />
+                  </div>
+                  
+                  <div className="w-full max-w-7xl mx-auto w-full overflow-visible flex flex-col mt-4">
+                    <div className="flex flex-col gap-10 max-w-[900px] mx-auto w-full" id="tools-section">
+                      <div className="w-full relative">
+                        <SmartSearch onSelect={(id) => { if (id === 'ai') setIsAiChatOpen(true); else handleSelect(id); }} />
+                      </div>
+                      <div className="flex md:flex-wrap gap-3 overflow-x-auto no-scrollbar relative items-center mb-6">
+                          {categories.map((catName) => {
+                            const count = catName === 'All Tools' ? ALL_MODULES.length : ALL_MODULES.filter(m => m.category === catName).length;
+                            const cat = { name: catName, count };
+                            const isActive = activeCategory === cat.name;
+                            return (
+                              <button
+                                key={cat.name}
+                                onClick={() => setActiveCategory(cat.name)}
+                                className={isActive ? 'relative flex items-center justify-between md:justify-center flex-shrink-0 gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all duration-300 border bg-[#0072de] text-white border-transparent' : 'relative flex items-center justify-between md:justify-center flex-shrink-0 gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all duration-300 border bg-white dark:bg-[#252525] text-slate-600 border-slate-200 dark:border-[#333] hover:border-[#0072de]'}
+                              >
+                                <span className={isActive ? 'font-bold' : 'font-medium'}>{cat.name}</span>
+                                <span className={isActive ? 'bg-white/20 text-white flex items-center justify-center px-1.5 py-0.5 text-[0.65rem] font-bold rounded-full' : 'bg-slate-100 text-slate-500 flex items-center justify-center px-1.5 py-0.5 text-[0.65rem] font-bold rounded-full'}>{cat.count}</span>
+                              </button>
+                            );
+                          })}
+                      </div>
+                      <div className="flex flex-col gap-8 w-full mt-2">
+                         {groupsToDisplay.map((groupName) => {
+                           const toolsInGroup = groupedModules[groupName];
+                           if (!toolsInGroup || toolsInGroup.length === 0) return null;
+                           return (
+                             <div key={groupName} className="flex flex-col gap-5">
+                               <h2 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-3">{groupName}<span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">{toolsInGroup.length}</span></h2>
+                               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                 {toolsInGroup.map((mod) => (
+                                   <ToolCard key={mod.id} mod={mod} onSelect={handleSelect} />
+                                 ))}
+                               </div>
+                             </div>
+                           );
+                         })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </>
+        )}
       </div>
 
       {/* AI Chat Bottom Sheet Modal */}
