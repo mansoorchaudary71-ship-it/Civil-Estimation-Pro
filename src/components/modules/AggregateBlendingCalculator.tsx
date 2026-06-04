@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import { RefreshCw, Calculator, Layers, AlertCircle, ArrowRightLeft } from "lucide-react";
+import { RefreshCw, Calculator, Layers, AlertCircle, ArrowRightLeft, Wand2 } from "lucide-react";
 import toast from "react-hot-toast";
 
 interface BinData {
@@ -128,6 +128,58 @@ export default function AggregateBlendingCalculator() {
            (b * proportions[1] / 100) + 
            (c * proportions[2] / 100) + 
            (d * proportions[3] / 100);
+  };
+
+  const optimizeBlend = () => {
+    const binActive = [
+      sieveData.some((row) => row.binA !== ""),
+      sieveData.some((row) => row.binB !== ""),
+      sieveData.some((row) => row.binC !== ""),
+      sieveData.some((row) => row.binD !== "")
+    ];
+    
+    if (binActive.every(a => !a)) {
+        toast.error("No data available in stockpiles.");
+        return;
+    }
+
+    let bestError = Infinity;
+    let bestProps: [number, number, number, number] = [...proportions];
+    const step = 1;
+
+    for (let p0 = 0; p0 <= 100; p0 += step) {
+      if (!binActive[0] && p0 > 0) continue;
+      for (let p1 = 0; p1 <= 100 - p0; p1 += step) {
+        if (!binActive[1] && p1 > 0) continue;
+        for (let p2 = 0; p2 <= 100 - p0 - p1; p2 += step) {
+          if (!binActive[2] && p2 > 0) continue;
+
+          const p3 = 100 - p0 - p1 - p2;
+          if (!binActive[3] && p3 > 0) continue; 
+
+          let error = 0;
+          for (const row of sieveData) {
+            const target = (row.minPassing + row.maxPassing) / 2;
+            const a = row.binA === "" ? 0 : row.binA;
+            const b = row.binB === "" ? 0 : row.binB;
+            const c = row.binC === "" ? 0 : row.binC;
+            const d = row.binD === "" ? 0 : row.binD;
+            const blend = (a * p0 + b * p1 + c * p2 + d * p3) / 100;
+            // Weigh errors slightly higher if they fall completely outside limits, though optimizing for midpoint usually keeps it in bounds
+            const penalty = (blend < row.minPassing || blend > row.maxPassing) ? 5 : 1; 
+            error += Math.pow(blend - target, 2) * penalty;
+          }
+
+          if (error < bestError) {
+            bestError = error;
+            bestProps = [p0, p1, p2, p3];
+          }
+        }
+      }
+    }
+
+    setProportions(bestProps);
+    toast.success("Optimized proportions for best fit!");
   };
 
   const chartData = sieveData.map(row => {
@@ -309,6 +361,13 @@ export default function AggregateBlendingCalculator() {
                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                <p>Moving a slider will automatically adjust the remaining proportions to ensure the total blend always equals 100%.</p>
             </div>
+
+            <button 
+                onClick={optimizeBlend}
+                className="mt-6 w-full bg-[#0f172a] text-white font-bold py-3.5 rounded-[24px] shadow-sm flex items-center justify-center gap-2 hover:bg-slate-800 transition-colors"
+            >
+                <Wand2 className="w-5 h-5" /> Auto-Optimize Blend (Least Squares)
+            </button>
           </div>
 
           <div className="bg-bg-card/80 backdrop-blur-md rounded-[24px] p-6 shadow-sm border border-slate-200 h-[400px] flex flex-col">

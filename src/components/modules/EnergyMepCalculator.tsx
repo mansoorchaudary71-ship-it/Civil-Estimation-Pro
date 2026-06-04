@@ -208,13 +208,42 @@ function WaterHeaterCalculator() {
 }
 
 function AcCalculator() {
-  const [area, setArea] = useState<number | "">("");
+  const [length, setLength] = useState<number | "">("");
+  const [width, setWidth] = useState<number | "">("");
+  const [height, setHeight] = useState<number | "">(10); // Default 10 ft
+  const [occupants, setOccupants] = useState<number | "">(2);
+  const [sunlight, setSunlight] = useState<"shaded" | "normal" | "sunny">("normal");
+  const [isKitchen, setIsKitchen] = useState<boolean>(false);
   
   const calculateAc = () => {
-    if (!area) return null;
-    const sqft = Number(area);
-    const tonnage = sqft / 400; // approx 1 ton per 400 sq.ft
-    return { tonnage: Math.max(1, Math.ceil(tonnage * 2) / 2) }; // nearest 0.5 ton
+    if (!length || !width || !height) return null;
+    
+    const cubicFeet = Number(length) * Number(width) * Number(height);
+    
+    // Base BTU from cubic footage (approx 5 BTU per cubic foot)
+    let baseBtu = cubicFeet * 5;
+    
+    // Solar heat gain (Sunlight exposure)
+    if (sunlight === "sunny") baseBtu *= 1.1;
+    else if (sunlight === "shaded") baseBtu *= 0.9;
+    
+    const occ = Number(occupants);
+    if (occ > 2) {
+      baseBtu += (occ - 2) * 600;
+    }
+    
+    if (isKitchen) {
+      baseBtu += 4000;
+    }
+    
+    const tonnage = baseBtu / 12000;
+    const roundedTonnage = Math.max(0.5, Math.ceil(tonnage * 2) / 2); // nearest 0.5 ton
+    
+    return {
+      cubicFeet,
+      baseBtu: Math.round(baseBtu),
+      tonnage: roundedTonnage
+    };
   };
 
   const results = calculateAc();
@@ -222,26 +251,83 @@ function AcCalculator() {
   return (
     <div className="animate-in fade-in duration-300">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="space-y-6">
+        <div className="space-y-4">
+          <div className="grid grid-cols-3 gap-4">
+            <NumberInput
+              label="Length (ft)"
+              value={length}
+              onChange={setLength}
+            />
+            <NumberInput
+              label="Width (ft)"
+              value={width}
+              onChange={setWidth}
+            />
+            <NumberInput
+              label="Height (ft)"
+              value={height}
+              onChange={setHeight}
+            />
+          </div>
+          
           <NumberInput
-            label="Room Area"
-            unit="Sq.Ft"
-            value={area}
-            onChange={setArea}
-            placeholder="e.g. 150"
+            label="Occupants"
+            value={occupants}
+            onChange={setOccupants}
           />
+          
+          <div>
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1">
+              Sunlight Exposure
+            </label>
+            <select
+              value={sunlight}
+              onChange={(e) => setSunlight(e.target.value as any)}
+              className="w-full h-[46px] bg-slate-50 border border-slate-200 rounded-[16px] px-4 text-slate-700 font-medium outline-none focus:ring-2 focus:ring-blue-500/50"
+            >
+              <option value="shaded">Shaded (-10% BTU)</option>
+              <option value="normal">Normal</option>
+              <option value="sunny">Heavy Sun (+10% BTU)</option>
+            </select>
+          </div>
+          
+          <label className="flex items-center gap-2 text-sm font-bold text-slate-700 cursor-pointer pt-2">
+            <input 
+              type="checkbox" 
+              checked={isKitchen} 
+              onChange={(e) => setIsKitchen(e.target.checked)} 
+              className="w-4 h-4 text-blue-600 rounded" 
+            />
+            Is this a kitchen? (+4000 BTU)
+          </label>
         </div>
+        
         <div className="flex flex-col h-full">
           {results ? (
              <MaterialSummary
-               title="Estimate Results"
+               title="AC Sizing Output"
                totalLabel="Recommended AC Capacity"
                totalValue={results.tonnage.toFixed(1)}
                totalUnit="Tons"
-             />
+             >
+               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                 <ResultCard
+                   title="Room Volume"
+                   value={Math.round(results.cubicFeet).toString()}
+                   unit="cu.ft"
+                   variant="neutral"
+                 />
+                 <ResultCard
+                   title="Required Cooling"
+                   value={results.baseBtu.toString()}
+                   unit="BTU/hr"
+                   variant="primary"
+                 />
+               </div>
+             </MaterialSummary>
           ) : (
             <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
-              Enter specifications to see estimation.
+              Enter room dimensions to calculate required AC tonnage.
             </div>
           )}
         </div>

@@ -70,7 +70,32 @@ export default function CbrTestCalculator() {
     // Sort to be safe
     const sortedData = [...testData].sort((a, b) => a.penetration - b.penetration);
 
-    // Identify loads at exactly 2.5 and 5.0 using linear interpolation if missing
+    // Identify correction for concave initial curve
+    let maxSlope = 0;
+    let tangentPoint = sortedData[0];
+    
+    for (let i = 0; i < sortedData.length - 1; i++) {
+      const p1 = sortedData[i];
+      const p2 = sortedData[i + 1];
+      if (p2.penetration === p1.penetration) continue;
+      const slope = (p2.load - p1.load) / (p2.penetration - p1.penetration);
+      if (slope > maxSlope) {
+        maxSlope = slope;
+        tangentPoint = p1;
+      }
+    }
+
+    let originOffset = 0;
+    if (maxSlope > 0) {
+      const xIntercept = tangentPoint.penetration - (tangentPoint.load / maxSlope);
+      // Generally origin shift is only considered valid if it's small (e.g. < 2.0 mm)
+      // and positive. A negative x-intercept implies convex upwards normally initially.
+      if (xIntercept > 0) {
+        originOffset = xIntercept;
+      }
+    }
+
+    // Identify loads at exactly 2.5 and 5.0 (after correction) using linear interpolation if missing
     const getLoadAtPenetration = (pen: number) => {
       const exactMatch = sortedData.find(d => Math.abs(d.penetration - pen) < 0.01);
       if (exactMatch) return exactMatch.load;
@@ -84,8 +109,11 @@ export default function CbrTestCalculator() {
       return 0;
     };
 
-    const load25 = getLoadAtPenetration(2.5);
-    const load50 = getLoadAtPenetration(5.0);
+    const targetPen25 = 2.5 + originOffset;
+    const targetPen50 = 5.0 + originOffset;
+
+    const load25 = getLoadAtPenetration(targetPen25);
+    const load50 = getLoadAtPenetration(targetPen50);
 
     const cbr25 = (load25 / 1370) * 100;
     const cbr50 = (load50 / 2055) * 100;
@@ -107,7 +135,8 @@ export default function CbrTestCalculator() {
       passed: finalCbr >= requiredMin,
       load25,
       load50,
-      requiredMin
+      requiredMin,
+      originOffset
     };
   }, [hasData, testData, minSpec]);
 
@@ -353,10 +382,13 @@ export default function CbrTestCalculator() {
                            labelFormatter={(label) => `Penetration: ${label}mm`}
                            formatter={(value) => [`${value} kg`, 'Load']}
                          />
-                         <ReferenceLine x={2.5} stroke="#10b981" strokeDasharray="3 3" />
-                         <ReferenceLine x={5.0} stroke="#10b981" strokeDasharray="3 3" />
-                         <ReferenceDot x={2.5} y={estimateData.load25} r={4} fill="#10b981" stroke="white" />
-                         <ReferenceDot x={5.0} y={estimateData.load50} r={4} fill="#10b981" stroke="white" />
+                         {estimateData.originOffset > 0 && (
+                             <ReferenceLine x={estimateData.originOffset} stroke="#f59e0b" strokeDasharray="3 3" label={{ position: "insideTopLeft", value: "Origin Shift", fill: "#f59e0b", fontSize: 10 }} />
+                         )}
+                         <ReferenceLine x={2.5 + estimateData.originOffset} stroke="#10b981" strokeDasharray="3 3" />
+                         <ReferenceLine x={5.0 + estimateData.originOffset} stroke="#10b981" strokeDasharray="3 3" />
+                         <ReferenceDot x={2.5 + estimateData.originOffset} y={estimateData.load25} r={4} fill="#10b981" stroke="white" />
+                         <ReferenceDot x={5.0 + estimateData.originOffset} y={estimateData.load50} r={4} fill="#10b981" stroke="white" />
                          <Area 
                            type="monotone" 
                            dataKey="load" 

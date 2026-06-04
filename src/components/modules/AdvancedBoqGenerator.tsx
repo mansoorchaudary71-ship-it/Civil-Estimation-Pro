@@ -71,6 +71,13 @@ export default function AdvancedBoqGenerator() {
     Excavation: [], PCC: [], RCC: [], Masonry: [], Plaster: [], Tiles: [], Paint: [], Steel: []
   });
 
+  // Markups
+  const [markups, setMarkups] = useState({
+    contingency: 5,
+    profit: 10,
+    overhead: 5
+  });
+
   const getAutoRate = (scope: TradeScope) => {
     const key = TRADE_RATES_MAP[scope];
     return (rates as any)[key] || 0;
@@ -133,9 +140,15 @@ export default function AdvancedBoqGenerator() {
     return subs;
   }, [measurements, scopes]);
 
-  const grandTotal = useMemo(() => {
+  const baseSubtotal = useMemo(() => {
     return Object.values(subtotals).reduce((sum, val) => sum + (val || 0), 0);
   }, [subtotals]);
+
+  const contingencyAmt = (baseSubtotal * markups.contingency) / 100;
+  const overheadAmt = (baseSubtotal * markups.overhead) / 100;
+  const profitAmt = (baseSubtotal * markups.profit) / 100;
+
+  const grandTotal = baseSubtotal + contingencyAmt + overheadAmt + profitAmt;
 
   // Exports
   const handleExportPDF = () => {
@@ -152,7 +165,7 @@ export default function AdvancedBoqGenerator() {
         });
       });
     });
-    generateBOQPDF(allItems, projectData.name || "Project", grandTotal, 0, 0, grandTotal, settings.currency);
+    generateBOQPDF(allItems, projectData.name || "Project", baseSubtotal, contingencyAmt, profitAmt, overheadAmt, grandTotal, settings.currency);
   };
 
   const handleExportExcel = () => {
@@ -169,7 +182,7 @@ export default function AdvancedBoqGenerator() {
         });
       });
     });
-    generateBOQExcel(allItems, projectData.name || "Project", grandTotal, 0, 0, grandTotal, settings.currency);
+    generateBOQExcel(allItems, projectData.name || "Project", baseSubtotal, contingencyAmt, profitAmt, overheadAmt, grandTotal, settings.currency);
   };
 
   const StepIndicator = ({ num, title }: { num: number, title: string }) => (
@@ -394,6 +407,22 @@ export default function AdvancedBoqGenerator() {
               })}
             </div>
 
+            <h3 className="text-xl font-semibold text-slate-800 border-b-2 border-purple-500 pb-2 mt-8">Markups & Adjustments</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+               <div className="bg-slate-50 p-4 rounded-[24px] border border-slate-200 shadow-sm">
+                 <label className="block text-sm font-bold text-slate-700 mb-2">Contingency (%)</label>
+                 <input type="number" min="0" value={markups.contingency} onChange={(e) => setMarkups({...markups, contingency: parseFloat(e.target.value) || 0})} className="w-full bg-white border border-slate-300 rounded-[16px] px-4 py-2.5 outline-none focus:border-purple-500 font-bold" />
+               </div>
+               <div className="bg-slate-50 p-4 rounded-[24px] border border-slate-200 shadow-sm">
+                 <label className="block text-sm font-bold text-slate-700 mb-2">Overheads (%)</label>
+                 <input type="number" min="0" value={markups.overhead} onChange={(e) => setMarkups({...markups, overhead: parseFloat(e.target.value) || 0})} className="w-full bg-white border border-slate-300 rounded-[16px] px-4 py-2.5 outline-none focus:border-purple-500 font-bold" />
+               </div>
+               <div className="bg-slate-50 p-4 rounded-[24px] border border-slate-200 shadow-sm">
+                 <label className="block text-sm font-bold text-slate-700 mb-2">Contractor Profit (%)</label>
+                 <input type="number" min="0" value={markups.profit} onChange={(e) => setMarkups({...markups, profit: parseFloat(e.target.value) || 0})} className="w-full bg-white border border-slate-300 rounded-[16px] px-4 py-2.5 outline-none focus:border-purple-500 font-bold" />
+               </div>
+            </div>
+
             <div className="flex justify-between pt-6 border-t border-slate-200">
               <button onClick={() => setStep(2)} className="px-6 py-2.5 rounded-[24px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors">Back</button>
               <button onClick={() => setStep(4)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-[24px] font-bold transition-all shadow-lg shadow-purple-500/30">
@@ -500,12 +529,37 @@ export default function AdvancedBoqGenerator() {
               </table>
 
               <div className="flex justify-end pt-8 border-t-2 border-slate-800">
-                <div className="w-80">
+                <div className="w-96 text-sm">
+                  <div className="flex justify-between items-center mb-2 text-slate-600">
+                    <span className="font-semibold">Subtotal</span>
+                    <span className="tabular-nums font-semibold">{baseSubtotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                  </div>
+                  {markups.contingency > 0 && (
+                    <div className="flex justify-between items-center mb-2 text-slate-600">
+                      <span>Contingency ({markups.contingency}%)</span>
+                      <span className="tabular-nums">{contingencyAmt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                    </div>
+                  )}
+                  {markups.overhead > 0 && (
+                    <div className="flex justify-between items-center mb-2 text-slate-600">
+                      <span>Overheads ({markups.overhead}%)</span>
+                      <span className="tabular-nums">{overheadAmt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                    </div>
+                  )}
+                  {markups.profit > 0 && (
+                    <div className="flex justify-between items-center mb-4 text-slate-600">
+                      <span>Contractor Profit ({markups.profit}%)</span>
+                      <span className="tabular-nums">{profitAmt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                    </div>
+                  )}
+                  
+                  <div className="border-t border-slate-200 mt-2 mb-4"></div>
+
                   <div className="flex justify-between items-center mb-2 text-slate-600">
                     <span className="font-bold uppercase tracking-wider text-sm">Grand Total Amount</span>
                   </div>
-                  <div className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight text-purple-900 tabular-nums flex justify-between items-center bg-purple-50 p-4 rounded-[24px] border border-purple-200">
-                    <span className="text-xl text-purple-600 font-bold">{settings.currency}</span>
+                  <div className="text-3xl break-all font-bold tabular-nums tracking-tight text-purple-900 tabular-nums flex justify-between items-center bg-purple-50 p-4 rounded-[24px] border border-purple-200">
+                    <span className="text-xl text-purple-600">{settings.currency}</span>
                     {grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </div>
                   <div className="text-xs text-slate-400 mt-3 italic text-right">Errors and Omissions Excepted. Validate rates before executing works.</div>

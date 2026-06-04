@@ -36,14 +36,21 @@ function InputGroup({ label, children, colSpan = 1 }: { label: React.ReactNode; 
 
 export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEmbedded?: boolean }) {
   const { settings } = useSettings();
+  const [footingType, setFootingType] = useState<"rectangular" | "sloped" | "stepped">("sloped");
   const [footingL, setFootingL] = useState("2.2");
   const [footingW, setFootingW] = useState("2.2");
-  const [footingD, setFootingD] = useState("0.5");
+  const [footingD, setFootingD] = useState("0.5"); // For rectangular
+  
+  const [footingD1, setFootingD1] = useState("0.2"); // Base thickness
+  const [footingD2, setFootingD2] = useState("0.3"); // Sloped or step thickness
+  
+  const [topL, setTopL] = useState("0.6"); // Top dimensions for sloped/stepped
+  const [topW, setTopW] = useState("0.6");
   
   const [columnL, setColumnL] = useState("0.4");
   const [columnW, setColumnW] = useState("0.4");
   
-  const [workingSpace, setWorkingSpace] = useState("0.3");
+  const [workingSpace, setWorkingSpace] = useState("0.3"); // 300mm standard working space
   const [excavationDepth, setExcavationDepth] = useState("1.5");
   
   const [load, setLoad] = useState("1000"); // kN
@@ -67,6 +74,14 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
   const fL = parseFloat(footingL) || 0;
   const fW = parseFloat(footingW) || 0;
   const fD = parseFloat(footingD) || 0;
+  
+  const fD1 = parseFloat(footingD1) || 0;
+  const fD2 = parseFloat(footingD2) || 0;
+  const tL = parseFloat(topL) || 0;
+  const tW = parseFloat(topW) || 0;
+
+  const totalD = footingType === "rectangular" ? fD : (fD1 + fD2);
+
   const cL = parseFloat(columnL) || 0;
   const cW = parseFloat(columnW) || 0;
   const ws = parseFloat(workingSpace) || 0;
@@ -81,7 +96,20 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
   const isSafe = actualArea >= reqArea;
 
   // Concrete Volume
-  const concreteVol = fL * fW * fD;
+  let concreteVol = 0;
+  if (footingType === "rectangular") {
+     concreteVol = fL * fW * fD;
+  } else if (footingType === "stepped") {
+     concreteVol = (fL * fW * fD1) + (tL * tW * fD2);
+  } else if (footingType === "sloped") {
+     // TRAPEZOIDAL_FOOTING_VOLUME rule: V = h/3 * (A1 + A2 + sqrt(A1*A2)) + Rectangular base
+     const vBase = fL * fW * fD1;
+     const A1 = fL * fW;
+     const A2 = tL * tW;
+     const vSloped = (fD2 / 3) * (A1 + A2 + Math.sqrt(A1 * A2));
+     concreteVol = vBase + vSloped;
+  }
+
   const dryVol = concreteVol * CIVIL_CONSTANTS.DRY_CONCRETE_FACTOR; // RULE: CONCRETE_DRY_VOLUME
   
   // Materials
@@ -96,16 +124,17 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
   const exL = fL + (2 * ws);
   const exW = fW + (2 * ws);
   const excavationVol = exL * exW * exD;
-  const backfillVol = Math.max(0, excavationVol - concreteVol - (cL * cW * (exD - fD))); // Rough approx subtracting footing and column
+  const backfillVol = Math.max(0, excavationVol - concreteVol - (cL * cW * Math.max(0, exD - totalD)));
 
   // Steel Reinforcement
   // Length Direction (bars placed along Width)
   const dX = parseFloat(diaX) || 0;
   const sX = parseFloat(spacingX) || 150;
   const barsX = Math.ceil((fW * 1000 - 2 * cover) / sX) + 1; // RULE: REBAR_SPACING_COUNT
-  // Development length approximation ~40d for M20 or typical Ld
-  // A standard bent-up hook is fD - 2*cover
-  const hookL = fD * 1000 - 2 * cover;
+  
+  // hook length based on bottom step depth for sloped/stepped, or total depth for rect
+  const edgeD = (footingType === "rectangular" ? fD : Math.max(fD1, 0.15));
+  const hookL = edgeD * 1000 - 2 * cover;
   const cutLengthX = (fL * 1000) - 2 * cover + 2 * hookL; 
   const wtX = (Math.pow(dX, 2) / 162.28) * (cutLengthX / 1000) * barsX; // RULE: STEEL_WEIGHT_ESTIMATION
   
@@ -124,35 +153,47 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
   let cutLengthXTop = 0;
   let cutLengthYTop = 0;
   if (hasTopMesh) {
+    const topEdgeD = footingType === "rectangular" ? fD : (fD1 + fD2);
+    const topHookL = topEdgeD * 1000 - 2 * cover;
+
     const dXT = parseFloat(diaXTop) || 0;
     const sXT = parseFloat(spacingXTop) || 150;
     barsXTop = Math.ceil((fW * 1000 - 2 * cover) / sXT) + 1;
-    cutLengthXTop = (fL * 1000) - 2 * cover + 2 * hookL;
+    cutLengthXTop = (fL * 1000) - 2 * cover + 2 * topHookL;
     wtXTop = (Math.pow(dXT, 2) / 162.28) * (cutLengthXTop / 1000) * barsXTop;
     
     const dYT = parseFloat(diaYTop) || 0;
     const sYT = parseFloat(spacingYTop) || 150;
     barsYTop = Math.ceil((fL * 1000 - 2 * cover) / sYT) + 1;
-    cutLengthYTop = (fW * 1000) - 2 * cover + 2 * hookL;
+    cutLengthYTop = (fW * 1000) - 2 * cover + 2 * topHookL;
     wtYTop = (Math.pow(dYT, 2) / 162.28) * (cutLengthYTop / 1000) * barsYTop;
   }
   
   const totalSteel = wtX + wtY + wtXTop + wtYTop;
 
   const loadExample = () => {
+    setFootingType("sloped");
     setLoad("800");
     setSbc("150");
     setFootingL("2.5");
     setFootingW("2.5");
-    setFootingD("0.5");
+    setFootingD1("0.2");
+    setFootingD2("0.3");
+    setTopL("0.6");
+    setTopW("0.6");
   };
 
   const resetDefault = () => {
+    setFootingType("sloped");
     setLoad("1000");
     setSbc("250");
     setFootingL("2.2");
     setFootingW("2.2");
     setFootingD("0.5");
+    setFootingD1("0.2");
+    setFootingD2("0.3");
+    setTopL("0.6");
+    setTopW("0.6");
   };
 
   const sendToBOQ = () => {
@@ -160,7 +201,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
       {
         id: Math.random().toString(36).substr(2, 9),
         division: "03 - Concrete",
-        description: `RCC Isolated Footing (${footingL}x${footingW}m, D=${footingD}m)`,
+        description: `RCC Isolated Footing (${footingL}x${footingW}m, D=${totalD.toFixed(2)}m) - ${footingType}`,
         unit: "m³",
         quantity: concreteVol,
         rate: 0
@@ -176,7 +217,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
       {
         id: Math.random().toString(36).substr(2, 9),
         division: "02 - Site Work & Earthwork",
-        description: `Excavation for Footing`,
+        description: `Excavation for Footing (WS=${ws}m)`,
         unit: "m³",
         quantity: excavationVol,
         rate: 0
@@ -187,7 +228,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
   };
 
   return (
-    <div className={isEmbedded ? "w-full space-y-6" : "w-full h-full overflow-y-auto bg-transparent  text-text-primary p-6 md:p-8"}>
+    <div className={isEmbedded ? "w-full space-y-6" : "w-full h-full overflow-y-auto bg-transparent text-text-primary p-6 md:p-8"}>
       <div className="max-w-5xl mx-auto space-y-6">
         {!isEmbedded && (
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
@@ -198,7 +239,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                 <button onClick={sendToBOQ} className="text-xs font-bold px-3 py-2 bg-emerald-50 text-emerald-600 rounded-[16px] hover:bg-emerald-100 transition-colors border border-emerald-200">
                   Send to BOQ
                 </button>
-                <button onClick={loadExample} className="text-xs font-bold px-3 py-2 bg-[#E55A2B]/10 [#E55A2B]/20 text-[#E55A2B] [#ff8a65] rounded-[16px] hover:bg-[#E55A2B]/20[#E55A2B]/30 transition-colors">
+                <button onClick={loadExample} className="text-xs font-bold px-3 py-2 bg-[#E55A2B]/10 text-[#E55A2B] rounded-[16px] hover:bg-[#E55A2B]/20 transition-colors">
                   Load Example
                 </button>
                 <button onClick={resetDefault} className="text-xs font-bold px-3 py-2 bg-slate-100 text-slate-500 rounded-[16px] hover:bg-slate-200 transition-colors">
@@ -218,31 +259,57 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                   <h3 className="font-bold text-lg mb-4 text-slate-800 border-b border-slate-100 pb-2">Load & SBC Check</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <InputGroup label="Column Load (kN)">
-                      <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={load} onChange={(val) => setLoad(val.toString())} />
+                      <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={load} onChange={(val) => setLoad(val.toString())} />
                     </InputGroup>
                     <InputGroup label={
                       <span className="flex items-center">
-                        Safe Bearing Capacity (kN/m²)
-                        <FieldTooltip content="Maximum load per unit area soil can carry without shear failure. IS 1904:1986: Soft clay = 50-100, Stiff clay = 100-200, Dense sand = 200-400, Rock = 1000-4000 kN/m²" />
+                        Safe Bearing Cap. (kN/m²)
+                        <FieldTooltip content="IS 1904:1986: Soft clay = 50-100, Stiff clay = 100-200, Dense sand = 200-400, Rock = 1000-4000 kN/m²" />
                       </span>
                     }>
-                      <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={sbc} onChange={(val) => setSbc(val.toString())} />
+                      <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={sbc} onChange={(val) => setSbc(val.toString())} />
                     </InputGroup>
                   </div>
                 </div>
 
                 <div>
                   <h3 className="font-bold text-lg mb-4 text-slate-800 border-b border-slate-100 pb-2">Footing Details</h3>
-                  <div className="grid grid-cols-3 gap-4">
-                    <InputGroup label="Length (m)">
-                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={footingL} onChange={(val) => setFootingL(val.toString())} />
+                  <InputGroup label="Footing Type" colSpan={3}>
+                    <div className="flex bg-slate-100 p-1 rounded-[24px] mb-4">
+                      <button onClick={() => setFootingType("rectangular")} className={`flex-1 py-2 text-sm font-bold rounded-[20px] transition-all ${footingType === "rectangular" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>Rectangular</button>
+                      <button onClick={() => setFootingType("sloped")} className={`flex-1 py-2 text-sm font-bold rounded-[20px] transition-all ${footingType === "sloped" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>Sloped/Trapezoidal</button>
+                      <button onClick={() => setFootingType("stepped")} className={`flex-1 py-2 text-sm font-bold rounded-[20px] transition-all ${footingType === "stepped" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>Stepped</button>
+                    </div>
+                  </InputGroup>
+                  <div className="grid grid-cols-2 gap-4 mt-4">
+                    <InputGroup label="Base Length (m)">
+                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={footingL} onChange={(val) => setFootingL(val.toString())} />
                     </InputGroup>
-                    <InputGroup label="Width (m)">
-                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={footingW} onChange={(val) => setFootingW(val.toString())} />
+                    <InputGroup label="Base Width (m)">
+                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={footingW} onChange={(val) => setFootingW(val.toString())} />
                     </InputGroup>
-                    <InputGroup label="Depth (m)">
-                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={footingD} onChange={(val) => setFootingD(val.toString())} />
-                    </InputGroup>
+                    
+                    {footingType === "rectangular" ? (
+                       <InputGroup label="Depth (m)">
+                         <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={footingD} onChange={(val) => setFootingD(val.toString())} />
+                       </InputGroup>
+                    ) : (
+                       <>
+                         <InputGroup label="Base Depth, D1 (m)">
+                           <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={footingD1} onChange={(val) => setFootingD1(val.toString())} />
+                         </InputGroup>
+                         <InputGroup label={footingType === "sloped" ? "Sloped Depth, D2 (m)" : "Step 2 Depth, D2 (m)"}>
+                           <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={footingD2} onChange={(val) => setFootingD2(val.toString())} />
+                         </InputGroup>
+                         
+                         <InputGroup label="Top Length, A2 (m)">
+                           <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={topL} onChange={(val) => setTopL(val.toString())} />
+                         </InputGroup>
+                         <InputGroup label="Top Width, B2 (m)">
+                           <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={topW} onChange={(val) => setTopW(val.toString())} />
+                         </InputGroup>
+                       </>
+                    )}
                   </div>
                 </div>
 
@@ -251,23 +318,28 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                   <div className="grid grid-cols-2 gap-4">
                     <InputGroup label="Column L×W (m)">
                       <div className="flex gap-2">
-                        <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={columnL} onChange={(val) => setColumnL(val.toString())} placeholder="L" />
+                        <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 text-center shadow-sm transition-all" value={columnL} onChange={(val) => setColumnL(val.toString())} placeholder="L" />
                         <span className="text-slate-400 self-center">×</span>
-                        <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={columnW} onChange={(val) => setColumnW(val.toString())} placeholder="W" />
+                        <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 text-center shadow-sm transition-all" value={columnW} onChange={(val) => setColumnW(val.toString())} placeholder="W" />
                       </div>
                     </InputGroup>
                     <InputGroup label="Concrete Mix">
-                      <select className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all appearance-none shadow-sm" value={mix} onChange={(e) => setMix(e.target.value)}>
+                      <select className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all appearance-none shadow-sm" value={mix} onChange={(e) => setMix(e.target.value)}>
                         {Object.keys(mixRatios).map((m) => (
                           <option key={m} value={m}>{m}</option>
                         ))}
                       </select>
                     </InputGroup>
-                    <InputGroup label="Working Space (m)">
-                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={workingSpace} onChange={(val) => setWorkingSpace(val.toString())} />
+                    <InputGroup label={
+                      <span className="flex items-center">
+                        Working Space (m)
+                        <FieldTooltip content="Typical allowance 0.3m to 0.6m on all sides for shuttering and labor access." />
+                      </span>
+                    }>
+                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={workingSpace} onChange={(val) => setWorkingSpace(val.toString())} />
                     </InputGroup>
                     <InputGroup label="Excavation Depth (m)">
-                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={excavationDepth} onChange={(val) => setExcavationDepth(val.toString())} />
+                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={excavationDepth} onChange={(val) => setExcavationDepth(val.toString())} />
                     </InputGroup>
                   </div>
                 </div>
@@ -282,12 +354,12 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                           <FieldTooltip content="Minimum concrete cover to protect reinforcement from corrosion. IS 456:2000 Table 16: Mild exposure = 20mm, Moderate = 30mm, Severe = 45mm, Very Severe = 50mm" />
                         </span>
                       }>
-                        <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-800 rounded-[24px] shadow-sm transition-all" value={clearCover} onChange={(val) => setClearCover(val.toString())} />
+                        <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={clearCover} onChange={(val) => setClearCover(val.toString())} />
                       </InputGroup>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-200">
+                    <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
                       <p className="text-xs font-bold uppercase text-slate-500 mb-3 ml-1 tracking-wider">Bottom Mesh: X-Axis</p>
                       <div className="space-y-4">
                         <InputGroup label="Bar Dia (mm)">
@@ -296,11 +368,11 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                            </select>
                         </InputGroup>
                         <InputGroup label="Spacing c/c (mm)">
-                           <NumberInput className="w-full bg-white border border-slate-200 rounded-[24px] shadow-sm transition-all" value={spacingX} onChange={(val) => setSpacingX(val.toString())} />
+                           <NumberInput className="w-full bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-sm shadow-sm transition-all" value={spacingX} onChange={(val) => setSpacingX(val.toString())} />
                         </InputGroup>
                       </div>
                     </div>
-                    <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-200">
+                    <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
                       <p className="text-xs font-bold uppercase text-slate-500 mb-3 ml-1 tracking-wider">Bottom Mesh: Y-Axis</p>
                       <div className="space-y-4">
                         <InputGroup label="Bar Dia (mm)">
@@ -309,7 +381,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                            </select>
                         </InputGroup>
                         <InputGroup label="Spacing c/c (mm)">
-                           <NumberInput className="w-full bg-white border border-slate-200 rounded-[24px] shadow-sm transition-all" value={spacingY} onChange={(val) => setSpacingY(val.toString())} />
+                           <NumberInput className="w-full bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-sm shadow-sm transition-all" value={spacingY} onChange={(val) => setSpacingY(val.toString())} />
                         </InputGroup>
                       </div>
                     </div>
@@ -333,7 +405,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                              </select>
                           </InputGroup>
                           <InputGroup label="Spacing c/c (mm)">
-                             <NumberInput className="w-full bg-white border border-slate-200 rounded-[24px] shadow-sm transition-all" value={spacingXTop} onChange={(val) => setSpacingXTop(val.toString())} />
+                             <NumberInput className="w-full bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-sm shadow-sm transition-all" value={spacingXTop} onChange={(val) => setSpacingXTop(val.toString())} />
                           </InputGroup>
                         </div>
                       </div>
@@ -346,7 +418,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                              </select>
                           </InputGroup>
                           <InputGroup label="Spacing c/c (mm)">
-                             <NumberInput className="w-full bg-white border border-slate-200 rounded-[24px] shadow-sm transition-all" value={spacingYTop} onChange={(val) => setSpacingYTop(val.toString())} />
+                             <NumberInput className="w-full bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-sm shadow-sm transition-all" value={spacingYTop} onChange={(val) => setSpacingYTop(val.toString())} />
                           </InputGroup>
                         </div>
                       </div>
@@ -357,13 +429,13 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
 
               {/* Drawing & SBC Status */}
               <div>
-                <div className={`p-4 rounded-[24px] border ${isSafe ? 'bg-emerald-50 border-emerald-200  ' : 'bg-rose-50 border-rose-200  '} flex items-start gap-4 mb-6 shadow-sm`}>
+                <div className={`p-4 rounded-[24px] border ${isSafe ? 'bg-emerald-50 border-emerald-200' : 'bg-rose-50 border-rose-200'} flex items-start gap-4 mb-6 shadow-sm`}>
                   {isSafe ? <CheckCircle className="w-6 h-6 text-emerald-600 mt-1" /> : <AlertTriangle className="w-6 h-6 text-rose-600 mt-1" />}
                   <div>
-                    <h4 className={`font-bold ${isSafe ? 'text-emerald-800 ' : 'text-rose-800 '}`}>
+                    <h4 className={`font-bold ${isSafe ? 'text-emerald-800' : 'text-rose-800'}`}>
                       {isSafe ? 'Safe Bearing Capacity OK' : 'Bearing Capacity Exceeded'}
                     </h4>
-                    <p className={`text-sm mt-1 font-medium ${isSafe ? 'text-emerald-700 ' : 'text-rose-700 '}`}>
+                    <p className={`text-sm mt-1 font-medium ${isSafe ? 'text-emerald-700' : 'text-rose-700'}`}>
                       Required Area: {reqArea.toFixed(2)} m² | Provided Area: {actualArea.toFixed(2)} m²
                     </p>
                     {!isSafe && <p className="text-xs font-bold text-rose-600 mt-2">Increase footing dimensions to prevent settlement failures.</p>}
@@ -388,10 +460,22 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                     {/* Column */}
                     <rect x="135" y="30" width="30" height="130" fill="#e2e8f0" stroke="#64748b" strokeWidth="2" />
                     
-                    {/* Footing Base */}
-                    <rect x="70" y="160" width="160" height="40" fill="#cbd5e1" stroke="#475569" strokeWidth="2" />
-                    
-                    {/* Sloped / Trapozeidal shape mock (we assume rectangular for calc, showing simple box) */}
+                    {/* Footing Form */}
+                    {footingType === "rectangular" && (
+                       <rect x="70" y="160" width="160" height="40" fill="#cbd5e1" stroke="#475569" strokeWidth="2" />
+                    )}
+                    {footingType === "stepped" && (
+                       <>
+                         <rect x="110" y="140" width="80" height="20" fill="#cbd5e1" stroke="#475569" strokeWidth="2" />
+                         <rect x="70" y="160" width="160" height="40" fill="#cbd5e1" stroke="#475569" strokeWidth="2" />
+                       </>
+                    )}
+                    {footingType === "sloped" && (
+                       <>
+                         <polygon points="110,140 190,140 230,160 70,160" fill="#cbd5e1" stroke="#475569" strokeWidth="2" strokeLinejoin="round" />
+                         <rect x="70" y="160" width="160" height="40" fill="#cbd5e1" stroke="#475569" strokeWidth="2" />
+                       </>
+                    )}
                     
                     {/* Rebar Mesh Line */}
                     <line x1="75" y1="190" x2="225" y2="190" stroke="#f43f5e" strokeWidth="3" strokeLinecap="round" />
@@ -426,10 +510,10 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                     <text x="150" y="230" fill="#64748b" fontSize="12" textAnchor="middle">{fL}m (L)</text>
 
                     {/* Depth */}
-                    <path d="M 55 160 L 55 200" stroke="#64748b" strokeWidth="1" />
-                    <line x1="50" y1="160" x2="60" y2="160" stroke="#64748b" strokeWidth="1" />
+                    <path d="M 55 140 L 55 200" stroke="#64748b" strokeWidth="1" />
+                    <line x1="50" y1="140" x2="60" y2="140" stroke="#64748b" strokeWidth="1" />
                     <line x1="50" y1="200" x2="60" y2="200" stroke="#64748b" strokeWidth="1" />
-                    <text x="45" y="184" fill="#64748b" fontSize="12" textAnchor="end">{fD}m</text>
+                    <text x="45" y="174" fill="#64748b" fontSize="12" textAnchor="end">{totalD.toFixed(2)}m</text>
 
                     {/* Working Space */}
                     <path d="M 30 215 L 70 215" stroke="#94a3b8" strokeWidth="1" strokeDasharray="2,2"/>
@@ -526,7 +610,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                     
                     <div className="mt-4 p-4 bg-indigo-50 rounded-[24px] border border-indigo-100">
                       <p className="text-sm font-medium text-indigo-800">
-                        * Steel weight derived using D²/162.28. Hook lengths added based on footing depth {fD}m minus {clearCover}mm top/bottom covers.
+                        * Steel weight derived using D²/162.28. Hook lengths added based on footing depths minus clear covers.
                       </p>
                     </div>
                   </div>
@@ -538,14 +622,19 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
       </div>
       <CalculationHistory
         calculatorId="isolated_footing_calc"
-        estimationName="Isolated Footing Estimate"
-        currentInputs={{ footingL, footingW, footingD, columnL, columnW, load, sbc, mix, diaX, spacingX, diaY, spacingY }}
+        estimationName={`Isolated Footing (${footingType}) Estimate`}
+        currentInputs={{ footingType, footingL, footingW, footingD, footingD1, footingD2, topL, topW, columnL, columnW, load, sbc, mix, diaX, spacingX, clearCover, workingSpace, excavationDepth }}
         currentResults={{ concreteVol: concreteVol.toFixed(2), steelKg: totalSteel.toFixed(2), excavationVol: excavationVol.toFixed(2) }}
-        summaryGeneration={(inputs, res) => `Vol: ${res.concreteVol} m³ - Steel: ${res.steelKg} kg`}
+        summaryGeneration={(inputs, res) => `Vol: ${res.concreteVol} m³ - Steel: ${res.steelKg} kg - Exc: ${res.excavationVol} m³`}
         onRestore={(savedInputs) => {
+          if (savedInputs.footingType) setFootingType(savedInputs.footingType as any);
           if (savedInputs.footingL) setFootingL(savedInputs.footingL);
           if (savedInputs.footingW) setFootingW(savedInputs.footingW);
           if (savedInputs.footingD) setFootingD(savedInputs.footingD);
+          if (savedInputs.footingD1) setFootingD1(savedInputs.footingD1);
+          if (savedInputs.footingD2) setFootingD2(savedInputs.footingD2);
+          if (savedInputs.topL) setTopL(savedInputs.topL);
+          if (savedInputs.topW) setTopW(savedInputs.topW);
           if (savedInputs.columnL) setColumnL(savedInputs.columnL);
           if (savedInputs.columnW) setColumnW(savedInputs.columnW);
           if (savedInputs.load) setLoad(savedInputs.load);
@@ -553,8 +642,9 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
           if (savedInputs.mix) setMix(savedInputs.mix);
           if (savedInputs.diaX) setDiaX(savedInputs.diaX);
           if (savedInputs.spacingX) setSpacingX(savedInputs.spacingX);
-          if (savedInputs.diaY) setDiaY(savedInputs.diaY);
-          if (savedInputs.spacingY) setSpacingY(savedInputs.spacingY);
+          if (savedInputs.clearCover) setClearCover(savedInputs.clearCover);
+          if (savedInputs.workingSpace) setWorkingSpace(savedInputs.workingSpace);
+          if (savedInputs.excavationDepth) setExcavationDepth(savedInputs.excavationDepth);
         }}
       />
     </div>

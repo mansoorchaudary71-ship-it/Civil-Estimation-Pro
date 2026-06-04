@@ -51,6 +51,7 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
   const [phiAngle, setPhiAngle] = useState("30"); // Internal friction angle (deg)
   const [surcharge, setSurcharge] = useState("10"); // Surcharge load kN/m2
   const [frictionCoeff, setFrictionCoeff] = useState("0.5"); // Base friction (mu)
+  const [sbc, setSbc] = useState("200"); // kN/m2
   
   // Materials
   const [mix, setMix] = useState("M20 (1:1.5:3)");
@@ -114,8 +115,16 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
   const FS_sliding = F_driving > 0 ? F_resisting / F_driving : 0;
   const FS_overturn = M_overturning > 0 ? M_resisting / M_overturning : 0;
   
+  // Bearing Pressure
+  const x_bar = sumW > 0 ? (M_resisting - M_overturning) / sumW : 0;
+  const e = Math.abs((b / 2) - x_bar);
+  const q_max = sumW > 0 ? (sumW / b) * (1 + (6 * e) / b) : 0;
+  const q_min = sumW > 0 ? (sumW / b) * (1 - (6 * e) / b) : 0;
+  const max_sbc = parseFloat(sbc) || 0;
+  
   const isSlidingSafe = FS_sliding >= 1.5;
   const isOverturnSafe = FS_overturn >= 2.0;
+  const isBearingSafe = q_max <= max_sbc && q_min >= 0 && e <= b / 6;
 
   // Concrete BOQ
   const stemVol = (0.5 * (st + sb) * h) * l;
@@ -242,6 +251,9 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
                     <InputGroup label="Surcharge (kN/m²)">
                       <input type="number" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3" value={surcharge} onChange={(e) => setSurcharge(e.target.value)} />
                     </InputGroup>
+                    <InputGroup label="Safe Bearing (kN/m²)">
+                      <input type="number" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3" value={sbc} onChange={(e) => setSbc(e.target.value)} />
+                    </InputGroup>
                   </div>
                 </div>
                 
@@ -259,23 +271,34 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
 
               {/* Drawing & Stability check */}
               <div>
-                <div className="grid grid-cols-2 gap-4 mb-2">
+                <div className="grid grid-cols-3 gap-4 mb-2">
                   <div className={`p-4 rounded-[24px] border ${isSlidingSafe ? 'bg-emerald-50 border-emerald-200 ' : 'bg-rose-50 border-rose-200 '}`}>
-                    <h4 className="font-bold text-sm text-slate-800 mb-1">Sliding (FS &gt; 1.5)</h4>
-                    <p className={`text-2xl font-bold tabular-nums tracking-tight ${isSlidingSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{FS_sliding.toFixed(2)}</p>
+                    <h4 className="font-bold text-xs text-slate-800 mb-1 leading-tight">Sliding (FS &gt; 1.5)</h4>
+                    <p className={`text-xl font-bold tabular-nums tracking-tight ${isSlidingSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{FS_sliding.toFixed(2)}</p>
                   </div>
                   <div className={`p-4 rounded-[24px] border ${isOverturnSafe ? 'bg-emerald-50 border-emerald-200 ' : 'bg-rose-50 border-rose-200 '}`}>
-                    <h4 className="font-bold text-sm text-slate-800 mb-1">Overturning (FS &gt; 2.0)</h4>
-                    <p className={`text-2xl font-bold tabular-nums tracking-tight ${isOverturnSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{FS_overturn.toFixed(2)}</p>
+                    <h4 className="font-bold text-xs text-slate-800 mb-1 leading-tight">Overturning (FS &gt; 2.0)</h4>
+                    <p className={`text-xl font-bold tabular-nums tracking-tight ${isOverturnSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{FS_overturn.toFixed(2)}</p>
+                  </div>
+                  <div className={`p-4 rounded-[24px] border ${isBearingSafe ? 'bg-emerald-50 border-emerald-200 ' : 'bg-rose-50 border-rose-200 '}`}>
+                    <h4 className="font-bold text-xs text-slate-800 mb-1 leading-tight">Pressure (kN/m²)</h4>
+                    <p className={`text-xl font-bold tabular-nums tracking-tight ${isBearingSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{q_max.toFixed(1)} / {max_sbc}</p>
                   </div>
                 </div>
                 
-                {(!isSlidingSafe || !isOverturnSafe) && (
+                {(!isSlidingSafe || !isOverturnSafe || !isBearingSafe) && (
                   <div className="mb-6 p-4 bg-rose-50 border border-rose-200 text-rose-700 rounded-[24px] text-sm font-bold flex items-start gap-3">
                     <span className="text-lg mt-0.5">⚠</span>
-                    <div>
-                      {!isSlidingSafe && <p>Sliding Factor of Safety ({FS_sliding.toFixed(2)}) &lt; 1.5 minimum required per IS 456:2000. Increase base width or add toe projection.</p>}
-                      {!isOverturnSafe && <p>Overturning Factor of Safety ({FS_overturn.toFixed(2)}) &lt; 2.0 minimum required. Increase base width or heel projection.</p>}
+                    <div className="space-y-1">
+                      {!isSlidingSafe && <p>Sliding Factor of Safety ({FS_sliding.toFixed(2)}) &lt; 1.5 minimum required.</p>}
+                      {!isOverturnSafe && <p>Overturning Factor of Safety ({FS_overturn.toFixed(2)}) &lt; 2.0 minimum required.</p>}
+                      {!isBearingSafe && (
+                        <p>
+                          {e > b / 6 ? `Resultant is outside middle third (e=${e.toFixed(2)} > ${b/6} m). ` : ''}
+                          {q_max > max_sbc ? `Max Pressure (${q_max.toFixed(1)} kN/m²) exceeds SBC.` : ''}
+                          {q_min < 0 ? `Tension exists under base (q_min = ${q_min.toFixed(1)} kN/m²).` : ''}
+                        </p>
+                      )}
                     </div>
                   </div>
                 )}

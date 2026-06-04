@@ -209,11 +209,11 @@ export default function BOQGenerator() {
   };
 
   const exportPDF = () => {
-    generateBOQPDF(items, projectName, subtotal, contingencyAmount, gstAmount, grandTotal, settings.currency);
+    generateBOQPDF(items, projectName, subtotal, contingencyAmount, 0, gstAmount, grandTotal, settings.currency);
   };
 
   const exportExcel = () => {
-    generateBOQExcel(items, projectName, subtotal, contingencyAmount, gstAmount, grandTotal, settings.currency);
+    generateBOQExcel(items, projectName, subtotal, contingencyAmount, 0, gstAmount, grandTotal, settings.currency);
   };
 
   return (

@@ -56,54 +56,91 @@ export default function DirectShearTestCalculator() {
   const estimateData = useMemo(() => {
     if (!hasData) return null;
 
-    const n = testData.length;
-    let sumX = 0;
-    let sumY = 0;
-    let sumXY = 0;
-    let sumX2 = 0;
+    let validData = [...testData].filter(d => d.normalStress !== 0 || d.shearStress !== 0);
+    if (validData.length < 2) return null;
 
-    testData.forEach(p => {
-      sumX += p.normalStress;
-      sumY += p.shearStress;
-      sumXY += (p.normalStress * p.shearStress);
-      sumX2 += (p.normalStress * p.normalStress);
-    });
+    const calculateRegression = (data: typeof validData) => {
+        const n = data.length;
+        let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+        data.forEach(p => {
+          sumX += p.normalStress;
+          sumY += p.shearStress;
+          sumXY += (p.normalStress * p.shearStress);
+          sumX2 += (p.normalStress * p.normalStress);
+        });
 
-    // Least squares regression: y = mx + c (Shear = tan(phi) * Normal + Cohesion)
-    let slope = 0;
-    let intercept = 0;
+        let slope = 0;
+        let intercept = 0;
+        if (n > 1) {
+          const denominator = (n * sumX2 - sumX * sumX);
+          if (denominator !== 0) {
+            slope = (n * sumXY - sumX * sumY) / denominator;
+            intercept = (sumY - slope * sumX) / n;
+          }
+        }
+        return { slope, intercept };
+    };
 
-    if (n > 1) {
-      const denominator = (n * sumX2 - sumX * sumX);
-      if (denominator !== 0) {
-        slope = (n * sumXY - sumX * sumY) / denominator;
-        intercept = (sumY - slope * sumX) / n;
-      }
+    // First pass regression
+    let { slope, intercept } = calculateRegression(validData);
+    
+    // Outlier detection (only if more than 3 points, as 3 points is standard)
+    const outliers = new Set<number>();
+    if (validData.length > 3) {
+        // Calculate residuals
+        const residuals = validData.map(p => Math.abs(p.shearStress - (intercept + slope * p.normalStress)));
+        const meanResidual = residuals.reduce((a, b) => a + b, 0) / residuals.length;
+        const variance = residuals.reduce((a, b) => a + Math.pow(b - meanResidual, 2), 0) / residuals.length;
+        const stdDev = Math.sqrt(variance);
+
+        // Reject points with residual > 1.5 * stdDev (or some suitable threshold)
+        validData.forEach((p, index) => {
+             const residual = Math.abs(p.shearStress - (intercept + slope * p.normalStress));
+             // Using 1.5 sigma for small sample sets can be aggressive, but fulfills 'reject extreme outliers'
+             if (residual > meanResidual + 1.5 * stdDev) {
+                 outliers.add(index);
+             }
+        });
+
+        // Recalculate if outliers found and we still have at least 2 points
+        if (outliers.size > 0 && validData.length - outliers.size >= 2) {
+             const cleanedData = validData.filter((_, i) => !outliers.has(i));
+             const newReg = calculateRegression(cleanedData);
+             slope = newReg.slope;
+             intercept = newReg.intercept;
+        } else if (validData.length - outliers.size < 2) {
+             // Too many outliers, revert
+             outliers.clear();
+        }
     }
 
-    // Ensure cohesion isn't negative theoretically for sands, but let mathematically be what it is, maybe floor to 0
     const cohesion = Math.max(0, intercept); 
-    const angleOfFriction = Math.atan(slope) * (180 / Math.PI); // Convert radians to degrees
+    const angleOfFriction = Math.atan(slope) * (180 / Math.PI); 
 
-    // Generate regression line points
-    const minStress = Math.min(0, ...testData.map(d => d.normalStress));
-    const maxStress = Math.max(0, ...testData.map(d => d.normalStress)) * 1.2;
+    const minStress = Math.min(0, ...validData.map(d => d.normalStress));
+    const maxStress = Math.max(0, ...validData.map(d => d.normalStress)) * 1.2;
 
     const regressionLine = [
       { normalStress: minStress, regShearStress: cohesion + slope * minStress },
       { normalStress: maxStress, regShearStress: cohesion + slope * maxStress }
     ];
 
-    const chartData = testData.map(d => ({
+    const chartData = validData.map((d, index) => ({
       normalStress: d.normalStress,
       shearStress: d.shearStress,
+      isOutlier: outliers.has(index)
     }));
+
+    const validChartData = chartData.filter(d => !d.isOutlier);
+    const outlierChartData = chartData.filter(d => d.isOutlier);
 
     return {
       cohesion,
       angleOfFriction,
       regressionLine,
-      chartData,
+      chartData: validChartData,
+      outlierData: outlierChartData,
+      outlierCount: outliers.size,
       eq: `τ = ${cohesion.toFixed(2)} + σ × tan(${angleOfFriction.toFixed(1)}°)`
     };
   }, [hasData, testData]);
@@ -350,14 +387,29 @@ export default function DirectShearTestCalculator() {
                          />
                          <Scatter 
                             data={estimateData.chartData} 
-                            name="Test Samples" 
+                            name="Valid Test Samples" 
                             fill="#f59e0b"
                             shape="circle"
                             isAnimationActive={false}
                          />
+                         {estimateData.outlierCount > 0 && (
+                             <Scatter 
+                                data={estimateData.outlierData} 
+                                name="Rejected Outliers" 
+                                fill="#ef4444"
+                                shape="cross"
+                                isAnimationActive={false}
+                             />
+                         )}
                        </ComposedChart>
                      </ResponsiveContainer>
                   </div>
+                  
+                  {estimateData.outlierCount > 0 && (
+                       <div className="bg-rose-50 border border-rose-200 p-4 rounded-[24px] text-rose-700 text-sm font-semibold mb-6 shadow-sm flex items-center justify-center">
+                           Note: {estimateData.outlierCount} outlier point(s) rejected to improve Mohr-Coulomb regression fit.
+                       </div>
+                  )}
                 </div>
               </div>
             ) : (

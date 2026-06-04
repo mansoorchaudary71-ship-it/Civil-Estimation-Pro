@@ -28,7 +28,7 @@ export class ConcreteMortarCalculator {
   }
 
   getDryVolume() {
-    return this.getWetVolume() * CIVIL_CONSTANTS.DRY_CONCRETE_FACTOR;
+    return this.getWetVolume() * 1.54;
   }
 
   calculate() {
@@ -41,10 +41,9 @@ export class ConcreteMortarCalculator {
     const cementRatio = this.mixRatio[0] || 0;
     const cementVol = (cementRatio / sumRatio) * dryVol;
     
-    // In Metric (cubic meters), 1 bag cement (50kg) = 0.0347 cu.m
-    // In Imperial (cubic feet), 1 bag cement (50kg) = 1.226 cu.ft
+    // CEMENT_BAG_CONVERSION: In Metric (cubic meters), 1 bag cement (50kg) = 0.0347 cu.m
     const cementVolumePerBag = this.isMetric ? 0.0347 : 1.226;
-    const cementBags = cementVol / cementVolumePerBag;
+    const cementBags = Math.ceil(cementVol / cementVolumePerBag);
 
     // Weight of cement in kg
     const cementWeightKg = cementBags * 50;
@@ -85,8 +84,10 @@ export class PlasterCalculator {
 
   calculate() {
     const wetVolume = this.area * this.thickness;
-    // Dry Volume = V_wet * 1.33 (for voids etc) * 1.25 (shrinkage/wastage) = V_wet * 1.6625
-    let dryVolume = wetVolume * 1.6625;
+    // MORTAR_DRY_VOLUME: V_dry = V_wet * 1.33
+    // We add user defined wastage afterwards if needed
+    let dryVolume = wetVolume * 1.33;
+    dryVolume = dryVolume * (1 + this.wastagePct / 100);
 
     const sumRatio = this.mixRatio.reduce((a, b) => a + b, 0);
     if (sumRatio === 0) return { cementBags: 0, sandVol: 0, waterLiters: 0, totalWetVolume: wetVolume };
@@ -94,9 +95,9 @@ export class PlasterCalculator {
     const cementRatio = this.mixRatio[0] || 0;
     const cementVol = (cementRatio / sumRatio) * dryVolume;
     
-    // cement calculation: Volume of 1 bag is roughly 0.0347 m3
+    // CEMENT_BAG_CONVERSION
     const cementVolumePerBag = this.isMetric ? 0.0347 : 1.226;
-    const cementBags = cementVol / cementVolumePerBag;
+    const cementBags = Math.ceil(cementVol / cementVolumePerBag);
 
     const sandRatio = this.mixRatio[1] || 0;
     const sandVol = (sandRatio / sumRatio) * dryVolume;
@@ -158,8 +159,7 @@ export class BrickworkCalculator {
   }
 
   calculate() {
-    let netWallVol = this.getNetWallVolume();
-    netWallVol = netWallVol * (1 + this.wastagePct / 100);
+    const netWallVol = this.getNetWallVolume();
 
     const bL = this.brickLength;
     const bW = this.brickWidth;
@@ -168,13 +168,26 @@ export class BrickworkCalculator {
 
     // standard mortar joint thickness accounted around the brick
     const volBrickWithMortar = (bL + mT) * (bW + mT) * (bH + mT);
-    const numBricks = volBrickWithMortar > 0 ? Math.ceil(netWallVol / volBrickWithMortar) : 0;
+    
+    // MASONRY_BRICK_COUNT
+    const baseNumBricks = volBrickWithMortar > 0 ? (netWallVol / volBrickWithMortar) : 0;
+    
+    // Apply 10% standard wastage for bricks
+    const numBricks = Math.ceil(baseNumBricks * (1 + 10 / 100));
 
     const volOneBrick = bL * bW * bH;
-    const totalBrickVol = numBricks * volOneBrick;
+    const totalBrickVol = baseNumBricks * volOneBrick; // Actual bricks space without wastage
 
     // Mortar volume (wet)
-    const mortarWetVol = Math.max(0, netWallVol - totalBrickVol);
+    let mortarWetVol = Math.max(0, netWallVol - totalBrickVol);
+    
+    // Frog filling allowance (adds approx 15% extra mortar per brick)
+    mortarWetVol = mortarWetVol * 1.15;
+    
+    // Add overall wastage to mortar
+    mortarWetVol = mortarWetVol * (1 + this.wastagePct / 100);
+
+    // MORTAR_DRY_VOLUME: V_dry = V_wet * 1.33
     const mortarDryVol = mortarWetVol * 1.33;
 
     const sumRatio = this.mixRatio.reduce((a, b) => a + b, 0);
@@ -183,8 +196,9 @@ export class BrickworkCalculator {
 
     if (sumRatio > 0 && this.mixRatio.length >= 2) {
       const cementVol = (this.mixRatio[0] / sumRatio) * mortarDryVol;
+      // CEMENT_BAG_CONVERSION
       const cementVolumePerBag = this.isMetric ? 0.0347 : 1.226;
-      cementBags = cementVol / cementVolumePerBag;
+      cementBags = Math.ceil(cementVol / cementVolumePerBag);
       sandVol = (this.mixRatio[1] / sumRatio) * mortarDryVol;
     }
 

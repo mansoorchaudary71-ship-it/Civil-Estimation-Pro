@@ -23,6 +23,7 @@ import { MaterialSummary } from "../ui/MaterialSummary";
 import { ResultCard } from "../ui/ResultCard";
 import { useAuth } from "../../contexts/AuthContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { DetailedCalculationDisplay } from "../ui/DetailedCalculationDisplay";
 import { SVGShapeVisualizer } from "./ShapeVisualizer";
 type Shape =
   | "Rectangular Prism"
@@ -37,7 +38,8 @@ type Shape =
   | "Trapezoidal Dumper"
   | "Rectangle Tank"
   | "Concentric Cylinder"
-  | "Prism";
+  | "Prism"
+  | "Commercial Tank";
 type System = "Metric" | "Imperial";
 import { useGlobalSettings } from "../../context/SettingsContext";
 export default function VolumeEstimator() {
@@ -63,6 +65,16 @@ export default function VolumeEstimator() {
   const [outerDiameter, setOuterDiameter] = useState("");
   const [innerDiameter, setInnerDiameter] = useState("");
   const [density, setDensity] = useState("2400"); // default, we'll let user change it
+  
+  // Commercial Tank advanced states
+  const [tankBaseShape, setTankBaseShape] = useState<"Rectangular" | "Cylindrical">("Rectangular");
+  const [hasSlopedBase, setHasSlopedBase] = useState(false);
+  const [slopedHeight, setSlopedHeight] = useState("");
+  const [freeboardPercent, setFreeboardPercent] = useState("10");
+  const [deadStorageDepth, setDeadStorageDepth] = useState("");
+  const [outletLength, setOutletLength] = useState("");
+  const [outletWidth, setOutletWidth] = useState("");
+  const [tankSteps, setTankSteps] = useState<any[]>([]);
   
   React.useEffect(() => {
     if (system === "Metric" && density === "150") {
@@ -144,6 +156,12 @@ export default function VolumeEstimator() {
       label: "Tube / Pipe",
       icon: Cylinder,
       color: "text-slate-600 bg-slate-100 dark:bg-slate-500/20",
+    },
+    {
+      id: "Commercial Tank",
+      label: "Commercial Tank",
+      icon: Container,
+      color: "text-blue-600 bg-blue-50 dark:bg-blue-500/20",
     },
     {
       id: "Prism",
@@ -295,6 +313,147 @@ export default function VolumeEstimator() {
         "Base Perimeter": `${bp} ${unit}`,
         Height: `${h} ${unit}`,
       };
+    } else if (activeShape === "Commercial Tank") {
+      const sh = parse(slopedHeight);
+      const fb = parse(freeboardPercent) / 100;
+      const ds = parse(deadStorageDepth);
+      let grossVolume = 0;
+      let steps: any[] = [];
+      let baseAreaVal = 0;
+      
+      if (tankBaseShape === "Rectangular") {
+        baseAreaVal = l * w;
+        let mainVol = baseAreaVal * h;
+        steps.push({
+          stepName: "1. Main Rectangular Section Volume",
+          equation: "V_main = Length × Width × Height",
+          variables: [{name: "L", value: l, unit}, {name: "W", value: w, unit}, {name: "H", value: h, unit}],
+          substitution: `V_main = ${l} × ${w} × ${h}`,
+          result: parseFloat(mainVol.toFixed(3)),
+          resultUnit: volUnit,
+          resultColor: "slate"
+        });
+        
+        let slopedVol = 0;
+        if (hasSlopedBase) {
+          const oL = parse(outletLength);
+          const oW = parse(outletWidth);
+          const bottomArea = oL * oW;
+          slopedVol = (sh / 3) * (baseAreaVal + bottomArea + Math.sqrt(baseAreaVal * bottomArea));
+          steps.push({
+             stepName: "2. Sloped Base (Frustum) Volume",
+             equation: "V_slope = (h/3) × (A1 + A2 + √(A1×A2))",
+             variables: [{name: "sh", value: sh, unit}, {name: "A1", value: baseAreaVal, unit: sqUnit}, {name: "A2", value: bottomArea, unit: sqUnit}],
+             substitution: `V_slope = (${sh}/3) × (${baseAreaVal} + ${bottomArea} + √(${baseAreaVal}×${bottomArea}))`,
+             result: parseFloat(slopedVol.toFixed(3)),
+             resultUnit: volUnit,
+             resultColor: "slate"
+          });
+        }
+        
+        grossVolume = mainVol + slopedVol;
+        surfaceArea = 2 * (l * w + l * h + w * h); // approximate for simple case
+        
+      } else {
+        // Cylindrical
+        baseAreaVal = Math.PI * r * r;
+        let mainVol = baseAreaVal * h;
+        steps.push({
+          stepName: "1. Main Cylindrical Section Volume",
+          equation: "V_main = π × r² × Height",
+          variables: [{name: "r", value: r, unit}, {name: "H", value: h, unit}],
+          substitution: `V_main = π × ${r}² × ${h}`,
+          result: parseFloat(mainVol.toFixed(3)),
+          resultUnit: volUnit,
+          resultColor: "slate"
+        });
+        
+        let slopedVol = 0;
+        if (hasSlopedBase) {
+          const oR = parse(outletLength); // reuse outletLength as outletRadius
+          const bottomArea = Math.PI * oR * oR;
+          slopedVol = (sh / 3) * (baseAreaVal + bottomArea + Math.sqrt(baseAreaVal * bottomArea));
+          steps.push({
+             stepName: "2. Cone Frustum Base Volume",
+             equation: "V_slope = (h/3) × (A1 + A2 + √(A1×A2))",
+             variables: [{name: "sh", value: sh, unit}, {name: "A1 (Top)", value: baseAreaVal.toFixed(2), unit: sqUnit}, {name: "A2 (Bot)", value: bottomArea.toFixed(2), unit: sqUnit}],
+             substitution: `V_slope = (${sh}/3) × (${baseAreaVal.toFixed(2)} + ${bottomArea.toFixed(2)} + √(...))`,
+             result: parseFloat(slopedVol.toFixed(3)),
+             resultUnit: volUnit,
+             resultColor: "slate"
+          });
+        }
+        grossVolume = mainVol + slopedVol;
+        surfaceArea = 2 * Math.PI * r * h + 2 * Math.PI * r * r;
+      }
+      
+      const freeboardVol = baseAreaVal * (h * fb); // Top part loss
+      steps.push({
+         stepName: "3. Freeboard Deduction",
+         equation: "V_fb = Base_Area × (Height × FB%)",
+         variables: [{name: "Base Area", value: baseAreaVal.toFixed(2), unit: sqUnit}, {name: "FB Height", value: (h*fb).toFixed(2), unit}],
+         substitution: `V_fb = ${baseAreaVal.toFixed(2)} × ${parseFloat((h*fb).toFixed(2))}`,
+         result: parseFloat(freeboardVol.toFixed(3)),
+         resultUnit: volUnit,
+         resultColor: "rose"
+      });
+      
+      let deadVol = 0;
+      if (ds > 0 && hasSlopedBase) {
+        // approximate dead storage as small frustum or simple box
+        if (tankBaseShape === "Rectangular") {
+          const oL = parse(outletLength);
+          const oW = parse(outletWidth);
+          // simple approximation: assume vertical or slightly sloped dead storage walls
+          deadVol = oL * oW * ds; 
+        } else {
+          const oR = parse(outletLength);
+          deadVol = Math.PI * oR * oR * ds;
+        }
+        steps.push({
+           stepName: "4. Dead Storage Deduction",
+           equation: "V_dead = Outlet_Area × ds_Depth  (approx)",
+           variables: [{name: "ds_Depth", value: ds, unit}],
+           substitution: `V_dead = ... × ${ds}`,
+           result: parseFloat(deadVol.toFixed(3)),
+           resultUnit: volUnit,
+           resultColor: "rose"
+        });
+      } else if (ds > 0) {
+        // Flat bottom dead storage
+        deadVol = baseAreaVal * ds;
+        steps.push({
+           stepName: "4. Dead Storage Deduction",
+           equation: "V_dead = Base_Area × ds_Depth",
+           variables: [{name: "Base Area", value: baseAreaVal.toFixed(2), unit: sqUnit}, {name: "Depth", value: ds, unit}],
+           substitution: `V_dead = ${baseAreaVal.toFixed(2)} × ${ds}`,
+           result: parseFloat(deadVol.toFixed(3)),
+           resultUnit: volUnit,
+           resultColor: "rose"
+        });
+      }
+      
+      const netVolume = grossVolume - freeboardVol - deadVol;
+      steps.push({
+         stepName: "5. Net Usable Capacity",
+         equation: "Net_Volume = Gross - V_fb - V_dead",
+         variables: [{name: "Gross", value: grossVolume.toFixed(2), unit: volUnit}],
+         substitution: `Net = ${grossVolume.toFixed(2)} - ${freeboardVol.toFixed(2)} - ${deadVol.toFixed(2)}`,
+         result: parseFloat(netVolume.toFixed(3)),
+         resultUnit: volUnit,
+         resultColor: "emerald"
+      });
+      
+      volume = netVolume;
+      inputs = {
+        "Shape": tankBaseShape,
+        "Total Height": `${h} ${unit}`,
+        "Freeboard": `${fb * 100}%`,
+      };
+      
+      explanationOpts.hasInputs = true;
+      explanationOpts.activeBreakdown = [];
+      explanationOpts.steps = steps; // Store steps here to render later
     }
     return { volume, surfaceArea, totalWeight, inputs, explanationOpts };
   };
@@ -316,7 +475,14 @@ export default function VolumeEstimator() {
     basePerimeter,
     outerDiameter,
     innerDiameter,
-    density
+    density,
+    tankBaseShape,
+    hasSlopedBase,
+    slopedHeight,
+    freeboardPercent,
+    deadStorageDepth,
+    outletLength,
+    outletWidth
   ]);
   let liquidCapacity = 0;
   let capacityUnit = "";
@@ -599,6 +765,91 @@ export default function VolumeEstimator() {
                   </div>
                 </div>
               )}
+              {activeShape === "Commercial Tank" && (
+                <div className="grid grid-cols-1 gap-6 bg-slate-50 dark:bg-slate-800/50 p-4 border border-slate-200 dark:border-slate-700 rounded-[24px]">
+                  <div className="flex bg-white dark:bg-slate-900 p-1 rounded-[16px] w-fit shadow-sm border border-slate-200 dark:border-slate-700">
+                    <button
+                      onClick={() => setTankBaseShape("Rectangular")}
+                      className={`px-4 py-1.5 rounded-[12px] text-xs font-bold transition-all ${tankBaseShape === "Rectangular" ? "bg-indigo-50 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400" : "text-slate-500 hover:text-slate-700"}`}
+                    >
+                      Rectangular Tank
+                    </button>
+                    <button
+                      onClick={() => setTankBaseShape("Cylindrical")}
+                      className={`px-4 py-1.5 rounded-[12px] text-xs font-bold transition-all ${tankBaseShape === "Cylindrical" ? "bg-indigo-50 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400" : "text-slate-500 hover:text-slate-700"}`}
+                    >
+                      Cylindrical Tank
+                    </button>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {tankBaseShape === "Rectangular" ? (
+                      <>
+                        <div>
+                          <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Length ({system === "Metric" ? "m" : "ft"})</label>
+                          <input type="number" value={length} onChange={(e) => setLength(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                        </div>
+                        <div>
+                          <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Width ({system === "Metric" ? "m" : "ft"})</label>
+                          <input type="number" value={width} onChange={(e) => setWidth(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                        </div>
+                      </>
+                    ) : (
+                      <div>
+                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Radius ({system === "Metric" ? "m" : "ft"})</label>
+                        <input type="number" value={radius} onChange={(e) => setRadius(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                      </div>
+                    )}
+                    <div>
+                      <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Main Height ({system === "Metric" ? "m" : "ft"})</label>
+                      <input type="number" value={height} onChange={(e) => setHeight(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                    <div>
+                      <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Freeboard (%)</label>
+                      <input type="number" value={freeboardPercent} onChange={(e) => setFreeboardPercent(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Dead Storage Depth ({system === "Metric" ? "m" : "ft"})</label>
+                      <input type="number" value={deadStorageDepth} onChange={(e) => setDeadStorageDepth(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                    </div>
+                  </div>
+                  
+                  <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
+                    <label className="flex items-center gap-2 text-sm font-bold text-slate-700 dark:text-slate-300 mb-4 cursor-pointer">
+                      <input type="checkbox" checked={hasSlopedBase} onChange={(e) => setHasSlopedBase(e.target.checked)} className="rounded text-indigo-500 focus:ring-indigo-500 bg-white" />
+                      Include Sloped / Hopper Base
+                    </label>
+                    {hasSlopedBase && (
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                          <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Hopper Depth ({system === "Metric" ? "m" : "ft"})</label>
+                          <input type="number" value={slopedHeight} onChange={(e) => setSlopedHeight(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                        </div>
+                        {tankBaseShape === "Rectangular" ? (
+                          <>
+                            <div>
+                              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Outlet Length</label>
+                              <input type="number" value={outletLength} onChange={(e) => setOutletLength(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                            </div>
+                            <div>
+                              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Outlet Width</label>
+                              <input type="number" value={outletWidth} onChange={(e) => setOutletWidth(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                            </div>
+                          </>
+                        ) : (
+                          <div>
+                            <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Outlet Radius</label>
+                            <input type="number" value={outletLength} onChange={(e) => setOutletLength(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
               {activeShape === "Rectangle Tank" && (
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
@@ -813,6 +1064,12 @@ export default function VolumeEstimator() {
              </div>
                                        
              </MaterialSummary>
+             
+             {activeShape === "Commercial Tank" && explanationOpts.steps && (
+               <div className="mt-4">
+                  <DetailedCalculationDisplay steps={explanationOpts.steps} />
+               </div>
+             )}
           </div>
         </div>
       </div>

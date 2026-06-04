@@ -1,332 +1,163 @@
 import React, { useState, useMemo } from "react";
-import { Helmet } from "react-helmet-async";
-import { Calculator, ArrowRight, Save, Printer, Share2, Bug, Clock, HelpCircle } from "lucide-react";
-import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
-import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
-import { useGlobalSettings } from "../../context/SettingsContext";
+import { Bug, Droplets, FlaskConical, AlertTriangle, Route } from "lucide-react";
+import { NumberInput } from "../ui/NumberInput";
+import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { SEO } from "../SEO";
 
 export default function AntiTermiteCalculator() {
-  const { isProcessing, hasData, processEstimate, resetEstimate } = useEstimateProcessing();
-  const { currentUnit } = useGlobalSettings();
-  const isMetric = currentUnit === "metric";
-
-  const [floorArea, setFloorArea] = useState("100");
-  const [perimeter, setPerimeter] = useState("40");
-  const [trenchDepth, setTrenchDepth] = useState("0.5");
+  const [floorArea, setFloorArea] = useState<number | "">(100);
+  const [perimeter, setPerimeter] = useState<number | "">(40);
+  const [trenchDepth, setTrenchDepth] = useState<number | "">(0.5);
 
   const chemicals = [
-    { name: "Chlorpyrifos 20% EC (1:19 dilution)", ratio: 20 },
-    { name: "Bifenthrin 2.5% EC (1:19 dilution)", ratio: 20 },
-    { name: "Imidacloprid 30.5% SC (1:475 dilution)", ratio: 476 },
-    { name: "Custom Dilution Factor", ratio: 0 },
+    { name: "Chlorpyrifos 20% EC", ratio: 19 },
+    { name: "Bifenthrin 2.5% EC", ratio: 19 },
+    { name: "Imidacloprid 30.5% SC", ratio: 475 },
+    { name: "Custom Mix", ratio: 0 },
   ];
 
   const [selectedChemical, setSelectedChemical] = useState(chemicals[0]);
-  const [customRatio, setCustomRatio] = useState("20");
-  const [costPerLitre, setCostPerLitre] = useState("15");
+  const [customRatio, setCustomRatio] = useState<number | "">(19);
 
-  const handleDataChange = () => {
-    if (hasData) resetEstimate();
-  };
-
-  const estimateData = useMemo(() => {
-    if (!hasData) return null;
-
-    const parseNum = (val: string) => Math.max(0, parseFloat(val) || 0);
-
-    const fArea = parseNum(floorArea);
-    const p = parseNum(perimeter);
-    const d = parseNum(trenchDepth);
-
-    // Convert to metric for standard calculation (Liters)
-    const floorAreaM2 = isMetric ? fArea : fArea * 0.092903;
-    const perimeterM = isMetric ? p : p * 0.3048;
-    const adminDepthM = isMetric ? d : d * 0.3048;
+  const results = useMemo(() => {
+    const fArea = Number(floorArea) || 0;
+    const p = Number(perimeter) || 0;
+    const d = Number(trenchDepth) || 0;
 
     // Rules:
     // Floor Area: 5 Liters of emulsion per square meter
     // Perimeter Trench: 7.5 Liters of emulsion per linear meter per meter of depth -> perimeter * depth * 7.5
-    // Wait, the rule usually says 7.5 L/sqm of vertical surface of the substructure. So perimeter * depth = sqm.
-    const emulsionFloorL = floorAreaM2 * 5;
-    const emulsionTrenchL = perimeterM * adminDepthM * 7.5;
+    const emulsionFloorL = fArea * 5;
+    const wallArea = p * d;
+    const emulsionTrenchL = wallArea * 7.5;
     const totalEmulsionL = emulsionFloorL + emulsionTrenchL;
 
-    const dilutionRatio = selectedChemical.ratio === 0 ? parseNum(customRatio) : selectedChemical.ratio;
-    // Prevent division by zero
-    const safeRatio = dilutionRatio > 0 ? dilutionRatio : 1;
-
-    const chemicalConcentrateL = totalEmulsionL / safeRatio;
+    const dilutionParts = selectedChemical.ratio === 0 ? (Number(customRatio) || 19) : selectedChemical.ratio;
     
-    // Cost
-    const rate = parseNum(costPerLitre);
-    const totalCost = chemicalConcentrateL * rate;
-
-    // Conversions for display if imperial
-    const emulsionFloorDisplay = isMetric ? emulsionFloorL : emulsionFloorL * 0.264172; // Gallons
-    const emulsionTrenchDisplay = isMetric ? emulsionTrenchL : emulsionTrenchL * 0.264172;
-    const totalEmulsionDisplay = isMetric ? totalEmulsionL : totalEmulsionL * 0.264172;
-    const chemicalConcentrateDisplay = isMetric ? chemicalConcentrateL : chemicalConcentrateL * 0.264172;
-
-    const volumeUnit = isMetric ? "Liters" : "Gallons";
+    // The total mixed solution consists of 1 part chemical + N parts water.
+    // Total Emulsion = Chemical Volume + Water Volume
+    // Total Parts = 1 + dilutionParts
+    const totalParts = 1 + dilutionParts;
+    
+    const chemicalConcentrateL = totalEmulsionL / totalParts;
+    const waterL = totalEmulsionL - chemicalConcentrateL;
 
     return {
-      emulsionFloor: emulsionFloorDisplay,
-      emulsionTrench: emulsionTrenchDisplay,
-      totalEmulsion: totalEmulsionDisplay,
-      chemicalConcentrate: chemicalConcentrateDisplay,
-      totalCost,
-      volumeUnit,
-      dilutionRatio: safeRatio
+      fArea,
+      wallArea,
+      emulsionFloor: emulsionFloorL,
+      emulsionTrench: emulsionTrenchL,
+      totalEmulsion: totalEmulsionL,
+      chemicalConcentrate: chemicalConcentrateL,
+      water: waterL,
+      totalParts,
+      dilutionParts
     };
-  }, [hasData, floorArea, perimeter, trenchDepth, selectedChemical, customRatio, costPerLitre, isMetric]);
-
-  const handlePrint = () => window.print();
+  }, [floorArea, perimeter, trenchDepth, selectedChemical, customRatio]);
 
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent text-slate-900 pb-[120px]">
-      <Helmet>
-        <title>Anti-Termite Treatment Calculator</title>
-        <meta name="description" content="Calculate chemical emulsion volume and concentrate for pre-construction anti-termite treatment." />
-      </Helmet>
-      
-      <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
-        <div className="mb-8">
-          <div className="flex flex-wrap items-center gap-2 mb-3">
-            <h2 className="text-3xl font-semibold text-slate-900 flex items-center gap-3">
-              <Bug className="w-8 h-8 text-indigo-600" />
-              Anti-Termite Treatment
-            </h2>
-            <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold tracking-wide uppercase ml-2 border border-emerald-200">
-              Beginner
-            </span>
-            <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-bold tracking-wide flex items-center gap-1 border border-slate-200">
-              <Clock className="w-3.5 h-3.5" /> 2 MIN
-            </span>
-          </div>
-          <p className="text-slate-500 max-w-2xl text-sm leading-relaxed">
-            Estimate the total chemical emulsion volume and required concentrate for pre-construction termite soil treatment for building foundations and floor slabs.
-          </p>
-        </div>
+    <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
+      <SEO 
+        title="Anti-Termite Treatment Estimator | Civil Estimation Pro" 
+        description="Calculate exact chemical emulsion and water dilution rates for pre-construction treatment of foundations, floors, and perimeters."
+      />
 
-        <div className="flex flex-col md:flex-row gap-8">
-          {/* Input Panel */}
-          <div className="w-full md:w-[45%] flex flex-col gap-6">
-            <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
-              
-              <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
-                <h3 className="font-bold text-lg text-slate-800">Foundation Dimensions</h3>
-              </div>
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[24px] shadow-sm">
+         <h2 className="text-xl font-bold flex items-center gap-2 mb-6 text-slate-800 dark:text-slate-200">
+          <Bug className="w-6 h-6 text-indigo-600" />
+          Anti-Termite Treatment & Emulsion Engine
+        </h2>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                <div className="sm:col-span-2">
-                  <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Ground Floor Area</label>
-                  <div className="relative">
-                    <input
-                      type="number"
-                      value={floorArea}
-                      onChange={(e) => { setFloorArea(e.target.value); handleDataChange(); }}
-                      className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
-                    />
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">{isMetric ? "sq m" : "sq ft"}</span>
-                  </div>
-                </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-5 space-y-6">
                 <div>
-                  <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Perimeter Length</label>
-                  <div className="relative">
-                    <input
-                      type="number"
-                      value={perimeter}
-                      onChange={(e) => { setPerimeter(e.target.value); handleDataChange(); }}
-                      className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
-                    />
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">{isMetric ? "m" : "ft"}</span>
+                  <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Surface Dimensions</h3>
+                  <div className="space-y-4">
+                    <NumberInput label="Total Ground Floor Area" unit="m²" value={floorArea} onChange={setFloorArea} />
+                    <NumberInput label="Total Outer Perimeter" unit="m" value={perimeter} onChange={setPerimeter} />
+                    <NumberInput label="Perimeter Trench Depth" unit="m" value={trenchDepth} onChange={setTrenchDepth} />
                   </div>
                 </div>
+
                 <div>
-                  <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Trench Depth</label>
-                  <div className="relative">
-                    <input
-                      type="number"
-                      value={trenchDepth}
-                      onChange={(e) => { setTrenchDepth(e.target.value); handleDataChange(); }}
-                      className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
-                    />
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">{isMetric ? "m" : "ft"}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4 mt-8">
-                <h3 className="font-bold text-lg text-slate-800">Chemical Specs</h3>
-              </div>
-
-              <div className="mb-4">
-                <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Chemical & Dilution</label>
-                <select
-                  value={selectedChemical.name}
-                  onChange={(e) => {
-                    const chem = chemicals.find(c => c.name === e.target.value);
-                    if (chem) {
-                      setSelectedChemical(chem);
-                      handleDataChange();
-                    }
-                  }}
-                  className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold appearance-none"
-                >
-                  {chemicals.map(c => (
-                    <option key={c.name} value={c.name}>{c.name}</option>
-                  ))}
-                </select>
-              </div>
-
-              {selectedChemical.ratio === 0 && (
-                <div className="mb-4 fade-in">
-                  <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Custom Ratio (1 part chemical : X parts water)</label>
-                  <div className="flex items-center gap-3">
-                    <span className="text-slate-400 font-bold font-mono">1 : </span>
-                    <input
-                      type="number"
-                      value={customRatio}
-                      onChange={(e) => { setCustomRatio(e.target.value); handleDataChange(); }}
-                      className="flex-1 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500"
-                    />
-                  </div>
-                </div>
-              )}
-
-              <div className="mb-2">
-                <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Cost of Chemical Concentrate</label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
-                  <input
-                    type="number"
-                    value={costPerLitre}
-                    onChange={(e) => { setCostPerLitre(e.target.value); handleDataChange(); }}
-                    className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] pl-8 pr-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
-                  />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-[10px] font-bold uppercase tracking-widest">per {isMetric ? "Liter" : "Gallon"}</span>
-                </div>
-              </div>
-
-              <button
-                onClick={() => processEstimate(() => {})}
-                disabled={isProcessing}
-                className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-[24px] shadow-md shadow-indigo-200 transition-all flex justify-center items-center gap-2 group border border-indigo-500"
-              >
-                {isProcessing ? "Computing..." : "Generate Estimate"}
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
-
-            <div className="p-5 rounded-[24px] border border-indigo-200 bg-indigo-50/50 shadow-sm">
-              <h4 className="text-sm font-bold text-indigo-900 mb-3 flex items-center gap-2">
-                <Calculator className="w-4 h-4" /> Math Logic & Formulas
-              </h4>
-              <ul className="text-[11px] text-indigo-800/80 space-y-2 list-disc list-inside leading-relaxed uppercase tracking-wider font-semibold">
-                <li><strong className="lowercase">Floor Treatment</strong> = Floor Area × 5 Liters/sqm</li>
-                <li><strong className="lowercase">Trench Treatment</strong> = Perimeter × Depth × 7.5 Liters/sqm</li>
-                <li><strong className="lowercase">Total Emulsion</strong> = Floor Treatment + Trench Treatment</li>
-                <li><strong className="lowercase">Chemical Concentrate</strong> = Total Emulsion ÷ Dilution Ratio</li>
-              </ul>
-            </div>
-            
-            <div className="bg-white p-5 rounded-[24px] border border-slate-200 shadow-sm">
-              <h4 className="font-bold text-slate-800 mb-3 uppercase tracking-wide text-xs">Frequently Asked Questions</h4>
-              <div className="space-y-3">
-                <div className="p-3 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-100">
-                  <p className="font-bold text-xs text-slate-700 mb-1">What is emulsion vs concentrate?</p>
-                  <p className="text-[11px] text-slate-500">The "Concentrate" is the pure chemical you purchase in bottles. You mix it with water at a specific ratio to create the "Emulsion" which is flooded into the soil.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Results Panel */}
-          <div className="w-full md:w-[55%]">
-            {isProcessing ? (
-              <ProcessingSkeleton count={5} />
-            ) : hasData && estimateData ? (
-              <div className="space-y-6">
-                <div className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-lg relative overflow-hidden">
-                  
-                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-100 pb-6 mb-8">
+                  <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Chemical Configuration</h3>
+                  <div className="space-y-4">
                     <div>
-                      <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1 block">Total Treatment Cost</span>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight tracking-tight text-slate-900">
-                          ${estimateData.totalCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                        </span>
-                      </div>
+                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1">Treatment Chemical</label>
+                        <select 
+                            value={selectedChemical.name}
+                            onChange={(e) => setSelectedChemical(chemicals.find(c => c.name === e.target.value) || chemicals[0])}
+                            className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[16px] px-4 text-sm font-medium focus:outline-none"
+                        >
+                            {chemicals.map(c => (
+                                <option key={c.name} value={c.name}>{c.name}</option>
+                            ))}
+                        </select>
                     </div>
-                  </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                    <div className="bg-indigo-50 p-5 rounded-[24px] border border-indigo-100 relative overflow-hidden">
-                      <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
-                      <span className="text-indigo-600/80 text-xs font-bold uppercase tracking-widest block mb-2 relative z-10 w-full truncate">Required Concentrate</span>
-                      <div className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight text-indigo-700 relative z-10 flex items-baseline gap-1">
-                        {estimateData.chemicalConcentrate.toLocaleString(undefined, {maximumFractionDigits: 1})}
-                        <span className="text-lg font-bold">{estimateData.volumeUnit}</span>
-                      </div>
-                      <span className="text-[10px] text-indigo-500/70 font-bold mt-1 block relative z-10 uppercase tracking-widest">Pure Chemical Needed</span>
+                    <div className={selectedChemical.ratio === 0 ? "block" : "opacity-50 pointer-events-none"}>
+                         <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1">Water Parts (1:X)</label>
+                         <div className="flex items-center gap-3">
+                             <div className="text-slate-400 font-bold font-mono">1 : </div>
+                             <div className="flex-1">
+                                 <NumberInput label="" unit="parts water" value={customRatio} onChange={setCustomRatio} />
+                             </div>
+                         </div>
                     </div>
-                    
-                    <div className="bg-cyan-50 p-5 rounded-[24px] border border-cyan-100 relative overflow-hidden">
-                      <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
-                      <span className="text-cyan-600/80 text-xs font-bold uppercase tracking-widest block mb-2 relative z-10 w-full truncate">Total Emulsion</span>
-                      <div className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight text-cyan-700 relative z-10 flex items-baseline gap-1">
-                        {estimateData.totalEmulsion.toLocaleString(undefined, {maximumFractionDigits: 0})}
-                        <span className="text-lg font-bold">{estimateData.volumeUnit}</span>
-                      </div>
-                      <span className="text-[10px] text-cyan-500/70 font-bold mt-1 block relative z-10 uppercase tracking-widest">Mixed Solution Required</span>
-                    </div>
-                  </div>
-
-                  <h4 className="text-sm font-bold text-slate-800 uppercase tracking-widest mb-4 border-b border-black/5 pb-2">Application Breakdown</h4>
-                  
-                  <div className="space-y-3 mb-6">
-                     <div className="bg-white border border-slate-100 p-4 rounded-[24px] flex justify-between items-center group hover:border-indigo-200 transition-colors">
-                       <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold">Floor / Slab Emulsion</span>
-                       <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 font-mono">{Math.round(estimateData.emulsionFloor).toLocaleString()} {estimateData.volumeUnit}</span>
-                     </div>
-                     <div className="bg-white border border-slate-100 p-4 rounded-[24px] flex justify-between items-center group hover:border-indigo-200 transition-colors">
-                       <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold">Trench / Perimeter Emulsion</span>
-                       <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 font-mono">{Math.round(estimateData.emulsionTrench).toLocaleString()} {estimateData.volumeUnit}</span>
-                     </div>
-                     <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 p-4 rounded-[24px] flex justify-between items-center">
-                       <span className="text-[11px] uppercase tracking-wider text-slate-500 font-bold">Dilution Ratio Used</span>
-                       <span className="text-sm font-semibold tabular-nums tracking-tight text-slate-800 font-mono">1 : {estimateData.dilutionRatio}</span>
-                     </div>
                   </div>
                 </div>
-              </div>
-            ) : (
-              <div className="h-full min-h-[400px] flex flex-col items-center justify-center bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[2rem] border-2 border-dashed border-slate-200 p-8 text-center opacity-80">
-                <div className="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mb-6 shadow-highlight">
-                  <Bug className="w-10 h-10 text-indigo-600 opacity-80" />
-                </div>
-                <h3 className="text-xl font-semibold text-slate-700 mb-2">Configure Treatment</h3>
-                <p className="text-slate-500 max-w-sm text-sm leading-relaxed mb-6">
-                  Input the foundation dimensions and chemical dilution. The total required emulsion volume and pure concentrate amounts will be calculated.
-                </p>
-              </div>
-            )}
-            
-            <CalculationHistory
-              calculatorId="anti_termite_calculator"
-              currentInputs={{ floorArea, perimeter, trenchDepth, "Chemical": selectedChemical.name, "Custom Ratio": customRatio, "Cost/Litre": costPerLitre }}
-              currentResults={estimateData ? {
-                "Total Emulsion": `${Math.round(estimateData.totalEmulsion).toLocaleString()} ${estimateData.volumeUnit}`,
-                "Chemical Concentrate": `${Math.round(estimateData.chemicalConcentrate).toLocaleString()} ${estimateData.volumeUnit}`,
-                "Cost": `${Number(estimateData.totalCost).toLocaleString()}`
-              } : undefined}
-              estimationName="Anti-Termite Treatment"
-            />
-          </div>
+            </div>
+
+            <div className="lg:col-span-7 flex flex-col gap-6">
+                <MaterialSummary 
+                    title="Volume Analytics & Mixed Emulsion"
+                    totalLabel="Required Emulsion (Mixed Solution)"
+                    totalValue={results.totalEmulsion.toFixed(1)}
+                    totalUnit="Liters"
+                    relatedToolIds={[]}
+                    className="mb-0"
+                >
+                    <div className="grid grid-cols-2 gap-4 mt-4">
+                        <ResultCard title="Floor Treatment (5 L/m²)" value={results.emulsionFloor.toFixed(1)} unit="Liters" variant="info" />
+                        <ResultCard title="Trench Treatment (7.5 L/m²)" value={results.emulsionTrench.toFixed(1)} unit="Liters" variant="warning" />
+                    </div>
+
+                    <div className="mt-6 flex flex-col gap-4">
+                        <div className="bg-indigo-50 border border-indigo-200 p-5 rounded-2xl">
+                            <h4 className="text-sm font-bold text-indigo-900 mb-4 flex items-center justify-between">
+                                <span>Pure Chemical Needed</span>
+                                <span className="text-xs bg-indigo-200 text-indigo-800 px-2 py-1 rounded-full uppercase tracking-wider">Dilution 1:{results.dilutionParts.toFixed(1)}</span>
+                            </h4>
+                            
+                            <div className="flex items-end gap-2">
+                                <span className="font-mono text-3xl font-bold text-indigo-700 tracking-tight">{results.chemicalConcentrate.toFixed(2)}</span>
+                                <span className="font-bold text-indigo-600/70 mb-1">Liters</span>
+                            </div>
+                        </div>
+
+                        <div className="bg-cyan-50 border border-cyan-200 p-5 rounded-2xl">
+                            <h4 className="text-sm font-bold text-cyan-900 mb-4 flex items-center justify-between">
+                                <span>Water Needed For Mixing</span>
+                                <Droplets className="w-4 h-4 text-cyan-500" />
+                            </h4>
+                            
+                            <div className="flex items-end gap-2">
+                                <span className="font-mono text-3xl font-bold text-cyan-700 tracking-tight">{results.water.toFixed(1)}</span>
+                                <span className="font-bold text-cyan-600/70 mb-1">Liters</span>
+                            </div>
+                        </div>
+                    </div>
+                </MaterialSummary>
+            </div>
         </div>
-      </div>
+       </div>
+    
+      <CalculationHistory 
+        calculatorId="anti_termite_calculator" 
+        currentInputs={{ floorArea, perimeter, trenchDepth, "Chemical": selectedChemical.name, "Custom Ratio": customRatio }} 
+      />
     </div>
   );
 }

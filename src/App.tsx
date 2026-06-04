@@ -66,6 +66,7 @@ import BuildingSetbackCalculator from "./components/modules/BuildingSetbackCalcu
 import FarFsiCalculator from "./components/modules/FarFsiCalculator";
 import StaircaseDesignReference from "./components/modules/StaircaseDesignReference";
 import DoorWindowSchedule from "./components/modules/DoorWindowSchedule";
+import LintelDesignTool from "./components/modules/LintelDesignTool";
 import VentilationChecker from "./components/modules/VentilationChecker";
 import ReinforcementVisualizer from "./components/modules/ReinforcementVisualizer";
 import BOQGenerator from "./components/modules/AdvancedBoqGenerator";
@@ -228,6 +229,12 @@ export const ALL_TOOLS = [
     title: "Ventilation & Lighting Checker",
     category: "Architectural References & Space Planning",
     icon: <Sun className="w-4 h-4" />,
+  },
+  {
+    id: "lintel-design-tool",
+    title: "Lintel Scheduler & Design Tool",
+    category: "Architectural References & Space Planning",
+    icon: <Layout className="w-4 h-4" />,
   },
 
   {
@@ -1244,6 +1251,17 @@ export default function App() {
                                   setIsSettingsOpen={setIsSettingsOpen}
                                 >
                                   <VentilationChecker />
+                                </ModuleWrapper>
+                              )}
+                              {activeModule === "lintel-design-tool" && (
+                                <ModuleWrapper activeModule={activeModule}
+                                  title="Lintel Scheduler & Design Tool"
+                                  
+                                  setActiveModule={handleSelectModule}
+                                  setIsSidebarOpen={setIsSidebarOpen}
+                                  setIsSettingsOpen={setIsSettingsOpen}
+                                >
+                                  <LintelDesignTool />
                                 </ModuleWrapper>
                               )}
 

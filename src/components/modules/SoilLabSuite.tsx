@@ -7,6 +7,7 @@ import DirectShearTestCalculator from "./DirectShearTestCalculator";
 import CbrTestCalculator from "./CbrTestCalculator";
 import PermeabilityCalculator from "./PermeabilityCalculator";
 import AggregateTestsCalculator from "./AggregateTestsCalculator";
+import MoistureGravityCalculator from "./MoistureGravityCalculator";
 import { CalculationHistory } from '../ui/CalculationHistory';
 
 type HubTab = "index" | "gradation" | "strength" | "aggregates";
@@ -81,100 +82,17 @@ export default function SoilLabSuite() {
 // -------------------------------------------------------------
 
 function GeotechnicalIndexProperties() {
-  // Enhancing existing GeotechnicalCalculator which does some of this, but it also has Sieve and CBR.
-  // I will create a tailored view here for WC, SG, Atterberg.
-  const [test, setTest] = useState<"wc" | "sg" | "atterberg">("wc");
+  const [test, setTest] = useState<"wc" | "atterberg">("wc");
   
   return (
-    <div className="p-4 md:p-6 w-full max-w-5xl mx-auto">
-      <div className="flex bg-slate-100 p-1 rounded-[24px] w-full mb-6">
-        <button onClick={() => setTest("wc")} className={`flex-1 py-2 rounded-[24px] text-sm font-bold transition-all ${test === "wc" ? "bg-white  shadow-sm text-indigo-600" : "text-slate-500"}`}>Water Content</button>
-        <button onClick={() => setTest("sg")} className={`flex-1 py-2 rounded-[24px] text-sm font-bold transition-all ${test === "sg" ? "bg-white  shadow-sm text-indigo-600" : "text-slate-500"}`}>Specific Gravity</button>
-        <button onClick={() => setTest("atterberg")} className={`flex-1 py-2 rounded-[24px] text-sm font-bold transition-all ${test === "atterberg" ? "bg-white  shadow-sm text-indigo-600" : "text-slate-500"}`}>Atterberg Limits</button>
+    <div className="p-4 md:p-6 w-full max-w-7xl mx-auto">
+      <div className="flex bg-slate-100 p-1 rounded-xl w-full mb-6">
+        <button onClick={() => setTest("wc")} className={`flex-1 px-3 py-2 rounded-lg text-sm font-bold transition-all ${test === "wc" ? "bg-white shadow-sm text-blue-600" : "text-slate-500 hover:text-slate-700"}`}>Moisture & Gravity Tool</button>
+        <button onClick={() => setTest("atterberg")} className={`flex-1 px-3 py-2 rounded-lg text-sm font-bold transition-all ${test === "atterberg" ? "bg-white shadow-sm text-blue-600" : "text-slate-500 hover:text-slate-700"}`}>Atterberg Limits</button>
       </div>
 
-      {test === "wc" && <WaterContentCalc />}
-      {test === "sg" && <SpecificGravityCalc />}
+      {test === "wc" && <MoistureGravityCalculator />}
       {test === "atterberg" && <AtterbergLimitsCalc />}
-    </div>
-  );
-}
-
-// 1. Water Content
-function WaterContentCalc() {
-  const [wcW1, setWcW1] = useState("");
-  const [wcW2, setWcW2] = useState("");
-  const [wcW3, setWcW3] = useState("");
-
-  const W1 = parseFloat(wcW1) || 0;
-  const W2 = parseFloat(wcW2) || 0;
-  const W3 = parseFloat(wcW3) || 0;
-
-  let wc = 0;
-  if (W3 - W1 > 0 && W2 > W3) {
-    wc = ((W2 - W3) / (W3 - W1)) * 100;
-  }
-
-  return (
-    <div className="grid md:grid-cols-2 gap-8">
-      <div className="bg-white p-6 rounded-[24px] shadow-sm border border-slate-200">
-        <h3 className="font-bold border-b pb-2 mb-4">Input Data</h3>
-        <div className="space-y-4">
-          <div>
-            <label className="text-xs font-bold text-slate-500 uppercase">W1: Weight of empty container (g)</label>
-            <input type="number" value={wcW1} onChange={e => setWcW1(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" />
-          </div>
-          <div>
-            <label className="text-xs font-bold text-slate-500 uppercase">W2: Wt. container + wet soil (g)</label>
-            <input type="number" value={wcW2} onChange={e => setWcW2(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" />
-          </div>
-          <div>
-            <label className="text-xs font-bold text-slate-500 uppercase">W3: Wt. container + dry soil (g)</label>
-            <input type="number" value={wcW3} onChange={e => setWcW3(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" />
-          </div>
-        </div>
-      </div>
-      <div className="bg-slate-50 p-6 rounded-[24px] border border-slate-200 flex flex-col justify-center text-center">
-         <h4 className="text-sm font-bold text-slate-500 uppercase mb-2">Water Content (w)</h4>
-         <div className="text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight text-indigo-600">{wc.toFixed(2)}%</div>
-      </div>
-    </div>
-  );
-}
-
-// 2. Specific Gravity
-function SpecificGravityCalc() {
-  const [sgW1, setSgW1] = useState("");
-  const [sgW2, setSgW2] = useState("");
-  const [sgW3, setSgW3] = useState("");
-  const [sgW4, setSgW4] = useState("");
-
-  const W1 = parseFloat(sgW1) || 0;
-  const W2 = parseFloat(sgW2) || 0;
-  const W3 = parseFloat(sgW3) || 0;
-  const W4 = parseFloat(sgW4) || 0;
-
-  let g = 0;
-  if ((W2 - W1) - (W3 - W4) > 0) {
-    g = (W2 - W1) / ((W2 - W1) - (W3 - W4));
-  }
-
-  return (
-    <div className="grid md:grid-cols-2 gap-8">
-      <div className="bg-white p-6 rounded-[24px] shadow-sm border border-slate-200">
-        <h3 className="font-bold border-b pb-2 mb-4">Input Data (Pycnometer)</h3>
-        <div className="space-y-4">
-          <div><label className="text-xs font-bold text-slate-500 uppercase">W1: Empty (g)</label><input type="number" value={sgW1} onChange={e => setSgW1(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">W2: + Soil (g)</label><input type="number" value={sgW2} onChange={e => setSgW2(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">W3: + Soil + Water (g)</label><input type="number" value={sgW3} onChange={e => setSgW3(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" /></div>
-          <div><label className="text-xs font-bold text-slate-500 uppercase">W4: + Water (g)</label><input type="number" value={sgW4} onChange={e => setSgW4(e.target.value)} className="w-full mt-1 bg-slate-50 border p-2 rounded-[16px]" /></div>
-        </div>
-      </div>
-      <div className="bg-slate-50 p-6 rounded-[24px] border border-slate-200 flex flex-col justify-center text-center">
-         <h4 className="text-sm font-bold text-slate-500 uppercase mb-2">Specific Gravity (G)</h4>
-         <div className="text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight text-indigo-600">{g > 0 ? g.toFixed(3) : "0.000"}</div>
-         {g > 0 && (g < 2.5 || g > 2.9) && <div className="text-xs text-rose-500 mt-2 font-bold">Unusual value (typically 2.6 - 2.8)</div>}
-      </div>
     </div>
   );
 }

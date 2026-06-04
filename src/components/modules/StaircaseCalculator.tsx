@@ -11,6 +11,72 @@ import { SEO } from "../SEO";
 import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import { parseNum } from "../../utils/mathHelpers";
 
+const StaircaseVisualizer = ({ rise, tread, numSteps, uLen }: { rise: number, tread: number, numSteps: number, uLen: string }) => {
+  const r = rise > 0 ? rise : 0.15;
+  const t = tread > 0 ? tread : 0.25;
+  const stepsCount = numSteps > 0 ? Math.min(Math.floor(numSteps), 20) : 10;
+  
+  const totalW = stepsCount * t;
+  const totalH = stepsCount * r;
+  
+  const viewBoxW = totalW * 100;
+  const viewBoxH = totalH * 100;
+  const waistThickness = 0.15 * 100;
+  
+  let d = `M 0 ${viewBoxH} `;
+  let currX = 0;
+  let currY = viewBoxH;
+  
+  const rPx = r * 100;
+  const tPx = t * 100;
+  
+  for(let i=0; i<stepsCount; i++) {
+     currY -= rPx; 
+     d += `L ${currX} ${currY} `;
+     currX += tPx; 
+     d += `L ${currX} ${currY} `;
+  }
+  
+  d += `L ${viewBoxW} ${waistThickness} `;
+  d += `L 0 ${viewBoxH + waistThickness} Z`;
+
+  return (
+    <div className="w-full bg-slate-50 dark:bg-slate-800/40 rounded-[24px] border border-slate-200 dark:border-slate-700/50 p-6 flex flex-col relative overflow-hidden mt-6 shadow-sm group">
+        <div className="flex items-center justify-between mb-4">
+           <h4 className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest flex items-center gap-2">
+              <Ruler className="w-4 h-4" />
+              Live Layout Schematic
+           </h4>
+           <div className="flex gap-4">
+              <span className="text-[11px] font-semibold text-slate-500"><span className="text-indigo-600 dark:text-indigo-400 font-bold">{totalH.toFixed(2)}{uLen}</span> Rise</span>
+              <span className="text-[11px] font-semibold text-slate-500"><span className="text-indigo-600 dark:text-indigo-400 font-bold">{totalW.toFixed(2)}{uLen}</span> Run</span>
+           </div>
+        </div>
+        
+        <div className="w-full aspect-[4/3] sm:aspect-[16/9] bg-white dark:bg-slate-900/60 rounded-2xl border border-slate-200/50 dark:border-slate-700/50 relative flex items-center justify-center p-6 sm:p-10 overflow-hidden shadow-inner">
+           <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style={{ backgroundImage: "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)", backgroundSize: "20px 20px" }}></div>
+           
+           <svg viewBox={`-30 -30 ${viewBoxW + 60} ${viewBoxH + 60 + waistThickness}`} className="w-full h-full overflow-visible drop-shadow-xl z-10 transition-all duration-300 transform group-hover:scale-[1.02]">
+              <path d={d} fill="currentColor" className="text-indigo-50 dark:text-indigo-900/20 transition-all duration-500" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+              <path d={d} fill="none" className="text-indigo-500 dark:text-indigo-400" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round" />
+              
+              {stepsCount > 1 && (
+                  <g className="animate-in fade-in duration-500">
+                      <path d={`M ${tPx} ${viewBoxH - rPx} L ${tPx} ${viewBoxH - 2*rPx} L ${2*tPx} ${viewBoxH - 2*rPx}`} fill="none" stroke="#f59e0b" strokeWidth="3.5" />
+                      
+                      <line x1={tPx - (viewBoxW*0.02)} y1={viewBoxH - rPx} x2={tPx - (viewBoxW*0.02)} y2={viewBoxH - 2*rPx} stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="4,2" />
+                      <text x={tPx - (viewBoxW*0.03)} y={viewBoxH - 1.5*rPx} fontSize={Math.max(12, viewBoxW * 0.05)} fill="#d97706" textAnchor="end" dominantBaseline="middle" fontWeight="bold">{r.toFixed(2)}</text>
+                      
+                      <line x1={tPx} y1={viewBoxH - 2*rPx - (viewBoxH*0.04)} x2={2*tPx} y2={viewBoxH - 2*rPx - (viewBoxH*0.04)} stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="4,2" />
+                      <text x={1.5*tPx} y={viewBoxH - 2*rPx - (viewBoxH*0.05)} fontSize={Math.max(12, viewBoxW * 0.05)} fill="#d97706" textAnchor="middle" fontWeight="bold">{t.toFixed(2)}</text>
+                  </g>
+              )}
+           </svg>
+        </div>
+    </div>
+  )
+}
+
 export default function StaircaseCalculator() {
   const { currentUnit } = useGlobalSettings();
   const isSI = currentUnit === "Metric";
@@ -20,10 +86,14 @@ export default function StaircaseCalculator() {
   
   const [stairShape, setStairShape] = useState("Straight");
   const [numSteps, setNumSteps] = useState("10");
+  const [flight1Steps, setFlight1Steps] = useState("5");
+  const [flight2Steps, setFlight2Steps] = useState("5");
   const [rise, setRise] = useState("0.15");
   const [tread, setTread] = useState("0.25");
   const [stairWidth, setStairWidth] = useState("1.2");
   const [waistThickness, setWaistThickness] = useState("0.15");
+  const [landingLength, setLandingLength] = useState("1.2");
+  const [landingWidth, setLandingWidth] = useState("1.2");
   
   const [mainBarDia, setMainBarDia] = useState("12");
   const [mainBarSpacing, setMainBarSpacing] = useState("150");
@@ -43,10 +113,14 @@ export default function StaircaseCalculator() {
     
     const steps: any[] = [];
     
-    const stepsCount = parseNum(numSteps) || 0;
+    const isStraight = stairShape === "Straight";
+    const stepsCount = isStraight ? (parseNum(numSteps) || 0) : ((parseNum(flight1Steps) || 0) + (parseNum(flight2Steps) || 0));
     let r = parseNum(rise) || 0;
     let t = parseNum(tread) || 0;
     let w = parseNum(stairWidth) || 0;
+    let waist = parseNum(waistThickness) || 0;
+    let lLength = parseNum(landingLength) || 0;
+    let lWidth = parseNum(landingWidth) || 0;
     const was = parseNum(wastage) || 0;
 
     if (r > 0 && t > 0 && w > 0 && stepsCount > 0) {
@@ -54,44 +128,87 @@ export default function StaircaseCalculator() {
         r = r * 0.3048;
         t = t * 0.3048;
         w = w * 0.3048;
+        waist = waist * 0.3048;
+        lLength = lLength * 0.3048;
+        lWidth = lWidth * 0.3048;
       }
 
-      // Step 1: Volume of one step = (Rise × Tread × Width) / 2
+      // Step 1: Volume of Steps (Triangular portion)
       const volOneStep = (r * t * w) / 2;
+      const totalStepVol = volOneStep * stepsCount;
       steps.push({
-        stepName: "1. Volume of One Step",
-        equation: "V_step = (Rise × Tread × Width) / 2",
+        stepName: "1. Volume of Steps (Triangular Portion)",
+        equation: "V_steps = [(Rise × Tread × Width) / 2] × Total Steps",
+        insight: "Calculates the total concrete required for the treads and risers.",
         variables: [
-          { name: "Rise", value: r, unit: "m" },
-          { name: "Tread", value: t, unit: "m" },
-          { name: "Width", value: w, unit: "m" }
+          { name: "Rise", value: r.toFixed(3), unit: "m" },
+          { name: "Tread", value: t.toFixed(3), unit: "m" },
+          { name: "Width", value: w.toFixed(3), unit: "m" },
+          { name: "Total Steps", value: stepsCount }
         ],
-        substitution: `V_step = (${r.toFixed(3)} × ${t.toFixed(3)} × ${w.toFixed(3)}) / 2`,
-        result: parseFloat(volOneStep.toFixed(4)),
+        substitution: `V_steps = [(${r.toFixed(3)} × ${t.toFixed(3)} × ${w.toFixed(3)}) / 2] × ${stepsCount}`,
+        result: parseFloat(totalStepVol.toFixed(4)),
         resultUnit: "m³",
         resultColor: "emerald"
       });
 
-      // Step 2: Total concrete volume = Volume per step × Number of steps
-      const totalConcreteVol = volOneStep * stepsCount;
+      // Step 2: Volume of Waist Slab
+      const inclinedLen = Math.sqrt(r * r + t * t);
+      const totalInclinedLen = inclinedLen * stepsCount;
+      const waistVol = totalInclinedLen * w * waist;
       steps.push({
-        stepName: "2. Total Wet Concrete Volume",
-        equation: "V_total_wet = V_step × Number of steps",
+        stepName: "2. Waist Slab Volume",
+        equation: "V_waist = (√(Rise² + Tread²) × Steps) × Width × Waist_Thickness",
         variables: [
-          { name: "V_step", value: volOneStep.toFixed(4), unit: "m³" },
-          { name: "Steps", value: stepsCount }
+          { name: "Inclined Length", value: totalInclinedLen.toFixed(3), unit: "m" },
+          { name: "Waist Thickness", value: waist.toFixed(3), unit: "m" }
         ],
-        substitution: `V_total_wet = ${volOneStep.toFixed(4)} × ${stepsCount}`,
+        substitution: `V_waist = ${totalInclinedLen.toFixed(3)} × ${w.toFixed(3)} × ${waist.toFixed(3)}`,
+        result: parseFloat(waistVol.toFixed(4)),
+        resultUnit: "m³",
+        resultColor: "emerald"
+      });
+
+      // Step 3: Volume of Landing
+      let landingVol = 0;
+      if (!isStraight) {
+         landingVol = lLength * lWidth * waist;
+         steps.push({
+           stepName: "3. Landing Volume",
+           equation: "V_landing = Length × Width × Thickness",
+           variables: [
+             { name: "Length", value: lLength.toFixed(3), unit: "m" },
+             { name: "Width", value: lWidth.toFixed(3), unit: "m" },
+             { name: "Thickness", value: waist.toFixed(3), unit: "m" }
+           ],
+           substitution: `V_landing = ${lLength.toFixed(3)} × ${lWidth.toFixed(3)} × ${waist.toFixed(3)}`,
+           result: parseFloat(landingVol.toFixed(4)),
+           resultUnit: "m³",
+           resultColor: "emerald"
+         });
+      }
+
+      // Step 4: Total Volume
+      const totalConcreteVol = totalStepVol + waistVol + landingVol;
+      steps.push({
+        stepName: !isStraight ? "4. Total Wet Concrete Volume" : "3. Total Wet Concrete Volume",
+        equation: "V_total_wet = V_steps + V_waist" + (!isStraight ? " + V_landing" : ""),
+        variables: [
+          { name: "V_steps", value: totalStepVol.toFixed(4), unit: "m³" },
+          { name: "V_waist", value: waistVol.toFixed(4), unit: "m³" },
+          ...( !isStraight ? [{ name: "V_landing", value: landingVol.toFixed(4), unit: "m³" }] : [])
+        ],
+        substitution: `V_total_wet = ${totalStepVol.toFixed(4)} + ${waistVol.toFixed(4)}` + (!isStraight ? ` + ${landingVol.toFixed(4)}` : ""),
         result: parseFloat(totalConcreteVol.toFixed(4)),
         resultUnit: "m³",
         resultColor: "emerald"
       });
 
-      // Step 3: With wastage
+      // Step 5: With wastage
       const totalWithWastage = totalConcreteVol * (1 + (was / 100));
       steps.push({
-        stepName: "3. With Wastage",
-        equation: "V_wastage = Total × (1 + wastage%)",
+        stepName: !isStraight ? "5. With Wastage" : "4. With Wastage",
+        equation: "V_wastage = V_total_wet × (1 + wastage%)",
         variables: [
           { name: "Total", value: totalConcreteVol.toFixed(4), unit: "m³" },
           { name: "Wastage", value: was, unit: "%" }
@@ -102,7 +219,7 @@ export default function StaircaseCalculator() {
         resultColor: "emerald"
       });
 
-      // Step 3.5: Dry Volume conversion
+      // Step 5.5: Dry Volume conversion
       const dryVol = totalWithWastage * 1.54;
       wetVol = totalWithWastage;
       
@@ -115,10 +232,10 @@ export default function StaircaseCalculator() {
       }
       const sum = cPart + sPart + aPart;
 
-      // Step 4: Cement bags
+      // Cement bags
       cementBags = Math.ceil((dryVol * (cPart / sum)) / 0.0347);
       steps.push({
-        stepName: "4. Cement Bags",
+        stepName: !isStraight ? "6. Cement Bags" : "5. Cement Bags",
         equation: "Bags = (Dry Volume × cement_ratio / total_ratio) / 0.0347",
         insight: "System Rule: V_dry = V_wet * 1.54. Then 1 bag = 50kg = 0.0347 m³. Rule Enforcement Active.",
         variables: [
@@ -131,10 +248,10 @@ export default function StaircaseCalculator() {
         resultColor: "purple"
       });
 
-      // Step 5: Sand CFT = Dry Volume × sand ratio / total ratio × 35.3147
+      // Sand CFT
       sandCft = (dryVol * (sPart / sum)) * 35.3147;
       steps.push({
-        stepName: "5. Sand Volume",
+        stepName: !isStraight ? "7. Sand Volume" : "6. Sand Volume",
         equation: "Sand (CFT) = Dry Volume × (sand_ratio / total_ratio) × 35.3147",
         variables: [
           { name: "Dry Volume", value: dryVol.toFixed(4), unit: "m³" }
@@ -145,10 +262,10 @@ export default function StaircaseCalculator() {
         resultColor: "blue"
       });
 
-      // Step 6: Aggregate CFT = Dry Volume × aggregate ratio / total ratio × 35.3147
+      // Aggregate CFT
       aggCft = (dryVol * (aPart / sum)) * 35.3147;
       steps.push({
-        stepName: "6. Aggregate Volume",
+        stepName: !isStraight ? "8. Aggregate Volume" : "7. Aggregate Volume",
         equation: "Aggregate (CFT) = Dry Volume × (aggregate_ratio / total_ratio) × 35.3147",
         variables: [
           { name: "Dry Volume", value: dryVol.toFixed(4), unit: "m³" }
@@ -159,11 +276,13 @@ export default function StaircaseCalculator() {
         resultColor: "orange"
       });
 
-      // Step 7: Steel = Total concrete volume × 1% × 7850 kg/m³
+      // Steel = Total concrete volume × 1% × 7850 kg/m³
+      // Rebar steel estimation is typically 0.8% - 1.2% for stairs. Let's use 1% on total volume including landing.
       steelKg = totalConcreteVol * 0.01 * 7850;
       steps.push({
-        stepName: "7. Steel Requirement",
+        stepName: !isStraight ? "9. Steel Requirement" : "8. Steel Requirement",
         equation: "Steel (kg) = Total Wet Volume × 1% × 7850",
+        insight: "Assuming roughly 1% reinforcement weight per cubic meter of concrete by volume.",
         variables: [
           { name: "Total Wet Vol", value: totalConcreteVol.toFixed(4), unit: "m³" }
         ],
@@ -184,7 +303,7 @@ export default function StaircaseCalculator() {
       },
       calcSteps: steps
     };
-  }, [numSteps, rise, tread, stairWidth, waistThickness, mainBarDia, mainBarSpacing, distBarDia, distBarSpacing, clearCover, concreteGrade, wastage, landings, isSI, uLen]);
+  }, [stairShape, numSteps, flight1Steps, flight2Steps, rise, tread, stairWidth, waistThickness, landingLength, landingWidth, mainBarDia, mainBarSpacing, distBarDia, distBarSpacing, clearCover, concreteGrade, wastage, isSI, uLen]);
 
   const InputGroup = ({ label, children }: { label: string, children: React.ReactNode }) => (
     <div>
@@ -225,30 +344,75 @@ export default function StaircaseCalculator() {
               </p>
             </div>
           </div>
-          <span className="px-3 py-1.5 bg-transparent border border-border-color text-slate-700 text-xs font-bold uppercase tracking-wider rounded-[16px] shadow-sm">
-            {stairShape}
-          </span>
+          <select 
+            value={stairShape}
+            onChange={(e) => {
+              setStairShape(e.target.value);
+              if (e.target.value === "U-Shape") {
+                setLandingLength(stairWidth);
+                setLandingWidth((parseFloat(stairWidth) * 2).toString());
+              } else if (e.target.value === "L-Shape") {
+                setLandingLength(stairWidth);
+                setLandingWidth(stairWidth);
+              }
+            }}
+            className="px-4 py-2 bg-white border border-slate-200 text-slate-700 text-sm font-bold tracking-wide rounded-[16px] shadow-sm hover:border-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all cursor-pointer"
+          >
+            <option value="Straight">Straight Flight</option>
+            <option value="L-Shape">L-Shape (Quarter Turn)</option>
+            <option value="U-Shape">U-Shape (Half Turn)</option>
+          </select>
         </div>
         
         <div className="p-6 md:p-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 w-full items-start">
             <div className="space-y-6">
-              <div className="grid grid-cols-2 gap-4">
-                <InputGroup label="Number of Steps">
-                  <NumberInput value={numSteps} onChange={(val) => setNumSteps(val.toString())} className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
-                </InputGroup>
+              {stairShape === "Straight" ? (
+                <div className="grid grid-cols-2 gap-4">
+                  <InputGroup label="Total Steps">
+                    <NumberInput value={numSteps} onChange={(val) => setNumSteps(val.toString())} className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
+                  </InputGroup>
+                  <InputGroup label={`Stair Width (${uLen})`}>
+                    <NumberInput value={stairWidth} onChange={(val) => setStairWidth(val.toString())} placeholder="e.g. 1.2" step="0.1" className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
+                  </InputGroup>
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  <InputGroup label="Flight 1 Steps">
+                    <NumberInput value={flight1Steps} onChange={(val) => setFlight1Steps(val.toString())} className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
+                  </InputGroup>
+                  <InputGroup label="Flight 2 Steps">
+                    <NumberInput value={flight2Steps} onChange={(val) => setFlight2Steps(val.toString())} className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
+                  </InputGroup>
+                  <InputGroup label={`Stair Width (${uLen})`}>
+                    <NumberInput value={stairWidth} onChange={(val) => setStairWidth(val.toString())} placeholder="e.g. 1.2" step="0.1" className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
+                  </InputGroup>
+                </div>
+              )}
+              
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 <InputGroup label={`Rise (${uLen})`}>
                   <NumberInput value={rise} onChange={(val) => setRise(val.toString())} placeholder="e.g. 0.15" step="0.01" className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
                 </InputGroup>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
                 <InputGroup label={`Tread (${uLen})`}>
                   <NumberInput value={tread} onChange={(val) => setTread(val.toString())} placeholder="e.g. 0.25" step="0.01" className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
                 </InputGroup>
-                <InputGroup label={`Width (${uLen})`}>
-                  <NumberInput value={stairWidth} onChange={(val) => setStairWidth(val.toString())} placeholder="e.g. 1.2" step="0.1" className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
+                <InputGroup label={`Waist Thick (${uLen})`}>
+                  <NumberInput value={waistThickness} onChange={(val) => setWaistThickness(val.toString())} placeholder="e.g. 0.15" step="0.01" className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
                 </InputGroup>
               </div>
+
+              {stairShape !== "Straight" && (
+                <div className="grid grid-cols-2 gap-4">
+                  <InputGroup label={`Landing Length (${uLen})`}>
+                    <NumberInput value={landingLength} onChange={(val) => setLandingLength(val.toString())} placeholder="e.g. 1.2" step="0.1" className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
+                  </InputGroup>
+                  <InputGroup label={`Landing Width (${uLen})`}>
+                    <NumberInput value={landingWidth} onChange={(val) => setLandingWidth(val.toString())} placeholder="e.g. 2.4" step="0.1" className="w-full bg-white border border-border-color text-text-primary rounded-[24px] font-semibold shadow-sm transition-all" />
+                  </InputGroup>
+                </div>
+              )}
+              
               <div className="grid grid-cols-2 gap-4">
                 <InputGroup label="Mix Ratio">
                   <select value={concreteGrade} onChange={e => setConcreteGrade(e.target.value)} className="w-full bg-white border border-border-color text-text-primary rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 hover:border-indigo-300 shadow-sm transition-all">
@@ -269,6 +433,8 @@ export default function StaircaseCalculator() {
                   <p>{warningText}</p>
                 </div>
               )}
+              
+              <StaircaseVisualizer rise={parseFloat(rise) || 0} tread={parseFloat(tread) || 0} numSteps={stairShape === "Straight" ? (parseFloat(numSteps) || 0) : ((parseFloat(flight1Steps) || 0) + (parseFloat(flight2Steps) || 0))} uLen={uLen} />
             </div>
             
             <div className="flex flex-col h-full mt-4 lg:mt-0">
@@ -307,12 +473,16 @@ export default function StaircaseCalculator() {
       <DetailedCalculationDisplay steps={calcSteps} />
       <CalculationHistory
         calculatorId="staircase_calculator_v1"
-        currentInputs={{ stairShape, numSteps, rise, tread, stairWidth, waistThickness, mainBarDia, mainBarSpacing, distBarDia, distBarSpacing, clearCover, concreteGrade, wastage, landings }}
+        currentInputs={{ stairShape, numSteps, flight1Steps, flight2Steps, rise, tread, stairWidth, waistThickness, landingLength, landingWidth, mainBarDia, mainBarSpacing, distBarDia, distBarSpacing, clearCover, concreteGrade, wastage, landings }}
         currentResults={res}
         summaryGeneration={(inputs, results) => `${inputs.stairShape} Staircase: ${results?.totalWetVolume?.toFixed(2) || 0} m³ concrete`}
         onRestore={(inputs) => {
           if (inputs.stairShape) setStairShape(inputs.stairShape);
           if (inputs.numSteps !== undefined) setNumSteps(inputs.numSteps);
+          if (inputs.flight1Steps !== undefined) setFlight1Steps(inputs.flight1Steps);
+          if (inputs.flight2Steps !== undefined) setFlight2Steps(inputs.flight2Steps);
+          if (inputs.landingLength !== undefined) setLandingLength(inputs.landingLength);
+          if (inputs.landingWidth !== undefined) setLandingWidth(inputs.landingWidth);
           if (inputs.rise !== undefined) setRise(inputs.rise);
           if (inputs.tread !== undefined) setTread(inputs.tread);
           if (inputs.stairWidth !== undefined) setStairWidth(inputs.stairWidth);

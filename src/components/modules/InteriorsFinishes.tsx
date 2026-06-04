@@ -1,17 +1,20 @@
 import React, { useState } from "react";
-import { Paintbrush, Hammer, LayoutGrid, Bug, AppWindow, PaintBucket, ChevronDown, ChevronUp } from "lucide-react";
+import { Paintbrush, Hammer, LayoutGrid, Bug, AppWindow, PaintBucket, ChevronDown, ChevronUp, Trees } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { useSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { MaterialSummary } from "../ui/MaterialSummary";
 import { ResultCard } from "../ui/ResultCard";
+import { DetailedCalculationDisplay } from "../ui/DetailedCalculationDisplay";
 
 export default function InteriorsFinishesEstimator() {
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
     tiles: true,
     paint: false,
     doorsWindows: false,
+    wood: false,
+    termite: false,
   });
 
   const toggleSection = (id: string) => {
@@ -69,6 +72,24 @@ export default function InteriorsFinishesEstimator() {
                </div>
             )}
           </div>
+
+          <div className="bg-white rounded-[24px] shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-slate-200 overflow-hidden transition-all">
+            <AccordionHeader id="wood" title="Wood Framing & Carpentry" icon={Trees} />
+            {openSections["wood"] && (
+               <div className="p-6 md:p-8 border-t border-slate-100 animate-in fade-in slide-in-from-top-2 duration-300">
+                  <WoodFramingCalculator />
+               </div>
+            )}
+          </div>
+
+          <div className="bg-white rounded-[24px] shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-slate-200 overflow-hidden transition-all">
+            <AccordionHeader id="termite" title="Termite Treatment Estimator" icon={Bug} />
+            {openSections["termite"] && (
+               <div className="p-6 md:p-8 border-t border-slate-100 animate-in fade-in slide-in-from-top-2 duration-300">
+                  <TermiteTreatmentCalculator />
+               </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -81,8 +102,14 @@ function TilesCalculator() {
   const { settings } = useSettings();
   const isSI = settings.measurement === "SI";
   const uArea = isSI ? "m²" : "sq.ft";
+  const uLen = isSI ? "m" : "ft";
   
   const [area, setArea] = useState<number | "">("");
+  const [perimeter, setPerimeter] = useState<number | "">("");
+  const [skirtingHeight, setSkirtingHeight] = useState<number | "">(isSI ? 100 : 4);
+  const [doorOpenings, setDoorOpenings] = useState<number | "">(0);
+  const [doorWidth, setDoorWidth] = useState<number | "">(isSI ? 0.9 : 3);
+  
   const [tileWidth, setTileWidth] = useState<number | "">(isSI ? 600 : 24);
   const [tileLength, setTileLength] = useState<number | "">(isSI ? 600 : 24);
   const [tilesPerBox, setTilesPerBox] = useState<number | "">(4);
@@ -90,110 +117,139 @@ function TilesCalculator() {
   const calculateTiles = () => {
     if (!area || !tileWidth || !tileLength) return null;
 
-    let totalArea = Number(area);
+    let floorArea = Number(area);
+    let perim = Number(perimeter) || 0;
+    const sH = Number(skirtingHeight) || 0;
+    const sH_m = isSI ? sH / 1000 : sH / 12; // convert to m or ft
+    const doors = Number(doorOpenings) || 0;
+    const dW = Number(doorWidth) || 0;
+
     let tW = Number(tileWidth);
     let tL = Number(tileLength);
     let tpb = Number(tilesPerBox) || 1;
 
     let tileArea = tW * tL;
     if (isSI) {
-      // mm to m2
       tileArea = tileArea / 1000000;
     } else {
-      // inches to sq ft
       tileArea = tileArea / 144;
     }
 
-    const totalTileAreaReq = totalArea * 1.05; // 5% wastage
+    let skirtingLength = perim > 0 ? Math.max(0, perim - (doors * dW)) : 0;
+    let skirtingArea = skirtingLength * sH_m;
+    
+    let totalNetArea = floorArea + skirtingArea;
+    const totalTileAreaReq = totalNetArea * 1.05; // 5% wastage
+    
     const numTiles = tileArea > 0 ? totalTileAreaReq / tileArea : 0;
     const boxesReq = tpb > 0 ? Math.ceil(numTiles / tpb) : 0;
+
+    const steps = [
+      {
+        stepName: "1. Skirting Deductions",
+        equation: "L_skirt = Perimeter - (Doors × Door_Width)",
+        variables: [{name: "Perimeter", value: perim, unit: uLen}, {name: "Doors", value: doors, unit: "qty"}],
+        substitution: `L_skirt = ${perim} - (${doors} × ${dW}) = ${skirtingLength.toFixed(2)}`,
+        result: parseFloat(skirtingLength.toFixed(2)),
+        resultUnit: uLen,
+        resultColor: "slate"
+      },
+      {
+        stepName: "2. Total Skirting Area",
+        equation: "A_skirt = L_skirt × Skirting_Height",
+        variables: [{name: "L_skirt", value: skirtingLength.toFixed(2), unit: uLen}, {name: "Height", value: sH_m.toFixed(3), unit: uLen}],
+        substitution: `A_skirt = ${skirtingLength.toFixed(2)} × ${sH_m.toFixed(3)} = ${skirtingArea.toFixed(2)}`,
+        result: parseFloat(skirtingArea.toFixed(2)),
+        resultUnit: uArea,
+        resultColor: "slate"
+      },
+      {
+        stepName: "3. Total Gross Area (+ 5% Wastage)",
+        equation: "A_gross = (Floor_Area + A_skirt) × 1.05",
+        variables: [{name: "Floor Area", value: floorArea, unit: uArea}],
+        substitution: `A_gross = (${floorArea} + ${skirtingArea.toFixed(2)}) × 1.05`,
+        result: parseFloat(totalTileAreaReq.toFixed(2)),
+        resultUnit: uArea,
+        resultColor: "slate"
+      },
+      {
+        stepName: "4. Total Tiles",
+        equation: "Tiles = A_gross / Area_per_Tile",
+        variables: [{name: "Tile Area", value: tileArea.toFixed(4), unit: uArea}],
+        substitution: `Tiles = ${totalTileAreaReq.toFixed(2)} / ${tileArea.toFixed(4)}`,
+        result: Math.ceil(numTiles),
+        resultUnit: "tiles",
+        resultColor: "indigo"
+      }
+    ];
 
     return {
       numTiles: Math.ceil(numTiles),
       boxesReq,
+      floorArea,
+      skirtingArea,
+      totalNetArea,
+      totalTileAreaReq,
+      steps
     };
   };
 
   const results = calculateTiles();
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="space-y-4">
-        <InputGroup label={`Total Room Area (${uArea})`}>
-          <input
-            type="number"
-            min="0"
-            value={area}
-            onChange={(e) => setArea(e.target.value ? Number(e.target.value) : "")}
-            className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
-            placeholder="e.g. 500"
-          />
-        </InputGroup>
-
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="lg:col-span-4 space-y-6">
         <div className="grid grid-cols-2 gap-4">
-          <InputGroup label={`Tile Width (${isSI ? 'mm' : 'in'})`}>
-            <input
-              type="number"
-              min="1"
-              value={tileWidth}
-              onChange={(e) => setTileWidth(e.target.value ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
-            />
+          <InputGroup label={`Floor Area (${uArea})`}>
+            <input type="number" min="0" value={area} onChange={(e) => setArea(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
           </InputGroup>
-           <InputGroup label={`Tile Length (${isSI ? 'mm' : 'in'})`}>
-            <input
-              type="number"
-              min="1"
-              value={tileLength}
-              onChange={(e) => setTileLength(e.target.value ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
-            />
+          <InputGroup label={`Perimeter (${uLen})`}>
+            <input type="number" min="0" value={perimeter} onChange={(e) => setPerimeter(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
           </InputGroup>
         </div>
-        
+
+        <div className="grid grid-cols-2 gap-4">
+          <InputGroup label={`Skirting Ht (${isSI ? 'mm' : 'in'})`}>
+            <input type="number" min="0" value={skirtingHeight} onChange={(e) => setSkirtingHeight(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
+          </InputGroup>
+          <InputGroup label={`Doors Qty`}>
+            <input type="number" min="0" value={doorOpenings} onChange={(e) => setDoorOpenings(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
+          </InputGroup>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4 border-t border-slate-100 pt-4">
+          <InputGroup label={`Tile Width (${isSI ? 'mm' : 'in'})`}>
+            <input type="number" min="1" value={tileWidth} onChange={(e) => setTileWidth(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
+          </InputGroup>
+          <InputGroup label={`Tile Length (${isSI ? 'mm' : 'in'})`}>
+            <input type="number" min="1" value={tileLength} onChange={(e) => setTileLength(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
+          </InputGroup>
+        </div>
+
         <InputGroup label="Tiles per Box">
-            <input
-              type="number"
-              min="1"
-              value={tilesPerBox}
-              onChange={(e) => setTilesPerBox(e.target.value ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
-            />
+            <input type="number" min="1" value={tilesPerBox} onChange={(e) => setTilesPerBox(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
         </InputGroup>
       </div>
 
-        <div className="flex flex-col h-full">
-          {results ? (
-            <MaterialSummary
-               title="Estimate Results"
-               totalLabel="Boxes Required"
-               totalValue={results.boxesReq.toString()}
-               totalUnit="boxes"
-             >
-               <div className="grid grid-cols-1 gap-4 mt-6">
-                 <ResultCard title="Required Tiles (inc. 5% waste)" value={results.numTiles} unit="tiles" variant="neutral" />
+      <div className="lg:col-span-8 flex flex-col h-full space-y-4">
+        {results ? (
+          <>
+            <MaterialSummary title="Estimate Results" totalLabel="Boxes Required" totalValue={results.boxesReq.toString()} totalUnit="boxes">
+               <div className="grid grid-cols-2 gap-4 mt-6">
+                 <ResultCard title="Required Tiles" value={results.numTiles} unit="tiles" variant="neutral" />
+                 <ResultCard title="Incl. Wastage" value={results.totalTileAreaReq.toFixed(2)} unit={uArea} variant="warning" />
                </div>
-             </MaterialSummary>
-          ) : (
-            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
-              <h3 className="font-bold text-sm uppercase tracking-wider mb-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-rose-400 bg-clip-text text-transparent">Estimate Results</h3>
-              <div className="text-center text-slate-500 py-8">
-                Enter area and tile size to calculate.
-              </div>
+            </MaterialSummary>
+            <div className="mt-4">
+               <DetailedCalculationDisplay steps={results.steps as any} />
             </div>
-          )}
-        </div>
-      <div className="col-span-1 md:col-span-2">
-        <CalculationHistory
-          calculatorId="tiles_calc_v1"
-          currentInputs={{ area, tileWidth, tileLength, tilesPerBox }}
-          onRestore={(ins) => {
-            if (ins.area) setArea(ins.area);
-            if (ins.tileWidth) setTileWidth(ins.tileWidth);
-            if (ins.tileLength) setTileLength(ins.tileLength);
-            if (ins.tilesPerBox) setTilesPerBox(ins.tilesPerBox);
-          }}
-        />
+          </>
+        ) : (
+          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
+            <h3 className="font-bold text-sm uppercase tracking-wider mb-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-rose-400 bg-clip-text text-transparent">Estimate Results</h3>
+            <div className="text-center text-slate-500 py-8">Enter area and tile size to calculate.</div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -202,117 +258,135 @@ function TilesCalculator() {
 function PaintCalculator() {
   const { settings } = useSettings();
   const isSI = settings.measurement === "SI";
+  const uArea = isSI ? "m²" : "sq.ft";
   const [area, setArea] = useState<number | "">("");
   const [coats, setCoats] = useState<number | "">(2);
-  const [coverage, setCoverage] = useState<number | "">(isSI ? 12 : 350); 
+  const [volumeSolids, setVolumeSolids] = useState<number | "">(40); // 40% typical for interior masonry paint
+  const [dft, setDft] = useState<number | "">(35); // DFT per coat in microns
   const [wastage, setWastage] = useState<number | "">(10); 
 
   const calculatePaint = () => {
-    if (!area || !coats || !coverage) return null;
+    if (!area || !coats || !volumeSolids || !dft) return null;
 
     let areaSqm = Number(area);
     if (!isSI) {
       areaSqm = areaSqm / 10.764; // convert sq ft to sq m
     }
 
-    let c = Number(coverage);
-    if (!isSI) {
-      c = c / 10.764 / 3.78541; // convert sq ft/gal to sq m/L (approx)
-    }
+    const vs = Number(volumeSolids);
+    const targetDft = Number(dft);
+    const nCoats = Number(coats);
+    const w = Number(wastage) || 0;
 
-    const unadjustedLiters = (areaSqm / c) * Number(coats);
-    const wasteFactor = 1 + (Number(wastage) || 0) / 100;
+    // Wet Film Thickness (WFT) in microns
+    const wft = (targetDft * 100) / vs;
+
+    // Theoretical Spread Rate (Coverage) m2/L
+    // Spread Rate = (VS% × 10) / DFT
+    const spreadRate = (vs * 10) / targetDft;
+
+    const unadjustedLiters = (areaSqm / spreadRate) * nCoats;
+    const wasteFactor = 1 + w / 100;
     const totalLiters = unadjustedLiters * wasteFactor;
 
     const gallons = totalLiters / 3.78541;
 
+    const steps = [
+      {
+        stepName: "1. Wet Film Thickness (WFT)",
+        equation: "WFT = (DFT × 100) / Volume_Solids",
+        variables: [{name: "DFT", value: targetDft, unit: "µm"}, {name: "VS%", value: vs, unit: "%"}],
+        substitution: `WFT = (${targetDft} × 100) / ${vs}`,
+        result: parseFloat(wft.toFixed(2)),
+        resultUnit: "µm",
+        resultColor: "slate"
+      },
+      {
+        stepName: "2. Theoretical Spread Rate",
+        equation: "Coverage = (Volume_Solids × 10) / DFT",
+        variables: [{name: "VS%", value: vs, unit: "%"}, {name: "DFT", value: targetDft, unit: "µm"}],
+        substitution: `Coverage = (${vs} × 10) / ${targetDft}`,
+        result: parseFloat(spreadRate.toFixed(2)),
+        resultUnit: "m²/L",
+        resultColor: "slate"
+      },
+      {
+        stepName: "3. Ideal Paint Volume",
+        equation: "V_ideal = (Area / Coverage) × Coats",
+        variables: [{name: "Area", value: areaSqm.toFixed(2), unit: "m²"}, {name: "Coats", value: nCoats, unit: "qty"}],
+        substitution: `V_ideal = (${areaSqm.toFixed(2)} / ${spreadRate.toFixed(2)}) × ${nCoats}`,
+        result: parseFloat(unadjustedLiters.toFixed(2)),
+        resultUnit: "Liters",
+        resultColor: "slate"
+      },
+      {
+        stepName: "4. Total Required (+ Wastage)",
+        equation: "Total = V_ideal × (1 + Wastage%)",
+        variables: [{name: "V_ideal", value: unadjustedLiters.toFixed(2), unit: "L"}, {name: "Wastage", value: w, unit: "%"}],
+        substitution: `Total = ${unadjustedLiters.toFixed(2)} × ${wasteFactor.toFixed(2)}`,
+        result: parseFloat(totalLiters.toFixed(2)),
+        resultUnit: "Liters",
+        resultColor: "indigo"
+      }
+    ];
+
     return {
       liters: totalLiters.toFixed(2),
       gallons: gallons.toFixed(2),
+      wft: wft.toFixed(1),
+      spreadRate: spreadRate.toFixed(2),
+      steps
     };
   };
 
   const results = calculatePaint();
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div className="space-y-4">
-        <InputGroup label={`Total Area (${isSI ? 'Sq M' : 'Sq Ft'})`}>
-          <input
-            type="number"
-            min="0"
-            value={area}
-            onChange={(e) => setArea(e.target.value ? Number(e.target.value) : "")}
-            className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
-            placeholder="e.g. 500"
-          />
-        </InputGroup>
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="lg:col-span-4 space-y-6">
+        <div className="grid grid-cols-2 gap-4">
+          <InputGroup label={`Total Area (${uArea})`}>
+            <input type="number" min="0" value={area} onChange={(e) => setArea(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
+          </InputGroup>
+          <InputGroup label="Number of Coats">
+            <input type="number" min="1" value={coats} onChange={(e) => setCoats(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
+          </InputGroup>
+        </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <InputGroup label="Number of Coats">
-            <input
-              type="number"
-              min="1"
-              value={coats}
-              onChange={(e) => setCoats(e.target.value ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
-            />
+          <InputGroup label="Volume Solids (%)">
+            <input type="number" min="1" max="100" value={volumeSolids} onChange={(e) => setVolumeSolids(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
           </InputGroup>
-           <InputGroup label="Wastage (%)">
-            <input
-              type="number"
-              min="0"
-              value={wastage}
-              onChange={(e) => setWastage(e.target.value !== "" ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
-            />
+           <InputGroup label="Target DFT (µm/coat)">
+            <input type="number" min="1" value={dft} onChange={(e) => setDft(e.target.value !== "" ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
           </InputGroup>
         </div>
         
-         <InputGroup label={`Coverage (${isSI ? 'm²/Liter' : 'sqft/Gallon'})`}>
-            <input
-              type="number"
-              min="1"
-              value={coverage}
-              onChange={(e) => setCoverage(e.target.value ? Number(e.target.value) : "")}
-              className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all"
-            />
+         <InputGroup label="Wastage (%)">
+            <input type="number" min="0" value={wastage} onChange={(e) => setWastage(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
           </InputGroup>
 
       </div>
 
-      <div className="flex flex-col h-full">
+      <div className="lg:col-span-8 flex flex-col h-full space-y-4">
         {results ? (
-            <MaterialSummary
-               title="Estimate Results"
-               totalLabel="Required Paint"
-               totalValue={results.liters}
-               totalUnit="Liters"
-             >
-               <div className="grid grid-cols-1 gap-4 mt-6">
-                 <ResultCard title="In Gallons (US)" value={results.gallons} unit="gals" variant="neutral" />
-               </div>
-             </MaterialSummary>
+            <>
+              <MaterialSummary title="Estimate Results" totalLabel="Required Paint" totalValue={results.liters} totalUnit="Liters">
+                 <div className="grid grid-cols-2 gap-4 mt-6">
+                   <ResultCard title="Coverage" value={results.spreadRate} unit="m²/L" variant="neutral" />
+                   <ResultCard title="Required WFT" value={results.wft} unit="µm" variant="warning" />
+                 </div>
+              </MaterialSummary>
+              <div className="mt-4">
+                 <DetailedCalculationDisplay steps={results.steps as any} />
+              </div>
+            </>
         ) : (
           <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
             <h3 className="font-bold text-sm uppercase tracking-wider mb-6 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">Estimate Results</h3>
-            <div className="text-center text-slate-500 py-8">
-              Enter wall/ceiling area and coats to calculate.
-            </div>
+            <div className="text-center text-slate-500 py-8">Enter wall/ceiling area and coats to calculate.</div>
           </div>
         )}
-      </div>
-      <div className="col-span-1 md:col-span-2">
-        <CalculationHistory
-          calculatorId="paint_calc_v1"
-          currentInputs={{ area, coats, coverage, wastage }}
-          onRestore={(ins) => {
-            if (ins.area) setArea(ins.area);
-            if (ins.coats) setCoats(ins.coats);
-            if (ins.coverage) setCoverage(ins.coverage);
-            if (ins.wastage) setWastage(ins.wastage);
-          }}
-        />
       </div>
     </div>
   );
@@ -491,6 +565,254 @@ function DoorsWindowsCalculator() {
             <div className="text-center text-slate-500 py-8">
               Enter wall dimensions to calculate net area and see the proportional preview.
             </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function WoodFramingCalculator() {
+  const { settings } = useSettings();
+  const isSI = settings.measurement === "SI";
+  const uLen = isSI ? "m" : "ft";
+  
+  const [frameLength, setFrameLength] = useState<number | "">("");
+  const [frameWidth, setFrameWidth] = useState<number | "">(isSI ? 150 : 6);
+  const [frameThick, setFrameThick] = useState<number | "">(isSI ? 38 : 1.5);
+  const [quantity, setQuantity] = useState<number | "">(1);
+
+  const calculateWood = () => {
+    if (!frameLength || !frameWidth || !frameThick || !quantity) return null;
+    
+    let L = Number(frameLength);
+    let W = Number(frameWidth); // mm or inches
+    let T = Number(frameThick); // mm or inches
+    let Q = Number(quantity);
+    
+    // convert W and T to m or ft
+    let w_m = isSI ? W / 1000 : W / 12;
+    let t_m = isSI ? T / 1000 : T / 12;
+    
+    let volumeSingle = L * w_m * t_m;
+    let volumeTotal = volumeSingle * Q;
+    // adding standard typical 10% wastage for wood
+    let volumeWastage = volumeTotal * 1.10;
+
+    const steps = [
+      {
+        stepName: "1. Cross-Sectional Area",
+        equation: "Area = Width × Thickness",
+        variables: [{name: "Width", value: w_m.toFixed(3), unit: uLen}, {name: "Thick", value: t_m.toFixed(3), unit: uLen}],
+        substitution: `Area = ${w_m.toFixed(3)} × ${t_m.toFixed(3)}`,
+        result: parseFloat((w_m * t_m).toFixed(5)),
+        resultUnit: isSI ? "m²" : "sq.ft",
+        resultColor: "slate"
+      },
+      {
+        stepName: "2. Volume (Single Wood Member)",
+        equation: "Vol_1 = Area × Length",
+        variables: [{name: "Length", value: L, unit: uLen}],
+        substitution: `Vol_1 = ${(w_m * t_m).toFixed(5)} × ${L}`,
+        result: parseFloat(volumeSingle.toFixed(4)),
+        resultUnit: isSI ? "m³" : "cu.ft",
+        resultColor: "slate"
+      },
+      {
+        stepName: "3. Total Volume (+10% Wastage)",
+        equation: "Total = (Vol_1 × Qty) × 1.10",
+        variables: [{name: "Qty", value: Q, unit: "pcs"}],
+        substitution: `Total = (${volumeSingle.toFixed(4)} × ${Q}) × 1.10`,
+        result: parseFloat(volumeWastage.toFixed(4)),
+        resultUnit: isSI ? "m³" : "cu.ft",
+        resultColor: "indigo"
+      }
+    ];
+
+    return {
+      volumeTotal: volumeTotal.toFixed(4),
+      volumeWastage: volumeWastage.toFixed(4),
+      steps
+    };
+  };
+
+  const results = calculateWood();
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="lg:col-span-4 space-y-6">
+        <InputGroup label={`Length per Member (${uLen})`}>
+          <input type="number" min="0" value={frameLength} onChange={(e) => setFrameLength(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
+        </InputGroup>
+        
+        <div className="grid grid-cols-2 gap-4">
+          <InputGroup label={`Width (${isSI ? 'mm' : 'in'})`}>
+            <input type="number" min="0" value={frameWidth} onChange={(e) => setFrameWidth(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
+          </InputGroup>
+          <InputGroup label={`Thickness (${isSI ? 'mm' : 'in'})`}>
+            <input type="number" min="0" value={frameThick} onChange={(e) => setFrameThick(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
+          </InputGroup>
+        </div>
+
+        <InputGroup label="Quantity (Pieces)">
+          <input type="number" min="1" value={quantity} onChange={(e) => setQuantity(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
+        </InputGroup>
+      </div>
+
+      <div className="lg:col-span-8 flex flex-col h-full space-y-4">
+        {results ? (
+          <>
+            <MaterialSummary title="Estimate Results" totalLabel="Req. Wood Volume" totalValue={results.volumeWastage} totalUnit={isSI ? "m³" : "cu.ft"}>
+               <div className="grid grid-cols-2 gap-4 mt-6">
+                 <ResultCard title="Net Volume (No Waste)" value={results.volumeTotal} unit={isSI ? "m³" : "cu.ft"} variant="neutral" />
+               </div>
+            </MaterialSummary>
+            <div className="mt-4">
+               <DetailedCalculationDisplay steps={results.steps as any} />
+            </div>
+          </>
+        ) : (
+          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
+            <h3 className="font-bold text-sm uppercase tracking-wider mb-6 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">Estimate Results</h3>
+            <div className="text-center text-slate-500 py-8">Enter member dimensions and quantity to calculate wood volume.</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function TermiteTreatmentCalculator() {
+  const { settings } = useSettings();
+  const isSI = settings.measurement === "SI";
+  const uArea = isSI ? "m²" : "sq.ft";
+  const uLen = isSI ? "m" : "ft";
+  
+  const [area, setArea] = useState<number | "">("");
+  const [perimeter, setPerimeter] = useState<number | "">(isSI ? 30 : 100);
+  const [type, setType] = useState<"pre" | "post">("pre");
+  
+  const [concentrationRatio, setConcentrationRatio] = useState<number | "">(49); // e.g. 1 part chemical to 49 parts water (50 total)
+  
+  const calculateTermite = () => {
+    if (!area || !perimeter) return null;
+    
+    let a = Number(area);
+    let p = Number(perimeter);
+    let ratio = Number(concentrationRatio) || 49;
+    
+    // Standard Application Rate: Emulsion
+    // Pre-construction: Floor = 5 L/m², Trench = 5 L/linear.m (simplification)
+    // Post-construction: Holes drilled = 2.5 L/linear.m or floor area based... let's just differentiate lightly
+    let floorRateSqm = type === "pre" ? 5 : 2; 
+    let trenchRateM = type === "pre" ? 7.5 : 2.5;
+    
+    let area_sqm = isSI ? a : a / 10.764;
+    let perimeter_m = isSI ? p : p / 3.28084;
+    
+    let floorEmulsion = area_sqm * floorRateSqm;
+    let trenchEmulsion = perimeter_m * trenchRateM;
+    let totalEmulsion_L = floorEmulsion + trenchEmulsion;
+    
+    // Total Chemical Concentrate = Total Emulsion / (1 + ratio)
+    let chemReserve = totalEmulsion_L / (1 + ratio);
+
+    const steps = [
+      {
+        stepName: "1. Floor Area Emulsion",
+        equation: "E_floor = Area × Application_Rate",
+        variables: [{name: "Area", value: area_sqm.toFixed(2), unit: "m²"}, {name: "Rate", value: floorRateSqm, unit: "L/m²"}],
+        substitution: `E_floor = ${area_sqm.toFixed(2)} × ${floorRateSqm}`,
+        result: parseFloat(floorEmulsion.toFixed(2)),
+        resultUnit: "Liters",
+        resultColor: "slate"
+      },
+      {
+        stepName: "2. Perimeter Trench Emulsion",
+        equation: "E_trench = Perimeter × Trench_Rate",
+        variables: [{name: "Perimeter", value: perimeter_m.toFixed(2), unit: "m"}, {name: "Rate", value: trenchRateM, unit: "L/m"}],
+        substitution: `E_trench = ${perimeter_m.toFixed(2)} × ${trenchRateM}`,
+        result: parseFloat(trenchEmulsion.toFixed(2)),
+        resultUnit: "Liters",
+        resultColor: "slate"
+      },
+      {
+        stepName: "3. Total Emulsion Required",
+        equation: "E_total = E_floor + E_trench",
+        variables: [{name: "E_floor", value: floorEmulsion.toFixed(2)}, {name: "E_trench", value: trenchEmulsion.toFixed(2)}],
+        substitution: `E_total = ${floorEmulsion.toFixed(2)} + ${trenchEmulsion.toFixed(2)}`,
+        result: parseFloat(totalEmulsion_L.toFixed(2)),
+        resultUnit: "Liters",
+        resultColor: "slate"
+      },
+      {
+        stepName: "4. Chemical Concentrate",
+        equation: "Conc = E_total / (1 + Dilution_Ratio)",
+        variables: [{name: "Ratio", value: `1:${ratio}`, unit: ""}],
+        substitution: `Conc = ${totalEmulsion_L.toFixed(2)} / (1 + ${ratio})`,
+        result: parseFloat(chemReserve.toFixed(2)),
+        resultUnit: "Liters",
+        resultColor: "indigo"
+      }
+    ];
+
+    return {
+      totalEmulsion: totalEmulsion_L.toFixed(1),
+      chemReserve: chemReserve.toFixed(2),
+      steps
+    };
+  };
+
+  const results = calculateTermite();
+
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="lg:col-span-4 space-y-6">
+        <div className="flex bg-slate-100 p-1 rounded-[16px]">
+            <button
+              onClick={() => setType("pre")}
+              className={`flex-1 py-1.5 text-xs font-bold rounded-[12px] transition-colors ${type === "pre" ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+            >
+              Pre-Construction
+            </button>
+            <button
+              onClick={() => setType("post")}
+              className={`flex-1 py-1.5 text-xs font-bold rounded-[12px] transition-colors ${type === "post" ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+            >
+              Post-Construction
+            </button>
+          </div>
+          
+        <div className="grid grid-cols-2 gap-4">
+          <InputGroup label={`Plinth Area (${uArea})`}>
+            <input type="number" min="0" value={area} onChange={(e) => setArea(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
+          </InputGroup>
+          <InputGroup label={`Perimeter (${uLen})`}>
+            <input type="number" min="0" value={perimeter} onChange={(e) => setPerimeter(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" />
+          </InputGroup>
+        </div>
+
+        <InputGroup label="Dilution Ratio (Parts Water to 1 Part Chem)">
+          <input type="number" min="1" value={concentrationRatio} onChange={(e) => setConcentrationRatio(e.target.value ? Number(e.target.value) : "")} className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-amber-500 outline-none transition-all" placeholder="e.g. 49" />
+        </InputGroup>
+      </div>
+
+      <div className="lg:col-span-8 flex flex-col h-full space-y-4">
+        {results ? (
+          <>
+            <MaterialSummary title="Estimate Results" totalLabel="Chemical Concentrate" totalValue={results.chemReserve} totalUnit="Liters">
+               <div className="grid grid-cols-2 gap-4 mt-6">
+                 <ResultCard title="Total Emulsion (Mixed)" value={results.totalEmulsion} unit="Liters" variant="neutral" />
+               </div>
+            </MaterialSummary>
+            <div className="mt-4">
+               <DetailedCalculationDisplay steps={results.steps as any} />
+            </div>
+          </>
+        ) : (
+          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
+            <h3 className="font-bold text-sm uppercase tracking-wider mb-6 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">Estimate Results</h3>
+            <div className="text-center text-slate-500 py-8">Enter area and perimeter to verify chemical requirements.</div>
           </div>
         )}
       </div>

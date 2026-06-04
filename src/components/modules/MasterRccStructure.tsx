@@ -3,6 +3,7 @@ import { UniversalTabs } from "../ui/UniversalTabs";
 import { Building2, Grid2X2, Columns, FileSpreadsheet, Layers, AlignVerticalSpaceAround, LayoutDashboard, ArrowUp, Calculator } from "lucide-react";
 import { SEO } from "../SEO";
 
+import MasterRccCore from "./MasterRccCore";
 import SlabEstimator from "./SlabEstimator";
 import ColumnEstimator from "./ColumnEstimator";
 import BeamCalculator from "./BeamCalculator";
@@ -10,7 +11,7 @@ import BarBendingSchedule from "./BarBendingSchedule";
 import StaircaseCalculator from "./StaircaseCalculator";
 import { CalculationHistory } from '../ui/CalculationHistory';
 
-type RccTab = "slab" | "column" | "beam" | "staircase" | "bbs";
+type RccTab = "master" | "slab" | "column" | "beam" | "staircase" | "bbs";
 
 interface MasterRccProps {
   isEmbedded?: boolean;
@@ -18,9 +19,10 @@ interface MasterRccProps {
 }
 
 export default function MasterRccStructure({ isEmbedded = false, onNavigate }: MasterRccProps) {
-  const [activeTab, setActiveTab] = useState<RccTab>("slab");
+  const [activeTab, setActiveTab] = useState<RccTab>("master");
 
   const tabs: { id: RccTab; label: string; icon: any }[] = [
+    { id: "master", label: "Master Engine", icon: LayoutDashboard },
     { id: "slab", label: "Slab Estimator", icon: Grid2X2 },
     { id: "column", label: "Column Estimator", icon: Columns },
     { id: "beam", label: "Beam Calculator", icon: AlignVerticalSpaceAround },
@@ -50,6 +52,7 @@ export default function MasterRccStructure({ isEmbedded = false, onNavigate }: M
 
         {/* Content Area */}
         <div className="animate-in fade-in slide-in-from-right-2 duration-300">
+          {activeTab === "master" && <MasterRccCore />}
           {activeTab === "slab" && <SlabEstimator />}
           {activeTab === "column" && <ColumnEstimator />}
           {activeTab === "beam" && <BeamCalculator />}

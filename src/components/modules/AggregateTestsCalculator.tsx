@@ -44,13 +44,22 @@ export default function AggregateTestsCalculator() {
       aiv = (W3 / totalW) * 100;
     }
     
-    currentExportData = {
-      "Test Type": "Aggregate Impact Value",
-      "Total Sample Weight (W2-W1)": `${totalW.toFixed(2)} g`,
-      "Weight Passing 2.36mm (W3)": `${W3.toFixed(2)} g`,
-      "Impact Value": totalW > 0 ? `${aiv.toFixed(2)}%` : "-",
-      "Suitability": aiv > 0 && aiv <= 30 ? "Suitable for concrete" : aiv > 30 ? "Weak aggregate" : "-",
-    };
+      let suitability = "-";
+      if (aiv > 0) {
+        if (aiv <= 10) suitability = "Exceptionally Strong";
+        else if (aiv <= 20) suitability = "Strong";
+        else if (aiv <= 30) suitability = "Satisfactory for road surfacing";
+        else if (aiv <= 45) suitability = "Satisfactory for concrete (Non-wearing)";
+        else suitability = "UNSUITABLE FOR CONCRETE (>45%)";
+      }
+
+      currentExportData = {
+        "Test Type": "Aggregate Impact Value",
+        "Total Sample Weight (W2-W1)": `${totalW.toFixed(2)} g`,
+        "Weight Passing 2.36mm (W3)": `${W3.toFixed(2)} g`,
+        "Impact Value": totalW > 0 ? `${aiv.toFixed(2)}%` : "-",
+        "Suitability": suitability,
+      };
   } else if (activeTab === "crushing") {
     const W1 = parseNum(acvW1);
     const W2 = parseNum(acvW2);
@@ -62,12 +71,20 @@ export default function AggregateTestsCalculator() {
       acv = (W3 / totalW) * 100;
     }
     
-    currentExportData = {
-      "Test Type": "Aggregate Crushing Value",
-      "Total Sample Weight (W2-W1)": `${totalW.toFixed(2)} g`,
-      "Weight Passing 2.36mm (W3)": `${W3.toFixed(2)} g`,
-      "Crushing Value": totalW > 0 ? `${acv.toFixed(2)}%` : "-",
-    };
+      let suitability = "-";
+      if (acv > 0) {
+        if (acv <= 30) suitability = "Suitable for surface wearing course (<30%)";
+        else if (acv <= 45) suitability = "Suitable for base course (<45%)";
+        else suitability = "UNSUITABLE (>45%)";
+      }
+
+      currentExportData = {
+        "Test Type": "Aggregate Crushing Value",
+        "Total Sample Weight (W2-W1)": `${totalW.toFixed(2)} g`,
+        "Weight Passing 2.36mm (W3)": `${W3.toFixed(2)} g`,
+        "Crushing Value": totalW > 0 ? `${acv.toFixed(2)}%` : "-",
+        "Suitability": suitability,
+      };
   } else if (activeTab === "abrasion") {
     const W1 = parseNum(laW1);
     const W2 = parseNum(laW2);
@@ -77,12 +94,20 @@ export default function AggregateTestsCalculator() {
       la = (W2 / W1) * 100;
     }
     
-    currentExportData = {
-      "Test Type": "Los Angeles Abrasion Value",
-      "Original Weight (W1)": `${W1.toFixed(2)} g`,
-      "Passing 1.7mm (W2)": `${W2.toFixed(2)} g`,
-      "Abrasion Value": W1 > 0 ? `${la.toFixed(2)}%` : "-",
-    };
+      let suitability = "-";
+      if (la > 0) {
+        if (la <= 30) suitability = "Suitable for wearing course (<30%)";
+        else if (la <= 50) suitability = "Suitable for base course (<50%)";
+        else suitability = "UNSUITABLE (>50%)";
+      }
+
+      currentExportData = {
+        "Test Type": "Los Angeles Abrasion Value",
+        "Original Weight (W1)": `${W1.toFixed(2)} g`,
+        "Passing 1.7mm (W2)": `${W2.toFixed(2)} g`,
+        "Abrasion Value": W1 > 0 ? `${la.toFixed(2)}%` : "-",
+        "Suitability": suitability,
+      };
   } else if (activeTab === "water-absorption") {
     const W1 = parseNum(waW1); // SSD
     const W2 = parseNum(waW2); // in water
@@ -101,12 +126,20 @@ export default function AggregateTestsCalculator() {
       sgBulkData = W3 / (W1 - W2);
     }
     
-    currentExportData = {
-      "Test Type": "Water Absorption & Specific Gravity",
-      "Water Absorption": W3 > 0 ? `${wa.toFixed(2)}%` : "-",
-      "Bulk Specific Gravity": sgBulkData > 0 ? `${sgBulkData.toFixed(3)}` : "-",
-      "Apparent Specific Gravity": sgApparent > 0 ? `${sgApparent.toFixed(3)}` : "-",
-    };
+      let suitability = "-";
+      if (wa > 0) {
+        if (wa <= 2) suitability = "Good quality aggregate (≤2%)";
+        else if (wa <= 5) suitability = "Acceptable limits; slight caution";
+        else suitability = "HIGH POROSITY - Flagged (>5%)";
+      }
+
+      currentExportData = {
+        "Test Type": "Water Absorption & Specific Gravity",
+        "Water Absorption": W3 > 0 ? `${wa.toFixed(2)}%` : "-",
+        "Bulk Specific Gravity": sgBulkData > 0 ? `${sgBulkData.toFixed(3)}` : "-",
+        "Apparent Specific Gravity": sgApparent > 0 ? `${sgApparent.toFixed(3)}` : "-",
+        "Suitability Flag": suitability,
+      };
   }
 
   const tabs = [
@@ -235,12 +268,18 @@ export default function AggregateTestsCalculator() {
                   <Download className="w-5 h-5 text-indigo-500 cursor-pointer hover:text-indigo-600 transition-colors" />
                 </div>
                 <div className="space-y-4">
-                  {Object.entries(currentExportData).map(([key, val]) => (
-                    <div key={key} className="flex justify-between border-b border-slate-100 pb-3 items-center">
-                      <span className="text-slate-500 font-semibold text-sm">{key}</span>
-                      <span className="font-mono font-bold bg-gradient-to-br from-[#6B46C1] to-orange-500 bg-clip-text text-transparent bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 py-1 px-3 rounded-[16px] text-sm">{val}</span>
-                    </div>
-                  ))}
+                  {Object.entries(currentExportData).map(([key, val]) => {
+                    const valStr = String(val);
+                    const isUnsuitable = valStr.includes("UNSUITABLE") || valStr.includes("HIGH POROSITY") || valStr.includes("Flagged");
+                    return (
+                      <div key={key} className="flex justify-between border-b border-slate-100 pb-3 items-center">
+                        <span className="text-slate-500 font-semibold text-sm w-1/2">{key}</span>
+                        <span className={`text-right font-mono font-bold py-1 px-3 rounded-[16px] text-sm ${isUnsuitable ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-slate-50 text-slate-800 border border-slate-200'}`}>
+                          {val}
+                        </span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             ) : (

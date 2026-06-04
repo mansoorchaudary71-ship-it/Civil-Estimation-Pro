@@ -1,365 +1,263 @@
-import React, { useState, useEffect } from "react";
-import { ArrowRight, Triangle, Activity } from "lucide-react";
+import React, { useState, useMemo } from "react";
+import { ArrowRight, Triangle, Activity, CheckCircle2, AlertTriangle, Route } from "lucide-react";
 import { SEO } from "../SEO";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { NumberInput } from "../ui/NumberInput";
+import { ResultCard } from "../ui/ResultCard";
+import { MaterialSummary } from "../ui/MaterialSummary";
 
 export default function GradientCalculator() {
-  const [rise, setRise] = useState<string>("");
-  const [run, setRun] = useState<string>("");
-  const [slopePercent, setSlopePercent] = useState<string>("");
-  const [ratioN, setRatioN] = useState<string>("");
-  const [angleDeg, setAngleDeg] = useState<string>("");
-  
-  const [startElevation, setStartElevation] = useState<string>("");
-  const [finalElevation, setFinalElevation] = useState<string>("");
-  const [isCut, setIsCut] = useState<boolean>(true); // false = Fill (upward), true = Cut (downward)
-  
-  const [activeInput, setActiveInput] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<"longitudinal" | "camber" | "vertical_curve">("longitudinal");
 
-  // Helper to round to 4 decimals
-  const round4 = (num: number) => Math.round(num * 10000) / 10000;
-  
-  // Calculate whenever key variables change.
-  // We use the two most recently changed/focused inputs if possible, or just build a deterministic update.
-  // Best approach for 5 variables: update everything based on Rise & Run, unless the user is typing in another field, 
-  // then we derive Rise or Run and calculate the rest.
-  
-  const handleInputChange = (field: string, value: string) => {
-    setActiveInput(field);
-    const numVal = parseFloat(value);
-    
-    if (isNaN(numVal) && value !== "") {
-       // invalid, just set the text and return
-       if (field === 'rise') setRise(value);
-       if (field === 'run') setRun(value);
-       if (field === 'percent') setSlopePercent(value);
-       if (field === 'ratio') setRatioN(value);
-       if (field === 'angle') setAngleDeg(value);
-       return;
-    }
-    
-    let currentRise = parseFloat(rise) || 0;
-    let currentRun = parseFloat(run) || 0;
-    
-    if (field === 'rise') {
-      setRise(value);
-      currentRise = numVal || 0;
-    } else if (field === 'run') {
-      setRun(value);
-      currentRun = numVal || 0;
-    } else if (field === 'percent') {
-      setSlopePercent(value);
-      if (currentRun > 0 && !isNaN(numVal)) {
-         currentRise = (numVal / 100) * currentRun;
-         setRise(round4(currentRise).toString());
-      } else if (currentRise > 0 && !isNaN(numVal) && numVal > 0) {
-         currentRun = currentRise / (numVal / 100);
-         setRun(round4(currentRun).toString());
-      }
-    } else if (field === 'ratio') {
-      // 1:N
-      setRatioN(value);
-      if (currentRise > 0 && !isNaN(numVal)) {
-         currentRun = currentRise * numVal;
-         setRun(round4(currentRun).toString());
-      } else if (currentRun > 0 && !isNaN(numVal) && numVal > 0) {
-         currentRise = currentRun / numVal;
-         setRise(round4(currentRise).toString());
-      }
-    } else if (field === 'angle') {
-      setAngleDeg(value);
-      if (!isNaN(numVal) && numVal > 0 && numVal < 90) {
-         const tanAng = Math.tan(numVal * Math.PI / 180);
-         if (currentRun > 0) {
-             currentRise = currentRun * tanAng;
-             setRise(round4(currentRise).toString());
-         } else if (currentRise > 0) {
-             currentRun = currentRise / tanAng;
-             setRun(round4(currentRun).toString());
-         }
-      }
-    }
-    
-    updateAll(field, currentRise, currentRun, isNaN(numVal) ? undefined : numVal);
-  };
-  
-  const updateAll = (sourceField: string, newRise: number, newRun: number, sourceVal?: number) => {
-    if (newRise > 0 && newRun > 0) {
-       if (sourceField !== 'percent') setSlopePercent(round4((newRise / newRun) * 100).toString());
-       if (sourceField !== 'ratio') setRatioN(round4(newRun / newRise).toString());
-       if (sourceField !== 'angle') setAngleDeg(round4(Math.atan(newRise / newRun) * 180 / Math.PI).toString());
-    } else {
-       if (sourceField !== 'percent') setSlopePercent("");
-       if (sourceField !== 'ratio') setRatioN("");
-       if (sourceField !== 'angle') setAngleDeg("");
-    }
-  };
+  // Longitudinal Profile States
+  const [startChainage, setStartChainage] = useState<number | "">(0);
+  const [endChainage, setEndChainage] = useState<number | "">(100);
+  const [startElevation, setStartElevation] = useState<number | "">(100.0);
+  const [longGradient, setLongGradient] = useState<number | "">(-2.5); // %
 
-  useEffect(() => {
-    const sElev = parseFloat(startElevation);
-    let r = parseFloat(rise) || 0;
-    
-    if (!isNaN(sElev) && r > 0) {
-      if (isCut) {
-         setFinalElevation(round4(sElev - r).toString());
-      } else {
-         setFinalElevation(round4(sElev + r).toString());
-      }
-    } else {
-      setFinalElevation("");
-    }
-  }, [startElevation, rise, isCut]);
+  // Camber States
+  const [centerElevation, setCenterElevation] = useState<number | "">(100.0);
+  const [roadWidth, setRoadWidth] = useState<number | "">(3.5); // m (half-width)
+  const [camberSlope, setCamberSlope] = useState<number | "">(-2.0); // %
 
-  const clearAll = () => {
-    setRise("");
-    setRun("");
-    setSlopePercent("");
-    setRatioN("");
-    setAngleDeg("");
-    setStartElevation("");
-    setFinalElevation("");
-    setActiveInput(null);
-  };
-  
-  // Triangle Visualization Calculation
-  const maxDim = 200;
-  let vizRise = parseFloat(rise) || 0;
-  let vizRun = parseFloat(run) || 0;
-  
-  if (vizRise === 0 && vizRun === 0) { vizRise = 1; vizRun = 2; }
-  else if (vizRise === 0) { vizRise = 0.01; }
-  else if (vizRun === 0) { vizRun = 0.01; }
-  
-  // Scale everything so max bounding box fits maxDim
-  const maxReal = Math.max(vizRise, vizRun);
-  const scale = maxDim / maxReal;
-  const svgRise = vizRise * scale;
-  const svgRun = vizRun * scale;
+  // Vertical Curve States
+  const [g1, setG1] = useState<number | "">(3.0); // %
+  const [g2, setG2] = useState<number | "">(-2.0); // %
+  const [designSpeed, setDesignSpeed] = useState<number | "">(80); // km/h
+
+  const longitudinalResults = useMemo(() => {
+    const ch1 = Number(startChainage) || 0;
+    const ch2 = Number(endChainage) || 0;
+    const elev1 = Number(startElevation) || 0;
+    const grad = Number(longGradient) || 0;
+
+    const length = Math.abs(ch2 - ch1);
+    const rise = length * (grad / 100);
+    const endElev = elev1 + rise;
+
+    const ratio = grad !== 0 ? Math.abs(100 / grad) : 0;
+    const ratioStr = grad !== 0 ? `1:${ratio.toFixed(2)}` : "Flat";
+
+    // Intermediate points check
+    const midElev = elev1 + (length / 2) * (grad / 100);
+
+    return { length, endElev, rise, ratioStr, midElev };
+  }, [startChainage, endChainage, startElevation, longGradient]);
+
+  const camberResults = useMemo(() => {
+    const cl = Number(centerElevation) || 0;
+    const w = Number(roadWidth) || 0;
+    const slope = Number(camberSlope) || 0;
+
+    const drop = w * (Math.abs(slope) / 100);
+    const edgeElev = cl - drop;
+
+    const ratio = slope !== 0 ? Math.abs(100 / slope) : 0;
+    const ratioStr = slope !== 0 ? `1:${ratio.toFixed(1)}` : "Flat";
+
+    return { edgeElev, drop, ratioStr };
+  }, [centerElevation, roadWidth, camberSlope]);
+
+  const vcResults = useMemo(() => {
+    const grade1 = Number(g1) || 0;
+    const grade2 = Number(g2) || 0;
+    const v = Number(designSpeed) || 0;
+
+    const A = Math.abs(grade1 - grade2); // Algebraic difference
+    const type = grade1 > grade2 ? "Crest" : "Sag";
+
+    // simplified K-values based on standard highway design (AASHTO approximations)
+    // Crest: K = V^2 / 395 approx
+    // Sag: K = V^2 / 120 approx
+    
+    let K = 0;
+    if (v <= 0) K = 0;
+    else if (type === "Crest") K = Math.max(1, (v * v) / (100 * 2.8)); // Basic approximation for Crest stopping sight distance
+    else K = Math.max(1, (v * v) / (120 * 1.5)); // Basic approximation for Sag headlight sight distance
+
+    let Lm = K * A;
+    if (A < 0.5) Lm = 0; // minimal grade change doesn't strictly need a curve
+    
+    // Check minimum length (often V or 0.6V)
+    const minLengthAesthetic = 0.6 * v;
+    let actualL = Math.max(Lm, minLengthAesthetic, 20); // enforce absolute min 20m
+
+    return { A, type, K, requiredLength: actualL };
+  }, [g1, g2, designSpeed]);
+
 
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
+    <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
       <SEO 
-        title="Gradient & Slope Calculator | Civil Estimation Pro" 
-        description="Calculate slopes, gradients, angles, and elevations dynamically for earthworks and construction projects."
+        title="Gradient & Slope Interpolation | Civil Estimation Pro" 
+        description="Dynamic slope calculator for road cambers, longitudinal gradients, and vertical curve profiles."
       />
-      <div className="max-w-4xl mx-auto space-y-6">
-        
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 bg-white p-6 rounded-[2rem] shadow-sm border border-slate-200">
-          <div>
-            
-          </div>
-          <div className="mt-6 flex flex-wrap gap-4 items-center">
-             <button
-                onClick={clearAll}
-                className="px-4 py-2 text-sm font-semibold rounded-[24px] bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors"
-             >
-                Clear All
-             </button>
-          </div>
+      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[24px] shadow-sm">
+         <h2 className="text-xl font-bold flex items-center gap-2 mb-6 text-slate-800 dark:text-slate-200">
+          <Route className="w-6 h-6 text-emerald-600" />
+          Highway Gradient & Slope Engineering
+        </h2>
+
+        <div className="flex bg-slate-100 p-1 rounded-[16px] mb-6 overflow-x-auto hide-scrollbar">
+            <button 
+                onClick={() => setActiveTab("longitudinal")}
+                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "longitudinal" ? "bg-white text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+            >
+                Longitudinal Profile
+            </button>
+            <button 
+                onClick={() => setActiveTab("camber")}
+                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "camber" ? "bg-white text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+            >
+                Crossfall / Camber
+            </button>
+            <button 
+                onClick={() => setActiveTab("vertical_curve")}
+                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "vertical_curve" ? "bg-white text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+            >
+                Vertical Curve Checks
+            </button>
         </div>
 
-        {/* Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          
-          <section className="lg:col-span-7 space-y-6">
-             <div className="bg-white px-6 py-6 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
-                <div className="flex items-center gap-3 mb-6 border-b border-slate-50 pb-4">
-                  <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-[24px]">
-                    <Triangle className="w-5 h-5" />
-                  </div>
-                  <h2 className="text-xl font-semibold tracking-tight text-slate-800">Slope Parameters</h2>
-                </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-5 space-y-6">
                 
-                <p className="text-sm text-slate-500 mb-6 font-medium">Enter any 2 parameters to auto-calculate the rest.</p>
+                {activeTab === "longitudinal" && (
+                    <div className="animate-in fade-in slide-in-from-bottom-4">
+                        <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Profile Inputs</h3>
+                        <div className="grid grid-cols-2 gap-4">
+                            <NumberInput label="Start Chainage" unit="m" value={startChainage} onChange={setStartChainage} />
+                            <NumberInput label="End Chainage" unit="m" value={endChainage} onChange={setEndChainage} />
+                            <NumberInput label="Start Elevation" unit="m" value={startElevation} onChange={setStartElevation} />
+                            <NumberInput label="Gradient (+/-)" unit="%" value={longGradient} onChange={setLongGradient} />
+                        </div>
+                        <p className="text-xs text-slate-500 mt-4 leading-relaxed">
+                            Positive gradient indicates an uphill slope. Negative indicates downhill. Output is interpolated linearly.
+                        </p>
+                    </div>
+                )}
+
+                {activeTab === "camber" && (
+                    <div className="animate-in fade-in slide-in-from-bottom-4">
+                        <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Road Cross-Section</h3>
+                        <div className="grid grid-cols-2 gap-4">
+                            <NumberInput label="Centerline Elev (CL)" unit="m" value={centerElevation} onChange={setCenterElevation} />
+                            <NumberInput label="Lane Width (Half)" unit="m" value={roadWidth} onChange={setRoadWidth} />
+                            <div className="col-span-2">
+                               <NumberInput label="Normal Crossfall / Camber" unit="%" value={camberSlope} onChange={setCamberSlope} />
+                            </div>
+                        </div>
+                        <p className="text-xs text-slate-500 mt-4 leading-relaxed">
+                            Camber is usually negative falling away from the centerline for drainage purposes.
+                        </p>
+                    </div>
+                )}
+
+                {activeTab === "vertical_curve" && (
+                    <div className="animate-in fade-in slide-in-from-bottom-4">
+                        <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Vertical Alignment</h3>
+                        <div className="grid grid-cols-2 gap-4">
+                            <NumberInput label="Grade 1 (g1)" unit="%" value={g1} onChange={setG1} />
+                            <NumberInput label="Grade 2 (g2)" unit="%" value={g2} onChange={setG2} />
+                            <div className="col-span-2">
+                               <NumberInput label="Design Speed (V)" unit="km/h" value={designSpeed} onChange={setDesignSpeed} />
+                            </div>
+                        </div>
+                        <p className="text-xs text-slate-500 mt-4 leading-relaxed">
+                            Basic check for minimum curve length based on K-Value approximations for stopping/headlight sight distance.
+                        </p>
+                    </div>
+                )}
+            </div>
+
+            <div className="lg:col-span-7 flex flex-col gap-6">
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                   <div>
-                     <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2 ml-1">Rise (Vertical Δ)</label>
-                     <input
-                       type="number"
-                       className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all"
-                       value={rise}
-                       onChange={(e) => handleInputChange('rise', e.target.value)}
-                       placeholder="e.g. 5"
-                     />
-                   </div>
-                   <div>
-                     <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2 ml-1">Run (Horizontal Δ)</label>
-                     <input
-                       type="number"
-                       className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all"
-                       value={run}
-                       onChange={(e) => handleInputChange('run', e.target.value)}
-                       placeholder="e.g. 100"
-                     />
-                   </div>
-                   
-                   <div>
-                     <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2 ml-1">Slope %</label>
-                     <div className="relative">
-                       <input
-                         type="number"
-                         className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all pr-8"
-                         value={slopePercent}
-                         onChange={(e) => handleInputChange('percent', e.target.value)}
-                         placeholder="e.g. 5"
-                       />
-                       <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium">%</span>
-                     </div>
-                   </div>
-                   
-                   <div>
-                     <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2 ml-1">Gradient Ratio 1:N</label>
-                     <div className="relative flex items-center bg-slate-50 border border-slate-200 rounded-[24px] focus-within:ring-2 focus-within:ring-emerald-500/50 focus-within:border-emerald-500 transition-all overflow-hidden">
-                       <span className="pl-4 pr-2 text-slate-800 font-bold bg-slate-100 h-full py-3 border-r border-slate-200">1 :</span>
-                       <input
-                         type="number"
-                         className="w-full bg-transparent text-slate-800 px-3 py-3 outline-none"
-                         value={ratioN}
-                         onChange={(e) => handleInputChange('ratio', e.target.value)}
-                         placeholder="e.g. 20"
-                       />
-                     </div>
-                   </div>
-                   
-                   <div className="sm:col-span-2">
-                     <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2 ml-1">Angle (Degrees)</label>
-                     <div className="relative">
-                       <input
-                         type="number"
-                         className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all pr-8"
-                         value={angleDeg}
-                         onChange={(e) => handleInputChange('angle', e.target.value)}
-                         placeholder="e.g. 2.86"
-                         max="89.99"
-                       />
-                       <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium">°</span>
-                     </div>
-                   </div>
-                </div>
-             </div>
-             
-             {/* Elevation section */}
-             <div className="bg-gradient-to-br from-slate-800 to-slate-900 px-6 py-6 rounded-[1.5rem] shadow-xl text-slate-900">
-                <div className="flex items-center gap-3 mb-6 border-b border-slate-200 pb-4">
-                  <div className="p-2.5 bg-[#F5F5F7] rounded-[24px]">
-                    <ArrowRight className="w-5 h-5 text-emerald-400" />
-                  </div>
-                  <h2 className="text-xl font-semibold tracking-tight">Elevation Finder</h2>
-                </div>
-                
-                <div className="flex items-center gap-4 mb-6 bg-slate-50 border border-slate-200 p-1.5 rounded-[24px] border border-slate-200 w-max">
-                   <button 
-                     onClick={() => setIsCut(true)}
-                     className={`px-4 py-2 text-sm font-semibold rounded-[24px] transition-all ${isCut ? 'bg-emerald-500 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'}`}
-                   >
-                     Cut (Downward)
-                   </button>
-                   <button 
-                     onClick={() => setIsCut(false)}
-                     className={`px-4 py-2 text-sm font-semibold rounded-[24px] transition-all ${!isCut ? 'bg-emerald-500 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'}`}
-                   >
-                     Fill (Upward)
-                   </button>
-                </div>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                   <div>
-                     <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 ml-1">Start Elevation</label>
-                     <input
-                       type="number"
-                       className="w-full bg-slate-50 border border-slate-200 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none"
-                       value={startElevation}
-                       onChange={(e) => setStartElevation(e.target.value)}
-                       placeholder="e.g. 100.5"
-                     />
-                   </div>
-                   <div>
-                     <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 ml-1">Final Elevation</label>
-                     <div className="w-full bg-slate-50 border border-slate-200 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 text-lg font-bold min-h-[50px] flex items-center">
-                        {finalElevation ? finalElevation : '--'}
-                     </div>
-                   </div>
-                </div>
-             </div>
-             
-          </section>
-          
-          <section className="lg:col-span-5 space-y-6">
-             <div className="bg-white px-6 py-6 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex flex-col items-center justify-center min-h-[300px]">
-                <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-6 self-start">Visual Diagram</h3>
-                
-                <div className="relative w-full max-w-[280px] flex justify-center items-center h-[220px]">
-                   <svg width={maxDim + 40} height={maxDim + 40} className="overflow-visible">
-                      <defs>
-                        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                          <path d="M 0 0 L 10 5 L 0 10 z" fill="#10B981" />
-                        </marker>
-                      </defs>
-                      <g transform={`translate(20, ${maxDim + 10}) scale(1, -1)`}>
-                         {/* Grid/Axes */}
-                         <line x1="0" y1="0" x2={svgRun} y2="0" stroke="#E2E8F0" strokeWidth="3" />
-                         <line x1={svgRun} y1="0" x2={svgRun} y2={svgRise} stroke="#10B981" strokeWidth="3" strokeDasharray="5,5" />
-                         
-                         {/* Slope line */}
-                         <line 
-                           x1="0" y1={isCut ? svgRise : 0} 
-                           x2={svgRun} y2={isCut ? 0 : svgRise} 
-                           stroke="#0F172A" strokeWidth="4" strokeLinecap="round" 
-                         />
-                         
-                         {/* Angle Arc if not cut or simple representation */}
-                         {!isCut && svgRise > 0 && svgRun > 0 && (
-                            <path 
-                              d={`M ${(maxDim/svgRun)*30 > 30 ? 30 : (maxDim/svgRun)*30} 0 A 30 30 0 0 1 ${(maxDim/svgRun)*30 > 30 ? 30*Math.cos(Math.atan(svgRise/svgRun)) : 30} ${(maxDim/svgRun)*30 > 30 ? 30*Math.sin(Math.atan(svgRise/svgRun)) : 30}`} 
-                              fill="none" stroke="#64748B" strokeWidth="2"
-                            />
-                         )}
-                         {isCut && svgRise > 0 && svgRun > 0 && (
-                            <path 
-                              d={`M ${(maxDim/svgRun)*30 > 30 ? 30 : (maxDim/svgRun)*30} ${svgRise} A 30 30 0 0 0 ${(maxDim/svgRun)*30 > 30 ? 30*Math.cos(Math.atan(-svgRise/svgRun)) : 30} ${svgRise - ((maxDim/svgRun)*30 > 30 ? 30*Math.sin(Math.atan(svgRise/svgRun)) : 30)}`} 
-                              fill="none" stroke="#64748B" strokeWidth="2"
-                            />
-                         )}
-                      </g>
-                   </svg>
-                   
-                   <div className={`absolute left-0  ${isCut ? 'top-0' : 'bottom-0'} -translate-x-full text-xs font-bold text-slate-400 whitespace-nowrap`}>
-                      Rise<br/>
-                      <span className="text-emerald-600 text-sm">{rise || "---"}</span>
-                   </div>
-                   
-                   <div className="absolute bottom-0 left-1/2 translate-y-full -translate-x-1/2 text-xs font-bold text-slate-400 mt-2">
-                      Run <span className="text-slate-800 text-sm ml-1">{run || "---"}</span>
-                   </div>
-                   
-                   <div className={`absolute right-4 ${isCut ? 'bottom-8' : 'top-8'} text-slate-500 font-bold bg-white px-2 py-1 rounded shadow-sm border border-slate-100`}>
-                     {angleDeg ? `${parseFloat(angleDeg).toFixed(1)}°` : '--°'}
-                   </div>
-                </div>
-                
-             </div>
-             
-             <div className="bg-slate-50 px-6 py-6 rounded-[1.5rem] border border-slate-200">
-                <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">Formulas Used</h3>
-                <ul className="text-sm text-slate-600 space-y-2 font-mono">
-                   <li><span className="font-bold text-slate-800">Slope %</span> = (Rise / Run) × 100</li>
-                   <li><span className="font-bold text-slate-800">1:N Ratio</span> = Run / Rise</li>
-                   <li><span className="font-bold text-slate-800">Angle</span> = atan(Rise / Run)</li>
-                   <li><span className="font-bold text-slate-800">Elevation</span> = Start ± Rise</li>
-                </ul>
-             </div>
-          </section>
-          
+                {activeTab === "longitudinal" && (
+                    <MaterialSummary 
+                        title="Longitudinal Outputs"
+                        totalLabel="Final Invert / Surface Elevation"
+                        totalValue={longitudinalResults.endElev.toFixed(3)}
+                        totalUnit="m"
+                        relatedToolIds={[]}
+                        className="mb-0 animate-in fade-in"
+                    >
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-4">
+                            <ResultCard title="Segment Length" value={longitudinalResults.length.toFixed(2)} unit="m" variant="neutral" />
+                            <ResultCard title="Total Rise/Fall" value={longitudinalResults.rise.toFixed(3)} unit="m" variant={longitudinalResults.rise > 0 ? "info" : "warning"} />
+                            <ResultCard title="Slope Ratio" value={longitudinalResults.ratioStr} unit="1:N" variant="neutral" />
+                        </div>
+                        <div className="mt-4 p-4 rounded-xl bg-slate-50 border border-slate-200">
+                             <h4 className="text-xs font-bold text-slate-500 mb-2">Midpoint Interpolation</h4>
+                             <div className="flex justify-between items-end">
+                                 <div>
+                                     <p className="text-[10px] text-slate-400">Chainage: {((Number(startChainage) + Number(endChainage)) / 2).toFixed(2)}</p>
+                                     <p className="font-mono font-bold text-slate-800">{longitudinalResults.midElev.toFixed(3)} m</p>
+                                 </div>
+                                 <ArrowRight className="text-slate-300 w-4 h-4 mb-1" />
+                             </div>
+                        </div>
+                    </MaterialSummary>
+                )}
+
+                {activeTab === "camber" && (
+                    <MaterialSummary 
+                        title="Crossfall Outputs"
+                        totalLabel="Edge of Pavement Elevation"
+                        totalValue={camberResults.edgeElev.toFixed(3)}
+                        totalUnit="m"
+                        relatedToolIds={[]}
+                        className="mb-0 animate-in fade-in"
+                    >
+                        <div className="grid grid-cols-2 gap-4 mt-4">
+                            <ResultCard title="Vertical Drop" value={camberResults.drop.toFixed(3)} unit="m" variant="warning" />
+                            <ResultCard title="Slope Ratio" value={camberResults.ratioStr} unit="1:N" variant="neutral" />
+                        </div>
+                        <div className="mt-6 bg-slate-50 h-24 rounded-2xl border border-slate-200 flex items-center justify-center relative overflow-hidden">
+                             <div className="absolute w-full h-[2px] bg-slate-300" style={{ transform: `rotate(${Math.min(10, Math.max(-10, Number(camberSlope)))}deg)` }}></div>
+                             <div className="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] font-bold text-slate-400 bg-slate-50 px-2 rounded-full">CL: {Number(centerElevation).toFixed(3)}</div>
+                             <div className="absolute bottom-2 text-rose-500 font-bold text-[10px] bg-rose-50 px-2 rounded-full">Edge: {camberResults.edgeElev.toFixed(3)}</div>
+                        </div>
+                    </MaterialSummary>
+                )}
+
+                {activeTab === "vertical_curve" && (
+                    <MaterialSummary 
+                        title="Vertical Curve Analytics"
+                        totalLabel="Minimum Curve Length (L)"
+                        totalValue={vcResults.requiredLength.toFixed(1)}
+                        totalUnit="m"
+                        relatedToolIds={[]}
+                        className="mb-0 animate-in fade-in"
+                    >
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-4">
+                            <ResultCard title="Curve Type" value={vcResults.type} unit="Curve" variant={vcResults.type === "Crest" ? "info" : "primary"} />
+                            <ResultCard title="Algebraic Diff (A)" value={vcResults.A.toFixed(1)} unit="%" variant="neutral" />
+                            <ResultCard title="K-Value (Approx)" value={vcResults.K.toFixed(1)} unit="" variant="neutral" />
+                        </div>
+                        
+                        <div className="mt-6 flex flex-col gap-3">
+                             <div className={`p-4 rounded-2xl border flex items-start justify-between ${vcResults.A > 0.5 ? "bg-teal-50 border-teal-200" : "bg-slate-50 border-slate-200"}`}>
+                                 <div>
+                                     <h4 className={`text-sm font-bold ${vcResults.A > 0.5 ? "text-teal-900" : "text-slate-800"}`}>Curve Requirement</h4>
+                                     <p className="text-xs mt-1 text-slate-500">Based on grade difference and comfort standard.</p>
+                                 </div>
+                                 {vcResults.A > 0.5 ? (
+                                    <span className="bg-teal-200 text-teal-800 text-[10px] font-bold px-2 py-1 rounded-full uppercase flex items-center gap-1"><CheckCircle2 className="w-3 h-3"/> Required</span>
+                                 ) : (
+                                    <span className="bg-slate-200 text-slate-600 text-[10px] font-bold px-2 py-1 rounded-full uppercase">Not Strictly Required</span>
+                                 )}
+                             </div>
+                        </div>
+                    </MaterialSummary>
+                )}
+
+            </div>
         </div>
-      </div>
-      <CalculationHistory
-        calculatorId="gradient_slope_calculator_v1"
-        estimationName="Gradient & Slope Profile"
-        savePayload={{ rise, run, slopePercent, startElevation, finalElevation, isCut }}
-        currentInputs={{ rise, run, slopePercent, startElevation, finalElevation, isCut }}
-        onRestore={() => {}}
+       </div>
+    
+      <CalculationHistory 
+        calculatorId="gradient_slope_calculator" 
+        currentInputs={{ activeTab, startChainage, endChainage, startElevation, longGradient, centerElevation, roadWidth, camberSlope, g1, g2, designSpeed }} 
       />
     </div>
   );

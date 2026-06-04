@@ -90,7 +90,12 @@ export default function MixDesignCalculator() {
   const reportRef = useRef<HTMLDivElement>(null);
 
   // ---- Calculations ----
-  const stdDev = fck <= 25 ? 4 : fck > 60 ? 6 : 5;
+  let stdDev = 5;
+  if (fck <= 15) stdDev = 3.5;
+  else if (fck <= 25) stdDev = 4.0;
+  else if (fck <= 60) stdDev = 5.0;
+  else stdDev = 6.0;
+
   const targetMeanStrength = fck + 1.65 * stdDev;
 
   let baseWater = BASE_WATER_CONTENT[aggSize] || 186;
@@ -432,6 +437,58 @@ export default function MixDesignCalculator() {
                </div>
              </div>
           </div>
+
+          <MaterialSummary
+            title="Material BOQ Output"
+            subtitle={`Quantities per 1 cubic meter of M${fck} concrete`}
+            totalLabel="Total Dry Material"
+            totalValue={(weightCement + weightFlyAsh + weightGgbs + weightSf + weightSand + weightCA).toString()}
+            totalUnit="kg"
+            relatedToolIds={["concrete-mix"]}
+          >
+            <div className="space-y-3 pt-4">
+              <div className="flex justify-between items-center text-sm border-b border-slate-100 pb-2">
+                <span className="font-semibold text-slate-600">Cement</span>
+                <span className="font-bold tabular-nums text-slate-800">{weightCement} kg</span>
+              </div>
+              {weightFlyAsh > 0 && (
+                <div className="flex justify-between items-center text-sm border-b border-slate-100 pb-2">
+                  <span className="font-semibold text-slate-600">Fly Ash</span>
+                  <span className="font-bold tabular-nums text-slate-800">{weightFlyAsh} kg</span>
+                </div>
+              )}
+              {weightGgbs > 0 && (
+                <div className="flex justify-between items-center text-sm border-b border-slate-100 pb-2">
+                  <span className="font-semibold text-slate-600">GGBS</span>
+                  <span className="font-bold tabular-nums text-slate-800">{weightGgbs} kg</span>
+                </div>
+              )}
+              {weightSf > 0 && (
+                <div className="flex justify-between items-center text-sm border-b border-slate-100 pb-2">
+                  <span className="font-semibold text-slate-600">Silica Fume</span>
+                  <span className="font-bold tabular-nums text-slate-800">{weightSf} kg</span>
+                </div>
+              )}
+              <div className="flex justify-between items-center text-sm border-b border-slate-100 pb-2">
+                <span className="font-semibold text-slate-600">Fine Aggregates (Sand)</span>
+                <span className="font-bold tabular-nums text-slate-800">{weightSand} kg</span>
+              </div>
+              <div className="flex justify-between items-center text-sm border-b border-slate-100 pb-2">
+                <span className="font-semibold text-slate-600">Coarse Aggregates ({aggSize} mm)</span>
+                <span className="font-bold tabular-nums text-slate-800">{weightCA} kg</span>
+              </div>
+              <div className="flex justify-between items-center text-sm border-b border-slate-100 pb-2">
+                <span className="font-semibold text-slate-600">Water</span>
+                <span className="font-bold tabular-nums text-slate-800">{Math.round(actualWaterContent)} L</span>
+              </div>
+              {admixWaterReducer !== "None" && (
+                <div className="flex justify-between items-center text-sm border-b border-slate-100 pb-2">
+                  <span className="font-semibold text-slate-600">Admixture ({admixWaterReducer})</span>
+                  <span className="font-bold tabular-nums text-slate-800">{(totalCementitious * 0.01).toFixed(2)} kg <span className="text-xs text-slate-400 font-normal">(est. 1%)</span></span>
+                </div>
+              )}
+            </div>
+          </MaterialSummary>
         </div>
       </div>
 

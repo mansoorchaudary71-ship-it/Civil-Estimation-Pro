@@ -525,17 +525,42 @@ export const GlobalReportEngine = {
 
     const finalY = (doc as any).lastAutoTable.finalY || currentY + 10;
     
+    const subtotal = safeData.metadata.subtotal || 0;
+    const contingency = safeData.metadata.contingency || 0;
+    const profit = safeData.metadata.profit || 0;
+    const overheads = safeData.metadata.overheads || 0;
     const totalCost = safeData.metadata.totalEstimatedCost || 0;
-    const totalCostStr = totalCost > 0 ? `Rs ${Math.round(totalCost).toLocaleString()}` : "N/A";
+    
+    // Format helpers
+    const fAmt = (amt: number) => amt > 0 ? `Rs ${Math.round(amt).toLocaleString()}` : "-";
+
+    const summaryBody = [];
+    if (subtotal > 0 && (contingency > 0 || profit > 0 || overheads > 0)) {
+       summaryBody.push(["SUBTOTAL", fAmt(subtotal)]);
+       if (contingency > 0) summaryBody.push(["CONTINGENCY", fAmt(contingency)]);
+       if (overheads > 0) summaryBody.push(["OVERHEADS", fAmt(overheads)]);
+       if (profit > 0) summaryBody.push(["CONTRACTOR PROFIT", fAmt(profit)]);
+    }
+    summaryBody.push(["GRAND TOTAL", fAmt(totalCost)]);
 
     autoTable(doc, {
       startY: finalY,
-      body: [["GRAND TOTAL", totalCostStr]],
+      body: summaryBody,
       theme: "plain",
-      styles: { font: "helvetica", fontSize: 13, cellPadding: 6 },
+      styles: { font: "helvetica", fontSize: 11, cellPadding: 4 },
+      willDrawCell: function(data) {
+        if (data.row.index === summaryBody.length - 1) {
+           doc.setFont("helvetica", "bold");
+           doc.setFontSize(13);
+           doc.setTextColor(232, 84, 26);
+        } else {
+           doc.setFont("helvetica", "normal");
+           doc.setTextColor(15, 23, 42);
+        }
+      },
       columnStyles: {
         0: { fontStyle: "bold", textColor: [15, 23, 42], halign: "right" },
-        1: { halign: "right", fontStyle: "bold", textColor: [232, 84, 26], cellWidth: 45 },
+        1: { halign: "right", fontStyle: "bold", cellWidth: 45 },
       },
       margin: { left: 14, right: 14 },
     });
@@ -624,7 +649,7 @@ export const GlobalReportEngine = {
      dashSheet.getCell("B7").font = { bold: true, size: 14, color: { argb: 'FF0F172A' } };
      
      // Project Parameters
-     const ignoreKeys = ['totalEstimatedCost', 'costPerSqFt', 'totalCoveredArea', 'structureType', 'projectName', 'date', 'contingency', 'gst', 'totalCost', 'location', 'preparedBy'];
+     const ignoreKeys = ['totalEstimatedCost', 'costPerSqFt', 'subtotal', 'totalCoveredArea', 'structureType', 'projectName', 'date', 'contingency', 'gst', 'profit', 'overheads', 'totalCost', 'location', 'preparedBy'];
      const paramsMap: {label: string; value: any}[] = [];
      
      if (safeData.metadata.projectName) paramsMap.push({ label: "Project Name", value: safeData.metadata.projectName });
@@ -658,34 +683,63 @@ export const GlobalReportEngine = {
        highestDriver = sorted[0].label;
      }
 
-     dashSheet.getCell(`B${startRow}`).value = "Grand Total";
+     const subtotalOffset = safeData.metadata.subtotal > 0 && (safeData.metadata.contingency > 0 || safeData.metadata.profit > 0 || safeData.metadata.overheads > 0);
+     if (subtotalOffset) {
+        dashSheet.getCell(`B${startRow}`).value = "Subtotal";
+        dashSheet.getCell(`C${startRow}`).value = safeData.metadata.subtotal;
+        dashSheet.getCell(`C${startRow}`).numFmt = '"Rs "#,##0';
+        startRow++;
+        
+        if (safeData.metadata.contingency > 0) {
+           dashSheet.getCell(`B${startRow}`).value = "Contingency";
+           dashSheet.getCell(`C${startRow}`).value = safeData.metadata.contingency;
+           dashSheet.getCell(`C${startRow}`).numFmt = '"Rs "#,##0';
+           startRow++;
+        }
+        if (safeData.metadata.overheads > 0) {
+           dashSheet.getCell(`B${startRow}`).value = "Overheads";
+           dashSheet.getCell(`C${startRow}`).value = safeData.metadata.overheads;
+           dashSheet.getCell(`C${startRow}`).numFmt = '"Rs "#,##0';
+           startRow++;
+        }
+        if (safeData.metadata.profit > 0) {
+           dashSheet.getCell(`B${startRow}`).value = "Contractor Profit";
+           dashSheet.getCell(`C${startRow}`).value = safeData.metadata.profit;
+           dashSheet.getCell(`C${startRow}`).numFmt = '"Rs "#,##0';
+           startRow++;
+        }
+     }
+
+     const grandTotalStart = startRow;
+     dashSheet.getCell(`B${grandTotalStart}`).value = "Grand Total";
      
      if ((safeData.metadata.totalEstimatedCost || 0) > 0) {
-       dashSheet.getCell(`C${startRow}`).value = safeData.metadata.totalEstimatedCost;
-       dashSheet.getCell(`C${startRow}`).numFmt = '"Rs "#,##0';
+       dashSheet.getCell(`C${grandTotalStart}`).value = safeData.metadata.totalEstimatedCost;
+       dashSheet.getCell(`C${grandTotalStart}`).numFmt = '"Rs "#,##0';
      } else {
-       dashSheet.getCell(`C${startRow}`).value = "N/A";
+       dashSheet.getCell(`C${grandTotalStart}`).value = "N/A";
      }
-     dashSheet.getCell(`C${startRow}`).font = { bold: true, size: 12, color: { argb: 'FFE8541A' } };
+     dashSheet.getCell(`C${grandTotalStart}`).font = { bold: true, size: 12, color: { argb: 'FFE8541A' } };
 
-     dashSheet.getCell(`B${startRow+1}`).value = "Cost per Sq.Ft";
+     dashSheet.getCell(`B${grandTotalStart+1}`).value = "Cost per Sq.Ft";
      if ((safeData.metadata.costPerSqFt || 0) > 0) {
-       dashSheet.getCell(`C${startRow+1}`).value = safeData.metadata.costPerSqFt;
-       dashSheet.getCell(`C${startRow+1}`).numFmt = '"Rs "#,##0';
+       dashSheet.getCell(`C${grandTotalStart+1}`).value = safeData.metadata.costPerSqFt;
+       dashSheet.getCell(`C${grandTotalStart+1}`).numFmt = '"Rs "#,##0';
      } else {
-       dashSheet.getCell(`C${startRow+1}`).value = "N/A";
+       dashSheet.getCell(`C${grandTotalStart+1}`).value = "N/A";
      }
-     dashSheet.getCell(`C${startRow+1}`).font = { bold: true, size: 12 };
+     dashSheet.getCell(`C${grandTotalStart+1}`).font = { bold: true, size: 12 };
 
-     dashSheet.getCell(`B${startRow+2}`).value = "Built-Up Area";
-     dashSheet.getCell(`C${startRow+2}`).value = safeData.metadata.totalCoveredArea ? `${safeData.metadata.totalCoveredArea} sq.ft` : "N/A";
-     dashSheet.getCell(`C${startRow+2}`).font = { bold: true, size: 12 };
+     dashSheet.getCell(`B${grandTotalStart+2}`).value = "Built-Up Area";
+     dashSheet.getCell(`C${grandTotalStart+2}`).value = safeData.metadata.totalCoveredArea ? `${safeData.metadata.totalCoveredArea} sq.ft` : "N/A";
+     dashSheet.getCell(`C${grandTotalStart+2}`).font = { bold: true, size: 12 };
 
-     dashSheet.getCell(`B${startRow+3}`).value = "Primary Cost Driver";
-     dashSheet.getCell(`C${startRow+3}`).value = highestDriver;
-     dashSheet.getCell(`C${startRow+3}`).font = { bold: true, size: 12 };
+     dashSheet.getCell(`B${grandTotalStart+3}`).value = "Primary Cost Driver";
+     dashSheet.getCell(`C${grandTotalStart+3}`).value = highestDriver;
+     dashSheet.getCell(`C${grandTotalStart+3}`).font = { bold: true, size: 12 };
 
-     for(let r=9; r<=startRow+3; r++) {
+     // For formatting borders and backgrounds
+     for(let r=9; r<=grandTotalStart+3; r++) {
          const cellB = dashSheet.getCell(`B${r}`);
          const cellC = dashSheet.getCell(`C${r}`);
          cellB.border = { bottom: {style:'thin', color:{argb:'FFE2E8F0'}} };
@@ -693,7 +747,7 @@ export const GlobalReportEngine = {
          cellC.border = { bottom: {style:'thin', color:{argb:'FFE2E8F0'}} };
      }
 
-     const discRowStart = startRow + 6;
+     const discRowStart = grandTotalStart + 6;
      dashSheet.getCell(`B${discRowStart}`).value = "Terms & Conditions / Disclaimer";
      dashSheet.getCell(`B${discRowStart}`).font = { bold: true, size: 12, color: { argb: 'FF0F172A' } };
      
@@ -765,21 +819,33 @@ export const GlobalReportEngine = {
        }
      });
 
-     const lastRow = (safeData.boqData?.length || 0) + 1;
-     const footerRow = boqSheet.addRow({
-       cat: '',
-       desc: 'GRAND TOTAL',
-       unit: '',
-       qty: '',
-       rate: '',
-     });
-     footerRow.font = { bold: true, size: 12, color: { argb: 'FF0F172A' } };
-     
-     const totalCell = footerRow.getCell(6);
-     totalCell.value = { formula: `SUM(F2:F${lastRow})` } as any;
-     totalCell.numFmt = '"Rs "#,##0';
-     totalCell.font = { bold: true, color: { argb: 'FFE8541A' } }; 
+           const lastRow = (safeData.boqData?.length || 0) + 1;
+      
+      const addFooterRow = (title: string, value: any, isGrandTotal = false) => {
+         const row = boqSheet.addRow({
+           cat: '',
+           desc: title,
+           unit: '',
+           qty: '',
+           rate: '',
+         });
+         row.font = { bold: true, size: isGrandTotal ? 12 : 11, color: { argb: 'FF0F172A' } };
+         const cellAmt = row.getCell(6);
+         cellAmt.value = value;
+         cellAmt.numFmt = '"Rs "#,##0';
+         if (isGrandTotal) cellAmt.font = { bold: true, color: { argb: 'FFE8541A' } };
+      };
 
-     return workbook;
+      if (subtotalOffset) {
+         addFooterRow('SUBTOTAL', { formula: `SUM(F2:F${lastRow})` });
+         if (safeData.metadata.contingency > 0) addFooterRow('CONTINGENCY', safeData.metadata.contingency);
+         if (safeData.metadata.overheads > 0) addFooterRow('OVERHEADS', safeData.metadata.overheads);
+         if (safeData.metadata.profit > 0) addFooterRow('CONTRACTOR PROFIT', safeData.metadata.profit);
+         addFooterRow('GRAND TOTAL', safeData.metadata.totalEstimatedCost, true);
+      } else {
+         addFooterRow('GRAND TOTAL', { formula: `SUM(F2:F${lastRow})` }, true);
+      }
+
+      return workbook;
   }
 };

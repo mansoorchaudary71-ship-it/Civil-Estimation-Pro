@@ -1,33 +1,286 @@
-import React, { useState } from 'react';
-import { Building2 } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import { Columns, CheckCircle2, AlertTriangle } from 'lucide-react';
 import { CalculationHistory } from '../ui/CalculationHistory';
+import { MaterialSummary } from '../ui/MaterialSummary';
+import { NumberInput } from '../ui/NumberInput';
+import { ResultCard } from '../ui/ResultCard';
+import { ComposedChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Scatter, ResponsiveContainer, Legend } from 'recharts';
+
+type EndCondition = "fixed-fixed" | "fixed-pinned" | "pinned-pinned" | "fixed-free";
+
+const END_CONDITIONS: Record<EndCondition, { label: string; k: number }> = {
+  "fixed-fixed": { label: "Both Ends Fixed (0.65L)", k: 0.65 },
+  "fixed-pinned": { label: "One Fixed, One Pinned (0.8L)", k: 0.8 },
+  "pinned-pinned": { label: "Both Ends Pinned (1.0L)", k: 1.0 },
+  "fixed-free": { label: "One Fixed, One Free (2.0L)", k: 2.0 },
+};
+
+function generateInteractionCurve(B: number, D: number, fck: number, fy: number, Asc: number, cover: number) {
+  const points = [];
+  const As1 = Asc / 2; 
+  const As2 = Asc / 2; 
+  const d_prime = cover;
+  const d = D - d_prime;
+
+  const fyd = 0.87 * fy; 
+  const Es = 200000;
+  
+  points.push({ M: 0, P: -fyd * Asc / 1000 });
+
+  const xValues = [];
+  for (let i = 0.05; i <= 2.5; i += 0.05) xValues.push(i * D);
+
+  xValues.forEach(x => {
+    let Cc = 0;
+    let y_cc = D/2;
+
+    if (x <= D) {
+       Cc = 0.36 * fck * B * x;
+       y_cc = D / 2 - 0.416 * x;
+    } else {
+       Cc = 0.45 * fck * B * D;
+       y_cc = 0;
+    }
+
+    const esc = 0.0035 * (x - d_prime) / x;
+    const est = 0.0035 * (x - d) / x; 
+
+    const strain_c_top = 0.0035;
+    const strain_s_top = strain_c_top * (x - d_prime) / x;
+    const strain_s_bot = strain_c_top * (x - d) / x; 
+
+    let f_s_top = strain_s_top * Es;
+    if (f_s_top > fyd) f_s_top = fyd;
+    if (f_s_top < -fyd) f_s_top = -fyd;
+
+    let f_s_bot = strain_s_bot * Es;
+    if (f_s_bot > fyd) f_s_bot = fyd;
+    if (f_s_bot < -fyd) f_s_bot = -fyd;
+
+    const Cs = (f_s_top - 0.45 * fck) * As1; 
+    const Cb = (f_s_bot - (strain_s_bot > 0 ? 0.45 * fck : 0)) * As2; 
+
+    const P = Cc + Cs + Cb; 
+    const M = Cc * y_cc + Cs * (D / 2 - d_prime) + Cb * -(D / 2 - d_prime); 
+
+    if (P > -fyd * Asc && P < (0.45 * fck * B * D + fyd * Asc)) {
+        points.push({ M: Math.abs(M / 1e6), P: P / 1000 });
+    }
+  });
+
+  const Puz = 0.45 * fck * (B * D - Asc) + 0.75 * fy * Asc;
+  points.push({ M: 0, P: Puz / 1000 });
+
+  return points.sort((a,b) => a.P - b.P);
+}
 
 export default function ColumnDesignTool() {
-  const [load, setLoad] = useState('1500');
-  const [length, setLength] = useState('3.5');
+  const [load, setLoad] = useState<number | "">(1500);
+  const [mux, setMux] = useState<number | "">(100);
+  const [length, setLength] = useState<number | "">(3.0);
+  const [endCondition, setEndCondition] = useState<EndCondition>("fixed-fixed");
+  
+  const [width, setWidth] = useState<number | "">(300);
+  const [depth, setDepth] = useState<number | "">(450);
+  const [fck, setFck] = useState<number | "">(25);
+  const [fy, setFy] = useState<number | "">(500);
+  
+  const [rebarDia, setRebarDia] = useState<number | "">(20);
+  const [rebarCount, setRebarCount] = useState<number | "">(8);
+  const [cover, setCover] = useState<number | "">(40);
+
+  const results = useMemo(() => {
+    const P = Number(load) || 0;
+    const M = Number(mux) || 0;
+    const L = Number(length) || 0;
+    const B = Number(width) || 300;
+    const D = Number(depth) || 450;
+    const fc = Number(fck) || 25;
+    const fsteel = Number(fy) || 500;
+    const dia = Number(rebarDia) || 20;
+    const nBars = Number(rebarCount) || 8;
+    const c = Number(cover) || 40;
+
+    const Asc = nBars * Math.PI * Math.pow(dia, 2) / 4;
+    const pSteel = (Asc / (B * D)) * 100;
+
+    const k = END_CONDITIONS[endCondition].k;
+    const le = L * k;
+
+    const ratioX = (le * 1000) / D;
+    const isSlender = ratioX > 12;
+
+    const ex_min = Math.max((L * 1000) / 500 + D / 30, 20);
+    let designMoment = Math.max(M, P * ex_min / 1000);
+
+    let additionalMoment = 0;
+    if (isSlender) {
+      const e_add = (Math.pow(le * 1000, 2) / (2000 * D));
+      additionalMoment = P * e_add / 1000;
+      designMoment += additionalMoment;
+    }
+
+    const curve = generateInteractionCurve(B, D, fc, fsteel, Asc, c);
+
+    let maxCapacityM = 0;
+    for(let i=0; i<curve.length-1; i++) {
+        if(curve[i].P <= P && curve[i+1].P >= P) {
+            maxCapacityM = curve[i].M + (curve[i+1].M - curve[i].M) * ((P - curve[i].P)/(curve[i+1].P - curve[i].P));
+            break;
+        }
+    }
+    
+    // Check if outside top of curve
+    if(P > curve[curve.length-1].P) maxCapacityM = 0;
+    
+    const isSafe = designMoment <= maxCapacityM && maxCapacityM > 0;
+
+    return {
+      le,
+      ratioX,
+      isSlender,
+      ex_min,
+      designMoment,
+      additionalMoment,
+      curve,
+      Asc,
+      pSteel,
+      isSafe,
+      maxCapacityM
+    };
+  }, [load, mux, length, endCondition, width, depth, fck, fy, rebarDia, rebarCount, cover]);
 
   return (
-    <div className="flex flex-col gap-8 w-full max-w-4xl mx-auto">
-      <div className="bg-white rounded-[24px] p-6 shadow-sm border border-slate-200">
-         <h2 className="text-xl font-semibold mb-6 text-slate-800 flex items-center gap-2">
-            <Building2 className="text-pink-600" /> Column Design (IS 456 & 13920)
+    <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
+      <div className="bg-white dark:bg-slate-900 rounded-[24px] p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+         <h2 className="text-xl font-bold mb-6 text-slate-800 dark:text-slate-200 flex items-center gap-2">
+            <Columns className="text-rose-600" /> Column Design & P-M Interaction
          </h2>
-         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-semibold mb-2">Axial Load (kN)</label>
-              <input type="number" className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-3" value={load} onChange={e => setLoad(e.target.value)} />
+
+         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-4 space-y-6">
+                <div>
+                  <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Loads & Boundary</h3>
+                  <div className="space-y-4">
+                    <NumberInput label="Axial Load (Pu)" unit="kN" value={load} onChange={setLoad} />
+                    <NumberInput label="Design Moment (Mux)" unit="kNm" value={mux} onChange={setMux} />
+                    <NumberInput label="Unsupported Length (L)" unit="m" value={length} onChange={setLength} />
+                    
+                    <div>
+                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1">End Condition</label>
+                        <select 
+                            value={endCondition}
+                            onChange={(e) => setEndCondition(e.target.value as EndCondition)}
+                            className="w-full h-11 bg-slate-50 border border-slate-200 rounded-[16px] px-4 text-sm font-medium focus:outline-none"
+                        >
+                            {Object.entries(END_CONDITIONS).map(([key, val]) => (
+                                <option key={key} value={key}>{val.label}</option>
+                            ))}
+                        </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Section & Materials</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <NumberInput label="Width (B)" unit="mm" value={width} onChange={setWidth} />
+                    <NumberInput label="Depth (D)" unit="mm" value={depth} onChange={setDepth} />
+                    <NumberInput label="Concrete (fck)" unit="MPa" value={fck} onChange={setFck} />
+                    <NumberInput label="Steel (fy)" unit="MPa" value={fy} onChange={setFy} />
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Reinforcement</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <NumberInput label="Bar Dia" unit="mm" value={rebarDia} onChange={setRebarDia} />
+                    <NumberInput label="No. of Bars" value={rebarCount} onChange={setRebarCount} />
+                    <div className="col-span-2">
+                        <NumberInput label="Clear Cover" unit="mm" value={cover} onChange={setCover} />
+                    </div>
+                  </div>
+                </div>
             </div>
-            <div>
-              <label className="block text-sm font-semibold mb-2">Unsupported Length (m)</label>
-              <input type="number" className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-3" value={length} onChange={e => setLength(e.target.value)} />
+
+            <div className="lg:col-span-8 flex flex-col gap-6">
+                <MaterialSummary 
+                    title="Capacity & Verification"
+                    totalLabel="Reinforcement Area"
+                    totalValue={results.Asc.toFixed(0)}
+                    totalUnit="mm²"
+                    relatedToolIds={[]}
+                >
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
+                        <ResultCard title="Effective Length" value={results.le.toFixed(2)} unit="m" variant="neutral" />
+                        <ResultCard title="Ratio (le/D)" value={results.ratioX.toFixed(1)} unit={results.isSlender ? "Slender" : "Short"} variant={results.isSlender ? "primary" : "neutral"} />
+                        <ResultCard title="Design Moment" value={results.designMoment.toFixed(1)} unit="kNm" variant="neutral" />
+                        <ResultCard title="Steel %" value={results.pSteel.toFixed(2)} unit="%" variant={results.pSteel > 4 || results.pSteel < 0.8 ? "warning" : "neutral"} />
+                    </div>
+
+                    <div className={`mt-6 p-4 rounded-2xl flex items-center justify-between border ${results.isSafe ? "bg-teal-50 border-teal-200" : "bg-rose-50 border-rose-200"}`}>
+                        <div className="flex items-center gap-3">
+                            {results.isSafe ? <CheckCircle2 className="text-teal-600 w-6 h-6" /> : <AlertTriangle className="text-rose-600 w-6 h-6" />}
+                            <div>
+                                <h4 className={`font-bold ${results.isSafe ? "text-teal-900" : "text-rose-900"}`}>
+                                    {results.isSafe ? "Section is Safe" : "Section Fails"}
+                                </h4>
+                                <p className={`text-sm ${results.isSafe ? "text-teal-700" : "text-rose-700"}`}>
+                                    Applied M: {results.designMoment.toFixed(1)} kNm | Capacity M: {results.maxCapacityM.toFixed(1)} kNm
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </MaterialSummary>
+
+                <div className="bg-slate-50 border border-slate-100 rounded-3xl p-6 flex-1 min-h-[400px]">
+                    <h3 className="font-bold text-slate-800 text-sm mb-4">P-M Interaction Diagram (IS 456)</h3>
+                    <ResponsiveContainer width="100%" height={350}>
+                        <ComposedChart margin={{ top: 10, right: 20, left: 10, bottom: 20 }}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                            <XAxis 
+                                type="number" 
+                                dataKey="M" 
+                                name="Moment" 
+                                label={{ value: 'Moment (kNm)', position: 'insideBottom', offset: -10 }} 
+                            />
+                            <YAxis 
+                                type="number" 
+                                dataKey="P" 
+                                name="Axial Load" 
+                                label={{ value: 'Axial Load (kN)', angle: -90, position: 'insideLeft' }} 
+                            />
+                            <RechartsTooltip cursor={{strokeDasharray: '3 3'}} formatter={(value: number) => value.toFixed(1)} />
+                            <Legend verticalAlign="top" height={36} />
+                            
+                            <Line 
+                                data={results.curve} 
+                                type="monotone" 
+                                dataKey="P" 
+                                stroke="#e11d48" 
+                                strokeWidth={3} 
+                                dot={false} 
+                                name="Capacity Envelope" 
+                                isAnimationActive={false}
+                            />
+                            
+                            <Scatter 
+                                name="Applied Load (Pu, Mu)" 
+                                data={[{ M: results.designMoment, P: Number(load) || 0 }]} 
+                                fill={results.isSafe ? "#0d9488" : "#e11d48"} 
+                                shape="circle"
+                            />
+                        </ComposedChart>
+                    </ResponsiveContainer>
+                </div>
             </div>
-         </div>
-         <div className="mt-8 p-6 bg-pink-50 rounded-[24px] border border-pink-100">
-            <p className="text-pink-800 font-medium text-center">Interactive interaction diagrams and bi-axial design calculations would appear here based on the selected section size and reinforcement arrangement.</p>
          </div>
       </div>
     
-      <CalculationHistory calculatorId="columndesigntool_tool" currentInputs={{}} />
-</div>
+      <CalculationHistory 
+        calculatorId="column_interaction" 
+        currentInputs={{ load, mux, length, endCondition, width, depth, fck, fy, rebarDia, rebarCount }} 
+      />
+    </div>
   );
 }

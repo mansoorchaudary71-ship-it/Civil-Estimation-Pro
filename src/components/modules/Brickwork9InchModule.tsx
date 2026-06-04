@@ -83,6 +83,10 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
       noOfBricks * brickVolWithoutMortar;
     /* Wet mortar volume */ let wetMortarVol = netVolume - volumeOfBricks;
     if (wetMortarVol < 0) wetMortarVol = 0;
+    
+    // Frog filling allowance (adds approx 15% extra mortar per brick)
+    wetMortarVol = wetMortarVol * 1.15;
+
     /* fallback // Dry mortar volume (approx 33% more) */ let dryMortarVol =
       wetMortarVol * 1.33;
     if (includeWastage) {

@@ -28,9 +28,9 @@ export default function BarBendingSchedule() {
       noOfBars: 1,
       cover: 40,
       inputs: { W: 300, D: 450, A: 220, B: 370 },
-      cutLengthM: 1.372, // 2(220+370) + 24*8 = 1180 + 192 = 1372mm
-      totalLengthM: 1.372,
-      totalWeightKg: 0.54 // (8^2 / 162.28) * 1.372
+      cutLengthM: 1.244,
+      totalLengthM: 1.244,
+      totalWeightKg: 0.49
     }
   ]);
 
@@ -62,13 +62,19 @@ export default function BarBendingSchedule() {
     let cutLengthMm = 0;
     const inputsUsed: Record<string, number> = {};
 
+    // Exact rules: hook = 10d, 45 deg = 1d, 90 deg = 2d, 135 deg = 3d deduction
+    const hookLength = 10 * d;
+    const bend90 = 2 * d;
+    const bend45 = 1 * d;
+    const bend135 = 3 * d;
+
     if (shape === "rect-stirrup") {
       const W = parseFloat(width) || 0;
       const D = parseFloat(depth) || 0;
       const A = W - 2 * c;
       const B = D - 2 * c;
-      // Formula: L = 2(A + B) + 24 * dia (user rule)
-      cutLengthMm = 2 * (A + B) + 24 * d;
+      // Perimeter + 2 hooks - 3*90deg bends - 2*135deg bends
+      cutLengthMm = 2 * (A + B) + (2 * hookLength) - (3 * bend90 + 2 * bend135);
       inputsUsed.W = W;
       inputsUsed.D = D;
       inputsUsed.A = A;
@@ -78,33 +84,38 @@ export default function BarBendingSchedule() {
       const D = parseFloat(depth) || 0;
       const A = W - 2 * c;
       const B = D - 2 * c;
-      // U-stirrup: 1 horizontal leg, 2 vertical legs + 2 hooks
-      cutLengthMm = A + 2 * B + 24 * d;
+      // 1 horizontal, 2 vertical + 2 hooks - 2*90deg bends
+      cutLengthMm = A + 2 * B + (2 * hookLength) - (2 * bend90);
       inputsUsed.W = W;
       inputsUsed.D = D;
       inputsUsed.A = A;
       inputsUsed.B = B;
     } else if (shape === "straight") {
       const S = parseFloat(span) || 0;
-      cutLengthMm = S; // Assuming span is cut length, or span - 2c? Let's say it's clear span of bar
+      cutLengthMm = S;
       inputsUsed.Span = S;
     } else if (shape === "u-hook") {
       const S = parseFloat(span) || 0;
-      // Hook length = 9d on each side => 18d total
-      cutLengthMm = S + 18 * d;
+      // 2 U-hooks. A U-hook is a 180 bend. Wait, standard hook addition is 10d.
+      // 180 bend deduction is 4d.
+      const bend180 = 4 * d;
+      cutLengthMm = S + (2 * hookLength) - (2 * bend180);
       inputsUsed.Span = S;
     } else if (shape === "l-hook") {
       const S = parseFloat(span) || 0;
-      // L-book (90 deg bends) = 12d on each side => 24d total
-      cutLengthMm = S + 24 * d;
+      // L-bar with 2 hooks (90 deg). Addition 10d, minus 90 deg bend.
+      cutLengthMm = S + (2 * hookLength) - (2 * bend90);
       inputsUsed.Span = S;
     } else if (shape === "cranked") {
       const S = parseFloat(span) || 0;
       const T = parseFloat(slabThick) || 0;
       const C = parseInt(cranks) || 1;
-      const h = T - 2 * c - d; // Crank height/effective depth offset
-      // Crank length added per crank = 0.42 * h
-      cutLengthMm = S + C * 0.42 * h + 18 * d; // assuming hooks on both ends + crank 
+      const h = T - 2 * c - d;
+      // Crank adds 0.42h. Each crank introduces two 45deg bends.
+      const crankAdd = 0.42 * h;
+      const crankBendDeduct = 2 * bend45; // 45 deg up, 45 deg level
+      // Assuming hooks at both ends
+      cutLengthMm = S + C * (crankAdd - crankBendDeduct) + (2 * hookLength) - (2 * bend90); // 90 deg bends at ends for hooks
       inputsUsed.Span = S;
       inputsUsed.Thick = T;
       inputsUsed.Cranks = C;
@@ -113,11 +124,11 @@ export default function BarBendingSchedule() {
       const p = parseFloat(spiralPitch) || 0;
       const H = parseFloat(spiralHeight) || 0;
       
-      const coreD = sDia - 2 * c - d; // Core diameter
+      const coreD = sDia - 2 * c - d;
       const nTurns = Math.floor(H / p) + 1;
       const turnLength = Math.sqrt(Math.pow(Math.PI * coreD, 2) + Math.pow(p, 2));
       
-      cutLengthMm = nTurns * turnLength + 24 * d; // Plus hooks at ends
+      cutLengthMm = nTurns * turnLength + (2 * hookLength); // No discrete bends
       inputsUsed.ColDia = sDia;
       inputsUsed.Pitch = p;
       inputsUsed.Height = H;
@@ -125,7 +136,7 @@ export default function BarBendingSchedule() {
 
     const cutLengthM = cutLengthMm / 1000;
     const totalLengthM = cutLengthM * n;
-    // W = d^2 / 162.28 (user rule)
+    // W = d^2 / 162.28
     const unitWt = (d * d) / 162.28;
     const totalWeightKg = totalLengthM * unitWt;
 
@@ -142,7 +153,9 @@ export default function BarBendingSchedule() {
       totalWeightKg,
     };
 
-    setRows([...rows, newRow]);
+    // Sort output by bar diameter for standard scrap minimization
+    const updatedRows = [...rows, newRow].sort((a, b) => a.dia - b.dia);
+    setRows(updatedRows);
   };
 
   const removeRow = (id: string) => {

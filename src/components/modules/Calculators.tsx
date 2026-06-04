@@ -1160,7 +1160,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               <h4 className="text-sm font-semibold text-indigo-900 mb-2">Math Logic & Formulas (Built-in)</h4>
               <ul className="text-xs text-indigo-800 space-y-1.5 list-disc list-inside">
                 <li><strong>Wet Volume (V_wet):</strong> Area × (Thickness / 100)</li>
-                <li><strong>Dry Volume (V_dry):</strong> V_wet × 1.33 (wastage/voids) × 1.25 (shrinkage) = <strong>V_wet × 1.6625</strong></li>
+                <li><strong>Dry Volume (V_dry):</strong> V_wet × 1.33 (for voids) + wastage = <strong>V_dry</strong></li>
                 <li><strong>Cement Bags:</strong> [V_dry × (Cement Ratio / Total Ratio)] / 0.0347</li>
               </ul>
             </div>
