@@ -653,7 +653,7 @@ export default function App() {
                               </div>
                             </div>
                             
-                            <AnimatePresence>
+                            <AnimatePresence mode="wait">
                               
 
                               {/* We remove AppHeader for Desktop, handle differently inside module wrappers if needed, but for now we keep ModuleWrapper and conditionally hide AppHeader inside it on desktop */}
@@ -1620,7 +1620,14 @@ function ModuleWrapper({
   const metaList = moduleDef ? getToolMetadata(moduleDef as any) : { standards: [], formulaDescription: "N/A", lastUpdated: "N/A" };
 
   return (
-    <div className="h-full flex flex-col min-h-0 bg-transparent relative">
+    <motion.div
+      key={activeModule}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      className="h-full flex flex-col min-h-0 bg-transparent relative"
+    >
       {moduleDef && (
         <Helmet>
           <title>{`${formatToolTitle(moduleDef.title)} – Free Online ${moduleDef.category} Tool | Civil Estimation Pro`}</title>
@@ -1923,7 +1930,7 @@ function ModuleWrapper({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

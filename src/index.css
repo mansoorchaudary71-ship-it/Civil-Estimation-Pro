@@ -3,6 +3,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
+:root {
+  color-scheme: light;
+}
+
+/* Override user agent dark mode and high-contrast settings */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light;
+  }
+}
+
+@media (forced-colors: active) {
+  :root {
+    forced-color-adjust: none;
+  }
+}
+
 @layer base {
   html, body, #root {
     background-color: #FFFFFF !important;
