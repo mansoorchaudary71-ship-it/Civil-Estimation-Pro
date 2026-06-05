@@ -1199,8 +1199,8 @@ export default function Dashboard({
             <ScrollReveal yOffset={30}><FeatureComparisonSection /></ScrollReveal>
             
             <div className="w-full bg-slate-50 dark:bg-[#1a1b1e] py-16 -mt-8 relative z-10 rounded-t-[32px] border-t border-slate-200 dark:border-[#333]">
-              <div className="w-full max-w-7xl mx-auto px-4 overflow-visible flex flex-col">
-                <div className="flex flex-col gap-10 max-w-[900px] mx-auto w-full" id="tools-section">
+              <div className="w-full max-w-[1400px] mx-auto px-4 overflow-visible flex flex-col">
+                <div className="flex flex-col gap-10 w-full" id="tools-section">
                     <SearchAndFilterBar
                       categories={categories.map(catName => ({
                         name: catName,
@@ -1242,7 +1242,7 @@ export default function Dashboard({
                <div className="absolute top-[-50%] left-[-10%] w-[70%] h-[150%] rounded-full bg-[#0072de]/10 dark:bg-[#0072de]/20 blur-[80px] pointer-events-none"></div>
                <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[100%] rounded-full bg-[#0072de]/5 dark:bg-[#0072de]/15 blur-[80px] pointer-events-none"></div>
                
-               <div className="w-full max-w-7xl mx-auto z-10 flex flex-col items-start gap-1">
+               <div className="w-full max-w-[1400px] mx-auto z-10 flex flex-col items-start gap-1">
                   <h1 className="text-[2.5rem] md:text-5xl lg:text-[64px] font-black text-slate-900 dark:text-white tracking-tighter leading-[1.05]">Civil Estimation</h1>
                   <h1 className="text-[2.5rem] md:text-5xl lg:text-[64px] font-black tracking-tighter leading-[1.05] mb-2 text-[#0072de] dark:text-[#3399ff]">Pro.</h1>
                   <p className="text-lg md:text-xl text-slate-500 font-medium max-w-lg mb-2">Welcome back, {user.displayName?.split(' ')[0] || 'Engineer'}.</p>
@@ -1250,13 +1250,13 @@ export default function Dashboard({
             </div>
 
             <div className="flex-1 w-full bg-white dark:bg-[#1a1b1e] rounded-t-[32px] overflow-x-hidden shadow-[0_-12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_-5px_30px_rgba(0,0,0,0.5)] border border-slate-200/50 dark:border-[#333] pb-32">
-                <div className="w-full max-w-7xl mx-auto px-4 z-10 overflow-visible flex flex-col pt-8">
+                <div className="w-full max-w-[1400px] mx-auto px-4 z-10 overflow-visible flex flex-col pt-8">
                   <div className="mb-12">
                     <WorkspaceSection onSelect={handleSelect} />
                   </div>
                   
-                  <div className="w-full max-w-7xl mx-auto w-full overflow-visible flex flex-col mt-4">
-                    <div className="flex flex-col gap-10 max-w-[900px] mx-auto w-full" id="tools-section">
+                  <div className="w-full max-w-[1400px] mx-auto w-full overflow-visible flex flex-col mt-4">
+                    <div className="flex flex-col gap-10 w-full" id="tools-section">
                       <SearchAndFilterBar
                         categories={categories.map(catName => ({
                           name: catName,
