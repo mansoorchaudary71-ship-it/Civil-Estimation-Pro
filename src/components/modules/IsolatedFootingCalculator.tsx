@@ -184,6 +184,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
   };
 
   const resetDefault = () => {
+    if (!window.confirm("Are you sure you want to reset all inputs? This action cannot be undone.")) return;
     setFootingType("sloped");
     setLoad("1000");
     setSbc("250");

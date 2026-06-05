@@ -470,15 +470,44 @@ export function CalculationHistory({
       }
     };
     const handleGlobalHistory = () => setIsOpen(true);
+    
+    const handleSaveDraft = () => {
+      if (!currentInputs || Object.keys(currentInputs).length === 0) {
+        toast.error("Nothing to save as draft");
+        return;
+      }
+      localStorage.setItem(`draft_${calculatorId}`, JSON.stringify(currentInputs));
+      toast.success("Draft saved successfully! You can restore it later.", { icon: "📥" });
+    };
+
+    const handleLoadDraft = () => {
+      const draft = localStorage.getItem(`draft_${calculatorId}`);
+      if (draft && onRestore) {
+        try {
+          onRestore(JSON.parse(draft));
+          toast.success("Draft loaded successfully!", { icon: "📤" });
+        } catch (e) {
+          toast.error("Failed to load draft data.");
+        }
+      } else if (!onRestore) {
+         toast.error("This tool doesn't support restoring drafts yet.");
+      } else {
+         toast.error("No draft found for this tool.");
+      }
+    };
 
     window.addEventListener("trigger-global-save", handleGlobalSave);
     window.addEventListener("trigger-global-history", handleGlobalHistory);
+    window.addEventListener("action-save-draft", handleSaveDraft);
+    window.addEventListener("action-load-draft", handleLoadDraft);
 
     return () => {
       window.removeEventListener("trigger-global-save", handleGlobalSave);
       window.removeEventListener("trigger-global-history", handleGlobalHistory);
+      window.removeEventListener("action-save-draft", handleSaveDraft);
+      window.removeEventListener("action-load-draft", handleLoadDraft);
     };
-  }, [currentInputs, user, saveHistory, handleCloudSave]);
+  }, [currentInputs, user, saveHistory, handleCloudSave, calculatorId, onRestore]);
 
   useEffect(() => {
     async function fetchHistory() {

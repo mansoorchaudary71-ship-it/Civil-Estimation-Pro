@@ -177,6 +177,7 @@ export default function BarBendingSchedule() {
   };
 
   const resetDefault = () => {
+    if (!window.confirm("Are you sure you want to reset all inputs? This action cannot be undone.")) return;
     setMember("");
     setShape("rect-stirrup");
     setDia("8");
@@ -537,7 +538,9 @@ export default function BarBendingSchedule() {
         estimationName="Bar Bending Schedule"
         savePayload={{ rows, totalProjectWeight }}
         currentInputs={{}}
-        onRestore={() => {}}
+        onRestore={(savedInputs) => {
+          if (savedInputs.rows) setRows(savedInputs.rows);
+        }}
       />
     </div>
   );

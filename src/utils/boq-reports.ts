@@ -11,7 +11,7 @@ interface BOQItem {
   rate: number;
 }
 
-export const generateBOQPDF = async (items: BOQItem[], projectName: string, subtotal: number, contingencyAmt: number, profitAmt: number, overheadsAmt: number, grandTotal: number, currency: string) => {
+export const generateBOQPDF = async (items: BOQItem[], projectName: string, subtotal: number, contingencyAmt: number, profitAmt: number, overheadsAmt: number, grandTotal: number, currency: string, clientName?: string, preparedBy?: string) => {
   const boqData = items.map(item => {
     return {
       category: item.division,
@@ -28,6 +28,8 @@ export const generateBOQPDF = async (items: BOQItem[], projectName: string, subt
     metadata: {
       totalEstimatedCost: grandTotal,
       projectName: projectName,
+      clientName: clientName,
+      preparedBy: preparedBy,
       subtotal: subtotal,
       contingency: contingencyAmt,
       profit: profitAmt,

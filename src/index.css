@@ -95,14 +95,19 @@
   .no-print, 
   nav, header, footer, 
   button, 
+  input, select, textarea,
+  label:has(input),
   .fixed, 
   .sticky {
     display: none !important;
   }
 
-  /* Keep table lines and inputs looking crisp */
-  input, select, textarea {
-    border: 1px solid #ccc !important;
-    box-shadow: none !important;
+  /* Keep table lines looking crisp */
+  table {
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #ddd !important;
+    padding: 8px !important;
   }
 }

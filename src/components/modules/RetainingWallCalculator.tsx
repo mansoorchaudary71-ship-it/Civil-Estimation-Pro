@@ -411,7 +411,12 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
         currentInputs={{ wallH, wallL, baseW, baseD }}
         currentResults={{ concreteVol: totalConcrete.toFixed(2), steelKg: totalSteel.toFixed(1) }}
         summaryGeneration={(inputs, res) => `Concrete: ${res.concreteVol}m³ - Steel: ${res.steelKg}kg`}
-        onRestore={() => {}}
+        onRestore={(savedInputs) => {
+          if (savedInputs.wallH) setWallH(savedInputs.wallH);
+          if (savedInputs.wallL) setWallL(savedInputs.wallL);
+          if (savedInputs.baseW) setBaseW(savedInputs.baseW);
+          if (savedInputs.baseD) setBaseD(savedInputs.baseD);
+        }}
       />
     </div>
   );

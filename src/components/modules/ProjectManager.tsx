@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useProjects, Project } from '../../context/ProjectContext';
 import { Plus, FolderOpen, Calendar, MapPin, Building, Share2, Printer, ChevronRight, BarChart3, AlertCircle, Upload, Play, FileText, ArrowRight, Home, Route } from 'lucide-react';
-import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
+import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Legend } from 'recharts';
 import { CalculationHistory } from '../ui/CalculationHistory';
 
 export default function ProjectManager() {
@@ -435,6 +435,50 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
     alert("Read-only share link copied to clipboard!");
   };
 
+  const timelineData = [...project.estimates]
+    .sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .map(est => ({
+      name: est.name,
+      date: new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(new Date(est.date)),
+      cost: (Number(est.cost) || 0) * costMultiplier
+    }));
+
+  const cumulativeTimelineData = timelineData.map((d, i) => ({
+    ...d,
+    cumulativeCost: timelineData.slice(0, i + 1).reduce((sum, item) => sum + item.cost, 0)
+  }));
+
+  const topMaterialKeys = Object.entries(aggregatedMaterials)
+    .sort((a,b) => b[1].quantity - a[1].quantity)
+    .slice(0, 3)
+    .map(e => e[0]);
+
+  const materialTrendData = [...project.estimates]
+    .sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .map(est => {
+      const dataPoint: any = { 
+        name: est.name,
+        date: new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(new Date(est.date))
+      };
+      if (est.materials) {
+        topMaterialKeys.forEach(matKey => {
+           const [matName, unit] = matKey.split('_');
+           let qty = 0;
+           const entry = Object.entries(est.materials).find(([k,v]) => `${k.toLowerCase()}_${v.unit.toLowerCase()}` === matKey);
+           if(entry) qty = entry[1].quantity * qtyMultiplier;
+           dataPoint[matName.charAt(0).toUpperCase() + matName.slice(1)] = qty;
+        });
+      } else {
+        topMaterialKeys.forEach(matKey => {
+           const [matName, unit] = matKey.split('_');
+           dataPoint[matName.charAt(0).toUpperCase() + matName.slice(1)] = 0;
+        });
+      }
+      return dataPoint;
+  });
+  
+  const chartColors = ['#6366f1', '#10b981', '#f59e0b'];
+
   return (
     <div className="w-full max-w-6xl mx-auto space-y-6 animate-in fade-in duration-500">
        <button onClick={onBack} className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 font-bold transition">
@@ -485,6 +529,45 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                      <p className="text-3xl font-semibold tabular-nums tracking-tight text-amber-600">{Object.keys(aggregatedMaterials).length}</p>
                    </div>
                 </div>
+
+                {project.estimates.length > 0 && (
+                <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-slate-200/50">
+                   <div>
+                      <h3 className="text-lg font-semibold mb-6 text-slate-800">Cumulative Cost Trend</h3>
+                      <div className="h-64">
+                         <ResponsiveContainer width="100%" height="100%">
+                            <LineChart data={cumulativeTimelineData}>
+                               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                               <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} dy={10} />
+                               <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} tickFormatter={(val) => `$${val >= 1000 ? (val/1000).toFixed(0)+'k' : val}`} width={60} />
+                               <Tooltip formatter={(val: number) => `$${val.toLocaleString()}`} contentStyle={{ borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
+                               <Line type="monotone" dataKey="cumulativeCost" name="Cumulative Cost" stroke="#6366f1" strokeWidth={3} dot={{ r: 4, fill: '#6366f1', strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 6 }} />
+                            </LineChart>
+                         </ResponsiveContainer>
+                      </div>
+                   </div>
+                   
+                   <div>
+                      <h3 className="text-lg font-semibold mb-6 text-slate-800">Key Materials Consumption</h3>
+                      <div className="h-64">
+                         <ResponsiveContainer width="100%" height="100%">
+                            <BarChart data={materialTrendData}>
+                               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                               <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} dy={10} />
+                               <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} width={40} />
+                               <Tooltip contentStyle={{ borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} cursor={{ fill: '#f1f5f9', opacity: 0.5 }} />
+                               <Legend iconType="circle" wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
+                               {topMaterialKeys.map((key, i) => {
+                                  const [matName] = key.split('_');
+                                  const name = matName.charAt(0).toUpperCase() + matName.slice(1);
+                                  return <Bar key={key} dataKey={name} fill={chartColors[i % chartColors.length]} radius={[4, 4, 0, 0]} maxBarSize={40} />;
+                               })}
+                            </BarChart>
+                         </ResponsiveContainer>
+                      </div>
+                   </div>
+                </div>
+                )}
              </div>
            </div>
 

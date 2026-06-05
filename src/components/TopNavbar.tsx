@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Menu, X, ArrowRight } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Menu, X, ArrowRight, Search, History } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "../lib/utils";
+import { ALL_MODULES } from "./Dashboard";
 
 export default function TopNavbar({
   onNavigate
@@ -12,6 +13,23 @@ export default function TopNavbar({
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("Home");
+  const [showRecentSearches, setShowRecentSearches] = useState(false);
+  const [recentCalculators, setRecentCalculators] = useState<string[]>([]);
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const fetchRecent = () => {
+      try {
+        const history = JSON.parse(localStorage.getItem("recent_calculators") || "[]");
+        setRecentCalculators(history);
+      } catch (e) {
+        setRecentCalculators([]);
+      }
+    };
+    fetchRecent();
+    window.addEventListener("recent_calculators_updated", fetchRecent);
+    return () => window.removeEventListener("recent_calculators_updated", fetchRecent);
+  }, []);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -23,6 +41,16 @@ export default function TopNavbar({
       document.body.style.overflow = "auto";
     };
   }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setShowRecentSearches(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Clean up on unmount
   useEffect(() => {
@@ -86,6 +114,66 @@ export default function TopNavbar({
           </nav>
 
           <div className="flex items-center gap-3 md:gap-4">
+             <div className="relative" ref={searchRef}>
+               <button 
+                 onClick={() => setShowRecentSearches(!showRecentSearches)}
+                 className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-500 px-2.5 md:px-3 py-1.5 rounded-full transition-colors"
+               >
+                 <Search className="w-4 h-4" />
+                 <span className="hidden md:inline text-[13px] font-medium pr-2">Search...</span>
+               </button>
+               
+               <AnimatePresence>
+                 {showRecentSearches && (
+                   <motion.div
+                     initial={{ opacity: 0, y: 10, scale: 0.96 }}
+                     animate={{ opacity: 1, y: 0, scale: 1 }}
+                     exit={{ opacity: 0, y: 10, scale: 0.96 }}
+                     transition={{ duration: 0.2 }}
+                     className="absolute top-[calc(100%+12px)] right-0 w-72 bg-white rounded-2xl shadow-[0_12px_40px_-12px_rgba(0,0,0,0.15)] border border-slate-200 overflow-hidden z-50"
+                   >
+                     <div className="px-4 py-3 border-b border-slate-100 bg-slate-50/50">
+                       <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                         <History className="w-3.5 h-3.5" /> Recently Accessed
+                       </h4>
+                     </div>
+                     <div className="p-2">
+                       {recentCalculators.length > 0 ? (
+                         <div className="space-y-1">
+                           {recentCalculators.map((id, index) => {
+                             const mod = ALL_MODULES.find(m => m.id === id);
+                             if (!mod) return null;
+                             return (
+                               <button 
+                                 key={`${id}-${index}`}
+                                 onClick={() => {
+                                   if (onNavigate) {
+                                     onNavigate(id);
+                                     setShowRecentSearches(false);
+                                   }
+                                 }}
+                                 className="w-full text-left flex items-center gap-3 p-2 hover:bg-slate-50 rounded-xl transition-all group"
+                               >
+                                 <div className="w-8 h-8 rounded-lg bg-indigo-50 group-hover:bg-[#0072de] flex items-center justify-center text-indigo-500 group-hover:text-white transition-colors">
+                                   {mod.icon ? <mod.icon className="w-4 h-4" /> : <Search className="w-4 h-4" />}
+                                 </div>
+                                 <div className="flex-1 overflow-hidden">
+                                   <div className="text-[14px] font-semibold text-slate-800 truncate group-hover:text-[#0072de] transition-colors">{mod.title}</div>
+                                   <div className="text-[11px] text-slate-500 font-medium truncate">{mod.category}</div>
+                                 </div>
+                               </button>
+                             );
+                           })}
+                         </div>
+                       ) : (
+                         <div className="text-[13px] text-slate-400 text-center py-6 font-medium">No recent tools accesses</div>
+                       )}
+                     </div>
+                   </motion.div>
+                 )}
+               </AnimatePresence>
+             </div>
+
              <button 
                className="text-[13px] font-bold tracking-tight text-white bg-[#0072de] hover:bg-[#005bb5] px-4 py-1.5 rounded-full transition-all shadow-md active:scale-95 flex items-center gap-1.5"
                onClick={() => onNavigate && onNavigate("home")}

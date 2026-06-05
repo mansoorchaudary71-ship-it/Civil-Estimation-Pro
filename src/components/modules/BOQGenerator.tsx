@@ -16,6 +16,7 @@ import {
   Calculator,
   FileOutput,
   RefreshCw,
+  X,
 } from "lucide-react";
 import { useSettings } from "../../context/SettingsContext";
 
@@ -89,10 +90,46 @@ export default function BOQGenerator() {
   const { formatCurrency, settings } = useSettings();
   const { rates } = useMarketRates();
   const [items, setItems] = useState<BOQItem[]>([]);
+  const [selectedItemIds, setSelectedItemIds] = useState<Set<string>>(new Set());
   const [contingencyPct, setContingencyPct] = useState(5);
   const [gstPct, setGstPct] = useState(18);
   const [projectName, setProjectName] = useState("Untitled Project BOQ");
   const [measurementStandard, setMeasurementStandard] = useState(MEASUREMENT_STANDARDS[0]);
+  const [isExportModalOpen, setIsExportModalOpen] = useState(false);
+  const [exportClientName, setExportClientName] = useState("");
+  const [exportEngineerName, setExportEngineerName] = useState("");
+  const [exportType, setExportType] = useState<"all" | "selected">("all");
+
+  const handleSelectItem = (id: string) => {
+    setSelectedItemIds(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) newSet.delete(id);
+      else newSet.add(id);
+      return newSet;
+    });
+  };
+
+  const handleSelectAll = (divisionItems?: BOQItem[]) => {
+    if (divisionItems) {
+      const divisionIds = divisionItems.map(i => i.id);
+      const allSelected = divisionIds.every(id => selectedItemIds.has(id));
+      setSelectedItemIds(prev => {
+        const newSet = new Set(prev);
+        if (allSelected) {
+          divisionIds.forEach(id => newSet.delete(id));
+        } else {
+          divisionIds.forEach(id => newSet.add(id));
+        }
+        return newSet;
+      });
+    } else {
+      if (items.length > 0 && selectedItemIds.size === items.length) {
+        setSelectedItemIds(new Set());
+      } else {
+        setSelectedItemIds(new Set(items.map(i => i.id)));
+      }
+    }
+  };
 
   useEffect(() => {
     const handleFillBOQ = (e: CustomEvent<BOQItem[]>) => {
@@ -159,6 +196,7 @@ export default function BOQGenerator() {
         })),
       );
       setProjectName(`${templateName} BOQ`);
+      setSelectedItemIds(new Set());
     }
   };
 
@@ -208,8 +246,26 @@ export default function BOQGenerator() {
     link.click();
   };
 
-  const exportPDF = () => {
-    generateBOQPDF(items, projectName, subtotal, contingencyAmount, 0, gstAmount, grandTotal, settings.currency);
+  const triggerExportModal = (type: "all" | "selected") => {
+    setExportType(type);
+    setIsExportModalOpen(true);
+  };
+
+  const confirmPDFExport = () => {
+    if (exportType === "all") {
+      generateBOQPDF(items, projectName, subtotal, contingencyAmount, 0, gstAmount, grandTotal, settings.currency, exportClientName, exportEngineerName);
+    } else {
+      if (selectedItemIds.size === 0) return;
+      const selectedItems = items.filter(i => selectedItemIds.has(i.id));
+      const selectedSubtotal = selectedItems.reduce((sum, item) => sum + item.quantity * item.rate, 0);
+      const selectedContingency = selectedSubtotal * (contingencyPct / 100);
+      const selectedTaxable = selectedSubtotal + selectedContingency;
+      const selectedGst = selectedTaxable * (gstPct / 100);
+      const selectedGrandTotal = selectedTaxable + selectedGst;
+      
+      generateBOQPDF(selectedItems, `${projectName} (Selected Items)`, selectedSubtotal, selectedContingency, 0, selectedGst, selectedGrandTotal, settings.currency, exportClientName, exportEngineerName);
+    }
+    setIsExportModalOpen(false);
   };
 
   const exportExcel = () => {
@@ -279,8 +335,16 @@ export default function BOQGenerator() {
             >
               <FileSpreadsheet className="w-4 h-4" /> Excel
             </button>
+            {selectedItemIds.size > 0 && (
+              <button
+                onClick={() => triggerExportModal("selected")}
+                className="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-[24px] transition-colors shadow-sm"
+              >
+                <FileOutput className="w-4 h-4" /> Export Selected ({selectedItemIds.size})
+              </button>
+            )}
             <button
-              onClick={exportPDF}
+              onClick={() => triggerExportModal("all")}
               className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-[24px] transition-colors shadow-sm"
             >
               <FileOutput className="w-4 h-4" /> PDF Report
@@ -308,6 +372,14 @@ export default function BOQGenerator() {
               <table className="w-full text-left border-collapse min-w-[800px]">
                 <thead>
                   <tr className="bg-slate-100/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 text-slate-500 text-[11px] uppercase tracking-wider font-bold">
+                    <th className="p-4 w-12 text-center">
+                      <input 
+                        type="checkbox" 
+                        checked={items.length > 0 && selectedItemIds.size === items.length}
+                        onChange={() => handleSelectAll()}
+                        className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500"
+                      />
+                    </th>
                     <th className="p-4 w-48">Division</th>
                     <th className="p-4">Description</th>
                     <th className="p-4 w-24">Unit</th>
@@ -321,7 +393,7 @@ export default function BOQGenerator() {
                   {items.length === 0 ? (
                     <tr>
                       <td
-                        colSpan={7}
+                        colSpan={8}
                         className="p-12 text-center text-slate-400 font-medium border-t border-dashed border-slate-200 bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800"
                       >
                         No items added yet. Click "Add Item" or load a template.
@@ -332,10 +404,18 @@ export default function BOQGenerator() {
                       <React.Fragment key={division}>
                         <tr className="bg-slate-50/80 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border-y border-slate-200">
                           <td
-                            colSpan={7}
+                            colSpan={8}
                             className="px-4 py-2.5 font-bold text-indigo-700 text-sm"
                           >
-                            {division}
+                           <div className="flex items-center gap-2">
+                             <input 
+                                type="checkbox" 
+                                checked={divItems.length > 0 && divItems.every(i => selectedItemIds.has(i.id))}
+                                onChange={() => handleSelectAll(divItems)}
+                                className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500"
+                             />
+                             {division}
+                           </div>
                           </td>
                         </tr>
                         {divItems.map((item, idx) => (
@@ -343,6 +423,14 @@ export default function BOQGenerator() {
                             key={item.id}
                             className="border-b border-slate-100 last:border-0 hover:bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 transition-colors"
                           >
+                            <td className="p-2 align-top text-center">
+                              <input 
+                                type="checkbox" 
+                                checked={selectedItemIds.has(item.id)}
+                                onChange={() => handleSelectItem(item.id)}
+                                className="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 mt-2"
+                              />
+                            </td>
                             <td className="p-2 align-top">
                               <select
                                 value={item.division}
@@ -579,6 +667,70 @@ export default function BOQGenerator() {
         currentResults={{}}
         estimationName="B O Q Generator"
       />
-</div>
+
+      {isExportModalOpen && (
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+              <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                <FileOutput className="w-5 h-5 text-indigo-600" />
+                Configure PDF Report
+              </h2>
+              <button 
+                onClick={() => setIsExportModalOpen(false)}
+                className="text-slate-400 hover:text-slate-600 bg-white hover:bg-slate-100 p-1.5 rounded-full transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="p-6 space-y-4">
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-1">Project Name</label>
+                <input 
+                  type="text"
+                  value={projectName}
+                  onChange={(e) => setProjectName(e.target.value)}
+                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-slate-800 font-medium"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-1">Client Name (Optional)</label>
+                <input 
+                  type="text"
+                  value={exportClientName}
+                  onChange={(e) => setExportClientName(e.target.value)}
+                  placeholder="e.g. Acme Corp"
+                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-slate-800 font-medium"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-1">Engineer / Surveyor Name (Optional)</label>
+                <input 
+                  type="text"
+                  value={exportEngineerName}
+                  onChange={(e) => setExportEngineerName(e.target.value)}
+                  placeholder="e.g. John Doe"
+                  className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all text-slate-800 font-medium"
+                />
+              </div>
+            </div>
+            <div className="p-6 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
+              <button 
+                onClick={() => setIsExportModalOpen(false)}
+                className="px-5 py-2 text-slate-600 font-bold hover:bg-slate-200 rounded-xl transition-colors"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={confirmPDFExport}
+                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-sm transition-colors flex items-center gap-2"
+              >
+                <FileOutput className="w-4 h-4" /> Download PDF
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

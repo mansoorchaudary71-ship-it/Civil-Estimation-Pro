@@ -149,11 +149,14 @@ import {
   Type,
 } from "lucide-react";
 
-import { Grid2X2, Waves, Pickaxe, Building2 } from "lucide-react";
+import { ShareModal } from "./components/ui/ShareModal";
+import { FormulaModal } from "./components/ui/FormulaModal";
+import { Grid2X2, Waves, Pickaxe, Building2, Share2, Info, Printer, Save, Download, Ruler } from "lucide-react";
 import { Users, Clock } from "lucide-react";
 
 import MobileToolsSheet from "./components/MobileToolsSheet";
 import DiscussionWidget from "./components/DiscussionWidget";
+import LocaleUnitDetector from "./components/LocaleUnitDetector";
 
 export const ALL_TOOLS = [
   // ✨ Structural Design
@@ -539,6 +542,19 @@ export default function App() {
     setPreviousModule(activeModule);
     setActiveModule(id);
     setIsSidebarOpen(false);
+
+    // Save recently accessed tools to localStorage
+    const nonToolModIds = ["home", "tools", "pricing", "about", "how-it-works", "privacy", "terms", "cookies"];
+    if (!nonToolModIds.includes(id as string)) {
+      try {
+        const history = JSON.parse(localStorage.getItem("recent_calculators") || "[]");
+        const newHistory = [id, ...history.filter((h: string) => h !== id)].slice(0, 5);
+        localStorage.setItem("recent_calculators", JSON.stringify(newHistory));
+        window.dispatchEvent(new Event("recent_calculators_updated"));
+      } catch (e) {
+        console.error("Failed to save recent calculator:", e);
+      }
+    }
   };
 
   return (
@@ -553,6 +569,7 @@ export default function App() {
                 <div className="flex flex-col h-[100dvh] w-full  bg-white  font-sans text-slate-900 transition-colors duration-300">
                   <Toaster position="bottom-right" />
                   <ProductTour />
+                  <LocaleUnitDetector />
                   
                   <TopNavbar onNavigate={handleSelectModule} />
                   {isStaticPage && <GlobalBottomBar activeModule={activeModule} onNavigate={handleSelectModule} onOpenProfile={() => setIsProfileOpen(true)} onOpenSearch={() => {}} />}
@@ -1436,6 +1453,64 @@ function FontSizeControls() {
   );
 }
 
+function UnitSwitcher() {
+  const { settings, updateSettings } = useSettings();
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className="relative mr-2" ref={dropdownRef}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`p-1.5 rounded-lg transition-colors flex items-center justify-center ${isOpen ? "bg-black/10  text-slate-800 " : "hover:bg-black/5 text-slate-500 "}`}
+        aria-label="Unit settings"
+        title="Toggle Measurement Unit"
+      >
+        <div className="flex items-center gap-1.5">
+          <Ruler className="w-5 h-5" />
+          <span className="text-xs font-bold uppercase">{settings.measurement === "SI" ? "Metric" : "Imperial"}</span>
+        </div>
+      </button>
+
+      {isOpen && (
+        <div className="absolute right-0 top-full mt-2 bg-white rounded-xl shadow-lg border border-slate-100 p-1 flex flex-col min-w-[120px] z-50 overflow-hidden">
+          <button
+            onClick={() => {
+              updateSettings({ measurement: "SI" });
+              setIsOpen(false);
+            }}
+            className={`px-4 py-2 text-sm font-bold text-left transition-colors ${settings.measurement === "SI" ? "bg-indigo-50 text-indigo-700" : "text-slate-600 hover:bg-slate-50"}`}
+          >
+            Metric (m, kg)
+          </button>
+          <button
+            onClick={() => {
+              updateSettings({ measurement: "FPS" });
+              setIsOpen(false);
+            }}
+            className={`px-4 py-2 text-sm font-bold text-left transition-colors ${settings.measurement === "FPS" ? "bg-indigo-50 text-indigo-700" : "text-slate-600 hover:bg-slate-50"}`}
+          >
+            Imperial (ft, lbs)
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function AppHeader({
   title,
   onOpenSidebar,
@@ -1479,6 +1554,7 @@ function AppHeader({
         </h1>
       )}
 
+      <UnitSwitcher />
       <FontSizeControls />
 
       <button
@@ -1530,21 +1606,23 @@ function getToolMetadata(moduleDef: typeof ALL_MODULES[0]) {
   };
 }
 
-function ModuleWrapper({
-  title,
-  activeModule,
-  setActiveModule,
-  setIsSidebarOpen,
-  setIsSettingsOpen,
-  children,
-}: {
+const ModuleWrapper = React.forwardRef<HTMLDivElement, {
   title: string;
   activeModule: ModuleId;
   setActiveModule: (id: ModuleId) => void;
   setIsSidebarOpen: (val: boolean) => void;
   setIsSettingsOpen: (val: boolean) => void;
   children: React.ReactNode;
-}) {
+}>(function ModuleWrapper({
+  title,
+  activeModule,
+  setActiveModule,
+  setIsSidebarOpen,
+  setIsSettingsOpen,
+  children,
+}, ref) {
+  const [isShareModalOpen, setIsShareModalOpen] = React.useState(false);
+  const [isFormulaModalOpen, setIsFormulaModalOpen] = React.useState(false);
   const moduleDef = ALL_MODULES.find((m) => m.id === activeModule);
 
   const socialProof = React.useMemo(
@@ -1621,6 +1699,7 @@ function ModuleWrapper({
 
   return (
     <motion.div
+      ref={ref}
       key={activeModule}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -1745,6 +1824,7 @@ function ModuleWrapper({
                 ]}
               />
               <div className="flex items-center gap-4">
+                <UnitSwitcher />
                 <span className="text-sm font-semibold text-slate-500">
                   Text Size:
                 </span>
@@ -1784,10 +1864,64 @@ function ModuleWrapper({
                              🔥 Popular
                            </span>
                          )}
+                         <button
+                           onClick={() => setIsFormulaModalOpen(true)}
+                           className="flex items-center justify-center gap-2 px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-500/10 dark:hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-full transition-colors font-medium shadow-sm border border-indigo-100/50 dark:border-indigo-500/20"
+                           title="Formulas & Variables"
+                         >
+                           <Info className="w-4 h-4" />
+                           <span className="hidden sm:inline-block capitalize">Formulas</span>
+                         </button>
+                         <button
+                           onClick={() => window.print()}
+                           className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
+                           title="Print Calculation"
+                         >
+                           <Printer className="w-4 h-4" />
+                           <span className="hidden sm:inline-block capitalize">Print</span>
+                         </button>
+                         <button
+                           onClick={() => window.dispatchEvent(new CustomEvent('action-save-draft'))}
+                           className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
+                           title="Save Draft (Local)"
+                         >
+                           <Save className="w-4 h-4" />
+                           <span className="hidden sm:inline-block capitalize">Save Draft</span>
+                         </button>
+                         <button
+                           onClick={() => window.dispatchEvent(new CustomEvent('action-load-draft'))}
+                           className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
+                           title="Load Draft (Local)"
+                         >
+                           <Download className="w-4 h-4" />
+                           <span className="hidden sm:inline-block capitalize">Load Draft</span>
+                         </button>
+                         <button
+                           onClick={() => setIsShareModalOpen(true)}
+                           className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
+                           title="Share Tool"
+                         >
+                           <Share2 className="w-4 h-4" />
+                           <span className="hidden sm:inline-block capitalize">Share</span>
+                         </button>
                          <GlobalSettingsToggle align="right" showCurrency={false} />
                       </div>
                     </div>
                   )}
+
+                  <ShareModal
+                    isOpen={isShareModalOpen}
+                    onClose={() => setIsShareModalOpen(false)}
+                    url={`${window.location.origin}?tool=${activeModule}`}
+                    title={`${moduleDef?.title || 'Tool'} | Civil Estimation Pro`}
+                  />
+
+                  <FormulaModal
+                    isOpen={isFormulaModalOpen}
+                    onClose={() => setIsFormulaModalOpen(false)}
+                    title={moduleDef?.title || 'Tool'}
+                    formulaDescription={metaList.formulaDescription}
+                  />
 
                   <CodeReferences moduleId={activeModule} />
 
@@ -1932,5 +2066,5 @@ function ModuleWrapper({
       </div>
     </motion.div>
   );
-}
+});
 

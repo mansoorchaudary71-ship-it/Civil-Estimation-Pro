@@ -137,6 +137,7 @@ export default function SlabEstimator() {
   };
 
   const resetDefault = () => {
+    if (!window.confirm("Are you sure you want to reset all inputs? This action cannot be undone.")) return;
     setLy("");
     setLx("");
     setThickness("");
