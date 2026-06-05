@@ -116,13 +116,15 @@ export default function SiteProgressTracker() {
     const expectedProgress = totalBudget > 0 ? (PV / totalBudget) * 100 : 0;
     const SPI = PV > 0 ? (EV / PV) : 1;
     const CPI = totalCost > 0 ? (EV / totalCost) : 1;
+    const CV = EV - totalCost;
+    const SV = EV - PV;
     
     // Simple days estimation (1% progress = ~X days). Hacky but visually effective.
     const progressDiff = overallProgress - expectedProgress;
     const projectDuration = phases.length > 0 ? (new Date(phases[phases.length-1].endDate).getTime() - new Date(phases[0].startDate).getTime()) / (1000*60*60*24) : 0;
     const daysAheadBehind = Math.round((progressDiff / 100) * projectDuration);
 
-    return { overallProgress, expectedProgress, totalBudget, totalCost, daysAheadBehind, SPI, CPI };
+    return { overallProgress, expectedProgress, totalBudget, totalCost, daysAheadBehind, SPI, CPI, EV, PV, AC: totalCost, CV, SV };
   }, [phases]);
 
   const chartData = useMemo(() => {
@@ -279,26 +281,34 @@ export default function SiteProgressTracker() {
                 </div>
 
                 <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm relative overflow-hidden flex flex-col justify-center">
-                   <p className="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2 relative z-10">Cost & Burn</p>
-                   <div className="flex items-end gap-2 relative z-10">
-                     <h3 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 leading-none">${(metrics.totalCost / 1000).toFixed(1)}k</h3>
-                     <span className="text-sm font-bold text-slate-500 mb-1">/ ${(metrics.totalBudget / 1000).toFixed(1)}k</span>
+                   <p className="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2 relative z-10">Cost & Burn <span className="text-indigo-500 ml-1 font-bold">(CPI: {metrics.CPI.toFixed(2)})</span></p>
+                   <div className="flex items-end gap-2 relative z-10 w-full justify-between">
+                     <div className="flex items-end gap-2">
+                       <h3 className="text-3xl font-bold tabular-nums tracking-tight text-slate-800 leading-none">${(metrics.totalCost / 1000).toFixed(1)}k</h3>
+                       <span className="text-sm font-bold text-slate-500 mb-1">Earned: ${(metrics.EV / 1000).toFixed(1)}k</span>
+                     </div>
                    </div>
-                   <p className={`text-xs font-bold mt-3 relative z-10 ${metrics.totalCost > metrics.totalBudget ? 'text-rose-500' : 'text-emerald-500'}`}>
-                      {metrics.totalCost > metrics.totalBudget ? `-$${(metrics.totalCost - metrics.totalBudget).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Over Budget` : `+$${(metrics.totalBudget - metrics.totalCost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Under Budget`}
-                   </p>
+                   <div className="w-full mt-3 relative z-10 flex items-center justify-between">
+                     <p className={`text-xs font-bold ${metrics.CV >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
+                        {metrics.CV >= 0 ? `Cost Variance: +$${(metrics.CV).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}` : `Cost Variance: -$${(Math.abs(metrics.CV)).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`}
+                     </p>
+                   </div>
                 </div>
 
                 <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm relative overflow-hidden flex flex-col justify-center">
-                   <p className="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2 relative z-10">Schedule Status <span className="text-indigo-500 ml-1">(SPI: {metrics.SPI.toFixed(2)})</span></p>
-                   {metrics.daysAheadBehind > 0 ? (
-                      <h3 className="text-3xl font-bold tabular-nums tracking-tight text-emerald-500 leading-none">{metrics.daysAheadBehind} <span className="text-lg text-emerald-600/50">Days Ahead</span></h3>
-                   ) : metrics.daysAheadBehind < 0 ? (
-                      <h3 className={`text-3xl font-bold tabular-nums tracking-tight ${Math.abs(metrics.daysAheadBehind) <= 7 ? 'text-amber-500' : 'text-rose-500'} leading-none`}>{Math.abs(metrics.daysAheadBehind)} <span className="text-lg opacity-50">Days Behind</span></h3>
-                   ) : (
-                      <h3 className="text-3xl font-bold tabular-nums tracking-tight text-slate-500 leading-none">On Track</h3>
-                   )}
-                   <p className="text-xs font-bold mt-3 relative z-10 text-slate-400">Based on expected % vs actual %</p>
+                   <p className="text-slate-500 font-bold text-xs uppercase tracking-wider mb-2 relative z-10">Schedule Status <span className="text-indigo-500 ml-1 font-bold">(SPI: {metrics.SPI.toFixed(2)})</span></p>
+                   <div className="flex justify-between items-end">
+                      {metrics.daysAheadBehind > 0 ? (
+                         <h3 className="text-3xl font-bold tabular-nums tracking-tight text-emerald-500 leading-none">{metrics.daysAheadBehind} <span className="text-lg text-emerald-600/50">Days Ahead</span></h3>
+                      ) : metrics.daysAheadBehind < 0 ? (
+                         <h3 className={`text-3xl font-bold tabular-nums tracking-tight ${Math.abs(metrics.daysAheadBehind) <= 7 ? 'text-amber-500' : 'text-rose-500'} leading-none`}>{Math.abs(metrics.daysAheadBehind)} <span className="text-lg opacity-50">Days Behind</span></h3>
+                      ) : (
+                         <h3 className="text-3xl font-bold tabular-nums tracking-tight text-slate-500 leading-none">On Track</h3>
+                      )}
+                   </div>
+                   <p className={`text-xs font-bold mt-3 relative z-10 ${metrics.SV >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
+                      {metrics.SV >= 0 ? `Schedule Variance: +$${(metrics.SV).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}` : `Schedule Variance: -$${(Math.abs(metrics.SV)).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`}
+                   </p>
                 </div>
              </div>
 
@@ -331,6 +341,10 @@ export default function SiteProgressTracker() {
                               <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
                               <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
                             </linearGradient>
+                            <linearGradient id="colorAC" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="#f43f5e" stopOpacity={0.3}/>
+                              <stop offset="95%" stopColor="#f43f5e" stopOpacity={0}/>
+                            </linearGradient>
                           </defs>
                           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" strokeOpacity={0.5} />
                           <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: '#64748b' }} />
@@ -341,6 +355,7 @@ export default function SiteProgressTracker() {
                           <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
                           <Area type="monotone" dataKey="PlannedValue" name="Planned Value (PV)" stroke="#94a3b8" strokeWidth={2} fillOpacity={1} fill="url(#colorPV)" />
                           <Area type="monotone" dataKey="EarnedValue" name="Earned Value (EV)" stroke="#10b981" strokeWidth={3} fillOpacity={1} fill="url(#colorEV)" />
+                          <Area type="monotone" dataKey="ActualCost" name="Actual Cost (AC)" stroke="#f43f5e" strokeWidth={2} fillOpacity={1} fill="url(#colorAC)" />
                         </AreaChart>
                       </ResponsiveContainer>
                    </div>

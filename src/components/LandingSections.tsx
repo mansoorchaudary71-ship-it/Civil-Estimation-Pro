@@ -118,7 +118,7 @@ export function FeatureComparisonSection({
     {
       name: "Speed of Calculation",
       tooltip: "Time taken to complete a full BOQ or material estimate.",
-      app: "Instant",
+      app: "< 1 Second",
       excel: "Slow",
       qs: "Days/Weeks",
     },
@@ -150,52 +150,75 @@ export function FeatureComparisonSection({
       excel: false,
       qs: false,
     },
+    {
+      name: "Code Compliance (IS / IRC / MORTH)",
+      tooltip: "Calculations based on verified country code standards.",
+      app: true,
+      excel: false,
+      qs: true,
+    },
+    {
+      name: "Pakistan / India / UAE Market Rates",
+      tooltip: "Access localized pricing databases for realistic estimations.",
+      app: true,
+      excel: false,
+      qs: false,
+    },
   ];
 
   return (
     <div
-      className="w-full py-16 md:py-24 bg-slate-50 dark:bg-[#121212] border-y border-slate-100 dark:border-[#333] relative overflow-hidden"
+      className="w-full py-16 md:py-24 border-y border-slate-800/50 relative overflow-hidden"
       ref={ref}
     >
       {/* Background Grid Accent */}
-      <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] dark:bg-[radial-gradient(#333_1px,transparent_1px)] [background-size:20px_20px] opacity-40 mix-blend-color-burn"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none"></div>
 
       <div className="max-w-6xl mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-full text-[11px] font-bold tracking-widest uppercase mb-4 border border-amber-200 dark:border-amber-500/20 shadow-sm">
+        <div className="text-center md:mb-16 mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-500/10 text-amber-500 rounded-full text-[11px] font-bold tracking-widest uppercase mb-4 border border-amber-500/20 shadow-sm">
             Compare
           </div>
           <h2
-            className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-6"
+            className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6"
           >
             The Smarter Way to Estimate
           </h2>
           <p
-            className="text-slate-500 dark:text-slate-400 font-medium text-lg max-w-2xl mx-auto px-4"
+            className="text-slate-400 font-medium text-lg max-w-2xl mx-auto px-4 mb-8"
           >
             See why thousands of engineers are abandoning spreadsheets for a dedicated estimation platform.
           </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8 max-w-3xl mx-auto px-4">
+            <div className="flex items-center gap-2 text-slate-300 text-sm font-semibold">
+              <CheckCircle2 className="w-4 h-4 text-amber-500" /> Auto-updates
+            </div>
+            <div className="flex items-center gap-2 text-slate-300 text-sm font-semibold">
+              <CheckCircle2 className="w-4 h-4 text-amber-500" /> Works Offline
+            </div>
+            <div className="flex items-center gap-2 text-slate-300 text-sm font-semibold">
+              <CheckCircle2 className="w-4 h-4 text-amber-500" /> No Downloads
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto items-stretch">
           {/* Spreadsheets Card */}
-          <motion.div
-            initial={{ opacity: 0, x: -20, y: 20 }}
-            animate={inView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: -20, y: 20 }}
-            transition={{ duration: 0.6 }}
-            className="bg-white/60 dark:bg-[#1a1b1e]/60 backdrop-blur-sm rounded-[24px] border border-slate-200 dark:border-[#333] p-8 md:p-10 flex flex-col pt-12 mt-6 md:mt-0 order-2 md:order-1"
+          <div
+            className="bg-slate-900/40 border border-slate-800 rounded-2xl opacity-75 p-6 md:p-8 flex flex-col pt-10"
           >
-            <div className="text-xl font-bold text-slate-500 dark:text-slate-400 mb-8 border-b border-slate-200 dark:border-[#333] pb-6">
+            <div className="text-xl font-bold text-slate-400 mb-8 border-b border-slate-800 pb-6">
               Excel Spreadsheets
             </div>
 
             <div className="flex flex-col gap-6 flex-1">
               {features.map((feature, idx) => (
                 <div key={idx} className="flex items-center justify-between group">
-                  <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-medium text-sm md:text-base">
+                  <div className="flex items-center gap-2 text-slate-400 font-medium text-sm md:text-base">
                     {feature.name}
                     <div className="group/tooltip relative flex items-center justify-center cursor-help">
-                      <div className="w-4 h-4 text-slate-300 dark:text-slate-600 group-hover:text-slate-400 transition-colors flex items-center justify-center">
+                      <div className="w-4 h-4 text-slate-600 group-hover:text-slate-400 transition-colors flex items-center justify-center">
                          <Info className="w-3.5 h-3.5" />
                       </div>
                       <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover/tooltip:block w-48 bg-slate-800 text-white text-xs p-2.5 rounded-[12px] text-center shadow-xl z-50 pointer-events-none">
@@ -207,9 +230,9 @@ export function FeatureComparisonSection({
                   <div>
                     {typeof feature.excel === "boolean" ? (
                       feature.excel ? (
-                        <CheckCircle2 className="w-5 h-5 text-slate-400" />
+                        <CheckCircle2 className="w-5 h-5 text-slate-500" />
                       ) : (
-                        <XCircle className="w-5 h-5 text-slate-300 dark:text-slate-600" />
+                        <XCircle className="w-5 h-5 text-slate-600" />
                       )
                     ) : (
                       <span className="text-slate-500 font-semibold text-sm md:text-base">{feature.excel}</span>
@@ -218,34 +241,28 @@ export function FeatureComparisonSection({
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* CE Pro Card */}
-          <motion.div
-            initial={{ opacity: 0, x: 20, y: 20 }}
-            animate={inView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: 20, y: 20 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="bg-white dark:bg-[#1a1b1e] rounded-[24px] border-2 border-amber-500 shadow-[0_20px_60px_rgba(245,158,11,0.15)] dark:shadow-[0_20px_60px_rgba(245,158,11,0.1)] p-8 md:p-10 flex flex-col relative transform md:-translate-y-4 order-1 md:order-2"
+          <div
+            className="bg-gradient-to-b from-amber-500/10 to-[#0D1525] border-2 border-amber-500/50 rounded-2xl shadow-[0_0_40px_rgba(245,158,11,0.12)] p-6 md:p-8 flex flex-col relative md:-translate-y-2 mt-4 md:mt-0"
           >
-            <div className="absolute -top-4 left-0 right-0 flex justify-center">
-              <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold uppercase tracking-widest py-1.5 px-6 rounded-full shadow-lg border border-amber-400 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                Recommended
-              </div>
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-bold text-xs rounded-full px-4 py-1">
+              RECOMMENDED
             </div>
 
-            <div className="text-xl md:text-2xl font-bold text-slate-900 dark:text-amber-500 mb-8 border-b border-amber-500/20 pb-6 flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 text-white flex items-center justify-center font-bold text-xs tracking-tighter shadow-md shrink-0">CE</div>
+            <div className="text-xl md:text-2xl font-bold text-amber-500 mb-8 border-b border-amber-500/20 pb-6 flex items-center gap-3 mt-2">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 text-[#0A0F1E] flex items-center justify-center font-black text-xs tracking-tighter shadow-md shrink-0">CE</div>
               Civil Estimation Pro
             </div>
 
             <div className="flex flex-col gap-6 flex-1">
               {features.map((feature, idx) => (
                 <div key={idx} className="flex items-center justify-between group">
-                  <div className="flex items-center gap-2 text-slate-800 dark:text-white font-semibold text-sm md:text-base">
+                  <div className="flex items-center gap-2 text-white font-semibold text-sm md:text-base">
                     {feature.name}
                     <div className="group/tooltip relative flex items-center justify-center cursor-help">
-                      <div className="w-4 h-4 text-slate-300 dark:text-slate-500 group-hover:text-amber-500 transition-colors flex items-center justify-center">
+                      <div className="w-4 h-4 text-slate-500 group-hover:text-amber-500 transition-colors flex items-center justify-center">
                          <Info className="w-3.5 h-3.5" />
                       </div>
                       <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover/tooltip:block w-48 bg-slate-900 border border-slate-700 text-white text-xs p-2.5 rounded-[12px] text-center shadow-xl z-50 pointer-events-none">
@@ -270,30 +287,33 @@ export function FeatureComparisonSection({
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 relative z-10 text-center"
+          className="mt-16 relative z-10 text-center flex flex-col items-center justify-center"
         >
           <button
             onClick={() => {
               if (onNavigate) onNavigate("dashboard");
               window.scrollTo(0, 0);
             }}
-            className="inline-flex flex-col sm:flex-row items-center justify-center gap-3 px-8 sm:px-10 py-4 lg:py-5 bg-gradient-to-r from-slate-900 to-slate-800 dark:from-slate-100 dark:to-white hover:from-slate-800 hover:to-slate-700 text-white dark:text-slate-900 font-bold text-[15px] sm:text-[17px] rounded-[32px] sm:rounded-full group shadow-xl hover:shadow-2xl hover:shadow-slate-500/20 dark:hover:shadow-white/20 transition-all cursor-pointer whitespace-nowrap lg:whitespace-normal ring-4 ring-slate-900/5 dark:ring-white/5 mx-auto active:scale-[0.98]"
+            className="inline-flex flex-col sm:flex-row items-center justify-center gap-3 px-8 sm:px-10 py-4 border border-amber-500/30 lg:py-5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-[#0A0F1E] font-bold text-[15px] sm:text-[17px] rounded-[32px] sm:rounded-full group shadow-[0_0_20px_rgba(245,158,11,0.2)] hover:shadow-[0_0_30px_rgba(245,158,11,0.4)] transition-all cursor-pointer whitespace-nowrap lg:whitespace-normal ring-4 ring-amber-500/10 active:scale-[0.98]"
           >
             <span>Level up your estimations</span>
             <div className="flex items-center gap-2">
               <span className="opacity-90 font-medium">— Start Free</span>
-              <div className="w-8 h-8 rounded-full bg-white/20 dark:bg-black/10 flex items-center justify-center group-hover:translate-x-1 transition-transform ml-2">
+              <div className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-1 transition-transform ml-2">
                 <ArrowRight className="w-4 h-4 stroke-[2.5]" />
               </div>
             </div>
           </button>
+          <div className="text-xs text-slate-500 text-center mt-3">
+            No credit card required · Free forever · 55+ tools
+          </div>
         </motion.div>
       </div>
     </div>

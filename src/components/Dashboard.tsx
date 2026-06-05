@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion } from "motion/react";
-import { ModuleId } from "../App";
-import { useAuth } from "../contexts/AuthContext";
-import {
+import {  motion } from "motion/react";
+import {  ModuleId } from "../App";
+import {  useAuth } from "../contexts/AuthContext";
+import { 
   Calculator,
   Sparkles,
   Truck,
@@ -55,33 +55,34 @@ import {
   Clock,
   BarChart,
   ShieldCheck,
-  Users,
-  Activity,
+  Users,  Activity, BookOpen, FileText,
   Droplets,
   Triangle,
   Bug,
   Layout,
   Square,
 } from "lucide-react";
-import { SEO } from "./SEO";
+import {  SEO } from "./SEO";
 import Logo from "./Logo";
 import RecentEstimates from "./RecentEstimates";
 import PremiumHero from "./PremiumHero";
 import ExcelPromo from "./ExcelPromo";
-import SmartSearch from "./SmartSearch";
+import SearchAndFilterBar from "./SearchAndFilterBar";
 import HeroSection from "./HeroSection";
 import SocialProofSection from "./SocialProofSection";
 import WorkspaceSection from "./WorkspaceSection";
 
-import {
+import { 
   HowItWorksSection,
   FeatureComparisonSection,
 } from "./LandingSections";
 
 import PostLoginDashboard from "./PostLoginDashboard";
-import { useSettings } from "../context/SettingsContext";
+import {  useSettings } from "../context/SettingsContext";
 import ToolCard from "./ToolCard";
-import { ScrollReveal } from "./ui/ScrollReveal";
+import {  ScrollReveal } from "./ui/ScrollReveal";
+
+import AIEstimatorBanner from "./AIEstimatorBanner";
 
 export const ALL_MODULES = [
   // 🚀 Guided Workflows
@@ -89,8 +90,8 @@ export const ALL_MODULES = [
     id: "qs-workflow",
     title: "Guided QS Workflow",
     desc: "Walks users through a complete sequence: Project Setup, Drawings, Substructure, Superstructure, Masonry, Services, BOQ Compilation, and final Report.",
-    category: "Quantity Estimator",
-    icon: Activity,
+    category: "Quantity Estimation",
+    icon:  Activity, BookOpen, FileText,
     styleStyle: "solid",
     colorClass: "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30",
     difficulty: "Intermediate",
@@ -104,7 +105,7 @@ export const ALL_MODULES = [
     id: "quick-estimation",
     title: "Quick Rough Estimation",
     desc: "Get a lightning-fast preliminary budget and timeline in under 5 seconds based on simple inputs.",
-    category: "Quantity Estimator",
+    category: "Quantity Estimation",
     icon: Calculator,
     styleStyle: "solid",
     colorClass: "bg-indigo-600 text-white shadow-lg",
@@ -116,7 +117,7 @@ export const ALL_MODULES = [
     id: "master-quantity",
     title: "Master Quantity & Estimation",
     desc: "23 comprehensive calculators for specialized construction items.",
-    category: "Quantity Estimator",
+    category: "Quantity Estimation",
     icon: ClipboardList,
     styleStyle: "solid",
     colorClass:
@@ -129,7 +130,7 @@ export const ALL_MODULES = [
     id: "house",
     title: "House Estimator",
     desc: "Calculate complete residential construction costs from excavation to finishing. Contractors benefit by getting an accurate Civil Estimation Pro material breakdown instantly.",
-    category: "Quantity Estimator",
+    category: "Quantity Estimation",
     icon: Home,
     premium: true,
     styleStyle: "glass",
@@ -143,7 +144,7 @@ export const ALL_MODULES = [
     id: "material-takeoff",
     title: "Material Takeoff Sheet",
     desc: "Auto-calculate cement, sand, aggregate, block, and finishing material quantities based on built-up area and floors.",
-    category: "Quantity Estimator",
+    category: "Quantity Estimation",
     icon: Calculator,
     styleStyle: "solid",
     colorClass: "bg-orange-500 text-white shadow-lg",
@@ -155,7 +156,7 @@ export const ALL_MODULES = [
     id: "cost-summary",
     title: "Cost Summary Sheet",
     desc: "Consolidate structural, finishing, and labour costs into a master cost summary with overhead and contingency calculations.",
-    category: "Quantity Estimator",
+    category: "Quantity Estimation",
     icon: ClipboardList,
     styleStyle: "solid",
     colorClass: "bg-emerald-600 text-white shadow-lg",
@@ -167,7 +168,7 @@ export const ALL_MODULES = [
     id: "measurement-sheet",
     title: "Measurement Sheet Calculator",
     desc: "Interactive civil engineering measurement sheet with auto-calculating sections for excavation, PCC, RCC, and finishes.",
-    category: "Quantity Estimator",
+    category: "Quantity Estimation",
     icon: ClipboardList,
     styleStyle: "solid",
     colorClass: "bg-[#0072de] text-white shadow-lg",
@@ -179,7 +180,7 @@ export const ALL_MODULES = [
     id: "boq",
     title: "Professional BOQ Generator",
     desc: "Calculate and format standardized Bills of Quantities for construction projects. Quantity surveyors rely on Civil Estimation Pro to export precise, itemized cost documents.",
-    category: "Quantity Estimator",
+    category: "Quantity Estimation",
     icon: ClipboardList,
     styleStyle: "solid",
     colorClass: "bg-blue-600 text-white shadow-lg",
@@ -191,7 +192,7 @@ export const ALL_MODULES = [
     id: "takeoff",
     title: "Plan Measure",
     desc: "Area & linear extraction.",
-    category: "Quantity Estimator",
+    category: "Quantity Estimation",
     icon: Ruler,
     styleStyle: "solid",
     colorClass:
@@ -205,7 +206,7 @@ export const ALL_MODULES = [
     id: "rates",
     title: "Live DB Rates",
     desc: "Centralized database for local market prices.",
-    category: "Quantity Estimator",
+    category: "Quantity Estimation",
     icon: TrendingUp,
     styleStyle: "glass",
     colorClass:
@@ -218,7 +219,7 @@ export const ALL_MODULES = [
     id: "interiors-finishes",
     title: "Interiors & Finishes",
     desc: "Tiles, painting, doors, wood framing, and termite treatments.",
-    category: "Quantity Estimator",
+    category: "Quantity Estimation",
     icon: Paintbrush,
     styleStyle: "glass",
     colorClass:
@@ -230,7 +231,7 @@ export const ALL_MODULES = [
     id: "area-space-calculator",
     title: "Area & Space Calculator",
     desc: "Calculate dimensional areas, RERA property spaces, plots, and roof material.",
-    category: "Quantity Estimator",
+    category: "Quantity Estimation",
     icon: Scaling,
     styleStyle: "glass",
     colorClass:
@@ -242,7 +243,7 @@ export const ALL_MODULES = [
     id: "volume-estimator",
     title: "Volume & Tank Capacity",
     desc: "Calculate volumes, tank capacity & surface area.",
-    category: "Quantity Estimator",
+    category: "Quantity Estimation",
     icon: Container,
     styleStyle: "glass",
     colorClass:
@@ -254,7 +255,7 @@ export const ALL_MODULES = [
     id: "metal-weight",
     title: "Metal Weight",
     desc: "Calculate section weights of steel profiles.",
-    category: "Quantity Estimator",
+    category: "Quantity Estimation",
     icon: Anvil,
     styleStyle: "glass",
     colorClass:
@@ -266,7 +267,7 @@ export const ALL_MODULES = [
     id: "unit-converter",
     title: "Unit Converter",
     desc: "Convert units across 15 engineering categories.",
-    category: "Quantity Estimator",
+    category: "Quantity Estimation",
     icon: Repeat,
     styleStyle: "glass",
     colorClass:
@@ -278,7 +279,7 @@ export const ALL_MODULES = [
     id: "ai",
     title: "AI Assistant",
     desc: "Ask anything about construction",
-    category: "Quantity Estimator",
+    category: "Quantity Estimation",
     icon: Sparkles,
     premium: true,
     styleStyle: "solid",
@@ -294,7 +295,7 @@ export const ALL_MODULES = [
     id: "master-rcc",
     title: "Master RCC Estimator",
     desc: "This Civil Estimation Pro tool calculates quantities for slabs, columns, beams, and staircases. Structural engineers benefit from instant concrete and steel volume outputs.",
-    category: "Concrete Tech",
+    category: "Concrete",
     icon: Building2,
     styleStyle: "solid",
     colorClass:
@@ -308,7 +309,7 @@ export const ALL_MODULES = [
     id: "calculators",
     title: "Construction Material",
     desc: "Accurate estimations for concrete, bricks, steel, blocks, mortar.",
-    category: "Concrete Tech",
+    category: "Concrete",
     icon: HardHat,
     styleStyle: "solid",
     colorClass:
@@ -322,7 +323,7 @@ export const ALL_MODULES = [
     id: "mix-design",
     title: "Concrete Mix Design",
     desc: "Calculate IS 10262 compliant proportions for any concrete grade. Site engineers trust Civil Estimation Pro to output instant water-cement ratio reports.",
-    category: "Concrete Tech",
+    category: "Concrete",
     icon: Droplet,
     styleStyle: "glass",
     colorClass:
@@ -335,7 +336,7 @@ export const ALL_MODULES = [
     id: "bbs-generator",
     title: "BBS Generator",
     desc: "Calculate core steel reinforcement cutting lengths and bend deductions. Civil engineers use this Civil Estimation Pro generator to output standardized bar schedules.",
-    category: "Concrete Tech",
+    category: "Concrete",
     icon: FileSpreadsheet,
     styleStyle: "glass",
     colorClass:
@@ -347,7 +348,7 @@ export const ALL_MODULES = [
     id: "reinforcement",
     title: "Reinforcement Detailing Visualizer",
     desc: "Interactive 2D rebar detailing for beams, columns & slabs with IS 456 checks.",
-    category: "Concrete Tech",
+    category: "Concrete",
     icon: Layers,
     styleStyle: "glass",
     colorClass:
@@ -360,7 +361,7 @@ export const ALL_MODULES = [
     id: "isolated-footing",
     title: "Isolated Footing Calculator",
     desc: "Detailed estimations for concrete, steel mesh, excavation and working space.",
-    category: "Concrete Tech",
+    category: "Concrete",
     icon: Box,
     styleStyle: "glass",
     colorClass:
@@ -373,7 +374,7 @@ export const ALL_MODULES = [
     id: "retaining-wall",
     title: "Retaining Wall Estimator",
     desc: "Calculate structural stability, concrete volume, and rebar for cantilever walls. Civil Estimation Pro helps engineers output safe material quantities for earth-retaining structures.",
-    category: "Concrete Tech",
+    category: "Concrete",
     icon: ShieldCheck,
     styleStyle: "glass",
     colorClass:
@@ -386,7 +387,7 @@ export const ALL_MODULES = [
     id: "staircase-calculator",
     title: "Staircase Calculator",
     desc: "Detailed staircase material and BOQ generator.",
-    category: "Concrete Tech",
+    category: "Concrete",
     icon: TrendingUp,
     styleStyle: "glass",
     colorClass:
@@ -398,7 +399,7 @@ export const ALL_MODULES = [
     id: "aggregate-tests",
     title: "Aggregate Tests",
     desc: "Calculate impact, crushing, abrasion values and water absorption.",
-    category: "Concrete Tech",
+    category: "Concrete",
     icon: Box,
     styleStyle: "glass",
     colorClass:
@@ -410,7 +411,7 @@ export const ALL_MODULES = [
     id: "formwork",
     title: "Formwork & Scaffold",
     desc: "Shuttering and scaffolding material computations.",
-    category: "Concrete Tech",
+    category: "Concrete",
     icon: Hammer,
     styleStyle: "glass",
     colorClass:
@@ -424,7 +425,7 @@ export const ALL_MODULES = [
     id: "road-pavement",
     title: "Road & Pavement Estimator",
     desc: "Calculate material quantities for flexible and rigid pavement layers. Highway engineers use this Civil Estimation Pro tool to output exact asphalt volumes.",
-    category: "Road Construction",
+    category: "Road Pavement",
     icon: Route,
     styleStyle: "glass",
     colorClass:
@@ -436,7 +437,7 @@ export const ALL_MODULES = [
     id: "earthworks",
     title: "Earthworks & Excavation",
     desc: "Calculate precise cut, fill, and site preparation volumes for varied terrain. Surveyors use this Civil Estimation Pro tool to generate accurate excavation tonnage reports.",
-    category: "Road Construction",
+    category: "Road Pavement",
     icon: Shovel,
     styleStyle: "glass",
     colorClass:
@@ -448,7 +449,7 @@ export const ALL_MODULES = [
     id: "chainage",
     title: "Chainage Volume",
     desc: "Road highway chainage extraction calculations.",
-    category: "Road Construction",
+    category: "Road Pavement",
     icon: Map,
     styleStyle: "glass",
     colorClass:
@@ -460,7 +461,7 @@ export const ALL_MODULES = [
     id: "gradient-calculator",
     title: "Gradient & Slope",
     desc: "Dynamic bidirectional slope and elevation calculator.",
-    category: "Road Construction",
+    category: "Road Pavement",
     icon: Maximize2,
     styleStyle: "glass",
     colorClass:
@@ -472,7 +473,7 @@ export const ALL_MODULES = [
     id: "anti-termite",
     title: "Anti-Termite Calculator",
     desc: "Calculate pre-construction termite chemical emulsion and concentrate requirements.",
-    category: "Road Construction",
+    category: "Road Pavement",
     icon: Bug,
     styleStyle: "glass",
     colorClass:
@@ -487,7 +488,7 @@ export const ALL_MODULES = [
     id: "geotechnical",
     title: "Geotechnical & Soil Tests",
     desc: "Process lab data for water content, Specific Gravity, LL, and CBR.",
-    category: "Soil Tests",
+    category: "Geotechnical",
     icon: Cone,
     styleStyle: "glass",
     colorClass:
@@ -499,8 +500,8 @@ export const ALL_MODULES = [
     id: "cbr-test",
     title: "CBR Test Calculator",
     desc: "Calculate CBR with smart interactive load-penetration curve plotting.",
-    category: "Soil Tests",
-    icon: Activity,
+    category: "Geotechnical",
+    icon:  Activity, BookOpen, FileText,
     styleStyle: "glass",
     colorClass:
       "bg-white/80  backdrop-blur-md text-[var(--primary-dark)] ",
@@ -512,7 +513,7 @@ export const ALL_MODULES = [
     id: "master-sieve",
     title: "Master Sieve Analysis",
     desc: "Dynamic gradation validator driven by specification databases.",
-    category: "Soil Tests",
+    category: "Road Pavement",
     icon: LineChart,
     styleStyle: "glass",
     colorClass:
@@ -524,7 +525,7 @@ export const ALL_MODULES = [
     id: "aggregate-blending",
     title: "Aggregate Blending",
     desc: "Blend 2 to 4 stockpiles to meet target grading specifications.",
-    category: "Soil Tests",
+    category: "Geotechnical",
     icon: Layers,
     styleStyle: "glass",
     colorClass:
@@ -536,7 +537,7 @@ export const ALL_MODULES = [
     id: "direct-shear",
     title: "Direct Shear Test",
     desc: "Calculate cohesion and friction angle using Mohr-Coulomb failure regression.",
-    category: "Soil Tests",
+    category: "Geotechnical",
     icon: Layers,
     styleStyle: "glass",
     colorClass:
@@ -549,7 +550,7 @@ export const ALL_MODULES = [
     id: "permeability-test",
     title: "Permeability Calculator",
     desc: "Constant head and falling head permeability testing computation.",
-    category: "Soil Tests",
+    category: "Geotechnical",
     icon: Droplet,
     styleStyle: "glass",
     colorClass:
@@ -605,7 +606,7 @@ export const ALL_MODULES = [
     id: "projects",
     title: "Project Manager",
     desc: "Group calculations by project, view aggregated costs and timelines.",
-    category: "Analysis & Tools",
+    category: "Quantity Estimation",
     icon: FolderOpen,
     styleStyle: "solid",
     colorClass: "bg-indigo-600 text-white shadow-lg",
@@ -617,7 +618,7 @@ export const ALL_MODULES = [
     id: "tracker",
     title: "Site Progress Tracker",
     desc: "Track construction timelines, visual Gantt charts, budget burn, and photo updates.",
-    category: "Analysis & Tools",
+    category: "Quantity Estimation",
     icon: BarChart,
     styleStyle: "glass",
     colorClass:
@@ -630,7 +631,7 @@ export const ALL_MODULES = [
     id: "labour-calculator",
     title: "Labour & Workforce",
     desc: "Calculate labour cost, worker allocation, and daily burn rates for your project.",
-    category: "Analysis & Tools",
+    category: "Quantity Estimation",
     icon: Users,
     styleStyle: "glass",
     colorClass:
@@ -725,7 +726,7 @@ export const ALL_MODULES = [
     id: "room-area-calculator",
     title: "Room Area Calculator",
     desc: "Calculate net vs gross area and check NBC/RERA minimum room size compliance.",
-    category: "Architectural References & Space Planning",
+    category: "Architectural",
     icon: Square,
     styleStyle: "glass",
     colorClass:
@@ -738,7 +739,7 @@ export const ALL_MODULES = [
     id: "building-setback-calculator",
     title: "Building Setback Calculator",
     desc: "Auto-calculate front, rear setbacks, and side margins given plot size and zone.",
-    category: "Architectural References & Space Planning",
+    category: "Architectural",
     icon: ArrowRightLeft,
     styleStyle: "glass",
     colorClass:
@@ -751,7 +752,7 @@ export const ALL_MODULES = [
     id: "far-fsi-calculator",
     title: "FAR/FSI Calculator",
     desc: "Determine maximum permissible built-up area and floors based on FAR/FSI allowance.",
-    category: "Architectural References & Space Planning",
+    category: "Architectural",
     icon: Building,
     styleStyle: "glass",
     colorClass:
@@ -764,7 +765,7 @@ export const ALL_MODULES = [
     id: "staircase-design-reference",
     title: "Staircase Design Reference",
     desc: "Validate riser-going ergonomics, headroom clearance, and minimum stair widths.",
-    category: "Architectural References & Space Planning",
+    category: "Architectural",
     icon: Triangle,
     styleStyle: "glass",
     colorClass:
@@ -777,7 +778,7 @@ export const ALL_MODULES = [
     id: "door-window-schedule",
     title: "Door & Window Schedule",
     desc: "Generate schedules and calculate required lintel sizes for building openings.",
-    category: "Architectural References & Space Planning",
+    category: "Architectural",
     icon: Layout,
     styleStyle: "glass",
     colorClass:
@@ -790,7 +791,7 @@ export const ALL_MODULES = [
     id: "ventilation-checker",
     title: "Ventilation & Lighting Checker",
     desc: "Check if window and ventilation areas meet minimum NBC requirements based on floor area.",
-    category: "Architectural References & Space Planning",
+    category: "Architectural",
     icon: Sun,
     styleStyle: "glass",
     colorClass:
@@ -798,6 +799,88 @@ export const ALL_MODULES = [
     difficulty: "Beginner",
     estimatedTime: "~2 mins",
     isNew: true,
+  },
+  // 📚 STANDARDS
+  {
+    id: "is-codes-reference",
+    title: "IS Codes Reference",
+    desc: "Comprehensive database of Indian Standard codes for civil engineering.",
+    category: "Standards",
+    icon: BookOpen,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-[#0072de]",
+    difficulty: "Beginner",
+    estimatedTime: "Read",
+  },
+  {
+    id: "morth-irc-specs",
+    title: "MORTH/IRC Specifications",
+    desc: "Ministry of Road Transport and Highways & Indian Roads Congress specs.",
+    category: "Standards",
+    icon: BookOpen,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-[#0072de]",
+    difficulty: "Intermediate",
+    estimatedTime: "Read",
+  },
+  {
+    id: "pakistan-building-codes",
+    title: "Pakistan Building Codes",
+    desc: "Building Code of Pakistan (BCP) requirements and guidelines.",
+    category: "Standards",
+    icon: BookOpen,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-emerald-600",
+    difficulty: "Intermediate",
+    estimatedTime: "Read",
+  },
+  {
+    id: "uae-construction-standards",
+    title: "UAE Construction Standards",
+    desc: "Dubai Municipality and Abu Dhabi building codes and regulations.",
+    category: "Standards",
+    icon: BookOpen,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-emerald-600",
+    difficulty: "Advanced",
+    estimatedTime: "Read",
+  },
+
+  // 📝 RESOURCES
+  {
+    id: "boq-templates",
+    title: "BOQ Templates",
+    desc: "Downloadable Bill of Quantities templates in Excel format.",
+    category: "Resources",
+    icon: FileText,
+    styleStyle: "solid",
+    colorClass: "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30",
+    difficulty: "Beginner",
+    estimatedTime: "Download",
+    isPopular: true,
+  },
+  {
+    id: "cost-guide-pakistan",
+    title: "Construction Cost Guide Pakistan 2025",
+    desc: "Latest material and labor rates overview for 2025.",
+    category: "Resources",
+    icon: BookOpen,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-emerald-600",
+    difficulty: "Beginner",
+    estimatedTime: "Read",
+    isNew: true,
+  },
+  {
+    id: "blog",
+    title: "Civil Engineering Blog",
+    desc: "Articles, tutorials, and case studies on modern construction.",
+    category: "Resources",
+    icon: FileText,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-slate-800",
+    difficulty: "Beginner",
+    estimatedTime: "Read",
   },
 ];
 
@@ -1118,26 +1201,17 @@ export default function Dashboard({
             <div className="w-full bg-slate-50 dark:bg-[#1a1b1e] py-16 -mt-8 relative z-10 rounded-t-[32px] border-t border-slate-200 dark:border-[#333]">
               <div className="w-full max-w-7xl mx-auto px-4 overflow-visible flex flex-col">
                 <div className="flex flex-col gap-10 max-w-[900px] mx-auto w-full" id="tools-section">
-                  <div className="w-full relative">
-                    <SmartSearch onSelect={(id) => { if (id === 'ai') setIsAiChatOpen(true); else handleSelect(id); }} />
-                  </div>
-                  <div className="flex md:flex-wrap gap-3 overflow-x-auto no-scrollbar relative items-center mb-6">
-                      {categories.map((catName) => {
-                        const count = catName === 'All Tools' ? ALL_MODULES.length : ALL_MODULES.filter(m => m.category === catName).length;
-                        const cat = { name: catName, count };
-                        const isActive = activeCategory === cat.name;
-                        return (
-                          <button
-                            key={cat.name}
-                            onClick={() => setActiveCategory(cat.name)}
-                            className={isActive ? 'relative flex items-center justify-between md:justify-center flex-shrink-0 gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all duration-300 border bg-[#0072de] text-white border-transparent' : 'relative flex items-center justify-between md:justify-center flex-shrink-0 gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all duration-300 border bg-white dark:bg-[#252525] text-slate-600 border-slate-200 dark:border-[#333] hover:border-[#0072de]'}
-                          >
-                            <span className={isActive ? 'font-bold' : 'font-medium'}>{cat.name}</span>
-                            <span className={isActive ? 'bg-white/20 text-white flex items-center justify-center px-1.5 py-0.5 text-[0.65rem] font-bold rounded-full' : 'bg-slate-100 text-slate-500 flex items-center justify-center px-1.5 py-0.5 text-[0.65rem] font-bold rounded-full'}>{cat.count}</span>
-                          </button>
-                        );
-                      })}
-                  </div>
+                    <SearchAndFilterBar
+                      categories={categories.map(catName => ({
+                        name: catName,
+                        count: catName === 'All Tools' ? ALL_MODULES.length : ALL_MODULES.filter(m => m.category === catName).length
+                      }))}
+                      activeCategory={activeCategory}
+                      setActiveCategory={setActiveCategory}
+                      searchTerm={searchTerm}
+                      setSearchTerm={setSearchTerm}
+                      totalFilteredCount={totalFilteredCount}
+                    />
                   <div className="flex flex-col gap-8 w-full mt-2">
                      {groupsToDisplay.map((groupName) => {
                        const toolsInGroup = groupedModules[groupName];
@@ -1157,25 +1231,7 @@ export default function Dashboard({
                        );
                      })}
                   </div>
-                  <div className="mt-8 mb-4 w-full relative group overflow-hidden rounded-[32px]">
-                     <div className="absolute inset-0 bg-gradient-to-r from-teal-900 via-emerald-900 to-[#0F172A] z-0"></div>
-                     <div className="relative z-10 p-8 flex flex-col md:flex-row items-center justify-between gap-8 h-full bg-black/10 backdrop-blur-sm">
-                       <div className="flex items-start md:items-center gap-6">
-                          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shrink-0 shadow-lg">
-                            <Sparkles className="w-8 h-8 text-white" />
-                          </div>
-                          <div>
-                            <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-2 drop-shadow-sm">
-                              Meet Your AI Estimator
-                            </h3>
-                            <p className="text-indigo-100/80 font-medium max-w-lg leading-relaxed mix-blend-plus-lighter">
-                              Describe your project naturally. We will automatically build your entire BOQ.
-                            </p>
-                          </div>
-                       </div>
-                       <button onClick={() => setIsAiChatOpen(true)} className="px-8 py-4 bg-white text-indigo-950 font-bold rounded-xl hover:bg-slate-50 transition-all">Start Chat</button>
-                     </div>
-                  </div>
+                  <AIEstimatorBanner onOpenChat={() => setIsAiChatOpen(true)} />
                 </div>
               </div>
             </div>
@@ -1201,26 +1257,17 @@ export default function Dashboard({
                   
                   <div className="w-full max-w-7xl mx-auto w-full overflow-visible flex flex-col mt-4">
                     <div className="flex flex-col gap-10 max-w-[900px] mx-auto w-full" id="tools-section">
-                      <div className="w-full relative">
-                        <SmartSearch onSelect={(id) => { if (id === 'ai') setIsAiChatOpen(true); else handleSelect(id); }} />
-                      </div>
-                      <div className="flex md:flex-wrap gap-3 overflow-x-auto no-scrollbar relative items-center mb-6">
-                          {categories.map((catName) => {
-                            const count = catName === 'All Tools' ? ALL_MODULES.length : ALL_MODULES.filter(m => m.category === catName).length;
-                            const cat = { name: catName, count };
-                            const isActive = activeCategory === cat.name;
-                            return (
-                              <button
-                                key={cat.name}
-                                onClick={() => setActiveCategory(cat.name)}
-                                className={isActive ? 'relative flex items-center justify-between md:justify-center flex-shrink-0 gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all duration-300 border bg-[#0072de] text-white border-transparent' : 'relative flex items-center justify-between md:justify-center flex-shrink-0 gap-2 px-4 py-2 rounded-full whitespace-nowrap transition-all duration-300 border bg-white dark:bg-[#252525] text-slate-600 border-slate-200 dark:border-[#333] hover:border-[#0072de]'}
-                              >
-                                <span className={isActive ? 'font-bold' : 'font-medium'}>{cat.name}</span>
-                                <span className={isActive ? 'bg-white/20 text-white flex items-center justify-center px-1.5 py-0.5 text-[0.65rem] font-bold rounded-full' : 'bg-slate-100 text-slate-500 flex items-center justify-center px-1.5 py-0.5 text-[0.65rem] font-bold rounded-full'}>{cat.count}</span>
-                              </button>
-                            );
-                          })}
-                      </div>
+                      <SearchAndFilterBar
+                        categories={categories.map(catName => ({
+                          name: catName,
+                          count: catName === 'All Tools' ? ALL_MODULES.length : ALL_MODULES.filter(m => m.category === catName).length
+                        }))}
+                        activeCategory={activeCategory}
+                        setActiveCategory={setActiveCategory}
+                        searchTerm={searchTerm}
+                        setSearchTerm={setSearchTerm}
+                        totalFilteredCount={totalFilteredCount}
+                      />
                       <div className="flex flex-col gap-8 w-full mt-2">
                          {groupsToDisplay.map((groupName) => {
                            const toolsInGroup = groupedModules[groupName];

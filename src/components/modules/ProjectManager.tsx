@@ -52,10 +52,10 @@ export default function ProjectManager() {
 
   return (
     <div className="w-full max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white border border-slate-200 p-6 md:p-8 rounded-[2rem] shadow-sm">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white/40 backdrop-blur-xl border border-white/60 p-6 md:p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
         <div>
           <h2 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 tracking-tight flex items-center gap-3">
-             <div className="p-3 bg-indigo-50 text-indigo-600 rounded-[24px]">
+             <div className="p-3 bg-indigo-500 text-white rounded-[24px] shadow-[0_4px_14px_rgba(99,102,241,0.39)]">
                <FolderOpen className="w-8 h-8" />
              </div>
              Project Manager
@@ -64,13 +64,13 @@ export default function ProjectManager() {
         </div>
         <div className="flex gap-2">
            {compareIds[0] && compareIds[1] && (
-             <button onClick={() => setView('compare')} className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full font-bold shadow-md hover:shadow-lg transition-all animate-pulse">
+             <button onClick={() => setView('compare')} className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-full font-bold shadow-[0_4px_14px_rgba(16,185,129,0.39)] hover:shadow-[0_6px_20px_rgba(16,185,129,0.23)] transition-all animate-pulse">
                 Compare Selected
              </button>
            )}
            <button 
              onClick={() => setIsCreating(!isCreating)}
-             className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-bold shadow-md hover:shadow-lg transition-all flex items-center gap-2"
+             className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-full font-bold shadow-[0_4px_14px_rgba(99,102,241,0.39)] hover:shadow-[0_6px_20px_rgba(99,102,241,0.23)] transition-all flex items-center gap-2"
            >
              <Plus className="w-5 h-5" /> New Project
            </button>
@@ -78,22 +78,22 @@ export default function ProjectManager() {
       </div>
 
       {isCreating && (
-        <form onSubmit={handleCreate} className="bg-white border border-indigo-100 p-6 rounded-[2rem] shadow-sm transform transition-all">
+        <form onSubmit={handleCreate} className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] transform transition-all">
           <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
             <Plus className="text-indigo-500" /> Create New Project
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-1.5">Project Name</label>
-              <input type="text" value={newProject.name} onChange={e => setNewProject({...newProject, name: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none" required placeholder="e.g. Al-Hamra Tower" />
+              <input type="text" value={newProject.name} onChange={e => setNewProject({...newProject, name: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" required placeholder="e.g. Al-Hamra Tower" />
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-1.5">Location</label>
-              <input type="text" value={newProject.location} onChange={e => setNewProject({...newProject, location: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="City, Area" />
+              <input type="text" value={newProject.location} onChange={e => setNewProject({...newProject, location: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" placeholder="City, Area" />
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-1.5">Type</label>
-              <select value={newProject.type} onChange={e => setNewProject({...newProject, type: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none">
+              <select value={newProject.type} onChange={e => setNewProject({...newProject, type: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm">
                 <option>Residential</option>
                 <option>Commercial</option>
                 <option>Infrastructure</option>
@@ -102,12 +102,12 @@ export default function ProjectManager() {
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-1.5">Start Date</label>
-              <input type="date" value={newProject.startDate} onChange={e => setNewProject({...newProject, startDate: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-slate-200 bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none" />
+              <input type="date" value={newProject.startDate} onChange={e => setNewProject({...newProject, startDate: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" />
             </div>
           </div>
           <div className="flex gap-3 mt-6">
-            <button type="submit" className="px-6 py-2.5 bg-indigo-600 text-white font-bold rounded-[24px] hover:bg-indigo-700 transition">Save Project</button>
-            <button type="button" onClick={() => setIsCreating(false)} className="px-6 py-2.5 bg-slate-100 text-slate-600 font-bold rounded-[24px] hover:bg-slate-200 transition">Cancel</button>
+            <button type="submit" className="px-6 py-2.5 bg-indigo-600 text-white font-bold rounded-[24px] hover:bg-indigo-700 transition shadow-md">Save Project</button>
+            <button type="button" onClick={() => setIsCreating(false)} className="px-6 py-2.5 bg-white/50 border border-white/60 text-slate-600 font-bold rounded-[24px] hover:bg-white/80 transition shadow-sm">Cancel</button>
           </div>
         </form>
       )}
@@ -339,18 +339,18 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
        
        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
          
-         {[p1, p2].map((proj, i) => {
+          {[p1, p2].map((proj, i) => {
             const totals = i === 0 ? t1 : t2;
             return (
-         <div key={proj.id} className="bg-white border border-slate-200 p-8 rounded-[2rem] shadow-sm">
+         <div key={proj.id} className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
             <h1 className="text-2xl font-semibold tabular-nums tracking-tight text-slate-800 mb-6 flex items-center gap-2">
-               <span className="w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm">{i+1}</span>
+               <span className="w-6 h-6 rounded-full bg-indigo-500 text-white shadow-md flex items-center justify-center text-sm">{i+1}</span>
                {proj.name}
             </h1>
             
             <div className="space-y-6">
-              <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px]">
-                 <p className="text-sm font-bold text-slate-500 mb-1">Total Cost estimate</p>
+              <div className="p-4 bg-emerald-50/50 backdrop-blur-md rounded-[24px] border border-emerald-100/50 shadow-sm text-slate-800 rounded-[24px]">
+                 <p className="text-sm font-bold text-emerald-700 uppercase tracking-wider mb-1">Total Cost estimate</p>
                  <p className="text-3xl font-semibold tabular-nums tracking-tight text-emerald-600">${totals.cost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                  {i === 1 && t1.cost !== 0 && (
                     <p className={`text-sm font-bold ${t2.cost > t1.cost ? 'text-rose-500' : 'text-emerald-500'} mt-1`}>
@@ -359,8 +359,8 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
                  )}
               </div>
               
-              <div>
-                 <h4 className="font-bold text-slate-700 mb-3 border-b border-slate-200 pb-2">Material Comparison</h4>
+              <div className="bg-white/50 border border-white/60 p-5 rounded-[24px] shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
+                 <h4 className="font-bold text-slate-800 mb-3 border-b border-slate-200/50 pb-2">Material Comparison</h4>
                  <div className="space-y-3">
                     {allMaterialKeys.map(m => {
                        const v1 = t1.materials[m] || 0;
@@ -368,7 +368,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
                        const v = i === 0 ? v1 : v2;
                        const higher = (i === 0 && v1 > v2) || (i === 1 && v2 > v1);
                        return (
-                          <div key={m} className="flex justify-between items-center text-sm">
+                          <div key={m} className="flex justify-between items-center text-sm py-1 border-b border-slate-100/50 last:border-0">
                             <span className="font-semibold text-slate-600">{m}</span>
                             <span className={`font-semibold tabular-nums tracking-tight ${higher ? 'text-indigo-600 ' : 'text-slate-700 '}`}>
                                {v > 0 ? v.toFixed(1) : '-'}
@@ -388,9 +388,14 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
 }
 function ProjectDetail({ project, onBack }: { project: Project, onBack: () => void }) {
   const { deleteEstimate } = useProjects();
+  const [inflationRate, setInflationRate] = useState<number>(0);
+  const [wasteFactor, setWasteFactor] = useState<number>(0);
+
+  const costMultiplier = 1 + (inflationRate / 100);
+  const qtyMultiplier = 1 + (wasteFactor / 100);
   
   // Aggregate total cost
-  const totalCost = project.estimates.reduce((sum, est) => sum + (Number(est.cost) || 0), 0);
+  const totalCost = project.estimates.reduce((sum, est) => sum + (Number(est.cost) || 0), 0) * costMultiplier;
   
   // Aggregate Materials
   const aggregatedMaterials: Record<string, { quantity: number; unit: string; count: number }> = {};
@@ -401,7 +406,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
          if (!aggregatedMaterials[key]) {
            aggregatedMaterials[key] = { quantity: 0, unit, count: 0 };
          }
-         aggregatedMaterials[key].quantity += quantity;
+         aggregatedMaterials[key].quantity += quantity * qtyMultiplier;
          aggregatedMaterials[key].count += 1;
       });
     }
@@ -410,7 +415,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
   // Prepare Pie Chart Data based on estimate cost categories
   const categoryCosts = project.estimates.reduce((acc, est) => {
      const cat = est.category || 'Other';
-     acc[cat] = (acc[cat] || 0) + (Number(est.cost) || 0);
+     acc[cat] = (acc[cat] || 0) + ((Number(est.cost) || 0) * costMultiplier);
      return acc;
   }, {} as Record<string, number>);
 
@@ -439,7 +444,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
        <div className="flex flex-col lg:flex-row gap-6">
          {/* Main Summary Panel */}
          <div className="flex-1 space-y-6">
-           <div className="bg-white border border-slate-200 p-8 rounded-[2rem] shadow-sm relative overflow-hidden">
+           <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden">
              <div className="absolute top-0 right-0 p-8 opacity-5">
                <Building className="w-48 h-48" />
              </div>
@@ -447,7 +452,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
              <div className="relative z-10">
                 <div className="flex justify-between items-start">
                    <div>
-                      <span className="px-3 py-1 bg-indigo-50 text-indigo-600 font-bold rounded-full text-xs uppercase tracking-wider mb-3 inline-block">
+                      <span className="px-3 py-1 bg-white/60 shadow-sm text-indigo-600 font-bold rounded-full text-xs uppercase tracking-wider mb-3 inline-block backdrop-blur-md">
                          {project.type}
                       </span>
                       <h1 className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight text-slate-900 mb-2">{project.name}</h1>
@@ -457,25 +462,25 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                       </div>
                    </div>
                    <div className="flex gap-2">
-                      <button onClick={handleShare} className="p-3 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-[24px] transition shadow-sm" title="Share Project">
+                      <button onClick={handleShare} className="p-3 bg-white/50 hover:bg-white/80 text-slate-600 rounded-[24px] transition shadow-[0_4px_14px_rgba(0,0,0,0.03)] backdrop-blur-md" title="Share Project">
                          <Share2 className="w-5 h-5" />
                       </button>
-                      <button onClick={handleExportPDF} className="p-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-[24px] transition shadow-sm" title="Export PDF">
+                      <button onClick={handleExportPDF} className="p-3 bg-indigo-50/50 hover:bg-indigo-100/60 text-indigo-600 rounded-[24px] transition shadow-[0_4px_14px_rgba(0,0,0,0.03)] backdrop-blur-md" title="Export PDF">
                          <Printer className="w-5 h-5" />
                       </button>
                    </div>
                 </div>
 
                 <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6">
-                   <div className="bg-emerald-50 p-5 rounded-[24px] border border-emerald-100">
+                   <div className="bg-emerald-50/50 backdrop-blur-md p-5 rounded-[24px] border border-emerald-100/50">
                      <p className="text-emerald-700 font-bold text-sm uppercase tracking-wider mb-1">Total Estimated Cost</p>
                      <p className="text-3xl font-semibold tabular-nums tracking-tight text-emerald-600">${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                    </div>
-                   <div className="bg-indigo-50 p-5 rounded-[24px] border border-indigo-100">
+                   <div className="bg-indigo-50/50 backdrop-blur-md p-5 rounded-[24px] border border-indigo-100/50">
                      <p className="text-indigo-700 font-bold text-sm uppercase tracking-wider mb-1">Calculations Run</p>
                      <p className="text-3xl font-semibold tabular-nums tracking-tight text-indigo-600">{project.estimates.length}</p>
                    </div>
-                   <div className="bg-amber-50 p-5 rounded-[24px] border border-amber-100">
+                   <div className="bg-amber-50/50 backdrop-blur-md p-5 rounded-[24px] border border-amber-100/50">
                      <p className="text-amber-700 font-bold text-sm uppercase tracking-wider mb-1">Total Materials</p>
                      <p className="text-3xl font-semibold tabular-nums tracking-tight text-amber-600">{Object.keys(aggregatedMaterials).length}</p>
                    </div>
@@ -483,26 +488,45 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
              </div>
            </div>
 
+           {/* Global Adjustments / Executive Variables */}
+           <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+              <h2 className="text-lg font-semibold mb-4 text-slate-800 flex items-center gap-2">
+                 Global Macro Adjustments
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                 <div>
+                    <label className="text-sm font-bold text-slate-600 block mb-2">Cost Inflation / Contingency: <span className="text-indigo-600">{inflationRate}%</span></label>
+                    <input type="range" min="0" max="30" step="1" value={inflationRate} onChange={e => setInflationRate(Number(e.target.value))} className="w-full accent-indigo-600" />
+                    <p className="text-xs text-slate-500 mt-1">Applies an automatic price hike to all historical estimates.</p>
+                 </div>
+                 <div>
+                    <label className="text-sm font-bold text-slate-600 block mb-2">Material Waste Factor: <span className="text-amber-600">{wasteFactor}%</span></label>
+                    <input type="range" min="0" max="25" step="1" value={wasteFactor} onChange={e => setWasteFactor(Number(e.target.value))} className="w-full accent-amber-600" />
+                    <p className="text-xs text-slate-500 mt-1">Uniformly bumps all BOQ material quantities.</p>
+                 </div>
+              </div>
+           </div>
+
            {/* Timeline & Operations */}
-           <div className="bg-white border border-slate-200 p-8 rounded-[2rem] shadow-sm">
+           <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
               <h2 className="text-xl font-semibold mb-6 text-slate-800">Calculation Timeline</h2>
               {project.estimates.length === 0 ? (
-                 <div className="text-center py-10 text-slate-400 font-medium bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-dashed border-slate-200">
+                 <div className="text-center py-10 text-slate-400 font-medium bg-slate-50/50 rounded-[24px] shadow-sm text-slate-800 rounded-[24px] border border-dashed border-slate-200/60">
                     <AlertCircle className="w-10 h-10 mx-auto mb-3 opacity-50" />
                     No calculation results saved to this project yet.
                  </div>
               ) : (
                 <div className="space-y-4">
                   {project.estimates.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((est, idx) => (
-                    <div key={est.id} className="flex items-start gap-4 p-4 rounded-[24px] hover:bg-slate-50 transition group border border-transparent hover:border-slate-100 :">
+                    <div key={est.id} className="flex items-start gap-4 p-4 rounded-[24px] hover:bg-white/60 transition group border border-transparent hover:border-white/80 shadow-[0_4px_14px_rgba(0,0,0,0.02)]">
                        <div className="flex flex-col items-center mt-1">
                          <div className="w-3 h-3 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]"></div>
-                         {idx !== project.estimates.length - 1 && <div className="w-0.5 h-full bg-slate-200 my-1"></div>}
+                         {idx !== project.estimates.length - 1 && <div className="w-0.5 h-full bg-slate-200/60 my-1"></div>}
                        </div>
                        <div className="flex-1">
                           <div className="flex justify-between">
                             <h4 className="font-bold text-slate-800 text-lg">{est.name}</h4>
-                            <span className="text-sm font-bold text-indigo-600">${(Number(est.cost) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                            <span className="text-sm font-bold text-indigo-600">${((Number(est.cost) || 0) * costMultiplier).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                           </div>
                           <p className="text-sm text-slate-500 font-medium mb-2">{new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(new Date(est.date))} • {est.category}</p>
                           
@@ -510,12 +534,12 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                           {est.materials && Object.keys(est.materials).length > 0 && (
                             <div className="flex flex-wrap gap-2 mt-2">
                                {Object.entries(est.materials).slice(0, 4).map(([mat, data]) => (
-                                 <span key={mat} className="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs font-semibold">
-                                   {mat}: {data.quantity.toFixed(1)} {data.unit}
+                                 <span key={mat} className="px-2 py-1 bg-white/60 border border-white/80 text-slate-600 rounded text-xs font-semibold shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+                                   {mat}: {(data.quantity * qtyMultiplier).toFixed(1)} {data.unit}
                                  </span>
                                ))}
                                {Object.keys(est.materials).length > 4 && (
-                                 <span className="px-2 py-1 bg-slate-100 text-slate-500 rounded text-xs font-semibold">
+                                 <span className="px-2 py-1 bg-white/60 border border-white/80 text-slate-500 rounded text-xs font-semibold shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
                                    +{Object.keys(est.materials).length - 4} more
                                  </span>
                                )}
@@ -531,7 +555,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
 
          {/* Sidebar Summary */}
          <div className="w-full lg:w-80 space-y-6">
-            <div className="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm">
+            <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
                <h3 className="font-bold text-lg mb-4 text-slate-800">Cost Breakdown</h3>
                {pieData.length > 0 ? (
                  <div className="h-48 w-full">
@@ -547,7 +571,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                     </ResponsiveContainer>
                  </div>
                ) : (
-                 <div className="h-48 flex items-center justify-center text-slate-400 text-sm italic border border-dashed rounded-[24px] border-slate-200">No data</div>
+                 <div className="h-48 flex items-center justify-center text-slate-400 text-sm italic border border-dashed rounded-[24px] border-slate-200/60 bg-white/30">No data</div>
                )}
                
                <div className="space-y-3 mt-4">
@@ -563,7 +587,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                </div>
             </div>
 
-            <div className="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm">
+            <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
                <h3 className="font-bold text-lg mb-4 text-slate-800">Aggregated Materials</h3>
                <div className="space-y-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
                   {Object.entries(aggregatedMaterials).length === 0 ? (
@@ -572,7 +596,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                      Object.entries(aggregatedMaterials).map(([key, data]) => {
                         const [name, _] = key.split('_');
                         return (
-                          <div key={key} className="flex justify-between items-center py-2 border-b border-slate-100 last:border-0">
+                          <div key={key} className="flex justify-between items-center py-2 border-b border-slate-100/50 last:border-0">
                              <div className="flex flex-col">
                                <span className="font-bold text-sm text-slate-700 capitalize">{name}</span>
                              </div>

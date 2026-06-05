@@ -1,0 +1,161 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = '.';
+const file = path.join(__dirname, 'src/components/Dashboard.tsx');
+let code = fs.readFileSync(file, 'utf8');
+
+const additionalModules = `
+  // 🌍 GEOTECHNICAL SILO (New)
+  {
+    id: "cbr-test",
+    title: "CBR Test Analyzer",
+    desc: "Calculate California Bearing Ratio and generate load-penetration curves.",
+    category: "Geotechnical",
+    icon: Activity,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-slate-800",
+    difficulty: "Advanced",
+    estimatedTime: "~5 mins",
+  },
+  {
+    id: "direct-shear-test",
+    title: "Direct Shear Test",
+    desc: "Determine shear strength parameters: cohesion (c) and angle of internal friction (φ).",
+    category: "Geotechnical",
+    icon: Activity,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-amber-600",
+    difficulty: "Advanced",
+    estimatedTime: "~10 mins",
+  },
+  {
+    id: "permeability-test",
+    title: "Permeability Test",
+    desc: "Constant and falling head permeability calculations.",
+    category: "Geotechnical",
+    icon: Activity,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-[#0072de]",
+    difficulty: "Intermediate",
+    estimatedTime: "~5 mins",
+  },
+  {
+    id: "soil-compaction",
+    title: "Soil Compaction",
+    desc: "Standard/Modified Proctor test analysis for OMC and MDD.",
+    category: "Geotechnical",
+    icon: Activity,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-slate-800",
+    difficulty: "Intermediate",
+    estimatedTime: "~5 mins",
+  },
+  {
+    id: "aggregate-blending",
+    title: "Aggregate Blending",
+    desc: "Proportion multiple aggregates to meet target gradation specifications.",
+    category: "Geotechnical",
+    icon: Activity,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-[#0072de]",
+    difficulty: "Intermediate",
+    estimatedTime: "~8 mins",
+  },
+
+  // ⚡ MEP
+  {
+    id: "rainwater-harvesting",
+    title: "Rainwater Harvesting",
+    desc: "Calculate catchment area yield, tank sizing, and pipe requirements.",
+    category: "MEP",
+    icon: Activity,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-[#0072de]",
+    difficulty: "Beginner",
+    estimatedTime: "~5 mins",
+  },
+  {
+    id: "solar-roof-calculator",
+    title: "Solar Roof Calculator",
+    desc: "Estimate panel capacity, ROI, and optimal tilt angles.",
+    category: "MEP",
+    icon: Activity,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-emerald-600",
+    difficulty: "Intermediate",
+    estimatedTime: "~5 mins",
+  },
+  {
+    id: "energy-mep",
+    title: "Energy & Load (MEP)",
+    desc: "Basic HVAC cooling load and electrical load estimations.",
+    category: "MEP",
+    icon: Activity,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-indigo-600",
+    difficulty: "Advanced",
+    estimatedTime: "~15 mins",
+  },
+
+  // 🏛️ STRUCTURAL DESIGN additions
+  {
+    id: "raft-foundation",
+    title: "Raft Foundation Design",
+    desc: "Mat foundation sizing and soil pressure distribution.",
+    category: "Structural Design",
+    icon: Activity,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-slate-800",
+    difficulty: "Advanced",
+    estimatedTime: "~20 mins",
+  },
+  {
+    id: "pile-foundation",
+    title: "Pile Foundation Design",
+    desc: "Pile capacity, group efficiency, and settlement calculations.",
+    category: "Structural Design",
+    icon: Activity,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-slate-800",
+    difficulty: "Advanced",
+    estimatedTime: "~20 mins",
+  },
+  {
+    id: "retaining-wall",
+    title: "Retaining Wall Design",
+    desc: "Cantilever and gravity wall stability analysis (sliding, overturning).",
+    category: "Structural Design",
+    icon: Activity,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-slate-800",
+    difficulty: "Advanced",
+    estimatedTime: "~15 mins",
+  },
+  {
+    id: "prestressed-concrete",
+    title: "Prestressed Concrete",
+    desc: "Losses in prestress and basic flexural design of sections.",
+    category: "Structural Design",
+    icon: Activity,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-slate-800",
+    difficulty: "Advanced",
+    estimatedTime: "~25 mins",
+  },
+  {
+    id: "water-tank-design",
+    title: "Water Tank Design",
+    desc: "Overhead and underground tank structural requirements per IS 3370.",
+    category: "Structural Design",
+    icon: Activity,
+    styleStyle: "glass",
+    colorClass: "bg-white/80 backdrop-blur-md text-[#0072de]",
+    difficulty: "Advanced",
+    estimatedTime: "~20 mins",
+  },
+];`;
+
+code = code.replace(/  \},\n\];/g, '  },' + additionalModules);
+fs.writeFileSync(file, code);

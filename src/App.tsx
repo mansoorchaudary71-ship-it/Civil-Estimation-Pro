@@ -96,7 +96,7 @@ import Dashboard, {
   getCategoryTheme,
 } from "./components/Dashboard";
 import RecentEstimates from "./components/RecentEstimates";
-import Sidebar, { ModuleId } from "./components/Sidebar";
+import { ModuleId } from "./components/Sidebar";
 export type { ModuleId };
 import TopNavbar from "./components/TopNavbar";
 import BottomNavBar from './components/BottomNavBar';
@@ -110,6 +110,7 @@ import Contact from "./components/pages/Contact";
 import Blog from "./components/pages/Blog";
 import LegalPages from "./components/pages/LegalPages";
 import PricingPage from "./components/pages/PricingPage";
+import StandardsReferencePage from "./components/StandardsReferencePage";
 import {
   Menu,
   Settings as SettingsIcon,
@@ -543,7 +544,7 @@ export default function App() {
                   <Toaster position="bottom-right" />
                   <ProductTour />
                   
-                  <TopNavbar onNavigate={handleSelectModule} onOpenSidebar={() => setIsSidebarOpen(true)} />
+                  <TopNavbar onNavigate={handleSelectModule} />
                   {isStaticPage && <GlobalBottomBar activeModule={activeModule} onNavigate={handleSelectModule} onOpenProfile={() => setIsProfileOpen(true)} onOpenSearch={() => {}} />}
                   
                   <BottomNavBar 
@@ -554,20 +555,6 @@ export default function App() {
                   />
 
                   <div className={`flex flex-1 min-h-0 relative w-full pt-14`}>
-                    {/* Main Sidebar (Mobile Overlay + Persistent Desktop) */}
-                    <Sidebar activeModule={activeModule} onSelectModule={handleSelectModule}
-                      isOpen={isSidebarOpen}
-                      onClose={() => setIsSidebarOpen(false)}
-                      onOpenAuth={() => {
-                        setIsSidebarOpen(false);
-                        setIsAuthOpen(true);
-                      }}
-                      onOpenProfile={() => {
-                        setIsSidebarOpen(false);
-                        setIsProfileOpen(true);
-                      }}
-                    />
-
                     <main
                       id="main-content"
                       className="flex-1 flex flex-col bg-transparent relative w-full min-h-0 pt-0 transition-all duration-300"
@@ -598,6 +585,9 @@ export default function App() {
                                 )}
                                 {activeModule === "pricing" && (
                                   <PricingPage />
+                                )}
+                                {activeModule === "standards" && (
+                                  <StandardsReferencePage onNavigate={handleSelectModule} />
                                 )}
                                 {activeModule === "about" && (
                                   <div className="p-8 pt-12">
@@ -1488,6 +1478,39 @@ import { GlobalSettingsToggle } from "./components/ui/GlobalSettingsToggle";
 import { FeedbackWidget } from "./components/ui/FeedbackWidget";
 import { ProTipsWidget } from "./components/ui/ProTipsWidget";
 
+import ToolPageFooter from "./components/ToolPageFooter";
+
+function getToolMetadata(moduleDef: typeof ALL_MODULES[0]) {
+  let standards = ["IS 456:2000"];
+  let formulaStr = "Standard derivations based on fundamental civil engineering volume, area, and material density conversions.";
+  
+  if (moduleDef.category === "Concrete") {
+    standards = ["IS 456:2000", "IS 10262:2019"];
+    formulaStr = "Concrete Volume = Length × Width × Depth \nDry Volume = Wet Volume × 1.54\nCement/Sand/Aggregate = (Ratio / Total Ratio) × Dry Volume";
+  } else if (moduleDef.category === "Road Pavement") {
+    standards = ["IRC:37-2018", "MORTH Specifications"];
+    formulaStr = "Flexible Pavement Design (CBR Method):\nTension/Strain calculations derived from CBR and traffic (msa) per IRC guidelines.";
+  } else if (moduleDef.category === "Geotechnical") {
+    standards = ["IS 2720", "IS 2911"];
+    formulaStr = "Foundations & Soil Mechanics:\nBearing Capacity (q_ult) = cNc + γDNq + 0.5BγNγ\nPile Capacity = Q_p (End Bearing) + Q_s (Skin Friction)";
+  } else if (moduleDef.category === "MEP") {
+    standards = ["IS 1172:1993", "NBC Part 8"];
+    formulaStr = "Water Supply & Harvesting:\nYield = Catchment Area × Rainfall × Runoff Coefficient\nDaily Requirement = Per Capita Demand (LPCD) × Population";
+  } else if (moduleDef.category === "Structural Design") {
+    standards = ["IS 456:2000", "IS 800:2007"];
+    formulaStr = "RCC & Steel Design:\nMoment of Resistance (M_u) = 0.87 f_y A_st d (1 - (A_st f_y) / (b d f_ck))\nSteel Weight = (D² / 162.28) kg/m";
+  } else if (moduleDef.category === "Architectural") {
+    standards = ["NBC 2016", "IS 4905"];
+    formulaStr = "Built-up Area & Floor Space Index (FSI):\nFSI = Total Built-up Area / Total Plot Area\nStaircase Rise/Tread Ratio = 2R + T ≈ 600mm to 640mm";
+  }
+
+  return {
+    standards,
+    formulaDescription: formulaStr,
+    lastUpdated: "January 15, 2024",
+  };
+}
+
 function ModuleWrapper({
   title,
   activeModule,
@@ -1574,6 +1597,8 @@ function ModuleWrapper({
         },
       ]
     : [];
+
+  const metaList = moduleDef ? getToolMetadata(moduleDef as any) : { standards: [], formulaDescription: "N/A", lastUpdated: "N/A" };
 
   return (
     <div className="h-full flex flex-col min-h-0 bg-transparent relative">
@@ -1856,6 +1881,16 @@ function ModuleWrapper({
                       <DiscussionWidget
                         moduleId={moduleDef.id}
                         toolName={moduleDef.title}
+                      />
+
+                      {/* Tool Page Footer */}
+                      <ToolPageFooter 
+                        toolName={moduleDef.title}
+                        standards={metaList.standards}
+                        formulaDescription={metaList.formulaDescription}
+                        difficulty={moduleDef.difficulty as any || "Intermediate"}
+                        lastUpdated={metaList.lastUpdated}
+                        category={moduleDef.category}
                       />
                     </>
                   )}

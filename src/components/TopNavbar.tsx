@@ -4,10 +4,8 @@ import { motion, AnimatePresence } from "motion/react";
 import { cn } from "../lib/utils";
 
 export default function TopNavbar({
-  onNavigate,
-  onOpenSidebar
+  onNavigate
 }: {
-  onOpenSidebar?: () => void;
   onNavigate?: (id: string) => void;
   onOpenAuth?: () => void;
   onOpenProfile?: () => void;
@@ -50,7 +48,7 @@ export default function TopNavbar({
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-[120] bg-white/90 backdrop-blur-[12px] border-b border-slate-200 transition-colors shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 h-14 flex items-center justify-between">
+        <div className="w-full px-4 md:px-8 lg:px-12 h-14 flex items-center justify-between">
           <div 
             className="flex items-center gap-2 cursor-pointer group"
             onClick={() => { setActiveTab("Home"); onNavigate && onNavigate("home"); }}
