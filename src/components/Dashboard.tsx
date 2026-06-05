@@ -229,7 +229,7 @@ export const ALL_MODULES = [
   },
   {
     id: "area-space-calculator",
-    title: "Area & Space Calculator",
+    title: "Plot Area Calculator",
     desc: "Calculate dimensional areas, RERA property spaces, plots, and roof material.",
     category: "Quantity Estimation",
     icon: Scaling,
@@ -1222,7 +1222,7 @@ export default function Dashboard({
                                {groupName}
                                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">{toolsInGroup.length}</span>
                              </h2>
-                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                                {toolsInGroup.map((mod) => (
                                  <ToolCard key={mod.id} mod={mod} onSelect={handleSelect} />
                                ))}
@@ -1275,7 +1275,7 @@ export default function Dashboard({
                            return (
                              <div key={groupName} className="flex flex-col gap-5">
                                <h2 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-3">{groupName}<span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">{toolsInGroup.length}</span></h2>
-                               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                                  {toolsInGroup.map((mod) => (
                                    <ToolCard key={mod.id} mod={mod} onSelect={handleSelect} />
                                  ))}

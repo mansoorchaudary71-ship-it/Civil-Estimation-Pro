@@ -136,8 +136,8 @@ export const standardsData = [
   }
 ];
 
-export default function StandardsReferencePage({ onNavigate }: { onNavigate?: (id: string) => void }) {
-  const [activeCountry, setActiveCountry] = useState("All");
+export default function StandardsReferencePage({ onNavigate, initialActiveCountry = "All" }: { onNavigate?: (id: string) => void, initialActiveCountry?: string }) {
+  const [activeCountry, setActiveCountry] = useState(initialActiveCountry);
   const [searchTerm, setSearchTerm] = useState("");
 
   const countries = ["All", "India", "Pakistan", "UAE", "International"];

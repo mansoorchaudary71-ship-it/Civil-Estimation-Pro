@@ -373,7 +373,7 @@ export const ALL_TOOLS = [
   },
   {
     id: "area-space-calculator",
-    title: "Area & Space Calculator",
+    title: "Plot Area Calculator",
     category: "Analysis & Tools",
     icon: <Square className="w-4 h-4" />,
   },
@@ -512,6 +512,15 @@ export default function App() {
   }, [activeModule]);
 
   
+  const standardsModules = [
+    "standards",
+    "is-codes-reference",
+    "morth-irc-specs",
+    "pakistan-building-codes",
+    "uae-construction-standards",
+    "international-standards"
+  ];
+
   const isStaticPage = [
     "home",
     "my-estimates",
@@ -523,6 +532,7 @@ export default function App() {
     "privacy",
     "terms",
     "cookies",
+    ...standardsModules
   ].includes(activeModule);
 
   const handleSelectModule = (id: ModuleId) => {
@@ -586,8 +596,17 @@ export default function App() {
                                 {activeModule === "pricing" && (
                                   <PricingPage />
                                 )}
-                                {activeModule === "standards" && (
-                                  <StandardsReferencePage onNavigate={handleSelectModule} />
+                                {standardsModules.includes(activeModule) && (
+                                  <StandardsReferencePage 
+                                    key={activeModule}
+                                    onNavigate={handleSelectModule} 
+                                    initialActiveCountry={
+                                      activeModule === "is-codes-reference" || activeModule === "morth-irc-specs" ? "India" :
+                                      activeModule === "pakistan-building-codes" ? "Pakistan" :
+                                      activeModule === "uae-construction-standards" ? "UAE" :
+                                      activeModule === "international-standards" ? "International" : "All"
+                                    }
+                                  />
                                 )}
                                 {activeModule === "about" && (
                                   <div className="p-8 pt-12">
@@ -717,7 +736,7 @@ export default function App() {
                               )}
                               {activeModule === "area-space-calculator" && (
                                 <ModuleWrapper activeModule={activeModule}
-                                  title="Area & Space Calculator"
+                                  title="Plot Area Calculator"
                                   
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}

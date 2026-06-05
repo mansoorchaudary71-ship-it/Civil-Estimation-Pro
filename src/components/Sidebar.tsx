@@ -163,7 +163,7 @@ const SIDEBAR_DATA: MainCategory[] = [
       },
       {
         id: "area-space-calculator",
-        label: "Area & Space Calculator",
+        label: "Plot Area Calculator",
         icon: MapPin,
         subTools: [
           { id: "asc-shape", label: "2D Shape Calc" },

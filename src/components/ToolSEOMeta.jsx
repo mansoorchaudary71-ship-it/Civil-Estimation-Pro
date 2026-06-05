@@ -33,6 +33,73 @@ const toolMetaConfig = {
     title: 'Road & Pavement Estimator (MORTH Standards) | Civil Estimation Pro',
     description: 'Estimate material requirements for flexible and rigid road pavements. Ensure your highway structures adhere to MORTH flexible pavement and subgrade specifications.',
     keywords: 'road pavement estimator, MORTH flexible pavement, highway construction calculator, pavement design tool'
+  },
+  'quantity-estimation/area-space-calculator': {
+    title: 'Plot Area Calculator — Irregular Land, RERA & IS Code Compliant | Civil Estimation Pro',
+    description: 'Calculate irregular plot area using geometric triangulation, RERA carpet area, and IS Code opening deductions. Free online tool for civil engineers and quantity surveyors.',
+    keywords: 'plot area calculator, irregular land area, RERA carpet area, geometric triangulation area, roof pitch multiplier',
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Plot Area Calculator — Civil Estimation Pro",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "description": "Calculate irregular plot area using geometric triangulation, RERA carpet area, and IS Code opening deductions. Free online tool for civil engineers and quantity surveyors.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Irregular plot area by triangulation",
+          "RERA carpet area calculation",
+          "Roof pitch multi-factor correction",
+          "IS Code opening deductions",
+          "Real-time calculation"
+        ],
+        "screenshot": "https://civilestimationpro.com/og/area-space-calculator.png",
+        "provider": {
+          "@type": "Organization",
+          "name": "Civil Estimation Pro",
+          "url": "https://civilestimationpro.com"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do you calculate irregular plot area using triangulation?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The diagonal triangulation method divides an irregular quadrilateral into two triangles using a measured diagonal. The area of each triangle is calculated using Heron's formula, then summed for the total plot area. Civil Estimation Pro automates this using the North, South, East, West sides and the NW-SE diagonal measurement."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is RERA carpet area and how is it calculated?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "RERA carpet area is the net usable floor area excluding walls, balconies, and common areas, as defined under the Real Estate (Regulation and Development) Act. This calculator applies IS Code opening deductions to compute RERA-compliant carpet area from gross measurements."
+            }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Calculate Irregular Plot Area Using Triangulation",
+        "step": [
+          { "@type": "HowToStep", "text": "Select your preferred unit of measurement (ft or meters)" },
+          { "@type": "HowToStep", "text": "Measure and enter the North, South, East, and West side dimensions" },
+          { "@type": "HowToStep", "text": "Measure the diagonal distance NW to SE and enter it" },
+          { "@type": "HowToStep", "text": "Review the real-time triangulated area result" },
+          { "@type": "HowToStep", "text": "Export the calculation to PDF or save for your records" }
+        ]
+      }
+    ]
   }
 };
 
@@ -52,7 +119,7 @@ export default function ToolSEOMeta({ toolPath, toolName = 'Civil Estimation Too
   const meta = toolMetaConfig[toolPath] || defaultMeta;
   const canonicalUrl = `${BASE_URL}/calculators/${toolPath}`;
 
-  const jsonLdData = {
+  const jsonLdData = meta.jsonLd || {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": toolName,
