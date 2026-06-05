@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Search, BookOpen, ShieldCheck, ArrowRight } from "lucide-react";
+import { Search, BookOpen, ShieldCheck, ArrowRight, Download } from "lucide-react";
 
 export const standardsData = [
   {
@@ -10,7 +10,8 @@ export const standardsData = [
     category: "Concrete",
     description: "The primary Indian Standard code of practice for general structural use of plain and reinforced concrete. Covers design clauses, material specifications, and workmanship.",
     toolIds: ["concrete-advanced", "house"],
-    toolNames: ["Concrete Mix Design", "House Estimator"]
+    toolNames: ["Concrete Mix Design", "House Estimator"],
+    pdfLink: "/assets/standards/is-456.pdf"
   },
   {
     id: "is-800",
@@ -20,7 +21,8 @@ export const standardsData = [
     category: "Steel",
     description: "Code of practice for general construction in steel, transitioning from working stress method to limit state design method for structural steel detailing.",
     toolIds: ["interactive-steel", "house"],
-    toolNames: ["Interactive Steel Calculator", "House Estimator"]
+    toolNames: ["Interactive Steel Calculator", "House Estimator"],
+    pdfLink: "/assets/standards/is-800.pdf"
   },
   {
     id: "is-10262",
@@ -30,7 +32,8 @@ export const standardsData = [
     category: "Concrete",
     description: "Guidelines for proportioning of concrete mixes to achieve specified characteristics like workability, compressive strength, and durability.",
     toolIds: ["concrete-advanced"],
-    toolNames: ["Concrete Mix Design"]
+    toolNames: ["Concrete Mix Design"],
+    pdfLink: "/assets/standards/is-10262.pdf"
   },
   {
     id: "is-1200",
@@ -40,7 +43,8 @@ export const standardsData = [
     category: "Quantity",
     description: "Standardizes the method of measurement of building and civil engineering works for preparation of estimates and bills of quantities.",
     toolIds: ["house", "qs-workflow"],
-    toolNames: ["House Estimator", "BOQ Generator"]
+    toolNames: ["House Estimator", "BOQ Generator"],
+    pdfLink: "/assets/standards/is-1200.pdf"
   },
   {
     id: "bcp-2021",
@@ -50,7 +54,8 @@ export const standardsData = [
     category: "Building",
     description: "Seismic provisions and general building construction guidelines for structural, fire, and life safety in Pakistan. Formulated by the PEC.",
     toolIds: ["house", "staircase-calculator"],
-    toolNames: ["House Estimator", "Staircase Calculator"]
+    toolNames: ["House Estimator", "Staircase Calculator"],
+    pdfLink: "/assets/standards/bcp-2021.pdf"
   },
   {
     id: "nha-specs",
@@ -60,7 +65,8 @@ export const standardsData = [
     category: "Infrastructure",
     description: "Standard specifications for road and bridge works by the National Highway Authority (NHA) of Pakistan, detailing earthwork, sub-base, and asphalt provisions.",
     toolIds: ["earthwork-advanced"],
-    toolNames: ["Earthwork"]
+    toolNames: ["Earthwork"],
+    pdfLink: "/assets/standards/nha-specs.pdf"
   },
   {
     id: "pec-bidding",
@@ -70,7 +76,8 @@ export const standardsData = [
     category: "Management",
     description: "Pakistan Engineering Council (PEC) standard guidelines for procurement of civil works, contracting, and BOQ formulations.",
     toolIds: ["qs-workflow"],
-    toolNames: ["BOQ Generator"]
+    toolNames: ["BOQ Generator"],
+    pdfLink: "/assets/standards/pec-bidding.pdf"
   },
   {
     id: "dbc",
@@ -80,7 +87,8 @@ export const standardsData = [
     category: "Building",
     description: "Comprehensive code designed to unify building design across Dubai, focusing on structural stability, safety, sustainability, and accessibility.",
     toolIds: ["house", "lintel-design-tool"],
-    toolNames: ["House Estimator", "Lintel Scheduler"]
+    toolNames: ["House Estimator", "Lintel Scheduler"],
+    pdfLink: "/assets/standards/dbc.pdf"
   },
   {
     id: "adibc",
@@ -90,7 +98,8 @@ export const standardsData = [
     category: "Building",
     description: "Based on the International Building Code (IBC) with tailored amendments for the Emirate of Abu Dhabi to regulate commercial and residential construction.",
     toolIds: ["house"],
-    toolNames: ["House Estimator"]
+    toolNames: ["House Estimator"],
+    pdfLink: "/assets/standards/adibc.pdf"
   },
   {
     id: "uae-fire",
@@ -100,7 +109,8 @@ export const standardsData = [
     category: "Safety",
     description: "Mandatory civil defense requirements for fire protection systems, egress strategies, and facade safety across all Emirates.",
     toolIds: ["qs-workflow"],
-    toolNames: ["BOQ Generator"]
+    toolNames: ["BOQ Generator"],
+    pdfLink: "/assets/standards/uae-fire.pdf"
   },
   {
     id: "morth",
@@ -110,7 +120,8 @@ export const standardsData = [
     category: "Infrastructure",
     description: "Ministry of Road Transport and Highways (MORTH) specifications serving as the backbone for highway estimations, pavement design, and testing.",
     toolIds: ["earthwork-advanced"],
-    toolNames: ["Earthwork"]
+    toolNames: ["Earthwork"],
+    pdfLink: "/assets/standards/morth.pdf"
   },
   {
     id: "irc-37",
@@ -120,7 +131,8 @@ export const standardsData = [
     category: "Infrastructure",
     description: "Guidelines for the design of flexible pavements, calculating traffic loadings (msa), and determining layer thicknesses for bituminous roads.",
     toolIds: ["earthwork-advanced"],
-    toolNames: ["Earthwork"]
+    toolNames: ["Earthwork"],
+    pdfLink: "/assets/standards/irc-37.pdf"
   }
 ];
 
@@ -221,6 +233,21 @@ export default function StandardsReferencePage({ onNavigate }: { onNavigate?: (i
                 <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-grow">
                   {std.description}
                 </p>
+
+                {std.pdfLink && (
+                  <div className="mb-6">
+                    <a
+                      href={std.pdfLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      download
+                      className="inline-flex items-center gap-2 px-3 py-2 bg-slate-800/80 hover:bg-amber-500 hover:text-black border border-slate-700/50 rounded-lg text-sm font-semibold text-slate-300 transition-colors w-max"
+                    >
+                      <Download className="w-4 h-4" />
+                      Download PDF
+                    </a>
+                  </div>
+                )}
 
                 <div className="pt-5 border-t border-slate-800/60">
                   <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest mb-3">Integrations</p>

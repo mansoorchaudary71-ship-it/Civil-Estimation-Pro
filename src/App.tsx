@@ -564,7 +564,7 @@ export default function App() {
                           <>
                             <div
                               ref={scrollRef}
-                              className="flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto pb-20 md:pb-0"
+                              className={`flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto pb-20 md:pb-0 ${!isStaticPage ? 'hidden' : ''}`}
                             >
                               <div className="flex flex-col min-h-full relative w-full">
                                 {activeModule === "home" && (
@@ -1892,6 +1892,10 @@ function ModuleWrapper({
                         lastUpdated={metaList.lastUpdated}
                         category={moduleDef.category}
                       />
+                      
+                      <div className="-mx-4 md:-mx-8">
+                        <Footer onNavigate={setActiveModule} />
+                      </div>
                     </>
                   )}
                 </div>
