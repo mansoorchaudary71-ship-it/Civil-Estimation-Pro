@@ -5,7 +5,7 @@ import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
 import { DetailedRoomEstimators } from "./DetailedRoomEstimators";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useAnimation, Reorder } from "motion/react";
 import {
   Home,
   Layers,
@@ -27,6 +27,10 @@ import {
   Briefcase,
   X,
   CheckCircle2,
+  Trash2,
+  GripVertical,
+  Copy,
+  FolderPlus
 } from "lucide-react";
 import {
   PieChart,
@@ -51,6 +55,96 @@ import MasterQuantityEstimator from "./MasterQuantityEstimator";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { SEO } from "../SEO";
 import UnitToggleGroup from "../ui/UnitToggleGroup";
+
+function AnimatedTableRow({ 
+  item, 
+  formatCurrency, 
+  roundQuantity,
+  selected,
+  onSelect,
+  onDuplicate,
+  note,
+  onNoteChange
+}: { 
+  item: any, 
+  formatCurrency: (val: number) => string, 
+  roundQuantity?: boolean,
+  selected?: boolean,
+  onSelect?: (name: string) => void,
+  onDuplicate?: (item: any) => void,
+  note?: string,
+  onNoteChange?: (note: string) => void
+}) {
+  const controls = useAnimation();
+  
+  React.useEffect(() => {
+    controls.start({
+      backgroundColor: ["rgba(99, 102, 241, 0.25)", "rgba(255, 255, 255, 0)"],
+      transition: { duration: 1.5, ease: "easeOut" }
+    });
+  }, [item.quantity, item.value, controls]);
+
+  return (
+    <Reorder.Item
+      as="tr"
+      value={item.name}
+      initial={{ backgroundColor: "rgba(255, 255, 255, 0)" }}
+      animate={controls}
+      className={`transition-colors border-b border-transparent hover:bg-slate-50/50 group ${selected ? 'bg-indigo-50/40' : ''}`}
+    >
+      <td className="px-6 py-4 font-semibold text-slate-700 group">
+        <div className="flex items-center justify-between">
+          <label className="flex items-center gap-3 cursor-pointer select-none">
+            <GripVertical className="w-4 h-4 text-slate-400 cursor-grab active:cursor-grabbing hover:text-slate-600" />
+            {onSelect && (
+              <input 
+                type="checkbox" 
+                checked={selected}
+                onChange={() => onSelect(item.name)}
+                className="w-4 h-4 text-indigo-600 bg-white border-slate-300 rounded focus:ring-indigo-500 cursor-pointer"
+              />
+            )}
+            <span>{item.name}</span>
+          </label>
+          {onDuplicate && (
+            <button 
+              onClick={() => onDuplicate(item)}
+              className="opacity-0 group-hover:opacity-100 p-1 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded transition-all"
+              title="Duplicate Item"
+            >
+              <Copy className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+      </td>
+      <td className="px-6 py-4 text-center font-bold text-slate-600">
+        {typeof item.quantity === "number"
+          ? (roundQuantity ? Math.round(item.quantity).toLocaleString('en-US') : item.quantity.toLocaleString('en-US', { maximumFractionDigits: 1 }))
+          : item.quantity}
+        {item.rate && (
+          <div className="text-[10px] font-normal text-slate-700 mt-0.5 font-mono">
+            @ {formatCurrency(item.rate)}/{item.unit}
+          </div>
+        )}
+      </td>
+      <td className="px-6 py-4 text-center font-medium text-slate-700">
+        {item.unit}
+      </td>
+      <td className="px-6 py-4 hidden md:table-cell">
+        <input 
+          type="text"
+          value={note || ""}
+          onChange={(e) => onNoteChange?.(e.target.value)}
+          placeholder="Add note..."
+          className="w-full min-w-[120px] bg-transparent border-0 border-b border-transparent hover:border-slate-300 focus:border-indigo-500 focus:ring-0 text-sm text-slate-600 transition-colors px-0 py-1 placeholder:text-slate-300 focus:outline-none"
+        />
+      </td>
+      <td className="px-6 py-4 text-right font-bold text-slate-800">
+        {formatCurrency(item.value)}
+      </td>
+    </Reorder.Item>
+  );
+}
 type GeometryState = {
   plotSizeUnit: "marla" | "sqyd" | "sqft";
   plotSizeValue: string;
@@ -147,6 +241,25 @@ function geometryReducer(
       return state;
   }
 }
+function useSortedData(data: any[], order: string[]) {
+  return useMemo(() => {
+    if (order.length === 0) return data;
+    const map = new Map();
+    data.forEach(item => map.set(item.name, item));
+    const result: any[] = [];
+    order.forEach(name => {
+      if (map.has(name)) {
+        result.push(map.get(name));
+        map.delete(name);
+      }
+    });
+    data.forEach(item => {
+      if (map.has(item.name)) result.push(item);
+    });
+    return result;
+  }, [data, order]);
+}
+
 export default function HouseEstimator() {
   const {
     marketRates,
@@ -164,6 +277,85 @@ export default function HouseEstimator() {
     clientName: "",
     siteLocation: "",
   });
+  const [itemNotes, setItemNotes] = useState<Record<string, string>>({});
+  const [deletedItems, setDeletedItems] = useState<Set<string>>(new Set());
+  const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
+  const [duplicatedItems, setDuplicatedItems] = useState<any[]>([]);
+  const [foundationOrder, setFoundationOrder] = useState<string[]>([]);
+  const [superstructureOrder, setSuperstructureOrder] = useState<string[]>([]);
+  const [finishingOrder, setFinishingOrder] = useState<string[]>([]);
+
+  const handleDuplicateRow = (item: any, section: string) => {
+    const baseName = item.name.replace(/\s\(Copy \d+\)$/, '');
+    const newItem = {
+      ...item,
+      name: `${baseName} (Copy ${Math.floor(Math.random() * 1000)})`, // Unique name for Reorder.Item
+      _section: section,
+      _id: Date.now()
+    };
+    setDuplicatedItems((prev) => [...prev, newItem]);
+  };
+
+  const handleNoteChange = (name: string, note: string) => {
+    setItemNotes((prev) => ({ ...prev, [name]: note }));
+  };
+
+  const handleLoadTemplate = (type: "grey" | "finishing", templateName: string) => {
+    let newItems: any[] = [];
+    if (type === "grey") {
+      if (templateName === "residential") {
+        newItems = [
+          { name: "Porch Column Footings", value: 45000, color: "#9ca3af", quantity: 4, unit: "Nos", rate: 11250, _section: "foundation", _id: Date.now() + 1 },
+          { name: "Septic Tank", value: 65000, color: "#6b7280", quantity: 1, unit: "Lump Sum", rate: 65000, _section: "foundation", _id: Date.now() + 2 }
+        ];
+      } else if (templateName === "commercial") {
+        newItems = [
+          { name: "Basement Excavation", value: 250000, color: "#4b5563", quantity: 5000, unit: "Cft", rate: 50, _section: "foundation", _id: Date.now() + 1 },
+          { name: "Pile Foundations", value: 450000, color: "#374151", quantity: 12, unit: "Nos", rate: 37500, _section: "foundation", _id: Date.now() + 2 },
+          { name: "Steel Structure Core", value: 850000, color: "#1f2937", quantity: 5, unit: "Tons", rate: 170000, _section: "superstructure", _id: Date.now() + 3 }
+        ];
+      }
+    } else {
+      if (templateName === "residential") {
+        newItems = [
+          { name: "Kitchen Cabinets", value: 180000, color: "#10b981", quantity: 1, unit: "Lump Sum", rate: 180000, _section: "finishing", _id: Date.now() + 1 },
+          { name: "Wardrobes", value: 220000, color: "#059669", quantity: 3, unit: "Nos", rate: 73333, _section: "finishing", _id: Date.now() + 2 },
+          { name: "Aluminum Windows", value: 150000, color: "#047857", quantity: 250, unit: "Sq.ft", rate: 600, _section: "finishing", _id: Date.now() + 3 }
+        ];
+      } else if (templateName === "commercial") {
+        newItems = [
+          { name: "Glass Partitions", value: 350000, color: "#3b82f6", quantity: 500, unit: "Sq.ft", rate: 700, _section: "finishing", _id: Date.now() + 1 },
+          { name: "Grid False Ceiling", value: 120000, color: "#2563eb", quantity: 1500, unit: "Sq.ft", rate: 80, _section: "finishing", _id: Date.now() + 2 },
+          { name: "HVAC Ducting", value: 450000, color: "#1d4ed8", quantity: 1, unit: "Lump Sum", rate: 450000, _section: "finishing", _id: Date.now() + 3 },
+          { name: "Network Cabling", value: 85000, color: "#1e40af", quantity: 40, unit: "Points", rate: 2125, _section: "finishing", _id: Date.now() + 4 }
+        ];
+      }
+    }
+    
+    setDuplicatedItems(prev => [...prev, ...newItems]);
+  };
+
+  const handleToggleSelect = (name: string) => {
+    setSelectedItems((prev) => {
+      const next = new Set(prev);
+      if (next.has(name)) {
+        next.delete(name);
+      } else {
+        next.add(name);
+      }
+      return next;
+    });
+  };
+
+  const handleDeleteSelected = () => {
+    setDeletedItems((prev) => {
+      const next = new Set(prev);
+      selectedItems.forEach((item) => next.add(item));
+      return next;
+    });
+    setSelectedItems(new Set());
+  };
+
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [specs, setSpecs] = useState<SpecsState>(initialSpecs);
   const [isSpecsAccordionOpen, setIsSpecsAccordionOpen] = useState(false);
@@ -500,14 +692,21 @@ export default function HouseEstimator() {
       isCustom: isCustomRate("laborGrey"),
     },
   ];
-  const greyCostData = [...greyFoundationData, ...greySuperstructureData];
+  greyFoundationData.push(...duplicatedItems.filter(i => i._section === 'foundation'));
+  greySuperstructureData.push(...duplicatedItems.filter(i => i._section === 'superstructure'));
+
+  let greyCostData = [...greyFoundationData, ...greySuperstructureData].filter(
+    (item) => !deletedItems.has(item.name)
+  );
+  const filteredTotalGrey = greyCostData.reduce((acc, item) => acc + item.value, 0);
+
   const qualityMultiplier =
     finishQuality === 1 ? 1 : finishQuality === 2 ? 1.6 : 2.5;
   const finishRate = rates.laborFinish * qualityMultiplier;
   let roofMultiplier = 1;
   if (specs?.roofInsulation?.includes("Premium")) roofMultiplier = 1.6;
   if (specs?.roofInsulation?.includes("Luxury")) roofMultiplier = 2.5;
-  const finishingCostData = [
+  let finishingCostData = [
     {
       name: `Tiles & Floor${isCustomRate("laborFinish") ? "*" : ""}`,
       value: estimates.costTiles,
@@ -554,12 +753,52 @@ export default function HouseEstimator() {
       rate: finishRate * 0.15 * roofMultiplier,
       isCustom: isCustomRate("laborFinish"),
     },
-  ];
+  ].filter((item) => !deletedItems.has(item.name));
+  
+  finishingCostData.push(...duplicatedItems.filter(i => i._section === 'finishing' && !deletedItems.has(i.name)));
+
+  const sortedFoundationData = useSortedData(greyFoundationData.filter(i => !deletedItems.has(i.name)), foundationOrder);
+  const sortedSuperstructureData = useSortedData(greySuperstructureData.filter(i => !deletedItems.has(i.name)), superstructureOrder);
+  const sortedFinishingCostData = useSortedData(finishingCostData, finishingOrder);
+
+  const filteredTotalFinishing = finishingCostData.reduce((acc, item) => acc + item.value, 0);
+
+  const handleExportCSV = (type: "grey" | "finishing") => {
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "Category,Material / Item,Quantity,Unit,Notes,Amount\n";
+    
+    const escapeCsv = (str: any) => `"${String(str || "").replace(/"/g, '""')}"`;
+    
+    if (type === "grey") {
+      sortedFoundationData.forEach((item) => {
+        csvContent += `${escapeCsv("Foundation Work")},${escapeCsv(item.name)},${escapeCsv(typeof item.quantity === "number" ? item.quantity.toLocaleString('en-US') : item.quantity)},${escapeCsv(item.unit)},${escapeCsv(itemNotes[item.name])},${escapeCsv(formatCurrency(item.value))}\n`;
+      });
+      sortedSuperstructureData.forEach((item) => {
+        csvContent += `${escapeCsv("Above-Ground Work (Walls & Roof)")},${escapeCsv(item.name)},${escapeCsv(typeof item.quantity === "number" ? item.quantity.toLocaleString('en-US') : item.quantity)},${escapeCsv(item.unit)},${escapeCsv(itemNotes[item.name])},${escapeCsv(formatCurrency(item.value))}\n`;
+      });
+      csvContent += `${escapeCsv("Total")},${escapeCsv("Total Grey Structure")},-,-,-,${escapeCsv(formatCurrency(filteredTotalGrey))}\n`;
+    } else {
+      sortedFinishingCostData.forEach((item) => {
+        csvContent += `${escapeCsv("Finishing Works")},${escapeCsv(item.name)},${escapeCsv(typeof item.quantity === "number" ? Math.round(item.quantity).toLocaleString('en-US') : item.quantity)},${escapeCsv(item.unit)},${escapeCsv(itemNotes[item.name])},${escapeCsv(formatCurrency(item.value))}\n`;
+      });
+      csvContent += `${escapeCsv("Total")},${escapeCsv("Total Finishing Works")},-,-,-,${escapeCsv(formatCurrency(filteredTotalFinishing))}\n`;
+    }
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `${type}_structure_boq.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+
   const summaryData = [
-    { name: "Grey Structure", value: estimates.totalGrey, color: "#64748b" },
+    { name: "Grey Structure", value: filteredTotalGrey, color: "#64748b" },
     {
       name: "Finishing Works",
-      value: estimates.totalFinishing,
+      value: filteredTotalFinishing,
       color: "#8b5cf6",
     },
   ];
@@ -570,6 +809,9 @@ export default function HouseEstimator() {
       color: "#10b981",
     });
   }
+  
+  const currentTotalCost = filteredTotalGrey + filteredTotalFinishing + (includeBoundaryWall ? estimates.costBoundaryWall : 0);
+  
 
   const combinedCostData = useMemo(() => {
     const data: any[] = [];
@@ -1061,36 +1303,57 @@ export default function HouseEstimator() {
               )}
             </div>
             
-            <button
-               onClick={() => setShowResults(true)}
-               className="w-full flex items-center justify-center gap-2 bg-white text-slate-900 font-bold px-8 py-4 rounded-[24px] hover:bg-indigo-700 transition-all active:scale-95 shadow-md shadow-slate-900/10"
-            >
-               Compute Total Cost
-            </button>
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full">
+              {!showResults && (
+                <button
+                   onClick={() => setShowResults(true)}
+                   className="w-full sm:flex-1 flex flex-row items-center justify-center gap-2 bg-white text-slate-900 border border-slate-200 outline-none font-bold px-8 py-4 rounded-[16px] hover:bg-slate-50 transition-all active:scale-95 shadow-sm"
+                >
+                   Compute Total Cost
+                </button>
+              )}
+            </div>
+            
+            <div className="flex items-center justify-between p-4 bg-indigo-50 border border-indigo-100 rounded-[16px] mt-4">
+               <div>
+                  <h4 className="text-sm font-bold text-indigo-900">Live BOQ</h4>
+                  <p className="text-[11px] text-indigo-600/80 font-medium">Real-time table view as you adjust parameters</p>
+               </div>
+               <label className="relative inline-flex items-center cursor-pointer">
+                 <input
+                   type="checkbox"
+                   className="sr-only peer"
+                   checked={showResults}
+                   onChange={(e) => setShowResults(e.target.checked)}
+                 />
+                 <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600 shadow-inner"></div>
+               </label>
+            </div>
           </section>
           
           {/* Results Area */}
-          <section className="lg:col-span-8 flex flex-col gap-6">
-            <div className="sticky top-6 z-10 bg-indigo-600 rounded-[2rem] p-6 shadow-xl shadow-indigo-500/20 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2">
+          {showResults && (
+            <section className="lg:col-span-8 flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div className="sticky top-6 z-10 bg-indigo-600 rounded-[2rem] p-6 shadow-xl shadow-indigo-500/20 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2">
               <div className="flex items-center gap-4">
                 <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-100 rounded-[24px]">
                   <Calculator className="w-8 h-8 text-slate-600" />
                 </div>
                 <div>
                   <h3 className="text-indigo-200 text-xs font-bold uppercase tracking-widest mb-0.5">Total Estimated Cost</h3>
-                  <p className="text-3xl sm:text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight tabular-nums text-slate-900 drop-shadow-sm">{formatCurrency(estimates.totalCost)}</p>
+                  <p className="text-3xl sm:text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight tabular-nums text-slate-900 drop-shadow-sm">{formatCurrency(currentTotalCost)}</p>
                   <p className="text-indigo-200 text-[10px] mt-1 font-medium">Rates based on current regional market — verify with local suppliers.</p>
                 </div>
               </div>
               <div className="flex gap-6 mt-4 sm:mt-0 w-full sm:w-auto p-4 sm:p-0 bg-white/5 sm:bg-transparent rounded-[24px] sm:rounded-[24px]">
                 <div>
                   <div className="text-indigo-200 text-[10px] font-bold uppercase tracking-wider mb-0.5">Basic Structure</div>
-                  <div className="text-lg font-bold tabular-nums text-slate-900">{formatCurrency(estimates.totalGrey)}</div>
+                  <div className="text-lg font-bold tabular-nums text-slate-900">{formatCurrency(filteredTotalGrey)}</div>
                 </div>
                 <div className="w-px h-8 bg-indigo-400/30 self-center hidden sm:block"></div>
                 <div>
                   <div className="text-indigo-200 text-[10px] font-bold uppercase tracking-wider mb-0.5">Finishings</div>
-                  <div className="text-lg font-bold tabular-nums text-slate-900">{formatCurrency(estimates.totalFinishing)}</div>
+                  <div className="text-lg font-bold tabular-nums text-slate-900">{formatCurrency(filteredTotalFinishing)}</div>
                 </div>
               </div>
             </div>
@@ -1165,7 +1428,7 @@ export default function HouseEstimator() {
                       <MaterialSummary
                         title="Grey Structure Breakdown"
                         totalLabel="Total Grey Structure Cost"
-                        totalValue={formatCurrency(estimates.totalGrey)}
+                        totalValue={formatCurrency(filteredTotalGrey)}
                         totalUnit=""
                         relatedToolIds={['brickwork', 'concrete-mix']}
                         onRecalculate={() => {}}
@@ -1222,12 +1485,53 @@ export default function HouseEstimator() {
                            />
                         </div>
                       </MaterialSummary>
-                      <h3 className="text-xl font-semibold text-slate-800 mt-8 mb-4">
-                        Detailed Exact BOQ
-                      </h3>
-                      <div className="border border-slate-200 rounded-[24px] overflow-hidden bg-white shadow-sm mb-8">
-                        <table className="w-full text-sm text-left">
-                          <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider">
+
+                      <div className="w-full h-[320px] mt-8 mb-4 border border-slate-100 rounded-[24px] bg-slate-50/30 p-2 sm:p-4">
+                        <StyledChart 
+                          data={greyCostData.map(d => ({ ...d, fill: d.color }))}
+                          type="pie"
+                          title="Grey Structure Cost Distribution"
+                          valueFormatter={(val) => formatCurrency(val, false)}
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between mt-8 mb-4">
+                        <h3 className="text-xl font-semibold text-slate-800">
+                          Detailed Exact BOQ
+                        </h3>
+                        <div className="flex items-center gap-3 relative">
+                          <div className="relative group/template">
+                            <button className="flex items-center gap-2 text-sm bg-slate-50 text-slate-700 px-3 py-1.5 rounded-full font-semibold hover:bg-slate-100 transition-colors">
+                              <FolderPlus className="w-4 h-4" />
+                              Load Template
+                              <ChevronDown className="w-4 h-4" />
+                            </button>
+                            <div className="absolute right-0 top-full mt-1 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 invisible group-hover/template:opacity-100 group-hover/template:visible transition-all z-20 overflow-hidden">
+                              <button onClick={() => handleLoadTemplate("grey", "residential")} className="w-full text-left px-4 py-2 hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 text-sm font-medium transition-colors border-b border-slate-100">Residential House</button>
+                              <button onClick={() => handleLoadTemplate("grey", "commercial")} className="w-full text-left px-4 py-2 hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 text-sm font-medium transition-colors">Commercial Office</button>
+                            </div>
+                          </div>
+                          {selectedItems.size > 0 && (
+                            <button
+                              onClick={handleDeleteSelected}
+                              className="flex items-center gap-2 text-sm bg-red-50 text-red-600 px-3 py-1.5 rounded-full font-semibold hover:bg-red-100 transition-colors"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                              Delete Selected ({selectedItems.size})
+                            </button>
+                          )}
+                          <button
+                            onClick={() => handleExportCSV("grey")}
+                            className="flex items-center gap-2 text-sm bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-full font-semibold hover:bg-indigo-100 transition-colors"
+                          >
+                            <Download className="w-4 h-4" />
+                            Export CSV
+                          </button>
+                        </div>
+                      </div>
+                      <div className="border border-slate-200 rounded-[24px] overflow-y-auto max-h-[400px] bg-white shadow-sm mb-8 relative custom-scrollbar">
+                        <table className="w-full text-sm text-left relative">
+                          <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider sticky top-0 z-10 shadow-sm before:content-[''] before:absolute before:inset-0 before:bg-slate-100 before:-z-10">
                             <tr>
                               <th className="px-6 py-4 font-bold">
                                 Material / Item
@@ -1238,81 +1542,77 @@ export default function HouseEstimator() {
                               <th className="px-6 py-4 font-bold text-center">
                                 Unit
                               </th>
+                              <th className="px-6 py-4 font-bold text-left hidden md:table-cell w-1/4">
+                                Notes
+                              </th>
                               <th className="px-6 py-4 font-bold text-right">
                                 Amount (Rs)
                               </th>
                             </tr>
                           </thead>
-                          <tbody className="text-slate-800 divide-y divide-slate-100">
+                          <Reorder.Group as="tbody" values={sortedFoundationData.map(i => i.name)} onReorder={setFoundationOrder} className="text-slate-800 divide-y divide-slate-100">
                             <tr className="bg-transparent/50">
                               <td
-                                colSpan={4}
+                                colSpan={5}
                                 className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-700"
                               >
                                 Foundation Work
                               </td>
                             </tr>
-                            {greyFoundationData.map((item, idx) => (
-                              <tr
-                                key={`f-${idx}`}
-                                className="hover:bg-transparent/70 transition-colors"
-                              >
-                                <td className="px-6 py-4 font-semibold text-slate-700">
-                                  {item.name}
-                                </td>
-                                <td className="px-6 py-4 text-center font-bold text-slate-600">
-                                  {typeof item.quantity === "number"
-                                    ? item.quantity.toLocaleString('en-US')
-                                    : item.quantity}
-                                  {item.rate && (
-                                    <div className="text-[10px] font-normal text-slate-700 mt-0.5 font-mono">
-                                      @ {formatCurrency(item.rate)}/{item.unit}
-                                    </div>
-                                  )}
-                                </td>
-                                <td className="px-6 py-4 text-center font-medium text-slate-700">
-                                  {item.unit}
-                                </td>
-                                <td className="px-6 py-4 text-right font-bold text-slate-800">
-                                  {formatCurrency(item.value)}
-                                </td>
-                              </tr>
+                            {sortedFoundationData.map((item) => (
+                              <AnimatedTableRow 
+                                key={`f-${item.name}`} 
+                                item={item} 
+                                formatCurrency={formatCurrency}
+                                selected={selectedItems.has(item.name)}
+                                onSelect={handleToggleSelect}
+                                onDuplicate={(item) => handleDuplicateRow(item, 'foundation')}
+                                note={itemNotes[item.name]}
+                                onNoteChange={(note) => handleNoteChange(item.name, note)}
+                              />
                             ))}
+                          </Reorder.Group>
+                          <Reorder.Group as="tbody" values={sortedSuperstructureData.map(i => i.name)} onReorder={setSuperstructureOrder} className="text-slate-800 divide-y divide-slate-100">
                             <tr className="bg-transparent/50">
                               <td
-                                colSpan={4}
+                                colSpan={5}
                                 className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-700"
                               >
                                 Above-Ground Work (Walls & Roof)
                               </td>
                             </tr>
-                            {greySuperstructureData.map((item, idx) => (
-                              <tr
-                                key={`s-${idx}`}
-                                className="hover:bg-transparent/70 transition-colors"
-                              >
-                                <td className="px-6 py-4 font-semibold text-slate-700">
-                                  {item.name}
-                                </td>
-                                <td className="px-6 py-4 text-center font-bold text-slate-600">
-                                  {typeof item.quantity === "number"
-                                    ? item.quantity.toLocaleString('en-US')
-                                    : item.quantity}
-                                  {item.rate && (
-                                    <div className="text-[10px] font-normal text-slate-700 mt-0.5 font-mono">
-                                      @ {formatCurrency(item.rate)}/{item.unit}
-                                    </div>
-                                  )}
-                                </td>
-                                <td className="px-6 py-4 text-center font-medium text-slate-700">
-                                  {item.unit}
-                                </td>
-                                <td className="px-6 py-4 text-right font-bold text-slate-800">
-                                  {formatCurrency(item.value)}
-                                </td>
-                              </tr>
+                            {sortedSuperstructureData.map((item) => (
+                              <AnimatedTableRow 
+                                key={`s-${item.name}`} 
+                                item={item} 
+                                formatCurrency={formatCurrency}
+                                selected={selectedItems.has(item.name)}
+                                onSelect={handleToggleSelect}
+                                onDuplicate={(item) => handleDuplicateRow(item, 'superstructure')}
+                                note={itemNotes[item.name]}
+                                onNoteChange={(note) => handleNoteChange(item.name, note)}
+                              />
                             ))}
-                          </tbody>
+                          </Reorder.Group>
+                          <tfoot className="sticky bottom-0 bg-slate-100 border-t-2 border-slate-300 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                            <tr>
+                              <td className="px-6 py-4 font-extrabold text-slate-800 uppercase tracking-widest text-xs">
+                                Total Grey Structure
+                              </td>
+                              <td className="px-6 py-4 text-center font-bold text-slate-600">
+                                -
+                              </td>
+                              <td className="px-6 py-4 text-center font-medium text-slate-700">
+                                -
+                              </td>
+                              <td className="px-6 py-4 text-left font-medium text-slate-700 hidden md:table-cell">
+                                -
+                              </td>
+                              <td className="px-6 py-4 text-right font-extrabold text-indigo-700 text-lg shadow-inner">
+                                {formatCurrency(greyCostData.reduce((acc, item) => acc + item.value, 0))}
+                              </td>
+                            </tr>
+                          </tfoot>
                         </table>
                       </div>
                       <div className="flex-1 min-h-[250px] w-full relative mt-4">
@@ -1381,7 +1681,7 @@ export default function HouseEstimator() {
                       <MaterialSummary
                         title="Finishing Breakdown"
                         totalLabel="Total Finishing Cost"
-                        totalValue={formatCurrency(estimates.totalFinishing)}
+                        totalValue={formatCurrency(filteredTotalFinishing)}
                         totalUnit=""
                         subtitle={`Based on ${getQualityLabel(finishQuality)} Grade settings (${specs.flooringType}, ${specs.wardrobeMaterial})`}
                         relatedToolIds={['interiors-finishes', 'master-quantity']}
@@ -1399,12 +1699,53 @@ export default function HouseEstimator() {
                             ))}
                          </div>
                       </MaterialSummary>
-                      <h3 className="text-xl font-semibold text-slate-800 mt-8 mb-4">
-                        Detailed Exact BOQ
-                      </h3>
-                      <div className="border border-slate-200 rounded-[24px] overflow-hidden bg-white shadow-sm mb-8">
-                        <table className="w-full text-sm text-left">
-                          <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider">
+
+                      <div className="w-full h-[320px] mt-8 mb-4 border border-slate-100 rounded-[24px] bg-slate-50/30 p-2 sm:p-4">
+                        <StyledChart 
+                          data={finishingCostData.map(d => ({ ...d, fill: d.color }))}
+                          type="pie"
+                          title="Finishing Works Cost Distribution"
+                          valueFormatter={(val) => formatCurrency(val, false)}
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between mt-8 mb-4">
+                        <h3 className="text-xl font-semibold text-slate-800">
+                          Detailed Exact BOQ
+                        </h3>
+                        <div className="flex items-center gap-3 relative">
+                          <div className="relative group/template">
+                            <button className="flex items-center gap-2 text-sm bg-slate-50 text-slate-700 px-3 py-1.5 rounded-full font-semibold hover:bg-slate-100 transition-colors">
+                              <FolderPlus className="w-4 h-4" />
+                              Load Template
+                              <ChevronDown className="w-4 h-4" />
+                            </button>
+                            <div className="absolute right-0 top-full mt-1 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 invisible group-hover/template:opacity-100 group-hover/template:visible transition-all z-20 overflow-hidden">
+                              <button onClick={() => handleLoadTemplate("finishing", "residential")} className="w-full text-left px-4 py-2 hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 text-sm font-medium transition-colors border-b border-slate-100">Residential House</button>
+                              <button onClick={() => handleLoadTemplate("finishing", "commercial")} className="w-full text-left px-4 py-2 hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 text-sm font-medium transition-colors">Commercial Office</button>
+                            </div>
+                          </div>
+                          {selectedItems.size > 0 && (
+                            <button
+                              onClick={handleDeleteSelected}
+                              className="flex items-center gap-2 text-sm bg-red-50 text-red-600 px-3 py-1.5 rounded-full font-semibold hover:bg-red-100 transition-colors"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                              Delete Selected ({selectedItems.size})
+                            </button>
+                          )}
+                          <button
+                            onClick={() => handleExportCSV("finishing")}
+                            className="flex items-center gap-2 text-sm bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-full font-semibold hover:bg-indigo-100 transition-colors"
+                          >
+                            <Download className="w-4 h-4" />
+                            Export CSV
+                          </button>
+                        </div>
+                      </div>
+                      <div className="border border-slate-200 rounded-[24px] overflow-y-auto max-h-[400px] bg-white shadow-sm mb-8 relative custom-scrollbar">
+                        <table className="w-full text-sm text-left relative">
+                          <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider sticky top-0 z-10 shadow-sm before:content-[''] before:absolute before:inset-0 before:bg-slate-100 before:-z-10">
                             <tr>
                               <th className="px-6 py-4 font-bold">
                                 Material / Item
@@ -1415,39 +1756,48 @@ export default function HouseEstimator() {
                               <th className="px-6 py-4 font-bold text-center">
                                 Unit
                               </th>
+                              <th className="px-6 py-4 font-bold text-left hidden md:table-cell w-1/4">
+                                Notes
+                              </th>
                               <th className="px-6 py-4 font-bold text-right">
                                 Amount (Rs)
                               </th>
                             </tr>
                           </thead>
-                          <tbody className="text-slate-800 divide-y divide-slate-100">
-                            {finishingCostData.map((item, idx) => (
-                              <tr
-                                key={idx}
-                                className="hover:bg-transparent/70 transition-colors"
-                              >
-                                <td className="px-6 py-4 font-semibold text-slate-700">
-                                  {item.name}
-                                </td>
-                                <td className="px-6 py-4 text-center font-bold text-slate-600">
-                                  {typeof item.quantity === "number"
-                                    ? Math.round(item.quantity).toLocaleString('en-US')
-                                    : item.quantity}
-                                  {item.rate && (
-                                    <div className="text-[10px] font-normal text-slate-700 mt-0.5 font-mono">
-                                      @ {formatCurrency(item.rate)}/{item.unit}
-                                    </div>
-                                  )}
-                                </td>
-                                <td className="px-6 py-4 text-center font-medium text-slate-700">
-                                  {item.unit}
-                                </td>
-                                <td className="px-6 py-4 text-right font-bold text-slate-800">
-                                  {formatCurrency(item.value)}
-                                </td>
-                              </tr>
+                          <Reorder.Group as="tbody" values={sortedFinishingCostData.map(i => i.name)} onReorder={setFinishingOrder} className="text-slate-800 divide-y divide-slate-100">
+                            {sortedFinishingCostData.map((item) => (
+                              <AnimatedTableRow 
+                                key={item.name} 
+                                item={item} 
+                                formatCurrency={formatCurrency}
+                                roundQuantity={true}
+                                selected={selectedItems.has(item.name)}
+                                onSelect={handleToggleSelect}
+                                onDuplicate={(item) => handleDuplicateRow(item, 'finishing')}
+                                note={itemNotes[item.name]}
+                                onNoteChange={(note) => handleNoteChange(item.name, note)}
+                              />
                             ))}
-                          </tbody>
+                          </Reorder.Group>
+                          <tfoot className="sticky bottom-0 bg-slate-100 border-t-2 border-slate-300 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                            <tr>
+                              <td className="px-6 py-4 font-extrabold text-slate-800 uppercase tracking-widest text-xs">
+                                Total Finishing Works
+                              </td>
+                              <td className="px-6 py-4 text-center font-bold text-slate-600">
+                                -
+                              </td>
+                              <td className="px-6 py-4 text-center font-medium text-slate-700">
+                                -
+                              </td>
+                              <td className="px-6 py-4 text-left font-medium text-slate-700 hidden md:table-cell">
+                                -
+                              </td>
+                              <td className="px-6 py-4 text-right font-extrabold text-indigo-700 text-lg shadow-inner">
+                                {formatCurrency(finishingCostData.reduce((acc, item) => acc + item.value, 0))}
+                              </td>
+                            </tr>
+                          </tfoot>
                         </table>
                       </div>
                       <div className="flex-1 min-h-[250px] w-full relative mt-4">
@@ -1615,6 +1965,7 @@ export default function HouseEstimator() {
             )}
           </div>
         </section>
+        )}
       </div>
     </div>
   </div>

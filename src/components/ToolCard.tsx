@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
-import { Bookmark, Clock, ArrowRight, Sparkles, Lock, LockOpen } from "lucide-react";
+import { Bookmark, Clock, ArrowRight, Sparkles, Lock, LockOpen, Activity } from "lucide-react";
+import { useSettings } from "../context/SettingsContext";
 
 export const getCategoryThemeNew = (category: string) => {
   const cat = (category || "").toLowerCase();
@@ -22,7 +23,7 @@ export const getCategoryThemeNew = (category: string) => {
 };
 
 export default function ToolCard({
-  mod,  // The tool object is passed as `mod` in the current Dashboard
+  mod,
   onSelect,
   isUsed,
   idx,
@@ -33,8 +34,20 @@ export default function ToolCard({
   idx?: number;
 }) {
   const [isHovered, setIsHovered] = useState(false);
-  const [isBookmarked, setIsBookmarked] = useState(isUsed || false);
+  const { settings, updateSettings } = useSettings();
   const theme = getCategoryThemeNew(mod.category);
+
+  const favoriteTools = settings.favoriteTools || [];
+  const isBookmarked = favoriteTools.includes(mod.id);
+
+  const toggleFavorite = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isBookmarked) {
+      updateSettings({ favoriteTools: favoriteTools.filter(id => id !== mod.id) });
+    } else {
+      updateSettings({ favoriteTools: [...favoriteTools, mod.id] });
+    }
+  };
 
   let diffDot = "bg-orange-400";
   let diffText = mod.difficulty || "Intermediate";
@@ -61,6 +74,12 @@ export default function ToolCard({
       className={`relative flex w-full h-full flex-col text-left bg-white rounded-3xl cursor-pointer transition-all duration-300 hover:shadow-xl border-[1.5px] ${theme.iconColorBorder} hover:border-[2px] p-6 md:p-8 group overflow-hidden`}
     >
       <div className="absolute top-6 right-6 flex items-center gap-2 z-20">
+        {(settings.toolUsageStats?.[mod.id] ?? 0) >= 3 && (
+          <div className="flex items-center gap-1 px-2 py-1 rounded bg-blue-50 text-blue-600" title={`Used ${(settings.toolUsageStats?.[mod.id] || 0)} times`}>
+            <Activity className="w-3 h-3" />
+            <span className="text-[10px] font-bold uppercase whitespace-nowrap">Frequently Used</span>
+          </div>
+        )}
         {mod.premium && (
           <div className="flex items-center gap-1 px-2 py-1 rounded bg-amber-50 text-amber-600">
             {isHovered ? <LockOpen className="w-3 h-3" /> : <Lock className="w-3 h-3" />}
@@ -77,10 +96,7 @@ export default function ToolCard({
           role="button"
           tabIndex={0}
           className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${isBookmarked ? "bg-amber-50 text-amber-500" : "bg-slate-50 text-slate-400 hover:text-slate-600 hover:bg-slate-100"}`}
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsBookmarked(!isBookmarked);
-          }}
+          onClick={toggleFavorite}
         >
           <Bookmark className="w-4 h-4" strokeWidth={isBookmarked ? 2.5 : 2} fill={isBookmarked ? "currentColor" : "none"} />
         </div>

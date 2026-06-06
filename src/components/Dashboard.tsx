@@ -5,6 +5,7 @@ import {  useAuth } from "../contexts/AuthContext";
 import { 
   Calculator,
   Sparkles,
+  Bookmark,
   Truck,
   Route,
   Waves,
@@ -1260,13 +1261,42 @@ export default function Dashboard({
                </div>
             </div>
 
-            <div className="flex-1 w-full bg-white dark:bg-[#1a1b1e] rounded-t-[32px] overflow-x-hidden shadow-[0_-12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_-5px_30px_rgba(0,0,0,0.5)] border border-slate-200/50 dark:border-[#333] pb-32">
-                <div className="w-full max-w-[1400px] mx-auto px-4 z-10 overflow-visible flex flex-col pt-8">
-                  <div className="mb-12">
-                    <WorkspaceSection onSelect={handleSelect} />
-                  </div>
-                  
-                  <div className="w-full max-w-[1400px] mx-auto w-full overflow-visible flex flex-col mt-4">
+              <div className="flex-1 w-full bg-white dark:bg-[#1a1b1e] rounded-t-[32px] overflow-x-hidden shadow-[0_-12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_-5px_30px_rgba(0,0,0,0.5)] border border-slate-200/50 dark:border-[#333] pb-32">
+                  <div className="w-full max-w-[1400px] mx-auto px-4 z-10 overflow-visible flex flex-col pt-8">
+                    <div className="mb-12">
+                      <WorkspaceSection onSelect={handleSelect} />
+                    </div>
+
+                    {settings.favoriteTools && settings.favoriteTools.length > 0 && (
+                      <div className="mb-12 flex flex-col gap-5">
+                        <h2 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-3">
+                          <Bookmark className="w-6 h-6 text-[#0072de]" fill="currentColor" />
+                          Personalized Shortcuts
+                        </h2>
+                        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                          <AnimatePresence mode="popLayout">
+                            {settings.favoriteTools.map(toolId => {
+                              const mod = ALL_MODULES.find(m => m.id === toolId);
+                              if (!mod) return null;
+                              return (
+                                <motion.div
+                                  key={`fav-${mod.id}`}
+                                  layout
+                                  initial={{ opacity: 0, scale: 0.9 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  exit={{ opacity: 0, scale: 0.9 }}
+                                  transition={{ duration: 0.2 }}
+                                >
+                                  <ToolCard mod={mod} onSelect={handleSelect} />
+                                </motion.div>
+                              );
+                            })}
+                          </AnimatePresence>
+                        </motion.div>
+                      </div>
+                    )}
+                    
+                    <div className="w-full max-w-[1400px] mx-auto w-full overflow-visible flex flex-col mt-4">
                     <div className="flex flex-col gap-10 w-full" id="tools-section">
                       <SearchAndFilterBar
                         categories={categories.map(catName => ({

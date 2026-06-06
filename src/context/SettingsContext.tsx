@@ -40,6 +40,7 @@ interface SettingsState {
   onboardingComplete?: boolean;
   hasSeenTour?: boolean;
   usedTools?: string[];
+  toolUsageStats?: Record<string, number>;
   hasExportedBOQ?: boolean;
   hasRunCalculation?: boolean;
   favoriteTools?: string[];
@@ -64,6 +65,7 @@ const defaultSettings: SettingsState = {
   onboardingComplete: false,
   hasSeenTour: false,
   usedTools: [],
+  toolUsageStats: {},
   hasExportedBOQ: false,
   hasRunCalculation: false,
   favoriteTools: [],
@@ -185,8 +187,13 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const trackToolUse = (toolId: string) => {
     setSettings(prev => {
       const used = prev.usedTools || [];
-      if (used.includes(toolId)) return prev;
-      return { ...prev, usedTools: [...used, toolId] };
+      const stats = prev.toolUsageStats || {};
+      const newStats = { ...stats, [toolId]: (stats[toolId] || 0) + 1 };
+      
+      if (used.includes(toolId)) {
+        return { ...prev, toolUsageStats: newStats };
+      }
+      return { ...prev, usedTools: [...used, toolId], toolUsageStats: newStats };
     });
   };
 
