@@ -144,7 +144,13 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   }, [settings]);
 
   const updateSettings = (newSettings: Partial<SettingsState>) => {
-    setSettings((prev) => ({ ...prev, ...newSettings }));
+    setSettings((prev) => {
+      const updated = { ...prev, ...newSettings };
+      if (newSettings.measurement && prev.measurement !== newSettings.measurement) {
+        window.dispatchEvent(new CustomEvent('units-changed', { detail: { measurement: newSettings.measurement } }));
+      }
+      return updated;
+    });
   };
 
   const getExchangeRate = (curr: Currency) => {

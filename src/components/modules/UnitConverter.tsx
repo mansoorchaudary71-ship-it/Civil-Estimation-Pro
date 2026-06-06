@@ -35,6 +35,7 @@ import {
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { Category, unitsData, convertValue } from "../../utils/unitConverter";
 import { useSettings } from "../../context/SettingsContext";
+import { useUnitChange } from "../../hooks/useUnitChange";
 
 const categories: { id: Category; label: string; icon: any; color: string }[] = [
   { id: "Length", label: "Length", icon: Ruler, color: "text-emerald-500 bg-emerald-100/50 " },
@@ -72,6 +73,27 @@ export default function UnitConverter() {
       setBatchResults(values.map(v => ({ in: v, out: convertValue(v, fromUnit, toUnit, activeCategory) })));
     }
   }, [batchInput, fromUnit, toUnit, activeCategory, isBatchMode]);
+
+  // Listen for global unit changes
+  useUnitChange((newUnit) => {
+    // When global units change, automatically adjust the target 'toUnit' for basic categories
+    if (activeCategory === "Length") {
+      setToUnit(newUnit === "SI" ? "m" : "ft");
+    } else if (activeCategory === "Area") {
+      setToUnit(newUnit === "SI" ? "m²" : "ft²");
+    } else if (activeCategory === "Volume") {
+      setToUnit(newUnit === "SI" ? "m³" : "ft³");
+    } else if (activeCategory === "Mass") {
+      setToUnit(newUnit === "SI" ? "kg" : "lb");
+    }
+  });
+
+  // Re-run conversion when target unit changes via hook
+  useEffect(() => {
+    if (!isBatchMode) {
+      setToValue(convertValue(fromValue, fromUnit, toUnit, activeCategory));
+    }
+  }, [toUnit, fromValue, fromUnit, activeCategory, isBatchMode]);
 
   const handleFromValueChange = (valStr: string) => {
     setFromValue(valStr);

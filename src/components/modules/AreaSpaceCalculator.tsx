@@ -1,13 +1,20 @@
 import React, { useState, useMemo } from "react";
-import { useGlobalSettings } from "../../context/SettingsContext";
+import { useGlobalSettings, MeasurementSystem } from "../../context/SettingsContext";
+import { useUnitChange } from "../../hooks/useUnitChange";
 import {
   Square, Triangle, Circle, Layers, Ruler, Map as MapIcon, Home, Compass, RectangleHorizontal, Hexagon, Type, CornerDownRight, Calculator, PaintBucket, Plus, Trash2, ShieldCheck
 } from "lucide-react";
 import { UniversalTabs } from "../ui/UniversalTabs";
 import { DetailedCalculationDisplay } from "../ui/DetailedCalculationDisplay";
+import toast from 'react-hot-toast';
 
 export default function AreaSpaceCalculator() {
   const { currentUnit } = useGlobalSettings();
+  
+  useUnitChange((newUnit: MeasurementSystem) => {
+    toast.success(`Automatically recalculated area inputs to ${newUnit === 'SI' ? 'Metric' : 'Imperial'} format.`, { icon: '🔄', id: 'area_recalc_toast' });
+  });
+
   const isMetric = currentUnit === "Metric";
   const uLen = isMetric ? "m" : "ft";
   const uArea = isMetric ? "m²" : "sq.ft";
