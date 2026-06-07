@@ -82,7 +82,7 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
                 onClose();
               }
             }}
-            className="fixed bottom-0 left-0 right-0 z-[70] md:hidden flex flex-col bg-white/90 backdrop-blur-2xl border-t border-border-color/50 shadow-[0_-8px_30px_rgba(0,0,0,0.12)] rounded-t-[32px] will-change-transform"
+            className="fixed bottom-0 left-0 right-0 z-[70] md:hidden flex flex-col bg-white/90 backdrop-blur-2xl border-t border-border-color/50 shadow-[0_-8px_30px_rgba(15,23,42,0.12)] rounded-t-[32px] will-change-transform"
             style={{ maxHeight: '85vh' }}
           >
             <div className="flex justify-center pt-3 pb-2 w-full touch-none cursor-grab active:cursor-grabbing">

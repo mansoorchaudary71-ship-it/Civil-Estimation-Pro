@@ -264,7 +264,7 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
                         <YAxis dataKey="name" type="category" width={100} fontSize={12} stroke="#64748b" fontWeight="600" />
                         <Tooltip 
                           formatter={(value: number) => settings.currency + " " + value.toLocaleString(undefined, { maximumFractionDigits: 0 })}
-                          cursor={{fill: 'rgba(0,0,0,0.05)'}}
+                          cursor={{fill: 'rgba(15,23,42,0.05)'}}
                           contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
                         />
                         <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={32}>

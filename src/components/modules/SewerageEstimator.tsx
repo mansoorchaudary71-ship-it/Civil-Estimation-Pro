@@ -356,7 +356,7 @@ export default function SewerageEstimator() {
                       </div>
                     </div>
                   </div>
-                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(15,23,42,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md[0_8px_30px_rgba(15,23,42,0.2)] w-full overflow-hidden group">
                     <h3 className="text-amber-800 font-bold border-b border-amber-200 pb-2">
                       Excavation & Backfill
                     </h3>
@@ -605,7 +605,7 @@ export default function SewerageEstimator() {
                       </div>
                     </div>
                   </div>
-                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(15,23,42,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md[0_8px_30px_rgba(15,23,42,0.2)] w-full overflow-hidden group">
                     <div className="text-blue-800 text-sm font-semibold mb-1">
                       Ending Invert Level
                     </div>
@@ -675,7 +675,7 @@ export default function SewerageEstimator() {
                       />
                     </div>
                   </div>
-                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(15,23,42,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md[0_8px_30px_rgba(15,23,42,0.2)] w-full overflow-hidden group">
                     <div className="text-indigo-800 text-sm font-semibold mb-1">
                       Required Pipes
                     </div>
@@ -807,7 +807,7 @@ export default function SewerageEstimator() {
                       </div>
                     </div>
                   </div>
-                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(15,23,42,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md[0_8px_30px_rgba(15,23,42,0.2)] w-full overflow-hidden group">
                     <h3 className="text-purple-800 font-bold border-b border-purple-200 pb-2">
                       Material Requirements
                     </h3>
@@ -937,7 +937,7 @@ export default function SewerageEstimator() {
                       </select>
                     </div>
                   </div>
-                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(0,0,0,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md[0_8px_30px_rgba(0,0,0,0.2)] w-full overflow-hidden group">
+                  <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(15,23,42,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md[0_8px_30px_rgba(15,23,42,0.2)] w-full overflow-hidden group">
                     <h3 className="text-cyan-800 font-bold border-b border-cyan-200 pb-2">
                       Full-Bore Flow Characteristics
                     </h3>

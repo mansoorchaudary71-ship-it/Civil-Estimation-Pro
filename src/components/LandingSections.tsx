@@ -247,7 +247,7 @@ export function FeatureComparisonSection({
           <div
             className="bg-gradient-to-b from-amber-500/10 to-[#0D1525] border-2 border-amber-500/50 rounded-2xl shadow-[0_0_40px_rgba(245,158,11,0.12)] p-6 md:p-8 flex flex-col relative md:-translate-y-2 mt-4 md:mt-0"
           >
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black font-bold text-xs rounded-full px-4 py-1">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-slate-900 font-bold text-xs rounded-full px-4 py-1">
               RECOMMENDED
             </div>
 
@@ -306,7 +306,7 @@ export function FeatureComparisonSection({
             <span>Level up your estimations</span>
             <div className="flex items-center gap-2">
               <span className="opacity-90 font-medium">— Start Free</span>
-              <div className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center group-hover:translate-x-1 transition-transform ml-2">
+              <div className="w-8 h-8 rounded-full bg-slate-900/10 flex items-center justify-center group-hover:translate-x-1 transition-transform ml-2">
                 <ArrowRight className="w-4 h-4 stroke-[2.5]" />
               </div>
             </div>

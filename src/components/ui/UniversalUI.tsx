@@ -164,7 +164,7 @@ export function RangeSlider({
         />
         {/* Custom Handle Visual */}
         <div 
-          className="absolute top-1/2 -mt-2.5 -ml-2.5 w-5 h-5 bg-white border-2 border-slate-300 dark:border-slate-600 rounded-full shadow-sm pointer-events-none transition-transform duration-100 shadow-black/10"
+          className="absolute top-1/2 -mt-2.5 -ml-2.5 w-5 h-5 bg-white border-2 border-slate-300 dark:border-slate-600 rounded-full shadow-sm pointer-events-none transition-transform duration-100 shadow-slate-900/10"
           style={{ left: `${percentage}%` }}
         />
       </div>

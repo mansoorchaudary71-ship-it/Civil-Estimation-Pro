@@ -155,6 +155,7 @@ import { Grid2X2, Waves, Pickaxe, Building2, Share2, Info, Printer, Save, Downlo
 import { Users, Clock } from "lucide-react";
 
 import MobileToolsSheet from "./components/MobileToolsSheet";
+import QuickEstimatorWidget from "./components/ui/QuickEstimatorWidget";
 import DiscussionWidget from "./components/DiscussionWidget";
 import LocaleUnitDetector from "./components/LocaleUnitDetector";
 
@@ -1378,6 +1379,8 @@ export default function App() {
                     onClose={() => setIsMobileToolsOpen(false)}
                     onSelectModule={handleSelectModule}
                   />
+
+                  <QuickEstimatorWidget />
                 </div>
               </ProjectProvider>
             </TakeoffProvider>
@@ -1412,7 +1415,7 @@ function FontSizeControls() {
     <div className="relative mr-2" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`p-1.5 rounded-lg transition-colors flex items-center justify-center ${isOpen ? "bg-black/10  text-slate-800 " : "hover:bg-black/5 text-slate-500 "}`}
+        className={`p-1.5 rounded-lg transition-colors flex items-center justify-center ${isOpen ? "bg-slate-900/10  text-slate-800 " : "hover:bg-slate-900/5 text-slate-500 "}`}
         aria-label="Text Size settings"
       >
         <Type className="w-5 h-5" />
@@ -1425,7 +1428,7 @@ function FontSizeControls() {
               updateSettings({ fontSize: "small" });
               setIsOpen(false);
             }}
-            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${settings.fontSize === "small" ? "bg-indigo-50  text-black " : "text-slate-500 hover:bg-slate-50"}`}
+            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${settings.fontSize === "small" ? "bg-indigo-50  text-slate-900 " : "text-slate-500 hover:bg-slate-50"}`}
           >
             A-
           </button>
@@ -1434,7 +1437,7 @@ function FontSizeControls() {
               updateSettings({ fontSize: "medium" });
               setIsOpen(false);
             }}
-            className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${settings.fontSize === "medium" ? "bg-indigo-50  text-black " : "text-slate-500 hover:bg-slate-50"}`}
+            className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${settings.fontSize === "medium" ? "bg-indigo-50  text-slate-900 " : "text-slate-500 hover:bg-slate-50"}`}
           >
             A
           </button>
@@ -1443,7 +1446,7 @@ function FontSizeControls() {
               updateSettings({ fontSize: "large" });
               setIsOpen(false);
             }}
-            className={`px-3 py-1.5 text-base font-bold rounded-lg transition-colors ${settings.fontSize === "large" ? "bg-indigo-50  text-black " : "text-slate-500 hover:bg-slate-50"}`}
+            className={`px-3 py-1.5 text-base font-bold rounded-lg transition-colors ${settings.fontSize === "large" ? "bg-indigo-50  text-slate-900 " : "text-slate-500 hover:bg-slate-50"}`}
           >
             A+
           </button>
@@ -1475,7 +1478,7 @@ function UnitSwitcher() {
     <div className="relative mr-2" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`p-1.5 rounded-lg transition-colors flex items-center justify-center ${isOpen ? "bg-black/10  text-slate-800 " : "hover:bg-black/5 text-slate-500 "}`}
+        className={`p-1.5 rounded-lg transition-colors flex items-center justify-center ${isOpen ? "bg-slate-900/10  text-slate-800 " : "hover:bg-slate-900/5 text-slate-500 "}`}
         aria-label="Unit settings"
         title="Toggle Measurement Unit"
       >
@@ -1528,10 +1531,10 @@ function AppHeader({
   ];
 
   return (
-    <header className="md:hidden flex items-center px-4 py-2.5 m-0 bg-[#FFFFFF] border-b border-black/5 sticky top-3 z-30 shrink-0 min-h-[50px] transition-all duration-300">
+    <header className="md:hidden flex items-center px-4 py-2.5 m-0 bg-[#FFFFFF] border-b border-slate-300/5 sticky top-3 z-30 shrink-0 min-h-[50px] transition-all duration-300">
       <button
         onClick={onOpenSidebar}
-        className="p-2 mr-3 -ml-2 rounded-lg hover:bg-black/5 text-[#888888] transition-all"
+        className="p-2 mr-3 -ml-2 rounded-lg hover:bg-slate-900/5 text-[#888888] transition-all"
         aria-label="Open sidebar"
       >
         <Menu className="w-5 h-5" />
@@ -1541,7 +1544,7 @@ function AppHeader({
         className="flex items-center gap-2 mr-5 shrink-0 hidden cursor-pointer transition-transform hover:scale-105"
         onClick={onGoHome}
       >
-        <Logo className="w-6 h-6 text-black" />
+        <Logo className="w-6 h-6 text-slate-900" />
       </div>
 
       {onGoHome ? (
@@ -1549,7 +1552,7 @@ function AppHeader({
           <Breadcrumb items={breadcrumbItems} />
         </div>
       ) : (
-        <h1 className="text-base font-bold text-black flex-1 min-w-0 truncate pr-2">
+        <h1 className="text-base font-bold text-slate-900 flex-1 min-w-0 truncate pr-2">
           {title}
         </h1>
       )}
@@ -1559,7 +1562,7 @@ function AppHeader({
 
       <button
         onClick={onOpenSettings}
-        className="p-2 -mr-2 rounded-lg hover:bg-black/5 text-[#888888] transition-all"
+        className="p-2 -mr-2 rounded-lg hover:bg-slate-900/5 text-[#888888] transition-all"
         aria-label="Open settings"
       >
         <SettingsIcon className="w-5 h-5" />
@@ -1705,7 +1708,7 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="h-full flex flex-col min-h-0 bg-transparent relative"
+      className="h-full flex flex-col min-h-0 bg-transparent relative tool-detail-page"
     >
       {moduleDef && (
         <Helmet>

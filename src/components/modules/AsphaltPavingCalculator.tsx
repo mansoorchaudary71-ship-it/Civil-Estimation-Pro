@@ -174,7 +174,7 @@ function AsphaltCalculator() {
               </div>
             </MaterialSummary>
           ) : (
-            <div className="bg-slate-50/80 [#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)] [0_8px_30px_rgba(0,0,0,0.2)]">
+            <div className="bg-slate-50/80 [#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(15,23,42,0.04)] [0_8px_30px_rgba(15,23,42,0.2)]">
               <span className="text-slate-400 font-medium tracking-wide">Enter length, width, and thickness to calculate asphalt tonnage.</span>
             </div>
           )}
@@ -271,7 +271,7 @@ function PrimeCoatCalculator() {
              >
              </MaterialSummary>
           ) : (
-            <div className="bg-slate-50/80 [#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)] [0_8px_30px_rgba(0,0,0,0.2)]">
+            <div className="bg-slate-50/80 [#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(15,23,42,0.04)] [0_8px_30px_rgba(15,23,42,0.2)]">
               <span className="text-slate-400 font-medium tracking-wide">Enter area and application rate to calculate prime coat.</span>
             </div>
           )}
@@ -365,7 +365,7 @@ function TackCoatCalculator() {
              >
              </MaterialSummary>
           ) : (
-            <div className="bg-slate-50/80 [#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)] [0_8px_30px_rgba(0,0,0,0.2)]">
+            <div className="bg-slate-50/80 [#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(15,23,42,0.04)] [0_8px_30px_rgba(15,23,42,0.2)]">
               <span className="text-slate-400 font-medium tracking-wide">Enter area and application rate to calculate tack coat.</span>
             </div>
           )}

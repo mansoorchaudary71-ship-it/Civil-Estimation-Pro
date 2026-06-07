@@ -107,7 +107,7 @@ function StepCard({ step, idx }: { step: CalcStep; idx: number }) {
         )}
 
         {/* Step-by-Step Substitution */}
-        <div className="bg-slate-800 dark:bg-black/40 rounded-[16px] p-4 sm:p-5 text-white">
+        <div className="bg-slate-800 dark:bg-slate-900/40 rounded-[16px] p-4 sm:p-5 text-white">
           <h5 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
             Computation
           </h5>
@@ -146,7 +146,7 @@ export function DetailedCalculationDisplay({
 
   return (
     <div className={`w-full max-w-4xl mx-auto mt-8 mb-4 font-sans ${className}`}>
-      <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl rounded-[24px] shadow-[0_8px_32px_rgba(0,0,0,0.08)] border border-white/40 dark:border-slate-800/60 overflow-hidden transition-all duration-300">
+      <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl rounded-[24px] shadow-[0_8px_32px_rgba(15,23,42,0.08)] border border-white/40 dark:border-slate-800/60 overflow-hidden transition-all duration-300">
         
         {/* Header Toggle */}
         <button

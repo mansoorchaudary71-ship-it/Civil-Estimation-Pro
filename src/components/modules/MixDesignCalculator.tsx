@@ -493,13 +493,13 @@ export default function MixDesignCalculator() {
       </div>
 
       {/* PRINTABLE REPORT SECTION (Visually styled for screen, clean for print) */}
-      <div className="print-only max-w-4xl mx-auto bg-white text-black p-8 font-serif hide-on-screen">
+      <div className="print-only max-w-4xl mx-auto bg-white text-slate-900 p-8 font-serif hide-on-screen">
           
 
           <div className="grid grid-cols-2 gap-8 mb-8">
              <div>
-                <h3 className="font-bold underline mb-2 text-black">1. Stipulations for Proportioning</h3>
-                <ul className="text-sm space-y-1 text-black">
+                <h3 className="font-bold underline mb-2 text-slate-900">1. Stipulations for Proportioning</h3>
+                <ul className="text-sm space-y-1 text-slate-900">
                    <li><span className="font-bold">Grade Designation:</span> M{fck}</li>
                    <li><span className="font-bold">Type of Cement:</span> OPC/Blended + SCMs</li>
                    <li><span className="font-bold">Max Nominal Agg Size:</span> {aggSize} mm</li>
@@ -509,9 +509,9 @@ export default function MixDesignCalculator() {
                 </ul>
              </div>
              <div>
-                <h3 className="font-bold underline mb-2 text-black">2. Target Strength</h3>
-                <ul className="text-sm space-y-1 text-black">
-                   <li><span className="font-bold text-black">Target Mean Strength ($f'_{'{ck}'}$):</span></li>
+                <h3 className="font-bold underline mb-2 text-slate-900">2. Target Strength</h3>
+                <ul className="text-sm space-y-1 text-slate-900">
+                   <li><span className="font-bold text-slate-900">Target Mean Strength ($f'_{'{ck}'}$):</span></li>
                    <li>{fck} + 1.65({stdDev}) = <span className="font-bold">{targetMeanStrength.toFixed(2)} MPa</span></li>
                    <li className="mt-2"><span className="font-bold">Adopted Target W/C Ratio:</span> {finalWc.toFixed(2)}</li>
                    <li><span className="font-bold">Mix Volume:</span> 1.0 m³</li>
@@ -519,98 +519,98 @@ export default function MixDesignCalculator() {
              </div>
           </div>
 
-          <h3 className="font-bold underline mb-4 text-black">3. Final Mix Proportions (per cubic meter)</h3>
-          <table className="w-full text-sm border-collapse border border-black mb-8 text-center text-black">
+          <h3 className="font-bold underline mb-4 text-slate-900">3. Final Mix Proportions (per cubic meter)</h3>
+          <table className="w-full text-sm border-collapse border border-slate-300 mb-8 text-center text-slate-900">
              <thead>
                <tr className="bg-gray-100">
-                  <th className="border border-black p-2">Material</th>
-                  <th className="border border-black p-2">Weight (kg)</th>
-                  <th className="border border-black p-2">Volume (m³)</th>
-                  <th className="border border-black p-2">Ratio</th>
+                  <th className="border border-slate-300 p-2">Material</th>
+                  <th className="border border-slate-300 p-2">Weight (kg)</th>
+                  <th className="border border-slate-300 p-2">Volume (m³)</th>
+                  <th className="border border-slate-300 p-2">Ratio</th>
                </tr>
              </thead>
              <tbody>
                <tr>
-                 <td className="border border-black p-2 font-bold text-left text-black">Cement</td>
-                 <td className="border border-black p-2">{weightCement}</td>
-                 <td className="border border-black p-2">{volCement.toFixed(4)}</td>
-                 <td className="border border-black p-2 font-bold">1.00</td>
+                 <td className="border border-slate-300 p-2 font-bold text-left text-slate-900">Cement</td>
+                 <td className="border border-slate-300 p-2">{weightCement}</td>
+                 <td className="border border-slate-300 p-2">{volCement.toFixed(4)}</td>
+                 <td className="border border-slate-300 p-2 font-bold">1.00</td>
                </tr>
                {weightFlyAsh > 0 && (
                  <tr>
-                   <td className="border border-black p-2 text-left pl-4 text-black">+ Fly Ash (IS 3812)</td>
-                   <td className="border border-black p-2">{weightFlyAsh}</td>
-                   <td className="border border-black p-2">{volFa.toFixed(4)}</td>
-                   <td className="border border-black p-2">{(weightFlyAsh/weightCement).toFixed(2)}</td>
+                   <td className="border border-slate-300 p-2 text-left pl-4 text-slate-900">+ Fly Ash (IS 3812)</td>
+                   <td className="border border-slate-300 p-2">{weightFlyAsh}</td>
+                   <td className="border border-slate-300 p-2">{volFa.toFixed(4)}</td>
+                   <td className="border border-slate-300 p-2">{(weightFlyAsh/weightCement).toFixed(2)}</td>
                  </tr>
                )}
                {weightGgbs > 0 && (
                  <tr>
-                   <td className="border border-black p-2 text-left pl-4 text-black">+ GGBS (IS 16714)</td>
-                   <td className="border border-black p-2">{weightGgbs}</td>
-                   <td className="border border-black p-2">{volGgbs.toFixed(4)}</td>
-                   <td className="border border-black p-2">{(weightGgbs/weightCement).toFixed(2)}</td>
+                   <td className="border border-slate-300 p-2 text-left pl-4 text-slate-900">+ GGBS (IS 16714)</td>
+                   <td className="border border-slate-300 p-2">{weightGgbs}</td>
+                   <td className="border border-slate-300 p-2">{volGgbs.toFixed(4)}</td>
+                   <td className="border border-slate-300 p-2">{(weightGgbs/weightCement).toFixed(2)}</td>
                  </tr>
                )}
                {weightSf > 0 && (
                  <tr>
-                   <td className="border border-black p-2 text-left pl-4 text-black">+ Silica Fume (IS 15388)</td>
-                   <td className="border border-black p-2">{weightSf}</td>
-                   <td className="border border-black p-2">{volSf.toFixed(4)}</td>
-                   <td className="border border-black p-2">{(weightSf/weightCement).toFixed(2)}</td>
+                   <td className="border border-slate-300 p-2 text-left pl-4 text-slate-900">+ Silica Fume (IS 15388)</td>
+                   <td className="border border-slate-300 p-2">{weightSf}</td>
+                   <td className="border border-slate-300 p-2">{volSf.toFixed(4)}</td>
+                   <td className="border border-slate-300 p-2">{(weightSf/weightCement).toFixed(2)}</td>
                  </tr>
                )}
                <tr>
-                 <td className="border border-black p-2 font-bold text-left bg-gray-50 text-black">Total Binder</td>
-                 <td className="border border-black p-2 font-bold bg-gray-50 text-black">{totalCementitious}</td>
-                 <td className="border border-black p-2 font-bold bg-gray-50 text-black">{volCementitious.toFixed(4)}</td>
-                 <td className="border border-black p-2 font-bold bg-gray-50 text-black">-</td>
+                 <td className="border border-slate-300 p-2 font-bold text-left bg-gray-50 text-slate-900">Total Binder</td>
+                 <td className="border border-slate-300 p-2 font-bold bg-gray-50 text-slate-900">{totalCementitious}</td>
+                 <td className="border border-slate-300 p-2 font-bold bg-gray-50 text-slate-900">{volCementitious.toFixed(4)}</td>
+                 <td className="border border-slate-300 p-2 font-bold bg-gray-50 text-slate-900">-</td>
                </tr>
                <tr>
-                 <td className="border border-black p-2 font-bold text-left text-black">Water</td>
-                 <td className="border border-black p-2">{Math.round(actualWaterContent)}</td>
-                 <td className="border border-black p-2">{volWater.toFixed(4)}</td>
-                 <td className="border border-black p-2">{(actualWaterContent/totalCementitious).toFixed(2)}</td>
+                 <td className="border border-slate-300 p-2 font-bold text-left text-slate-900">Water</td>
+                 <td className="border border-slate-300 p-2">{Math.round(actualWaterContent)}</td>
+                 <td className="border border-slate-300 p-2">{volWater.toFixed(4)}</td>
+                 <td className="border border-slate-300 p-2">{(actualWaterContent/totalCementitious).toFixed(2)}</td>
                </tr>
                <tr>
-                 <td className="border border-black p-2 font-bold text-left text-black">Fine Aggregates (Sand)</td>
-                 <td className="border border-black p-2">{weightSand}</td>
-                 <td className="border border-black p-2">{(weightSand / (sgFaInput * 1000)).toFixed(4)}</td>
-                 <td className="border border-black p-2">{(weightSand/totalCementitious).toFixed(2)}</td>
+                 <td className="border border-slate-300 p-2 font-bold text-left text-slate-900">Fine Aggregates (Sand)</td>
+                 <td className="border border-slate-300 p-2">{weightSand}</td>
+                 <td className="border border-slate-300 p-2">{(weightSand / (sgFaInput * 1000)).toFixed(4)}</td>
+                 <td className="border border-slate-300 p-2">{(weightSand/totalCementitious).toFixed(2)}</td>
                </tr>
                <tr>
-                 <td className="border border-black p-2 font-bold text-left text-black">Coarse Aggregates ({aggSize} mm)</td>
-                 <td className="border border-black p-2">{weightCA}</td>
-                 <td className="border border-black p-2">{(weightCA / (sgCaInput * 1000)).toFixed(4)}</td>
-                 <td className="border border-black p-2">{(weightCA/totalCementitious).toFixed(2)}</td>
+                 <td className="border border-slate-300 p-2 font-bold text-left text-slate-900">Coarse Aggregates ({aggSize} mm)</td>
+                 <td className="border border-slate-300 p-2">{weightCA}</td>
+                 <td className="border border-slate-300 p-2">{(weightCA / (sgCaInput * 1000)).toFixed(4)}</td>
+                 <td className="border border-slate-300 p-2">{(weightCA/totalCementitious).toFixed(2)}</td>
                </tr>
                {admixWaterReducer !== "None" && (
                   <tr>
-                    <td className="border border-black p-2 font-bold text-left text-black">Admixture ({admixWaterReducer})</td>
-                    <td className="border border-black p-2 text-black">{(totalCementitious * 0.01).toFixed(2)} (est. 1%)</td>
-                    <td className="border border-black p-2 text-black">-</td>
-                    <td className="border border-black p-2 text-black">-</td>
+                    <td className="border border-slate-300 p-2 font-bold text-left text-slate-900">Admixture ({admixWaterReducer})</td>
+                    <td className="border border-slate-300 p-2 text-slate-900">{(totalCementitious * 0.01).toFixed(2)} (est. 1%)</td>
+                    <td className="border border-slate-300 p-2 text-slate-900">-</td>
+                    <td className="border border-slate-300 p-2 text-slate-900">-</td>
                   </tr>
                )}
                {admixType !== "Normal" && (
                   <tr>
-                    <td className="border border-black p-2 font-bold text-left text-black">Admixture ({admixType})</td>
-                    <td className="border border-black p-2 text-black">As per Manufacturer</td>
-                    <td className="border border-black p-2 text-black">-</td>
-                    <td className="border border-black p-2 text-black">-</td>
+                    <td className="border border-slate-300 p-2 font-bold text-left text-slate-900">Admixture ({admixType})</td>
+                    <td className="border border-slate-300 p-2 text-slate-900">As per Manufacturer</td>
+                    <td className="border border-slate-300 p-2 text-slate-900">-</td>
+                    <td className="border border-slate-300 p-2 text-slate-900">-</td>
                   </tr>
                )}
              </tbody>
           </table>
 
-          <div className="mt-12 pt-8 border-t border-black flex justify-between px-8 text-black">
-             <div className="text-center text-black">
-                <div className="w-48 border-b border-black mb-2"></div>
-                <p className="font-bold text-sm text-black">Mix Designer Sign</p>
+          <div className="mt-12 pt-8 border-t border-slate-300 flex justify-between px-8 text-slate-900">
+             <div className="text-center text-slate-900">
+                <div className="w-48 border-b border-slate-300 mb-2"></div>
+                <p className="font-bold text-sm text-slate-900">Mix Designer Sign</p>
              </div>
-             <div className="text-center text-black">
-                <div className="w-48 border-b border-black mb-2"></div>
-                <p className="font-bold text-sm text-black">Quality Control Sign</p>
+             <div className="text-center text-slate-900">
+                <div className="w-48 border-b border-slate-300 mb-2"></div>
+                <p className="font-bold text-sm text-slate-900">Quality Control Sign</p>
              </div>
           </div>
       </div>
@@ -621,7 +621,7 @@ export default function MixDesignCalculator() {
           body * {
             visibility: hidden;
             background: transparent !important;
-            color: #000 !important;
+            color: #0F172A !important;
           }
           .hide-on-screen {
             display: block !important;

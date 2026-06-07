@@ -174,7 +174,7 @@ export default function BottomNavBar({
   return (
     <>
       <div
-        className="fixed z-[9998] md:hidden flex justify-around items-center h-[54px] left-6 right-6 rounded-[32px] overflow-hidden bg-white/70 dark:bg-[#121212]/70 backdrop-blur-2xl border border-white/60 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)]"
+        className="fixed z-[9998] md:hidden flex justify-around items-center h-[54px] left-6 right-6 rounded-[32px] overflow-hidden bg-white/70 dark:bg-[#121212]/70 backdrop-blur-2xl border border-white/60 dark:border-white/10 shadow-[0_8px_32px_rgba(15,23,42,0.12)]"
         style={{ bottom: "calc(1rem + env(safe-area-inset-bottom))" }}
       >
         {navItems.map((item) => {
@@ -185,7 +185,7 @@ export default function BottomNavBar({
               key={item.id}
               onClick={item.action}
               className={`flex flex-col items-center justify-center flex-1 h-full gap-0.5 p-1 transition-all ${
-                isActive ? "bg-black/5 dark:bg-white/10" : "hover:bg-black/5 dark:hover:bg-white/5"
+                isActive ? "bg-slate-900/5 dark:bg-white/10" : "hover:bg-slate-900/5 dark:hover:bg-white/5"
               }`}
             >
               <item.icon 
@@ -207,7 +207,7 @@ export default function BottomNavBar({
             onClick={() => setIsShareOpen(false)}
           />
           <div
-            className="relative w-full max-w-[340px] bg-white/95 dark:bg-[#1A1A1A]/95 backdrop-blur-3xl rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.2)] z-10 overflow-hidden font-sans border border-white/50 dark:border-white/10"
+            className="relative w-full max-w-[340px] bg-white/95 dark:bg-[#1A1A1A]/95 backdrop-blur-3xl rounded-[32px] shadow-[0_20px_60px_rgba(15,23,42,0.2)] z-10 overflow-hidden font-sans border border-white/50 dark:border-white/10"
             style={{ animation: "modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
           >
             <style>{` @keyframes modalPop { 0% { opacity: 0; transform: scale(0.92) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } } `}</style>
@@ -310,7 +310,7 @@ export default function BottomNavBar({
 
               <button
                 onClick={copyToClipboard}
-                className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-slate-100 hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] dark:bg-white/5 dark:hover:bg-white/10 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 active:scale-95"
+                className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-slate-100 hover:shadow-[0_8px_20px_rgba(15,23,42,0.05)] dark:bg-white/5 dark:hover:bg-white/10 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 active:scale-95"
               >
                 <div className="w-10 h-10 rounded-full bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-300 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Copy className="w-[18px] h-[18px]" strokeWidth={2.5} />

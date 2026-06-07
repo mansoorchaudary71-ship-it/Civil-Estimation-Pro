@@ -1594,7 +1594,7 @@ export default function HouseEstimator() {
                               />
                             ))}
                           </Reorder.Group>
-                          <tfoot className="sticky bottom-0 bg-slate-100 border-t-2 border-slate-300 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                          <tfoot className="sticky bottom-0 bg-slate-100 border-t-2 border-slate-300 shadow-[0_-4px_6px_-1px_rgba(15,23,42,0.05)]">
                             <tr>
                               <td className="px-6 py-4 font-extrabold text-slate-800 uppercase tracking-widest text-xs">
                                 Total Grey Structure
@@ -1652,7 +1652,7 @@ export default function HouseEstimator() {
                               contentStyle={{
                                 borderRadius: "12px",
                                 border: "1px solid #E2E8F0",
-                                boxShadow: "0 10px 30px rgba(0,0,0,0.05)",
+                                boxShadow: "0 10px 30px rgba(15,23,42,0.05)",
                                 fontWeight: "bold",
                               }}
                               formatter={(value: number) =>
@@ -1779,7 +1779,7 @@ export default function HouseEstimator() {
                               />
                             ))}
                           </Reorder.Group>
-                          <tfoot className="sticky bottom-0 bg-slate-100 border-t-2 border-slate-300 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                          <tfoot className="sticky bottom-0 bg-slate-100 border-t-2 border-slate-300 shadow-[0_-4px_6px_-1px_rgba(15,23,42,0.05)]">
                             <tr>
                               <td className="px-6 py-4 font-extrabold text-slate-800 uppercase tracking-widest text-xs">
                                 Total Finishing Works
@@ -1837,7 +1837,7 @@ export default function HouseEstimator() {
                               contentStyle={{
                                 borderRadius: "12px",
                                 border: "1px solid #E2E8F0",
-                                boxShadow: "0 10px 30px rgba(0,0,0,0.05)",
+                                boxShadow: "0 10px 30px rgba(15,23,42,0.05)",
                                 fontWeight: "bold",
                               }}
                               formatter={(value: number) =>

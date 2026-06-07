@@ -225,7 +225,7 @@ export default function PakistanCostCalculatorPage() {
                   </div>
                   <span className="font-bold">Include Basement</span>
                 </div>
-                <span className="text-xs font-medium px-2 py-1 bg-black/20 rounded-md">+75% base area</span>
+                <span className="text-xs font-medium px-2 py-1 bg-slate-900/20 rounded-md">+75% base area</span>
               </button>
 
             </div>

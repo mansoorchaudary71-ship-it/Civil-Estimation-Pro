@@ -175,7 +175,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
           </div>
         </div>
         {onClose && (
-          <button onClick={onClose} className="p-2 bg-black/10 hover:bg-black/20 rounded-full transition-colors text-slate-900 dark:text-white">
+          <button onClick={onClose} className="p-2 bg-slate-900/10 hover:bg-slate-900/20 rounded-full transition-colors text-slate-900 dark:text-white">
             <X className="w-6 h-6" />
           </button>
         )}

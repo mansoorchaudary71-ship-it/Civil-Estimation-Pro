@@ -459,7 +459,7 @@ export default function BeamCalculator() {
 
               <div className="mt-8 pt-6 border-t border-slate-200/50">
                 <p className="text-[10px] sm:text-xs font-bold tracking-tight text-slate-500 uppercase tracking-[0.15em] mb-4">Stirrup Cut Length Breakdown ({results.stirrupsCount} sets)</p>
-                <ul className="space-y-3 bg-white/50 rounded-[24px] p-4 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-slate-200/50 backdrop-blur-md">
+                <ul className="space-y-3 bg-white/50 rounded-[24px] p-4 shadow-[0_8px_30px_rgba(15,23,42,0.04)] border border-slate-200/50 backdrop-blur-md">
                   {results.stirrupTypes.map((tie, index) => (
                     <li key={index} className="flex justify-between items-end border-b pb-2 last:border-0 last:pb-0">
                       <div>
@@ -474,7 +474,7 @@ export default function BeamCalculator() {
             </MaterialSummary>
             </div>
           ) : (
-            <div className="bg-slate-50/80 [#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(0,0,0,0.04)] [0_8px_30px_rgba(0,0,0,0.2)]">
+            <div className="bg-slate-50/80 [#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(15,23,42,0.04)] [0_8px_30px_rgba(15,23,42,0.2)]">
               <span className="text-slate-400 font-medium tracking-wide">Enter beam dimensions and reinforcement details to calculate material requirements.</span>
             </div>
           )}

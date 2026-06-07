@@ -487,7 +487,7 @@ export default function BarBendingSchedule() {
       </div>
       
       {/* Print-Only Layout */}
-      <div className="hidden print:block p-8 bg-white text-black" ref={printRef}>
+      <div className="hidden print:block p-8 bg-white text-slate-900" ref={printRef}>
          
          
          <table className="w-full text-sm text-left border-collapse border border-slate-300">

@@ -21,7 +21,7 @@ export default function GlobalBottomBar({
 
   return (
     <div
-      className="fixed z-[9998] md:hidden flex justify-around items-center h-[54px] left-6 right-6 rounded-[32px] overflow-hidden bg-white/70 dark:bg-[#121212]/70 backdrop-blur-2xl border border-white/60 dark:border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)]"
+      className="fixed z-[9998] md:hidden flex justify-around items-center h-[54px] left-6 right-6 rounded-[32px] overflow-hidden bg-white/70 dark:bg-[#121212]/70 backdrop-blur-2xl border border-white/60 dark:border-white/10 shadow-[0_8px_32px_rgba(15,23,42,0.12)]"
       style={{ bottom: "calc(1rem + env(safe-area-inset-bottom))" }}
     >
       {navItems.map((item) => {
@@ -33,7 +33,7 @@ export default function GlobalBottomBar({
             type="button"
             onClick={() => item.action ? item.action() : onNavigate(item.id)}
             className={`flex flex-col items-center justify-center flex-1 h-full gap-0.5 p-1 transition-all ${
-              isActive ? "bg-black/5 dark:bg-white/10" : "hover:bg-black/5 dark:hover:bg-white/5"
+              isActive ? "bg-slate-900/5 dark:bg-white/10" : "hover:bg-slate-900/5 dark:hover:bg-white/5"
             }`}
           >
             <Icon 

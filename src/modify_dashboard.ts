@@ -27,8 +27,8 @@ content = content.replace(
   }
 );
 content = content.replace(
-  'className="col-span-2 relative bg-white p-6 rounded-[32px] border border-gray-100 flex justify-between items-center text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all overflow-hidden group"',
-  'className="col-span-2 lg:col-span-2 relative bg-white p-6 md:p-8 rounded-[32px] border border-gray-100 flex justify-between items-center text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all overflow-hidden group"'
+  'className="col-span-2 relative bg-white p-6 rounded-[32px] border border-gray-100 flex justify-between items-center text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(15,23,42,0.05)] transition-all overflow-hidden group"',
+  'className="col-span-2 lg:col-span-2 relative bg-white p-6 md:p-8 rounded-[32px] border border-gray-100 flex justify-between items-center text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(15,23,42,0.05)] transition-all overflow-hidden group"'
 );
 
 // Update HOUSE ESTIMATOR
@@ -39,14 +39,14 @@ content = content.replace(
 
 // Update 2D TAKEOFF
 content = content.replace(
-  'className="col-span-2 relative bg-white p-6 rounded-[32px] border border-gray-100 flex justify-between items-center text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all overflow-hidden group"',
-  'className="col-span-2 lg:col-span-2 relative bg-white p-6 md:p-8 rounded-[32px] border border-gray-100 flex justify-between items-center text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] transition-all overflow-hidden group"'
+  'className="col-span-2 relative bg-white p-6 rounded-[32px] border border-gray-100 flex justify-between items-center text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(15,23,42,0.05)] transition-all overflow-hidden group"',
+  'className="col-span-2 lg:col-span-2 relative bg-white p-6 md:p-8 rounded-[32px] border border-gray-100 flex justify-between items-center text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(15,23,42,0.05)] transition-all overflow-hidden group"'
 );
 
 // Update AI ASSISTANT
 content = content.replace(
-  'className="col-span-2 relative bg-[#09090b] p-6 rounded-[32px] border border-[#27272a] flex justify-between items-center text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] transition-all overflow-hidden group mt-2"',
-  'className="col-span-2 md:col-span-3 lg:col-span-4 relative bg-[#09090b] p-6 md:p-8 rounded-[32px] border border-[#27272a] flex justify-between items-center text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] transition-all overflow-hidden group lg:mt-4"'
+  'className="col-span-2 relative bg-[#09090b] p-6 rounded-[32px] border border-[#27272a] flex justify-between items-center text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(15,23,42,0.3)] transition-all overflow-hidden group mt-2"',
+  'className="col-span-2 md:col-span-3 lg:col-span-4 relative bg-[#09090b] p-6 md:p-8 rounded-[32px] border border-[#27272a] flex justify-between items-center text-left hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(15,23,42,0.3)] transition-all overflow-hidden group lg:mt-4"'
 );
 
 fs.writeFileSync(filePath, content, 'utf-8');

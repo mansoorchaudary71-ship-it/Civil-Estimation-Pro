@@ -310,7 +310,7 @@ export default function CbrTestCalculator() {
               <div className="space-y-6">
                 <div className={`p-6 md:p-8 rounded-[2rem] border shadow-lg relative overflow-hidden transition-all duration-500 ${estimateData.passed ? 'bg-gradient-to-br from-emerald-50 to-teal-50/30 border-emerald-200   ' : 'bg-gradient-to-br from-rose-50 to-red-50/30 border-rose-200   '}`}>
                   
-                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-black/5 pb-6 mb-6">
+                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-300/5 pb-6 mb-6">
                     <div>
                       <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1 block">Final Design CBR</span>
                       <div className="flex items-baseline gap-2">
@@ -327,19 +327,19 @@ export default function CbrTestCalculator() {
                   </div>
 
                   <div className="grid grid-cols-2 gap-4 mb-8">
-                    <div className="bg-white/60 p-4 rounded-[24px] border border-black/5 shadow-sm">
+                    <div className="bg-white/60 p-4 rounded-[24px] border border-slate-300/5 shadow-sm">
                       <span className="text-slate-500 text-xs font-bold uppercase tracking-widest block mb-1">CBR @ 2.5mm</span>
                       <div className="text-2xl font-semibold tabular-nums tracking-tight text-slate-800">{estimateData.cbr25.toFixed(1)}%</div>
                       <span className="text-[10px] text-slate-400 font-mono mt-1 block">Load: {estimateData.load25.toFixed(1)} kg</span>
                     </div>
-                    <div className="bg-white/60 p-4 rounded-[24px] border border-black/5 shadow-sm">
+                    <div className="bg-white/60 p-4 rounded-[24px] border border-slate-300/5 shadow-sm">
                       <span className="text-slate-500 text-xs font-bold uppercase tracking-widest block mb-1">CBR @ 5.0mm</span>
                       <div className="text-2xl font-semibold tabular-nums tracking-tight text-slate-800">{estimateData.cbr50.toFixed(1)}%</div>
                       <span className="text-[10px] text-slate-400 font-mono mt-1 block">Load: {estimateData.load50.toFixed(1)} kg</span>
                     </div>
                   </div>
                   
-                  <div className="bg-white rounded-[24px] border border-black/5 shadow-sm p-5 flex items-center justify-between mb-8">
+                  <div className="bg-white rounded-[24px] border border-slate-300/5 shadow-sm p-5 flex items-center justify-between mb-8">
                      <div>
                        <span className="block text-xs font-bold uppercase tracking-widest text-slate-500">Soil Quality Index</span>
                        <span className="text-lg font-semibold tabular-nums tracking-tight text-slate-800">{estimateData.soilClass}</span>
@@ -348,7 +348,7 @@ export default function CbrTestCalculator() {
                   </div>
 
                   {/* Chart section */}
-                  <div className="bg-white p-5 rounded-[24px] border border-black/5 shadow-sm h-[300px] w-full pt-6">
+                  <div className="bg-white p-5 rounded-[24px] border border-slate-300/5 shadow-sm h-[300px] w-full pt-6">
                      <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Load vs. Penetration Curve</h3>
                      <ResponsiveContainer width="100%" height="85%">
                        <AreaChart data={[...testData].sort((a, b) => a.penetration - b.penetration)}>

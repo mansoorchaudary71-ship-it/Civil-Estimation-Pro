@@ -399,7 +399,7 @@ export default function QSWorkflow() {
       {/* -- STEP 8 (FINAL REPORT) -- */}
       {currentStep === 8 && (
          <div className="mt-6 print-container animate-in slide-in-from-bottom-4 duration-500">
-            <div className="bg-white text-black p-10 shadow-xl border rounded-[2rem] border-slate-200 min-h-[1056px] relative">
+            <div className="bg-white text-slate-900 p-10 shadow-xl border rounded-[2rem] border-slate-200 min-h-[1056px] relative">
                
                <div className="absolute top-0 left-0 w-full h-4 bg-indigo-600 rounded-t-[2rem]"></div>
 
@@ -519,7 +519,7 @@ export default function QSWorkflow() {
           body * {
             visibility: hidden;
             background: transparent;
-            color: black;
+            color: #0F172A;
           }
           .no-print { display: none !important; }
           .print-container, .print-container * {

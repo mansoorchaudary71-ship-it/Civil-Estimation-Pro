@@ -452,7 +452,7 @@ export default function AdvancedBoqGenerator() {
             </div>
 
             {/* Print Output View */}
-            <div className="bg-white text-slate-900 border border-slate-200 p-8 sm:p-12 rounded-[16px] shadow-[0_0_40px_rgba(0,0,0,0.05)] print:shadow-none print:border-none print:m-0 print:p-0 w-full max-w-5xl mx-auto font-sans">
+            <div className="bg-white text-slate-900 border border-slate-200 p-8 sm:p-12 rounded-[16px] shadow-[0_0_40px_rgba(15,23,42,0.05)] print:shadow-none print:border-none print:m-0 print:p-0 w-full max-w-5xl mx-auto font-sans">
               
               <div className="border-b-4 border-purple-800 pb-6 mb-8 flex justify-between items-end">
                 <div>

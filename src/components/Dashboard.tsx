@@ -82,8 +82,21 @@ import PostLoginDashboard from "./PostLoginDashboard";
 import {  useSettings } from "../context/SettingsContext";
 import ToolCard from "./ToolCard";
 import {  ScrollReveal } from "./ui/ScrollReveal";
+import { useRecentTools } from "../hooks/useRecentTools";
+import { History } from "lucide-react";
 
 import AIEstimatorBanner from "./AIEstimatorBanner";
+
+function formatTimeAgo(timestamp: number) {
+  const diff = Date.now() - timestamp;
+  const minutes = Math.floor(diff / 60000);
+  if (minutes < 1) return 'Just now';
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  return `${days}d ago`;
+}
 
 export const ALL_MODULES = [
   // 🚀 Guided Workflows
@@ -999,6 +1012,7 @@ export default function Dashboard({
 }: DashboardProps) {
   const { user } = useAuth();
   const { settings, trackToolUse } = useSettings();
+  const { recentTools, addRecentTool } = useRecentTools();
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("All Tools");
   const [filterMode, setFilterMode] = useState("All");
@@ -1058,8 +1072,9 @@ export default function Dashboard({
     .map((id) => ALL_MODULES.find((m) => m.id === id))
     .filter((m): m is (typeof ALL_MODULES)[0] => m !== undefined);
 
-  const handleSelect = (id: string) => {
+  const handleSelect = (id: string, inputs?: any) => {
     if (trackToolUse) trackToolUse(id);
+    addRecentTool(id, inputs);
     onSelectModule(id as ModuleId);
   };
 
@@ -1095,7 +1110,7 @@ export default function Dashboard({
     }
   }, [previousModule]);
 
-  const categories = ["All Tools", ...Array.from(new Set(ALL_MODULES.map(m => m.category)))];
+  const categories = ["All Tools", "My Tools", ...Array.from(new Set(ALL_MODULES.map(m => m.category)))];
 
   const filterPills = [
     "All",
@@ -1120,9 +1135,14 @@ export default function Dashboard({
             m.category.toLowerCase().includes(word),
         );
 
-      // 2. Category Filter (now used internally if we still needed it, but let's keep it just in case)
-      const matchesCategory =
-        activeCategory === "All Tools" || m.category === activeCategory;
+      // 2. Category Filter
+      let matchesCategory = true;
+      if (activeCategory === "My Tools") {
+        matchesCategory = settings.favoriteTools?.includes(m.id) ?? false;
+      } else {
+        matchesCategory =
+          activeCategory === "All Tools" || m.category === activeCategory;
+      }
 
       // 3. Mode Filter
       let matchesMode = true;
@@ -1178,7 +1198,7 @@ export default function Dashboard({
         /* One UI signature scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: rgba(15,23,42,0.15); border-radius: 10px; }
         @media (prefers-color-scheme: dark) {
           ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2) !important; }
           body { background-color: #121212 !important; color: #ffffff !important; }
@@ -1219,9 +1239,9 @@ export default function Dashboard({
                        if (!toolsInGroup || toolsInGroup.length === 0) return null;
                        return (
                          <div key={groupName} className="flex flex-col gap-5">
-                             <h2 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-3">
+                             <h2 className="text-xl md:text-2xl font-bold text-slate-800 flex items-center gap-3">
                                {groupName}
-                               <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">{toolsInGroup.length}</span>
+                               <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-500 shadow-sm">{toolsInGroup.length}</span>
                              </h2>
                              <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                                <AnimatePresence mode="popLayout">
@@ -1261,16 +1281,55 @@ export default function Dashboard({
                </div>
             </div>
 
-              <div className="flex-1 w-full bg-white dark:bg-[#1a1b1e] rounded-t-[32px] overflow-x-hidden shadow-[0_-12px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_-5px_30px_rgba(0,0,0,0.5)] border border-slate-200/50 dark:border-[#333] pb-32">
+              <div className="flex-1 w-full bg-[#eef2f6] rounded-t-[32px] overflow-x-hidden shadow-[0_-8px_30px_rgba(163,177,198,0.2)] border-t border-slate-200 pb-32 tools-section">
                   <div className="w-full max-w-[1400px] mx-auto px-4 z-10 overflow-visible flex flex-col pt-8">
                     <div className="mb-12">
                       <WorkspaceSection onSelect={handleSelect} />
                     </div>
 
+                    {/* Recently Used section */}
+                    <div className="mb-12 flex flex-col gap-5">
+                      <h2 className="text-xl md:text-2xl font-bold text-slate-800 flex items-center gap-3">
+                        <History className="w-6 h-6 text-indigo-500" />
+                        Continue where you left off
+                      </h2>
+                      {recentTools.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                            {recentTools.map(t => {
+                              const m = ALL_MODULES.find(mod => mod.id === t.id);
+                              if (!m) return null;
+                              return (
+                                <div key={`recent-${t.id}`} className="relative group bg-[#F0F4F8] rounded-[24px] p-5 hover:-translate-y-1 transition-all flex flex-col gap-3 shadow-[8px_8px_16px_rgba(163,177,198,0.4),-8px_-8px_16px_rgba(255,255,255,0.9)] hover:shadow-[10px_10px_20px_rgba(163,177,198,0.5),-10px_-10px_20px_rgba(255,255,255,1)]">
+                                  <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 bg-white shadow-sm border border-slate-100 text-indigo-600">
+                                      {m.icon && <m.icon className="w-5 h-5" strokeWidth={1.5} />}
+                                    </div>
+                                    <div className="flex flex-col">
+                                      <h3 className="text-sm font-bold text-slate-800 line-clamp-1 group-hover:text-indigo-900 transition-colors">{m.title}</h3>
+                                      <span className="text-[10px] text-slate-500 font-medium">
+                                        {formatTimeAgo(t.timestamp)}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <button onClick={() => handleSelect(t.id, t.lastInputs)} className="w-full mt-2 bg-white hover:bg-indigo-50 text-slate-600 hover:text-indigo-700 transition-colors py-2 rounded-xl text-xs font-bold border border-slate-200 flex justify-center items-center gap-2 shadow-sm">
+                                    Resume
+                                  </button>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      ) : (
+                        <div className="p-8 bg-[#F0F4F8] shadow-[inset_4px_4px_8px_rgba(163,177,198,0.3),inset_-4px_-4px_8px_rgba(255,255,255,0.8)] rounded-3xl flex flex-col items-center justify-center text-center border-none">
+                          <History className="w-10 h-10 text-slate-400 mb-3" />
+                          <p className="text-slate-500 font-medium">Start using tools to see your history here.</p>
+                        </div>
+                      )}
+                    </div>
+
                     {settings.favoriteTools && settings.favoriteTools.length > 0 && (
                       <div className="mb-12 flex flex-col gap-5">
-                        <h2 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-3">
-                          <Bookmark className="w-6 h-6 text-[#0072de]" fill="currentColor" />
+                        <h2 className="text-xl md:text-2xl font-bold text-slate-800 flex items-center gap-3">
+                          <Bookmark className="w-6 h-6 text-indigo-500" fill="transparent" strokeWidth={2.5} />
                           Personalized Shortcuts
                         </h2>
                         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
@@ -1315,8 +1374,8 @@ export default function Dashboard({
                            if (!toolsInGroup || toolsInGroup.length === 0) return null;
                            return (
                              <div key={groupName} className="flex flex-col gap-5">
-                               <h2 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-3">{groupName}<span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">{toolsInGroup.length}</span></h2>
-                               <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                               <h2 className="text-xl md:text-2xl font-bold text-slate-800 flex items-center gap-3">{groupName}<span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-500 shadow-sm">{toolsInGroup.length}</span></h2>
+                               <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 tool-card-grid">
                                  <AnimatePresence mode="popLayout">
                                    {toolsInGroup.map((mod) => (
                                      <motion.div
@@ -1350,13 +1409,13 @@ export default function Dashboard({
       >
         {/* Backdrop */}
         <div
-          className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+          className="absolute inset-0 bg-slate-900/20 backdrop-blur-sm"
           onClick={() => setIsAiChatOpen(false)}
         />
 
         {/* Bottom Sheet Modal */}
         <div
-          className={`fixed bottom-0 left-0 right-0 h-[65vh] bg-white shadow-[0_-20px_40px_rgba(0,0,0,0.1)] rounded-t-[40px] transform transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col ${isAiChatOpen ? "translate-y-0" : "translate-y-full"}`}
+          className={`fixed bottom-0 left-0 right-0 h-[65vh] bg-white shadow-[0_-20px_40px_rgba(15,23,42,0.1)] rounded-t-[40px] transform transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col ${isAiChatOpen ? "translate-y-0" : "translate-y-full"}`}
         >
           {/* Drag handle */}
           <div

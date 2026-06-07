@@ -317,7 +317,7 @@ export default function DirectShearTestCalculator() {
               <div className="space-y-6">
                 <div className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-lg relative overflow-hidden transition-all duration-500">
                   
-                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-black/5 pb-6 mb-6">
+                  <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-300/5 pb-6 mb-6">
                     <div>
                       <span className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-1 block">Failure Envelope Eq.</span>
                       <div className="flex items-baseline gap-2">
@@ -342,7 +342,7 @@ export default function DirectShearTestCalculator() {
                   </div>
                   
                   {/* Chart section */}
-                  <div className="bg-white p-5 rounded-[24px] border border-black/5 shadow-sm h-[350px] w-full pt-6 mb-6">
+                  <div className="bg-white p-5 rounded-[24px] border border-slate-300/5 shadow-sm h-[350px] w-full pt-6 mb-6">
                      <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4 text-center">Mohr-Coulomb Failure Envelope</h3>
                      <ResponsiveContainer width="100%" height="85%">
                        <ComposedChart>

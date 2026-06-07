@@ -1,0 +1,43 @@
+import React from 'react';
+
+export interface CalcInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+  label: string;
+  value: string | number;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  unit?: string;
+  placeholder?: string;
+}
+
+export function CalcInput({ 
+  label, 
+  value, 
+  onChange, 
+  unit, 
+  placeholder, 
+  className = '', 
+  ...props 
+}: CalcInputProps) {
+  return (
+    <div className={`flex flex-col gap-1.5 ${className}`}>
+      <label className="text-[#94A3B8] text-xs font-medium uppercase tracking-wide">
+        {label}
+      </label>
+      <div className="relative flex items-center">
+        <input
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          className={`w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.12)] rounded-lg py-3 px-4 text-[#F1F5F9] text-sm placeholder:text-[#475569] focus:outline-none focus:border-[#F59E0B] focus:ring-[3px] focus:ring-[rgba(245,158,11,0.15)] transition-all ${
+            unit ? 'pr-16' : ''
+          }`}
+          {...props}
+        />
+        {unit && (
+          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[#F59E0B] text-xs font-semibold bg-[rgba(245,158,11,0.1)] px-2 py-1 rounded select-none pointer-events-none">
+            {unit}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}

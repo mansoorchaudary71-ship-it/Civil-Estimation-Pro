@@ -123,13 +123,13 @@ export default function MarlaConverterPage() {
                  <div className="bg-[#0A0F1E] p-1 rounded-xl border border-slate-700/50 flex text-sm">
                     <button 
                       onClick={() => setMarlaStandard("Punjab")}
-                      className={`px-4 py-1.5 rounded-lg font-bold transition-all ${marlaStandard === "Punjab" ? "bg-amber-500 text-black shadow-sm" : "text-slate-400 hover:text-white"}`}
+                      className={`px-4 py-1.5 rounded-lg font-bold transition-all ${marlaStandard === "Punjab" ? "bg-amber-500 text-slate-900 shadow-sm" : "text-slate-400 hover:text-white"}`}
                     >
                       Punjab (272.25 Sq.Ft)
                     </button>
                     <button 
                       onClick={() => setMarlaStandard("KPK")}
-                      className={`px-4 py-1.5 rounded-lg font-bold transition-all ${marlaStandard === "KPK" ? "bg-amber-500 text-black shadow-sm" : "text-slate-400 hover:text-white"}`}
+                      className={`px-4 py-1.5 rounded-lg font-bold transition-all ${marlaStandard === "KPK" ? "bg-amber-500 text-slate-900 shadow-sm" : "text-slate-400 hover:text-white"}`}
                     >
                       KPK (225 Sq.Ft)
                     </button>
@@ -152,7 +152,7 @@ export default function MarlaConverterPage() {
                     <button 
                       key={u}
                       onClick={() => setSourceUnit(u)}
-                      className={`px-4 py-2 rounded-xl text-sm font-bold transition-colors ${sourceUnit === u ? 'bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.2)]' : 'bg-[#0A0F1E] border border-slate-700/50 text-slate-400 hover:bg-slate-800 hover:text-white'}`}
+                      className={`px-4 py-2 rounded-xl text-sm font-bold transition-colors ${sourceUnit === u ? 'bg-amber-500 text-slate-900 shadow-[0_0_15px_rgba(245,158,11,0.2)]' : 'bg-[#0A0F1E] border border-slate-700/50 text-slate-400 hover:bg-slate-800 hover:text-white'}`}
                     >
                       {u}
                     </button>
@@ -209,7 +209,7 @@ export default function MarlaConverterPage() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div>
               <h3 className="text-2xl md:text-3xl font-black text-[#0A0F1E] mb-2 tracking-tight">Know your plot size?</h3>
-              <p className="text-black/70 font-bold max-w-xl">Find out exactly how much it will cost to build your house in Pakistan using live 2025 rates for Lahore, Karachi, or Islamabad.</p>
+              <p className="text-slate-900/70 font-bold max-w-xl">Find out exactly how much it will cost to build your house in Pakistan using live 2025 rates for Lahore, Karachi, or Islamabad.</p>
             </div>
             <div className="w-14 h-14 bg-[#0A0F1E] rounded-full flex items-center justify-center shrink-0">
                <ArrowRight className="w-6 h-6 text-amber-500" />

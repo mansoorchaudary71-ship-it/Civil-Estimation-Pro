@@ -829,7 +829,7 @@ export default function Takeoff() {
             )}
             {/* Scale Prompt Overlay */}
             {scalePrompt.visible && (
-              <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-50">
+              <div className="absolute inset-0 bg-slate-900/60 flex items-center justify-center z-50">
                 <div className="bg-white border border-slate-200 rounded-[16px] p-6 max-w-sm w-full shadow-2xl">
                   <h3 className="text-sm font-semibold mb-4 text-slate-900">
                     Set Measurement Scale
@@ -892,7 +892,7 @@ export default function Takeoff() {
             )}
             {/* Assembly Prompt Overlay */}
             {assemblyPrompt && (
-              <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-50">
+              <div className="absolute inset-0 bg-slate-900/60 flex items-center justify-center z-50">
                 <div className="bg-white border border-slate-200 rounded-[16px] p-6 max-w-sm w-full shadow-2xl">
                   {(() => {
                     const asmDef = ASSEMBLIES.find(

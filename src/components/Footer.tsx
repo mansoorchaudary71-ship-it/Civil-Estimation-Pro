@@ -137,7 +137,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
             />
             <button 
               onClick={handleSubscribe} 
-              className="absolute right-1 top-1 bottom-1 px-5 bg-amber-500 hover:bg-amber-400 text-black font-bold text-sm rounded-lg transition-colors"
+              className="absolute right-1 top-1 bottom-1 px-5 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold text-sm rounded-lg transition-colors"
             >
               Subscribe
             </button>

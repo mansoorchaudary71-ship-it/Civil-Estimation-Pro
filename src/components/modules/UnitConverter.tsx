@@ -69,7 +69,7 @@ export default function UnitConverter() {
 
   useEffect(() => {
     if (isBatchMode) {
-      const values = batchInput.split(/[\n,]+/).map(v => v.trim()).filter(v => v !== "" && !isNaN(Number(v)));
+      const values = batchInput.split(/[\n,]+/).map(v => v.trim()).filter(v => v !== "" && !isNaN(parseFloat(v)));
       setBatchResults(values.map(v => ({ in: v, out: convertValue(v, fromUnit, toUnit, activeCategory) })));
     }
   }, [batchInput, fromUnit, toUnit, activeCategory, isBatchMode]);
@@ -96,8 +96,35 @@ export default function UnitConverter() {
   }, [toUnit, fromValue, fromUnit, activeCategory, isBatchMode]);
 
   const handleFromValueChange = (valStr: string) => {
+    let currentFromUnit = fromUnit;
+
+    // Detect if user typed a unit at the end
+    const match = valStr.trim().match(/^([-+]?[0-9]*\.?[0-9]+)\s*([a-zA-Z²³\s/23]+)$/);
+    if (match && match[2]) {
+      const unitStr = match[2].trim().toLowerCase();
+      const uData = unitsData[activeCategory] || [];
+      
+      const foundUnit = uData.find((u) => {
+        const idLower = u.id.toLowerCase();
+        const labelAbbrMatch = u.label.match(/\(([^)]+)\)/);
+        const abbr = labelAbbrMatch ? labelAbbrMatch[1].toLowerCase() : "";
+        
+        const unitWithSuperscripts = unitStr.replace(/2$/, '²').replace(/3$/, '³');
+        
+        return idLower === unitStr || 
+               abbr === unitStr || 
+               idLower === unitWithSuperscripts || 
+               abbr === unitWithSuperscripts;
+      });
+
+      if (foundUnit && foundUnit.id !== fromUnit) {
+        currentFromUnit = foundUnit.id;
+        setFromUnit(foundUnit.id);
+      }
+    }
+
     setFromValue(valStr);
-    setToValue(convertValue(valStr, fromUnit, toUnit, activeCategory));
+    setToValue(convertValue(valStr, currentFromUnit, toUnit, activeCategory));
   };
 
   const handleFromUnitChange = (fUnit: string) => {
@@ -233,11 +260,12 @@ export default function UnitConverter() {
                 />
               ) : (
                 <input
-                  type="number"
+                  type="text"
                   value={fromValue}
                   onChange={(e) => handleFromValueChange(e.target.value)}
                   className="w-full bg-transparent border-0 text-[clamp(1.75rem,5vw,2.5rem)] font-bold tabular-nums tracking-tight text-white placeholder-white/20 focus:ring-0 focus:outline-none p-0 text-center drop-shadow-lg z-10"
                   placeholder="0"
+                  autoComplete="off"
                 />
               )}{" "}
             </div>{" "}

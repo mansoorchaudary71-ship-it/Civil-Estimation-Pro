@@ -118,7 +118,7 @@ export default function ShareButtonWithPopup({
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${title}</title>
 </head>
-<body style="margin: 0; padding: 20px; background-color: #f0f0f0; font-family: Helvetica, Arial, sans-serif;"> <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow: hidden;"> <div style="background-color: #282A65; color: #ffffff; padding: 20px; text-align: center;"> <h1 style="margin: 0; font-size: 24px;">${title}</h1> </div> <div style="padding: 20px;"> <p style="color: #333333; font-size: 16px;">Hello,</p> <p style="color: #333333; font-size: 16px;">Here is the requested estimate for <strong>${title}</strong>.</p> <table style="width: 100%; border-collapse: collapse; margin-top: 20px;"> <thead> <tr> <th style="background-color: #282A65; color: #ffffff; padding: 12px; text-align: left; border: 1px solid #ddd;">Material / Item</th> <th style="background-color: #282A65; color: #ffffff; padding: 12px; text-align: right; border: 1px solid #ddd;">Quantity</th> <th style="background-color: #282A65; color: #ffffff; padding: 12px; text-align: right; border: 1px solid #ddd;">Amount (Rs)</th> </tr> </thead> <tbody>`;
+<body style="margin: 0; padding: 20px; background-color: #f0f0f0; font-family: Helvetica, Arial, sans-serif;"> <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(15,23,42,0.1); overflow: hidden;"> <div style="background-color: #282A65; color: #ffffff; padding: 20px; text-align: center;"> <h1 style="margin: 0; font-size: 24px;">${title}</h1> </div> <div style="padding: 20px;"> <p style="color: #333333; font-size: 16px;">Hello,</p> <p style="color: #333333; font-size: 16px;">Here is the requested estimate for <strong>${title}</strong>.</p> <table style="width: 100%; border-collapse: collapse; margin-top: 20px;"> <thead> <tr> <th style="background-color: #282A65; color: #ffffff; padding: 12px; text-align: left; border: 1px solid #ddd;">Material / Item</th> <th style="background-color: #282A65; color: #ffffff; padding: 12px; text-align: right; border: 1px solid #ddd;">Quantity</th> <th style="background-color: #282A65; color: #ffffff; padding: 12px; text-align: right; border: 1px solid #ddd;">Amount (Rs)</th> </tr> </thead> <tbody>`;
     const cItem = exportFormat?.cartItem as any;
     const customTableData = exportFormat?.customTableData;
     const rates: any = (exportFormat as any)?.rates || {};
@@ -406,7 +406,7 @@ export default function ShareButtonWithPopup({
             />
             
             <div
-              className={`relative w-full max-w-[340px] bg-white/95 dark:bg-[#1A1A1A]/95 backdrop-blur-3xl rounded-[32px] shadow-[0_20px_60px_rgba(0,0,0,0.2)] z-10 overflow-hidden font-sans border border-white/50 dark:border-white/10`}
+              className={`relative w-full max-w-[340px] bg-white/95 dark:bg-[#1A1A1A]/95 backdrop-blur-3xl rounded-[32px] shadow-[0_20px_60px_rgba(15,23,42,0.2)] z-10 overflow-hidden font-sans border border-white/50 dark:border-white/10`}
               style={{ animation: "modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards" }}
             >
               <style>{` @keyframes modalPop { 0% { opacity: 0; transform: scale(0.92) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } } `}</style>
@@ -484,7 +484,7 @@ export default function ShareButtonWithPopup({
 
                   <button
                     onClick={handleDownloadText}
-                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-slate-100 hover:shadow-[0_8px_20px_rgba(0,0,0,0.05)] dark:bg-white/5 dark:hover:bg-white/10 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 active:scale-95"
+                    className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-slate-100 hover:shadow-[0_8px_20px_rgba(15,23,42,0.05)] dark:bg-white/5 dark:hover:bg-white/10 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 active:scale-95"
                   >
                     <div className="w-10 h-10 rounded-full bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-300 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <Download className="w-[20px] h-[20px]" strokeWidth={2.5} />

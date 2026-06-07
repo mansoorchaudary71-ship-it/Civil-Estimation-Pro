@@ -286,7 +286,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.98 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="absolute top-[calc(100%+8px)] left-0 right-0 bg-white dark:bg-[#252525] backdrop-blur-xl rounded-[32px] border border-slate-200 dark:border-[#333] shadow-[0_12px_40px_-12px_rgba(0,0,0,0.15)] overflow-hidden z-50 flex flex-col"
+            className="absolute top-[calc(100%+8px)] left-0 right-0 bg-white dark:bg-[#252525] backdrop-blur-xl rounded-[32px] border border-slate-200 dark:border-[#333] shadow-[0_12px_40px_-12px_rgba(15,23,42,0.15)] overflow-hidden z-50 flex flex-col"
           >
             <div className="overflow-y-auto max-h-[65vh] p-3 md:p-4 pb-6 scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent">
               {!query ? (
@@ -433,7 +433,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                       </p>
                       <button
                         onClick={() => handleSelectTool("ai")}
-                        className="bg-white dark:bg-[#252525] border border-[#0072de] text-[#0072de] dark:text-[#3399ff] font-bold py-3 px-6 rounded-[32px] inline-flex items-center gap-2 shadow-[0_8px_16px_rgba(0,0,0,0.15)] transition-all hover:bg-[#0072de] hover:-translate-y-0.5 w-full sm:w-auto justify-center"
+                        className="bg-white dark:bg-[#252525] border border-[#0072de] text-[#0072de] dark:text-[#3399ff] font-bold py-3 px-6 rounded-[32px] inline-flex items-center gap-2 shadow-[0_8px_16px_rgba(15,23,42,0.15)] transition-all hover:bg-[#0072de] hover:-translate-y-0.5 w-full sm:w-auto justify-center"
                       >
                         <Sparkles className="w-5 h-5 text-amber-400" />
                         Calculate with AI

@@ -11,7 +11,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
   ];
 
   return (
-    <div className="relative w-full bg-[#0A0F1E] min-h-[90vh] flex flex-col justify-center overflow-hidden pt-16 md:pt-24 pb-24">
+    <div className="relative w-full bg-[#0B1120] min-h-0 md:min-h-[90vh] flex flex-col justify-start md:justify-center overflow-hidden pt-16 md:pt-24 pb-24 hero-section">
       {/* Background Layers */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {/* Radial amber glow */}
@@ -125,7 +125,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 + (idx * 0.1) }}
-              className="relative overflow-hidden flex flex-col items-center justify-center p-6 rounded-xl bg-[#0A0F1E]/80 backdrop-blur-xl border border-[rgba(255,255,255,0.1)] border-t-[#F59E0B]/50 hover:border-t-[#F59E0B] text-center shadow-[0_8px_32px_rgba(0,0,0,0.5)] transform hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(245,158,11,0.15)] transition-all duration-300 group"
+              className="relative overflow-hidden flex flex-col items-center justify-center p-6 rounded-xl bg-[#0A0F1E]/80 backdrop-blur-xl border border-[rgba(255,255,255,0.1)] border-t-[#F59E0B]/50 hover:border-t-[#F59E0B] text-center shadow-[0_8px_32px_rgba(15,23,42,0.5)] transform hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(245,158,11,0.15)] transition-all duration-300 group"
               style={{ borderRadius: '12px' }}
             >
               {/* Subtle top glow inside card */}

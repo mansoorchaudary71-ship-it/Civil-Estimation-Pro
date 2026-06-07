@@ -166,7 +166,7 @@ export default function MasterQuantityEstimator({
                 
                 const isExpanded = expandedGroup === group || searchTerm !== "";
                 return (
-                  <div key={group} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[24px] overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
+                  <div key={group} className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[24px] overflow-hidden shadow-[0_4px_24px_rgba(15,23,42,0.02)]">
                     <button
                       onClick={() => setExpandedGroup(isExpanded && searchTerm === "" ? null : group)}
                       className="w-full flex items-center justify-between px-5 py-4 text-left font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
@@ -213,7 +213,7 @@ export default function MasterQuantityEstimator({
           <div className="flex-1">
             {activeCalculator ? (
                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full items-start">
-                 <div className="lg:col-span-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[24px] px-6 py-6 shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
+                 <div className="lg:col-span-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-[24px] px-6 py-6 shadow-[0_4px_24px_rgba(15,23,42,0.02)]">
                    <h3 className="font-bold mb-6 text-base text-slate-800 dark:text-white flex items-center justify-between">
                      <span>Input Parameters</span>
                      {activeCalculator.sharedDependencies && activeCalculator.sharedDependencies.length > 0 && (

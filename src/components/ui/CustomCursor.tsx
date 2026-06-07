@@ -61,7 +61,7 @@ export default function CustomCursor() {
       }}
     >
       {isHovering && (
-        <div className="w-1 h-1 bg-black rounded-full shadow-sm" />
+        <div className="w-1 h-1 bg-slate-900 rounded-full shadow-sm" />
       )}
     </div>
   );

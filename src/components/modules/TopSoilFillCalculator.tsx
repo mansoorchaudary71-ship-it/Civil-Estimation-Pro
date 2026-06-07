@@ -262,7 +262,7 @@ export default function TopSoilFillCalculator() {
                     </div>
                   </div>
 
-                  <h4 className="text-sm font-bold text-slate-800 uppercase tracking-widest mb-4 border-b border-black/5 pb-2">Calculation Breakdown</h4>
+                  <h4 className="text-sm font-bold text-slate-800 uppercase tracking-widest mb-4 border-b border-slate-300/5 pb-2">Calculation Breakdown</h4>
                   
                   <div className="space-y-3 mb-6">
                      <div className="bg-white border border-slate-100 p-4 rounded-[24px] flex justify-between items-center group hover:border-amber-200 transition-colors">

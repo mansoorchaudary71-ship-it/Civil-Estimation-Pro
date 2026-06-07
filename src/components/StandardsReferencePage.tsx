@@ -187,7 +187,7 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
               onClick={() => setActiveCountry(country)}
               className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-sm
                 ${activeCountry === country 
-                  ? 'bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.3)]' 
+                  ? 'bg-amber-500 text-slate-900 shadow-[0_0_15px_rgba(245,158,11,0.3)]' 
                   : 'bg-slate-800/60 text-slate-400 border border-slate-700/50 hover:bg-slate-700 hover:text-white'
                 }`}
             >
@@ -241,7 +241,7 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
                       target="_blank"
                       rel="noopener noreferrer"
                       download
-                      className="inline-flex items-center gap-2 px-3 py-2 bg-slate-800/80 hover:bg-amber-500 hover:text-black border border-slate-700/50 rounded-lg text-sm font-semibold text-slate-300 transition-colors w-max"
+                      className="inline-flex items-center gap-2 px-3 py-2 bg-slate-800/80 hover:bg-amber-500 hover:text-slate-900 border border-slate-700/50 rounded-lg text-sm font-semibold text-slate-300 transition-colors w-max"
                     >
                       <Download className="w-4 h-4" />
                       Download PDF
@@ -286,7 +286,7 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
               } else {
                  window.location.href = '/#tools';
               }
-           }} className="px-8 py-4 bg-amber-500 hover:bg-amber-400 text-black font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(245,158,11,0.2)] hover:shadow-[0_0_30px_rgba(245,158,11,0.4)] relative z-10">
+           }} className="px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(245,158,11,0.2)] hover:shadow-[0_0_30px_rgba(245,158,11,0.4)] relative z-10">
              Explore All Tools
            </button>
         </div>

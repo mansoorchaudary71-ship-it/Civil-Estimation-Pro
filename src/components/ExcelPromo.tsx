@@ -28,7 +28,7 @@ export default function ExcelPromo() {
             </p>
             <button 
               onClick={() => setIsSubmitted(false)}
-              className="px-6 py-2 bg-black/10 hover:bg-black/20 text-slate-900 font-bold rounded-[16px] transition-colors"
+              className="px-6 py-2 bg-slate-900/10 hover:bg-slate-900/20 text-slate-900 font-bold rounded-[16px] transition-colors"
             >
               Back to Form
             </button>

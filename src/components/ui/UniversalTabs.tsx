@@ -42,7 +42,7 @@ export function UniversalTabs({
                 rounded-t-xl rounded-b-none
                 ${
                   isActive
-                    ? `bg-white dark:bg-[#151821] shadow-[0_-4px_12px_rgba(0,0,0,0.03)] dark:shadow-black/20 z-20 ${colorTheme.text}`
+                    ? `bg-white dark:bg-[#151821] shadow-[0_-4px_12px_rgba(15,23,42,0.03)] dark:shadow-slate-900/20 z-20 ${colorTheme.text}`
                     : "bg-transparent hover:bg-slate-50 dark:hover:bg-slate-800/50 text-slate-500 dark:text-slate-400 z-10"
                 }
               `}

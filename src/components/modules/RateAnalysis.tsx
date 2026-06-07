@@ -81,7 +81,7 @@ export default function RateAnalysis() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Rate Inputs */}
           <section className="lg:col-span-7 space-y-6">
-            <div className="bg-white/80 p-8 rounded-[2rem] shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-gray-100 backdrop-blur-xl">
+            <div className="bg-white/80 p-8 rounded-[2rem] shadow-[0_8px_32px_rgba(15,23,42,0.06)] border border-gray-100 backdrop-blur-xl">
               <div className="flex items-center gap-3 mb-8">
                 <div className="p-3 bg-emerald-50 text-emerald-600 rounded-[24px] shadow-sm border border-emerald-100">
                   <Database className="w-6 h-6" />

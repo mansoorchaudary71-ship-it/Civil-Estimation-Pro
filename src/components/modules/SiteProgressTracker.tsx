@@ -408,7 +408,7 @@ export default function SiteProgressTracker() {
                                </div>
                                <div className="flex-1 h-10 relative bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-transparent group-hover:border-slate-200 : transition">
                                   <div 
-                                     className={`absolute h-6 top-2 rounded-[24px] shadow-sm overflow-hidden border border-black/5 transition-all ${isSelected ? 'ring-2 ring-offset-2 ring-emerald-500 ring-offset-white ' : ''}`}
+                                     className={`absolute h-6 top-2 rounded-[24px] shadow-sm overflow-hidden border border-slate-300/5 transition-all ${isSelected ? 'ring-2 ring-offset-2 ring-emerald-500 ring-offset-white ' : ''}`}
                                      style={{ left: `${leftPct}%`, width: `${widthPct}%`, backgroundColor: '#e2e8f0' }}
                                   >
                                      <div 
@@ -550,7 +550,7 @@ export default function SiteProgressTracker() {
                                            newPhotos.splice(idx, 1);
                                            handleUpdatePhase(activePhase.id, 'photos', newPhotos);
                                         }}
-                                        className="absolute top-2 right-2 p-1.5 bg-black/50 text-slate-900 rounded-[16px] opacity-0 group-hover:opacity-100 transition"
+                                        className="absolute top-2 right-2 p-1.5 bg-slate-900/50 text-slate-900 rounded-[16px] opacity-0 group-hover:opacity-100 transition"
                                      >
                                         <Trash2 className="w-3 h-3" />
                                      </button>

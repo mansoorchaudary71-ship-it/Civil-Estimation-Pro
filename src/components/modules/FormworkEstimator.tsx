@@ -156,7 +156,7 @@ export default function FormworkEstimator() {
           {/* Elements Config Section */}{" "}
           <section className="lg:col-span-8 space-y-6">
             {" "}
-            <div className="bg-white/90 p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-gray-100 backdrop-blur-xl">
+            <div className="bg-white/90 p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_32px_rgba(15,23,42,0.06)] border border-gray-100 backdrop-blur-xl">
               {" "}
               <div className="flex items-center justify-between mb-8">
                 {" "}
@@ -307,7 +307,7 @@ export default function FormworkEstimator() {
                 )}{" "}
               </div>{" "}
             </div>{" "}
-            <div className="bg-white/90 p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_32px_rgba(0,0,0,0.06)] border border-gray-100 backdrop-blur-xl flex flex-col sm:flex-row gap-6 sm:items-center">
+            <div className="bg-white/90 p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_32px_rgba(15,23,42,0.06)] border border-gray-100 backdrop-blur-xl flex flex-col sm:flex-row gap-6 sm:items-center">
               {" "}
               <div className="flex-1">
                 {" "}

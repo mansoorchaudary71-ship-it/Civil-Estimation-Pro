@@ -359,7 +359,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
                  )}
               </div>
               
-              <div className="bg-white/50 border border-white/60 p-5 rounded-[24px] shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
+              <div className="bg-white/50 border border-white/60 p-5 rounded-[24px] shadow-[0_4px_24px_rgba(15,23,42,0.02)]">
                  <h4 className="font-bold text-slate-800 mb-3 border-b border-slate-200/50 pb-2">Material Comparison</h4>
                  <div className="space-y-3">
                     {allMaterialKeys.map(m => {
@@ -506,10 +506,10 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                       </div>
                    </div>
                    <div className="flex gap-2">
-                      <button onClick={handleShare} className="p-3 bg-white/50 hover:bg-white/80 text-slate-600 rounded-[24px] transition shadow-[0_4px_14px_rgba(0,0,0,0.03)] backdrop-blur-md" title="Share Project">
+                      <button onClick={handleShare} className="p-3 bg-white/50 hover:bg-white/80 text-slate-600 rounded-[24px] transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md" title="Share Project">
                          <Share2 className="w-5 h-5" />
                       </button>
-                      <button onClick={handleExportPDF} className="p-3 bg-indigo-50/50 hover:bg-indigo-100/60 text-indigo-600 rounded-[24px] transition shadow-[0_4px_14px_rgba(0,0,0,0.03)] backdrop-blur-md" title="Export PDF">
+                      <button onClick={handleExportPDF} className="p-3 bg-indigo-50/50 hover:bg-indigo-100/60 text-indigo-600 rounded-[24px] transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md" title="Export PDF">
                          <Printer className="w-5 h-5" />
                       </button>
                    </div>
@@ -601,7 +601,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
               ) : (
                 <div className="space-y-4">
                   {project.estimates.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((est, idx) => (
-                    <div key={est.id} className="flex items-start gap-4 p-4 rounded-[24px] hover:bg-white/60 transition group border border-transparent hover:border-white/80 shadow-[0_4px_14px_rgba(0,0,0,0.02)]">
+                    <div key={est.id} className="flex items-start gap-4 p-4 rounded-[24px] hover:bg-white/60 transition group border border-transparent hover:border-white/80 shadow-[0_4px_14px_rgba(15,23,42,0.02)]">
                        <div className="flex flex-col items-center mt-1">
                          <div className="w-3 h-3 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]"></div>
                          {idx !== project.estimates.length - 1 && <div className="w-0.5 h-full bg-slate-200/60 my-1"></div>}
@@ -617,12 +617,12 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                           {est.materials && Object.keys(est.materials).length > 0 && (
                             <div className="flex flex-wrap gap-2 mt-2">
                                {Object.entries(est.materials).slice(0, 4).map(([mat, data]) => (
-                                 <span key={mat} className="px-2 py-1 bg-white/60 border border-white/80 text-slate-600 rounded text-xs font-semibold shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+                                 <span key={mat} className="px-2 py-1 bg-white/60 border border-white/80 text-slate-600 rounded text-xs font-semibold shadow-[0_2px_8px_rgba(15,23,42,0.02)]">
                                    {mat}: {(data.quantity * qtyMultiplier).toFixed(1)} {data.unit}
                                  </span>
                                ))}
                                {Object.keys(est.materials).length > 4 && (
-                                 <span className="px-2 py-1 bg-white/60 border border-white/80 text-slate-500 rounded text-xs font-semibold shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+                                 <span className="px-2 py-1 bg-white/60 border border-white/80 text-slate-500 rounded text-xs font-semibold shadow-[0_2px_8px_rgba(15,23,42,0.02)]">
                                    +{Object.keys(est.materials).length - 4} more
                                  </span>
                                )}
