@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { PieChart, Pie, Cell, Tooltip as RechartsTooltip, ResponsiveContainer, Legend } from "recharts";
 import { Download, PieChart as PieChartIcon, DollarSign, Settings2, Home } from "lucide-react";
+import { motion } from "motion/react";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
 import { CalculationHistory } from '../ui/CalculationHistory';
+import { useSettings } from '../../context/SettingsContext';
+import { CurrencySelector } from '../ui/CurrencySelector';
 
 interface CostItem {
   id: string;
@@ -42,14 +45,18 @@ const ConstructionCostSummary: React.FC = () => {
   const [overheadProfitPct, setOverheadProfitPct] = useState<number>(15);
   const [contingencyPct, setContingencyPct] = useState<number>(5);
 
+  const { formatCurrency, convertAmount, convertAmountToRaw, settings } = useSettings();
+
   const updateItem = (category: "grey" | "finish" | "labour", id: string, amount: string) => {
-    const value = parseFloat(amount) || 0;
+    const value = parseFloat(amount);
+    const baseValue = isNaN(value) ? 0 : convertAmountToRaw(value);
+    
     if (category === "grey") {
-      setGreyStructure(prev => prev.map(item => item.id === id ? { ...item, amount: value } : item));
+      setGreyStructure(prev => prev.map(item => item.id === id ? { ...item, amount: baseValue } : item));
     } else if (category === "finish") {
-      setFinishing(prev => prev.map(item => item.id === id ? { ...item, amount: value } : item));
+      setFinishing(prev => prev.map(item => item.id === id ? { ...item, amount: baseValue } : item));
     } else if (category === "labour") {
-      setLabour(prev => prev.map(item => item.id === id ? { ...item, amount: value } : item));
+      setLabour(prev => prev.map(item => item.id === id ? { ...item, amount: baseValue } : item));
     }
   };
 
@@ -64,12 +71,13 @@ const ConstructionCostSummary: React.FC = () => {
   const grandTotal = subTotal + overheadProfitAmount + contingencyAmount;
   const costPerSqFt = totalArea > 0 ? grandTotal / totalArea : 0;
 
+  const materialTotal = greyTotal + finishTotal;
+  const otherTotal = overheadProfitAmount + contingencyAmount;
+
   const chartData = [
-    { name: "Grey Structure", value: greyTotal },
-    { name: "Finishing", value: finishTotal },
-    { name: "Labour", value: labourTotal },
-    { name: "Overhead & Profit", value: overheadProfitAmount },
-    { name: "Contingency", value: contingencyAmount },
+    { name: "Material Costs", value: convertAmount(materialTotal) },
+    { name: "Labor Costs", value: convertAmount(labourTotal) },
+    { name: "Overheads & Contingency", value: convertAmount(otherTotal) },
   ].filter(d => d.value > 0);
 
   const exportToPDF = () => {
@@ -166,13 +174,16 @@ const ConstructionCostSummary: React.FC = () => {
             Consolidate estimates into a master summary with overheads and cost per sq ft analysis.
           </p>
         </div>
-        <button
-          onClick={exportToPDF}
-          className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-[24px] font-medium transition-colors whitespace-nowrap"
-        >
-          <Download className="w-4 h-4" />
-          Export Report
-        </button>
+        <div className="flex items-center gap-3">
+          <CurrencySelector />
+          <button
+            onClick={exportToPDF}
+            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-[24px] font-medium transition-colors whitespace-nowrap"
+          >
+            <Download className="w-4 h-4" />
+            Export Report
+          </button>
+        </div>
       </div>
 
       <div className="mb-8 bg-purple-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-6 rounded-[24px] border border-purple-100">
@@ -200,14 +211,14 @@ const ConstructionCostSummary: React.FC = () => {
               1. Grey Structure Cost
             </h3>
             <div className="space-y-3">
-              {greyStructure.map(item => (
+              {greyStructure.map((item, index) => (
                 <div key={item.id} className="flex items-center justify-between gap-4">
                   <label className="text-slate-600 flex-1">{item.name}</label>
                   <div className="relative w-40">
                     <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400" />
                     <input
                       type="number"
-                      value={item.amount}
+                      value={convertAmount(item.amount) === 0 ? '' : Number(convertAmount(item.amount).toFixed(2))}
                       onChange={(e) => updateItem("grey", item.id, e.target.value)}
                       className="w-full bg-white border border-slate-300 rounded-[16px] py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
                     />
@@ -216,7 +227,7 @@ const ConstructionCostSummary: React.FC = () => {
               ))}
               <div className="flex justify-between items-center pt-2 font-semibold text-slate-800">
                 <span>Subtotal:</span>
-                <span>{greyTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                <span>{formatCurrency(greyTotal)}</span>
               </div>
             </div>
           </div>
@@ -227,14 +238,14 @@ const ConstructionCostSummary: React.FC = () => {
               2. Finishing Cost
             </h3>
             <div className="space-y-3">
-              {finishing.map(item => (
+              {finishing.map((item, index) => (
                 <div key={item.id} className="flex items-center justify-between gap-4">
                   <label className="text-slate-600 flex-1">{item.name}</label>
                   <div className="relative w-40">
                     <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400" />
                     <input
                       type="number"
-                      value={item.amount}
+                      value={convertAmount(item.amount) === 0 ? '' : Number(convertAmount(item.amount).toFixed(2))}
                       onChange={(e) => updateItem("finish", item.id, e.target.value)}
                       className="w-full bg-white border border-slate-300 rounded-[16px] py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
                     />
@@ -243,7 +254,7 @@ const ConstructionCostSummary: React.FC = () => {
               ))}
               <div className="flex justify-between items-center pt-2 font-semibold text-slate-800">
                 <span>Subtotal:</span>
-                <span>{finishTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                <span>{formatCurrency(finishTotal)}</span>
               </div>
             </div>
           </div>
@@ -254,14 +265,14 @@ const ConstructionCostSummary: React.FC = () => {
               3. Labour Cost
             </h3>
             <div className="space-y-3">
-              {labour.map(item => (
+              {labour.map((item, index) => (
                 <div key={item.id} className="flex items-center justify-between gap-4">
                   <label className="text-slate-600 flex-1">{item.name}</label>
                   <div className="relative w-40">
                     <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400" />
                     <input
                       type="number"
-                      value={item.amount}
+                      value={convertAmount(item.amount) === 0 ? '' : Number(convertAmount(item.amount).toFixed(2))}
                       onChange={(e) => updateItem("labour", item.id, e.target.value)}
                       className="w-full bg-white border border-slate-300 rounded-[16px] py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
                     />
@@ -270,7 +281,7 @@ const ConstructionCostSummary: React.FC = () => {
               ))}
               <div className="flex justify-between items-center pt-2 font-semibold text-slate-800">
                 <span>Subtotal:</span>
-                <span>{labourTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                <span>{formatCurrency(labourTotal)}</span>
               </div>
             </div>
           </div>
@@ -320,8 +331,14 @@ const ConstructionCostSummary: React.FC = () => {
 
         {/* Right Column: Visualization & Summary */}
         <div className="flex flex-col gap-6">
-          <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] p-6 border border-slate-200 h-[400px]">
-            <h3 className="text-center font-bold text-slate-700 mb-4">Cost Distribution breakdown</h3>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-6 h-[400px]"
+          >
+            <h3 className="text-center font-bold text-slate-800 mb-1">Project Summary Dashboard</h3>
+            <p className="text-center text-xs text-slate-500 mb-4">Material vs. Labor Distribution</p>
             <ResponsiveContainer width="100%" height="90%">
               <PieChart>
                 <Pie
@@ -338,13 +355,13 @@ const ConstructionCostSummary: React.FC = () => {
                   ))}
                 </Pie>
                 <RechartsTooltip 
-                  formatter={(value: number) => value.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+                  formatter={(value: number) => formatCurrency(value, false)}
                   contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 />
                 <Legend verticalAlign="bottom" height={36} />
               </PieChart>
             </ResponsiveContainer>
-          </div>
+          </motion.div>
 
           <div className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-[24px] p-6 text-slate-900 shadow-xl">
             <h3 className="text-purple-200 text-sm font-medium uppercase tracking-wider mb-4">Final Cost Summary</h3>
@@ -352,15 +369,15 @@ const ConstructionCostSummary: React.FC = () => {
             <div className="space-y-3 mb-6">
               <div className="flex justify-between items-center border-b border-purple-800/50 pb-2">
                 <span className="text-purple-100">Base Subtotal</span>
-                <span className="font-semibold">{subTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                <span className="font-semibold">{formatCurrency(subTotal)}</span>
               </div>
               <div className="flex justify-between items-center border-b border-purple-800/50 pb-2">
                 <span className="text-purple-100">Overhead & Profit ({overheadProfitPct}%)</span>
-                <span className="font-semibold">{overheadProfitAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                <span className="font-semibold">{formatCurrency(overheadProfitAmount)}</span>
               </div>
               <div className="flex justify-between items-center border-b border-purple-800/50 pb-2">
                 <span className="text-purple-100">Contingency ({contingencyPct}%)</span>
-                <span className="font-semibold">{contingencyAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                <span className="font-semibold">{formatCurrency(contingencyAmount)}</span>
               </div>
             </div>
 
@@ -368,13 +385,13 @@ const ConstructionCostSummary: React.FC = () => {
               <div className="text-purple-200 text-sm mb-1">Grand Total Estimation</div>
               <div className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tracking-tight text-slate-900 mb-4">
                 {/* using standard large formatting */}
-                {grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                {formatCurrency(grandTotal)}
               </div>
               
               <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] p-4 flex items-center justify-between">
                 <div>
                   <div className="text-purple-200 text-xs uppercase tracking-wider mb-1">Cost Per Sq Ft</div>
-                  <div className="text-2xl font-semibold">{costPerSqFt.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                  <div className="text-2xl font-semibold">{formatCurrency(costPerSqFt)}</div>
                 </div>
                 <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
                   <PieChartIcon className="w-6 h-6 text-slate-900" />

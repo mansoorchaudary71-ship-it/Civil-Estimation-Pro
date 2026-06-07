@@ -30,37 +30,7 @@
     min-height: 100vh;
   }
 
-  /* Force light theme across all routes without patching every file */
-  .dark,
-  [class*="bg-[#0B1120]"],
-  [class*="bg-[#0A0F1E]"],
-  [class*="bg-[#111827]"],
-  [class*="bg-[#1E293B]"],
-  [class*="bg-[#0F172A]"],
-  [class*="bg-[#252525]"],
-  [class*="dark:bg-[#"],
-  [class*="dark:bg-slate-900"],
-  [class*="dark:bg-slate-800"],
-  [class*="bg-slate-900"],
-  [class*="bg-slate-800"] {
-    background-color: #F0F4F8 !important;
-  }
-
-  /* Text overrides */
-  [class*="text-[#E2E8F0]"],
-  [class*="text-[#F1F5F9]"],
-  [class*="text-[#94A3B8]"],
-  [class*="text-slate-400"],
-  [class*="text-slate-300"],
-  [class*="text-slate-200"],
-  [class*="text-white"] {
-    color: #334155 !important;
-  }
-
-  /* Border overrides */
-  [class*="border-[rgba(255,255,255,"] {
-    border-color: #E2E8F0 !important;
-  }
+  /* Removed background overrides to allow dark sections to stay dark, fixing legibility issues */
 }
 
 @layer utilities {

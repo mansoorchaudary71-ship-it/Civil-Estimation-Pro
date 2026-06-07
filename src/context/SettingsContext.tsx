@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect, useRef } from 'react';
 
 export type Currency = 'PKR' | 'USD' | 'INR' | 'AED' | 'SAR' | 'GBP' | 'BDT' | 'LKR';
 export type MeasurementSystem = 'FPS' | 'SI';
@@ -145,13 +145,18 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     }
   }, [settings]);
 
+  const prevMeasurementRef = useRef(settings.measurement);
+
+  useEffect(() => {
+    if (prevMeasurementRef.current !== settings.measurement) {
+      prevMeasurementRef.current = settings.measurement;
+      window.dispatchEvent(new CustomEvent('units-changed', { detail: { measurement: settings.measurement } }));
+    }
+  }, [settings.measurement]);
+
   const updateSettings = (newSettings: Partial<SettingsState>) => {
     setSettings((prev) => {
-      const updated = { ...prev, ...newSettings };
-      if (newSettings.measurement && prev.measurement !== newSettings.measurement) {
-        window.dispatchEvent(new CustomEvent('units-changed', { detail: { measurement: newSettings.measurement } }));
-      }
-      return updated;
+      return { ...prev, ...newSettings };
     });
   };
 

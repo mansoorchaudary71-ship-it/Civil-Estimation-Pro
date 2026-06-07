@@ -170,6 +170,9 @@ export default function VolumeEstimator() {
       color: "text-lime-500 bg-lime-100 dark:bg-lime-500/20",
     },
   ];
+  const volUnit = system === "Metric" ? "m³" : "cu.ft";
+  const areaUnit = system === "Metric" ? "m²" : "sq.ft";
+
   const calculate = () => {
     let volume = 0;
     let surfaceArea = 0;
@@ -493,8 +496,6 @@ export default function VolumeEstimator() {
     liquidCapacity = volume * 7.48052; 
     capacityUnit = "Gallons";
   }
-  const volUnit = system === "Metric" ? "m³" : "cu.ft";
-  const areaUnit = system === "Metric" ? "m²" : "sq.ft";
   const exportData = {
     Shape: activeShape,
     Volume: `${volume.toFixed(2)} ${volUnit}`,
