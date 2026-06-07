@@ -102,7 +102,7 @@ export default function ToolCard({
         </div>
       </div>
 
-      <div className="flex items-center gap-4 z-10 pr-24">
+      <div className="flex items-center gap-4 z-10 pr-16 md:pr-24 w-full box-border">
         <div className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shrink-0 ${theme.iconBg} ${theme.text} shadow-sm border border-white`}>
           {mod.icon && <mod.icon className="w-6 h-6 md:w-7 md:h-7" strokeWidth={1.5} />}
         </div>
@@ -123,21 +123,21 @@ export default function ToolCard({
         </p>
       </div>
 
-      <div className="flex items-center justify-between gap-3 pt-5 mt-6 border-t border-slate-200">
-        <div className="flex items-center gap-2">
-           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 bg-white shadow-sm">
-             <div className={`w-2 h-2 rounded-full ${diffDot}`} />
+      <div className="flex items-center justify-between flex-wrap gap-4 pt-5 mt-6 border-t border-slate-200 w-full">
+        <div className="flex flex-wrap items-center gap-2">
+           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 bg-white shadow-sm whitespace-nowrap">
+             <div className={`w-2 h-2 rounded-full shrink-0 ${diffDot}`} />
              <span className="text-[11px] font-semibold text-slate-600">{diffText}</span>
            </div>
-           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 bg-white shadow-sm">
-             <Clock className="w-3 h-3 text-slate-400" />
+           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 bg-white shadow-sm whitespace-nowrap">
+             <Clock className="w-3 h-3 shrink-0 text-slate-400" />
              <span className="text-[11px] font-semibold text-slate-600">{estTime}</span>
            </div>
         </div>
 
-        <div className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-full font-bold text-xs shadow-md group-hover:bg-indigo-700 group-hover:shadow-lg transition-all group-hover:-translate-y-0.5">
-          Open Tool
-          <ArrowRight className="w-3.5 h-3.5 -ml-1 group-hover:ml-0.5 transition-all" />
+        <div className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-[16px] font-bold text-xs shadow-md group-hover:bg-indigo-700 group-hover:shadow-lg transition-all group-hover:-translate-y-0.5 whitespace-nowrap mt-auto">
+          <span className="hidden sm:inline-block">Open</span> Tool
+          <ArrowRight className="w-3.5 h-3.5 -ml-1 group-hover:ml-0.5 transition-all shrink-0" />
         </div>
       </div>
     </motion.button>

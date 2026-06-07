@@ -238,7 +238,7 @@ export default function LabourCalculator() {
                         </select>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
                         <div className="space-y-2">
                           <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1"><Hammer className="w-3 h-3"/> Quantity required</label>
                           <div className="flex gap-2">

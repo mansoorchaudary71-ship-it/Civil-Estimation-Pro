@@ -1243,7 +1243,7 @@ export default function Dashboard({
                                {groupName}
                                <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-500 shadow-sm">{toolsInGroup.length}</span>
                              </h2>
-                             <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                             <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
                                <AnimatePresence mode="popLayout">
                                  {toolsInGroup.map((mod) => (
                                    <motion.div
@@ -1294,7 +1294,7 @@ export default function Dashboard({
                         Continue where you left off
                       </h2>
                       {recentTools.length > 0 ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
                             {recentTools.map(t => {
                               const m = ALL_MODULES.find(mod => mod.id === t.id);
                               if (!m) return null;
@@ -1332,7 +1332,7 @@ export default function Dashboard({
                           <Bookmark className="w-6 h-6 text-indigo-500" fill="transparent" strokeWidth={2.5} />
                           Personalized Shortcuts
                         </h2>
-                        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
                           <AnimatePresence mode="popLayout">
                             {settings.favoriteTools.map(toolId => {
                               const mod = ALL_MODULES.find(m => m.id === toolId);
@@ -1375,7 +1375,7 @@ export default function Dashboard({
                            return (
                              <div key={groupName} className="flex flex-col gap-5">
                                <h2 className="text-xl md:text-2xl font-bold text-slate-800 flex items-center gap-3">{groupName}<span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-500 shadow-sm">{toolsInGroup.length}</span></h2>
-                               <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 tool-card-grid">
+                               <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 tool-card-grid">
                                  <AnimatePresence mode="popLayout">
                                    {toolsInGroup.map((mod) => (
                                      <motion.div

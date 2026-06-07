@@ -368,7 +368,7 @@ export default function PakistanCostCalculatorPage() {
         {/* Section 5: Related Tools */}
         <div className="mb-20">
            <h3 className="text-xl font-bold text-white mb-6">Explore Professional Evaluation Tools</h3>
-           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {[
                 { title: "BOQ Generator", desc: "Instantly create detailed Bills of Quantities.", icon: ClipboardList, target: "#" },
                 { title: "Material Takeoff", desc: "Systematic quantity extraction workflows.", icon: Hammer, target: "#" },

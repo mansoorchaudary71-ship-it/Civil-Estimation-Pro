@@ -118,7 +118,7 @@ export function RelatedCalculators({ category, currentSlug }: RelatedCalculators
         <p className="text-slate-500 mt-2">Discover sequential tools, categorical hubs, and related structural estimators.</p>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {/* Render sequential links (exact 4) */}
         {sequentialLinks.map((link, idx) => (
           <a key={`seq-${idx}`} href={link.url} className="group p-5 bg-white rounded-[24px] border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50 hover:shadow-md transition-all flex flex-col">

@@ -82,7 +82,7 @@ export default function ProjectManager() {
           <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
             <Plus className="text-indigo-500" /> Create New Project
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-1.5">Project Name</label>
               <input type="text" value={newProject.name} onChange={e => setNewProject({...newProject, name: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" required placeholder="e.g. Al-Hamra Tower" />
