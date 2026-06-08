@@ -71,7 +71,7 @@ export default function TopSoilFillCalculator() {
     };
   }, [hasData, area, depth, selectedSoilIndex, customFactor, truckCapacity, isMetric, soilTypes]);
 
-  const handlePrint = () => window.print();
+  const handlePrint = () => window.dispatchEvent(new CustomEvent('global-print-action'));
 
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-slate-900 pb-[120px]">

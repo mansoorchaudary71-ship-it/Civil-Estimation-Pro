@@ -41,7 +41,7 @@ export default function BottomNavBar({
 
   const handlePrint = () => {
     // Adding no-print class handling if needed, or rely on global CSS
-    window.print();
+    window.dispatchEvent(new CustomEvent('global-print-action'));
   };
 
   const handleDownloadPDF = async () => {

@@ -163,7 +163,7 @@ export default function BarBendingSchedule() {
   };
   
   const handlePrint = () => {
-    window.print();
+    window.dispatchEvent(new CustomEvent('global-print-action'));
   };
 
   const loadExample = () => {

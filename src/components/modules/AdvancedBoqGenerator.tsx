@@ -439,7 +439,7 @@ export default function AdvancedBoqGenerator() {
             <div className="flex flex-wrap gap-4 items-center justify-between bg-slate-50 p-4 rounded-[24px] border border-slate-200 print:hidden">
               <button onClick={() => setStep(3)} className="px-5 py-2 font-semibold text-slate-600 hover:bg-slate-200 rounded-[16px] transition-colors">Edit Rates</button>
               <div className="flex items-center gap-3">
-                <button onClick={() => window.print()} className="flex items-center gap-2 bg-white text-slate-700 border border-slate-300 px-4 py-2 rounded-[16px] font-bold hover:bg-slate-50 transition-colors shadow-sm">
+                <button onClick={() => window.dispatchEvent(new CustomEvent('global-print-action'))} className="flex items-center gap-2 bg-white text-slate-700 border border-slate-300 px-4 py-2 rounded-[16px] font-bold hover:bg-slate-50 transition-colors shadow-sm">
                   <Printer className="w-4 h-4" /> Print
                 </button>
                 <button onClick={handleExportExcel} className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-[16px] font-bold transition-colors shadow-sm">

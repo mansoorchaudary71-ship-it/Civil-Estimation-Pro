@@ -145,7 +145,7 @@ export default function DirectShearTestCalculator() {
     };
   }, [hasData, testData]);
 
-  const handlePrint = () => window.print();
+  const handlePrint = () => window.dispatchEvent(new CustomEvent('global-print-action'));
 
   const handleSave = async () => {
     if (!estimateData) return;

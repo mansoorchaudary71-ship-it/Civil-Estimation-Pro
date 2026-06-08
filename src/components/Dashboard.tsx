@@ -1232,6 +1232,7 @@ export default function Dashboard({
                       searchTerm={searchTerm}
                       setSearchTerm={setSearchTerm}
                       totalFilteredCount={totalFilteredCount}
+                      allTools={ALL_MODULES.map(m => ({ id: m.id, name: m.title, category: m.category }))}
                     />
                   <div className="flex flex-col gap-8 w-full mt-2">
                      {groupsToDisplay.map((groupName) => {
@@ -1367,6 +1368,7 @@ export default function Dashboard({
                         searchTerm={searchTerm}
                         setSearchTerm={setSearchTerm}
                         totalFilteredCount={totalFilteredCount}
+                        allTools={ALL_MODULES.map(m => ({ id: m.id, name: m.title, category: m.category }))}
                       />
                       <div className="flex flex-col gap-8 w-full mt-2">
                          {groupsToDisplay.map((groupName) => {

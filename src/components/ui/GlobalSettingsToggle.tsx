@@ -47,7 +47,7 @@ export function GlobalSettingsToggle({ align = "right", showCurrency = true }: {
                 return (
                   <button
                     key={val}
-                    onClick={() => { updateSettings({ measurement: val as MeasurementSystem }); setIsOpen(false); }}
+                    onClick={() => { updateSettings({ measurement: val as MeasurementSystem }); setIsOpen(false); setTimeout(() => { window.location.reload(); }, 100); }}
                     className={`py-2 px-2 text-xs font-bold rounded-lg transition-colors ${
                       isActive 
                         ? "bg-amber-100 text-amber-700 dark:bg-amber-600/20 dark:text-amber-500 ring-1 ring-amber-600/20" 

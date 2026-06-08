@@ -140,7 +140,7 @@ export default function CbrTestCalculator() {
     };
   }, [hasData, testData, minSpec]);
 
-  const handlePrint = () => window.print();
+  const handlePrint = () => window.dispatchEvent(new CustomEvent('global-print-action'));
   const handleSave = async () => {
     if (!estimateData) return;
     

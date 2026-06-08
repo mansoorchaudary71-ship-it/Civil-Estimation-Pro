@@ -57,7 +57,7 @@ export default function PrecastWallCalculator() {
     };
   }, [hasData, totalLength, postSpacing, wallHeight, slabHeight, postRate, slabRate, laborRatePerRunningMeter, isMetric]);
 
-  const handlePrint = () => window.print();
+  const handlePrint = () => window.dispatchEvent(new CustomEvent('global-print-action'));
 
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-slate-900 pb-[120px]">

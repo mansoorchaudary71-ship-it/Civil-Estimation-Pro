@@ -141,7 +141,7 @@ export default function QSWorkflow() {
            </p>
          </div>
          {currentStep === 8 && (
-           <button onClick={() => window.print()} className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-[24px] flex items-center gap-2 transition-colors">
+           <button onClick={() => window.dispatchEvent(new CustomEvent('global-print-action'))} className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-[24px] flex items-center gap-2 transition-colors">
               <Printer className="w-4 h-4" /> Export PDF
            </button>
          )}

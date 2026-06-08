@@ -177,7 +177,7 @@ export default function MixDesignCalculator() {
   ];
 
   const handlePrint = () => {
-    window.print();
+    window.dispatchEvent(new CustomEvent('global-print-action'));
   };
 
   return (

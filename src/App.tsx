@@ -158,6 +158,8 @@ import MobileToolsSheet from "./components/MobileToolsSheet";
 import QuickEstimatorWidget from "./components/ui/QuickEstimatorWidget";
 import DiscussionWidget from "./components/DiscussionWidget";
 import LocaleUnitDetector from "./components/LocaleUnitDetector";
+import PrintPreviewModal from "./components/ui/PrintPreviewModal";
+import PakistanBuildingCode from "./components/modules/PakistanBuildingCode";
 
 export const ALL_TOOLS = [
   // ✨ Structural Design
@@ -520,7 +522,6 @@ export default function App() {
     "standards",
     "is-codes-reference",
     "morth-irc-specs",
-    "pakistan-building-codes",
     "uae-construction-standards",
     "international-standards"
   ];
@@ -536,6 +537,7 @@ export default function App() {
     "privacy",
     "terms",
     "cookies",
+    "pakistan-building-codes",
     ...standardsModules
   ].includes(activeModule);
 
@@ -614,13 +616,15 @@ export default function App() {
                                 {activeModule === "pricing" && (
                                   <PricingPage />
                                 )}
+                                {activeModule === "pakistan-building-codes" && (
+                                  <PakistanBuildingCode />
+                                )}
                                 {standardsModules.includes(activeModule) && (
                                   <StandardsReferencePage 
                                     key={activeModule}
                                     onNavigate={handleSelectModule} 
                                     initialActiveCountry={
                                       activeModule === "is-codes-reference" || activeModule === "morth-irc-specs" ? "India" :
-                                      activeModule === "pakistan-building-codes" ? "Pakistan" :
                                       activeModule === "uae-construction-standards" ? "UAE" :
                                       activeModule === "international-standards" ? "International" : "All"
                                     }
@@ -1494,6 +1498,7 @@ function UnitSwitcher() {
             onClick={() => {
               updateSettings({ measurement: "SI" });
               setIsOpen(false);
+              setTimeout(() => { window.location.reload(); }, 100);
             }}
             className={`px-4 py-2 text-sm font-bold text-left transition-colors ${settings.measurement === "SI" ? "bg-indigo-50 text-indigo-700" : "text-slate-600 hover:bg-slate-50"}`}
           >
@@ -1503,6 +1508,7 @@ function UnitSwitcher() {
             onClick={() => {
               updateSettings({ measurement: "FPS" });
               setIsOpen(false);
+              setTimeout(() => { window.location.reload(); }, 100);
             }}
             className={`px-4 py-2 text-sm font-bold text-left transition-colors ${settings.measurement === "FPS" ? "bg-indigo-50 text-indigo-700" : "text-slate-600 hover:bg-slate-50"}`}
           >
@@ -1626,6 +1632,14 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
 }, ref) {
   const [isShareModalOpen, setIsShareModalOpen] = React.useState(false);
   const [isFormulaModalOpen, setIsFormulaModalOpen] = React.useState(false);
+  const [isPrintPreviewOpen, setIsPrintPreviewOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    const handlePrint = () => setIsPrintPreviewOpen(true);
+    window.addEventListener('global-print-action', handlePrint);
+    return () => window.removeEventListener('global-print-action', handlePrint);
+  }, []);
+
   const moduleDef = ALL_MODULES.find((m) => m.id === activeModule);
 
   const socialProof = React.useMemo(
@@ -1876,7 +1890,7 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
                            <span className="hidden sm:inline-block capitalize">Formulas</span>
                          </button>
                          <button
-                           onClick={() => window.print()}
+                           onClick={() => window.dispatchEvent(new CustomEvent('global-print-action'))}
                            className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
                            title="Print Calculation"
                          >
@@ -1924,6 +1938,11 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
                     onClose={() => setIsFormulaModalOpen(false)}
                     title={moduleDef?.title || 'Tool'}
                     formulaDescription={metaList.formulaDescription}
+                  />
+
+                  <PrintPreviewModal 
+                    isOpen={isPrintPreviewOpen} 
+                    onClose={() => setIsPrintPreviewOpen(false)} 
                   />
 
                   <CodeReferences moduleId={activeModule} />

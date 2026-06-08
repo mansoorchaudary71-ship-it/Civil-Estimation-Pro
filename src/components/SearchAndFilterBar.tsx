@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Search, Sparkles } from "lucide-react";
 
 interface SearchAndFilterBarProps {
@@ -8,6 +8,7 @@ interface SearchAndFilterBarProps {
   searchTerm: string;
   setSearchTerm: (term: string) => void;
   totalFilteredCount: number;
+  allTools?: { id: string; name: string; category: string }[];
 }
 
 export default function SearchAndFilterBar({
@@ -17,9 +18,25 @@ export default function SearchAndFilterBar({
   searchTerm,
   setSearchTerm,
   totalFilteredCount,
+  allTools = [],
 }: SearchAndFilterBarProps) {
   const popularSearches = ["Concrete Volume", "Steel Weight", "Cost Estimate"];
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const getSuggestions = () => {
+    if (!searchTerm.trim() || !allTools.length) return [];
+    const term = searchTerm.toLowerCase();
+    return allTools
+      .filter(
+        (tool) =>
+          tool.name.toLowerCase().includes(term) ||
+          tool.category.toLowerCase().includes(term)
+      )
+      .slice(0, 6);
+  };
+
+  const suggestions = getSuggestions();
 
   useEffect(() => {
     const activeTab = tabRefs.current[activeCategory];
@@ -35,16 +52,40 @@ export default function SearchAndFilterBar({
         {/* Search Bar */}
         <div className="w-full max-w-2xl">
           <div className="relative group">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
               <Search className="w-5 h-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
             </div>
             <input
               type="text"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setShowSuggestions(true);
+              }}
+              onFocus={() => setShowSuggestions(true)}
+              onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
               placeholder="Search tools, materials, or calculations..."
-              className="w-full bg-[#f8fafc] border border-slate-200 rounded-2xl py-4 pl-12 pr-4 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all shadow-[inset_2px_2px_6px_rgba(163,177,198,0.3),inset_-2px_-2px_6px_rgba(255,255,255,0.8)] text-[15px]"
+              className="relative w-full bg-[#f8fafc] border border-slate-200 rounded-2xl py-4 pl-12 pr-4 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition-all shadow-[inset_2px_2px_6px_rgba(163,177,198,0.3),inset_-2px_-2px_6px_rgba(255,255,255,0.8)] text-[15px]"
             />
+
+            {/* Suggestions Dropdown */}
+            {showSuggestions && suggestions.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-lg border border-slate-200 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                {suggestions.map((tool) => (
+                  <button
+                    key={tool.id}
+                    onClick={() => {
+                      setSearchTerm(tool.name);
+                      setShowSuggestions(false);
+                    }}
+                    className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-50 last:border-0 flex items-center justify-between transition-colors group/item"
+                  >
+                    <span className="text-sm font-semibold text-slate-800 group-hover/item:text-indigo-600 transition-colors">{tool.name}</span>
+                    <span className="text-[10px] font-bold tracking-wider uppercase text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">{tool.category}</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
           
           {/* Popular Chips (hidden mobile, visible md+) */}
