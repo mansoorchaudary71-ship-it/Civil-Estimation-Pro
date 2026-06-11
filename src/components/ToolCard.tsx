@@ -102,7 +102,7 @@ export default function ToolCard({
         </div>
       </div>
 
-      <div className="flex items-center gap-4 z-10 pr-16 md:pr-24 w-full box-border">
+      <div className="flex items-center gap-3 sm:gap-4 z-10 pr-12 md:pr-16 w-full box-border">
         <div className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shrink-0 ${theme.iconBg} ${theme.text} shadow-sm border border-white`}>
           {mod.icon && <mod.icon className="w-6 h-6 md:w-7 md:h-7" strokeWidth={1.5} />}
         </div>
@@ -111,7 +111,7 @@ export default function ToolCard({
           <div className={`text-[11px] font-bold uppercase tracking-wider ${theme.text} mb-1`}>
             {mod.category || "General"}
           </div>
-          <h3 className="text-base md:text-lg font-bold leading-tight truncate whitespace-normal line-clamp-2 text-slate-800 group-hover:text-indigo-900 transition-colors">
+          <h3 className="text-base md:text-lg font-bold leading-tight text-slate-800 group-hover:text-indigo-900 transition-colors">
             {mod.title}
           </h3>
         </div>

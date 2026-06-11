@@ -62,38 +62,40 @@ function ResultTable({ title, icon: Icon, items, onRateChange }: { title: string
         <Icon className="w-4 h-4 text-purple-500"/> {title}
       </h4>
       <div className="bg-white shadow-sm border border-slate-200 rounded-[24px] overflow-hidden">
-        <table className="w-full text-left text-sm">
-          <thead className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
-            <tr>
-              <th className="py-3 px-4 font-semibold text-slate-600">Item</th>
-              <th className="py-3 px-4 font-semibold text-slate-600">Unit</th>
-              <th className="py-3 px-4 font-semibold text-right text-slate-600">Qty</th>
-              <th className="py-3 px-4 font-semibold text-right text-slate-600 w-32">Rate</th>
-              <th className="py-3 px-4 font-semibold text-right text-slate-600">Total</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-100">
-            {items.map((item, i) => (
-              <tr key={i} className="hover:bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
-                <td className="py-3 px-4 font-medium text-slate-700">{item.name}</td>
-                <td className="py-3 px-4 text-slate-500 text-xs font-semibold">{item.unit}</td>
-                <td className="py-3 px-4 text-right font-semibold tabular-nums tracking-tight text-purple-600 text-base">{item.qty.toLocaleString(undefined, {maximumFractionDigits: 1})}</td>
-                <td className="py-2 px-4">
-                  <input
-                    type="number"
-                    min="0"
-                    placeholder="0.00"
-                    className="w-full bg-slate-100 border-none rounded-[16px] px-2 py-1.5 text-right text-sm focus:ring-2 focus:ring-purple-500 focus:outline-none text-slate-800 font-medium"
-                    onChange={(e) => onRateChange(item.name, parseFloat(e.target.value) || 0)}
-                  />
-                </td>
-                <td className="py-3 px-4 text-right font-bold text-slate-800">
-                  {item.total ? (item.total).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) : "0.00"}
-                </td>
+        <div className="overflow-x-auto w-full">
+          <table className="w-full text-left text-sm whitespace-nowrap">
+            <thead className="bg-slate-50 border-b border-slate-200 text-slate-800">
+              <tr>
+                <th className="py-3 px-4 font-semibold text-slate-600">Item</th>
+                <th className="py-3 px-4 font-semibold text-slate-600">Unit</th>
+                <th className="py-3 px-4 font-semibold text-right text-slate-600">Qty</th>
+                <th className="py-3 px-4 font-semibold text-right text-slate-600 w-32">Rate</th>
+                <th className="py-3 px-4 font-semibold text-right text-slate-600">Total</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {items.map((item, i) => (
+                <tr key={i} className="hover:bg-slate-50/50 text-slate-800">
+                  <td className="py-3 px-4 font-medium text-slate-700">{item.name}</td>
+                  <td className="py-3 px-4 text-slate-500 text-xs font-semibold">{item.unit}</td>
+                  <td className="py-3 px-4 text-right font-semibold tabular-nums tracking-tight text-purple-600 text-base">{item.qty.toLocaleString(undefined, {maximumFractionDigits: 1})}</td>
+                  <td className="py-2 px-4 min-w-[100px]">
+                    <input
+                      type="number"
+                      min="0"
+                      placeholder="0.00"
+                      className="w-full bg-slate-100 border-none rounded-[16px] px-2 py-1.5 text-right text-sm sm:text-base focus:ring-2 focus:ring-purple-500 focus:outline-none text-slate-800 font-medium"
+                      onChange={(e) => onRateChange(item.name, parseFloat(e.target.value) || 0)}
+                    />
+                  </td>
+                  <td className="py-3 px-4 text-right font-bold text-slate-800">
+                    {item.total ? (item.total).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) : "0.00"}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

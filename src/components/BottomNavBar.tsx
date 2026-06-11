@@ -174,8 +174,8 @@ export default function BottomNavBar({
   return (
     <>
       <div
-        className="fixed z-[9998] md:hidden flex justify-around items-center h-[54px] left-6 right-6 rounded-[32px] overflow-hidden bg-white/70 dark:bg-[#121212]/70 backdrop-blur-2xl border border-white/60 dark:border-white/10 shadow-[0_8px_32px_rgba(15,23,42,0.12)]"
-        style={{ bottom: "calc(1rem + env(safe-area-inset-bottom))" }}
+        className="fixed z-50 md:hidden flex justify-around items-center h-[60px] left-0 right-0 bottom-0 bg-white/95 dark:bg-[#121212]/95 backdrop-blur-2xl border-t border-slate-200 dark:border-white/10 shadow-[0_-8px_32px_rgba(15,23,42,0.12)]"
+        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
         {navItems.map((item) => {
           const isActive = activeModule === item.id;
@@ -184,15 +184,15 @@ export default function BottomNavBar({
             <button
               key={item.id}
               onClick={item.action}
-              className={`flex flex-col items-center justify-center flex-1 h-full gap-0.5 p-1 transition-all ${
+              className={`flex flex-col items-center justify-center flex-1 h-full gap-1 transition-all ${
                 isActive ? "bg-slate-900/5 dark:bg-white/10" : "hover:bg-slate-900/5 dark:hover:bg-white/5"
               }`}
             >
               <item.icon 
-                className={`w-[20px] h-[20px] ${item.color} ${isActive ? "opacity-100" : "opacity-80"}`} 
+                className={`w-[22px] h-[22px] ${item.color} ${isActive ? "opacity-100 scale-110" : "opacity-80"}`} 
                 strokeWidth={isActive ? 2.5 : 2} 
               />
-              <span className={`text-[9px] font-semibold tracking-tight ${isActive ? "text-slate-900 dark:text-white" : "text-slate-600 dark:text-slate-400"}`}>
+              <span className={`text-[10px] font-semibold tracking-tight ${isActive ? "text-slate-900 dark:text-white" : "text-slate-600 dark:text-slate-400"}`}>
                 {item.label}
               </span>
             </button>

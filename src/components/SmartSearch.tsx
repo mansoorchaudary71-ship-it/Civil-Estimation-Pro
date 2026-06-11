@@ -355,10 +355,10 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                               )}
                             </div>
                             <div className="flex-1 w-full text-left">
-                              <h4 className="font-bold text-[14px] text-slate-800 dark:text-slate-200 line-clamp-1">
+                              <h4 className="font-bold text-[14px] text-slate-800 dark:text-slate-200">
                                 {mod.title}
                               </h4>
-                              <p className="text-xs text-slate-500 dark:text-slate-400 dark:text-slate-500 font-medium line-clamp-1">
+                              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium line-clamp-1">
                                 {mod.category}
                               </p>
                             </div>
@@ -407,7 +407,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                                     {result.category}
                                   </span>
                                 </div>
-                                <p className="text-xs text-slate-500 dark:text-slate-400 dark:text-slate-500 font-medium line-clamp-1">
+                                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium line-clamp-2">
                                   {result.desc}
                                 </p>
                               </div>

@@ -1343,7 +1343,7 @@ export default function Dashboard({
                                       {m.icon && <m.icon className="w-5 h-5" strokeWidth={1.5} />}
                                     </div>
                                     <div className="flex flex-col">
-                                      <h3 className="text-sm font-bold text-slate-800 line-clamp-1 group-hover:text-indigo-900 transition-colors">{m.title}</h3>
+                                      <h3 className="text-sm font-bold text-slate-800 line-clamp-2 group-hover:text-indigo-900 transition-colors">{m.title}</h3>
                                       <span className="text-[10px] text-slate-500 font-medium">
                                         {formatTimeAgo(t.timestamp)}
                                       </span>

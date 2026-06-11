@@ -1861,7 +1861,7 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
               }
               return (
                 <div
-                  className="flex-1 shrink-0 px-4 md:px-8 pt-4 pb-6 w-full md:w-[calc(100%-2rem)] md:mx-4 md:mb-4 themed-tool-container relative border-2 md:rounded-[2rem]"
+                  className="flex-1 shrink-0 px-4 md:px-8 pt-4 pb-6 w-full max-w-7xl mx-auto md:mb-4 themed-tool-container relative border-2 border-x-0 sm:border-x-2 sm:rounded-[2rem]"
                   style={
                     { 
                       "--tool-theme-color": themeHex,
@@ -1871,11 +1871,11 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
                 >
                   {moduleDef && (
                     <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200 pb-4">
-                      <h1 className="text-3xl font-semibold tracking-tight text-slate-900 flex items-center gap-3">
-                        {moduleDef.icon && React.createElement(moduleDef.icon, { className: "w-8 h-8", style: { color: themeHex } })}
+                      <h1 className="text-[clamp(1.5rem,4vw,2.25rem)] font-semibold tracking-tight text-slate-900 flex items-center gap-3">
+                        {moduleDef.icon && React.createElement(moduleDef.icon, { className: "w-8 h-8 shrink-0", style: { color: themeHex } })}
                         {formatToolTitle(moduleDef.title)}
                       </h1>
-                      <div className="text-xs font-semibold uppercase tracking-widest text-slate-400 flex items-center gap-3">
+                      <div className="text-xs font-semibold uppercase tracking-widest text-slate-400 flex flex-wrap items-center gap-2 sm:gap-3">
                          {moduleDef.isPopular && (
                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-sm font-semibold whitespace-nowrap">
                              🔥 Popular

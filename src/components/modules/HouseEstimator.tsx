@@ -1529,8 +1529,8 @@ export default function HouseEstimator() {
                           </button>
                         </div>
                       </div>
-                      <div className="border border-slate-200 rounded-[24px] overflow-y-auto max-h-[400px] bg-white shadow-sm mb-8 relative custom-scrollbar">
-                        <table className="w-full text-sm text-left relative">
+                      <div className="border border-slate-200 rounded-[24px] overflow-auto max-h-[400px] bg-white shadow-sm mb-8 relative custom-scrollbar">
+                        <table className="w-full text-sm text-left relative whitespace-nowrap md:whitespace-normal">
                           <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider sticky top-0 z-10 shadow-sm before:content-[''] before:absolute before:inset-0 before:bg-slate-100 before:-z-10">
                             <tr>
                               <th className="px-6 py-4 font-bold">
@@ -1743,8 +1743,8 @@ export default function HouseEstimator() {
                           </button>
                         </div>
                       </div>
-                      <div className="border border-slate-200 rounded-[24px] overflow-y-auto max-h-[400px] bg-white shadow-sm mb-8 relative custom-scrollbar">
-                        <table className="w-full text-sm text-left relative">
+                      <div className="border border-slate-200 rounded-[24px] overflow-auto max-h-[400px] bg-white shadow-sm mb-8 relative custom-scrollbar">
+                        <table className="w-full text-sm text-left relative whitespace-nowrap md:whitespace-normal">
                           <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider sticky top-0 z-10 shadow-sm before:content-[''] before:absolute before:inset-0 before:bg-slate-100 before:-z-10">
                             <tr>
                               <th className="px-6 py-4 font-bold">
