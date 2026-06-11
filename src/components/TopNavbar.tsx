@@ -5,11 +5,13 @@ import { cn } from "../lib/utils";
 import { ALL_MODULES } from "./Dashboard";
 
 export default function TopNavbar({
-  onNavigate
+  onNavigate,
+  onOpenRecent
 }: {
   onNavigate?: (id: string) => void;
   onOpenAuth?: () => void;
   onOpenProfile?: () => void;
+  onOpenRecent?: () => void;
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("Home");
@@ -114,6 +116,14 @@ export default function TopNavbar({
           </nav>
 
           <div className="flex items-center gap-3 md:gap-4">
+             <button
+               className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 bg-slate-50 hover:bg-slate-100 px-2.5 md:px-3 py-1.5 rounded-full transition-colors"
+               onClick={onOpenRecent}
+               title="Recent Tools"
+             >
+               <History className="w-4 h-4" />
+               <span className="hidden md:inline text-[13px] font-medium pr-1">Recent</span>
+             </button>
              <div className="relative" ref={searchRef}>
                <button 
                  onClick={() => setShowRecentSearches(!showRecentSearches)}

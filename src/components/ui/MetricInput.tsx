@@ -1,18 +1,25 @@
 import React from 'react';
+import { motion } from 'motion/react';
 
 export interface MetricInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   unit?: string;
   error?: string;
   containerClassName?: string;
+  delay?: number;
 }
 
 export const MetricInput = React.forwardRef<HTMLInputElement, MetricInputProps>(
-  ({ className, containerClassName = '', label, unit, error, id, ...props }, ref) => {
+  ({ className, containerClassName = '', label, unit, error, id, delay = 0, ...props }, ref) => {
     const inputId = id || (label ? label.replace(/\s+/g, '-').toLowerCase() : undefined);
     
     return (
-      <div className={`w-full ${containerClassName}`}>
+      <motion.div 
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay }}
+        className={`w-full ${containerClassName}`}
+      >
         {label && (
           <label htmlFor={inputId} className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1">
             {label}
@@ -38,7 +45,7 @@ export const MetricInput = React.forwardRef<HTMLInputElement, MetricInputProps>(
           )}
         </div>
         {error && <span className="text-xs font-medium text-red-500 mt-1.5 ml-1 block animate-in fade-in">{error}</span>}
-      </div>
+      </motion.div>
     );
   }
 );

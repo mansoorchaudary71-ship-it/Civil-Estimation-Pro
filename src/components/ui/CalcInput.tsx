@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 
 export interface CalcInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   label: string;
@@ -6,6 +7,7 @@ export interface CalcInputProps extends Omit<React.InputHTMLAttributes<HTMLInput
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   unit?: string;
   placeholder?: string;
+  delay?: number;
 }
 
 export function CalcInput({ 
@@ -15,10 +17,16 @@ export function CalcInput({
   unit, 
   placeholder, 
   className = '', 
+  delay = 0,
   ...props 
 }: CalcInputProps) {
   return (
-    <div className={`flex flex-col gap-1.5 ${className}`}>
+    <motion.div 
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut", delay }}
+      className={`flex flex-col gap-1.5 ${className}`}
+    >
       <label className="text-[#94A3B8] text-xs font-medium uppercase tracking-wide">
         {label}
       </label>
@@ -38,6 +46,6 @@ export function CalcInput({
           </span>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

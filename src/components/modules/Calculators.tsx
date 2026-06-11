@@ -23,6 +23,7 @@ import { useGlobalSettings } from "../../context/SettingsContext";
 import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
 import { MaterialSummary } from "../ui/MaterialSummary";
 import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
+import { BatchInputMode, BatchColumn } from "../ui/BatchInputMode";
 import {
   ConcreteMortarCalculator,
   BrickworkCalculator,
@@ -87,6 +88,8 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
   const [activeTab, setActiveTab] = useState<TabId>(forcedTab || "master");
   const [concreteType, setConcreteType] = useState<"slab" | "column" | "staircase">("slab");
   const [finishesType, setFinishesType] = useState<"plaster" | "paint" | "antitermite">("plaster");
+  const [isBatchMode, setIsBatchMode] = useState(false);
+  const [batchResults, setBatchResults] = useState<any[]>([]);
 
   /* Project Cart state */ interface CartItem {
     id: string;
@@ -1351,10 +1354,174 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
     explanationOpts.notes = ["1 bag of cement = 50 kg", "Dry volume coefficient for concrete is 1.54"];
   }
 
+  const renderBatchModeFor = (tab: string) => {
+    let columns: BatchColumn[] = [];
+    let calcLogic: (rows: any[]) => void = () => {};
+    let title = "Batch Input Mode";
+
+    if (tab === "concrete") {
+      title = "Concrete Batch Estimator";
+      columns = [
+        { id: "ref", label: "Reference", type: "text" },
+        { id: "len", label: `Length (${unitFt})`, type: "number", defaultValue: 10 },
+        { id: "wid", label: `Width (${unitFt})`, type: "number", defaultValue: 10 },
+        { id: "dep", label: `Depth (${unitFt})`, type: "number", defaultValue: isSI ? 0.15 : 0.5 },
+      ];
+      calcLogic = (rows: any[]) => {
+        let tBags = 0, tSand = 0, tAgg = 0, tWater = 0;
+        let tVol = 0;
+        rows.forEach(r => {
+           let v = parseNum(r.len?.toString()||"0") * parseNum(r.wid?.toString()||"0") * parseNum(r.dep?.toString()||"0");
+           tVol += v;
+           if (v > 0) {
+             const calc = new ConcreteMortarCalculator(v, 1, 1, cMix, parseNum(wastage), parseNum(cWcRatio), isSI);
+             const res = calc.calculate();
+             tBags += res.cementBags;
+             tSand += res.sandVol;
+             tAgg += res.aggregateVol;
+             tWater += res.waterLiters;
+           }
+        });
+        setBatchResults([{ type: "Total Concrete", cementBags: tBags, sandVol: tSand, aggregateVol: tAgg, waterLiters: tWater, volume: tVol }]);
+      };
+    } else if (tab === "bricks") {
+      title = "Brickwork Batch Estimator";
+      columns = [
+        { id: "ref", label: "Wall ID", type: "text" },
+        { id: "len", label: `Length (${unitFt})`, type: "number", defaultValue: 20 },
+        { id: "hei", label: `Height (${unitFt})`, type: "number", defaultValue: 10 },
+        { id: "thi", label: `Thickness (${unitIn})`, type: "number", defaultValue: isSI ? 22 : 9 },
+      ];
+      calcLogic = (rows: any[]) => {
+         let tBags = 0, tSand = 0, tBricks = 0, tVol = 0;
+         rows.forEach(r => {
+           const calc = new BrickworkCalculator(
+             parseNum(r.len?.toString()||"0"), parseNum(r.hei?.toString()||"0"), parseNum(r.thi?.toString()||"0"),
+             0,
+             parseNum(brickL.toString()), parseNum(brickW.toString()), parseNum(brickH.toString()),
+             parseNum(bJoint), bMix, parseNum(wastage), isSI
+           );
+           const res = calc.calculate();
+           tBags += res.cementBags;
+           tSand += res.sandVol;
+           tBricks += res.numBricks;
+           tVol += (parseNum(r.len?.toString()||"0") * parseNum(r.hei?.toString()||"0") * (parseNum(r.thi?.toString()||"0")/(isSI?100:12)));
+         });
+         setBatchResults([{ type: "Total Brickwork", cementBags: tBags, sandVol: tSand, count: tBricks, volume: tVol }]);
+      };
+    } else if (tab === "blocks") {
+      title = "Blockwork Batch Estimator";
+      columns = [
+        { id: "ref", label: "Wall ID", type: "text" },
+        { id: "len", label: `Length (${unitFt})`, type: "number", defaultValue: 20 },
+        { id: "hei", label: `Height (${unitFt})`, type: "number", defaultValue: 10 },
+      ];
+      calcLogic = (rows: any[]) => {
+         let tBags = 0, tSand = 0, tBlocks = 0, tVol = 0;
+         rows.forEach(r => {
+           const calc = new BrickworkCalculator(
+             parseNum(r.len?.toString()||"0"), parseNum(r.hei?.toString()||"0"), parseNum(blockW.toString()),
+             0,
+             parseNum(blockL.toString()), parseNum(blockW.toString()), parseNum(blockH.toString()),
+             parseNum(blockJoint), bMix, parseNum(wastage), isSI
+           );
+           const res = calc.calculate();
+           tBags += res.cementBags;
+           tSand += res.sandVol;
+           tBlocks += res.numBricks;
+         });
+         setBatchResults([{ type: "Total Blockwork", cementBags: tBags, sandVol: tSand, count: tBlocks }]);
+      };
+    } else if (tab === "plaster") {
+      title = "Plaster Batch Estimator";
+      columns = [
+        { id: "ref", label: "Wall ID", type: "text" },
+        { id: "area", label: `Area (${unitArea})`, type: "number", defaultValue: 200 },
+        { id: "thi", label: `Thickness (${unitIn})`, type: "number", defaultValue: isSI ? 1.2 : 0.5 },
+      ];
+      calcLogic = (rows) => {
+         let tBags = 0, tSand = 0;
+         rows.forEach(r => {
+           const calc = new PlasterCalculator(parseNum(r.area?.toString()||"0"), parseNum(r.thi?.toString()||"0"), pMix, parseNum(wastage), isSI);
+           const res = calc.calculate();
+           tBags += res.cementBags;
+           tSand += res.sandVol;
+         });
+         setBatchResults([{ type: "Total Plaster", cementBags: tBags, sandVol: tSand }]);
+      }
+    } else {
+       return null;
+    }
+
+    return (
+      <div className="space-y-6 w-full animate-in fade-in duration-300">
+        <div className="flex justify-between items-center mb-4">
+           <h3 className="font-bold text-lg text-slate-800">{title}</h3>
+           <button onClick={() => setIsBatchMode(false)} className="px-4 py-2 text-sm font-semibold text-slate-600 bg-slate-100 rounded-xl hover:bg-slate-200 transition-colors">
+              Exit Batch Mode
+           </button>
+        </div>
+        <BatchInputMode columns={columns} onCalculateTotal={calcLogic} title={title} />
+        {batchResults.map((br, idx) => (
+           <div key={idx} className="bg-emerald-50 border border-emerald-200 p-6 rounded-[24px]">
+             <h4 className="font-bold text-emerald-800 text-lg mb-4">{br.type} Results</h4>
+             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {br.volume !== undefined && (
+                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                    <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Total Volume</p>
+                    <p className="text-xl font-bold text-slate-800">{br.volume.toFixed(2)} <span className="text-sm font-medium text-slate-500">{unitVol}</span></p>
+                  </div>
+                )}
+                {br.cementBags !== undefined && (
+                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                    <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Cement Required</p>
+                    <p className="text-xl font-bold text-slate-800">{br.cementBags.toFixed(2)} <span className="text-sm font-medium text-slate-500">Bags</span></p>
+                  </div>
+                )}
+                {br.sandVol !== undefined && (
+                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                    <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Sand Required</p>
+                    <p className="text-xl font-bold text-slate-800">{br.sandVol.toFixed(2)} <span className="text-sm font-medium text-slate-500">{unitVol}</span></p>
+                  </div>
+                )}
+                {br.aggregateVol !== undefined && (
+                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                    <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Aggregate</p>
+                    <p className="text-xl font-bold text-slate-800">{br.aggregateVol.toFixed(2)} <span className="text-sm font-medium text-slate-500">{unitVol}</span></p>
+                  </div>
+                )}
+                {br.waterLiters !== undefined && (
+                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                    <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Water Required</p>
+                    <p className="text-xl font-bold text-slate-800">{isSI ? br.waterLiters.toFixed(0) : (br.waterLiters/3.785).toFixed(0)} <span className="text-sm font-medium text-slate-500">{isSI ? 'Liters' : 'Gallons'}</span></p>
+                  </div>
+                )}
+                {br.count !== undefined && (
+                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                    <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Total Pieces</p>
+                    <p className="text-xl font-bold text-slate-800">{br.count.toLocaleString()} <span className="text-sm font-medium text-slate-500">Nos</span></p>
+                  </div>
+                )}
+             </div>
+           </div>
+        ))}
+      </div>
+    );
+  };
+
+  const isBatchSupported = ["concrete", "bricks", "blocks", "plaster"].includes(activeTab);
+
   return (
   <div className={hideHeader ? "w-full" : "w-full h-full overflow-y-auto bg-transparent text-slate-900 p-6 md:p-8"}>
     <div className={hideHeader ? "w-full" : "max-w-7xl mx-auto"}>
-      {content}
+       {isBatchSupported && !isBatchMode && (
+          <div className="flex justify-end mb-4">
+             <button onClick={() => { setIsBatchMode(true); setBatchResults([]); }} className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 text-sm font-bold rounded-xl hover:bg-indigo-100 transition-colors shadow-sm active:scale-95">
+                <Layers className="w-4 h-4" /> Enable Batch Mode
+             </button>
+          </div>
+       )}
+       {isBatchMode && isBatchSupported ? renderBatchModeFor(activeTab) : content}
     </div>
   </div>
   );

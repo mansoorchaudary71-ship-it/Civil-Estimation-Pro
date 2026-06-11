@@ -26,15 +26,20 @@ const defaultRates: MarketRates = {
   overheadMarkup: 15,
 };
 
+const COMPANY_RATES_STORAGE_KEY = "company_material_rates";
+
 interface MarketRatesContextType {
   marketRates: MarketRates;
   customRates: Partial<MarketRates>;
+  companyRates: Partial<MarketRates>;
   rates: MarketRates; // Effective rates (custom over market)
   lastUpdated: string | null;
   updateRate: (key: keyof MarketRates, value: number) => void; 
   setCustomRate: (key: keyof MarketRates, value: number | null) => void;
+  setCompanyRate: (key: keyof MarketRates, value: number | null) => void;
   resetCustomRates: () => void;
   isCustomRate: (key: keyof MarketRates) => boolean;
+  isCompanyRate: (key: keyof MarketRates) => boolean;
 }
 
 const MarketRatesContext = createContext<MarketRatesContextType | undefined>(undefined);
@@ -42,6 +47,15 @@ const MarketRatesContext = createContext<MarketRatesContextType | undefined>(und
 export function MarketRatesProvider({ children }: { children: ReactNode }) {
   const [marketRates, setMarketRates] = useState<MarketRates>(defaultRates);
   const [customRates, setCustomRates] = useState<Partial<MarketRates>>({});
+  const [companyRates, setCompanyRates] = useState<Partial<MarketRates>>(() => {
+    try {
+      const saved = localStorage.getItem(COMPANY_RATES_STORAGE_KEY);
+      return saved ? JSON.parse(saved) : {};
+    } catch (e) {
+      console.error("Failed to load company rates from localStorage", e);
+      return {};
+    }
+  });
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
 
   useEffect(() => {
@@ -88,6 +102,19 @@ export function MarketRatesProvider({ children }: { children: ReactNode }) {
     });
   };
 
+  const setCompanyRate = (key: keyof MarketRates, value: number | null) => {
+    setCompanyRates(prev => {
+      const updated = { ...prev };
+      if (value === null || isNaN(value)) {
+        delete updated[key];
+      } else {
+        updated[key] = value;
+      }
+      localStorage.setItem(COMPANY_RATES_STORAGE_KEY, JSON.stringify(updated));
+      return updated;
+    });
+  };
+
   const resetCustomRates = () => {
     setCustomRates({});
   };
@@ -96,10 +123,15 @@ export function MarketRatesProvider({ children }: { children: ReactNode }) {
     return customRates[key] !== undefined;
   };
 
-  const rates: MarketRates = { ...marketRates, ...customRates };
+  const isCompanyRate = (key: keyof MarketRates) => {
+    return companyRates[key] !== undefined;
+  };
+
+  // Precedence: Custom > Company > Market
+  const rates: MarketRates = { ...marketRates, ...companyRates, ...customRates };
 
   return (
-    <MarketRatesContext.Provider value={{ marketRates, customRates, rates, lastUpdated, updateRate, setCustomRate, resetCustomRates, isCustomRate }}>
+    <MarketRatesContext.Provider value={{ marketRates, customRates, companyRates, rates, lastUpdated, updateRate, setCustomRate, setCompanyRate, resetCustomRates, isCustomRate, isCompanyRate }}>
       {children}
     </MarketRatesContext.Provider>
   );

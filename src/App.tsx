@@ -48,6 +48,7 @@ import QuickRoughEstimation from "./components/modules/QuickRoughEstimation";
 import SettingsModal from "./components/modules/SettingsModal";
 import AuthModal from "./components/auth/AuthModal";
 import ProfileSettings from "./components/auth/ProfileSettings";
+import RecentSidebar from "./components/RecentSidebar";
 import { useAuth } from "./contexts/AuthContext";
 import { Toaster } from "react-hot-toast";
 
@@ -159,7 +160,6 @@ import QuickEstimatorWidget from "./components/ui/QuickEstimatorWidget";
 import DiscussionWidget from "./components/DiscussionWidget";
 import LocaleUnitDetector from "./components/LocaleUnitDetector";
 import PrintPreviewModal from "./components/ui/PrintPreviewModal";
-import PakistanBuildingCode from "./components/modules/PakistanBuildingCode";
 
 export const ALL_TOOLS = [
   // ✨ Structural Design
@@ -462,6 +462,7 @@ export default function App() {
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isRecentSidebarOpen, setIsRecentSidebarOpen] = useState(false);
   const [expandedCategory, setExpandedCategory] = useState<string | null>(
     "Core Estimators",
   );
@@ -522,6 +523,7 @@ export default function App() {
     "standards",
     "is-codes-reference",
     "morth-irc-specs",
+    "pakistan-building-codes",
     "uae-construction-standards",
     "international-standards"
   ];
@@ -537,7 +539,6 @@ export default function App() {
     "privacy",
     "terms",
     "cookies",
-    "pakistan-building-codes",
     ...standardsModules
   ].includes(activeModule);
 
@@ -574,8 +575,9 @@ export default function App() {
                   <ProductTour />
                   <LocaleUnitDetector />
                   
-                  <TopNavbar onNavigate={handleSelectModule} />
+                  <TopNavbar onNavigate={handleSelectModule} onOpenRecent={() => setIsRecentSidebarOpen(true)} />
                   {isStaticPage && <GlobalBottomBar activeModule={activeModule} onNavigate={handleSelectModule} onOpenProfile={() => setIsProfileOpen(true)} onOpenSearch={() => {}} />}
+                  <RecentSidebar isOpen={isRecentSidebarOpen} onClose={() => setIsRecentSidebarOpen(false)} onNavigate={handleSelectModule} />
                   
                   <BottomNavBar 
                     activeModule={activeModule} 
@@ -616,15 +618,13 @@ export default function App() {
                                 {activeModule === "pricing" && (
                                   <PricingPage />
                                 )}
-                                {activeModule === "pakistan-building-codes" && (
-                                  <PakistanBuildingCode />
-                                )}
                                 {standardsModules.includes(activeModule) && (
                                   <StandardsReferencePage 
                                     key={activeModule}
                                     onNavigate={handleSelectModule} 
                                     initialActiveCountry={
                                       activeModule === "is-codes-reference" || activeModule === "morth-irc-specs" ? "India" :
+                                      activeModule === "pakistan-building-codes" ? "Pakistan" :
                                       activeModule === "uae-construction-standards" ? "UAE" :
                                       activeModule === "international-standards" ? "International" : "All"
                                     }
@@ -1718,10 +1718,10 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
     <motion.div
       ref={ref}
       key={activeModule}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="h-full flex flex-col min-h-0 bg-transparent relative tool-detail-page"
     >
       {moduleDef && (
@@ -1881,47 +1881,54 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
                              🔥 Popular
                            </span>
                          )}
-                         <button
+                         <motion.button
+                           initial={{ opacity: 0, scale: 0.9, y: -5 }} animate={{ opacity: 1, scale: 1, y: 0 }} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2, delay: 0.05 }}
                            onClick={() => setIsFormulaModalOpen(true)}
                            className="flex items-center justify-center gap-2 px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-500/10 dark:hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-full transition-colors font-medium shadow-sm border border-indigo-100/50 dark:border-indigo-500/20"
                            title="Formulas & Variables"
                          >
                            <Info className="w-4 h-4" />
                            <span className="hidden sm:inline-block capitalize">Formulas</span>
-                         </button>
-                         <button
+                         </motion.button>
+                         <motion.button
+                           initial={{ opacity: 0, scale: 0.9, y: -5 }} animate={{ opacity: 1, scale: 1, y: 0 }} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2, delay: 0.1 }}
                            onClick={() => window.dispatchEvent(new CustomEvent('global-print-action'))}
                            className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
                            title="Print Calculation"
                          >
                            <Printer className="w-4 h-4" />
                            <span className="hidden sm:inline-block capitalize">Print</span>
-                         </button>
-                         <button
+                         </motion.button>
+                         <motion.button
+                           initial={{ opacity: 0, scale: 0.9, y: -5 }} animate={{ opacity: 1, scale: 1, y: 0 }} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2, delay: 0.15 }}
                            onClick={() => window.dispatchEvent(new CustomEvent('action-save-draft'))}
                            className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
                            title="Save Draft (Local)"
                          >
                            <Save className="w-4 h-4" />
                            <span className="hidden sm:inline-block capitalize">Save Draft</span>
-                         </button>
-                         <button
+                         </motion.button>
+                         <motion.button
+                           initial={{ opacity: 0, scale: 0.9, y: -5 }} animate={{ opacity: 1, scale: 1, y: 0 }} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2, delay: 0.2 }}
                            onClick={() => window.dispatchEvent(new CustomEvent('action-load-draft'))}
                            className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
                            title="Load Draft (Local)"
                          >
                            <Download className="w-4 h-4" />
                            <span className="hidden sm:inline-block capitalize">Load Draft</span>
-                         </button>
-                         <button
+                         </motion.button>
+                         <motion.button
+                           initial={{ opacity: 0, scale: 0.9, y: -5 }} animate={{ opacity: 1, scale: 1, y: 0 }} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2, delay: 0.25 }}
                            onClick={() => setIsShareModalOpen(true)}
                            className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
                            title="Share Tool"
                          >
                            <Share2 className="w-4 h-4" />
                            <span className="hidden sm:inline-block capitalize">Share</span>
-                         </button>
-                         <GlobalSettingsToggle align="right" showCurrency={false} />
+                         </motion.button>
+                         <motion.div initial={{ opacity: 0, scale: 0.9, y: -5 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.2, delay: 0.3 }}>
+                           <GlobalSettingsToggle align="right" showCurrency={false} />
+                         </motion.div>
                       </div>
                     </div>
                   )}
@@ -1947,7 +1954,14 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
 
                   <CodeReferences moduleId={activeModule} />
 
-                  {children}
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex-1 shrink-0"
+                  >
+                    {children}
+                  </motion.div>
 
                   {moduleDef && (
                     <>

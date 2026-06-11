@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Search, Sparkles } from "lucide-react";
 
-interface SearchAndFilterBarProps {
+export interface SearchAndFilterBarProps {
   categories: { name: string; count: number }[];
   activeCategory: string;
   setActiveCategory: (cat: string) => void;
@@ -9,6 +9,7 @@ interface SearchAndFilterBarProps {
   setSearchTerm: (term: string) => void;
   totalFilteredCount: number;
   allTools?: { id: string; name: string; category: string }[];
+  onSelectModule?: (id: string, inputs?: any) => void;
 }
 
 export default function SearchAndFilterBar({
@@ -19,6 +20,7 @@ export default function SearchAndFilterBar({
   setSearchTerm,
   totalFilteredCount,
   allTools = [],
+  onSelectModule,
 }: SearchAndFilterBarProps) {
   const popularSearches = ["Concrete Volume", "Steel Weight", "Cost Estimate"];
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
@@ -75,8 +77,14 @@ export default function SearchAndFilterBar({
                   <button
                     key={tool.id}
                     onClick={() => {
-                      setSearchTerm(tool.name);
-                      setShowSuggestions(false);
+                      if (onSelectModule) {
+                        setSearchTerm("");
+                        setShowSuggestions(false);
+                        onSelectModule(tool.id);
+                      } else {
+                        setSearchTerm(tool.name);
+                        setShowSuggestions(false);
+                      }
                     }}
                     className="w-full text-left px-4 py-3 hover:bg-slate-50 border-b border-slate-50 last:border-0 flex items-center justify-between transition-colors group/item"
                   >

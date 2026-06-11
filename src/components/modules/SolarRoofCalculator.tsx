@@ -1,288 +1,628 @@
-import React, { useState, useEffect } from "react";
-import { Sun, Battery, Zap, DollarSign, Home, AlertCircle, Calculator } from "lucide-react";
-import { CalculationHistory } from "../ui/CalculationHistory";
-import { ResultCard } from "../ui/ResultCard";
-import { MaterialSummary } from "../ui/MaterialSummary";
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { motion } from "motion/react";
+import { 
+  Sun, Battery, Zap, DollarSign, Home, AlertCircle, 
+  Calculator, ChevronRight, BarChart3, Settings, Info, Download, RotateCcw, Plug, Grid
+} from "lucide-react";
+
+type GridType = "On-Grid" | "Off-Grid" | "Hybrid";
+
+const CITIES = {
+  "Lahore": { psh: 4.8, cur: "PKR", tariff: 50, panelC: 90, invC: 25000, batC: 80000 },
+  "Karachi": { psh: 5.5, cur: "PKR", tariff: 50, panelC: 90, invC: 25000, batC: 80000 },
+  "Islamabad": { psh: 4.6, cur: "PKR", tariff: 50, panelC: 90, invC: 25000, batC: 80000 },
+  "Multan": { psh: 5.2, cur: "PKR", tariff: 50, panelC: 90, invC: 25000, batC: 80000 },
+  "Quetta": { psh: 5.8, cur: "PKR", tariff: 50, panelC: 90, invC: 25000, batC: 80000 },
+  "Dubai": { psh: 6.2, cur: "AED", tariff: 0.3, panelC: 1.2, invC: 350, batC: 1500 },
+  "Mumbai": { psh: 4.5, cur: "INR", tariff: 8, panelC: 28, invC: 7000, batC: 25000 },
+  "Delhi": { psh: 4.8, cur: "INR", tariff: 8, panelC: 28, invC: 7000, batC: 25000 },
+};
+
+const MODULES = [
+  { id: 1, name: "Site & Load", icon: Home },
+  { id: 2, name: "Solar Potential", icon: Sun },
+  { id: 3, name: "Inverter & Battery", icon: Battery },
+  { id: 4, name: "System Cost", icon: DollarSign },
+  { id: 5, name: "Production & Savings", icon: Zap },
+  { id: 6, name: "Financial Analysis", icon: BarChart3 },
+  { id: 7, name: "Report Card", icon: Calculator },
+];
 
 export default function SolarRoofCalculator() {
-  const [roofArea, setRoofArea] = useState<number | "">(50);
-  const [areaUnit, setAreaUnit] = useState<"sqm" | "sqft">("sqm");
-  const [monthlyBill, setMonthlyBill] = useState<number | "">(150);
-  const [electricityRate, setElectricityRate] = useState<number | "">(0.15); // $/kWh
-  const [peakSunHours, setPeakSunHours] = useState<number | "">(4.5);
-  
-  const [results, setResults] = useState<{
-    reqSystemSize: number;
-    recSystemSize: number;
-    numPanels: number;
-    annualGeneration: number;
-    annualSavings: number;
-    systemCost: number;
-    paybackPeriod: number;
-    areaRequired: number;
-    fitsOnRoof: boolean;
-    roi: number;
-  } | null>(null);
+  const [activeTab, setActiveTab] = useState(1);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
+  // M1
+  const [city, setCity] = useState<keyof typeof CITIES>("Lahore");
+  const [currency, setCurrency] = useState("PKR");
+  const [monthlyBill, setMonthlyBill] = useState<number>(30000);
+  const [monthlyUnits, setMonthlyUnits] = useState<number>(600);
+  const [peakLoad, setPeakLoad] = useState<number>(4.5);
+  const [gridType, setGridType] = useState<GridType>("Hybrid");
+
+  // M2
+  const [psh, setPsh] = useState(4.8);
+  const [tilt, setTilt] = useState(30);
+  const [sysLosses, setSysLosses] = useState(14);
+  const [panelWattage, setPanelWattage] = useState(545);
+  const [panelEfficiency, setPanelEfficiency] = useState(21);
+  const [availableRoofArea, setAvailableRoofArea] = useState(100);
+
+  // M3
+  const [inverterEfficiency, setInverterEfficiency] = useState(97);
+  const [batteryAutonomy, setBatteryAutonomy] = useState(1);
+  const [dod, setDod] = useState(80);
+  const [batteryType, setBatteryType] = useState("Lithium-Ion");
+  const [batteryVoltage, setBatteryVoltage] = useState(48);
+
+  // M4
+  const [panelCostPerW, setPanelCostPerW] = useState(90);
+  const [inverterCostPerKva, setInverterCostPerKva] = useState(25000);
+  const [batteryCostPerKwh, setBatteryCostPerKwh] = useState(80000);
+  const [structureCostPerPanel, setStructureCostPerPanel] = useState(4500);
+  const [wiringPercent, setWiringPercent] = useState(8);
+  const [labourPercent, setLabourPercent] = useState(10);
+  const [netMeteringFee, setNetMeteringFee] = useState(100000);
+  const [contingencyPercent, setContingencyPercent] = useState(5);
+
+  // M5
+  const [gridTariff, setGridTariff] = useState(50);
+  const [exportRate, setExportRate] = useState(100);
+  const [degradation, setDegradation] = useState(0.5);
+
+  // M6
+  const [maintenancePercent, setMaintenancePercent] = useState(0.5);
+  const [tariffEscalation, setTariffEscalation] = useState(10);
+  const [lifespan, setLifespan] = useState(25);
+  const [loanFinancing, setLoanFinancing] = useState(false);
+
+  // Apply City Defaults
   useEffect(() => {
-    calculateSolar();
-  }, [roofArea, areaUnit, monthlyBill, electricityRate, peakSunHours]);
-
-  const calculateSolar = () => {
-    if (roofArea === "" || monthlyBill === "" || electricityRate === "" || peakSunHours === "") {
-      setResults(null);
-      return;
+    const d = CITIES[city];
+    if (d) {
+      setPsh(d.psh);
+      setCurrency(d.cur);
+      setGridTariff(d.tariff);
+      setPanelCostPerW(d.panelC);
+      setInverterCostPerKva(d.invC);
+      setBatteryCostPerKwh(d.batC);
     }
+  }, [city]);
 
-    const panelWattage = 400; // 400W per panel
-    const panelAreaSqm = 2; // ~2 sq meters per panel
-    const systemDerateFactor = 0.8; // System losses
-    const costPerWatt = 2.50; // $2.50/W installation cost
+  // Derived Values
+  const dailyDemand = monthlyUnits / 30.4;
+  const sysDerate = 1 - (sysLosses / 100);
+  const reqKw = (dailyDemand / psh) / sysDerate;
+  const numPanels = Math.ceil((reqKw * 1000) / panelWattage);
+  const actualKw = (numPanels * panelWattage) / 1000;
+  const panelAreaM2 = 2.58; 
+  const totalArea = numPanels * panelAreaM2;
+  const roofAreaRequired = totalArea * 1.3;
+  const maxPanels = Math.floor(availableRoofArea / (panelAreaM2 * 1.3));
+  const maxKw = (maxPanels * panelWattage) / 1000;
 
-    // Electricity usage
-    const monthlyEnergyUsage = monthlyBill / electricityRate; // kWh/month
-    const dailyEnergyUsage = monthlyEnergyUsage / 30.4; // kWh/day
+  const invEff = inverterEfficiency / 100;
+  const recInverterKva = Math.ceil(Math.max(actualKw, peakLoad) / invEff);
+  
+  const hasBattery = gridType !== "On-Grid";
+  const battReqKwh = hasBattery ? (dailyDemand * batteryAutonomy) / (dod / 100) : 0;
+  const battAhRequired = hasBattery ? (battReqKwh * 1000) / batteryVoltage : 0;
+  const numBatteries = hasBattery ? Math.ceil(battAhRequired / 200) : 0; // assuming 200Ah modules
+  const actualBattKwh = hasBattery ? (numBatteries * 200 * batteryVoltage) / 1000 : 0;
 
-    // 1. Calculate Required System Size (kW) to offset 100% bill
-    const reqSystemSizeKw = dailyEnergyUsage / peakSunHours / systemDerateFactor;
+  const panelsCost = actualKw * 1000 * panelCostPerW;
+  const inverterCost = recInverterKva * inverterCostPerKva;
+  const batteryCost = hasBattery ? actualBattKwh * batteryCostPerKwh : 0;
+  const mountingCost = numPanels * structureCostPerPanel;
+  const wiringCost = panelsCost * (wiringPercent / 100);
+  
+  const hardwareTotal = panelsCost + inverterCost + batteryCost + mountingCost + wiringCost;
+  const nmFee = gridType !== "Off-Grid" ? netMeteringFee : 0;
+  const laborCost = hardwareTotal * (labourPercent / 100);
+  const preContingency = hardwareTotal + nmFee + laborCost;
+  const contingencyCost = preContingency * (contingencyPercent / 100);
+  const totalSystemCost = preContingency + contingencyCost;
+  const costPerKwp = totalSystemCost / actualKw;
+
+  const dailyGen = actualKw * psh * sysDerate;
+  const monthlyGen = dailyGen * 30.4;
+  const annualGen = dailyGen * 365;
+  const gridExportPrice = gridTariff * (exportRate / 100);
+  const annualUsage = monthlyUnits * 12;
+
+  let annualSavingsAmount = 0;
+  if (annualGen > annualUsage) {
+    annualSavingsAmount = (annualUsage * gridTariff) + ((annualGen - annualUsage) * gridExportPrice);
+  } else {
+    annualSavingsAmount = annualGen * gridTariff;
+  }
+  const maintCostTotal = totalSystemCost * (maintenancePercent / 100);
+  const netAnnualSavingsYear1 = annualSavingsAmount - maintCostTotal;
+
+  // ROI calculations
+  let cumulativeCashFlow = -totalSystemCost;
+  let currentTariff = gridTariff;
+  let currentGen = annualGen;
+  
+  const cashFlows = [];
+  let lifetimeSavings = 0;
+  
+  for (let year = 1; year <= lifespan; year++) {
+    let sav = 0;
+    if (currentGen > annualUsage) {
+      sav = (annualUsage * currentTariff) + ((currentGen - annualUsage) * (currentTariff * (exportRate/100)));
+    } else {
+      sav = currentGen * currentTariff;
+    }
+    const mCost = totalSystemCost * (maintenancePercent / 100);
+    const netYear = sav - mCost;
+    lifetimeSavings += netYear;
+    cumulativeCashFlow += netYear;
     
-    // 2. Available Roof Area in Sq Meters
-    const validRoofAreaSqm = areaUnit === "sqft" ? roofArea * 0.092903 : roofArea;
+    cashFlows.push({ year, generation: currentGen, netSavings: netYear, cumProfit: cumulativeCashFlow });
+    currentGen = currentGen * (1 - (degradation / 100));
+    currentTariff = currentTariff * (1 + (tariffEscalation / 100));
+  }
 
-    // 3. Max System Size based on Roof Area
-    const maxPanelsPossible = Math.floor(validRoofAreaSqm / panelAreaSqm);
-    const maxSystemSizeKw = (maxPanelsPossible * panelWattage) / 1000;
+  const simplePayback = netAnnualSavingsYear1 > 0 ? totalSystemCost / netAnnualSavingsYear1 : 0;
+  const lifetimeROI = ((lifetimeSavings - totalSystemCost) / totalSystemCost) * 100;
+  const annualCo2 = annualGen * 0.5;
 
-    // 4. Recommendation (bounded by roof area)
-    const recSystemSizeKw = Math.min(reqSystemSizeKw, maxSystemSizeKw);
-    const numPanels = Math.ceil((recSystemSizeKw * 1000) / panelWattage);
-    const areaRequiredSqm = numPanels * panelAreaSqm;
-    
-    const fitsOnRoof = reqSystemSizeKw <= maxSystemSizeKw;
+  const formatCurrency = (val: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency, maximumFractionDigits: 0 }).format(val);
 
-    // 5. Outputs
-    const annualGenerationKwh = recSystemSizeKw * peakSunHours * 365 * systemDerateFactor;
-    const annualSavings = annualGenerationKwh * electricityRate;
-    const systemCost = recSystemSizeKw * 1000 * costPerWatt;
-    const paybackPeriod = annualSavings > 0 ? systemCost / annualSavings : 0;
-    const roi = systemCost > 0 ? ((annualSavings * 25 - systemCost) / systemCost) * 100 : 0;
-
-    setResults({
-      reqSystemSize: reqSystemSizeKw,
-      recSystemSize: recSystemSizeKw,
-      numPanels,
-      annualGeneration: annualGenerationKwh,
-      annualSavings,
-      systemCost,
-      paybackPeriod,
-      areaRequired: areaRequiredSqm,
-      fitsOnRoof,
-      roi
-    });
+  const resetCalc = () => {
+    setActiveTab(1);
+    setCity("Lahore");
+    setMonthlyBill(30000);
+    setMonthlyUnits(600);
+    setGridType("Hybrid");
   };
 
+  const InputField = ({ label, value, onChange, type="number", step, unit, tooltip }: any) => (
+    <div className="flex flex-col">
+      <label className="text-sm text-slate-700 font-medium mb-1.5 flex items-center justify-between">
+        <span className="flex items-center gap-1.5">
+          {label}
+          {tooltip && <span title={tooltip as string} className="cursor-help inline-flex"><Info className="w-3.5 h-3.5 text-slate-400" /></span>}
+        </span>
+      </label>
+      <div className="relative">
+        <input 
+          type={type} step={step} value={value} onChange={onChange}
+          className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all placeholder:text-slate-400 font-medium"
+        />
+        {unit && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm font-medium pointer-events-none">{unit}</span>}
+      </div>
+    </div>
+  );
+
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-5xl mx-auto pb-20">
+    <div className="bg-white text-slate-800 min-h-screen rounded-[32px] overflow-hidden shadow-sm border border-slate-200 font-sans" style={{ fontFamily: 'DM Sans, sans-serif' }}>
       
       {/* Header */}
-      <div className="bg-white [#151821] rounded-[24px] p-6 md:p-8 mb-6 shadow-sm border border-slate-200">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[16px] bg-amber-500/10 border border-amber-500/20 mb-3">
-           <Sun className="w-4 h-4 text-amber-500" />
-           <span className="text-xs font-bold text-amber-500 uppercase tracking-wider">Renewable Energy</span>
+      <div className="bg-slate-50 border-b border-slate-200 p-6 md:p-8">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 mb-3">
+               <Sun className="w-4 h-4 text-indigo-600" />
+               <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider">Pro Solar Evaluator</span>
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight" style={{ fontFamily: 'Syne, sans-serif' }}>
+              Solar Energy System Calculator
+            </h1>
+            <p className="text-slate-500 mt-2 max-w-2xl">Complete end-to-end solar array, inverter, and financial payback analysis for PK, IN, and UAE markets.</p>
+          </div>
+          <button onClick={resetCalc} className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-slate-50 text-slate-700 rounded-xl transition-all font-medium text-sm border border-slate-200 shadow-sm">
+            <RotateCcw className="w-4 h-4" /> Reset Data
+          </button>
         </div>
-        <h2 className="text-2xl md:text-3xl font-heading font-bold tabular-nums tracking-tight text-text-primary mb-2">Solar Roof Calculator</h2>
-        <p className="text-slate-500 max-w-3xl text-sm leading-relaxed">
-          Estimate the required solar system size, number of panels, and ROI based on your electricity bill and available roof space.
-        </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      {/* Main Layout */}
+      <div className="flex flex-col xl:flex-row gap-6 p-4 md:p-8 max-w-[1400px] mx-auto">
         
-        {/* Left Column: Inputs */}
-        <div className="lg:col-span-4 space-y-6">
-          <div className="bg-bg-card/80 backdrop-blur-md rounded-[24px] p-6 shadow-sm border border-slate-200">
-            <h3 className="text-lg font-bold text-text-primary mb-4 flex items-center gap-2">
-              <Calculator className="w-5 h-5 text-amber-500" /> System Parameters
-            </h3>
+        <div className="xl:w-2/3 flex flex-col">
+          {/* Tab Navigation */}
+          <div className="flex overflow-x-auto gap-2 pb-4 pt-1 border-b border-slate-200 mb-6" ref={scrollRef} style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            <style dangerouslySetInnerHTML={{ __html: `::-webkit-scrollbar { display: none; }` }} />
+            {MODULES.map((mod, idx) => {
+              const Icon = mod.icon;
+              const isActive = activeTab === mod.id;
+              return (
+                <button 
+                  key={mod.id}
+                  onClick={() => setActiveTab(mod.id)}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap transition-all border ${
+                    isActive ? "bg-indigo-50 text-indigo-700 border-indigo-200" : "bg-slate-50 text-slate-600 border-transparent hover:bg-slate-100 hover:text-slate-900"
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span className="hidden sm:inline">{mod.id}.</span> {mod.name}
+                </button>
+              )
+            })}
+          </div>
+
+          {/* Module Content */}
+          <div className="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
             
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Available Roof Area</label>
-                <div className="flex gap-2">
-                  <input 
-                    type="number"
-                    min="0"
-                    className="flex-1 px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 font-medium transition-all"
-                    value={roofArea}
-                    onChange={(e) => setRoofArea(e.target.value === "" ? "" : parseFloat(e.target.value))}
-                  />
-                  <select
-                    className="w-24 px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 font-medium transition-all"
-                    value={areaUnit}
-                    onChange={(e) => setAreaUnit(e.target.value as "sqm" | "sqft")}
-                  >
-                    <option value="sqm">sq m</option>
-                    <option value="sqft">sq ft</option>
-                  </select>
+            {activeTab === 1 && (
+              <div className="animate-in fade-in zoom-in-95 duration-300">
+                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"><Home className="text-indigo-600"/> Site & Load Assessment</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="flex flex-col">
+                    <label className="text-sm text-slate-700 font-medium mb-1.5 min-w-[200px]">Location / City</label>
+                    <select value={city} onChange={(e: any) => setCity(e.target.value)} className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                      {Object.keys(CITIES).map(c => <option key={c} value={c} className="bg-white">{c}</option>)}
+                    </select>
+                  </div>
+                  <InputField label="Avg. Monthly Electricity Bill" value={monthlyBill} onChange={(e:any) => setMonthlyBill(Number(e.target.value))} unit={currency} />
+                  <InputField label="Avg. Monthly Units Consumed" value={monthlyUnits} onChange={(e:any) => setMonthlyUnits(Number(e.target.value))} unit="kWh" />
+                  <InputField label="Peak Daily Load" value={peakLoad} onChange={(e:any) => setPeakLoad(Number(e.target.value))} unit="kW" tooltip="Maximum concurrent power draw" />
+                  <div className="flex flex-col md:col-span-2">
+                    <label className="text-sm text-slate-700 font-medium mb-1.5">Grid System Type</label>
+                    <div className="flex gap-4">
+                      {["On-Grid", "Off-Grid", "Hybrid"].map(t => (
+                        <button key={t} onClick={() => setGridType(t as GridType)} className={`flex-1 py-3 rounded-xl border font-bold text-sm transition-all ${gridType === t ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+                          {t}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
+            )}
 
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Avg. Monthly Electricity Bill ($)</label>
-                <input 
-                  type="number"
-                  min="0"
-                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 font-medium transition-all"
-                  value={monthlyBill}
-                  onChange={(e) => setMonthlyBill(e.target.value === "" ? "" : parseFloat(e.target.value))}
-                />
+            {activeTab === 2 && (
+              <div className="animate-in fade-in zoom-in-95 duration-300">
+                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"><Sun className="text-indigo-600"/> Solar Potential & Sizing</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <InputField label="Peak Sun Hours (PSH)" value={psh} onChange={(e:any) => setPsh(Number(e.target.value))} step="0.1" unit="hrs/day" />
+                  <InputField label="Available Roof Area" value={availableRoofArea} onChange={(e:any) => setAvailableRoofArea(Number(e.target.value))} unit="m²" />
+                  <InputField label="System Losses" value={sysLosses} onChange={(e:any) => setSysLosses(Number(e.target.value))} unit="%" tooltip="Wiring, soiling, mismatch etc." />
+                  <InputField label="Panel Wattage" value={panelWattage} onChange={(e:any) => setPanelWattage(Number(e.target.value))} step="5" unit="W" />
+                  <InputField label="Panel Efficiency" value={panelEfficiency} onChange={(e:any) => setPanelEfficiency(Number(e.target.value))} step="0.1" unit="%" />
+                  <InputField label="Panel Tilt Angle" value={tilt} onChange={(e:any) => setTilt(Number(e.target.value))} unit="°" />
+                </div>
+                <div className="mt-8 p-6 bg-indigo-50 border border-indigo-100 rounded-xl flex flex-col md:flex-row gap-6 justify-between items-center text-center md:text-left">
+                  <div>
+                    <p className="text-indigo-700/80 font-medium text-sm mb-1 uppercase tracking-wider">Required Array Size</p>
+                    <p className="text-3xl font-bold text-indigo-600">{actualKw.toFixed(2)} kWp</p>
+                  </div>
+                  <div className="hidden md:block w-px h-12 bg-indigo-200"></div>
+                  <div>
+                    <p className="text-indigo-700/80 font-medium text-sm mb-1 uppercase tracking-wider">Number of Panels</p>
+                    <p className="text-3xl font-bold text-indigo-600">{numPanels} <span className="text-lg">units</span></p>
+                    {numPanels > maxPanels && (
+                      <p className="text-rose-600 text-xs font-bold mt-1.5 flex items-center justify-center md:justify-start gap-1">
+                        <AlertCircle className="w-3.5 h-3.5"/> Exceeds max {maxPanels} panels
+                      </p>
+                    )}
+                  </div>
+                  <div className="hidden md:block w-px h-12 bg-indigo-200"></div>
+                  <div>
+                    <p className="text-indigo-700/80 font-medium text-sm mb-1 uppercase tracking-wider">Roof Spacing Needed</p>
+                    <p className="text-3xl font-bold text-indigo-600">{roofAreaRequired.toFixed(0)} <span className="text-lg">m²</span></p>
+                  </div>
+                </div>
+                <div className="mt-4 p-4 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between hover:border-slate-300 transition-all">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center">
+                      <Home className="w-5 h-5 text-slate-500" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-slate-900">Maximum Installable Capacity</p>
+                      <p className="text-xs text-slate-500">Based on {availableRoofArea} m² available area</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-lg font-bold text-indigo-600">{maxPanels} Panels</p>
+                    <p className="text-xs font-bold text-slate-500">{maxKw.toFixed(2)} kWp Limit</p>
+                  </div>
+                </div>
+                
+                {/* Visual Grid */}
+                <div className="mt-4 w-full bg-white border border-slate-200 rounded-xl p-4 min-h-[160px] flex flex-wrap gap-1.5 content-start justify-center relative overflow-hidden">
+                  <div className="w-full flex justify-between items-center mb-4">
+                    <p className="text-sm font-bold text-slate-700 flex items-center gap-2">
+                      <Grid className="w-4 h-4 text-indigo-500" /> Roof Layout Visualization
+                    </p>
+                    <div className="flex gap-4">
+                       <p className="text-xs font-medium text-slate-500 flex items-center gap-1.5">
+                         <span className="w-2 h-2 rounded-full bg-indigo-500"></span> Valid Panel
+                       </p>
+                       <p className="text-xs font-medium text-slate-500 flex items-center gap-1.5">
+                         <span className="w-2 h-2 rounded-full bg-rose-500"></span> Exceeds Limit
+                       </p>
+                    </div>
+                  </div>
+                  {Array.from({ length: Math.min(numPanels, 150) }).map((_, i) => (
+                    <motion.div 
+                      key={i} 
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: i * 0.02 }}
+                      className={`w-6 h-10 rounded-[3px] border relative transition-all ${
+                        i < maxPanels 
+                          ? 'bg-indigo-500/10 border-indigo-500/30' 
+                          : 'bg-rose-500/10 border-rose-500/30'
+                      } z-10 flex flex-col items-center justify-center`}
+                      title={i < maxPanels ? `Panel ${i+1}` : `Panel ${i+1} (Exceeds capacity)`}
+                    >
+                       <div className={`w-full h-px ${i < maxPanels ? 'bg-indigo-500/20' : 'bg-rose-500/20'} absolute top-1/3`}></div>
+                       <div className={`w-full h-px ${i < maxPanels ? 'bg-indigo-500/20' : 'bg-rose-500/20'} absolute top-2/3`}></div>
+                    </motion.div>
+                  ))}
+                  {numPanels > 150 && (
+                     <div className="w-full mt-4 py-2 text-center text-xs font-bold text-slate-500 bg-slate-50 rounded-lg">
+                        + {numPanels - 150} more panels not shown due to performance limits
+                     </div>
+                  )}
+                  {numPanels === 0 && (
+                    <div className="absolute inset-0 flex items-center justify-center text-sm font-medium text-slate-400">
+                       No panels required
+                    </div>
+                  )}
+                </div>
               </div>
+            )}
 
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Electricity Rate ($/kWh)</label>
-                <input 
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 font-medium transition-all"
-                  value={electricityRate}
-                  onChange={(e) => setElectricityRate(e.target.value === "" ? "" : parseFloat(e.target.value))}
-                />
+            {activeTab === 3 && (
+              <div className="animate-in fade-in zoom-in-95 duration-300">
+                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"><Battery className="text-indigo-600"/> Inverter & Battery Size</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <InputField label="Inverter Efficiency" value={inverterEfficiency} onChange={(e:any) => setInverterEfficiency(Number(e.target.value))} unit="%" />
+                  {gridType !== "On-Grid" ? (
+                    <>
+                      <InputField label="Battery Autonomy Days" value={batteryAutonomy} onChange={(e:any) => setBatteryAutonomy(Number(e.target.value))} step="0.5" unit="days" />
+                      <InputField label="Depth of Discharge (DoD)" value={dod} onChange={(e:any) => setDod(Number(e.target.value))} unit="%" />
+                      <div className="flex flex-col">
+                        <label className="text-sm text-slate-700 font-medium mb-1.5 min-w-[200px]">Battery Chemistry</label>
+                        <select value={batteryType} onChange={(e: any) => setBatteryType(e.target.value)} className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                          <option value="Lithium-Ion" className="bg-white">Lithium-Ion / LiFePO4</option>
+                          <option value="Lead-Acid" className="bg-white">Tubular / Lead-Acid</option>
+                        </select>
+                      </div>
+                      <InputField label="System DC Voltage" value={batteryVoltage} onChange={(e:any) => setBatteryVoltage(Number(e.target.value))} step="12" unit="V" />
+                    </>
+                  ) : (
+             <div className="md:col-span-2 p-6 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-4 text-slate-500">
+               <Plug className="w-6 h-6" /> Battery bank sizing is skipped for On-Grid purely net-metered systems.
+             </div>
+                  )}
+                </div>
               </div>
+            )}
 
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Peak Sun Hours / Day</label>
-                <select
-                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-amber-500 outline-none text-slate-700 font-medium transition-all"
-                  value={peakSunHours}
-                  onChange={(e) => setPeakSunHours(parseFloat(e.target.value))}
-                >
-                  <option value="3.5">Northern US / UK (~3.5 hrs)</option>
-                  <option value="4.5">Average US / Europe (~4.5 hrs)</option>
-                  <option value="5.5">Southern US / Australia (~5.5 hrs)</option>
-                  <option value="6.5">Middle East / Africa (~6.5 hrs)</option>
-                </select>
+            {activeTab === 4 && (
+              <div className="animate-in fade-in zoom-in-95 duration-300">
+                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"><DollarSign className="text-indigo-600"/> Cost Estimations</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="flex flex-col">
+                    <label className="text-sm text-slate-700 font-medium mb-1.5 min-w-[200px]">Currency</label>
+                    <select value={currency} onChange={(e: any) => setCurrency(e.target.value)} className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                      {["PKR", "INR", "AED", "USD"].map(c => <option key={c} value={c} className="bg-white">{c}</option>)}
+                    </select>
+                  </div>
+                  <InputField label="Panel Cost" value={panelCostPerW} onChange={(e:any) => setPanelCostPerW(Number(e.target.value))} unit={`${currency} / W`} />
+                  <InputField label="Inverter Cost" value={inverterCostPerKva} onChange={(e:any) => setInverterCostPerKva(Number(e.target.value))} unit={`${currency} / kVA`} />
+                  <InputField label="Structure/Mounting (per panel)" value={structureCostPerPanel} onChange={(e:any) => setStructureCostPerPanel(Number(e.target.value))} unit={currency} />
+                  {gridType !== "On-Grid" && <InputField label="Battery Cost" value={batteryCostPerKwh} onChange={(e:any) => setBatteryCostPerKwh(Number(e.target.value))} unit={`${currency} / kWh`} />}
+                  <InputField label="Wiring & Accessories" value={wiringPercent} onChange={(e:any) => setWiringPercent(Number(e.target.value))} unit="% of Panels" />
+                  <InputField label="Installation & Labour" value={labourPercent} onChange={(e:any) => setLabourPercent(Number(e.target.value))} unit="% of Hardware" />
+                  {gridType !== "Off-Grid" && <InputField label="Net Metering Fee" value={netMeteringFee} onChange={(e:any) => setNetMeteringFee(Number(e.target.value))} unit={`flat ${currency}`} />}
+                  <InputField label="Contingency" value={contingencyPercent} onChange={(e:any) => setContingencyPercent(Number(e.target.value))} unit="%" />
+                </div>
               </div>
-              
-              <div className="mt-4 p-4 rounded-[24px] bg-white border border-border-color text-xs text-slate-600">
-                Assumes standard 400W panels (size ~2 m²) and a $2.50/W installation cost.
+            )}
+
+            {activeTab === 5 && (
+              <div className="animate-in fade-in zoom-in-95 duration-300">
+                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"><Zap className="text-indigo-600"/> Production & Savings</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <InputField label="Grid Tariff / Unit Rate" value={gridTariff} onChange={(e:any) => setGridTariff(Number(e.target.value))} unit={`${currency} / kWh`} />
+                  {gridType !== "Off-Grid" && <InputField label="Net Metering Export Rate" value={exportRate} onChange={(e:any) => setExportRate(Number(e.target.value))} unit="% of Import Tariff" />}
+                  <InputField label="Annual Panel Degradation" value={degradation} onChange={(e:any) => setDegradation(Number(e.target.value))} step="0.1" unit="% / year" />
+                </div>
+                
+                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
+                     <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-2">Daily Generation</p>
+                     <p className="text-2xl font-bold text-slate-900">{dailyGen.toFixed(1)} <span className="text-sm font-medium text-slate-500">kWh</span></p>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
+                     <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-2">Monthly Gen.</p>
+                     <p className="text-2xl font-bold text-slate-900">{monthlyGen.toFixed(0)} <span className="text-sm font-medium text-slate-500">kWh</span></p>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
+                     <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-2">Year 1 Savings</p>
+                     <p className="text-2xl font-bold text-emerald-600">{formatCurrency(annualSavingsAmount).replace(/[^\d\.,]/g,'')} <span className="text-sm font-medium text-emerald-600/50">{currency}</span></p>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-200 rounded-xl p-5">
+                     <p className="text-slate-500 text-xs font-bold uppercase tracking-wider mb-2">CO₂ Offsets (Yr)</p>
+                     <p className="text-2xl font-bold text-indigo-500">{annualCo2.toFixed(0)} <span className="text-sm font-medium text-indigo-500/50">kg</span></p>
+                  </div>
+                </div>
               </div>
+            )}
+
+            {activeTab === 6 && (
+              <div className="animate-in fade-in zoom-in-95 duration-300">
+                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"><BarChart3 className="text-indigo-600"/> Financial Analysis & ROI</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <InputField label="Maintenance Cost" value={maintenancePercent} onChange={(e:any) => setMaintenancePercent(Number(e.target.value))} step="0.1" unit="% of system / yr" />
+                  <InputField label="Tariff Escalation Rate" value={tariffEscalation} onChange={(e:any) => setTariffEscalation(Number(e.target.value))} unit="% / yr" />
+                  <InputField label="Project Lifespan" value={lifespan} onChange={(e:any) => setLifespan(Number(e.target.value))} unit="years" />
+                </div>
+                
+                <h3 className="font-bold text-lg mt-10 mb-4 border-b border-slate-200 pb-2 text-slate-900">25-Year Cumulative Net Profit</h3>
+                <div className="h-64 w-full flex items-end gap-1 select-none">
+                  {cashFlows.map((cf, i) => {
+                    const maxProfit = cashFlows[cashFlows.length-1].cumProfit;
+                    const minProfit = cashFlows[0].cumProfit;
+                    const range = maxProfit - Math.min(minProfit, 0);
+                    // simple normalizing
+                    const heightPrc = Math.max(0, (cf.cumProfit + Math.abs(minProfit)) / range) * 100;
+                    const isPositive = cf.cumProfit >= 0;
+                    return (
+                      <div key={i} className="flex-1 flex flex-col justify-end h-full relative group">
+                        <div 
+                          className={`w-full rounded-t-sm transition-all duration-500 ${isPositive ? 'bg-emerald-500 hover:bg-emerald-400' : 'bg-rose-400 hover:bg-rose-300'}`} 
+                          style={{ height: `${heightPrc}%`, minHeight: '4px' }}
+                        />
+                        <div className="opacity-0 group-hover:opacity-100 absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-slate-800 text-white text-xs py-1 px-2 rounded whitespace-nowrap z-10 border border-slate-700 shadow-xl pointer-events-none transition-opacity">
+                          Yr {cf.year}: {formatCurrency(cf.cumProfit)}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+                <div className="flex justify-between text-xs text-slate-500 mt-2 font-medium">
+                  <span>Year 1</span>
+                  <span>Year 10</span>
+                  <span>Year {lifespan}</span>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 7 && (
+              <div className="animate-in fade-in zoom-in-95 duration-300">
+                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2"><Calculator className="text-indigo-600"/> Final Report Summary</h2>
+                <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm relative overflow-hidden">
+                   <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-50 rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
+                   
+                   <div className="flex justify-between items-start mb-10 relative z-10">
+                     <div>
+                       <h3 className="text-3xl font-bold font-heading mb-1 text-slate-900">{actualKw.toFixed(2)} kWp Solar {gridType}</h3>
+                       <p className="text-slate-500">{city} Base Design • {numPanels} Panels • {recInverterKva} kVA Inverter</p>
+                     </div>
+                     <span className="px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-600 font-bold text-sm border border-emerald-200">
+                        ROI: {lifetimeROI.toFixed(0)}%
+                     </span>
+                   </div>
+
+                   <div className="grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-6 relative z-10 border-b border-slate-200 pb-10">
+                     <div>
+                       <p className="text-slate-500 text-sm font-medium mb-1">Total Turnkey Cost</p>
+                       <p className="text-3xl font-bold text-slate-900">{formatCurrency(totalSystemCost)}</p>
+                     </div>
+                     <div>
+                       <p className="text-slate-500 text-sm font-medium mb-1">Payback Period</p>
+                       <p className="text-3xl font-bold text-indigo-600">{simplePayback.toFixed(1)} <span className="text-xl">Years</span></p>
+                     </div>
+                     <div>
+                       <p className="text-slate-500 text-sm font-medium mb-1">Year 1 Savings</p>
+                       <p className="text-3xl font-bold text-emerald-600">{formatCurrency(netAnnualSavingsYear1)}</p>
+                     </div>
+                     <div>
+                       <p className="text-slate-500 text-sm font-medium mb-1">Lifetime Savings</p>
+                       <p className="text-3xl font-bold text-emerald-600">{formatCurrency(lifetimeSavings)}</p>
+                     </div>
+                     {hasBattery && (
+                     <div>
+                       <p className="text-slate-500 text-sm font-medium mb-1">Battery Storage</p>
+                       <p className="text-3xl font-bold text-slate-900">{actualBattKwh.toFixed(1)} <span className="text-xl">kWh</span></p>
+                     </div>
+                     )}
+                     <div>
+                       <p className="text-slate-500 text-sm font-medium mb-1">CO₂ Offset</p>
+                       <p className="text-3xl font-bold text-indigo-500">{(annualCo2 * lifespan / 1000).toFixed(1)} <span className="text-xl">Tons</span></p>
+                     </div>
+                   </div>
+                   
+                   <div className="mt-8 flex justify-end relative z-10">
+                     <button onClick={() => console.log("Download PDF triggered")} className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-md active:scale-95">
+                        <Download className="w-5 h-5"/> Download PDF Proposal
+                     </button>
+                   </div>
+                </div>
+              </div>
+            )}
+            
+            <div className="mt-8 pt-6 border-t border-slate-200 flex justify-between items-center">
+              <button 
+                onClick={() => setActiveTab(Math.max(1, activeTab - 1))} 
+                disabled={activeTab === 1}
+                className="px-6 py-2.5 rounded-xl font-bold text-sm bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 disabled:opacity-30 disabled:pointer-events-none transition-all"
+              >
+                Previous
+              </button>
+              <div className="flex gap-1.5 hidden md:flex">
+                {[1,2,3,4,5,6,7].map(n => (
+                  <div key={n} className={`w-2 h-2 rounded-full ${n === activeTab ? 'bg-indigo-600' : n < activeTab ? 'bg-slate-300' : 'bg-slate-200'}`}></div>
+                ))}
+              </div>
+              <button 
+                onClick={() => setActiveTab(Math.min(7, activeTab + 1))}
+                disabled={activeTab === 7}
+                className="px-6 py-2.5 rounded-xl font-bold text-sm bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-30 disabled:pointer-events-none flex items-center gap-2 transition-all shadow-sm"
+              >
+                {activeTab === 6 ? "View Summary" : "Next Step"} <ChevronRight className="w-4 h-4"/>
+              </button>
             </div>
+
           </div>
         </div>
 
-        {/* Right Column: Results Dashboard */}
-        <div className="lg:col-span-8">
-          {results ? (
-            <div className="space-y-6">
-              
-              {/* Top Banner Alert */}
-              {!results.fitsOnRoof && (
-                <div className="bg-orange-50 border border-orange-200 rounded-[24px] p-4 flex items-start gap-4 shadow-sm">
-                  <AlertCircle className="w-6 h-6 text-orange-500 shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="text-orange-800 font-bold mb-1">Roof Space Limited</h4>
-                    <p className="text-orange-700/80 text-sm">
-                      To offset 100% of your bill, you need a <strong>{results.reqSystemSize.toFixed(1)} kW</strong> system. 
-                      However, your roof area only fits a <strong>{results.recSystemSize.toFixed(1)} kW</strong> system.
-                      We have adjusted the recommendation accordingly.
-                    </p>
+        {/* Right Sidebar Sticky Summary */}
+        <div className="xl:w-1/3">
+          <div className="sticky top-6 bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm">
+             <h3 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2 border-b border-slate-200 pb-4">
+               <Settings className="text-slate-400 w-5 h-5" /> Live System Snapshot
+             </h3>
+             
+             <div className="space-y-5">
+               <div className="flex justify-between items-center">
+                  <span className="text-slate-500 font-medium">System Size</span>
+                  <span className="text-slate-900 font-bold text-lg">{actualKw.toFixed(1)} kWp</span>
+               </div>
+               <div className="flex justify-between items-center">
+                  <span className="text-slate-500 font-medium">Req. Inverter</span>
+                  <span className="text-slate-900 font-bold text-lg">{recInverterKva} kVA</span>
+               </div>
+               {hasBattery && (
+               <div className="flex justify-between items-center">
+                  <span className="text-slate-500 font-medium">Battery Bank</span>
+                  <span className="text-slate-900 font-bold text-lg">{actualBattKwh.toFixed(1)} kWh</span>
+               </div>
+               )}
+               <div className="flex justify-between items-center mt-2 pt-4 border-t border-slate-200">
+                  <span className="text-slate-500 font-medium">Total Project Cost</span>
+                  <span className="text-indigo-600 font-bold text-xl">{formatCurrency(totalSystemCost)}</span>
+               </div>
+               <div className="flex justify-between items-center">
+                  <span className="text-slate-500 font-medium">Cost / Watt</span>
+                  <span className="text-slate-700 font-bold text-sm">{(totalSystemCost / (actualKw*1000)).toFixed(2)} {currency}/W</span>
+               </div>
+               <div className="flex justify-between items-center pt-2">
+                  <span className="text-slate-500 font-medium">First Year Savings</span>
+                  <span className="text-emerald-600 font-bold text-lg">{formatCurrency(netAnnualSavingsYear1)}</span>
+               </div>
+             </div>
+
+             <div className="mt-8 bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+               <div className="flex justify-between items-center">
+                  <span className="text-slate-500 font-medium text-sm">Est. Payback</span>
+                  <div className="text-right">
+                    <span className="text-indigo-600 font-bold text-2xl">{simplePayback.toFixed(1)}</span>
+                    <span className="text-slate-500 text-sm ml-1">Years</span>
                   </div>
+               </div>
+             </div>
+             
+             {/* Cost Breakdown Mini Bar */}
+             <div className="mt-6 space-y-2">
+                <div className="flex justify-between text-xs text-slate-500 font-medium px-1">
+                   <span>Hardware</span>
+                   <span>Labor/Misc</span>
                 </div>
-              )}
-
-              {/* Main Stats */}
-              <div className="flex flex-col h-full">
-                <MaterialSummary
-                  title="Estimate Results"
-                  totalLabel="Recommended System"
-                  totalValue={results.recSystemSize.toFixed(1)}
-                  totalUnit="kW"
-                >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-                    <ResultCard
-                      title="Total Panels"
-                      value={results.numPanels}
-                      unit="units"
-                      variant="primary"
-                      icon={<Home className="w-5 h-5 text-slate-900" />}
-                    />
-                    <ResultCard
-                      title="Annual Energy Gen."
-                      value={results.annualGeneration.toLocaleString('en-US', {maximumFractionDigits: 0})}
-                      unit="kWh"
-                      variant="neutral"
-                      icon={<Zap className="w-4 h-4 text-slate-700" />}
-                    />
-                    <ResultCard
-                      title="Annual Savings"
-                      value={`$${results.annualSavings.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`}
-                      unit=""
-                      variant="neutral"
-                      icon={<DollarSign className="w-4 h-4 text-slate-700" />}
-                    />
-                  </div>
-                </MaterialSummary>
-              </div>
-
-              {/* Financial Summary */}
-              <div className="bg-gradient-to-br from-slate-900 to-[#111111] [#111111] [#0a0a0a] rounded-[24px] p-8 text-slate-900 relative overflow-hidden shadow-xl border border-slate-100 group">
-                <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-amber-500/20 blur-[80px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none group-hover:scale-110 transition-transform duration-1000"></div>
-                <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-emerald-500/20 blur-[60px] rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
-                
-                <h3 className="text-xl font-bold font-heading mb-6 relative z-10 flex items-center gap-2">
-                  <Battery className="w-5 h-5 text-amber-400" /> ROI & Financials
-                </h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
-                  <div>
-                    <p className="text-slate-400 font-medium mb-1">Estimated System Cost</p>
-                    <p className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight">${results.systemCost.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
-                    <p className="text-xs text-slate-500 mt-2">Gross cost before federal/local tax incentives</p>
-                  </div>
-                  
-                  <div>
-                    <p className="text-slate-400 font-medium mb-1">Estimated Payback Period</p>
-                    <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                      <p className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight text-amber-400">{results.paybackPeriod.toFixed(1)}</p>
-                      <span className="text-lg font-bold text-amber-400/80">Years</span>
-                    </div>
-                    <p className="text-xs text-slate-500 mt-2">Time to recover the initial investment</p>
-                  </div>
-
-                  <div>
-                    <p className="text-slate-400 font-medium mb-1">Lifetime ROI (25 yrs)</p>
-                    <div className="flex items-baseline gap-2 flex-wrap relative z-10">
-                      <p className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight text-emerald-400">{results.roi.toFixed(0)}</p>
-                      <span className="text-lg font-bold text-emerald-400/80">%</span>
-                    </div>
-                    <p className="text-xs text-slate-500 mt-2">Total return on investment over 25 years</p>
-                  </div>
+                <div className="w-full h-2 rounded-full overflow-hidden flex bg-slate-200">
+                  <div className="bg-indigo-600 h-full" style={{ width: `${(hardwareTotal/totalSystemCost)*100}%` }}></div>
                 </div>
-              </div>
-
-            </div>
-          ) : (
-            <div className="bg-bg-card/80 rounded-[24px] p-12 shadow-sm border border-slate-200 h-full flex flex-col items-center justify-center text-center text-slate-500">
-               <Sun className="w-16 h-16 text-slate-300 mb-4" />
-               <p className="font-semibold text-lg">Awaiting Input</p>
-               <p className="text-sm max-w-sm mt-2">Please enter your roof area and electricity bill details to generate a solar estimate.</p>
-            </div>
-          )}
+             </div>
+          </div>
         </div>
-        
-        <CalculationHistory
-          calculatorId="solar_roof_calc_v1"
-          currentInputs={{ roofArea, areaUnit, monthlyBill, electricityRate, peakSunHours }}
-          onRestore={(ins) => {
-            if (ins.roofArea) setRoofArea(ins.roofArea);
-            if (ins.areaUnit) setAreaUnit(ins.areaUnit);
-            if (ins.monthlyBill) setMonthlyBill(ins.monthlyBill);
-            if (ins.electricityRate) setElectricityRate(ins.electricityRate);
-            if (ins.peakSunHours) setPeakSunHours(ins.peakSunHours);
-          }}
-        />
-        
+
       </div>
     </div>
   );

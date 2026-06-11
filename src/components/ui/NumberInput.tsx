@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 import { useSettings } from '../../context/SettingsContext';
 import { getImperialConversion } from '../../utils/autoConverter';
+import { motion } from 'motion/react';
 
 export interface NumberInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {
   label?: string;
@@ -12,10 +13,11 @@ export interface NumberInputProps extends Omit<React.InputHTMLAttributes<HTMLInp
   error?: string;
   containerClassName?: string;
   step?: string | number;
+  delay?: number;
 }
 
 export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
-  ({ className, containerClassName = '', label, unit, value, onChange, requirePositive = false, error, id, onBlur, onFocus, step = "any", ...props }, ref) => {
+  ({ className, containerClassName = '', label, unit, value, onChange, requirePositive = false, error, id, onBlur, onFocus, step = "any", delay = 0, ...props }, ref) => {
     const { settings } = useSettings();
     const isImperial = settings.measurement === 'FPS';
     const conversion = getImperialConversion(unit);
@@ -132,7 +134,12 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
     }
 
     return (
-      <div className={`w-full ${containerClassName}`}>
+      <motion.div 
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut", delay }}
+        className={`w-full ${containerClassName}`}
+      >
         {displayLabel && (
           <label htmlFor={inputId} className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 ml-1">
             {displayLabel}
@@ -193,7 +200,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
             {displayError}
           </span>
         )}
-      </div>
+      </motion.div>
     );
   }
 );

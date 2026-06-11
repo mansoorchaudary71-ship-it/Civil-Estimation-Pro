@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import {  motion, AnimatePresence } from "motion/react";
-import {  ModuleId } from "../App";
+import {  ModuleId, ALL_TOOLS } from "../App";
 import {  useAuth } from "../contexts/AuthContext";
 import { 
   Calculator,
@@ -1003,6 +1003,34 @@ export const getCategoryTheme = (category: string, id: string) => {
   }
 };
 
+const ToolsSkeleton = () => (
+  <div className="flex flex-col gap-8 w-full animate-pulse">
+    {[1, 2].map((group) => (
+      <div key={`skeleton-group-${group}`} className="flex flex-col gap-5">
+        <div className="h-8 w-48 bg-slate-200 dark:bg-slate-700/50 rounded-lg"></div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+          {[1, 2, 3, 4, 5].map((card) => (
+            <div key={`skeleton-card-${card}`} className="bg-white dark:bg-[#1e1e1e] rounded-[24px] p-6 h-[180px] border border-slate-100 dark:border-slate-800 flex flex-col gap-4 shadow-sm">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 shrink-0"></div>
+                <div className="flex flex-col gap-2 flex-1">
+                  <div className="w-3/4 h-3.5 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
+                  <div className="w-1/2 h-2.5 bg-slate-50 dark:bg-slate-800/60 rounded-full"></div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 mt-2">
+                <div className="w-full h-2.5 bg-slate-50 dark:bg-slate-800/60 rounded-full"></div>
+                <div className="w-5/6 h-2.5 bg-slate-50 dark:bg-slate-800/60 rounded-full"></div>
+                <div className="w-4/6 h-2.5 bg-slate-50 dark:bg-slate-800/60 rounded-full"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+);
+
 export default function Dashboard({
   onSelectModule,
   onOpenSidebar,
@@ -1020,6 +1048,14 @@ export default function Dashboard({
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [isAiChatOpen, setIsAiChatOpen] = useState(false);
   const [aiMessage, setAiMessage] = useState("");
+  const [isComputing, setIsComputing] = useState(true);
+
+  useEffect(() => {
+    setIsComputing(true);
+    const t = setTimeout(() => setIsComputing(false), 350);
+    return () => clearTimeout(t);
+  }, [searchTerm, activeCategory, filterMode]);
+
   const [aiMessages, setAiMessages] = useState<
     { role: string; content: string }[]
   >([
@@ -1232,10 +1268,11 @@ export default function Dashboard({
                       searchTerm={searchTerm}
                       setSearchTerm={setSearchTerm}
                       totalFilteredCount={totalFilteredCount}
-                      allTools={ALL_MODULES.map(m => ({ id: m.id, name: m.title, category: m.category }))}
+                      allTools={ALL_TOOLS.map(m => ({ id: m.id, name: m.title, category: m.category }))}
+                      onSelectModule={handleSelect}
                     />
                   <div className="flex flex-col gap-8 w-full mt-2">
-                     {groupsToDisplay.map((groupName) => {
+                     {isComputing ? <ToolsSkeleton /> : groupsToDisplay.map((groupName) => {
                        const toolsInGroup = groupedModules[groupName];
                        if (!toolsInGroup || toolsInGroup.length === 0) return null;
                        return (
@@ -1368,10 +1405,11 @@ export default function Dashboard({
                         searchTerm={searchTerm}
                         setSearchTerm={setSearchTerm}
                         totalFilteredCount={totalFilteredCount}
-                        allTools={ALL_MODULES.map(m => ({ id: m.id, name: m.title, category: m.category }))}
+                        allTools={ALL_TOOLS.map(m => ({ id: m.id, name: m.title, category: m.category }))}
+                        onSelectModule={handleSelect}
                       />
                       <div className="flex flex-col gap-8 w-full mt-2">
-                         {groupsToDisplay.map((groupName) => {
+                         {isComputing ? <ToolsSkeleton /> : groupsToDisplay.map((groupName) => {
                            const toolsInGroup = groupedModules[groupName];
                            if (!toolsInGroup || toolsInGroup.length === 0) return null;
                            return (

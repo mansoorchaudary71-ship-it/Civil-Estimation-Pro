@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import {
   X,
@@ -10,6 +10,15 @@ import {
   Ruler,
   Palette,
   Camera,
+  LineChart,
+  Upload,
+  Download,
+  Trash2,
+  AlertCircle,
+  CheckCircle,
+  XCircle,
+  Wand2,
+  Clock,
 } from "lucide-react";
 import {
   useSettings,
@@ -17,7 +26,23 @@ import {
   MeasurementSystem,
   Theme,
 } from "../../context/SettingsContext";
-type Tab = "account" | "measurements" | "appearance";
+import { useMarketRates, MarketRates } from "../../context/MarketRatesContext";
+import { toast } from "react-hot-toast";
+
+const RATE_LABELS: Record<keyof MarketRates, string> = {
+  cement: "Cement (per bag)",
+  steel: "Steel (per kg)",
+  bricks: "Bricks (per piece)",
+  sand: "Sand (per cft)",
+  crush: "Crush (per cft)",
+  tiles: "Tiles (per box)",
+  paint: "Paint (per liter)",
+  laborGrey: "Labor Grey (per sq.ft)",
+  laborFinish: "Labor Finish (per sq.ft)",
+  overheadMarkup: "Overhead Markup (%)",
+};
+
+type Tab = "account" | "measurements" | "appearance" | "rates";
 export default function SettingsModal({
   isOpen,
   onClose,
@@ -26,20 +51,322 @@ export default function SettingsModal({
   onClose: () => void;
 }) {
   const { settings, updateSettings } = useSettings();
+  const { companyRates, setCompanyRate } = useMarketRates();
   const [activeTab, setActiveTab] = useState<Tab>("account");
   /* We add this dummy state for account details to provide the visual ly complete mockup */ const [
     name,
     setName,
   ] = useState("John Doe");
   const [email, setEmail] = useState("john.doe@example.com");
+
+  const [dragActive, setDragActive] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  interface ImportRecord {
+    id: string;
+    timestamp: string;
+    fileName: string;
+    status: 'success' | 'failed';
+    message: string;
+    count?: number;
+  }
+
+  const [importHistory, setImportHistory] = useState<ImportRecord[]>(() => {
+    try {
+      const saved = localStorage.getItem("company_rates_import_history");
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  const addHistory = (record: Omit<ImportRecord, "id" | "timestamp">) => {
+    const newRecord: ImportRecord = {
+      ...record,
+      id: Math.random().toString(36).substr(2, 9),
+      timestamp: new Date().toISOString()
+    };
+    setImportHistory(prev => {
+      const updated = [newRecord, ...prev].slice(0, 5); // Keep last 5
+      localStorage.setItem("company_rates_import_history", JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  const [mappingStep, setMappingStep] = useState<{
+    headers: string[];
+    rows: string[][];
+    fileName: string;
+  } | null>(null);
+  const [columnMap, setColumnMap] = useState<{ material: string; rate: string }>({ material: "", rate: "" });
+
+  const [savedMapping, setSavedMapping] = useState<{ material: string; rate: string } | null>(() => {
+    try {
+      const saved = localStorage.getItem("company_rates_mapping_preset");
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const saveMapping = () => {
+    if (columnMap.material && columnMap.rate) {
+      localStorage.setItem("company_rates_mapping_preset", JSON.stringify(columnMap));
+      setSavedMapping(columnMap);
+      toast.success("Mapping preset saved successfully!");
+    } else {
+      toast.error("Please select both columns before saving.");
+    }
+  };
+
+  const isMaterialValid = useMemo(() => {
+    if (!mappingStep || !columnMap.material) return false;
+    const matIdx = mappingStep.headers.indexOf(columnMap.material);
+    if (matIdx === -1) return false;
+    // Check if at least one row has a non-empty string in this column
+    return mappingStep.rows.some(row => row[matIdx]?.trim().length > 0);
+  }, [mappingStep, columnMap.material]);
+
+  const isRateValid = useMemo(() => {
+    if (!mappingStep || !columnMap.rate) return false;
+    const rateIdx = mappingStep.headers.indexOf(columnMap.rate);
+    if (rateIdx === -1) return false;
+    // Check if at least one row has a parseable number in this column
+    return mappingStep.rows.some(row => !isNaN(parseFloat(row[rateIdx]?.replace(/[^0-9.-]/g, ""))));
+  }, [mappingStep, columnMap.rate]);
+
+  const keyMapping: Record<string, keyof MarketRates> = {
+    cement: "cement",
+    steel: "steel",
+    bricks: "bricks",
+    brick: "bricks",
+    sand: "sand",
+    crush: "crush",
+    gravel: "crush",
+    tiles: "tiles",
+    tile: "tiles",
+    paint: "paint",
+    laborgrey: "laborGrey",
+    "labor grey": "laborGrey",
+    labor_grey: "laborGrey",
+    laborfinish: "laborFinish",
+    "labor finish": "laborFinish",
+    labor_finish: "laborFinish",
+    overhead: "overheadMarkup",
+    overheadmarkup: "overheadMarkup",
+    "overhead markup": "overheadMarkup",
+    overhead_markup: "overheadMarkup",
+  };
+
+  const normalizeKey = (key: string): keyof MarketRates | null => {
+    const clean = key.toLowerCase()
+      .replace(/[\(\[\{\)\]\}]/g, '')
+      .replace(/[^a-z0-9\s_]/g, '')
+      .trim();
+    if (keyMapping[clean]) return keyMapping[clean];
+    for (const [k, v] of Object.entries(keyMapping)) {
+      if (clean.includes(k) || k.includes(clean)) {
+        return v;
+      }
+    }
+    return null;
+  };
+
+  const handleCSVUpload = (text: string, fileName: string) => {
+    try {
+      const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+      if (lines.length < 2) {
+        toast.error("CSV needs at least a header row and one data row.");
+        addHistory({ fileName, status: "failed", message: "Needs at least a header row and one data row." });
+        return;
+      }
+
+      let rows = lines.map(line => line.split(",").map(c => c.trim()));
+
+      // Auto-detect if user transposed the CSV (materials as columns)
+      if (rows.length === 2 && rows[0].length > 2 && isNaN(parseFloat(rows[0][1]))) {
+        const transposed = [];
+        for (let i = 0; i < rows[0].length; i++) {
+          transposed.push([rows[0][i], rows[1][i]]);
+        }
+        rows = [["Material Name", "Rate"], ...transposed];
+      }
+
+      const headers = rows[0].map((h, i) => h || `Column ${i + 1}`);
+      const dataRows = rows.slice(1);
+
+      setMappingStep({ headers, rows: dataRows, fileName });
+
+      // Auto-guess headers
+      let m = headers.find(h => h.toLowerCase().includes("material") || h.toLowerCase().includes("item") || h.toLowerCase().includes("name"));
+      let r = headers.find(h => h.toLowerCase().includes("rate") || h.toLowerCase().includes("price") || h.toLowerCase().includes("cost"));
+
+      let appliedSaved = false;
+      // We need to access savedMapping at the top level or via state, wait, savedMapping is a state variable thus accessible here.
+      const savedStr = localStorage.getItem("company_rates_mapping_preset");
+      if (savedStr) {
+        try {
+          const parsed = JSON.parse(savedStr);
+          if (headers.includes(parsed.material) && headers.includes(parsed.rate)) {
+            m = parsed.material;
+            r = parsed.rate;
+            appliedSaved = true;
+          }
+        } catch { } // ignore
+      }
+
+      setColumnMap({
+        material: m || headers[0] || "",
+        rate: r || headers[1] || ""
+      });
+
+      if (appliedSaved) {
+        toast.success("Applied saved mapping preset.");
+      }
+
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to parse CSV file.");
+      addHistory({ fileName, status: "failed", message: "Failed to parse CSV file." });
+    }
+  };
+
+  const handleAutoMatch = () => {
+    if (!mappingStep) return;
+    const m = mappingStep.headers.find(h => h.toLowerCase().includes("material") || h.toLowerCase().includes("item") || h.toLowerCase().includes("name"));
+    const r = mappingStep.headers.find(h => h.toLowerCase().includes("rate") || h.toLowerCase().includes("price") || h.toLowerCase().includes("cost"));
+
+    setColumnMap({
+      material: m || mappingStep.headers[0] || "",
+      rate: r || mappingStep.headers[1] || ""
+    });
+    toast.success("Headers auto-matched!");
+  };
+
+  const confirmMapping = () => {
+    if (!mappingStep) return;
+    const { headers, rows } = mappingStep;
+    const matIdx = headers.indexOf(columnMap.material);
+    const rateIdx = headers.indexOf(columnMap.rate);
+
+    if (matIdx === -1 || rateIdx === -1) {
+      toast.error("Please select columns for both Material Name and Rate.");
+      return;
+    }
+
+    let importCount = 0;
+    rows.forEach(row => {
+      const matName = row[matIdx];
+      const rateValStr = row[rateIdx];
+      const rateVal = parseFloat(rateValStr?.replace(/[^0-9.-]/g, ""));
+
+      if (matName && !isNaN(rateVal)) {
+        const key = normalizeKey(matName);
+        if (key) {
+          setCompanyRate(key, rateVal);
+          importCount++;
+        }
+      }
+    });
+
+    if (importCount > 0) {
+      toast.success(`Successfully imported ${importCount} rates from CSV!`);
+      addHistory({ fileName: mappingStep.fileName, status: "success", count: importCount, message: `Imported ${importCount} rates.` });
+      setMappingStep(null);
+    } else {
+      toast.error("No valid rates could be imported. Check your column mapping.");
+      addHistory({ fileName: mappingStep.fileName, status: "failed", message: "No valid rates could be imported." });
+    }
+  };
+
+  const handleDrag = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      const file = e.dataTransfer.files[0];
+      if (file.name.endsWith(".csv") || file.type === "text/csv") {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          if (event.target?.result) {
+            handleCSVUpload(event.target.result as string, file.name);
+          }
+        };
+        reader.readAsText(file);
+      } else {
+        toast.error("Please upload a .csv file.");
+      }
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target?.result) {
+          handleCSVUpload(event.target.result as string, file.name);
+        }
+      };
+      reader.readAsText(file);
+    }
+    // Reset file input so the same file can be selected again
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const downloadTemplate = () => {
+    const csvContent = "data:text/csv;charset=utf-8," 
+      + "Material,Rate\n"
+      + "Cement (per bag),1500\n"
+      + "Steel (per kg),290\n"
+      + "Bricks (per piece),20\n"
+      + "Sand (per cft),95\n"
+      + "Crush (per cft),260\n"
+      + "Tiles (per box),1250\n"
+      + "Paint (per liter),320\n"
+      + "Labor Grey (per sq.ft),520\n"
+      + "Labor Finish (per sq.ft),620\n"
+      + "Overhead Markup (%),15\n";
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "company_material_rates_template.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleClearCompanyRates = () => {
+    if (window.confirm("Are you sure you want to completely clear all custom Company Material Rates? This will revert back to Market Rates.")) {
+      Object.keys(RATE_LABELS).forEach((key) => {
+        setCompanyRate(key as keyof MarketRates, null);
+      });
+      toast.success("Successfully cleared all Company rates.");
+    }
+  };
+
   if (!isOpen) return null;
   const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
     { id: "account", label: "Account Details", icon: User },
     { id: "measurements", label: "Measurement Units", icon: Ruler },
     { id: "appearance", label: "Appearance", icon: Palette },
+    { id: "rates", label: "Company Rates", icon: LineChart },
   ];
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 backdrop-blur-md p-4 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 transition-opacity">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-50/50 backdrop-blur-sm p-4">
       <div
         className="bg-white/80 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 backdrop-blur-2xl border border-white/50 rounded-[2.5rem] w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] sm:h-[650px] relative"
         onClick={(e) => e.stopPropagation()}
@@ -266,45 +593,209 @@ export default function SettingsModal({
                       })}
                     </div>
                   </div>
-                  <div className="h-px w-full bg-slate-200 my-8" />
-                  {/* Additional visually pleasing mock toggles for appearance tab */}
-                  <div className="space-y-6">
-                    <h4 className="text-base font-bold text-slate-800 mb-4">
-                      Display Options
-                    </h4>
-                    <div className="flex items-center justify-between px-4 py-3 bg-bg-card rounded-[24px] border border-border-color shadow-sm">
-                      <div className="flex flex-col">
-                        <span className="font-bold text-text-primary">
-                          Compact Mode
-                        </span>
-                        <span className="text-sm text-slate-700">
-                          Reduce padding to fit more data on screen
-                        </span>
-                      </div>
-                      <label className="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" className="sr-only peer" />
-                        <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-indigo-600"></div>
-                      </label>
+                </div>
+              )}
+              {activeTab === "rates" && (
+                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                      <h4 className="text-base font-bold text-slate-800">Company Material Rates</h4>
+                      <p className="text-sm text-slate-600">Set custom rates that will override market defaults across all calculators.</p>
                     </div>
-                    <div className="flex items-center justify-between px-4 py-3 bg-bg-card rounded-[24px] border border-border-color shadow-sm">
-                      <div className="flex flex-col">
-                        <span className="font-bold text-text-primary">
-                          Animations
-                        </span>
-                        <span className="text-sm text-slate-700">
-                          Enable UI transitions and micro-animations
-                        </span>
-                      </div>
-                      <label className="relative inline-flex items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="sr-only peer"
-                          defaultChecked
-                        />
-                        <div className="w-14 h-7 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-indigo-600"></div>
-                      </label>
-                    </div>
+                    <button
+                      onClick={handleClearCompanyRates}
+                      className="flex items-center gap-1.5 px-3 py-1.5 border border-red-200 text-red-600 hover:bg-red-50 text-xs font-semibold rounded-xl transition-all self-start sm:self-center"
+                    >
+                      <Trash2 className="w-4 h-4" /> Clear Rates
+                    </button>
                   </div>
+
+                  {/* CSV Bulk Import Dropzone or Column Mapping UI */}
+                  {mappingStep ? (
+                    <div className="bg-white border text-left border-slate-200 rounded-[24px] p-6 shadow-sm">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-2">
+                          <AlertCircle className="w-5 h-5 text-indigo-500" />
+                          <h5 className="font-bold text-slate-800">Map Columns</h5>
+                        </div>
+                        <button
+                          onClick={handleAutoMatch}
+                          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-xl transition-colors"
+                        >
+                          <Wand2 className="w-3.5 h-3.5" />
+                          Auto-match
+                        </button>
+                      </div>
+                      <p className="text-sm text-slate-600 mb-4">
+                        Please match your CSV columns to the required fields.
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                        <div>
+                          <div className="flex items-center justify-between mb-1">
+                            <label className="block text-xs font-bold text-slate-500">Material Name Column</label>
+                            {columnMap.material && (
+                              isMaterialValid ? 
+                                <span className="flex items-center gap-1 text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded-md"><CheckCircle className="w-3 h-3" /> Valid format</span> : 
+                                <span className="flex items-center gap-1 text-[10px] text-red-600 font-semibold bg-red-50 px-1.5 py-0.5 rounded-md"><XCircle className="w-3 h-3" /> Invalid</span>
+                            )}
+                          </div>
+                          <select 
+                            value={columnMap.material} 
+                            onChange={e => setColumnMap(p => ({ ...p, material: e.target.value }))}
+                            className={`w-full bg-slate-50 border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 transition-colors ${columnMap.material ? (isMaterialValid ? 'border-emerald-200 bg-emerald-50/30' : 'border-red-200 bg-red-50/30') : 'border-slate-200 focus:border-indigo-500'}`}
+                          >
+                            <option value="">-- Select --</option>
+                            {mappingStep.headers.map((h, i) => <option key={i} value={h}>{h}</option>)}
+                          </select>
+                        </div>
+                        <div>
+                          <div className="flex items-center justify-between mb-1">
+                            <label className="block text-xs font-bold text-slate-500">Rate Column</label>
+                            {columnMap.rate && (
+                              isRateValid ? 
+                                <span className="flex items-center gap-1 text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-1.5 py-0.5 rounded-md"><CheckCircle className="w-3 h-3" /> Valid numbers found</span> : 
+                                <span className="flex items-center gap-1 text-[10px] text-red-600 font-semibold bg-red-50 px-1.5 py-0.5 rounded-md"><XCircle className="w-3 h-3" /> No valid numbers</span>
+                            )}
+                          </div>
+                          <select 
+                            value={columnMap.rate} 
+                            onChange={e => setColumnMap(p => ({ ...p, rate: e.target.value }))}
+                            className={`w-full bg-slate-50 border rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 transition-colors ${columnMap.rate ? (isRateValid ? 'border-emerald-200 bg-emerald-50/30' : 'border-red-200 bg-red-50/30') : 'border-slate-200 focus:border-indigo-500'}`}
+                          >
+                            <option value="">-- Select --</option>
+                            {mappingStep.headers.map((h, i) => <option key={i} value={h}>{h}</option>)}
+                          </select>
+                        </div>
+                      </div>
+                      <div className="flex gap-3 justify-end mt-4">
+                        <button 
+                          onClick={() => setMappingStep(null)}
+                          className="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 rounded-xl transition-colors min-w-[80px]"
+                        >
+                          Cancel
+                        </button>
+                        <button 
+                          onClick={saveMapping}
+                          className="px-4 py-2 bg-slate-100 text-slate-700 text-sm font-semibold rounded-xl hover:bg-slate-200 transition-colors border border-slate-200"
+                        >
+                          Save Preset
+                        </button>
+                        <button 
+                          onClick={confirmMapping}
+                          disabled={!isMaterialValid || !isRateValid}
+                          className={`px-4 py-2 text-white text-sm font-semibold rounded-xl transition-colors ${!isMaterialValid || !isRateValid ? 'bg-slate-300 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'}`}
+                        >
+                          Confirm & Import
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div 
+                      onDragEnter={handleDrag}
+                      onDragOver={handleDrag}
+                      onDragLeave={handleDrag}
+                      onDrop={handleDrop}
+                      className={`relative border-2 border-dashed rounded-[24px] p-6 flex flex-col items-center justify-center text-center transition-all duration-300 ${dragActive ? "border-indigo-500 bg-indigo-50/80 scale-[1.02]" : "border-slate-200 bg-slate-50/50 hover:bg-slate-50"}`}
+                    >
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept=".csv"
+                        onChange={handleFileChange}
+                        className="hidden"
+                      />
+                      <div className={`w-14 h-14 rounded-full flex items-center justify-center shadow-sm mb-4 transition-all duration-300 ${dragActive ? "bg-indigo-600 shadow-indigo-200 animate-bounce" : "bg-white border border-slate-100"}`}>
+                        <Upload className={`w-6 h-6 transition-colors duration-300 ${dragActive ? "text-white" : "text-indigo-500"}`} />
+                      </div>
+                      
+                      {dragActive ? (
+                        <h4 className="text-lg font-bold text-indigo-700 mb-2 animate-pulse">
+                          Drop CSV file here...
+                        </h4>
+                      ) : (
+                        <>
+                          <h4 className="text-base font-bold text-slate-800 mb-1">
+                            Upload your CSV
+                          </h4>
+                          <p className="text-sm font-semibold text-slate-800 mb-1">
+                            Drag & drop your file here, or{" "}
+                            <button 
+                              onClick={() => fileInputRef.current?.click()}
+                              className="text-indigo-600 hover:text-indigo-700 hover:underline font-bold transition-colors select-none"
+                            >
+                              browse
+                            </button>
+                          </p>
+                        </>
+                      )}
+                      
+                      <p className={`text-xs text-slate-500 max-w-[280px] mt-2 mb-4 transition-opacity duration-300 ${dragActive ? "opacity-0" : "opacity-100"}`}>
+                        Supports comma-separated rows or columns with material names.
+                      </p>
+                      <button
+                        onClick={downloadTemplate}
+                        className={`flex items-center gap-1.5 text-xs text-slate-600 hover:text-slate-800 bg-white border border-slate-200 px-3 py-1.5 rounded-xl shadow-sm hover:shadow transition-all font-semibold select-none ${dragActive ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+                      >
+                        <Download className="w-3.5 h-3.5 text-slate-500" /> Download Template CSV
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Manual forms */}
+                  <div className="grid gap-4 max-h-[250px] overflow-y-auto pr-2">
+                    {Object.keys(RATE_LABELS).map((key) => {
+                      const k = key as keyof MarketRates;
+                      return (
+                        <div key={k} className="flex items-center justify-between gap-4 p-3 bg-slate-50/80 hover:bg-slate-50 rounded-xl transition-colors">
+                          <label className="text-sm font-medium text-slate-700">{RATE_LABELS[k]}</label>
+                          <input
+                            type="number"
+                            value={companyRates[k] ?? ""}
+                            placeholder="Default"
+                            onChange={(e) => setCompanyRate(k, parseFloat(e.target.value))}
+                            className="w-32 bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Recent Imports History */}
+                  {importHistory.length > 0 && (
+                    <div className="bg-white border border-slate-200 rounded-[24px] p-6 shadow-sm border-t mt-4">
+                      <div className="flex justify-between items-center mb-4">
+                        <h5 className="font-bold text-slate-800 flex items-center gap-2">
+                          <Clock className="w-5 h-5 text-indigo-500" /> Recent Imports
+                        </h5>
+                        <button
+                          onClick={() => {
+                            setImportHistory([]);
+                            localStorage.removeItem("company_rates_import_history");
+                          }}
+                          className="text-xs font-semibold text-slate-500 hover:text-slate-800 transition-colors"
+                        >
+                          Clear History
+                        </button>
+                      </div>
+                      <div className="space-y-3">
+                        {importHistory.map(record => (
+                          <div key={record.id} className={`p-3 rounded-xl border flex items-center justify-between gap-4 ${record.status === 'success' ? 'bg-emerald-50 border-emerald-100' : 'bg-red-50 border-red-100'}`}>
+                            <div className="flex flex-col">
+                              <span className={`text-sm font-bold ${record.status === 'success' ? 'text-emerald-800' : 'text-red-800'}`}>
+                                {record.fileName} <span className="text-xs font-medium opacity-70 ml-2">{new Date(record.timestamp).toLocaleTimeString()}</span>
+                              </span>
+                              <span className={`text-xs ${record.status === 'success' ? 'text-emerald-600' : 'text-red-600'}`}>
+                                {record.message}
+                              </span>
+                            </div>
+                            <div className="shrink-0">
+                              {record.status === 'success' ? <CheckCircle className="w-5 h-5 text-emerald-500" /> : <XCircle className="w-5 h-5 text-red-500" />}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -319,7 +810,6 @@ export default function SettingsModal({
           </div>
         </div>
       </div>
-    
-      </div>
+    </div>
   );
 }

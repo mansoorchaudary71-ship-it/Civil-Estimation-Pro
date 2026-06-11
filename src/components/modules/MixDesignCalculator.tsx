@@ -87,7 +87,41 @@ export default function MixDesignCalculator() {
   const [admixWaterReducer, setAdmixWaterReducer] = useState<string>("None"); // None, Plasticizer, Superplasticizer
   const [admixType, setAdmixType] = useState<string>("Normal"); // Normal, Retarder, Accelerator
 
-  const reportRef = useRef<HTMLDivElement>(null);
+  // Comparisons
+  const [comparisons, setComparisons] = useState<{
+    id: string;
+    grade: string;
+    exposure: string;
+    wc: string;
+    cement: number;
+    water: number;
+    sand: number;
+    ca: number;
+    flyAsh: number;
+    ggbs: number;
+  }[]>([]);
+
+  const handleAddToComparison = () => {
+    const newScenario = {
+      id: Date.now().toString(),
+      grade: `M${fck}`,
+      exposure: exposure,
+      wc: finalWc.toFixed(2),
+      cement: weightCement,
+      water: Math.round(actualWaterContent),
+      sand: weightSand,
+      ca: weightCA,
+      flyAsh: weightFlyAsh,
+      ggbs: weightGgbs
+    };
+    if (comparisons.length < 5) {
+      setComparisons([...comparisons, newScenario]);
+    }
+  };
+
+  const removeComparison = (id: string) => {
+    setComparisons(comparisons.filter(c => c.id !== id));
+  };
 
   // ---- Calculations ----
   let stdDev = 5;
@@ -196,6 +230,13 @@ export default function MixDesignCalculator() {
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
+          <button 
+            onClick={handleAddToComparison}
+            disabled={comparisons.length >= 5}
+            className="text-xs font-bold px-4 py-2.5 bg-indigo-50 text-indigo-700 rounded-[24px] hover:bg-indigo-100 transition-colors flex items-center gap-2 border border-indigo-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <Layers className="w-4 h-4" /> Add to Comparison
+          </button>
           <button onClick={handlePrint} className="text-xs font-bold px-4 py-2.5 bg-slate-100 text-slate-700 rounded-[24px] hover:bg-slate-200 transition-colors flex items-center gap-2 border border-slate-200">
             <Printer className="w-4 h-4" /> Print Report
           </button>
@@ -437,6 +478,70 @@ export default function MixDesignCalculator() {
                </div>
              </div>
           </div>
+
+          {comparisons.length > 0 && (
+            <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm overflow-hidden flex flex-col no-print">
+              <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-indigo-50/50">
+                <h3 className="text-sm font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2">
+                  <Layers className="w-4 h-4 text-indigo-500" /> Scenario Comparison
+                </h3>
+              </div>
+              <div className="overflow-x-auto w-full p-4">
+                <table className="w-full text-left text-sm whitespace-nowrap border-collapse">
+                   <thead>
+                     <tr>
+                       <th className="p-3 font-bold text-slate-600 border-b border-slate-200">Parameter</th>
+                       {comparisons.map((c, i) => (
+                         <th key={c.id} className="p-3 font-bold text-slate-800 text-center border-b border-slate-200 bg-slate-50 relative group">
+                           Scenario {i + 1}
+                           <button 
+                             onClick={() => removeComparison(c.id)}
+                             className="absolute -top-1 -right-1 opacity-0 group-hover:opacity-100 text-slate-400 hover:text-rose-500 transition-opacity bg-white rounded-full p-1 shadow-sm border border-slate-200"
+                           >
+                             <XCircle className="w-3 h-3" />
+                           </button>
+                         </th>
+                       ))}
+                     </tr>
+                   </thead>
+                   <tbody className="divide-y divide-slate-100">
+                     <tr>
+                       <td className="p-3 font-medium text-slate-600">Grade</td>
+                       {comparisons.map(c => <td key={c.id} className="p-3 text-center font-bold text-indigo-600 bg-slate-50/50">{c.grade}</td>)}
+                     </tr>
+                     <tr>
+                       <td className="p-3 font-medium text-slate-600">Exposure</td>
+                       {comparisons.map(c => <td key={c.id} className="p-3 text-center text-slate-700">{c.exposure}</td>)}
+                     </tr>
+                     <tr>
+                       <td className="p-3 font-medium text-slate-600">Water/Cement Ratio</td>
+                       {comparisons.map(c => <td key={c.id} className="p-3 text-center text-slate-700 font-semibold">{c.wc}</td>)}
+                     </tr>
+                     <tr>
+                       <td className="p-3 font-medium text-slate-600">Cement (kg/m³)</td>
+                       {comparisons.map(c => <td key={c.id} className="p-3 text-center text-slate-700 tabular-nums">{c.cement}</td>)}
+                     </tr>
+                     <tr>
+                       <td className="p-3 font-medium text-slate-600">Water (L/m³)</td>
+                       {comparisons.map(c => <td key={c.id} className="p-3 text-center text-slate-700 tabular-nums">{c.water}</td>)}
+                     </tr>
+                     <tr>
+                       <td className="p-3 font-medium text-slate-600">Fine Agg. (kg/m³)</td>
+                       {comparisons.map(c => <td key={c.id} className="p-3 text-center text-slate-700 tabular-nums">{c.sand}</td>)}
+                     </tr>
+                     <tr>
+                       <td className="p-3 font-medium text-slate-600">Coarse Agg. (kg/m³)</td>
+                       {comparisons.map(c => <td key={c.id} className="p-3 text-center text-slate-700 tabular-nums">{c.ca}</td>)}
+                     </tr>
+                     <tr>
+                       <td className="p-3 font-medium text-slate-600">Fly Ash / GGBS (kg/m³)</td>
+                       {comparisons.map(c => <td key={c.id} className="p-3 text-center text-slate-700 tabular-nums">{c.flyAsh > 0 || c.ggbs > 0 ? `${c.flyAsh + c.ggbs} (SCM)` : '-'}</td>)}
+                     </tr>
+                   </tbody>
+                </table>
+              </div>
+            </div>
+          )}
 
           <MaterialSummary
             title="Material BOQ Output"
