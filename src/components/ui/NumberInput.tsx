@@ -4,6 +4,27 @@ import { useSettings } from '../../context/SettingsContext';
 import { getImperialConversion } from '../../utils/autoConverter';
 import { motion } from 'motion/react';
 
+const getGenericTooltip = (label: string): string | null => {
+  if (!label) return null;
+  const l = label.toLowerCase();
+  
+  if (l.includes("cover")) return "Clear cover to the reinforcement, typically 20-50mm depending on exposure.";
+  if (l.includes("fck") || l.includes("concrete mix")) return "Characteristic compressive strength of concrete in MPa.";
+  if (l.includes("fy") || l.includes("steel (fy)")) return "Yield strength of steel reinforcement in MPa.";
+  if (l.includes("clear span")) return "Distance between inner faces of supports.";
+  if (l.includes("effective span")) return "Center to center distance of supports or clear span plus effective depth.";
+  if (l.includes("density")) return "Mass per unit volume (e.g., 2400-2500 kg/m³ for RCC).";
+  if (l.includes("bar dia") || l.includes("diameter")) return "Diameter of reinforcement steel bars in mm.";
+  if (l.includes("spacing")) return "Center to center distance between rebars or ties.";
+  if (l.includes("mix ratio")) return "Ratio of Cement:Sand:Aggregate or mortar proportions.";
+  if (l.includes("wastage")) return "Allowance percentage for material wasted during construction.";
+  if (l.includes("surcharge")) return "Additional external load applied over the surface area.";
+  if (l.includes("factored")) return "Design load multiplied by limit state safety factor.";
+  if (l.includes("depth") || l.includes("height") || l.includes("width") || l.includes("length") || l.includes("area") || l.includes("thickness") || l.includes("rate") || l.includes("price") || l.includes("cost") || l.includes("time") || l.includes("volume") || l.includes("load") || l.includes("elevation") || l.includes("gradient") || l.includes("speed")) return `Specify the ${label.toLowerCase()} in the given unit.`;
+
+  return `Enter required value for ${label}.`;
+};
+
 export interface NumberInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {
   label?: string;
   unit?: string;
@@ -14,10 +35,11 @@ export interface NumberInputProps extends Omit<React.InputHTMLAttributes<HTMLInp
   containerClassName?: string;
   step?: string | number;
   delay?: number;
+  tooltip?: React.ReactNode;
 }
 
 export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
-  ({ className, containerClassName = '', label, unit, value, onChange, requirePositive = false, error, id, onBlur, onFocus, step = "any", delay = 0, ...props }, ref) => {
+  ({ className, containerClassName = '', label, unit, value, onChange, requirePositive = false, error, id, onBlur, onFocus, step = "any", delay = 0, tooltip, ...props }, ref) => {
     const { settings } = useSettings();
     const isImperial = settings.measurement === 'FPS';
     const conversion = getImperialConversion(unit);
@@ -133,15 +155,22 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       }
     }
 
+    const displayTooltip = tooltip || getGenericTooltip(label || "");
+
     return (
       <motion.div 
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: "easeOut", delay }}
-        className={`w-full ${containerClassName}`}
+        className={`w-full relative group/tooltip ${containerClassName}`}
       >
+        {displayTooltip && (
+           <div className="absolute z-[100] invisible opacity-0 group-hover/tooltip:visible group-hover/tooltip:opacity-100 transition-all duration-200 bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-max max-w-[220px] bg-slate-800 text-white text-[11px] p-2 rounded-lg shadow-xl pointer-events-none whitespace-normal text-center font-medium after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-slate-800">
+             {displayTooltip}
+           </div>
+        )}
         {displayLabel && (
-          <label htmlFor={inputId} className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 ml-1">
+          <label htmlFor={inputId} className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5 ml-1 flex items-center gap-1.5 cursor-help">
             {displayLabel}
           </label>
         )}
@@ -206,3 +235,4 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
 );
 
 NumberInput.displayName = 'NumberInput';
+

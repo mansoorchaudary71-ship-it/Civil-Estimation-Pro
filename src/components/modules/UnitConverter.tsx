@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { UniversalTabs } from "../ui/UniversalTabs";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer
+} from "recharts";
 
 import {
   Ruler,
@@ -161,6 +170,17 @@ export default function UnitConverter() {
   const fromUnitLabel = currentUnits.find((u) => u.id === fromUnit)?.label || fromUnit;
   const toUnitLabel = currentUnits.find((u) => u.id === toUnit)?.label || toUnit;
   const conversionRate = convertValue("1", fromUnit, toUnit, activeCategory);
+
+  const generateChartData = () => {
+    // Determine reasonable scale points based on category
+    const points = [1, 5, 10, 50, 100];
+    return points.map(p => ({
+      from: p,
+      to: parseFloat(convertValue(p.toString(), fromUnit, toUnit, activeCategory)) || 0
+    }));
+  };
+  
+  const chartData = generateChartData();
 
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-slate-100 p-6 md:p-8">
@@ -324,14 +344,52 @@ export default function UnitConverter() {
           
           {/* Conversion specific feedback */}
           {conversionRate !== "" && (
-             <div className="mt-8 pt-6 border-t border-border-color flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-bottom-2 duration-500">
-                <p className="text-sm font-semibold text-slate-700 uppercase tracking-widest mb-1">
-                  Conversion Rate
+             <div className="mt-8 pt-6 border-t border-slate-700/50 flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-bottom-2 duration-500 w-full">
+                <p className="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-3">
+                  Conversion Rate & Reference
                 </p>
-                <div className="inline-flex items-center gap-3 px-6 py-2.5 bg-fuchsia-900/30 rounded-full border border-fuchsia-500/30 text-fuchsia-300 font-medium sm:text-lg text-sm flex-wrap justify-center">
+                <div className="inline-flex items-center gap-3 px-6 py-2.5 bg-fuchsia-900/30 rounded-full border border-fuchsia-500/30 text-fuchsia-300 font-medium sm:text-lg text-sm flex-wrap justify-center mb-8">
                   <span>1 {fromUnitLabel.split(' (')[0]}</span>
                   <span className="text-fuchsia-400 font-normal">=</span>
                   <span className="font-bold">{conversionRate} {toUnitLabel.split(' (')[0]}</span>
+                </div>
+                
+                {/* Reference Chart */}
+                <div className="w-full h-48 md:h-64 mt-2 px-2 pb-4">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
+                      <XAxis 
+                        dataKey="from" 
+                        stroke="#94a3b8" 
+                        fontSize={12}
+                        tickLine={false}
+                        axisLine={false}
+                        tickFormatter={(value) => `${value}`}
+                      />
+                      <YAxis 
+                        stroke="#94a3b8" 
+                        fontSize={12}
+                        tickLine={false}
+                        axisLine={false}
+                        tickFormatter={(value) => value.toLocaleString(undefined, { maximumFractionDigits: 1 })}
+                      />
+                      <Tooltip 
+                        contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px', color: '#f8fafc' }}
+                        itemStyle={{ color: '#e879f9' }}
+                        formatter={(value: number) => [value.toLocaleString(undefined, { maximumFractionDigits: 3 }) + ' ' + toUnit, 'Result']}
+                        labelFormatter={(label) => `${label} ${fromUnit}`}
+                      />
+                      <Line 
+                        type="monotone" 
+                        dataKey="to" 
+                        stroke="#d946ef" 
+                        strokeWidth={3}
+                        dot={{ r: 4, fill: '#d946ef', strokeWidth: 2, stroke: '#1e293b' }}
+                        activeDot={{ r: 6, fill: '#f0abfc' }}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
                 </div>
              </div>
           )}

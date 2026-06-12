@@ -56,23 +56,30 @@ function parseAndFormat(
   strValue: string | number,
   title: string = "",
   unitNode: React.ReactNode = "",
-  isImperial: boolean = false
+  isImperial: boolean = false,
 ) {
   const str = String(strValue);
   const numericMatch = str.match(/-?[\d,.]+/);
   if (!numericMatch)
-    return { num: 0, prefix: str, suffix: "", decimals: 0, isNumeric: false, displayUnit: typeof unitNode === "string" ? unitNode : "" };
+    return {
+      num: 0,
+      prefix: str,
+      suffix: "",
+      decimals: 0,
+      isNumeric: false,
+      displayUnit: typeof unitNode === "string" ? unitNode : "",
+    };
 
   const numStr = numericMatch[0].replace(/,/g, "");
   let num = parseFloat(numStr);
-  
+
   let unitText = typeof unitNode === "string" ? unitNode : "";
   const conversion = getImperialConversion(unitText);
   let displayUnit = unitText;
 
   if (isImperial && conversion) {
-     num = num * conversion.multiplyBy;
-     displayUnit = conversion.targetUnit;
+    num = num * conversion.multiplyBy;
+    displayUnit = conversion.targetUnit;
   }
 
   const index = str.indexOf(numericMatch[0]);
@@ -156,7 +163,7 @@ export function ResultCard({
   secondaryValue,
 }: ResultCardProps) {
   const { settings, formatCurrency } = useSettings();
-  const isImperial = settings.measurement === 'FPS';
+  const isImperial = settings.measurement === "FPS";
 
   // Parsing & Animation
   const parsed = parseAndFormat(value, title, unit, isImperial);
@@ -211,7 +218,7 @@ export function ResultCard({
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
       transition={{ duration: 0.4, delay, ease: [0.23, 1, 0.32, 1] }}
-      className={`relative p-4 sm:p-5 bg-white  border border-slate-200   rounded-[24px] shadow-sm hover:shadow-md flex flex-col gap-2.5 transition-all duration-300 w-full overflow-hidden ${className}`}
+      className={`relative p-3 sm:p-4 md:p-5 lg:p-6 bg-white  border border-slate-200   rounded-[24px] shadow-sm hover:shadow-md flex flex-col gap-2 transition-all duration-300 w-full overflow-hidden ${className}`}
     >
       <div className="flex items-start justify-between gap-3 w-full relative z-10">
         <div className="flex flex-col max-w-[80%]">
@@ -275,11 +282,11 @@ export function ResultCard({
           Calculation updated: {title} is {displayValue} {activeUnit}
         </span>
         <div
-          className="flex flex-wrap items-baseline gap-1.5 sm:gap-2"
+          className="flex flex-wrap items-baseline gap-1.5 sm:gap-2 overflow-hidden"
           aria-hidden="true"
         >
           <span
-            className={`text-[clamp(1.75rem,5vw,2.5rem)] leading-none font-black tracking-tighter break-all max-w-full ${valueColor}`}
+            className={`text-[clamp(1.25rem,5vw,2.5rem)] leading-none font-black tracking-tighter break-words max-w-full ${valueColor}`}
           >
             {displayValue}
           </span>

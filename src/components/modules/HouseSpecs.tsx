@@ -327,9 +327,15 @@ function SelectInput({ label, value, options, onChange }: any) {
   );
 }
 function NumberInput({ label, value, onChange, desc }: any) {
+  const tooltipText = desc || `Specify the ${label?.toLowerCase()} in the given unit.`;
   return (
-    <div>
-      <label className="block text-[11px] font-bold text-gray-700 uppercase tracking-widest mb-1.5">
+    <div className="relative group/tooltip">
+      {tooltipText && (
+         <div className="absolute z-[100] invisible opacity-0 group-hover/tooltip:visible group-hover/tooltip:opacity-100 transition-all duration-200 bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-max max-w-[220px] bg-slate-800 text-white text-[11px] p-2 rounded-lg shadow-xl pointer-events-none whitespace-normal text-center font-medium after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-slate-800">
+           {tooltipText}
+         </div>
+      )}
+      <label className="block text-[11px] font-bold text-gray-700 uppercase tracking-widest mb-1.5 cursor-help">
         {label}
       </label>
       <input
@@ -339,11 +345,6 @@ function NumberInput({ label, value, onChange, desc }: any) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
-      {desc && (
-        <p className="text-[10px] text-gray-700 mt-1.5 font-bold tracking-wide">
-          {desc}
-        </p>
-      )}
     </div>
   );
 }

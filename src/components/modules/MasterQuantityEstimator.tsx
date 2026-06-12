@@ -247,13 +247,16 @@ export default function MasterQuantityEstimator({
                       )}
                       
                       {activeCalculator.sharedDependencies && activeCalculator.sharedDependencies.length > 0 && (
-                         <div className="pt-4 border-t border-slate-100 dark:border-slate-700">
-                           <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Linked State Inputs</p>
-                           <div className="space-y-2">
-                             {activeCalculator.sharedDependencies.map(dep => (
-                               <div key={dep} className="flex justify-between items-center text-xs py-1.5 px-3 bg-slate-50 dark:bg-slate-900 rounded-[8px]">
-                                  <span className="font-mono text-slate-500">{dep}</span>
-                                  <span className="font-bold text-indigo-600">{(sharedState[dep] || 0).toFixed(2)}</span>
+                         <div className="pt-6 border-t border-slate-100 dark:border-slate-700/50 mt-4">
+                           <p className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-3 ml-1">Linked State Inputs</p>
+                           <div className="bg-slate-50/70 p-1 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 rounded-[20px] overflow-hidden shadow-sm">
+                             {activeCalculator.sharedDependencies.map((dep, idx) => (
+                               <div key={dep} className={`flex justify-between items-center px-4 py-3.5 transition-colors hover:bg-slate-100/50 dark:hover:bg-slate-800/50 ${idx !== 0 ? 'border-t border-slate-200 dark:border-slate-700' : ''}`}>
+                                  <div className="flex items-center gap-3">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-500/80 shadow-[0_0_8px_rgba(99,102,241,0.6)]" />
+                                    <span className="font-mono text-[13px] font-medium text-slate-600 dark:text-slate-400">{dep}</span>
+                                  </div>
+                                  <span className="font-bold text-[14px] tracking-tight text-indigo-700 dark:text-indigo-400">{(sharedState[dep] || 0).toFixed(2)}</span>
                                </div>
                              ))}
                            </div>

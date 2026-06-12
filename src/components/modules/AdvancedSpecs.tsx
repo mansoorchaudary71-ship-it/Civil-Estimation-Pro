@@ -126,7 +126,7 @@ export default function AdvancedSpecs({
         {tooltip && (
           <div className="relative group/tooltip flex items-center">
             <HelpCircle className="w-3.5 h-3.5 text-slate-400 cursor-help" />
-            <div className="absolute bottom-full right-0 mb-2 w-48 opacity-0 group-hover/tooltip:opacity-100 transition-opacity bg-white text-slate-900 text-[10px] p-2 rounded-[16px] pointer-events-none z-10 font-normal tracking-wide shadow-xl border border-slate-200 shadow-sm">
+            <div className="absolute z-[100] invisible opacity-0 group-hover/tooltip:visible group-hover/tooltip:opacity-100 transition-all duration-200 bottom-[calc(100%+8px)] right-0 w-max max-w-[220px] bg-slate-800 text-white text-[11px] p-2 rounded-lg shadow-xl pointer-events-none whitespace-normal text-center font-medium after:content-[''] after:absolute after:top-full after:right-2 after:border-4 after:border-transparent after:border-t-slate-800">
               {tooltip}
             </div>
           </div>

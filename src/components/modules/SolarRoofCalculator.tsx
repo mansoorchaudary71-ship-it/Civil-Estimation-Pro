@@ -178,23 +178,31 @@ export default function SolarRoofCalculator() {
     setGridType("Hybrid");
   };
 
-  const InputField = ({ label, value, onChange, type="number", step, unit, tooltip }: any) => (
-    <div className="flex flex-col">
-      <label className="text-sm text-slate-700 font-medium mb-1.5 flex items-center justify-between">
-        <span className="flex items-center gap-1.5">
-          {label}
-          {tooltip && <span title={tooltip as string} className="cursor-help inline-flex"><Info className="w-3.5 h-3.5 text-slate-400" /></span>}
-        </span>
-      </label>
-      <div className="relative">
-        <input 
-          type={type} step={step} value={value} onChange={onChange}
-          className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all placeholder:text-slate-400 font-medium"
-        />
-        {unit && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm font-medium pointer-events-none">{unit}</span>}
+  const InputField = ({ label, value, onChange, type="number", step, unit, tooltip }: any) => {
+    const tooltipText = tooltip || `Specify the ${label?.toLowerCase()} in the given unit.`;
+    return (
+      <div className="flex flex-col relative group/hint">
+        {tooltipText && (
+           <div className="absolute z-[100] invisible opacity-0 group-hover/hint:visible group-hover/hint:opacity-100 transition-all duration-200 bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-max max-w-[220px] bg-slate-800 text-white text-[11px] p-2 rounded-lg shadow-xl pointer-events-none whitespace-normal text-center font-medium after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-slate-800">
+             {tooltipText}
+           </div>
+        )}
+        <label className="text-sm text-slate-700 font-medium mb-1.5 flex items-center justify-between cursor-help">
+          <span className="flex items-center gap-1.5">
+            {label}
+            <Info className="w-3.5 h-3.5 text-slate-400" />
+          </span>
+        </label>
+        <div className="relative">
+          <input 
+            type={type} step={step} value={value} onChange={onChange}
+            className="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all placeholder:text-slate-400 font-medium"
+          />
+          {unit && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm font-medium pointer-events-none">{unit}</span>}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="bg-white text-slate-800 min-h-screen rounded-[32px] overflow-hidden shadow-sm border border-slate-200 font-sans" style={{ fontFamily: 'DM Sans, sans-serif' }}>

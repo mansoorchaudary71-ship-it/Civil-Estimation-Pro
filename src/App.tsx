@@ -50,7 +50,7 @@ import AuthModal from "./components/auth/AuthModal";
 import ProfileSettings from "./components/auth/ProfileSettings";
 import RecentSidebar from "./components/RecentSidebar";
 import { useAuth } from "./contexts/AuthContext";
-import { Toaster } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 
 import { TakeoffProvider } from "./context/TakeoffContext";
 import { MarketRatesProvider } from "./context/MarketRatesContext";
@@ -100,8 +100,8 @@ import RecentEstimates from "./components/RecentEstimates";
 import { ModuleId } from "./components/Sidebar";
 export type { ModuleId };
 import TopNavbar from "./components/TopNavbar";
-import BottomNavBar from './components/BottomNavBar';
-import GlobalBottomBar from './components/GlobalBottomBar';
+import BottomNavBar from "./components/BottomNavBar";
+import GlobalBottomBar from "./components/GlobalBottomBar";
 import { AnimatePresence, motion } from "motion/react";
 import Footer from "./components/Footer";
 import Logo from "./components/Logo";
@@ -152,7 +152,18 @@ import {
 
 import { ShareModal } from "./components/ui/ShareModal";
 import { FormulaModal } from "./components/ui/FormulaModal";
-import { Grid2X2, Waves, Pickaxe, Building2, Share2, Info, Printer, Save, Download, Ruler } from "lucide-react";
+import {
+  Grid2X2,
+  Waves,
+  Pickaxe,
+  Building2,
+  Share2,
+  Info,
+  Printer,
+  Save,
+  Download,
+  Ruler,
+} from "lucide-react";
 import { Users, Clock } from "lucide-react";
 
 import MobileToolsSheet from "./components/MobileToolsSheet";
@@ -450,7 +461,8 @@ const getSocialProof = (id: string) => {
   return { rating, reviews, users };
 };
 
-const formatToolTitle = (title: string) => title.toLowerCase().endsWith("calculator") ? title : `${title} Calculator`;
+const formatToolTitle = (title: string) =>
+  title.toLowerCase().endsWith("calculator") ? title : `${title} Calculator`;
 
 export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -518,14 +530,13 @@ export default function App() {
     };
   }, [activeModule]);
 
-  
   const standardsModules = [
     "standards",
     "is-codes-reference",
     "morth-irc-specs",
     "pakistan-building-codes",
     "uae-construction-standards",
-    "international-standards"
+    "international-standards",
   ];
 
   const isStaticPage = [
@@ -539,7 +550,7 @@ export default function App() {
     "privacy",
     "terms",
     "cookies",
-    ...standardsModules
+    ...standardsModules,
   ].includes(activeModule);
 
   const handleSelectModule = (id: ModuleId) => {
@@ -548,11 +559,25 @@ export default function App() {
     setIsSidebarOpen(false);
 
     // Save recently accessed tools to localStorage
-    const nonToolModIds = ["home", "tools", "pricing", "about", "how-it-works", "privacy", "terms", "cookies"];
+    const nonToolModIds = [
+      "home",
+      "tools",
+      "pricing",
+      "about",
+      "how-it-works",
+      "privacy",
+      "terms",
+      "cookies",
+    ];
     if (!nonToolModIds.includes(id as string)) {
       try {
-        const history = JSON.parse(localStorage.getItem("recent_calculators") || "[]");
-        const newHistory = [id, ...history.filter((h: string) => h !== id)].slice(0, 5);
+        const history = JSON.parse(
+          localStorage.getItem("recent_calculators") || "[]",
+        );
+        const newHistory = [
+          id,
+          ...history.filter((h: string) => h !== id),
+        ].slice(0, 5);
         localStorage.setItem("recent_calculators", JSON.stringify(newHistory));
         window.dispatchEvent(new Event("recent_calculators_updated"));
       } catch (e) {
@@ -574,16 +599,30 @@ export default function App() {
                   <Toaster position="bottom-right" />
                   <ProductTour />
                   <LocaleUnitDetector />
-                  
-                  <TopNavbar onNavigate={handleSelectModule} onOpenRecent={() => setIsRecentSidebarOpen(true)} />
-                  {isStaticPage && <GlobalBottomBar activeModule={activeModule} onNavigate={handleSelectModule} onOpenProfile={() => setIsProfileOpen(true)} onOpenSearch={() => {}} />}
-                  <RecentSidebar isOpen={isRecentSidebarOpen} onClose={() => setIsRecentSidebarOpen(false)} onNavigate={handleSelectModule} />
-                  
-                  <BottomNavBar 
-                    activeModule={activeModule} 
-                    onNavigate={handleSelectModule} 
-                    onOpenProfile={() => setIsProfileOpen(true)} 
-                    onOpenHistory={() => handleSelectModule("my-estimates")} 
+
+                  <TopNavbar
+                    onNavigate={handleSelectModule}
+                    onOpenRecent={() => setIsRecentSidebarOpen(true)}
+                  />
+                  {isStaticPage && (
+                    <GlobalBottomBar
+                      activeModule={activeModule}
+                      onNavigate={handleSelectModule}
+                      onOpenProfile={() => setIsProfileOpen(true)}
+                      onOpenSearch={() => {}}
+                    />
+                  )}
+                  <RecentSidebar
+                    isOpen={isRecentSidebarOpen}
+                    onClose={() => setIsRecentSidebarOpen(false)}
+                    onNavigate={handleSelectModule}
+                  />
+
+                  <BottomNavBar
+                    activeModule={activeModule}
+                    onNavigate={handleSelectModule}
+                    onOpenProfile={() => setIsProfileOpen(true)}
+                    onOpenHistory={() => handleSelectModule("my-estimates")}
                   />
 
                   <div className={`flex flex-1 min-h-0 relative w-full pt-14`}>
@@ -596,7 +635,7 @@ export default function App() {
                           <>
                             <div
                               ref={scrollRef}
-                              className={`flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto pb-20 md:pb-0 ${!isStaticPage ? 'hidden' : ''}`}
+                              className={`flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto pb-20 md:pb-0 ${!isStaticPage ? "hidden" : ""}`}
                             >
                               <div className="flex flex-col min-h-full relative w-full">
                                 {activeModule === "home" && (
@@ -615,18 +654,25 @@ export default function App() {
                                     onSelectModule={handleSelectModule}
                                   />
                                 )}
-                                {activeModule === "pricing" && (
-                                  <PricingPage />
-                                )}
+                                {activeModule === "pricing" && <PricingPage />}
                                 {standardsModules.includes(activeModule) && (
-                                  <StandardsReferencePage 
+                                  <StandardsReferencePage
                                     key={activeModule}
-                                    onNavigate={handleSelectModule} 
+                                    onNavigate={handleSelectModule}
                                     initialActiveCountry={
-                                      activeModule === "is-codes-reference" || activeModule === "morth-irc-specs" ? "India" :
-                                      activeModule === "pakistan-building-codes" ? "Pakistan" :
-                                      activeModule === "uae-construction-standards" ? "UAE" :
-                                      activeModule === "international-standards" ? "International" : "All"
+                                      activeModule === "is-codes-reference" ||
+                                      activeModule === "morth-irc-specs"
+                                        ? "India"
+                                        : activeModule ===
+                                            "pakistan-building-codes"
+                                          ? "Pakistan"
+                                          : activeModule ===
+                                              "uae-construction-standards"
+                                            ? "UAE"
+                                            : activeModule ===
+                                                "international-standards"
+                                              ? "International"
+                                              : "All"
                                     }
                                   />
                                 )}
@@ -668,21 +714,16 @@ export default function App() {
                                     onNavigate={handleSelectModule}
                                   />
                                 )}
-                                <Footer
-                                  
-                                  onNavigate={handleSelectModule}
-                                />
+                                <Footer onNavigate={handleSelectModule} />
                               </div>
                             </div>
-                            
-                            <AnimatePresence mode="wait">
-                              
 
+                            <AnimatePresence mode="wait">
                               {/* We remove AppHeader for Desktop, handle differently inside module wrappers if needed, but for now we keep ModuleWrapper and conditionally hide AppHeader inside it on desktop */}
                               {activeModule === "tracker" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Site Progress Tracker"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -691,9 +732,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "projects" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Project Manager"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -702,9 +743,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "labour-calculator" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Labour & Workforce"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -713,9 +754,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "qs-workflow" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Guided QS Workflow"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -724,9 +765,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "boq" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Professional BOQ Generator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -735,9 +776,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "mix-design" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Concrete Mix Design"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -746,9 +787,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "takeoff" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="2D Takeoff"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -757,9 +798,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "area-space-calculator" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Plot Area Calculator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -768,9 +809,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "volume-estimator" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Volume & Tank Capacity"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSettingsOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -779,9 +820,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "unit-converter" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Universal Unit Converter"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -790,9 +831,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "steel-hub" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Steel & Reinforcement Hub"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -801,9 +842,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "mep-calculator" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Energy & MEP Calculators"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -812,9 +853,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "rainwater-harvesting" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Rainwater Harvesting"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -823,9 +864,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "gradient-calculator" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Gradient & Slope Calculator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -834,9 +875,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "concrete-masonry-hub" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Concrete & Masonry Hub"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -847,9 +888,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "master-quantity" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Master Quantity Estimator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -858,9 +899,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "measurement-sheet" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Measurement Sheet Calculator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -869,9 +910,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "quick-estimation" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Quick Rough Estimation"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -882,9 +923,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "material-takeoff" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Material Takeoff Sheet"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -893,9 +934,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "cost-summary" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Cost Summary Sheet"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -904,9 +945,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "master-rcc" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Master RCC Estimator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -915,9 +956,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "metal-weight" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Metal Weight"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -926,9 +967,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "calculators" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Construction Material"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -937,9 +978,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "bbs-generator" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="BBS Generator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -948,9 +989,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "reinforcement" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Reinforcement Detailing Visualizer"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -959,9 +1000,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "isolated-footing" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Isolated Footing Calculator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -970,9 +1011,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "retaining-wall" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Retaining Wall Estimator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -981,9 +1022,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "aggregate-tests" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Aggregate Tests"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -992,9 +1033,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "chainage" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Chainage Volume"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1003,9 +1044,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "geotechnical" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Geotechnical & Soil Tests"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1014,9 +1055,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "cbr-test" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="CBR Test Calculator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1025,9 +1066,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "master-sieve" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Master Sieve Analysis"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1036,9 +1077,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "aggregate-blending" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Aggregate Blending"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1047,9 +1088,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "direct-shear" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Direct Shear Test"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1058,9 +1099,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "permeability-test" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Permeability Calculator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1069,9 +1110,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "ai" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="AI Assistant"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1080,9 +1121,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "earthworks" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Earthworks Suite"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1091,9 +1132,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "precast-wall" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Precast Wall Calculator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1102,9 +1143,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "soil-lab-suite" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Soil & Materials Lab Suite"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1114,9 +1155,9 @@ export default function App() {
                               )}
                               {/* Roof pitch calculator functionality moved to AreaSpaceCalculator */}
                               {activeModule === "anti-termite" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Anti-Termite Treatment Calculator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1125,9 +1166,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "solar-roof" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Solar Roof Calculator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1136,9 +1177,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "road-pavement" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Road & Pavement Estimator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1150,9 +1191,9 @@ export default function App() {
                               )}
 
                               {activeModule === "beam-design" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Beam Design Tool"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1161,9 +1202,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "column-design" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Column Design Tool"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1172,9 +1213,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "raft-foundation" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Raft Foundation Designer"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1183,9 +1224,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "water-tank-design" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Water Tank Design"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1194,9 +1235,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "pile-foundation" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Pile Foundation Calculator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1205,9 +1246,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "prestressed-concrete" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Pre-stressed Concrete Estimator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1217,9 +1258,9 @@ export default function App() {
                               )}
 
                               {activeModule === "room-area-calculator" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Room Area Calculator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1229,9 +1270,9 @@ export default function App() {
                               )}
                               {activeModule ===
                                 "building-setback-calculator" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Building Setback Calculator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1240,9 +1281,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "far-fsi-calculator" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="FAR/FSI Calculator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1252,9 +1293,9 @@ export default function App() {
                               )}
                               {activeModule ===
                                 "staircase-design-reference" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Staircase Design Reference"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1263,9 +1304,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "door-window-schedule" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Door & Window Schedule Generator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1274,9 +1315,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "ventilation-checker" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Ventilation & Lighting Checker"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1285,9 +1326,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "lintel-design-tool" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Lintel Scheduler & Design Tool"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1298,9 +1339,9 @@ export default function App() {
 
                               {/* Restored individual calculators */}
                               {activeModule === "staircase-calculator" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Staircase Calculator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1310,9 +1351,9 @@ export default function App() {
                               )}
 
                               {activeModule === "interiors-finishes" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Interiors & Finishes"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1321,9 +1362,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "house" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="House Estimator"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1332,9 +1373,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "formwork" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Formwork & Scaffold"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1343,9 +1384,9 @@ export default function App() {
                                 </ModuleWrapper>
                               )}
                               {activeModule === "rates" && (
-                                <ModuleWrapper activeModule={activeModule}
+                                <ModuleWrapper
+                                  activeModule={activeModule}
                                   title="Market Rates"
-                                  
                                   setActiveModule={handleSelectModule}
                                   setIsSidebarOpen={setIsSidebarOpen}
                                   setIsSettingsOpen={setIsSettingsOpen}
@@ -1488,7 +1529,9 @@ function UnitSwitcher() {
       >
         <div className="flex items-center gap-1.5">
           <Ruler className="w-5 h-5" />
-          <span className="text-xs font-bold uppercase">{settings.measurement === "SI" ? "Metric" : "Imperial"}</span>
+          <span className="text-xs font-bold uppercase">
+            {settings.measurement === "SI" ? "Metric" : "Imperial"}
+          </span>
         </div>
       </button>
 
@@ -1498,7 +1541,9 @@ function UnitSwitcher() {
             onClick={() => {
               updateSettings({ measurement: "SI" });
               setIsOpen(false);
-              setTimeout(() => { window.location.reload(); }, 100);
+              setTimeout(() => {
+                window.location.reload();
+              }, 100);
             }}
             className={`px-4 py-2 text-sm font-bold text-left transition-colors ${settings.measurement === "SI" ? "bg-indigo-50 text-indigo-700" : "text-slate-600 hover:bg-slate-50"}`}
           >
@@ -1508,7 +1553,9 @@ function UnitSwitcher() {
             onClick={() => {
               updateSettings({ measurement: "FPS" });
               setIsOpen(false);
-              setTimeout(() => { window.location.reload(); }, 100);
+              setTimeout(() => {
+                window.location.reload();
+              }, 100);
             }}
             className={`px-4 py-2 text-sm font-bold text-left transition-colors ${settings.measurement === "FPS" ? "bg-indigo-50 text-indigo-700" : "text-slate-600 hover:bg-slate-50"}`}
           >
@@ -1584,28 +1631,35 @@ import { ProTipsWidget } from "./components/ui/ProTipsWidget";
 
 import ToolPageFooter from "./components/ToolPageFooter";
 
-function getToolMetadata(moduleDef: typeof ALL_MODULES[0]) {
+function getToolMetadata(moduleDef: (typeof ALL_MODULES)[0]) {
   let standards = ["IS 456:2000"];
-  let formulaStr = "Standard derivations based on fundamental civil engineering volume, area, and material density conversions.";
-  
+  let formulaStr =
+    "Standard derivations based on fundamental civil engineering volume, area, and material density conversions.";
+
   if (moduleDef.category === "Concrete") {
     standards = ["IS 456:2000", "IS 10262:2019"];
-    formulaStr = "Concrete Volume = Length × Width × Depth \nDry Volume = Wet Volume × 1.54\nCement/Sand/Aggregate = (Ratio / Total Ratio) × Dry Volume";
+    formulaStr =
+      "Concrete Volume = Length × Width × Depth \nDry Volume = Wet Volume × 1.54\nCement/Sand/Aggregate = (Ratio / Total Ratio) × Dry Volume";
   } else if (moduleDef.category === "Road Pavement") {
     standards = ["IRC:37-2018", "MORTH Specifications"];
-    formulaStr = "Flexible Pavement Design (CBR Method):\nTension/Strain calculations derived from CBR and traffic (msa) per IRC guidelines.";
+    formulaStr =
+      "Flexible Pavement Design (CBR Method):\nTension/Strain calculations derived from CBR and traffic (msa) per IRC guidelines.";
   } else if (moduleDef.category === "Geotechnical") {
     standards = ["IS 2720", "IS 2911"];
-    formulaStr = "Foundations & Soil Mechanics:\nBearing Capacity (q_ult) = cNc + γDNq + 0.5BγNγ\nPile Capacity = Q_p (End Bearing) + Q_s (Skin Friction)";
+    formulaStr =
+      "Foundations & Soil Mechanics:\nBearing Capacity (q_ult) = cNc + γDNq + 0.5BγNγ\nPile Capacity = Q_p (End Bearing) + Q_s (Skin Friction)";
   } else if (moduleDef.category === "MEP") {
     standards = ["IS 1172:1993", "NBC Part 8"];
-    formulaStr = "Water Supply & Harvesting:\nYield = Catchment Area × Rainfall × Runoff Coefficient\nDaily Requirement = Per Capita Demand (LPCD) × Population";
+    formulaStr =
+      "Water Supply & Harvesting:\nYield = Catchment Area × Rainfall × Runoff Coefficient\nDaily Requirement = Per Capita Demand (LPCD) × Population";
   } else if (moduleDef.category === "Structural Design") {
     standards = ["IS 456:2000", "IS 800:2007"];
-    formulaStr = "RCC & Steel Design:\nMoment of Resistance (M_u) = 0.87 f_y A_st d (1 - (A_st f_y) / (b d f_ck))\nSteel Weight = (D² / 162.28) kg/m";
+    formulaStr =
+      "RCC & Steel Design:\nMoment of Resistance (M_u) = 0.87 f_y A_st d (1 - (A_st f_y) / (b d f_ck))\nSteel Weight = (D² / 162.28) kg/m";
   } else if (moduleDef.category === "Architectural") {
     standards = ["NBC 2016", "IS 4905"];
-    formulaStr = "Built-up Area & Floor Space Index (FSI):\nFSI = Total Built-up Area / Total Plot Area\nStaircase Rise/Tread Ratio = 2R + T ≈ 600mm to 640mm";
+    formulaStr =
+      "Built-up Area & Floor Space Index (FSI):\nFSI = Total Built-up Area / Total Plot Area\nStaircase Rise/Tread Ratio = 2R + T ≈ 600mm to 640mm";
   }
 
   return {
@@ -1615,29 +1669,56 @@ function getToolMetadata(moduleDef: typeof ALL_MODULES[0]) {
   };
 }
 
-const ModuleWrapper = React.forwardRef<HTMLDivElement, {
-  title: string;
-  activeModule: ModuleId;
-  setActiveModule: (id: ModuleId) => void;
-  setIsSidebarOpen: (val: boolean) => void;
-  setIsSettingsOpen: (val: boolean) => void;
-  children: React.ReactNode;
-}>(function ModuleWrapper({
-  title,
-  activeModule,
-  setActiveModule,
-  setIsSidebarOpen,
-  setIsSettingsOpen,
-  children,
-}, ref) {
+const ModuleWrapper = React.forwardRef<
+  HTMLDivElement,
+  {
+    title: string;
+    activeModule: ModuleId;
+    setActiveModule: (id: ModuleId) => void;
+    setIsSidebarOpen: (val: boolean) => void;
+    setIsSettingsOpen: (val: boolean) => void;
+    children: React.ReactNode;
+  }
+>(function ModuleWrapper(
+  {
+    title,
+    activeModule,
+    setActiveModule,
+    setIsSidebarOpen,
+    setIsSettingsOpen,
+    children,
+  },
+  ref,
+) {
   const [isShareModalOpen, setIsShareModalOpen] = React.useState(false);
   const [isFormulaModalOpen, setIsFormulaModalOpen] = React.useState(false);
   const [isPrintPreviewOpen, setIsPrintPreviewOpen] = React.useState(false);
 
   React.useEffect(() => {
     const handlePrint = () => setIsPrintPreviewOpen(true);
-    window.addEventListener('global-print-action', handlePrint);
-    return () => window.removeEventListener('global-print-action', handlePrint);
+    window.addEventListener("global-print-action", handlePrint);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Check if Ctrl or Cmd is pressed
+      if (e.ctrlKey || e.metaKey) {
+        if (e.key.toLowerCase() === "s") {
+          e.preventDefault();
+          toast.success("Draft saved successfully", {
+            position: "bottom-center",
+          });
+        } else if (e.key.toLowerCase() === "p") {
+          e.preventDefault();
+          setIsPrintPreviewOpen(true);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("global-print-action", handlePrint);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   const moduleDef = ALL_MODULES.find((m) => m.id === activeModule);
@@ -1712,7 +1793,9 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
       ]
     : [];
 
-  const metaList = moduleDef ? getToolMetadata(moduleDef as any) : { standards: [], formulaDescription: "N/A", lastUpdated: "N/A" };
+  const metaList = moduleDef
+    ? getToolMetadata(moduleDef as any)
+    : { standards: [], formulaDescription: "N/A", lastUpdated: "N/A" };
 
   return (
     <motion.div
@@ -1819,7 +1902,6 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
           </script>
         </Helmet>
       )}
-      
 
       <div
         className="flex-1 overflow-y-auto w-full max-w-full"
@@ -1863,72 +1945,125 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
                 <div
                   className="flex-1 shrink-0 px-4 md:px-8 pt-4 pb-6 w-full max-w-7xl mx-auto md:mb-4 themed-tool-container relative border-2 border-x-0 sm:border-x-2 sm:rounded-[2rem]"
                   style={
-                    { 
+                    {
                       "--tool-theme-color": themeHex,
-                      borderColor: themeHex
+                      borderColor: themeHex,
                     } as React.CSSProperties
                   }
                 >
                   {moduleDef && (
                     <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200 pb-4">
                       <h1 className="text-[clamp(1.5rem,4vw,2.25rem)] font-semibold tracking-tight text-slate-900 flex items-center gap-3">
-                        {moduleDef.icon && React.createElement(moduleDef.icon, { className: "w-8 h-8 shrink-0", style: { color: themeHex } })}
+                        {moduleDef.icon &&
+                          React.createElement(moduleDef.icon, {
+                            className: "w-8 h-8 shrink-0",
+                            style: { color: themeHex },
+                          })}
                         {formatToolTitle(moduleDef.title)}
                       </h1>
                       <div className="text-xs font-semibold uppercase tracking-widest text-slate-400 flex flex-wrap items-center gap-2 sm:gap-3">
-                         {moduleDef.isPopular && (
-                           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-sm font-semibold whitespace-nowrap">
-                             🔥 Popular
-                           </span>
-                         )}
-                         <motion.button
-                           initial={{ opacity: 0, scale: 0.9, y: -5 }} animate={{ opacity: 1, scale: 1, y: 0 }} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2, delay: 0.05 }}
-                           onClick={() => setIsFormulaModalOpen(true)}
-                           className="flex items-center justify-center gap-2 px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-500/10 dark:hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-full transition-colors font-medium shadow-sm border border-indigo-100/50 dark:border-indigo-500/20"
-                           title="Formulas & Variables"
-                         >
-                           <Info className="w-4 h-4" />
-                           <span className="hidden sm:inline-block capitalize">Formulas</span>
-                         </motion.button>
-                         <motion.button
-                           initial={{ opacity: 0, scale: 0.9, y: -5 }} animate={{ opacity: 1, scale: 1, y: 0 }} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2, delay: 0.1 }}
-                           onClick={() => window.dispatchEvent(new CustomEvent('global-print-action'))}
-                           className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
-                           title="Print Calculation"
-                         >
-                           <Printer className="w-4 h-4" />
-                           <span className="hidden sm:inline-block capitalize">Print</span>
-                         </motion.button>
-                         <motion.button
-                           initial={{ opacity: 0, scale: 0.9, y: -5 }} animate={{ opacity: 1, scale: 1, y: 0 }} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2, delay: 0.15 }}
-                           onClick={() => window.dispatchEvent(new CustomEvent('action-save-draft'))}
-                           className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
-                           title="Save Draft (Local)"
-                         >
-                           <Save className="w-4 h-4" />
-                           <span className="hidden sm:inline-block capitalize">Save Draft</span>
-                         </motion.button>
-                         <motion.button
-                           initial={{ opacity: 0, scale: 0.9, y: -5 }} animate={{ opacity: 1, scale: 1, y: 0 }} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2, delay: 0.2 }}
-                           onClick={() => window.dispatchEvent(new CustomEvent('action-load-draft'))}
-                           className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
-                           title="Load Draft (Local)"
-                         >
-                           <Download className="w-4 h-4" />
-                           <span className="hidden sm:inline-block capitalize">Load Draft</span>
-                         </motion.button>
-                         <motion.button
-                           initial={{ opacity: 0, scale: 0.9, y: -5 }} animate={{ opacity: 1, scale: 1, y: 0 }} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ duration: 0.2, delay: 0.25 }}
-                           onClick={() => setIsShareModalOpen(true)}
-                           className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
-                           title="Share Tool"
-                         >
-                           <Share2 className="w-4 h-4" />
-                           <span className="hidden sm:inline-block capitalize">Share</span>
-                         </motion.button>
-                         <motion.div initial={{ opacity: 0, scale: 0.9, y: -5 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.2, delay: 0.3 }}>
-                           <GlobalSettingsToggle align="right" showCurrency={false} />
-                         </motion.div>
+                        {moduleDef.isPopular && (
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-sm font-semibold whitespace-nowrap">
+                            🔥 Popular
+                          </span>
+                        )}
+                        <motion.button
+                          initial={{ opacity: 0, scale: 0.9, y: -5 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          transition={{ duration: 0.2, delay: 0.05 }}
+                          onClick={() => setIsFormulaModalOpen(true)}
+                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-500/10 dark:hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-full transition-colors font-medium shadow-sm border border-indigo-100/50 dark:border-indigo-500/20"
+                          title="Formulas & Variables"
+                        >
+                          <Info className="w-4 h-4" />
+                          <span className="hidden sm:inline-block capitalize">
+                            Formulas
+                          </span>
+                        </motion.button>
+                        <motion.button
+                          initial={{ opacity: 0, scale: 0.9, y: -5 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          transition={{ duration: 0.2, delay: 0.1 }}
+                          onClick={() =>
+                            window.dispatchEvent(
+                              new CustomEvent("global-print-action"),
+                            )
+                          }
+                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
+                          title="Print Calculation"
+                        >
+                          <Printer className="w-4 h-4" />
+                          <span className="hidden sm:inline-block capitalize">
+                            Print
+                          </span>
+                        </motion.button>
+                        <motion.button
+                          initial={{ opacity: 0, scale: 0.9, y: -5 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          transition={{ duration: 0.2, delay: 0.15 }}
+                          onClick={() =>
+                            window.dispatchEvent(
+                              new CustomEvent("action-save-draft"),
+                            )
+                          }
+                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
+                          title="Save Draft (Local)"
+                        >
+                          <Save className="w-4 h-4" />
+                          <span className="hidden sm:inline-block capitalize">
+                            Save Draft
+                          </span>
+                        </motion.button>
+                        <motion.button
+                          initial={{ opacity: 0, scale: 0.9, y: -5 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          transition={{ duration: 0.2, delay: 0.2 }}
+                          onClick={() =>
+                            window.dispatchEvent(
+                              new CustomEvent("action-load-draft"),
+                            )
+                          }
+                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
+                          title="Load Draft (Local)"
+                        >
+                          <Download className="w-4 h-4" />
+                          <span className="hidden sm:inline-block capitalize">
+                            Load Draft
+                          </span>
+                        </motion.button>
+                        <motion.button
+                          initial={{ opacity: 0, scale: 0.9, y: -5 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          transition={{ duration: 0.2, delay: 0.25 }}
+                          onClick={() => setIsShareModalOpen(true)}
+                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
+                          title="Share Tool"
+                        >
+                          <Share2 className="w-4 h-4" />
+                          <span className="hidden sm:inline-block capitalize">
+                            Share
+                          </span>
+                        </motion.button>
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.9, y: -5 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          transition={{ duration: 0.2, delay: 0.3 }}
+                        >
+                          <GlobalSettingsToggle
+                            align="right"
+                            showCurrency={false}
+                          />
+                        </motion.div>
                       </div>
                     </div>
                   )}
@@ -1937,19 +2072,19 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
                     isOpen={isShareModalOpen}
                     onClose={() => setIsShareModalOpen(false)}
                     url={`${window.location.origin}?tool=${activeModule}`}
-                    title={`${moduleDef?.title || 'Tool'} | Civil Estimation Pro`}
+                    title={`${moduleDef?.title || "Tool"} | Civil Estimation Pro`}
                   />
 
                   <FormulaModal
                     isOpen={isFormulaModalOpen}
                     onClose={() => setIsFormulaModalOpen(false)}
-                    title={moduleDef?.title || 'Tool'}
+                    title={moduleDef?.title || "Tool"}
                     formulaDescription={metaList.formulaDescription}
                   />
 
-                  <PrintPreviewModal 
-                    isOpen={isPrintPreviewOpen} 
-                    onClose={() => setIsPrintPreviewOpen(false)} 
+                  <PrintPreviewModal
+                    isOpen={isPrintPreviewOpen}
+                    onClose={() => setIsPrintPreviewOpen(false)}
                   />
 
                   <CodeReferences moduleId={activeModule} />
@@ -1957,7 +2092,11 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
                   <motion.div
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{
+                      duration: 0.4,
+                      delay: 0.1,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
                     className="flex-1 shrink-0"
                   >
                     {children}
@@ -1966,13 +2105,13 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
                   {moduleDef && (
                     <>
                       <ProTipsWidget moduleId={activeModule} />
-                      
+
                       <div className="mt-8 mb-6 p-6 rounded-[2rem] bg-slate-50 border border-slate-200">
                         <p className="text-slate-600 leading-relaxed max-w-4xl text-base mb-8">
                           Your calculation updates strictly in real-time above.
                           All numerical estimations generated by the{" "}
-                          <strong>{formatToolTitle(moduleDef.title)}</strong> are
-                          automatically derived using your defined input
+                          <strong>{formatToolTitle(moduleDef.title)}</strong>{" "}
+                          are automatically derived using your defined input
                           parameters and globally recognized{" "}
                           {moduleDef.category.toLowerCase()} formulas.
                         </p>
@@ -2080,15 +2219,17 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
                       />
 
                       {/* Tool Page Footer */}
-                      <ToolPageFooter 
+                      <ToolPageFooter
                         toolName={moduleDef.title}
                         standards={metaList.standards}
                         formulaDescription={metaList.formulaDescription}
-                        difficulty={moduleDef.difficulty as any || "Intermediate"}
+                        difficulty={
+                          (moduleDef.difficulty as any) || "Intermediate"
+                        }
                         lastUpdated={metaList.lastUpdated}
                         category={moduleDef.category}
                       />
-                      
+
                       <div className="-mx-4 md:-mx-8">
                         <Footer onNavigate={setActiveModule} />
                       </div>
@@ -2103,4 +2244,3 @@ const ModuleWrapper = React.forwardRef<HTMLDivElement, {
     </motion.div>
   );
 });
-

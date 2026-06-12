@@ -1,40 +1,170 @@
-import React, { useState } from 'react';
-import { Search, X, Hammer, Sparkles, Map as MapIcon, Square, Box, ArrowRightLeft, Weight, Zap, LineChart, Layers, Calculator, Mountain, Route, Droplet, Home, ShieldCheck, Users, Sun, Triangle } from 'lucide-react';
-import { ModuleId } from './Sidebar';
-import { motion, AnimatePresence } from 'motion/react';
-import { ALL_MODULES } from './Dashboard';
+import React, { useState } from "react";
+import {
+  Search,
+  X,
+  Hammer,
+  Sparkles,
+  Map as MapIcon,
+  Square,
+  Box,
+  ArrowRightLeft,
+  Weight,
+  Zap,
+  LineChart,
+  Layers,
+  Calculator,
+  Mountain,
+  Route,
+  Droplet,
+  Home,
+  ShieldCheck,
+  Users,
+  Sun,
+  Triangle,
+} from "lucide-react";
+import { ModuleId } from "./Sidebar";
+import { motion, AnimatePresence } from "motion/react";
+import { ALL_MODULES } from "./Dashboard";
 
 export const ALL_TOOLS = [
-  { id: "qs-workflow", title: "Guided QS Workflow", icon: <Layers className="w-4 h-4" /> },
+  {
+    id: "qs-workflow",
+    title: "Guided QS Workflow",
+    icon: <Layers className="w-4 h-4" />,
+  },
   { id: "ai", title: "AI Assistant", icon: <Sparkles className="w-4 h-4" /> },
-  { id: "labour-calculator", title: "Labour & Workforce", icon: <Users className="w-4 h-4" /> },
+  {
+    id: "labour-calculator",
+    title: "Labour & Workforce",
+    icon: <Users className="w-4 h-4" />,
+  },
   { id: "takeoff", title: "2D Takeoff", icon: <MapIcon className="w-4 h-4" /> },
-  { id: "retaining-wall", title: "Retaining Wall Estimator", icon: <ShieldCheck className="w-4 h-4" /> },
-  { id: "isolated-footing", title: "Isolated Footing Calculator", icon: <Box className="w-4 h-4" /> },
-  { id: "area-space-calculator", title: "Plot Area Calculator", icon: <Square className="w-4 h-4" /> },
-  { id: "volume-estimator", title: "Volume Estimator", icon: <Box className="w-4 h-4" /> },
-  { id: "unit-converter", title: "Universal Unit Converter", icon: <ArrowRightLeft className="w-4 h-4" /> },
-  { id: "metal-weight", title: "Metal Weight Calculator", icon: <Weight className="w-4 h-4" /> },
-  { id: "mep-calculator", title: "Energy & MEP Calculators", icon: <Zap className="w-4 h-4" /> },
-  { id: "rainwater-harvesting", title: "Rainwater Harvesting", icon: <Droplet className="w-4 h-4" /> },
-  { id: "gradient-calculator", title: "Gradient & Slope Calculator", icon: <LineChart className="w-4 h-4" /> },
-  { id: "master-rcc", title: "Master RCC Estimator", icon: <Layers className="w-4 h-4" /> },
-  { id: "master-quantity", title: "Master Quantity Estimator", icon: <Calculator className="w-4 h-4" /> },
-  { id: "calculators", title: "Construction Material Estimator", icon: <Hammer className="w-4 h-4" /> },
-  { id: "earthworks", title: "Earthworks", icon: <Mountain className="w-4 h-4" /> },
-  { id: "chainage", title: "Road Earthworks", icon: <Route className="w-4 h-4" /> },
-  { id: "geotechnical", title: "Geotechnical & Soil Tests", icon: <Droplet className="w-4 h-4" /> },
-  { id: "road-pavement", title: "Road & Pavement Estimator", icon: <Route className="w-4 h-4" /> },
-  { id: "interiors-finishes", title: "Interiors & Finishes", icon: <Box className="w-4 h-4" /> },
+  {
+    id: "retaining-wall",
+    title: "Retaining Wall Estimator",
+    icon: <ShieldCheck className="w-4 h-4" />,
+  },
+  {
+    id: "isolated-footing",
+    title: "Isolated Footing Calculator",
+    icon: <Box className="w-4 h-4" />,
+  },
+  {
+    id: "area-space-calculator",
+    title: "Plot Area Calculator",
+    icon: <Square className="w-4 h-4" />,
+  },
+  {
+    id: "volume-estimator",
+    title: "Volume Estimator",
+    icon: <Box className="w-4 h-4" />,
+  },
+  {
+    id: "unit-converter",
+    title: "Universal Unit Converter",
+    icon: <ArrowRightLeft className="w-4 h-4" />,
+  },
+  {
+    id: "metal-weight",
+    title: "Metal Weight Calculator",
+    icon: <Weight className="w-4 h-4" />,
+  },
+  {
+    id: "mep-calculator",
+    title: "Energy & MEP Calculators",
+    icon: <Zap className="w-4 h-4" />,
+  },
+  {
+    id: "rainwater-harvesting",
+    title: "Rainwater Harvesting",
+    icon: <Droplet className="w-4 h-4" />,
+  },
+  {
+    id: "gradient-calculator",
+    title: "Gradient & Slope Calculator",
+    icon: <LineChart className="w-4 h-4" />,
+  },
+  {
+    id: "master-rcc",
+    title: "Master RCC Estimator",
+    icon: <Layers className="w-4 h-4" />,
+  },
+  {
+    id: "master-quantity",
+    title: "Master Quantity Estimator",
+    icon: <Calculator className="w-4 h-4" />,
+  },
+  {
+    id: "calculators",
+    title: "Construction Material Estimator",
+    icon: <Hammer className="w-4 h-4" />,
+  },
+  {
+    id: "earthworks",
+    title: "Earthworks",
+    icon: <Mountain className="w-4 h-4" />,
+  },
+  {
+    id: "chainage",
+    title: "Road Earthworks",
+    icon: <Route className="w-4 h-4" />,
+  },
+  {
+    id: "geotechnical",
+    title: "Geotechnical & Soil Tests",
+    icon: <Droplet className="w-4 h-4" />,
+  },
+  {
+    id: "road-pavement",
+    title: "Road & Pavement Estimator",
+    icon: <Route className="w-4 h-4" />,
+  },
+  {
+    id: "interiors-finishes",
+    title: "Interiors & Finishes",
+    icon: <Box className="w-4 h-4" />,
+  },
   { id: "house", title: "House Estimator", icon: <Home className="w-4 h-4" /> },
-  { id: "formwork", title: "Formwork & Scaffold", icon: <Layers className="w-4 h-4" /> },
-  { id: "rates", title: "Market Rates", icon: <LineChart className="w-4 h-4" /> },
-  { id: "ventilation-checker", title: "Ventilation & Lighting Checker", icon: <Sun className="w-4 h-4" /> },
-  { id: "door-window-schedule", title: "Door & Window Schedule", icon: <Square className="w-4 h-4" /> },
-  { id: "staircase-design-reference", title: "Staircase Design Reference", icon: <Triangle className="w-4 h-4" /> },
-  { id: "far-fsi-calculator", title: "FAR/FSI Calculator", icon: <Layers className="w-4 h-4" /> },
-  { id: "building-setback-calculator", title: "Building Setback Calculator", icon: <ArrowRightLeft className="w-4 h-4" /> },
-  { id: "room-area-calculator", title: "Room Area Calculator", icon: <Square className="w-4 h-4" /> },
+  {
+    id: "formwork",
+    title: "Formwork & Scaffold",
+    icon: <Layers className="w-4 h-4" />,
+  },
+  {
+    id: "rates",
+    title: "Market Rates",
+    icon: <LineChart className="w-4 h-4" />,
+  },
+  {
+    id: "ventilation-checker",
+    title: "Ventilation & Lighting Checker",
+    icon: <Sun className="w-4 h-4" />,
+  },
+  {
+    id: "door-window-schedule",
+    title: "Door & Window Schedule",
+    icon: <Square className="w-4 h-4" />,
+  },
+  {
+    id: "staircase-design-reference",
+    title: "Staircase Design Reference",
+    icon: <Triangle className="w-4 h-4" />,
+  },
+  {
+    id: "far-fsi-calculator",
+    title: "FAR/FSI Calculator",
+    icon: <Layers className="w-4 h-4" />,
+  },
+  {
+    id: "building-setback-calculator",
+    title: "Building Setback Calculator",
+    icon: <ArrowRightLeft className="w-4 h-4" />,
+  },
+  {
+    id: "room-area-calculator",
+    title: "Room Area Calculator",
+    icon: <Square className="w-4 h-4" />,
+  },
 ];
 
 interface MobileToolsSheetProps {
@@ -43,33 +173,66 @@ interface MobileToolsSheetProps {
   onSelectModule: (id: ModuleId) => void;
 }
 
-export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: MobileToolsSheetProps) {
+export default function MobileToolsSheet({
+  isOpen,
+  onClose,
+  onSelectModule,
+}: MobileToolsSheetProps) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [activeTab, setActiveTab] = useState(0);
 
+  const categories = React.useMemo(() => {
+    return [
+      "All",
+      ...Array.from(
+        new Set(ALL_MODULES.map((m) => m.category).filter(Boolean)),
+      ),
+    ];
+  }, []);
+
+  const activeCategory = categories[activeTab];
   const searchWords = searchTerm.toLowerCase().split(/\s+/).filter(Boolean);
-  const filteredTools = ALL_TOOLS.filter(tool => {
+
+  const filteredTools = ALL_TOOLS.filter((tool) => {
+    const fullMod = ALL_MODULES.find((m) => m.id === tool.id);
+
+    // Category check
+    const matchesCategory =
+      activeCategory === "All" || fullMod?.category === activeCategory;
+    if (!matchesCategory) return false;
+
+    // Search check
     if (searchWords.length === 0) return true;
-    const fullMod = ALL_MODULES.find(m => m.id === tool.id);
-    return searchWords.every(word => 
-      tool.title.toLowerCase().includes(word) ||
-      fullMod?.desc?.toLowerCase().includes(word) ||
-      fullMod?.category?.toLowerCase().includes(word)
+    return searchWords.every(
+      (word) =>
+        tool.title.toLowerCase().includes(word) ||
+        fullMod?.desc?.toLowerCase().includes(word) ||
+        fullMod?.category?.toLowerCase().includes(word),
     );
   });
+
+  const handleDragEnd = (e: any, { offset, velocity }: any) => {
+    const swipeThreshold = 50;
+    if (offset.x < -swipeThreshold && activeTab < categories.length - 1) {
+      setActiveTab((prev) => prev + 1);
+    } else if (offset.x > swipeThreshold && activeTab > 0) {
+      setActiveTab((prev) => prev - 1);
+    }
+  };
 
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-[#F5F5F7] backdrop-blur-sm z-[60] md:hidden"
             onClick={onClose}
           />
-          
-          <motion.div 
+
+          <motion.div
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
@@ -83,82 +246,122 @@ export default function MobileToolsSheet({ isOpen, onClose, onSelectModule }: Mo
               }
             }}
             className="fixed bottom-0 left-0 right-0 z-[70] md:hidden flex flex-col bg-white/90 backdrop-blur-2xl border-t border-border-color/50 shadow-[0_-8px_30px_rgba(15,23,42,0.12)] rounded-t-[32px] will-change-transform"
-            style={{ maxHeight: '85vh' }}
+            style={{ maxHeight: "85vh", height: "85vh" }}
           >
             <div className="flex justify-center pt-3 pb-2 w-full touch-none cursor-grab active:cursor-grabbing">
               <div className="w-12 h-1.5 bg-slate-300 rounded-full" />
             </div>
 
-            <div className="px-6 pb-2 pt-1 flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-slate-800">Tools Directory</h2>
-              <button 
-                className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-slate-700 hover:text-slate-800 transition-colors"
+            <div className="px-6 pb-2 pt-1 flex items-center justify-between shrink-0">
+              <h2 className="text-xl font-semibold text-slate-800">
+                Tools Directory
+              </h2>
+              <button
+                className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 hover:bg-slate-200 transition-colors"
                 onClick={onClose}
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="px-6 pb-4 pt-2">
+            <div className="px-6 pb-2 pt-2 shrink-0">
               <div className="flex items-center gap-2">
-                <div className="relative flex flex-1 items-center h-[52px] bg-transparent rounded-[50px] border-2 border-indigo-500 transition-all overflow-hidden group">
-                  <input 
-                    type="text" 
+                <div className="relative flex flex-1 items-center h-[46px] bg-white rounded-[50px] border border-slate-200 shadow-sm transition-all overflow-hidden focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-100">
+                  <Search className="w-4 h-4 text-slate-400 ml-4 absolute" />
+                  <input
+                    type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="Search tools & calculations..." 
-                    className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[15px] font-medium text-[var(--primary-dark)] placeholder:text-slate-400 pl-5 pr-3"
+                    placeholder="Search tools & calculations..."
+                    className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[14px] font-medium text-slate-700 placeholder:text-slate-400 pl-10 pr-3"
                   />
                 </div>
-                <button className="w-[52px] h-[52px] flex items-center justify-center shrink-0 rounded-full border-2 border-indigo-500 text-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-cyan-500 hover:text-white hover:border-transparent transition-all">
-                  <Search className="w-5 h-5" strokeWidth={2.5} />
-                </button>
               </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto px-6 pb-8 pt-2 max-h-[60vh]">
-              <div className="flex flex-col gap-2">
-                {filteredTools.map(tool => (
+            <div className="w-full overflow-x-auto hide-scrollbar px-6 py-2 shrink-0 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                {categories.map((cat, idx) => (
                   <button
-                    key={tool.id}
-                    onClick={() => {
-                      onSelectModule(tool.id as ModuleId);
-                      onClose();
-                    }}
-                    className="group relative flex items-center gap-4 w-full p-3.5 bg-bg-card/80 rounded-[24px] border border-transparent shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-200 text-left active:scale-95"
+                    key={cat}
+                    onClick={() => setActiveTab(idx)}
+                    className={`whitespace-nowrap px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                      activeTab === idx
+                        ? "bg-slate-800 text-white shadow-md"
+                        : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    }`}
                   >
-                    {/* Border Draw SVG Effect */}
-                    <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
-                      <rect 
-                        x="1" y="1" 
-                        width="calc(100% - 2px)" height="calc(100% - 2px)" 
-                        rx="15" ry="15" 
-                        fill="none" 
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        className="transition-all duration-700 ease-out [stroke-dasharray:1500] [stroke-dashoffset:1500] group-hover:[stroke-dashoffset:0] group-active:[stroke-dashoffset:0] opacity-0 group-hover:opacity-100 group-active:opacity-100 stroke-[var(--accent-vibrant)]"
-                      />
-                    </svg>
-
-                    <div className="flex-shrink-0 w-12 h-12 rounded-[14px] bg-white flex items-center justify-center text-slate-700 group-hover:text-indigo-500 group-hover:bg-indigo-50 transition-colors relative z-10">
-                      {typeof tool.icon === 'function' ? (() => {
-                        const Icon = tool.icon as any;
-                        return <Icon className="w-6 h-6" />
-                      })() : (
-                        React.isValidElement(tool.icon) && React.cloneElement(tool.icon as React.ReactElement, { className: "w-6 h-6" } as any)
-                      )}
-                    </div>
-                    <div className="flex-1 min-w-0 relative z-10">
-                      <h4 className="font-semibold text-base text-[var(--primary-dark)] truncate group-hover:text-[var(--accent-vibrant)] transition-colors">{tool.title}</h4>
-                    </div>
+                    {cat}
                   </button>
                 ))}
-                {filteredTools.length === 0 && (
-                  <div className="text-center py-8 text-slate-500 font-medium">
-                    No tools found matching "{searchTerm}"
-                  </div>
-                )}
               </div>
+            </div>
+
+            <div className="flex-1 overflow-x-hidden relative">
+              <motion.div
+                className="h-full overflow-y-auto px-6 pb-8 pt-4"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                dragDirectionLock
+                onDragEnd={handleDragEnd}
+                animate={{ x: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              >
+                <div className="flex flex-col gap-2">
+                  <AnimatePresence mode="popLayout">
+                    {filteredTools.map((tool) => (
+                      <motion.button
+                        key={tool.id}
+                        layout
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        onClick={() => {
+                          onSelectModule(tool.id as ModuleId);
+                          onClose();
+                        }}
+                        className="group relative flex items-center gap-4 w-full p-3.5 bg-bg-card/80 rounded-[24px] border border-transparent shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-200 text-left active:scale-95"
+                      >
+                        <div className="flex-shrink-0 w-12 h-12 rounded-[14px] bg-white border border-slate-100 flex items-center justify-center text-slate-700 group-hover:text-indigo-600 group-hover:bg-indigo-50 transition-colors shadow-sm relative z-10">
+                          {typeof tool.icon === "function"
+                            ? (() => {
+                                const Icon = tool.icon as any;
+                                return <Icon className="w-6 h-6" />;
+                              })()
+                            : React.isValidElement(tool.icon) &&
+                              React.cloneElement(
+                                tool.icon as React.ReactElement,
+                                { className: "w-5 h-5" } as any,
+                              )}
+                        </div>
+                        <div className="flex-1 min-w-0 relative z-10">
+                          <h4 className="font-semibold text-[15px] leading-snug text-slate-800 truncate group-hover:text-indigo-600 transition-colors">
+                            {tool.title}
+                          </h4>
+                          <p className="text-xs text-slate-500 truncate mt-0.5">
+                            {ALL_MODULES.find((m) => m.id === tool.id)
+                              ?.category || "Tool"}
+                          </p>
+                        </div>
+                      </motion.button>
+                    ))}
+                  </AnimatePresence>
+                  {filteredTools.length === 0 && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="text-center py-10 text-slate-500 font-medium"
+                    >
+                      <div className="bg-slate-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <Search className="w-5 h-5 text-slate-400" />
+                      </div>
+                      No tools found in {activeCategory}
+                    </motion.div>
+                  )}
+                </div>
+              </motion.div>
             </div>
           </motion.div>
         </>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Calculator, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { FormulaVisualizer } from './FormulaVisualizer';
 
 export function FormulaModal({
   isOpen,
@@ -59,6 +60,8 @@ export function FormulaModal({
                   </div>
                 </div>
               </div>
+
+              <FormulaVisualizer title={title} />
             </div>
             
             <div className="p-6 pt-0 shrink-0 mt-2">

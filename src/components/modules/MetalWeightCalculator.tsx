@@ -549,9 +549,9 @@ export default function MetalWeightCalculator() {
  variant="neutral"
  />
  <ResultCard
- title="Material Info"
- value="Density"
- unit={`${density} kg/m³`}
+ title="Material Density"
+ value={density}
+ unit="kg/m³"
  variant="neutral"
  />
  </div>
