@@ -98,24 +98,24 @@ export default function ToolCard({
   return (
     <button
       onClick={() => onSelect(mod.id)}
-      className={`group w-full flex flex-col text-left bg-white rounded-3xl border border-slate-200 p-6 min-h-[190px] cursor-pointer transition-all duration-200 shadow-sm hover:shadow-md ${theme.borderHover} ${theme.bgHover}`}
+      className={`group w-full flex flex-col text-left bg-white rounded-2xl border border-slate-200 p-5 min-h-[170px] cursor-pointer transition-all duration-200 shadow-sm hover:shadow-md ${theme.borderHover} ${theme.bgHover}`}
       style={{
         // Strip out any potentially buggy properties
         transform: "translateZ(0)", 
         backfaceVisibility: "hidden",
       }}
     >
-      <div className="flex justify-between items-start mb-4 w-full">
+      <div className="flex justify-between items-start mb-3 w-full">
         {/* Simple Flat Icon Container */}
         <div 
-          className={`p-3 rounded-2xl border border-slate-100 shadow-sm transition-transform duration-200 group-hover:scale-105 ${theme.iconBg} ${theme.iconColor}`}
+          className={`p-2.5 rounded-xl border border-slate-100 shadow-sm transition-transform duration-200 group-hover:scale-105 ${theme.iconBg} ${theme.iconColor}`}
         >
-          <IconComponent className="w-6 h-6 md:w-7 md:h-7" strokeWidth={1.5} />
+          <IconComponent className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />
         </div>
         
         <div className="flex items-center gap-2">
           {mod.category && (
-            <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${theme.badgeBg} ${theme.badgeText}`}>
+            <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${theme.badgeBg} ${theme.badgeText}`}>
               {mod.category}
             </span>
           )}
@@ -123,7 +123,7 @@ export default function ToolCard({
           <div
             role="button"
             tabIndex={0}
-            className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors border shadow-sm ${
+            className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors border shadow-sm ${
               isBookmarked 
                 ? "bg-amber-100 text-amber-600 border-amber-200 hover:bg-amber-200" 
                 : "bg-white text-slate-400 border-slate-200 hover:text-slate-600 hover:bg-slate-50"
@@ -131,7 +131,7 @@ export default function ToolCard({
             onClick={toggleFavorite}
           >
             <Bookmark
-              className="w-4 h-4"
+              className="w-3.5 h-3.5"
               strokeWidth={isBookmarked ? 2.5 : 2}
               fill={isBookmarked ? "currentColor" : "none"}
             />
@@ -140,10 +140,10 @@ export default function ToolCard({
       </div>
 
       <div className="flex flex-col flex-1 mt-2">
-        <h3 className="text-lg font-bold mb-1 text-slate-900 group-hover:text-indigo-700 transition-colors">
+        <h3 className="text-base font-bold mb-1 text-slate-900 group-hover:text-indigo-700 transition-colors">
           {mod.title || "Untitled Tool"}
         </h3>
-        <p className="text-sm text-slate-500 line-clamp-2 leading-relaxed">
+        <p className="text-[13px] text-slate-500 line-clamp-2 leading-relaxed">
           {mod.desc || "No description available."}
         </p>
       </div>

@@ -76,18 +76,18 @@ export default function TopNavbar({
   return (
     <>
       <header className="sticky top-0 left-0 right-0 z-[120] bg-white/90 backdrop-blur-md border-b border-slate-200 transition-colors shadow-sm">
-        <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-12 h-16 flex items-center justify-between">
+        <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-12 h-14 flex items-center justify-between">
           <div 
             className="flex items-center gap-2 cursor-pointer group"
             onClick={() => { setActiveTab("Calculators"); onNavigate && onNavigate("home"); }}
           >
-            <div className="w-8 h-8 rounded-xl bg-[#0A192F] text-white flex items-center justify-center font-bold text-xs tracking-tighter shadow-sm group-hover:bg-[#112240] transition-colors">
+            <div className="w-7 h-7 rounded-lg bg-[#0A192F] text-white flex items-center justify-center font-bold text-xs tracking-tighter shadow-sm group-hover:bg-[#112240] transition-colors">
               CE
             </div>
-            <span className="font-extrabold text-[18px] text-[#0A192F] tracking-tight hidden sm:block">
+            <span className="font-bold text-[17px] text-[#0A192F] tracking-tight hidden sm:block">
               Civil Estimation <span className="text-[#FF5F15]">Pro</span>
             </span>
-            <span className="font-bold text-[18px] text-[#0A192F] tracking-tight sm:hidden">
+            <span className="font-bold text-[17px] text-[#0A192F] tracking-tight sm:hidden">
               Civil Pro
             </span>
           </div>
@@ -97,7 +97,7 @@ export default function TopNavbar({
               <button 
                 key={link.name}
                 className={cn(
-                  "relative text-[15px] font-semibold transition-colors hover:text-[#FF5F15]",
+                  "relative text-[14px] font-semibold transition-colors hover:text-[#FF5F15]",
                   activeTab === link.name ? "text-[#FF5F15]" : "text-slate-600"
                 )}
                 onClick={() => handleNavigate(link)}
@@ -113,19 +113,19 @@ export default function TopNavbar({
             ))}
           </nav>
 
-          <div className="flex items-center gap-3 md:gap-4">
+          <div className="flex items-center gap-2.5">
              <button
-               className="hidden md:flex items-center gap-2 text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-2 rounded-full transition-colors border border-slate-200/60"
+               className="hidden md:flex items-center gap-1.5 text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-full transition-colors border border-slate-200/60"
                onClick={onOpenRecent}
                title="Recent Tools"
              >
-               <History className="w-4 h-4" />
-               <span className="text-[13px] font-bold">Recent</span>
+               <History className="w-3.5 h-3.5" />
+               <span className="text-xs font-semibold">Recent</span>
              </button>
              <div className="relative" ref={searchRef}>
                <button 
                  onClick={() => setShowRecentSearches(!showRecentSearches)}
-                 className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 px-3 py-2 rounded-full transition-colors border border-slate-200/60"
+                 className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 px-2.5 py-2 rounded-full transition-colors border border-slate-200/60"
                >
                  <Search className="w-4 h-4" />
                </button>
@@ -182,7 +182,7 @@ export default function TopNavbar({
              </div>
 
              <button 
-               className="text-[14px] font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 px-5 py-2 rounded-full transition-all duration-300 shadow-sm active:scale-95 hidden sm:flex items-center justify-center"
+               className="text-[13px] font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 px-4 py-1.5 rounded-full transition-all duration-300 shadow-sm active:scale-95 hidden sm:flex items-center justify-center"
                onClick={() => {}}
              >
                 Login
