@@ -1279,22 +1279,13 @@ export default function Dashboard({
  {groupName}
  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-500 shadow-sm">{toolsInGroup.length}</span>
  </h2>
- <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
- <AnimatePresence mode="popLayout">
+ <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
  {toolsInGroup.map((mod) => (
- <motion.div
- key={mod.id}
- layout
- initial={{ opacity: 0, scale: 0.9 }}
- animate={{ opacity: 1, scale: 1 }}
- exit={{ opacity: 0, scale: 0.9 }}
- transition={{ duration: 0.2 }}
- >
+ <div key={mod.id}>
  <ToolCard mod={mod} onSelect={handleSelect} />
- </motion.div>
+ </div>
  ))}
- </AnimatePresence>
- </motion.div>
+ </div>
  </div>
  );
  })}
@@ -1367,26 +1358,17 @@ export default function Dashboard({
  <Bookmark className="w-6 h-6 text-indigo-500" fill="transparent" strokeWidth={2.5} />
  Personalized Shortcuts
  </h2>
- <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
- <AnimatePresence mode="popLayout">
+ <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
  {settings.favoriteTools.map(toolId => {
  const mod = ALL_MODULES.find(m => m.id === toolId);
  if (!mod) return null;
  return (
- <motion.div
- key={`fav-${mod.id}`}
- layout
- initial={{ opacity: 0, scale: 0.9 }}
- animate={{ opacity: 1, scale: 1 }}
- exit={{ opacity: 0, scale: 0.9 }}
- transition={{ duration: 0.2 }}
- >
+ <div key={`fav-${mod.id}`}>
  <ToolCard mod={mod} onSelect={handleSelect} />
- </motion.div>
+ </div>
  );
  })}
- </AnimatePresence>
- </motion.div>
+ </div>
  </div>
  )}
  <div className="w-full max-w-[1400px] mx-auto w-full overflow-visible flex flex-col mt-4">
@@ -1435,22 +1417,13 @@ export default function Dashboard({
  {groupName}
  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-500 shadow-sm">{toolsInGroup.length}</span>
  </h2>
- <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 tool-card-grid">
- <AnimatePresence mode="popLayout">
+ <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 tool-card-grid">
  {toolsInGroup.map((mod) => (
- <motion.div
- key={mod.id}
- layout
- initial={{ opacity: 0, scale: 0.9 }}
- animate={{ opacity: 1, scale: 1 }}
- exit={{ opacity: 0, scale: 0.9 }}
- transition={{ duration: 0.2 }}
- >
+ <div key={mod.id}>
  <ToolCard mod={mod} onSelect={handleSelect} />
- </motion.div>
+ </div>
  ))}
- </AnimatePresence>
- </motion.div>
+ </div>
  </div>
  );
  })}
