@@ -140,28 +140,28 @@ export default function InteractiveSteelCalculator({
         </div>
 
         {/* Results UI */}
-        <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(15,23,42,0.15)] flex flex-col gap-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md[0_8px_30px_rgba(15,23,42,0.2)] w-full overflow-hidden group">
+        <div className="relative p-6 sm:p-8 lg:col-span-2 bg-slate-900 overflow-hidden flex flex-col justify-center">
           <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-indigo-600 opacity-20 blur-3xl mix-blend-screen pointer-events-none"></div>
           <div className="absolute -bottom-24 -left-24 w-64 h-64 rounded-full bg-blue-500 opacity-20 blur-3xl mix-blend-screen pointer-events-none"></div>
 
           <div className="relative z-10">
-            <div className="inline-flex items-center px-3 py-1 rounded-full bg-white border border-slate-700 text-xs font-bold uppercase tracking-widest text-indigo-300 mb-6">
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-[11px] font-bold uppercase tracking-widest text-indigo-300 mb-6">
               <span className="w-2 h-2 rounded-full bg-indigo-400 mr-2 animate-pulse"></span>
               Calculated Output
             </div>
 
-            <div className="mb-2 text-slate-400 font-medium">
+            <div className="mb-2 text-slate-400 font-medium text-sm lg:text-base">
               Total Estimated Weight
             </div>
             <div className="flex items-baseline gap-2 mb-10 text-wrap break-all">
-              <span className="text-6xl sm:text-7xl font-semibold tabular-nums tracking-tight tracking-tighter text-white">
+              <span className="text-4xl sm:text-5xl font-bold tabular-nums tracking-tight text-white">
                 {weight}
               </span>
-              <span className="text-2xl font-semibold text-slate-400 whitespace-nowrap">kg</span>
+              <span className="text-xl font-semibold text-slate-400 whitespace-nowrap">kg</span>
             </div>
 
-            <div className="bg-[#F5F5F7] backdrop-blur-sm rounded-[24px] p-5 border border-slate-200">
-              <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center">
+            <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-5 border border-slate-700">
+              <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center">
                 <svg
                   className="w-3.5 h-3.5 mr-1.5"
                   fill="none"

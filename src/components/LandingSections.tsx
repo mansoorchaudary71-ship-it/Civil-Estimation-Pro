@@ -49,16 +49,16 @@ export function HowItWorksSection() {
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#FF5F15]/10 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#0A192F]/5 rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="text-center mb-24 relative z-10 px-4">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#0A192F]/10 text-[#0A192F] rounded-full text-xs font-bold tracking-widest uppercase mb-6 shadow-sm">
+      <div className="text-center mb-16 relative z-10 px-4">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#0A192F]/10 text-[#0A192F] rounded-full text-xs font-bold tracking-widest uppercase mb-4 shadow-sm">
           How It Works
         </div>
         <h2
-          className="text-3xl md:text-5xl font-bold tracking-tight text-[#0A192F] mb-6"
+          className="text-2xl md:text-4xl font-extrabold tracking-tight text-[#0A192F] mb-4"
         >
           From Drawing to BOQ in 3 Steps
         </h2>
-        <p className="text-slate-600 max-w-2xl mx-auto text-lg">
+        <p className="text-slate-600 max-w-2xl mx-auto text-base">
           Our platform simplifies complex civil engineering calculations into an intuitive, seamless workflow.
         </p>
       </div>
@@ -78,25 +78,25 @@ export function HowItWorksSection() {
             transition={{ duration: 0.6, delay: idx * 0.2 }}
             className="flex-1"
           >
-            <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 relative h-full flex flex-col group hover:-translate-y-1 hover:shadow-md transition-all duration-300 ml-6 md:ml-0 md:mt-6">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 relative h-full flex flex-col group hover:-translate-y-1 hover:shadow-md transition-all duration-300 ml-6 md:ml-0 md:mt-6">
               
               {/* Large numbered badge */}
-              <div className="absolute -top-8 -left-8 md:-top-10 md:-left-6 w-[60px] h-[60px] rounded-full bg-[#FFC000] flex items-center justify-center text-[#0A192F] text-2xl font-black shadow-sm border-4 border-white z-20 group-hover:scale-110 group-hover:bg-[#FF5F15] group-hover:text-white transition-colors duration-300">
+              <div className="absolute -top-6 -left-6 md:-top-8 md:-left-4 w-[48px] h-[48px] rounded-full bg-[#FFC000] flex items-center justify-center text-[#0A192F] text-xl font-black shadow-sm border-[3px] border-white z-20 group-hover:scale-110 group-hover:bg-[#FF5F15] group-hover:text-white transition-colors duration-300">
                 {idx + 1}
               </div>
 
-              <div className="w-16 h-16 rounded-2xl bg-[#0A192F]/5 flex items-center justify-center mb-6 text-[#0A192F] group-hover:bg-[#0A192F]/10 transition-colors duration-300 mt-2 border border-[#0A192F]/10">
+              <div className="w-14 h-14 rounded-2xl bg-[#0A192F]/5 flex items-center justify-center mb-5 text-[#0A192F] group-hover:bg-[#0A192F]/10 transition-colors duration-300 mt-2 border border-[#0A192F]/10">
                 <step.icon
-                  className="w-10 h-10"
+                  className="w-8 h-8"
                   strokeWidth={1.5}
                 />
               </div>
               
-              <h3 className="text-xl md:text-2xl font-bold text-[#0A192F] mb-4">
+              <h3 className="text-lg md:text-xl font-bold text-[#0A192F] mb-3">
                 {step.title}
               </h3>
               
-              <p className="text-slate-600 font-medium leading-relaxed">
+              <p className="text-slate-600 text-sm font-medium leading-relaxed">
                 {step.description}
               </p>
             </div>
@@ -175,17 +175,17 @@ export function FeatureComparisonSection({
       <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none opacity-50"></div>
 
       <div className="max-w-6xl mx-auto px-4 relative z-10">
-        <div className="text-center md:mb-16 mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#FF5F15]/10 text-[#FF5F15] rounded-full text-[11px] font-bold tracking-widest uppercase mb-4 border border-[#FF5F15]/20 shadow-sm">
+        <div className="text-center md:mb-12 mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#FF5F15]/10 text-[#FF5F15] rounded-full text-[11px] font-bold tracking-widest uppercase mb-3 border border-[#FF5F15]/20 shadow-sm">
             Compare
           </div>
           <h2
-            className="text-3xl md:text-5xl font-bold tracking-tight text-[#0A192F] mb-6"
+            className="text-2xl md:text-4xl font-extrabold tracking-tight text-[#0A192F] mb-4"
           >
             The Smarter Way to Estimate
           </h2>
           <p
-            className="text-slate-600 font-medium text-lg max-w-2xl mx-auto px-4 mb-8"
+            className="text-slate-600 font-medium text-base max-w-2xl mx-auto px-4 mb-6"
           >
             See why thousands of engineers are abandoning spreadsheets for a dedicated estimation platform.
           </p>
@@ -206,9 +206,9 @@ export function FeatureComparisonSection({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto items-stretch">
           {/* Spreadsheets Card */}
           <div
-            className="bg-slate-50 border border-slate-200 rounded-3xl p-6 md:p-8 flex flex-col pt-10 shadow-sm"
+            className="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex flex-col pt-8 shadow-sm"
           >
-            <div className="text-xl font-bold text-slate-500 mb-8 border-b border-slate-200 pb-6">
+            <div className="text-lg font-bold text-slate-500 mb-6 border-b border-slate-200 pb-4">
               Excel Spreadsheets
             </div>
 
@@ -245,15 +245,15 @@ export function FeatureComparisonSection({
 
           {/* CE Pro Card */}
           <div
-            className="bg-white border-2 border-[#0A192F] rounded-3xl shadow-md p-6 md:p-8 flex flex-col relative md:-translate-y-2 mt-4 md:mt-0"
+            className="bg-white border-2 border-[#0A192F] rounded-2xl shadow-md p-6 flex flex-col relative mt-4 md:mt-0 md:-translate-y-1"
           >
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFC000] text-[#0A192F] font-black text-xs rounded-full px-4 py-1 shadow-[0_0_15px_rgba(255,192,0,0.4)] border border-[#FFC000]">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFC000] text-[#0A192F] font-black text-[11px] rounded-full px-3 py-1 shadow-[0_0_15px_rgba(255,192,0,0.4)] border border-[#FFC000]">
               RECOMMENDED
             </div>
 
-            <div className="text-xl md:text-2xl font-bold text-[#0A192F] mb-8 border-b border-slate-100 pb-6 flex items-center gap-3 mt-2">
-              <div className="w-8 h-8 rounded-xl bg-[#FF5F15] text-white flex items-center justify-center font-black text-xs tracking-tighter shadow-md shrink-0">CE</div>
-              Civil Estimation <span className="text-[#FF5F15]">Pro</span>
+            <div className="text-lg md:text-xl font-bold text-[#0A192F] mb-6 border-b border-slate-100 pb-4 flex items-center gap-2 mt-2">
+              <div className="w-7 h-7 rounded-xl bg-[#FF5F15] text-white flex items-center justify-center font-black text-xs tracking-tighter shadow-md shrink-0">CE</div>
+              Civil Estimation <span className="text-[#FF5F15] ml-1">Pro</span>
             </div>
 
             <div className="flex flex-col gap-6 flex-1">

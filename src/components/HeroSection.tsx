@@ -63,17 +63,16 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
         </motion.div>
 
         {/* Heading */}
-        <div className="flex flex-col items-center justify-center w-full mb-8">
+        <div className="flex flex-col items-center justify-center w-full mb-6">
           <motion.h1
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="text-6xl sm:text-7xl md:text-[6rem] lg:text-[7.5rem] tracking-tight leading-[0.9] mb-6 flex flex-col"
-            style={{ fontFamily: "'Bebas Neue', display, sans-serif" }}
+            className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-5 flex flex-col"
           >
-            <span className="text-[#0A192F] drop-shadow-sm">Build Smarter.</span>
+            <span className="text-[#0A192F]">Build Smarter.</span>
             <span 
-              className="text-[#FF5F15] drop-shadow-sm"
+              className="text-[#FF5F15]"
             >
               Estimate Faster.
             </span>
@@ -83,7 +82,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-600 font-medium max-w-2xl px-4 leading-relaxed"
+            className="text-base md:text-lg text-slate-600 font-medium max-w-2xl px-4 leading-relaxed"
           >
             The all-in-one calculation platform for modern civil engineers, architects, and quantity surveyors. Accurate structural and building estimates in seconds.
           </motion.p>
@@ -94,22 +93,22 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto px-4 mb-16"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto px-4 mb-12"
         >
           <div className="relative group w-full sm:w-auto">
             {/* Pulsing glow ring */}
             <div className="absolute -inset-1 bg-[#FF5F15] rounded-full blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
             <button
               onClick={onStart}
-              className="relative w-full sm:w-auto px-10 py-4 rounded-full font-bold text-white bg-[#FF5F15] hover:bg-[#ea580c] transition-all duration-300 flex items-center justify-center gap-3 shadow-[0_4px_20px_rgba(255,95,21,0.4)] hover:-translate-y-1 hover:shadow-[0_8px_25px_rgba(255,95,21,0.5)] active:scale-95"
+              className="relative w-full sm:w-auto px-8 py-3.5 rounded-full font-bold text-[15px] text-white bg-[#FF5F15] hover:bg-[#ea580c] transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(255,95,21,0.4)] hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(255,95,21,0.5)] active:scale-95"
             >
               Start Estimating Free
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4" />
             </button>
           </div>
           
           <button
-            className="w-full sm:w-auto px-10 py-4 rounded-full font-bold text-[#0A192F] bg-white hover:bg-slate-50 border border-slate-200 transition-all duration-300 flex items-center justify-center gap-3 active:scale-95 shadow-sm hover:-translate-y-1 hover:shadow-md"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full font-bold text-[15px] text-[#0A192F] bg-white hover:bg-slate-50 border border-slate-200 transition-all duration-300 flex items-center justify-center gap-2 active:scale-95 shadow-sm hover:-translate-y-0.5 hover:shadow-md"
           >
             <Play className="w-4 h-4 fill-current text-[#0A192F]" />
             Watch Demo
@@ -117,25 +116,25 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
         </motion.div>
 
         {/* 4 Stat Counters (Glassmorphism Cards) */}
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map((stat, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 + (idx * 0.1) }}
-              className="relative overflow-hidden flex flex-col items-center justify-center p-8 bg-white/60 backdrop-blur-xl border border-slate-200/80 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] transform hover:-translate-y-1 hover:border-slate-300 hover:shadow-md transition-all duration-300 group rounded-[32px]"
+              className="relative overflow-hidden flex flex-col items-center justify-center p-6 bg-white/60 backdrop-blur-xl border border-slate-200/80 text-center shadow-sm transform hover:-translate-y-1 hover:border-slate-300 hover:shadow-md transition-all duration-300 group rounded-3xl"
             >
               {/* Subtle top glow inside card */}
               <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               
-              <div className="w-14 h-14 rounded-2xl bg-[#0A192F]/5 text-[#0A192F] flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-[#FF5F15]/10 group-hover:text-[#FF5F15] transition-all duration-300">
-                <stat.icon className="w-7 h-7" />
+              <div className="w-12 h-12 rounded-2xl bg-[#0A192F]/5 text-[#0A192F] flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-[#FF5F15]/10 group-hover:text-[#FF5F15] transition-all duration-300">
+                <stat.icon className="w-6 h-6" />
               </div>
               
-              <h3 className="text-3xl font-[800] text-[#0A192F] mb-1 leading-none relative z-10 group-hover:text-[#FF5F15] transition-colors duration-300">{stat.val}</h3>
-              <p className="text-[0.8rem] font-bold text-slate-500 tracking-wide uppercase mb-2 relative z-10">{stat.lab}</p>
-              <p className="text-[0.75rem] text-slate-400 relative z-10">{stat.sub}</p>
+              <h3 className="text-2xl font-[800] text-[#0A192F] mb-1 leading-none relative z-10 group-hover:text-[#FF5F15] transition-colors duration-300">{stat.val}</h3>
+              <p className="text-[11px] font-bold text-slate-500 tracking-wide uppercase mb-1.5 relative z-10">{stat.lab}</p>
+              <p className="text-[11px] text-slate-400 relative z-10 hidden sm:block">{stat.sub}</p>
             </motion.div>
           ))}
         </div>

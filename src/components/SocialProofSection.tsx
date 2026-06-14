@@ -45,25 +45,25 @@ export default function SocialProofSection() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <div className="w-full py-16 md:py-24 relative overflow-hidden bg-transparent mb-12" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+    <div className="w-full py-16 md:py-20 relative overflow-hidden bg-transparent mb-8">
       {/* Subtle purple radial glow at center */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-orange-100/50 rounded-full blur-[100px] pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">
             Trusted by <span className="text-orange-500">10,000+</span> Engineers
           </h2>
         </div>
 
-        <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {TESTIMONIALS.map((t, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
               transition={{ duration: 0.6, delay: idx * 0.15, ease: "easeOut" }}
-              className="group bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 flex flex-col"
+              className="group bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 flex flex-col"
             >
               <div className="flex items-center gap-1.5 mb-6">
                 {[...Array(5)].map((_, i) => (
@@ -71,12 +71,12 @@ export default function SocialProofSection() {
                 ))}
               </div>
               
-              <p className="text-slate-600 text-lg leading-relaxed mb-8 flex-1">
+              <p className="text-slate-600 text-base leading-relaxed mb-6 flex-1">
                 "{t.quote}"
               </p>
               
-              <div className="flex items-center gap-4 mt-auto">
-                <div className="w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center text-white font-bold text-lg shadow-sm">
+              <div className="flex items-center gap-3 mt-auto">
+                <div className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-bold text-base shadow-sm">
                   {t.initials}
                 </div>
                 <div>

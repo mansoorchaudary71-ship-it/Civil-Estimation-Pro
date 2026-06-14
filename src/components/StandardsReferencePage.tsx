@@ -160,7 +160,7 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
 
         <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
           <BookOpen className="w-12 h-12 text-[#B39B72] mb-6" />
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#4A443B] tracking-tight mb-6 relative">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#4A443B] tracking-tight mb-4 relative">
             Engineering <span className="text-[#B39B72]">Standards & Codes</span> Hub
           </h1>
           <p className="text-[#8B8476] text-lg max-w-2xl leading-relaxed mb-10">

@@ -8,13 +8,13 @@ export default function PremiumHero() {
       <div className="w-full max-w-[1200px] mx-auto text-center flex flex-col items-center justify-center">
         
         {/* Headline */}
-        <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 tracking-tight leading-[1.1] mb-6">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.1] mb-6">
           Free Civil Engineering <br className="hidden md:block" />
           <span className="text-purple-600">Estimation</span> Platform
         </h1>
 
         {/* Subheadline & Social Proof */}
-        <div className="flex flex-col items-center justify-center gap-4 mb-10">
+        <div className="flex flex-col items-center justify-center gap-4 mb-8">
           <p className="text-lg md:text-xl text-slate-600 font-medium max-w-2xl text-center">
             The ultimate suite of construction calculators. Generate pixel-perfect BOQs, takeoff sheets, and material estimates instantly.
           </p>

@@ -1301,9 +1301,9 @@ export default function Dashboard({
  <div className="absolute top-[-50%] left-[-10%] w-[70%] h-[150%] rounded-full bg-[#0072de]/10 [#0072de]/20 blur-[80px] pointer-events-none"></div>
  <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[100%] rounded-full bg-[#0072de]/5 [#0072de]/15 blur-[80px] pointer-events-none"></div>
  <div className="w-full max-w-[1400px] mx-auto z-10 flex flex-col items-start gap-1">
- <h1 className="text-[2.5rem] md:text-5xl lg:text-[64px] font-black text-slate-900 tracking-tighter leading-[1.05]">Civil Estimation</h1>
- <h1 className="text-[2.5rem] md:text-5xl lg:text-[64px] font-black tracking-tighter leading-[1.05] mb-2 text-[#0072de] [#3399ff]">Pro.</h1>
- <p className="text-lg md:text-xl text-slate-500 font-medium max-w-lg mb-2">Welcome back, {user.displayName?.split(' ')[0] || 'Engineer'}.</p>
+ <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">Civil Estimation</h1>
+ <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight mb-2 text-[#0072de] [#3399ff]">Pro.</h1>
+ <p className="text-base md:text-lg text-slate-500 font-medium max-w-lg mb-2">Welcome back, {user.displayName?.split(' ')[0] || 'Engineer'}.</p>
  </div>
  </div>
 
