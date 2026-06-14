@@ -8,6 +8,8 @@ import { CalculationHistory } from '../ui/CalculationHistory';
 import { useSettings } from '../../context/SettingsContext';
 import { CurrencySelector } from '../ui/CurrencySelector';
 
+import { CostTrendChart } from "./CostTrendChart";
+
 interface CostItem {
   id: string;
   name: string;
@@ -400,6 +402,10 @@ const ConstructionCostSummary: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+      
+      <div className="mt-8">
+        <CostTrendChart />
       </div>
     
       <CalculationHistory calculatorId="constructioncostsummary_tool" currentInputs={{}} />
