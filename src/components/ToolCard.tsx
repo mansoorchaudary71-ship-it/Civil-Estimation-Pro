@@ -178,7 +178,6 @@ export default function ToolCard({
         onMouseLeave={handleMouseLeave}
         className="tool-card-container group relative flex w-full flex-col text-left bg-white rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] cursor-pointer overflow-hidden min-h-[190px]"
         style={{
-          transformStyle: "preserve-3d",
           transform: `perspective(1000px) rotateX(${mousePos.rotateX}deg) rotateY(${mousePos.rotateY}deg) scale(${isHovered ? 1.02 : 1})`,
           transition: isHovered ? "transform 0.1s ease-out" : "transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease",
           boxShadow: isHovered 
@@ -197,24 +196,20 @@ export default function ToolCard({
         />
 
         {/* Glassmorphic Content Layer */}
-        <div className="relative z-10 p-6 flex flex-col h-full w-full bg-white/40 backdrop-blur-[6px] transition-colors duration-500 group-hover:bg-white/10 group-hover:backdrop-blur-[12px]">
+        <div className="relative z-10 p-6 flex flex-col h-full w-full bg-white/60 backdrop-blur-md transition-colors duration-500 group-hover:bg-white/40">
           <div className="flex justify-between items-start mb-4 w-full">
             {/* Morphing Icon Container */}
             <div 
-              className={`p-3 bg-white rounded-2xl shadow-sm border border-white/50 transition-all duration-500 group-hover:shadow-lg ${theme.iconColor} group-hover:text-white group-hover:bg-white/20 group-hover:border-white/30`}
-              style={{
-                transform: isHovered ? "translateZ(30px)" : "translateZ(0px)",
-              }}
+              className={`p-3 bg-white rounded-2xl shadow-sm border border-slate-100 transition-all duration-500 group-hover:shadow-md ${theme.iconColor} group-hover:text-white group-hover:bg-slate-800 group-hover:border-slate-700`}
             >
-              {mod.icon && <mod.icon className="w-6 h-6 md:w-7 md:h-7 transition-colors duration-500" strokeWidth={1.5} />}
+              {mod?.icon && <mod.icon className="w-6 h-6 md:w-7 md:h-7 transition-colors duration-500" strokeWidth={1.5} />}
             </div>
             
             <div 
-              className="flex items-center gap-2"
-              style={{ transform: isHovered ? "translateZ(20px)" : "translateZ(0px)", transition: "transform 0.3s ease-out" }}
+              className="flex items-center gap-2 transition-transform duration-300"
             >
-              {mod.category && (
-                <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${theme.badgeBg} ${theme.badgeText} transition-all duration-500 group-hover:bg-white/30 group-hover:text-white group-hover:backdrop-blur-sm`}>
+              {mod?.category && (
+                <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${theme.badgeBg} ${theme.badgeText} transition-all duration-500 group-hover:bg-slate-800/10 group-hover:text-slate-800`}>
                   {mod.category}
                 </span>
               )}
@@ -225,7 +220,7 @@ export default function ToolCard({
                 className={`w-8 h-8 rounded-full flex items-center justify-center transition-all border shadow-sm z-20 ${
                   isBookmarked 
                     ? "bg-amber-100 text-amber-600 border-amber-200 group-hover:bg-amber-400 group-hover:text-white group-hover:border-amber-400" 
-                    : "bg-white/80 text-gray-400 border-gray-200 hover:text-gray-600 hover:bg-white group-hover:bg-white/20 group-hover:border-white/30 group-hover:text-white"
+                    : "bg-white/80 text-gray-400 border-gray-200 hover:text-gray-600 hover:bg-white group-hover:bg-slate-100 group-hover:border-slate-200 group-hover:text-slate-800"
                 }`}
                 onClick={toggleFavorite}
               >
@@ -239,21 +234,19 @@ export default function ToolCard({
           </div>
 
           <div 
-            className="flex flex-col flex-1"
-            style={{ transform: isHovered ? "translateZ(40px)" : "translateZ(0px)", transition: "transform 0.3s ease-out" }}
+            className="flex flex-col flex-1 transition-transform duration-300"
           >
-            <h3 className="text-lg font-bold mb-1 text-gray-900 group-hover:text-white transition-colors duration-500">
-              {mod.title}
+            <h3 className="text-lg font-bold mb-1 text-slate-900 group-hover:text-slate-800 transition-colors duration-500">
+              {mod?.title || "Untitled Tool"}
             </h3>
-            <p className="text-sm text-gray-500 line-clamp-2 group-hover:text-white/90 transition-colors duration-500">
-              {mod.desc}
+            <p className="text-sm text-slate-500 line-clamp-2 group-hover:text-slate-600 transition-colors duration-500">
+              {mod?.desc || "No description available."}
             </p>
           </div>
 
           {/* Action indicator on hover */}
           <div 
             className="absolute bottom-5 right-5 opacity-0 group-hover:opacity-100 transition-all duration-500 text-white flex items-center justify-center px-4 py-2 rounded-full bg-[#0A192F] hover:bg-[#FF5F15] hover:scale-105 border border-slate-700/50 shadow-sm"
-            style={{ transform: isHovered ? "translateZ(50px) translateX(0)" : "translateZ(0px) translateX(-10px)" }}
             onClick={(e) => {
               // The card itself has an onClick, so this button is mostly visual,
               // but we can ensure it doesn't propagate if we wanted to.
