@@ -5,56 +5,56 @@ import { useSettings } from "../context/SettingsContext";
 
 // Define the 4 professional, modern colors
 const THEME_COLORS = {
-  purple: {
-    bgFrom: "#8b5cf6",
-    bgTo: "#6366f1",
-    blob1: "linear-gradient(135deg, #a855f7 0%, #6366f1 100%)",
-    blob2: "linear-gradient(135deg, #d946ef 0%, #8b5cf6 100%)",
-    iconColor: "text-purple-600",
-    badgeBg: "bg-purple-100",
-    badgeText: "text-purple-700",
+  navy: {
+    bgFrom: "#0f172a",
+    bgTo: "#1e293b",
+    blob1: "linear-gradient(135deg, #0f172a 0%, #334155 100%)",
+    blob2: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)",
+    iconColor: "text-slate-800",
+    badgeBg: "bg-slate-100",
+    badgeText: "text-slate-700",
   },
-  blue: {
-    bgFrom: "#3b82f6",
-    bgTo: "#0ea5e9",
-    blob1: "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)",
-    blob2: "linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%)",
-    iconColor: "text-blue-600",
-    badgeBg: "bg-blue-100",
-    badgeText: "text-blue-700",
+  grey: {
+    bgFrom: "#64748b",
+    bgTo: "#94a3b8",
+    blob1: "linear-gradient(135deg, #64748b 0%, #cbd5e1 100%)",
+    blob2: "linear-gradient(135deg, #94a3b8 0%, #64748b 100%)",
+    iconColor: "text-slate-500",
+    badgeBg: "bg-slate-100",
+    badgeText: "text-slate-600",
   },
   orange: {
     bgFrom: "#f97316",
-    bgTo: "#f59e0b",
-    blob1: "linear-gradient(135deg, #f97316 0%, #fbbf24 100%)",
-    blob2: "linear-gradient(135deg, #ef4444 0%, #f59e0b 100%)",
+    bgTo: "#ea580c",
+    blob1: "linear-gradient(135deg, #f97316 0%, #fb923c 100%)",
+    blob2: "linear-gradient(135deg, #ea580c 0%, #f97316 100%)",
     iconColor: "text-orange-600",
     badgeBg: "bg-orange-100",
     badgeText: "text-orange-700",
   },
   green: {
-    bgFrom: "#10b981",
-    bgTo: "#14b8a6",
-    blob1: "linear-gradient(135deg, #10b981 0%, #34d399 100%)",
-    blob2: "linear-gradient(135deg, #059669 0%, #2dd4bf 100%)",
-    iconColor: "text-emerald-600",
-    badgeBg: "bg-emerald-100",
-    badgeText: "text-emerald-700",
+    bgFrom: "#166534",
+    bgTo: "#15803d",
+    blob1: "linear-gradient(135deg, #166534 0%, #22c55e 100%)",
+    blob2: "linear-gradient(135deg, #15803d 0%, #166534 100%)",
+    iconColor: "text-green-700",
+    badgeBg: "bg-green-100",
+    badgeText: "text-green-800",
   },
 };
 
 const getThemeColorForCategory = (category: string) => {
   const cat = (category || "").toLowerCase();
-  if (cat.includes("estimator") || cat.includes("mep") || cat.includes("analysis")) {
+  if (cat.includes("estimator") || cat.includes("mep") || cat.includes("analysis") || cat.includes("environment")) {
     return "green";
   }
-  if (cat.includes("concrete") || cat.includes("structure") || cat.includes("steel") || cat.includes("masonry")) {
-    return "blue";
+  if (cat.includes("concrete") || cat.includes("structure") || cat.includes("steel") || cat.includes("masonry") || cat.includes("design")) {
+    return "navy";
   }
-  if (cat.includes("soil") || cat.includes("geotechnical") || cat.includes("foundation") || cat.includes("test")) {
+  if (cat.includes("soil") || cat.includes("geotechnical") || cat.includes("foundation") || cat.includes("test") || cat.includes("road")) {
     return "orange";
   }
-  return "purple";
+  return "grey";
 };
 
 export default function ToolCard({
@@ -242,9 +242,14 @@ export default function ToolCard({
 
           {/* Action indicator on hover */}
           <div 
-            className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-500 text-white flex items-center justify-center w-8 h-8 rounded-full bg-white/20 backdrop-blur-md border border-white/30"
+            className="absolute bottom-5 right-5 opacity-0 group-hover:opacity-100 transition-all duration-500 text-white flex items-center justify-center px-4 py-2 rounded-full bg-slate-900 hover:bg-orange-500 hover:scale-105 border border-slate-700/50 shadow-sm"
             style={{ transform: isHovered ? "translateZ(50px) translateX(0)" : "translateZ(0px) translateX(-10px)" }}
+            onClick={(e) => {
+              // The card itself has an onClick, so this button is mostly visual,
+              // but we can ensure it doesn't propagate if we wanted to.
+            }}
           >
+            <span className="text-[13px] font-bold mr-1.5">Open Tool</span>
             <ArrowRight className="w-4 h-4" />
           </div>
         </div>

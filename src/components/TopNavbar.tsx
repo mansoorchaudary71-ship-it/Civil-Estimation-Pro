@@ -77,19 +77,19 @@ export default function TopNavbar({
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-[120] bg-white/90 backdrop-blur-[12px] border-b border-slate-200 transition-colors shadow-sm">
+      <header className="fixed top-0 left-0 right-0 z-[120] bg-slate-900 border-b border-slate-800 border-t-4 border-t-orange-500 transition-colors shadow-sm">
         <div className="w-full px-4 md:px-8 lg:px-12 h-14 flex items-center justify-between">
           <div 
             className="flex items-center gap-2 cursor-pointer group"
             onClick={() => { setActiveTab("Home"); onNavigate && onNavigate("home"); }}
           >
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white flex items-center justify-center font-bold text-xs tracking-tighter shadow-[0_8px_20px_rgb(168,85,247,0.25)]">
+            <div className="w-8 h-8 rounded-xl bg-orange-500 text-white flex items-center justify-center font-bold text-xs tracking-tighter shadow-sm">
               CE
             </div>
-            <span className="font-bold text-[16px] text-gray-900 tracking-tight hidden sm:block">
-              Civil Estimation <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">Pro</span>
+            <span className="font-bold text-[16px] text-white tracking-tight hidden sm:block">
+              Civil Estimation <span className="text-orange-500">Pro</span>
             </span>
-            <span className="font-bold text-[15px] text-gray-900 tracking-tight sm:hidden">
+            <span className="font-bold text-[15px] text-white tracking-tight sm:hidden">
               Civil Pro
             </span>
           </div>
@@ -99,8 +99,8 @@ export default function TopNavbar({
               <button 
                 key={link.name}
                 className={cn(
-                  "relative text-[14px] font-medium transition-colors hover:text-pink-500",
-                  activeTab === link.name ? "text-pink-500" : "text-gray-500"
+                  "relative text-[14px] font-medium transition-colors hover:text-orange-400",
+                  activeTab === link.name ? "text-orange-500" : "text-slate-300"
                 )}
                 onClick={() => handleNavigate(link)}
               >
@@ -108,7 +108,7 @@ export default function TopNavbar({
                 {activeTab === link.name && (
                   <motion.div 
                     layoutId="activeTabNav"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-orange-500 rounded-full"
                   />
                 )}
               </button>
@@ -117,7 +117,7 @@ export default function TopNavbar({
 
           <div className="flex items-center gap-3 md:gap-4">
              <button
-               className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 bg-slate-50 hover:bg-slate-100 px-2.5 md:px-3 py-1.5 rounded-full transition-colors"
+               className="flex items-center gap-2 text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 px-2.5 md:px-3 py-1.5 rounded-full transition-colors"
                onClick={onOpenRecent}
                title="Recent Tools"
              >
@@ -127,7 +127,7 @@ export default function TopNavbar({
              <div className="relative" ref={searchRef}>
                <button 
                  onClick={() => setShowRecentSearches(!showRecentSearches)}
-                 className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-500 px-2.5 md:px-3 py-1.5 rounded-full transition-colors"
+                 className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 md:px-3 py-1.5 rounded-full transition-colors"
                >
                  <Search className="w-4 h-4" />
                  <span className="hidden md:inline text-[13px] font-medium pr-2">Search...</span>
@@ -185,7 +185,7 @@ export default function TopNavbar({
              </div>
 
              <button 
-               className="text-[13px] font-bold tracking-tight text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 px-5 py-2 rounded-full transition-all duration-300 shadow-[0_8px_20px_rgb(168,85,247,0.25)] hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgb(168,85,247,0.35)] active:scale-95 flex items-center gap-1.5"
+               className="text-[13px] font-bold tracking-tight text-slate-900 bg-orange-500 hover:bg-orange-400 px-5 py-2 rounded-full transition-all duration-300 shadow-sm hover:-translate-y-0.5 active:scale-95 flex items-center gap-1.5"
                onClick={() => onNavigate && onNavigate("home")}
              >
                 Get Started
@@ -228,17 +228,17 @@ export default function TopNavbar({
                   <div className="flex items-center gap-4">
                     <span className={cn(
                       "transition-colors",
-                      activeTab === link.name ? "text-pink-500" : "text-gray-900 group-hover:text-pink-500"
+                      activeTab === link.name ? "text-orange-500" : "text-gray-900 group-hover:text-orange-500"
                     )}>
                       {link.name}
                     </span>
                     {activeTab === link.name && (
-                        <div className="w-2 h-2 rounded-full bg-pink-500" />
+                        <div className="w-2 h-2 rounded-full bg-orange-500" />
                     )}
                   </div>
                   <ArrowRight className={cn(
                     "w-6 h-6 opacity-0 -translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0",
-                    activeTab === link.name ? "text-pink-500" : "text-gray-400"
+                    activeTab === link.name ? "text-orange-500" : "text-gray-400"
                   )} />
                 </motion.button>
               ))}
@@ -246,7 +246,7 @@ export default function TopNavbar({
             
             <div className="mt-auto pb-4">
                <button 
-                 className="w-full text-base font-bold text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 py-4 rounded-full transition-all shadow-[0_8px_20px_rgb(168,85,247,0.25)] active:scale-95 flex items-center justify-center gap-2"
+                 className="w-full text-base font-bold text-slate-900 bg-orange-500 hover:bg-orange-400 py-4 rounded-full transition-all shadow-sm active:scale-95 flex items-center justify-center gap-2"
                  onClick={() => { setIsMobileMenuOpen(false); onNavigate && onNavigate("home"); }}
                >
                   Get Started

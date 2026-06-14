@@ -41,22 +41,22 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
           transition={{ duration: 0.6 }}
           className="flex flex-col items-center gap-3 mb-8"
         >
-          <div className="flex items-center gap-3 bg-white/80 backdrop-blur-md px-6 py-3 rounded-full border border-purple-100 shadow-[0_4px_20px_rgba(168,85,247,0.1)]">
+          <div className="flex items-center gap-3 bg-white/80 backdrop-blur-md px-6 py-3 rounded-full border border-slate-200 shadow-sm">
             <div className="flex -space-x-2 mr-2">
               {[...Array(5)].map((_, i) => (
                 <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center overflow-hidden shadow-sm">
-                  <User className="w-4 h-4 text-purple-500" />
+                  <User className="w-4 h-4 text-slate-600" />
                 </div>
               ))}
             </div>
             
             {/* Live pulse dot */}
             <span className="relative flex h-3 w-3 mr-1">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
             </span>
 
-            <p className="text-sm font-bold text-gray-800">
+            <p className="text-sm font-bold text-slate-900">
               10,000+ Engineers Trust Us
             </p>
           </div>
@@ -71,9 +71,9 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             className="text-6xl sm:text-7xl md:text-[6rem] lg:text-[7.5rem] tracking-tight leading-[0.9] mb-6 flex flex-col"
             style={{ fontFamily: "'Bebas Neue', display, sans-serif" }}
           >
-            <span className="text-gray-900 drop-shadow-sm">Build Smarter.</span>
+            <span className="text-slate-900 drop-shadow-sm">Build Smarter.</span>
             <span 
-              className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500"
+              className="text-orange-500"
             >
               Estimate Faster.
             </span>
@@ -83,7 +83,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-gray-600 font-medium max-w-2xl px-4 leading-relaxed"
+            className="text-lg md:text-xl text-slate-600 font-medium max-w-2xl px-4 leading-relaxed"
           >
             The all-in-one calculation platform for modern civil engineers, architects, and quantity surveyors. Accurate structural and building estimates in seconds.
           </motion.p>
@@ -98,10 +98,10 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
         >
           <div className="relative group w-full sm:w-auto">
             {/* Pulsing glow ring */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur opacity-30 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+            <div className="absolute -inset-1 bg-orange-500 rounded-full blur opacity-30 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
             <button
               onClick={onStart}
-              className="relative w-full sm:w-auto px-10 py-4 rounded-full font-bold text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-all duration-300 flex items-center justify-center gap-3 shadow-[0_8px_25px_rgba(168,85,247,0.3)] hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(168,85,247,0.4)] active:scale-95"
+              className="relative w-full sm:w-auto px-10 py-4 rounded-full font-bold text-slate-900 bg-orange-500 hover:bg-orange-400 transition-all duration-300 flex items-center justify-center gap-3 shadow-sm hover:-translate-y-1 active:scale-95"
             >
               Start Estimating Free
               <ArrowRight className="w-5 h-5" />
@@ -109,9 +109,9 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
           </div>
           
           <button
-            className="w-full sm:w-auto px-10 py-4 rounded-full font-bold text-gray-800 bg-white hover:bg-gray-50 border border-gray-200 transition-all duration-300 flex items-center justify-center gap-3 active:scale-95 shadow-[0_4px_15px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_25px_rgba(0,0,0,0.06)] hover:-translate-y-1"
+            className="w-full sm:w-auto px-10 py-4 rounded-full font-bold text-white bg-slate-900 hover:bg-slate-800 border border-slate-700 transition-all duration-300 flex items-center justify-center gap-3 active:scale-95 shadow-sm hover:-translate-y-1"
           >
-            <Play className="w-4 h-4 fill-current text-purple-500" />
+            <Play className="w-4 h-4 fill-current text-white" />
             Watch Demo
           </button>
         </motion.div>
@@ -124,18 +124,18 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 + (idx * 0.1) }}
-              className="relative overflow-hidden flex flex-col items-center justify-center p-8 bg-white border border-gray-100 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] transform hover:-translate-y-1 hover:shadow-[0_15px_40px_rgb(0,0,0,0.08)] transition-all duration-300 group rounded-3xl"
+              className="relative overflow-hidden flex flex-col items-center justify-center p-8 bg-white border border-slate-200 text-center shadow-sm transform hover:-translate-y-1 hover:shadow-md transition-all duration-300 group rounded-3xl"
             >
               {/* Subtle top glow inside card */}
-              <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-purple-50/50 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-slate-50 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               
-              <div className="w-14 h-14 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-purple-100 transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-slate-100 text-slate-600 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-slate-200 group-hover:text-orange-500 transition-all duration-300">
                 <stat.icon className="w-7 h-7" />
               </div>
               
-              <h3 className="text-3xl font-[800] text-gray-900 mb-1 leading-none relative z-10 group-hover:text-purple-600 transition-colors duration-300">{stat.val}</h3>
-              <p className="text-[0.8rem] font-bold text-gray-600 tracking-wide uppercase mb-2 relative z-10">{stat.lab}</p>
-              <p className="text-[0.75rem] text-gray-500 relative z-10">{stat.sub}</p>
+              <h3 className="text-3xl font-[800] text-slate-900 mb-1 leading-none relative z-10 group-hover:text-orange-500 transition-colors duration-300">{stat.val}</h3>
+              <p className="text-[0.8rem] font-bold text-slate-600 tracking-wide uppercase mb-2 relative z-10">{stat.lab}</p>
+              <p className="text-[0.75rem] text-slate-500 relative z-10">{stat.sub}</p>
             </motion.div>
           ))}
         </div>
