@@ -163,7 +163,6 @@ import {
   Printer,
   Save,
   Download,
-  Ruler,
 } from "lucide-react";
 import { Users, Clock } from "lucide-react";
 
@@ -1515,66 +1514,52 @@ function FontSizeControls() {
 
 function UnitSwitcher() {
   const { settings, updateSettings } = useSettings();
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const isMetric = settings.measurement === "SI";
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const handleToggle = (unit: "SI" | "FPS") => {
+    if (settings.measurement === unit) return;
+    updateSettings({ measurement: unit });
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
+  };
 
   return (
-    <div className="relative mr-2" ref={dropdownRef}>
+    <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-lg relative z-0 mr-2 border border-slate-200 dark:border-slate-700">
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`p-1.5 rounded-lg transition-colors flex items-center justify-center ${isOpen ? "bg-slate-900/10  text-slate-800 " : "hover:bg-slate-900/5 text-slate-500 "}`}
-        aria-label="Unit settings"
-        title="Toggle Measurement Unit"
+        onClick={() => handleToggle("SI")}
+        className={`relative px-3 py-1.5 text-[10px] sm:text-xs font-bold rounded-md transition-colors z-10 ${
+          isMetric ? "text-slate-800 dark:text-slate-100" : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+        }`}
+        aria-label="Set units to Metric (m, kg)"
       >
-        <div className="flex items-center gap-1.5">
-          <Ruler className="w-5 h-5" />
-          <span className="text-xs font-bold uppercase">
-            {settings.measurement === "SI" ? "Metric" : "Imperial"}
-          </span>
-        </div>
+        Metric
+        {isMetric && (
+          <motion.div
+            layoutId="unitIndicator"
+            className="absolute inset-0 bg-white dark:bg-slate-700 rounded-md shadow-sm border border-slate-200 dark:border-slate-600"
+            style={{ zIndex: -1 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          />
+        )}
       </button>
-
-      {isOpen && (
-        <div className="absolute right-0 top-full mt-2 bg-white rounded-xl shadow-lg border border-slate-100 p-1 flex flex-col min-w-[120px] z-50 overflow-hidden">
-          <button
-            onClick={() => {
-              updateSettings({ measurement: "SI" });
-              setIsOpen(false);
-              setTimeout(() => {
-                window.location.reload();
-              }, 100);
-            }}
-            className={`px-4 py-2 text-sm font-bold text-left transition-colors ${settings.measurement === "SI" ? "bg-indigo-50 text-indigo-700" : "text-slate-600 hover:bg-slate-50"}`}
-          >
-            Metric (m, kg)
-          </button>
-          <button
-            onClick={() => {
-              updateSettings({ measurement: "FPS" });
-              setIsOpen(false);
-              setTimeout(() => {
-                window.location.reload();
-              }, 100);
-            }}
-            className={`px-4 py-2 text-sm font-bold text-left transition-colors ${settings.measurement === "FPS" ? "bg-indigo-50 text-indigo-700" : "text-slate-600 hover:bg-slate-50"}`}
-          >
-            Imperial (ft, lbs)
-          </button>
-        </div>
-      )}
+      <button
+        onClick={() => handleToggle("FPS")}
+        className={`relative px-3 py-1.5 text-[10px] sm:text-xs font-bold rounded-md transition-colors z-10 ${
+          !isMetric ? "text-slate-800 dark:text-slate-100" : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+        }`}
+        aria-label="Set units to Imperial (ft, lbs)"
+      >
+        Imperial
+        {!isMetric && (
+          <motion.div
+            layoutId="unitIndicator"
+            className="absolute inset-0 bg-white dark:bg-slate-700 rounded-md shadow-sm border border-slate-200 dark:border-slate-600"
+            style={{ zIndex: -1 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          />
+        )}
+      </button>
     </div>
   );
 }
