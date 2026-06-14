@@ -1251,8 +1251,10 @@ export default function Dashboard({
  <ScrollReveal><SocialProofSection /></ScrollReveal>
  <ScrollReveal yOffset={30}><HowItWorksSection /></ScrollReveal>
  <ScrollReveal yOffset={30}><FeatureComparisonSection /></ScrollReveal>
- <div className="w-full bg-white py-16 -mt-8 relative z-10 rounded-t-[32px] border-t border-gray-100 shadow-[0_-8px_30px_rgb(0,0,0,0.02)]">
- <div className="w-full max-w-[1400px] mx-auto px-4 overflow-visible flex flex-col">
+ <div className="w-full bg-gradient-to-b from-slate-50 via-slate-100/80 to-[#1e293b]/5 py-16 -mt-8 relative z-10 rounded-t-[32px] border-t border-slate-200/60 shadow-[0_-8px_30px_rgba(0,0,0,0.04)] overflow-hidden">
+ {/* Subtle ambient noise/glow layer */}
+ <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: 'radial-gradient(circle at top right, rgba(10, 25, 47, 0.03), transparent 60%), radial-gradient(circle at bottom left, rgba(255, 95, 21, 0.03), transparent 60%)' }} />
+ <div className="w-full max-w-[1400px] mx-auto px-4 relative z-10 overflow-visible flex flex-col">
  <div className="flex flex-col gap-10 w-full" id="tools-section">
  <SearchAndFilterBar
  categories={categories.map(catName => ({

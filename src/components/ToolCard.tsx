@@ -6,13 +6,13 @@ import { useSettings } from "../context/SettingsContext";
 // Define the 4 professional, modern colors
 const THEME_COLORS = {
   navy: {
-    bgFrom: "#0f172a",
+    bgFrom: "#0A192F",
     bgTo: "#1e293b",
-    blob1: "linear-gradient(135deg, #0f172a 0%, #334155 100%)",
-    blob2: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)",
+    blob1: "linear-gradient(135deg, #0A192F 0%, #334155 100%)",
+    blob2: "linear-gradient(135deg, #1e293b 0%, #0A192F 100%)",
     iconColor: "text-slate-800",
-    badgeBg: "bg-slate-100",
-    badgeText: "text-slate-700",
+    badgeBg: "bg-[#0A192F]/10",
+    badgeText: "text-[#0A192F]",
   },
   grey: {
     bgFrom: "#64748b",
@@ -24,13 +24,13 @@ const THEME_COLORS = {
     badgeText: "text-slate-600",
   },
   orange: {
-    bgFrom: "#f97316",
+    bgFrom: "#FF5F15",
     bgTo: "#ea580c",
-    blob1: "linear-gradient(135deg, #f97316 0%, #fb923c 100%)",
-    blob2: "linear-gradient(135deg, #ea580c 0%, #f97316 100%)",
-    iconColor: "text-orange-600",
-    badgeBg: "bg-orange-100",
-    badgeText: "text-orange-700",
+    blob1: "linear-gradient(135deg, #FF5F15 0%, #fb923c 100%)",
+    blob2: "linear-gradient(135deg, #ea580c 0%, #FF5F15 100%)",
+    iconColor: "text-[#FF5F15]",
+    badgeBg: "bg-[#FF5F15]/10",
+    badgeText: "text-[#FF5F15]",
   },
   green: {
     bgFrom: "#166534",
@@ -242,7 +242,7 @@ export default function ToolCard({
 
           {/* Action indicator on hover */}
           <div 
-            className="absolute bottom-5 right-5 opacity-0 group-hover:opacity-100 transition-all duration-500 text-white flex items-center justify-center px-4 py-2 rounded-full bg-slate-900 hover:bg-orange-500 hover:scale-105 border border-slate-700/50 shadow-sm"
+            className="absolute bottom-5 right-5 opacity-0 group-hover:opacity-100 transition-all duration-500 text-white flex items-center justify-center px-4 py-2 rounded-full bg-[#0A192F] hover:bg-[#FF5F15] hover:scale-105 border border-slate-700/50 shadow-sm"
             style={{ transform: isHovered ? "translateZ(50px) translateX(0)" : "translateZ(0px) translateX(-10px)" }}
             onClick={(e) => {
               // The card itself has an onClick, so this button is mostly visual,

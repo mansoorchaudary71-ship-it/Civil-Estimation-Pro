@@ -7,7 +7,7 @@ interface AIEstimatorBannerProps {
 
 export default function AIEstimatorBanner({ onOpenChat }: AIEstimatorBannerProps) {
   return (
-    <div className="mt-8 mb-4 w-full relative group overflow-hidden rounded-[32px] border border-emerald-500/20 bg-gradient-to-r from-[#0D2137] via-[#0F2A1F] to-[#1A2A0A]">
+    <div className="mt-8 mb-4 w-full relative group overflow-hidden rounded-[32px] border border-slate-700/50 bg-gradient-to-r from-[#166534] to-[#0A192F]">
       {/* Floating Particles Animation */}
       <style>{`
         @keyframes float-particle {
@@ -23,32 +23,32 @@ export default function AIEstimatorBanner({ onOpenChat }: AIEstimatorBannerProps
 
       {/* Floating Dots */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-1.5 h-1.5 bg-emerald-400 rounded-full animate-float-1 blur-[1px]"></div>
-        <div className="absolute top-3/4 left-1/3 w-2 h-2 bg-emerald-400 rounded-full animate-float-2 blur-[1px] opacity-0"></div>
-        <div className="absolute top-1/3 right-1/4 w-1.5 h-1.5 bg-emerald-400 rounded-full animate-float-3 blur-[1px] opacity-0"></div>
-        <div className="absolute bottom-1/4 right-1/3 w-2 h-2 bg-emerald-400 rounded-full animate-float-4 blur-[1px] opacity-0"></div>
+        <div className="absolute top-1/4 left-1/4 w-1.5 h-1.5 bg-green-400 rounded-full animate-float-1 blur-[1px]"></div>
+        <div className="absolute top-3/4 left-1/3 w-2 h-2 bg-green-400 rounded-full animate-float-2 blur-[1px] opacity-0"></div>
+        <div className="absolute top-1/3 right-1/4 w-1.5 h-1.5 bg-blue-400 rounded-full animate-float-3 blur-[1px] opacity-0"></div>
+        <div className="absolute bottom-1/4 right-1/3 w-2 h-2 bg-blue-400 rounded-full animate-float-4 blur-[1px] opacity-0"></div>
       </div>
 
       {/* Radial Glow Overlay */}
-      <div className="absolute left-6 top-1/2 -translate-y-1/2 w-32 h-32 bg-emerald-500/20 rounded-full blur-[40px] pointer-events-none z-0"></div>
+      <div className="absolute left-6 top-1/2 -translate-y-1/2 w-32 h-32 bg-green-500/20 rounded-full blur-[40px] pointer-events-none z-0"></div>
 
       <div className="relative z-10 p-8 flex flex-col md:flex-row items-center justify-between gap-8 h-full">
         <div className="flex items-start md:items-center gap-6 flex-col md:flex-row w-full md:w-auto">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(16,185,129,0.3)] border border-emerald-400/30">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#166534] to-[#15803d] flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(22,101,52,0.5)] border border-green-500/30">
             <Sparkles className="w-8 h-8 text-white" />
           </div>
           <div>
             <h3 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-2 flex items-center gap-3">
               Meet Your AI Estimator
             </h3>
-            <p className="text-emerald-100/70 font-medium max-w-lg leading-relaxed mb-4 text-sm md:text-base">
+            <p className="text-green-100/70 font-medium max-w-lg leading-relaxed mb-4 text-sm md:text-base">
               Describe your project naturally. We will automatically build your entire BOQ.
             </p>
             
             {/* Capability Chips */}
             <div className="flex flex-wrap gap-2">
               {["BOQ Generation", "Cost Estimation", "Material Takeoff", "Code Lookup"].map((chip) => (
-                <span key={chip} className="text-[10px] uppercase font-bold tracking-wider px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full">
+                <span key={chip} className="text-[10px] uppercase font-bold tracking-wider px-3 py-1 bg-[#0A192F]/50 text-slate-300 border border-slate-600 rounded-full">
                   {chip}
                 </span>
               ))}
@@ -59,11 +59,11 @@ export default function AIEstimatorBanner({ onOpenChat }: AIEstimatorBannerProps
         <div className="flex flex-col items-center justify-center shrink-0 w-full md:w-auto mt-4 md:mt-0">
           <button 
             onClick={onOpenChat} 
-            className="w-full md:w-auto px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-bold rounded-xl shadow-[0_0_20px_rgba(16,185,129,0.2)] transition-all active:scale-95"
+            className="w-full md:w-auto px-8 py-4 bg-[#FF5F15] hover:bg-[#ea580c] text-white font-bold rounded-xl shadow-[0_0_20px_rgba(255,95,21,0.3)] transition-all active:scale-95 border border-[#FF5F15]"
           >
             Start Chat
           </button>
-          <p className="text-[10px] text-slate-500 mt-3 font-semibold uppercase tracking-wider text-center">
+          <p className="text-[10px] text-slate-400 mt-3 font-semibold uppercase tracking-wider text-center">
             Free to use · No sign-up required
           </p>
         </div>
