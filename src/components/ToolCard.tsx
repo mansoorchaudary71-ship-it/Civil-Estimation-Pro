@@ -4,63 +4,49 @@ import { useSettings } from "../context/SettingsContext";
 
 // Define the 4 professional, modern colors cleanly
 const THEME_COLORS = {
-  navy: {
-    bgHover: "hover:bg-slate-50",
-    iconColor: "text-slate-800",
-    badgeBg: "bg-slate-100",
-    badgeText: "text-slate-800",
-    iconBg: "bg-white",
-    borderHover: "hover:border-slate-300",
-    iconColorBorder: "border-slate-800",
-    text: "text-slate-800",
-    border: "border-slate-200"
+  purple: {
+    gradient: "shadow-purple-500/40 bg-gradient-to-r from-purple-500 to-purple-600",
+    button: "bg-purple-500 shadow-purple-500/20 hover:shadow-purple-500/40",
   },
-  grey: {
-    bgHover: "hover:bg-slate-50",
-    iconColor: "text-slate-500",
-    badgeBg: "bg-slate-100",
-    badgeText: "text-slate-600",
-    iconBg: "bg-white",
-    borderHover: "hover:border-slate-300",
-    iconColorBorder: "border-slate-500",
-    text: "text-slate-500",
-    border: "border-slate-200"
+  emerald: {
+    gradient: "shadow-emerald-500/40 bg-gradient-to-r from-emerald-500 to-emerald-600",
+    button: "bg-emerald-500 shadow-emerald-500/20 hover:shadow-emerald-500/40",
   },
-  orange: {
-    bgHover: "hover:bg-[#FF5F15]/5",
-    iconColor: "text-[#FF5F15]",
-    badgeBg: "bg-[#FF5F15]/10",
-    badgeText: "text-[#FF5F15]",
-    iconBg: "bg-white",
-    borderHover: "hover:border-[#FF5F15]/30",
-    iconColorBorder: "border-[#FF5F15]",
-    text: "text-[#FF5F15]",
-    border: "border-[#FF5F15]/20"
+  rose: {
+    gradient: "shadow-rose-500/40 bg-gradient-to-r from-rose-500 to-rose-600",
+    button: "bg-rose-500 shadow-rose-500/20 hover:shadow-rose-500/40",
   },
-  green: {
-    bgHover: "hover:bg-green-50",
-    iconColor: "text-green-700",
-    badgeBg: "bg-green-100",
-    badgeText: "text-green-800",
-    iconBg: "bg-white",
-    borderHover: "hover:border-green-300",
-    iconColorBorder: "border-green-700",
-    text: "text-green-700",
-    border: "border-green-200"
+  amber: {
+    gradient: "shadow-amber-500/40 bg-gradient-to-r from-amber-500 to-amber-600",
+    button: "bg-amber-500 shadow-amber-500/20 hover:shadow-amber-500/40",
   },
+  indigo: {
+    gradient: "shadow-indigo-500/40 bg-gradient-to-r from-indigo-500 to-indigo-600",
+    button: "bg-indigo-500 shadow-indigo-500/20 hover:shadow-indigo-500/40",
+  },
+  slate: {
+    gradient: "shadow-slate-500/40 bg-gradient-to-r from-slate-500 to-slate-600",
+    button: "bg-slate-500 shadow-slate-500/20 hover:shadow-slate-500/40",
+  }
 };
 
 export const getCategoryThemeNew = (category: string) => {
   const cat = (category || "").toLowerCase();
-  let themeKey: keyof typeof THEME_COLORS = "grey";
+  let themeKey: keyof typeof THEME_COLORS = "slate";
   if (cat.includes("estimator") || cat.includes("mep") || cat.includes("analysis") || cat.includes("environment")) {
-    themeKey = "green";
+    themeKey = "emerald";
   } else if (cat.includes("concrete") || cat.includes("structure") || cat.includes("steel") || cat.includes("masonry") || cat.includes("design")) {
-    themeKey = "navy";
+    themeKey = "indigo";
   } else if (cat.includes("soil") || cat.includes("geotechnical") || cat.includes("foundation") || cat.includes("test") || cat.includes("road")) {
-    themeKey = "orange";
+    themeKey = "amber";
+  } else if (cat.includes("cost") || cat.includes("finance") || cat.includes("price")) {
+    themeKey = "emerald";
+  } else if (cat.includes("finishing") || cat.includes("architecture")) {
+    themeKey = "rose";
+  } else if (cat.includes("water") || cat.includes("plumbing")) {
+    themeKey = "indigo";
   }
-  return THEME_COLORS[themeKey];
+  return THEME_COLORS[themeKey] || THEME_COLORS.slate;
 };
 
 export default function ToolCard({
@@ -96,37 +82,34 @@ export default function ToolCard({
   const IconComponent = mod.icon || Box;
 
   return (
-    <button
+    <div
       onClick={() => onSelect(mod.id)}
-      className={`group w-full flex flex-col text-left bg-white rounded-2xl border border-slate-200 p-5 min-h-[170px] cursor-pointer transition-all duration-200 shadow-sm hover:shadow-md ${theme.borderHover} ${theme.bgHover}`}
+      className="relative flex w-full flex-col rounded-2xl bg-white bg-clip-border text-slate-700 shadow-md mt-6 cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group"
       style={{
-        // Strip out any potentially buggy properties
-        transform: "translateZ(0)", 
+        transform: "translateZ(0)",
         backfaceVisibility: "hidden",
       }}
     >
-      <div className="flex justify-between items-start mb-3 w-full">
-        {/* Simple Flat Icon Container */}
-        <div 
-          className={`p-2.5 rounded-xl border border-slate-100 shadow-sm transition-transform duration-200 group-hover:scale-105 ${theme.iconBg} ${theme.iconColor}`}
-        >
-          <IconComponent className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />
-        </div>
+      {/* Header graphic shifted up */}
+      <div className={`relative mx-4 -mt-6 h-28 overflow-hidden rounded-xl bg-clip-border text-white shadow-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-[1.02] ${theme.gradient}`}>
+        <IconComponent className="w-10 h-10 opacity-90 drop-shadow-sm" strokeWidth={1.5} />
         
-        <div className="flex items-center gap-2">
-          {mod.category && (
-            <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${theme.badgeBg} ${theme.badgeText}`}>
-              {mod.category}
-            </span>
-          )}
-          
+        {/* Soft gloss effect overlay */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      </div>
+      
+      <div className="p-5 flex-1 flex flex-col">
+        <div className="flex justify-between items-start mb-2">
+          <h5 className="block font-sans text-[17px] font-bold leading-snug tracking-tight text-slate-900 group-hover:text-[#FF5F15] transition-colors">
+            {mod.title || "Untitled Tool"}
+          </h5>
           <div
             role="button"
             tabIndex={0}
-            className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors border shadow-sm ${
+            className={`w-7 h-7 shrink-0 rounded-full flex items-center justify-center transition-colors shadow-sm ml-2 ${
               isBookmarked 
-                ? "bg-amber-100 text-amber-600 border-amber-200 hover:bg-amber-200" 
-                : "bg-white text-slate-400 border-slate-200 hover:text-slate-600 hover:bg-slate-50"
+                ? "bg-amber-100 text-amber-600 hover:bg-amber-200" 
+                : "bg-slate-50 text-slate-400 hover:text-slate-600 hover:bg-slate-100"
             }`}
             onClick={toggleFavorite}
           >
@@ -137,17 +120,25 @@ export default function ToolCard({
             />
           </div>
         </div>
-      </div>
-
-      <div className="flex flex-col flex-1 mt-2">
-        <h3 className="text-base font-bold mb-1 text-slate-900 group-hover:text-indigo-700 transition-colors">
-          {mod.title || "Untitled Tool"}
-        </h3>
-        <p className="text-[13px] text-slate-500 line-clamp-2 leading-relaxed">
+        
+        <p className="block font-sans text-[13px] font-medium leading-relaxed text-slate-500 line-clamp-2">
           {mod.desc || "No description available."}
         </p>
       </div>
-    </button>
+
+      <div className="p-5 pt-0 mt-auto flex items-center justify-between">
+        {mod.category && (
+          <span className="text-[10px] font-bold px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 uppercase tracking-widest">
+            {mod.category}
+          </span>
+        )}
+        <button 
+          className={`select-none rounded-lg py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md transition-all focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none ml-auto ${theme.button}`}
+        >
+          Open Tool
+        </button>
+      </div>
+    </div>
   );
 }
 
