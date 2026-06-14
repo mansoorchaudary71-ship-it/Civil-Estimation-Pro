@@ -45,6 +45,8 @@ export const getCategoryThemeNew = (category: string) => {
     themeKey = "rose";
   } else if (cat.includes("water") || cat.includes("plumbing")) {
     themeKey = "indigo";
+  } else if (cat.includes("ai") || cat.includes("smart") || cat.includes("advanced") || cat.includes("planning") || cat.includes("management")) {
+    themeKey = "purple";
   }
   return THEME_COLORS[themeKey] || THEME_COLORS.slate;
 };
