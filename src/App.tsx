@@ -624,12 +624,11 @@ export default function App() {
                   <ProductTour />
                   <LocaleUnitDetector />
 
-                  {activeModule !== "home" && (
-                    <TopNavbar
-                      onNavigate={handleSelectModule}
-                      onOpenRecent={() => setIsRecentSidebarOpen(true)}
-                    />
-                  )}
+                  <TopNavbar
+                    onNavigate={handleSelectModule}
+                    onOpenRecent={() => setIsRecentSidebarOpen(true)}
+                  />
+                  
                   {isStaticPage && (
                     <GlobalBottomBar
                       activeModule={activeModule}

@@ -11,7 +11,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
   ];
 
   return (
-    <div className="relative w-full bg-gradient-to-b from-[#ffffff] via-slate-50/80 to-[#e2e8f0]/30 min-h-0 md:min-h-[90vh] flex flex-col justify-start md:justify-center overflow-hidden pt-20 md:pt-28 pb-24 hero-section">
+    <div className="relative w-full bg-gradient-to-b from-[#ffffff] via-slate-50/80 to-[#e2e8f0]/30 flex flex-col justify-start overflow-hidden pt-24 md:pt-32 pb-12 md:pb-16 hero-section">
       {/* Background Layers */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {/* Soft premium gradient glow */}

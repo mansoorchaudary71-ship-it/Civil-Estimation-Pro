@@ -60,36 +60,34 @@ export default function TopNavbar({
   }, []);
 
   const links = [
-    { name: "Home", id: "home" },
-    { name: "Tools", id: "tools" },
-    { name: "How It Works", id: "how-it-works" },
+    { name: "Calculators", id: "home" },
+    { name: "AI Estimator", id: "ai" },
     { name: "Pricing", id: "pricing" },
-    { name: "About", id: "about" },
   ];
 
   const handleNavigate = (link: {name: string, id: string}) => {
     setActiveTab(link.name);
     setIsMobileMenuOpen(false);
     if (onNavigate) {
-      onNavigate("home"); 
+      onNavigate(link.id === "ai" ? "ai" : "home"); 
     }
   };
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-[120] bg-slate-900 border-b border-slate-800 border-t-4 border-t-orange-500 transition-colors shadow-sm">
-        <div className="w-full px-4 md:px-8 lg:px-12 h-14 flex items-center justify-between">
+      <header className="sticky top-0 left-0 right-0 z-[120] bg-white/90 backdrop-blur-md border-b border-slate-200 transition-colors shadow-sm">
+        <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-12 h-16 flex items-center justify-between">
           <div 
             className="flex items-center gap-2 cursor-pointer group"
-            onClick={() => { setActiveTab("Home"); onNavigate && onNavigate("home"); }}
+            onClick={() => { setActiveTab("Calculators"); onNavigate && onNavigate("home"); }}
           >
-            <div className="w-8 h-8 rounded-xl bg-orange-500 text-white flex items-center justify-center font-bold text-xs tracking-tighter shadow-sm">
+            <div className="w-8 h-8 rounded-xl bg-[#0A192F] text-white flex items-center justify-center font-bold text-xs tracking-tighter shadow-sm group-hover:bg-[#112240] transition-colors">
               CE
             </div>
-            <span className="font-bold text-[16px] text-white tracking-tight hidden sm:block">
-              Civil Estimation <span className="text-orange-500">Pro</span>
+            <span className="font-extrabold text-[18px] text-[#0A192F] tracking-tight hidden sm:block">
+              Civil Estimation <span className="text-[#FF5F15]">Pro</span>
             </span>
-            <span className="font-bold text-[15px] text-white tracking-tight sm:hidden">
+            <span className="font-bold text-[18px] text-[#0A192F] tracking-tight sm:hidden">
               Civil Pro
             </span>
           </div>
@@ -99,8 +97,8 @@ export default function TopNavbar({
               <button 
                 key={link.name}
                 className={cn(
-                  "relative text-[14px] font-medium transition-colors hover:text-orange-400",
-                  activeTab === link.name ? "text-orange-500" : "text-slate-300"
+                  "relative text-[15px] font-semibold transition-colors hover:text-[#FF5F15]",
+                  activeTab === link.name ? "text-[#FF5F15]" : "text-slate-600"
                 )}
                 onClick={() => handleNavigate(link)}
               >
@@ -108,7 +106,7 @@ export default function TopNavbar({
                 {activeTab === link.name && (
                   <motion.div 
                     layoutId="activeTabNav"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-orange-500 rounded-full"
+                    className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-[#FF5F15] rounded-full"
                   />
                 )}
               </button>
@@ -117,20 +115,19 @@ export default function TopNavbar({
 
           <div className="flex items-center gap-3 md:gap-4">
              <button
-               className="flex items-center gap-2 text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 px-2.5 md:px-3 py-1.5 rounded-full transition-colors"
+               className="hidden md:flex items-center gap-2 text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-2 rounded-full transition-colors border border-slate-200/60"
                onClick={onOpenRecent}
                title="Recent Tools"
              >
                <History className="w-4 h-4" />
-               <span className="hidden md:inline text-[13px] font-medium pr-1">Recent</span>
+               <span className="text-[13px] font-bold">Recent</span>
              </button>
              <div className="relative" ref={searchRef}>
                <button 
                  onClick={() => setShowRecentSearches(!showRecentSearches)}
-                 className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 md:px-3 py-1.5 rounded-full transition-colors"
+                 className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 px-3 py-2 rounded-full transition-colors border border-slate-200/60"
                >
                  <Search className="w-4 h-4" />
-                 <span className="hidden md:inline text-[13px] font-medium pr-2">Search...</span>
                </button>
                
                <AnimatePresence>
@@ -140,7 +137,7 @@ export default function TopNavbar({
                      animate={{ opacity: 1, y: 0, scale: 1 }}
                      exit={{ opacity: 0, y: 10, scale: 0.96 }}
                      transition={{ duration: 0.2 }}
-                     className="absolute top-[calc(100%+12px)] right-0 w-72 bg-white rounded-2xl shadow-[0_12px_40px_-12px_rgba(15,23,42,0.15)] border border-slate-200 overflow-hidden z-50"
+                     className="absolute top-[calc(100%+12px)] right-0 w-80 bg-white rounded-2xl shadow-[0_12px_40px_-12px_rgba(15,23,42,0.15)] border border-slate-200 overflow-hidden z-50"
                    >
                      <div className="px-4 py-3 border-b border-slate-100 bg-slate-50/50">
                        <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
@@ -149,7 +146,7 @@ export default function TopNavbar({
                      </div>
                      <div className="p-2">
                        {recentCalculators.length > 0 ? (
-                         <div className="space-y-1">
+                         <div className="space-y-1 max-h-[300px] overflow-y-auto">
                            {recentCalculators.map((id, index) => {
                              const mod = ALL_MODULES.find(m => m.id === id);
                              if (!mod) return null;
@@ -164,11 +161,11 @@ export default function TopNavbar({
                                  }}
                                  className="w-full text-left flex items-center gap-3 p-2 hover:bg-slate-50 rounded-xl transition-all group"
                                >
-                                 <div className="w-8 h-8 rounded-lg bg-indigo-50 group-hover:bg-[#0072de] flex items-center justify-center text-indigo-500 group-hover:text-white transition-colors">
+                                 <div className="w-8 h-8 rounded-lg bg-[#0A192F]/5 group-hover:bg-[#FF5F15]/10 flex items-center justify-center text-[#0A192F] group-hover:text-[#FF5F15] transition-colors border border-slate-100 group-hover:border-[#FF5F15]/20">
                                    {mod.icon ? <mod.icon className="w-4 h-4" /> : <Search className="w-4 h-4" />}
                                  </div>
                                  <div className="flex-1 overflow-hidden">
-                                   <div className="text-[14px] font-semibold text-slate-800 truncate group-hover:text-[#0072de] transition-colors">{mod.title}</div>
+                                   <div className="text-[14px] font-bold text-slate-800 truncate group-hover:text-[#FF5F15] transition-colors">{mod.title}</div>
                                    <div className="text-[11px] text-slate-500 font-medium truncate">{mod.category}</div>
                                  </div>
                                </button>
@@ -185,14 +182,14 @@ export default function TopNavbar({
              </div>
 
              <button 
-               className="text-[13px] font-bold tracking-tight text-slate-900 bg-orange-500 hover:bg-orange-400 px-5 py-2 rounded-full transition-all duration-300 shadow-sm hover:-translate-y-0.5 active:scale-95 flex items-center gap-1.5"
-               onClick={() => onNavigate && onNavigate("home")}
+               className="text-[14px] font-bold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 px-5 py-2 rounded-full transition-all duration-300 shadow-sm active:scale-95 hidden sm:flex items-center justify-center"
+               onClick={() => {}}
              >
-                Get Started
+                Login
              </button>
 
              <button 
-               className="md:hidden p-1.5 text-gray-500 hover:text-pink-500 transition-colors"
+               className="md:hidden p-2 text-slate-600 hover:text-[#0A192F] hover:bg-slate-100 rounded-full transition-colors"
                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                aria-label="Toggle mobile menu"
              >
@@ -228,29 +225,28 @@ export default function TopNavbar({
                   <div className="flex items-center gap-4">
                     <span className={cn(
                       "transition-colors",
-                      activeTab === link.name ? "text-orange-500" : "text-gray-900 group-hover:text-orange-500"
+                      activeTab === link.name ? "text-[#FF5F15]" : "text-slate-900 group-hover:text-[#FF5F15]"
                     )}>
                       {link.name}
                     </span>
                     {activeTab === link.name && (
-                        <div className="w-2 h-2 rounded-full bg-orange-500" />
+                        <div className="w-2 h-2 rounded-full bg-[#FF5F15]" />
                     )}
                   </div>
                   <ArrowRight className={cn(
                     "w-6 h-6 opacity-0 -translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0",
-                    activeTab === link.name ? "text-orange-500" : "text-gray-400"
+                    activeTab === link.name ? "text-[#FF5F15]" : "text-slate-400"
                   )} />
                 </motion.button>
               ))}
             </nav>
             
-            <div className="mt-auto pb-4">
+            <div className="mt-auto pb-4 flex flex-col gap-3">
                <button 
-                 className="w-full text-base font-bold text-slate-900 bg-orange-500 hover:bg-orange-400 py-4 rounded-full transition-all shadow-sm active:scale-95 flex items-center justify-center gap-2"
-                 onClick={() => { setIsMobileMenuOpen(false); onNavigate && onNavigate("home"); }}
+                 className="w-full text-base font-bold text-slate-800 bg-white border border-slate-200 hover:bg-slate-50 py-4 rounded-full transition-all shadow-sm active:scale-95 flex items-center justify-center gap-2"
+                 onClick={() => { setIsMobileMenuOpen(false); }}
                >
-                  Get Started
-                  <ArrowRight className="w-5 h-5" />
+                  Login
                </button>
             </div>
           </motion.div>
