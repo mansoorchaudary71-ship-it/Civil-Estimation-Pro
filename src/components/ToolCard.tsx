@@ -13,6 +13,10 @@ const THEME_COLORS = {
     iconColor: "text-slate-800",
     badgeBg: "bg-[#0A192F]/10",
     badgeText: "text-[#0A192F]",
+    iconColorBorder: "border-slate-800",
+    iconBg: "bg-slate-100",
+    text: "text-slate-800",
+    border: "border-slate-200"
   },
   grey: {
     bgFrom: "#64748b",
@@ -22,6 +26,10 @@ const THEME_COLORS = {
     iconColor: "text-slate-500",
     badgeBg: "bg-slate-100",
     badgeText: "text-slate-600",
+    iconColorBorder: "border-slate-500",
+    iconBg: "bg-slate-100",
+    text: "text-slate-500",
+    border: "border-slate-200"
   },
   orange: {
     bgFrom: "#FF5F15",
@@ -31,6 +39,10 @@ const THEME_COLORS = {
     iconColor: "text-[#FF5F15]",
     badgeBg: "bg-[#FF5F15]/10",
     badgeText: "text-[#FF5F15]",
+    iconColorBorder: "border-[#FF5F15]",
+    iconBg: "bg-[#FF5F15]/10",
+    text: "text-[#FF5F15]",
+    border: "border-[#FF5F15]/20"
   },
   green: {
     bgFrom: "#166534",
@@ -40,21 +52,24 @@ const THEME_COLORS = {
     iconColor: "text-green-700",
     badgeBg: "bg-green-100",
     badgeText: "text-green-800",
+    iconColorBorder: "border-green-700",
+    iconBg: "bg-green-100",
+    text: "text-green-700",
+    border: "border-green-200"
   },
 };
 
-const getThemeColorForCategory = (category: string) => {
+export const getCategoryThemeNew = (category: string) => {
   const cat = (category || "").toLowerCase();
+  let themeKey: keyof typeof THEME_COLORS = "grey";
   if (cat.includes("estimator") || cat.includes("mep") || cat.includes("analysis") || cat.includes("environment")) {
-    return "green";
+    themeKey = "green";
+  } else if (cat.includes("concrete") || cat.includes("structure") || cat.includes("steel") || cat.includes("masonry") || cat.includes("design")) {
+    themeKey = "navy";
+  } else if (cat.includes("soil") || cat.includes("geotechnical") || cat.includes("foundation") || cat.includes("test") || cat.includes("road")) {
+    themeKey = "orange";
   }
-  if (cat.includes("concrete") || cat.includes("structure") || cat.includes("steel") || cat.includes("masonry") || cat.includes("design")) {
-    return "navy";
-  }
-  if (cat.includes("soil") || cat.includes("geotechnical") || cat.includes("foundation") || cat.includes("test") || cat.includes("road")) {
-    return "orange";
-  }
-  return "grey";
+  return THEME_COLORS[themeKey];
 };
 
 export default function ToolCard({
@@ -73,8 +88,7 @@ export default function ToolCard({
   const cardRef = useRef<HTMLButtonElement>(null);
   const { settings, updateSettings } = useSettings();
 
-  const themeKey = getThemeColorForCategory(mod.category) as keyof typeof THEME_COLORS;
-  const theme = THEME_COLORS[themeKey];
+  const theme = getCategoryThemeNew(mod.category);
 
   const favoriteTools = settings.favoriteTools || [];
   const isBookmarked = favoriteTools.includes(mod.id);
@@ -156,12 +170,8 @@ export default function ToolCard({
           opacity: 0.7;
         }
       `}</style>
-      <motion.button
+      <button
         ref={cardRef}
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-20px" }}
-        transition={{ duration: 0.4, delay: (idx || 0) * 0.05 }}
         onClick={() => onSelect(mod.id)}
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovered(true)}
@@ -253,7 +263,7 @@ export default function ToolCard({
             <ArrowRight className="w-4 h-4" />
           </div>
         </div>
-      </motion.button>
+      </button>
     </>
   );
 }

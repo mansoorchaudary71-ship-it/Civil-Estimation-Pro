@@ -11,21 +11,21 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
   ];
 
   return (
-    <div className="relative w-full bg-[#0A192F] min-h-0 md:min-h-[90vh] flex flex-col justify-start md:justify-center overflow-hidden pt-20 md:pt-28 pb-24 hero-section">
+    <div className="relative w-full bg-gradient-to-b from-[#ffffff] via-slate-50/80 to-[#e2e8f0]/30 min-h-0 md:min-h-[90vh] flex flex-col justify-start md:justify-center overflow-hidden pt-20 md:pt-28 pb-24 hero-section">
       {/* Background Layers */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Soft gradient glow */}
+        {/* Soft premium gradient glow */}
         <div 
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(ellipse 60% 50% at 50% 10%, rgba(255, 95, 21, 0.1), transparent 70%), radial-gradient(ellipse 80% 50% at 50% 100%, #1e293b, transparent 70%)'
+            background: 'radial-gradient(circle at top left, transparent 40%, rgba(10,25,47,0.04) 100%), radial-gradient(circle at bottom right, rgba(255,95,21,0.03) 0%, transparent 60%)'
           }}
         />
         {/* Subtle grid texture */}
         <div 
-          className="absolute inset-0 opacity-[0.05]"
+          className="absolute inset-0 opacity-100"
           style={{
-            backgroundImage: 'linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)',
+            backgroundImage: 'linear-gradient(rgba(10,25,47,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(10,25,47,0.03) 1px, transparent 1px)',
             backgroundSize: '40px 40px'
           }}
         />
@@ -41,11 +41,11 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
           transition={{ duration: 0.6 }}
           className="flex flex-col items-center gap-3 mb-8"
         >
-          <div className="flex items-center gap-3 bg-[#0A192F]/60 backdrop-blur-md px-6 py-3 rounded-full border border-slate-700/50 shadow-sm">
+          <div className="flex items-center gap-3 bg-white/80 backdrop-blur-md px-6 py-3 rounded-full border border-slate-200 shadow-sm">
             <div className="flex -space-x-2 mr-2">
               {[...Array(5)].map((_, i) => (
-                <div key={i} className="w-8 h-8 rounded-full border-2 border-[#0A192F] bg-slate-800 flex items-center justify-center overflow-hidden shadow-sm">
-                  <User className="w-4 h-4 text-slate-300" />
+                <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center overflow-hidden shadow-sm">
+                  <User className="w-4 h-4 text-slate-500" />
                 </div>
               ))}
             </div>
@@ -56,7 +56,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
               <span className="relative inline-flex rounded-full h-3 w-3 bg-[#FF5F15]"></span>
             </span>
 
-            <p className="text-sm font-bold text-slate-200">
+            <p className="text-sm font-bold text-[#0A192F]">
               10,000+ Engineers Trust Us
             </p>
           </div>
@@ -71,7 +71,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             className="text-6xl sm:text-7xl md:text-[6rem] lg:text-[7.5rem] tracking-tight leading-[0.9] mb-6 flex flex-col"
             style={{ fontFamily: "'Bebas Neue', display, sans-serif" }}
           >
-            <span className="text-white drop-shadow-sm">Build Smarter.</span>
+            <span className="text-[#0A192F] drop-shadow-sm">Build Smarter.</span>
             <span 
               className="text-[#FF5F15] drop-shadow-sm"
             >
@@ -83,7 +83,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-300 font-medium max-w-2xl px-4 leading-relaxed"
+            className="text-lg md:text-xl text-slate-600 font-medium max-w-2xl px-4 leading-relaxed"
           >
             The all-in-one calculation platform for modern civil engineers, architects, and quantity surveyors. Accurate structural and building estimates in seconds.
           </motion.p>
@@ -109,9 +109,9 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
           </div>
           
           <button
-            className="w-full sm:w-auto px-10 py-4 rounded-full font-bold text-white bg-slate-800/80 hover:bg-slate-700/80 backdrop-blur-md border border-slate-600 transition-all duration-300 flex items-center justify-center gap-3 active:scale-95 shadow-sm hover:-translate-y-1"
+            className="w-full sm:w-auto px-10 py-4 rounded-full font-bold text-[#0A192F] bg-white hover:bg-slate-50 border border-slate-200 transition-all duration-300 flex items-center justify-center gap-3 active:scale-95 shadow-sm hover:-translate-y-1 hover:shadow-md"
           >
-            <Play className="w-4 h-4 fill-current text-white" />
+            <Play className="w-4 h-4 fill-current text-[#0A192F]" />
             Watch Demo
           </button>
         </motion.div>
@@ -124,17 +124,17 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 + (idx * 0.1) }}
-              className="relative overflow-hidden flex flex-col items-center justify-center p-8 bg-slate-800/40 backdrop-blur-md border border-slate-700/50 text-center shadow-lg transform hover:-translate-y-1 hover:border-slate-600 transition-all duration-300 group rounded-3xl"
+              className="relative overflow-hidden flex flex-col items-center justify-center p-8 bg-white/60 backdrop-blur-xl border border-slate-200/80 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] transform hover:-translate-y-1 hover:border-slate-300 hover:shadow-md transition-all duration-300 group rounded-[32px]"
             >
               {/* Subtle top glow inside card */}
-              <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-slate-700/30 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               
-              <div className="w-14 h-14 rounded-2xl bg-slate-800/60 text-slate-300 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-slate-700 group-hover:text-[#FFC000] border border-slate-700/50 transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-[#0A192F]/5 text-[#0A192F] flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-[#FF5F15]/10 group-hover:text-[#FF5F15] transition-all duration-300">
                 <stat.icon className="w-7 h-7" />
               </div>
               
-              <h3 className="text-3xl font-[800] text-white mb-1 leading-none relative z-10 group-hover:text-[#FF5F15] transition-colors duration-300">{stat.val}</h3>
-              <p className="text-[0.8rem] font-bold text-slate-300 tracking-wide uppercase mb-2 relative z-10">{stat.lab}</p>
+              <h3 className="text-3xl font-[800] text-[#0A192F] mb-1 leading-none relative z-10 group-hover:text-[#FF5F15] transition-colors duration-300">{stat.val}</h3>
+              <p className="text-[0.8rem] font-bold text-slate-500 tracking-wide uppercase mb-2 relative z-10">{stat.lab}</p>
               <p className="text-[0.75rem] text-slate-400 relative z-10">{stat.sub}</p>
             </motion.div>
           ))}
