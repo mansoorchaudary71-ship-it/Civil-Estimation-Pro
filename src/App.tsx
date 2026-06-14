@@ -662,29 +662,10 @@ export default function App() {
                               ref={scrollRef}
                               className={`flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto pb-20 md:pb-0 ${!isStaticPage ? "hidden" : ""}`}
                             >
-                              {activeModule === "home" && (
-                                <header className={`sticky top-0 z-[100] transition-all duration-300 px-6 ${
-                                  isScrolled 
-                                    ? 'h-16 bg-white/80 dark:bg-[#161c2e]/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-gray-800/50 shadow-sm' 
-                                    : 'h-48 bg-transparent pt-16'
-                                }`}>
-                                  <div className="max-w-5xl mx-auto flex flex-col justify-end h-full pb-3">
-                                    <h1 className={`font-bold tracking-tight transition-all duration-300 origin-left text-slate-900 dark:text-white ${
-                                      isScrolled ? 'text-xl' : 'text-4xl'
-                                    }`}>
-                                      Civil Estimation Pro
-                                    </h1>
-                                    {!isScrolled && (
-                                      <p className="text-gray-500 dark:text-gray-400 text-sm mt-2 transition-opacity duration-200">
-                                        Select a module to begin quantity surveying and material estimation.
-                                      </p>
-                                    )}
-                                  </div>
-                                </header>
-                              )}
+
                               <div className="flex flex-col min-h-full relative w-full">
                                 {activeModule === "home" && (
-                                  <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-24 -mt-2 w-full">
+                                  <div className="w-full">
                                     <Dashboard
                                       previousModule={previousModule}
                                       onSelectModule={handleSelectModule}
