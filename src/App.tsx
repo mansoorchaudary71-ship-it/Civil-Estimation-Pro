@@ -478,7 +478,20 @@ export default function App() {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(
     "Core Estimators",
   );
+  const [isScrolled, setIsScrolled] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = (e: Event) => {
+      const target = e.target as HTMLElement;
+      setIsScrolled(target.scrollTop > 80);
+    };
+    const scrollEl = scrollRef.current;
+    if (scrollEl) {
+      scrollEl.addEventListener("scroll", handleScroll);
+      return () => scrollEl.removeEventListener("scroll", handleScroll);
+    }
+  }, []);
 
   const toolsByCategory = ALL_TOOLS.reduce(
     (acc, tool) => {
@@ -606,15 +619,17 @@ export default function App() {
           <MarketRatesProvider>
             <TakeoffProvider>
               <ProjectProvider>
-                <div className="flex flex-col h-[100dvh] w-full  bg-white  font-sans text-slate-900 transition-colors duration-300">
+                <div className="flex flex-col h-[100dvh] w-full bg-[#f4f6fa] dark:bg-[#0a0f1d] text-[#1d1d1f] dark:text-[#f5f5f7] font-sans transition-colors duration-300">
                   <Toaster position="bottom-right" />
                   <ProductTour />
                   <LocaleUnitDetector />
 
-                  <TopNavbar
-                    onNavigate={handleSelectModule}
-                    onOpenRecent={() => setIsRecentSidebarOpen(true)}
-                  />
+                  {activeModule !== "home" && (
+                    <TopNavbar
+                      onNavigate={handleSelectModule}
+                      onOpenRecent={() => setIsRecentSidebarOpen(true)}
+                    />
+                  )}
                   {isStaticPage && (
                     <GlobalBottomBar
                       activeModule={activeModule}
@@ -636,7 +651,7 @@ export default function App() {
                     onOpenHistory={() => handleSelectModule("my-estimates")}
                   />
 
-                  <div className={`flex flex-1 min-h-0 relative w-full pt-14`}>
+                  <div className={`flex flex-1 min-h-0 relative w-full ${activeModule === 'home' ? '' : 'pt-14'}`}>
                     <main
                       id="main-content"
                       className="flex-1 flex flex-col bg-transparent relative w-full min-h-0 pt-0 transition-all duration-300"
@@ -648,17 +663,39 @@ export default function App() {
                               ref={scrollRef}
                               className={`flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto pb-20 md:pb-0 ${!isStaticPage ? "hidden" : ""}`}
                             >
+                              {activeModule === "home" && (
+                                <header className={`sticky top-0 z-[100] transition-all duration-300 px-6 ${
+                                  isScrolled 
+                                    ? 'h-16 bg-white/80 dark:bg-[#161c2e]/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-gray-800/50 shadow-sm' 
+                                    : 'h-48 bg-transparent pt-16'
+                                }`}>
+                                  <div className="max-w-5xl mx-auto flex flex-col justify-end h-full pb-3">
+                                    <h1 className={`font-bold tracking-tight transition-all duration-300 origin-left text-slate-900 dark:text-white ${
+                                      isScrolled ? 'text-xl' : 'text-4xl'
+                                    }`}>
+                                      Civil Estimation Pro
+                                    </h1>
+                                    {!isScrolled && (
+                                      <p className="text-gray-500 dark:text-gray-400 text-sm mt-2 transition-opacity duration-200">
+                                        Select a module to begin quantity surveying and material estimation.
+                                      </p>
+                                    )}
+                                  </div>
+                                </header>
+                              )}
                               <div className="flex flex-col min-h-full relative w-full">
                                 {activeModule === "home" && (
-                                  <Dashboard
-                                    previousModule={previousModule}
-                                    onSelectModule={handleSelectModule}
-                                    onOpenSidebar={() => setIsSidebarOpen(true)}
-                                    onOpenSettings={() =>
-                                      setIsSettingsOpen(true)
-                                    }
-                                    onOpenAuth={() => setIsAuthOpen(true)}
-                                  />
+                                  <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-24 -mt-2 w-full">
+                                    <Dashboard
+                                      previousModule={previousModule}
+                                      onSelectModule={handleSelectModule}
+                                      onOpenSidebar={() => setIsSidebarOpen(true)}
+                                      onOpenSettings={() =>
+                                        setIsSettingsOpen(true)
+                                      }
+                                      onOpenAuth={() => setIsAuthOpen(true)}
+                                    />
+                                  </div>
                                 )}
                                 {activeModule === "my-estimates" && (
                                   <RecentEstimates

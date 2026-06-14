@@ -132,102 +132,46 @@ export default function ToolCard({
       onClick={() => onSelect(mod.id)}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className={`relative flex w-full h-full flex-col text-left rounded-[24px] cursor-pointer group overflow-hidden tool-card p-4 sm:p-5 md:p-6 lg:p-7`}
+      className="group relative flex w-full h-full flex-col text-left bg-white/70 dark:bg-[#161c2e]/70 backdrop-blur-md rounded-3xl p-6 border border-white dark:border-gray-800/40 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-none dark:hover:bg-[#1c243a]/80 transition-all duration-300 cursor-pointer active:scale-[0.98]"
     >
-      <div className="absolute top-4 right-4 md:top-5 md:right-5 lg:top-6 lg:right-6 flex items-center gap-2 z-20">
-        {(settings.toolUsageStats?.[mod.id] ?? 0) >= 3 && (
-          <div
-            className="flex items-center gap-1 px-2 py-1 rounded-full bg-blue-50 text-blue-600 border border-blue-200"
-            title={`Used ${settings.toolUsageStats?.[mod.id] || 0} times`}
-          >
-            <Activity className="w-3 h-3 text-blue-600" />
-            <span className="text-[10px] font-bold uppercase whitespace-nowrap">
-              Frequently Used
-            </span>
-          </div>
-        )}
-        {mod.premium && (
-          <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-amber-50 text-amber-600 border border-amber-200">
-            {isHovered ? (
-              <LockOpen className="w-3 h-3" />
-            ) : (
-              <Lock className="w-3 h-3" />
-            )}
-            <span className="text-[10px] font-bold uppercase text-amber-600">
-              Pro
-            </span>
-          </div>
-        )}
-        {mod.isNew && (
-          <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-purple-50 text-purple-600 border border-purple-200">
-            <Sparkles className="w-3 h-3 text-purple-600" />
-            <span className="text-[10px] font-bold uppercase text-purple-600">
-              New
-            </span>
-          </div>
-        )}
-        <div
-          role="button"
-          tabIndex={0}
-          className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors border ${isBookmarked ? "bg-amber-100 text-amber-600 border-amber-200" : "bg-white text-slate-400 border-slate-200 hover:text-slate-600 hover:bg-slate-50"} shadow-sm`}
-          onClick={toggleFavorite}
-        >
-          <Bookmark
-            className="w-4 h-4"
-            strokeWidth={isBookmarked ? 2.5 : 2}
-            fill={isBookmarked ? "currentColor" : "none"}
-          />
+      <div className="flex justify-between items-start mb-4 w-full">
+        <div className="p-3 bg-gray-100 dark:bg-[#222b45] rounded-2xl group-hover:scale-110 transition-transform duration-300 text-slate-800 dark:text-slate-200">
+          {mod.icon && <mod.icon className="w-6 h-6 md:w-7 md:h-7" strokeWidth={1.5} />}
         </div>
-      </div>
-
-      <div className="flex items-center gap-3 md:gap-4 lg:gap-5 z-10 pr-12 md:pr-16 lg:pr-20 w-full box-border">
-        <div
-          className={`w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center shrink-0 ${theme.iconBg} ${theme.text} shadow-sm border border-white`}
-        >
-          {mod.icon && (
-            <mod.icon className="w-6 h-6 md:w-7 md:h-7" strokeWidth={1.5} />
+        
+        <div className="flex items-center gap-2">
+          {mod.category && (
+            <span className="text-xs font-semibold px-2.5 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full">
+              {mod.category}
+            </span>
           )}
-        </div>
-
-        <div className="flex-1 pt-1 min-w-0 flex flex-col justify-center">
+          
           <div
-            className={`text-[11px] font-bold uppercase tracking-wider ${theme.text} mb-1`}
+            role="button"
+            tabIndex={0}
+            className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors border shadow-sm z-20 ${
+              isBookmarked 
+                ? "bg-amber-100 dark:bg-amber-500/20 text-amber-600 border-amber-200 dark:border-amber-500/30" 
+                : "bg-white/50 dark:bg-slate-800 text-slate-400 border-slate-200 dark:border-slate-700 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700"
+            }`}
+            onClick={toggleFavorite}
           >
-            {mod.category || "General"}
+            <Bookmark
+              className="w-4 h-4"
+              strokeWidth={isBookmarked ? 2.5 : 2}
+              fill={isBookmarked ? "currentColor" : "none"}
+            />
           </div>
-          <h3 className="text-sm md:text-base font-bold leading-tight text-slate-800 group-hover:text-indigo-900 transition-colors">
-            {mod.title}
-          </h3>
         </div>
       </div>
 
-      <div className="tool-card-body mt-4 lg:mt-5 flex-1">
-        <p className="text-xs md:text-sm lg:text-base text-slate-500 leading-relaxed tool-card-description group-hover:text-slate-600 transition-colors">
-          {mod.desc}
-        </p>
-      </div>
-
-      <div className="flex items-center justify-between flex-wrap gap-4 pt-4 md:pt-5 lg:pt-6 mt-4 md:mt-5 lg:mt-6 border-t border-slate-200 w-full">
-        <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 bg-white shadow-sm whitespace-nowrap">
-            <div className={`w-2 h-2 rounded-full shrink-0 ${diffDot}`} />
-            <span className="text-[11px] font-semibold text-slate-600">
-              {diffText}
-            </span>
-          </div>
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 bg-white shadow-sm whitespace-nowrap">
-            <Clock className="w-3 h-3 shrink-0 text-slate-400" />
-            <span className="text-[11px] font-semibold text-slate-600">
-              {estTime}
-            </span>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-[16px] font-bold text-xs shadow-md group-hover:bg-indigo-700 group-hover:shadow-lg transition-all group-hover:-translate-y-0.5 whitespace-nowrap mt-auto">
-          <span className="hidden sm:inline-block">Open</span> Tool
-          <ArrowRight className="w-3.5 h-3.5 -ml-1 group-hover:ml-0.5 transition-all shrink-0" />
-        </div>
-      </div>
+      <h3 className="text-lg font-bold mb-1 text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+        {mod.title}
+      </h3>
+      
+      <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
+        {mod.desc}
+      </p>
     </motion.button>
   );
 }

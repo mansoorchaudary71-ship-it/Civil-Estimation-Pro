@@ -1277,11 +1277,11 @@ export default function Dashboard({
                        if (!toolsInGroup || toolsInGroup.length === 0) return null;
                        return (
                          <div key={groupName} className="flex flex-col gap-5">
-                             <h2 className="text-xl md:text-2xl font-bold text-slate-800 flex items-center gap-3">
+                             <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest px-2 mb-0 flex items-center gap-2">
                                {groupName}
-                               <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-500 shadow-sm">{toolsInGroup.length}</span>
+                               <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500 shadow-sm">{toolsInGroup.length}</span>
                              </h2>
-                             <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+                             <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
                                <AnimatePresence mode="popLayout">
                                  {toolsInGroup.map((mod) => (
                                    <motion.div
@@ -1394,6 +1394,28 @@ export default function Dashboard({
                     )}
                     
                     <div className="w-full max-w-[1400px] mx-auto w-full overflow-visible flex flex-col mt-4">
+                      {/* Quick Overview Row */}
+                      <section className="mb-8">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                          <div className="bg-blue-600 text-white rounded-3xl p-5 shadow-lg shadow-blue-500/10">
+                            <div className="text-xs opacity-80 uppercase font-semibold tracking-wider">Active Project</div>
+                            <div className="text-xl font-bold mt-1 truncate">Disposal Well A</div>
+                          </div>
+                          <div className="bg-white dark:bg-[#161c2e]/70 backdrop-blur-md rounded-3xl p-5 shadow-sm border border-slate-100 dark:border-gray-800/40">
+                            <div className="text-xs text-slate-500 dark:text-gray-400 uppercase font-semibold tracking-wider">Recent Estimate</div>
+                            <div className="text-xl font-bold mt-1 text-slate-800 dark:text-white truncate">Rs 1.2M</div>
+                          </div>
+                          <div className="bg-white dark:bg-[#161c2e]/70 backdrop-blur-md rounded-3xl p-5 shadow-sm border border-slate-100 dark:border-gray-800/40">
+                            <div className="text-xs text-slate-500 dark:text-gray-400 uppercase font-semibold tracking-wider">Saved BOQs</div>
+                            <div className="text-xl font-bold mt-1 text-slate-800 dark:text-white truncate">14</div>
+                          </div>
+                          <div className="bg-white dark:bg-[#161c2e]/70 backdrop-blur-md rounded-3xl p-5 shadow-sm border border-slate-100 dark:border-gray-800/40">
+                            <div className="text-xs text-slate-500 dark:text-gray-400 uppercase font-semibold tracking-wider">Tools Used</div>
+                            <div className="text-xl font-bold mt-1 text-slate-800 dark:text-white truncate">8</div>
+                          </div>
+                        </div>
+                      </section>
+                      
                     <div className="flex flex-col gap-10 w-full" id="tools-section">
                       <SearchAndFilterBar
                         categories={categories.map(catName => ({
@@ -1414,8 +1436,11 @@ export default function Dashboard({
                            if (!toolsInGroup || toolsInGroup.length === 0) return null;
                            return (
                              <div key={groupName} className="flex flex-col gap-5">
-                               <h2 className="text-xl md:text-2xl font-bold text-slate-800 flex items-center gap-3">{groupName}<span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-500 shadow-sm">{toolsInGroup.length}</span></h2>
-                               <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 tool-card-grid">
+                               <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest px-2 mb-0 flex items-center gap-2">
+                                 {groupName}
+                                 <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500 shadow-sm">{toolsInGroup.length}</span>
+                               </h2>
+                               <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 tool-card-grid">
                                  <AnimatePresence mode="popLayout">
                                    {toolsInGroup.map((mod) => (
                                      <motion.div
