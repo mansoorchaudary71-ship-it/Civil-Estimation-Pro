@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
+import { useLocation, useNavigate } from "react-router-dom";
 import AIAssistant from "./components/modules/AIAssistant";
 import Calculators from "./components/modules/Calculators";
 import Takeoff from "./components/modules/Takeoff";
@@ -491,6 +492,17 @@ export default function App() {
   );
 
   const { user, logOut } = useAuth();
+  
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Handle pSEO Routing
+    const path = location.pathname;
+    if (path.startsWith("/estimate/")) {
+      setActiveModule("house-estimator");
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     if (scrollRef.current) {

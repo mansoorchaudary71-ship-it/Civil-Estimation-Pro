@@ -17,6 +17,7 @@ export interface Project {
   type: string;
   startDate: string;
   estimates: ProjectEstimate[];
+  budget?: number;
 }
 
 interface ProjectContextType {

@@ -3,14 +3,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
+@theme {
+  --color-bg-card: var(--bg-card);
+  --color-border-color: var(--border-color);
+  --color-text-primary: var(--text-primary);
+  --color-bg-primary: var(--bg-primary);
+  --color-accent-vibrant: var(--accent-vibrant);
+}
+
 :root {
   color-scheme: light;
+  --app-bg: #F0F4F8;
+  --app-text: #0F172A;
+  --bg-card: #ffffff;
+  --border-color: #e2e8f0;
+  --text-primary: #0F172A;
+  --bg-primary: #F8FAFC;
+  --accent-vibrant: #4F46E5;
+}
+
+.dark {
+  color-scheme: dark;
+  --app-bg: #0F172A;
+  --app-text: #F8FAFC;
+  --bg-card: #1E293B;
+  --border-color: #334155;
+  --text-primary: #F8FAFC;
+  --bg-primary: #0F172A;
+  --accent-vibrant: #818CF8;
 }
 
 /* Override user agent dark mode and high-contrast settings */
 @media (prefers-color-scheme: dark) {
   :root {
-    color-scheme: light;
+    /* Handle via JS logic mostly */
   }
 }
 
@@ -22,9 +48,9 @@
 
 @layer base {
   html, body, #root {
-    background-color: #F0F4F8 !important;
+    background-color: var(--app-bg) !important;
     background-image: none !important;
-    color: #0F172A !important;
+    color: var(--app-text) !important;
     font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
     letter-spacing: -0.01em !important;
     min-height: 100vh;

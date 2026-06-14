@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { Columns, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { Columns, CheckCircle2, AlertTriangle, Sparkles } from 'lucide-react';
+import { useSettings } from '../../context/SettingsContext';
 import { CalculationHistory } from '../ui/CalculationHistory';
 import { MaterialSummary } from '../ui/MaterialSummary';
 import { NumberInput } from '../ui/NumberInput';
@@ -75,8 +76,10 @@ function generateInteractionCurve(B: number, D: number, fck: number, fy: number,
 }
 
 export default function ColumnDesignTool() {
-  const [load, setLoad] = useState<number | "">(1500);
-  const [mux, setMux] = useState<number | "">(100);
+  const { settings } = useSettings();
+  const [workingLoad, setWorkingLoad] = useState<number | "">(1000);
+  const [safetyFactor, setSafetyFactor] = useState<number | "">(1.5);
+  const [workingMoment, setWorkingMoment] = useState<number | "">(66.67);
   const [length, setLength] = useState<number | "">(3.0);
   const [endCondition, setEndCondition] = useState<EndCondition>("fixed-fixed");
   
@@ -90,8 +93,11 @@ export default function ColumnDesignTool() {
   const [cover, setCover] = useState<number | "">(40);
 
   const results = useMemo(() => {
-    const P = Number(load) || 0;
-    const M = Number(mux) || 0;
+    const w_load = Number(workingLoad) || 0;
+    const w_mom = Number(workingMoment) || 0;
+    const sf = Number(safetyFactor) || 1.5;
+    const P = w_load * sf;
+    const M = w_mom * sf;
     const L = Number(length) || 0;
     const B = Number(width) || 300;
     const D = Number(depth) || 450;
@@ -148,7 +154,17 @@ export default function ColumnDesignTool() {
       isSafe,
       maxCapacityM
     };
-  }, [load, mux, length, endCondition, width, depth, fck, fy, rebarDia, rebarCount, cover]);
+  }, [workingLoad, workingMoment, safetyFactor, length, endCondition, width, depth, fck, fy, rebarDia, rebarCount, cover]);
+
+  const handleAiSafetyFactor = () => {
+    let sf = 1.5;
+    if (settings.projectType === 'Commercial' || settings.projectType === 'Industrial') {
+        sf = 1.6;
+    } else if (settings.projectType === 'Residential') {
+        sf = 1.5;
+    }
+    setSafetyFactor(sf);
+  };
 
   return (
     <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
@@ -162,8 +178,20 @@ export default function ColumnDesignTool() {
                 <div>
                   <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Loads & Boundary</h3>
                   <div className="space-y-4">
-                    <NumberInput label="Axial Load (Pu)" unit="kN" value={load} onChange={setLoad} />
-                    <NumberInput label="Design Moment (Mux)" unit="kNm" value={mux} onChange={setMux} />
+                    <NumberInput label="Working Load (P)" unit="kN" value={workingLoad} onChange={setWorkingLoad} />
+                    <NumberInput label="Working Moment (M)" unit="kNm" value={workingMoment} onChange={setWorkingMoment} />
+                    <div className="flex items-end gap-2">
+                      <div className="flex-1">
+                        <NumberInput label="Safety Factor (γf)" value={safetyFactor} onChange={setSafetyFactor} />
+                      </div>
+                      <button 
+                        onClick={handleAiSafetyFactor}
+                        className="h-11 px-4 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:hover:bg-indigo-800/40 text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center transition-colors shadow-sm"
+                        title="AI-Suggested Safety Factor based on Project Settings"
+                      >
+                        <Sparkles className="w-4 h-4 mr-1.5" /> AI Suggest
+                      </button>
+                    </div>
                     <NumberInput label="Unsupported Length (L)" unit="m" value={length} onChange={setLength} />
                     
                     <div>
@@ -266,7 +294,7 @@ export default function ColumnDesignTool() {
                             
                             <Scatter 
                                 name="Applied Load (Pu, Mu)" 
-                                data={[{ M: results.designMoment, P: Number(load) || 0 }]} 
+                                data={[{ M: results.designMoment, P: (Number(workingLoad) * Number(safetyFactor)) || 0 }]} 
                                 fill={results.isSafe ? "#0d9488" : "#e11d48"} 
                                 shape="circle"
                             />
@@ -279,7 +307,7 @@ export default function ColumnDesignTool() {
     
       <CalculationHistory 
         calculatorId="column_interaction" 
-        currentInputs={{ load, mux, length, endCondition, width, depth, fck, fy, rebarDia, rebarCount }} 
+        currentInputs={{ workingLoad, workingMoment, safetyFactor, length, endCondition, width, depth, fck, fy, rebarDia, rebarCount }} 
       />
     </div>
   );

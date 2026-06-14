@@ -368,7 +368,7 @@ export default function SettingsModal({
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-50/50 backdrop-blur-sm p-4">
       <div
-        className="bg-white/80 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 backdrop-blur-2xl border border-white/50 rounded-[2.5rem] w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] sm:h-[650px] relative"
+        className="bg-bg-card/90 text-text-primary backdrop-blur-2xl border border-border-color rounded-[2.5rem] w-full max-w-4xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] sm:h-[650px] relative"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Mobile Close Button */}

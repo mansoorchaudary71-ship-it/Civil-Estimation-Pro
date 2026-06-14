@@ -387,9 +387,10 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
   );
 }
 function ProjectDetail({ project, onBack }: { project: Project, onBack: () => void }) {
-  const { deleteEstimate } = useProjects();
+  const { deleteEstimate, updateProject } = useProjects();
   const [inflationRate, setInflationRate] = useState<number>(0);
   const [wasteFactor, setWasteFactor] = useState<number>(0);
+  const [budget, setBudget] = useState<number>(project.budget || 0);
 
   const costMultiplier = 1 + (inflationRate / 100);
   const qtyMultiplier = 1 + (wasteFactor / 100);
@@ -515,10 +516,20 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                    </div>
                 </div>
 
-                <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                    <div className="bg-emerald-50/50 backdrop-blur-md p-5 rounded-[24px] border border-emerald-100/50">
                      <p className="text-emerald-700 font-bold text-sm uppercase tracking-wider mb-1">Total Estimated Cost</p>
                      <p className="text-3xl font-semibold tabular-nums tracking-tight text-emerald-600">${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                   </div>
+                   <div className="bg-rose-50/50 backdrop-blur-md p-5 rounded-[24px] border border-rose-100/50">
+                     <p className="text-rose-700 font-bold text-sm uppercase tracking-wider mb-1">Total Budget</p>
+                     <input 
+                        type="number" 
+                        value={budget || ''} 
+                        onChange={(e) => { const v = Number(e.target.value); setBudget(v); updateProject(project.id, { budget: v }); }}
+                        className="w-full text-3xl font-semibold tabular-nums tracking-tight text-rose-600 bg-transparent outline-none"
+                        placeholder="0.00"
+                     />
                    </div>
                    <div className="bg-indigo-50/50 backdrop-blur-md p-5 rounded-[24px] border border-indigo-100/50">
                      <p className="text-indigo-700 font-bold text-sm uppercase tracking-wider mb-1">Calculations Run</p>
@@ -529,6 +540,18 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                      <p className="text-3xl font-semibold tabular-nums tracking-tight text-amber-600">{Object.keys(aggregatedMaterials).length}</p>
                    </div>
                 </div>
+
+                {budget > 0 && (
+                  <div className="mt-6 bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-sm">
+                      <div className="flex justify-between mb-2">
+                        <p className="text-slate-500 font-bold">Remaining Budget: <span className={totalCost > budget ? "text-rose-500" : "text-emerald-500"}>${(budget - totalCost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
+                        <p className="text-slate-500 font-bold">{((totalCost / budget) * 100).toFixed(1)}% Spent</p>
+                      </div>
+                      <div className="w-full bg-slate-100 rounded-full h-4 overflow-hidden">
+                        <div className={`h-full transition-all duration-700 ease-in-out ${totalCost > budget ? "bg-rose-500" : "bg-emerald-500"}`} style={{ width: `${Math.min((totalCost / budget) * 100, 100)}%` }}></div>
+                      </div>
+                  </div>
+                )}
 
                 {project.estimates.length > 0 && (
                 <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-slate-200/50">

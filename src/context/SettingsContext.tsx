@@ -122,8 +122,20 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     const root = window.document.documentElement;
 
     const applyTheme = () => {
-      root.classList.remove('dark');
-      root.classList.add('light');
+      let isDark = false;
+      if (settings.theme === 'dark') {
+          isDark = true;
+      } else if (settings.theme === 'system') {
+          isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      }
+
+      if (isDark) {
+          root.classList.add('dark');
+          root.classList.remove('light');
+      } else {
+          root.classList.add('light');
+          root.classList.remove('dark');
+      }
       
       // Apply font size scaling
       if (settings.fontSize === 'small') {

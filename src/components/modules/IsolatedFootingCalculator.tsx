@@ -8,7 +8,8 @@ import {
   ArrowDownToLine,
   Spade,
   CheckCircle,
-  AlertTriangle
+  AlertTriangle,
+  Sparkles
 } from "lucide-react";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { useSettings } from "../../context/SettingsContext";
@@ -53,7 +54,10 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
   const [workingSpace, setWorkingSpace] = useState("0.3"); // 300mm standard working space
   const [excavationDepth, setExcavationDepth] = useState("1.5");
   
-  const [load, setLoad] = useState("1000"); // kN
+  const [workingLoad, setWorkingLoad] = useState("666.67");
+  const [safetyFactor, setSafetyFactor] = useState("1.5");
+  
+  const load = (parseFloat(workingLoad) * parseFloat(safetyFactor)).toString();
   const [sbc, setSbc] = useState("250"); // kN/m2
   
   const [mix, setMix] = useState("M20 (1:1.5:3)");
@@ -171,9 +175,20 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
   
   const totalSteel = wtX + wtY + wtXTop + wtYTop;
 
+  const handleAiSafetyFactor = () => {
+    let sf = 1.5;
+    if (settings.projectType === 'Commercial' || settings.projectType === 'Industrial') {
+        sf = 1.6;
+    } else if (settings.projectType === 'Residential') {
+        sf = 1.5;
+    }
+    setSafetyFactor(sf.toString());
+  };
+
   const loadExample = () => {
     setFootingType("sloped");
-    setLoad("800");
+    setWorkingLoad("533.33");
+    setSafetyFactor("1.5");
     setSbc("150");
     setFootingL("2.5");
     setFootingW("2.5");
@@ -186,7 +201,8 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
   const resetDefault = () => {
     if (!window.confirm("Are you sure you want to reset all inputs? This action cannot be undone.")) return;
     setFootingType("sloped");
-    setLoad("1000");
+    setWorkingLoad("666.67");
+    setSafetyFactor("1.5");
     setSbc("250");
     setFootingL("2.2");
     setFootingW("2.2");
@@ -258,10 +274,22 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
               <div className="space-y-6">
                 <div>
                   <h3 className="font-bold text-lg mb-4 text-slate-800 border-b border-slate-100 pb-2">Load & SBC Check</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    <InputGroup label="Column Load (kN)">
-                      <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={load} onChange={(val) => setLoad(val.toString())} />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <InputGroup label="Working Load (P)">
+                      <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={workingLoad} onChange={(val) => setWorkingLoad(val.toString())} />
                     </InputGroup>
+                    <div className="flex flex-col">
+                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2 px-1">Safety Factor (γf)</label>
+                        <div className="flex items-center gap-2 h-full">
+                            <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={safetyFactor} onChange={(val) => setSafetyFactor(val.toString())} />
+                            <button 
+                                onClick={handleAiSafetyFactor}
+                                className="h-full min-h-[48px] px-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-[16px] flex items-center justify-center transition-colors shadow-sm whitespace-nowrap text-sm font-medium"
+                            >
+                                <Sparkles className="w-4 h-4 mr-1.5" /> AI Suggest
+                            </button>
+                        </div>
+                    </div>
                     <InputGroup label={
                       <span className="flex items-center">
                         Safe Bearing Cap. (kN/m²)
@@ -624,7 +652,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
       <CalculationHistory
         calculatorId="isolated_footing_calc"
         estimationName={`Isolated Footing (${footingType}) Estimate`}
-        currentInputs={{ footingType, footingL, footingW, footingD, footingD1, footingD2, topL, topW, columnL, columnW, load, sbc, mix, diaX, spacingX, clearCover, workingSpace, excavationDepth }}
+        currentInputs={{ footingType, footingL, footingW, footingD, footingD1, footingD2, topL, topW, columnL, columnW, workingLoad, safetyFactor, sbc, mix, diaX, spacingX, clearCover, workingSpace, excavationDepth }}
         currentResults={{ concreteVol: concreteVol.toFixed(2), steelKg: totalSteel.toFixed(2), excavationVol: excavationVol.toFixed(2) }}
         summaryGeneration={(inputs, res) => `Vol: ${res.concreteVol} m³ - Steel: ${res.steelKg} kg - Exc: ${res.excavationVol} m³`}
         onRestore={(savedInputs) => {
@@ -638,7 +666,11 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
           if (savedInputs.topW) setTopW(savedInputs.topW);
           if (savedInputs.columnL) setColumnL(savedInputs.columnL);
           if (savedInputs.columnW) setColumnW(savedInputs.columnW);
-          if (savedInputs.load) setLoad(savedInputs.load);
+          if (savedInputs.workingLoad) setWorkingLoad(savedInputs.workingLoad);
+          if (savedInputs.safetyFactor) setSafetyFactor(savedInputs.safetyFactor);
+          if (savedInputs.load && !savedInputs.workingLoad) {
+             setWorkingLoad((parseFloat(savedInputs.load)/1.5).toString());
+          }
           if (savedInputs.sbc) setSbc(savedInputs.sbc);
           if (savedInputs.mix) setMix(savedInputs.mix);
           if (savedInputs.diaX) setDiaX(savedInputs.diaX);

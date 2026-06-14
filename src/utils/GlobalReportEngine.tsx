@@ -98,6 +98,13 @@ export interface ReportData {
     rate: number;
     amount: number; // We'll compute this in Excel with formula =Qty*Rate
   }[];
+  branding?: {
+    logoBase64?: string;
+    name?: string;
+    email?: string;
+    phone?: string;
+  };
+  paperSize?: "a4" | "legal";
 }
 
 const DEFAULT_COLORS = [
@@ -252,10 +259,10 @@ export const createDonutChartBase64New = (
 export const GlobalReportEngine = {
   
   generatePDF: async (data: ReportData): Promise<jsPDF> => {
-    const doc = new jsPDF();
+    const safeData = data || {} as ReportData;
+    const doc = new jsPDF({ format: safeData.paperSize || "a4" });
     const pageWidth = doc.internal.pageSize.width;
     const pageHeight = doc.internal.pageSize.height;
-    const safeData = data || {} as ReportData;
 
     // 1. Premium Header
     doc.setFillColor(15, 23, 42); 
@@ -279,12 +286,30 @@ export const GlobalReportEngine = {
     let rawTitle = safeData.toolName?.toUpperCase() || 'EXECUTIVE ESTIMATION REPORT';
     rawTitle = rawTitle.replace(/\s*\|\s*CIVIL ESTIMATION PRO/i, "");
     if(rawTitle.length > 35) rawTitle = rawTitle.substring(0, 32) + "...";
-    doc.text(rawTitle, 14, 20);
 
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(10);
-    doc.setTextColor(148, 163, 184); 
-    doc.text("Civil Estimation Pro", 14, 28);
+    if (safeData.branding) {
+       let textX = 14;
+       if (safeData.branding.logoBase64) {
+         try {
+           doc.addImage(safeData.branding.logoBase64, "PNG", 14, 7, 30, 30);
+           textX = 50;
+         } catch(e) {}
+       }
+       doc.text(rawTitle, textX, 20);
+       doc.setFont("helvetica", "normal");
+       doc.setFontSize(10);
+       doc.setTextColor(148, 163, 184); 
+       doc.text(safeData.branding.name ? `Prepared by: ${safeData.branding.name}` : "Professional Estimator", textX, 28);
+       if (safeData.branding.email) {
+         doc.text(safeData.branding.email, textX, 34);
+       }
+    } else {
+       doc.text(rawTitle, 14, 20);
+       doc.setFont("helvetica", "normal");
+       doc.setFontSize(10);
+       doc.setTextColor(148, 163, 184); 
+       doc.text("Civil Estimation Pro", 14, 28);
+    }
     
     doc.setFontSize(9);
     doc.setTextColor(255, 255, 255);
@@ -604,7 +629,7 @@ export const GlobalReportEngine = {
       const randomTip = proTipPool[Math.floor(Math.random() * proTipPool.length)];
       
       doc.text(randomTip, 14, pageHeight - 10);
-      doc.text(`Page ${i} of ${pageCount}`, pageWidth - 14, pageHeight - 10, { align: "right" });
+      doc.text(`Page ${i} of ${pageCount}`, pageWidth / 2, pageHeight - 10, { align: "center" });
     }
 
     return doc;

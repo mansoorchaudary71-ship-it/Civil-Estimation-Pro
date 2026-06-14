@@ -1,20 +1,60 @@
 import React, { useEffect, useState } from "react";
-import { X, Printer, Download } from "lucide-react";
+import { X, Printer, Download, User as UserIcon } from "lucide-react";
 import { generateProfessionalPDF } from "../../utils/pdfGenerator";
 import { createPortal } from "react-dom";
+import { useAuth } from "../../contexts/AuthContext";
+
+const getBase64ImageFromUrl = async (imageUrl: string): Promise<string | undefined> => {
+  if (!imageUrl) return undefined;
+  return new Promise((resolve) => {
+    const img = new window.Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(img, 0, 0);
+        resolve(canvas.toDataURL('image/png'));
+      } else {
+        resolve(undefined);
+      }
+    };
+    img.onerror = () => resolve(undefined);
+    img.src = imageUrl;
+  });
+};
 
 export default function PrintPreviewModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [pdfUrl, setPdfUrl] = useState<string>("");
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (isOpen) {
+  const [useBranding, setUseBranding] = useState(false);
+  const [paperSize, setPaperSize] = useState<"a4" | "legal">("a4");
+  const { user } = useAuth();
+  
+  const renderPdf = async (brandState: boolean, currentSize: "a4" | "legal") => {
       setLoading(true);
       try {
         const getter = (window as any).__GLOBAL_PDF_GETTER;
         if (getter) {
           const payload = getter();
           if (payload) {
+            let brandingData = undefined;
+            if (brandState && user) {
+               const logoBase64 = user.photoURL ? await getBase64ImageFromUrl(user.photoURL) : undefined;
+               brandingData = {
+                  name: user.displayName || undefined,
+                  email: user.email || undefined,
+                  logoBase64
+               };
+            }
+            
+            // Assuming `payload` is the arg object for generateProfessionalPDF. 
+            // We can mutate it to add branding
+            payload.branding = brandingData;
+            payload.paperSize = currentSize;
+
             generateProfessionalPDF(payload)
               .then((doc) => {
                 setPdfUrl(doc.output("bloburl").toString());
@@ -32,12 +72,19 @@ export default function PrintPreviewModal({ isOpen, onClose }: { isOpen: boolean
       
       // Fallback
       setLoading(false);
-      window.print();
-      onClose();
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      renderPdf(useBranding, paperSize);
     } else {
       setPdfUrl("");
     }
-  }, [isOpen, onClose]);
+  }, [isOpen]);
+
+  useEffect(() => {
+     if (isOpen) renderPdf(useBranding, paperSize);
+  }, [useBranding, paperSize]);
 
   if (!isOpen) return null;
 
@@ -46,8 +93,32 @@ export default function PrintPreviewModal({ isOpen, onClose }: { isOpen: boolean
       <div className="bg-white rounded-2xl w-full max-w-5xl h-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden relative border border-[#E8E4D9]">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-[#E8E4D9] bg-[#FAF8F5]">
-          <h2 className="text-xl font-bold text-[#4A443B]">Print Preview</h2>
+          <div className="flex items-center gap-4">
+            <h2 className="text-xl font-bold text-[#4A443B]">Print Preview</h2>
+            {user && (
+              <label className="flex items-center gap-2 cursor-pointer ml-4">
+                <div className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${useBranding ? 'bg-[#D7BA89]' : 'bg-[#E8E4D9]'}`}>
+                  <span className={`inline-block h-3 w-3 transform rounded-full bg-white transition-transform ${useBranding ? 'translate-x-5' : 'translate-x-1'}`} />
+                </div>
+                <input 
+                  type="checkbox" 
+                  className="hidden" 
+                  checked={useBranding} 
+                  onChange={(e) => setUseBranding(e.target.checked)} 
+                />
+                <span className="text-sm font-semibold text-[#8B8476] flex items-center gap-1.5"><UserIcon className="w-4 h-4"/> Professional Branding</span>
+              </label>
+            )}
+          </div>
           <div className="flex items-center gap-3">
+             <select
+               value={paperSize}
+               onChange={(e) => setPaperSize(e.target.value as "a4" | "legal")}
+               className="bg-white border border-[#E8E4D9] text-[#4A443B] text-sm font-semibold rounded-xl px-3 py-2 outline-none cursor-pointer"
+             >
+               <option value="a4">A4 Size</option>
+               <option value="legal">Legal Size</option>
+             </select>
              <button
                 onClick={() => {
                    if (pdfUrl) {

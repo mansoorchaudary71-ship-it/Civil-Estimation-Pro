@@ -118,7 +118,7 @@ export function FormulaVisualizer({ title }: VisualizerProps) {
               axisLine={false}
               stroke="#64748b"
               tickFormatter={(v) =>
-                v >= 1000 ? (v / 1000).toFixed(1) + "k" : Math.round(v)
+                v >= 1000 ? (v / 1000).toFixed(1) + "k" : Math.round(v).toString()
               }
             />
             <Tooltip

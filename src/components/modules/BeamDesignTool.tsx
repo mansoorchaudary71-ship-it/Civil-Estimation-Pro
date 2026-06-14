@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { Layers, Activity, ShieldCheck, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { Layers, Activity, ShieldCheck, AlertTriangle, CheckCircle2, Sparkles } from 'lucide-react';
+import { useSettings } from '../../context/SettingsContext';
 import { CalculationHistory } from '../ui/CalculationHistory';
 import { MaterialSummary } from '../ui/MaterialSummary';
 import { NumberInput } from '../ui/NumberInput';
@@ -49,8 +50,10 @@ function calculateTauC(pt: number, fck: number) {
 }
 
 export default function BeamDesignTool() {
+  const { settings } = useSettings();
   const [span, setSpan] = useState<number | "">(5);
-  const [load, setLoad] = useState<number | "">(25); // Factored load kN/m
+  const [workingLoad, setWorkingLoad] = useState<number | "">(16.67);
+  const [safetyFactor, setSafetyFactor] = useState<number | "">(1.5);
   const [width, setWidth] = useState<number | "">(250);
   const [depth, setDepth] = useState<number | "">(450);
   const [cover, setCover] = useState<number | "">(40); // Nominal cover
@@ -65,7 +68,9 @@ export default function BeamDesignTool() {
 
   const results = useMemo(() => {
     const L = Number(span) || 0;
-    const W = Number(load) || 0;
+    const w_working = Number(workingLoad) || 0;
+    const sf = Number(safetyFactor) || 1.5;
+    const W = w_working * sf;
     const B = Number(width) || 250;
     const D = Number(depth) || 500;
     const c = Number(cover) || 40;
@@ -188,8 +193,17 @@ export default function BeamDesignTool() {
       Ld
     };
 
-  }, [span, load, width, depth, cover, fck, fy, supportCondition, mainDia, stirrupDia, stirrupLegs]);
+  }, [span, workingLoad, safetyFactor, width, depth, cover, fck, fy, supportCondition, mainDia, stirrupDia, stirrupLegs]);
 
+  const handleAiSafetyFactor = () => {
+    let sf = 1.5;
+    if (settings.projectType === 'Commercial' || settings.projectType === 'Industrial') {
+        sf = 1.6;
+    } else if (settings.projectType === 'Residential') {
+        sf = 1.5;
+    }
+    setSafetyFactor(sf);
+  };
 
   return (
     <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
@@ -204,7 +218,19 @@ export default function BeamDesignTool() {
                   <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Geometry & Loading</h3>
                   <div className="space-y-4">
                     <NumberInput label="Effective Span (L)" unit="m" value={span} onChange={setSpan} />
-                    <NumberInput label="Factored Load (wu)" unit="kN/m" value={load} onChange={setLoad} />
+                    <NumberInput label="Working Load (w)" unit="kN/m" value={workingLoad} onChange={setWorkingLoad} />
+                    <div className="flex items-end gap-2">
+                      <div className="flex-1">
+                        <NumberInput label="Safety Factor (γf)" value={safetyFactor} onChange={setSafetyFactor} />
+                      </div>
+                      <button 
+                        onClick={handleAiSafetyFactor}
+                        className="h-11 px-4 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:hover:bg-indigo-800/40 text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center transition-colors shadow-sm"
+                        title="AI-Suggested Safety Factor based on Project Settings"
+                      >
+                        <Sparkles className="w-4 h-4 mr-1.5" /> AI Suggest
+                      </button>
+                    </div>
                     <NumberInput label="Width (b)" unit="mm" value={width} onChange={setWidth} />
                     <NumberInput label="Overall Depth (D)" unit="mm" value={depth} onChange={setDepth} />
                     
@@ -323,7 +349,7 @@ export default function BeamDesignTool() {
     
       <CalculationHistory 
         calculatorId="beam_design" 
-        currentInputs={{ span, load, width, depth, cover, fck, fy, supportCondition, mainDia, stirrupDia, stirrupLegs }} 
+        currentInputs={{ span, workingLoad, safetyFactor, width, depth, cover, fck, fy, supportCondition, mainDia, stirrupDia, stirrupLegs }} 
       />
     </div>
   );

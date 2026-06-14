@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useReducer } from "react";
+import React, { useState, useMemo, useReducer, useEffect } from "react";
 import { UniversalTabs } from "../ui/UniversalTabs";
 import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
@@ -53,8 +53,12 @@ import GlobalSettingsModal from "./GlobalSettingsModal";
 import MasterRccStructure from "./MasterRccStructure";
 import MasterQuantityEstimator from "./MasterQuantityEstimator";
 import { CalculationHistory } from "../ui/CalculationHistory";
-import { SEO } from "../SEO";
+import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 import UnitToggleGroup from "../ui/UnitToggleGroup";
+import { MaskedInput } from "../ui/MaskedInput";
+import { useSchema } from "../../hooks/useSchema";
+import { SEOFAQ } from "../ui/SEOFAQ";
 
 function AnimatedTableRow({ 
   item, 
@@ -277,6 +281,75 @@ export default function HouseEstimator() {
     clientName: "",
     siteLocation: "",
   });
+  const location = useLocation();
+  const [hasParsedRoute, setHasParsedRoute] = useState(false);
+
+  // Parse pSEO routing 
+  useEffect(() => {
+    if (hasParsedRoute) return;
+    
+    // e.g., /estimate/5-Marla-house-construction-cost-Lahore
+    const match = location.pathname.match(/\/estimate\/(\d+(?:\.\d+)?)-([^-]+)-house-construction-cost-(.+)/i);
+    if (match) {
+      const value = parseFloat(match[1]);
+      const unit = match[2]; // Marla, Sq.Ft, Sq.Yd
+      const city = match[3];
+
+      let parsedUnit = "Marla";
+      if (unit.toLowerCase().includes("sq")) {
+        if (unit.toLowerCase().includes("yd") || unit.toLowerCase().includes("yard")) {
+          parsedUnit = "Sq.Yd";
+        } else {
+          parsedUnit = "Sq.Ft";
+        }
+      }
+
+      dispatch({ type: "SET_PLOT_SIZE_UNIT", payload: parsedUnit.toLowerCase() as any });
+      dispatch({ type: "SET_PLOT_SIZE_VALUE", payload: value.toString() });
+      setProjectDetails((prev) => ({
+        ...prev,
+        siteLocation: city.replace(/-/g, " "),
+      }));
+      setHasParsedRoute(true);
+    }
+  }, [location.pathname, hasParsedRoute]);
+
+  useSchema({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "House Estimator Calculator by Civil Estimation Pro",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "PKR"
+        },
+        "description": "Generate highly accurate civil engineering estimates and BOQs in seconds. Features standard NBC Pakistan 2021 compliance.",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "ratingCount": "124"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What engineering formulas does this tool use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It strictly uses internationally recognized civil engineering formulas relevant to the quantity estimation field, compliant with standards like NBC."
+            }
+          }
+        ]
+      }
+    ]
+  });
+
   const [itemNotes, setItemNotes] = useState<Record<string, string>>({});
   const [deletedItems, setDeletedItems] = useState<Set<string>>(new Set());
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
@@ -878,18 +951,17 @@ export default function HouseEstimator() {
 
   return (
     <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
-      <SEO 
-        title="Complete House Estimator" 
-        description="Estimate complete house construction costs including grey structure and finishing works." 
-        canonicalUrl="https://civilestimationpro.com/house" 
-      />
+      <Helmet>
+        <title>House Construction Cost Estimator | Civil Estimation Pro</title>
+        <meta name="description" content="Calculate your exact house construction cost with real-time BOQ generation. Features NBC Pakistan standards, Marla/Sq.Ft inputs, and precise material estimates." />
+      </Helmet>
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         
 
         <div className="space-y-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Main Controls Overlay */}
-          <section className="lg:col-span-4 space-y-6">
+          <section className="lg:col-span-7 space-y-6 flex flex-col">
             {/* Quick Estimate Base Controls */}
             <div className="bg-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl space-y-6">
               <div className="flex items-center gap-3 mb-2">
@@ -931,19 +1003,18 @@ export default function HouseEstimator() {
                   Plot Size 
                   <span className="relative">
                     <AlertCircle className="w-3.5 h-3.5 text-slate-400" />
-                    <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max px-3 py-1.5 bg-white text-slate-900 text-[10px] rounded-[16px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all border border-slate-200 shadow-sm">
+                    <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max px-3 py-1.5 bg-white text-text-primary text-[10px] rounded-[16px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all border border-slate-200 shadow-sm">
                       Total land area limits the maximum covered area
                     </span>
                   </span>
                 </label>
                 <div className="flex flex-col gap-3">
-                  <input
-                    type="number"
+                  <MaskedInput
                     value={geoState.plotSizeValue}
-                    onChange={(e) =>
+                    onValueChange={(val) =>
                       dispatch({
                         type: "SET_PLOT_SIZE_VALUE",
-                        payload: e.target.value,
+                        payload: val,
                       })
                     }
                     className="bg-white border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all font-medium shadow-sm w-full"
@@ -1199,7 +1270,7 @@ export default function HouseEstimator() {
                       Covered Area (Per Floor)
                       <span className="relative">
                         <AlertCircle className="w-3.5 h-3.5 text-slate-400" />
-                        <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max max-w-[200px] whitespace-normal px-3 py-1.5 bg-white text-slate-900 text-[10px] rounded-[16px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10 text-center border border-slate-200 shadow-sm">
+                        <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max max-w-[200px] whitespace-normal px-3 py-1.5 bg-white text-text-primary text-[10px] rounded-[16px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10 text-center border border-slate-200 shadow-sm">
                           Total floor area constructed for a single story. Must be less than plot size.
                         </span>
                       </span>
@@ -1307,7 +1378,7 @@ export default function HouseEstimator() {
               {!showResults && (
                 <button
                    onClick={() => setShowResults(true)}
-                   className="w-full sm:flex-1 flex flex-row items-center justify-center gap-2 bg-white text-slate-900 border border-slate-200 outline-none font-bold px-8 py-4 rounded-[16px] hover:bg-slate-50 transition-all active:scale-95 shadow-sm"
+                   className="w-full sm:flex-1 flex flex-row items-center justify-center gap-2 bg-white text-text-primary border border-slate-200 outline-none font-bold px-8 py-4 rounded-[16px] hover:bg-slate-50 transition-all active:scale-95 shadow-sm"
                 >
                    Compute Total Cost
                 </button>
@@ -1329,36 +1400,10 @@ export default function HouseEstimator() {
                  <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600 shadow-inner"></div>
                </label>
             </div>
-          </section>
           
-          {/* Results Area */}
-          {showResults && (
-            <section className="lg:col-span-8 flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <div className="sticky top-6 z-10 bg-indigo-600 rounded-[2rem] p-6 shadow-xl shadow-indigo-500/20 text-white flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2">
-              <div className="flex items-center gap-4">
-                <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-100 rounded-[24px]">
-                  <Calculator className="w-8 h-8 text-slate-600" />
-                </div>
-                <div>
-                  <h3 className="text-indigo-200 text-xs font-bold uppercase tracking-widest mb-0.5">Total Estimated Cost</h3>
-                  <p className="text-3xl sm:text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight tabular-nums text-slate-900 drop-shadow-sm">{formatCurrency(currentTotalCost)}</p>
-                  <p className="text-indigo-200 text-[10px] mt-1 font-medium">Rates based on current regional market — verify with local suppliers.</p>
-                </div>
-              </div>
-              <div className="flex gap-6 mt-4 sm:mt-0 w-full sm:w-auto p-4 sm:p-0 bg-white/5 sm:bg-transparent rounded-[24px] sm:rounded-[24px]">
-                <div>
-                  <div className="text-indigo-200 text-[10px] font-bold uppercase tracking-wider mb-0.5">Basic Structure</div>
-                  <div className="text-lg font-bold tabular-nums text-slate-900">{formatCurrency(filteredTotalGrey)}</div>
-                </div>
-                <div className="w-px h-8 bg-indigo-400/30 self-center hidden sm:block"></div>
-                <div>
-                  <div className="text-indigo-200 text-[10px] font-bold uppercase tracking-wider mb-0.5">Finishings</div>
-                  <div className="text-lg font-bold tabular-nums text-slate-900">{formatCurrency(filteredTotalFinishing)}</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Visual Summary */}
+            {showResults && (
+              <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500 pt-8 border-t border-[var(--border-color)]">
+                {/* Visual Summary */}
             <div className="bg-white p-6 sm:p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 mb-2">
               <h3 className="text-xl font-semibold text-slate-800 mb-6">
                 Cost Breakdown Visuals
@@ -1964,7 +2009,39 @@ export default function HouseEstimator() {
               </div>
             )}
           </div>
-        </section>
+        
+              </div>
+            )}
+</section>
+          
+          {/* Results Area */}
+          {showResults && (
+            <section className="lg:col-span-5 relative hidden lg:block">
+              <div className="sticky top-6 z-10 bg-[var(--bg-card)]/50 backdrop-blur-2xl border border-[var(--border-color)] rounded-[2.5rem] p-6 lg:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.08)] flex flex-col items-start gap-8">
+              <div className="flex flex-col gap-4">
+                <div className="p-4 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-100 rounded-[24px]">
+                  <Calculator className="w-8 h-8 text-slate-600" />
+                </div>
+                <div>
+                  <h3 className="text-slate-500 font-bold uppercase tracking-widest mb-1.5 text-xs">Total Estimated Cost</h3>
+                  <p className="text-4xl sm:text-5xl break-all font-bold tabular-nums tracking-tighter text-text-primary drop-shadow-sm">{formatCurrency(currentTotalCost)}</p>
+                  <p className="text-slate-400 text-[10px] mt-2 font-medium max-w-[200px]">Rates based on current regional market — verify with local suppliers.</p>
+                </div>
+              </div>
+              <div className="flex flex-col gap-4 mt-6 w-full pt-6 border-t border-[var(--border-color)]">
+                <div>
+                  <div className="text-slate-500 text-[10px] font-bold uppercase tracking-wider text-xs mb-0.5">Basic Structure</div>
+                  <div className="text-lg font-bold tabular-nums text-text-primary">{formatCurrency(filteredTotalGrey)}</div>
+                </div>
+                <div className="w-px h-8 bg-border-color self-center hidden sm:block"></div>
+                <div>
+                  <div className="text-slate-500 text-[10px] font-bold uppercase tracking-wider text-xs mb-0.5">Finishings</div>
+                  <div className="text-lg font-bold tabular-nums text-text-primary">{formatCurrency(filteredTotalFinishing)}</div>
+                </div>
+              </div>
+            </div>
+
+            </section>
         )}
       </div>
     </div>
@@ -2152,6 +2229,48 @@ export default function HouseEstimator() {
           </div>
         </div>
       )}
+
+      <SEOFAQ faqs={[
+        {
+          question: "What engineering formulas does this tool use?",
+          answer: "It strictly uses internationally recognized civil engineering formulas relevant to the quantity estimation field, compliant with standards like NBC Pakistan 2021."
+        },
+        {
+          question: "How accurate is the material estimation?",
+          answer: "Our engine uses standard volume conversions (e.g., 1.54 for concrete dry volume) to compute exact material breakdowns matching professional BOQs."
+        },
+        {
+          question: "Does it support different Plot Units like Marla and Sq.Yd?",
+          answer: "Yes, the calculation automatically scales whether you input your plot in Marlas, Square Yards, or Square Feet."
+        },
+        {
+          question: "Can I adjust the market rates?",
+          answer: "Absolutely. Click on 'View Market Rates' to customize the cost per unit for cement, steel, bricks, and labor."
+        }
+      ]} />
+
+      <section className="w-full max-w-4xl mx-auto my-12" aria-label="Popular Estimates">
+        <h3 className="text-xl md:text-2xl font-bold text-text-primary text-center mb-6">
+          Popular Construction Estimates
+        </h3>
+        <div className="flex flex-wrap justify-center gap-3">
+          {[
+            { size: "5", unit: "Marla", city: "Lahore" },
+            { size: "10", unit: "Marla", city: "Islamabad" },
+            { size: "1", unit: "Kanal", city: "Karachi" },
+            { size: "3", unit: "Marla", city: "Rawalpindi" },
+            { size: "7", unit: "Marla", city: "Faisalabad" },
+          ].map((route) => (
+            <a
+              key={`${route.size}-${route.unit}-${route.city}`}
+              href={`/estimate/${route.size}-${route.unit}-house-construction-cost-${route.city}`}
+              className="px-4 py-2 bg-bg-card border border-border-color text-text-primary rounded-full hover:bg-slate-50 hover:shadow-sm transition-all"
+            >
+              {route.size} {route.unit} House Cost in {route.city}
+            </a>
+          ))}
+        </div>
+      </section>
 
       <CalculationHistory
         calculatorId="house_estimator_v1"

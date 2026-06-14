@@ -212,6 +212,8 @@ export const generateProfessionalPDF = async ({
   tableData,
   chartData,
   grandTotal,
+  branding,
+  paperSize,
 }: {
   title: string;
   toolId?: string;
@@ -219,6 +221,8 @@ export const generateProfessionalPDF = async ({
   tableData: any[][];
   chartData?: { label: string; value: number; color: string }[];
   grandTotal: number;
+  branding?: { logoBase64?: string; name?: string; email?: string; phone?: string; };
+  paperSize?: "a4" | "legal";
 }): Promise<jsPDF> => {
   const cleanInputs = filterValidParameters(inputs || {});
   const boqData = tableData.map(row => {
@@ -283,7 +287,9 @@ export const generateProfessionalPDF = async ({
       donut: chartData || [],
       bar: barData
     },
-    boqData
+    boqData,
+    branding,
+    paperSize
   };
   
   return await GlobalReportEngine.generatePDF(payload);
