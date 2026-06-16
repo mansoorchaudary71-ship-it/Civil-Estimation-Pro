@@ -132,7 +132,7 @@ const MaterialTakeoffSheet: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-[24px] shadow-sm border border-slate-200 p-4 md:p-8 flex flex-col w-full">
+    <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] shadow-sm border border-slate-200 p-4 md:p-8 flex flex-col w-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
           <h2 className="text-2xl font-semibold text-slate-800 flex items-center gap-2">
@@ -163,7 +163,7 @@ const MaterialTakeoffSheet: React.FC = () => {
               type="number"
               value={area}
               onChange={(e) => setArea(parseFloat(e.target.value) || 0)}
-              className="w-full bg-white border border-slate-300 rounded-[24px] px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none pr-12"
+              className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-300 rounded-[24px] px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none pr-12"
             />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">sq ft</span>
           </div>
@@ -178,7 +178,7 @@ const MaterialTakeoffSheet: React.FC = () => {
               type="number"
               value={floors}
               onChange={(e) => setFloors(parseFloat(e.target.value) || 1)}
-              className="w-full bg-white border border-slate-300 rounded-[24px] px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none pl-10"
+              className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-300 rounded-[24px] px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none pl-10"
               min="1"
             />
           </div>
@@ -192,7 +192,7 @@ const MaterialTakeoffSheet: React.FC = () => {
             <select
               value={quality}
               onChange={(e) => setQuality(e.target.value as QualityType)}
-              className="w-full bg-white border border-slate-300 rounded-[24px] px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none pl-10 appearance-none"
+              className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-300 rounded-[24px] px-4 py-2.5 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none pl-10 appearance-none"
             >
               <option value="standard">Standard (Economy)</option>
               <option value="premium">Premium (Mid-Range)</option>
@@ -227,7 +227,7 @@ const MaterialTakeoffSheet: React.FC = () => {
                       type="number"
                       value={item.rate}
                       onChange={(e) => handleRateChange(item.id, e.target.value)}
-                      className="w-full bg-white border border-slate-300 rounded-[16px] px-2 py-1.5 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none"
+                      className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-300 rounded-[16px] px-2 py-1.5 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none"
                     />
                   </div>
                 </td>

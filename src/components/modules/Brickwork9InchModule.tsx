@@ -285,7 +285,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                           <option value="1:6">1:6 (Lean Mix)</option>
                           <option value="custom">Custom Mix</option>
                         </select>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-600">
                           <Settings className="w-4 h-4" />
                         </div>
                       </div>

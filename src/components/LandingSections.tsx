@@ -47,14 +47,14 @@ export function HowItWorksSection() {
     <div className="w-full py-20 bg-[#F8F9FB] relative overflow-hidden" ref={(node) => { ref(node); if(containerRef) containerRef.current = node; }}>
       {/* Background glow effects */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#FF5F15]/10 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#0A192F]/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#FFFFFF]/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="text-center mb-16 relative z-10 px-4">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#0A192F]/10 text-[#0A192F] rounded-full text-xs font-bold tracking-widest uppercase mb-4 shadow-sm">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#FFFFFF]/10 text-slate-900 rounded-full text-xs font-bold tracking-widest uppercase mb-4 shadow-sm">
           How It Works
         </div>
         <h2
-          className="text-2xl md:text-4xl font-extrabold tracking-tight text-[#0A192F] mb-4"
+          className="text-2xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-4"
         >
           From Drawing to BOQ in 3 Steps
         </h2>
@@ -81,18 +81,18 @@ export function HowItWorksSection() {
             <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 relative h-full flex flex-col group hover:-translate-y-1 hover:shadow-md transition-all duration-300 ml-6 md:ml-0 md:mt-6">
               
               {/* Large numbered badge */}
-              <div className="absolute -top-6 -left-6 md:-top-8 md:-left-4 w-[48px] h-[48px] rounded-full bg-[#FFC000] flex items-center justify-center text-[#0A192F] text-xl font-black shadow-sm border-[3px] border-white z-20 group-hover:scale-110 group-hover:bg-[#FF5F15] group-hover:text-white transition-colors duration-300">
+              <div className="absolute -top-6 -left-6 md:-top-8 md:-left-4 w-[48px] h-[48px] rounded-full bg-[#FFC000] flex items-center justify-center text-slate-900 text-xl font-black shadow-sm border-[3px] border-white z-20 group-hover:scale-110 group-hover:bg-[#FF5F15] group-hover:text-slate-900 transition-colors duration-300">
                 {idx + 1}
               </div>
 
-              <div className="w-14 h-14 rounded-2xl bg-[#0A192F]/5 flex items-center justify-center mb-5 text-[#0A192F] group-hover:bg-[#0A192F]/10 transition-colors duration-300 mt-2 border border-[#0A192F]/10">
+              <div className="w-14 h-14 rounded-2xl bg-[#FFFFFF]/5 flex items-center justify-center mb-5 text-slate-900 group-hover:bg-[#FFFFFF]/10 transition-colors duration-300 mt-2 border border-[#FFFFFF]/10">
                 <step.icon
                   className="w-8 h-8"
                   strokeWidth={1.5}
                 />
               </div>
               
-              <h3 className="text-lg md:text-xl font-bold text-[#0A192F] mb-3">
+              <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-3">
                 {step.title}
               </h3>
               
@@ -180,7 +180,7 @@ export function FeatureComparisonSection({
             Compare
           </div>
           <h2
-            className="text-2xl md:text-4xl font-extrabold tracking-tight text-[#0A192F] mb-4"
+            className="text-2xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-4"
           >
             The Smarter Way to Estimate
           </h2>
@@ -191,13 +191,13 @@ export function FeatureComparisonSection({
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8 max-w-3xl mx-auto px-4">
-            <div className="flex items-center gap-2 text-[#0A192F] text-sm font-semibold">
+            <div className="flex items-center gap-2 text-slate-900 text-sm font-semibold">
               <CheckCircle2 className="w-4 h-4 text-[#FF5F15]" /> Auto-updates
             </div>
-            <div className="flex items-center gap-2 text-[#0A192F] text-sm font-semibold">
+            <div className="flex items-center gap-2 text-slate-900 text-sm font-semibold">
               <CheckCircle2 className="w-4 h-4 text-[#FF5F15]" /> Works Offline
             </div>
-            <div className="flex items-center gap-2 text-[#0A192F] text-sm font-semibold">
+            <div className="flex items-center gap-2 text-slate-900 text-sm font-semibold">
               <CheckCircle2 className="w-4 h-4 text-[#FF5F15]" /> No Downloads
             </div>
           </div>
@@ -218,24 +218,24 @@ export function FeatureComparisonSection({
                   <div className="flex items-center gap-2 text-slate-500 font-medium text-sm md:text-base">
                     {feature.name}
                     <div className="group/tooltip relative flex items-center justify-center cursor-help">
-                      <div className="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition-colors flex items-center justify-center">
+                      <div className="w-4 h-4 text-slate-600 group-hover:text-slate-600 transition-colors flex items-center justify-center">
                          <Info className="w-3.5 h-3.5" />
                       </div>
-                      <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover/tooltip:block w-48 bg-slate-900 text-white text-xs p-2.5 rounded-[12px] text-center shadow-xl z-50 pointer-events-none">
+                      <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover/tooltip:block w-48 bg-slate-50 text-slate-900 text-xs p-2.5 rounded-[12px] text-center shadow-xl z-50 pointer-events-none">
                         {feature.tooltip}
-                        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-900 rotate-45"></div>
+                        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-50 rotate-45"></div>
                       </div>
                     </div>
                   </div>
                   <div>
                     {typeof feature.excel === "boolean" ? (
                       feature.excel ? (
-                        <CheckCircle2 className="w-5 h-5 text-slate-400" />
+                        <CheckCircle2 className="w-5 h-5 text-slate-600" />
                       ) : (
-                        <XCircle className="w-5 h-5 text-slate-300" />
+                        <XCircle className="w-5 h-5 text-slate-700" />
                       )
                     ) : (
-                      <span className="text-slate-400 font-semibold text-sm md:text-base">{feature.excel}</span>
+                      <span className="text-slate-600 font-semibold text-sm md:text-base">{feature.excel}</span>
                     )}
                   </div>
                 </div>
@@ -245,29 +245,29 @@ export function FeatureComparisonSection({
 
           {/* CE Pro Card */}
           <div
-            className="bg-white border-2 border-[#0A192F] rounded-2xl shadow-md p-6 flex flex-col relative mt-4 md:mt-0 md:-translate-y-1"
+            className="bg-white border-2 border-[#FFFFFF] rounded-2xl shadow-md p-6 flex flex-col relative mt-4 md:mt-0 md:-translate-y-1"
           >
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFC000] text-[#0A192F] font-black text-[11px] rounded-full px-3 py-1 shadow-[0_0_15px_rgba(255,192,0,0.4)] border border-[#FFC000]">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFC000] text-slate-900 font-black text-[11px] rounded-full px-3 py-1 shadow-[0_0_15px_rgba(255,192,0,0.4)] border border-[#FFC000]">
               RECOMMENDED
             </div>
 
-            <div className="text-lg md:text-xl font-bold text-[#0A192F] mb-6 border-b border-slate-100 pb-4 flex items-center gap-2 mt-2">
-              <div className="w-7 h-7 rounded-xl bg-[#FF5F15] text-white flex items-center justify-center font-black text-xs tracking-tighter shadow-md shrink-0">CE</div>
+            <div className="text-lg md:text-xl font-bold text-slate-900 mb-6 border-b border-slate-100 pb-4 flex items-center gap-2 mt-2">
+              <div className="w-7 h-7 rounded-xl bg-[#FF5F15] text-slate-900 flex items-center justify-center font-black text-xs tracking-tighter shadow-md shrink-0">CE</div>
               Civil Estimation <span className="text-[#FF5F15] ml-1">Pro</span>
             </div>
 
             <div className="flex flex-col gap-6 flex-1">
               {features.map((feature, idx) => (
                 <div key={idx} className="flex items-center justify-between group">
-                  <div className="flex items-center gap-2 text-[#0A192F] font-semibold text-sm md:text-base">
+                  <div className="flex items-center gap-2 text-slate-900 font-semibold text-sm md:text-base">
                     {feature.name}
                     <div className="group/tooltip relative flex items-center justify-center cursor-help">
-                      <div className="w-4 h-4 text-slate-400 group-hover:text-[#FF5F15] transition-colors flex items-center justify-center">
+                      <div className="w-4 h-4 text-slate-600 group-hover:text-[#FF5F15] transition-colors flex items-center justify-center">
                          <Info className="w-3.5 h-3.5" />
                       </div>
-                      <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover/tooltip:block w-48 bg-[#0A192F] text-white text-xs p-2.5 rounded-[12px] text-center shadow-xl z-50 pointer-events-none">
+                      <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover/tooltip:block w-48 bg-[#FFFFFF] text-slate-900 text-xs p-2.5 rounded-[12px] text-center shadow-xl z-50 pointer-events-none">
                         {feature.tooltip}
-                        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#0A192F] border-b border-r border-[#0A192F] rotate-45"></div>
+                        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#FFFFFF] border-b border-r border-[#FFFFFF] rotate-45"></div>
                       </div>
                     </div>
                   </div>
@@ -278,10 +278,10 @@ export function FeatureComparisonSection({
                           <CheckCircle2 className="w-5 h-5 text-[#FF5F15]" />
                         </div>
                       ) : (
-                        <XCircle className="w-5 h-5 text-slate-300" />
+                        <XCircle className="w-5 h-5 text-slate-700" />
                       )
                     ) : (
-                      <span className="text-[#0A192F] font-bold bg-[#FFC000]/20 px-3 py-1 rounded-full text-xs md:text-sm whitespace-nowrap">{feature.app}</span>
+                      <span className="text-slate-900 font-bold bg-[#FFC000]/20 px-3 py-1 rounded-full text-xs md:text-sm whitespace-nowrap">{feature.app}</span>
                     )}
                   </div>
                 </div>
@@ -301,7 +301,7 @@ export function FeatureComparisonSection({
               if (onNavigate) onNavigate("dashboard");
               window.scrollTo(0, 0);
             }}
-            className="inline-flex flex-col sm:flex-row items-center justify-center gap-3 px-8 sm:px-10 py-4 lg:py-5 bg-[#FF5F15] hover:bg-[#ea580c] text-white font-bold text-[15px] sm:text-[17px] rounded-[32px] sm:rounded-full group shadow-[0_5px_15px_rgba(255,95,21,0.3)] transition-all duration-300 hover:-translate-y-1 cursor-pointer whitespace-nowrap lg:whitespace-normal active:scale-[0.98] border border-[#FF5F15]"
+            className="inline-flex flex-col sm:flex-row items-center justify-center gap-3 px-8 sm:px-10 py-4 lg:py-5 bg-[#FF5F15] hover:bg-[#ea580c] text-slate-900 font-bold text-[15px] sm:text-[17px] rounded-[32px] sm:rounded-full group shadow-[0_5px_15px_rgba(255,95,21,0.3)] transition-all duration-300 hover:-translate-y-1 cursor-pointer whitespace-nowrap lg:whitespace-normal active:scale-[0.98] border border-[#FF5F15]"
           >
             <span>Level up your estimations</span>
             <div className="flex items-center gap-2">

@@ -33,9 +33,9 @@ export default function InteriorsFinishesEstimator() {
         <h3 className="text-[16px] font-bold text-slate-800">{title}</h3>
       </div>
       {openSections[id] ? (
-        <ChevronUp className="w-5 h-5 text-slate-400" />
+        <ChevronUp className="w-5 h-5 text-slate-600" />
       ) : (
-        <ChevronDown className="w-5 h-5 text-slate-400" />
+        <ChevronDown className="w-5 h-5 text-slate-600" />
       )}
     </button>
   );
@@ -46,7 +46,7 @@ export default function InteriorsFinishesEstimator() {
         
 
         <div className="space-y-4">
-          <div className="bg-white rounded-[24px] shadow-[0_4px_24px_rgba(15,23,42,0.02)] border border-slate-200 overflow-hidden transition-all">
+          <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] shadow-[0_4px_24px_rgba(15,23,42,0.02)] border border-slate-200 overflow-hidden transition-all">
             <AccordionHeader id="tiles" title="Tiles & Flooring Calculator" icon={LayoutGrid} />
             {openSections["tiles"] && (
                <div className="p-6 md:p-8 border-t border-slate-100 animate-in fade-in slide-in-from-top-2 duration-300">
@@ -55,7 +55,7 @@ export default function InteriorsFinishesEstimator() {
             )}
           </div>
           
-          <div className="bg-white rounded-[24px] shadow-[0_4px_24px_rgba(15,23,42,0.02)] border border-slate-200 overflow-hidden transition-all">
+          <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] shadow-[0_4px_24px_rgba(15,23,42,0.02)] border border-slate-200 overflow-hidden transition-all">
             <AccordionHeader id="paint" title="Paint Calculator" icon={Paintbrush} />
             {openSections["paint"] && (
                <div className="p-6 md:p-8 border-t border-slate-100 animate-in fade-in slide-in-from-top-2 duration-300">
@@ -64,7 +64,7 @@ export default function InteriorsFinishesEstimator() {
             )}
           </div>
 
-          <div className="bg-white rounded-[24px] shadow-[0_4px_24px_rgba(15,23,42,0.02)] border border-slate-200 overflow-hidden transition-all">
+          <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] shadow-[0_4px_24px_rgba(15,23,42,0.02)] border border-slate-200 overflow-hidden transition-all">
             <AccordionHeader id="doorsWindows" title="Doors & Windows Deductions" icon={AppWindow} />
             {openSections["doorsWindows"] && (
                <div className="p-6 md:p-8 border-t border-slate-100 animate-in fade-in slide-in-from-top-2 duration-300">
@@ -73,7 +73,7 @@ export default function InteriorsFinishesEstimator() {
             )}
           </div>
 
-          <div className="bg-white rounded-[24px] shadow-[0_4px_24px_rgba(15,23,42,0.02)] border border-slate-200 overflow-hidden transition-all">
+          <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] shadow-[0_4px_24px_rgba(15,23,42,0.02)] border border-slate-200 overflow-hidden transition-all">
             <AccordionHeader id="wood" title="Wood Framing & Carpentry" icon={Trees} />
             {openSections["wood"] && (
                <div className="p-6 md:p-8 border-t border-slate-100 animate-in fade-in slide-in-from-top-2 duration-300">
@@ -82,7 +82,7 @@ export default function InteriorsFinishesEstimator() {
             )}
           </div>
 
-          <div className="bg-white rounded-[24px] shadow-[0_4px_24px_rgba(15,23,42,0.02)] border border-slate-200 overflow-hidden transition-all">
+          <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] shadow-[0_4px_24px_rgba(15,23,42,0.02)] border border-slate-200 overflow-hidden transition-all">
             <AccordionHeader id="termite" title="Termite Treatment Estimator" icon={Bug} />
             {openSections["termite"] && (
                <div className="p-6 md:p-8 border-t border-slate-100 animate-in fade-in slide-in-from-top-2 duration-300">
@@ -245,7 +245,7 @@ function TilesCalculator() {
             </div>
           </>
         ) : (
-          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(15,23,42,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
+          <div className="relative p-5 sm:p-6 rounded-[24px] bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(15,23,42,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
             <h3 className="font-bold text-sm uppercase tracking-wider mb-6 bg-gradient-to-r from-indigo-500 via-purple-500 to-rose-400 bg-clip-text text-transparent">Estimate Results</h3>
             <div className="text-center text-slate-500 py-8">Enter area and tile size to calculate.</div>
           </div>
@@ -382,7 +382,7 @@ function PaintCalculator() {
               </div>
             </>
         ) : (
-          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(15,23,42,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
+          <div className="relative p-5 sm:p-6 rounded-[24px] bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(15,23,42,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
             <h3 className="font-bold text-sm uppercase tracking-wider mb-6 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">Estimate Results</h3>
             <div className="text-center text-slate-500 py-8">Enter wall/ceiling area and coats to calculate.</div>
           </div>
@@ -437,7 +437,7 @@ function DoorsWindowsCalculator() {
         </div>
         
         <div 
-          className="relative w-full mx-auto bg-white [#1A1C24] border-2 border-indigo-200 overflow-hidden rounded-[16px] shadow-sm" 
+          className="relative w-full mx-auto bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 [#1A1C24] border-2 border-indigo-200 overflow-hidden rounded-[16px] shadow-sm" 
           style={{ aspectRatio: displayRatio }}
         >
           {/* Wall Grid Texture */}
@@ -475,7 +475,7 @@ function DoorsWindowsCalculator() {
                      bottom: isDoor ? '0' : `calc(50% - ${pctH / 2}%)`,
                    }}
                  >
-                   <div className="bg-white/90 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded px-1.5 py-0.5">
+                   <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/90 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded px-1.5 py-0.5">
                      <span className="text-[9px] sm:text-[10px] font-bold text-rose-600 truncate whitespace-nowrap">
                        {op.name}
                      </span>
@@ -519,7 +519,7 @@ function DoorsWindowsCalculator() {
           <label className="text-sm font-bold text-slate-700">Openings / Deductions</label>
           <div className="space-y-2">
             {deductions.map((item, index) => (
-              <div key={index} className="flex gap-2 items-center bg-white border border-border-color p-2 rounded-[24px]">
+              <div key={index} className="flex gap-2 items-center bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color p-2 rounded-[24px]">
                 <input 
                   type="text" 
                   value={item.name} 
@@ -560,7 +560,7 @@ function DoorsWindowsCalculator() {
              {renderPreview()}
           </>
         ) : (
-          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(15,23,42,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group h-full justify-center">
+          <div className="relative p-5 sm:p-6 rounded-[24px] bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(15,23,42,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group h-full justify-center">
             <h3 className="font-bold text-sm uppercase tracking-wider mb-2 text-center bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500 bg-clip-text text-transparent">Estimate Results</h3>
             <div className="text-center text-slate-500 py-8">
               Enter wall dimensions to calculate net area and see the proportional preview.
@@ -672,7 +672,7 @@ function WoodFramingCalculator() {
             </div>
           </>
         ) : (
-          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(15,23,42,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
+          <div className="relative p-5 sm:p-6 rounded-[24px] bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(15,23,42,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
             <h3 className="font-bold text-sm uppercase tracking-wider mb-6 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">Estimate Results</h3>
             <div className="text-center text-slate-500 py-8">Enter member dimensions and quantity to calculate wood volume.</div>
           </div>
@@ -771,13 +771,13 @@ function TermiteTreatmentCalculator() {
         <div className="flex bg-slate-100 p-1 rounded-[16px]">
             <button
               onClick={() => setType("pre")}
-              className={`flex-1 py-1.5 text-xs font-bold rounded-[12px] transition-colors ${type === "pre" ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+              className={`flex-1 py-1.5 text-xs font-bold rounded-[12px] transition-colors ${type === "pre" ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
             >
               Pre-Construction
             </button>
             <button
               onClick={() => setType("post")}
-              className={`flex-1 py-1.5 text-xs font-bold rounded-[12px] transition-colors ${type === "post" ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+              className={`flex-1 py-1.5 text-xs font-bold rounded-[12px] transition-colors ${type === "post" ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
             >
               Post-Construction
             </button>
@@ -810,7 +810,7 @@ function TermiteTreatmentCalculator() {
             </div>
           </>
         ) : (
-          <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(15,23,42,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
+          <div className="relative p-5 sm:p-6 rounded-[24px] bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm [0_4px_20px_rgba(15,23,42,0.15)] flex flex-col gap-3 transition-all duration-300 w-full overflow-hidden group">
             <h3 className="font-bold text-sm uppercase tracking-wider mb-6 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 bg-clip-text text-transparent">Estimate Results</h3>
             <div className="text-center text-slate-500 py-8">Enter area and perimeter to verify chemical requirements.</div>
           </div>

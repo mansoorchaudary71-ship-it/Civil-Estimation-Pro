@@ -75,13 +75,13 @@ export default function RateAnalysis() {
       };
     }, [rates]);
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
+    <div className="w-full h-full bg-transparent text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Rate Inputs */}
           <section className="lg:col-span-7 space-y-6">
-            <div className="bg-white/80 p-8 rounded-[2rem] shadow-[0_8px_32px_rgba(15,23,42,0.06)] border border-gray-100 backdrop-blur-xl">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 p-8 rounded-[2rem] shadow-[0_8px_32px_rgba(15,23,42,0.06)] border border-gray-100 backdrop-blur-xl">
               <div className="flex items-center gap-3 mb-8">
                 <div className="p-3 bg-emerald-50 text-emerald-600 rounded-[24px] shadow-sm border border-emerald-100">
                   <Database className="w-6 h-6" />
@@ -215,7 +215,7 @@ export default function RateAnalysis() {
                   <div className="flex items-center gap-2">
                     <input
                       type="number"
-                      className="w-24 bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-center text-lg font-bold text-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                      className="w-24 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-3 py-2 text-center text-lg font-bold text-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
                       value={rates.overheadMarkup}
                       onChange={(e) =>
                         handleRateChange("overheadMarkup", e.target.value)
@@ -449,7 +449,7 @@ function InputCard({
 }) {
   const symbol = unit === "PKR" ? "Rs" : unit === "USD" ? "$" : unit;
   return (
-    <div className="group bg-gray-50/50 hover:bg-white border border-gray-100 hover:border-emerald-200 px-4 py-3 rounded-[24px] transition-all shadow-sm hover:shadow-md flex flex-col justify-between">
+    <div className="group bg-gray-50/50 hover:bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-gray-100 hover:border-emerald-200 px-4 py-3 rounded-[24px] transition-all shadow-sm hover:shadow-md flex flex-col justify-between">
       <div className="flex justify-between items-center mb-3">
         <label className="text-xs font-bold text-gray-700 tracking-wide">
           {label}
@@ -465,7 +465,7 @@ function InputCard({
               type="number"
               min="0"
               step="any"
-              className={`w-full bg-white border border-gray-200 rounded-[24px] py-2.5 text-lg font-bold text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 transition-shadow ${symbol.length > 1 ? "pl-10" : "pl-7"}`}
+              className={`w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-gray-200 rounded-[24px] py-2.5 text-lg font-bold text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 transition-shadow ${symbol.length > 1 ? "pl-10" : "pl-7"}`}
               value={value}
               onChange={(e) => {
                 const num = parseFloat(e.target.value);

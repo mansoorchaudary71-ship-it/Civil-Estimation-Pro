@@ -44,13 +44,13 @@ export default function DoorWindowSchedule() {
 
   return (
     <div className="w-full max-w-5xl mx-auto space-y-6">
-       <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm">
+       <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-6 rounded-[24px] shadow-sm">
          <div className="flex justify-between items-center mb-6">
            <h2 className="text-2xl font-semibold flex items-center gap-2">
              <Columns className="w-6 h-6 text-teal-500" />
              Door & Window Schedule Generator
            </h2>
-           <button onClick={downloadCSV} className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-[24px] font-bold transition flex items-center gap-2 text-sm">
+           <button onClick={downloadCSV} className="bg-emerald-600 hover:bg-emerald-700 text-slate-900 px-4 py-2 rounded-[24px] font-bold transition flex items-center gap-2 text-sm">
              <Save className="w-4 h-4"/> Export CSV
            </button>
          </div>

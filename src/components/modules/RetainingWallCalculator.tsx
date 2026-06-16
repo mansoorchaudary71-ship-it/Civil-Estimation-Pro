@@ -180,7 +180,7 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
   };
 
   return (
-    <div className={isEmbedded ? "w-full space-y-6" : "w-full h-full overflow-y-auto bg-transparent  text-text-primary p-6 md:p-8"}>
+    <div className={isEmbedded ? "w-full space-y-6" : "w-full h-full bg-transparent  text-text-primary p-6 md:p-8"}>
       <div className="max-w-5xl mx-auto space-y-6">
         {!isEmbedded && (
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">

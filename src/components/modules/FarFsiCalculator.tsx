@@ -20,7 +20,7 @@ export default function FarFsiCalculator() {
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6">
-      <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm">
+      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-6 rounded-[24px] shadow-sm">
         <h2 className="text-2xl font-semibold flex items-center gap-2 mb-6">
           <ArrowUpRight className="w-6 h-6 text-amber-500" />
           FAR/FSI Calculator
@@ -46,7 +46,7 @@ export default function FarFsiCalculator() {
            <p className="text-sm text-slate-600 mb-2">
              Floor Area Ratio (FAR) or Floor Space Index (FSI) is the ratio of a building's total floor area (gross floor area) to the size of the piece of land upon which it is built.
            </p>
-           <p className="text-sm font-mono bg-white p-2 rounded border border-slate-200 inline-block">
+           <p className="text-sm font-mono bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-2 rounded border border-slate-200 inline-block">
              Total Built Area = Plot Area × FSI
            </p>
         </div>

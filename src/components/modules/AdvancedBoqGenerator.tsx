@@ -4,6 +4,7 @@ import { useSettings } from "../../context/SettingsContext";
 import { useMarketRates } from "../../context/MarketRatesContext";
 import { generateBOQExcel, generateBOQPDF } from "../../utils/boq-reports";
 import { CalculationHistory } from '../ui/CalculationHistory';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from 'recharts';
 
 type TradeScope = "Excavation" | "PCC" | "RCC" | "Masonry" | "Plaster" | "Tiles" | "Paint" | "Steel";
 
@@ -19,6 +20,15 @@ type MeasurementRow = {
   rate: number;
   amount: number;
 };
+
+const QUICK_TEMPLATES = [
+  { label: "1:2:4 RCC Concrete", scope: "RCC" as TradeScope, description: "1:2:4 RCC Concrete", length: 1, width: 1, depth: 1 },
+  { label: "Grade 60 Steel Rebar", scope: "Steel" as TradeScope, description: "Grade 60 Steel Rebar", length: 1, width: 1, depth: 1 },
+  { label: "A-Class Bricks (9\")", scope: "Masonry" as TradeScope, description: "9\" A-class brickwork", length: 1, width: 1, depth: 1 },
+  { label: "1:4 Cement Sand Plaster", scope: "Plaster" as TradeScope, description: "1:4 internal plaster 12mm", length: 1, width: 1, depth: 0 },
+  { label: "River Sand Filling", scope: "Excavation" as TradeScope, description: "River sand filling in plinth", length: 1, width: 1, depth: 1 },
+  { label: "OPC Cement (PCC 1:4:8)", scope: "PCC" as TradeScope, description: "PCC 1:4:8 base", length: 1, width: 1, depth: 1 }
+];
 
 const TRADE_UNITS: Record<TradeScope, string> = {
   Excavation: "cu.m",
@@ -62,6 +72,7 @@ export default function AdvancedBoqGenerator() {
   });
   
   const [scopes, setScopes] = useState<TradeScope[]>(["Excavation", "PCC"]);
+  const [isQuickAddOpen, setIsQuickAddOpen] = useState(false);
   const toggleScope = (scope: TradeScope) => {
     setScopes(prev => prev.includes(scope) ? prev.filter(s => s !== scope) : [...prev, scope]);
   };
@@ -93,6 +104,21 @@ export default function AdvancedBoqGenerator() {
       amount: 0
     };
     setMeasurements(prev => ({ ...prev, [scope]: [...prev[scope], newRow] }));
+  };
+
+  const addQuickTemplate = (template: typeof QUICK_TEMPLATES[0]) => {
+    const newRow: MeasurementRow = {
+      id: Math.random().toString(36).substr(2, 9),
+      description: template.description,
+      nos: 1, length: template.length, width: template.width, depth: template.depth, quantity: 0,
+      unit: TRADE_UNITS[template.scope],
+      rate: getAutoRate(template.scope),
+      amount: 0
+    };
+    setMeasurements(prev => ({ ...prev, [template.scope]: [...prev[template.scope], newRow] }));
+    if (!scopes.includes(template.scope)) {
+      setScopes(prev => [...prev, template.scope]);
+    }
   };
 
   const updateRow = (scope: TradeScope, id: string, field: keyof MeasurementRow, value: any) => {
@@ -150,6 +176,27 @@ export default function AdvancedBoqGenerator() {
 
   const grandTotal = baseSubtotal + contingencyAmt + overheadAmt + profitAmt;
 
+  const costBreakdownData = useMemo(() => {
+    let laborTotal = 0;
+    let materialTotal = 0;
+
+    scopes.forEach(scope => {
+      const amt = subtotals[scope] || 0;
+      // In this basic auto-generator, Excavation is considered Labor, the rest as Material
+      if (scope === 'Excavation') {
+        laborTotal += amt;
+      } else {
+        materialTotal += amt;
+      }
+    });
+
+    return [
+      { name: 'Material Costs', value: materialTotal },
+      { name: 'Labor Costs', value: laborTotal }
+    ].filter(d => d.value > 0);
+  }, [subtotals, scopes]);
+  const CHART_COLORS = ['#8b5cf6', '#10b981']; // purple for material, emerald for labor
+
   // Exports
   const handleExportPDF = () => {
     const allItems: any[] = [];
@@ -187,7 +234,7 @@ export default function AdvancedBoqGenerator() {
 
   const StepIndicator = ({ num, title }: { num: number, title: string }) => (
     <div className={`flex items-center gap-2 ${step === num ? 'opacity-100' : 'opacity-50'} transition-opacity`}>
-      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${step === num ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/30' : 'bg-slate-200  text-slate-500'}`}>
+      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${step === num ? 'bg-purple-600 text-slate-900 shadow-lg shadow-purple-500/30' : 'bg-slate-200  text-slate-500'}`}>
         {num}
       </div>
       <span className={`font-semibold hidden md:block ${step === num ? 'text-slate-800  ' : 'text-slate-500'}`}>{title}</span>
@@ -196,7 +243,7 @@ export default function AdvancedBoqGenerator() {
 
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6">
-      <div className="bg-white p-6 sm:p-8 rounded-[24px] border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-center gap-6">
+      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-6 sm:p-8 rounded-[24px] border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-center gap-6">
         <div>
           <h2 className="text-2xl font-semibold text-slate-800 flex items-center gap-3">
             <Building className="w-7 h-7 text-purple-600" />
@@ -217,7 +264,7 @@ export default function AdvancedBoqGenerator() {
         </div>
       </div>
 
-      <div className="bg-white p-6 md:p-8 rounded-[24px] border border-slate-200 shadow-sm print:shadow-none print:border-none">
+      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-6 md:p-8 rounded-[24px] border border-slate-200 shadow-sm print:shadow-none print:border-none">
         
         {step === 1 && (
           <div className="space-y-8 animate-in fade-in duration-300">
@@ -274,7 +321,7 @@ export default function AdvancedBoqGenerator() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {(Object.keys(TRADE_UNITS) as TradeScope[]).map(scope => (
                   <label key={scope} className={`flex items-center gap-3 p-4 rounded-[24px] border-2 cursor-pointer transition-all ${scopes.includes(scope) ? 'border-purple-600 bg-purple-50 ' : 'border-slate-200 hover:border-purple-300'}`}>
-                    <div className={`w-5 h-5 rounded flex items-center justify-center border ${scopes.includes(scope) ? 'bg-purple-600 border-purple-600 text-white' : 'border-slate-300'}`}>
+                    <div className={`w-5 h-5 rounded flex items-center justify-center border ${scopes.includes(scope) ? 'bg-purple-600 border-purple-600 text-slate-900' : 'border-slate-300'}`}>
                       {scopes.includes(scope) && <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
                     </div>
                     <span className="font-semibold text-slate-700">{scope}</span>
@@ -284,7 +331,7 @@ export default function AdvancedBoqGenerator() {
             </div>
 
             <div className="flex justify-end pt-6">
-              <button disabled={scopes.length===0} onClick={() => setStep(2)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white px-8 py-3 rounded-[24px] font-bold transition-all shadow-lg shadow-purple-500/30">
+              <button disabled={scopes.length===0} onClick={() => setStep(2)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-slate-900 px-8 py-3 rounded-[24px] font-bold transition-all shadow-lg shadow-purple-500/30">
                 Continue Setup <ChevronRight className="w-5 h-5" />
               </button>
             </div>
@@ -293,13 +340,44 @@ export default function AdvancedBoqGenerator() {
 
         {step === 2 && (
           <div className="space-y-8 animate-in fade-in duration-300">
-            <h3 className="text-xl font-semibold text-slate-800 border-b-2 border-purple-500 pb-2">Measurement Input</h3>
+            <div className="flex justify-between items-end border-b-2 border-purple-500 pb-2">
+              <h3 className="text-xl font-semibold text-slate-800">Measurement Input</h3>
+              
+              <div className="relative">
+                <button 
+                  onClick={() => setIsQuickAddOpen(!isQuickAddOpen)}
+                  className="flex items-center gap-1.5 text-sm font-semibold bg-purple-100 text-purple-700 px-4 py-2 mt-2 md:mt-0 rounded-[16px] shadow-sm hover:bg-purple-200 transition-colors"
+                >
+                  <Plus className="w-4 h-4" /> Quick Add Template
+                </button>
+                {isQuickAddOpen && (
+                  <>
+                    <div className="fixed inset-0 z-10" onClick={() => setIsQuickAddOpen(false)} />
+                    <div className="absolute right-0 top-full mt-2 w-64 bg-white border border-slate-200 rounded-[16px] shadow-xl z-20 overflow-hidden flex flex-col py-1">
+                      {QUICK_TEMPLATES.map((template, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => {
+                            addQuickTemplate(template);
+                            setIsQuickAddOpen(false);
+                          }}
+                          className="text-left px-4 py-2.5 hover:bg-slate-50 transition-colors text-sm text-slate-700 flex flex-col items-start border-b border-slate-100 last:border-0"
+                        >
+                          <span className="font-semibold text-slate-900">{template.label}</span>
+                          <span className="text-[10px] text-purple-600 font-bold uppercase tracking-wider">{template.scope}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
             
             {scopes.map(scope => (
               <div key={scope} className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-200 overflow-hidden">
                 <div className="bg-purple-100 p-4 border-b border-purple-200 flex justify-between items-center">
                   <h4 className="font-bold text-purple-900">{scope} Measurements</h4>
-                  <button onClick={() => addRow(scope)} className="flex items-center gap-1.5 text-sm font-semibold bg-white text-purple-700 px-3 py-1.5 rounded-[16px] shadow-sm hover:shadow-md transition-shadow">
+                  <button onClick={() => addRow(scope)} className="flex items-center gap-1.5 text-sm font-semibold bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-purple-700 px-3 py-1.5 rounded-[16px] shadow-sm hover:shadow-md transition-shadow">
                     <Plus className="w-4 h-4" /> Add Row
                   </button>
                 </div>
@@ -319,33 +397,33 @@ export default function AdvancedBoqGenerator() {
                     </thead>
                     <tbody className="space-y-2">
                       {measurements[scope].length === 0 && (
-                        <tr><td colSpan={7} className="text-center py-6 text-slate-400 italic">No measurements added.</td></tr>
+                        <tr><td colSpan={7} className="text-center py-6 text-slate-600 italic">No measurements added.</td></tr>
                       )}
                       {measurements[scope].map((row) => (
                         <tr key={row.id}>
                           <td className="py-2 pr-4">
-                            <input type="text" placeholder="Item spec..." value={row.description} onChange={(e) => updateRow(scope, row.id, 'description', e.target.value)} className="w-full bg-white border border-slate-200 rounded-[16px] px-3 py-2 text-sm outline-none focus:border-purple-500" />
+                            <input type="text" placeholder="Item spec..." value={row.description} onChange={(e) => updateRow(scope, row.id, 'description', e.target.value)} className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[16px] px-3 py-2 text-sm outline-none focus:border-purple-500" />
                           </td>
                           <td className="py-2 pr-4">
-                            <input type="number" value={row.nos || ""} onChange={(e) => updateRow(scope, row.id, 'nos', e.target.value)} className="w-full bg-white border border-slate-200 rounded-[16px] px-2 py-2 text-sm text-center outline-none focus:border-purple-500" />
+                            <input type="number" value={row.nos || ""} onChange={(e) => updateRow(scope, row.id, 'nos', e.target.value)} className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[16px] px-2 py-2 text-sm text-center outline-none focus:border-purple-500" />
                           </td>
                           <td className="py-2 pr-4">
-                            <input type="number" placeholder="L" value={row.length || ""} onChange={(e) => updateRow(scope, row.id, 'length', e.target.value)} className="w-full bg-white border border-slate-200 rounded-[16px] px-2 py-2 text-sm text-center outline-none focus:border-purple-500" />
+                            <input type="number" placeholder="L" value={row.length || ""} onChange={(e) => updateRow(scope, row.id, 'length', e.target.value)} className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[16px] px-2 py-2 text-sm text-center outline-none focus:border-purple-500" />
                           </td>
                           <td className="py-2 pr-4">
-                            <input type="number" placeholder="W" value={row.width || ""} onChange={(e) => updateRow(scope, row.id, 'width', e.target.value)} className="w-full bg-white border border-slate-200 rounded-[16px] px-2 py-2 text-sm text-center outline-none focus:border-purple-500" />
+                            <input type="number" placeholder="W" value={row.width || ""} onChange={(e) => updateRow(scope, row.id, 'width', e.target.value)} className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[16px] px-2 py-2 text-sm text-center outline-none focus:border-purple-500" />
                           </td>
                           <td className="py-2 pr-4">
-                            <input type="number" placeholder="D/H" value={row.depth || ""} onChange={(e) => updateRow(scope, row.id, 'depth', e.target.value)} className="w-full bg-white border border-slate-200 rounded-[16px] px-2 py-2 text-sm text-center outline-none focus:border-purple-500" />
+                            <input type="number" placeholder="D/H" value={row.depth || ""} onChange={(e) => updateRow(scope, row.id, 'depth', e.target.value)} className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[16px] px-2 py-2 text-sm text-center outline-none focus:border-purple-500" />
                           </td>
                           <td className="py-2 pr-4 text-right">
                             <div className="bg-slate-200 px-3 py-2 rounded-[16px] font-bold text-slate-800 flex justify-between items-center">
-                              <span className="text-xs text-slate-400 font-normal">{row.unit}</span>
+                              <span className="text-xs text-slate-600 font-normal">{row.unit}</span>
                               {row.quantity.toFixed(2)}
                             </div>
                           </td>
                           <td className="py-2 text-center">
-                            <button onClick={() => deleteRow(scope, row.id)} className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-[16px] transition-colors">
+                            <button onClick={() => deleteRow(scope, row.id)} className="p-2 text-slate-600 hover:text-red-500 hover:bg-red-50 rounded-[16px] transition-colors">
                               <Trash2 className="w-4 h-4" />
                             </button>
                           </td>
@@ -359,7 +437,7 @@ export default function AdvancedBoqGenerator() {
 
             <div className="flex justify-between pt-6 border-t border-slate-200">
               <button onClick={() => setStep(1)} className="px-6 py-2.5 rounded-[24px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors">Back</button>
-              <button onClick={() => setStep(3)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-[24px] font-bold transition-all shadow-lg shadow-purple-500/30">
+              <button onClick={() => setStep(3)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-slate-900 px-8 py-3 rounded-[24px] font-bold transition-all shadow-lg shadow-purple-500/30">
                 Continue to Rates <ChevronRight className="w-5 h-5" />
               </button>
             </div>
@@ -377,7 +455,7 @@ export default function AdvancedBoqGenerator() {
               {scopes.map(scope => {
                 if (measurements[scope].length === 0) return null;
                 return (
-                  <div key={scope} className="bg-white border border-slate-200 rounded-[24px] overflow-hidden shadow-sm">
+                  <div key={scope} className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] overflow-hidden shadow-sm">
                     <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 px-4 py-3 border-b border-slate-200 font-bold text-slate-700">
                       {scope}
                     </div>
@@ -386,11 +464,11 @@ export default function AdvancedBoqGenerator() {
                         <tbody>
                           {measurements[scope].map(row => (
                             <tr key={row.id} className="border-b border-slate-100 last:border-0 hover:bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
-                              <td className="p-4 w-1/2">{row.description || <span className="text-slate-400 italic">Unnamed item</span>}</td>
+                              <td className="p-4 w-1/2">{row.description || <span className="text-slate-600 italic">Unnamed item</span>}</td>
                               <td className="p-4 w-1/6 font-semibold text-slate-600 text-right">{row.quantity.toFixed(2)} {row.unit}</td>
                               <td className="p-4 w-1/6">
                                 <div className="relative">
-                                  <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                                  <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
                                   <input type="number" value={row.rate} onChange={(e) => updateRow(scope, row.id, 'rate', parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-300 rounded-[16px] py-2 pl-8 pr-2 outline-none focus:border-purple-500" />
                                 </div>
                               </td>
@@ -408,24 +486,61 @@ export default function AdvancedBoqGenerator() {
             </div>
 
             <h3 className="text-xl font-semibold text-slate-800 border-b-2 border-purple-500 pb-2 mt-8">Markups & Adjustments</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-               <div className="bg-slate-50 p-4 rounded-[24px] border border-slate-200 shadow-sm">
-                 <label className="block text-sm font-bold text-slate-700 mb-2">Contingency (%)</label>
-                 <input type="number" min="0" value={markups.contingency} onChange={(e) => setMarkups({...markups, contingency: parseFloat(e.target.value) || 0})} className="w-full bg-white border border-slate-300 rounded-[16px] px-4 py-2.5 outline-none focus:border-purple-500 font-bold" />
-               </div>
-               <div className="bg-slate-50 p-4 rounded-[24px] border border-slate-200 shadow-sm">
-                 <label className="block text-sm font-bold text-slate-700 mb-2">Overheads (%)</label>
-                 <input type="number" min="0" value={markups.overhead} onChange={(e) => setMarkups({...markups, overhead: parseFloat(e.target.value) || 0})} className="w-full bg-white border border-slate-300 rounded-[16px] px-4 py-2.5 outline-none focus:border-purple-500 font-bold" />
-               </div>
-               <div className="bg-slate-50 p-4 rounded-[24px] border border-slate-200 shadow-sm">
-                 <label className="block text-sm font-bold text-slate-700 mb-2">Contractor Profit (%)</label>
-                 <input type="number" min="0" value={markups.profit} onChange={(e) => setMarkups({...markups, profit: parseFloat(e.target.value) || 0})} className="w-full bg-white border border-slate-300 rounded-[16px] px-4 py-2.5 outline-none focus:border-purple-500 font-bold" />
-               </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 gap-6">
+                <div className="bg-slate-50 p-4 rounded-[24px] border border-slate-200 shadow-sm">
+                  <label className="block text-sm font-bold text-slate-700 mb-2">Contingency (%)</label>
+                  <input type="number" min="0" value={markups.contingency} onChange={(e) => setMarkups({...markups, contingency: parseFloat(e.target.value) || 0})} className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-300 rounded-[16px] px-4 py-2.5 outline-none focus:border-purple-500 font-bold" />
+                </div>
+                <div className="bg-slate-50 p-4 rounded-[24px] border border-slate-200 shadow-sm">
+                  <label className="block text-sm font-bold text-slate-700 mb-2">Overheads (%)</label>
+                  <input type="number" min="0" value={markups.overhead} onChange={(e) => setMarkups({...markups, overhead: parseFloat(e.target.value) || 0})} className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-300 rounded-[16px] px-4 py-2.5 outline-none focus:border-purple-500 font-bold" />
+                </div>
+                <div className="bg-slate-50 p-4 rounded-[24px] border border-slate-200 shadow-sm">
+                  <label className="block text-sm font-bold text-slate-700 mb-2">Contractor Profit (%)</label>
+                  <input type="number" min="0" value={markups.profit} onChange={(e) => setMarkups({...markups, profit: parseFloat(e.target.value) || 0})} className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-300 rounded-[16px] px-4 py-2.5 outline-none focus:border-purple-500 font-bold" />
+                </div>
+              </div>
+
+              {costBreakdownData.length > 0 && (
+                <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm flex flex-col items-center justify-center">
+                  <div className="h-48 w-full mb-4">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={costBreakdownData}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={50}
+                          outerRadius={70}
+                          paddingAngle={5}
+                          dataKey="value"
+                        >
+                          {costBreakdownData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <RechartsTooltip 
+                          formatter={(value: number) => [`${settings.currency} ${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, 'Amount']}
+                          contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
+                        />
+                        <Legend verticalAlign="bottom" height={36} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-sm text-slate-500 font-semibold uppercase tracking-wider mb-1">Real-time Subtotal</div>
+                    <div className="text-2xl font-bold text-purple-700">
+                      {settings.currency} {baseSubtotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="flex justify-between pt-6 border-t border-slate-200">
               <button onClick={() => setStep(2)} className="px-6 py-2.5 rounded-[24px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors">Back</button>
-              <button onClick={() => setStep(4)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-[24px] font-bold transition-all shadow-lg shadow-purple-500/30">
+              <button onClick={() => setStep(4)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-slate-900 px-8 py-3 rounded-[24px] font-bold transition-all shadow-lg shadow-purple-500/30">
                 Generate BOQ <FileText className="w-5 h-5" />
               </button>
             </div>
@@ -439,20 +554,20 @@ export default function AdvancedBoqGenerator() {
             <div className="flex flex-wrap gap-4 items-center justify-between bg-slate-50 p-4 rounded-[24px] border border-slate-200 print:hidden">
               <button onClick={() => setStep(3)} className="px-5 py-2 font-semibold text-slate-600 hover:bg-slate-200 rounded-[16px] transition-colors">Edit Rates</button>
               <div className="flex items-center gap-3">
-                <button onClick={() => window.dispatchEvent(new CustomEvent('global-print-action'))} className="flex items-center gap-2 bg-white text-slate-700 border border-slate-300 px-4 py-2 rounded-[16px] font-bold hover:bg-slate-50 transition-colors shadow-sm">
+                <button onClick={() => window.dispatchEvent(new CustomEvent('global-print-action'))} className="flex items-center gap-2 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-slate-700 border border-slate-300 px-4 py-2 rounded-[16px] font-bold hover:bg-slate-50 transition-colors shadow-sm">
                   <Printer className="w-4 h-4" /> Print
                 </button>
-                <button onClick={handleExportExcel} className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-[16px] font-bold transition-colors shadow-sm">
+                <button onClick={handleExportExcel} className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-slate-900 px-4 py-2 rounded-[16px] font-bold transition-colors shadow-sm">
                   <FileSpreadsheet className="w-4 h-4" /> Excel
                 </button>
-                <button onClick={handleExportPDF} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-[16px] font-bold transition-colors shadow-sm">
+                <button onClick={handleExportPDF} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-slate-900 px-5 py-2 rounded-[16px] font-bold transition-colors shadow-sm">
                   <Download className="w-4 h-4" /> PDF Report
                 </button>
               </div>
             </div>
 
             {/* Print Output View */}
-            <div className="bg-white text-slate-900 border border-slate-200 p-8 sm:p-12 rounded-[16px] shadow-[0_0_40px_rgba(15,23,42,0.05)] print:shadow-none print:border-none print:m-0 print:p-0 w-full max-w-5xl mx-auto font-sans">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-slate-900 border border-slate-200 p-8 sm:p-12 rounded-[16px] shadow-[0_0_40px_rgba(15,23,42,0.05)] print:shadow-none print:border-none print:m-0 print:p-0 w-full max-w-5xl mx-auto font-sans">
               
               <div className="border-b-4 border-purple-800 pb-6 mb-8 flex justify-between items-end">
                 <div>
@@ -479,9 +594,61 @@ export default function AdvancedBoqGenerator() {
                 </div>
               </div>
 
+              {costBreakdownData.length > 0 && (
+                <div className="mb-12 border border-slate-200 rounded-[24px] p-6 bg-white shadow-sm flex flex-col md:flex-row items-center gap-8">
+                  <div className="h-64 w-full md:w-1/2">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={costBreakdownData}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={60}
+                          outerRadius={80}
+                          paddingAngle={5}
+                          dataKey="value"
+                        >
+                          {costBreakdownData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <RechartsTooltip 
+                          formatter={(value: number) => [
+                            `${settings.currency} ${value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, 
+                            'Amount'
+                          ]}
+                          contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
+                        />
+                        <Legend verticalAlign="bottom" height={36} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <div className="md:w-1/2 space-y-4">
+                    <h3 className="text-lg font-bold text-slate-800 border-b border-slate-100 pb-2">Cost Breakdown</h3>
+                    {costBreakdownData.map((item, idx) => (
+                      <div key={idx} className="flex justify-between items-center bg-slate-50 p-3 rounded-xl border border-slate-100">
+                        <div className="flex items-center gap-2">
+                          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: CHART_COLORS[idx % CHART_COLORS.length] }}></div>
+                          <span className="font-semibold text-slate-700">{item.name}</span>
+                        </div>
+                        <span className="font-bold tabular-nums text-slate-800">
+                          {settings.currency} {item.value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </span>
+                      </div>
+                    ))}
+                    <div className="flex justify-between items-center bg-purple-50 p-4 rounded-xl border border-purple-100 mt-2">
+                      <span className="font-bold text-purple-900">Base Subtotal</span>
+                      <span className="font-bold tabular-nums text-purple-700">
+                        {settings.currency} {baseSubtotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <table className="w-full text-left text-sm mb-12 empty-cells-show">
                 <thead>
-                  <tr className="bg-slate-100 text-slate-800 uppercase tracking-wider text-xs border-b-2 border-slate-800">
+                  <tr className="bg-slate-100 text-slate-800 uppercase tracking-wider text-xs border-b-2 border-slate-200">
                     <th className="py-3 px-4 font-bold w-12 text-center">No.</th>
                     <th className="py-3 px-4 font-bold">Description</th>
                     <th className="py-3 px-4 font-bold w-16 text-center">Unit</th>
@@ -515,7 +682,7 @@ export default function AdvancedBoqGenerator() {
                           </tr>
                         ))}
                         {/* Subtotal Row */}
-                        <tr className="bg-white">
+                        <tr className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500">
                           <td colSpan={4}></td>
                           <td className="py-3 px-4 text-right font-bold text-slate-700 bg-slate-50 italic">Subtotal</td>
                           <td className="py-3 px-4 text-right font-bold text-purple-800 bg-slate-50 tabular-nums">
@@ -528,7 +695,7 @@ export default function AdvancedBoqGenerator() {
                 </tbody>
               </table>
 
-              <div className="flex justify-end pt-8 border-t-2 border-slate-800">
+              <div className="flex justify-end pt-8 border-t-2 border-slate-200">
                 <div className="w-96 text-sm">
                   <div className="flex justify-between items-center mb-2 text-slate-600">
                     <span className="font-semibold">Subtotal</span>
@@ -562,7 +729,7 @@ export default function AdvancedBoqGenerator() {
                     <span className="text-xl text-purple-600">{settings.currency}</span>
                     {grandTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </div>
-                  <div className="text-xs text-slate-400 mt-3 italic text-right">Errors and Omissions Excepted. Validate rates before executing works.</div>
+                  <div className="text-xs text-slate-600 mt-3 italic text-right">Errors and Omissions Excepted. Validate rates before executing works.</div>
                 </div>
               </div>
             </div>

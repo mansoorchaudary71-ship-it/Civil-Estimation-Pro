@@ -144,7 +144,7 @@ export default function DiscussionWidget({ moduleId, toolName }: { moduleId: str
             <button 
               onClick={handlePost}
               disabled={isPosting || !newComment.trim()}
-              className="absolute bottom-3 right-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:hover:bg-indigo-600 text-white px-4 py-1.5 rounded-[24px] text-sm font-medium transition-colors"
+              className="absolute bottom-3 right-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:hover:bg-indigo-600 text-slate-900 px-4 py-1.5 rounded-[24px] text-sm font-medium transition-colors"
             >
               {isPosting ? 'Posting...' : 'Post'}
             </button>

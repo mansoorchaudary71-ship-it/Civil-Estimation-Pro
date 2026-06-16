@@ -97,7 +97,7 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
           
           <button 
             onClick={() => onSelectModule('calculators')}
-            className="z-10 mt-2 relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full px-6 py-3 sm:px-8 sm:py-4 font-bold text-sm sm:text-base transition-all hover:scale-105 active:scale-95 shadow-md w-full md:w-auto min-w-[250px] flex items-center justify-center group/btn"
+            className="z-10 mt-2 relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 text-slate-900 rounded-full px-6 py-3 sm:px-8 sm:py-4 font-bold text-sm sm:text-base transition-all hover:scale-105 active:scale-95 shadow-md w-full md:w-auto min-w-[250px] flex items-center justify-center group/btn"
           >
             <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite] pointer-events-none"></div>
             <div className="flex items-center justify-center gap-2 relative z-10 w-full">
@@ -171,7 +171,7 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
       ) : (
         <div className="flex flex-col items-center justify-center p-12 bg-slate-50 border border-slate-200 rounded-[24px] text-center">
           <div className="w-16 h-16 rounded-[24px] bg-white border border-slate-200 flex items-center justify-center mb-4">
-            <FileText className="w-8 h-8 text-slate-400" />
+            <FileText className="w-8 h-8 text-slate-600" />
           </div>
           <p className="text-slate-900 font-bold text-lg mb-1">No recent estimates</p>
           <p className="text-slate-500 font-medium text-sm">Create a new estimate to get started</p>

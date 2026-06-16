@@ -95,7 +95,7 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
     <div className="w-full mx-auto space-y-6">
       
       {/* Header */}
-      <div className="bg-white p-6 md:p-8 rounded-[24px] border border-slate-200 shadow-sm">
+      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-6 md:p-8 rounded-[24px] border border-slate-200 shadow-sm">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <h2 className="text-2xl font-bold tabular-nums tracking-tight text-slate-800 uppercase tracking-tight flex items-center gap-3">
@@ -121,7 +121,7 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         {/* Input Panel */}
-        <div className="lg:col-span-4 bg-white rounded-[24px] p-6 border border-slate-200 shadow-sm space-y-6">
+        <div className="lg:col-span-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] p-6 border border-slate-200 shadow-sm space-y-6">
           <h3 className="text-lg font-bold border-b border-slate-100 pb-3 text-slate-800">
             Project Specs
           </h3>
@@ -131,8 +131,8 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
               <label className="flex items-center justify-between text-sm font-semibold text-slate-700 mb-2">
                 <span>Total Area</span>
                 <div className="flex bg-slate-100 rounded-[16px] p-0.5">
-                  <button onClick={() => setAreaUnit("marla")} className={`px-2 py-1 space-x-1 rounded-md text-xs font-bold transition-all ${areaUnit === "marla" ? 'bg-white  shadow-sm text-slate-800  ' : 'text-slate-500'}`}>Marla</button>
-                  <button onClick={() => setAreaUnit("sqft")} className={`px-2 py-1 rounded-md text-xs font-bold transition-all ${areaUnit === "sqft" ? 'bg-white  shadow-sm text-slate-800  ' : 'text-slate-500'}`}>Sq.ft</button>
+                  <button onClick={() => setAreaUnit("marla")} className={`px-2 py-1 space-x-1 rounded-md text-xs font-bold transition-all ${areaUnit === "marla" ? 'bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  shadow-sm text-slate-800  ' : 'text-slate-500'}`}>Marla</button>
+                  <button onClick={() => setAreaUnit("sqft")} className={`px-2 py-1 rounded-md text-xs font-bold transition-all ${areaUnit === "sqft" ? 'bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  shadow-sm text-slate-800  ' : 'text-slate-500'}`}>Sq.ft</button>
                 </div>
               </label>
               <div className="relative">
@@ -214,7 +214,7 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
           {results ? (
             <>
               {/* Grand Total Highlight */}
-              <div className="bg-white border border-slate-200 p-8 rounded-[24px] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
+              <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-8 rounded-[24px] shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
                   <Calculator className="w-48 h-48" />
                 </div>
@@ -254,7 +254,7 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
                 {/* Cost Distribution Chart */}
-                <div className="bg-white border border-slate-200 rounded-[24px] p-6 shadow-sm">
+                <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] p-6 shadow-sm">
                   <h3 className="text-base font-bold text-slate-800 mb-6">Phase Breakdown</h3>
                   <div className="h-64 w-full">
                     <ResponsiveContainer width="100%" height="100%">
@@ -278,11 +278,11 @@ export default function QuickRoughEstimation({ onNavigate }: { onNavigate?: (id:
                 </div>
 
                 {/* Material Highlights */}
-                <div className="bg-white border border-slate-200 rounded-[24px] p-6 shadow-sm">
+                <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] p-6 shadow-sm">
                   <h3 className="text-base font-bold text-slate-800 mb-6">Major Material Budgets</h3>
                   <div className="space-y-4">
                     <div className="flex justify-between items-center p-3 rounded-[24px] bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">
-                      <div className="flex items-center gap-3"><div className="w-3 h-3 rounded-full bg-white border border-slate-200 shadow-sm" /> <span className="font-semibold text-slate-700">Steel / Rebar</span></div>
+                      <div className="flex items-center gap-3"><div className="w-3 h-3 rounded-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 shadow-sm" /> <span className="font-semibold text-slate-700">Steel / Rebar</span></div>
                       <div className="font-bold text-slate-900">{formatCurrency(results.steelCost)}</div>
                     </div>
                     <div className="flex justify-between items-center p-3 rounded-[24px] bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800">

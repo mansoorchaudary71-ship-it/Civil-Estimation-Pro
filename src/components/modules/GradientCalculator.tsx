@@ -92,8 +92,8 @@ export default function GradientCalculator() {
         title="Gradient & Slope Interpolation | Civil Estimation Pro" 
         description="Dynamic slope calculator for road cambers, longitudinal gradients, and vertical curve profiles."
       />
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[24px] shadow-sm">
-         <h2 className="text-xl font-bold flex items-center gap-2 mb-6 text-slate-800 dark:text-slate-200">
+      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  border border-slate-200  p-6 rounded-[24px] shadow-sm">
+         <h2 className="text-xl font-bold flex items-center gap-2 mb-6 text-slate-800 ">
           <Route className="w-6 h-6 text-emerald-600" />
           Highway Gradient & Slope Engineering
         </h2>
@@ -101,19 +101,19 @@ export default function GradientCalculator() {
         <div className="flex bg-slate-100 p-1 rounded-[16px] mb-6 overflow-x-auto hide-scrollbar">
             <button 
                 onClick={() => setActiveTab("longitudinal")}
-                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "longitudinal" ? "bg-white text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "longitudinal" ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
             >
                 Longitudinal Profile
             </button>
             <button 
                 onClick={() => setActiveTab("camber")}
-                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "camber" ? "bg-white text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "camber" ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
             >
                 Crossfall / Camber
             </button>
             <button 
                 onClick={() => setActiveTab("vertical_curve")}
-                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "vertical_curve" ? "bg-white text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "vertical_curve" ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
             >
                 Vertical Curve Checks
             </button>
@@ -190,10 +190,10 @@ export default function GradientCalculator() {
                              <h4 className="text-xs font-bold text-slate-500 mb-2">Midpoint Interpolation</h4>
                              <div className="flex justify-between items-end">
                                  <div>
-                                     <p className="text-[10px] text-slate-400">Chainage: {((Number(startChainage) + Number(endChainage)) / 2).toFixed(2)}</p>
+                                     <p className="text-[10px] text-slate-600">Chainage: {((Number(startChainage) + Number(endChainage)) / 2).toFixed(2)}</p>
                                      <p className="font-mono font-bold text-slate-800">{longitudinalResults.midElev.toFixed(3)} m</p>
                                  </div>
-                                 <ArrowRight className="text-slate-300 w-4 h-4 mb-1" />
+                                 <ArrowRight className="text-slate-700 w-4 h-4 mb-1" />
                              </div>
                         </div>
                     </MaterialSummary>
@@ -214,7 +214,7 @@ export default function GradientCalculator() {
                         </div>
                         <div className="mt-6 bg-slate-50 h-24 rounded-2xl border border-slate-200 flex items-center justify-center relative overflow-hidden">
                              <div className="absolute w-full h-[2px] bg-slate-300" style={{ transform: `rotate(${Math.min(10, Math.max(-10, Number(camberSlope)))}deg)` }}></div>
-                             <div className="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] font-bold text-slate-400 bg-slate-50 px-2 rounded-full">CL: {Number(centerElevation).toFixed(3)}</div>
+                             <div className="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] font-bold text-slate-600 bg-slate-50 px-2 rounded-full">CL: {Number(centerElevation).toFixed(3)}</div>
                              <div className="absolute bottom-2 text-rose-500 font-bold text-[10px] bg-rose-50 px-2 rounded-full">Edge: {camberResults.edgeElev.toFixed(3)}</div>
                         </div>
                     </MaterialSummary>

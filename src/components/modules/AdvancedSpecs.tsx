@@ -125,8 +125,8 @@ export default function AdvancedSpecs({
         </label>
         {tooltip && (
           <div className="relative group/tooltip flex items-center">
-            <HelpCircle className="w-3.5 h-3.5 text-slate-400 cursor-help" />
-            <div className="absolute z-[100] invisible opacity-0 group-hover/tooltip:visible group-hover/tooltip:opacity-100 transition-all duration-200 bottom-[calc(100%+8px)] right-0 w-max max-w-[220px] bg-slate-800 text-white text-[11px] p-2 rounded-lg shadow-xl pointer-events-none whitespace-normal text-center font-medium after:content-[''] after:absolute after:top-full after:right-2 after:border-4 after:border-transparent after:border-t-slate-800">
+            <HelpCircle className="w-3.5 h-3.5 text-slate-600 cursor-help" />
+            <div className="absolute z-[100] invisible opacity-0 group-hover/tooltip:visible group-hover/tooltip:opacity-100 transition-all duration-200 bottom-[calc(100%+8px)] right-0 w-max max-w-[220px] bg-white text-slate-900 text-[11px] p-2 rounded-lg shadow-xl pointer-events-none whitespace-normal text-center font-medium after:content-[''] after:absolute after:top-full after:right-2 after:border-4 after:border-transparent after:border-t-slate-800">
               {tooltip}
             </div>
           </div>
@@ -176,12 +176,12 @@ export default function AdvancedSpecs({
           onChange={(e) => updateSpec(specKey, e.target.checked)}
           className="sr-only peer"
         />
-        <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+        <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
       </label>
     </div>
   );
   return (
-    <div className="bg-white/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl transition-all duration-300">
+    <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl transition-all duration-300">
       <div
         className="flex items-center justify-between mb-2 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
@@ -210,7 +210,7 @@ export default function AdvancedSpecs({
       {isOpen && (
         <div className="mt-6 space-y-3 animate-in fade-in zoom-in-95">
           {/* 1. Foundation & Substructure */}
-          <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-white">
+          <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500">
             <button
               onClick={() => toggleCategory(0)}
               className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
@@ -251,7 +251,7 @@ export default function AdvancedSpecs({
             )}
           </div>
           {/* 2. Superstructure (Grey Structure) */}
-          <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-white">
+          <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500">
             <button
               onClick={() => toggleCategory(1)}
               className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
@@ -302,7 +302,7 @@ export default function AdvancedSpecs({
             )}
           </div>
           {/* 3. Finishing & Surfaces */}
-          <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-white">
+          <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500">
             <button
               onClick={() => toggleCategory(2)}
               className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
@@ -356,7 +356,7 @@ export default function AdvancedSpecs({
             )}
           </div>
           {/* 4. Woodwork & Openings (Doors/Windows) */}
-          <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-white">
+          <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500">
             <button
               onClick={() => toggleCategory(3)}
               className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"
@@ -414,7 +414,7 @@ export default function AdvancedSpecs({
             )}
           </div>
           {/* 5. MEP (Mechanical, Electrical, Plumbing) */}
-          <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-white">
+          <div className="rounded-[24px] border border-slate-200 overflow-hidden bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500">
             <button
               onClick={() => toggleCategory(4)}
               className="w-full flex items-center justify-between p-4 bg-transparent/50 hover:bg-transparent text-left transition-colors"

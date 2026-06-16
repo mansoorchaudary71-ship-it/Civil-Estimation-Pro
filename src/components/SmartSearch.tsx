@@ -218,7 +218,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
   return (
     <div className="relative w-full z-50 font-sans" ref={dropdownRef}>
       <div
-        className={`flex items-center w-full h-[60px] md:h-[70px] bg-white dark:bg-[#252525]/80 backdrop-blur-xl border transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] ${isFocused || showDropdown ? "ring-4 ring-[#0072de]/20 border-[#0072de] bg-white dark:bg-[#252525] shadow-[0_8px_30px_rgb(99,102,241,0.1)]" : "border-slate-200 dark:border-[#333] hover:border-slate-300"}`}
+        className={`flex items-center w-full h-[60px] md:h-[70px] bg-white  backdrop-blur-xl border transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] rounded-[32px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] ${isFocused || showDropdown ? "ring-4 ring-[#FFFFFF]/20 border-[#FFFFFF] bg-white  shadow-[0_8px_30px_rgb(99,102,241,0.1)]" : "border-slate-200  hover:border-slate-300"}`}
         onClick={() => inputRef.current?.focus()}
       >
         <div className="pl-6 md:pl-8 pr-4 flex items-center justify-center h-full">
@@ -226,7 +226,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
             <Loader2 className="w-5 h-5 md:w-6 md:h-6 text-indigo-500 animate-spin" />
           ) : (
             <Search
-              className={`w-5 h-5 md:w-6 md:h-6 transition-colors duration-300 ${isFocused || query ? "text-indigo-500" : "text-slate-400 dark:text-slate-500"}`}
+              className={`w-5 h-5 md:w-6 md:h-6 transition-colors duration-300 ${isFocused || query ? "text-indigo-500" : "text-slate-600 "}`}
             />
           )}
         </div>
@@ -242,13 +242,13 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
           }}
           onBlur={() => setTimeout(() => setIsFocused(false), 200)}
           placeholder="Search tools, materials, or calculations..."
-          className="w-full h-full bg-transparent border-none outline-none text-[16px] md:text-[18px] font-semibold text-slate-800 dark:text-slate-200 placeholder-slate-400 px-2 cursor-text"
+          className="w-full h-full bg-transparent border-none outline-none text-[16px] md:text-[18px] font-semibold text-slate-800  placeholder-slate-400 px-2 cursor-text"
         />
 
         {/* Keyboard Shortcut Hint */}
         {!query && !isFocused && (
           <div className="hidden md:flex items-center justify-center mr-4">
-            <span className="flex items-center justify-center w-6 h-6 rounded bg-slate-100 dark:bg-[#1a1b1e] border border-slate-200 dark:border-[#333] text-slate-400 dark:text-slate-500 text-xs font-bold font-mono">
+            <span className="flex items-center justify-center w-6 h-6 rounded bg-slate-100  border border-slate-200  text-slate-600  text-xs font-bold font-mono">
               /
             </span>
           </div>
@@ -262,7 +262,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 onClick={clearSearch}
-                className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-[#333] dark:bg-[#1a1b1e] text-slate-400 dark:text-slate-500 hover:text-slate-600 transition-colors duration-200"
+                className="p-2 rounded-full hover:bg-slate-100   text-slate-600  hover:text-slate-600 transition-colors duration-200"
               >
                 <X className="w-5 h-5" />
               </motion.button>
@@ -272,7 +272,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
           <button
             type="button"
             onClick={startVoiceSearch}
-            className={`p-3 rounded-full transition-all duration-300 ${isListening ? "bg-red-50 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.3)] animate-pulse" : "hover:bg-[#0072de]/10 dark:hover:bg-[#0072de]/20 text-slate-400 dark:text-slate-500 hover:text-indigo-500"}`}
+            className={`p-3 rounded-full transition-all duration-300 ${isListening ? "bg-red-50 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.3)] animate-pulse" : "hover:bg-[#FFFFFF]/10  text-slate-600  hover:text-indigo-500"}`}
           >
             <Mic className="w-5 h-5" />
           </button>
@@ -286,7 +286,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.98 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="absolute top-[calc(100%+8px)] left-0 right-0 bg-white dark:bg-[#252525] backdrop-blur-xl rounded-[32px] border border-slate-200 dark:border-[#333] shadow-[0_12px_40px_-12px_rgba(15,23,42,0.15)] overflow-hidden z-50 flex flex-col"
+            className="absolute top-[calc(100%+8px)] left-0 right-0 bg-white  backdrop-blur-xl rounded-[32px] border border-slate-200  shadow-[0_12px_40px_-12px_rgba(15,23,42,0.15)] overflow-hidden z-50 flex flex-col"
           >
             <div className="overflow-y-auto max-h-[65vh] p-3 md:p-4 pb-6 scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent">
               {!query ? (
@@ -294,7 +294,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                 <div className="space-y-6">
                   {recentSearches.length > 0 && (
                     <div>
-                      <div className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-2">
+                      <div className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-600  flex items-center gap-2">
                         <History className="w-3.5 h-3.5" /> Recent Searches
                       </div>
                       <div className="flex flex-wrap gap-2 px-3 mt-1">
@@ -302,9 +302,9 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                           <button
                             key={i}
                             onClick={() => handleSelectQuery(rec)}
-                            className="bg-slate-50 dark:bg-[#121212] hover:bg-slate-100 dark:hover:bg-[#333] dark:bg-[#1a1b1e] border border-slate-200 dark:border-[#333] text-slate-600 text-sm font-medium px-4 py-2 rounded-full transition-colors flex items-center gap-2"
+                            className="bg-slate-50  hover:bg-slate-100   border border-slate-200  text-slate-600 text-sm font-medium px-4 py-2 rounded-full transition-colors flex items-center gap-2"
                           >
-                            <Clock className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
+                            <Clock className="w-3.5 h-3.5 text-slate-600 " />
                             {rec}
                           </button>
                         ))}
@@ -313,7 +313,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                   )}
 
                   <div>
-                    <div className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-2">
+                    <div className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-600  flex items-center gap-2">
                       <Sparkles className="w-3.5 h-3.5 text-indigo-400" /> Try
                       Asking AI...
                     </div>
@@ -322,17 +322,17 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                         <button
                           key={i}
                           onClick={() => handleSelectQuery(sugg)}
-                          className="w-full text-left px-4 py-3 rounded-[32px] hover:bg-[#0072de]/10 dark:hover:bg-[#0072de]/20/50 text-slate-600 hover:text-[#0072de] dark:text-[#3399ff] text-sm font-medium transition-colors flex items-center justify-between group"
+                          className="w-full text-left px-4 py-3 rounded-[32px] hover:bg-[#FFFFFF]/10  text-slate-600 hover:text-slate-900  text-sm font-medium transition-colors flex items-center justify-between group"
                         >
                           <span>"{sugg}"</span>
-                          <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-indigo-400 transition-colors" />
+                          <ArrowUpRight className="w-4 h-4 text-slate-700 group-hover:text-indigo-400 transition-colors" />
                         </button>
                       ))}
                     </div>
                   </div>
 
                   <div>
-                    <div className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 flex items-center gap-2">
+                    <div className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-600  flex items-center gap-2">
                       <TrendingUp className="w-3.5 h-3.5 text-amber-500" />{" "}
                       Popular Tools
                     </div>
@@ -343,10 +343,10 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                           <div
                             key={mod.id}
                             onClick={() => handleSelectTool(mod.id)}
-                            className={`group cursor-pointer flex items-center gap-3 bg-transparent hover:bg-slate-50 dark:bg-[#121212] dark:hover:bg-[#2f2f2f] border-2 border-transparent hover:${theme.iconColorBorder} p-3 rounded-[32px] transition-all duration-200`}
+                            className={`group cursor-pointer flex items-center gap-3 bg-transparent hover:bg-slate-50   border-2 border-transparent hover:${theme.iconColorBorder} p-3 rounded-[32px] transition-all duration-200`}
                           >
                             <div
-                              className={`w-10 h-10 shrink-0 rounded-[32px] flex items-center justify-center ${theme.iconBg} ${theme.text} group-hover:bg-[#0072de] group-hover:text-white transition-colors duration-300`}
+                              className={`w-10 h-10 shrink-0 rounded-[32px] flex items-center justify-center ${theme.iconBg} ${theme.text} group-hover:bg-[#FFFFFF] group-hover:text-slate-900 transition-colors duration-300`}
                             >
                               {mod.icon ? (
                                 <mod.icon className="w-5 h-5" />
@@ -355,10 +355,10 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                               )}
                             </div>
                             <div className="flex-1 w-full text-left">
-                              <h4 className="font-bold text-[14px] text-slate-800 dark:text-slate-200">
+                              <h4 className="font-bold text-[14px] text-slate-800 ">
                                 {mod.title}
                               </h4>
-                              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium line-clamp-1">
+                              <p className="text-xs text-slate-500  font-medium line-clamp-1">
                                 {mod.category}
                               </p>
                             </div>
@@ -373,7 +373,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                 <div className="space-y-4">
                   {localResults.length > 0 && (
                     <div>
-                      <div className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                      <div className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-600 ">
                         Calculators & Tools
                       </div>
                       <div className="space-y-1 mt-1">
@@ -386,10 +386,10 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                             <div
                               key={`local-${idx}`}
                               onClick={() => handleSelectTool(result.toolId)}
-                              className={`group cursor-pointer flex items-center gap-4 bg-transparent hover:bg-slate-50 dark:bg-[#121212] dark:hover:bg-[#2f2f2f] border-2 border-transparent hover:${theme.iconColorBorder} p-3 md:p-4 rounded-[32px] transition-all duration-200`}
+                              className={`group cursor-pointer flex items-center gap-4 bg-transparent hover:bg-slate-50   border-2 border-transparent hover:${theme.iconColorBorder} p-3 md:p-4 rounded-[32px] transition-all duration-200`}
                             >
                               <div
-                                className={`w-12 h-12 shrink-0 rounded-[32px] flex items-center justify-center ${theme.iconBg} ${theme.text} group-hover:bg-[#0072de] group-hover:text-white transition-transform duration-300 shadow-sm border ${theme.border} group-hover:border-transparent`}
+                                className={`w-12 h-12 shrink-0 rounded-[32px] flex items-center justify-center ${theme.iconBg} ${theme.text} group-hover:bg-[#FFFFFF] group-hover:text-slate-900 transition-transform duration-300 shadow-sm border ${theme.border} group-hover:border-transparent`}
                               >
                                 {fullModuleData?.icon ? (
                                   <fullModuleData.icon className="w-6 h-6" />
@@ -400,18 +400,18 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
 
                               <div className="flex-1 w-full text-left">
                                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-1">
-                                  <h4 className="font-bold text-[16px] text-slate-800 dark:text-slate-200 group-hover:text-[#0072de] dark:text-[#3399ff] transition-colors">
+                                  <h4 className="font-bold text-[16px] text-slate-800  group-hover:text-slate-900  transition-colors">
                                     {result.toolName}
                                   </h4>
-                                  <span className="hidden sm:inline bg-slate-100 dark:bg-[#1a1b1e] text-slate-500 dark:text-slate-400 dark:text-slate-500 text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap">
+                                  <span className="hidden sm:inline bg-slate-100  text-slate-500   text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap">
                                     {result.category}
                                   </span>
                                 </div>
-                                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium line-clamp-2">
+                                <p className="text-xs text-slate-500  font-medium line-clamp-2">
                                   {result.desc}
                                 </p>
                               </div>
-                              <ArrowUpRight className="hidden sm:block w-5 h-5 text-slate-300 group-hover:text-indigo-500 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                              <ArrowUpRight className="hidden sm:block w-5 h-5 text-slate-700 group-hover:text-indigo-500 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                             </div>
                           );
                         })}
@@ -421,19 +421,19 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
 
                   {isCompletelyEmpty && (
                     <div className="text-center py-12 px-4">
-                      <div className="w-16 h-16 bg-slate-50 dark:bg-[#121212] border border-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Search className="w-8 h-8 text-slate-300" />
+                      <div className="w-16 h-16 bg-slate-50  border border-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Search className="w-8 h-8 text-slate-700" />
                       </div>
-                      <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2">
+                      <h3 className="text-lg font-bold text-slate-800  mb-2">
                         No exact match
                       </h3>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 dark:text-slate-500 max-w-sm mx-auto mb-6">
+                      <p className="text-sm text-slate-500   max-w-sm mx-auto mb-6">
                         We don't have a dedicated template for "{query}". Try
                         asking the AI Assistant instead.
                       </p>
                       <button
                         onClick={() => handleSelectTool("ai")}
-                        className="bg-white dark:bg-[#252525] border border-[#0072de] text-[#0072de] dark:text-[#3399ff] font-bold py-3 px-6 rounded-[32px] inline-flex items-center gap-2 shadow-[0_8px_16px_rgba(15,23,42,0.15)] transition-all hover:bg-[#0072de] hover:-translate-y-0.5 w-full sm:w-auto justify-center"
+                        className="bg-white  border border-[#FFFFFF] text-slate-900  font-bold py-3 px-6 rounded-[32px] inline-flex items-center gap-2 shadow-[0_8px_16px_rgba(15,23,42,0.15)] transition-all hover:bg-[#FFFFFF] hover:-translate-y-0.5 w-full sm:w-auto justify-center"
                       >
                         <Sparkles className="w-5 h-5 text-amber-400" />
                         Calculate with AI
@@ -445,7 +445,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                     <div className="pt-2 border-t border-slate-100 mt-2">
                       <button
                         onClick={() => handleSelectTool("ai")}
-                        className="w-full text-left px-4 py-3 rounded-[32px] hover:bg-[#0072de]/10 dark:hover:bg-[#0072de]/20/50 text-slate-600 hover:text-[#0072de] dark:text-[#3399ff] text-sm font-medium transition-colors flex items-center justify-between group bg-slate-50 dark:bg-[#121212]"
+                        className="w-full text-left px-4 py-3 rounded-[32px] hover:bg-[#FFFFFF]/10  text-slate-600 hover:text-slate-900  text-sm font-medium transition-colors flex items-center justify-between group bg-slate-50 "
                       >
                         <span className="flex items-center gap-2">
                           <Sparkles className="w-4 h-4 text-indigo-500" />
@@ -461,7 +461,7 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
 
             {/* Fixed Footer of Dropdown */}
             {!query && (
-              <div className="border-t border-slate-100 p-4 bg-slate-50 dark:bg-[#121212] flex items-center justify-between text-xs font-medium text-slate-400 dark:text-slate-500">
+              <div className="border-t border-slate-100 p-4 bg-slate-50  flex items-center justify-between text-xs font-medium text-slate-600 ">
                 <span>Civil Estimation Pro Search Engine</span>
                 <span className="flex items-center gap-1">
                   <Sparkles className="w-3 h-3 text-indigo-400" /> AI Powered

@@ -22,7 +22,7 @@ export default function EarthworksEstimator() {
   return (
     <div className="w-full h-full flex flex-col md:flex-row bg-slate-50 overflow-hidden">
       {/* Sidebar for Sub-Navigation */}
-      <div className="w-full md:w-64 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col pt-6 px-4 gap-2">
+      <div className="w-full md:w-64 flex-shrink-0 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border-r border-slate-200 flex flex-col pt-6 px-4 gap-2">
         <h2 className="text-xl font-semibold tabular-nums tracking-tight text-slate-800 px-2 mb-4">
           Earthworks
         </h2>

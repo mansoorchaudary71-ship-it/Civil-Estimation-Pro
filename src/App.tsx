@@ -479,18 +479,15 @@ export default function App() {
     "Core Estimators",
   );
   const [isScrolled, setIsScrolled] = useState(false);
+  const [homeScrollPos, setHomeScrollPos] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = (e: Event) => {
-      const target = e.target as HTMLElement;
-      setIsScrolled(target.scrollTop > 80);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 80);
     };
-    const scrollEl = scrollRef.current;
-    if (scrollEl) {
-      scrollEl.addEventListener("scroll", handleScroll);
-      return () => scrollEl.removeEventListener("scroll", handleScroll);
-    }
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toolsByCategory = ALL_TOOLS.reduce(
@@ -517,27 +514,35 @@ export default function App() {
   }, [location.pathname]);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      if (
-        activeModule !== "home" ||
-        !previousModule ||
-        [
-          "home",
-          "my-estimates",
-          "pricing",
-          "about",
-          "careers",
-          "contact",
-          "blog",
-        ].includes(previousModule)
-      ) {
-        scrollRef.current.scrollTo(0, 0);
-      }
+    // To handle the scroll accurately, we should wait for the layout to stabilize.
+    // For tools inside AnimatePresence, we'll let their individual mounts handle scroll to top!
+    // But we still need to handle scroll restoration for the HOME screen when going back.
+    if (activeModule === "home" && previousModule && !["home", "my-estimates", "pricing", "about", "careers", "contact", "blog"].includes(previousModule)) {
+      // Small timeout ensures the exiting component starting its animation doesn't mess with our scroll
+      const timer = setTimeout(() => {
+        window.scrollTo({ top: homeScrollPos, behavior: "instant" });
+        window.dispatchEvent(
+          new CustomEvent("lenis-scroll-to", { detail: { top: homeScrollPos, immediate: true } })
+        );
+      }, 50);
+      return () => clearTimeout(timer);
+    } else if (["my-estimates", "pricing", "about", "careers", "contact", "blog"].includes(activeModule)) {
+       // Static pages
+       const timer = setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "instant" });
+        window.dispatchEvent(
+          new CustomEvent("lenis-scroll-to", { detail: { top: 0, immediate: true } })
+        );
+      }, 50);
+      return () => clearTimeout(timer);
     }
-  }, [activeModule, previousModule]);
+  }, [activeModule, previousModule, homeScrollPos]);
 
   useEffect(() => {
     const handleGoHome = () => {
+      if (activeModule === "home") {
+        setHomeScrollPos(window.scrollY);
+      }
       setPreviousModule(activeModule);
       setActiveModule("home");
     };
@@ -578,6 +583,9 @@ export default function App() {
   ].includes(activeModule);
 
   const handleSelectModule = (id: ModuleId) => {
+    if (activeModule === "home") {
+      setHomeScrollPos(window.scrollY);
+    }
     setPreviousModule(activeModule);
     setActiveModule(id);
     setIsSidebarOpen(false);
@@ -619,7 +627,7 @@ export default function App() {
           <MarketRatesProvider>
             <TakeoffProvider>
               <ProjectProvider>
-                <div className="flex flex-col h-[100dvh] w-full bg-[#f4f6fa] dark:bg-[#0a0f1d] text-[#1d1d1f] dark:text-[#f5f5f7] font-sans transition-colors duration-300">
+                <div className="flex flex-col min-h-[100dvh] w-full bg-[#f4f6fa]  text-[#1d1d1f]  font-sans transition-colors duration-300">
                   <Toaster position="bottom-right" />
                   <ProductTour />
                   <LocaleUnitDetector />
@@ -650,20 +658,20 @@ export default function App() {
                     onOpenHistory={() => handleSelectModule("my-estimates")}
                   />
 
-                  <div className={`flex flex-1 min-h-0 relative w-full ${activeModule === 'home' ? '' : 'pt-14'}`}>
+                  <div className={`flex flex-1 relative w-full`}>
                     <main
                       id="main-content"
-                      className="flex-1 flex flex-col bg-transparent relative w-full min-h-0 pt-0 transition-all duration-300"
+                      className="flex-1 flex flex-col bg-transparent relative w-full pt-0 transition-all duration-300"
                     >
-                      <div className="w-full h-full flex-1 flex flex-col min-h-0 relative transition-all duration-300">
-                        <div className="flex-1 flex flex-col min-h-0 relative w-full transition-colors duration-300 md:bg-white/50 md:">
+                      <div className="w-full flex-1 flex flex-col relative transition-all duration-300">
+                        <div className="flex-1 flex flex-col relative w-full transition-colors duration-300 md:bg-[#FAFAF8] transition-colors duration-500/50 md:">
                           <>
                             <div
                               ref={scrollRef}
-                              className={`flex-1 flex flex-col min-h-0 relative w-full overflow-x-hidden overflow-y-auto pb-20 md:pb-0 ${!isStaticPage ? "hidden" : ""}`}
+                              className={`flex-1 flex flex-col relative w-full overflow-x-hidden pb-24 md:pb-8 ${!isStaticPage ? "hidden" : ""}`}
                             >
 
-                              <div className="flex flex-col min-h-full relative w-full">
+                              <div className="flex flex-col relative w-full">
                                 {activeModule === "home" && (
                                   <div className="w-full">
                                     <Dashboard
@@ -1488,14 +1496,14 @@ function FontSizeControls() {
     <div className="relative mr-2" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`p-1.5 rounded-lg transition-colors flex items-center justify-center ${isOpen ? "bg-slate-900/10  text-slate-800 " : "hover:bg-slate-900/5 text-slate-500 "}`}
+        className={`p-1.5 rounded-lg transition-colors flex items-center justify-center ${isOpen ? "bg-slate-50/10  text-slate-800 " : "hover:bg-slate-50/5 text-slate-500 "}`}
         aria-label="Text Size settings"
       >
         <Type className="w-5 h-5" />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 bg-white rounded-xl shadow-lg border border-slate-100 p-1 flex items-center space-x-1 z-50">
+        <div className="absolute right-0 top-full mt-2 bg-[#FAFAF8] transition-colors duration-500 rounded-xl shadow-lg border border-slate-100 p-1 flex items-center space-x-1 z-50">
           <button
             onClick={() => {
               updateSettings({ fontSize: "small" });
@@ -1542,11 +1550,11 @@ function UnitSwitcher() {
   };
 
   return (
-    <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-lg relative z-0 mr-2 border border-slate-200 dark:border-slate-700">
+    <div className="flex bg-slate-100  p-1 rounded-lg relative z-0 mr-2 border border-slate-200 ">
       <button
         onClick={() => handleToggle("SI")}
         className={`relative px-3 py-1.5 text-[10px] sm:text-xs font-bold rounded-md transition-colors z-10 ${
-          isMetric ? "text-slate-800 dark:text-slate-100" : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+          isMetric ? "text-slate-800 " : "text-slate-500  hover:text-slate-700 "
         }`}
         aria-label="Set units to Metric (m, kg)"
       >
@@ -1554,7 +1562,7 @@ function UnitSwitcher() {
         {isMetric && (
           <motion.div
             layoutId="unitIndicator"
-            className="absolute inset-0 bg-white dark:bg-slate-700 rounded-md shadow-sm border border-slate-200 dark:border-slate-600"
+            className="absolute inset-0 bg-[#FAFAF8] transition-colors duration-500  rounded-md shadow-sm border border-slate-200 "
             style={{ zIndex: -1 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
           />
@@ -1563,7 +1571,7 @@ function UnitSwitcher() {
       <button
         onClick={() => handleToggle("FPS")}
         className={`relative px-3 py-1.5 text-[10px] sm:text-xs font-bold rounded-md transition-colors z-10 ${
-          !isMetric ? "text-slate-800 dark:text-slate-100" : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+          !isMetric ? "text-slate-800 " : "text-slate-500  hover:text-slate-700 "
         }`}
         aria-label="Set units to Imperial (ft, lbs)"
       >
@@ -1571,7 +1579,7 @@ function UnitSwitcher() {
         {!isMetric && (
           <motion.div
             layoutId="unitIndicator"
-            className="absolute inset-0 bg-white dark:bg-slate-700 rounded-md shadow-sm border border-slate-200 dark:border-slate-600"
+            className="absolute inset-0 bg-[#FAFAF8] transition-colors duration-500  rounded-md shadow-sm border border-slate-200 "
             style={{ zIndex: -1 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
           />
@@ -1601,7 +1609,7 @@ function AppHeader({
     <header className="md:hidden flex items-center px-4 py-2.5 m-0 bg-[#FFFFFF] border-b border-slate-300/5 sticky top-3 z-30 shrink-0 min-h-[50px] transition-all duration-300">
       <button
         onClick={onOpenSidebar}
-        className="p-2 mr-3 -ml-2 rounded-lg hover:bg-slate-900/5 text-[#888888] transition-all"
+        className="p-2 mr-3 -ml-2 rounded-lg hover:bg-slate-50/5 text-[#888888] transition-all"
         aria-label="Open sidebar"
       >
         <Menu className="w-5 h-5" />
@@ -1628,8 +1636,20 @@ function AppHeader({
       <FontSizeControls />
 
       <button
+        onClick={() => {
+          const url = `${window.location.origin}?tool=${activeModule || ""}`;
+          navigator.clipboard.writeText(url);
+          toast.success("Link copied to clipboard!");
+        }}
+        className="p-2 mr-1 rounded-lg hover:bg-slate-50/5 text-[#888888] transition-all"
+        aria-label="Share tool"
+      >
+        <Share2 className="w-5 h-5" />
+      </button>
+
+      <button
         onClick={onOpenSettings}
-        className="p-2 -mr-2 rounded-lg hover:bg-slate-900/5 text-[#888888] transition-all"
+        className="p-2 -mr-2 rounded-lg hover:bg-slate-50/5 text-[#888888] transition-all"
         aria-label="Open settings"
       >
         <SettingsIcon className="w-5 h-5" />
@@ -1704,9 +1724,16 @@ const ModuleWrapper = React.forwardRef<
   },
   ref,
 ) {
-  const [isShareModalOpen, setIsShareModalOpen] = React.useState(false);
   const [isFormulaModalOpen, setIsFormulaModalOpen] = React.useState(false);
   const [isPrintPreviewOpen, setIsPrintPreviewOpen] = React.useState(false);
+
+  React.useLayoutEffect(() => {
+    // Fire scroll instructions exactly when the DOM updates for the new tool
+    window.scrollTo({ top: 0, behavior: "instant" });
+    window.dispatchEvent(
+      new CustomEvent("lenis-scroll-to", { detail: { top: 0, immediate: true } })
+    );
+  }, []);
 
   React.useEffect(() => {
     const handlePrint = () => setIsPrintPreviewOpen(true);
@@ -1819,7 +1846,7 @@ const ModuleWrapper = React.forwardRef<
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="h-full flex flex-col min-h-0 bg-transparent relative tool-detail-page"
+      className="min-h-[100dvh] flex flex-col bg-transparent relative tool-detail-page w-full"
     >
       {moduleDef && (
         <Helmet>
@@ -1918,11 +1945,11 @@ const ModuleWrapper = React.forwardRef<
       )}
 
       <div
-        className="flex-1 overflow-y-auto w-full max-w-full"
+        className="flex-1 w-full max-w-full pb-24 md:pb-8"
         id="main-calculator-content"
         tabIndex={-1}
       >
-        <div className="min-h-full flex flex-col items-center ">
+        <div className="min-h-full flex flex-col items-center">
           <div className="w-full max-w-full">
             {/* Added breadcrumb for desktop */}
             <div className="hidden md:flex ml-8 mt-6 mb-2 items-center justify-between pr-8">
@@ -1975,7 +2002,7 @@ const ModuleWrapper = React.forwardRef<
                           })}
                         {formatToolTitle(moduleDef.title)}
                       </h1>
-                      <div className="text-xs font-semibold uppercase tracking-widest text-slate-400 flex flex-wrap items-center gap-2 sm:gap-3">
+                      <div className="text-xs font-semibold uppercase tracking-widest text-slate-600 flex flex-wrap items-center gap-2 sm:gap-3">
                         {moduleDef.isPopular && (
                           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-sm font-semibold whitespace-nowrap">
                             🔥 Popular
@@ -1988,7 +2015,7 @@ const ModuleWrapper = React.forwardRef<
                           whileTap={{ scale: 0.95 }}
                           transition={{ duration: 0.2, delay: 0.05 }}
                           onClick={() => setIsFormulaModalOpen(true)}
-                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-500/10 dark:hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-full transition-colors font-medium shadow-sm border border-indigo-100/50 dark:border-indigo-500/20"
+                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100   text-indigo-600  rounded-full transition-colors font-medium shadow-sm border border-indigo-100/50 "
                           title="Formulas & Variables"
                         >
                           <Info className="w-4 h-4" />
@@ -2007,7 +2034,7 @@ const ModuleWrapper = React.forwardRef<
                               new CustomEvent("global-print-action"),
                             )
                           }
-                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
+                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200   text-slate-600  rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 "
                           title="Print Calculation"
                         >
                           <Printer className="w-4 h-4" />
@@ -2026,7 +2053,7 @@ const ModuleWrapper = React.forwardRef<
                               new CustomEvent("action-save-draft"),
                             )
                           }
-                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
+                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200   text-slate-600  rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 "
                           title="Save Draft (Local)"
                         >
                           <Save className="w-4 h-4" />
@@ -2045,7 +2072,7 @@ const ModuleWrapper = React.forwardRef<
                               new CustomEvent("action-load-draft"),
                             )
                           }
-                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
+                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200   text-slate-600  rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 "
                           title="Load Draft (Local)"
                         >
                           <Download className="w-4 h-4" />
@@ -2059,8 +2086,12 @@ const ModuleWrapper = React.forwardRef<
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           transition={{ duration: 0.2, delay: 0.25 }}
-                          onClick={() => setIsShareModalOpen(true)}
-                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 dark:border-slate-700/50"
+                          onClick={() => {
+                            const url = `${window.location.origin}?tool=${activeModule}`;
+                            navigator.clipboard.writeText(url);
+                            toast.success("Link copied to clipboard!");
+                          }}
+                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200   text-slate-600  rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 "
                           title="Share Tool"
                         >
                           <Share2 className="w-4 h-4" />
@@ -2082,12 +2113,7 @@ const ModuleWrapper = React.forwardRef<
                     </div>
                   )}
 
-                  <ShareModal
-                    isOpen={isShareModalOpen}
-                    onClose={() => setIsShareModalOpen(false)}
-                    url={`${window.location.origin}?tool=${activeModule}`}
-                    title={`${moduleDef?.title || "Tool"} | Civil Estimation Pro`}
-                  />
+                  {/* ShareModal removed as per new clipboard requirement */}
 
                   <FormulaModal
                     isOpen={isFormulaModalOpen}
@@ -2179,7 +2205,7 @@ const ModuleWrapper = React.forwardRef<
                           {genericFaqs.map((faq, index) => (
                             <div
                               key={index}
-                              className="bg-white p-4 rounded-xl border border-slate-200"
+                              className="bg-[#FAFAF8] transition-colors duration-500 p-4 rounded-xl border border-slate-200"
                             >
                               <h3 className="font-medium text-sm text-slate-800">
                                 {faq.q}
@@ -2193,7 +2219,7 @@ const ModuleWrapper = React.forwardRef<
                       </div>
 
                       {/* Related Tools */}
-                      <div className="mt-8 mb-6 p-6 rounded-[2rem] bg-white border border-slate-200">
+                      <div className="mt-8 mb-6 p-6 rounded-[2rem] bg-[#FAFAF8] transition-colors duration-500 border border-slate-200">
                         <h2 className="text-lg font-semibold text-slate-800 mb-4">
                           Related Engineering Tools
                         </h2>

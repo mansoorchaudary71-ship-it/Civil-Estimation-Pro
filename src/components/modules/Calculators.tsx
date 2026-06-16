@@ -287,7 +287,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               size="sm"
             />
           </div>
-          <div className="flex bg-white p-1 rounded-[24px] w-full sm:w-auto">
+          <div className="flex bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-1 rounded-[24px] w-full sm:w-auto">
             {(["slab", "column", "staircase"] as const).map((type) => (
               <button
                 key={type}
@@ -302,7 +302,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 }}
                 className={`flex-1 sm:flex-none px-4 py-2 rounded-[24px] text-xs font-bold transition-all ${
                   concreteType === type 
-                    ? "bg-white  shadow-sm text-indigo-600 " 
+                    ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  shadow-sm text-indigo-600 " 
                     : "text-slate-500 hover:text-slate-700 "
                 }`}
               >
@@ -621,7 +621,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               T {bWallT}
             </span>
           </div>
-          <div className="bg-white px-4 py-3 rounded-[24px] border">
+          <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 px-4 py-3 rounded-[24px] border">
             <h4 className="text-xs font-bold text-slate-700 uppercase flex justify-between items-center mb-4">
               Add Deductions
               <span className="bg-indigo-50 text-indigo-600 px-2 py-1 rounded text-[10px]">
@@ -1041,14 +1041,14 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               </>
             )}
           </h3>
-          <div className="flex bg-white p-1 rounded-[24px] w-full sm:w-auto">
+          <div className="flex bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-1 rounded-[24px] w-full sm:w-auto">
             {(["plaster", "paint", "antitermite"] as const).map((type) => (
               <button
                 key={type}
                 onClick={() => { setFinishesType(type); if(hasData) resetEstimate(); }}
                 className={`flex-1 sm:flex-none px-4 py-2 rounded-[24px] text-xs font-bold transition-all ${
                   finishesType === type 
-                    ? "bg-white  shadow-sm text-indigo-600 " 
+                    ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  shadow-sm text-indigo-600 " 
                     : "text-slate-500 hover:text-slate-700 "
                 }`}
               >
@@ -1074,7 +1074,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                   }}
                   className={`flex-1 px-4 py-2 rounded-[24px] text-xs font-bold transition-all ${
                     pLocation === "Internal" 
-                      ? "bg-white  shadow-sm text-indigo-600 " 
+                      ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  shadow-sm text-indigo-600 " 
                       : "text-slate-500 hover:text-slate-700 "
                   }`}
                 >
@@ -1089,7 +1089,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                   }}
                   className={`flex-1 px-4 py-2 rounded-[24px] text-xs font-bold transition-all ${
                     pLocation === "External" 
-                      ? "bg-white  shadow-sm text-indigo-600 " 
+                      ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  shadow-sm text-indigo-600 " 
                       : "text-slate-500 hover:text-slate-700 "
                   }`}
                 >
@@ -1138,7 +1138,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               <div>
                 <label className="text-[10px] font-bold text-gray-700 uppercase flex items-center justify-between">
                   Cement Density (kg/m³)
-                  <HelpCircle className="w-3 h-3 text-slate-400" />
+                  <HelpCircle className="w-3 h-3 text-slate-600" />
                 </label>
                 <input
                   type="number"
@@ -1149,7 +1149,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               <div>
                 <label className="text-[10px] font-bold text-gray-700 uppercase flex items-center justify-between">
                   Sand Density (kg/m³)
-                  <HelpCircle className="w-3 h-3 text-slate-400" />
+                  <HelpCircle className="w-3 h-3 text-slate-600" />
                 </label>
                 <input
                   type="number"
@@ -1171,11 +1171,11 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
             <div className="sm:col-span-2 mt-6">
               <h4 className="font-bold text-slate-800 mb-3">Frequently Asked Questions</h4>
               <div className="space-y-3">
-                <div className="bg-white p-3 rounded-[16px] border border-slate-100">
+                <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-3 rounded-[16px] border border-slate-100">
                   <p className="font-semibold text-sm text-slate-700">Why do we multiply wet volume by 1.33?</p>
                   <p className="text-xs text-slate-500 mt-1">Dry mortar volume is typically 30-33% more than wet volume due to voids getting filled with water during mixing.</p>
                 </div>
-                <div className="bg-white p-3 rounded-[16px] border border-slate-100">
+                <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-3 rounded-[16px] border border-slate-100">
                   <p className="font-semibold text-sm text-slate-700">What is the standard mix ratio for internal plaster?</p>
                   <p className="text-xs text-slate-500 mt-1">1:4 (1 part cement to 4 parts sand) is the standard for internal walls and ceilings, ensuring strong adherence.</p>
                 </div>
@@ -1298,7 +1298,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
   } else if (activeTab === "cement" || activeTab === "sand") {
     content = (
       <div className="bg-transparent border p-12 rounded-[24px] text-center text-slate-700 max-w-xl mx-auto mt-8">
-        <Layers className="w-12 h-12 mx-auto text-slate-300 mb-4" />
+        <Layers className="w-12 h-12 mx-auto text-slate-700 mb-4" />
         <h3 className="text-xl font-semibold text-slate-700 mb-2">
           Use Standard Modules
         </h3>
@@ -1467,37 +1467,37 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
              <h4 className="font-bold text-emerald-800 text-lg mb-4">{br.type} Results</h4>
              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {br.volume !== undefined && (
-                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                  <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-4 rounded-xl shadow-sm border border-emerald-100">
                     <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Total Volume</p>
                     <p className="text-xl font-bold text-slate-800">{br.volume.toFixed(2)} <span className="text-sm font-medium text-slate-500">{unitVol}</span></p>
                   </div>
                 )}
                 {br.cementBags !== undefined && (
-                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                  <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-4 rounded-xl shadow-sm border border-emerald-100">
                     <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Cement Required</p>
                     <p className="text-xl font-bold text-slate-800">{br.cementBags.toFixed(2)} <span className="text-sm font-medium text-slate-500">Bags</span></p>
                   </div>
                 )}
                 {br.sandVol !== undefined && (
-                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                  <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-4 rounded-xl shadow-sm border border-emerald-100">
                     <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Sand Required</p>
                     <p className="text-xl font-bold text-slate-800">{br.sandVol.toFixed(2)} <span className="text-sm font-medium text-slate-500">{unitVol}</span></p>
                   </div>
                 )}
                 {br.aggregateVol !== undefined && (
-                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                  <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-4 rounded-xl shadow-sm border border-emerald-100">
                     <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Aggregate</p>
                     <p className="text-xl font-bold text-slate-800">{br.aggregateVol.toFixed(2)} <span className="text-sm font-medium text-slate-500">{unitVol}</span></p>
                   </div>
                 )}
                 {br.waterLiters !== undefined && (
-                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                  <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-4 rounded-xl shadow-sm border border-emerald-100">
                     <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Water Required</p>
                     <p className="text-xl font-bold text-slate-800">{isSI ? br.waterLiters.toFixed(0) : (br.waterLiters/3.785).toFixed(0)} <span className="text-sm font-medium text-slate-500">{isSI ? 'Liters' : 'Gallons'}</span></p>
                   </div>
                 )}
                 {br.count !== undefined && (
-                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
+                  <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-4 rounded-xl shadow-sm border border-emerald-100">
                     <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Total Pieces</p>
                     <p className="text-xl font-bold text-slate-800">{br.count.toLocaleString()} <span className="text-sm font-medium text-slate-500">Nos</span></p>
                   </div>
@@ -1512,7 +1512,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
   const isBatchSupported = ["concrete", "bricks", "blocks", "plaster"].includes(activeTab);
 
   return (
-  <div className={hideHeader ? "w-full" : "w-full h-full overflow-y-auto bg-transparent text-slate-900 p-6 md:p-8"}>
+  <div className={hideHeader ? "w-full" : "w-full h-full bg-transparent text-slate-900 p-6 md:p-8"}>
     <div className={hideHeader ? "w-full" : "max-w-7xl mx-auto"}>
        {isBatchSupported && !isBatchMode && (
           <div className="flex justify-end mb-4">

@@ -81,13 +81,13 @@ export default function TopNavbar({
             className="flex items-center gap-2 cursor-pointer group"
             onClick={() => { setActiveTab("Calculators"); onNavigate && onNavigate("home"); }}
           >
-            <div className="w-7 h-7 rounded-lg bg-[#0A192F] text-white flex items-center justify-center font-bold text-xs tracking-tighter shadow-sm group-hover:bg-[#112240] transition-colors">
+            <div className="w-7 h-7 rounded-lg bg-[#0f172a] text-white flex items-center justify-center font-bold text-xs tracking-tighter shadow-sm group-hover:bg-[#112240] transition-colors">
               CE
             </div>
-            <span className="font-bold text-[17px] text-[#0A192F] tracking-tight hidden sm:block">
+            <span className="font-bold text-[17px] text-slate-900 tracking-tight hidden sm:block">
               Civil Estimation <span className="text-[#FF5F15]">Pro</span>
             </span>
-            <span className="font-bold text-[17px] text-[#0A192F] tracking-tight sm:hidden">
+            <span className="font-bold text-[17px] text-slate-900 tracking-tight sm:hidden">
               Civil Pro
             </span>
           </div>
@@ -161,7 +161,7 @@ export default function TopNavbar({
                                  }}
                                  className="w-full text-left flex items-center gap-3 p-2 hover:bg-slate-50 rounded-xl transition-all group"
                                >
-                                 <div className="w-8 h-8 rounded-lg bg-[#0A192F]/5 group-hover:bg-[#FF5F15]/10 flex items-center justify-center text-[#0A192F] group-hover:text-[#FF5F15] transition-colors border border-slate-100 group-hover:border-[#FF5F15]/20">
+                                 <div className="w-8 h-8 rounded-lg bg-[#FFFFFF]/5 group-hover:bg-[#FF5F15]/10 flex items-center justify-center text-[#FFFFFF] group-hover:text-[#FF5F15] transition-colors border border-slate-100 group-hover:border-[#FF5F15]/20">
                                    {mod.icon ? <mod.icon className="w-4 h-4" /> : <Search className="w-4 h-4" />}
                                  </div>
                                  <div className="flex-1 overflow-hidden">
@@ -173,7 +173,7 @@ export default function TopNavbar({
                            })}
                          </div>
                        ) : (
-                         <div className="text-[13px] text-slate-400 text-center py-6 font-medium">No recent tools accesses</div>
+                         <div className="text-[13px] text-slate-600 text-center py-6 font-medium">No recent tools accesses</div>
                        )}
                      </div>
                    </motion.div>
@@ -189,7 +189,7 @@ export default function TopNavbar({
              </button>
 
              <button 
-               className="md:hidden p-2 text-slate-600 hover:text-[#0A192F] hover:bg-slate-100 rounded-full transition-colors"
+               className="md:hidden p-2 text-slate-600 hover:text-[#FFFFFF] hover:bg-slate-100 rounded-full transition-colors"
                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                aria-label="Toggle mobile menu"
              >
@@ -235,7 +235,7 @@ export default function TopNavbar({
                   </div>
                   <ArrowRight className={cn(
                     "w-6 h-6 opacity-0 -translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0",
-                    activeTab === link.name ? "text-[#FF5F15]" : "text-slate-400"
+                    activeTab === link.name ? "text-[#FF5F15]" : "text-slate-600"
                   )} />
                 </motion.button>
               ))}

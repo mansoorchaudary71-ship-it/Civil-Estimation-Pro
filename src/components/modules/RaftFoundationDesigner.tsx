@@ -8,7 +8,7 @@ export default function RaftFoundationDesigner() {
 
   return (
     <div className="flex flex-col gap-8 w-full max-w-4xl mx-auto">
-      <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
+      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 dark:bg-slate-900 rounded-3xl p-6 shadow-sm border border-slate-200 dark:border-slate-800">
          <h2 className="text-xl font-bold mb-6 text-slate-800 dark:text-slate-100 flex items-center gap-2">
             <Grid2X2 className="text-pink-600" /> Raft Foundation Design
          </h2>

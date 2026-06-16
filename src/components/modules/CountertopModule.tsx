@@ -84,7 +84,7 @@ export default function CountertopModule() {
                 <button
                   key={s}
                   onClick={() => setShape(s)}
-                  className={`px-4 py-2 rounded-[24px] text-sm font-bold transition-all border ${shape === s ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-bg-primary border-border-color text-slate-600  hover:bg-slate-100'}`}
+                  className={`px-4 py-2 rounded-[24px] text-sm font-bold transition-all border ${shape === s ? 'bg-indigo-600 border-indigo-600 text-slate-900' : 'bg-bg-primary border-border-color text-slate-600  hover:bg-slate-100'}`}
                 >
                   {s}
                 </button>
@@ -101,7 +101,7 @@ export default function CountertopModule() {
                 type="number"
                 value={lengthA}
                 onChange={(e) => setLengthA(e.target.value)}
-                className="w-full bg-white border border-border-color p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
               />
             </div>
             {(shape === "L-Shape" || shape === "U-Shape") && (
@@ -113,7 +113,7 @@ export default function CountertopModule() {
                   type="number"
                   value={lengthB}
                   onChange={(e) => setLengthB(e.target.value)}
-                  className="w-full bg-white border border-border-color p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                  className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
                 />
               </div>
             )}
@@ -126,7 +126,7 @@ export default function CountertopModule() {
                   type="number"
                   value={lengthC}
                   onChange={(e) => setLengthC(e.target.value)}
-                  className="w-full bg-white border border-border-color p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                  className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
                 />
               </div>
             )}
@@ -138,7 +138,7 @@ export default function CountertopModule() {
                 type="number"
                 value={depth}
                 onChange={(e) => setDepth(e.target.value)}
-                className="w-full bg-white border border-border-color p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
               />
             </div>
             <div>
@@ -149,7 +149,7 @@ export default function CountertopModule() {
                 type="number"
                 value={skirtingHeight}
                 onChange={(e) => setSkirtingHeight(e.target.value)}
-                className="w-full bg-white border border-border-color p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
+                className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color p-3 rounded-[24px] font-medium focus:ring-2 focus:ring-indigo-500 outline-none"
               />
             </div>
           </div>
@@ -164,11 +164,11 @@ export default function CountertopModule() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-[10px] font-bold text-gray-500 uppercase block mb-1">Length ({uL})</label>
-                  <input type="number" value={sinkLength} onChange={e => setSinkLength(e.target.value)} className="w-full bg-white border border-slate-200 p-2 rounded-[16px] text-sm" />
+                  <input type="number" value={sinkLength} onChange={e => setSinkLength(e.target.value)} className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-2 rounded-[16px] text-sm" />
                 </div>
                 <div>
                   <label className="text-[10px] font-bold text-gray-500 uppercase block mb-1">Width ({uL})</label>
-                  <input type="number" value={sinkWidth} onChange={e => setSinkWidth(e.target.value)} className="w-full bg-white border border-slate-200 p-2 rounded-[16px] text-sm" />
+                  <input type="number" value={sinkWidth} onChange={e => setSinkWidth(e.target.value)} className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-2 rounded-[16px] text-sm" />
                 </div>
               </div>
             )}
@@ -181,11 +181,11 @@ export default function CountertopModule() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-[10px] font-bold text-gray-500 uppercase block mb-1">Length ({uL})</label>
-                  <input type="number" value={hobLength} onChange={e => setHobLength(e.target.value)} className="w-full bg-white border border-slate-200 p-2 rounded-[16px] text-sm" />
+                  <input type="number" value={hobLength} onChange={e => setHobLength(e.target.value)} className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-2 rounded-[16px] text-sm" />
                 </div>
                 <div>
                   <label className="text-[10px] font-bold text-gray-500 uppercase block mb-1">Width ({uL})</label>
-                  <input type="number" value={hobWidth} onChange={e => setHobWidth(e.target.value)} className="w-full bg-white border border-slate-200 p-2 rounded-[16px] text-sm" />
+                  <input type="number" value={hobWidth} onChange={e => setHobWidth(e.target.value)} className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-2 rounded-[16px] text-sm" />
                 </div>
               </div>
             )}

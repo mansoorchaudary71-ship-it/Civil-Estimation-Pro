@@ -20,18 +20,7 @@
   --accent-vibrant: #4F46E5;
 }
 
-.dark {
-  color-scheme: dark;
-  --app-bg: #0F172A;
-  --app-text: #F8FAFC;
-  --bg-card: #1E293B;
-  --border-color: #334155;
-  --text-primary: #F8FAFC;
-  --bg-primary: #0F172A;
-  --accent-vibrant: #818CF8;
-}
 
-/* Override user agent dark mode and high-contrast settings */
 @media (prefers-color-scheme: dark) {
   :root {
     /* Handle via JS logic mostly */

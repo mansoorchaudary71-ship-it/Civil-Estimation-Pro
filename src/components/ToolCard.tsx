@@ -86,14 +86,14 @@ export default function ToolCard({
   return (
     <div
       onClick={() => onSelect(mod.id)}
-      className="relative flex w-full flex-col rounded-2xl bg-white bg-clip-border text-slate-700 shadow-md mt-6 cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group"
+      className="relative flex w-full flex-col rounded-2xl bg-stone-50 hover:bg-[#FDFBF7] bg-clip-border text-slate-700 shadow-md mt-6 cursor-pointer transition-all duration-500 hover:shadow-lg hover:-translate-y-1 group"
       style={{
         transform: "translateZ(0)",
         backfaceVisibility: "hidden",
       }}
     >
       {/* Header graphic shifted up */}
-      <div className={`relative mx-4 -mt-6 h-28 overflow-hidden rounded-xl bg-clip-border text-white shadow-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-[1.02] ${theme.gradient}`}>
+      <div className={`relative mx-4 -mt-6 h-28 overflow-hidden rounded-xl bg-clip-border text-slate-900 shadow-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-[1.02] ${theme.gradient}`}>
         <IconComponent className="w-10 h-10 opacity-90 drop-shadow-sm" strokeWidth={1.5} />
         
         {/* Soft gloss effect overlay */}
@@ -111,7 +111,7 @@ export default function ToolCard({
             className={`w-7 h-7 shrink-0 rounded-full flex items-center justify-center transition-colors shadow-sm ml-2 ${
               isBookmarked 
                 ? "bg-amber-100 text-amber-600 hover:bg-amber-200" 
-                : "bg-slate-50 text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+                : "bg-slate-50 text-slate-600 hover:text-slate-600 hover:bg-slate-100"
             }`}
             onClick={toggleFavorite}
           >
@@ -135,7 +135,7 @@ export default function ToolCard({
           </span>
         )}
         <button 
-          className={`select-none rounded-lg py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md transition-all focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none ml-auto ${theme.button}`}
+          className={`select-none rounded-lg py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-slate-900 shadow-md transition-all focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none ml-auto ${theme.button}`}
         >
           Open Tool
         </button>

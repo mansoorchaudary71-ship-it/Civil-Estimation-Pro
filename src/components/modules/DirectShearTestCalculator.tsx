@@ -181,7 +181,7 @@ export default function DirectShearTestCalculator() {
   };
 
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent text-slate-900 pb-[120px]">
+    <div className="w-full h-full bg-transparent text-slate-900 pb-[120px]">
       <Helmet>
         <title>Direct Shear Test Calculator</title>
         <meta name="description" content="Calculate Cohesion (c) and Angle of Internal Friction (φ) from Direct Shear Test data." />
@@ -216,7 +216,7 @@ export default function DirectShearTestCalculator() {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Input Panel */}
           <div className="w-full md:w-[45%] flex flex-col gap-6">
-            <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm relative overflow-hidden">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-6 rounded-[24px] border border-slate-200 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
               
               <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
@@ -259,7 +259,7 @@ export default function DirectShearTestCalculator() {
                         <button
                           onClick={() => removeRow(idx)}
                           disabled={testData.length <= 3}
-                          className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-[16px] transition-colors disabled:opacity-30"
+                          className="p-2 text-slate-600 hover:text-red-500 hover:bg-red-50 rounded-[16px] transition-colors disabled:opacity-30"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -268,14 +268,14 @@ export default function DirectShearTestCalculator() {
                   ))}
                 </div>
                 {testData.length <= 3 && (
-                   <p className="text-[10px] text-slate-400 mt-2 font-medium">Minimum of 3 samples required for accurate Coulomb regression.</p>
+                   <p className="text-[10px] text-slate-600 mt-2 font-medium">Minimum of 3 samples required for accurate Coulomb regression.</p>
                 )}
               </div>
 
               <button
                 onClick={() => processEstimate(() => {})}
                 disabled={isProcessing || testData.length < 2}
-                className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-[24px] shadow-md shadow-indigo-200 transition-all flex justify-center items-center gap-2 group border border-indigo-500 disabled:opacity-60"
+                className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-slate-900 font-bold py-3.5 px-6 rounded-[24px] shadow-md shadow-indigo-200 transition-all flex justify-center items-center gap-2 group border border-indigo-500 disabled:opacity-60"
               >
                 {isProcessing ? "Processing Envelopes..." : "Determine Shear Parameters"}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -293,12 +293,12 @@ export default function DirectShearTestCalculator() {
                 <li><strong>c</strong> : Cohesion (y-axis intercept)</li>
                 <li><strong>φ</strong> : Angle of Internal Friction</li>
               </ul>
-              <div className="mt-3 p-3 bg-white/60 rounded-[24px] border border-indigo-100 text-xs text-indigo-900 font-medium">
+              <div className="mt-3 p-3 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/60 rounded-[24px] border border-indigo-100 text-xs text-indigo-900 font-medium">
                 Uses linear least-squares regression to fit the best failure line through observed test points.
               </div>
             </div>
             
-            <div className="bg-white p-5 rounded-[24px] border border-slate-200 shadow-sm">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-5 rounded-[24px] border border-slate-200 shadow-sm">
               <h4 className="font-bold text-slate-800 mb-3 uppercase tracking-wide text-xs">Frequently Asked Questions</h4>
               <div className="space-y-3">
                 <div className="p-3 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-100">
@@ -315,7 +315,7 @@ export default function DirectShearTestCalculator() {
               <ProcessingSkeleton count={5} />
             ) : hasData && estimateData ? (
               <div className="space-y-6">
-                <div className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-lg relative overflow-hidden transition-all duration-500">
+                <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-lg relative overflow-hidden transition-all duration-500">
                   
                   <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-300/5 pb-6 mb-6">
                     <div>
@@ -342,7 +342,7 @@ export default function DirectShearTestCalculator() {
                   </div>
                   
                   {/* Chart section */}
-                  <div className="bg-white p-5 rounded-[24px] border border-slate-300/5 shadow-sm h-[350px] w-full pt-6 mb-6">
+                  <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-5 rounded-[24px] border border-slate-300/5 shadow-sm h-[350px] w-full pt-6 mb-6">
                      <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4 text-center">Mohr-Coulomb Failure Envelope</h3>
                      <ResponsiveContainer width="100%" height="85%">
                        <ComposedChart>

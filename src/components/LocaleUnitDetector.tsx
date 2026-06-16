@@ -27,7 +27,7 @@ export default function LocaleUnitDetector() {
                     toast.dismiss(t.id);
                     toast.success(`Switched to ${suggestedName} units`);
                   }}
-                  className="flex-1 px-3 py-2 bg-indigo-600 outline-none text-white text-xs font-bold rounded-xl hover:bg-indigo-700 transition duration-150"
+                  className="flex-1 px-3 py-2 bg-indigo-600 outline-none text-slate-900 text-xs font-bold rounded-xl hover:bg-indigo-700 transition duration-150"
                 >
                   Switch to {suggestedName}
                 </button>

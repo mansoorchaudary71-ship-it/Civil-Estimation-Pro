@@ -267,13 +267,13 @@ export default function MobileToolsSheet({
             <div className="px-6 pb-2 pt-2 shrink-0">
               <div className="flex items-center gap-2">
                 <div className="relative flex flex-1 items-center h-[46px] bg-white rounded-[50px] border border-slate-200 shadow-sm transition-all overflow-hidden focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-100">
-                  <Search className="w-4 h-4 text-slate-400 ml-4 absolute" />
+                  <Search className="w-4 h-4 text-slate-600 ml-4 absolute" />
                   <input
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     placeholder="Search tools & calculations..."
-                    className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[14px] font-medium text-slate-700 placeholder:text-slate-400 pl-10 pr-3"
+                    className="w-full h-full bg-transparent border-none outline-none focus:ring-0 text-[14px] font-medium text-slate-700 placeholder:text-slate-600 pl-10 pr-3"
                   />
                 </div>
               </div>
@@ -287,7 +287,7 @@ export default function MobileToolsSheet({
                     onClick={() => setActiveTab(idx)}
                     className={`whitespace-nowrap px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
                       activeTab === idx
-                        ? "bg-slate-800 text-white shadow-md"
+                        ? "bg-white text-slate-900 shadow-md"
                         : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                     }`}
                   >
@@ -355,7 +355,7 @@ export default function MobileToolsSheet({
                       className="text-center py-10 text-slate-500 font-medium"
                     >
                       <div className="bg-slate-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <Search className="w-5 h-5 text-slate-400" />
+                        <Search className="w-5 h-5 text-slate-600" />
                       </div>
                       No tools found in {activeCategory}
                     </motion.div>

@@ -165,7 +165,7 @@ const ConstructionCostSummary: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-[24px] shadow-sm border border-slate-200 p-4 md:p-8 flex flex-col w-full">
+    <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] shadow-sm border border-slate-200 p-4 md:p-8 flex flex-col w-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
           <h2 className="text-2xl font-semibold text-slate-800 flex items-center gap-2">
@@ -180,7 +180,7 @@ const ConstructionCostSummary: React.FC = () => {
           <CurrencySelector />
           <button
             onClick={exportToPDF}
-            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-5 py-2.5 rounded-[24px] font-medium transition-colors whitespace-nowrap"
+            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-slate-900 px-5 py-2.5 rounded-[24px] font-medium transition-colors whitespace-nowrap"
           >
             <Download className="w-4 h-4" />
             Export Report
@@ -193,12 +193,12 @@ const ConstructionCostSummary: React.FC = () => {
           Total Built-Up Area (sq ft)
         </label>
         <div className="relative max-w-sm">
-          <Home className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Home className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
           <input
             type="number"
             value={totalArea}
             onChange={(e) => setTotalArea(parseFloat(e.target.value) || 0)}
-            className="w-full bg-white border border-slate-300 rounded-[24px] px-4 py-2.5 pl-10 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none"
+            className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-300 rounded-[24px] px-4 py-2.5 pl-10 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none"
           />
         </div>
       </div>
@@ -217,12 +217,12 @@ const ConstructionCostSummary: React.FC = () => {
                 <div key={item.id} className="flex items-center justify-between gap-4">
                   <label className="text-slate-600 flex-1">{item.name}</label>
                   <div className="relative w-40">
-                    <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400" />
+                    <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-600" />
                     <input
                       type="number"
                       value={convertAmount(item.amount) === 0 ? '' : Number(convertAmount(item.amount).toFixed(2))}
                       onChange={(e) => updateItem("grey", item.id, e.target.value)}
-                      className="w-full bg-white border border-slate-300 rounded-[16px] py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
+                      className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-300 rounded-[16px] py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
                     />
                   </div>
                 </div>
@@ -244,12 +244,12 @@ const ConstructionCostSummary: React.FC = () => {
                 <div key={item.id} className="flex items-center justify-between gap-4">
                   <label className="text-slate-600 flex-1">{item.name}</label>
                   <div className="relative w-40">
-                    <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400" />
+                    <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-600" />
                     <input
                       type="number"
                       value={convertAmount(item.amount) === 0 ? '' : Number(convertAmount(item.amount).toFixed(2))}
                       onChange={(e) => updateItem("finish", item.id, e.target.value)}
-                      className="w-full bg-white border border-slate-300 rounded-[16px] py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
+                      className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-300 rounded-[16px] py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
                     />
                   </div>
                 </div>
@@ -271,12 +271,12 @@ const ConstructionCostSummary: React.FC = () => {
                 <div key={item.id} className="flex items-center justify-between gap-4">
                   <label className="text-slate-600 flex-1">{item.name}</label>
                   <div className="relative w-40">
-                    <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400" />
+                    <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-600" />
                     <input
                       type="number"
                       value={convertAmount(item.amount) === 0 ? '' : Number(convertAmount(item.amount).toFixed(2))}
                       onChange={(e) => updateItem("labour", item.id, e.target.value)}
-                      className="w-full bg-white border border-slate-300 rounded-[16px] py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
+                      className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-300 rounded-[16px] py-1.5 pl-6 pr-2 text-right focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none"
                     />
                   </div>
                 </div>
@@ -299,7 +299,7 @@ const ConstructionCostSummary: React.FC = () => {
               <div>
                 <div className="flex justify-between items-center mb-2">
                   <label className="text-sm font-medium text-slate-700">Overhead & Profit (%)</label>
-                  <span className="bg-white px-2 py-1 rounded text-orange-600 font-bold border border-slate-200">{overheadProfitPct}%</span>
+                  <span className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 px-2 py-1 rounded text-orange-600 font-bold border border-slate-200">{overheadProfitPct}%</span>
                 </div>
                 <input
                   type="range"
@@ -315,7 +315,7 @@ const ConstructionCostSummary: React.FC = () => {
               <div>
                 <div className="flex justify-between items-center mb-2">
                   <label className="text-sm font-medium text-slate-700">Contingency (%)</label>
-                  <span className="bg-white px-2 py-1 rounded text-orange-600 font-bold border border-slate-200">{contingencyPct}%</span>
+                  <span className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 px-2 py-1 rounded text-orange-600 font-bold border border-slate-200">{contingencyPct}%</span>
                 </div>
                 <input
                   type="range"
@@ -395,7 +395,7 @@ const ConstructionCostSummary: React.FC = () => {
                   <div className="text-purple-200 text-xs uppercase tracking-wider mb-1">Cost Per Sq Ft</div>
                   <div className="text-2xl font-semibold">{formatCurrency(costPerSqFt)}</div>
                 </div>
-                <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/20 flex items-center justify-center">
                   <PieChartIcon className="w-6 h-6 text-slate-900" />
                 </div>
               </div>

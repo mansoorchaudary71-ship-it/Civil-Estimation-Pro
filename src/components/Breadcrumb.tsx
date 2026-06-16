@@ -20,7 +20,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         return (
           <div key={item.label + index} className="flex items-center whitespace-nowrap">
             {index > 0 && (
-              <ChevronRight className="w-4 h-4 text-slate-400 mx-0.5 sm:mx-1 shrink-0" />
+              <ChevronRight className="w-4 h-4 text-slate-600 mx-0.5 sm:mx-1 shrink-0" />
             )}
             
             {isLast ? (

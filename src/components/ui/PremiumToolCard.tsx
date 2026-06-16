@@ -8,7 +8,7 @@ export default function PremiumToolCard() {
       <div 
         className="absolute inset-0 opacity-[0.02] pointer-events-none" 
         style={{ 
-          backgroundImage: 'radial-gradient(circle at 20% 30%, #0F172A 1px, transparent 1px), radial-gradient(circle at 80% 70%, #0F172A 1px, transparent 1px)', 
+          backgroundImage: 'radial-gradient(circle at 20% 30%, #FFFFFF 1px, transparent 1px), radial-gradient(circle at 80% 70%, #FFFFFF 1px, transparent 1px)', 
           backgroundSize: '30px 30px' 
         }}
       ></div>
@@ -17,10 +17,10 @@ export default function PremiumToolCard() {
       <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-[20px] bg-gradient-to-br from-slate-50 to-slate-100 shadow-inner flex items-center justify-center border border-slate-200/60 shrink-0">
-            <Compass className="w-7 h-7 text-[#0F172A]" strokeWidth={1.5} />
+            <Compass className="w-7 h-7 text-slate-700" strokeWidth={1.5} />
           </div>
           <div>
-            <h2 className="text-2xl font-black text-[#0F172A] tracking-tight">Civil Estimation Pro</h2>
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight">Civil Estimation Pro</h2>
             <p className="text-sm font-semibold text-slate-500 uppercase tracking-wider mt-0.5">Project Overview Dashboard</p>
           </div>
         </div>
@@ -57,24 +57,24 @@ export default function PremiumToolCard() {
                 />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center flex-col">
-                <span className="text-xl font-black text-[#0F172A]">75<span className="text-sm">%</span></span>
+                <span className="text-xl font-black text-slate-900">75<span className="text-sm">%</span></span>
               </div>
             </div>
             <div>
-              <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Completion Rate</h3>
-              <p className="text-3xl font-black text-[#0F172A] tracking-tighter">On Track</p>
+              <h3 className="text-xs font-bold text-slate-600 uppercase tracking-widest mb-1.5">Completion Rate</h3>
+              <p className="text-3xl font-black text-slate-900 tracking-tighter">On Track</p>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="p-6 rounded-[24px] bg-gradient-to-br from-amber-50 to-orange-50/50 border border-amber-100/50 shadow-sm hover:shadow-md transition-shadow">
               <AlertCircle className="w-6 h-6 text-amber-500 mb-4" strokeWidth={2} />
-              <p className="text-3xl font-black text-[#0F172A] mb-1 tracking-tight">2</p>
+              <p className="text-3xl font-black text-slate-900 mb-1 tracking-tight">2</p>
               <p className="text-xs font-bold text-amber-700/80 uppercase tracking-wider">Critical Alerts</p>
             </div>
             <div className="p-6 rounded-[24px] bg-gradient-to-br from-emerald-50 to-teal-50/50 border border-emerald-100/50 shadow-sm hover:shadow-md transition-shadow">
               <CheckCircle2 className="w-6 h-6 text-emerald-500 mb-4" strokeWidth={2} />
-              <p className="text-3xl font-black text-[#0F172A] mb-1 tracking-tight">14</p>
+              <p className="text-3xl font-black text-slate-900 mb-1 tracking-tight">14</p>
               <p className="text-xs font-bold text-emerald-700/80 uppercase tracking-wider">Cleared Tasks</p>
             </div>
           </div>
@@ -83,9 +83,9 @@ export default function PremiumToolCard() {
         {/* Right Column: Bar Chart */}
         <div className="p-6 md:p-8 rounded-[24px] bg-white/80 border border-slate-100 shadow-[0_8px_30px_rgba(15,23,42,0.04)] flex flex-col drop-shadow-sm">
           <div className="flex items-center justify-between mb-8">
-            <h3 className="text-xs font-bold text-[#0F172A] uppercase tracking-widest">Budget Allocation</h3>
+            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-widest">Budget Allocation</h3>
             <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100">
-              <BarChart3 className="w-4 h-4 text-slate-400" />
+              <BarChart3 className="w-4 h-4 text-slate-600" />
             </div>
           </div>
           
@@ -99,7 +99,7 @@ export default function PremiumToolCard() {
               { val: 65, lbl: 'Ohdr' }
             ].map((item, i) => (
               <div key={i} className="relative w-full group h-full flex flex-col justify-end">
-                <div className="absolute bottom-[calc(100%+8px)] w-full text-center opacity-0 group-hover:opacity-100 transition-opacity font-bold text-xs text-[#0F172A] translate-y-2 group-hover:translate-y-0 ease-out">{item.val}%</div>
+                <div className="absolute bottom-[calc(100%+8px)] w-full text-center opacity-0 group-hover:opacity-100 transition-opacity font-bold text-xs text-slate-900 translate-y-2 group-hover:translate-y-0 ease-out">{item.val}%</div>
                 <div 
                   className={`w-full rounded-t-lg transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                     i === 3 
@@ -113,7 +113,7 @@ export default function PremiumToolCard() {
           </div>
           <div className="flex justify-between mt-4 mx-1">
             {['Conc', 'Steel', 'Mas', 'Labor', 'Eqp', 'Ohdr'].map((lbl, i) => (
-              <div key={i} className="text-[10px] font-bold text-slate-400 uppercase tracking-wider truncate max-w-[40px] text-center">{lbl}</div>
+              <div key={i} className="text-[10px] font-bold text-slate-600 uppercase tracking-wider truncate max-w-[40px] text-center">{lbl}</div>
             ))}
           </div>
         </div>

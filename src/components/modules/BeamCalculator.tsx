@@ -186,7 +186,7 @@ export default function BeamCalculator() {
       
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-white rounded-[24px] shadow-sm border border-slate-200 p-6 md:p-8">
+        <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] shadow-sm border border-slate-200 p-6 md:p-8">
           <div className="flex items-center justify-between gap-4 mb-6">
             <div className="flex items-center gap-2">
               <Settings2 className="w-5 h-5 text-indigo-600" />
@@ -198,7 +198,7 @@ export default function BeamCalculator() {
                 onClick={() => setIsPrecast(!isPrecast)}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${isPrecast ? 'bg-indigo-600' : 'bg-slate-300 '}`}
                >
-                 <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${isPrecast ? 'translate-x-6' : 'translate-x-1'}`} />
+                 <span className={`inline-block h-4 w-4 transform rounded-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 transition-transform ${isPrecast ? 'translate-x-6' : 'translate-x-1'}`} />
                </button>
             </div>
           </div>
@@ -255,10 +255,10 @@ export default function BeamCalculator() {
             {isPrecast && (
               <div className="animate-in fade-in slide-in-from-top-2 duration-300 grid grid-cols-1 sm:grid-cols-2 gap-4 bg-indigo-50/50 p-4 rounded-[24px] border border-indigo-100 mt-4">
                 <InputGroup label="Concrete Density (kg/m³)">
-                  <input type="number" value={concreteDensity} onChange={(e) => setConcreteDensity(e.target.value)} className="w-full h-11 bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-indigo-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
+                  <input type="number" value={concreteDensity} onChange={(e) => setConcreteDensity(e.target.value)} className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-indigo-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
                 </InputGroup>
                 <InputGroup label="Lifting Radius (m)">
-                  <input type="number" value={riggingRadius} onChange={(e) => setRiggingRadius(e.target.value)} className="w-full h-11 bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-indigo-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
+                  <input type="number" value={riggingRadius} onChange={(e) => setRiggingRadius(e.target.value)} className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-indigo-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
                 </InputGroup>
               </div>
             )}
@@ -277,7 +277,7 @@ export default function BeamCalculator() {
                   <select
                     value={longitudinalBarsCount}
                     onChange={(e) => setLongitudinalBarsCount(e.target.value)}
-                    className="w-full h-11 bg-white border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                   >
                     <option value="4">4 Bars</option>
                     <option value="6">6 Bars</option>
@@ -291,7 +291,7 @@ export default function BeamCalculator() {
                     <select
                       value={longitudinalBarDia}
                       onChange={(e) => setLongitudinalBarDia(e.target.value)}
-                      className="w-full h-11 bg-white border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                      className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                     >
                       {[12, 16, 20, 25, 32].map(d => (
                         <option key={d} value={d}>{d} mm</option>
@@ -310,14 +310,14 @@ export default function BeamCalculator() {
                       min="1"
                       max={parseInt(longitudinalBarsCount) - 1}
                       onChange={e => handleTensionBarsChange(e.target.value)}
-                      className="w-full h-11 bg-white border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                      className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                     />
                   </InputGroup>
                   <InputGroup label="Bottom Bar Dia (mm)">
                     <select
                       value={tensionBarDia}
                       onChange={e => setTensionBarDia(e.target.value)}
-                      className="w-full h-11 bg-white border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                      className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                     >
                       {[12, 16, 20, 25, 32].map(d => (
                         <option key={d} value={d}>{d} mm</option>
@@ -331,14 +331,14 @@ export default function BeamCalculator() {
                       min="1"
                       max={parseInt(longitudinalBarsCount) - 1}
                       onChange={e => handleCompressionBarsChange(e.target.value)}
-                      className="w-full h-11 bg-white border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                      className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                     />
                   </InputGroup>
                   <InputGroup label="Top Bar Dia (mm)">
                     <select
                       value={compressionBarDia}
                       onChange={e => setCompressionBarDia(e.target.value)}
-                      className="w-full h-11 bg-white border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                      className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                     >
                       {[12, 16, 20, 25, 32].map(d => (
                         <option key={d} value={d}>{d} mm</option>
@@ -356,7 +356,7 @@ export default function BeamCalculator() {
                   <select
                     value={stirrupLegs}
                     onChange={(e) => setStirrupLegs(e.target.value)}
-                    className="w-full h-11 bg-white border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                   >
                     <option value="2">2-Legged Stirrup</option>
                     <option value="4">4-Legged Stirrups</option>
@@ -368,7 +368,7 @@ export default function BeamCalculator() {
                     <select
                       value={stirrupDia}
                       onChange={(e) => setStirrupDia(e.target.value)}
-                      className="w-full h-11 bg-white border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                      className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                     >
                       {[8, 10, 12, 16].map(d => (
                         <option key={d} value={d}>{d} mm</option>
@@ -381,7 +381,7 @@ export default function BeamCalculator() {
                       min="0"
                       value={stirrupSpacing}
                       onChange={(e) => setStirrupSpacing(e.target.value)}
-                      className="w-full h-11 bg-white border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                      className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                     />
                   </InputGroup>
                 </div>
@@ -391,7 +391,7 @@ export default function BeamCalculator() {
 
           <button
             onClick={calculateBeam}
-            className="w-full mt-6 bg-indigo-600 hover:bg-blue-700 text-white font-bold py-4 rounded-[24px] transition-colors mt-8"
+            className="w-full mt-6 bg-indigo-600 hover:bg-blue-700 text-slate-900 font-bold py-4 rounded-[24px] transition-colors mt-8"
           >
             Calculate Beam Quantities
           </button>
@@ -415,11 +415,11 @@ export default function BeamCalculator() {
                       </p>
                       
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-white/60 p-4 rounded-[24px] border border-indigo-100">
+                        <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/60 p-4 rounded-[24px] border border-indigo-100">
                           <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Single Element Wt</span>
                           <span className="text-xl md:text-2xl font-semibold tabular-nums tracking-tight text-slate-800">{(results.elementWeightKg / 1000).toFixed(2)}<span className="text-sm font-medium ml-1 text-slate-500">Tons</span></span>
                         </div>
-                        <div className="bg-white/80 p-4 rounded-[24px] border border-indigo-200 shadow-sm">
+                        <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 p-4 rounded-[24px] border border-indigo-200 shadow-sm">
                           <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Min. Crane Capacity</span>
                           <span className="text-xl md:text-2xl font-semibold tabular-nums tracking-tight text-indigo-700">{results.craneCapacityTonnes.toFixed(2)}<span className="text-sm font-medium ml-1 text-indigo-600/80">Tons</span></span>
                         </div>
@@ -459,7 +459,7 @@ export default function BeamCalculator() {
 
               <div className="mt-8 pt-6 border-t border-slate-200/50">
                 <p className="text-[10px] sm:text-xs font-bold tracking-tight text-slate-500 uppercase tracking-[0.15em] mb-4">Stirrup Cut Length Breakdown ({results.stirrupsCount} sets)</p>
-                <ul className="space-y-3 bg-white/50 rounded-[24px] p-4 shadow-[0_8px_30px_rgba(15,23,42,0.04)] border border-slate-200/50 backdrop-blur-md">
+                <ul className="space-y-3 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/50 rounded-[24px] p-4 shadow-[0_8px_30px_rgba(15,23,42,0.04)] border border-slate-200/50 backdrop-blur-md">
                   {results.stirrupTypes.map((tie, index) => (
                     <li key={index} className="flex justify-between items-end border-b pb-2 last:border-0 last:pb-0">
                       <div>
@@ -475,7 +475,7 @@ export default function BeamCalculator() {
             </div>
           ) : (
             <div className="bg-slate-50/80 [#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(15,23,42,0.04)] [0_8px_30px_rgba(15,23,42,0.2)]">
-              <span className="text-slate-400 font-medium tracking-wide">Enter beam dimensions and reinforcement details to calculate material requirements.</span>
+              <span className="text-slate-600 font-medium tracking-wide">Enter beam dimensions and reinforcement details to calculate material requirements.</span>
             </div>
           )}
         </div>

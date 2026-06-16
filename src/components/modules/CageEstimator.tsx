@@ -88,7 +88,7 @@ export default function CageEstimator() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Input Form */}
-        <div className="bg-white rounded-[24px] p-6 shadow-sm border border-slate-200">
+        <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] p-6 shadow-sm border border-slate-200">
           <h3 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2">
             <Calculator className="w-5 h-5 text-emerald-500" />
             Cage Parameters
@@ -100,7 +100,7 @@ export default function CageEstimator() {
                 onClick={() => setCageType("spiral")}
                 className={`flex-1 py-3 rounded-[24px] text-sm font-bold transition-all ${
                   cageType === "spiral"
-                    ? "bg-white  text-emerald-600 shadow-sm"
+                    ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  text-emerald-600 shadow-sm"
                     : "text-slate-500 hover:text-slate-700"
                 }`}
               >
@@ -110,7 +110,7 @@ export default function CageEstimator() {
                 onClick={() => setCageType("hoop")}
                 className={`flex-1 py-3 rounded-[24px] text-sm font-bold transition-all ${
                   cageType === "hoop"
-                    ? "bg-white  text-emerald-600 shadow-sm"
+                    ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  text-emerald-600 shadow-sm"
                     : "text-slate-500 hover:text-slate-700"
                 }`}
               >
@@ -186,7 +186,7 @@ export default function CageEstimator() {
 
         {/* Results */}
         <div className="bg-slate-50 space-y-6">
-           <div className="bg-emerald-600 rounded-[24px] p-6 text-white shadow-lg relative overflow-hidden">
+           <div className="bg-emerald-600 rounded-[24px] p-6 text-slate-900 shadow-lg relative overflow-hidden">
              <RefreshCw className="absolute -right-6 -bottom-6 w-32 h-32 text-emerald-500 opacity-20" />
               <h3 className="text-emerald-100 text-sm font-bold uppercase tracking-widest mb-1 relative z-10">Total Rebar Weight</h3>
               <div className="flex items-end gap-2 relative z-10">
@@ -196,8 +196,8 @@ export default function CageEstimator() {
            </div>
 
            {results && (
-             <div className="bg-white rounded-[24px] p-6 shadow-sm border border-slate-200">
-                <h3 className="text-sm font-semibold tabular-nums tracking-tight text-slate-400 uppercase tracking-widest mb-4">Detailed Breakdown</h3>
+             <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] p-6 shadow-sm border border-slate-200">
+                <h3 className="text-sm font-semibold tabular-nums tracking-tight text-slate-600 uppercase tracking-widest mb-4">Detailed Breakdown</h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center border-b border-slate-100 pb-3">
                     <span className="text-slate-600 font-medium">Core/Mean Dia</span>

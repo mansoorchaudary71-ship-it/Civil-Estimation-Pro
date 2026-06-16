@@ -74,7 +74,7 @@ export default function TopSoilFillCalculator() {
   const handlePrint = () => window.dispatchEvent(new CustomEvent('global-print-action'));
 
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent text-slate-900 pb-[120px]">
+    <div className="w-full h-full bg-transparent text-slate-900 pb-[120px]">
       <Helmet>
         <title>Top Soil & Fill Calculator</title>
         <meta name="description" content="Calculate loose volume and truck loads required for top soil and fill earthworks." />

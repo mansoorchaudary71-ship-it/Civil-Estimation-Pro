@@ -133,8 +133,8 @@ export default function LintelDesignTool() {
 
   return (
     <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
-      <div className="bg-white dark:bg-slate-900 rounded-[24px] p-6 shadow-sm border border-slate-200 dark:border-slate-800">
-         <h2 className="text-xl font-bold mb-6 text-slate-800 dark:text-slate-200 flex items-center gap-2">
+      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  rounded-[24px] p-6 shadow-sm border border-slate-200 ">
+         <h2 className="text-xl font-bold mb-6 text-slate-800  flex items-center gap-2">
             <Columns className="text-indigo-600" /> Lintel Scheduler & Design Tool
          </h2>
          
@@ -241,7 +241,7 @@ export default function LintelDesignTool() {
                 {/* Diagram visual guide */}
                 <div className="bg-slate-50 border border-slate-100 rounded-3xl p-6 relative overflow-hidden h-40 flex items-end justify-center mt-2 group">
                    <div className="absolute inset-x-0 bottom-0 border-b-8 border-slate-300 w-3/4 mx-auto rounded"></div>
-                   <div className="absolute bottom-2 inset-x-0 flex justify-between px-10 text-xs font-bold text-slate-400">
+                   <div className="absolute bottom-2 inset-x-0 flex justify-between px-10 text-xs font-bold text-slate-600">
                       <span>Support ({Number(bearingLength)}mm)</span>
                       <span>Span ({Number(clearSpan)}m)</span>
                       <span>Support ({Number(bearingLength)}mm)</span>

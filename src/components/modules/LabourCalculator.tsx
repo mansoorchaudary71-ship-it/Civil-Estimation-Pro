@@ -177,14 +177,14 @@ export default function LabourCalculator() {
   };
 
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent text-text-primary p-6 md:p-8">
+    <div className="w-full h-full bg-transparent text-text-primary p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           
           <div className="flex gap-4 items-center">
             <button 
               onClick={handleExportPDF}
-              className="flex items-center gap-2 px-4 py-2 bg-white shadow-sm border border-slate-200 text-slate-900 rounded-[24px] shadow hover:bg-slate-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 shadow-sm border border-slate-200 text-slate-900 rounded-[24px] shadow hover:bg-slate-700 transition-colors"
             >
               <Download className="w-4 h-4" /> Export Bill
             </button>
@@ -212,11 +212,11 @@ export default function LabourCalculator() {
                   const calculation = calculateTaskCost(task);
 
                   return (
-                    <div key={task.id} className="p-5 bg-white border border-slate-200 rounded-[24px] shadow-sm space-y-4 transition-all duration-300 hover:border-indigo-300 relative">
+                    <div key={task.id} className="p-5 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] shadow-sm space-y-4 transition-all duration-300 hover:border-indigo-300 relative">
                       {tasks.length > 1 && (
                         <button 
                           onClick={() => handleRemoveTask(task.id)}
-                          className="absolute top-4 right-4 text-slate-400 hover:text-rose-500 transition-colors p-1"
+                          className="absolute top-4 right-4 text-slate-600 hover:text-rose-500 transition-colors p-1"
                           title="Remove Task"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -267,9 +267,9 @@ export default function LabourCalculator() {
                               className="w-20 bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-[24px] px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
                               placeholder="Qty"
                             />
-                            <span className="text-sm font-semibold text-slate-400">×</span>
+                            <span className="text-sm font-semibold text-slate-600">×</span>
                             <div className="relative flex-1">
-                                <span className="absolute left-3 top-2.5 text-slate-400 text-sm">
+                                <span className="absolute left-3 top-2.5 text-slate-600 text-sm">
                                     {settings.currency.substring(0,2)}
                                 </span>
                                 <input 
@@ -293,9 +293,9 @@ export default function LabourCalculator() {
                               className="w-20 bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-[24px] px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
                               placeholder="Qty"
                             />
-                            <span className="text-sm font-semibold text-slate-400">×</span>
+                            <span className="text-sm font-semibold text-slate-600">×</span>
                             <div className="relative flex-1">
-                                <span className="absolute left-3 top-2.5 text-slate-400 text-sm">
+                                <span className="absolute left-3 top-2.5 text-slate-600 text-sm">
                                     {settings.currency.substring(0,2)}
                                 </span>
                                 <input 
@@ -328,11 +328,11 @@ export default function LabourCalculator() {
                             Daily Gang Cost (Burn): <span className="font-bold text-rose-700">{formatCurrency(calculation.burn)}</span>
                          </div>
                          <div className="w-full md:w-auto flex flex-1 lg:justify-end gap-2 items-center">
-                            <span className="text-slate-400 hidden lg:inline">Efficiency Constant:</span>
+                            <span className="text-slate-600 hidden lg:inline">Efficiency Constant:</span>
                             <input type="number" 
                                   value={task.outputPerWorker} 
                                   onChange={(e) => updateTask(task.id, 'outputPerWorker', parseFloat(e.target.value) || 0)}
-                                  className="w-16 bg-white border border-slate-200 text-center text-slate-700 rounded-lg py-1 outline-none text-xs" />
+                                  className="w-16 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 text-center text-slate-700 rounded-lg py-1 outline-none text-xs" />
                             <span className="text-slate-500">{task.unit} per {task.isUnskilledDriven ? task.unskilledRole : task.skilledRole} / day</span>
                          </div>
                       </div>
@@ -345,7 +345,7 @@ export default function LabourCalculator() {
 
           {/* Sidebar Summary */}
           <div className="space-y-6">
-            <div className="bg-white rounded-[24px] p-6 shadow-sm border border-slate-200">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] p-6 shadow-sm border border-slate-200">
               <h3 className="font-bold text-slate-500 uppercase tracking-wider text-xs mb-4">Overall Project Labour</h3>
               
               <div className="space-y-5">
@@ -359,13 +359,13 @@ export default function LabourCalculator() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-lg font-bold text-rose-400 w-full truncate">{formatCurrency(overallBurnRate)}</p>
-                    <p className="text-xs text-slate-400 mt-0.5">Average Daily Burn</p>
+                    <p className="text-xs text-slate-600 mt-0.5">Average Daily Burn</p>
                   </div>
                   <div>
                     <p className="text-lg font-bold text-emerald-400 flex items-center gap-1">
                       {sequentialDays} <span className="text-xs">Days</span>
                     </p>
-                    <p className="text-xs text-slate-400 mt-0.5">Total Duration</p>
+                    <p className="text-xs text-slate-600 mt-0.5">Total Duration</p>
                   </div>
                 </div>
                 
@@ -375,7 +375,7 @@ export default function LabourCalculator() {
                    <p className="text-lg font-bold text-sky-400 flex items-center gap-1">
                       {tasks.reduce((sum, t) => sum + t.skilledCount + t.unskilledCount, 0)} <span className="text-xs">Workers</span>
                    </p>
-                   <p className="text-xs text-slate-400 mt-0.5">Max Workforce Required</p>
+                   <p className="text-xs text-slate-600 mt-0.5">Max Workforce Required</p>
                 </div>
               </div>
             </div>

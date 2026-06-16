@@ -189,7 +189,7 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
               onClick={() => setActiveCountry(country)}
               className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all shadow-sm
                 ${activeCountry === country 
-                  ? 'bg-amber-500 text-white shadow-md' 
+                  ? 'bg-amber-500 text-slate-900 shadow-md' 
                   : 'bg-white text-[#8B8476] border border-[#E8E4D9] hover:bg-[#F2EFE9] hover:text-[#4A443B]'
                 }`}
             >
@@ -240,7 +240,7 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
                   <div className="mb-6 flex gap-2 flex-wrap">
                     <button
                       onClick={() => setViewPdfUrl(std.pdfLink)}
-                      className="inline-flex items-center gap-2 px-3 py-2 bg-[#F2EFE9] hover:bg-amber-500 hover:text-white border border-[#E8E4D9] rounded-lg text-sm font-bold text-[#4A443B] transition-colors"
+                      className="inline-flex items-center gap-2 px-3 py-2 bg-[#F2EFE9] hover:bg-amber-500 hover:text-slate-900 border border-[#E8E4D9] rounded-lg text-sm font-bold text-[#4A443B] transition-colors"
                     >
                       <Eye className="w-4 h-4" />
                       Read PDF
@@ -294,7 +294,7 @@ export default function StandardsReferencePage({ onNavigate, initialActiveCountr
               } else {
                  window.location.href = '/#tools';
               }
-           }} className="px-8 py-4 bg-amber-500 hover:bg-amber-400 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg">
+           }} className="px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold rounded-xl transition-all shadow-md hover:shadow-lg">
              Explore All Tools
            </button>
         </div>

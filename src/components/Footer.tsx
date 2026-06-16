@@ -22,7 +22,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
           {/* Brand & Market Col - span 2 */}
           <div className="col-span-1 md:col-span-2 flex flex-col gap-5">
             <div className="flex items-center gap-2">
-              <h2 className="text-2xl font-black text-[#0A192F] tracking-tight">
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight">
                 Civil Estimation <span className="text-[#FF5F15]">Pro</span>
               </h2>
             </div>
@@ -33,11 +33,11 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
             {/* Markets Row */}
             <div className="flex items-center gap-2 text-sm text-slate-500 font-medium whitespace-nowrap overflow-x-auto scrollbar-hide py-1">
               <span>🇵🇰 Pakistan</span>
-              <span className="text-slate-300">•</span>
+              <span className="text-slate-700">•</span>
               <span>🇮🇳 India</span>
-              <span className="text-slate-300">•</span>
+              <span className="text-slate-700">•</span>
               <span>🇦🇪 UAE</span>
-              <span className="text-slate-300">•</span>
+              <span className="text-slate-700">•</span>
               <span>🌍 Global</span>
             </div>
 
@@ -57,7 +57,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
             
             {/* Tools Column (New) */}
             <div className="flex flex-col gap-4">
-              <h3 className="text-[11px] font-bold text-[#0A192F] uppercase tracking-widest mb-2">Tools</h3>
+              <h3 className="text-[11px] font-bold text-slate-900 uppercase tracking-widest mb-2">Tools</h3>
               <div className="flex flex-col gap-3">
                 {[
                   { name: 'BOQ Generator', id: 'house' },
@@ -80,7 +80,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
 
             {/* Company Column */}
             <div className="flex flex-col gap-4">
-              <h3 className="text-[11px] font-bold text-[#0A192F] uppercase tracking-widest mb-2">Company</h3>
+              <h3 className="text-[11px] font-bold text-slate-900 uppercase tracking-widest mb-2">Company</h3>
               <div className="flex flex-col gap-3">
                 {['About Us', 'Careers', 'Contact', 'Blog'].map((link) => (
                   <button key={link} className="group relative text-left text-sm text-slate-500 hover:text-[#FF5F15] transition-colors w-fit">
@@ -93,7 +93,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
 
             {/* Legal Column */}
             <div className="flex flex-col gap-4">
-              <h3 className="text-[11px] font-bold text-[#0A192F] uppercase tracking-widest mb-2">Legal</h3>
+              <h3 className="text-[11px] font-bold text-slate-900 uppercase tracking-widest mb-2">Legal</h3>
               <div className="flex flex-col gap-3">
                 {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
                   <button key={link} className="group relative text-left text-sm text-slate-500 hover:text-[#FF5F15] transition-colors w-fit">
@@ -106,7 +106,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
 
             {/* Resources Column */}
             <div className="flex flex-col gap-4">
-              <h3 className="text-[11px] font-bold text-[#0A192F] uppercase tracking-widest mb-2">Resources</h3>
+              <h3 className="text-[11px] font-bold text-slate-900 uppercase tracking-widest mb-2">Resources</h3>
               <div className="flex flex-col gap-3">
                 {['Embed Calculator', 'Link Exchange', 'APIs'].map((link) => (
                   <button key={link} className="group relative text-left text-sm text-slate-500 hover:text-[#FF5F15] transition-colors w-fit">
@@ -122,7 +122,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
         {/* Email Capture Bar */}
         <div className="w-full bg-white/80 backdrop-blur-md border border-slate-100 shadow-xl rounded-2xl p-6 md:p-8 mb-10 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
           <div className="flex flex-col items-center md:items-start text-center md:text-left gap-1">
-            <h3 className="text-lg font-bold text-[#0A192F] flex items-center gap-2">
+            <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
               <MailPlus className="w-5 h-5 text-[#FF5F15]" /> Stay Updated
             </h3>
             <p className="text-slate-500 text-sm">Join our newsletter for new estimation tools and market updates.</p>
@@ -137,7 +137,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
             />
             <button 
               onClick={handleSubscribe} 
-              className="absolute right-1 top-1 bottom-1 px-5 bg-[#FF5F15] hover:bg-[#ea580c] text-white font-bold text-sm rounded-lg transition-colors shadow-sm"
+              className="absolute right-1 top-1 bottom-1 px-5 bg-[#FF5F15] hover:bg-[#ea580c] text-slate-900 font-bold text-sm rounded-lg transition-colors shadow-sm"
             >
               Subscribe
             </button>

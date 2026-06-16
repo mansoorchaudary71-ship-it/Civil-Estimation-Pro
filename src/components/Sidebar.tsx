@@ -463,7 +463,7 @@ export default function Sidebar({
                   : "hover:bg-slate-50/50"
               )}
             >
-              <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-sm bg-[#54a0ff]")}>
+              <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-slate-900 shadow-sm bg-[#54a0ff]")}>
                 <LayoutDashboard className="w-5 h-5" strokeWidth={2} />
               </div>
               <span className={cn(
@@ -480,7 +480,7 @@ export default function Sidebar({
                   : "hover:bg-slate-50/50"
               )}
             >
-              <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-sm bg-[#1dd1a1]")}>
+              <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-slate-900 shadow-sm bg-[#1dd1a1]")}>
                 <Layers className="w-5 h-5" strokeWidth={2} />
               </div>
               <span className={cn(
@@ -497,7 +497,7 @@ export default function Sidebar({
                   : "hover:bg-slate-50/50"
               )}
             >
-              <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-sm bg-[#8b6cff]")}>
+              <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-slate-900 shadow-sm bg-[#8b6cff]")}>
                  <Sparkles className="w-5 h-5" strokeWidth={2} />
               </div>
               <span className={cn(
@@ -525,7 +525,7 @@ export default function Sidebar({
                     <span className="text-[12px] font-bold text-slate-500 uppercase tracking-wider group-hover:text-slate-800 transition-colors">
                       {category.label}
                     </span>
-                    <ChevronDown className={cn("w-4 h-4 text-slate-400 transition-transform duration-300", isCategoryExpanded && "rotate-180")} />
+                    <ChevronDown className={cn("w-4 h-4 text-slate-600 transition-transform duration-300", isCategoryExpanded && "rotate-180")} />
                   </button>
 
                   {/* Primary Tools */}
@@ -538,7 +538,7 @@ export default function Sidebar({
                         switch (category.label) {
                           case "Concrete Tech": iconBg = "bg-[#E55A2B]"; break;
                           case "Quantity Estimator": iconBg = "bg-[#6B46C1]"; break;
-                          case "Road Construction": iconBg = "bg-[#0D9488]"; break;
+                          case "Road Construction": iconBg = "bg-[#FFFFFF]"; break;
                           case "Structural Design": iconBg = "bg-[#BE185D]"; break;
                           case "Soil Tests": iconBg = "bg-[#D97706]"; break;
                           case "MEP": iconBg = "bg-[#2563EB]"; break;
@@ -558,7 +558,7 @@ export default function Sidebar({
                                   : "hover:bg-slate-50/50"
                               )}
                             >
-                              <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white shadow-sm", iconBg)}>
+                              <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-slate-900 shadow-sm", iconBg)}>
                                 <tool.icon className="w-5 h-5" strokeWidth={2} />
                               </div>
                               <span className={cn(
@@ -568,7 +568,7 @@ export default function Sidebar({
                                 {tool.label}
                               </span>
                               {tool.subTools.length > 0 && (
-                                <ChevronDown className={cn("w-4 h-4 transition-transform duration-300 opacity-50 text-slate-400", isToolExpanded && "rotate-180")} />
+                                <ChevronDown className={cn("w-4 h-4 transition-transform duration-300 opacity-50 text-slate-600", isToolExpanded && "rotate-180")} />
                               )}
                             </button>
 

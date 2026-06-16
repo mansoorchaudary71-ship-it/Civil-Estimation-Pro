@@ -99,7 +99,7 @@ export default function EstimationWorkflow({ onSelectModule }: EstimationWorkflo
 
                 {/* Arrow Connector for Desktop over the generic line */}
                 {index < steps.length - 1 && (
-                  <div className="hidden lg:flex absolute top-[calc(4rem-0.75rem)] -right-6 w-12 h-6 items-center justify-center z-20 text-slate-300 group-hover:text-purple-500 group-hover:translate-x-1 transition-all duration-300">
+                  <div className="hidden lg:flex absolute top-[calc(4rem-0.75rem)] -right-6 w-12 h-6 items-center justify-center z-20 text-slate-700 group-hover:text-purple-500 group-hover:translate-x-1 transition-all duration-300">
                     <ArrowRight className="w-6 h-6" />
                   </div>
                 )}
@@ -111,7 +111,7 @@ export default function EstimationWorkflow({ onSelectModule }: EstimationWorkflo
         <div className="mt-14 text-center">
           <button 
             onClick={() => onSelectModule(steps[0].id as ModuleId)}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-full font-bold text-lg shadow-[0_8px_30px_rgba(147,51,234,0.3)] hover:shadow-[0_8px_40px_rgba(147,51,234,0.4)] transition-all hover:-translate-y-1 active:scale-95"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-purple-600 hover:bg-purple-700 text-slate-900 rounded-full font-bold text-lg shadow-[0_8px_30px_rgba(147,51,234,0.3)] hover:shadow-[0_8px_40px_rgba(147,51,234,0.4)] transition-all hover:-translate-y-1 active:scale-95"
           >
             Start Here <ArrowRight className="w-5 h-5" />
           </button>

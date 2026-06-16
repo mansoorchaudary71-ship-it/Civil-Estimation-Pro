@@ -259,7 +259,7 @@ export default function RecentEstimates({
               >
                 {/* Drag Handle Top Left */}
                 <div
-                  className="absolute top-4 left-4 z-20 cursor-grab text-slate-300 hover:text-slate-500 p-1"
+                  className="absolute top-4 left-4 z-20 cursor-grab text-slate-700 hover:text-slate-500 p-1"
                   onPointerDown={(e) => e.stopPropagation()}
                 >
                   <GripVertical className="w-5 h-5" />
@@ -311,7 +311,7 @@ export default function RecentEstimates({
                       <FileText className="w-3 h-3 inline mr-1 opacity-70" />{" "}
                       {est.desc}
                     </p>
-                    <p className="text-[11px] text-slate-400 font-medium">
+                    <p className="text-[11px] text-slate-600 font-medium">
                       Saved: {est.date}
                     </p>
                   </div>

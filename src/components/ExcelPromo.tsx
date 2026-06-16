@@ -20,7 +20,7 @@ export default function ExcelPromo() {
             <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mb-6 shadow-xl">
               <Check className="w-12 h-12 text-green-500" />
             </div>
-            <h2 className="text-3xl md:text-4xl md:text-5xl font-semibold tabular-nums tracking-tight mb-4 uppercase tracking-tight text-white drop-shadow-md">
+            <h2 className="text-3xl md:text-4xl md:text-5xl font-semibold tabular-nums tracking-tight mb-4 uppercase tracking-tight text-slate-900 drop-shadow-md">
               Success! Check your Email
             </h2>
             <p className="text-lg md:text-xl font-semibold text-amber-900 mb-8 max-w-xl mx-auto">
@@ -28,7 +28,7 @@ export default function ExcelPromo() {
             </p>
             <button 
               onClick={() => setIsSubmitted(false)}
-              className="px-6 py-2 bg-slate-900/10 hover:bg-slate-900/20 text-slate-900 font-bold rounded-[16px] transition-colors"
+              className="px-6 py-2 bg-slate-50/10 hover:bg-slate-50/20 text-slate-900 font-bold rounded-[16px] transition-colors"
             >
               Back to Form
             </button>
@@ -42,7 +42,7 @@ export default function ExcelPromo() {
     <div className="w-full max-w-[1400px] mx-auto px-4 lg:px-8 mb-20">
       <div className="bg-gradient-to-br from-[#ffd700] via-[#ffb900] to-[#ffaa00] rounded-[2.5rem] p-1 md:p-2 shadow-[0_20px_50px_rgba(255,170,0,0.3)] relative overflow-hidden group">
         <div className="absolute top-0 right-0 p-8 opacity-20 pointer-events-none transition-transform duration-700 group-hover:scale-110 group-hover:rotate-12">
-          <FileSpreadsheet className="w-64 h-64 text-white" />
+          <FileSpreadsheet className="w-64 h-64 text-slate-900" />
         </div>
         
         {/* Golden Border Wrapper */}
@@ -51,7 +51,7 @@ export default function ExcelPromo() {
           {/* Left Column: Content */}
           <div className="space-y-8">
             <div>
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold tabular-nums tracking-tight uppercase tracking-wider text-xs px-4 py-1.5 rounded-full mb-6 shadow-md shadow-orange-500/20">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold tabular-nums tracking-tight uppercase tracking-wider text-xs px-4 py-1.5 rounded-full mb-6 shadow-md shadow-orange-500/20">
                 <Gift className="w-4 h-4" /> 100% Free Download
               </div>
               <h2 className="text-4xl md:text-4xl md:text-5xl font-semibold tabular-nums tracking-tight text-slate-900 leading-tight mb-4 tracking-tight drop-shadow-sm">
@@ -99,7 +99,7 @@ export default function ExcelPromo() {
           {/* Right Column: Lead Form */}
           <div className="bg-slate-50/80 backdrop-blur-xl rounded-[24px] p-6 md:p-8 border border-slate-200 shadow-xl relative">
             <div className="absolute -top-4 -right-4 w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center border-4 border-white shadow-lg z-10 animate-pulse">
-               <Smartphone className="w-5 h-5 text-white" />
+               <Smartphone className="w-5 h-5 text-slate-900" />
             </div>
 
             <div className="mb-6 text-center">
@@ -111,14 +111,14 @@ export default function ExcelPromo() {
               <div className="space-y-1.5">
                 <label className="text-sm font-semibold text-slate-700">Full Name</label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
                   <input 
                     type="text" 
                     required 
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                     placeholder="Engineer Name"
-                    className="w-full bg-white border border-slate-200 rounded-[24px] py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-400"
+                    className="w-full bg-white border border-slate-200 rounded-[24px] py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-600"
                   />
                 </div>
               </div>
@@ -126,14 +126,14 @@ export default function ExcelPromo() {
               <div className="space-y-1.5">
                 <label className="text-sm font-semibold text-slate-700">Email Address</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
                   <input 
                     type="email" 
                     required 
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                     placeholder="your@email.com"
-                    className="w-full bg-white border border-slate-200 rounded-[24px] py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-400"
+                    className="w-full bg-white border border-slate-200 rounded-[24px] py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-600"
                   />
                 </div>
               </div>
@@ -141,21 +141,21 @@ export default function ExcelPromo() {
               <div className="space-y-1.5">
                 <label className="text-sm font-semibold text-slate-700">WhatsApp Number</label>
                 <div className="relative">
-                  <Smartphone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <Smartphone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
                   <input 
                     type="tel" 
                     required 
                     value={formData.whatsapp}
                     onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
                     placeholder="+91 900 0000000"
-                    className="w-full bg-white border border-slate-200 rounded-[24px] py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-400"
+                    className="w-full bg-white border border-slate-200 rounded-[24px] py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-amber-500 font-medium text-slate-900 placeholder:text-slate-600"
                   />
                 </div>
               </div>
 
               <button 
                 type="submit" 
-                className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-semibold tabular-nums tracking-tight text-[17px] py-4 rounded-[24px] flex items-center justify-center gap-2 shadow-[0_8px_30px_rgba(249,115,22,0.3)] hover:shadow-[0_8px_40px_rgba(249,115,22,0.5)] transition-all hover:-translate-y-1 active:scale-95 border border-white/10 mt-4"
+                className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-slate-900 font-semibold tabular-nums tracking-tight text-[17px] py-4 rounded-[24px] flex items-center justify-center gap-2 shadow-[0_8px_30px_rgba(249,115,22,0.3)] hover:shadow-[0_8px_40px_rgba(249,115,22,0.5)] transition-all hover:-translate-y-1 active:scale-95 border border-white/10 mt-4"
               >
                 <Download className="w-6 h-6" />
                 GET FREE EXCEL PACK

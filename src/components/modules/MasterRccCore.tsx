@@ -193,7 +193,7 @@ export default function MasterRccCore() {
         )}
 
         {elements.map((el, i) => (
-          <div key={el.id} className="p-4 bg-white rounded-[24px] shadow-sm border border-slate-200">
+          <div key={el.id} className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] shadow-sm border border-slate-200">
             <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
               <h3 className="font-bold text-slate-800 capitalize flex items-center gap-2">
                 <span className="bg-slate-100 text-slate-500 w-6 h-6 rounded-full flex items-center justify-center text-xs">{i + 1}</span>
@@ -307,21 +307,21 @@ export default function MasterRccCore() {
                 <div>
                   <label className="text-xs font-bold text-slate-500 mb-1 block">Steel % of Concrete Volume</label>
                   <p className="text-[10px] text-slate-400 mb-2">Typically slabs 1%, columns 2-2.5%, beams 1-2%, stairs 1%</p>
-                  <input value={el.thumbPercentage} onChange={(e) => updateElement(el.id, 'thumbPercentage', e.target.value)} type="number" step="0.1" className="w-32 h-10 px-3 bg-white border border-slate-200 rounded-[12px] text-sm focus:outline-none" />
+                  <input value={el.thumbPercentage} onChange={(e) => updateElement(el.id, 'thumbPercentage', e.target.value)} type="number" step="0.1" className="w-32 h-10 px-3 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[12px] text-sm focus:outline-none" />
                 </div>
               ) : (
                 <div className="grid grid-cols-3 gap-4">
                   <div>
                     <label className="text-xs font-bold text-slate-500 mb-1 block">Bar Dia (mm)</label>
-                    <input value={el.mainDia} onChange={(e) => updateElement(el.id, 'mainDia', e.target.value)} type="number" className="w-full h-10 px-3 bg-white border border-slate-200 rounded-[12px] text-sm focus:outline-none" />
+                    <input value={el.mainDia} onChange={(e) => updateElement(el.id, 'mainDia', e.target.value)} type="number" className="w-full h-10 px-3 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[12px] text-sm focus:outline-none" />
                   </div>
                   <div>
                     <label className="text-xs font-bold text-slate-500 mb-1 block">Spacing / c/c (mm)</label>
-                    <input value={el.mainSpacing} onChange={(e) => updateElement(el.id, 'mainSpacing', e.target.value)} type="number" className="w-full h-10 px-3 bg-white border border-slate-200 rounded-[12px] text-sm focus:outline-none" />
+                    <input value={el.mainSpacing} onChange={(e) => updateElement(el.id, 'mainSpacing', e.target.value)} type="number" className="w-full h-10 px-3 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[12px] text-sm focus:outline-none" />
                   </div>
                   <div>
                     <label className="text-xs font-bold text-slate-500 mb-1 block">Bar Length (m)</label>
-                    <input value={el.longLength} onChange={(e) => updateElement(el.id, 'longLength', e.target.value)} type="number" className="w-full h-10 px-3 bg-white border border-slate-200 rounded-[12px] text-sm focus:outline-none" />
+                    <input value={el.longLength} onChange={(e) => updateElement(el.id, 'longLength', e.target.value)} type="number" className="w-full h-10 px-3 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[12px] text-sm focus:outline-none" />
                   </div>
                 </div>
               )}

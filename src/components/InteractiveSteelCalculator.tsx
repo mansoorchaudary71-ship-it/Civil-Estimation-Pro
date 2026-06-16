@@ -88,7 +88,7 @@ export default function InteractiveSteelCalculator({
                   className="block w-full rounded-[24px] border-slate-200 bg-slate-50 py-4 pl-5 pr-16 text-xl font-semibold text-slate-700 shadow-sm border focus:ring-0 focus:border-slate-300 transition-colors cursor-default"
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-5 pointer-events-none">
-                  <span className="text-slate-400 font-semibold text-lg">
+                  <span className="text-slate-600 font-semibold text-lg">
                     mm
                   </span>
                 </div>
@@ -121,7 +121,7 @@ export default function InteractiveSteelCalculator({
               </div>
               <p className="mt-2 text-sm text-slate-500 flex items-center">
                 <svg
-                  className="w-4 h-4 mr-1.5 text-slate-400"
+                  className="w-4 h-4 mr-1.5 text-slate-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -140,28 +140,28 @@ export default function InteractiveSteelCalculator({
         </div>
 
         {/* Results UI */}
-        <div className="relative p-6 sm:p-8 lg:col-span-2 bg-slate-900 overflow-hidden flex flex-col justify-center">
+        <div className="relative p-6 sm:p-8 lg:col-span-2 bg-slate-50 overflow-hidden flex flex-col justify-center">
           <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-indigo-600 opacity-20 blur-3xl mix-blend-screen pointer-events-none"></div>
           <div className="absolute -bottom-24 -left-24 w-64 h-64 rounded-full bg-blue-500 opacity-20 blur-3xl mix-blend-screen pointer-events-none"></div>
 
           <div className="relative z-10">
-            <div className="inline-flex items-center px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-[11px] font-bold uppercase tracking-widest text-indigo-300 mb-6">
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/50 border border-slate-200 text-[11px] font-bold uppercase tracking-widest text-indigo-300 mb-6">
               <span className="w-2 h-2 rounded-full bg-indigo-400 mr-2 animate-pulse"></span>
               Calculated Output
             </div>
 
-            <div className="mb-2 text-slate-400 font-medium text-sm lg:text-base">
+            <div className="mb-2 text-slate-600 font-medium text-sm lg:text-base">
               Total Estimated Weight
             </div>
             <div className="flex items-baseline gap-2 mb-10 text-wrap break-all">
-              <span className="text-4xl sm:text-5xl font-bold tabular-nums tracking-tight text-white">
+              <span className="text-4xl sm:text-5xl font-bold tabular-nums tracking-tight text-slate-900">
                 {weight}
               </span>
-              <span className="text-xl font-semibold text-slate-400 whitespace-nowrap">kg</span>
+              <span className="text-xl font-semibold text-slate-600 whitespace-nowrap">kg</span>
             </div>
 
-            <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl p-5 border border-slate-700">
-              <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center">
+            <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-5 border border-slate-200">
+              <h4 className="text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-4 flex items-center">
                 <svg
                   className="w-3.5 h-3.5 mr-1.5"
                   fill="none"
@@ -179,11 +179,11 @@ export default function InteractiveSteelCalculator({
               </h4>
               <div className="space-y-3">
                 <div
-                  className={`flex justify-between items-center pb-3 border-b border-slate-700/50 transition-opacity ${
+                  className={`flex justify-between items-center pb-3 border-b border-slate-200 transition-opacity ${
                     unit === "m" ? "opacity-100" : "opacity-40"
                   }`}
                 >
-                  <span className="text-sm text-slate-300">
+                  <span className="text-sm text-slate-700">
                     Metric (per meter)
                   </span>
                   <span className="font-mono text-[13px] sm:text-sm font-semibold text-indigo-300 bg-indigo-100 px-2 py-0.5 rounded">
@@ -195,7 +195,7 @@ export default function InteractiveSteelCalculator({
                     unit === "ft" ? "opacity-100" : "opacity-40"
                   }`}
                 >
-                  <span className="text-sm text-slate-300">
+                  <span className="text-sm text-slate-700">
                     Imperial (per foot)
                   </span>
                   <span className="font-mono text-[13px] sm:text-sm font-semibold text-indigo-300 bg-indigo-100 px-2 py-0.5 rounded">

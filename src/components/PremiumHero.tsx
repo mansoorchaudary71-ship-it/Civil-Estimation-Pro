@@ -22,7 +22,7 @@ export default function PremiumHero() {
             <div className="flex -space-x-2">
               {[1, 2, 3, 4, 5].map((i) => (
                 <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden">
-                  <User className="w-4 h-4 text-slate-400" />
+                  <User className="w-4 h-4 text-slate-600" />
                 </div>
               ))}
             </div>
@@ -34,7 +34,7 @@ export default function PremiumHero() {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
-          <button className="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-full shadow-md transition-all active:scale-95">
+          <button className="flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 bg-purple-600 hover:bg-purple-700 text-slate-900 font-bold rounded-full shadow-md transition-all active:scale-95">
             Start Estimating for Free
             <ArrowRight className="w-4 h-4" />
           </button>

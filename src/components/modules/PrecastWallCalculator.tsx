@@ -60,7 +60,7 @@ export default function PrecastWallCalculator() {
   const handlePrint = () => window.dispatchEvent(new CustomEvent('global-print-action'));
 
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent text-slate-900 pb-[120px]">
+    <div className="w-full h-full bg-transparent text-slate-900 pb-[120px]">
       <Helmet>
         <title>Precast Compound Wall Calculator</title>
         <meta name="description" content="Calculate precast slabs, posts, and costs for boundary walls." />
@@ -88,7 +88,7 @@ export default function PrecastWallCalculator() {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Input Panel */}
           <div className="w-full md:w-[45%] flex flex-col gap-6">
-            <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm relative overflow-hidden">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-6 rounded-[24px] border border-slate-200 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
               
               <h3 className="font-bold text-lg text-slate-800 mb-6 border-b border-slate-100 pb-4">
@@ -197,7 +197,7 @@ export default function PrecastWallCalculator() {
               </ul>
             </div>
             
-            <div className="bg-white p-5 rounded-[24px] border border-slate-200 shadow-sm">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-5 rounded-[24px] border border-slate-200 shadow-sm">
               <h4 className="font-bold text-slate-800 mb-3 uppercase tracking-wide text-xs">Frequently Asked Questions</h4>
               <div className="space-y-3">
                 <div className="p-3 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-100">
@@ -214,7 +214,7 @@ export default function PrecastWallCalculator() {
               <ProcessingSkeleton count={5} />
             ) : hasData && estimateData ? (
               <div className="space-y-6">
-                <div className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-lg relative">
+                <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-lg relative">
                   
                   <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-100 pb-6 mb-6">
                     <div>

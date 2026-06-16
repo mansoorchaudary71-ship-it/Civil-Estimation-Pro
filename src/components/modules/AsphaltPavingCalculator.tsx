@@ -20,7 +20,7 @@ export default function AsphaltPavingCalculator() {
         <UniversalTabs tabs={[{id: "tack", label: "Tack Coat", icon: <Droplet className="w-5 h-5" />}]} activeTab={activeTab === "tack" ? "tack" : ""} onTabChange={() => setActiveTab("tack")} />
       </div>
 
-      <div className="bg-white rounded-[24px] shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] shadow-sm border border-slate-200 overflow-hidden">
         <div className="p-6 md:p-8">
           {activeTab === "asphalt" && <AsphaltCalculator />}
           {activeTab === "prime" && <PrimeCoatCalculator />}
@@ -175,7 +175,7 @@ function AsphaltCalculator() {
             </MaterialSummary>
           ) : (
             <div className="bg-slate-50/80 [#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(15,23,42,0.04)] [0_8px_30px_rgba(15,23,42,0.2)]">
-              <span className="text-slate-400 font-medium tracking-wide">Enter length, width, and thickness to calculate asphalt tonnage.</span>
+              <span className="text-slate-600 font-medium tracking-wide">Enter length, width, and thickness to calculate asphalt tonnage.</span>
             </div>
           )}
         </div>
@@ -256,7 +256,7 @@ function PrimeCoatCalculator() {
               className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-slate-400 focus:border-slate-400 outline-none transition-all"
               placeholder="Standard: 0.8 - 1.2"
             />
-            <p className="text-xs text-slate-400 mt-1">Default is ~1.0 L/m² for WBM/WMM surfaces.</p>
+            <p className="text-xs text-slate-600 mt-1">Default is ~1.0 L/m² for WBM/WMM surfaces.</p>
           </InputGroup>
         </div>
 
@@ -272,7 +272,7 @@ function PrimeCoatCalculator() {
              </MaterialSummary>
           ) : (
             <div className="bg-slate-50/80 [#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(15,23,42,0.04)] [0_8px_30px_rgba(15,23,42,0.2)]">
-              <span className="text-slate-400 font-medium tracking-wide">Enter area and application rate to calculate prime coat.</span>
+              <span className="text-slate-600 font-medium tracking-wide">Enter area and application rate to calculate prime coat.</span>
             </div>
           )}
         </div>
@@ -350,7 +350,7 @@ function TackCoatCalculator() {
               className="w-full h-12 bg-slate-50 border border-slate-200 rounded-[24px] px-4 text-slate-800 font-bold focus:ring-2 focus:ring-slate-400 focus:border-slate-400 outline-none transition-all"
               placeholder="Standard: 0.2 - 0.3"
             />
-            <p className="text-xs text-slate-400 mt-1">Default is ~0.25 L/m² for bituminous surfaces.</p>
+            <p className="text-xs text-slate-600 mt-1">Default is ~0.25 L/m² for bituminous surfaces.</p>
           </InputGroup>
         </div>
 
@@ -366,7 +366,7 @@ function TackCoatCalculator() {
              </MaterialSummary>
           ) : (
             <div className="bg-slate-50/80 [#1A1C24]/80 backdrop-blur-3xl border border-slate-200/50 rounded-[32px] p-6 lg:p-12 text-center flex items-center justify-center h-full shadow-[0_8px_30px_rgba(15,23,42,0.04)] [0_8px_30px_rgba(15,23,42,0.2)]">
-              <span className="text-slate-400 font-medium tracking-wide">Enter area and application rate to calculate tack coat.</span>
+              <span className="text-slate-600 font-medium tracking-wide">Enter area and application rate to calculate tack coat.</span>
             </div>
           )}
         </div>

@@ -207,8 +207,8 @@ export default function BeamDesignTool() {
 
   return (
     <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
-      <div className="bg-white dark:bg-slate-900 rounded-[24px] p-6 shadow-sm border border-slate-200 dark:border-slate-800">
-         <h2 className="text-xl font-bold mb-6 text-slate-800 dark:text-slate-200 flex items-center gap-2">
+      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  rounded-[24px] p-6 shadow-sm border border-slate-200 ">
+         <h2 className="text-xl font-bold mb-6 text-slate-800  flex items-center gap-2">
             <Layers className="text-rose-600" /> Beam Design (Limit State - IS 456)
          </h2>
          
@@ -225,7 +225,7 @@ export default function BeamDesignTool() {
                       </div>
                       <button 
                         onClick={handleAiSafetyFactor}
-                        className="h-11 px-4 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:hover:bg-indigo-800/40 text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center transition-colors shadow-sm"
+                        className="h-11 px-4 bg-indigo-50 hover:bg-indigo-100   text-indigo-600  rounded-xl flex items-center justify-center transition-colors shadow-sm"
                         title="AI-Suggested Safety Factor based on Project Settings"
                       >
                         <Sparkles className="w-4 h-4 mr-1.5" /> AI Suggest
@@ -334,7 +334,7 @@ export default function BeamDesignTool() {
                           </div>
                           <div className="flex justify-between items-center text-sm pt-2 border-t border-slate-200">
                             <span className={results.shearSafe ? "text-slate-800 font-medium" : "text-rose-800 font-medium"}>Stirrup Spacing</span>
-                            <span className={`text-xs font-mono font-bold px-2 py-1 rounded bg-white border ${results.shearSafe ? "border-slate-200 text-slate-800" : "border-rose-200 text-rose-800"}`}>{results.providedSvStr}</span>
+                            <span className={`text-xs font-mono font-bold px-2 py-1 rounded bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border ${results.shearSafe ? "border-slate-200 text-slate-800" : "border-rose-200 text-rose-800"}`}>{results.providedSvStr}</span>
                           </div>
                            <div className="flex justify-between items-center text-sm pt-2 border-t border-slate-200 mt-2">
                             <span className={results.shearSafe ? "text-slate-800 font-medium" : "text-rose-800 font-medium"}>Dev. Length (Ld)</span>

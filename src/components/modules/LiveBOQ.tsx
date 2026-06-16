@@ -71,12 +71,12 @@ function BOQRow({
           className="bg-transparent appearance-none rounded focus:ring-1 focus:ring-blue-500 py-0.5 outline-none cursor-pointer max-w-[4rem] border border-transparent hover:border-slate-200"
         >
           {COMMON_UNITS.map((u) => (
-            <option key={u} value={u} className="bg-white">
+            <option key={u} value={u} className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500">
               {u}
             </option>
           ))}
           {!COMMON_UNITS.includes(row.unit) && (
-            <option value={row.unit} className="bg-white">
+            <option value={row.unit} className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500">
               {row.unit}
             </option>
           )}
@@ -143,7 +143,7 @@ function BOQRow({
               className="fixed inset-0 z-10"
               onClick={() => setDropdownOpen(false)}
             />
-            <div className="absolute right-3 top-8 w-44 bg-white border border-slate-200 rounded-[16px] shadow-xl z-20 py-2 flex flex-col gap-1 max-h-48 overflow-y-auto">
+            <div className="absolute right-3 top-8 w-44 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[16px] shadow-xl z-20 py-2 flex flex-col gap-1 max-h-48 overflow-y-auto">
               <div className="px-2 pb-1 border-b border-slate-200 mb-1">
                 <span className="text-[10px] text-slate-700 font-semibold uppercase">
                   Measurements
@@ -319,7 +319,7 @@ export default function LiveBOQ() {
   };
   return (
     <div className="flex flex-col h-full text-slate-900 p-8 relative">
-      <div className="flex-1 bg-white border border-slate-200 rounded-[24px] flex flex-col overflow-hidden">
+      <div className="flex-1 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col overflow-hidden">
         {/* Header */}
         <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between shrink-0 flex-wrap gap-4">
           <div>
@@ -338,7 +338,7 @@ export default function LiveBOQ() {
             >
               <Download className="w-[14px] h-[14px]" /> Export Report
             </button>
-            <button className="px-3 py-1.5 text-xs bg-indigo-600 font-medium text-white rounded hover:bg-indigo-500 transition-colors flex items-center gap-1.5 shadow-sm">
+            <button className="px-3 py-1.5 text-xs bg-indigo-600 font-medium text-slate-900 rounded hover:bg-indigo-500 transition-colors flex items-center gap-1.5 shadow-sm">
               <Plus className="w-[14px] h-[14px]" /> Add Item
             </button>
           </div>
@@ -375,7 +375,7 @@ export default function LiveBOQ() {
                 </th>
               </tr>
             </thead>
-            <tbody className="text-slate-300 divide-y divide-slate-200">
+            <tbody className="text-slate-700 divide-y divide-slate-200">
               {boqItems.map((row) => (
                 <BOQRow
                   key={row.id}
@@ -413,8 +413,8 @@ export default function LiveBOQ() {
       </div>
       {/* Export Modal */}
       {showExportModal && (
-        <div className="absolute inset-0 bg-slate-900/60 flex items-center justify-center z-50">
-          <div className="bg-white border border-slate-200 rounded-[16px] p-6 max-w-sm w-full shadow-2xl">
+        <div className="absolute inset-0 bg-slate-50/60 flex items-center justify-center z-50">
+          <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[16px] p-6 max-w-sm w-full shadow-2xl">
             <h3 className="text-sm font-semibold mb-4 text-slate-900 flex items-center gap-2">
               <Download className="w-[16px] h-[16px] text-blue-400" /> Generate
               Professional Report

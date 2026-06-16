@@ -128,7 +128,7 @@ export default function QSWorkflow() {
     <div className="w-full max-w-7xl mx-auto pb-24 animate-in fade-in duration-500">
       
       {/* HEADER SECTION */}
-      <div className="bg-white border border-slate-200 p-6 md:p-8 rounded-[2rem] shadow-sm mb-6 flex justify-between items-center no-print">
+      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-6 md:p-8 rounded-[2rem] shadow-sm mb-6 flex justify-between items-center no-print">
          <div>
            <h2 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 tracking-tight flex items-center gap-3">
              <div className="p-3 bg-blue-50 text-blue-600 rounded-[24px]">
@@ -178,7 +178,7 @@ export default function QSWorkflow() {
       </div>
 
       {/* WIZARD CONTENT BOX */}
-      <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm p-6 md:p-10 no-print">
+      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[2rem] shadow-sm p-6 md:p-10 no-print">
          
          {/* -- STEP 1 -- */}
          {currentStep === 1 && (
@@ -217,7 +217,7 @@ export default function QSWorkflow() {
                         <Map className="w-12 h-12 text-slate-400 mb-3" />
                         <h4 className="font-bold text-lg">Upload Architectural / Structural Drawings</h4>
                         <p className="text-slate-500 text-sm mb-4">PDF, DWG or Image formats</p>
-                        <button onClick={() => setDrawingsLoaded(true)} className="px-6 py-2 bg-white text-slate-900 rounded-[16px] font-bold border border-slate-200 shadow-sm">Simulate Upload</button>
+                        <button onClick={() => setDrawingsLoaded(true)} className="px-6 py-2 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-slate-900 rounded-[16px] font-bold border border-slate-200 shadow-sm">Simulate Upload</button>
                      </div>
                   )}
                </div>
@@ -238,15 +238,15 @@ export default function QSWorkflow() {
                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                  <div className="bg-amber-50/50 p-5 rounded-[24px] border border-amber-100">
                     <label className="block text-sm font-bold mb-2">Earthwork (Excavation) - m³</label>
-                    <input type="number" value={substructure.excavation} onChange={e=>setSubstructure({...substructure, excavation: +e.target.value})} className="w-full px-4 py-3 bg-white border-amber-200 rounded-[24px] font-bold" />
+                    <input type="number" value={substructure.excavation} onChange={e=>setSubstructure({...substructure, excavation: +e.target.value})} className="w-full px-4 py-3 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border-amber-200 rounded-[24px] font-bold" />
                  </div>
                  <div className="bg-amber-50/50 p-5 rounded-[24px] border border-amber-100">
                     <label className="block text-sm font-bold mb-2">Footing PCC/RCC - m³</label>
-                    <input type="number" value={substructure.footingConc} onChange={e=>setSubstructure({...substructure, footingConc: +e.target.value})} className="w-full px-4 py-3 bg-white border-amber-200 rounded-[24px] font-bold" />
+                    <input type="number" value={substructure.footingConc} onChange={e=>setSubstructure({...substructure, footingConc: +e.target.value})} className="w-full px-4 py-3 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border-amber-200 rounded-[24px] font-bold" />
                  </div>
                  <div className="bg-amber-50/50 p-5 rounded-[24px] border border-amber-100">
                     <label className="block text-sm font-bold mb-2">Plinth Beam RCC - m³</label>
-                    <input type="number" value={substructure.plinthBeam} onChange={e=>setSubstructure({...substructure, plinthBeam: +e.target.value})} className="w-full px-4 py-3 bg-white border-amber-200 rounded-[24px] font-bold" />
+                    <input type="number" value={substructure.plinthBeam} onChange={e=>setSubstructure({...substructure, plinthBeam: +e.target.value})} className="w-full px-4 py-3 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border-amber-200 rounded-[24px] font-bold" />
                  </div>
                </div>
             </div>
@@ -399,7 +399,7 @@ export default function QSWorkflow() {
       {/* -- STEP 8 (FINAL REPORT) -- */}
       {currentStep === 8 && (
          <div className="mt-6 print-container animate-in slide-in-from-bottom-4 duration-500">
-            <div className="bg-white text-slate-900 p-10 shadow-xl border rounded-[2rem] border-slate-200 min-h-[1056px] relative">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-slate-900 p-10 shadow-xl border rounded-[2rem] border-slate-200 min-h-[1056px] relative">
                
                <div className="absolute top-0 left-0 w-full h-4 bg-indigo-600 rounded-t-[2rem]"></div>
 

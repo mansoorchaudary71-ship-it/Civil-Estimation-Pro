@@ -168,8 +168,8 @@ export default function ColumnDesignTool() {
 
   return (
     <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
-      <div className="bg-white dark:bg-slate-900 rounded-[24px] p-6 shadow-sm border border-slate-200 dark:border-slate-800">
-         <h2 className="text-xl font-bold mb-6 text-slate-800 dark:text-slate-200 flex items-center gap-2">
+      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  rounded-[24px] p-6 shadow-sm border border-slate-200 ">
+         <h2 className="text-xl font-bold mb-6 text-slate-800  flex items-center gap-2">
             <Columns className="text-rose-600" /> Column Design & P-M Interaction
          </h2>
 
@@ -186,7 +186,7 @@ export default function ColumnDesignTool() {
                       </div>
                       <button 
                         onClick={handleAiSafetyFactor}
-                        className="h-11 px-4 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:hover:bg-indigo-800/40 text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center transition-colors shadow-sm"
+                        className="h-11 px-4 bg-indigo-50 hover:bg-indigo-100   text-indigo-600  rounded-xl flex items-center justify-center transition-colors shadow-sm"
                         title="AI-Suggested Safety Factor based on Project Settings"
                       >
                         <Sparkles className="w-4 h-4 mr-1.5" /> AI Suggest
@@ -295,7 +295,7 @@ export default function ColumnDesignTool() {
                             <Scatter 
                                 name="Applied Load (Pu, Mu)" 
                                 data={[{ M: results.designMoment, P: (Number(workingLoad) * Number(safetyFactor)) || 0 }]} 
-                                fill={results.isSafe ? "#0d9488" : "#e11d48"} 
+                                fill={results.isSafe ? "#FFFFFF" : "#e11d48"} 
                                 shape="circle"
                             />
                         </ComposedChart>

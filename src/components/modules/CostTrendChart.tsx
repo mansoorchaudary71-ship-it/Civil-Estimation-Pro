@@ -213,7 +213,7 @@ export function CostTrendChart() {
         .attr('transform', `translate(${ann.dx},${ann.dy - 12})`);
       
       textGroup.append('text')
-        .attr('class', 'fill-slate-800 dark:fill-slate-200')
+        .attr('class', 'fill-slate-800 ')
         .style('font-family', 'var(--font-sans)')
         .style('font-size', '12px')
         .style('font-weight', '700')
@@ -221,7 +221,7 @@ export function CostTrendChart() {
         .text(ann.label);
         
       textGroup.append('text')
-        .attr('class', 'fill-slate-500 dark:fill-slate-400')
+        .attr('class', 'fill-slate-500 ')
         .style('font-family', 'var(--font-sans)')
         .style('font-size', '10px')
         .style('font-weight', '500')
@@ -286,11 +286,11 @@ export function CostTrendChart() {
   }, [data, formatCurrency]);
 
   return (
-    <div className="bg-slate-50 dark:bg-slate-900 rounded-[24px] shadow-sm border border-slate-200 dark:border-slate-800 p-6 w-full relative">
+    <div className="bg-slate-50  rounded-[24px] shadow-sm border border-slate-200  p-6 w-full relative">
       <div className="flex justify-between items-center mb-2">
         <div>
-          <h3 className="text-lg font-bold text-slate-800 dark:text-white">Historical Cost Trend</h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Estimates trajectory over time based on project history</p>
+          <h3 className="text-lg font-bold text-slate-800 ">Historical Cost Trend</h3>
+          <p className="text-xs text-slate-500  mt-1">Estimates trajectory over time based on project history</p>
         </div>
       </div>
       <div ref={containerRef} className="w-full relative h-[300px] mt-4">

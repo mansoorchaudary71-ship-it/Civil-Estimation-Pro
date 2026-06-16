@@ -72,7 +72,7 @@ export default function GridEarthworkEstimator() {
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <section className="space-y-6">
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
                 <div className="p-2.5 bg-blue-50 text-indigo-600 rounded-[24px]">
                   <Grid2X2 className="w-5 h-5" />
@@ -112,7 +112,7 @@ export default function GridEarthworkEstimator() {
                 </span>
               </div>
             </div>
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
                 <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-[24px]">
                   <Layers className="w-5 h-5" />
@@ -126,7 +126,7 @@ export default function GridEarthworkEstimator() {
                 <div className="absolute top-1/2 left-6 right-6 h-0.5 bg-gray-100 -translate-y-1/2" />
                 <div className="absolute left-1/2 top-6 bottom-6 w-0.5 bg-gray-100 -translate-x-1/2" />
                 {/* Top Left */}
-                <div className="bg-white border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors">
+                <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors">
                   <h3 className="text-sm font-bold text-gray-700 mb-3 flex items-center justify-between">
                     Top Left
                     <span className="text-[10px] uppercase bg-gray-100 px-2 py-1 rounded-[16px] text-gray-700">
@@ -163,7 +163,7 @@ export default function GridEarthworkEstimator() {
                   </div>
                 </div>
                 {/* Top Right */}
-                <div className="bg-white border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors">
+                <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors">
                   <h3 className="text-sm font-bold text-gray-700 mb-3 flex items-center justify-between">
                     Top Right
                     <span className="text-[10px] uppercase bg-gray-100 px-2 py-1 rounded-[16px] text-gray-700">
@@ -200,7 +200,7 @@ export default function GridEarthworkEstimator() {
                   </div>
                 </div>
                 {/* Bottom Left */}
-                <div className="bg-white border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors">
+                <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors">
                   <h3 className="text-sm font-bold text-gray-700 mb-3 flex items-center justify-between">
                     Bottom Left
                     <span className="text-[10px] uppercase bg-gray-100 px-2 py-1 rounded-[16px] text-gray-700">
@@ -237,7 +237,7 @@ export default function GridEarthworkEstimator() {
                   </div>
                 </div>
                 {/* Bottom Right */}
-                <div className="bg-white border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors">
+                <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border-2 border-gray-100 px-4 py-3 rounded-[24px] relative z-10 shadow-sm hover:border-blue-200 transition-colors">
                   <h3 className="text-sm font-bold text-gray-700 mb-3 flex items-center justify-between">
                     Bottom Right
                     <span className="text-[10px] uppercase bg-gray-100 px-2 py-1 rounded-[16px] text-gray-700">

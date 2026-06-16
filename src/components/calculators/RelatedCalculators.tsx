@@ -139,7 +139,7 @@ export function RelatedCalculators({ category, currentSlug }: RelatedCalculators
         {categoryHubLinks.map((link, idx) => (
           <a key={`hub-${idx}`} href={link.url} className="group px-4 py-3 bg-indigo-600 rounded-[24px] border border-indigo-500 hover:bg-indigo-700 shadow-lg shadow-indigo-600/30 transition-all flex flex-col justify-center items-start">
             <span className="text-xs font-bold text-indigo-200 uppercase tracking-wider mb-2">{link.label}</span>
-            <span className="text-sm font-bold text-white capitalize leading-snug">{link.title}</span>
+            <span className="text-sm font-bold text-slate-900 capitalize leading-snug">{link.title}</span>
           </a>
         ))}
       </div>

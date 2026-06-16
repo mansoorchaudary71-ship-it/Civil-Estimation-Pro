@@ -74,7 +74,7 @@ export default function StandardEarthworks() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Inputs Section */}
           <section className="space-y-6">
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
                 <div className="p-2.5 bg-blue-50 text-indigo-600 rounded-[24px]">
                   <Ruler className="w-5 h-5" />
@@ -91,13 +91,13 @@ export default function StandardEarthworks() {
                   <div className="flex bg-gray-100/80 p-1 rounded-[24px]">
                     <button
                       onClick={() => setCalcMethod("prismoidal")}
-                      className={`flex-1 py-1.5 text-sm font-semibold rounded-[24px] transition-all ${calcMethod === "prismoidal" ? "bg-white shadow-[0_2px_10px_rgb(0,0,0,0.05)] text-indigo-600" : "text-gray-700  hover:text-gray-700"}`}
+                      className={`flex-1 py-1.5 text-sm font-semibold rounded-[24px] transition-all ${calcMethod === "prismoidal" ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 shadow-[0_2px_10px_rgb(0,0,0,0.05)] text-indigo-600" : "text-gray-700  hover:text-gray-700"}`}
                     >
                       Prismoidal Formula
                     </button>
                     <button
                       onClick={() => setCalcMethod("averageEnd")}
-                      className={`flex-1 py-1.5 text-sm font-semibold rounded-[24px] transition-all ${calcMethod === "averageEnd" ? "bg-white shadow-[0_2px_10px_rgb(0,0,0,0.05)] text-indigo-600" : "text-gray-700  hover:text-gray-700"}`}
+                      className={`flex-1 py-1.5 text-sm font-semibold rounded-[24px] transition-all ${calcMethod === "averageEnd" ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 shadow-[0_2px_10px_rgb(0,0,0,0.05)] text-indigo-600" : "text-gray-700  hover:text-gray-700"}`}
                     >
                       Average End Area
                     </button>
@@ -176,7 +176,7 @@ export default function StandardEarthworks() {
                 )}
               </div>
             </div>
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
                 <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-[24px]">
                   <Truck className="w-5 h-5" />
@@ -225,7 +225,7 @@ export default function StandardEarthworks() {
               </div>
             </div>
             {/* Cost Estimation */}
-            <div className="bg-white px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] mt-6">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 px-4 py-3 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 transition-all hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] mt-6">
               <div className="flex items-center gap-3 mb-5 border-b border-gray-50 pb-4">
                 <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-[24px]">
                   <DollarSign className="w-5 h-5" />
@@ -366,7 +366,7 @@ export default function StandardEarthworks() {
 
         </div>
         {/* Analytics Table */}
-        <div className="bg-white rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden mt-8">
+        <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden mt-8">
           <div className="px-6 py-5 border-b border-gray-100 flex items-center gap-3">
             <div className="p-2 bg-gray-50 text-gray-600 rounded-[24px]">
               <Layers className="w-5 h-5" />

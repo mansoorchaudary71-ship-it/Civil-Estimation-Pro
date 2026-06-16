@@ -146,7 +146,7 @@ export default function FormworkEstimator() {
     ].filter((d: any) => d.value > 0);
   }, [results]);
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
+    <div className="w-full h-full bg-transparent text-gray-900 font-sans p-6 md:p-8">
       {" "}
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         {" "}
@@ -156,7 +156,7 @@ export default function FormworkEstimator() {
           {/* Elements Config Section */}{" "}
           <section className="lg:col-span-8 space-y-6">
             {" "}
-            <div className="bg-white/90 p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_32px_rgba(15,23,42,0.06)] border border-gray-100 backdrop-blur-xl">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/90 p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_32px_rgba(15,23,42,0.06)] border border-gray-100 backdrop-blur-xl">
               {" "}
               <div className="flex items-center justify-between mb-8">
                 {" "}
@@ -189,7 +189,7 @@ export default function FormworkEstimator() {
                 {elements.map((el, index) => (
                   <div
                     key={el.id}
-                    className="group bg-gray-50/50 hover:bg-white border border-gray-100 hover:border-amber-200 p-5 rounded-[2rem] transition-all shadow-sm hover:shadow-md relative overflow-hidden flex flex-col md:flex-row gap-4 md:items-center"
+                    className="group bg-gray-50/50 hover:bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-gray-100 hover:border-amber-200 p-5 rounded-[2rem] transition-all shadow-sm hover:shadow-md relative overflow-hidden flex flex-col md:flex-row gap-4 md:items-center"
                   >
                     {" "}
                     <div className="absolute top-0 left-0 w-1.5 h-full bg-slate-300 group-hover:bg-amber-400 transition-colors" />{" "}
@@ -216,7 +216,7 @@ export default function FormworkEstimator() {
                           </select>{" "}
                           <input
                             type="text"
-                            className="bg-white border border-gray-200 rounded-[24px] px-3 py-2.5 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-amber-500/30"
+                            className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-gray-200 rounded-[24px] px-3 py-2.5 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-amber-500/30"
                             value={el.name}
                             onChange={(e) =>
                               updateElement(el.id, "name", e.target.value)
@@ -233,7 +233,7 @@ export default function FormworkEstimator() {
                           type="number"
                           min="0"
                           step="0.1"
-                          className="bg-white border border-gray-200 rounded-[24px] px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
+                          className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-gray-200 rounded-[24px] px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
                           value={el.length}
                           onChange={(e) =>
                             updateElement(el.id, "length", e.target.value)
@@ -249,7 +249,7 @@ export default function FormworkEstimator() {
                           type="number"
                           min="0"
                           step="0.1"
-                          className="bg-white border border-gray-200 rounded-[24px] px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
+                          className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-gray-200 rounded-[24px] px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
                           value={el.width}
                           onChange={(e) =>
                             updateElement(el.id, "width", e.target.value)
@@ -265,7 +265,7 @@ export default function FormworkEstimator() {
                           type="number"
                           min="0"
                           step="0.1"
-                          className="bg-white border border-gray-200 rounded-[24px] px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
+                          className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-gray-200 rounded-[24px] px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
                           value={el.height}
                           onChange={(e) =>
                             updateElement(el.id, "height", e.target.value)
@@ -280,7 +280,7 @@ export default function FormworkEstimator() {
                         <input
                           type="number"
                           min="0"
-                          className="bg-white border border-gray-200 rounded-[24px] px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
+                          className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-gray-200 rounded-[24px] px-3 py-2.5 text-sm font-medium w-full outline-none focus:ring-2 focus:ring-amber-500/30"
                           value={el.count}
                           onChange={(e) =>
                             updateElement(el.id, "count", e.target.value)
@@ -307,7 +307,7 @@ export default function FormworkEstimator() {
                 )}{" "}
               </div>{" "}
             </div>{" "}
-            <div className="bg-white/90 p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_32px_rgba(15,23,42,0.06)] border border-gray-100 backdrop-blur-xl flex flex-col sm:flex-row gap-6 sm:items-center">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/90 p-6 md:p-8 rounded-[2.5rem] shadow-[0_8px_32px_rgba(15,23,42,0.06)] border border-gray-100 backdrop-blur-xl flex flex-col sm:flex-row gap-6 sm:items-center">
               {" "}
               <div className="flex-1">
                 {" "}
@@ -329,7 +329,7 @@ export default function FormworkEstimator() {
                   <button
                     key={factor}
                     onClick={() => setRepetitionFactor(factor)}
-                    className={`w-12 h-12 rounded-[24px] font-semibold tabular-nums tracking-tight transition-all ${repetitionFactor === factor ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-gray-700  hover:bg-gray-200"}`}
+                    className={`w-12 h-12 rounded-[24px] font-semibold tabular-nums tracking-tight transition-all ${repetitionFactor === factor ? "bg-indigo-600 text-slate-900 shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-gray-700  hover:bg-gray-200"}`}
                   >
                     {" "}
                     x{factor}{" "}

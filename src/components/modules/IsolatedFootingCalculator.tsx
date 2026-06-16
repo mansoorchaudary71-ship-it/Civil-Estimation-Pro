@@ -245,7 +245,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
   };
 
   return (
-    <div className={isEmbedded ? "w-full space-y-6" : "w-full h-full overflow-y-auto bg-transparent text-text-primary p-6 md:p-8"}>
+    <div className={isEmbedded ? "w-full space-y-6" : "w-full h-full bg-transparent text-text-primary p-6 md:p-8"}>
       <div className="max-w-5xl mx-auto space-y-6">
         {!isEmbedded && (
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
@@ -276,12 +276,12 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                   <h3 className="font-bold text-lg mb-4 text-slate-800 border-b border-slate-100 pb-2">Load & SBC Check</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <InputGroup label="Working Load (P)">
-                      <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={workingLoad} onChange={(val) => setWorkingLoad(val.toString())} />
+                      <NumberInput className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={workingLoad} onChange={(val) => setWorkingLoad(val.toString())} />
                     </InputGroup>
                     <div className="flex flex-col">
                         <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2 px-1">Safety Factor (γf)</label>
                         <div className="flex items-center gap-2 h-full">
-                            <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={safetyFactor} onChange={(val) => setSafetyFactor(val.toString())} />
+                            <NumberInput className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={safetyFactor} onChange={(val) => setSafetyFactor(val.toString())} />
                             <button 
                                 onClick={handleAiSafetyFactor}
                                 className="h-full min-h-[48px] px-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-[16px] flex items-center justify-center transition-colors shadow-sm whitespace-nowrap text-sm font-medium"
@@ -296,7 +296,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                         <FieldTooltip content="IS 1904:1986: Soft clay = 50-100, Stiff clay = 100-200, Dense sand = 200-400, Rock = 1000-4000 kN/m²" />
                       </span>
                     }>
-                      <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={sbc} onChange={(val) => setSbc(val.toString())} />
+                      <NumberInput className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={sbc} onChange={(val) => setSbc(val.toString())} />
                     </InputGroup>
                   </div>
                 </div>
@@ -305,37 +305,37 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                   <h3 className="font-bold text-lg mb-4 text-slate-800 border-b border-slate-100 pb-2">Footing Details</h3>
                   <InputGroup label="Footing Type" colSpan={3}>
                     <div className="flex bg-slate-100 p-1 rounded-[24px] mb-4">
-                      <button onClick={() => setFootingType("rectangular")} className={`flex-1 py-2 text-sm font-bold rounded-[20px] transition-all ${footingType === "rectangular" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>Rectangular</button>
-                      <button onClick={() => setFootingType("sloped")} className={`flex-1 py-2 text-sm font-bold rounded-[20px] transition-all ${footingType === "sloped" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>Sloped/Trapezoidal</button>
-                      <button onClick={() => setFootingType("stepped")} className={`flex-1 py-2 text-sm font-bold rounded-[20px] transition-all ${footingType === "stepped" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500"}`}>Stepped</button>
+                      <button onClick={() => setFootingType("rectangular")} className={`flex-1 py-2 text-sm font-bold rounded-[20px] transition-all ${footingType === "rectangular" ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 shadow-sm text-indigo-600" : "text-slate-500"}`}>Rectangular</button>
+                      <button onClick={() => setFootingType("sloped")} className={`flex-1 py-2 text-sm font-bold rounded-[20px] transition-all ${footingType === "sloped" ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 shadow-sm text-indigo-600" : "text-slate-500"}`}>Sloped/Trapezoidal</button>
+                      <button onClick={() => setFootingType("stepped")} className={`flex-1 py-2 text-sm font-bold rounded-[20px] transition-all ${footingType === "stepped" ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 shadow-sm text-indigo-600" : "text-slate-500"}`}>Stepped</button>
                     </div>
                   </InputGroup>
                   <div className="grid grid-cols-2 gap-4 mt-4">
                     <InputGroup label="Base Length (m)">
-                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={footingL} onChange={(val) => setFootingL(val.toString())} />
+                      <NumberInput step="0.1" className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={footingL} onChange={(val) => setFootingL(val.toString())} />
                     </InputGroup>
                     <InputGroup label="Base Width (m)">
-                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={footingW} onChange={(val) => setFootingW(val.toString())} />
+                      <NumberInput step="0.1" className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={footingW} onChange={(val) => setFootingW(val.toString())} />
                     </InputGroup>
                     
                     {footingType === "rectangular" ? (
                        <InputGroup label="Depth (m)">
-                         <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={footingD} onChange={(val) => setFootingD(val.toString())} />
+                         <NumberInput step="0.1" className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={footingD} onChange={(val) => setFootingD(val.toString())} />
                        </InputGroup>
                     ) : (
                        <>
                          <InputGroup label="Base Depth, D1 (m)">
-                           <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={footingD1} onChange={(val) => setFootingD1(val.toString())} />
+                           <NumberInput step="0.1" className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={footingD1} onChange={(val) => setFootingD1(val.toString())} />
                          </InputGroup>
                          <InputGroup label={footingType === "sloped" ? "Sloped Depth, D2 (m)" : "Step 2 Depth, D2 (m)"}>
-                           <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={footingD2} onChange={(val) => setFootingD2(val.toString())} />
+                           <NumberInput step="0.1" className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={footingD2} onChange={(val) => setFootingD2(val.toString())} />
                          </InputGroup>
                          
                          <InputGroup label="Top Length, A2 (m)">
-                           <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={topL} onChange={(val) => setTopL(val.toString())} />
+                           <NumberInput step="0.1" className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={topL} onChange={(val) => setTopL(val.toString())} />
                          </InputGroup>
                          <InputGroup label="Top Width, B2 (m)">
-                           <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={topW} onChange={(val) => setTopW(val.toString())} />
+                           <NumberInput step="0.1" className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={topW} onChange={(val) => setTopW(val.toString())} />
                          </InputGroup>
                        </>
                     )}
@@ -347,13 +347,13 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                   <div className="grid grid-cols-2 gap-4">
                     <InputGroup label="Column L×W (m)">
                       <div className="flex gap-2">
-                        <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 text-center shadow-sm transition-all" value={columnL} onChange={(val) => setColumnL(val.toString())} placeholder="L" />
-                        <span className="text-slate-400 self-center">×</span>
-                        <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 text-center shadow-sm transition-all" value={columnW} onChange={(val) => setColumnW(val.toString())} placeholder="W" />
+                        <NumberInput step="0.1" className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 text-slate-800 text-center shadow-sm transition-all" value={columnL} onChange={(val) => setColumnL(val.toString())} placeholder="L" />
+                        <span className="text-slate-600 self-center">×</span>
+                        <NumberInput step="0.1" className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 text-slate-800 text-center shadow-sm transition-all" value={columnW} onChange={(val) => setColumnW(val.toString())} placeholder="W" />
                       </div>
                     </InputGroup>
                     <InputGroup label="Concrete Mix">
-                      <select className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all appearance-none shadow-sm" value={mix} onChange={(e) => setMix(e.target.value)}>
+                      <select className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 outline-none transition-all appearance-none shadow-sm" value={mix} onChange={(e) => setMix(e.target.value)}>
                         {Object.keys(mixRatios).map((m) => (
                           <option key={m} value={m}>{m}</option>
                         ))}
@@ -365,10 +365,10 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                         <FieldTooltip content="Typical allowance 0.3m to 0.6m on all sides for shuttering and labor access." />
                       </span>
                     }>
-                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={workingSpace} onChange={(val) => setWorkingSpace(val.toString())} />
+                      <NumberInput step="0.1" className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={workingSpace} onChange={(val) => setWorkingSpace(val.toString())} />
                     </InputGroup>
                     <InputGroup label="Excavation Depth (m)">
-                      <NumberInput step="0.1" className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={excavationDepth} onChange={(val) => setExcavationDepth(val.toString())} />
+                      <NumberInput step="0.1" className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={excavationDepth} onChange={(val) => setExcavationDepth(val.toString())} />
                     </InputGroup>
                   </div>
                 </div>
@@ -383,7 +383,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                           <FieldTooltip content="Minimum concrete cover to protect reinforcement from corrosion. IS 456:2000 Table 16: Mild exposure = 20mm, Moderate = 30mm, Severe = 45mm, Very Severe = 50mm" />
                         </span>
                       }>
-                        <NumberInput className="w-full bg-white rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={clearCover} onChange={(val) => setClearCover(val.toString())} />
+                        <NumberInput className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 text-slate-800 px-4 py-3 shadow-sm transition-all" value={clearCover} onChange={(val) => setClearCover(val.toString())} />
                       </InputGroup>
                     </div>
                   </div>
@@ -392,12 +392,12 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                       <p className="text-xs font-bold uppercase text-slate-500 mb-3 ml-1 tracking-wider">Bottom Mesh: X-Axis</p>
                       <div className="space-y-4">
                         <InputGroup label="Bar Dia (mm)">
-                           <select className="w-full bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaX} onChange={e => setDiaX(e.target.value)}>
+                           <select className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaX} onChange={e => setDiaX(e.target.value)}>
                              {[8, 10, 12, 16, 20].map(d => <option key={d} value={d}>{d}</option>)}
                            </select>
                         </InputGroup>
                         <InputGroup label="Spacing c/c (mm)">
-                           <NumberInput className="w-full bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-sm shadow-sm transition-all" value={spacingX} onChange={(val) => setSpacingX(val.toString())} />
+                           <NumberInput className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-3 py-2 text-sm shadow-sm transition-all" value={spacingX} onChange={(val) => setSpacingX(val.toString())} />
                         </InputGroup>
                       </div>
                     </div>
@@ -405,12 +405,12 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                       <p className="text-xs font-bold uppercase text-slate-500 mb-3 ml-1 tracking-wider">Bottom Mesh: Y-Axis</p>
                       <div className="space-y-4">
                         <InputGroup label="Bar Dia (mm)">
-                           <select className="w-full bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaY} onChange={e => setDiaY(e.target.value)}>
+                           <select className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaY} onChange={e => setDiaY(e.target.value)}>
                              {[8, 10, 12, 16, 20].map(d => <option key={d} value={d}>{d}</option>)}
                            </select>
                         </InputGroup>
                         <InputGroup label="Spacing c/c (mm)">
-                           <NumberInput className="w-full bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-sm shadow-sm transition-all" value={spacingY} onChange={(val) => setSpacingY(val.toString())} />
+                           <NumberInput className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-3 py-2 text-sm shadow-sm transition-all" value={spacingY} onChange={(val) => setSpacingY(val.toString())} />
                         </InputGroup>
                       </div>
                     </div>
@@ -429,12 +429,12 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                         <p className="text-xs font-bold uppercase text-indigo-700 mb-3 ml-1 tracking-wider">Top Mesh: X-Axis</p>
                         <div className="space-y-4">
                           <InputGroup label="Bar Dia (mm)">
-                             <select className="w-full bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaXTop} onChange={e => setDiaXTop(e.target.value)}>
+                             <select className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaXTop} onChange={e => setDiaXTop(e.target.value)}>
                                {[8, 10, 12, 16, 20].map(d => <option key={d} value={d}>{d}</option>)}
                              </select>
                           </InputGroup>
                           <InputGroup label="Spacing c/c (mm)">
-                             <NumberInput className="w-full bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-sm shadow-sm transition-all" value={spacingXTop} onChange={(val) => setSpacingXTop(val.toString())} />
+                             <NumberInput className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-3 py-2 text-sm shadow-sm transition-all" value={spacingXTop} onChange={(val) => setSpacingXTop(val.toString())} />
                           </InputGroup>
                         </div>
                       </div>
@@ -442,12 +442,12 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                         <p className="text-xs font-bold uppercase text-indigo-700 mb-3 ml-1 tracking-wider">Top Mesh: Y-Axis</p>
                         <div className="space-y-4">
                           <InputGroup label="Bar Dia (mm)">
-                             <select className="w-full bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaYTop} onChange={e => setDiaYTop(e.target.value)}>
+                             <select className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/50 shadow-sm" value={diaYTop} onChange={e => setDiaYTop(e.target.value)}>
                                {[8, 10, 12, 16, 20].map(d => <option key={d} value={d}>{d}</option>)}
                              </select>
                           </InputGroup>
                           <InputGroup label="Spacing c/c (mm)">
-                             <NumberInput className="w-full bg-white border border-slate-200 rounded-[24px] px-3 py-2 text-sm shadow-sm transition-all" value={spacingYTop} onChange={(val) => setSpacingYTop(val.toString())} />
+                             <NumberInput className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-3 py-2 text-sm shadow-sm transition-all" value={spacingYTop} onChange={(val) => setSpacingYTop(val.toString())} />
                           </InputGroup>
                         </div>
                       </div>
@@ -471,7 +471,7 @@ export default function IsolatedFootingCalculator({ isEmbedded = false }: { isEm
                   </div>
                 </div>
 
-                <div className="bg-white border border-slate-200 rounded-[24px] p-6 flex flex-col items-center justify-center min-h-[400px] shadow-sm">
+                <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] p-6 flex flex-col items-center justify-center min-h-[400px] shadow-sm">
                   <h4 className="font-bold text-slate-500 uppercase tracking-wider text-sm mb-8">Cross-Section Profile</h4>
                   
                   {/* Schematic SVG */}

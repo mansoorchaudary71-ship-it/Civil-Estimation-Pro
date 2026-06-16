@@ -64,8 +64,8 @@ export default function AntiTermiteCalculator() {
         description="Calculate exact chemical emulsion and water dilution rates for pre-construction treatment of foundations, floors, and perimeters."
       />
 
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-[24px] shadow-sm">
-         <h2 className="text-xl font-bold flex items-center gap-2 mb-6 text-slate-800 dark:text-slate-200">
+      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  border border-slate-200  p-6 rounded-[24px] shadow-sm">
+         <h2 className="text-xl font-bold flex items-center gap-2 mb-6 text-slate-800 ">
           <Bug className="w-6 h-6 text-indigo-600" />
           Anti-Termite Treatment & Emulsion Engine
         </h2>
@@ -100,7 +100,7 @@ export default function AntiTermiteCalculator() {
                     <div className={selectedChemical.ratio === 0 ? "block" : "opacity-50 pointer-events-none"}>
                          <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1">Water Parts (1:X)</label>
                          <div className="flex items-center gap-3">
-                             <div className="text-slate-400 font-bold font-mono">1 : </div>
+                             <div className="text-slate-600 font-bold font-mono">1 : </div>
                              <div className="flex-1">
                                  <NumberInput label="" unit="parts water" value={customRatio} onChange={setCustomRatio} />
                              </div>

@@ -217,7 +217,7 @@ export default function MixDesignCalculator() {
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500 pb-[120px]">
       {/* HEADER */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white border border-slate-200 p-6 md:p-8 rounded-[2rem] shadow-sm no-print">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-6 md:p-8 rounded-[2rem] shadow-sm no-print">
         <div>
           <h2 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 tracking-tight flex items-center gap-3">
             <div className="p-3 bg-indigo-50 text-indigo-600 rounded-[24px]">
@@ -246,7 +246,7 @@ export default function MixDesignCalculator() {
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 no-print">
         {/* PARAMS PANEL */}
         <div className="xl:col-span-4 space-y-6">
-          <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm p-6 relative overflow-hidden">
+          <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[2rem] shadow-sm p-6 relative overflow-hidden">
             <h3 className="text-lg font-bold text-slate-800 mb-5 flex items-center gap-2 relative z-10">
               <Settings className="w-5 h-5 text-indigo-500" /> Mix Parameters
             </h3>
@@ -360,7 +360,7 @@ export default function MixDesignCalculator() {
         {/* RESULTS & CHECKS PANEL */}
         <div className="xl:col-span-8 space-y-6">
           {/* IS 456 DURABILITY CHECKS */}
-          <div className="bg-white border border-slate-200 p-6 rounded-[2rem] shadow-sm">
+          <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-6 rounded-[2rem] shadow-sm">
               <h3 className="text-lg font-bold text-slate-800 flex items-center gap-2 mb-4">
                  <ShieldCheck className="w-5 h-5 text-rose-500" /> IS 456:2000 Durability Compliance ({exposure})
               </h3>
@@ -392,25 +392,25 @@ export default function MixDesignCalculator() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-             <div className="bg-white border border-slate-200 p-5 rounded-[2rem] shadow-sm">
+             <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-5 rounded-[2rem] shadow-sm">
                 <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-1">Total Binder</p>
                 <p className="text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-indigo-600 tabular-nums">
                   {totalCementitious} <span className="text-sm font-bold text-slate-400">kg/m³</span>
                 </p>
              </div>
-             <div className="bg-white border border-slate-200 p-5 rounded-[2rem] shadow-sm">
+             <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-5 rounded-[2rem] shadow-sm">
                 <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-1">Water Content</p>
                 <p className="text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-sky-500 tabular-nums">
                   {Math.round(actualWaterContent)} <span className="text-sm font-bold text-slate-400">L/m³</span>
                 </p>
              </div>
-             <div className="bg-white border border-slate-200 p-5 rounded-[2rem] shadow-sm">
+             <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-5 rounded-[2rem] shadow-sm">
                 <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-1">Fine Aggregation</p>
                 <p className="text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-amber-500 tabular-nums">
                   {weightSand} <span className="text-sm font-bold text-slate-400">kg/m³</span>
                 </p>
              </div>
-             <div className="bg-white border border-slate-200 p-5 rounded-[2rem] shadow-sm">
+             <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-5 rounded-[2rem] shadow-sm">
                 <p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-1">Coarse Agg</p>
                 <p className="text-2xl md:text-3xl font-semibold tabular-nums tracking-tight text-teal-600 tabular-nums">
                   {weightCA} <span className="text-sm font-bold text-slate-400">kg/m³</span>
@@ -419,7 +419,7 @@ export default function MixDesignCalculator() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-             <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm p-6 overflow-hidden">
+             <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[2rem] shadow-sm p-6 overflow-hidden">
                 <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">By Weight Composition</h3>
                 <div className="h-48">
                    <ResponsiveContainer width="100%" height="100%">
@@ -446,7 +446,7 @@ export default function MixDesignCalculator() {
              </div>
 
              {/* INTERNATIONAL COMPARISON */}
-             <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm overflow-hidden flex flex-col">
+             <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[2rem] shadow-sm overflow-hidden flex flex-col">
                <div className="p-6 border-b border-slate-100">
                  <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest flex items-center gap-2">
                    <TableIcon className="w-4 h-4 text-indigo-500" /> Code Comparison (Est.)
@@ -480,7 +480,7 @@ export default function MixDesignCalculator() {
           </div>
 
           {comparisons.length > 0 && (
-            <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm overflow-hidden flex flex-col no-print">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[2rem] shadow-sm overflow-hidden flex flex-col no-print">
               <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-indigo-50/50">
                 <h3 className="text-sm font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2">
                   <Layers className="w-4 h-4 text-indigo-500" /> Scenario Comparison
@@ -496,7 +496,7 @@ export default function MixDesignCalculator() {
                            Scenario {i + 1}
                            <button 
                              onClick={() => removeComparison(c.id)}
-                             className="absolute -top-1 -right-1 opacity-0 group-hover:opacity-100 text-slate-400 hover:text-rose-500 transition-opacity bg-white rounded-full p-1 shadow-sm border border-slate-200"
+                             className="absolute -top-1 -right-1 opacity-0 group-hover:opacity-100 text-slate-400 hover:text-rose-500 transition-opacity bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-full p-1 shadow-sm border border-slate-200"
                            >
                              <XCircle className="w-3 h-3" />
                            </button>
@@ -598,7 +598,7 @@ export default function MixDesignCalculator() {
       </div>
 
       {/* PRINTABLE REPORT SECTION (Visually styled for screen, clean for print) */}
-      <div className="print-only max-w-4xl mx-auto bg-white text-slate-900 p-8 font-serif hide-on-screen">
+      <div className="print-only max-w-4xl mx-auto bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-slate-900 p-8 font-serif hide-on-screen">
           
 
           <div className="grid grid-cols-2 gap-8 mb-8">

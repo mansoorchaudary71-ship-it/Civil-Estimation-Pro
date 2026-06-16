@@ -76,7 +76,7 @@ export default function SocialProofSection() {
               </p>
               
               <div className="flex items-center gap-3 mt-auto">
-                <div className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center text-white font-bold text-base shadow-sm">
+                <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-900 font-bold text-base shadow-sm">
                   {t.initials}
                 </div>
                 <div>

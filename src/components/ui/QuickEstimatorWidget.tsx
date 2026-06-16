@@ -61,16 +61,16 @@ export default function QuickEstimatorWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-20 right-0 w-[calc(100vw-3rem)] sm:w-[380px] bg-[#1E293B] border border-slate-700 shadow-2xl rounded-2xl overflow-hidden flex flex-col"
+            className="absolute bottom-20 right-0 w-[calc(100vw-3rem)] sm:w-[380px] bg-white border border-slate-200 shadow-2xl rounded-2xl overflow-hidden flex flex-col"
           >
-            <div className="bg-[#0F172A] border-b border-slate-800 p-4 flex items-center justify-between">
+            <div className="bg-[#FFFFFF] border-b border-slate-200 p-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Calculator className="w-5 h-5 text-[#F59E0B]" />
                 <h3 className="font-bold text-[#F1F5F9]">Quick Estimator</h3>
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="text-slate-400 hover:text-white transition-colors"
+                className="text-slate-600 hover:text-slate-900 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -167,7 +167,7 @@ export default function QuickEstimatorWidget() {
               )}
             </div>
 
-            <div className="bg-[#0F172A] border-t border-slate-800 p-3">
+            <div className="bg-[#FFFFFF] border-t border-slate-200 p-3">
               <button className="w-full flex items-center justify-center gap-2 text-xs font-medium text-[#94A3B8] hover:text-[#F1F5F9] transition-colors py-2">
                 Open Full Estimator
                 <ArrowRight className="w-3.5 h-3.5" />

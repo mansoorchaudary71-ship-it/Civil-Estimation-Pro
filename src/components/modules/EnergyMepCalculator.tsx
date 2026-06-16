@@ -28,7 +28,7 @@ export default function EnergyMepCalculator() {
         <UniversalTabs tabs={[{id: "ac", label: "AC Initial Sizing", icon: <Wind className="w-5 h-5" />}]} activeTab={activeTab === "ac" ? "ac" : ""} onTabChange={() => setActiveTab("ac")} />
       </div>
 
-      <div className="bg-white rounded-[24px] shadow-sm border border-slate-200 overflow-hidden mb-6">
+      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] shadow-sm border border-slate-200 overflow-hidden mb-6">
         <div className="p-6 md:p-8">
           {activeTab === "solar" && <SolarCalculator />}
           {activeTab === "water" && <WaterHeaterCalculator />}
@@ -152,7 +152,7 @@ function SolarCalculator() {
                </div>
              </MaterialSummary>
           ) : (
-            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
+            <div className="relative p-5 sm:p-6 rounded-[24px] bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
               Enter specifications to see estimation.
             </div>
           )}
@@ -197,7 +197,7 @@ function WaterHeaterCalculator() {
                totalUnit="Liters per Day (LPD)"
              />
           ) : (
-            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
+            <div className="relative p-5 sm:p-6 rounded-[24px] bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
               Enter specifications to see estimation.
             </div>
           )}
@@ -326,7 +326,7 @@ function AcCalculator() {
                </div>
              </MaterialSummary>
           ) : (
-            <div className="relative p-5 sm:p-6 rounded-[24px] bg-white/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
+            <div className="relative p-5 sm:p-6 rounded-[24px] bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 [#252834]/90 backdrop-blur-md border border-slate-200/60 shadow-sm h-full flex items-center justify-center text-slate-500 text-sm">
               Enter room dimensions to calculate required AC tonnage.
             </div>
           )}

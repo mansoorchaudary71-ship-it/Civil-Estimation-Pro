@@ -81,8 +81,8 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
                 ) : (
                   <User className="w-10 h-10 text-slate-700" />
                 )}
-                <div className="absolute inset-0 bg-slate-900/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Camera className="w-6 h-6 text-white" />
+                <div className="absolute inset-0 bg-slate-50/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Camera className="w-6 h-6 text-slate-900" />
                 </div>
               </div>
             </div>
@@ -145,7 +145,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
             <button
                type="submit"
                disabled={isLoading}
-               className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-full shadow-sm text-sm transition-all focus:ring-4 focus:ring-indigo-500/50 flex justify-center items-center h-12"
+               className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-slate-900 font-semibold rounded-full shadow-sm text-sm transition-all focus:ring-4 focus:ring-indigo-500/50 flex justify-center items-center h-12"
             >
                {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Save Changes'}
             </button>

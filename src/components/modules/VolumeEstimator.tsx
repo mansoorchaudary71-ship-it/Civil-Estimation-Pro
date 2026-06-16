@@ -503,7 +503,7 @@ export default function VolumeEstimator() {
     "Liquid Capacity": `${liquidCapacity.toFixed(2)} ${capacityUnit}`,
   };
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8">
+    <div className="w-full h-full bg-transparent dark:bg-slate-950 text-text-primary p-6 md:p-8">
       <div className="max-w-5xl mx-auto">
         
         

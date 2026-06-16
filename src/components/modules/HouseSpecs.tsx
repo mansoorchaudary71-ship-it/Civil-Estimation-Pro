@@ -15,7 +15,7 @@ import {
 export default function HouseSpecs() {
   const { specs, updateSpecs } = useHouseSpecs();
   return (
-    <div className="w-full h-full overflow-y-auto bg-transparent text-gray-900 font-sans p-6 md:p-8">
+    <div className="w-full h-full bg-transparent text-gray-900 font-sans p-6 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -276,7 +276,7 @@ function GlassCard({
     fuchsia: "bg-fuchsia-500/10 border-fuchsia-500/20 text-fuchsia-600",
   };
   return (
-    <div className="bg-white/70 backdrop-blur-3xl border border-white p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] transition-all">
+    <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/70 backdrop-blur-3xl border border-white p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] transition-all">
       <div className="flex items-center gap-3 mb-6">
         <div className={`p-2.5 rounded-[24px] ${bgColors[color]}`}>
           {icon}
@@ -331,7 +331,7 @@ function NumberInput({ label, value, onChange, desc }: any) {
   return (
     <div className="relative group/tooltip">
       {tooltipText && (
-         <div className="absolute z-[100] invisible opacity-0 group-hover/tooltip:visible group-hover/tooltip:opacity-100 transition-all duration-200 bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-max max-w-[220px] bg-slate-800 text-white text-[11px] p-2 rounded-lg shadow-xl pointer-events-none whitespace-normal text-center font-medium after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-slate-800">
+         <div className="absolute z-[100] invisible opacity-0 group-hover/tooltip:visible group-hover/tooltip:opacity-100 transition-all duration-200 bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 w-max max-w-[220px] bg-white text-slate-900 text-[11px] p-2 rounded-lg shadow-xl pointer-events-none whitespace-normal text-center font-medium after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-slate-800">
            {tooltipText}
          </div>
       )}
@@ -355,7 +355,7 @@ function ToggleGroup({ value, onChange, options }: any) {
         <button
           key={opt.value}
           onClick={() => onChange(opt.value)}
-          className={`flex-1 py-2.5 px-3 text-[12px] font-bold rounded-[24px] transition-all duration-300 ${value === opt.value ? "bg-white text-gray-800 shadow-sm" : "text-gray-700  hover:text-gray-700 hover:bg-gray-200/50"}`}
+          className={`flex-1 py-2.5 px-3 text-[12px] font-bold rounded-[24px] transition-all duration-300 ${value === opt.value ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-gray-800 shadow-sm" : "text-gray-700  hover:text-gray-700 hover:bg-gray-200/50"}`}
         >
           {opt.label}
         </button>

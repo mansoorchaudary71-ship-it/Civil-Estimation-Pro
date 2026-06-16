@@ -235,7 +235,7 @@ export default function ChainageVolumeEstimator() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <section className="lg:col-span-8 space-y-6">
             
-            <div className="bg-white px-6 py-5 rounded-[24px] border border-slate-200 shadow-sm">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 px-6 py-5 rounded-[24px] border border-slate-200 shadow-sm">
               <div className="flex items-center gap-3 mb-5 border-b border-slate-100 pb-4">
                 <Mountain className="w-6 h-6 text-emerald-600" />
                 <h2 className="text-xl font-bold tracking-tight text-slate-800">
@@ -279,7 +279,7 @@ export default function ChainageVolumeEstimator() {
               </div>
             </div>
 
-            <div className="bg-white px-6 py-5 rounded-[24px] border border-slate-200 shadow-sm">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 px-6 py-5 rounded-[24px] border border-slate-200 shadow-sm">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-5 border-b border-slate-100 pb-4 gap-4">
                 <div className="flex items-center gap-3">
                   <Map className="w-5 h-5 text-amber-600" />
@@ -354,7 +354,7 @@ export default function ChainageVolumeEstimator() {
                           <button
                             onClick={() => removeStation(st.id)}
                             disabled={stations.length <= 2}
-                            className={`p-2 rounded-full ${stations.length <= 2 ? "text-slate-300 cursor-not-allowed" : "text-red-400 hover:text-red-600 hover:bg-red-50"}`}
+                            className={`p-2 rounded-full ${stations.length <= 2 ? "text-slate-700 cursor-not-allowed" : "text-red-400 hover:text-red-600 hover:bg-red-50"}`}
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -366,7 +366,7 @@ export default function ChainageVolumeEstimator() {
               </div>
             </div>
             
-            <div className="bg-white px-6 py-5 rounded-[24px] border border-slate-200 shadow-sm">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 px-6 py-5 rounded-[24px] border border-slate-200 shadow-sm">
               <h2 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
                 <LayoutTemplate className="w-5 h-5 text-slate-700" /> 
                 {method === "simpson" ? "Simpson's Rule Output" : "Trapezoidal Rule Output"}
@@ -401,7 +401,7 @@ export default function ChainageVolumeEstimator() {
               </div>
             </div>
             
-            <div className="bg-white px-6 py-6 rounded-[24px] border border-slate-200 shadow-sm">
+            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 px-6 py-6 rounded-[24px] border border-slate-200 shadow-sm">
               <h2 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2">
                 <LayoutTemplate className="w-5 h-5 text-indigo-600" /> Mass Haul Curve
               </h2>
@@ -420,7 +420,7 @@ export default function ChainageVolumeEstimator() {
                     <Tooltip
                       contentStyle={{ borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
                       formatter={(value: number) => [`${value.toFixed(2)} ${unitV}`, "Net Volume"]}
-                      labelStyle={{ color: '#0f172a', fontWeight: 'bold', marginBottom: '4px' }}
+                      labelStyle={{ color: '#FFFFFF', fontWeight: 'bold', marginBottom: '4px' }}
                     />
                     <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="3 3" />
                     <Area type="monotone" dataKey="netVolume" stroke="#4f46e5" strokeWidth={3} fill="url(#splitColor)" activeDot={{ r: 6 }} />
@@ -434,7 +434,7 @@ export default function ChainageVolumeEstimator() {
           <section className="lg:col-span-4 space-y-6">
             <div className="flex flex-col h-full sticky top-6 gap-6">
               
-              <div className="bg-white px-5 py-5 rounded-[24px] border border-slate-200 shadow-sm">
+              <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 px-5 py-5 rounded-[24px] border border-slate-200 shadow-sm">
                 <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest mb-4">Material Behaviors</h3>
                 <div className="space-y-4">
                   <div>
@@ -487,7 +487,7 @@ export default function ChainageVolumeEstimator() {
                 
                 <div className="mt-4 pt-4 border-t border-slate-100">
                     <button 
-                        className="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl text-sm transition-colors"
+                        className="w-full bg-white hover:bg-slate-700 text-slate-900 font-bold py-3 rounded-xl text-sm transition-colors"
                         onClick={() => {
                             const items = [
                             {
