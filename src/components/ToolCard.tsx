@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Bookmark, ArrowRight, Box } from "lucide-react";
 import { useSettings } from "../context/SettingsContext";
+import { motion } from "motion/react";
 
 // Define the 4 professional, modern colors cleanly
 const THEME_COLORS = {
@@ -59,6 +60,7 @@ export default function ToolCard({
   onSelect: (id: string) => void;
 }) {
   const { settings, updateSettings } = useSettings();
+  const [isHovered, setIsHovered] = useState(false);
 
   // Safety check, ensure we always render
   if (!mod) {
@@ -84,34 +86,77 @@ export default function ToolCard({
   const IconComponent = mod.icon || Box;
 
   return (
-    <div
+    <motion.div
       onClick={() => onSelect(mod.id)}
-      className="relative flex w-full flex-col rounded-2xl bg-stone-50 hover:bg-[#FDFBF7] bg-clip-border text-slate-700 shadow-md mt-6 cursor-pointer transition-all duration-500 hover:shadow-lg hover:-translate-y-1 group"
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      whileHover={{ y: -6, scale: 1.01 }}
+      initial={{ opacity: 0, y: 15 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ 
+        type: "spring", 
+        stiffness: 400, 
+        damping: 25,
+        opacity: { duration: 0.3 }
+      }}
+      className="relative flex w-full flex-col rounded-2xl bg-stone-50 bg-clip-border text-slate-700 mt-6 cursor-pointer group outline-none"
       style={{
         transform: "translateZ(0)",
         backfaceVisibility: "hidden",
+        boxShadow: isHovered 
+          ? "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
+          : "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)"
       }}
     >
       {/* Header graphic shifted up */}
-      <div className={`relative mx-4 -mt-6 h-28 overflow-hidden rounded-xl bg-clip-border text-slate-900 shadow-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-[1.02] ${theme.gradient}`}>
-        <IconComponent className="w-10 h-10 opacity-90 drop-shadow-sm" strokeWidth={1.5} />
+      <motion.div 
+        className={`relative mx-4 -mt-6 h-28 overflow-hidden rounded-xl bg-clip-border text-slate-900 shadow-lg flex items-center justify-center ${theme.gradient}`}
+        animate={{ 
+          scale: isHovered ? 1.03 : 1,
+          y: isHovered ? -3 : 0
+        }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      >
+        <motion.div
+          animate={{
+            scale: isHovered ? 1.1 : 1,
+            rotate: isHovered ? [0, -5, 5, 0] : 0,
+          }}
+          transition={{ 
+            duration: 0.4, 
+            ease: "easeOut" 
+          }}
+        >
+          <IconComponent className="w-10 h-10 opacity-90 drop-shadow-sm text-white" strokeWidth={1.5} />
+        </motion.div>
         
         {/* Soft gloss effect overlay */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-      </div>
+        <motion.div 
+          className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/15 to-white/0"
+          animate={{
+            opacity: isHovered ? 1 : 0,
+            x: isHovered ? ["-100%", "100%"] : "-100%"
+          }}
+          transition={{ duration: 0.7, ease: "easeInOut" }}
+        />
+      </motion.div>
       
       <div className="p-5 flex-1 flex flex-col">
         <div className="flex justify-between items-start mb-2">
-          <h5 className="block font-sans text-[17px] font-bold leading-snug tracking-tight text-slate-900 group-hover:text-[#FF5F15] transition-colors">
+          <h5 className="block font-sans text-[17px] font-bold leading-snug tracking-tight text-slate-900 group-hover:text-[#FF5F15] transition-colors duration-300">
             {mod.title || "Untitled Tool"}
           </h5>
-          <div
+          <motion.div
             role="button"
             tabIndex={0}
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
             className={`w-7 h-7 shrink-0 rounded-full flex items-center justify-center transition-colors shadow-sm ml-2 ${
               isBookmarked 
                 ? "bg-amber-100 text-amber-600 hover:bg-amber-200" 
-                : "bg-slate-50 text-slate-600 hover:text-slate-600 hover:bg-slate-100"
+                : "bg-slate-50 text-slate-400 hover:text-slate-600 hover:bg-slate-100"
             }`}
             onClick={toggleFavorite}
           >
@@ -120,7 +165,7 @@ export default function ToolCard({
               strokeWidth={isBookmarked ? 2.5 : 2}
               fill={isBookmarked ? "currentColor" : "none"}
             />
-          </div>
+          </motion.div>
         </div>
         
         <p className="block font-sans text-[13px] font-medium leading-relaxed text-slate-500 line-clamp-2">
@@ -130,17 +175,25 @@ export default function ToolCard({
 
       <div className="p-5 pt-0 mt-auto flex items-center justify-between">
         {mod.category && (
-          <span className="text-[10px] font-bold px-2.5 py-1 rounded-md bg-slate-100 text-slate-600 uppercase tracking-widest">
+          <span className="text-[10px] font-bold px-2.5 py-1 rounded-md bg-slate-100/80 text-slate-600 uppercase tracking-widest border border-slate-200/50">
             {mod.category}
           </span>
         )}
-        <button 
-          className={`select-none rounded-lg py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-slate-900 shadow-md transition-all focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none ml-auto ${theme.button}`}
+        <motion.button 
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className={`select-none rounded-[10px] py-2 px-4 flex items-center gap-1.5 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md transition-colors active:opacity-[0.85] active:shadow-none ml-auto ${theme.button}`}
         >
-          Open Tool
-        </button>
+          <span>Open Tool</span>
+          <motion.div
+            animate={{ x: isHovered ? 3 : 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <ArrowRight className="w-3 h-3" strokeWidth={2.5} />
+          </motion.div>
+        </motion.button>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

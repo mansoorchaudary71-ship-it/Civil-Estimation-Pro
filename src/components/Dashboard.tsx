@@ -1233,12 +1233,8 @@ export default function Dashboard({
  ::-webkit-scrollbar { width: 6px; height: 6px; }
  ::-webkit-scrollbar-track { background: transparent; }
  ::-webkit-scrollbar-thumb { background: rgba(15,23,42,0.15); border-radius: 10px; }
- @media (prefers-color-scheme: dark) {
- ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2) !important; }
- body { background-color: #121212 !important; color: #ffffff !important; }
- }
  `}</style>
- <div className="relative flex-1 w-full flex flex-col font-sans bg-[#f8f9fa] [#121212] text-slate-900 border-none">
+ <div className="relative flex-1 w-full flex flex-col font-sans bg-[#f8f9fa] text-slate-900 border-none">
  <SEO
  title="Dashboard"
  description="Civil Estimation Pro: Advanced estimators for live construction rate analysis, house estimating, and comprehensive BOQ calculators."

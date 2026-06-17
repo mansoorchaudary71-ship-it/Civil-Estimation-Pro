@@ -1540,25 +1540,42 @@ function FontSizeControls() {
 function UnitSwitcher() {
   const { settings, updateSettings } = useSettings();
   const isMetric = settings.measurement === "SI";
+  const [switchingUnit, setSwitchingUnit] = useState<"SI" | "FPS" | null>(null);
 
   const handleToggle = (unit: "SI" | "FPS") => {
     if (settings.measurement === unit) return;
+    setSwitchingUnit(unit);
     updateSettings({ measurement: unit });
     setTimeout(() => {
       window.location.reload();
-    }, 100);
+    }, 400);
   };
 
   return (
     <div className="flex bg-slate-100  p-1 rounded-lg relative z-0 mr-2 border border-slate-200 ">
       <button
         onClick={() => handleToggle("SI")}
-        className={`relative px-3 py-1.5 text-[10px] sm:text-xs font-bold rounded-md transition-colors z-10 ${
+        className={`relative flex items-center justify-center gap-1.5 px-3 py-1.5 text-[10px] sm:text-xs font-bold rounded-md transition-colors z-10 ${
           isMetric ? "text-slate-800 " : "text-slate-500  hover:text-slate-700 "
         }`}
         aria-label="Set units to Metric (m, kg)"
       >
-        Metric
+        <span>Metric</span>
+        {isMetric && (
+          <motion.div
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ 
+              scale: switchingUnit === "SI" ? [1, 1.8, 1] : [1, 1.2, 1],
+              opacity: switchingUnit === "SI" ? [1, 0.8, 1] : 1
+            }}
+            transition={{ 
+              duration: switchingUnit === "SI" ? 0.3 : 2, 
+              repeat: switchingUnit === "SI" ? 0 : Infinity,
+              ease: "easeInOut"
+            }}
+            className="w-1.5 h-1.5 rounded-full bg-indigo-500 shadow-sm"
+          />
+        )}
         {isMetric && (
           <motion.div
             layoutId="unitIndicator"
@@ -1570,12 +1587,27 @@ function UnitSwitcher() {
       </button>
       <button
         onClick={() => handleToggle("FPS")}
-        className={`relative px-3 py-1.5 text-[10px] sm:text-xs font-bold rounded-md transition-colors z-10 ${
+        className={`relative flex items-center justify-center gap-1.5 px-3 py-1.5 text-[10px] sm:text-xs font-bold rounded-md transition-colors z-10 ${
           !isMetric ? "text-slate-800 " : "text-slate-500  hover:text-slate-700 "
         }`}
         aria-label="Set units to Imperial (ft, lbs)"
       >
-        Imperial
+        <span>Imperial</span>
+        {!isMetric && (
+          <motion.div
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ 
+              scale: switchingUnit === "FPS" ? [1, 1.8, 1] : [1, 1.2, 1],
+              opacity: switchingUnit === "FPS" ? [1, 0.8, 1] : 1
+            }}
+            transition={{ 
+              duration: switchingUnit === "FPS" ? 0.3 : 2, 
+              repeat: switchingUnit === "FPS" ? 0 : Infinity,
+              ease: "easeInOut"
+            }}
+            className="w-1.5 h-1.5 rounded-full bg-indigo-500 shadow-sm"
+          />
+        )}
         {!isMetric && (
           <motion.div
             layoutId="unitIndicator"

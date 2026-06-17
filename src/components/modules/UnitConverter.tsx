@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { UniversalTabs } from "../ui/UniversalTabs";
 import {
   LineChart,
@@ -63,6 +64,70 @@ const categories: { id: Category; label: string; icon: any; color: string }[] = 
   { id: "Volumetric Flow", label: "Volumetric Flow", icon: Wind, color: "text-cyan-500 bg-cyan-100/50 " },
   { id: "Dynamic Viscosity", label: "Dynamic Viscosity", icon: FlaskConical, color: "text-violet-500 bg-violet-100/50 " }
 ];
+
+const presets: Partial<Record<Category, { label: string, value: string, unit: string }[]>> = {
+  Length: [
+    { label: "Standard Rebar (12m)", value: "12", unit: "m" },
+    { label: "Standard Rebar (40ft)", value: "40", unit: "ft" },
+    { label: "Door Height (2.1m)", value: "2.1", unit: "m" },
+    { label: "Story Height (3m)", value: "3", unit: "m" },
+  ],
+  Area: [
+    { label: "1 Marla (225 sq ft)", value: "225", unit: "sft" },
+    { label: "1 Marla (272.25 sq ft)", value: "272.25", unit: "sft" },
+    { label: "1 Kanal", value: "5445", unit: "sft" },
+    { label: "Standard Parking (11.5m²)", value: "11.5", unit: "sm" },
+  ],
+  Volume: [
+    { label: "Concrete Mixer Truck (6m³)", value: "6", unit: "cm" },
+    { label: "Standard Cement Bag", value: "1.226", unit: "cf" },
+  ],
+  Mass: [
+    { label: "Cement Bag", value: "50", unit: "kg" },
+    { label: "Steel Rebar Bundle", value: "1000", unit: "kg" },
+  ],
+  "Pressure & Stress": [
+    { label: "Concrete M20", value: "20", unit: "mpa" },
+    { label: "Steel Fe500", value: "500", unit: "mpa" },
+    { label: "Atmospheric (1 atm)", value: "1", unit: "atm" },
+  ],
+  Density: [
+    { label: "Water", value: "1000", unit: "kg_m3" },
+    { label: "Steel", value: "7850", unit: "kg_m3" },
+    { label: "Concrete (Plain)", value: "2400", unit: "kg_m3" },
+  ]
+};
+
+const QUICK_PAIRS: Partial<Record<Category, { label: string, from: string, to: string }[]>> = {
+  Length: [
+    { label: "m ↔ ft", from: "m", to: "ft" },
+    { label: "mm ↔ in", from: "mm", to: "in" },
+    { label: "km ↔ mi", from: "km", to: "mi" },
+  ],
+  Area: [
+    { label: "m² ↔ sq ft", from: "sm", to: "sft" },
+    { label: "Acre ↔ Hectare", from: "ac", to: "ha" },
+  ],
+  Volume: [
+    { label: "m³ ↔ cu ft", from: "cm", to: "cf" },
+    { label: "Liter ↔ Gal", from: "l", to: "us_gal" },
+  ],
+  Mass: [
+    { label: "kg ↔ lb", from: "kg", to: "lb" },
+    { label: "Ton ↔ lb", from: "t", to: "lb" },
+  ],
+  "Pressure & Stress": [
+    { label: "MPa ↔ psi", from: "mpa", to: "psi" },
+    { label: "Pa ↔ psf", from: "pa", to: "psf" },
+  ],
+  Velocity: [
+    { label: "km/h ↔ mph", from: "km_h", to: "mph" },
+    { label: "m/s ↔ ft/s", from: "m_s", to: "ft_s" },
+  ],
+  Temperature: [
+    { label: "°C ↔ °F", from: "c", to: "f" }
+  ]
+};
 
 export default function UnitConverter() {
   const { settings, updateSettings } = useSettings();
@@ -183,7 +248,7 @@ export default function UnitConverter() {
   const chartData = generateChartData();
 
   return (
-    <div className="w-full h-full bg-transparent text-slate-900 dark:text-slate-100 p-6 md:p-8">
+    <div className="w-full h-full bg-transparent text-slate-900  p-6 md:p-8">
       {" "}
       <div className="max-w-6xl mx-auto">
         {" "}
@@ -191,24 +256,24 @@ export default function UnitConverter() {
         {" "}
         {/* Categories Tabs */}
         <div className="mb-10">
-          <div className="w-full bg-white/70 dark:bg-slate-900/40 backdrop-blur-3xl rounded-[2.5rem] p-6 mb-8 border border-slate-200/50 dark:border-slate-700/50 shadow-sm dark:shadow-2xl overflow-hidden relative">
+          <div className="w-full bg-white/70  backdrop-blur-3xl rounded-[2.5rem] p-6 mb-8 border border-slate-200/50  shadow-sm  overflow-hidden relative">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-slate-900  flex items-center gap-2">
                   <Ruler className="w-5 h-5 text-fuchsia-500" />
                   Global Measurement System
                 </h3>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                <p className="text-sm text-slate-500  mt-1">
                   Automatically scale input fields across all calculators based on your preference.
                 </p>
               </div>
-              <div className="flex items-center gap-2 bg-slate-100/50 dark:bg-slate-950/50 p-1.5 rounded-full border border-slate-200/50 dark:border-slate-600/50 relative z-10 w-full md:w-auto">
+              <div className="flex items-center gap-2 bg-slate-100/50  p-1.5 rounded-full border border-slate-200/50  relative z-10 w-full md:w-auto">
                 <button
                   onClick={() => updateSettings({ measurement: "SI" })}
                   className={`flex-1 md:flex-none px-6 py-2.5 rounded-full text-sm font-bold transition-all ${
                     settings.measurement === "SI"
-                      ? "bg-fuchsia-500 text-white shadow-md shadow-fuchsia-500/20"
-                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+                      ? "bg-fuchsia-500 text-slate-900 shadow-md shadow-fuchsia-500/20"
+                      : "text-slate-600  hover:text-slate-900 "
                   }`}
                 >
                   Metric (m, kg)
@@ -217,8 +282,8 @@ export default function UnitConverter() {
                   onClick={() => updateSettings({ measurement: "FPS" })}
                   className={`flex-1 md:flex-none px-6 py-2.5 rounded-full text-sm font-bold transition-all ${
                     settings.measurement === "FPS"
-                      ? "bg-fuchsia-500 text-white shadow-lg shadow-fuchsia-500/20"
-                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+                      ? "bg-fuchsia-500 text-slate-900 shadow-lg shadow-fuchsia-500/20"
+                      : "text-slate-600  hover:text-slate-900 "
                   }`}
                 >
                   Imperial (ft, lb)
@@ -234,35 +299,71 @@ export default function UnitConverter() {
           />
         </div>
         {/* Conversion UI */}{" "}
-        <div className="bg-white/70 dark:bg-slate-900/40 backdrop-blur-3xl rounded-[2.5rem] p-8 md:p-12 border border-slate-200/50 dark:border-slate-700/50 shadow-sm dark:shadow-2xl overflow-hidden relative">
+        <div className="bg-white/70  backdrop-blur-3xl rounded-[2.5rem] p-8 md:p-12 border border-slate-200/50  shadow-sm  overflow-hidden relative">
           {" "}
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
-            <h2 className="text-xl font-bold text-center sm:text-left text-slate-900 dark:text-slate-100 uppercase tracking-widest">
+            <h2 className="text-xl font-bold text-center sm:text-left text-slate-900  uppercase tracking-widest">
               {activeCategory} Conversion
             </h2>
             <div className="flex items-center justify-center gap-3">
-               <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Batch Mode</span>
+               <span className="text-sm font-bold text-slate-700 ">Batch Mode</span>
                <button 
                  onClick={() => setIsBatchMode(!isBatchMode)}
-                 className={`w-12 h-6 rounded-full transition-colors relative shadow-inner ${isBatchMode ? 'bg-fuchsia-500' : 'bg-slate-300 dark:bg-slate-700'}`}
+                 className={`w-12 h-6 rounded-full transition-colors relative shadow-inner ${isBatchMode ? 'bg-fuchsia-500' : 'bg-slate-300 '}`}
                >
                  <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform shadow-md ${isBatchMode ? 'translate-x-7' : 'translate-x-1'}`} />
                </button>
             </div>
           </div>
 
+          {/* Quick Pair Toggle */}
+          {QUICK_PAIRS[activeCategory] && QUICK_PAIRS[activeCategory]!.length > 0 && !isBatchMode && (
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-8 animate-in fade-in slide-in-from-top-2 duration-300">
+              <span className="text-sm font-semibold text-slate-500 uppercase tracking-widest mr-2 hidden sm:block">
+                Quick Pairs
+              </span>
+              {QUICK_PAIRS[activeCategory]!.map((pair, idx) => {
+                const isActive = (fromUnit === pair.from && toUnit === pair.to) || (fromUnit === pair.to && toUnit === pair.from);
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      if (fromUnit === pair.from && toUnit === pair.to) {
+                        setFromUnit(pair.to);
+                        setToUnit(pair.from);
+                      } else if (fromUnit === pair.to && toUnit === pair.from) {
+                        setFromUnit(pair.from);
+                        setToUnit(pair.to);
+                      } else {
+                        setFromUnit(pair.from);
+                        setToUnit(pair.to);
+                      }
+                    }}
+                    className={`px-4 py-2 rounded-[16px] text-xs sm:text-sm font-bold transition-all border shadow-sm active:scale-95 ${
+                      isActive
+                        ? "bg-fuchsia-500 text-white border-fuchsia-600"
+                        : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:text-slate-900"
+                    }`}
+                  >
+                    {pair.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
           <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10">
             {" "}
             {/* FROM PANE */}{" "}
-            <div className={`w-full bg-slate-100/50 dark:bg-slate-800/40 backdrop-blur-xl rounded-[2rem] border border-slate-200 dark:border-slate-700 shadow-inner p-6 md:p-8 transition-all hover:border-fuchsia-500/50 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 flex flex-col items-center justify-center relative ${isBatchMode ? 'flex-none md:w-[45%]' : 'flex-1'}`}>
+            <div className={`w-full bg-slate-100/50  backdrop-blur-xl rounded-[2rem] border border-slate-200  shadow-inner p-6 md:p-8 transition-all hover:border-fuchsia-500/50 hover:bg-slate-100/80  flex flex-col items-center justify-center relative ${isBatchMode ? 'flex-none md:w-[45%]' : 'flex-1'}`}>
               {" "}
-              <label className="block text-xs font-bold text-fuchsia-600 dark:text-fuchsia-400 uppercase tracking-widest mb-4 drop-shadow-sm dark:drop-shadow-md z-10">
+              <label className="block text-xs font-bold text-fuchsia-600  uppercase tracking-widest mb-4 drop-shadow-sm  z-10">
                 From
               </label>{" "}
               <select
                 value={fromUnit}
                 onChange={(e) => handleFromUnitChange(e.target.value)}
-                className="w-full bg-white/70 dark:bg-slate-950/50 border border-slate-300 dark:border-slate-600 text-slate-800 dark:text-slate-100 px-4 py-3 rounded-[24px] font-bold text-sm mb-6 focus:ring-4 focus:ring-fuchsia-500/30 focus:border-fuchsia-500 transition-all outline-none shadow-sm dark:shadow-inner z-10"
+                className="w-full bg-white/70  border border-slate-300  text-slate-800  px-4 py-3 rounded-[24px] font-bold text-sm mb-6 focus:ring-4 focus:ring-fuchsia-500/30 focus:border-fuchsia-500 transition-all outline-none shadow-sm  z-10"
               >
                 {" "}
                 {currentUnits.map((u) => (
@@ -276,14 +377,14 @@ export default function UnitConverter() {
                   value={batchInput}
                   onChange={(e) => setBatchInput(e.target.value)}
                   placeholder="Paste comma-separated values (e.g., 5, 10, 15)"
-                  className="w-full bg-white/50 dark:bg-slate-900 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-100 rounded-[20px] p-4 text-center font-mono text-sm min-h-[120px] focus:outline-none focus:border-fuchsia-500 transition-colors z-10 resize-none shadow-sm dark:shadow-inner"
+                  className="w-full bg-white/50  border border-slate-300  text-slate-900  rounded-[20px] p-4 text-center font-mono text-sm min-h-[120px] focus:outline-none focus:border-fuchsia-500 transition-colors z-10 resize-none shadow-sm "
                 />
               ) : (
                 <input
                   type="text"
                   value={fromValue}
                   onChange={(e) => handleFromValueChange(e.target.value)}
-                  className="w-full bg-transparent border-0 text-[clamp(1.75rem,5vw,2.5rem)] font-bold tabular-nums tracking-tight text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-white/20 focus:ring-0 focus:outline-none p-0 text-center drop-shadow-sm dark:drop-shadow-lg z-10"
+                  className="w-full bg-transparent border-0 text-[clamp(1.75rem,5vw,2.5rem)] font-bold tabular-nums tracking-tight text-slate-900  placeholder-slate-400  focus:ring-0 focus:outline-none p-0 text-center drop-shadow-sm  z-10"
                   placeholder="0"
                   autoComplete="off"
                 />
@@ -299,15 +400,15 @@ export default function UnitConverter() {
               <ArrowRightLeft className="w-6 h-6" strokeWidth={2.5} />{" "}
             </button>{" "}
             {/* TO PANE */}{" "}
-            <div className={`w-full bg-slate-100/50 dark:bg-slate-800/40 backdrop-blur-xl rounded-[2rem] border border-slate-200 dark:border-slate-700 shadow-inner p-6 md:p-8 transition-all hover:border-fuchsia-500/50 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 flex flex-col items-center justify-center relative ${isBatchMode ? 'flex-none md:w-[45%]' : 'flex-1'}`}>
+            <div className={`w-full bg-slate-100/50  backdrop-blur-xl rounded-[2rem] border border-slate-200  shadow-inner p-6 md:p-8 transition-all hover:border-fuchsia-500/50 hover:bg-slate-100/80  flex flex-col items-center justify-center relative ${isBatchMode ? 'flex-none md:w-[45%]' : 'flex-1'}`}>
               {" "}
-              <label className="block text-xs font-bold text-fuchsia-600 dark:text-fuchsia-400 uppercase tracking-widest mb-4 drop-shadow-sm dark:drop-shadow-md z-10">
+              <label className="block text-xs font-bold text-fuchsia-600  uppercase tracking-widest mb-4 drop-shadow-sm  z-10">
                 To
               </label>{" "}
               <select
                 value={toUnit}
                 onChange={(e) => handleToUnitChange(e.target.value)}
-                className="w-full bg-white/70 dark:bg-slate-950/50 border border-slate-300 dark:border-slate-600 text-slate-800 dark:text-slate-100 px-4 py-3 rounded-[24px] font-bold text-sm mb-6 focus:ring-4 focus:ring-fuchsia-500/30 focus:border-fuchsia-500 transition-all outline-none shadow-sm dark:shadow-inner z-10"
+                className="w-full bg-white/70  border border-slate-300  text-slate-800  px-4 py-3 rounded-[24px] font-bold text-sm mb-6 focus:ring-4 focus:ring-fuchsia-500/30 focus:border-fuchsia-500 transition-all outline-none shadow-sm  z-10"
               >
                 {" "}
                 {currentUnits.map((u) => (
@@ -318,39 +419,72 @@ export default function UnitConverter() {
               </select>{" "}
               
               {isBatchMode ? (
-                <div className="w-full bg-white/50 dark:bg-slate-900/50 border border-slate-300 dark:border-slate-700 rounded-[20px] p-4 text-center font-mono text-sm min-h-[120px] max-h-[200px] overflow-y-auto custom-scrollbar shadow-sm dark:shadow-inner z-10 flex flex-col gap-1">
+                <div className="w-full bg-white/50  border border-slate-300  rounded-[20px] p-4 text-center font-mono text-sm min-h-[120px] max-h-[200px] overflow-y-auto custom-scrollbar shadow-sm  z-10 flex flex-col gap-1">
                    {batchResults.length === 0 ? (
                      <div className="text-slate-500 italic my-auto">Results will appear here</div>
                    ) : (
                      batchResults.map((res, i) => (
-                       <div key={i} className="flex justify-between items-center text-slate-700 dark:text-slate-300 border-b border-slate-200 dark:border-slate-800 pb-1 mb-1 last:border-0 last:mb-0 last:pb-0">
+                       <div key={i} className="flex justify-between items-center text-slate-700  border-b border-slate-200  pb-1 mb-1 last:border-0 last:mb-0 last:pb-0">
                          <span className="opacity-70">{res.in} <span className="text-[10px] uppercase">{fromUnit}</span></span>
-                         <span className="font-bold text-fuchsia-600 dark:text-fuchsia-400">{res.out} <span className="text-[10px] uppercase text-fuchsia-600/70 dark:text-fuchsia-500/70">{toUnit}</span></span>
+                         <span className="font-bold text-fuchsia-600 ">{res.out} <span className="text-[10px] uppercase text-fuchsia-600/70 ">{toUnit}</span></span>
                        </div>
                      ))
                    )}
                 </div>
               ) : (
                 <div
-                  className="w-full overflow-hidden text-center text-[clamp(1.75rem,5vw,2.5rem)] font-bold tabular-nums tracking-tight text-slate-900 dark:text-white py-2 drop-shadow-sm dark:drop-shadow-lg z-10"
+                  className="w-full overflow-hidden text-center text-[clamp(1.75rem,5vw,2.5rem)] font-bold tabular-nums tracking-tight text-slate-900  py-2 drop-shadow-sm  z-10 flex items-center justify-center"
                   style={{ minHeight: "60px" }}
                 >
-                  {" "}
-                  {toValue || "0"}{" "}
+                  <AnimatePresence mode="popLayout">
+                    <motion.div
+                      key={toValue || "0"}
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -20, opacity: 0 }}
+                      transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 25 }}
+                    >
+                      {toValue || "0"}
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
               )}
             </div>{" "}
           </div>{" "}
           
+          {/* Industry Standard Presets */}
+          {presets[activeCategory] && presets[activeCategory]!.length > 0 && !isBatchMode && (
+            <div className="mt-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
+              <p className="text-sm font-semibold text-slate-500 uppercase tracking-widest mb-3 text-center sm:text-left">
+                Industry Standard Presets
+              </p>
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                {presets[activeCategory]!.map((preset, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      setFromUnit(preset.unit);
+                      setFromValue(preset.value);
+                      setToValue(convertValue(preset.value, preset.unit, toUnit, activeCategory));
+                    }}
+                    className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium rounded-full transition-colors border border-slate-200 hover:border-slate-300 shadow-sm active:scale-95"
+                  >
+                    {preset.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          
           {/* Conversion specific feedback */}
           {conversionRate !== "" && (
-             <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700/50 flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-bottom-2 duration-500 w-full">
-                <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3">
+             <div className="mt-8 pt-6 border-t border-slate-200  flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-bottom-2 duration-500 w-full">
+                <p className="text-sm font-semibold text-slate-500  uppercase tracking-widest mb-3">
                   Conversion Rate & Reference
                 </p>
-                <div className="inline-flex items-center gap-3 px-6 py-2.5 bg-fuchsia-50 dark:bg-fuchsia-900/30 rounded-full border border-fuchsia-200 dark:border-fuchsia-500/30 text-fuchsia-700 dark:text-fuchsia-300 font-medium sm:text-lg text-sm flex-wrap justify-center mb-8">
+                <div className="inline-flex items-center gap-3 px-6 py-2.5 bg-fuchsia-50  rounded-full border border-fuchsia-200  text-fuchsia-700  font-medium sm:text-lg text-sm flex-wrap justify-center mb-8">
                   <span>1 {fromUnitLabel.split(' (')[0]}</span>
-                  <span className="text-fuchsia-500 dark:text-fuchsia-400 font-normal">=</span>
+                  <span className="text-fuchsia-500  font-normal">=</span>
                   <span className="font-bold">{conversionRate} {toUnitLabel.split(' (')[0]}</span>
                 </div>
                 

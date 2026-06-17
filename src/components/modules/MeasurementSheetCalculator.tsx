@@ -62,6 +62,11 @@ const MeasurementSheetCalculator: React.FC = () => {
   });
 
   const handleRowChange = (tab: TabType, id: string, field: keyof MeasurementRow, value: string) => {
+    if (["length", "width", "heightDepth", "nos"].includes(field as string)) {
+      if (value !== "" && isNaN(Number(value))) return;
+      if (field === "nos" && value !== "" && Number(value) < 0) return;
+    }
+
     setSheets(prev => {
       const newTabState = prev[tab].map(row => {
         if (row.id === id) {
@@ -168,7 +173,7 @@ const MeasurementSheetCalculator: React.FC = () => {
         </div>
         <button
           onClick={exportPDF}
-          className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-5 py-2.5 rounded-[24px] font-medium transition-colors whitespace-nowrap"
+          className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-slate-900 px-5 py-2.5 rounded-[24px] font-medium transition-colors whitespace-nowrap"
         >
           <Download className="w-4 h-4" />
           Export PDF
@@ -234,6 +239,7 @@ const MeasurementSheetCalculator: React.FC = () => {
                     value={row.nos}
                     onChange={(e) => handleRowChange(activeTab, row.id, "nos", e.target.value)}
                     className="w-full bg-transparent border border-slate-200 rounded-[16px] px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800"
+                    min="0"
                   />
                 </td>
                 <td className="p-2">
@@ -268,7 +274,7 @@ const MeasurementSheetCalculator: React.FC = () => {
                 <td className="p-2 text-center">
                   <button
                     onClick={() => deleteRow(activeTab, row.id)}
-                    className="text-slate-400 hover:text-red-500 transition-colors p-1"
+                    className="text-slate-600 hover:text-red-500 transition-colors p-1"
                     title="Delete row"
                   >
                     <Trash2 className="w-4 h-4" />
