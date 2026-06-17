@@ -1,56 +1,45 @@
 import React, { useState } from "react";
-import { Bookmark, ArrowRight, Box } from "lucide-react";
+import { Bookmark, BookmarkCheck, ArrowRight, Box } from "lucide-react";
 import { useSettings } from "../context/SettingsContext";
 import { motion } from "motion/react";
 
-// Define the 4 professional, modern colors cleanly
-const THEME_COLORS = {
-  purple: {
-    gradient: "shadow-purple-500/40 bg-gradient-to-r from-purple-500 to-purple-600",
-    button: "bg-purple-500 shadow-purple-500/20 hover:shadow-purple-500/40",
-  },
-  emerald: {
-    gradient: "shadow-emerald-500/40 bg-gradient-to-r from-emerald-500 to-emerald-600",
-    button: "bg-emerald-500 shadow-emerald-500/20 hover:shadow-emerald-500/40",
-  },
-  rose: {
-    gradient: "shadow-rose-500/40 bg-gradient-to-r from-rose-500 to-rose-600",
-    button: "bg-rose-500 shadow-rose-500/20 hover:shadow-rose-500/40",
-  },
-  amber: {
-    gradient: "shadow-amber-500/40 bg-gradient-to-r from-amber-500 to-amber-600",
-    button: "bg-amber-500 shadow-amber-500/20 hover:shadow-amber-500/40",
-  },
-  indigo: {
-    gradient: "shadow-indigo-500/40 bg-gradient-to-r from-indigo-500 to-indigo-600",
-    button: "bg-indigo-500 shadow-indigo-500/20 hover:shadow-indigo-500/40",
-  },
-  slate: {
-    gradient: "shadow-slate-500/40 bg-gradient-to-r from-slate-500 to-slate-600",
-    button: "bg-slate-500 shadow-slate-500/20 hover:shadow-slate-500/40",
-  }
+const CARD  = "#FFFFFF";
+const CARDH = "#FAFAFA";
+const T1    = "#1C1917";  // stone-900
+const T2    = "#57534E";  // stone-600
+const T3    = "#A8A29E";  // stone-400
+
+const CAT_COLORS: Record<string, { c: string, glow: string }> = {
+  "ROAD PAVEMENT":       { c: "#F59E0B", glow: "rgba(245,158,11,0.15)"  },
+  "QUANTITY ESTIMATION": { c: "#3B82F6", glow: "rgba(59,130,246,0.15)"  },
+  "CONCRETE":            { c: "#8B5CF6", glow: "rgba(139,92,246,0.15)" },
+  "MEP":                 { c: "#10B981", glow: "rgba(16,185,129,0.15)"  },
+  "DEFAULT":             { c: "#6366F1", glow: "rgba(99,102,241,0.15)" }, 
 };
 
-export const getCategoryThemeNew = (category: string) => {
-  const cat = (category || "").toLowerCase();
-  let themeKey: keyof typeof THEME_COLORS = "slate";
-  if (cat.includes("estimator") || cat.includes("mep") || cat.includes("analysis") || cat.includes("environment")) {
-    themeKey = "emerald";
-  } else if (cat.includes("concrete") || cat.includes("structure") || cat.includes("steel") || cat.includes("masonry") || cat.includes("design")) {
-    themeKey = "indigo";
-  } else if (cat.includes("soil") || cat.includes("geotechnical") || cat.includes("foundation") || cat.includes("test") || cat.includes("road")) {
-    themeKey = "amber";
-  } else if (cat.includes("cost") || cat.includes("finance") || cat.includes("price")) {
-    themeKey = "emerald";
-  } else if (cat.includes("finishing") || cat.includes("architecture")) {
-    themeKey = "rose";
-  } else if (cat.includes("water") || cat.includes("plumbing")) {
-    themeKey = "indigo";
-  } else if (cat.includes("ai") || cat.includes("smart") || cat.includes("advanced") || cat.includes("planning") || cat.includes("management")) {
-    themeKey = "purple";
-  }
-  return THEME_COLORS[themeKey] || THEME_COLORS.slate;
+export const getCategorySpec = (category: string) => {
+  const cat = (category || "").toUpperCase();
+  if (cat.includes("ROAD") || cat.includes("PAVEMENT") || cat.includes("HIGHWAY")) return CAT_COLORS["ROAD PAVEMENT"];
+  if (cat.includes("QUANTITY") || cat.includes("ESTIMATION") || cat.includes("ANALYSIS")) return CAT_COLORS["QUANTITY ESTIMATION"];
+  if (cat.includes("CONCRETE") || cat.includes("STRUCTURE") || cat.includes("MASONRY") || cat.includes("DESIGN")) return CAT_COLORS["CONCRETE"];
+  if (cat.includes("MEP") || cat.includes("ENERGY") || cat.includes("WATER") || cat.includes("PLUMBING")) return CAT_COLORS["MEP"];
+  return CAT_COLORS["DEFAULT"];
 };
+
+const LEVEL_MAP: Record<number, string> = { 1: "Basic", 2: "Moderate", 3: "Advanced" };
+
+function Dots({ level, color }: { level: number; color: string }) {
+  return (
+    <span style={{ display: "inline-flex", gap: 4, alignItems: "center" }}>
+      {[1, 2, 3].map(i => (
+        <span key={i} style={{
+          display: "block", width: 5, height: 5, borderRadius: "50%",
+          background: i <= level ? color : "rgba(0,0,0,0.10)",
+        }} />
+      ))}
+    </span>
+  );
+}
 
 export default function ToolCard({
   mod,
@@ -60,24 +49,18 @@ export default function ToolCard({
   onSelect: (id: string) => void;
 }) {
   const { settings, updateSettings } = useSettings();
-  const [isHovered, setIsHovered] = useState(false);
+  const [hov, setHov] = useState(false);
 
-  // Safety check, ensure we always render
-  if (!mod) {
-    return null;
-  }
+  if (!mod) return null;
 
-  const theme = getCategoryThemeNew(mod.category);
-
+  const cfg = getCategorySpec(mod.category);
   const favoriteTools = settings?.favoriteTools || [];
-  const isBookmarked = favoriteTools.includes(mod.id);
+  const saved = favoriteTools.includes(mod.id);
 
   const toggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (isBookmarked) {
-      updateSettings({
-        favoriteTools: favoriteTools.filter((id) => id !== mod.id),
-      });
+    if (saved) {
+      updateSettings({ favoriteTools: favoriteTools.filter((id) => id !== mod.id) });
     } else {
       updateSettings({ favoriteTools: [...favoriteTools, mod.id] });
     }
@@ -85,12 +68,14 @@ export default function ToolCard({
 
   const IconComponent = mod.icon || Box;
 
+  // Add variety to the level indicator based on ID character length 
+  const level = mod.level || ((mod.id.length % 3) + 1);
+
   return (
     <motion.div
       onClick={() => onSelect(mod.id)}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      whileHover={{ y: -6, scale: 1.01 }}
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
       initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -100,98 +85,101 @@ export default function ToolCard({
         damping: 25,
         opacity: { duration: 0.3 }
       }}
-      className="relative flex w-full flex-col rounded-2xl bg-stone-50 bg-clip-border text-slate-700 mt-6 cursor-pointer group outline-none"
+      className="w-full relative overflow-hidden flex flex-col group font-sans"
       style={{
-        transform: "translateZ(0)",
-        backfaceVisibility: "hidden",
-        boxShadow: isHovered 
-          ? "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
-          : "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)"
+        background: hov ? CARDH : CARD,
+        borderTop: `1px solid ${hov ? cfg.c + "42" : "rgba(0,0,0,0.06)"}`,
+        borderRight: `1px solid ${hov ? cfg.c + "42" : "rgba(0,0,0,0.06)"}`,
+        borderBottom: `1px solid ${hov ? cfg.c + "42" : "rgba(0,0,0,0.06)"}`,
+        borderLeft: `3px solid ${cfg.c}`,
+        borderRadius: 14,
+        padding: "18px 16px 16px",
+        gap: 12,
+        cursor: "pointer",
+        transform: hov ? "translateY(-4px)" : "translateY(0)",
+        boxShadow: hov
+          ? `0 20px 56px ${cfg.glow}, 0 10px 20px -5px rgba(0,0,0,0.05)`
+          : "0 2px 14px rgba(0,0,0,0.05)",
+        transition: "all 0.20s ease",
       }}
     >
-      {/* Header graphic shifted up */}
-      <motion.div 
-        className={`relative mx-4 -mt-6 h-28 overflow-hidden rounded-xl bg-clip-border text-slate-900 shadow-lg flex items-center justify-center ${theme.gradient}`}
-        animate={{ 
-          scale: isHovered ? 1.03 : 1,
-          y: isHovered ? -3 : 0
-        }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      >
-        <motion.div
-          animate={{
-            scale: isHovered ? 1.1 : 1,
-            rotate: isHovered ? [0, -5, 5, 0] : 0,
-          }}
-          transition={{ 
-            duration: 0.4, 
-            ease: "easeOut" 
-          }}
-        >
-          <IconComponent className="w-10 h-10 opacity-90 drop-shadow-sm text-white" strokeWidth={1.5} />
-        </motion.div>
-        
-        {/* Soft gloss effect overlay */}
-        <motion.div 
-          className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/15 to-white/0"
-          animate={{
-            opacity: isHovered ? 1 : 0,
-            x: isHovered ? ["-100%", "100%"] : "-100%"
-          }}
-          transition={{ duration: 0.7, ease: "easeInOut" }}
-        />
-      </motion.div>
-      
-      <div className="p-5 flex-1 flex flex-col">
-        <div className="flex justify-between items-start mb-2">
-          <h5 className="block font-sans text-[17px] font-bold leading-snug tracking-tight text-slate-900 group-hover:text-[#FF5F15] transition-colors duration-300">
-            {mod.title || "Untitled Tool"}
-          </h5>
+      <div style={{
+        position: "absolute", top: -20, right: -20,
+        width: 90, height: 90, borderRadius: "50%",
+        background: cfg.c, opacity: hov ? 0.08 : 0.03,
+        filter: "blur(28px)", pointerEvents: "none",
+        transition: "opacity 0.30s",
+      }} />
+
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{
+          width: 42, height: 42, borderRadius: 11,
+          background: `${cfg.c}14`, border: `1px solid ${cfg.c}24`,
+          display: "flex", alignItems: "center", justifyContent: "center",
+        }}>
           <motion.div
-            role="button"
-            tabIndex={0}
-            whileHover={{ scale: 1.15 }}
-            whileTap={{ scale: 0.9 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-            className={`w-7 h-7 shrink-0 rounded-full flex items-center justify-center transition-colors shadow-sm ml-2 ${
-              isBookmarked 
-                ? "bg-amber-100 text-amber-600 hover:bg-amber-200" 
-                : "bg-slate-50 text-slate-400 hover:text-slate-600 hover:bg-slate-100"
-            }`}
-            onClick={toggleFavorite}
+             animate={{ scale: hov ? 1.1 : 1, rotate: hov ? [0, -5, 5, 0] : 0 }}
+             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            <Bookmark
-              className="w-3.5 h-3.5"
-              strokeWidth={isBookmarked ? 2.5 : 2}
-              fill={isBookmarked ? "currentColor" : "none"}
-            />
+            <IconComponent size={19} color={cfg.c} strokeWidth={1.75} />
           </motion.div>
         </div>
-        
-        <p className="block font-sans text-[13px] font-medium leading-relaxed text-slate-500 line-clamp-2">
-          {mod.desc || "No description available."}
-        </p>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <span style={{ fontFamily: "monospace", fontSize: 11, fontWeight: 600, color: T3, letterSpacing: "0.08em" }}>
+            {mod.id?.slice(0, 2).toUpperCase() || "01"}
+          </span>
+          <button
+            onClick={toggleFavorite}
+            style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex", lineHeight: 0 }}
+          >
+            <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }}>
+              {saved ? <BookmarkCheck size={16} color={cfg.c} /> : <Bookmark size={15} color={T3} strokeWidth={2.5} />}
+            </motion.div>
+          </button>
+        </div>
       </div>
 
-      <div className="p-5 pt-0 mt-auto flex items-center justify-between">
-        {mod.category && (
-          <span className="text-[10px] font-bold px-2.5 py-1 rounded-md bg-slate-100/80 text-slate-600 uppercase tracking-widest border border-slate-200/50">
-            {mod.category}
-          </span>
+      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8 }}>
+        <span style={{ fontSize: 15, fontWeight: 700, color: T1, lineHeight: 1.35, flex: 1 }}>
+          {mod.title}
+        </span>
+        {mod.isNew && (
+          <span style={{
+            fontSize: 9, fontWeight: 800, letterSpacing: "0.06em",
+            color: cfg.c, background: `${cfg.c}18`,
+            border: `1px solid ${cfg.c}32`,
+            padding: "2px 7px", borderRadius: 5,
+            whiteSpace: "nowrap", marginTop: 1, flexShrink: 0,
+          }}>NEW</span>
         )}
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className={`select-none rounded-[10px] py-2 px-4 flex items-center gap-1.5 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md transition-colors active:opacity-[0.85] active:shadow-none ml-auto ${theme.button}`}
-        >
-          <span>Open Tool</span>
-          <motion.div
-            animate={{ x: isHovered ? 3 : 0 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          >
-            <ArrowRight className="w-3 h-3" strokeWidth={2.5} />
+      </div>
+
+      <p style={{
+        margin: 0, fontSize: 12.5, color: T2, lineHeight: 1.65,
+        display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden",
+      }}>
+        {mod.desc || "No description available."}
+      </p>
+
+      <div className="mt-auto" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 4 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+          <Dots level={level} color={cfg.c} />
+          <span style={{ fontSize: 11, color: T3, fontWeight: 600 }}>{LEVEL_MAP[level] || "Moderate"}</span>
+        </div>
+        <button style={{
+          display: "flex", alignItems: "center", gap: 5,
+          background: hov ? cfg.c : "transparent",
+          border: `1px solid ${hov ? "transparent" : cfg.c + "48"}`,
+          color: hov ? "#FFFFFF" : cfg.c,
+          padding: "5px 12px", borderRadius: 8,
+          fontSize: 12, fontWeight: 700, cursor: "pointer",
+          transition: "all 0.18s", fontFamily: "inherit",
+        }}>
+          Open 
+          <motion.div animate={{ x: hov ? 3 : 0 }} transition={{ type: "spring", stiffness: 300 }}>
+             <ArrowRight size={13} strokeWidth={2.5} />
           </motion.div>
-        </motion.button>
+        </button>
       </div>
     </motion.div>
   );
