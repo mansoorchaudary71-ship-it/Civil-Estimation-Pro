@@ -173,7 +173,7 @@ const MeasurementSheetCalculator: React.FC = () => {
         </div>
         <button
           onClick={exportPDF}
-          className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-slate-900 px-5 py-2.5 rounded-[24px] font-medium transition-colors whitespace-nowrap"
+          className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-5 py-2.5 rounded-[24px] font-medium transition-colors whitespace-nowrap"
         >
           <Download className="w-4 h-4" />
           Export PDF

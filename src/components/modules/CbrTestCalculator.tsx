@@ -266,7 +266,7 @@ export default function CbrTestCalculator() {
               <button
                 onClick={() => processEstimate(() => {})}
                 disabled={isProcessing}
-                className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-slate-900 font-bold py-3.5 px-6 rounded-[24px] shadow-md shadow-indigo-200 transition-all flex justify-center items-center gap-2 group border border-indigo-500"
+                className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-6 rounded-[24px] shadow-md shadow-indigo-200 transition-all flex justify-center items-center gap-2 group border border-indigo-500"
               >
                 {isProcessing ? "Processing Curve..." : "Calculate CBR Result"}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

@@ -51,7 +51,7 @@ export default function Careers() {
             </p>
             <a 
               href="mailto:careers@civilpro.com" 
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-slate-900 border border-slate-800 dark:bg-white dark:border-white text-white dark:text-slate-900 font-bold rounded-xl hover:bg-slate-800 dark:hover:bg-slate-100 transition-all shadow-md hover:shadow-lg w-full md:w-auto justify-center"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-slate-900 border border-slate-800 dark:bg-white dark:border-white text-white dark:text-white font-bold rounded-xl hover:bg-slate-800 dark:hover:bg-slate-100 transition-all shadow-md hover:shadow-lg w-full md:w-auto justify-center"
             >
               careers@civilpro.com
             </a>

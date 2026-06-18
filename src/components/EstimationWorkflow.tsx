@@ -111,7 +111,7 @@ export default function EstimationWorkflow({ onSelectModule }: EstimationWorkflo
         <div className="mt-14 text-center">
           <button 
             onClick={() => onSelectModule(steps[0].id as ModuleId)}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-purple-600 hover:bg-purple-700 text-slate-900 rounded-full font-bold text-lg shadow-[0_8px_30px_rgba(147,51,234,0.3)] hover:shadow-[0_8px_40px_rgba(147,51,234,0.4)] transition-all hover:-translate-y-1 active:scale-95"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-full font-bold text-lg shadow-[0_8px_30px_rgba(147,51,234,0.3)] hover:shadow-[0_8px_40px_rgba(147,51,234,0.4)] transition-all hover:-translate-y-1 active:scale-95"
           >
             Start Here <ArrowRight className="w-5 h-5" />
           </button>

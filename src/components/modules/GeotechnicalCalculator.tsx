@@ -288,7 +288,7 @@ export default function GeotechnicalCalculator() {
             <button
               onClick={() => processEstimate(() => {})}
               disabled={isProcessing}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-slate-900 font-bold py-4 px-6 rounded-full shadow-md transition-all mt-2"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-6 rounded-full shadow-md transition-all mt-2"
             >
               {isProcessing ? "Generating Report..." : "Generate Lab Report"}
             </button>

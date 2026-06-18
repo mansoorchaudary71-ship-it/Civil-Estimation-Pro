@@ -788,33 +788,33 @@ export default function VolumeEstimator() {
                       <>
                         <div>
                           <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Length ({system === "Metric" ? "m" : "ft"})</label>
-                          <input type="number" value={length} onChange={(e) => setLength(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                          <input type="number" value={length} onChange={(e) => setLength(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
                         </div>
                         <div>
                           <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Width ({system === "Metric" ? "m" : "ft"})</label>
-                          <input type="number" value={width} onChange={(e) => setWidth(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                          <input type="number" value={width} onChange={(e) => setWidth(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
                         </div>
                       </>
                     ) : (
                       <div>
                         <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Radius ({system === "Metric" ? "m" : "ft"})</label>
-                        <input type="number" value={radius} onChange={(e) => setRadius(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                        <input type="number" value={radius} onChange={(e) => setRadius(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
                       </div>
                     )}
                     <div>
                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Main Height ({system === "Metric" ? "m" : "ft"})</label>
-                      <input type="number" value={height} onChange={(e) => setHeight(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                      <input type="number" value={height} onChange={(e) => setHeight(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-200 dark:border-slate-700">
                     <div>
                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Freeboard (%)</label>
-                      <input type="number" value={freeboardPercent} onChange={(e) => setFreeboardPercent(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                      <input type="number" value={freeboardPercent} onChange={(e) => setFreeboardPercent(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
                     </div>
                     <div>
                       <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Dead Storage Depth ({system === "Metric" ? "m" : "ft"})</label>
-                      <input type="number" value={deadStorageDepth} onChange={(e) => setDeadStorageDepth(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                      <input type="number" value={deadStorageDepth} onChange={(e) => setDeadStorageDepth(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
                     </div>
                   </div>
                   
@@ -827,23 +827,23 @@ export default function VolumeEstimator() {
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
                           <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Hopper Depth ({system === "Metric" ? "m" : "ft"})</label>
-                          <input type="number" value={slopedHeight} onChange={(e) => setSlopedHeight(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                          <input type="number" value={slopedHeight} onChange={(e) => setSlopedHeight(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
                         </div>
                         {tankBaseShape === "Rectangular" ? (
                           <>
                             <div>
                               <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Outlet Length</label>
-                              <input type="number" value={outletLength} onChange={(e) => setOutletLength(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                              <input type="number" value={outletLength} onChange={(e) => setOutletLength(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
                             </div>
                             <div>
                               <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Outlet Width</label>
-                              <input type="number" value={outletWidth} onChange={(e) => setOutletWidth(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                              <input type="number" value={outletWidth} onChange={(e) => setOutletWidth(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
                             </div>
                           </>
                         ) : (
                           <div>
                             <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Outlet Radius</label>
-                            <input type="number" value={outletLength} onChange={(e) => setOutletLength(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
+                            <input type="number" value={outletLength} onChange={(e) => setOutletLength(e.target.value)} className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-3 rounded-[16px] mt-1 font-medium text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 transition-all outline-none" />
                           </div>
                         )}
                       </div>
@@ -889,7 +889,7 @@ export default function VolumeEstimator() {
                 </div>
               )}
               {activeShape === "Concentric Cylinder" && (
-                <div className="grid grid-cols-1 mt-2 mb-6 border border-slate-200 dark:border-slate-800 rounded-[24px] overflow-hidden bg-slate-50 dark:bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-200 dark:dark:border-slate-700 shadow-sm text-slate-800 dark:text-white">
+                <div className="grid grid-cols-1 mt-2 mb-6 border border-slate-200 dark:border-slate-800 rounded-[24px] overflow-hidden bg-slate-50 dark:bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-200 dark:dark:border-slate-700 shadow-sm text-white dark:text-white">
                   <div className="p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <div className="flex flex-col gap-4">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

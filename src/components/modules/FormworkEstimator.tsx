@@ -329,7 +329,7 @@ export default function FormworkEstimator() {
                   <button
                     key={factor}
                     onClick={() => setRepetitionFactor(factor)}
-                    className={`w-12 h-12 rounded-[24px] font-semibold tabular-nums tracking-tight transition-all ${repetitionFactor === factor ? "bg-indigo-600 text-slate-900 shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-gray-700  hover:bg-gray-200"}`}
+                    className={`w-12 h-12 rounded-[24px] font-semibold tabular-nums tracking-tight transition-all ${repetitionFactor === factor ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 scale-110" : "bg-gray-100 text-gray-700  hover:bg-gray-200"}`}
                   >
                     {" "}
                     x{factor}{" "}

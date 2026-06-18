@@ -41,6 +41,8 @@ export default function PricingPage() {
   const [isAnnual, setIsAnnual] = useState(true);
   const [boqCount, setBoqCount] = useState(10);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [showAllFaqs, setShowAllFaqs] = useState(false);
+  const displayedFaqs = showAllFaqs ? FAQS : FAQS.slice(0, 2);
 
   const hoursSaved = (boqCount * ROI_DATA.hoursPerBOQ).toFixed(0);
   const moneySaved = (boqCount * ROI_DATA.hoursPerBOQ * ROI_DATA.hourlyRate).toLocaleString();
@@ -172,7 +174,7 @@ export default function PricingPage() {
                 <span className="text-slate-500 dark:text-slate-400 font-medium">/mo</span>
                 {isAnnual && <div className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold mt-1">Billed $468 yearly</div>}
               </div>
-              <button className="w-full py-3.5 px-4 rounded-xl font-bold bg-slate-900 dark:bg-amber-500 hover:bg-slate-800 dark:hover:bg-amber-400 text-white dark:text-slate-900 shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5">
+              <button className="w-full py-3.5 px-4 rounded-xl font-bold bg-slate-900 dark:bg-amber-500 hover:bg-slate-800 dark:hover:bg-amber-400 text-white dark:text-white shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5">
                 Start 14-Day Free Trial
               </button>
             </div>
@@ -269,7 +271,7 @@ export default function PricingPage() {
         <div className="max-w-3xl mx-auto">
           <h3 className="text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">Frequently Asked Questions</h3>
           <div className="space-y-4">
-            {FAQS.map((faq, idx) => (
+            {displayedFaqs.map((faq, idx) => (
               <div 
                 key={idx} 
                 className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl overflow-hidden transition-all duration-300 shadow-sm"
@@ -301,6 +303,16 @@ export default function PricingPage() {
               </div>
             ))}
           </div>
+          {FAQS.length > 2 && (
+            <div className="text-center mt-8">
+              <button
+                onClick={() => setShowAllFaqs(!showAllFaqs)}
+                className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors"
+              >
+                {showAllFaqs ? 'Show Less' : `Show all ${FAQS.length} questions`}
+              </button>
+            </div>
+          )}
         </div>
 
       </div>

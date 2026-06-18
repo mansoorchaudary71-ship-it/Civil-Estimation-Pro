@@ -618,7 +618,7 @@ export function CalculationHistory({
               </h2>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-2 -mr-2 text-slate-700 hover:text-slate-600 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                className="p-2 -mr-2 text-white hover:text-slate-600 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -704,7 +704,7 @@ export function CalculationHistory({
           <div className="relative w-full max-w-md bg-bg-card shadow-2xl rounded-2xl border border-border-color flex flex-col transform transition-transform duration-300 ease-in-out p-6 pt-7 animate-in zoom-in-95">
             <button
               onClick={() => setIsSaveModalOpen(false)}
-              className="absolute top-4 right-4 p-2 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="absolute top-4 right-4 p-2 text-slate-500 hover:text-white dark:hover:text-slate-300 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -767,7 +767,7 @@ export function CalculationHistory({
             <div className="flex gap-3">
               <button
                 onClick={() => setIsSaveModalOpen(false)}
-                className="flex-1 px-4 py-3 rounded-xl border border-border-color text-slate-700 dark:text-slate-300 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                className="flex-1 px-4 py-3 rounded-xl border border-border-color text-white dark:text-slate-300 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                 disabled={isSavingCloud}
               >
                 Cancel

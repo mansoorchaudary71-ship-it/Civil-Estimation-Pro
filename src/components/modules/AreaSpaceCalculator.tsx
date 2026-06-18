@@ -503,7 +503,7 @@ export default function AreaSpaceCalculator() {
                 <button className="flex-1 px-4 py-2 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-indigo-600 hover:bg-slate-50 text-xs font-bold rounded-xl transition duration-200 shadow-sm truncate">
                   Generate BOQ Now →
                 </button>
-                <button className="px-4 py-2 bg-indigo-600 border border-indigo-400 hover:bg-indigo-700 text-slate-900 text-xs font-bold rounded-xl transition duration-200 flex items-center justify-center">
+                <button className="px-4 py-2 bg-indigo-600 border border-indigo-400 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition duration-200 flex items-center justify-center">
                   Save Result
                 </button>
               </div>

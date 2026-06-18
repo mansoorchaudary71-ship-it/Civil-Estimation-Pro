@@ -32,7 +32,7 @@ export const SoilReportHeader: React.FC<Props> = ({ details, onChange, onGenerat
           <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">Project Name</label>
           <input
             type="text"
-            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-white dark:text-white focus:ring-2 focus:ring-teal-500"
             value={details.projectName}
             onChange={(e) => onChange("projectName", e.target.value)}
           />
@@ -41,7 +41,7 @@ export const SoilReportHeader: React.FC<Props> = ({ details, onChange, onGenerat
           <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">Client Name</label>
           <input
             type="text"
-            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-white dark:text-white focus:ring-2 focus:ring-teal-500"
             value={details.clientName}
             onChange={(e) => onChange("clientName", e.target.value)}
           />
@@ -50,7 +50,7 @@ export const SoilReportHeader: React.FC<Props> = ({ details, onChange, onGenerat
           <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">Lab Name</label>
           <input
             type="text"
-            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-white dark:text-white focus:ring-2 focus:ring-teal-500"
             value={details.labName}
             onChange={(e) => onChange("labName", e.target.value)}
             placeholder="Central Soils Laboratory"
@@ -60,7 +60,7 @@ export const SoilReportHeader: React.FC<Props> = ({ details, onChange, onGenerat
           <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">Sample ID</label>
           <input
             type="text"
-            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-white dark:text-white focus:ring-2 focus:ring-teal-500"
             value={details.sampleId}
             onChange={(e) => onChange("sampleId", e.target.value)}
           />
@@ -69,7 +69,7 @@ export const SoilReportHeader: React.FC<Props> = ({ details, onChange, onGenerat
           <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">Depth (m/ft)</label>
           <input
             type="text"
-            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-white dark:text-white focus:ring-2 focus:ring-teal-500"
             value={details.depth}
             onChange={(e) => onChange("depth", e.target.value)}
           />
@@ -78,7 +78,7 @@ export const SoilReportHeader: React.FC<Props> = ({ details, onChange, onGenerat
           <label className="block text-[11px] font-bold text-slate-500 uppercase mb-1">Tested By</label>
           <input
             type="text"
-            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-teal-500"
+            className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm text-white dark:text-white focus:ring-2 focus:ring-teal-500"
             value={details.testedBy}
             onChange={(e) => onChange("testedBy", e.target.value)}
           />

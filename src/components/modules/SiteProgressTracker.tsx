@@ -550,7 +550,7 @@ export default function SiteProgressTracker() {
                                            newPhotos.splice(idx, 1);
                                            handleUpdatePhase(activePhase.id, 'photos', newPhotos);
                                         }}
-                                        className="absolute top-2 right-2 p-1.5 bg-slate-900/50 text-slate-900 rounded-[16px] opacity-0 group-hover:opacity-100 transition"
+                                        className="absolute top-2 right-2 p-1.5 bg-slate-900/50 text-white rounded-[16px] opacity-0 group-hover:opacity-100 transition"
                                      >
                                         <Trash2 className="w-3 h-3" />
                                      </button>

@@ -391,7 +391,7 @@ export default function BeamCalculator() {
 
           <button
             onClick={calculateBeam}
-            className="w-full mt-6 bg-indigo-600 hover:bg-blue-700 text-slate-900 font-bold py-4 rounded-[24px] transition-colors mt-8"
+            className="w-full mt-6 bg-indigo-600 hover:bg-blue-700 text-white font-bold py-4 rounded-[24px] transition-colors mt-8"
           >
             Calculate Beam Quantities
           </button>

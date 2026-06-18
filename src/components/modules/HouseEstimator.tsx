@@ -1258,7 +1258,7 @@ export default function HouseEstimator() {
                     </div>
                     <button 
                       onClick={() => setIsRoomModalOpen(true)} 
-                      className="text-xs font-bold text-slate-900 bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-[24px] transition-all shadow-sm active:scale-95 flex items-center gap-1"
+                      className="text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-[24px] transition-all shadow-sm active:scale-95 flex items-center gap-1"
                     >
                       Open Rooms <ChevronRight className="w-3 h-3" />
                     </button>
@@ -2222,7 +2222,7 @@ export default function HouseEstimator() {
             </div>
             
             <div className="p-6 border-t border-slate-100 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500">
-               <button onClick={() => setIsRoomModalOpen(false)} className="w-full bg-indigo-600 hover:bg-indigo-700 text-slate-900 font-bold py-3.5 px-4 rounded-[24px] transition-all shadow-[0_4px_14px_0_rgba(79,70,229,0.39)] active:scale-95 flex justify-center items-center gap-2">
+               <button onClick={() => setIsRoomModalOpen(false)} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-4 rounded-[24px] transition-all shadow-[0_4px_14px_0_rgba(79,70,229,0.39)] active:scale-95 flex justify-center items-center gap-2">
                  <CheckCircle2 className="w-5 h-5" /> Save Detail Configurations
                </button>
             </div>

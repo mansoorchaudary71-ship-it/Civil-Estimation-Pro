@@ -129,7 +129,7 @@ export default function SearchAndFilterBar({
                   className={`
                     relative flex items-center justify-center flex-shrink-0 gap-2 px-5 py-2.5 rounded-full whitespace-nowrap transition-all duration-300 snap-start
                     ${isActive 
-                      ? "bg-indigo-600 text-slate-900 font-bold shadow-[0_4px_12px_rgba(79,70,229,0.3)] border border-indigo-500" 
+                      ? "bg-indigo-600 text-white font-bold shadow-[0_4px_12px_rgba(79,70,229,0.3)] border border-indigo-500" 
                       : "bg-[#F0F4F8] text-slate-500 hover:text-slate-700 shadow-[2px_2px_6px_rgba(163,177,198,0.3),-2px_-2px_6px_rgba(255,255,255,0.8)] border border-white"}
                   `}
                 >

@@ -234,7 +234,7 @@ export default function BarBendingSchedule() {
              </button>
              <button
                 onClick={handlePrint}
-                className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold rounded-[24px] bg-indigo-600 hover:bg-blue-700 text-slate-900 shadow-md shadow-blue-200 transition-all"
+                className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold rounded-[24px] bg-indigo-600 hover:bg-blue-700 text-white shadow-md shadow-blue-200 transition-all"
              >
                 <Printer className="w-4 h-4" />
                 Print Schedule
@@ -413,7 +413,7 @@ export default function BarBendingSchedule() {
                  
                  <button
                    onClick={calculateBBS}
-                   className="w-full py-3.5 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 hover:bg-indigo-600 text-slate-900 font-bold rounded-[24px] transition-all shadow-md mt-4"
+                   className="w-full py-3.5 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 hover:bg-indigo-600 text-white font-bold rounded-[24px] transition-all shadow-md mt-4"
                  >
                    Calculate & Add
                  </button>

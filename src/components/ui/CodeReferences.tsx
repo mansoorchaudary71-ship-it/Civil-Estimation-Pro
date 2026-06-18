@@ -91,7 +91,7 @@ export function CodeReferences({ moduleId }: { moduleId: string }) {
     <div className="mt-4 mb-6 border border-slate-200 dark:border-slate-700/50 rounded-xl bg-white dark:bg-slate-800/80 overflow-hidden shadow-sm">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors hover:bg-slate-100 dark:hover:bg-slate-700"
+        className="w-full flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 text-white dark:text-slate-200 transition-colors hover:bg-slate-100 dark:hover:bg-slate-700"
       >
         <span className="flex items-center gap-2 font-bold text-sm uppercase tracking-wider text-slate-600 dark:text-slate-400">
           <BookOpen className="w-4 h-4 text-indigo-500" />

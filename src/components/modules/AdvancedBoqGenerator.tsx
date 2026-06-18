@@ -234,7 +234,7 @@ export default function AdvancedBoqGenerator() {
 
   const StepIndicator = ({ num, title }: { num: number, title: string }) => (
     <div className={`flex items-center gap-2 ${step === num ? 'opacity-100' : 'opacity-50'} transition-opacity`}>
-      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${step === num ? 'bg-purple-600 text-slate-900 shadow-lg shadow-purple-500/30' : 'bg-slate-200  text-slate-500'}`}>
+      <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${step === num ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/30' : 'bg-slate-200  text-slate-500'}`}>
         {num}
       </div>
       <span className={`font-semibold hidden md:block ${step === num ? 'text-slate-800  ' : 'text-slate-500'}`}>{title}</span>
@@ -321,7 +321,7 @@ export default function AdvancedBoqGenerator() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {(Object.keys(TRADE_UNITS) as TradeScope[]).map(scope => (
                   <label key={scope} className={`flex items-center gap-3 p-4 rounded-[24px] border-2 cursor-pointer transition-all ${scopes.includes(scope) ? 'border-purple-600 bg-purple-50 ' : 'border-slate-200 hover:border-purple-300'}`}>
-                    <div className={`w-5 h-5 rounded flex items-center justify-center border ${scopes.includes(scope) ? 'bg-purple-600 border-purple-600 text-slate-900' : 'border-slate-300'}`}>
+                    <div className={`w-5 h-5 rounded flex items-center justify-center border ${scopes.includes(scope) ? 'bg-purple-600 border-purple-600 text-white' : 'border-slate-300'}`}>
                       {scopes.includes(scope) && <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
                     </div>
                     <span className="font-semibold text-slate-700">{scope}</span>
@@ -331,7 +331,7 @@ export default function AdvancedBoqGenerator() {
             </div>
 
             <div className="flex justify-end pt-6">
-              <button disabled={scopes.length===0} onClick={() => setStep(2)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-slate-900 px-8 py-3 rounded-[24px] font-bold transition-all shadow-lg shadow-purple-500/30">
+              <button disabled={scopes.length===0} onClick={() => setStep(2)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white px-8 py-3 rounded-[24px] font-bold transition-all shadow-lg shadow-purple-500/30">
                 Continue Setup <ChevronRight className="w-5 h-5" />
               </button>
             </div>
@@ -437,7 +437,7 @@ export default function AdvancedBoqGenerator() {
 
             <div className="flex justify-between pt-6 border-t border-slate-200">
               <button onClick={() => setStep(1)} className="px-6 py-2.5 rounded-[24px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors">Back</button>
-              <button onClick={() => setStep(3)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-slate-900 px-8 py-3 rounded-[24px] font-bold transition-all shadow-lg shadow-purple-500/30">
+              <button onClick={() => setStep(3)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-[24px] font-bold transition-all shadow-lg shadow-purple-500/30">
                 Continue to Rates <ChevronRight className="w-5 h-5" />
               </button>
             </div>
@@ -540,7 +540,7 @@ export default function AdvancedBoqGenerator() {
 
             <div className="flex justify-between pt-6 border-t border-slate-200">
               <button onClick={() => setStep(2)} className="px-6 py-2.5 rounded-[24px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors">Back</button>
-              <button onClick={() => setStep(4)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-slate-900 px-8 py-3 rounded-[24px] font-bold transition-all shadow-lg shadow-purple-500/30">
+              <button onClick={() => setStep(4)} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-[24px] font-bold transition-all shadow-lg shadow-purple-500/30">
                 Generate BOQ <FileText className="w-5 h-5" />
               </button>
             </div>
@@ -560,7 +560,7 @@ export default function AdvancedBoqGenerator() {
                 <button onClick={handleExportExcel} className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-slate-900 px-4 py-2 rounded-[16px] font-bold transition-colors shadow-sm">
                   <FileSpreadsheet className="w-4 h-4" /> Excel
                 </button>
-                <button onClick={handleExportPDF} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-slate-900 px-5 py-2 rounded-[16px] font-bold transition-colors shadow-sm">
+                <button onClick={handleExportPDF} className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-[16px] font-bold transition-colors shadow-sm">
                   <Download className="w-4 h-4" /> PDF Report
                 </button>
               </div>

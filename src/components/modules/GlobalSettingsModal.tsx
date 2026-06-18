@@ -346,7 +346,7 @@ export default function GlobalSettingsModal({
           </button>{" "}
           <button
             onClick={handleSave}
-            className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-blue-700 text-slate-900 rounded-[24px] font-medium shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] active:scale-95"
+            className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-blue-700 text-white rounded-[24px] font-medium shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] active:scale-95"
           >
             {" "}
             <Check className="w-4 h-4" /> Save Settings{" "}

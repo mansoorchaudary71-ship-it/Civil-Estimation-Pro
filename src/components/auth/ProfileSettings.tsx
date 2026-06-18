@@ -145,7 +145,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
             <button
                type="submit"
                disabled={isLoading}
-               className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-slate-900 font-semibold rounded-full shadow-sm text-sm transition-all focus:ring-4 focus:ring-indigo-500/50 flex justify-center items-center h-12"
+               className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-full shadow-sm text-sm transition-all focus:ring-4 focus:ring-indigo-500/50 flex justify-center items-center h-12"
             >
                {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Save Changes'}
             </button>

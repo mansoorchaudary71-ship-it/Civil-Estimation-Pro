@@ -377,7 +377,7 @@ export default function BOQGenerator() {
             )}
             <button
               onClick={() => triggerExportModal("all")}
-              className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-slate-900 font-bold rounded-[24px] transition-colors shadow-sm"
+              className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-[24px] transition-colors shadow-sm"
             >
               <FileOutput className="w-4 h-4" /> PDF Report
             </button>
@@ -394,7 +394,7 @@ export default function BOQGenerator() {
               </h3>
               <button
                 onClick={handleAddItem}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-slate-900 font-bold rounded-[16px] text-sm hover:bg-indigo-700 transition"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white font-bold rounded-[16px] text-sm hover:bg-indigo-700 transition"
               >
                 <Plus className="w-4 h-4" /> Add Item
               </button>
@@ -813,7 +813,7 @@ export default function BOQGenerator() {
               </button>
               <button 
                 onClick={confirmPDFExport}
-                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-slate-900 font-bold rounded-xl shadow-sm transition-colors flex items-center gap-2"
+                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-sm transition-colors flex items-center gap-2"
               >
                 <FileOutput className="w-4 h-4" /> Download PDF
               </button>

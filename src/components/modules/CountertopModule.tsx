@@ -84,7 +84,7 @@ export default function CountertopModule() {
                 <button
                   key={s}
                   onClick={() => setShape(s)}
-                  className={`px-4 py-2 rounded-[24px] text-sm font-bold transition-all border ${shape === s ? 'bg-indigo-600 border-indigo-600 text-slate-900' : 'bg-bg-primary border-border-color text-slate-600  hover:bg-slate-100'}`}
+                  className={`px-4 py-2 rounded-[24px] text-sm font-bold transition-all border ${shape === s ? 'bg-indigo-600 border-indigo-600 text-white' : 'bg-bg-primary border-border-color text-slate-600  hover:bg-slate-100'}`}
                 >
                   {s}
                 </button>

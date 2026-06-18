@@ -141,7 +141,7 @@ export function RangeSlider({
         <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
           {label}
         </label>
-        <div className="text-sm font-bold text-slate-900 dark:text-slate-100 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-lg">
+        <div className="text-sm font-bold text-white dark:text-slate-100 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-lg">
           {value} {unit && <span className="text-slate-500 font-medium">{unit}</span>}
         </div>
       </div>

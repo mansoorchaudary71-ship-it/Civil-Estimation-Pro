@@ -233,7 +233,7 @@ export function MaterialSummary({
             <button 
               onClick={handleRecalculate}
               disabled={isRecalculating}
-              className="flex items-center gap-2 px-5 py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl font-bold transition-all disabled:opacity-50"
+              className="flex items-center gap-2 px-5 py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-white dark:text-slate-300 rounded-xl font-bold transition-all disabled:opacity-50"
             >
               <RefreshCw className={`w-5 h-5 ${isRecalculating ? 'animate-spin' : ''}`} />
               Recalculate Values

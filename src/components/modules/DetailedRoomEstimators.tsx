@@ -24,7 +24,7 @@ export function DetailedRoomEstimators() {
               onClick={() => setActiveTab(tab)}
               className={`px-6 py-3 rounded-[24px] text-sm font-bold transition-all whitespace-nowrap ${
                 activeTab === tab
-                  ? "bg-purple-600 text-slate-900 shadow-md shadow-purple-500/20"
+                  ? "bg-purple-600 text-white shadow-md shadow-purple-500/20"
                   : "text-slate-600 hover:text-slate-900 hover:bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/60 "
               }`}
             >

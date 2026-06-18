@@ -104,7 +104,7 @@ function RateField({ label, value, onChange }: { label: string, value: number, o
         <MaskedInput
           value={value}
           onValueChange={onChange}
-          className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl py-2 pl-9 pr-4 text-right text-slate-800 dark:text-white font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
+          className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl py-2 pl-9 pr-4 text-right text-white dark:text-white font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
         />
       </div>
     </div>

@@ -12,6 +12,8 @@ interface SEOFAQProps {
 
 export function SEOFAQ({ faqs }: SEOFAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [showAll, setShowAll] = useState(false);
+  const displayedFaqs = showAll ? faqs : faqs.slice(0, 2);
 
   return (
     <section className="w-full max-w-4xl mx-auto my-12" aria-label="Frequently Asked Questions">
@@ -19,7 +21,7 @@ export function SEOFAQ({ faqs }: SEOFAQProps) {
         Frequently Asked Questions
       </h2>
       <div className="space-y-4">
-        {faqs.map((faq, index) => {
+        {displayedFaqs.map((faq, index) => {
           const isOpen = openIndex === index;
           return (
             <div 
@@ -54,6 +56,16 @@ export function SEOFAQ({ faqs }: SEOFAQProps) {
           );
         })}
       </div>
+      {faqs.length > 2 && (
+        <div className="text-center mt-8">
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors"
+          >
+            {showAll ? 'Show Less' : `Show all ${faqs.length} questions`}
+          </button>
+        </div>
+      )}
     </section>
   );
 }

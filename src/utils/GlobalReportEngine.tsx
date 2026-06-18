@@ -104,7 +104,9 @@ export interface ReportData {
     email?: string;
     phone?: string;
   };
-  paperSize?: "a4" | "legal";
+  paperSize?: "a4" | "legal" | "letter";
+  theme?: "Professional" | "Minimalist" | "Condensed";
+  watermark?: "DRAFT" | "CONFIDENTIAL" | "NONE";
 }
 
 const DEFAULT_COLORS = [
@@ -265,8 +267,15 @@ export const GlobalReportEngine = {
     const pageHeight = doc.internal.pageSize.height;
 
     // 1. Premium Header
-    doc.setFillColor(15, 23, 42); 
-    doc.rect(0, 0, pageWidth, 45, "F");
+    if (safeData.theme === "Minimalist") {
+      doc.setFillColor(255, 255, 255);
+      doc.rect(0, 0, pageWidth, 45, "F");
+      doc.setDrawColor(226, 232, 240);
+      doc.line(0, 45, pageWidth, 45);
+    } else {
+      doc.setFillColor(15, 23, 42); 
+      doc.rect(0, 0, pageWidth, 45, "F");
+    }
 
     let qrCodeDataURL = "";
     try {
@@ -280,7 +289,7 @@ export const GlobalReportEngine = {
     }
 
     // Company & Report Title
-    doc.setTextColor(255, 255, 255);
+    doc.setTextColor(safeData.theme === "Minimalist" ? 15 : 255, safeData.theme === "Minimalist" ? 23 : 255, safeData.theme === "Minimalist" ? 42 : 255);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
     let rawTitle = safeData.toolName?.toUpperCase() || 'EXECUTIVE ESTIMATION REPORT';
@@ -312,7 +321,7 @@ export const GlobalReportEngine = {
     }
     
     doc.setFontSize(9);
-    doc.setTextColor(255, 255, 255);
+    doc.setTextColor(safeData.theme === "Minimalist" ? 100 : 255, safeData.theme === "Minimalist" ? 116 : 255, safeData.theme === "Minimalist" ? 139 : 255);
     doc.text(`Report ID: ${safeData.reportId || 'EST-' + Math.floor(Math.random()*10000)}`, pageWidth - 45, 18, { align: "right" });
     const dateStr = safeData.metadata.date || new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
     doc.text(`Date: ${dateStr}`, pageWidth - 45, 26, { align: "right" });
@@ -521,22 +530,22 @@ export const GlobalReportEngine = {
       startY: currentY,
       head: [["S.No", "Item Description", "Qty", "Unit", "Rate (Rs)", "Amount (Rs)"]],
       body: tableBody,
-      theme: "grid",
+      theme: safeData.theme === "Minimalist" ? "plain" : "grid",
       headStyles: {
-        fillColor: [249, 250, 251], // Light gray
+        fillColor: safeData.theme === "Minimalist" ? [255, 255, 255] : [249, 250, 251],
         textColor: [17, 24, 39],
         font: "helvetica",
         fontStyle: "bold",
-        lineWidth: 0.1,
+        lineWidth: safeData.theme === "Minimalist" ? 0 : 0.1,
         lineColor: [229, 231, 235],
       },
-      alternateRowStyles: { fillColor: [250, 250, 250] },
+      alternateRowStyles: safeData.theme === "Minimalist" ? undefined : { fillColor: [250, 250, 250] },
       styles: {
         font: "helvetica",
-        fontSize: 9,
-        cellPadding: 4,
+        fontSize: safeData.theme === "Condensed" ? 8 : 9,
+        cellPadding: safeData.theme === "Condensed" ? 2 : 4,
         lineColor: [229, 231, 235],
-        lineWidth: 0.1,
+        lineWidth: safeData.theme === "Minimalist" ? 0 : 0.1,
       },
       columnStyles: {
         0: { cellWidth: 30 },
@@ -632,6 +641,21 @@ export const GlobalReportEngine = {
       doc.text(`Page ${i} of ${pageCount}`, pageWidth / 2, pageHeight - 10, { align: "center" });
     }
 
+    
+    if (safeData.watermark && safeData.watermark !== "NONE") {
+      const pageCount = doc.internal.getNumberOfPages();
+      for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(80);
+        doc.setTextColor(230, 230, 230);
+        doc.setFont("helvetica", "bold");
+        doc.text(safeData.watermark, pageWidth / 2, pageHeight / 2, {
+          angle: 45,
+          align: "center",
+          baseline: "middle",
+        });
+      }
+    }
     return doc;
   },
 

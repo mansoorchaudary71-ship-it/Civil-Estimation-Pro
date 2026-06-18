@@ -105,7 +105,7 @@ export const ALL_MODULES = [
  category: "Quantity Estimation",
  icon: Activity, BookOpen, FileText,
  styleStyle: "solid",
- colorClass: "bg-indigo-600 text-slate-900 shadow-lg shadow-indigo-600/30",
+ colorClass: "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30",
  difficulty: "Intermediate",
  estimatedTime: "~20 mins",
  isNew: true,
@@ -120,7 +120,7 @@ export const ALL_MODULES = [
  category: "Quantity Estimation",
  icon: Calculator,
  styleStyle: "solid",
- colorClass: "bg-indigo-600 text-slate-900 shadow-lg",
+ colorClass: "bg-indigo-600 text-white shadow-lg",
  difficulty: "Beginner",
  estimatedTime: "~1 min",
  isNew: true,
@@ -195,7 +195,7 @@ export const ALL_MODULES = [
  category: "Quantity Estimation",
  icon: ClipboardList,
  styleStyle: "solid",
- colorClass: "bg-blue-600 text-slate-900 shadow-lg",
+ colorClass: "bg-blue-600 text-white shadow-lg",
  difficulty: "Advanced",
  estimatedTime: "~5 mins",
  isNew: true,
@@ -621,7 +621,7 @@ export const ALL_MODULES = [
  category: "Quantity Estimation",
  icon: FolderOpen,
  styleStyle: "solid",
- colorClass: "bg-indigo-600 text-slate-900 shadow-lg",
+ colorClass: "bg-indigo-600 text-white shadow-lg",
  difficulty: "Beginner",
  estimatedTime: "~1 min",
  isNew: true,
@@ -866,7 +866,7 @@ export const ALL_MODULES = [
  category: "Resources",
  icon: FileText,
  styleStyle: "solid",
- colorClass: "bg-indigo-600 text-slate-900 shadow-lg shadow-indigo-600/30",
+ colorClass: "bg-indigo-600 text-white shadow-lg shadow-indigo-600/30",
  difficulty: "Beginner",
  estimatedTime: "Download",
  isPopular: true,
@@ -1371,7 +1371,7 @@ export default function Dashboard({
  {/* Quick Overview Row */}
  <section className="mb-8">
  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
- <div className="bg-blue-600 text-slate-900 rounded-3xl p-5 shadow-lg shadow-blue-500/10">
+ <div className="bg-blue-600 text-white rounded-3xl p-5 shadow-lg shadow-blue-500/10">
  <div className="text-xs opacity-80 uppercase font-semibold tracking-wider">Active Project</div>
  <div className="text-xl font-bold mt-1 truncate">Disposal Well A</div>
  </div>

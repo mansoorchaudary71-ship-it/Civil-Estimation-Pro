@@ -88,7 +88,7 @@ export default function RecentSidebar({
                       }}
                       className="w-full text-left p-4 rounded-xl border border-slate-100 bg-white hover:border-indigo-200 hover:shadow-md transition-all group flex items-center gap-4"
                     >
-                      <div className="w-10 h-10 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-slate-900 transition-colors shrink-0">
+                      <div className="w-10 h-10 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors shrink-0">
                         {mod.icon && <mod.icon className="w-5 h-5" />}
                       </div>
                       <div className="flex-1 min-w-0">

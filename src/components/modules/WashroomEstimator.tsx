@@ -145,7 +145,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
           type="number" 
           value={val} 
           onChange={(e)=>setVal(e.target.value)} 
-          className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-4 py-2.5 text-slate-800 dark:text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-purple-500 outline-none transition-all"
+          className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-4 py-2.5 text-white dark:text-white dark:text-white font-semibold focus:ring-2 focus:ring-purple-500 outline-none transition-all"
         />
         {suffix && <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">{suffix}</span>}
       </div>
@@ -175,7 +175,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
           </div>
         </div>
         {onClose && (
-          <button onClick={onClose} className="p-2 bg-slate-900/10 hover:bg-slate-900/20 rounded-full transition-colors text-slate-900 dark:text-white">
+          <button onClick={onClose} className="p-2 bg-slate-900/10 hover:bg-slate-900/20 rounded-full transition-colors text-white dark:text-white">
             <X className="w-6 h-6" />
           </button>
         )}
@@ -186,7 +186,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
         {/* Input Form Column */}
         <div className="lg:col-span-5 space-y-8">
           {/* Unit Toggle */}
-          <div className="flex bg-slate-200/50 dark:bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-200 dark:dark:border-slate-700 shadow-sm text-slate-800 dark:text-white p-1 rounded-[24px] w-fit">
+          <div className="flex bg-slate-200/50 dark:bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-200 dark:dark:border-slate-700 shadow-sm text-white dark:text-white p-1 rounded-[24px] w-fit">
             <button onClick={()=>setUnit("ft")} className={`px-5 py-2 rounded-[24px] text-sm font-bold transition-all ${unit === "ft" ? "bg-white dark:bg-slate-700 shadow-sm text-purple-600 dark:text-purple-400" : "text-slate-500 hover:text-slate-700"}`}>Feet</button>
             <button onClick={()=>setUnit("m")} className={`px-5 py-2 rounded-[24px] text-sm font-bold transition-all ${unit === "m" ? "bg-white dark:bg-slate-700 shadow-sm text-purple-600 dark:text-purple-400" : "text-slate-500 hover:text-slate-700"}`}>Meters</button>
           </div>
@@ -276,7 +276,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
               
               <div>
                 <h4 className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2"><Hammer className="w-4 h-4"/> Civil Works</h4>
-                <div className="bg-slate-50 dark:bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-200 dark:dark:border-slate-700 shadow-sm text-slate-800 dark:text-white rounded-[24px] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm">
+                <div className="bg-slate-50 dark:bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-200 dark:dark:border-slate-700 shadow-sm text-white dark:text-white rounded-[24px] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm">
                   <table className="w-full text-left text-sm">
                     <thead className="bg-[#f8fafc] dark:bg-slate-800 text-slate-500">
                       <tr>
@@ -300,7 +300,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
 
               <div>
                  <h4 className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2"><Grid2X2 className="w-4 h-4"/> Tiles & Finishes</h4>
-                 <div className="bg-slate-50 dark:bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-200 dark:dark:border-slate-700 shadow-sm text-slate-800 dark:text-white rounded-[24px] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm">
+                 <div className="bg-slate-50 dark:bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-200 dark:dark:border-slate-700 shadow-sm text-white dark:text-white rounded-[24px] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm">
                    <table className="w-full text-left text-sm">
                      <thead className="bg-[#f8fafc] dark:bg-slate-800 text-slate-500">
                        <tr>
@@ -324,7 +324,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
 
               <div>
                  <h4 className="text-sm font-bold uppercase tracking-widest text-slate-400 mb-3 flex items-center gap-2"><Zap className="w-4 h-4"/> Plumbing & Electrical</h4>
-                 <div className="bg-slate-50 dark:bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-200 dark:dark:border-slate-700 shadow-sm text-slate-800 dark:text-white rounded-[24px] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm">
+                 <div className="bg-slate-50 dark:bg-slate-50 dark:bg-slate-800/50 rounded-[24px] border border-slate-200 dark:dark:border-slate-700 shadow-sm text-white dark:text-white rounded-[24px] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm">
                    <table className="w-full text-left text-sm">
                      <thead className="bg-[#f8fafc] dark:bg-slate-800 text-slate-500">
                        <tr>

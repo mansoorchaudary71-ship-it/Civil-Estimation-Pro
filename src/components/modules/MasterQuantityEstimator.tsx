@@ -239,7 +239,7 @@ export default function MasterQuantityEstimator({
                                  type="text"
                                  value={val}
                                  onChange={(e) => handleInputChange(activeCalc, inp.id, e.target.value)}
-                                 className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-3.5 rounded-[16px] mt-1.5 font-bold text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                                 className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-3.5 rounded-[16px] mt-1.5 font-bold text-white dark:text-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                                />
                              </div>
                           );
