@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PricingBackgroundWrapper from '../PricingBackgroundWrapper';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, X, Building2, Zap, ArrowRight, ShieldCheck, HelpCircle, ChevronDown, Sparkles } from 'lucide-react';
+import { SEOFAQ } from '../ui/SEOFAQ';
 import { cn } from "../../lib/utils";
 
 // Mock logos for trusted strip
@@ -40,13 +41,9 @@ const ROI_DATA = {
 export default function PricingPage() {
   const [isAnnual, setIsAnnual] = useState(true);
   const [boqCount, setBoqCount] = useState(10);
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [showAllFaqs, setShowAllFaqs] = useState(false);
-  const displayedFaqs = showAllFaqs ? FAQS : FAQS.slice(0, 2);
-
-  const hoursSaved = (boqCount * ROI_DATA.hoursPerBOQ).toFixed(0);
-  const moneySaved = (boqCount * ROI_DATA.hoursPerBOQ * ROI_DATA.hourlyRate).toLocaleString();
-
+  
   const handleToggleFaq = (idx: number) => {
     setOpenFaq(openFaq === idx ? null : idx);
   };
@@ -268,52 +265,7 @@ export default function PricingPage() {
         </div>
 
         {/* FAQs */}
-        <div className="max-w-3xl mx-auto">
-          <h3 className="text-3xl font-bold text-center text-slate-900 dark:text-white mb-12">Frequently Asked Questions</h3>
-          <div className="space-y-4">
-            {displayedFaqs.map((faq, idx) => (
-              <div 
-                key={idx} 
-                className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl overflow-hidden transition-all duration-300 shadow-sm"
-              >
-                <button 
-                  onClick={() => handleToggleFaq(idx)}
-                  className="w-full flex items-center justify-between p-6 text-left outline-none"
-                >
-                  <span className="font-bold text-lg text-slate-900 dark:text-white pr-4">{faq.question}</span>
-                  <ChevronDown className={cn(
-                    "w-5 h-5 text-slate-400 transition-transform duration-300 shrink-0",
-                    openFaq === idx ? "rotate-180" : ""
-                  )} />
-                </button>
-                <AnimatePresence>
-                  {openFaq === idx && (
-                    <motion.div 
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="p-6 pt-0 text-slate-600 dark:text-slate-400 font-medium leading-relaxed border-t border-slate-50 dark:border-slate-800/50">
-                        {faq.answer}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
-          </div>
-          {FAQS.length > 2 && (
-            <div className="text-center mt-8">
-              <button
-                onClick={() => setShowAllFaqs(!showAllFaqs)}
-                className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors"
-              >
-                {showAllFaqs ? 'Show Less' : `Show all ${FAQS.length} questions`}
-              </button>
-            </div>
-          )}
-        </div>
+        <SEOFAQ faqs={FAQS} />
 
       </div>
     </div>

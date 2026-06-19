@@ -107,6 +107,8 @@ export interface ReportData {
   paperSize?: "a4" | "legal" | "letter";
   theme?: "Professional" | "Minimalist" | "Condensed";
   watermark?: "DRAFT" | "CONFIDENTIAL" | "NONE";
+  customHeader?: string;
+  showLogo?: boolean;
 }
 
 const DEFAULT_COLORS = [
@@ -298,7 +300,7 @@ export const GlobalReportEngine = {
 
     if (safeData.branding) {
        let textX = 14;
-       if (safeData.branding.logoBase64) {
+       if (safeData.branding.logoBase64 && (safeData.showLogo !== false)) {
          try {
            doc.addImage(safeData.branding.logoBase64, "PNG", 14, 7, 30, 30);
            textX = 50;
@@ -326,6 +328,14 @@ export const GlobalReportEngine = {
     const dateStr = safeData.metadata.date || new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
     doc.text(`Date: ${dateStr}`, pageWidth - 45, 26, { align: "right" });
 
+    
+    if (safeData.customHeader) {
+       doc.setFont("helvetica", "bold");
+       doc.setFontSize(14);
+       doc.setTextColor(255, 255, 255); // White for dark backgrounds
+       doc.text(safeData.customHeader, pageWidth / 2, 40, { align: "center" });
+    }
+    
     if (qrCodeDataURL) {
       doc.addImage(qrCodeDataURL, "PNG", pageWidth - 36, 7, 30, 30);
     }

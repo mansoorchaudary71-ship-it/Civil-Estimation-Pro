@@ -11,7 +11,7 @@ interface SEOFAQProps {
 }
 
 export function SEOFAQ({ faqs }: SEOFAQProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [showAll, setShowAll] = useState(false);
   const displayedFaqs = showAll ? faqs : faqs.slice(0, 2);
 

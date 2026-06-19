@@ -44,6 +44,8 @@ export default function PrintPreviewModal({ isOpen, onClose }: { isOpen: boolean
   const [customLogo, setCustomLogo] = useState<string | undefined>(undefined);
   const [paperSize, setPaperSize] = useState<"a4" | "legal" | "letter">("a4");
   const [theme, setTheme] = useState<"Professional" | "Minimalist" | "Condensed">("Professional");
+  const [customHeader, setCustomHeader] = useState("");
+  const [showLogo, setShowLogo] = useState(true);
   const [watermark, setWatermark] = useState<"DRAFT" | "CONFIDENTIAL" | "NONE">("NONE");
   const { user } = useAuth();
   
@@ -55,7 +57,7 @@ export default function PrintPreviewModal({ isOpen, onClose }: { isOpen: boolean
     }
   }, [user]);
   
-  const renderPdf = async (brandState: boolean, currentSize: "a4" | "legal" | "letter", currentTheme: "Professional" | "Minimalist" | "Condensed", currentWatermark: "DRAFT" | "CONFIDENTIAL" | "NONE") => {
+  const renderPdf = async (brandState: boolean, currentSize: "a4" | "legal" | "letter", currentTheme: "Professional" | "Minimalist" | "Condensed", currentWatermark: "DRAFT" | "CONFIDENTIAL" | "NONE", currentHeader: string, currentShowLogo: boolean) => {
       setLoading(true);
       try {
         const getter = (window as any).__GLOBAL_PDF_GETTER;
@@ -78,6 +80,8 @@ export default function PrintPreviewModal({ isOpen, onClose }: { isOpen: boolean
             // Assuming `payload` is the arg object for generateProfessionalPDF. 
             // We can mutate it to add branding
             payload.branding = brandingData;
+            payload.customHeader = currentHeader;
+            payload.showLogo = currentShowLogo;
             payload.paperSize = currentSize;
             payload.theme = currentTheme;
             payload.watermark = currentWatermark;
@@ -103,7 +107,7 @@ export default function PrintPreviewModal({ isOpen, onClose }: { isOpen: boolean
 
   useEffect(() => {
     if (isOpen) {
-      renderPdf(useBranding, paperSize, theme, watermark);
+      renderPdf(useBranding, paperSize, theme, watermark, customHeader, showLogo);
     } else {
       setPdfUrl("");
     }
