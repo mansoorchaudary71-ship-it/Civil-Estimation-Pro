@@ -480,7 +480,7 @@ export default function SiteProgressTracker() {
                             <div className="flex items-center">
                                <span className="bg-slate-100 px-2 py-2 border border-r-0 border-slate-200 rounded-l-lg text-sm text-slate-500">$</span>
                                <input 
-                                  type="number" 
+                                  type="number" inputMode="decimal" 
                                   value={activePhase.budget} 
                                   onChange={(e) => handleUpdatePhase(activePhase.id, 'budget', parseFloat(e.target.value)||0)}
                                   className="w-full px-2 py-2 bg-slate-50 border border-slate-200 rounded-r-lg text-sm font-semibold outline-none"
@@ -493,7 +493,7 @@ export default function SiteProgressTracker() {
                             <div className="flex items-center">
                                <span className="bg-slate-100 px-2 py-2 border border-r-0 border-slate-200 rounded-l-lg text-sm text-slate-500">$</span>
                                <input 
-                                  type="number" 
+                                  type="number" inputMode="decimal" 
                                   value={activePhase.actualCost} 
                                   onChange={(e) => handleUpdatePhase(activePhase.id, 'actualCost', parseFloat(e.target.value)||0)}
                                   className={`w-full px-2 py-2 bg-slate-50  border border-slate-200 rounded-r-lg text-sm font-bold outline-none ${activePhase.actualCost > activePhase.budget ? 'text-rose-600' : 'text-emerald-600'}`}
@@ -507,7 +507,7 @@ export default function SiteProgressTracker() {
                          <div>
                             <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">Planned Workers</label>
                             <input 
-                               type="number" 
+                               type="number" inputMode="decimal" 
                                value={activePhase.workersPlanned || 0} 
                                onChange={(e) => handleUpdatePhase(activePhase.id, 'workersPlanned', parseInt(e.target.value)||0)}
                                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-[16px] text-sm font-semibold outline-none"
@@ -517,7 +517,7 @@ export default function SiteProgressTracker() {
                          <div>
                             <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">Actual Workers</label>
                             <input 
-                               type="number" 
+                               type="number" inputMode="decimal" 
                                value={activePhase.workersActual || 0} 
                                onChange={(e) => handleUpdatePhase(activePhase.id, 'workersActual', parseInt(e.target.value)||0)}
                                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-[16px] text-sm font-semibold outline-none"

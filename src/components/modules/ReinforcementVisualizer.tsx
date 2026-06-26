@@ -165,7 +165,7 @@ export default function ReinforcementVisualizer() {
                       Width (mm)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal"
                       value={width}
                       onChange={(e) => setWidth(Number(e.target.value))}
                       className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
@@ -176,7 +176,7 @@ export default function ReinforcementVisualizer() {
                       Depth (mm)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal"
                       value={depth}
                       onChange={(e) => setDepth(Number(e.target.value))}
                       className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
@@ -187,7 +187,7 @@ export default function ReinforcementVisualizer() {
                       Clear Cover (mm)
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal"
                       value={cover}
                       onChange={(e) => setCover(Number(e.target.value))}
                       className="w-full px-3 py-2 bg-white border border-slate-300 rounded-[16px] outline-none"
@@ -209,7 +209,7 @@ export default function ReinforcementVisualizer() {
                         Top Bars Count
                       </label>
                       <input
-                        type="number"
+                        type="number" inputMode="decimal"
                         value={topBarsCount}
                         onChange={(e) =>
                           setTopBarsCount(Number(e.target.value))
@@ -243,7 +243,7 @@ export default function ReinforcementVisualizer() {
                       {type === "Slab" ? "Main Bars" : "Bottom Bars"} Count
                     </label>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal"
                       value={bottomBarsCount}
                       onChange={(e) =>
                         setBottomBarsCount(Number(e.target.value))
@@ -293,7 +293,7 @@ export default function ReinforcementVisualizer() {
                         Spacing (c/c)
                       </label>
                       <input
-                        type="number"
+                        type="number" inputMode="decimal"
                         value={stirrupSpacing}
                         onChange={(e) =>
                           setStirrupSpacing(Number(e.target.value))

@@ -287,7 +287,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               size="sm"
             />
           </div>
-          <div className="flex bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-1 rounded-[24px] w-full sm:w-auto">
+          <div className="flex bg-white p-1 rounded-[24px] w-full sm:w-auto">
             {(["slab", "column", "staircase"] as const).map((type) => (
               <button
                 key={type}
@@ -302,7 +302,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 }}
                 className={`flex-1 sm:flex-none px-4 py-2 rounded-[24px] text-xs font-bold transition-all ${
                   concreteType === type 
-                    ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  shadow-sm text-indigo-600 " 
+                    ? "bg-white  shadow-sm text-indigo-600 " 
                     : "text-slate-500 hover:text-slate-700 "
                 }`}
               >
@@ -319,7 +319,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Length ({unitFt})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={cLength}
                 onChange={(e) => setCLength(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -330,7 +330,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Width ({unitFt})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={cWidth}
                 onChange={(e) => setCWidth(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -341,7 +341,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Depth ({unitFt})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={cDepth}
                 onChange={(e) => setCDepth(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -357,7 +357,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Diameter ({unitFt})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={cColDia}
                 onChange={(e) => setCColDia(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -368,7 +368,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Height ({unitFt})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={cColHeight}
                 onChange={(e) => setCColHeight(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -384,7 +384,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Number of Steps
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={cStairSteps}
                 onChange={(e) => setCStairSteps(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -395,7 +395,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Stair Width ({unitFt})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={cStairWidth}
                 onChange={(e) => setCStairWidth(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -406,7 +406,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Tread Length ({unitFt})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={cStairTread}
                 onChange={(e) => setCStairTread(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -417,7 +417,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Riser Height ({unitFt})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={cStairRiser}
                 onChange={(e) => setCStairRiser(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -428,7 +428,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Waist Slab Thick ({unitFt})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={cStairWaist}
                 onChange={(e) => setCStairWaist(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -487,7 +487,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               W/C Ratio (0.45-0.6)
             </label>
             <input
-              type="number"
+              type="number" inputMode="decimal"
               step="0.01"
               value={cWcRatio}
               onChange={(e) => setCWcRatio(e.target.value)}
@@ -566,7 +566,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Wall Length ({unitFt})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={bWallL}
                 onChange={(e) => setBWallL(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -577,7 +577,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Wall Height ({unitFt})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={bWallH}
                 onChange={(e) => setBWallH(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -588,7 +588,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Wall Thick ({unitIn})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={bWallT}
                 onChange={(e) => setBWallT(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -621,7 +621,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               T {bWallT}
             </span>
           </div>
-          <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 px-4 py-3 rounded-[24px] border">
+          <div className="bg-white px-4 py-3 rounded-[24px] border">
             <h4 className="text-xs font-bold text-slate-700 uppercase flex justify-between items-center mb-4">
               Add Deductions
               <span className="bg-indigo-50 text-indigo-600 px-2 py-1 rounded text-[10px]">
@@ -653,7 +653,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 </select>
                 <div>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     placeholder="Qty"
                     value={newOpening.quantity || ""}
                     onChange={(e) =>
@@ -667,7 +667,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 </div>
                 <div>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     placeholder={`L (${unitFt})`}
                     value={newOpening.length || ""}
                     onChange={(e) =>
@@ -681,7 +681,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 </div>
                 <div>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     placeholder={`H (${unitFt})`}
                     value={newOpening.height || ""}
                     onChange={(e) =>
@@ -765,7 +765,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Length
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={l}
                 onChange={(e) => setL(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -776,7 +776,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Width
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={w}
                 onChange={(e) => setW(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -787,7 +787,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Height
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={h}
                 onChange={(e) => setH(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -800,7 +800,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Joint Thick ({unitIn})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={j}
                 onChange={(e) => setJ(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -871,7 +871,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               Bar Dia (mm/in#)
             </label>
             <input
-              type="number"
+              type="number" inputMode="decimal"
               value={sDia}
               onChange={(e) => setSDia(e.target.value)}
               className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -882,7 +882,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               Span Length ({unitFt})
             </label>
             <input
-              type="number"
+              type="number" inputMode="decimal"
               value={sSpan}
               onChange={(e) => setSSpan(e.target.value)}
               className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -896,7 +896,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               Spacing c/c ({isSI ? "mm" : "inch"})
             </label>
             <input
-              type="number"
+              type="number" inputMode="decimal"
               value={sSpace}
               onChange={(e) => setSSpace(e.target.value)}
               className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -907,7 +907,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               Standard Bar Length ({unitFt})
             </label>
             <input
-              type="number"
+              type="number" inputMode="decimal"
               value={sBarL}
               onChange={(e) => setSBarL(e.target.value)}
               className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -918,7 +918,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               Overlap Factor (xD)
             </label>
             <input
-              type="number"
+              type="number" inputMode="decimal"
               value={sOverlap}
               onChange={(e) => setSOverlap(e.target.value)}
               className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -1041,14 +1041,14 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               </>
             )}
           </h3>
-          <div className="flex bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-1 rounded-[24px] w-full sm:w-auto">
+          <div className="flex bg-white p-1 rounded-[24px] w-full sm:w-auto">
             {(["plaster", "paint", "antitermite"] as const).map((type) => (
               <button
                 key={type}
                 onClick={() => { setFinishesType(type); if(hasData) resetEstimate(); }}
                 className={`flex-1 sm:flex-none px-4 py-2 rounded-[24px] text-xs font-bold transition-all ${
                   finishesType === type 
-                    ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  shadow-sm text-indigo-600 " 
+                    ? "bg-white  shadow-sm text-indigo-600 " 
                     : "text-slate-500 hover:text-slate-700 "
                 }`}
               >
@@ -1074,7 +1074,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                   }}
                   className={`flex-1 px-4 py-2 rounded-[24px] text-xs font-bold transition-all ${
                     pLocation === "Internal" 
-                      ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  shadow-sm text-indigo-600 " 
+                      ? "bg-white  shadow-sm text-indigo-600 " 
                       : "text-slate-500 hover:text-slate-700 "
                   }`}
                 >
@@ -1089,7 +1089,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                   }}
                   className={`flex-1 px-4 py-2 rounded-[24px] text-xs font-bold transition-all ${
                     pLocation === "External" 
-                      ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  shadow-sm text-indigo-600 " 
+                      ? "bg-white  shadow-sm text-indigo-600 " 
                       : "text-slate-500 hover:text-slate-700 "
                   }`}
                 >
@@ -1102,7 +1102,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Wall Area ({unitArea})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={pArea}
                 onChange={(e) => setPArea(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -1113,7 +1113,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Thickness ({unitIn})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={pThick}
                 onChange={(e) => setPThick(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -1141,9 +1141,9 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                   <HelpCircle className="w-3 h-3 text-slate-600" />
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal"
                   defaultValue="1440"
-                  className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all"
+                  className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all min-h-[44px]"
                 />
               </div>
               <div>
@@ -1152,9 +1152,9 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                   <HelpCircle className="w-3 h-3 text-slate-600" />
                 </label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal"
                   defaultValue="1600"
-                  className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all"
+                  className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all min-h-[44px]"
                 />
               </div>
             </div>
@@ -1171,11 +1171,11 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
             <div className="sm:col-span-2 mt-6">
               <h4 className="font-bold text-slate-800 mb-3">Frequently Asked Questions</h4>
               <div className="space-y-3">
-                <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-3 rounded-[16px] border border-slate-100">
+                <div className="bg-white p-3 rounded-[16px] border border-slate-100">
                   <p className="font-semibold text-sm text-slate-700">Why do we multiply wet volume by 1.33?</p>
                   <p className="text-xs text-slate-500 mt-1">Dry mortar volume is typically 30-33% more than wet volume due to voids getting filled with water during mixing.</p>
                 </div>
-                <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-3 rounded-[16px] border border-slate-100">
+                <div className="bg-white p-3 rounded-[16px] border border-slate-100">
                   <p className="font-semibold text-sm text-slate-700">What is the standard mix ratio for internal plaster?</p>
                   <p className="text-xs text-slate-500 mt-1">1:4 (1 part cement to 4 parts sand) is the standard for internal walls and ceilings, ensuring strong adherence.</p>
                 </div>
@@ -1199,7 +1199,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Wall Area ({unitArea})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={paintArea}
                 onChange={(e) => setPaintArea(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -1210,7 +1210,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Number of Coats
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={paintCoats}
                 onChange={(e) => setPaintCoats(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -1226,7 +1226,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 Plinth Area ({unitArea})
               </label>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 value={termiteArea}
                 onChange={(e) => setTermiteArea(e.target.value)}
                 className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -1268,7 +1268,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               Weight of Cement (kg)
             </label>
             <input
-              type="number"
+              type="number" inputMode="decimal"
               value={wCementKg}
               onChange={(e) => setWCementKg(e.target.value)}
               className="mt-1 w-full bg-transparent border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 font-medium text-sm transition-all shadow-sm"
@@ -1279,7 +1279,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
               W/C Ratio (0.45-0.6)
             </label>
             <input
-              type="number"
+              type="number" inputMode="decimal"
               step="0.01"
               value={wWcRatio}
               onChange={(e) => setWWcRatio(e.target.value)}
@@ -1467,37 +1467,37 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
              <h4 className="font-bold text-emerald-800 text-lg mb-4">{br.type} Results</h4>
              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {br.volume !== undefined && (
-                  <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-4 rounded-xl shadow-sm border border-emerald-100">
+                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
                     <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Total Volume</p>
                     <p className="text-xl font-bold text-slate-800">{br.volume.toFixed(2)} <span className="text-sm font-medium text-slate-500">{unitVol}</span></p>
                   </div>
                 )}
                 {br.cementBags !== undefined && (
-                  <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-4 rounded-xl shadow-sm border border-emerald-100">
+                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
                     <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Cement Required</p>
                     <p className="text-xl font-bold text-slate-800">{br.cementBags.toFixed(2)} <span className="text-sm font-medium text-slate-500">Bags</span></p>
                   </div>
                 )}
                 {br.sandVol !== undefined && (
-                  <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-4 rounded-xl shadow-sm border border-emerald-100">
+                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
                     <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Sand Required</p>
                     <p className="text-xl font-bold text-slate-800">{br.sandVol.toFixed(2)} <span className="text-sm font-medium text-slate-500">{unitVol}</span></p>
                   </div>
                 )}
                 {br.aggregateVol !== undefined && (
-                  <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-4 rounded-xl shadow-sm border border-emerald-100">
+                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
                     <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Aggregate</p>
                     <p className="text-xl font-bold text-slate-800">{br.aggregateVol.toFixed(2)} <span className="text-sm font-medium text-slate-500">{unitVol}</span></p>
                   </div>
                 )}
                 {br.waterLiters !== undefined && (
-                  <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-4 rounded-xl shadow-sm border border-emerald-100">
+                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
                     <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Water Required</p>
                     <p className="text-xl font-bold text-slate-800">{isSI ? br.waterLiters.toFixed(0) : (br.waterLiters/3.785).toFixed(0)} <span className="text-sm font-medium text-slate-500">{isSI ? 'Liters' : 'Gallons'}</span></p>
                   </div>
                 )}
                 {br.count !== undefined && (
-                  <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-4 rounded-xl shadow-sm border border-emerald-100">
+                  <div className="bg-white p-4 rounded-xl shadow-sm border border-emerald-100">
                     <p className="text-[10px] uppercase font-bold text-emerald-600 mb-1">Total Pieces</p>
                     <p className="text-xl font-bold text-slate-800">{br.count.toLocaleString()} <span className="text-sm font-medium text-slate-500">Nos</span></p>
                   </div>

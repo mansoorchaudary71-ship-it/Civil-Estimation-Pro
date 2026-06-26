@@ -44,6 +44,9 @@ export default function PricingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [showAllFaqs, setShowAllFaqs] = useState(false);
   
+  const hoursSaved = Math.round(boqCount * ROI_DATA.hoursPerBOQ);
+  const moneySaved = Math.round(hoursSaved * ROI_DATA.hourlyRate);
+  
   const handleToggleFaq = (idx: number) => {
     setOpenFaq(openFaq === idx ? null : idx);
   };

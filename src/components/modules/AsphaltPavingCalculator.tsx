@@ -20,7 +20,7 @@ export default function AsphaltPavingCalculator() {
         <UniversalTabs tabs={[{id: "tack", label: "Tack Coat", icon: <Droplet className="w-5 h-5" />}]} activeTab={activeTab === "tack" ? "tack" : ""} onTabChange={() => setActiveTab("tack")} />
       </div>
 
-      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] shadow-sm border border-slate-200 overflow-hidden">
+      <div className="tool-card overflow-hidden">
         <div className="p-6 md:p-8">
           {activeTab === "asphalt" && <AsphaltCalculator />}
           {activeTab === "prime" && <PrimeCoatCalculator />}
@@ -112,7 +112,7 @@ function AsphaltCalculator() {
           <div className="grid grid-cols-2 gap-4">
             <InputGroup label={`Length (${lengthUnit})`}>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 min="0"
                 value={length}
                 onChange={(e) => setLength(e.target.value ? Number(e.target.value) : "")}
@@ -121,7 +121,7 @@ function AsphaltCalculator() {
             </InputGroup>
             <InputGroup label={`Width (${lengthUnit})`}>
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 min="0"
                 value={width}
                 onChange={(e) => setWidth(e.target.value ? Number(e.target.value) : "")}
@@ -132,7 +132,7 @@ function AsphaltCalculator() {
           <InputGroup label={`Thickness (${thicknessUnit})`}>
              <div className="flex">
               <input
-                type="number"
+                type="number" inputMode="decimal"
                 min="0"
                 value={thickness}
                 onChange={(e) => setThickness(e.target.value ? Number(e.target.value) : "")}
@@ -237,7 +237,7 @@ function PrimeCoatCalculator() {
         <div className="space-y-6">
           <InputGroup label="Surface Area (sq meters)">
             <input
-              type="number"
+              type="number" inputMode="decimal"
               min="0"
               value={area}
               onChange={(e) => setArea(e.target.value ? Number(e.target.value) : "")}
@@ -248,7 +248,7 @@ function PrimeCoatCalculator() {
 
           <InputGroup label="Application Rate (Liters/m²)">
             <input
-              type="number"
+              type="number" inputMode="decimal"
               min="0"
               step="0.1"
               value={rate}
@@ -331,7 +331,7 @@ function TackCoatCalculator() {
         <div className="space-y-6">
           <InputGroup label="Surface Area (sq meters)">
             <input
-              type="number"
+              type="number" inputMode="decimal"
               min="0"
               value={area}
               onChange={(e) => setArea(e.target.value ? Number(e.target.value) : "")}
@@ -342,7 +342,7 @@ function TackCoatCalculator() {
 
           <InputGroup label="Application Rate (Liters/m²)">
             <input
-              type="number"
+              type="number" inputMode="decimal"
               min="0"
               step="0.05"
               value={rate}

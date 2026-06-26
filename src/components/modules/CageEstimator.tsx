@@ -88,7 +88,7 @@ export default function CageEstimator() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Input Form */}
-        <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] p-6 shadow-sm border border-slate-200">
+        <div className="bg-white rounded-[24px] p-6 shadow-sm border border-slate-200">
           <h3 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2">
             <Calculator className="w-5 h-5 text-emerald-500" />
             Cage Parameters
@@ -100,7 +100,7 @@ export default function CageEstimator() {
                 onClick={() => setCageType("spiral")}
                 className={`flex-1 py-3 rounded-[24px] text-sm font-bold transition-all ${
                   cageType === "spiral"
-                    ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  text-emerald-600 shadow-sm"
+                    ? "bg-white  text-emerald-600 shadow-sm"
                     : "text-slate-500 hover:text-slate-700"
                 }`}
               >
@@ -110,7 +110,7 @@ export default function CageEstimator() {
                 onClick={() => setCageType("hoop")}
                 className={`flex-1 py-3 rounded-[24px] text-sm font-bold transition-all ${
                   cageType === "hoop"
-                    ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  text-emerald-600 shadow-sm"
+                    ? "bg-white  text-emerald-600 shadow-sm"
                     : "text-slate-500 hover:text-slate-700"
                 }`}
               >
@@ -122,7 +122,7 @@ export default function CageEstimator() {
               <div>
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Pile/Col Diameter (mm)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal"
                   value={pileDiameter}
                   onChange={(e) => setPileDiameter(e.target.value)}
                   className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
@@ -131,7 +131,7 @@ export default function CageEstimator() {
               <div>
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Length ({isMetric ? "m" : "ft"})</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal"
                   value={pileLength}
                   onChange={(e) => setPileLength(e.target.value)}
                   className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
@@ -143,7 +143,7 @@ export default function CageEstimator() {
               <div>
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Clear Cover (mm)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal"
                   value={clearCover}
                   onChange={(e) => setClearCover(e.target.value)}
                   className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
@@ -152,7 +152,7 @@ export default function CageEstimator() {
               <div>
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Bar Dia (mm)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal"
                   value={barDiameter}
                   onChange={(e) => setBarDiameter(e.target.value)}
                   className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
@@ -164,7 +164,7 @@ export default function CageEstimator() {
               <div>
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Pitch/Spacing (mm)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal"
                   value={pitch}
                   onChange={(e) => setPitch(e.target.value)}
                   className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
@@ -173,7 +173,7 @@ export default function CageEstimator() {
               <div>
                 <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Lap Length (x Dia)</label>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal"
                   value={lapLength}
                   onChange={(e) => setLapLength(e.target.value)}
                   className="w-full mt-1 bg-slate-50 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-emerald-500 transition-all font-mono"
@@ -196,7 +196,7 @@ export default function CageEstimator() {
            </div>
 
            {results && (
-             <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] p-6 shadow-sm border border-slate-200">
+             <div className="bg-white rounded-[24px] p-6 shadow-sm border border-slate-200">
                 <h3 className="text-sm font-semibold tabular-nums tracking-tight text-slate-600 uppercase tracking-widest mb-4">Detailed Breakdown</h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center border-b border-slate-100 pb-3">

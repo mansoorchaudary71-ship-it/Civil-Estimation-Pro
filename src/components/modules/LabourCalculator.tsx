@@ -184,7 +184,7 @@ export default function LabourCalculator() {
           <div className="flex gap-4 items-center">
             <button 
               onClick={handleExportPDF}
-              className="flex items-center gap-2 px-4 py-2 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 shadow-sm border border-slate-200 text-slate-900 rounded-[24px] shadow hover:bg-slate-700 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-white shadow-sm border border-slate-200 text-slate-900 rounded-[24px] shadow hover:bg-slate-700 transition-colors"
             >
               <Download className="w-4 h-4" /> Export Bill
             </button>
@@ -212,7 +212,7 @@ export default function LabourCalculator() {
                   const calculation = calculateTaskCost(task);
 
                   return (
-                    <div key={task.id} className="p-5 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] shadow-sm space-y-4 transition-all duration-300 hover:border-indigo-300 relative">
+                    <div key={task.id} className="p-5 calc-input shadow-sm space-y-4 transition-all duration-300 hover:border-indigo-300 relative">
                       {tasks.length > 1 && (
                         <button 
                           onClick={() => handleRemoveTask(task.id)}
@@ -243,7 +243,7 @@ export default function LabourCalculator() {
                           <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1"><Hammer className="w-3 h-3"/> Quantity required</label>
                           <div className="flex gap-2">
                             <input 
-                              type="number" 
+                              type="number" inputMode="decimal" 
                               value={task.qty} 
                               onChange={(e) => updateTask(task.id, 'qty', parseFloat(e.target.value) || 0)}
                               className="w-full bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-[24px] px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50 min-w-0"
@@ -261,7 +261,7 @@ export default function LabourCalculator() {
                           <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1"><HardHat className="w-3 h-3 text-amber-500"/> Skilled ({task.skilledRole})</label>
                           <div className="flex gap-2 items-center">
                             <input 
-                              type="number" 
+                              type="number" inputMode="decimal" 
                               value={task.skilledCount} 
                               onChange={(e) => updateTask(task.id, 'skilledCount', parseInt(e.target.value) || 0)}
                               className="w-20 bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-[24px] px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
@@ -273,7 +273,7 @@ export default function LabourCalculator() {
                                     {settings.currency.substring(0,2)}
                                 </span>
                                 <input 
-                                  type="number" 
+                                  type="number" inputMode="decimal" 
                                   value={task.skilledWage} 
                                   onChange={(e) => updateTask(task.id, 'skilledWage', parseFloat(e.target.value) || 0)}
                                   className="w-full bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-[24px] pl-8 pr-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
@@ -287,7 +287,7 @@ export default function LabourCalculator() {
                           <label className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1"><Users className="w-3 h-3 text-sky-500"/> Unskilled ({task.unskilledRole})</label>
                           <div className="flex gap-2 items-center">
                             <input 
-                              type="number" 
+                              type="number" inputMode="decimal" 
                               value={task.unskilledCount} 
                               onChange={(e) => updateTask(task.id, 'unskilledCount', parseInt(e.target.value) || 0)}
                               className="w-20 bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-[24px] px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
@@ -299,7 +299,7 @@ export default function LabourCalculator() {
                                     {settings.currency.substring(0,2)}
                                 </span>
                                 <input 
-                                  type="number" 
+                                  type="number" inputMode="decimal" 
                                   value={task.unskilledWage} 
                                   onChange={(e) => updateTask(task.id, 'unskilledWage', parseFloat(e.target.value) || 0)}
                                   className="w-full bg-slate-50 border border-slate-200 shadow-sm text-slate-800 rounded-[24px] pl-8 pr-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/50"
@@ -329,10 +329,10 @@ export default function LabourCalculator() {
                          </div>
                          <div className="w-full md:w-auto flex flex-1 lg:justify-end gap-2 items-center">
                             <span className="text-slate-600 hidden lg:inline">Efficiency Constant:</span>
-                            <input type="number" 
+                            <input type="number" inputMode="decimal" 
                                   value={task.outputPerWorker} 
                                   onChange={(e) => updateTask(task.id, 'outputPerWorker', parseFloat(e.target.value) || 0)}
-                                  className="w-16 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 text-center text-slate-700 rounded-lg py-1 outline-none text-xs" />
+                                  className="w-16 bg-white border border-slate-200 text-center text-slate-700 rounded-lg py-1 outline-none text-xs" />
                             <span className="text-slate-500">{task.unit} per {task.isUnskilledDriven ? task.unskilledRole : task.skilledRole} / day</span>
                          </div>
                       </div>
@@ -345,7 +345,7 @@ export default function LabourCalculator() {
 
           {/* Sidebar Summary */}
           <div className="space-y-6">
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] p-6 shadow-sm border border-slate-200">
+            <div className="bg-white rounded-[24px] p-6 shadow-sm border border-slate-200">
               <h3 className="font-bold text-slate-500 uppercase tracking-wider text-xs mb-4">Overall Project Labour</h3>
               
               <div className="space-y-5">

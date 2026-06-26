@@ -8,6 +8,28 @@ import { MaterialSummary } from "../ui/MaterialSummary";
 
 import { FieldTooltip } from "../ui/FieldTooltip";
 import { NumberInput } from "../ui/NumberInput";
+import { ToolGuidedTour, TourStep } from "../ui/ToolGuidedTour";
+
+const SLAB_TOUR_STEPS: TourStep[] = [
+  {
+    targetSelector: '#tour-slab-type',
+    title: 'Slab Type',
+    content: 'Toggle between One-Way and Two-Way slab calculations. This affects the reinforcement distribution formulas.',
+    placement: 'bottom'
+  },
+  {
+    targetSelector: '#tour-slab-dimensions',
+    title: 'Slab Dimensions',
+    content: 'Enter the long span (ly) and short span (lx) of your slab in meters.',
+    placement: 'bottom'
+  },
+  {
+    targetSelector: '#tour-slab-thickness',
+    title: 'Slab Thickness',
+    content: 'Enter the slab thickness in millimeters. This is used to compute the total concrete volume.',
+    placement: 'bottom'
+  }
+];
 
 export default function SlabEstimator() {
   const [slabType, setSlabType] = useState<"one-way" | "two-way">("two-way");
@@ -179,6 +201,7 @@ export default function SlabEstimator() {
         title="Slab Estimator | EstiPro"
         description="Calculate concrete volume and steel reinforcement for one-way and two-way reinforced concrete slabs."
       />
+      <ToolGuidedTour steps={SLAB_TOUR_STEPS} tourId="slab-estimator" />
       <div className="mb-8 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
         
         <div className="flex gap-2">
@@ -200,7 +223,7 @@ export default function SlabEstimator() {
         <div className="bg-white rounded-[24px] shadow-sm border border-slate-200 p-6 md:p-8">
           
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-            <div className="p-1 bg-slate-100 rounded-[24px] flex gap-1 w-full sm:w-auto flex-1">
+            <div id="tour-slab-type" className="p-1 bg-slate-100 rounded-[24px] flex gap-1 w-full sm:w-auto flex-1">
               <button
                 onClick={() => setSlabType("one-way")}
                 className={`flex-1 py-2 px-4 rounded-[24px] text-sm font-bold transition-all whitespace-nowrap ${slabType === "one-way" ? "bg-white shadow-sm text-indigo-600" : "text-slate-500 hover:text-slate-700 hover:bg-slate-200/50"}`}
@@ -232,7 +255,7 @@ export default function SlabEstimator() {
           </div>
 
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div id="tour-slab-dimensions" className="grid grid-cols-2 gap-4">
               <InputGroup label="Long Span (ly) (m)">
                 <NumberInput 
                   value={ly} 
@@ -253,12 +276,14 @@ export default function SlabEstimator() {
             
             <div className="grid grid-cols-2 gap-4">
               <InputGroup label="Thickness (mm)">
-                <NumberInput 
-                  value={thickness} 
-                  onChange={(v) => setThickness(v.toString())} 
-                  unit="mm" 
-                  className="w-full bg-slate-50 border border-slate-200 rounded-[24px] shadow-sm transition-all text-slate-800" 
-                />
+                <div id="tour-slab-thickness">
+                  <NumberInput 
+                    value={thickness} 
+                    onChange={(v) => setThickness(v.toString())} 
+                    unit="mm" 
+                    className="w-full bg-slate-50 border border-slate-200 rounded-[24px] shadow-sm transition-all text-slate-800" 
+                  />
+                </div>
               </InputGroup>
               <InputGroup label={
                 <span className="flex items-center">

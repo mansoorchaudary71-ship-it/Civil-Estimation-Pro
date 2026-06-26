@@ -843,7 +843,7 @@ export default function Takeoff() {
                   </p>
                   <div className="flex gap-2 mb-4">
                     <input
-                      type="number"
+                      type="number" inputMode="decimal"
                       placeholder="e.g. 10"
                       value={scaleInputValue}
                       onChange={(e) => setScaleInputValue(e.target.value)}

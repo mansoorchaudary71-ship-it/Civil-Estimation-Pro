@@ -300,19 +300,19 @@ export default function RoadEstimator() {
                         <div className="flex flex-wrap gap-3">
                             <div className="flex-1 min-w-[100px]">
                                 <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">BC</label>
-                                <input type="number" step="0.05" value={bcD} onChange={(e) => setBcD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none" />
+                                <input type="number" inputMode="decimal" step="0.05" value={bcD} onChange={(e) => setBcD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none" />
                             </div>
                             <div className="flex-1 min-w-[100px]">
                                 <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">DBM</label>
-                                <input type="number" step="0.05" value={dbmD} onChange={(e) => setDbmD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none" />
+                                <input type="number" inputMode="decimal" step="0.05" value={dbmD} onChange={(e) => setDbmD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none" />
                             </div>
                             <div className="flex-1 min-w-[100px]">
                                 <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">WMM</label>
-                                <input type="number" step="0.05" value={wmmD} onChange={(e) => setWmmD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none" />
+                                <input type="number" inputMode="decimal" step="0.05" value={wmmD} onChange={(e) => setWmmD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none" />
                             </div>
                             <div className="flex-1 min-w-[100px]">
                                 <label className="block text-[10px] uppercase font-bold text-slate-500 mb-1">GSB</label>
-                                <input type="number" step="0.05" value={gsbD} onChange={(e) => setGsbD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none" />
+                                <input type="number" inputMode="decimal" step="0.05" value={gsbD} onChange={(e) => setGsbD(e.target.value as any)} className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-semibold focus:outline-none" />
                             </div>
                         </div>
                     </div>

@@ -26,7 +26,7 @@ import {
 } from "lucide-react";
 import { getMyEstimates, saveEstimate } from "../lib/estimates";
 import CountUp from "react-countup";
-import { getCategoryThemeNew } from "./ToolCard";
+
 
 export default function WorkspaceSection({
   onSelect,
@@ -336,7 +336,7 @@ export default function WorkspaceSection({
                         <input
                           type="text"
                           placeholder="e.g. Tower Block Phase 1"
-                          className="flex-1 text-sm bg-white  border border-slate-200  rounded-[32px] px-3 py-2 outline-none focus:ring-2 focus:ring-[#FFFFFF]/50"
+                          className="flex-1 text-sm bg-white  border border-slate-200  rounded-[32px] px-3 py-2 outline-none focus:ring-2 focus:ring-[#FFFFFF]/50 min-h-[44px]"
                           value={newProjectName}
                           onChange={(e) => setNewProjectName(e.target.value)}
                           onKeyDown={(e) =>

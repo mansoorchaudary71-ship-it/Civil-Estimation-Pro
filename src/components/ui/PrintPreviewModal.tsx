@@ -114,8 +114,8 @@ export default function PrintPreviewModal({ isOpen, onClose }: { isOpen: boolean
   }, [isOpen]);
 
   useEffect(() => {
-     if (isOpen) renderPdf(useBranding, paperSize, theme);
-  }, [useBranding, paperSize, customName, customLogo, theme]);
+     if (isOpen) renderPdf(useBranding, paperSize, theme, watermark, customHeader, showLogo);
+  }, [useBranding, paperSize, customName, customLogo, theme, watermark, customHeader, showLogo]);
 
   if (!isOpen) return null;
 

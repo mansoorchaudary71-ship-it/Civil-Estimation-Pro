@@ -242,15 +242,15 @@ export default function MetalWeightCalculator() {
  "Total Weight": `${totalWeight.toFixed(2)} kg`,
  };
  return (
- <div className="w-full h-full bg-[#F5F5F7] text-text-primary p-6 md:p-8"><div className="max-w-4xl mx-auto"><div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[32px] p-6 shadow-sm border border-slate-200 mb-8"><div className="flex flex-col md:flex-row gap-6 mb-6"><div className="flex-1 min-w-[200px]">
+ <div className="w-full h-full bg-[#F5F5F7] text-text-primary p-6 md:p-8"><div className="max-w-4xl mx-auto"><div className="bg-white rounded-[32px] p-6 shadow-sm border border-slate-200 mb-8"><div className="flex flex-col md:flex-row gap-6 mb-6"><div className="flex-1 min-w-[200px]">
  <label className="text-xs font-bold text-gray-700 uppercase block mb-1.5">
  Element Length (m)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={length}
  onChange={(e) => setLength(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-3 rounded-[24px] font-bold focus:ring-2 focus:ring-neutral-500"
  />
  <p className="text-[10px] text-slate-700 mt-1 pl-1">
  Total run length of member
@@ -267,7 +267,7 @@ export default function MetalWeightCalculator() {
  </div>
  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
  {/* Inputs Section */}
- <div className="lg:col-span-7 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-6 md:p-8 rounded-[2rem] border border-border-color shadow-sm">
+ <div className="lg:col-span-7 bg-white p-6 md:p-8 rounded-[2rem] border border-border-color shadow-sm">
  <h3 className="font-bold text-xl mb-6">
  {activeProfile} Dimensions
  </h3>
@@ -278,10 +278,10 @@ export default function MetalWeightCalculator() {
  Diameter (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={d}
  onChange={(e) => setD(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 20"
  />
  </div>
@@ -292,10 +292,10 @@ export default function MetalWeightCalculator() {
  Side Width (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={w}
  onChange={(e) => setW(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 50"
  />
  </div>
@@ -307,10 +307,10 @@ export default function MetalWeightCalculator() {
  Outer Diameter (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={d}
  onChange={(e) => setD(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 100"
  />
  </div>
@@ -319,10 +319,10 @@ export default function MetalWeightCalculator() {
  Wall Thickness (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={t}
  onChange={(e) => setT(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 5"
  />
  </div>
@@ -334,10 +334,10 @@ export default function MetalWeightCalculator() {
  Size Across Flats (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={s}
  onChange={(e) => setS(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 30"
  />
  </div>
@@ -349,10 +349,10 @@ export default function MetalWeightCalculator() {
  Outer Width (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={w}
  onChange={(e) => setW(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 50"
  />
  </div>
@@ -361,10 +361,10 @@ export default function MetalWeightCalculator() {
  Wall Thickness (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={t}
  onChange={(e) => setT(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 3"
  />
  </div>
@@ -377,10 +377,10 @@ export default function MetalWeightCalculator() {
  Flange Width (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={w}
  onChange={(e) => setW(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 40"
  />
  </div>
@@ -389,10 +389,10 @@ export default function MetalWeightCalculator() {
  Total Height (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={h}
  onChange={(e) => setH(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 40"
  />
  </div>
@@ -401,10 +401,10 @@ export default function MetalWeightCalculator() {
  Thickness (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={t}
  onChange={(e) => setT(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 5"
  />
  </div>
@@ -417,10 +417,10 @@ export default function MetalWeightCalculator() {
  Flange Width (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={w}
  onChange={(e) => setW(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 150"
  />
  </div>
@@ -429,10 +429,10 @@ export default function MetalWeightCalculator() {
  Depth / Height (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={h}
  onChange={(e) => setH(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 300"
  />
  </div>
@@ -441,10 +441,10 @@ export default function MetalWeightCalculator() {
  Flange Thickness (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={tf}
  onChange={(e) => setTf(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 10"
  />
  </div>
@@ -453,10 +453,10 @@ export default function MetalWeightCalculator() {
  Web Thickness (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={tw}
  onChange={(e) => setTw(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 7"
  />
  </div>
@@ -469,10 +469,10 @@ export default function MetalWeightCalculator() {
  Leg 1 Length (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={leg1}
  onChange={(e) => setLeg1(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 50"
  />
  </div>
@@ -481,10 +481,10 @@ export default function MetalWeightCalculator() {
  Leg 2 Length (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={leg2}
  onChange={(e) => setLeg2(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 50"
  />
  </div>
@@ -493,10 +493,10 @@ export default function MetalWeightCalculator() {
  Thickness (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={t}
  onChange={(e) => setT(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 6"
  />
  </div>
@@ -509,10 +509,10 @@ export default function MetalWeightCalculator() {
  Width (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={w}
  onChange={(e) => setW(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 1000"
  />
  </div>
@@ -521,10 +521,10 @@ export default function MetalWeightCalculator() {
  Thickness (mm)
  </label>
  <input
- type="number"
+ type="number" inputMode="decimal"
  value={t}
  onChange={(e) => setT(e.target.value)}
- className="w-full bg-transparent bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
+ className="w-full bg-transparent bg-white border border-slate-200 p-4 rounded-[24px] mt-1.5 font-bold focus:ring-2 focus:ring-neutral-500"
  placeholder="e.g. 10"
  />
  </div>

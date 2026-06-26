@@ -33,7 +33,7 @@ const SUGGESTED_SEARCHES = [
   "Asphalt road quantities",
 ];
 
-import { getCategoryThemeNew } from "./ToolCard";
+import { getCategorySpec } from "./ToolCard";
 
 export default function SmartSearch({ onSelect }: SmartSearchProps) {
   const [query, setQuery] = useState("");
@@ -338,15 +338,15 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2 px-1">
                       {popularTools.map((mod) => {
-                        const theme = getCategoryThemeNew(mod.category);
+                        const theme = getCategorySpec(mod.category);
                         return (
                           <div
                             key={mod.id}
                             onClick={() => handleSelectTool(mod.id)}
-                            className={`group cursor-pointer flex items-center gap-3 bg-transparent hover:bg-slate-50   border-2 border-transparent hover:${theme.iconColorBorder} p-3 rounded-[32px] transition-all duration-200`}
+                            className={`group cursor-pointer flex items-center gap-3 bg-transparent hover:bg-slate-50   border-2 border-transparent hover:border-indigo-200 p-3 rounded-[32px] transition-all duration-200`}
                           >
                             <div
-                              className={`w-10 h-10 shrink-0 rounded-[32px] flex items-center justify-center ${theme.iconBg} ${theme.text} group-hover:bg-[#FFFFFF] group-hover:text-slate-900 transition-colors duration-300`}
+                              className={`w-10 h-10 shrink-0 rounded-[32px] flex items-center justify-center bg-indigo-50 text-indigo-600 group-hover:bg-[#FFFFFF] group-hover:text-slate-900 transition-colors duration-300`}
                             >
                               {mod.icon ? (
                                 <mod.icon className="w-5 h-5" />
@@ -381,15 +381,15 @@ export default function SmartSearch({ onSelect }: SmartSearchProps) {
                           const fullModuleData = ALL_MODULES.find(
                             (m) => m.id === result.toolId,
                           );
-                          const theme = getCategoryThemeNew(result.category);
+                          const theme = getCategorySpec(result.category);
                           return (
                             <div
                               key={`local-${idx}`}
                               onClick={() => handleSelectTool(result.toolId)}
-                              className={`group cursor-pointer flex items-center gap-4 bg-transparent hover:bg-slate-50   border-2 border-transparent hover:${theme.iconColorBorder} p-3 md:p-4 rounded-[32px] transition-all duration-200`}
+                              className={`group cursor-pointer flex items-center gap-4 bg-transparent hover:bg-slate-50   border-2 border-transparent hover:border-indigo-200 p-3 md:p-4 rounded-[32px] transition-all duration-200`}
                             >
                               <div
-                                className={`w-12 h-12 shrink-0 rounded-[32px] flex items-center justify-center ${theme.iconBg} ${theme.text} group-hover:bg-[#FFFFFF] group-hover:text-slate-900 transition-transform duration-300 shadow-sm border ${theme.border} group-hover:border-transparent`}
+                                className={`w-12 h-12 shrink-0 rounded-[32px] flex items-center justify-center bg-indigo-50 text-indigo-600 group-hover:bg-[#FFFFFF] group-hover:text-slate-900 transition-transform duration-300 shadow-sm border border-indigo-100 group-hover:border-transparent`}
                               >
                                 {fullModuleData?.icon ? (
                                   <fullModuleData.icon className="w-6 h-6" />

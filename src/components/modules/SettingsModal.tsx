@@ -749,7 +749,7 @@ export default function SettingsModal({
                         <div key={k} className="flex items-center justify-between gap-4 p-3 bg-slate-50/80 hover:bg-slate-50 rounded-xl transition-colors">
                           <label className="text-sm font-medium text-slate-700">{RATE_LABELS[k]}</label>
                           <input
-                            type="number"
+                            type="number" inputMode="decimal"
                             value={companyRates[k] ?? ""}
                             placeholder="Default"
                             onChange={(e) => setCompanyRate(k, parseFloat(e.target.value))}

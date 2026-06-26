@@ -33,6 +33,7 @@ export function MaskedInput({ value, onValueChange, className, ...props }: Maske
   return (
     <input
       type="text"
+      inputMode="decimal"
       value={displayValue}
       onChange={handleChange}
       className={className}

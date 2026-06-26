@@ -50,9 +50,31 @@ export default function ProjectManager() {
     if (p1 && p2) return <ProjectCompare p1={p1} p2={p2} onBack={() => setView('list')} />;
   }
 
+  const globalTotals = projects.reduce((acc, proj) => {
+    let projCost = 0;
+    proj.estimates.forEach(est => {
+      projCost += Number(est.cost) || 0;
+      if (est.materials) {
+        Object.entries(est.materials).forEach(([matName, { quantity, unit }]) => {
+          const key = `${matName.toLowerCase()}_${unit.toLowerCase()}`;
+          if (!acc.materials[key]) acc.materials[key] = { name: matName, unit, quantity: 0 };
+          acc.materials[key].quantity += quantity;
+        });
+      }
+    });
+    acc.totalCost += projCost;
+    acc.projectCosts.push({ name: proj.name, cost: projCost });
+    return acc;
+  }, { totalCost: 0, materials: {} as Record<string, { name: string, unit: string, quantity: number }>, projectCosts: [] as { name: string, cost: number }[] });
+
+  const topGlobalMaterials = Object.values(globalTotals.materials)
+    .sort((a, b) => b.quantity - a.quantity)
+    .slice(0, 5);
+
   return (
     <div className="w-full max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/40 backdrop-blur-xl border border-white/60 p-6 md:p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white/40 backdrop-blur-xl border border-white/60 p-6 md:p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+
         <div>
           <h2 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800 tracking-tight flex items-center gap-3">
              <div className="p-3 bg-indigo-500 text-white rounded-[24px] shadow-[0_4px_14px_rgba(99,102,241,0.39)]">
@@ -78,22 +100,22 @@ export default function ProjectManager() {
       </div>
 
       {isCreating && (
-        <form onSubmit={handleCreate} className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] transform transition-all">
+        <form onSubmit={handleCreate} className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] transform transition-all">
           <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
             <Plus className="text-indigo-500" /> Create New Project
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-1.5">Project Name</label>
-              <input type="text" value={newProject.name} onChange={e => setNewProject({...newProject, name: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" required placeholder="e.g. Al-Hamra Tower" />
+              <input type="text" value={newProject.name} onChange={e => setNewProject({...newProject, name: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" required placeholder="e.g. Al-Hamra Tower" />
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-1.5">Location</label>
-              <input type="text" value={newProject.location} onChange={e => setNewProject({...newProject, location: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" placeholder="City, Area" />
+              <input type="text" value={newProject.location} onChange={e => setNewProject({...newProject, location: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" placeholder="City, Area" />
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-1.5">Type</label>
-              <select value={newProject.type} onChange={e => setNewProject({...newProject, type: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm">
+              <select value={newProject.type} onChange={e => setNewProject({...newProject, type: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm">
                 <option>Residential</option>
                 <option>Commercial</option>
                 <option>Infrastructure</option>
@@ -102,12 +124,12 @@ export default function ProjectManager() {
             </div>
             <div>
               <label className="block text-sm font-bold text-slate-700 mb-1.5">Start Date</label>
-              <input type="date" value={newProject.startDate} onChange={e => setNewProject({...newProject, startDate: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" />
+              <input type="date" value={newProject.startDate} onChange={e => setNewProject({...newProject, startDate: e.target.value})} className="w-full px-4 py-2.5 rounded-[24px] border border-white/60 bg-white/50 focus:ring-2 focus:ring-indigo-500 outline-none backdrop-blur-sm" />
             </div>
           </div>
           <div className="flex gap-3 mt-6">
             <button type="submit" className="px-6 py-2.5 bg-indigo-600 text-white font-bold rounded-[24px] hover:bg-indigo-700 transition shadow-md">Save Project</button>
-            <button type="button" onClick={() => setIsCreating(false)} className="px-6 py-2.5 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/50 border border-white/60 text-slate-600 font-bold rounded-[24px] hover:bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 transition shadow-sm">Cancel</button>
+            <button type="button" onClick={() => setIsCreating(false)} className="px-6 py-2.5 bg-white/50 border border-white/60 text-slate-600 font-bold rounded-[24px] hover:bg-white/80 transition shadow-sm">Cancel</button>
           </div>
         </form>
       )}
@@ -154,14 +176,14 @@ export default function ProjectManager() {
           </div>
 
           {/* 3-Step Workflow Onboarding Card */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 relative bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[2rem] shadow-sm divide-y md:divide-y-0 md:divide-x divide-slate-100 overflow-hidden mt-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 relative bg-white border border-slate-200 rounded-[2rem] shadow-sm divide-y md:divide-y-0 md:divide-x divide-slate-100 overflow-hidden mt-2">
              {[
                { icon: Plus, title: "1. Create Project", desc: "Set up a workspace for your site" },
                { icon: Play, title: "2. Run Calculations", desc: "Use estimators & save results" },
                { icon: FileText, title: "3. View Reports", desc: "Track aggregated materials & costs" }
              ].map((step, i) => (
                 <div key={i} className="p-8 flex flex-col items-center text-center bg-slate-50/30 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 hover:bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 transition cursor-default">
-                   <div className="w-12 h-12 rounded-full border-2 border-indigo-100 flex items-center justify-center mb-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-indigo-600 shadow-sm">
+                   <div className="w-12 h-12 rounded-full border-2 border-indigo-100 flex items-center justify-center mb-4 bg-white text-indigo-600 shadow-sm">
                       <step.icon className="w-5 h-5" />
                    </div>
                    <h4 className="font-bold text-slate-800 mb-2">{step.title}</h4>
@@ -172,7 +194,7 @@ export default function ProjectManager() {
 
           {/* Setup Actions */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
-             <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-indigo-100 p-8 rounded-[2rem] shadow-sm flex flex-col justify-center">
+             <div className="bg-white border border-indigo-100 p-8 rounded-[2rem] shadow-sm flex flex-col justify-center">
                 <h4 className="font-bold text-lg mb-1 text-slate-800">Quick Start Templates</h4>
                 <p className="text-sm text-slate-500 mb-5">Begin with a predefined project framework.</p>
                 <div className="space-y-3">
@@ -184,7 +206,7 @@ export default function ProjectManager() {
                      className="w-full flex items-center justify-between p-4 group bg-slate-50 hover:bg-indigo-50 rounded-[24px] border border-slate-100 hover:border-indigo-200 transition-all"
                    >
                       <div className="flex items-center gap-4">
-                         <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-3 rounded-[24px] shadow-sm border border-slate-100 group-hover:scale-110 transition-transform">
+                         <div className="bg-white p-3 rounded-[24px] shadow-sm border border-slate-100 group-hover:scale-110 transition-transform">
                             <Home className="w-5 h-5 text-indigo-500" />
                          </div>
                          <div className="text-left">
@@ -203,7 +225,7 @@ export default function ProjectManager() {
                      className="w-full flex items-center justify-between p-4 group bg-slate-50 hover:bg-emerald-50 rounded-[24px] border border-slate-100 hover:border-emerald-200 transition-all"
                    >
                       <div className="flex items-center gap-4">
-                         <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-3 rounded-[24px] shadow-sm border border-slate-100 group-hover:scale-110 transition-transform">
+                         <div className="bg-white p-3 rounded-[24px] shadow-sm border border-slate-100 group-hover:scale-110 transition-transform">
                             <Route className="w-5 h-5 text-emerald-500" />
                          </div>
                          <div className="text-left">
@@ -216,7 +238,7 @@ export default function ProjectManager() {
                 </div>
              </div>
 
-             <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border p-8 rounded-[2rem] shadow-lg flex flex-col justify-center text-center text-slate-900 relative overflow-hidden group">
+             <div className="bg-white border p-8 rounded-[2rem] shadow-lg flex flex-col justify-center text-center text-slate-900 relative overflow-hidden group">
                 <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 group-hover:rotate-12 transition-all duration-700 pointer-events-none">
                    <Upload className="w-40 h-40" />
                 </div>
@@ -240,11 +262,45 @@ export default function ProjectManager() {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map(proj => {
-             const isCompare = compareIds[0] === proj.id || compareIds[1] === proj.id;
+        <div className="space-y-8">
+          <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <h3 className="text-xl font-semibold mb-6 text-slate-800">Portfolio Overview</h3>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div>
+                <h4 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">Total Cost per Project</h4>
+                <div className="h-64">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={globalTotals.projectCosts}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                      <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} dy={10} />
+                      <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} tickFormatter={(val) => `$${val >= 1000 ? (val/1000).toFixed(0)+'k' : val}`} width={60} />
+                      <Tooltip formatter={(val: number) => `$${val.toLocaleString()}`} contentStyle={{ borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} cursor={{ fill: '#f1f5f9', opacity: 0.5 }} />
+                      <Bar dataKey="cost" fill="#6366f1" radius={[4, 4, 0, 0]} maxBarSize={50} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">Top Material Consumption Across Portfolio</h4>
+                <div className="h-64">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={topGlobalMaterials} layout="vertical" margin={{ top: 0, right: 30, left: 20, bottom: 0 }}>
+                      <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0" />
+                      <XAxis type="number" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} />
+                      <YAxis type="category" dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b', textTransform: 'capitalize' }} width={80} />
+                      <Tooltip formatter={(val: number, name: string, props: any) => [`${val.toLocaleString()} ${props.payload.unit}`, 'Quantity']} contentStyle={{ borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} cursor={{ fill: '#f1f5f9', opacity: 0.5 }} />
+                      <Bar dataKey="quantity" fill="#10b981" radius={[0, 4, 4, 0]} maxBarSize={30} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map(proj => {
+               const isCompare = compareIds[0] === proj.id || compareIds[1] === proj.id;
              return (
-            <div key={proj.id} className={`group bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  border ${activeProjectId === proj.id ? 'border-indigo-500 ring-1 ring-indigo-500' : 'border-slate-200 '} p-6 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col relative overflow-hidden`}>
+            <div key={proj.id} className={`group bg-white  border ${activeProjectId === proj.id ? 'border-indigo-500 ring-1 ring-indigo-500' : 'border-slate-200 '} p-6 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col relative overflow-hidden`}>
               
               {isCompare && (
                  <div className="absolute top-0 right-0 w-16 h-16 bg-emerald-500/10">
@@ -301,6 +357,7 @@ export default function ProjectManager() {
              );
           })}
         </div>
+        </div>
       )}
     </div>
   );
@@ -342,7 +399,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
           {[p1, p2].map((proj, i) => {
             const totals = i === 0 ? t1 : t2;
             return (
-         <div key={proj.id} className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+         <div key={proj.id} className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
             <h1 className="text-2xl font-semibold tabular-nums tracking-tight text-slate-800 mb-6 flex items-center gap-2">
                <span className="w-6 h-6 rounded-full bg-indigo-500 text-white shadow-md flex items-center justify-center text-sm">{i+1}</span>
                {proj.name}
@@ -359,7 +416,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
                  )}
               </div>
               
-              <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/50 border border-white/60 p-5 rounded-[24px] shadow-[0_4px_24px_rgba(15,23,42,0.02)]">
+              <div className="bg-white/50 border border-white/60 p-5 rounded-[24px] shadow-[0_4px_24px_rgba(15,23,42,0.02)]">
                  <h4 className="font-bold text-slate-800 mb-3 border-b border-slate-200/50 pb-2">Material Comparison</h4>
                  <div className="space-y-3">
                     {allMaterialKeys.map(m => {
@@ -489,7 +546,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
        <div className="flex flex-col lg:flex-row gap-6">
          {/* Main Summary Panel */}
          <div className="flex-1 space-y-6">
-           <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden">
+           <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] relative overflow-hidden">
              <div className="absolute top-0 right-0 p-8 opacity-5">
                <Building className="w-48 h-48" />
              </div>
@@ -497,7 +554,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
              <div className="relative z-10">
                 <div className="flex justify-between items-start">
                    <div>
-                      <span className="px-3 py-1 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/60 shadow-sm text-indigo-600 font-bold rounded-full text-xs uppercase tracking-wider mb-3 inline-block backdrop-blur-md">
+                      <span className="px-3 py-1 bg-white/60 shadow-sm text-indigo-600 font-bold rounded-full text-xs uppercase tracking-wider mb-3 inline-block backdrop-blur-md">
                          {project.type}
                       </span>
                       <h1 className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tabular-nums tracking-tight text-slate-900 mb-2">{project.name}</h1>
@@ -507,7 +564,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                       </div>
                    </div>
                    <div className="flex gap-2">
-                      <button onClick={handleShare} className="p-3 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/50 hover:bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 text-slate-600 rounded-[24px] transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md" title="Share Project">
+                      <button onClick={handleShare} className="p-3 bg-white/50 hover:bg-white/80 text-slate-600 rounded-[24px] transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md" title="Share Project">
                          <Share2 className="w-5 h-5" />
                       </button>
                       <button onClick={handleExportPDF} className="p-3 bg-indigo-50/50 hover:bg-indigo-100/60 text-indigo-600 rounded-[24px] transition shadow-[0_4px_14px_rgba(15,23,42,0.03)] backdrop-blur-md" title="Export PDF">
@@ -524,7 +581,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                    <div className="bg-rose-50/50 backdrop-blur-md p-5 rounded-[24px] border border-rose-100/50">
                      <p className="text-rose-700 font-bold text-sm uppercase tracking-wider mb-1">Total Budget</p>
                      <input 
-                        type="number" 
+                        type="number" inputMode="decimal" 
                         value={budget || ''} 
                         onChange={(e) => { const v = Number(e.target.value); setBudget(v); updateProject(project.id, { budget: v }); }}
                         className="w-full text-3xl font-semibold tabular-nums tracking-tight text-rose-600 bg-transparent outline-none"
@@ -542,7 +599,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                 </div>
 
                 {budget > 0 && (
-                  <div className="mt-6 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-sm">
+                  <div className="mt-6 bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-sm">
                       <div className="flex justify-between mb-2">
                         <p className="text-slate-500 font-bold">Remaining Budget: <span className={totalCost > budget ? "text-rose-500" : "text-emerald-500"}>${(budget - totalCost).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
                         <p className="text-slate-500 font-bold">{((totalCost / budget) * 100).toFixed(1)}% Spent</p>
@@ -595,7 +652,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
            </div>
 
            {/* Global Adjustments / Executive Variables */}
-           <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+           <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
               <h2 className="text-lg font-semibold mb-4 text-slate-800 flex items-center gap-2">
                  Global Macro Adjustments
               </h2>
@@ -614,7 +671,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
            </div>
 
            {/* Timeline & Operations */}
-           <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+           <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
               <h2 className="text-xl font-semibold mb-6 text-slate-800">Calculation Timeline</h2>
               {project.estimates.length === 0 ? (
                  <div className="text-center py-10 text-slate-400 font-medium bg-slate-50/50 rounded-[24px] shadow-sm text-slate-800 rounded-[24px] border border-dashed border-slate-200/60">
@@ -624,7 +681,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
               ) : (
                 <div className="space-y-4">
                   {project.estimates.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((est, idx) => (
-                    <div key={est.id} className="flex items-start gap-4 p-4 rounded-[24px] hover:bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/60 transition group border border-transparent hover:border-white/80 shadow-[0_4px_14px_rgba(15,23,42,0.02)]">
+                    <div key={est.id} className="flex items-start gap-4 p-4 rounded-[24px] hover:bg-white/60 transition group border border-transparent hover:border-white/80 shadow-[0_4px_14px_rgba(15,23,42,0.02)]">
                        <div className="flex flex-col items-center mt-1">
                          <div className="w-3 h-3 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]"></div>
                          {idx !== project.estimates.length - 1 && <div className="w-0.5 h-full bg-slate-200/60 my-1"></div>}
@@ -640,12 +697,12 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                           {est.materials && Object.keys(est.materials).length > 0 && (
                             <div className="flex flex-wrap gap-2 mt-2">
                                {Object.entries(est.materials).slice(0, 4).map(([mat, data]) => (
-                                 <span key={mat} className="px-2 py-1 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/60 border border-white/80 text-slate-600 rounded text-xs font-semibold shadow-[0_2px_8px_rgba(15,23,42,0.02)]">
+                                 <span key={mat} className="px-2 py-1 bg-white/60 border border-white/80 text-slate-600 rounded text-xs font-semibold shadow-[0_2px_8px_rgba(15,23,42,0.02)]">
                                    {mat}: {(data.quantity * qtyMultiplier).toFixed(1)} {data.unit}
                                  </span>
                                ))}
                                {Object.keys(est.materials).length > 4 && (
-                                 <span className="px-2 py-1 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/60 border border-white/80 text-slate-500 rounded text-xs font-semibold shadow-[0_2px_8px_rgba(15,23,42,0.02)]">
+                                 <span className="px-2 py-1 bg-white/60 border border-white/80 text-slate-500 rounded text-xs font-semibold shadow-[0_2px_8px_rgba(15,23,42,0.02)]">
                                    +{Object.keys(est.materials).length - 4} more
                                  </span>
                                )}
@@ -661,7 +718,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
 
          {/* Sidebar Summary */}
          <div className="w-full lg:w-80 space-y-6">
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
                <h3 className="font-bold text-lg mb-4 text-slate-800">Cost Breakdown</h3>
                {pieData.length > 0 ? (
                  <div className="h-48 w-full">
@@ -677,7 +734,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                     </ResponsiveContainer>
                  </div>
                ) : (
-                 <div className="h-48 flex items-center justify-center text-slate-400 text-sm italic border border-dashed rounded-[24px] border-slate-200/60 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/30">No data</div>
+                 <div className="h-48 flex items-center justify-center text-slate-400 text-sm italic border border-dashed rounded-[24px] border-slate-200/60 bg-white/30">No data</div>
                )}
                
                <div className="space-y-3 mt-4">
@@ -693,7 +750,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                </div>
             </div>
 
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
                <h3 className="font-bold text-lg mb-4 text-slate-800">Aggregated Materials</h3>
                <div className="space-y-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
                   {Object.entries(aggregatedMaterials).length === 0 ? (

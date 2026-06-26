@@ -164,7 +164,7 @@ export default function PakistanCostCalculatorPage() {
                 <div>
                   <label className="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">Plot Area</label>
                   <input 
-                    type="number" 
+                    type="number" inputMode="decimal" 
                     value={area} 
                     onChange={(e) => setArea(parseFloat(e.target.value) || 0)}
                     className="w-full bg-[#FFFFFF] border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all font-semibold"

@@ -110,7 +110,7 @@ export default function QuickEstimatorWidget() {
                   </div>
                 </div>
                 <input
-                  type="number"
+                  type="number" inputMode="decimal"
                   value={area}
                   onChange={(e) => setArea(e.target.value)}
                   placeholder="e.g. 2500"

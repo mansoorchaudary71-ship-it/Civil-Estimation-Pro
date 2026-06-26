@@ -6,6 +6,7 @@ import { getMyEstimates } from '../lib/estimates';
 import { ArrowRight, Home, Box, Ruler, Building2, Plus, FileText, Clock, HardHat } from 'lucide-react';
 import { useGlobalSettings } from '../context/SettingsContext';
 import { motion, AnimatePresence } from 'motion/react';
+import { ProjectCarousel } from './ui/ProjectCarousel';
 
 const PHRASES = [
   "Create New Estimate",
@@ -178,6 +179,14 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
         </div>
       )}
     </div>
+
+    {/* Project Carousel Section */}
+    <div className="w-full flex justify-center mt-2">
+      <div className="tool-card overflow-hidden w-full max-w-5xl">
+        <ProjectCarousel />
+      </div>
+    </div>
+
     </div>
   );
 }

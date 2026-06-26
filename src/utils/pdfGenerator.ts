@@ -214,6 +214,7 @@ export const generateProfessionalPDF = async ({
   grandTotal,
   branding,
   paperSize,
+  theme = "Professional",
 }: {
   title: string;
   toolId?: string;

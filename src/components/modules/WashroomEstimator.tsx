@@ -142,7 +142,7 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
       <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">{label}</label>
       <div className="relative">
         <input 
-          type="number" 
+          type="number" inputMode="decimal" 
           value={val} 
           onChange={(e)=>setVal(e.target.value)} 
           className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-4 py-2.5 text-white dark:text-white dark:text-white font-semibold focus:ring-2 focus:ring-purple-500 outline-none transition-all"
@@ -205,15 +205,15 @@ export default function WashroomEstimator({ onClose }: { onClose?: () => void })
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Door (H x W)</label>
                 <div className="flex gap-2">
-                  <input type="number" value={doorH} onChange={e=>setDoorH(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm" placeholder="H" />
-                  <input type="number" value={doorW} onChange={e=>setDoorW(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm" placeholder="W" />
+                  <input type="number" inputMode="decimal" value={doorH} onChange={e=>setDoorH(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm" placeholder="H" />
+                  <input type="number" inputMode="decimal" value={doorW} onChange={e=>setDoorW(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm" placeholder="W" />
                 </div>
               </div>
               <div className="flex flex-col gap-1.5">
                 <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Window (H x W)</label>
                 <div className="flex gap-2">
-                  <input type="number" value={winH} onChange={e=>setWinH(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm" placeholder="H" />
-                  <input type="number" value={winW} onChange={e=>setWinW(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm" placeholder="W" />
+                  <input type="number" inputMode="decimal" value={winH} onChange={e=>setWinH(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm" placeholder="H" />
+                  <input type="number" inputMode="decimal" value={winW} onChange={e=>setWinW(e.target.value)} className="w-full bg-white dark:bg-slate-800 border box-border border-slate-200 dark:dark:border-slate-700 rounded-[24px] px-3 py-2.5 text-sm" placeholder="W" />
                 </div>
               </div>
             </div>

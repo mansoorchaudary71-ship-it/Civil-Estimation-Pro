@@ -203,25 +203,25 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
                   <h3 className="font-bold text-lg mb-4 text-slate-800 border-b border-slate-100 pb-2">Wall Dimensions</h3>
                   <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                     <InputGroup label="Wall Height (m)">
-                      <input type="number" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={wallH} onChange={(e) => setWallH(e.target.value)} />
+                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 min-h-[44px]" value={wallH} onChange={(e) => setWallH(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Wall Length (m)">
-                      <input type="number" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={wallL} onChange={(e) => setWallL(e.target.value)} />
+                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 min-h-[44px]" value={wallL} onChange={(e) => setWallL(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Base Width (m)">
-                      <input type="number" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={baseW} onChange={(e) => setBaseW(e.target.value)} />
+                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 min-h-[44px]" value={baseW} onChange={(e) => setBaseW(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Base Thk (m)">
-                      <input type="number" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={baseD} onChange={(e) => setBaseD(e.target.value)} />
+                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 min-h-[44px]" value={baseD} onChange={(e) => setBaseD(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Stem Top (m)">
-                      <input type="number" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={stemWTop} onChange={(e) => setStemWTop(e.target.value)} />
+                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 min-h-[44px]" value={stemWTop} onChange={(e) => setStemWTop(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Stem Bot (m)">
-                      <input type="number" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={stemWBot} onChange={(e) => setStemWBot(e.target.value)} />
+                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 min-h-[44px]" value={stemWBot} onChange={(e) => setStemWBot(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Toe Proj (m)">
-                      <input type="number" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50" value={toeProj} onChange={(e) => setToeProj(e.target.value)} />
+                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 min-h-[44px]" value={toeProj} onChange={(e) => setToeProj(e.target.value)} />
                     </InputGroup>
                   </div>
                 </div>
@@ -235,7 +235,7 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
                         <FieldTooltip content="Unit weight of retained soil. Typical values: Loose soil = 14-16, Compacted soil = 18-20, Gravel/Rock = 20-22" />
                       </span>
                     }>
-                      <input type="number" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3" value={soilDens} onChange={(e) => setSoilDens(e.target.value)} />
+                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3 min-h-[44px]" value={soilDens} onChange={(e) => setSoilDens(e.target.value)} />
                     </InputGroup>
                     <InputGroup label={
                       <span className="flex items-center">
@@ -243,16 +243,16 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
                         <FieldTooltip content="Angle of internal friction of soil (Φ). Typical values: Clay = 0-20°, Silt = 26-30°, Sand = 30-40°, Gravel = 35-45°" />
                       </span>
                     }>
-                      <input type="number" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3" value={phiAngle} onChange={(e) => setPhiAngle(e.target.value)} />
+                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3 min-h-[44px]" value={phiAngle} onChange={(e) => setPhiAngle(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Base Friction Coeff (μ)">
-                      <input type="number" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3" value={frictionCoeff} onChange={(e) => setFrictionCoeff(e.target.value)} step="0.1" />
+                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3 min-h-[44px]" value={frictionCoeff} onChange={(e) => setFrictionCoeff(e.target.value)} step="0.1" />
                     </InputGroup>
                     <InputGroup label="Surcharge (kN/m²)">
-                      <input type="number" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3" value={surcharge} onChange={(e) => setSurcharge(e.target.value)} />
+                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3 min-h-[44px]" value={surcharge} onChange={(e) => setSurcharge(e.target.value)} />
                     </InputGroup>
                     <InputGroup label="Safe Bearing (kN/m²)">
-                      <input type="number" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3" value={sbc} onChange={(e) => setSbc(e.target.value)} />
+                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3 min-h-[44px]" value={sbc} onChange={(e) => setSbc(e.target.value)} />
                     </InputGroup>
                   </div>
                 </div>
@@ -380,14 +380,14 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
                     <div className="grid grid-cols-2 gap-4 mb-4">
                       <InputGroup label="Vert. Dia / Spc">
                         <div className="flex gap-2">
-                           <input type="number" className="w-full bg-slate-50 border-none rounded-[16px] px-2 py-2" value={vertDia} onChange={e => setVertDia(e.target.value)} />
-                           <input type="number" className="w-full bg-slate-50 border-none rounded-[16px] px-2 py-2" value={vertSpace} onChange={e => setVertSpace(e.target.value)} />
+                           <input type="number" inputMode="decimal" className="w-full bg-slate-50 border-none rounded-[16px] px-2 py-2 min-h-[44px]" value={vertDia} onChange={e => setVertDia(e.target.value)} />
+                           <input type="number" inputMode="decimal" className="w-full bg-slate-50 border-none rounded-[16px] px-2 py-2 min-h-[44px]" value={vertSpace} onChange={e => setVertSpace(e.target.value)} />
                         </div>
                       </InputGroup>
                       <InputGroup label="Horiz. Dia / Spc">
                         <div className="flex gap-2">
-                           <input type="number" className="w-full bg-slate-50 border-none rounded-[16px] px-2 py-2" value={horizDia} onChange={e => setHorizDia(e.target.value)} />
-                           <input type="number" className="w-full bg-slate-50 border-none rounded-[16px] px-2 py-2" value={horizSpace} onChange={e => setHorizSpace(e.target.value)} />
+                           <input type="number" inputMode="decimal" className="w-full bg-slate-50 border-none rounded-[16px] px-2 py-2 min-h-[44px]" value={horizDia} onChange={e => setHorizDia(e.target.value)} />
+                           <input type="number" inputMode="decimal" className="w-full bg-slate-50 border-none rounded-[16px] px-2 py-2 min-h-[44px]" value={horizSpace} onChange={e => setHorizSpace(e.target.value)} />
                         </div>
                       </InputGroup>
                     </div>

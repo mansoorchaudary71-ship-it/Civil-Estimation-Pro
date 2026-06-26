@@ -1,145 +1,228 @@
 import React from 'react';
-import { ArrowRight, Play, User, Building, ShieldCheck, Globe, Sparkles } from 'lucide-react';
+import { ArrowRight, Play, Star, CheckCircle2 } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export default function HeroSection({ onStart }: { onStart: () => void }) {
-  const stats = [
-    { val: '30+', lab: 'Professional Tools', icon: Building, sub: 'Verified to global standards' },
-    { val: '100%', lab: 'Free Forever', icon: ShieldCheck, sub: 'No hidden paywalls or ads' },
-    { val: '15+', lab: 'Countries Trusted', icon: Globe, sub: 'Used by global practitioners' },
-    { val: 'AI', lab: 'Powered Estimates', icon: Sparkles, sub: 'Next-gen data automation' }
-  ];
-
   return (
-    <div className="relative w-full bg-gradient-to-b from-[#ffffff] via-slate-50/80 to-[#e2e8f0]/30 flex flex-col justify-start overflow-hidden pt-24 md:pt-32 pb-12 md:pb-16 hero-section">
-      {/* Background Layers */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Soft premium gradient glow */}
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(circle at top left, transparent 40%, rgba(10,25,47,0.04) 100%), radial-gradient(circle at bottom right, rgba(255,95,21,0.03) 0%, transparent 60%)'
-          }}
-        />
-        {/* Subtle grid texture */}
-        <div 
-          className="absolute inset-0 opacity-100"
-          style={{
-            backgroundImage: 'linear-gradient(rgba(10,25,47,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(10,25,47,0.03) 1px, transparent 1px)',
-            backgroundSize: '40px 40px'
-          }}
-        />
+    <div className="relative w-full bg-slate-50 overflow-hidden pt-24 md:pt-32 pb-16 flex flex-col items-center font-sans">
+      {/* Background Mesh Gradient */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Pale mint-green glow top-left/center */}
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-teal-50/80 blur-[100px] opacity-80 mix-blend-multiply"></div>
+        {/* Pale sky-blue glow right side */}
+        <div className="absolute top-[10%] right-[-10%] w-[45%] h-[45%] rounded-full bg-blue-50/80 blur-[100px] opacity-80 mix-blend-multiply"></div>
+        {/* Extra subtle glow for depth */}
+        <div className="absolute bottom-[20%] left-[20%] w-[60%] h-[60%] rounded-full bg-gray-50/60 blur-[100px] opacity-70"></div>
       </div>
 
-      {/* Main Container */}
-      <div className="max-w-[1200px] mx-auto px-6 w-full relative z-10 flex flex-col items-center justify-center text-center">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 w-full relative z-10 flex flex-col items-center justify-center text-center">
         
-        {/* Subheadline & Social Proof (Trust Badge) */}
-        <motion.div 
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col items-center gap-3 mb-8"
-        >
-          <div className="flex items-center gap-3 bg-white/80 backdrop-blur-md px-6 py-3 rounded-full border border-slate-200 shadow-sm">
-            <div className="flex -space-x-2 mr-2">
-              {[...Array(5)].map((_, i) => (
-                <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center overflow-hidden shadow-sm">
-                  <User className="w-4 h-4 text-slate-500" />
-                </div>
-              ))}
-            </div>
-            
-            {/* Live pulse dot */}
-            <span className="relative flex h-3 w-3 mr-1">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF5F15] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-[#FF5F15]"></span>
-            </span>
-
-            <p className="text-sm font-bold text-slate-900">
-              10,000+ Engineers Trust Us
-            </p>
-          </div>
-        </motion.div>
-
-        {/* Heading */}
-        <div className="flex flex-col items-center justify-center w-full mb-6">
-          <motion.h1
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-5 flex flex-col"
-          >
-            <span className="text-slate-900">Build Smarter.</span>
-            <span 
-              className="text-[#FF5F15]"
-            >
-              Estimate Faster.
-            </span>
-          </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base md:text-lg text-slate-600 font-medium max-w-2xl px-4 leading-relaxed"
-          >
-            The all-in-one calculation platform for modern civil engineers, architects, and quantity surveyors. Accurate structural and building estimates in seconds.
-          </motion.p>
-        </div>
-
-        {/* CTA Buttons */}
-        <motion.div 
+        {/* Top Typography Section */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto px-4 mb-12"
+          transition={{ duration: 0.6 }}
+          className="flex flex-col items-center justify-center w-full max-w-4xl mx-auto"
         >
-          <div className="relative group w-full sm:w-auto">
-            {/* Pulsing glow ring */}
-            <div className="absolute -inset-1 bg-[#FF5F15] rounded-full blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm border border-gray-200 shadow-sm mb-8">
+            <span className="px-2 py-0.5 rounded-full bg-[#FF5F15]/10 text-[#FF5F15] text-xs font-bold uppercase tracking-wider">
+              New
+            </span>
+            <span className="text-sm font-medium text-gray-700 pr-2">
+              AI-Powered Estimations
+            </span>
+          </div>
+
+          {/* Headline */}
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tighter text-gray-900 leading-[1.1] mb-6">
+            Build Smarter. <br className="hidden sm:block" />
+            <span className="text-[#FF5F15]">Estimate Faster.</span>
+          </h1>
+
+          {/* Subheadline */}
+          <p className="text-lg md:text-xl text-gray-500 font-medium max-w-2xl px-4 leading-relaxed mb-10">
+            The all-in-one calculation platform for modern civil engineers, architects, and quantity surveyors. Accurate structural and building estimates in seconds.
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto px-4 mb-16">
             <button
               onClick={onStart}
-              className="relative w-full sm:w-auto px-8 py-3.5 rounded-full font-bold text-[15px] text-white bg-[#FF5F15] hover:bg-[#ea580c] transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_4px_20px_rgba(255,95,21,0.4)] hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(255,95,21,0.5)] active:scale-95"
+              className="w-full sm:w-auto px-8 py-4 rounded-full font-bold text-[15px] text-white bg-[#FF5F15] hover:bg-[#ea580c] transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(255,95,21,0.3)] hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(255,95,21,0.4)] active:scale-95"
             >
               Start Estimating Free
               <ArrowRight className="w-4 h-4" />
             </button>
+            <button
+              className="w-full sm:w-auto px-8 py-4 rounded-full font-bold text-[15px] text-gray-700 bg-white/90 backdrop-blur-sm hover:bg-gray-50 border border-gray-200 transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:-translate-y-0.5 hover:shadow active:scale-95"
+            >
+              <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center">
+                <Play className="w-3 h-3 fill-current text-gray-700" />
+              </div>
+              Watch Demo
+            </button>
           </div>
-          
-          <button
-            className="w-full sm:w-auto px-8 py-3.5 rounded-full font-bold text-[15px] text-slate-900 bg-white hover:bg-slate-50 border border-slate-200 transition-all duration-300 flex items-center justify-center gap-2 active:scale-95 shadow-sm hover:-translate-y-0.5 hover:shadow-md"
-          >
-            <Play className="w-4 h-4 fill-current text-slate-900" />
-            Watch Demo
-          </button>
         </motion.div>
 
-        {/* 4 Stat Counters (Glassmorphism Cards) */}
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {stats.map((stat, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 + (idx * 0.1) }}
-              className="relative overflow-hidden flex flex-col items-center justify-center p-6 bg-white/60 backdrop-blur-xl border border-slate-200/80 text-center shadow-sm transform hover:-translate-y-1 hover:border-slate-300 hover:shadow-md transition-all duration-300 group rounded-3xl"
-            >
-              {/* Subtle top glow inside card */}
-              <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              
-              <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-600 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-[#FF5F15]/10 group-hover:text-[#FF5F15] transition-all duration-300">
-                <stat.icon className="w-6 h-6" />
+        {/* Central Visual & Floating Cards */}
+        <div className="relative w-full max-w-5xl mx-auto mt-4 mb-20 flex flex-col lg:block items-center">
+          
+          {/* Main Visual: CSS Tablet/Laptop Mockup */}
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative z-10 w-full max-w-3xl mx-auto scale-[0.85] sm:scale-100 origin-top mb-[-10%] sm:mb-0"
+          >
+            {/* Tablet Frame */}
+            <div className="relative bg-gray-900 rounded-[2rem] sm:rounded-[3rem] p-3 sm:p-4 shadow-2xl shadow-gray-200/50 border border-gray-800 ring-1 ring-white/10 mx-2 sm:mx-0">
+              {/* Screen Content */}
+              <div className="relative rounded-[1.5rem] sm:rounded-[2.25rem] overflow-hidden bg-gray-50 aspect-[16/10] border border-gray-700/50 flex flex-col">
+                {/* Mock UI Header */}
+                <div className="h-10 sm:h-14 border-b border-gray-200 bg-white flex items-center px-4 sm:px-6 gap-4">
+                  <div className="flex gap-1.5">
+                    <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-gray-200"></div>
+                    <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-gray-200"></div>
+                    <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-gray-200"></div>
+                  </div>
+                  <div className="h-4 w-32 bg-gray-100 rounded-full mx-auto"></div>
+                </div>
+                {/* Mock UI Body */}
+                <div className="flex-1 p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-6 bg-gray-50/50">
+                  {/* Sidebar */}
+                  <div className="hidden sm:flex w-48 flex-col gap-3">
+                    <div className="h-6 w-full bg-white rounded-md border border-gray-200"></div>
+                    <div className="h-6 w-3/4 bg-gray-200/50 rounded-md"></div>
+                    <div className="h-6 w-5/6 bg-gray-200/50 rounded-md"></div>
+                    <div className="h-6 w-full bg-gray-200/50 rounded-md"></div>
+                  </div>
+                  {/* Main Content Area */}
+                  <div className="flex-1 flex flex-col gap-4">
+                    {/* Chart Area */}
+                    <div className="flex gap-4 h-32 sm:h-40">
+                      <div className="flex-1 bg-white rounded-xl border border-gray-200 shadow-sm p-4 flex flex-col gap-3">
+                        <div className="h-4 w-24 bg-gray-100 rounded-full"></div>
+                        <div className="flex-1 flex items-end gap-2 px-2">
+                          {[40, 70, 45, 90, 60, 85].map((h, i) => (
+                            <div key={i} className="flex-1 bg-indigo-100 rounded-t-sm" style={{ height: `${h}%` }}>
+                              <div className="w-full bg-indigo-500 rounded-t-sm" style={{ height: `${h * 0.6}%` }}></div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="hidden sm:flex w-32 bg-white rounded-xl border border-gray-200 shadow-sm p-4 flex-col gap-3 justify-center items-center">
+                         <div className="w-16 h-16 rounded-full border-4 border-orange-100 border-t-orange-500"></div>
+                         <div className="h-3 w-16 bg-gray-100 rounded-full"></div>
+                      </div>
+                    </div>
+                    {/* Data Table */}
+                    <div className="flex-1 bg-white rounded-xl border border-gray-200 shadow-sm p-4 flex flex-col gap-3">
+                      <div className="h-4 w-32 bg-gray-100 rounded-full mb-2"></div>
+                      {[1, 2, 3].map(i => (
+                        <div key={i} className="flex justify-between items-center border-b border-gray-50 pb-2">
+                          <div className="h-3 w-1/3 bg-gray-100 rounded-full"></div>
+                          <div className="h-3 w-16 bg-gray-100 rounded-full"></div>
+                          <div className="h-3 w-12 bg-emerald-100 rounded-full"></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
-              
-              <h3 className="text-2xl font-[800] text-slate-900 mb-1 leading-none relative z-10 group-hover:text-[#FF5F15] transition-colors duration-300">{stat.val}</h3>
-              <p className="text-[11px] font-bold text-slate-500 tracking-wide uppercase mb-1.5 relative z-10">{stat.lab}</p>
-              <p className="text-[11px] text-slate-600 relative z-10 hidden sm:block">{stat.sub}</p>
-            </motion.div>
-          ))}
+            </div>
+            {/* Soft Shadow under tablet */}
+            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-3/4 h-12 bg-gray-900/10 blur-xl rounded-[100%]"></div>
+          </motion.div>
+
+          {/* Left Floating Card: 30+ Tools */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30, y: 20 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="lg:absolute left-0 top-[20%] z-20 mt-6 lg:mt-0 lg:-ml-12 w-full max-w-[300px] lg:max-w-[280px] bg-white/90 backdrop-blur-xl border border-gray-100 shadow-2xl shadow-gray-200/50 hover:shadow-[0_12px_40px_rgba(59,130,246,0.15)] hover:-translate-y-1 hover:scale-105 transition-all duration-300 cursor-default rounded-3xl lg:rounded-[2rem] p-4 sm:p-5 flex flex-col text-left"
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                <CheckCircle2 className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-bold text-gray-900 text-base leading-tight">30+ Professional Tools</h4>
+                <p className="text-xs text-gray-500 font-medium">Verified to global standards</p>
+              </div>
+            </div>
+            <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+              <div className="flex -space-x-2">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="w-7 h-7 rounded-full border-2 border-white bg-gray-200 flex items-center justify-center overflow-hidden">
+                    <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="Avatar" className="w-full h-full object-cover" />
+                  </div>
+                ))}
+              </div>
+              <span className="text-xs font-bold text-gray-700">10k+ Trust Us</span>
+            </div>
+          </motion.div>
+
+          {/* Right Floating Card: 5-Star Review */}
+          <motion.div 
+            initial={{ opacity: 0, x: 30, y: 20 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="lg:absolute right-0 top-[40%] z-20 mt-4 lg:mt-0 lg:-mr-12 w-full max-w-[300px] bg-white/90 backdrop-blur-xl border border-gray-100 shadow-2xl shadow-gray-200/50 hover:shadow-[0_12px_40px_rgba(255,95,21,0.15)] hover:-translate-y-1 hover:scale-105 transition-all duration-300 cursor-default rounded-3xl lg:rounded-[2rem] p-4 sm:p-5 flex flex-col text-left"
+          >
+            <div className="flex gap-1 mb-3">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-4 h-4 fill-[#FF5F15] text-[#FF5F15]" />
+              ))}
+            </div>
+            <p className="text-sm font-medium text-gray-700 mb-4 leading-snug">
+              "Zero calculation errors and saves hours of manual Excel entries."
+            </p>
+            <div className="flex items-center gap-3 pt-3 border-t border-gray-100">
+              <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
+                <img src="https://i.pravatar.cc/100?img=33" alt="Michael R." className="w-full h-full object-cover" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-gray-900">Michael R.</p>
+                <p className="text-[10px] text-gray-500 font-medium">Civil Engineer</p>
+              </div>
+            </div>
+          </motion.div>
+
         </div>
 
+        {/* Bottom Footer (Logo Cloud) */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="w-full max-w-4xl mx-auto mt-12 pt-8 border-t border-gray-200/60"
+        >
+          <p className="text-sm text-gray-500 font-medium mb-6">Trusted by global practitioners and firms</p>
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+            {/* Placeholder Logos */}
+            <div className="text-xl font-bold tracking-tighter text-gray-800 flex items-center gap-2">
+              <div className="w-6 h-6 rounded bg-gray-800"></div> BuildCorp
+            </div>
+            <div className="text-xl font-black tracking-widest text-gray-800 flex items-center gap-1">
+              <div className="w-4 h-6 bg-gray-800 -skew-x-12"></div>
+              <div className="w-4 h-6 bg-gray-800 -skew-x-12"></div>
+              NEXUS
+            </div>
+            <div className="text-xl font-bold font-serif italic text-gray-800 flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full border-4 border-gray-800"></div> Architechs
+            </div>
+            <div className="text-xl font-extrabold uppercase text-gray-800 flex items-center gap-1">
+              <div className="w-3 h-6 bg-gray-800"></div>
+              <div className="w-3 h-6 bg-gray-800"></div>
+              <div className="w-3 h-6 bg-gray-800"></div>
+              STRUCT
+            </div>
+          </div>
+        </motion.div>
+        
       </div>
     </div>
   );
 }
+

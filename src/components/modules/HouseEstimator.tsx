@@ -59,6 +59,28 @@ import UnitToggleGroup from "../ui/UnitToggleGroup";
 import { MaskedInput } from "../ui/MaskedInput";
 import { useSchema } from "../../hooks/useSchema";
 import { SEOFAQ } from "../ui/SEOFAQ";
+import { ToolGuidedTour, TourStep } from "../ui/ToolGuidedTour";
+
+const HOUSE_TOUR_STEPS: TourStep[] = [
+  {
+    targetSelector: '#tour-house-area',
+    title: 'Covered Area',
+    content: 'Enter the total covered area for a single floor to begin your estimation.',
+    placement: 'bottom'
+  },
+  {
+    targetSelector: '#tour-room-height',
+    title: 'Room Height',
+    content: 'Adjust the standard height of your rooms. This affects the quantities of brickwork and plaster.',
+    placement: 'bottom'
+  },
+  {
+    targetSelector: 'input[type="range"].accent-violet-600',
+    title: 'Finish Quality',
+    content: 'Select between Standard, Premium, or Luxury finishes to see how it impacts your final cost.',
+    placement: 'bottom'
+  }
+];
 
 function AnimatedTableRow({ 
   item, 
@@ -105,7 +127,7 @@ function AnimatedTableRow({
                 type="checkbox" 
                 checked={selected}
                 onChange={() => onSelect(item.name)}
-                className="w-4 h-4 text-indigo-600 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border-slate-300 rounded focus:ring-indigo-500 cursor-pointer"
+                className="w-4 h-4 text-indigo-600 bg-white border-slate-300 rounded focus:ring-indigo-500 cursor-pointer"
               />
             )}
             <span>{item.name}</span>
@@ -955,6 +977,7 @@ export default function HouseEstimator() {
         <title>House Construction Cost Estimator | Civil Estimation Pro</title>
         <meta name="description" content="Calculate your exact house construction cost with real-time BOQ generation. Features NBC Pakistan standards, Marla/Sq.Ft inputs, and precise material estimates." />
       </Helmet>
+      <ToolGuidedTour steps={HOUSE_TOUR_STEPS} tourId="house-estimator" />
       <div className="max-w-6xl mx-auto space-y-8 pb-24">
         
 
@@ -963,7 +986,7 @@ export default function HouseEstimator() {
           {/* Main Controls Overlay */}
           <section className="lg:col-span-7 space-y-6 flex flex-col">
             {/* Quick Estimate Base Controls */}
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl space-y-6">
+            <div className="tool-card p-6 space-y-6">
               <div className="flex items-center gap-3 mb-2">
                 <div className="p-3 bg-blue-50 text-indigo-600 rounded-[24px]">
                   <Home className="w-6 h-6" />
@@ -992,7 +1015,7 @@ export default function HouseEstimator() {
                       siteLocation: e.target.value,
                     })
                   }
-                  className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all shadow-sm"
+                  className="calc-input px-4 py-3 text-sm font-semibold text-gray-800 w-full outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all shadow-sm"
                   placeholder="e.g. DHA Phase 6"
                 />
               </div>
@@ -1003,7 +1026,7 @@ export default function HouseEstimator() {
                   Plot Size 
                   <span className="relative">
                     <AlertCircle className="w-3.5 h-3.5 text-slate-600" />
-                    <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max px-3 py-1.5 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-text-primary text-[10px] rounded-[16px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all border border-slate-200 shadow-sm">
+                    <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max px-3 py-1.5 bg-white text-text-primary text-[10px] rounded-[16px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all border border-slate-200 shadow-sm">
                       Total land area limits the maximum covered area
                     </span>
                   </span>
@@ -1017,7 +1040,7 @@ export default function HouseEstimator() {
                         payload: val,
                       })
                     }
-                    className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all font-medium shadow-sm w-full"
+                    className="calc-input px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all font-medium shadow-sm w-full"
                     placeholder="0"
                   />
                   <div className="w-full">
@@ -1114,7 +1137,7 @@ export default function HouseEstimator() {
             </div>
 
             {/* International & Structural Setup */}
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl space-y-5">
+            <div className="tool-card p-6 space-y-5">
               <div className="flex items-center gap-3 mb-2">
                 <div className="p-3 bg-teal-50 text-teal-600 rounded-[24px]">
                   <Database className="w-6 h-6" />
@@ -1160,7 +1183,7 @@ export default function HouseEstimator() {
                         setCustomRate("laborFinish", pst.laborFinish);
                       }
                     }}
-                    className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
+                    className="calc-input px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
                   >
                     {["PKR", "INR", "USD", "GBP", "AED", "SAR", "BDT", "LKR", "CUSTOM"].map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
@@ -1171,7 +1194,7 @@ export default function HouseEstimator() {
                   <select
                      value={designStandard}
                      onChange={(e) => setDesignStandard(e.target.value)}
-                     className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
+                     className="calc-input px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
                   >
                      <option>NBC Pakistan 2021</option>
                      <option>NBC India 2016</option>
@@ -1187,7 +1210,7 @@ export default function HouseEstimator() {
                   <select
                      value={foundationType}
                      onChange={(e) => setFoundationType(e.target.value)}
-                     className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
+                     className="calc-input px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
                   >
                      <option>Strip Foundation</option>
                      <option>Raft Foundation</option>
@@ -1200,7 +1223,7 @@ export default function HouseEstimator() {
                   <select
                      value={structuralSystem}
                      onChange={(e) => setStructuralSystem(e.target.value)}
-                     className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
+                     className="calc-input px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
                   >
                      <option>RCC Framed Structure</option>
                      <option>Load bearing masonry</option>
@@ -1213,7 +1236,7 @@ export default function HouseEstimator() {
                   <select
                      value={seismicZone}
                      onChange={(e) => setSeismicZone(e.target.value)}
-                     className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
+                     className="calc-input px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/30 transition-all font-medium shadow-sm w-full"
                   >
                      <option>Zone 1</option>
                      <option>Zone 2</option>
@@ -1226,7 +1249,7 @@ export default function HouseEstimator() {
             </div>
 
             {/* Advanced Customization Accordion */}
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 backdrop-blur-xl">
+            <div className="tool-card p-6">
               <div
                 className="flex items-center justify-between cursor-pointer"
                 onClick={() => setIsAccordionOpen(!isAccordionOpen)}
@@ -1270,14 +1293,15 @@ export default function HouseEstimator() {
                       Covered Area (Per Floor)
                       <span className="relative">
                         <AlertCircle className="w-3.5 h-3.5 text-slate-600" />
-                        <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max max-w-[200px] whitespace-normal px-3 py-1.5 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-text-primary text-[10px] rounded-[16px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10 text-center border border-slate-200 shadow-sm">
+                        <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-max max-w-[200px] whitespace-normal px-3 py-1.5 bg-white text-text-primary text-[10px] rounded-[16px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10 text-center border border-slate-200 shadow-sm">
                           Total floor area constructed for a single story. Must be less than plot size.
                         </span>
                       </span>
                     </label>
                     <div className="relative">
                       <input
-                        type="number"
+                        id="tour-house-area"
+                        type="number" inputMode="decimal"
                         value={geoState.coveredAreaSqft}
                         onChange={(e) =>
                           dispatch({
@@ -1285,7 +1309,7 @@ export default function HouseEstimator() {
                             payload: e.target.value,
                           })
                         }
-                        className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 font-medium shadow-sm"
+                        className="w-full calc-input px-4 py-3 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/30 font-medium shadow-sm"
                         placeholder="0" 
                       />
                       <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-500 pointer-events-none">
@@ -1299,7 +1323,8 @@ export default function HouseEstimator() {
                       Room Height (ft)
                     </label>
                     <input
-                      type="number"
+                      id="tour-room-height"
+                      type="number" inputMode="decimal"
                       step="0.5"
                       value={geoState.roomHeight}
                       onChange={(e) =>
@@ -1308,7 +1333,7 @@ export default function HouseEstimator() {
                           payload: e.target.value,
                         })
                       }
-                      className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium text-sm shadow-sm"
+                      className="w-full calc-input px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500/20 font-medium text-sm shadow-sm"
                     />
                   </div>
                   
@@ -1339,7 +1364,7 @@ export default function HouseEstimator() {
                             setIncludeBoundaryWall(!includeBoundaryWall)
                           }
                         />
-                        <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-500/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                        <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-500/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
                       </label>
                     </div>
                     {includeBoundaryWall && (
@@ -1349,7 +1374,7 @@ export default function HouseEstimator() {
                             Length (ft)
                           </label>
                           <input
-                            type="number"
+                            type="number" inputMode="decimal"
                             value={bwLength || ""}
                             onChange={(e) => setBwLength(parseFloat(e.target.value))}
                             className="w-full bg-slate-50 border border-slate-200 rounded-[16px] px-3 py-2 text-slate-700 text-sm font-medium focus:ring-2 focus:ring-indigo-500/50 focus:outline-none"
@@ -1360,7 +1385,7 @@ export default function HouseEstimator() {
                             Height (ft)
                           </label>
                           <input
-                            type="number"
+                            type="number" inputMode="decimal"
                             value={bwHeight || ""}
                             onChange={(e) => setBwHeight(parseFloat(e.target.value))}
                             className="w-full bg-slate-50 border border-slate-200 rounded-[16px] px-3 py-2 text-slate-700 text-sm font-medium focus:ring-2 focus:ring-indigo-500/50 focus:outline-none"
@@ -1378,7 +1403,7 @@ export default function HouseEstimator() {
               {!showResults && (
                 <button
                    onClick={() => setShowResults(true)}
-                   className="w-full sm:flex-1 flex flex-row items-center justify-center gap-2 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-text-primary border border-slate-200 outline-none font-bold px-8 py-4 rounded-[16px] hover:bg-slate-50 transition-all active:scale-95 shadow-sm"
+                   className="w-full sm:flex-1 flex flex-row items-center justify-center gap-2 bg-white text-text-primary border border-slate-200 outline-none font-bold px-8 py-4 rounded-[16px] hover:bg-slate-50 transition-all active:scale-95 shadow-sm"
                 >
                    Compute Total Cost
                 </button>
@@ -1397,14 +1422,14 @@ export default function HouseEstimator() {
                    checked={showResults}
                    onChange={(e) => setShowResults(e.target.checked)}
                  />
-                 <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600 shadow-inner"></div>
+                 <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600 shadow-inner"></div>
                </label>
             </div>
           
             {showResults && (
               <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500 pt-8 border-t border-[var(--border-color)]">
                 {/* Visual Summary */}
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-6 sm:p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 mb-2">
+            <div className="tool-card p-6 sm:p-8 mb-2">
               <h3 className="text-xl font-semibold text-slate-800 mb-6">
                 Cost Breakdown Visuals
               </h3>
@@ -1432,7 +1457,7 @@ export default function HouseEstimator() {
             </div>
 
             {/* Detailed Mathematical Breakdown Accordion */}
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-6 sm:p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 mb-8">
+            <div className="tool-card p-6 sm:p-8 mb-8">
               <div
                 className="flex justify-between items-center cursor-pointer"
                 onClick={() => setIsMathOpen(!isMathOpen)}
@@ -1551,7 +1576,7 @@ export default function HouseEstimator() {
                               Load Template
                               <ChevronDown className="w-4 h-4" />
                             </button>
-                            <div className="absolute right-0 top-full mt-1 w-48 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-xl shadow-lg opacity-0 invisible group-hover/template:opacity-100 group-hover/template:visible transition-all z-20 overflow-hidden">
+                            <div className="absolute right-0 top-full mt-1 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 invisible group-hover/template:opacity-100 group-hover/template:visible transition-all z-20 overflow-hidden">
                               <button onClick={() => handleLoadTemplate("grey", "residential")} className="w-full text-left px-4 py-2 hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 text-sm font-medium transition-colors border-b border-slate-100">Residential House</button>
                               <button onClick={() => handleLoadTemplate("grey", "commercial")} className="w-full text-left px-4 py-2 hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 text-sm font-medium transition-colors">Commercial Office</button>
                             </div>
@@ -1574,7 +1599,7 @@ export default function HouseEstimator() {
                           </button>
                         </div>
                       </div>
-                      <div className="border border-slate-200 rounded-[24px] overflow-auto max-h-[400px] bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 shadow-sm mb-8 relative custom-scrollbar">
+                      <div className="border border-slate-200 rounded-[24px] overflow-auto max-h-[400px] bg-white shadow-sm mb-8 relative custom-scrollbar">
                         <table className="w-full text-sm text-left relative whitespace-nowrap md:whitespace-normal">
                           <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider sticky top-0 z-10 shadow-sm before:content-[''] before:absolute before:inset-0 before:bg-slate-100 before:-z-10">
                             <tr>
@@ -1765,7 +1790,7 @@ export default function HouseEstimator() {
                               Load Template
                               <ChevronDown className="w-4 h-4" />
                             </button>
-                            <div className="absolute right-0 top-full mt-1 w-48 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-xl shadow-lg opacity-0 invisible group-hover/template:opacity-100 group-hover/template:visible transition-all z-20 overflow-hidden">
+                            <div className="absolute right-0 top-full mt-1 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 invisible group-hover/template:opacity-100 group-hover/template:visible transition-all z-20 overflow-hidden">
                               <button onClick={() => handleLoadTemplate("finishing", "residential")} className="w-full text-left px-4 py-2 hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 text-sm font-medium transition-colors border-b border-slate-100">Residential House</button>
                               <button onClick={() => handleLoadTemplate("finishing", "commercial")} className="w-full text-left px-4 py-2 hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 text-sm font-medium transition-colors">Commercial Office</button>
                             </div>
@@ -1788,7 +1813,7 @@ export default function HouseEstimator() {
                           </button>
                         </div>
                       </div>
-                      <div className="border border-slate-200 rounded-[24px] overflow-auto max-h-[400px] bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 shadow-sm mb-8 relative custom-scrollbar">
+                      <div className="border border-slate-200 rounded-[24px] overflow-auto max-h-[400px] bg-white shadow-sm mb-8 relative custom-scrollbar">
                         <table className="w-full text-sm text-left relative whitespace-nowrap md:whitespace-normal">
                           <thead className="bg-slate-100 text-slate-600 border-b border-slate-200 uppercase text-xs tracking-wider sticky top-0 z-10 shadow-sm before:content-[''] before:absolute before:inset-0 before:bg-slate-100 before:-z-10">
                             <tr>
@@ -1941,7 +1966,7 @@ export default function HouseEstimator() {
                               <th className="px-6 py-4 font-bold bg-indigo-50/50 text-indigo-700">Your Custom Rate</th>
                             </tr>
                           </thead>
-                          <tbody className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 divide-y divide-slate-100">
+                          <tbody className="bg-white divide-y divide-slate-100">
                             {(
                               [
                                 { key: "cement", name: "Cement (Per Bag)", color: "bg-stone-500", bg: "bg-stone-50" },
@@ -1971,10 +1996,10 @@ export default function HouseEstimator() {
                                       {settings.currency === "PKR" ? "Rs" : "$"}
                                     </span>
                                     <input
-                                      type="number"
+                                      type="number" inputMode="decimal"
                                       min="0"
                                       step="any"
-                                      className={`w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border ${customRates[item.key] !== undefined ? "border-indigo-300 ring-2 ring-indigo-500/20 text-indigo-700 font-bold" : "border-slate-200 text-slate-800"} rounded-[24px] py-2 pl-10 pr-3 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all`}
+                                      className={`w-full bg-white border ${customRates[item.key] !== undefined ? "border-indigo-300 ring-2 ring-indigo-500/20 text-indigo-700 font-bold" : "border-slate-200 text-slate-800"} rounded-[24px] py-2 pl-10 pr-3 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all`}
                                       placeholder="Default"
                                       value={customRates[item.key] !== undefined ? (item.key === "bricks" ? customRates[item.key]! * 1000 : customRates[item.key]) : ""}
                                       onChange={(e) => {
@@ -2055,13 +2080,13 @@ export default function HouseEstimator() {
       {/* Room Customization Modal */}
       {isRoomModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#F5F5F7] backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[2rem] shadow-2xl w-full max-w-2xl border border-slate-100 flex flex-col max-h-[90vh] overflow-hidden">
+          <div className="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl border border-slate-100 flex flex-col max-h-[90vh] overflow-hidden">
             <div className="flex items-center justify-between p-6 border-b border-slate-100 bg-slate-50/50">
               <div>
                 <h2 className="text-xl font-semibold text-slate-800">Advanced Room Specs</h2>
                 <p className="text-sm font-medium text-slate-500">Configure exact dimensions and features per room</p>
               </div>
-              <button onClick={() => setIsRoomModalOpen(false)} className="p-2 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
+              <button onClick={() => setIsRoomModalOpen(false)} className="p-2 bg-white border border-slate-200 text-slate-500 hover:bg-slate-100 rounded-full transition-colors">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -2087,36 +2112,36 @@ export default function HouseEstimator() {
                 
                 {activeRoomTab === "bedroom" && (
                   <>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Typical Length (ft)</label>
-                       <input type="number" value={roomConfigs.bedroom.length} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" inputMode="decimal" value={roomConfigs.bedroom.length} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Typical Width (ft)</label>
-                       <input type="number" value={roomConfigs.bedroom.width} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" inputMode="decimal" value={roomConfigs.bedroom.width} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Ceiling Height (ft)</label>
-                       <input type="number" value={roomConfigs.bedroom.height} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, height: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" inputMode="decimal" value={roomConfigs.bedroom.height} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, height: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Wardrobe Length (ft)</label>
-                       <input type="number" value={roomConfigs.bedroom.wardrobeLength} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, wardrobeLength: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" inputMode="decimal" value={roomConfigs.bedroom.wardrobeLength} onChange={e => setRoomConfigs(p => ({...p, bedroom: {...p.bedroom, wardrobeLength: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
                   </>
                 )}
 
                 {activeRoomTab === "washroom" && (
                   <>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Length (ft)</label>
-                       <input type="number" value={roomConfigs.washroom.length} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" inputMode="decimal" value={roomConfigs.washroom.length} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Width (ft)</label>
-                       <input type="number" value={roomConfigs.washroom.width} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" inputMode="decimal" value={roomConfigs.washroom.width} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Commode / WC Type</label>
                        <select value={roomConfigs.washroom.wcType} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, wcType: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                          <option>Floor Mounted (Asian)</option>
@@ -2124,7 +2149,7 @@ export default function HouseEstimator() {
                          <option>Wall Hung (Concealed)</option>
                        </select>
                     </div>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Shower Setup</label>
                        <select value={roomConfigs.washroom.showerSetup} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, showerSetup: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                          <option>Standard Mixer</option>
@@ -2132,7 +2157,7 @@ export default function HouseEstimator() {
                          <option>Jacuzzi Tub</option>
                        </select>
                     </div>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Vanity / Basin</label>
                        <select value={roomConfigs.washroom.vanity} onChange={e => setRoomConfigs(p => ({...p, washroom: {...p.washroom, vanity: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                          <option>Standard Ceramic</option>
@@ -2145,19 +2170,19 @@ export default function HouseEstimator() {
 
                 {activeRoomTab === "kitchen" && (
                   <>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Length (ft)</label>
-                       <input type="number" value={roomConfigs.kitchen.length} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" inputMode="decimal" value={roomConfigs.kitchen.length} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Width (ft)</label>
-                       <input type="number" value={roomConfigs.kitchen.width} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" inputMode="decimal" value={roomConfigs.kitchen.width} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Countertop (Length ft)</label>
-                       <input type="number" value={roomConfigs.kitchen.counterLength} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, counterLength: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" inputMode="decimal" value={roomConfigs.kitchen.counterLength} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, counterLength: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Cabinets Material</label>
                        <select value={roomConfigs.kitchen.cabinets} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, cabinets: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                          <option>Lasani Wood</option>
@@ -2165,7 +2190,7 @@ export default function HouseEstimator() {
                          <option>Solid Ash/Oak</option>
                        </select>
                     </div>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Backsplash</label>
                        <select value={roomConfigs.kitchen.backsplash} onChange={e => setRoomConfigs(p => ({...p, kitchen: {...p.kitchen, backsplash: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                          <option>Ceramic Tiles</option>
@@ -2178,15 +2203,15 @@ export default function HouseEstimator() {
 
                 {activeRoomTab === "living" && (
                   <>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Length (ft)</label>
-                       <input type="number" value={roomConfigs.livingRoom.length} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" inputMode="decimal" value={roomConfigs.livingRoom.length} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, length: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Width (ft)</label>
-                       <input type="number" value={roomConfigs.livingRoom.width} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" inputMode="decimal" value={roomConfigs.livingRoom.width} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, width: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Feature Wall Setup</label>
                        <select value={roomConfigs.livingRoom.featureWall} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, featureWall: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                          <option>None</option>
@@ -2194,20 +2219,20 @@ export default function HouseEstimator() {
                          <option>Yes (Wood Paneling / Marble)</option>
                        </select>
                     </div>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Chandelier Points</label>
-                       <input type="number" value={roomConfigs.livingRoom.chandelierPoints} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, chandelierPoints: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" inputMode="decimal" value={roomConfigs.livingRoom.chandelierPoints} onChange={e => setRoomConfigs(p => ({...p, livingRoom: {...p.livingRoom, chandelierPoints: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
                   </>
                 )}
 
                 {activeRoomTab === "basement" && (
                   <>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Excavation Depth (ft)</label>
-                       <input type="number" value={roomConfigs.basement.depth} onChange={e => setRoomConfigs(p => ({...p, basement: {...p.basement, depth: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                       <input type="number" inputMode="decimal" value={roomConfigs.basement.depth} onChange={e => setRoomConfigs(p => ({...p, basement: {...p.basement, depth: Number(e.target.value)}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
                     </div>
-                    <div className="p-4 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col gap-2">
+                    <div className="p-4 calc-input flex flex-col gap-2">
                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Retaining Wall Spec</label>
                        <select value={roomConfigs.basement.retainingWall} onChange={e => setRoomConfigs(p => ({...p, basement: {...p.basement, retainingWall: e.target.value}}))} className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:outline-none">
                          <option>Standard Brick 13.5-inch</option>
@@ -2221,7 +2246,7 @@ export default function HouseEstimator() {
               </div>
             </div>
             
-            <div className="p-6 border-t border-slate-100 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500">
+            <div className="p-6 border-t border-slate-100 bg-white">
                <button onClick={() => setIsRoomModalOpen(false)} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-4 rounded-[24px] transition-all shadow-[0_4px_14px_0_rgba(79,70,229,0.39)] active:scale-95 flex justify-center items-center gap-2">
                  <CheckCircle2 className="w-5 h-5" /> Save Detail Configurations
                </button>

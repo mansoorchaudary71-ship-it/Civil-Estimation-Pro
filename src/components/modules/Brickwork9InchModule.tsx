@@ -184,7 +184,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                     Length ({results.isSI ? 'm' : 'ft'})
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     value={wallLength}
                     onChange={(e) => setWallLength(e.target.value)}
                     className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
@@ -196,7 +196,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                     Height ({results.isSI ? 'm' : 'ft'})
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     value={wallHeight}
                     onChange={(e) => setWallHeight(e.target.value)}
                     className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
@@ -208,7 +208,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                     Deductions ({results.isSI ? 'm²' : 'sq.ft'})
                   </label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     value={deductions}
                     onChange={(e) => setDeductions(e.target.value)}
                     className="w-full bg-transparent border border-border-color text-text-primary rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
@@ -296,7 +296,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                           Cement Ratio
                         </label>
                         <input
-                          type="number"
+                          type="number" inputMode="decimal"
                           value={cementRatio}
                           onChange={(e) => { setCementRatio(e.target.value); setMixRatioPreset("custom"); }}
                           className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"
@@ -307,7 +307,7 @@ export default function Brickwork9InchModule({ hideHistory = false }: { hideHist
                           Sand Ratio
                         </label>
                         <input
-                          type="number"
+                          type="number" inputMode="decimal"
                           value={sandRatio}
                           onChange={(e) => { setSandRatio(e.target.value); setMixRatioPreset("custom"); }}
                           className="w-full bg-bg-card/80 border border-border-color text-text-primary rounded-[24px] px-5 py-3.5 font-semibold focus:outline-none focus:ring-2 focus:ring-orange-500/50 hover:border-orange-300 shadow-sm transition-all"

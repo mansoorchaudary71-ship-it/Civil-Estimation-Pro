@@ -3,7 +3,7 @@ import React from "react";
 
 export function MetalWeightCalculator({ initialData }: { initialData: any }) {
   return (
-    <div className="p-6 bg-white rounded-[24px] shadow-sm border border-slate-200">
+    <div className="p-6 tool-card">
       <h2 className="text-2xl font-semibold mb-4">{initialData.target_keyword}</h2>
       <pre className="bg-slate-50 p-4 rounded text-sm overflow-auto">
         {JSON.stringify(initialData, null, 2)}

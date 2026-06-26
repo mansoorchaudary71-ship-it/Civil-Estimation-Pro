@@ -85,7 +85,7 @@ export default function GlobalSettingsModal({
     value: number;
     onChangeKey: keyof typeof localRates;
   }) => (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 py-3 rounded-[24px] bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 hover:bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 transition-colors border border-transparent hover:border-slate-200 :">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-4 py-3 rounded-[24px] bg-white/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 hover:bg-white/80 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 transition-colors border border-transparent hover:border-slate-200 :">
       {" "}
       <div className="flex flex-col">
         {" "}
@@ -104,7 +104,7 @@ export default function GlobalSettingsModal({
             {currencySymbol}
           </span>{" "}
           <input
-            type="number"
+            type="number" inputMode="decimal"
             min="0"
             step="any"
             value={value || ""}
@@ -205,7 +205,7 @@ export default function GlobalSettingsModal({
                   <Ruler className="w-4 h-4 text-slate-700" /> Preferred
                   Units{" "}
                 </h4>{" "}
-                <div className="space-y-3 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 px-4 py-3 rounded-[24px] border border-slate-200/50">
+                <div className="space-y-3 bg-white/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 px-4 py-3 rounded-[24px] border border-slate-200/50">
                   {" "}
                   <div className="flex items-center justify-between">
                     {" "}
@@ -272,7 +272,7 @@ export default function GlobalSettingsModal({
                   <Palette className="w-4 h-4 text-slate-700" /> Default Color
                   Themes{" "}
                 </h4>{" "}
-                <div className="space-y-3 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 px-4 py-3 rounded-[24px] border border-slate-200/50">
+                <div className="space-y-3 bg-white/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 px-4 py-3 rounded-[24px] border border-slate-200/50">
                   {" "}
                   <div className="flex items-center justify-between">
                     {" "}

@@ -88,7 +88,7 @@ export default function PrecastWallCalculator() {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Input Panel */}
           <div className="w-full md:w-[45%] flex flex-col gap-6">
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-6 rounded-[24px] border border-slate-200 shadow-sm relative overflow-hidden">
+            <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
               
               <h3 className="font-bold text-lg text-slate-800 mb-6 border-b border-slate-100 pb-4">
@@ -99,7 +99,7 @@ export default function PrecastWallCalculator() {
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest block mb-2">Total Length ({isMetric ? "m" : "ft"})</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     value={totalLength}
                     onChange={(e) => setTotalLength(e.target.value)}
                     className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
@@ -108,7 +108,7 @@ export default function PrecastWallCalculator() {
                 <div>
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest block mb-2">Wall Height ({isMetric ? "m" : "ft"})</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     value={wallHeight}
                     onChange={(e) => setWallHeight(e.target.value)}
                     className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
@@ -124,7 +124,7 @@ export default function PrecastWallCalculator() {
                 <div>
                   <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Post Spacing c/c ({isMetric ? "m" : "ft"})</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     value={postSpacing}
                     onChange={(e) => setPostSpacing(e.target.value)}
                     className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
@@ -133,7 +133,7 @@ export default function PrecastWallCalculator() {
                 <div>
                   <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Single Slab Height ({isMetric ? "m" : "ft"})</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     value={slabHeight}
                     onChange={(e) => setSlabHeight(e.target.value)}
                     className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
@@ -149,7 +149,7 @@ export default function PrecastWallCalculator() {
                 <div>
                   <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Rate/Post</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     value={postRate}
                     onChange={(e) => setPostRate(e.target.value)}
                     className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
@@ -158,7 +158,7 @@ export default function PrecastWallCalculator() {
                 <div>
                   <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Rate/Slab</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     value={slabRate}
                     onChange={(e) => setSlabRate(e.target.value)}
                     className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
@@ -167,7 +167,7 @@ export default function PrecastWallCalculator() {
                 <div>
                   <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Labor/{isMetric ? "m" : "ft"}</label>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     value={laborRatePerRunningMeter}
                     onChange={(e) => setLaborRate(e.target.value)}
                     className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all"
@@ -197,7 +197,7 @@ export default function PrecastWallCalculator() {
               </ul>
             </div>
             
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-5 rounded-[24px] border border-slate-200 shadow-sm">
+            <div className="bg-white p-5 rounded-[24px] border border-slate-200 shadow-sm">
               <h4 className="font-bold text-slate-800 mb-3 uppercase tracking-wide text-xs">Frequently Asked Questions</h4>
               <div className="space-y-3">
                 <div className="p-3 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-100">
@@ -214,7 +214,7 @@ export default function PrecastWallCalculator() {
               <ProcessingSkeleton count={5} />
             ) : hasData && estimateData ? (
               <div className="space-y-6">
-                <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-lg relative">
+                <div className="bg-white p-6 md:p-8 rounded-[2rem] border border-slate-200 shadow-lg relative">
                   
                   <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-100 pb-6 mb-6">
                     <div>

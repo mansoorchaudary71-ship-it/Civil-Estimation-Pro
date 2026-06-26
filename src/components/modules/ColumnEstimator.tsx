@@ -53,8 +53,8 @@ function CircularColumnInputs({
         Diameter (m)
       </label>
       <input
-        type="number"
-        className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
+        type="number" inputMode="decimal"
+        className="w-full bg-white border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm min-h-[44px]"
         value={diameter}
         onChange={(e) => setDiameter(e.target.value)}
         placeholder="e.g. 0.4"
@@ -82,8 +82,8 @@ function RectangularColumnInputs({
           {isSquare ? "Side Length (m)" : "Length (m)"}
         </label>
         <input
-          type="number"
-          className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
+          type="number" inputMode="decimal"
+          className="w-full bg-white border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm min-h-[44px]"
           value={length}
           onChange={(e) => {
             setLength(e.target.value);
@@ -98,8 +98,8 @@ function RectangularColumnInputs({
             Width (m)
           </label>
           <input
-            type="number"
-            className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
+            type="number" inputMode="decimal"
+            className="w-full bg-white border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm min-h-[44px]"
             value={width}
             onChange={(e) => setWidth(e.target.value)}
             placeholder="e.g. 0.3"
@@ -273,7 +273,7 @@ export default function ColumnEstimator() {
                   onClick={() => setIsPrecast(!isPrecast)}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${isPrecast ? 'bg-indigo-600' : 'bg-slate-300 '}`}
                  >
-                   <span className={`inline-block h-4 w-4 transform rounded-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 transition-transform ${isPrecast ? 'translate-x-6' : 'translate-x-1'}`} />
+                   <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${isPrecast ? 'translate-x-6' : 'translate-x-1'}`} />
                  </button>
               </div>
             </div>
@@ -301,8 +301,8 @@ export default function ColumnEstimator() {
                       Height (m)
                     </label>
                     <input
-                      type="number"
-                      className="w-full bg-transparent rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-border-color text-text-primary rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
+                      type="number" inputMode="decimal"
+                      className="w-full bg-transparent rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-border-color text-text-primary rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm min-h-[44px]"
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                     />
@@ -312,8 +312,8 @@ export default function ColumnEstimator() {
                       Number of Columns
                     </label>
                     <input
-                      type="number"
-                      className="w-full bg-transparent rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-border-color text-text-primary rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm"
+                      type="number" inputMode="decimal"
+                      className="w-full bg-transparent rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-border-color text-text-primary rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all shadow-sm min-h-[44px]"
                       value={count}
                       onChange={(e) => setCount(e.target.value)}
                     />
@@ -339,10 +339,10 @@ export default function ColumnEstimator() {
                 {isPrecast && (
                   <div className="animate-in fade-in slide-in-from-top-2 duration-300 grid grid-cols-1 sm:grid-cols-2 gap-4 bg-indigo-50/50 p-4 rounded-[24px] border border-indigo-100">
                     <InputGroup label="Concrete Density" info="kg/m³">
-                      <input type="number" value={concreteDensity} onChange={(e) => setConcreteDensity(e.target.value)} className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-indigo-200 rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
+                      <input type="number" inputMode="decimal" value={concreteDensity} onChange={(e) => setConcreteDensity(e.target.value)} className="w-full h-11 bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-indigo-200 rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
                     </InputGroup>
                     <InputGroup label="Lifting Radius" info="m">
-                      <input type="number" value={riggingRadius} onChange={(e) => setRiggingRadius(e.target.value)} className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-indigo-200 rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
+                      <input type="number" inputMode="decimal" value={riggingRadius} onChange={(e) => setRiggingRadius(e.target.value)} className="w-full h-11 bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-indigo-200 rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition-all shadow-sm" />
                     </InputGroup>
                   </div>
                 )}
@@ -403,18 +403,18 @@ export default function ColumnEstimator() {
                       </span>
                     }>
                       <input
-                        type="number"
+                        type="number" inputMode="decimal"
                         min="0"
                         value={clearCover}
                         onChange={(e) => setClearCover(e.target.value)}
-                        className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full h-11 bg-white border border-border-color rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                       />
                     </InputGroup>
                     <InputGroup label="Number of Main Bars">
                       <select
                         value={mainBarsCount}
                         onChange={(e) => setMainBarsCount(e.target.value)}
-                        className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full h-11 bg-white border border-border-color rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                       >
                         <option value="4">4 Bars</option>
                         <option value="6">6 Bars</option>
@@ -427,7 +427,7 @@ export default function ColumnEstimator() {
                     <select
                       value={mainDia}
                       onChange={(e) => setMainDia(e.target.value)}
-                      className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                      className="w-full h-11 bg-white border border-border-color rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                     >
                       {[12, 16, 20, 25, 32].map(d => (
                         <option key={d} value={d}>{d} mm</option>
@@ -442,7 +442,7 @@ export default function ColumnEstimator() {
                       <select
                         value={tieDia}
                         onChange={(e) => setTieDia(e.target.value)}
-                        className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full h-11 bg-white border border-border-color rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                       >
                         {[8, 10, 12, 16].map(d => (
                           <option key={d} value={d}>{d} mm</option>
@@ -451,11 +451,11 @@ export default function ColumnEstimator() {
                     </InputGroup>
                     <InputGroup label="Tie Spacing c/c (mm)">
                       <input
-                        type="number"
+                        type="number" inputMode="decimal"
                         min="0"
                         value={tieSpacing}
                         onChange={(e) => setTieSpacing(e.target.value)}
-                        className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                        className="w-full h-11 bg-white border border-border-color rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                       />
                     </InputGroup>
                   </div>
@@ -466,7 +466,7 @@ export default function ColumnEstimator() {
                         <select
                           value={variation8}
                           onChange={(e) => setVariation8(e.target.value)}
-                          className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                          className="w-full h-11 bg-white border border-border-color rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                         >
                           <option value="1">Outer Rect + Inner Diamond</option>
                           <option value="2">Outer Rect + Inner Rect (4x2 layout)</option>
@@ -482,7 +482,7 @@ export default function ColumnEstimator() {
                         <select
                           value={variation10}
                           onChange={(e) => setVariation10(e.target.value)}
-                          className="w-full h-11 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+                          className="w-full h-11 bg-white border border-border-color rounded-[24px] px-4 text-text-primary font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
                         >
                           <option value="1">Outer Rect + 3 Link/Cross Ties</option>
                           <option value="2">Outer Rect + Inner Rect + 1 Link Tie</option>
@@ -511,11 +511,11 @@ export default function ColumnEstimator() {
                       </p>
                       
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/60 p-4 rounded-[24px] border border-amber-100">
+                        <div className="bg-white/60 p-4 rounded-[24px] border border-amber-100">
                           <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Single Element Wt</span>
                           <span className="text-xl md:text-2xl font-semibold tabular-nums tracking-tight text-slate-800">{(elementWeightKg / 1000).toFixed(2)}<span className="text-sm font-medium ml-1 text-slate-500">Tons</span></span>
                         </div>
-                        <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-4 rounded-[24px] border border-amber-200 shadow-sm">
+                        <div className="bg-white/80 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-4 rounded-[24px] border border-amber-200 shadow-sm">
                           <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Min. Crane Capacity</span>
                           <span className="text-xl md:text-2xl font-semibold tabular-nums tracking-tight text-amber-700">{craneCapacityTonnes.toFixed(2)}<span className="text-sm font-medium ml-1 text-amber-600/80">Tons</span></span>
                         </div>
@@ -557,7 +557,7 @@ export default function ColumnEstimator() {
                     <ResultCard title="Aggregate" value={aggCft.toFixed(1)} unit="cft" variant="neutral" />
                   </div>
                   
-                  <div className="w-full bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 border-l-[4px] border-l-[#6B46C1] rounded-[24px] p-6 shadow-sm mt-4">
+                  <div className="w-full bg-white border border-slate-200 border-l-[4px] border-l-[#6B46C1] rounded-[24px] p-6 shadow-sm mt-4">
                     <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2">
                       <CopySlash className="w-5 h-5 text-[#6B46C1]" />
                       Steel Reinforcement Summary
@@ -580,7 +580,7 @@ export default function ColumnEstimator() {
                         <p className="text-slate-500 text-xs uppercase tracking-wider mb-3">Tie Cut Length Breakdown ({tieSetsCount} sets per col)</p>
                         <ul className="space-y-2">
                           {tieTypes.map((tie, idx) => (
-                            <li key={idx} className="flex justify-between items-center bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-100 px-3 py-2 rounded-[16px] text-sm shadow-sm">
+                            <li key={idx} className="flex justify-between items-center bg-white border border-slate-100 px-3 py-2 rounded-[16px] text-sm shadow-sm">
                               <div>
                                 <p className="font-medium text-slate-700">{tie.name}</p>
                                 <p className="text-xs text-slate-500">{tie.countPerSet} per set</p>

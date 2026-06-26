@@ -1,6 +1,22 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { ToolGuidedTour, TourStep } from "./ui/ToolGuidedTour";
+
+const STEEL_TOUR_STEPS: TourStep[] = [
+  {
+    targetSelector: '#tour-steel-length',
+    title: 'Total Length',
+    content: 'Enter the total length of the rebar. The calculator will instantly determine the exact weight.',
+    placement: 'bottom'
+  },
+  {
+    targetSelector: '#tour-steel-unit',
+    title: 'Unit Selection',
+    content: 'Switch between Meters (metric) and Feet (imperial). The underlying engineering formula adapts automatically.',
+    placement: 'bottom'
+  }
+];
 
 interface InteractiveSteelCalculatorProps {
   initialDiameter: number;
@@ -37,6 +53,7 @@ export default function InteractiveSteelCalculator({
 
   return (
     <main className="bg-white rounded-[24px] shadow-xl overflow-hidden border border-slate-200">
+      <ToolGuidedTour steps={STEEL_TOUR_STEPS} tourId={`steel-calc-${initialDiameter}`} />
       <div className="grid grid-cols-1 lg:grid-cols-5">
         {/* Calculator Settings UI */}
         <div className="p-6 sm:p-10 lg:col-span-3 bg-white border-b lg:border-b-0 lg:border-r border-slate-200">
@@ -82,10 +99,10 @@ export default function InteractiveSteelCalculator({
               </label>
               <div className="relative group">
                 <input
-                  type="number"
+                  type="number" inputMode="decimal"
                   readOnly
                   value={initialDiameter}
-                  className="block w-full rounded-[24px] border-slate-200 bg-slate-50 py-4 pl-5 pr-16 text-xl font-semibold text-slate-700 shadow-sm border focus:ring-0 focus:border-slate-300 transition-colors cursor-default"
+                  className="block w-full rounded-[24px] border-slate-200 bg-slate-50 py-4 pl-5 pr-16 text-xl font-semibold text-slate-700 shadow-sm border focus:ring-0 focus:border-slate-300 transition-colors cursor-default min-h-[44px]"
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-5 pointer-events-none">
                   <span className="text-slate-600 font-semibold text-lg">
@@ -101,7 +118,8 @@ export default function InteractiveSteelCalculator({
               </label>
               <div className="relative focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 rounded-[24px] shadow-sm border border-slate-300 bg-white overflow-hidden flex transition-all">
                 <input
-                  type="number"
+                  id="tour-steel-length"
+                  type="number" inputMode="decimal"
                   value={length}
                   onChange={(e) => setLength(e.target.value)}
                   min="0"
@@ -110,6 +128,7 @@ export default function InteractiveSteelCalculator({
                 />
                 <div className="flex items-center bg-slate-50 border-l border-slate-200 px-2">
                   <select
+                    id="tour-steel-unit"
                     value={unit}
                     onChange={(e) => setUnit(e.target.value as "m" | "ft")}
                     className="h-full border-none bg-transparent py-0 pl-3 pr-8 text-slate-700 font-bold focus:ring-0 sm:text-lg cursor-pointer"

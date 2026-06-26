@@ -68,7 +68,7 @@ export default function RoomAreaCalculator() {
           <div>
             <label className="block text-sm font-semibold mb-2">Wall Thickness (m)</label>
             <input
-              type="number"
+              type="number" inputMode="decimal"
               value={wallThickness || ''}
               onChange={(e) => setWallThickness(parseFloat(e.target.value) || 0)}
               className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl focus:ring-2 focus:ring-indigo-500"
@@ -77,7 +77,7 @@ export default function RoomAreaCalculator() {
           <div>
             <label className="block text-sm font-semibold mb-2">Internal Length (m)</label>
             <input
-              type="number"
+              type="number" inputMode="decimal"
               value={length || ''}
               onChange={(e) => setLength(parseFloat(e.target.value) || 0)}
               className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl focus:ring-2 focus:ring-indigo-500"
@@ -86,7 +86,7 @@ export default function RoomAreaCalculator() {
           <div>
             <label className="block text-sm font-semibold mb-2">Internal Width (m)</label>
             <input
-              type="number"
+              type="number" inputMode="decimal"
               value={width || ''}
               onChange={(e) => setWidth(parseFloat(e.target.value) || 0)}
               className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl focus:ring-2 focus:ring-indigo-500"

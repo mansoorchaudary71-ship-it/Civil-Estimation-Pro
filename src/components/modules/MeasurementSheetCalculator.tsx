@@ -160,7 +160,7 @@ const MeasurementSheetCalculator: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] shadow-sm border border-slate-200 p-4 md:p-8 flex flex-col w-full">
+    <div className="tool-card p-4 md:p-8 flex flex-col w-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
           <h2 className="text-2xl font-semibold text-slate-800 flex items-center gap-2">
@@ -235,7 +235,7 @@ const MeasurementSheetCalculator: React.FC = () => {
                 </td>
                 <td className="p-2">
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     value={row.nos}
                     onChange={(e) => handleRowChange(activeTab, row.id, "nos", e.target.value)}
                     className="w-full bg-transparent border border-slate-200 rounded-[16px] px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800"
@@ -244,7 +244,7 @@ const MeasurementSheetCalculator: React.FC = () => {
                 </td>
                 <td className="p-2">
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     value={row.length}
                     onChange={(e) => handleRowChange(activeTab, row.id, "length", e.target.value)}
                     className="w-full bg-transparent border border-slate-200 rounded-[16px] px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800"
@@ -252,7 +252,7 @@ const MeasurementSheetCalculator: React.FC = () => {
                 </td>
                 <td className="p-2">
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     value={row.width}
                     onChange={(e) => handleRowChange(activeTab, row.id, "width", e.target.value)}
                     className="w-full bg-transparent border border-slate-200 rounded-[16px] px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800"
@@ -260,7 +260,7 @@ const MeasurementSheetCalculator: React.FC = () => {
                 </td>
                 <td className="p-2">
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     value={row.heightDepth}
                     onChange={(e) => handleRowChange(activeTab, row.id, "heightDepth", e.target.value)}
                     className="w-full bg-transparent border border-slate-200 rounded-[16px] px-2 py-1.5 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-center text-slate-800"

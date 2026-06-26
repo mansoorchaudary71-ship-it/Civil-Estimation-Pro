@@ -103,7 +103,7 @@ export type { ModuleId };
 import TopNavbar from "./components/TopNavbar";
 import BottomNavBar from "./components/BottomNavBar";
 import GlobalBottomBar from "./components/GlobalBottomBar";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useAnimate, stagger } from "motion/react";
 import Footer from "./components/Footer";
 import Logo from "./components/Logo";
 import AboutUs from "./components/pages/AboutUs";
@@ -1669,7 +1669,7 @@ function AppHeader({
 
       <button
         onClick={() => {
-          const url = `${window.location.origin}?tool=${activeModule || ""}`;
+          const url = window.location.href;
           navigator.clipboard.writeText(url);
           toast.success("Link copied to clipboard!");
         }}
@@ -1758,6 +1758,7 @@ const ModuleWrapper = React.forwardRef<
 ) {
   const [isFormulaModalOpen, setIsFormulaModalOpen] = React.useState(false);
   const [isPrintPreviewOpen, setIsPrintPreviewOpen] = React.useState(false);
+  const [scope, animate] = useAnimate();
 
   React.useLayoutEffect(() => {
     // Fire scroll instructions exactly when the DOM updates for the new tool
@@ -1766,6 +1767,21 @@ const ModuleWrapper = React.forwardRef<
       new CustomEvent("lenis-scroll-to", { detail: { top: 0, immediate: true } })
     );
   }, []);
+
+  React.useEffect(() => {
+    if (scope.current) {
+      // We set initial opacity to 0 in CSS using an injected style to avoid flashes, or rely on parent's fade in
+      try {
+        animate(
+          "input, select, textarea",
+          { opacity: [0, 1], y: [15, 0] },
+          { duration: 0.5, delay: stagger(0.05, { startDelay: 0.2 }), ease: [0.22, 1, 0.36, 1] }
+        );
+      } catch (e) {
+        // Ignore animation errors
+      }
+    }
+  }, [activeModule, animate, scope]);
 
   React.useEffect(() => {
     const handlePrint = () => setIsPrintPreviewOpen(true);
@@ -2162,6 +2178,7 @@ const ModuleWrapper = React.forwardRef<
                   <CodeReferences moduleId={activeModule} />
 
                   <motion.div
+                    ref={scope}
                     initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{
@@ -2169,7 +2186,7 @@ const ModuleWrapper = React.forwardRef<
                       delay: 0.1,
                       ease: [0.22, 1, 0.36, 1],
                     }}
-                    className="flex-1 shrink-0"
+                    className="flex-1 shrink-0 calculator-stagger-scope"
                   >
                     {children}
                   </motion.div>

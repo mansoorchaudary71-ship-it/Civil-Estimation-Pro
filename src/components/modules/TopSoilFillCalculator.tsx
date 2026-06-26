@@ -114,7 +114,7 @@ export default function TopSoilFillCalculator() {
                   <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Area to Cover</label>
                   <div className="relative">
                     <input
-                      type="number"
+                      type="number" inputMode="decimal"
                       value={area}
                       onChange={(e) => { setArea(e.target.value); handleDataChange(); }}
                       className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-amber-500 transition-all font-semibold"
@@ -126,7 +126,7 @@ export default function TopSoilFillCalculator() {
                   <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Average Depth</label>
                   <div className="relative">
                     <input
-                      type="number"
+                      type="number" inputMode="decimal"
                       value={depth}
                       onChange={(e) => { setDepth(e.target.value); handleDataChange(); }}
                       className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-3 font-mono text-sm focus:ring-2 focus:ring-amber-500 transition-all font-semibold"
@@ -163,7 +163,7 @@ export default function TopSoilFillCalculator() {
                   <div className="flex items-center gap-3">
                     <span className="text-slate-400 font-bold font-mono">× </span>
                     <input
-                      type="number"
+                      type="number" inputMode="decimal"
                       step="0.01"
                       value={customFactor}
                       onChange={(e) => { setCustomFactor(e.target.value); handleDataChange(); }}
@@ -178,7 +178,7 @@ export default function TopSoilFillCalculator() {
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold"><Truck className="w-4 h-4"/></span>
                   <input
-                    type="number"
+                    type="number" inputMode="decimal"
                     value={truckCapacity}
                     onChange={(e) => { setTruckCapacity(e.target.value); handleDataChange(); }}
                     className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] pl-10 pr-4 py-3 font-mono text-sm focus:ring-2 focus:ring-amber-500 transition-all font-semibold"

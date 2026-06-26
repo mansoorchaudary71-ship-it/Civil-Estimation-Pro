@@ -197,7 +197,7 @@ export default function AggregateBlendingCalculator() {
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 max-w-7xl mx-auto pb-20">
       
       {/* Header */}
-      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 [#151821] rounded-[24px] p-6 md:p-8 mb-6 shadow-sm border border-slate-200">
+      <div className="bg-white [#151821] rounded-[24px] p-6 md:p-8 mb-6 shadow-sm border border-slate-200">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[16px] bg-[var(--accent-vibrant)]/10 border border-[var(--accent-vibrant)]/20 mb-3">
            <ArrowRightLeft className="w-4 h-4 text-[var(--accent-vibrant)]" />
            <span className="text-xs font-bold text-[var(--accent-vibrant)] uppercase tracking-wider">Mix Design Toolkit</span>
@@ -218,7 +218,7 @@ export default function AggregateBlendingCalculator() {
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">Target Category</label>
                 <select 
-                  className="w-full px-4 py-3 rounded-[24px] bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color focus:ring-2 focus:ring-[var(--accent-vibrant)] outline-none text-slate-700 font-medium transition-all"
+                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-[var(--accent-vibrant)] outline-none text-slate-700 font-medium transition-all"
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
                 >
@@ -228,7 +228,7 @@ export default function AggregateBlendingCalculator() {
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-2">Target Specification</label>
                 <select 
-                  className="w-full px-4 py-3 rounded-[24px] bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color focus:ring-2 focus:ring-[var(--accent-vibrant)] outline-none text-slate-700 font-medium transition-all"
+                  className="w-full px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-[var(--accent-vibrant)] outline-none text-slate-700 font-medium transition-all"
                   value={selectedGrading}
                   onChange={(e) => setSelectedGrading(e.target.value)}
                 >
@@ -275,32 +275,32 @@ export default function AggregateBlendingCalculator() {
                       </td>
                       <td className="py-2 px-2">
                         <input 
-                          type="number"
-                          className="w-full px-2 py-1.5 rounded bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none text-sm font-medium"
+                          type="number" inputMode="decimal"
+                          className="w-full px-2 py-1.5 rounded bg-white border border-border-color focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none text-sm font-medium min-h-[44px]"
                           value={row.binA}
                           onChange={(e) => handleBinDataChange(idx, 'binA', e.target.value)}
                         />
                       </td>
                       <td className="py-2 px-2">
                         <input 
-                          type="number"
-                          className="w-full px-2 py-1.5 rounded bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none text-sm font-medium"
+                          type="number" inputMode="decimal"
+                          className="w-full px-2 py-1.5 rounded bg-white border border-border-color focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none text-sm font-medium min-h-[44px]"
                           value={row.binB}
                           onChange={(e) => handleBinDataChange(idx, 'binB', e.target.value)}
                         />
                       </td>
                       <td className="py-2 px-2">
                         <input 
-                          type="number"
-                          className="w-full px-2 py-1.5 rounded bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none text-sm font-medium"
+                          type="number" inputMode="decimal"
+                          className="w-full px-2 py-1.5 rounded bg-white border border-border-color focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none text-sm font-medium min-h-[44px]"
                           value={row.binC}
                           onChange={(e) => handleBinDataChange(idx, 'binC', e.target.value)}
                         />
                       </td>
                       <td className="py-2 px-2">
                         <input 
-                          type="number"
-                          className="w-full px-2 py-1.5 rounded bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-border-color focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none text-sm font-medium"
+                          type="number" inputMode="decimal"
+                          className="w-full px-2 py-1.5 rounded bg-white border border-border-color focus:ring-1 focus:ring-[var(--accent-vibrant)] outline-none text-sm font-medium min-h-[44px]"
                           value={row.binD}
                           onChange={(e) => handleBinDataChange(idx, 'binD', e.target.value)}
                         />
@@ -332,7 +332,7 @@ export default function AggregateBlendingCalculator() {
               <h3 className="text-lg font-bold text-text-primary flex items-center gap-2">
                 <Calculator className="w-5 h-5 text-[var(--accent-vibrant)]" /> Trial Blending
               </h3>
-              <div className="px-3 py-1 rounded bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-sm font-bold text-slate-700">
+              <div className="px-3 py-1 rounded bg-white text-sm font-bold text-slate-700">
                 Sum: {proportions.reduce((a,b) => a+b, 0).toFixed(1)}%
               </div>
             </div>

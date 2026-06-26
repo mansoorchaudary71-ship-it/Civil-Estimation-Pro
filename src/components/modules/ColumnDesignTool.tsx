@@ -168,7 +168,7 @@ export default function ColumnDesignTool() {
 
   return (
     <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
-      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  rounded-[24px] p-6 shadow-sm border border-slate-200 ">
+      <div className="bg-white  rounded-[24px] p-6 shadow-sm border border-slate-200 ">
          <h2 className="text-xl font-bold mb-6 text-slate-800  flex items-center gap-2">
             <Columns className="text-rose-600" /> Column Design & P-M Interaction
          </h2>

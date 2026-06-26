@@ -44,7 +44,7 @@ export default function DoorWindowSchedule() {
 
   return (
     <div className="w-full max-w-5xl mx-auto space-y-6">
-       <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-6 rounded-[24px] shadow-sm">
+       <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm">
          <div className="flex justify-between items-center mb-6">
            <h2 className="text-2xl font-semibold flex items-center gap-2">
              <Columns className="w-6 h-6 text-teal-500" />
@@ -76,13 +76,13 @@ export default function DoorWindowSchedule() {
                         <input type="text" value={e.type} onChange={(ev)=>updateEntry(e.id, 'type', ev.target.value)} className="w-[120px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
                      </td>
                      <td className="p-2">
-                        <input type="number" step="0.1" value={e.w} onChange={(ev)=>updateEntry(e.id, 'w', parseFloat(ev.target.value)||0)} className="w-[80px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
+                        <input type="number" inputMode="decimal" step="0.1" value={e.w} onChange={(ev)=>updateEntry(e.id, 'w', parseFloat(ev.target.value)||0)} className="w-[80px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
                      </td>
                      <td className="p-2">
-                        <input type="number" step="0.1" value={e.h} onChange={(ev)=>updateEntry(e.id, 'h', parseFloat(ev.target.value)||0)} className="w-[80px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
+                        <input type="number" inputMode="decimal" step="0.1" value={e.h} onChange={(ev)=>updateEntry(e.id, 'h', parseFloat(ev.target.value)||0)} className="w-[80px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
                      </td>
                      <td className="p-2">
-                        <input type="number" value={e.qty} onChange={(ev)=>updateEntry(e.id, 'qty', parseInt(ev.target.value)||0)} className="w-[60px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
+                        <input type="number" inputMode="decimal" value={e.qty} onChange={(ev)=>updateEntry(e.id, 'qty', parseInt(ev.target.value)||0)} className="w-[60px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
                      </td>
                      <td className="p-2 text-sm font-bold text-slate-600">
                         {((e.w * e.h) * e.qty).toFixed(2)}

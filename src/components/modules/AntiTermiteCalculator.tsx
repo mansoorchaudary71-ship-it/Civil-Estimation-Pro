@@ -64,7 +64,7 @@ export default function AntiTermiteCalculator() {
         description="Calculate exact chemical emulsion and water dilution rates for pre-construction treatment of foundations, floors, and perimeters."
       />
 
-      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  border border-slate-200  p-6 rounded-[24px] shadow-sm">
+      <div className="bg-white  border border-slate-200  p-6 rounded-[24px] shadow-sm">
          <h2 className="text-xl font-bold flex items-center gap-2 mb-6 text-slate-800 ">
           <Bug className="w-6 h-6 text-indigo-600" />
           Anti-Termite Treatment & Emulsion Engine

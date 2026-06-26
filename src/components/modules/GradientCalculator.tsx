@@ -92,7 +92,7 @@ export default function GradientCalculator() {
         title="Gradient & Slope Interpolation | Civil Estimation Pro" 
         description="Dynamic slope calculator for road cambers, longitudinal gradients, and vertical curve profiles."
       />
-      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500  border border-slate-200  p-6 rounded-[24px] shadow-sm">
+      <div className="bg-white  border border-slate-200  p-6 rounded-[24px] shadow-sm">
          <h2 className="text-xl font-bold flex items-center gap-2 mb-6 text-slate-800 ">
           <Route className="w-6 h-6 text-emerald-600" />
           Highway Gradient & Slope Engineering
@@ -101,19 +101,19 @@ export default function GradientCalculator() {
         <div className="flex bg-slate-100 p-1 rounded-[16px] mb-6 overflow-x-auto hide-scrollbar">
             <button 
                 onClick={() => setActiveTab("longitudinal")}
-                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "longitudinal" ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "longitudinal" ? "bg-white text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
             >
                 Longitudinal Profile
             </button>
             <button 
                 onClick={() => setActiveTab("camber")}
-                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "camber" ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "camber" ? "bg-white text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
             >
                 Crossfall / Camber
             </button>
             <button 
                 onClick={() => setActiveTab("vertical_curve")}
-                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "vertical_curve" ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                className={`flex-1 min-w-[120px] py-2.5 text-sm font-bold rounded-[12px] transition-all ${activeTab === "vertical_curve" ? "bg-white text-emerald-700 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
             >
                 Vertical Curve Checks
             </button>

@@ -276,7 +276,7 @@ function GlassCard({
     fuchsia: "bg-fuchsia-500/10 border-fuchsia-500/20 text-fuchsia-600",
   };
   return (
-    <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/70 backdrop-blur-3xl border border-white p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] transition-all">
+    <div className="bg-white/70 backdrop-blur-3xl border border-white p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.06)] transition-all">
       <div className="flex items-center gap-3 mb-6">
         <div className={`p-2.5 rounded-[24px] ${bgColors[color]}`}>
           {icon}
@@ -339,9 +339,9 @@ function NumberInput({ label, value, onChange, desc }: any) {
         {label}
       </label>
       <input
-        type="number"
+        type="number" inputMode="decimal"
         step="any"
-        className="w-full bg-gray-50/80 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors"
+        className="w-full bg-gray-50/80 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-shadow transition-colors min-h-[44px]"
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
@@ -355,7 +355,7 @@ function ToggleGroup({ value, onChange, options }: any) {
         <button
           key={opt.value}
           onClick={() => onChange(opt.value)}
-          className={`flex-1 py-2.5 px-3 text-[12px] font-bold rounded-[24px] transition-all duration-300 ${value === opt.value ? "bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-gray-800 shadow-sm" : "text-gray-700  hover:text-gray-700 hover:bg-gray-200/50"}`}
+          className={`flex-1 py-2.5 px-3 text-[12px] font-bold rounded-[24px] transition-all duration-300 ${value === opt.value ? "bg-white text-gray-800 shadow-sm" : "text-gray-700  hover:text-gray-700 hover:bg-gray-200/50"}`}
         >
           {opt.label}
         </button>

@@ -48,7 +48,7 @@ export default function BuildingSetbackCalculator() {
 
   return (
     <div className="w-full max-w-4xl mx-auto space-y-6">
-      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 p-6 rounded-[24px] shadow-sm">
+      <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm">
         <h2 className="text-2xl font-semibold flex items-center gap-2 mb-6">
           <ArrowLeftRight className="w-6 h-6 text-purple-500" />
           Building Setback Calculator
@@ -58,15 +58,15 @@ export default function BuildingSetbackCalculator() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           <div>
             <label className="block text-sm font-semibold mb-2">Plot Frontage (m)</label>
-            <input type="number" value={plotFrontage} onChange={(e) => { setPlotFrontage(parseFloat(e.target.value) || 0); setPlotArea((parseFloat(e.target.value) || 0) * plotDepth); }} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px]" />
+            <input type="number" inputMode="decimal" value={plotFrontage} onChange={(e) => { setPlotFrontage(parseFloat(e.target.value) || 0); setPlotArea((parseFloat(e.target.value) || 0) * plotDepth); }} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px]" />
           </div>
           <div>
             <label className="block text-sm font-semibold mb-2">Plot Depth (m)</label>
-            <input type="number" value={plotDepth} onChange={(e) => { setPlotDepth(parseFloat(e.target.value) || 0); setPlotArea(plotFrontage * (parseFloat(e.target.value) || 0)); }} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px]" />
+            <input type="number" inputMode="decimal" value={plotDepth} onChange={(e) => { setPlotDepth(parseFloat(e.target.value) || 0); setPlotArea(plotFrontage * (parseFloat(e.target.value) || 0)); }} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px]" />
           </div>
           <div>
             <label className="block text-sm font-semibold mb-2">Total Plot Area (m²)</label>
-            <input type="number" value={plotArea} className="w-full bg-slate-100 border border-transparent px-4 py-3 rounded-[24px] font-bold" disabled />
+            <input type="number" inputMode="decimal" value={plotArea} className="w-full bg-slate-100 border border-transparent px-4 py-3 rounded-[24px] font-bold min-h-[44px]" disabled />
           </div>
           <div>
             <label className="block text-sm font-semibold mb-2">Building Type</label>
@@ -77,7 +77,7 @@ export default function BuildingSetbackCalculator() {
           </div>
           <div>
             <label className="block text-sm font-semibold mb-2">Approach Road Width (m)</label>
-            <input type="number" value={roadWidth} onChange={(e) => setRoadWidth(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px]" />
+            <input type="number" inputMode="decimal" value={roadWidth} onChange={(e) => setRoadWidth(parseFloat(e.target.value) || 0)} className="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-[24px]" />
           </div>
         </div>
 

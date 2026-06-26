@@ -258,8 +258,8 @@ export default function SewerageEstimator() {
                         Length (m)
                       </label>
                       <input
-                        type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                        type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 min-h-[44px]"
                         value={trenchLength}
                         onChange={(e) => setTrenchLength(e.target.value)}
                       />
@@ -269,8 +269,8 @@ export default function SewerageEstimator() {
                         Bottom Width (m)
                       </label>
                       <input
-                        type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                        type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 min-h-[44px]"
                         value={trenchWidth}
                         onChange={(e) => setTrenchWidth(e.target.value)}
                       />
@@ -280,8 +280,8 @@ export default function SewerageEstimator() {
                         Depth (m)
                       </label>
                       <input
-                        type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                        type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 min-h-[44px]"
                         value={trenchDepth}
                         onChange={(e) => setTrenchDepth(e.target.value)}
                       />
@@ -313,9 +313,9 @@ export default function SewerageEstimator() {
                         <div className="flex items-center gap-3 w-full bg-gray-50/50 border border-gray-200 rounded-[24px] px-4 py-3 focus-within:ring-2 focus-within:ring-amber-500/50 transition-shadow">
                           <span className="text-gray-700 font-semibold text-sm whitespace-nowrap">1 V :</span>
                           <input
-                            type="number"
+                            type="number" inputMode="decimal"
                             step="0.1"
-                            className="w-full bg-transparent text-gray-800 focus:outline-none -ml-1 text-sm md:text-base font-semibold"
+                            className="w-full bg-transparent text-gray-800 focus:outline-none -ml-1 text-sm md:text-base font-semibold min-h-[44px]"
                             placeholder="e.g. 0.5"
                             value={trenchSlopeRatio}
                             onChange={(e) => setTrenchSlopeRatio(e.target.value)}
@@ -334,8 +334,8 @@ export default function SewerageEstimator() {
                             Pipe Outer Dia (m)
                           </label>
                           <input
-                            type="number"
-                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                            type="number" inputMode="decimal"
+                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 min-h-[44px]"
                             value={pipeOuterDiameter}
                             onChange={(e) =>
                               setPipeOuterDiameter(e.target.value)
@@ -347,8 +347,8 @@ export default function SewerageEstimator() {
                             Bedding Depth (m)
                           </label>
                           <input
-                            type="number"
-                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                            type="number" inputMode="decimal"
+                            className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500/50 min-h-[44px]"
                             value={beddingDepth}
                             onChange={(e) => setBeddingDepth(e.target.value)}
                           />
@@ -569,8 +569,8 @@ export default function SewerageEstimator() {
                         Starting IL (m)
                       </label>
                       <input
-                        type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                        type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px]"
                         value={startIL}
                         onChange={(e) => setStartIL(e.target.value)}
                       />
@@ -581,8 +581,8 @@ export default function SewerageEstimator() {
                           Length (m)
                         </label>
                         <input
-                          type="number"
-                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                          type="number" inputMode="decimal"
+                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 min-h-[44px]"
                           value={ilLength}
                           onChange={(e) => setIlLength(e.target.value)}
                         />
@@ -596,8 +596,8 @@ export default function SewerageEstimator() {
                             1 :
                           </div>
                           <input
-                            type="number"
-                            className="w-full flex-1 bg-transparent text-gray-800 py-3 pr-4 focus:outline-none"
+                            type="number" inputMode="decimal"
+                            className="w-full flex-1 bg-transparent text-gray-800 py-3 pr-4 focus:outline-none min-h-[44px]"
                             value={ilGradient}
                             onChange={(e) => setIlGradient(e.target.value)}
                           />
@@ -657,8 +657,8 @@ export default function SewerageEstimator() {
                         Total Run Length (m)
                       </label>
                       <input
-                        type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                        type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 min-h-[44px]"
                         value={pipeLength}
                         onChange={(e) => setPipeLength(e.target.value)}
                       />
@@ -668,8 +668,8 @@ export default function SewerageEstimator() {
                         One Pipe Section Length (m)
                       </label>
                       <input
-                        type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
+                        type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 min-h-[44px]"
                         value={pipeSectionLen}
                         onChange={(e) => setPipeSectionLen(e.target.value)}
                       />
@@ -731,8 +731,8 @@ export default function SewerageEstimator() {
                           Trench Length (m)
                         </label>
                         <input
-                          type="number"
-                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                          type="number" inputMode="decimal"
+                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50 min-h-[44px]"
                           value={beddingCalcLength}
                           onChange={(e) => setBeddingCalcLength(e.target.value)}
                         />
@@ -742,8 +742,8 @@ export default function SewerageEstimator() {
                           Trench Width (m)
                         </label>
                         <input
-                          type="number"
-                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                          type="number" inputMode="decimal"
+                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50 min-h-[44px]"
                           value={beddingCalcWidth}
                           onChange={(e) => setBeddingCalcWidth(e.target.value)}
                         />
@@ -754,8 +754,8 @@ export default function SewerageEstimator() {
                         Pipe Outer Dia (m)
                       </label>
                       <input
-                        type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                        type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50 min-h-[44px]"
                         value={beddingCalcPipeOD}
                         onChange={(e) => setBeddingCalcPipeOD(e.target.value)}
                       />
@@ -786,8 +786,8 @@ export default function SewerageEstimator() {
                           Depth Under Pipe (m)
                         </label>
                         <input
-                          type="number"
-                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                          type="number" inputMode="decimal"
+                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50 min-h-[44px]"
                           value={beddingUnderPipe}
                           onChange={(e) => setBeddingUnderPipe(e.target.value)}
                         />
@@ -797,8 +797,8 @@ export default function SewerageEstimator() {
                           Haunching HT (m)
                         </label>
                         <input
-                          type="number"
-                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+                          type="number" inputMode="decimal"
+                          className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500/50 min-h-[44px]"
                           value={beddingHaunchHeight}
                           onChange={(e) =>
                             setBeddingHaunchHeight(e.target.value)
@@ -900,8 +900,8 @@ export default function SewerageEstimator() {
                         Pipe Inner Diameter (m)
                       </label>
                       <input
-                        type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
+                        type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 min-h-[44px]"
                         value={flowDia}
                         onChange={(e) => setFlowDia(e.target.value)}
                       />
@@ -911,8 +911,8 @@ export default function SewerageEstimator() {
                         Gradient (1 in X)
                       </label>
                       <input
-                        type="number"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
+                        type="number" inputMode="decimal"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 min-h-[44px]"
                         value={flowGradient}
                         onChange={(e) => setFlowGradient(e.target.value)}
                       />
@@ -1024,9 +1024,9 @@ export default function SewerageEstimator() {
                         Number of Users
                       </label>
                       <input
-                        type="number"
+                        type="number" inputMode="decimal"
                         min="0"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]"
                         value={septicUsers}
                         onChange={(e) => {
                           const val = parseFloat(e.target.value);
@@ -1040,9 +1040,9 @@ export default function SewerageEstimator() {
                         Per Capita Water Demand (L/day)
                       </label>
                       <input
-                        type="number"
+                        type="number" inputMode="decimal"
                         min="0"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]"
                         value={septicDemand}
                         onChange={(e) => {
                           const val = parseFloat(e.target.value);
@@ -1056,10 +1056,10 @@ export default function SewerageEstimator() {
                         Soil Percolation Rate (L/m²/day)
                       </label>
                       <input
-                        type="number"
+                        type="number" inputMode="decimal"
                         min="0"
                         step="any"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]"
                         value={septicPercolation}
                         onChange={(e) => {
                           const val = parseFloat(e.target.value);

@@ -17,7 +17,7 @@ export function DetailedRoomEstimators() {
   return (
     <div className="w-full flex justify-center animate-in fade-in slide-in-from-top-4 duration-500 pb-16">
       <div className="w-full max-w-6xl">
-        <div className="flex gap-2 p-1 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/50 backdrop-blur-md rounded-[24px] w-fit mx-auto mb-8 shadow-sm border border-slate-200 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 overflow-x-auto max-w-full">
+        <div className="flex gap-2 p-1 bg-white/50 backdrop-blur-md rounded-[24px] w-fit mx-auto mb-8 shadow-sm border border-slate-200 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 overflow-x-auto max-w-full">
           {tabs.map(tab => (
             <button
               key={tab}
@@ -25,7 +25,7 @@ export function DetailedRoomEstimators() {
               className={`px-6 py-3 rounded-[24px] text-sm font-bold transition-all whitespace-nowrap ${
                 activeTab === tab
                   ? "bg-purple-600 text-white shadow-md shadow-purple-500/20"
-                  : "text-slate-600 hover:text-slate-900 hover:bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/60 "
+                  : "text-slate-600 hover:text-slate-900 hover:bg-white/60 "
               }`}
             >
               {tab}
@@ -61,7 +61,7 @@ function ResultTable({ title, icon: Icon, items, onRateChange }: { title: string
       <h4 className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
         <Icon className="w-4 h-4 text-purple-500"/> {title}
       </h4>
-      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 shadow-sm border border-slate-200 rounded-[24px] overflow-hidden">
+      <div className="bg-white shadow-sm border border-slate-200 rounded-[24px] overflow-hidden">
         <div className="overflow-x-auto w-full">
           <table className="w-full text-left text-sm whitespace-nowrap">
             <thead className="bg-slate-50 border-b border-slate-200 text-slate-800">
@@ -81,10 +81,10 @@ function ResultTable({ title, icon: Icon, items, onRateChange }: { title: string
                   <td className="py-3 px-4 text-right font-semibold tabular-nums tracking-tight text-purple-600 text-base">{item.qty.toLocaleString(undefined, {maximumFractionDigits: 1})}</td>
                   <td className="py-2 px-4 min-w-[100px]">
                     <input
-                      type="number"
+                      type="number" inputMode="decimal"
                       min="0"
                       placeholder="0.00"
-                      className="w-full bg-slate-100 border-none rounded-[16px] px-2 py-1.5 text-right text-sm sm:text-base focus:ring-2 focus:ring-purple-500 focus:outline-none text-slate-800 font-medium"
+                      className="w-full bg-slate-100 border-none rounded-[16px] px-2 py-1.5 text-right text-sm sm:text-base focus:ring-2 focus:ring-purple-500 focus:outline-none text-slate-800 font-medium min-h-[44px]"
                       onChange={(e) => onRateChange(item.name, parseFloat(e.target.value) || 0)}
                     />
                   </td>
@@ -136,7 +136,7 @@ function BaseEstimatorWrapper({ title, inputs, renderInputs, calculate }: {
           {renderInputs()}
         </div>
       </div>
-      <div className="lg:col-span-8 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-6 sm:p-8 rounded-[2rem] shadow-sm border border-slate-100">
+      <div className="lg:col-span-8 bg-white p-6 sm:p-8 rounded-[2rem] shadow-sm border border-slate-100">
         <div className="flex justify-between items-end mb-8">
           <h3 className="text-xl font-semibold text-slate-800 tracking-tight">Calculation Results</h3>
           <div className="text-right">
@@ -160,7 +160,7 @@ function CommonNumInput({ label, val, setVal, unit }: { label: string, val: stri
       <label className="text-[11px] font-bold text-slate-500 uppercase tracking-widest">{label}</label>
       <div className="relative">
         <input 
-          type="number" 
+          type="number" inputMode="decimal" 
           value={val} onChange={(e)=>setVal(e.target.value)}
           className="w-full bg-slate-50 border border-slate-200 rounded-[24px] px-4 py-2.5 text-sm font-semibold focus:ring-2 focus:ring-purple-500 outline-none transition-all text-slate-800"
         />

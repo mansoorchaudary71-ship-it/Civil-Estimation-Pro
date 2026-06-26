@@ -195,7 +195,7 @@ export default function CbrTestCalculator() {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Input Panel */}
           <div className="w-full md:w-[45%] flex flex-col gap-6">
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-6 rounded-[24px] border border-slate-200 shadow-sm relative overflow-hidden">
+            <div className="bg-white p-6 rounded-[24px] border border-slate-200 shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
               
               <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
@@ -220,7 +220,7 @@ export default function CbrTestCalculator() {
                     <div key={idx} className="grid grid-cols-12 gap-2 items-center">
                       <div className="col-span-5 relative group">
                         <input
-                          type="number"
+                          type="number" inputMode="decimal"
                           step="0.5"
                           value={row.penetration}
                           onChange={(e) => handleDataChange(idx, "penetration", e.target.value)}
@@ -229,7 +229,7 @@ export default function CbrTestCalculator() {
                       </div>
                       <div className="col-span-5 relative">
                         <input
-                          type="number"
+                          type="number" inputMode="decimal"
                           value={row.load}
                           onChange={(e) => handleDataChange(idx, "load", e.target.value)}
                           className="w-full bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-3 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 transition-all font-semibold"
@@ -254,7 +254,7 @@ export default function CbrTestCalculator() {
                  </label>
                  <div className="relative">
                    <input
-                     type="number"
+                     type="number" inputMode="decimal"
                      value={minSpec}
                      onChange={(e) => setMinSpec(e.target.value)}
                      className="w-full max-w-[200px] bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 text-slate-900 rounded-[24px] px-4 py-2 font-mono text-sm focus:ring-2 focus:ring-indigo-500 font-bold"
@@ -282,12 +282,12 @@ export default function CbrTestCalculator() {
                 <li>CBR <span className="lowercase">at</span> 5.0<span className="lowercase">mm</span> = (Measured Load / 2055 <span className="lowercase">kg</span>) × 100</li>
                 <li>Design CBR = <span className="lowercase">max(</span>CBR 2.5, CBR 5.0<span className="lowercase">)</span></li>
               </ul>
-              <div className="mt-3 p-3 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/60 rounded-[24px] border border-indigo-100 text-xs text-indigo-900 font-medium">
+              <div className="mt-3 p-3 bg-white/60 rounded-[24px] border border-indigo-100 text-xs text-indigo-900 font-medium">
                 Standard loads assume a standard 50mm diameter plunger.
               </div>
             </div>
             
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-5 rounded-[24px] border border-slate-200 shadow-sm">
+            <div className="bg-white p-5 rounded-[24px] border border-slate-200 shadow-sm">
               <h4 className="font-bold text-slate-800 mb-3 uppercase tracking-wide text-xs">Frequently Asked Questions</h4>
               <div className="space-y-3">
                 <div className="p-3 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-100">
@@ -327,19 +327,19 @@ export default function CbrTestCalculator() {
                   </div>
 
                   <div className="grid grid-cols-2 gap-4 mb-8">
-                    <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/60 p-4 rounded-[24px] border border-slate-300/5 shadow-sm">
+                    <div className="bg-white/60 p-4 rounded-[24px] border border-slate-300/5 shadow-sm">
                       <span className="text-slate-500 text-xs font-bold uppercase tracking-widest block mb-1">CBR @ 2.5mm</span>
                       <div className="text-2xl font-semibold tabular-nums tracking-tight text-slate-800">{estimateData.cbr25.toFixed(1)}%</div>
                       <span className="text-[10px] text-slate-600 font-mono mt-1 block">Load: {estimateData.load25.toFixed(1)} kg</span>
                     </div>
-                    <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/60 p-4 rounded-[24px] border border-slate-300/5 shadow-sm">
+                    <div className="bg-white/60 p-4 rounded-[24px] border border-slate-300/5 shadow-sm">
                       <span className="text-slate-500 text-xs font-bold uppercase tracking-widest block mb-1">CBR @ 5.0mm</span>
                       <div className="text-2xl font-semibold tabular-nums tracking-tight text-slate-800">{estimateData.cbr50.toFixed(1)}%</div>
                       <span className="text-[10px] text-slate-600 font-mono mt-1 block">Load: {estimateData.load50.toFixed(1)} kg</span>
                     </div>
                   </div>
                   
-                  <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 rounded-[24px] border border-slate-300/5 shadow-sm p-5 flex items-center justify-between mb-8">
+                  <div className="bg-white rounded-[24px] border border-slate-300/5 shadow-sm p-5 flex items-center justify-between mb-8">
                      <div>
                        <span className="block text-xs font-bold uppercase tracking-widest text-slate-500">Soil Quality Index</span>
                        <span className="text-lg font-semibold tabular-nums tracking-tight text-slate-800">{estimateData.soilClass}</span>
@@ -348,7 +348,7 @@ export default function CbrTestCalculator() {
                   </div>
 
                   {/* Chart section */}
-                  <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 p-5 rounded-[24px] border border-slate-300/5 shadow-sm h-[300px] w-full pt-6">
+                  <div className="bg-white p-5 rounded-[24px] border border-slate-300/5 shadow-sm h-[300px] w-full pt-6">
                      <h3 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Load vs. Penetration Curve</h3>
                      <ResponsiveContainer width="100%" height="85%">
                        <AreaChart data={[...testData].sort((a, b) => a.penetration - b.penetration)}>
@@ -412,7 +412,7 @@ export default function CbrTestCalculator() {
                 <p className="text-slate-500 max-w-sm text-sm leading-relaxed mb-6">
                   Input your lab dial readings in the left panel. The interactive CBR curve and corrected values will appear here automatically.
                 </p>
-                <div className="flex gap-3 text-xs font-bold text-indigo-500 uppercase tracking-widest bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 px-4 py-2 rounded-[24px] shadow-sm border border-indigo-100">
+                <div className="flex gap-3 text-xs font-bold text-indigo-500 uppercase tracking-widest bg-white px-4 py-2 rounded-[24px] shadow-sm border border-indigo-100">
                    <span>2.5mm</span>
                    <span className="w-1 h-1 rounded-full bg-slate-300 self-center"></span>
                    <span>5.0mm</span>

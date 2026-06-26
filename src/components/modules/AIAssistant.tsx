@@ -52,7 +52,7 @@ export default function AIAssistant() {
   };
   return (
     <div className="flex flex-col h-full bg-transparent text-slate-900 p-8">
-      <div className="flex-1 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 border border-slate-200 rounded-[24px] flex flex-col overflow-hidden relative shadow-sm">
+      <div className="flex-1 calc-input flex flex-col overflow-hidden relative shadow-sm">
         <div className="px-6 py-4 border-b border-slate-200 bg-transparent flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></div>
           <h2 className="text-sm font-bold uppercase tracking-widest text-slate-700">
@@ -104,7 +104,7 @@ export default function AIAssistant() {
             </div>
           )}
         </div>
-        <div className="p-4 border-t border-slate-200 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 relative">
+        <div className="p-4 border-t border-slate-200 bg-white relative">
           <div className="max-w-4xl mx-auto relative flex items-center">
             <textarea
               value={input}

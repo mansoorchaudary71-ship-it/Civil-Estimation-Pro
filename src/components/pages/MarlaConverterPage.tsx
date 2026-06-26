@@ -138,7 +138,7 @@ export default function MarlaConverterPage() {
 
                <div className="relative mb-6 z-10">
                  <input 
-                   type="number"
+                   type="number" inputMode="decimal"
                    value={inputValue}
                    onChange={(e) => setInputValue(e.target.value)}
                    className="w-full bg-[#FFFFFF]/80 border-2 border-slate-200 focus:border-amber-500 rounded-2xl px-6 py-6 text-4xl md:text-6xl font-black text-slate-900 focus:outline-none transition-all shadow-inner"

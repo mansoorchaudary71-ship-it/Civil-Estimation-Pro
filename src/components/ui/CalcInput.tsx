@@ -35,9 +35,10 @@ export function CalcInput({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          className={`w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.12)] rounded-lg py-3 px-4 text-[#F1F5F9] text-sm placeholder:text-[#475569] focus:outline-none focus:border-[#F59E0B] focus:ring-[3px] focus:ring-[rgba(245,158,11,0.15)] transition-all ${
+          className={`w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.12)] rounded-lg py-3 px-4 min-h-[44px] text-[#F1F5F9] text-sm placeholder:text-[#475569] focus:outline-none focus:border-[#F59E0B] focus:ring-[3px] focus:ring-[rgba(245,158,11,0.15)] transition-all ${
             unit ? 'pr-16' : ''
           }`}
+          inputMode={props.type === 'number' ? 'decimal' : props.inputMode}
           {...props}
         />
         {unit && (

@@ -203,7 +203,7 @@ export default function AreaSpaceCalculator() {
 
   return (
     <div className="w-full max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500 pb-[120px]">
-      <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80  backdrop-blur-xl border border-white/20  p-6 md:p-8 rounded-[2rem] shadow-sm">
+      <div className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 md:p-8 rounded-[2rem] shadow-sm">
         <h1 className="text-3xl font-semibold tabular-nums tracking-tight text-slate-800  flex items-center gap-3 mb-2">
           <div className="p-3 bg-indigo-50  text-indigo-600  rounded-[24px]">
             <Ruler className="w-8 h-8" />
@@ -234,7 +234,7 @@ export default function AreaSpaceCalculator() {
         <div className="lg:col-span-8 space-y-6">
           {/* TAB 1: SHAPES */}
           {activeTab === "shape" && (
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80  backdrop-blur-xl border border-white/20  p-6 rounded-[24px] shadow-sm">
+            <div className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 rounded-[24px] shadow-sm">
               <h3 className="text-xl font-semibold mb-6 flex items-center gap-2 text-slate-800 ">
                 <Square className="w-5 h-5 text-indigo-500" /> 2D Shape Calculator
               </h3>
@@ -254,28 +254,28 @@ export default function AreaSpaceCalculator() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 {shapeType === "rectangle" && (
                   <>
-                    <div><label className="block text-sm font-bold mb-2">Length ({uLen})</label><input type="number" value={shapeParams.length} onChange={(e) => handleShapeParam("length", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
-                    <div><label className="block text-sm font-bold mb-2">Width ({uLen})</label><input type="number" value={shapeParams.width} onChange={(e) => handleShapeParam("width", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                    <div><label className="block text-sm font-bold mb-2">Length ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.length} onChange={(e) => handleShapeParam("length", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                    <div><label className="block text-sm font-bold mb-2">Width ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.width} onChange={(e) => handleShapeParam("width", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
                   </>
                 )}
                 {shapeType === "square" && (
-                  <div><label className="block text-sm font-bold mb-2">Side Length ({uLen})</label><input type="number" value={shapeParams.length} onChange={(e) => handleShapeParam("length", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                  <div><label className="block text-sm font-bold mb-2">Side Length ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.length} onChange={(e) => handleShapeParam("length", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
                 )}
                 {shapeType === "circle" && (
-                  <div><label className="block text-sm font-bold mb-2">Radius ({uLen})</label><input type="number" value={shapeParams.radius} onChange={(e) => handleShapeParam("radius", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                  <div><label className="block text-sm font-bold mb-2">Radius ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.radius} onChange={(e) => handleShapeParam("radius", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
                 )}
                 {shapeType === "triangle" && (
                   <>
-                    <div><label className="block text-sm font-bold mb-2">Side A ({uLen})</label><input type="number" value={shapeParams.sideA} onChange={(e) => handleShapeParam("sideA", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
-                    <div><label className="block text-sm font-bold mb-2">Side B ({uLen})</label><input type="number" value={shapeParams.sideB} onChange={(e) => handleShapeParam("sideB", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
-                    <div><label className="block text-sm font-bold mb-2">Side C ({uLen})</label><input type="number" value={shapeParams.sideC} onChange={(e) => handleShapeParam("sideC", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                    <div><label className="block text-sm font-bold mb-2">Side A ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.sideA} onChange={(e) => handleShapeParam("sideA", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                    <div><label className="block text-sm font-bold mb-2">Side B ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.sideB} onChange={(e) => handleShapeParam("sideB", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                    <div><label className="block text-sm font-bold mb-2">Side C ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.sideC} onChange={(e) => handleShapeParam("sideC", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
                   </>
                 )}
                 {shapeType === "trapezoid" && (
                   <>
-                    <div><label className="block text-sm font-bold mb-2">Parallel Side A ({uLen})</label><input type="number" value={shapeParams.sideA} onChange={(e) => handleShapeParam("sideA", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
-                    <div><label className="block text-sm font-bold mb-2">Parallel Side B ({uLen})</label><input type="number" value={shapeParams.sideB} onChange={(e) => handleShapeParam("sideB", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
-                    <div><label className="block text-sm font-bold mb-2">Height distance ({uLen})</label><input type="number" value={shapeParams.height} onChange={(e) => handleShapeParam("height", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                    <div><label className="block text-sm font-bold mb-2">Parallel Side A ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.sideA} onChange={(e) => handleShapeParam("sideA", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                    <div><label className="block text-sm font-bold mb-2">Parallel Side B ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.sideB} onChange={(e) => handleShapeParam("sideB", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                    <div><label className="block text-sm font-bold mb-2">Height distance ({uLen})</label><input type="number" inputMode="decimal" value={shapeParams.height} onChange={(e) => handleShapeParam("height", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
                   </>
                 )}
                 {shapeType === "polygon" && (
@@ -284,8 +284,8 @@ export default function AreaSpaceCalculator() {
                     <div className="space-y-2">
                       {polygonCoords.map((coord, idx) => (
                         <div key={idx} className="flex gap-2">
-                          <input type="number" value={coord.x} onChange={(e) => { const newC = [...polygonCoords]; newC[idx].x = +e.target.value; setPolygonCoords(newC); }} className="w-1/2 px-4 py-2 bg-slate-50  border border-slate-200  rounded-xl" placeholder="X" />
-                          <input type="number" value={coord.y} onChange={(e) => { const newC = [...polygonCoords]; newC[idx].y = +e.target.value; setPolygonCoords(newC); }} className="w-1/2 px-4 py-2 bg-slate-50  border border-slate-200  rounded-xl" placeholder="Y" />
+                          <input type="number" inputMode="decimal" value={coord.x} onChange={(e) => { const newC = [...polygonCoords]; newC[idx].x = +e.target.value; setPolygonCoords(newC); }} className="w-1/2 px-4 py-2 bg-slate-50  border border-slate-200  rounded-xl" placeholder="X" />
+                          <input type="number" inputMode="decimal" value={coord.y} onChange={(e) => { const newC = [...polygonCoords]; newC[idx].y = +e.target.value; setPolygonCoords(newC); }} className="w-1/2 px-4 py-2 bg-slate-50  border border-slate-200  rounded-xl" placeholder="Y" />
                           <button onClick={() => setPolygonCoords(polygonCoords.filter((_, i) => i !== idx))} className="px-3 bg-rose-50  text-rose-500 rounded-xl font-bold"><Trash2 className="w-4 h-4" /></button>
                         </div>
                       ))}
@@ -299,7 +299,7 @@ export default function AreaSpaceCalculator() {
 
           {/* TAB 2: PLOT MEASUREMENT */}
           {activeTab === "plot" && (
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80  backdrop-blur-xl border border-white/20  p-6 rounded-[24px] shadow-sm">
+            <div className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 rounded-[24px] shadow-sm">
               <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-slate-800 ">
                 <MapIcon className="w-5 h-5 text-emerald-500" /> Calculate Irregular Plot Area Using Geometric Triangulation
               </h2>
@@ -307,40 +307,40 @@ export default function AreaSpaceCalculator() {
                 Calculates the exact area of irregular plots by dividing them into two triangles with a measured diagonal.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                <div><label className="block text-xs font-bold uppercase mb-2">North Side ({uLen})</label><input type="number" value={plotBounds.n} onChange={(e) => setPlotBounds({ ...plotBounds, n: +e.target.value })} className="w-full px-4 py-2.5 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900  focus:ring-emerald-500" /></div>
-                <div><label className="block text-xs font-bold uppercase mb-2">South Side ({uLen})</label><input type="number" value={plotBounds.s} onChange={(e) => setPlotBounds({ ...plotBounds, s: +e.target.value })} className="w-full px-4 py-2.5 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900  focus:ring-emerald-500" /></div>
-                <div><label className="block text-xs font-bold uppercase mb-2">East Side ({uLen})</label><input type="number" value={plotBounds.e} onChange={(e) => setPlotBounds({ ...plotBounds, e: +e.target.value })} className="w-full px-4 py-2.5 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900  focus:ring-emerald-500" /></div>
-                <div><label className="block text-xs font-bold uppercase mb-2">West Side ({uLen})</label><input type="number" value={plotBounds.w} onChange={(e) => setPlotBounds({ ...plotBounds, w: +e.target.value })} className="w-full px-4 py-2.5 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900  focus:ring-emerald-500" /></div>
-                <div className="col-span-2 md:col-span-1"><label className="block text-xs font-bold uppercase mb-2 text-indigo-500 ">Diagonal NW-SE ({uLen})</label><input type="number" value={plotBounds.d} onChange={(e) => setPlotBounds({ ...plotBounds, d: +e.target.value })} className="w-full px-4 py-2.5 bg-indigo-50  border border-indigo-200  rounded-[16px] text-indigo-900  focus:ring-indigo-500" /></div>
+                <div><label className="block text-xs font-bold uppercase mb-2">North Side ({uLen})</label><input type="number" inputMode="decimal" value={plotBounds.n} onChange={(e) => setPlotBounds({ ...plotBounds, n: +e.target.value })} className="w-full px-4 py-2.5 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900  focus:ring-emerald-500" /></div>
+                <div><label className="block text-xs font-bold uppercase mb-2">South Side ({uLen})</label><input type="number" inputMode="decimal" value={plotBounds.s} onChange={(e) => setPlotBounds({ ...plotBounds, s: +e.target.value })} className="w-full px-4 py-2.5 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900  focus:ring-emerald-500" /></div>
+                <div><label className="block text-xs font-bold uppercase mb-2">East Side ({uLen})</label><input type="number" inputMode="decimal" value={plotBounds.e} onChange={(e) => setPlotBounds({ ...plotBounds, e: +e.target.value })} className="w-full px-4 py-2.5 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900  focus:ring-emerald-500" /></div>
+                <div><label className="block text-xs font-bold uppercase mb-2">West Side ({uLen})</label><input type="number" inputMode="decimal" value={plotBounds.w} onChange={(e) => setPlotBounds({ ...plotBounds, w: +e.target.value })} className="w-full px-4 py-2.5 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900  focus:ring-emerald-500" /></div>
+                <div className="col-span-2 md:col-span-1"><label className="block text-xs font-bold uppercase mb-2 text-indigo-500 ">Diagonal NW-SE ({uLen})</label><input type="number" inputMode="decimal" value={plotBounds.d} onChange={(e) => setPlotBounds({ ...plotBounds, d: +e.target.value })} className="w-full px-4 py-2.5 bg-indigo-50  border border-indigo-200  rounded-[16px] text-indigo-900  focus:ring-indigo-500" /></div>
               </div>
             </div>
           )}
 
           {/* TAB 3: PROPERTY RERA */}
           {activeTab === "property" && (
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80  backdrop-blur-xl border border-white/20  p-6 rounded-[24px] shadow-sm">
+            <div className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 rounded-[24px] shadow-sm">
               <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-slate-800 ">
                 <Home className="w-5 h-5 text-purple-500" /> RERA Carpet Area Calculator (NBC/RERA Compliant)
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div><label className="block text-sm font-bold mb-2">Net Carpet Area ({uArea})</label><input type="number" value={propParams.carpetReq} onChange={(e) => handlePropParam("carpetReq", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
-                <div><label className="block text-sm font-bold mb-2">Internal Partition Walls (%)</label><input type="number" value={propParams.internalWallsPerc} onChange={(e) => handlePropParam("internalWallsPerc", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
-                <div><label className="block text-sm font-bold mb-2">External Walls (%)</label><input type="number" value={propParams.externalWallsPerc} onChange={(e) => handlePropParam("externalWallsPerc", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
-                <div><label className="block text-sm font-bold mb-2">Balcony/Terrace ({uArea})</label><input type="number" value={propParams.balconyArea} onChange={(e) => handlePropParam("balconyArea", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
-                <div><label className="block text-sm font-bold mb-2">Common Spaces Share (%)</label><input type="number" value={propParams.commonAreaPerc} onChange={(e) => handlePropParam("commonAreaPerc", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block text-sm font-bold mb-2">Net Carpet Area ({uArea})</label><input type="number" inputMode="decimal" value={propParams.carpetReq} onChange={(e) => handlePropParam("carpetReq", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block text-sm font-bold mb-2">Internal Partition Walls (%)</label><input type="number" inputMode="decimal" value={propParams.internalWallsPerc} onChange={(e) => handlePropParam("internalWallsPerc", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block text-sm font-bold mb-2">External Walls (%)</label><input type="number" inputMode="decimal" value={propParams.externalWallsPerc} onChange={(e) => handlePropParam("externalWallsPerc", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block text-sm font-bold mb-2">Balcony/Terrace ({uArea})</label><input type="number" inputMode="decimal" value={propParams.balconyArea} onChange={(e) => handlePropParam("balconyArea", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block text-sm font-bold mb-2">Common Spaces Share (%)</label><input type="number" inputMode="decimal" value={propParams.commonAreaPerc} onChange={(e) => handlePropParam("commonAreaPerc", +e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
               </div>
             </div>
           )}
 
           {/* TAB 4: PLASTER DEDUCTIONS */}
           {activeTab === "plaster" && (
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80  backdrop-blur-xl border border-white/20  p-6 rounded-[24px] shadow-sm">
+            <div className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 rounded-[24px] shadow-sm">
               <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-slate-800 ">
                 <PaintBucket className="w-5 h-5 text-rose-500" /> IS Code Opening Deductions for Accurate Net Area
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-                <div><label className="block text-sm font-bold mb-2">Wall Length ({uLen})</label><input type="number" value={wallLen} onChange={(e) => setWallLen(+e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
-                <div><label className="block text-sm font-bold mb-2">Wall Height ({uLen})</label><input type="number" value={wallHt} onChange={(e) => setWallHt(+e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block text-sm font-bold mb-2">Wall Length ({uLen})</label><input type="number" inputMode="decimal" value={wallLen} onChange={(e) => setWallLen(+e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block text-sm font-bold mb-2">Wall Height ({uLen})</label><input type="number" inputMode="decimal" value={wallHt} onChange={(e) => setWallHt(+e.target.value)} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
                 <div className="col-span-2 md:col-span-1 flex flex-col justify-center">
                   <label className="block text-sm font-bold mb-2">Faces Plastered</label>
                   <select value={bothFaces ? "2" : "1"} onChange={(e) => setBothFaces(e.target.value === "2")} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900  focus:ring-2 focus:ring-rose-500">
@@ -351,7 +351,7 @@ export default function AreaSpaceCalculator() {
               </div>
               <div className="mb-6">
                 <label className="block text-sm font-bold mb-2">Jamb Depth ({uLen}) <span className="font-normal text-slate-500">(For large openings {'>3'}sq.m)</span></label>
-                <input type="number" value={jambDepth} onChange={(e) => setJambDepth(+e.target.value)} className="w-full md:w-1/3 px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " />
+                <input type="number" inputMode="decimal" value={jambDepth} onChange={(e) => setJambDepth(+e.target.value)} className="w-full md:w-1/3 px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " />
               </div>
 
               <hr className="my-6 border-slate-200 " />
@@ -360,9 +360,9 @@ export default function AreaSpaceCalculator() {
               <div className="space-y-3">
                 {openings.map((op, idx) => (
                   <div key={idx} className="flex flex-wrap md:flex-nowrap gap-3 items-end">
-                    <div className="w-[45%] md:w-auto flex-1"><label className="block text-xs font-semibold mb-1 text-slate-500">Width ({uLen})</label><input type="number" value={op.w} onChange={(e) => { const newOp = [...openings]; newOp[idx].w = +e.target.value; setOpenings(newOp); }} className="w-full px-3 py-2.5 bg-slate-50  border border-slate-200  rounded-xl text-slate-900  focus:ring-rose-500" /></div>
-                    <div className="w-[45%] md:w-auto flex-1"><label className="block text-xs font-semibold mb-1 text-slate-500">Height ({uLen})</label><input type="number" value={op.h} onChange={(e) => { const newOp = [...openings]; newOp[idx].h = +e.target.value; setOpenings(newOp); }} className="w-full px-3 py-2.5 bg-slate-50  border border-slate-200  rounded-xl text-slate-900  focus:ring-rose-500" /></div>
-                    <div className="w-auto flex-1"><label className="block text-xs font-semibold mb-1 text-slate-500">Count</label><input type="number" value={op.count} onChange={(e) => { const newOp = [...openings]; newOp[idx].count = Math.max(1, parseInt(e.target.value) || 1); setOpenings(newOp); }} className="w-full px-3 py-2.5 bg-slate-50  border border-slate-200  rounded-xl text-slate-900  focus:ring-rose-500" /></div>
+                    <div className="w-[45%] md:w-auto flex-1"><label className="block text-xs font-semibold mb-1 text-slate-500">Width ({uLen})</label><input type="number" inputMode="decimal" value={op.w} onChange={(e) => { const newOp = [...openings]; newOp[idx].w = +e.target.value; setOpenings(newOp); }} className="w-full px-3 py-2.5 bg-slate-50  border border-slate-200  rounded-xl text-slate-900  focus:ring-rose-500" /></div>
+                    <div className="w-[45%] md:w-auto flex-1"><label className="block text-xs font-semibold mb-1 text-slate-500">Height ({uLen})</label><input type="number" inputMode="decimal" value={op.h} onChange={(e) => { const newOp = [...openings]; newOp[idx].h = +e.target.value; setOpenings(newOp); }} className="w-full px-3 py-2.5 bg-slate-50  border border-slate-200  rounded-xl text-slate-900  focus:ring-rose-500" /></div>
+                    <div className="w-auto flex-1"><label className="block text-xs font-semibold mb-1 text-slate-500">Count</label><input type="number" inputMode="decimal" value={op.count} onChange={(e) => { const newOp = [...openings]; newOp[idx].count = Math.max(1, parseInt(e.target.value) || 1); setOpenings(newOp); }} className="w-full px-3 py-2.5 bg-slate-50  border border-slate-200  rounded-xl text-slate-900  focus:ring-rose-500" /></div>
                     <button onClick={() => setOpenings(openings.filter((_, i) => i !== idx))} className="px-3 py-3 bg-rose-50  text-rose-500 rounded-xl font-bold hover:bg-rose-100  transition"><Trash2 className="w-5 h-5" /></button>
                   </div>
                 ))}
@@ -373,15 +373,15 @@ export default function AreaSpaceCalculator() {
 
           {/* TAB 5: ROOF PITCH */}
           {activeTab === "roof" && (
-            <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80  backdrop-blur-xl border border-white/20  p-6 rounded-[24px] shadow-sm">
+            <div className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 rounded-[24px] shadow-sm">
               <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-slate-800 ">
                 <Layers className="w-5 h-5 text-amber-500" /> Roof Pitch Area with Multi-Factor Correction
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div><label className="block text-sm font-bold mb-2">Horizontal Area ({uArea})</label><input type="number" value={roofParams.floorArea} onChange={(e) => setRoofParams({ ...roofParams, floorArea: +e.target.value })} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
-                <div><label className="block text-sm font-bold mb-2">Roof Pitch Angle (°)</label><input type="number" value={roofParams.pitchAngle} onChange={(e) => setRoofParams({ ...roofParams, pitchAngle: +e.target.value })} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
-                <div><label className="block text-sm font-bold mb-2">Roof Overhang ({uLen})</label><input type="number" value={roofParams.overhang} onChange={(e) => setRoofParams({ ...roofParams, overhang: +e.target.value })} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
-                <div><label className="block text-sm font-bold mb-2">Eaves Perimeter / Length ({uLen})</label><input type="number" value={roofParams.perimeterLength} onChange={(e) => setRoofParams({ ...roofParams, perimeterLength: +e.target.value })} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block text-sm font-bold mb-2">Horizontal Area ({uArea})</label><input type="number" inputMode="decimal" value={roofParams.floorArea} onChange={(e) => setRoofParams({ ...roofParams, floorArea: +e.target.value })} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block text-sm font-bold mb-2">Roof Pitch Angle (°)</label><input type="number" inputMode="decimal" value={roofParams.pitchAngle} onChange={(e) => setRoofParams({ ...roofParams, pitchAngle: +e.target.value })} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block text-sm font-bold mb-2">Roof Overhang ({uLen})</label><input type="number" inputMode="decimal" value={roofParams.overhang} onChange={(e) => setRoofParams({ ...roofParams, overhang: +e.target.value })} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
+                <div><label className="block text-sm font-bold mb-2">Eaves Perimeter / Length ({uLen})</label><input type="number" inputMode="decimal" value={roofParams.perimeterLength} onChange={(e) => setRoofParams({ ...roofParams, perimeterLength: +e.target.value })} className="w-full px-4 py-3 bg-slate-50  border border-slate-200  rounded-[16px] text-slate-900 " /></div>
               </div>
             </div>
           )}
@@ -389,7 +389,7 @@ export default function AreaSpaceCalculator() {
 
         {/* RESULTS PANEL (RIGHT) */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/90  backdrop-blur-xl border border-white/20  p-8 rounded-[2rem] shadow-sm sticky top-6">
+          <div className="bg-white/90  backdrop-blur-xl border border-white/20  p-8 rounded-[2rem] shadow-sm sticky top-6">
             <h3 className="font-semibold tabular-nums tracking-tight text-xl mb-6 flex items-center gap-2 text-slate-800 ">
               <Calculator className="w-5 h-5 text-indigo-600 " /> Calculation Results
             </h3>
@@ -500,7 +500,7 @@ export default function AreaSpaceCalculator() {
                 Your area is ready. Generate material quantities and cost summary in 3 clicks.
               </p>
               <div className="flex flex-wrap gap-2">
-                <button className="flex-1 px-4 py-2 bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500 text-indigo-600 hover:bg-slate-50 text-xs font-bold rounded-xl transition duration-200 shadow-sm truncate">
+                <button className="flex-1 px-4 py-2 bg-white text-indigo-600 hover:bg-slate-50 text-xs font-bold rounded-xl transition duration-200 shadow-sm truncate">
                   Generate BOQ Now →
                 </button>
                 <button className="px-4 py-2 bg-indigo-600 border border-indigo-400 hover:bg-indigo-700 text-white text-xs font-bold rounded-xl transition duration-200 flex items-center justify-center">
@@ -522,7 +522,7 @@ export default function AreaSpaceCalculator() {
 
       {/* SEO SECTIONS */}
       <div className="mt-16 space-y-12">
-        <section className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80  backdrop-blur-xl border border-white/20  p-6 md:p-8 rounded-[2rem] shadow-sm">
+        <section className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 md:p-8 rounded-[2rem] shadow-sm">
           <h2 className="text-2xl font-bold text-slate-800  mb-4">How to Use the Plot Area Calculator</h2>
           <div className="text-slate-600  space-y-4">
             <p>1. <strong>Select your module:</strong> Choose between Triangulation, RERA Property Area, or Roof Pitch.</p>
@@ -532,7 +532,7 @@ export default function AreaSpaceCalculator() {
           </div>
         </section>
 
-        <section className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80  backdrop-blur-xl border border-white/20  p-6 md:p-8 rounded-[2rem] shadow-sm">
+        <section className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 md:p-8 rounded-[2rem] shadow-sm">
           <h2 className="text-2xl font-bold text-slate-800  mb-4">Frequently Asked Questions</h2>
           <div className="space-y-6">
             <div>
@@ -550,7 +550,7 @@ export default function AreaSpaceCalculator() {
           </div>
         </section>
 
-        <section className="bg-[#FAFAF8] hover:bg-[#FDFCF9] transition-colors duration-500/80  backdrop-blur-xl border border-white/20  p-6 md:p-8 rounded-[2rem] shadow-sm">
+        <section className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 md:p-8 rounded-[2rem] shadow-sm">
           <h2 className="text-2xl font-bold text-slate-800  mb-4">Methodology & Engineering Standards</h2>
           <div className="text-slate-600  space-y-4">
             <p>Our <strong>Plot Area Calculator</strong> strictly adheres to the following industry guidelines:</p>
