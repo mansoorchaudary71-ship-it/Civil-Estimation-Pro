@@ -95,7 +95,7 @@ export default function DiscussionWidget({ moduleId, toolName }: { moduleId: str
   return (
     <div className="mt-8 p-6 rounded-[2rem] bg-white border border-slate-200">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-        <h2 className="text-xl font-semibold text-slate-900">Discussion & Comments</h2>
+        <h2 className=" text-xl font-semibold text-gray-900 tracking-tight mb-4">Discussion & Comments</h2>
         <span className="text-sm font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
           {comments.length} engineers found this helpful
         </span>
@@ -104,27 +104,27 @@ export default function DiscussionWidget({ moduleId, toolName }: { moduleId: str
       <div className="flex flex-col gap-4">
         {comments.map(comment => (
           <div key={comment.id} className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center shrink-0 font-bold text-slate-500">
+            <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center shrink-0 font-bold text-gray-500">
               {comment.userName.charAt(0).toUpperCase()}
             </div>
             <div className="flex-1">
               <div className="bg-slate-50 p-4 rounded-[24px] rounded-tl-none border border-slate-100">
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-semibold text-slate-800 text-sm">{comment.userName}</h4>
-                  <span className="text-xs text-slate-500">
+                  <h4 className=" text-lg font-medium text-gray-800 mb-4">{comment.userName}</h4>
+                  <span className="text-xs text-gray-500">
                     {comment.timestamp && comment.timestamp.toDate 
                       ? comment.timestamp.toDate().toLocaleDateString()
                       : 'Just now'}
                   </span>
                 </div>
-                <p className="text-sm text-slate-600 whitespace-pre-wrap">{comment.text}</p>
+                <p className="whitespace-pre-wrap text-base font-normal text-gray-600 leading-relaxed">{comment.text}</p>
               </div>
             </div>
           </div>
         ))}
         
         {comments.length === 0 && (
-          <p className="text-sm text-slate-500 italic mb-4">No comments yet. Be the first to share your thoughts on the {toolName}!</p>
+          <p className="italic mb-4 text-base font-normal text-gray-600 leading-relaxed">No comments yet. Be the first to share your thoughts on the {toolName}!</p>
         )}
         
         <div className="mt-4 flex items-start gap-4">
@@ -144,7 +144,7 @@ export default function DiscussionWidget({ moduleId, toolName }: { moduleId: str
             <button 
               onClick={handlePost}
               disabled={isPosting || !newComment.trim()}
-              className="absolute bottom-3 right-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:hover:bg-indigo-600 text-white px-4 py-1.5 rounded-[24px] text-sm font-medium transition-colors"
+              className="absolute bottom-3 right-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:hover:bg-indigo-600 text-white px-4 py-1.5 rounded-[24px] transition-colors text-base font-semibold"
             >
               {isPosting ? 'Posting...' : 'Post'}
             </button>

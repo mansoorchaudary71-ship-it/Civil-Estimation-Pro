@@ -59,13 +59,13 @@ export default function RecentSidebar({
             className="fixed inset-y-0 right-0 w-80 max-w-[90vw] bg-white shadow-2xl z-[160] flex flex-col border-l border-slate-200"
           >
             <div className="flex items-center justify-between p-6 border-b border-slate-100">
-              <h2 className="text-lg font-bold text-slate-800 flex items-center gap-2">
+              <h2 className="flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight mb-4">
                 <History className="w-5 h-5 text-indigo-600" />
                 Recent Tools
               </h2>
               <button
                 onClick={onClose}
-                className="p-2 -mr-2 text-slate-600 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-colors"
+                className="p-2 -mr-2 text-gray-600 hover:text-gray-600 hover:bg-slate-100 rounded-full transition-colors text-base font-semibold"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -92,24 +92,24 @@ export default function RecentSidebar({
                         {mod.icon && <mod.icon className="w-5 h-5" />}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-bold text-slate-800 text-sm truncate group-hover:text-indigo-600 transition-colors">
+                        <h3 className="truncate group-hover:text-indigo-600 transition-colors text-lg font-medium text-gray-800 mb-4">
                           {mod.title}
                         </h3>
-                        <p className="text-xs text-slate-500 truncate mt-0.5 font-medium">
+                        <p className="truncate mt-0.5 text-base font-normal text-gray-600 leading-relaxed">
                           {mod.category}
                         </p>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-slate-700 group-hover:text-indigo-400 transition-colors shrink-0" />
+                      <ChevronRight className="w-4 h-4 text-gray-700 group-hover:text-indigo-400 transition-colors shrink-0" />
                     </motion.button>
                   );
                 })
               ) : (
                 <div className="flex flex-col items-center justify-center h-full text-center px-4 opacity-60 mt-10">
                   <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mb-4">
-                    <History className="w-8 h-8 text-slate-600" />
+                    <History className="w-8 h-8 text-gray-600" />
                   </div>
-                  <h3 className="font-bold text-slate-700 text-sm mb-1">No Recent Tools</h3>
-                  <p className="text-xs text-slate-500 leading-relaxed">
+                  <h3 className="mb-1 text-lg font-medium text-gray-800 mb-4">No Recent Tools</h3>
+                  <p className=" text-base font-normal text-gray-600 leading-relaxed">
                     Tools you use will appear here for quick access.
                   </p>
                 </div>
@@ -118,7 +118,7 @@ export default function RecentSidebar({
             
             {recentTools.length > 0 && (
               <div className="p-4 border-t border-slate-100 bg-slate-50/50">
-                <p className="text-[11px] text-center text-slate-600 font-medium uppercase tracking-wider">Showing last 5 tools</p>
+                <p className="text-center uppercase tracking-wider text-base font-normal text-gray-600 leading-relaxed">Showing last 5 tools</p>
               </div>
             )}
           </motion.div>

@@ -1496,7 +1496,7 @@ function FontSizeControls() {
     <div className="relative mr-2" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`p-1.5 rounded-lg transition-colors flex items-center justify-center ${isOpen ? "bg-slate-50/10  text-slate-800 " : "hover:bg-slate-50/5 text-slate-500 "}`}
+        className={`p-1.5 rounded-lg transition-colors flex items-center justify-center ${isOpen ? "bg-slate-50/10  text-gray-800 " : "hover:bg-slate-50/5 text-gray-500 "}`}
         aria-label="Text Size settings"
       >
         <Type className="w-5 h-5" />
@@ -1509,7 +1509,7 @@ function FontSizeControls() {
               updateSettings({ fontSize: "small" });
               setIsOpen(false);
             }}
-            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${settings.fontSize === "small" ? "bg-indigo-50  text-slate-900 " : "text-slate-500 hover:bg-slate-50"}`}
+            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${settings.fontSize === "small" ? "bg-indigo-50  text-gray-900 " : "text-gray-500 hover:bg-slate-50"}`}
           >
             A-
           </button>
@@ -1518,7 +1518,7 @@ function FontSizeControls() {
               updateSettings({ fontSize: "medium" });
               setIsOpen(false);
             }}
-            className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${settings.fontSize === "medium" ? "bg-indigo-50  text-slate-900 " : "text-slate-500 hover:bg-slate-50"}`}
+            className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-colors ${settings.fontSize === "medium" ? "bg-indigo-50  text-gray-900 " : "text-gray-500 hover:bg-slate-50"}`}
           >
             A
           </button>
@@ -1527,7 +1527,7 @@ function FontSizeControls() {
               updateSettings({ fontSize: "large" });
               setIsOpen(false);
             }}
-            className={`px-3 py-1.5 text-base font-bold rounded-lg transition-colors ${settings.fontSize === "large" ? "bg-indigo-50  text-slate-900 " : "text-slate-500 hover:bg-slate-50"}`}
+            className={`px-3 py-1.5 text-base font-bold rounded-lg transition-colors ${settings.fontSize === "large" ? "bg-indigo-50  text-gray-900 " : "text-gray-500 hover:bg-slate-50"}`}
           >
             A+
           </button>
@@ -1555,8 +1555,8 @@ function UnitSwitcher() {
     <div className="flex bg-slate-100  p-1 rounded-lg relative z-0 mr-2 border border-slate-200 ">
       <button
         onClick={() => handleToggle("SI")}
-        className={`relative flex items-center justify-center gap-1.5 px-3 py-1.5 text-[10px] sm:text-xs font-bold rounded-md transition-colors z-10 ${
-          isMetric ? "text-slate-800 " : "text-slate-500  hover:text-slate-700 "
+        className={`relative flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs sm:text-xs font-bold rounded-md transition-colors z-10 ${
+          isMetric ? "text-gray-800 " : "text-gray-500  hover:text-gray-700 "
         }`}
         aria-label="Set units to Metric (m, kg)"
       >
@@ -1587,8 +1587,8 @@ function UnitSwitcher() {
       </button>
       <button
         onClick={() => handleToggle("FPS")}
-        className={`relative flex items-center justify-center gap-1.5 px-3 py-1.5 text-[10px] sm:text-xs font-bold rounded-md transition-colors z-10 ${
-          !isMetric ? "text-slate-800 " : "text-slate-500  hover:text-slate-700 "
+        className={`relative flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs sm:text-xs font-bold rounded-md transition-colors z-10 ${
+          !isMetric ? "text-gray-800 " : "text-gray-500  hover:text-gray-700 "
         }`}
         aria-label="Set units to Imperial (ft, lbs)"
       >
@@ -1641,7 +1641,7 @@ function AppHeader({
     <header className="md:hidden flex items-center px-4 py-2.5 m-0 bg-[#FFFFFF] border-b border-slate-300/5 sticky top-3 z-30 shrink-0 min-h-[50px] transition-all duration-300">
       <button
         onClick={onOpenSidebar}
-        className="p-2 mr-3 -ml-2 rounded-lg hover:bg-slate-50/5 text-[#888888] transition-all"
+        className="p-2 mr-3 -ml-2 rounded-lg hover:bg-slate-50/5 text-[#888888] transition-all text-base font-semibold"
         aria-label="Open sidebar"
       >
         <Menu className="w-5 h-5" />
@@ -1651,7 +1651,7 @@ function AppHeader({
         className="flex items-center gap-2 mr-5 shrink-0 hidden cursor-pointer transition-transform hover:scale-105"
         onClick={onGoHome}
       >
-        <Logo className="w-6 h-6 text-slate-900" />
+        <Logo className="w-6 h-6 text-gray-900" />
       </div>
 
       {onGoHome ? (
@@ -1659,7 +1659,7 @@ function AppHeader({
           <Breadcrumb items={breadcrumbItems} />
         </div>
       ) : (
-        <h1 className="text-base font-bold text-slate-900 flex-1 min-w-0 truncate pr-2">
+        <h1 className="flex-1 min-w-0 truncate pr-2 text-2xl font-semibold text-gray-900 tracking-tight mb-6">
           {title}
         </h1>
       )}
@@ -1681,7 +1681,7 @@ function AppHeader({
 
       <button
         onClick={onOpenSettings}
-        className="p-2 -mr-2 rounded-lg hover:bg-slate-50/5 text-[#888888] transition-all"
+        className="p-2 -mr-2 rounded-lg hover:bg-slate-50/5 text-[#888888] transition-all text-base font-semibold"
         aria-label="Open settings"
       >
         <SettingsIcon className="w-5 h-5" />
@@ -1694,6 +1694,7 @@ import { CodeReferences } from "./components/ui/CodeReferences";
 import { GlobalSettingsToggle } from "./components/ui/GlobalSettingsToggle";
 import { FeedbackWidget } from "./components/ui/FeedbackWidget";
 import { ProTipsWidget } from "./components/ui/ProTipsWidget";
+import { GlobalFAQ } from "./components/ui/GlobalFAQ";
 
 import ToolPageFooter from "./components/ToolPageFooter";
 
@@ -2013,7 +2014,7 @@ const ModuleWrapper = React.forwardRef<
               />
               <div className="flex items-center gap-4">
                 <UnitSwitcher />
-                <span className="text-sm font-semibold text-slate-500">
+                <span className="text-sm font-semibold text-gray-500">
                   Text Size:
                 </span>
                 <FontSizeControls />
@@ -2042,7 +2043,7 @@ const ModuleWrapper = React.forwardRef<
                 >
                   {moduleDef && (
                     <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200 pb-4">
-                      <h1 className="text-[clamp(1.5rem,4vw,2.25rem)] font-semibold tracking-tight text-slate-900 flex items-center gap-3">
+                      <h1 className="flex items-center gap-3 text-2xl font-semibold text-gray-900 tracking-tight mb-6">
                         {moduleDef.icon &&
                           React.createElement(moduleDef.icon, {
                             className: "w-8 h-8 shrink-0",
@@ -2050,7 +2051,7 @@ const ModuleWrapper = React.forwardRef<
                           })}
                         {formatToolTitle(moduleDef.title)}
                       </h1>
-                      <div className="text-xs font-semibold uppercase tracking-widest text-slate-600 flex flex-wrap items-center gap-2 sm:gap-3">
+                      <div className="text-xs font-semibold uppercase tracking-widest text-gray-600 flex flex-wrap items-center gap-2 sm:gap-3">
                         {moduleDef.isPopular && (
                           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-sm font-semibold whitespace-nowrap">
                             🔥 Popular
@@ -2082,7 +2083,7 @@ const ModuleWrapper = React.forwardRef<
                               new CustomEvent("global-print-action"),
                             )
                           }
-                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200   text-slate-600  rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 "
+                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200   text-gray-600  rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 "
                           title="Print Calculation"
                         >
                           <Printer className="w-4 h-4" />
@@ -2101,7 +2102,7 @@ const ModuleWrapper = React.forwardRef<
                               new CustomEvent("action-save-draft"),
                             )
                           }
-                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200   text-slate-600  rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 "
+                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200   text-gray-600  rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 "
                           title="Save Draft (Local)"
                         >
                           <Save className="w-4 h-4" />
@@ -2120,7 +2121,7 @@ const ModuleWrapper = React.forwardRef<
                               new CustomEvent("action-load-draft"),
                             )
                           }
-                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200   text-slate-600  rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 "
+                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200   text-gray-600  rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 "
                           title="Load Draft (Local)"
                         >
                           <Download className="w-4 h-4" />
@@ -2139,7 +2140,7 @@ const ModuleWrapper = React.forwardRef<
                             navigator.clipboard.writeText(url);
                             toast.success("Link copied to clipboard!");
                           }}
-                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200   text-slate-600  rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 "
+                          className="flex items-center justify-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200   text-gray-600  rounded-full transition-colors font-medium shadow-sm border border-slate-200/50 "
                           title="Share Tool"
                         >
                           <Share2 className="w-4 h-4" />
@@ -2196,7 +2197,7 @@ const ModuleWrapper = React.forwardRef<
                       <ProTipsWidget moduleId={activeModule} />
 
                       <div className="mt-8 mb-6 p-6 rounded-[2rem] bg-slate-50 border border-slate-200">
-                        <p className="text-slate-600 leading-relaxed max-w-4xl text-base mb-8">
+                        <p className="max-w-4xl mb-8 text-base font-normal text-gray-600 leading-relaxed">
                           Your calculation updates strictly in real-time above.
                           All numerical estimations generated by the{" "}
                           <strong>{formatToolTitle(moduleDef.title)}</strong>{" "}
@@ -2207,10 +2208,10 @@ const ModuleWrapper = React.forwardRef<
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                           <div>
-                            <h2 className="text-lg font-semibold text-slate-800 mb-4">
+                            <h2 className="mb-4 text-xl font-semibold text-gray-900 tracking-tight">
                               How to Use the {formatToolTitle(moduleDef.title)}
                             </h2>
-                            <ol className="list-decimal list-inside space-y-2 text-slate-600">
+                            <ol className="list-decimal list-inside space-y-2 text-gray-600">
                               <li>
                                 Select your preferred units of measurement
                               </li>
@@ -2232,10 +2233,10 @@ const ModuleWrapper = React.forwardRef<
                             </ol>
                           </div>
                           <div>
-                            <h2 className="text-lg font-semibold text-slate-800 mb-4">
+                            <h2 className="mb-4 text-xl font-semibold text-gray-900 tracking-tight">
                               {moduleDef.title} Details
                             </h2>
-                            <p className="text-slate-600 leading-relaxed text-sm">
+                            <p className=" text-base font-normal text-gray-600 leading-relaxed">
                               This tool is specifically designed for civil
                               engineers, contractors, and students to calculate
                               requirements with unparalleled speed and accuracy.
@@ -2248,9 +2249,12 @@ const ModuleWrapper = React.forwardRef<
                         </div>
                       </div>
 
+                      {/* Global FAQ Section */}
+                      <GlobalFAQ moduleId={activeModule} />
+
                       {/* Related Tools */}
                       <div className="mt-8 mb-6 p-6 rounded-[2rem] bg-[#FAFAF8] transition-colors duration-500 border border-slate-200">
-                        <h2 className="text-lg font-semibold text-slate-800 mb-4">
+                        <h2 className="mb-4 text-xl font-semibold text-gray-900 tracking-tight">
                           Related Engineering Tools
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -2268,10 +2272,10 @@ const ModuleWrapper = React.forwardRef<
                                 }
                                 className="bg-slate-50 p-4 rounded-xl text-left border border-slate-200 hover:border-indigo-500 transition-colors"
                               >
-                                <h3 className="font-semibold text-slate-800 text-sm mb-1">
+                                <h3 className="mb-1 text-lg font-medium text-gray-800 mb-4">
                                   {related.title}
                                 </h3>
-                                <p className="text-xs text-slate-600 line-clamp-2">
+                                <p className="line-clamp-2 text-base font-normal text-gray-600 leading-relaxed">
                                   {related.desc}
                                 </p>
                               </button>

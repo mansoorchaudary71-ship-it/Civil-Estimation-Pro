@@ -125,7 +125,7 @@ export default function ToolCard({
           </motion.div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <span style={{ fontFamily: "monospace", fontSize: 11, fontWeight: 600, color: T3, letterSpacing: "0.08em" }}>
+          <span className="font-mono text-xs font-semibold tracking-widest text-gray-500">
             {mod.id?.slice(0, 2).toUpperCase() || "01"}
           </span>
           <button
@@ -140,22 +140,20 @@ export default function ToolCard({
       </div>
 
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8 }}>
-        <span style={{ fontSize: 15, fontWeight: 700, color: T1, lineHeight: 1.35, flex: 1 }}>
+        <span className="text-base font-semibold text-gray-900 leading-snug flex-1">
           {mod.title}
         </span>
         {mod.isNew && (
           <span style={{
-            fontSize: 9, fontWeight: 800, letterSpacing: "0.06em",
             color: cfg.c, background: `${cfg.c}18`,
             border: `1px solid ${cfg.c}32`,
             padding: "2px 7px", borderRadius: 5,
             whiteSpace: "nowrap", marginTop: 1, flexShrink: 0,
-          }}>NEW</span>
+          }} className="text-xs font-bold tracking-wider">NEW</span>
         )}
       </div>
 
-      <p style={{
-        margin: 0, fontSize: 12.5, color: T2, lineHeight: 1.65,
+      <p className="text-sm font-normal text-gray-600 leading-relaxed m-0" style={{
         display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden",
       }}>
         {mod.desc || "No description available."}
@@ -164,16 +162,13 @@ export default function ToolCard({
       <div className="mt-auto" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 4 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
           <Dots level={level} color={cfg.c} />
-          <span style={{ fontSize: 11, color: T3, fontWeight: 600 }}>{LEVEL_MAP[level] || "Moderate"}</span>
+          <span className="text-xs font-medium text-gray-500">{LEVEL_MAP[level] || "Moderate"}</span>
         </div>
-        <button style={{
-          display: "flex", alignItems: "center", gap: 5,
+        <button className="text-sm font-semibold flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all" style={{
           background: hov ? cfg.c : "transparent",
           border: `1px solid ${hov ? "transparent" : cfg.c + "48"}`,
           color: hov ? "#FFFFFF" : cfg.c,
-          padding: "5px 12px", borderRadius: 8,
-          fontSize: 12, fontWeight: 700, cursor: "pointer",
-          transition: "all 0.18s", fontFamily: "inherit",
+          cursor: "pointer",
         }}>
           Open 
           <motion.div animate={{ x: hov ? 3 : 0 }} transition={{ type: "spring", stiffness: 300 }}>

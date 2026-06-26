@@ -7,18 +7,93 @@ export interface FAQItem {
   answer: string;
 }
 
+const SPECIFIC_FAQS: Record<string, FAQItem[]> = {
+  "topsoil": [
+    {
+      question: "What is Bulking (Swell) Factor?",
+      answer: "When earth is excavated, it loosens and expands. A factor of 1.25 means the soil requires 25% more volume in the truck than it occupied in the ground."
+    }
+  ],
+  "concrete": [
+    {
+      question: "Why do we multiply wet volume by 1.33?",
+      answer: "Dry mortar volume is typically 30-33% more than wet volume due to voids getting filled with water during mixing."
+    },
+    {
+      question: "What is the standard mix ratio for internal plaster?",
+      answer: "1:4 (1 part cement to 4 parts sand) is the standard for internal walls and ceilings, ensuring strong adherence."
+    }
+  ],
+  "direct-shear": [
+    {
+      question: "What if cohesion comes out negative?",
+      answer: "Theoretically, soil cannot have negative cohesion. We bound the bottom limit of 'c' to 0 if the linear fit forces a negative intercept."
+    }
+  ],
+  "precast-wall": [
+    {
+      question: "Why do we add 1 to the post count?",
+      answer: "A linear wall segment requires a starting post and an ending post. For n bays, you need n+1 posts. If it's a closed loop enclosure, n posts = n bays."
+    }
+  ],
+  "cbr": [
+    {
+      question: "What if the curve is concave upwards initially?",
+      answer: "This happens due to surface irregularities. The curve must be corrected by drawing a tangent at the point of greatest slope to intersect the load axis."
+    },
+    {
+      question: "Why is 5.0mm CBR sometimes higher?",
+      answer: "Usually the 2.5mm CBR is higher. If 5.0mm is higher, the test should be repeated. If the second test also shows 5.0mm > 2.5mm, the 5.0mm value is accepted."
+    }
+  ],
+  "area": [
+    {
+      question: "How is an irregular plot calculated?",
+      answer: "Irregular land is measured by breaking the polygon into adjacent triangles (Geometric Triangulation). By measuring the 4 boundaries and one diagonal cross-section, Heron's formula is applied to each triangle for perfect accuracy."
+    },
+    {
+      question: "What is RERA Carpet Area?",
+      answer: "According to the Real Estate (Regulation and Development) Act (RERA), the carpet area is the net usable floor area of an apartment, excluding external walls, balconies, terraces, and service shafts, but including the area covered by internal partition walls."
+    },
+    {
+      question: "How does the Roof Pitch Multiplier work?",
+      answer: "A sloped roof has a larger surface area than its horizontal footprint. The calculator divides the horizontal area (plus overhangs) by the cosine of the pitch angle to give the true sloped area required for roofing materials."
+    }
+  ],
+  "house": [
+    {
+      question: "What engineering formulas does this tool use?",
+      answer: "It strictly uses internationally recognized civil engineering formulas relevant to the quantity estimation field, compliant with standards like NBC Pakistan 2021."
+    },
+    {
+      question: "How accurate is the material estimation?",
+      answer: "Our engine uses standard volume conversions (e.g., 1.54 for concrete dry volume) to compute exact material breakdowns matching professional BOQs."
+    },
+    {
+      question: "Does it support different Plot Units like Marla and Sq.Yd?",
+      answer: "Yes, the calculation automatically scales whether you input your plot in Marlas, Square Yards, or Square Feet."
+    },
+    {
+      question: "Can I adjust the market rates?",
+      answer: "Absolutely. Click on 'View Market Rates' to customize the cost per unit for cement, steel, bricks, and labor."
+    }
+  ]
+};
+
 interface GlobalFAQProps {
-  faqs: FAQItem[];
+  faqs?: FAQItem[];
   moduleId?: string; 
 }
 
-export function GlobalFAQ({ faqs, moduleId }: GlobalFAQProps) {
+export function GlobalFAQ({ faqs = [], moduleId }: GlobalFAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [showAll, setShowAll] = useState(false);
 
   const moduleDef = ALL_MODULES.find(m => m.id === moduleId);
 
   const formatToolTitle = (t: string) => t.replace(/^(Calculate|Find) /, '');
+
+  const specificFaqs = moduleId ? (SPECIFIC_FAQS[moduleId] || []) : [];
 
   const genericFaqs = moduleDef ? [
     {
@@ -45,7 +120,7 @@ export function GlobalFAQ({ faqs, moduleId }: GlobalFAQProps) {
 
   // Filter out any duplicates based on question exact match (or we can just append)
   const combinedFaqsMap = new Map();
-  [...faqs, ...genericFaqs].forEach(f => {
+  [...faqs, ...specificFaqs, ...genericFaqs].forEach(f => {
     if(!combinedFaqsMap.has(f.question)) {
       combinedFaqsMap.set(f.question, f);
     }

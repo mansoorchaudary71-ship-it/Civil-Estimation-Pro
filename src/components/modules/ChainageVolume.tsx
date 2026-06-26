@@ -238,40 +238,40 @@ export default function ChainageVolumeEstimator() {
             <div className="bg-white px-6 py-5 rounded-[24px] border border-slate-200 shadow-sm">
               <div className="flex items-center gap-3 mb-5 border-b border-slate-100 pb-4">
                 <Mountain className="w-6 h-6 text-emerald-600" />
-                <h2 className="text-xl font-bold tracking-tight text-slate-800">
+                <h2 className=" text-xl font-semibold text-gray-900 tracking-tight mb-4">
                   Cross-Sectional Earthworks Engine
                 </h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 ml-1">
+                  <label className="block uppercase tracking-wider mb-2 ml-1 text-sm font-medium text-gray-700 mb-1">
                     Formation Width ({unitL})
                   </label>
                   <input
                     type="number" inputMode="decimal"
-                    className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[12px] px-4 py-2.5 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]"
+                    className="w-full bg-slate-50 border border-slate-200 text-gray-800 rounded-[12px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
                     value={formationWidth}
                     onChange={(e) => setFormationWidth(e.target.value === "" ? "" : Number(e.target.value))}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 ml-1">
+                  <label className="block uppercase tracking-wider mb-2 ml-1 text-sm font-medium text-gray-700 mb-1">
                     Cut Slope (H:1V)
                   </label>
                   <input
                     type="number" inputMode="decimal"
-                    className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[12px] px-4 py-2.5 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]"
+                    className="w-full bg-slate-50 border border-slate-200 text-gray-800 rounded-[12px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
                     value={cutSlope}
                     onChange={(e) => setCutSlope(e.target.value === "" ? "" : Number(e.target.value))}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2 ml-1">
+                  <label className="block uppercase tracking-wider mb-2 ml-1 text-sm font-medium text-gray-700 mb-1">
                     Fill Slope (H:1V)
                   </label>
                   <input
                     type="number" inputMode="decimal"
-                    className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[12px] px-4 py-2.5 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]"
+                    className="w-full bg-slate-50 border border-slate-200 text-gray-800 rounded-[12px] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
                     value={fillSlope}
                     onChange={(e) => setFillSlope(e.target.value === "" ? "" : Number(e.target.value))}
                   />
@@ -283,7 +283,7 @@ export default function ChainageVolumeEstimator() {
               <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-5 border-b border-slate-100 pb-4 gap-4">
                 <div className="flex items-center gap-3">
                   <Map className="w-5 h-5 text-amber-600" />
-                  <h2 className="text-xl font-bold tracking-tight text-slate-800">
+                  <h2 className=" text-xl font-semibold text-gray-900 tracking-tight mb-4">
                     Station Survey Data
                   </h2>
                 </div>
@@ -291,14 +291,14 @@ export default function ChainageVolumeEstimator() {
                     <select
                         value={method}
                         onChange={(e) => setMethod(e.target.value as any)}
-                        className="bg-slate-50 border border-slate-200 text-slate-700 px-4 py-2 rounded-[12px] text-sm font-bold focus:outline-none"
+                        className="bg-slate-50 border border-slate-200 text-gray-700 px-4 py-2 rounded-[12px] text-sm font-bold focus:outline-none"
                     >
                         <option value="trapezoidal">Trapezoidal Rule</option>
                         <option value="simpson">Simpson's (1/3) Rule</option>
                     </select>
                     <button
                       onClick={addStation}
-                      className="flex items-center gap-2 px-4 py-2 bg-amber-100 text-amber-800 hover:bg-amber-200 rounded-[12px] text-sm font-bold transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 bg-amber-100 text-amber-800 hover:bg-amber-200 rounded-[12px] transition-colors text-base font-semibold"
                     >
                       <Plus className="w-4 h-4" /> Add Station
                     </button>
@@ -307,7 +307,7 @@ export default function ChainageVolumeEstimator() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-slate-100 text-xs uppercase tracking-widest text-slate-500 font-bold">
+                    <tr className="border-b border-slate-100 text-xs uppercase tracking-widest text-gray-500 font-bold">
                       <th className="pb-3 pr-4 min-w-[120px]">Chainage</th>
                       <th className="pb-3 px-4 min-w-[100px]">NGL ({unitL})</th>
                       <th className="pb-3 px-4 min-w-[100px]">FL ({unitL})</th>
@@ -321,7 +321,7 @@ export default function ChainageVolumeEstimator() {
                         <td className="py-2.5 pr-4">
                           <input
                             type="text"
-                            className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[10px] px-3 py-1.5 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]"
+                            className="w-full bg-slate-50 border border-slate-200 text-gray-800 rounded-[10px] px-3 py-1.5 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
                             value={st.chainage}
                             onChange={(e) => handleUpdateStation(st.id, "chainage", e.target.value)}
                             placeholder="e.g. 1+200"
@@ -330,7 +330,7 @@ export default function ChainageVolumeEstimator() {
                         <td className="py-2.5 px-4">
                           <input
                             type="number" inputMode="decimal"
-                            className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[10px] px-3 py-1.5 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]"
+                            className="w-full bg-slate-50 border border-slate-200 text-gray-800 rounded-[10px] px-3 py-1.5 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
                             value={st.ngl}
                             onChange={(e) => handleUpdateStation(st.id, "ngl", e.target.value)}
                           />
@@ -338,23 +338,23 @@ export default function ChainageVolumeEstimator() {
                         <td className="py-2.5 px-4">
                           <input
                             type="number" inputMode="decimal"
-                            className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[10px] px-3 py-1.5 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px]"
+                            className="w-full bg-slate-50 border border-slate-200 text-gray-800 rounded-[10px] px-3 py-1.5 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[44px] text-base font-normal"
                             value={st.fl}
                             onChange={(e) => handleUpdateStation(st.id, "fl", e.target.value)}
                           />
                         </td>
                         <td className="py-2.5 px-4">
-                          <div className="font-mono text-[12px] font-bold flex flex-col items-start bg-slate-100 rounded-[8px] px-2.5 py-1 min-w-[70px]">
+                          <div className="font-mono text-xs font-bold flex flex-col items-start bg-slate-100 rounded-[8px] px-2.5 py-1 min-w-[70px]">
                             {st.d_cut > 0 && <span className="text-amber-600">C: {st.d_cut.toFixed(2)}</span>}
                             {st.d_fill > 0 && <span className="text-indigo-600">F: {st.d_fill.toFixed(2)}</span>}
-                            {st.d_cut === 0 && st.d_fill === 0 && <span className="text-slate-500">0.00</span>}
+                            {st.d_cut === 0 && st.d_fill === 0 && <span className="text-gray-500">0.00</span>}
                           </div>
                         </td>
                         <td className="py-2.5 pl-4 text-right">
                           <button
                             onClick={() => removeStation(st.id)}
                             disabled={stations.length <= 2}
-                            className={`p-2 rounded-full ${stations.length <= 2 ? "text-slate-700 cursor-not-allowed" : "text-red-400 hover:text-red-600 hover:bg-red-50"}`}
+                            className={`p-2 rounded-full ${stations.length <= 2 ? "text-gray-700 cursor-not-allowed" : "text-red-400 hover:text-red-600 hover:bg-red-50"}`}
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -367,14 +367,14 @@ export default function ChainageVolumeEstimator() {
             </div>
             
             <div className="bg-white px-6 py-5 rounded-[24px] border border-slate-200 shadow-sm">
-              <h2 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                <LayoutTemplate className="w-5 h-5 text-slate-700" /> 
+              <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight">
+                <LayoutTemplate className="w-5 h-5 text-gray-700" /> 
                 {method === "simpson" ? "Simpson's Rule Output" : "Trapezoidal Rule Output"}
               </h2>
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm border-collapse">
                   <thead>
-                    <tr className="border-b border-slate-200 text-[10px] font-bold uppercase tracking-widest text-slate-600 bg-slate-50">
+                    <tr className="border-b border-slate-200 text-xs font-bold uppercase tracking-widest text-gray-600 bg-slate-50">
                       <th className="py-3 px-4 rounded-tl-lg">Stn</th>
                       <th className="py-3 px-4 text-amber-700">Area C ({unitA})</th>
                       <th className="py-3 px-4 text-indigo-700">Area F ({unitA})</th>
@@ -384,10 +384,10 @@ export default function ChainageVolumeEstimator() {
                       <th className="py-3 px-4 text-indigo-900 bg-indigo-50/50">Cum F</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100 font-mono text-[13px]">
+                  <tbody className="divide-y divide-slate-100 font-mono text-sm">
                     {results.segments.map((r, i) => (
                       <tr key={r.id} className="hover:bg-slate-50 transition-colors">
-                        <td className="py-3 px-4 font-medium text-slate-900">{r.chainage || "0"}</td>
+                        <td className="py-3 px-4 font-medium text-gray-900">{r.chainage || "0"}</td>
                         <td className="py-3 px-4 text-amber-600/70">{r.cutArea > 0 ? r.cutArea.toFixed(2) : "-"}</td>
                         <td className="py-3 px-4 text-indigo-600/70">{r.fillArea > 0 ? r.fillArea.toFixed(2) : "-"}</td>
                         <td className="py-3 px-4 text-amber-600 font-bold bg-amber-50/20">{r.intCut > 0 ? r.intCut.toFixed(2) : "-"}</td>
@@ -402,7 +402,7 @@ export default function ChainageVolumeEstimator() {
             </div>
             
             <div className="bg-white px-6 py-6 rounded-[24px] border border-slate-200 shadow-sm">
-              <h2 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2">
+              <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight mb-4">
                 <LayoutTemplate className="w-5 h-5 text-indigo-600" /> Mass Haul Curve
               </h2>
               <div className="h-[300px] w-full mt-4">
@@ -435,33 +435,33 @@ export default function ChainageVolumeEstimator() {
             <div className="flex flex-col h-full sticky top-6 gap-6">
               
               <div className="bg-white px-5 py-5 rounded-[24px] border border-slate-200 shadow-sm">
-                <h3 className="text-sm font-bold text-slate-800 uppercase tracking-widest mb-4">Material Behaviors</h3>
+                <h3 className="uppercase st mb-4 text-lg font-medium text-gray-800">Material Behaviors</h3>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5 flex justify-between">
+                    <label className="block mb-1.5 flex justify-between text-sm font-medium text-gray-700 mb-1">
                        <span>Swell / Bulking Factor</span>
                        <span className="text-amber-600">%</span>
                     </label>
                     <input
                       type="number" inputMode="decimal"
-                      className="w-full bg-amber-50 border border-amber-200 text-amber-900 rounded-[12px] px-4 py-2 font-mono focus:outline-none focus:ring-2 focus:ring-amber-500/50 min-h-[44px]"
+                      className="w-full bg-amber-50 border border-amber-200 text-amber-900 rounded-[12px] px-4 py-2 font-mono focus:outline-none focus:ring-2 focus:ring-amber-500/50 min-h-[44px] text-base font-normal"
                       value={swellFactor}
                       onChange={(e) => setSwellFactor(e.target.value === "" ? "" : Number(e.target.value))}
                     />
-                    <p className="text-[10px] text-slate-500 mt-1 font-medium">Increases cut volume (loose volume)</p>
+                    <p className="mt-1 text-base font-normal text-gray-600 leading-relaxed">Increases cut volume (loose volume)</p>
                   </div>
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5 flex justify-between">
+                    <label className="block mb-1.5 flex justify-between text-sm font-medium text-gray-700 mb-1">
                        <span>Shrinkage Factor</span>
                        <span className="text-indigo-600">%</span>
                     </label>
                     <input
                       type="number" inputMode="decimal"
-                      className="w-full bg-indigo-50 border border-indigo-200 text-indigo-900 rounded-[12px] px-4 py-2 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500/50 min-h-[44px]"
+                      className="w-full bg-indigo-50 border border-indigo-200 text-indigo-900 rounded-[12px] px-4 py-2 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500/50 min-h-[44px] text-base font-normal"
                       value={shrinkFactor}
                       onChange={(e) => setShrinkFactor(e.target.value === "" ? "" : Number(e.target.value))}
                     />
-                    <p className="text-[10px] text-slate-500 mt-1 font-medium">Decreases fill volume (compacted)</p>
+                    <p className="mt-1 text-base font-normal text-gray-600 leading-relaxed">Decreases fill volume (compacted)</p>
                   </div>
                 </div>
               </div>
@@ -474,20 +474,20 @@ export default function ChainageVolumeEstimator() {
               >
                 <div className="grid grid-cols-1 gap-4 mt-6">
                   <div className="bg-amber-50/50 border border-amber-100 p-4 rounded-2xl flex flex-col items-center justify-center text-center">
-                      <span className="text-[11px] font-bold text-amber-800 uppercase tracking-widest mb-1">Bulked Cut (Loose)</span>
+                      <span className="text-xs font-bold text-amber-800 uppercase tracking-widest mb-1">Bulked Cut (Loose)</span>
                       <span className="text-2xl font-mono font-bold text-amber-600">{results.bulkedCut.toFixed(1)} <span className="text-sm">{unitV}</span></span>
-                      <span className="text-[10px] text-amber-700/60 mt-1 font-bold">Bank: {results.totalCut.toFixed(1)}</span>
+                      <span className="text-xs text-amber-700/60 mt-1 font-bold">Bank: {results.totalCut.toFixed(1)}</span>
                   </div>
                   <div className="bg-indigo-50/50 border border-indigo-100 p-4 rounded-2xl flex flex-col items-center justify-center text-center">
-                      <span className="text-[11px] font-bold text-indigo-800 uppercase tracking-widest mb-1">Shrunken Fill</span>
+                      <span className="text-xs font-bold text-indigo-800 uppercase tracking-widest mb-1">Shrunken Fill</span>
                       <span className="text-2xl font-mono font-bold text-indigo-600">{results.shrunkenFill.toFixed(1)} <span className="text-sm">{unitV}</span></span>
-                      <span className="text-[10px] text-indigo-700/60 mt-1 font-bold">Bank: {results.totalFill.toFixed(1)}</span>
+                      <span className="text-xs text-indigo-700/60 mt-1 font-bold">Bank: {results.totalFill.toFixed(1)}</span>
                   </div>
                 </div>
                 
                 <div className="mt-4 pt-4 border-t border-slate-100">
                     <button 
-                        className="w-full bg-white hover:bg-slate-700 text-slate-900 font-bold py-3 rounded-xl text-sm transition-colors"
+                        className="w-full bg-white hover:bg-slate-700 text-gray-900 py-3 rounded-xl transition-colors text-base font-semibold"
                         onClick={() => {
                             const items = [
                             {

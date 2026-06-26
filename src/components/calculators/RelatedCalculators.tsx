@@ -114,8 +114,8 @@ export function RelatedCalculators({ category, currentSlug }: RelatedCalculators
   return (
     <section className="mt-16 bg-[#f8fafc] rounded-[24px] p-8 sm:p-10 border border-slate-200 shadow-sm">
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold text-slate-800">Silo Link Grid: Continue Exploring</h2>
-        <p className="text-slate-500 mt-2">Discover sequential tools, categorical hubs, and related structural estimators.</p>
+        <h2 className=" text-xl font-semibold text-gray-900 tracking-tight mb-4">Silo Link Grid: Continue Exploring</h2>
+        <p className="mt-2 text-base font-normal text-gray-600 leading-relaxed">Discover sequential tools, categorical hubs, and related structural estimators.</p>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -123,7 +123,7 @@ export function RelatedCalculators({ category, currentSlug }: RelatedCalculators
         {sequentialLinks.map((link, idx) => (
           <a key={`seq-${idx}`} href={link.url} className="group p-5 bg-white rounded-[24px] border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50 hover:shadow-md transition-all flex flex-col">
             <span className="text-xs font-bold text-indigo-500 uppercase tracking-wider mb-2">{link.label}</span>
-            <span className="text-[13px] sm:text-sm font-semibold text-slate-700 group-hover:text-indigo-700 capitalize leading-snug">{link.title}</span>
+            <span className="text-sm sm:text-sm font-semibold text-gray-700 group-hover:text-indigo-700 capitalize leading-snug">{link.title}</span>
           </a>
         ))}
         
@@ -131,7 +131,7 @@ export function RelatedCalculators({ category, currentSlug }: RelatedCalculators
         {crossLinks.map((link, idx) => (
           <a key={`cross-${idx}`} href={link.url} className="group p-5 bg-white rounded-[24px] border border-slate-200 hover:border-emerald-400 hover:bg-emerald-50 hover:shadow-md transition-all flex flex-col">
             <span className="text-xs font-bold text-emerald-500 uppercase tracking-wider mb-2">{link.label}</span>
-            <span className="text-[13px] sm:text-sm font-semibold text-slate-700 group-hover:text-emerald-700 capitalize leading-snug">{link.title}</span>
+            <span className="text-sm sm:text-sm font-semibold text-gray-700 group-hover:text-emerald-700 capitalize leading-snug">{link.title}</span>
           </a>
         ))}
 
@@ -139,7 +139,7 @@ export function RelatedCalculators({ category, currentSlug }: RelatedCalculators
         {categoryHubLinks.map((link, idx) => (
           <a key={`hub-${idx}`} href={link.url} className="group px-4 py-3 bg-indigo-600 rounded-[24px] border border-indigo-500 hover:bg-indigo-700 shadow-lg shadow-indigo-600/30 transition-all flex flex-col justify-center items-start">
             <span className="text-xs font-bold text-indigo-200 uppercase tracking-wider mb-2">{link.label}</span>
-            <span className="text-sm font-bold text-slate-900 capitalize leading-snug">{link.title}</span>
+            <span className="text-sm font-bold text-gray-900 capitalize leading-snug">{link.title}</span>
           </a>
         ))}
       </div>

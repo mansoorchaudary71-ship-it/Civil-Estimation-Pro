@@ -176,28 +176,28 @@ export default function WorkspaceSection({
         {/* Quick Stats */}
         <div className="flex gap-4 overflow-x-auto pb-2 md:pb-0 scrollbar-hide shrink-0">
           <div className="bg-white  border border-slate-200  rounded-[32px] px-5 py-4 flex items-center gap-4 shadow-sm min-w-[200px]">
-            <div className="w-10 h-10 rounded-full bg-slate-100  flex items-center justify-center text-slate-500 ">
+            <div className="w-10 h-10 rounded-full bg-slate-100  flex items-center justify-center text-gray-500 ">
               <Calculator className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-xs font-bold text-slate-600 uppercase tracking-wider">
+              <div className="text-xs font-bold text-gray-600 uppercase tracking-wider">
                 Calculations
               </div>
-              <div className="text-lg font-semibold tabular-nums tracking-tight text-slate-900  mt-0.5">
-                <CountUp start={0} end={42} duration={2} /> <span className="text-sm font-medium text-slate-500 ">this month</span>
+              <div className="text-lg font-semibold tabular-nums tracking-tight text-gray-900  mt-0.5">
+                <CountUp start={0} end={42} duration={2} /> <span className="text-sm font-medium text-gray-500 ">this month</span>
               </div>
             </div>
           </div>
           <div className="bg-[#FFFFFF]/10  border border-[#FFFFFF]/20  rounded-[32px] px-5 py-4 flex items-center gap-4 shadow-sm min-w-[200px]">
-            <div className="w-10 h-10 rounded-full bg-white  flex items-center justify-center text-slate-900">
+            <div className="w-10 h-10 rounded-full bg-white  flex items-center justify-center text-gray-900">
               <TrendingUp className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+              <div className="text-xs font-bold text-gray-900 uppercase tracking-wider">
                 Time Saved
               </div>
-              <div className="text-lg font-semibold tabular-nums tracking-tight text-slate-900  mt-0.5">
-                <CountUp start={0} end={14.5} decimals={1} duration={2.5} /> <span className="text-sm font-medium text-slate-900">hrs</span>
+              <div className="text-lg font-semibold tabular-nums tracking-tight text-gray-900  mt-0.5">
+                <CountUp start={0} end={14.5} decimals={1} duration={2.5} /> <span className="text-sm font-medium text-gray-900">hrs</span>
               </div>
             </div>
           </div>
@@ -206,11 +206,11 @@ export default function WorkspaceSection({
                <Flame className="w-5 h-5" />
              </div>
              <div>
-               <div className="text-xs font-bold text-slate-600 uppercase tracking-wider">
+               <div className="text-xs font-bold text-gray-600 uppercase tracking-wider">
                  Current Streak
                </div>
-               <div className="text-lg font-semibold tabular-nums tracking-tight text-slate-900 mt-0.5">
-                 <CountUp start={0} end={7} duration={1.5} /> <span className="text-sm font-medium text-slate-600">days</span>
+               <div className="text-lg font-semibold tabular-nums tracking-tight text-gray-900 mt-0.5">
+                 <CountUp start={0} end={7} duration={1.5} /> <span className="text-sm font-medium text-gray-600">days</span>
                </div>
              </div>
           </div>
@@ -222,7 +222,7 @@ export default function WorkspaceSection({
           {/* Your Tools (Favorites) */}
           <div className="mb-8">
              <div className="flex items-center justify-between mb-4">
-               <h3 className="text-[14px] font-bold text-slate-600 uppercase tracking-widest flex items-center gap-2">
+               <h3 className="uppercase st flex items-center gap-2 text-lg font-medium text-gray-800 mb-4">
                  <Activity className="w-4 h-4" /> Your Tools
                </h3>
              </div>
@@ -231,9 +231,9 @@ export default function WorkspaceSection({
                   <button
                     key={`your-${mod.id}`}
                     onClick={() => onSelect(mod.id)}
-                    className="flex items-center gap-3 px-4 py-3 bg-white  border border-slate-200  hover:border-[#FFFFFF]/40 text-slate-900 hover:shadow-md hover:-translate-y-0.5 rounded-[32px] text-sm font-bold text-slate-700  transition-all text-left"
+                    className="flex items-center gap-3 px-4 py-3 bg-white  border border-slate-200  hover:border-[#FFFFFF]/40 text-gray-900 hover:shadow-md hover:-translate-y-0.5 rounded-[32px] text-sm font-bold text-gray-700  transition-all text-left"
                   >
-                    <div className="w-8 h-8 rounded-full bg-[#FFFFFF]/10  flex items-center justify-center text-slate-900  shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-[#FFFFFF]/10  flex items-center justify-center text-gray-900  shrink-0">
                        <mod.icon className="w-4 h-4" />
                     </div>
                     <span className="truncate">{mod.title}</span>
@@ -241,7 +241,7 @@ export default function WorkspaceSection({
                 ))}
                 <button
                   onClick={() => {/* open all modules */}}
-                  className="flex items-center gap-3 px-4 py-3 bg-slate-50  border border-slate-200  border-dashed hover:border-slate-300  rounded-[32px] text-sm font-bold text-slate-500  transition-all text-left"
+                  className="flex items-center gap-3 px-4 py-3 bg-slate-50  border border-slate-200  border-dashed hover:border-slate-300  rounded-[32px] text-sm font-bold text-gray-500  transition-all text-left"
                 >
                    <div className="w-8 h-8 rounded-full bg-white  border border-slate-200  flex items-center justify-center shrink-0">
                       <Plus className="w-4 h-4" />
@@ -254,14 +254,14 @@ export default function WorkspaceSection({
           {/* Recent History */}
           <div className="mb-0">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-[14px] font-bold text-slate-600 uppercase tracking-widest flex items-center gap-2">
+              <h3 className="uppercase st flex items-center gap-2 text-lg font-medium text-gray-800 mb-4">
                 <Clock className="w-4 h-4" /> Recent History
               </h3>
             </div>
             
             <div className="bg-white  border border-slate-200  rounded-[32px] overflow-hidden flex flex-col shadow-sm">
                {loading ? (
-                 <div className="p-8 text-center text-slate-600 flex flex-col items-center">
+                 <div className="p-8 text-center text-gray-600 flex flex-col items-center">
                    <div className="w-8 h-8 rounded-full border-2 border-[#FFFFFF] border-t-transparent animate-spin mb-3"></div>
                    Loading recent...
                  </div>
@@ -277,10 +277,10 @@ export default function WorkspaceSection({
                              <FileText className="w-5 h-5" />
                            </div>
                            <div className="min-w-0 pr-4">
-                             <h4 className="text-sm font-bold text-slate-900  truncate group-hover:text-slate-900  transition-colors">
+                             <h4 className="truncate group-hover: transition-colors text-lg font-medium text-gray-800 mb-4">
                                {proj.name || "Untitled Estimate"}
                              </h4>
-                             <div className="text-[11px] text-slate-500  font-medium flex items-center gap-2 mt-1">
+                             <div className="text-xs text-gray-500  font-medium flex items-center gap-2 mt-1">
                                <span>
                                  {new Date(proj.createdAt).toLocaleDateString()}
                                </span>
@@ -293,7 +293,7 @@ export default function WorkspaceSection({
                         </div>
                         <button 
                            onClick={() => { /* re-run logic */ }}
-                           className="px-3 py-1.5 bg-slate-100  text-slate-600  hover:bg-[#FFFFFF] hover:text-slate-900 rounded-[32px] text-xs font-bold transition-colors flex items-center gap-1 shrink-0"
+                           className="px-3 py-1.5 bg-slate-100  text-gray-600  hover:bg-[#FFFFFF] hover:text-gray-900 rounded-[32px] text-xs font-bold transition-colors flex items-center gap-1 shrink-0"
                         >
                            <RefreshCw className="w-3.5 h-3.5" /> Re-run
                         </button>
@@ -302,8 +302,8 @@ export default function WorkspaceSection({
                  </div>
                ) : (
                  <div className="p-8 text-center flex flex-col items-center">
-                    <FileText className="w-8 h-8 text-slate-700 mb-3" />
-                    <p className="text-sm font-bold text-slate-900 ">No recent calculations</p>
+                    <FileText className="w-8 h-8 text-gray-700 mb-3" />
+                    <p className=" text-base font-normal text-gray-600 leading-relaxed">No recent calculations</p>
                  </div>
                )}
             </div>
@@ -312,12 +312,12 @@ export default function WorkspaceSection({
           {/* Project Folders */}
           <div className="mt-8">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-[14px] font-bold text-slate-600 uppercase tracking-widest flex items-center gap-2">
+              <h3 className="uppercase st flex items-center gap-2 text-lg font-medium text-gray-800 mb-4">
                 <FolderOpen className="w-4 h-4" /> Project Folders
               </h3>
               <button
                 onClick={() => setIsCreatingProject(true)}
-                className="w-7 h-7 rounded-full bg-[#FFFFFF]/10  text-slate-900  hover:bg-[#FFFFFF]/20 flex items-center justify-center transition-colors"
+                className="w-7 h-7 rounded-full bg-[#FFFFFF]/10  text-gray-900  hover:bg-[#FFFFFF]/20 flex items-center justify-center transition-colors"
               >
                 <Plus className="w-4 h-4" />
               </button>
@@ -336,7 +336,7 @@ export default function WorkspaceSection({
                         <input
                           type="text"
                           placeholder="e.g. Tower Block Phase 1"
-                          className="flex-1 text-sm bg-white  border border-slate-200  rounded-[32px] px-3 py-2 outline-none focus:ring-2 focus:ring-[#FFFFFF]/50 min-h-[44px]"
+                          className="flex-1 bg-white border border-slate-200 rounded-[32px] px-3 py-2 outline-none focus:ring-2 focus:ring-[#FFFFFF]/50 min-h-[44px] text-base font-normal"
                           value={newProjectName}
                           onChange={(e) => setNewProjectName(e.target.value)}
                           onKeyDown={(e) =>
@@ -347,7 +347,7 @@ export default function WorkspaceSection({
                         <button
                           onClick={handleCreateProject}
                           disabled={!newProjectName.trim()}
-                          className="w-9 h-9 flex items-center justify-center bg-[#FFFFFF] hover:bg-[#FFFFFF] disabled:opacity-50 text-slate-900 rounded-[32px] transition-colors shrink-0"
+                          className="w-9 h-9 flex items-center justify-center bg-[#FFFFFF] hover:bg-[#FFFFFF] disabled:opacity-50 text-gray-900 rounded-[32px] transition-colors shrink-0 text-base font-semibold"
                         >
                           <Check className="w-4 h-4" />
                         </button>
@@ -356,7 +356,7 @@ export default function WorkspaceSection({
                             setIsCreatingProject(false);
                             setNewProjectName("");
                           }}
-                          className="w-9 h-9 flex items-center justify-center bg-white  border border-slate-200  hover:bg-slate-100  text-slate-500  rounded-[32px] transition-colors shrink-0"
+                          className="w-9 h-9 flex items-center justify-center bg-white  border border-slate-200  hover:bg-slate-100  text-gray-500  rounded-[32px] transition-colors shrink-0"
                         >
                           <X className="w-4 h-4" />
                         </button>
@@ -366,7 +366,7 @@ export default function WorkspaceSection({
                 </AnimatePresence>
                 
                 {loading ? (
-                  <div className="p-8 text-center text-slate-600 flex flex-col items-center">
+                  <div className="p-8 text-center text-gray-600 flex flex-col items-center">
                     <div className="w-8 h-8 rounded-full border-2 border-[#FFFFFF] border-t-transparent animate-spin mb-3"></div>
                     Loading folders...
                   </div>
@@ -382,14 +382,14 @@ export default function WorkspaceSection({
                          </div>
                          <div className="flex-1 min-w-0">
                            <div className="flex items-center justify-between gap-2">
-                             <h4 className="text-sm font-bold text-slate-900  truncate group-hover:text-slate-900  transition-colors">
+                             <h4 className="truncate group-hover: transition-colors text-lg font-medium text-gray-800 mb-4">
                                {proj.name || "Untitled"}
                              </h4>
-                             <button className="text-slate-700 hover:text-slate-500 ">
+                             <button className="text-gray-700 hover:text-gray-500 text-base font-semibold">
                                <MoreVertical className="w-4 h-4" />
                              </button>
                            </div>
-                           <div className="text-[11px] text-slate-500  font-medium flex items-center gap-2 mt-1">
+                           <div className="text-xs text-gray-500  font-medium flex items-center gap-2 mt-1">
                              <span>Folder created</span>
                            </div>
                          </div>
@@ -398,8 +398,8 @@ export default function WorkspaceSection({
                   </div>
                 ) : (
                   <div className="p-8 text-center flex flex-col items-center">
-                     <FolderOpen className="w-8 h-8 text-slate-700 mb-3" />
-                     <p className="text-sm font-bold text-slate-900 ">No project folders</p>
+                     <FolderOpen className="w-8 h-8 text-gray-700 mb-3" />
+                     <p className=" text-base font-normal text-gray-600 leading-relaxed">No project folders</p>
                   </div>
                 )}
             </div>
@@ -410,7 +410,7 @@ export default function WorkspaceSection({
            {/* Recommended Tools */}
            <div>
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-[14px] font-bold text-slate-600 uppercase tracking-widest flex items-center gap-2">
+                <h3 className="uppercase st flex items-center gap-2 text-lg font-medium text-gray-800 mb-4">
                   <Sparkles className="w-4 h-4 text-amber-500" /> Recommended For You
                 </h3>
               </div>
@@ -422,15 +422,15 @@ export default function WorkspaceSection({
                       className="flex items-center justify-between p-4 bg-white  hover:bg-slate-50  rounded-[32px] border border-slate-200  transition-all text-left group shadow-sm hover:shadow-md"
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-[32px] bg-slate-50  flex items-center justify-center text-slate-600  group-hover:bg-[#FFFFFF] group-hover:text-slate-900 transition-colors">
+                        <div className="w-10 h-10 rounded-[32px] bg-slate-50  flex items-center justify-center text-gray-600  group-hover:bg-[#FFFFFF] group-hover:text-gray-900 transition-colors">
                           <mod.icon className="w-5 h-5" />
                         </div>
                         <div>
-                          <p className="font-bold text-slate-900  text-sm">{mod.title}</p>
-                          <p className="text-[11px] text-slate-500 ">{mod.category}</p>
+                          <p className=" text-base font-normal text-gray-600 leading-relaxed">{mod.title}</p>
+                          <p className=" text-base font-normal text-gray-600 leading-relaxed">{mod.category}</p>
                         </div>
                       </div>
-                      <ArrowRight className="w-4 h-4 text-slate-700 group-hover:text-slate-900  group-hover:translate-x-1 transition-all" />
+                      <ArrowRight className="w-4 h-4 text-gray-700 group-hover:text-gray-900  group-hover:translate-x-1 transition-all" />
                     </button>
                  ))}
               </div>
@@ -439,16 +439,16 @@ export default function WorkspaceSection({
            {/* Notifications */}
            <div className="bg-[#FFFFFF]/10  rounded-[32px] border border-[#FFFFFF]/20  p-6 relative overflow-hidden">
               <div className="absolute top-0 right-0 p-4 opacity-10">
-                 <Bell className="w-32 h-32 text-slate-900 -rotate-12" />
+                 <Bell className="w-32 h-32 text-gray-900 -rotate-12" />
               </div>
-              <h3 className="font-bold text-slate-900  mb-4 flex items-center gap-2 relative z-10">
+              <h3 className="mb-4 flex items-center gap-2 relative z-10 text-lg font-medium text-gray-800">
                  <Bell className="w-4 h-4" /> Notifications
               </h3>
               <div className="flex flex-col gap-3 relative z-10">
                  {notifications.map(note => (
                     <div key={note.id} className="bg-white  backdrop-blur-sm p-3 rounded-[32px] border border-indigo-50/50 flex items-start gap-3">
                        <div className={`w-2 h-2 mt-1.5 rounded-full shrink-0 ${note.type === 'new' ? 'bg-amber-500' : 'bg-[#FFFFFF]/10 '}`} />
-                       <p className="text-sm font-medium text-slate-700  leading-snug">{note.text}</p>
+                       <p className=" text-base font-normal text-gray-600 leading-relaxed">{note.text}</p>
                     </div>
                  ))}
               </div>
@@ -458,8 +458,8 @@ export default function WorkspaceSection({
       
       {/* Settings Modal Toggle Hint */}
       <div className="text-center mt-4">
-         <p className="text-xs font-medium text-slate-600">
-            Tip: You can toggle Dark/Light mode in your <button className="text-slate-900 font-bold hover:underline">Profile Settings</button>.
+         <p className=" text-base font-normal text-gray-600 leading-relaxed">
+            Tip: You can toggle Dark/Light mode in your <button className="text-gray-900 hover:underline text-base font-semibold">Profile Settings</button>.
          </p>
       </div>
 

@@ -15,7 +15,7 @@ export default function RelatedCalculators({ diameter_mm, isMetric = true }: Rel
 
   return (
     <section className="mt-12 bg-slate-50 rounded-[24px] p-8 border border-slate-200">
-      <h2 className="text-2xl font-semibold text-slate-900 mb-6">
+      <h2 className="mb-6 text-xl font-semibold text-gray-900 tracking-tight mb-4">
         Quick Links & Related Calculators
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -26,11 +26,11 @@ export default function RelatedCalculators({ diameter_mm, isMetric = true }: Rel
             className="group flex flex-col p-5 bg-white rounded-[24px] border border-slate-200 hover:border-indigo-400 hover:shadow-md hover:bg-slate-50 transition-all"
           >
             <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-1 group-hover:text-indigo-600">Smaller Bar</span>
-            <span className="text-lg font-bold text-slate-800 leading-tight">Calculate {prevSize}mm Steel Weight</span>
+            <span className="text-lg font-bold text-gray-800 leading-tight">Calculate {prevSize}mm Steel Weight</span>
           </a>
         ) : (
           <div className="p-5 bg-slate-100 rounded-[24px] border border-slate-200 opacity-50 flex items-center justify-center">
-            <span className="text-[13px] sm:text-sm font-semibold text-slate-600">Smallest Size</span>
+            <span className="text-sm sm:text-sm font-semibold text-gray-600">Smallest Size</span>
           </div>
         )}
         
@@ -41,11 +41,11 @@ export default function RelatedCalculators({ diameter_mm, isMetric = true }: Rel
             className="group flex flex-col p-5 bg-white rounded-[24px] border border-slate-200 hover:border-indigo-400 hover:shadow-md hover:bg-slate-50 transition-all"
           >
             <span className="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-1 group-hover:text-indigo-600">Larger Bar</span>
-            <span className="text-lg font-bold text-slate-800 leading-tight">Calculate {nextSize}mm Steel Weight</span>
+            <span className="text-lg font-bold text-gray-800 leading-tight">Calculate {nextSize}mm Steel Weight</span>
           </a>
         ) : (
           <div className="p-5 bg-slate-100 rounded-[24px] border border-slate-200 opacity-50 flex items-center justify-center">
-            <span className="text-[13px] sm:text-sm font-semibold text-slate-600">Largest Size</span>
+            <span className="text-sm sm:text-sm font-semibold text-gray-600">Largest Size</span>
           </div>
         )}
 
@@ -55,7 +55,7 @@ export default function RelatedCalculators({ diameter_mm, isMetric = true }: Rel
           className="group flex flex-col p-5 bg-white rounded-[24px] border border-slate-200 hover:border-teal-400 hover:shadow-md hover:bg-slate-50 transition-all"
         >
           <span className="text-xs font-bold text-teal-500 uppercase tracking-wider mb-1 group-hover:text-teal-600">Land Area</span>
-          <span className="text-lg font-bold text-slate-800 leading-tight">Marla to Sq Ft Calculator</span>
+          <span className="text-lg font-bold text-gray-800 leading-tight">Marla to Sq Ft Calculator</span>
         </a>
 
         {/* Horizontal Link 2 */}
@@ -64,7 +64,7 @@ export default function RelatedCalculators({ diameter_mm, isMetric = true }: Rel
           className="group flex flex-col p-5 bg-white rounded-[24px] border border-slate-200 hover:border-rose-400 hover:shadow-md hover:bg-slate-50 transition-all"
         >
           <span className="text-xs font-bold text-rose-500 uppercase tracking-wider mb-1 group-hover:text-rose-600">Masonry</span>
-          <span className="text-lg font-bold text-slate-800 leading-tight">Brick Wall Calculator</span>
+          <span className="text-lg font-bold text-gray-800 leading-tight">Brick Wall Calculator</span>
         </a>
       </div>
     </section>

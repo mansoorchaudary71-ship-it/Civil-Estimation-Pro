@@ -84,10 +84,10 @@ export default function TopNavbar({
             <div className="w-7 h-7 rounded-lg bg-[#0f172a] text-white flex items-center justify-center font-bold text-xs tracking-tighter shadow-sm group-hover:bg-[#112240] transition-colors">
               CE
             </div>
-            <span className="font-bold text-[17px] text-slate-900 tracking-tight hidden sm:block">
+            <span className="font-bold text-lg text-gray-900 tracking-tight hidden sm:block">
               Civil Estimation <span className="text-[#FF5F15]">Pro</span>
             </span>
-            <span className="font-bold text-[17px] text-slate-900 tracking-tight sm:hidden">
+            <span className="font-bold text-lg text-gray-900 tracking-tight sm:hidden">
               Civil Pro
             </span>
           </div>
@@ -97,8 +97,8 @@ export default function TopNavbar({
               <button 
                 key={link.name}
                 className={cn(
-                  "relative text-[14px] font-semibold transition-colors hover:text-[#FF5F15]",
-                  activeTab === link.name ? "text-[#FF5F15]" : "text-slate-600"
+                  "relative text-sm font-semibold transition-colors hover:text-[#FF5F15]",
+                  activeTab === link.name ? "text-[#FF5F15]" : "text-gray-600"
                 )}
                 onClick={() => handleNavigate(link)}
               >
@@ -115,7 +115,7 @@ export default function TopNavbar({
 
           <div className="flex items-center gap-2.5">
              <button
-               className="hidden md:flex items-center gap-1.5 text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-full transition-colors border border-slate-200/60"
+               className="hidden md:flex items-center gap-1.5 text-gray-600 hover:text-gray-900 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-full transition-colors border border-slate-200/60 text-base font-semibold"
                onClick={onOpenRecent}
                title="Recent Tools"
              >
@@ -125,7 +125,7 @@ export default function TopNavbar({
              <div className="relative" ref={searchRef}>
                <button 
                  onClick={() => setShowRecentSearches(!showRecentSearches)}
-                 className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 px-2.5 py-2 rounded-full transition-colors border border-slate-200/60"
+                 className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-gray-600 hover:text-gray-900 px-2.5 py-2 rounded-full transition-colors border border-slate-200/60"
                >
                  <Search className="w-4 h-4" />
                </button>
@@ -140,7 +140,7 @@ export default function TopNavbar({
                      className="absolute top-[calc(100%+12px)] right-0 w-80 bg-white rounded-2xl shadow-[0_12px_40px_-12px_rgba(15,23,42,0.15)] border border-slate-200 overflow-hidden z-50"
                    >
                      <div className="px-4 py-3 border-b border-slate-100 bg-slate-50/50">
-                       <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                       <h4 className="text-xs uppercase r flex items-center gap-1.5 text-lg font-medium text-gray-800 mb-4">
                          <History className="w-3.5 h-3.5" /> Recently Accessed
                        </h4>
                      </div>
@@ -165,15 +165,15 @@ export default function TopNavbar({
                                    {mod.icon ? <mod.icon className="w-4 h-4" /> : <Search className="w-4 h-4" />}
                                  </div>
                                  <div className="flex-1 overflow-hidden">
-                                   <div className="text-[14px] font-bold text-slate-800 truncate group-hover:text-[#FF5F15] transition-colors">{mod.title}</div>
-                                   <div className="text-[11px] text-slate-500 font-medium truncate">{mod.category}</div>
+                                   <div className="text-sm font-bold text-gray-800 truncate group-hover:text-[#FF5F15] transition-colors">{mod.title}</div>
+                                   <div className="text-xs text-gray-500 font-medium truncate">{mod.category}</div>
                                  </div>
                                </button>
                              );
                            })}
                          </div>
                        ) : (
-                         <div className="text-[13px] text-slate-600 text-center py-6 font-medium">No recent tools accesses</div>
+                         <div className="text-sm text-gray-600 text-center py-6 font-medium">No recent tools accesses</div>
                        )}
                      </div>
                    </motion.div>
@@ -182,14 +182,14 @@ export default function TopNavbar({
              </div>
 
              <button 
-               className="text-[13px] font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 px-4 py-1.5 rounded-full transition-all duration-300 shadow-sm active:scale-95 hidden sm:flex items-center justify-center"
+               className="text-gray-700 bg-white hover:bg-slate-50 border border-slate-200 px-4 py-1.5 rounded-full transition-all duration-300 shadow-sm active:scale-95 hidden sm:flex items-center justify-center text-base font-semibold"
                onClick={() => {}}
              >
                 Login
              </button>
 
              <button 
-               className="md:hidden p-2 text-slate-600 hover:text-[#FFFFFF] hover:bg-slate-100 rounded-full transition-colors"
+               className="md:hidden p-2 text-gray-600 hover:text-[#FFFFFF] hover:bg-slate-100 rounded-full transition-colors text-base font-semibold"
                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                aria-label="Toggle mobile menu"
              >
@@ -225,7 +225,7 @@ export default function TopNavbar({
                   <div className="flex items-center gap-4">
                     <span className={cn(
                       "transition-colors",
-                      activeTab === link.name ? "text-[#FF5F15]" : "text-slate-900 group-hover:text-[#FF5F15]"
+                      activeTab === link.name ? "text-[#FF5F15]" : "text-gray-900 group-hover:text-[#FF5F15]"
                     )}>
                       {link.name}
                     </span>
@@ -235,7 +235,7 @@ export default function TopNavbar({
                   </div>
                   <ArrowRight className={cn(
                     "w-6 h-6 opacity-0 -translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0",
-                    activeTab === link.name ? "text-[#FF5F15]" : "text-slate-600"
+                    activeTab === link.name ? "text-[#FF5F15]" : "text-gray-600"
                   )} />
                 </motion.button>
               ))}
@@ -243,7 +243,7 @@ export default function TopNavbar({
             
             <div className="mt-auto pb-4 flex flex-col gap-3">
                <button 
-                 className="w-full text-base font-bold text-slate-800 bg-white border border-slate-200 hover:bg-slate-50 py-4 rounded-full transition-all shadow-sm active:scale-95 flex items-center justify-center gap-2"
+                 className="w-full text-gray-800 bg-white border border-slate-200 hover:bg-slate-50 py-4 rounded-full transition-all shadow-sm active:scale-95 flex items-center justify-center gap-2 text-base font-semibold"
                  onClick={() => { setIsMobileMenuOpen(false); }}
                >
                   Login

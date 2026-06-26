@@ -40,7 +40,7 @@ export default function GlobalBottomBar({
               className={`w-[20px] h-[20px] ${item.color} ${isActive ? "opacity-100" : "opacity-80"}`} 
               strokeWidth={isActive ? 2.5 : 2}
             />
-            <span className={`text-[9px] font-semibold tracking-tight ${isActive ? "text-slate-900 " : "text-slate-600 "}`}>
+            <span className={`text-xs font-semibold tracking-tight ${isActive ? "text-gray-900 " : "text-gray-600 "}`}>
               {item.label}
             </span>
           </button>

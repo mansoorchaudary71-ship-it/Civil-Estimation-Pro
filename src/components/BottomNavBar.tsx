@@ -168,7 +168,7 @@ export default function BottomNavBar({
     { id: "history", icon: Clock, label: "History", action: onOpenHistory, color: "text-orange-600" },
     { id: "save", icon: Save, label: "Save", action: handleSave, color: "text-emerald-600" },
     { id: "share", icon: Share2, label: "Share", action: handleShare, color: "text-purple-600" },
-    { id: "print", icon: Printer, label: "Print", action: handlePrint, color: "text-slate-600" },
+    { id: "print", icon: Printer, label: "Print", action: handlePrint, color: "text-gray-600" },
   ];
 
   return (
@@ -192,7 +192,7 @@ export default function BottomNavBar({
                 className={`w-[22px] h-[22px] ${item.color} ${isActive ? "opacity-100 scale-110" : "opacity-80"}`} 
                 strokeWidth={isActive ? 2.5 : 2} 
               />
-              <span className={`text-[10px] font-semibold tracking-tight ${isActive ? "text-slate-900 " : "text-slate-600 "}`}>
+              <span className={`text-xs font-semibold tracking-tight ${isActive ? "text-gray-900 " : "text-gray-600 "}`}>
                 {item.label}
               </span>
             </button>
@@ -215,15 +215,15 @@ export default function BottomNavBar({
             <div className="pt-7 pb-5 px-7 flex flex-col items-center text-center relative">
               <button 
                 onClick={() => setIsShareOpen(false)} 
-                className="absolute right-5 top-5 p-2 bg-slate-100/80 hover:bg-slate-200   rounded-full transition-colors text-slate-500 "
+                className="absolute right-5 top-5 p-2 bg-slate-100/80 hover:bg-slate-200   rounded-full transition-colors text-gray-500 "
               >
                 <X className="w-4 h-4"/>
               </button>
               <div className="w-12 h-12 bg-indigo-50  rounded-full flex items-center justify-center mb-3">
                 <Share2 className="w-6 h-6 text-indigo-600 " />
               </div>
-              <h3 className="text-[19px] font-bold text-slate-900  tracking-tight">Share Result</h3>
-              <p className="text-[13px] text-slate-500  font-medium mt-1">Send this calculation to yourself or others</p>
+              <h3 className=" text-lg font-medium text-gray-800 mb-4">Share Result</h3>
+              <p className="mt-1 text-base font-normal text-gray-600 leading-relaxed">Send this calculation to yourself or others</p>
             </div>
 
             <div className="px-6 pb-7 grid grid-cols-2 gap-3">
@@ -258,7 +258,7 @@ export default function BottomNavBar({
                 <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600   flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <MessageCircle className="w-[20px] h-[20px] fill-current" strokeWidth={1} />
                 </div>
-                <span className="text-[12px] font-semibold text-slate-700  group-hover:text-emerald-700 ">WhatsApp</span>
+                <span className="text-xs font-semibold text-gray-700  group-hover:text-emerald-700 ">WhatsApp</span>
               </button>
 
               <button
@@ -295,27 +295,27 @@ export default function BottomNavBar({
                 <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600   flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Mail className="w-[20px] h-[20px]" strokeWidth={2.5} />
                 </div>
-                <span className="text-[12px] font-semibold text-slate-700  group-hover:text-blue-700 ">Email</span>
+                <span className="text-xs font-semibold text-gray-700  group-hover:text-blue-700 ">Email</span>
               </button>
 
               <button
                 onClick={handleDownloadPDF}
-                className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-[#FEF2F2] hover:shadow-[0_8px_20px_rgba(153,27,27,0.08)]   border border-transparent hover:border-[#FECACA]  active:scale-95"
+                className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-[#FEF2F2] hover:shadow-[0_8px_20px_rgba(153,27,27,0.08)] border border-transparent hover:border-[#FECACA] active:scale-95 text-base font-semibold"
               >
                 <div className="w-10 h-10 rounded-full bg-rose-100 text-rose-600   flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <FileDown className="w-[20px] h-[20px]" strokeWidth={2.5} />
                 </div>
-                <span className="text-[12px] font-semibold text-slate-700  group-hover:text-rose-700 ">PDF Report</span>
+                <span className="text-xs font-semibold text-gray-700  group-hover:text-rose-700 ">PDF Report</span>
               </button>
 
               <button
                 onClick={copyToClipboard}
-                className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-slate-100 hover:shadow-[0_8px_20px_rgba(15,23,42,0.05)]   border border-transparent hover:border-slate-200  active:scale-95"
+                className="group flex flex-col items-center justify-center gap-2.5 p-4 rounded-2xl transition-all duration-300 bg-slate-50 hover:bg-slate-100 hover:shadow-[0_8px_20px_rgba(15,23,42,0.05)] border border-transparent hover:border-slate-200 active:scale-95 text-base font-semibold"
               >
-                <div className="w-10 h-10 rounded-full bg-slate-200 text-slate-700   flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-10 h-10 rounded-full bg-slate-200 text-gray-700   flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Copy className="w-[18px] h-[18px]" strokeWidth={2.5} />
                 </div>
-                <span className="text-[12px] font-semibold text-slate-700 ">Copy Link</span>
+                <span className="text-xs font-semibold text-gray-700 ">Copy Link</span>
               </button>
             </div>
           </div>

@@ -64,10 +64,10 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
           className="relative w-full max-w-md overflow-hidden bg-bg-card rounded-[28px] shadow-2xl border border-border-color"
         >
           <div className="flex items-center justify-between px-6 py-5 border-b border-border-color">
-            <h2 className="text-xl font-semibold text-text-primary">Profile Settings</h2>
+            <h2 className="text-text-primary text-xl font-semibold text-gray-900 tracking-tight mb-4">Profile Settings</h2>
             <button
               onClick={onClose}
-              className="p-2 text-slate-500 hover:text-slate-600 rounded-full hover:bg-slate-100 transition-colors"
+              className="p-2 text-gray-500 hover:text-gray-600 rounded-full hover:bg-slate-100 transition-colors text-base font-semibold"
             >
               <X className="w-5 h-5" />
             </button>
@@ -79,19 +79,19 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
                 {photoURL ? (
                   <img src={photoURL} alt="User Profile Details Settings Photo" title="Profile Avatar" loading="lazy" className="w-full h-full object-cover" />
                 ) : (
-                  <User className="w-10 h-10 text-slate-700" />
+                  <User className="w-10 h-10 text-gray-700" />
                 )}
                 <div className="absolute inset-0 bg-slate-50/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Camera className="w-6 h-6 text-slate-900" />
+                  <Camera className="w-6 h-6 text-gray-900" />
                 </div>
               </div>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1.5 uppercase tracking-wider">Display Name</label>
+                <label className="block mb-1.5 uppercase tracking-wider text-sm font-medium text-gray-700 mb-1">Display Name</label>
                 <div className="relative flex items-center">
-                  <User className="absolute left-3.5 w-5 h-5 text-slate-700" />
+                  <User className="absolute left-3.5 w-5 h-5 text-gray-700" />
                   <input
                     type="text"
                     value={name}
@@ -102,9 +102,9 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1.5 uppercase tracking-wider">Photo URL</label>
+                <label className="block mb-1.5 uppercase tracking-wider text-sm font-medium text-gray-700 mb-1">Photo URL</label>
                 <div className="relative flex items-center">
-                  <Camera className="absolute left-3.5 w-5 h-5 text-slate-700" />
+                  <Camera className="absolute left-3.5 w-5 h-5 text-gray-700" />
                   <input
                      type="url"
                      value={photoURL}
@@ -117,11 +117,11 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
 
               {/* Theme Toggle */}
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-2 uppercase tracking-wider">Appearance</label>
+                <label className="block mb-2 uppercase tracking-wider text-sm font-medium text-gray-700 mb-1">Appearance</label>
                 <button
                   type="button"
                   onClick={toggleTheme}
-                  className="w-full flex items-center justify-between p-3 bg-white border border-border-color rounded-[24px] hover:bg-slate-50 transition-colors"
+                  className="w-full flex items-center justify-between p-3 bg-white border border-border-color rounded-[24px] hover:bg-slate-50 transition-colors text-base font-semibold"
                 >
                   <div className="flex items-center gap-3">
                     {isDarkMode ? <Moon className="w-5 h-5 text-indigo-500" /> : <Sun className="w-5 h-5 text-amber-500" />}
@@ -145,7 +145,7 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
             <button
                type="submit"
                disabled={isLoading}
-               className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-full shadow-sm text-sm transition-all focus:ring-4 focus:ring-indigo-500/50 flex justify-center items-center h-12"
+               className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-sm transition-all focus:ring-4 focus:ring-indigo-500/50 flex justify-center items-center h-12 text-base font-semibold"
             >
                {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Save Changes'}
             </button>

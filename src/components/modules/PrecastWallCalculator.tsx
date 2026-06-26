@@ -197,13 +197,6 @@ export default function PrecastWallCalculator() {
                 <li>Total Slabs = Total Bays × Slabs per Bay</li>
               </ul>
             </div>
-            
-            <GlobalFAQ moduleId="precast-wall" faqs={[
-              {
-                question: "Why do we add 1 to the post count?",
-                answer: "A linear wall segment requires a starting post and an ending post. For n bays, you need n+1 posts. If it's a closed loop enclosure, n posts = n bays."
-              }
-            ]} />
           </div>
 
           {/* Results Panel */}

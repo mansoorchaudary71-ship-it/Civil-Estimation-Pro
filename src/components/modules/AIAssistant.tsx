@@ -51,11 +51,11 @@ export default function AIAssistant() {
     }
   };
   return (
-    <div className="flex flex-col h-full bg-transparent text-slate-900 p-8">
+    <div className="flex flex-col h-full bg-transparent text-gray-900 p-8">
       <div className="flex-1 calc-input flex flex-col overflow-hidden relative shadow-sm">
         <div className="px-6 py-4 border-b border-slate-200 bg-transparent flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></div>
-          <h2 className="text-sm font-bold uppercase tracking-widest text-slate-700">
+          <h2 className="uppercase st text-xl font-semibold text-gray-900 tracking-tight mb-4">
             AI Assistant
           </h2>
         </div>
@@ -77,12 +77,12 @@ export default function AIAssistant() {
                 className={cn(
                   "rounded-[24px] px-5 py-3 max-w-[85%] text-sm shadow-sm",
                   msg.role === "user"
-                    ? "bg-indigo-600 text-slate-900 font-medium"
-                    : "bg-transparent text-slate-700 border border-slate-100 leading-relaxed",
+                    ? "bg-indigo-600 text-gray-900 font-medium"
+                    : "bg-transparent text-gray-700 border border-slate-100 leading-relaxed",
                 )}
               >
                 {msg.role === "model" ? (
-                  <div className="prose prose-sm max-w-none prose-p:leading-relaxed prose-headings:text-slate-800 prose-a:text-indigo-600 prose-th:bg-slate-100 prose-td:border-slate-200">
+                  <div className="prose prose-sm max-w-none prose-p:leading-relaxed prose-headings:text-gray-800 prose-a:text-indigo-600 prose-th:bg-slate-100 prose-td:border-slate-200">
                     <Markdown>{msg.content}</Markdown>
                   </div>
                 ) : (
@@ -116,18 +116,18 @@ export default function AIAssistant() {
                 }
               }}
               placeholder="Ask about cost optimization or estimation..."
-              className="w-full bg-transparent border border-slate-200 rounded-[24px] py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 resize-none min-h-[44px] max-h-[120px] text-slate-800 shadow-sm transition-all"
+              className="w-full bg-transparent border border-slate-200 rounded-[24px] py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 resize-none min-h-[44px] max-h-[120px] text-gray-800 shadow-sm transition-all"
               rows={1}
             />
             <button
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="absolute right-3 top-2.5 p-1.5 text-indigo-600 bg-indigo-50 hover:bg-indigo-50 rounded-[16px] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="absolute right-3 top-2.5 p-1.5 text-indigo-600 bg-indigo-50 hover:bg-indigo-50 rounded-[16px] disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base font-semibold"
             >
               <Send className="w-[16px] h-[16px]" />
             </button>
           </div>
-          <div className="text-center mt-3 text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+          <div className="text-center mt-3 text-xs text-gray-500 font-bold uppercase tracking-widest">
             AI generated estimates are preliminary. Always confirm with a
             certified QS.
           </div>

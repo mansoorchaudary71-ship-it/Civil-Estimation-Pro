@@ -208,13 +208,6 @@ export default function TopSoilFillCalculator() {
                 <li><strong className="lowercase">Truck Loads</strong> = Ceil(Loose Volume ÷ Truck Capacity)</li>
               </ul>
             </div>
-            
-            <GlobalFAQ moduleId="topsoil" faqs={[
-              {
-                question: "What is Bulking (Swell) Factor?",
-                answer: "When earth is excavated, it loosens and expands. A factor of 1.25 means the soil requires 25% more volume in the truck than it occupied in the ground."
-              }
-            ]} />
           </div>
 
           {/* Results Panel */}

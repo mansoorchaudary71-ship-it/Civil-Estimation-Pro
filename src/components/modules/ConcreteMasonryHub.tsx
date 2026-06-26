@@ -73,7 +73,7 @@ export default function ConcreteMasonryHub({ isEmbedded = false, onNavigate }: C
                   className={`px-6 py-2 rounded-[24px] text-sm font-bold transition-all ${
                     brickBlockTab === "bricks"
                       ? "bg-white  text-indigo-600 shadow-sm"
-                      : "text-slate-500 hover:text-slate-700"
+                      : "text-gray-500 hover:text-gray-700"
                   }`}
                 >
                   Brickwork
@@ -83,7 +83,7 @@ export default function ConcreteMasonryHub({ isEmbedded = false, onNavigate }: C
                   className={`px-6 py-2 rounded-[24px] text-sm font-bold transition-all ${
                     brickBlockTab === "blocks"
                       ? "bg-white  text-indigo-600 shadow-sm"
-                      : "text-slate-500 hover:text-slate-700"
+                      : "text-gray-500 hover:text-gray-700"
                   }`}
                 >
                   Blockwork

@@ -159,7 +159,7 @@ export const ALL_MODULES = [
  category: "Quantity Estimation",
  icon: Calculator,
  styleStyle: "solid",
- colorClass: "bg-orange-500 text-slate-900 shadow-lg",
+ colorClass: "bg-orange-500 text-gray-900 shadow-lg",
  difficulty: "Beginner",
  estimatedTime: "~3 mins",
  isNew: true,
@@ -171,7 +171,7 @@ export const ALL_MODULES = [
  category: "Quantity Estimation",
  icon: ClipboardList,
  styleStyle: "solid",
- colorClass: "bg-emerald-600 text-slate-900 shadow-lg",
+ colorClass: "bg-emerald-600 text-gray-900 shadow-lg",
  difficulty: "Beginner",
  estimatedTime: "~6 mins",
  isNew: true,
@@ -183,7 +183,7 @@ export const ALL_MODULES = [
  category: "Quantity Estimation",
  icon: ClipboardList,
  styleStyle: "solid",
- colorClass: "bg-[#FFFFFF] text-slate-900 shadow-lg",
+ colorClass: "bg-[#FFFFFF] text-gray-900 shadow-lg",
  difficulty: "Beginner",
  estimatedTime: "~5 mins",
  isNew: true,
@@ -208,8 +208,8 @@ export const ALL_MODULES = [
  icon: Ruler,
  styleStyle: "solid",
  colorClass:
- "bg-[var(--accent-purple)] text-slate-900 shadow-[0_8px_30px_rgba(115,103,240,0.3)]",
- iconClass: "text-slate-900 opacity-90",
+ "bg-[var(--accent-purple)] text-gray-900 shadow-[0_8px_30px_rgba(115,103,240,0.3)]",
+ iconClass: "text-gray-900 opacity-90",
  difficulty: "Advanced",
  estimatedTime: "~10 mins",
  isPopular: true,
@@ -295,8 +295,8 @@ export const ALL_MODULES = [
  icon: Sparkles,
  premium: true,
  styleStyle: "solid",
- colorClass: "bg-[var(--primary-dark)] text-slate-900 shadow-lg",
- iconClass: "text-slate-900 opacity-90",
+ colorClass: "bg-[var(--primary-dark)] text-gray-900 shadow-lg",
+ iconClass: "text-gray-900 opacity-90",
  difficulty: "Beginner",
  estimatedTime: "~1 min",
  isNew: true,
@@ -311,8 +311,8 @@ export const ALL_MODULES = [
  icon: Building2,
  styleStyle: "solid",
  colorClass:
- "bg-[var(--accent-teal)] text-slate-900 shadow-[0_8px_30px_rgba(32,201,151,0.3)]",
- iconClass: "text-slate-900 opacity-90",
+ "bg-[var(--accent-teal)] text-gray-900 shadow-[0_8px_30px_rgba(32,201,151,0.3)]",
+ iconClass: "text-gray-900 opacity-90",
  difficulty: "Advanced",
  estimatedTime: "~10 mins",
  isPopular: true,
@@ -325,8 +325,8 @@ export const ALL_MODULES = [
  icon: HardHat,
  styleStyle: "solid",
  colorClass:
- "bg-gradient-to-br from-indigo-500 to-cyan-500 text-slate-900 shadow-[0_8px_30px_rgba(99,102,241,0.3)]",
- iconClass: "text-slate-900 opacity-90",
+ "bg-gradient-to-br from-indigo-500 to-cyan-500 text-gray-900 shadow-[0_8px_30px_rgba(99,102,241,0.3)]",
+ iconClass: "text-gray-900 opacity-90",
  difficulty: "Beginner",
  estimatedTime: "~2 mins",
  isPopular: true,
@@ -820,7 +820,7 @@ export const ALL_MODULES = [
  category: "Standards",
  icon: BookOpen,
  styleStyle: "glass",
- colorClass: "bg-white/80 backdrop-blur-md text-slate-900",
+ colorClass: "bg-white/80 backdrop-blur-md text-gray-900",
  difficulty: "Beginner",
  estimatedTime: "Read",
  },
@@ -831,7 +831,7 @@ export const ALL_MODULES = [
  category: "Standards",
  icon: BookOpen,
  styleStyle: "glass",
- colorClass: "bg-white/80 backdrop-blur-md text-slate-900",
+ colorClass: "bg-white/80 backdrop-blur-md text-gray-900",
  difficulty: "Intermediate",
  estimatedTime: "Read",
  },
@@ -890,7 +890,7 @@ export const ALL_MODULES = [
  category: "Resources",
  icon: FileText,
  styleStyle: "glass",
- colorClass: "bg-white/80 backdrop-blur-md text-slate-800",
+ colorClass: "bg-white/80 backdrop-blur-md text-gray-800",
  difficulty: "Beginner",
  estimatedTime: "Read",
  },
@@ -908,7 +908,7 @@ export const getCategoryTheme = (category: string, id: string) => {
  if (id === "ai") {
  return {
  textRaw: "text-[#4338CA] [#818CF8]",
- text: "text-slate-900",
+ text: "text-gray-900",
  bg: "bg-[#4338CA] [#4338CA]",
  stroke: "stroke-[#4338CA]",
  baseHex: "#4338CA",
@@ -920,7 +920,7 @@ export const getCategoryTheme = (category: string, id: string) => {
  case "Concrete Tech":
  return {
  textRaw: "text-[#E55A2B] [#ff8a65]",
- text: "text-slate-900",
+ text: "text-gray-900",
  bg: "bg-[#E55A2B] [#E55A2B]",
  stroke: "stroke-[#E55A2B]",
  baseHex: "#E55A2B",
@@ -929,7 +929,7 @@ export const getCategoryTheme = (category: string, id: string) => {
  case "Quantity Estimator":
  return {
  textRaw: "text-[#6B46C1] [#9F7AEA]",
- text: "text-slate-900",
+ text: "text-gray-900",
  bg: "bg-[#6B46C1] [#6B46C1]",
  stroke: "stroke-[#6B46C1]",
  baseHex: "#6B46C1",
@@ -938,7 +938,7 @@ export const getCategoryTheme = (category: string, id: string) => {
  case "Structural Design":
  return {
  textRaw: "text-[#BE185D] [#F472B6]",
- text: "text-slate-900",
+ text: "text-gray-900",
  bg: "bg-[#BE185D] [#BE185D]",
  stroke: "stroke-[#BE185D]",
  baseHex: "#BE185D",
@@ -946,8 +946,8 @@ export const getCategoryTheme = (category: string, id: string) => {
  };
  case "Road Construction":
  return {
- textRaw: "text-slate-900 [#2DD4BF]",
- text: "text-slate-900",
+ textRaw: "text-gray-900 [#2DD4BF]",
+ text: "text-gray-900",
  bg: "bg-[#FFFFFF] [#FFFFFF]",
  stroke: "stroke-[#FFFFFF]",
  baseHex: "#FFFFFF",
@@ -956,7 +956,7 @@ export const getCategoryTheme = (category: string, id: string) => {
  case "Soil Tests":
  return {
  textRaw: "text-[#D97706] [#FBBF24]",
- text: "text-slate-900",
+ text: "text-gray-900",
  bg: "bg-[#D97706] [#D97706]",
  stroke: "stroke-[#D97706]",
  baseHex: "#D97706",
@@ -965,7 +965,7 @@ export const getCategoryTheme = (category: string, id: string) => {
  case "MEP":
  return {
  textRaw: "text-[#2563EB] [#60A5FA]",
- text: "text-slate-900",
+ text: "text-gray-900",
  bg: "bg-[#2563EB] [#2563EB]",
  stroke: "stroke-[#2563EB]",
  baseHex: "#2563EB",
@@ -974,7 +974,7 @@ export const getCategoryTheme = (category: string, id: string) => {
  case "Architectural References & Space Planning":
  return {
  textRaw: "text-[#EC4899] [#F472B6]",
- text: "text-slate-900",
+ text: "text-gray-900",
  bg: "bg-[#EC4899] [#EC4899]",
  stroke: "stroke-[#EC4899]",
  baseHex: "#EC4899",
@@ -983,7 +983,7 @@ export const getCategoryTheme = (category: string, id: string) => {
  case "Analysis & Tools":
  return {
  textRaw: "text-[#4338CA] [#818CF8]",
- text: "text-slate-900",
+ text: "text-gray-900",
  bg: "bg-[#4338CA] [#4338CA]",
  stroke: "stroke-[#4338CA]",
  baseHex: "#4338CA",
@@ -992,7 +992,7 @@ export const getCategoryTheme = (category: string, id: string) => {
  default:
  return {
  textRaw: "text-[#4338CA] [#818CF8]",
- text: "text-slate-900",
+ text: "text-gray-900",
  bg: "bg-[#4338CA] [#4338CA]",
  stroke: "stroke-[#4338CA]",
  baseHex: "#4338CA",
@@ -1234,7 +1234,7 @@ export default function Dashboard({
  ::-webkit-scrollbar-track { background: transparent; }
  ::-webkit-scrollbar-thumb { background: rgba(15,23,42,0.15); border-radius: 10px; }
  `}</style>
- <div className="relative flex-1 w-full flex flex-col font-sans bg-[#f8f9fa] text-slate-900 border-none p-2 sm:p-4 md:p-8">
+ <div className="relative flex-1 w-full flex flex-col font-sans bg-[#f8f9fa] text-gray-900 border-none p-2 sm:p-4 md:p-8">
   <div 
     className="relative flex-1 w-full flex flex-col overflow-hidden bg-white shadow-2xl ring-1 ring-slate-200"
     style={{ borderRadius: '48px' }}
@@ -1290,9 +1290,9 @@ export default function Dashboard({
  if (!toolsInGroup || toolsInGroup.length === 0) return null;
  return (
  <div key={groupName} className="flex flex-col gap-5">
- <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest px-2 mb-0 flex items-center gap-2">
+ <h2 className="text-xs uppercase st px-2 mb-0 flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight mb-4">
  {groupName}
- <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-500 shadow-sm">{toolsInGroup.length}</span>
+ <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-gray-500 shadow-sm">{toolsInGroup.length}</span>
  </h2>
  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
  {toolsInGroup.map((mod) => (
@@ -1316,9 +1316,9 @@ export default function Dashboard({
  <div className="absolute top-[-50%] left-[-10%] w-[70%] h-[150%] rounded-full bg-[#FFFFFF]/10 [#FFFFFF]/20 blur-[80px] pointer-events-none"></div>
  <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[100%] rounded-full bg-[#FFFFFF]/5 [#FFFFFF]/15 blur-[80px] pointer-events-none"></div>
  <div className="w-full max-w-[1400px] mx-auto z-10 flex flex-col items-start gap-1">
- <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">Civil Estimation</h1>
- <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight mb-2 text-slate-900 [#3399ff]">Pro.</h1>
- <p className="text-base md:text-lg text-slate-500 font-medium max-w-lg mb-2">Welcome back, {user.displayName?.split(' ')[0] || 'Engineer'}.</p>
+ <h1 className="md: lg: leading-tight text-2xl font-semibold text-gray-900 tracking-tight mb-6">Civil Estimation</h1>
+ <h1 className="md: lg: leading-tight mb-2 [#3399ff] text-2xl font-semibold text-gray-900 tracking-tight mb-6">Pro.</h1>
+ <p className="md: max-w-lg mb-2 text-base font-normal text-gray-600 leading-relaxed">Welcome back, {user.displayName?.split(' ')[0] || 'Engineer'}.</p>
  </div>
  </div>
 
@@ -1330,7 +1330,7 @@ export default function Dashboard({
 
  {/* Recently Used section */}
  <div className="mb-12 flex flex-col gap-5">
- <h2 className="text-xl md:text-2xl font-bold text-slate-800 flex items-center gap-3">
+ <h2 className="md: flex items-center gap-3 text-xl font-semibold text-gray-900 tracking-tight mb-4">
  <History className="w-6 h-6 text-indigo-500" />
  Continue where you left off
  </h2>
@@ -1346,13 +1346,13 @@ export default function Dashboard({
  {m.icon && <m.icon className="w-4 h-4" strokeWidth={1.5} />}
  </div>
  <div className="flex flex-col">
- <h3 className="text-sm font-bold text-slate-800 line-clamp-2 group-hover:text-indigo-900 transition-colors">{m.title}</h3>
- <span className="text-[10px] text-slate-500 font-medium">
+ <h3 className="line-clamp-2 group-hover:text-indigo-900 transition-colors text-lg font-medium text-gray-800 mb-4">{m.title}</h3>
+ <span className="text-xs text-gray-500 font-medium">
  {formatTimeAgo(t.timestamp)}
  </span>
  </div>
  </div>
- <button onClick={() => handleSelect(t.id, t.lastInputs)} className="w-full mt-2 bg-white hover:bg-indigo-50 text-slate-600 hover:text-indigo-700 transition-colors py-1.5 rounded-lg text-xs font-bold border border-slate-200 flex justify-center items-center gap-2 shadow-sm">
+ <button onClick={() => handleSelect(t.id, t.lastInputs)} className="w-full mt-2 bg-white hover:bg-indigo-50 text-gray-600 hover:text-indigo-700 transition-colors py-1.5 rounded-lg text-xs font-bold border border-slate-200 flex justify-center items-center gap-2 shadow-sm">
  Resume
  </button>
  </div>
@@ -1361,15 +1361,15 @@ export default function Dashboard({
  </div>
  ) : (
  <div className="p-8 bg-[#F0F4F8] shadow-[inset_4px_4px_8px_rgba(163,177,198,0.3),inset_-4px_-4px_8px_rgba(255,255,255,0.8)] rounded-3xl flex flex-col items-center justify-center text-center border-none">
- <History className="w-10 h-10 text-slate-600 mb-3" />
- <p className="text-slate-500 font-medium">Start using tools to see your history here.</p>
+ <History className="w-10 h-10 text-gray-600 mb-3" />
+ <p className=" text-base font-normal text-gray-600 leading-relaxed">Start using tools to see your history here.</p>
  </div>
  )}
  </div>
 
  {settings.favoriteTools && settings.favoriteTools.length > 0 && (
  <div className="mb-12 flex flex-col gap-5">
- <h2 className="text-xl md:text-2xl font-bold text-slate-800 flex items-center gap-3">
+ <h2 className="md: flex items-center gap-3 text-xl font-semibold text-gray-900 tracking-tight mb-4">
  <Bookmark className="w-6 h-6 text-indigo-500" fill="transparent" strokeWidth={2.5} />
  Personalized Shortcuts
  </h2>
@@ -1395,16 +1395,16 @@ export default function Dashboard({
  <div className="text-xl font-bold mt-1 truncate">Disposal Well A</div>
  </div>
  <div className="bg-white [#161c2e]/70 backdrop-blur-md rounded-3xl p-5 shadow-sm border border-slate-100 ">
- <div className="text-xs text-slate-500 uppercase font-semibold tracking-wider">Recent Estimate</div>
- <div className="text-xl font-bold mt-1 text-slate-800 truncate">Rs 1.2M</div>
+ <div className="text-xs text-gray-500 uppercase font-semibold tracking-wider">Recent Estimate</div>
+ <div className="text-xl font-bold mt-1 text-gray-800 truncate">Rs 1.2M</div>
  </div>
  <div className="bg-white [#161c2e]/70 backdrop-blur-md rounded-3xl p-5 shadow-sm border border-slate-100 ">
- <div className="text-xs text-slate-500 uppercase font-semibold tracking-wider">Saved BOQs</div>
- <div className="text-xl font-bold mt-1 text-slate-800 truncate">14</div>
+ <div className="text-xs text-gray-500 uppercase font-semibold tracking-wider">Saved BOQs</div>
+ <div className="text-xl font-bold mt-1 text-gray-800 truncate">14</div>
  </div>
  <div className="bg-white [#161c2e]/70 backdrop-blur-md rounded-3xl p-5 shadow-sm border border-slate-100 ">
- <div className="text-xs text-slate-500 uppercase font-semibold tracking-wider">Tools Used</div>
- <div className="text-xl font-bold mt-1 text-slate-800 truncate">8</div>
+ <div className="text-xs text-gray-500 uppercase font-semibold tracking-wider">Tools Used</div>
+ <div className="text-xl font-bold mt-1 text-gray-800 truncate">8</div>
  </div>
  </div>
  </section>
@@ -1428,9 +1428,9 @@ export default function Dashboard({
  if (!toolsInGroup || toolsInGroup.length === 0) return null;
  return (
  <div key={groupName} className="flex flex-col gap-5">
- <h2 className="text-xs font-bold text-gray-400 uppercase tracking-widest px-2 mb-0 flex items-center gap-2">
+ <h2 className="text-xs uppercase st px-2 mb-0 flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight mb-4">
  {groupName}
- <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-500 shadow-sm">{toolsInGroup.length}</span>
+ <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-gray-500 shadow-sm">{toolsInGroup.length}</span>
  </h2>
  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 tool-card-grid">
  {toolsInGroup.map((mod) => (
@@ -1474,13 +1474,13 @@ export default function Dashboard({
  </div>
 
  <div className="px-6 flex items-center justify-between pb-2 border-b border-slate-100">
- <h3 className="font-bold text-lg text-slate-900 flex items-center gap-2">
- <Sparkles className="w-5 h-5 text-slate-900" />
+ <h3 className="flex items-center gap-2 text-lg font-medium text-gray-800 mb-4">
+ <Sparkles className="w-5 h-5 text-gray-900" />
  AI Assistant
  </h3>
  <button
  onClick={() => setIsAiChatOpen(false)}
- className="p-2 rounded-full hover:bg-slate-100 text-slate-600"
+ className="p-2 rounded-full hover:bg-slate-100 text-gray-600"
  >
  <X className="w-5 h-5" />
  </button>
@@ -1495,11 +1495,11 @@ export default function Dashboard({
  >
  {msg.role === "system" && (
  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#3399ff] to-[#FFFFFF] flex items-center justify-center shrink-0 mr-3 mt-1 shadow-sm">
- <Sparkles className="w-4 h-4 text-slate-900" />
+ <Sparkles className="w-4 h-4 text-gray-900" />
  </div>
  )}
  <div
- className={`px-5 py-3 rounded-[24px] max-w-[85%] font-medium text-[15px] leading-relaxed shadow-sm ${msg.role === "user" ? "bg-[#FFFFFF] text-slate-900 rounded-tr-sm" : "bg-slate-50 [#252525] border border-slate-100 [#333] text-slate-700 rounded-tl-sm"}`}
+ className={`px-5 py-3 rounded-[24px] max-w-[85%] font-medium text-base leading-relaxed shadow-sm ${msg.role === "user" ? "bg-[#FFFFFF] text-gray-900 rounded-tr-sm" : "bg-slate-50 [#252525] border border-slate-100 [#333] text-gray-700 rounded-tl-sm"}`}
  >
  {msg.content}
  </div>
@@ -1537,10 +1537,10 @@ export default function Dashboard({
  }
  }}
  placeholder="Ask your assistant..."
- className="w-full bg-transparent border-none outline-none text-[16px] text-slate-800 px-2 py-2 placeholder:text-slate-600"
+ className="w-full bg-transparent border-none outline-none text-base text-gray-800 px-2 py-2 placeholder:text-gray-600"
  />
  <button
- className="p-2.5 bg-[#FFFFFF] hover:bg-[#FFFFFF] shadow-md shadow-[#FFFFFF]/20 text-slate-900 rounded-full transition-all hover:scale-105 active:scale-95 ml-2 shrink-0"
+ className="p-2.5 bg-[#FFFFFF] hover:bg-[#FFFFFF] shadow-md shadow-[#FFFFFF]/20 text-gray-900 rounded-full transition-all hover:scale-105 active:scale-95 ml-2 shrink-0 text-base font-semibold"
  onClick={() => {
  if (aiMessage.trim()) {
  setAiMessages((prev) => [

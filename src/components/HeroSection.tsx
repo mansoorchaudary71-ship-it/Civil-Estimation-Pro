@@ -35,13 +35,13 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
           </div>
 
           {/* Headline */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tighter text-gray-900 leading-[1.1] mb-6">
+          <h1 className="sm: md:text-7xl leading-[1.1] mb-6 text-2xl font-semibold text-gray-900 tracking-tight">
             Build Smarter. <br className="hidden sm:block" />
             <span className="text-[#FF5F15]">Estimate Faster.</span>
           </h1>
 
           {/* Subheadline */}
-          <p className="text-lg md:text-xl text-gray-500 font-medium max-w-2xl px-4 leading-relaxed mb-10">
+          <p className="md: max-w-2xl px-4 mb-10 text-base font-normal text-gray-600 leading-relaxed">
             The all-in-one calculation platform for modern civil engineers, architects, and quantity surveyors. Accurate structural and building estimates in seconds.
           </p>
 
@@ -49,13 +49,13 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto px-4 mb-16">
             <button
               onClick={onStart}
-              className="w-full sm:w-auto px-8 py-4 rounded-full font-bold text-[15px] text-white bg-[#FF5F15] hover:bg-[#ea580c] transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(255,95,21,0.3)] hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(255,95,21,0.4)] active:scale-95"
+              className="w-full sm:w-auto px-8 py-4 rounded-full text-white bg-[#FF5F15] hover:bg-[#ea580c] transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_4px_14px_rgba(255,95,21,0.3)] hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(255,95,21,0.4)] active:scale-95 text-base font-semibold"
             >
               Start Estimating Free
               <ArrowRight className="w-4 h-4" />
             </button>
             <button
-              className="w-full sm:w-auto px-8 py-4 rounded-full font-bold text-[15px] text-gray-700 bg-white/90 backdrop-blur-sm hover:bg-gray-50 border border-gray-200 transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:-translate-y-0.5 hover:shadow active:scale-95"
+              className="w-full sm:w-auto px-8 py-4 rounded-full text-gray-700 bg-white/90 backdrop-blur-sm hover:bg-gray-50 border border-gray-200 transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:-translate-y-0.5 hover:shadow active:scale-95 text-base font-semibold"
             >
               <div className="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center">
                 <Play className="w-3 h-3 fill-current text-gray-700" />
@@ -147,8 +147,8 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
                 <CheckCircle2 className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="font-bold text-gray-900 text-base leading-tight">30+ Professional Tools</h4>
-                <p className="text-xs text-gray-500 font-medium">Verified to global standards</p>
+                <h4 className="leading-tight text-lg font-medium text-gray-800 mb-4">30+ Professional Tools</h4>
+                <p className=" text-base font-normal text-gray-600 leading-relaxed">Verified to global standards</p>
               </div>
             </div>
             <div className="flex items-center justify-between pt-3 border-t border-gray-100">
@@ -175,7 +175,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
                 <Star key={i} className="w-4 h-4 fill-[#FF5F15] text-[#FF5F15]" />
               ))}
             </div>
-            <p className="text-sm font-medium text-gray-700 mb-4 leading-snug">
+            <p className="mb-4 text-base font-normal text-gray-600 leading-relaxed">
               "Zero calculation errors and saves hours of manual Excel entries."
             </p>
             <div className="flex items-center gap-3 pt-3 border-t border-gray-100">
@@ -183,8 +183,8 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
                 <img src="https://i.pravatar.cc/100?img=33" alt="Michael R." className="w-full h-full object-cover" />
               </div>
               <div>
-                <p className="text-xs font-bold text-gray-900">Michael R.</p>
-                <p className="text-[10px] text-gray-500 font-medium">Civil Engineer</p>
+                <p className=" text-base font-normal text-gray-600 leading-relaxed">Michael R.</p>
+                <p className=" text-base font-normal text-gray-600 leading-relaxed">Civil Engineer</p>
               </div>
             </div>
           </motion.div>
@@ -198,7 +198,7 @@ export default function HeroSection({ onStart }: { onStart: () => void }) {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="w-full max-w-4xl mx-auto mt-12 pt-8 border-t border-gray-200/60"
         >
-          <p className="text-sm text-gray-500 font-medium mb-6">Trusted by global practitioners and firms</p>
+          <p className="mb-6 text-base font-normal text-gray-600 leading-relaxed">Trusted by global practitioners and firms</p>
           <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
             {/* Placeholder Logos */}
             <div className="text-xl font-bold tracking-tighter text-gray-800 flex items-center gap-2">

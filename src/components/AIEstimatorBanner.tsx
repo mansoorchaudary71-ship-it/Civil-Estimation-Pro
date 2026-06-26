@@ -35,20 +35,20 @@ export default function AIEstimatorBanner({ onOpenChat }: AIEstimatorBannerProps
       <div className="relative z-10 p-8 flex flex-col md:flex-row items-center justify-between gap-8 h-full">
         <div className="flex items-start md:items-center gap-6 flex-col md:flex-row w-full md:w-auto">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#166534] to-[#15803d] flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(22,101,52,0.5)] border border-green-500/30">
-            <Sparkles className="w-8 h-8 text-slate-900" />
+            <Sparkles className="w-8 h-8 text-gray-900" />
           </div>
           <div>
-            <h3 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight mb-2 flex items-center gap-3">
+            <h3 className="md: mb-2 flex items-center gap-3 text-lg font-medium text-gray-800 mb-4">
               Meet Your AI Estimator
             </h3>
-            <p className="text-green-100/70 font-medium max-w-lg leading-relaxed mb-4 text-sm md:text-base">
+            <p className="text-green-100/70 max-w-lg mb-4 md: text-base font-normal text-gray-600 leading-relaxed">
               Describe your project naturally. We will automatically build your entire BOQ.
             </p>
             
             {/* Capability Chips */}
             <div className="flex flex-wrap gap-2">
               {["BOQ Generation", "Cost Estimation", "Material Takeoff", "Code Lookup"].map((chip) => (
-                <span key={chip} className="text-[10px] uppercase font-bold tracking-wider px-3 py-1 bg-[#FFFFFF]/50 text-slate-700 border border-slate-600 rounded-full">
+                <span key={chip} className="text-xs uppercase font-bold tracking-wider px-3 py-1 bg-[#FFFFFF]/50 text-gray-700 border border-slate-600 rounded-full">
                   {chip}
                 </span>
               ))}
@@ -59,11 +59,11 @@ export default function AIEstimatorBanner({ onOpenChat }: AIEstimatorBannerProps
         <div className="flex flex-col items-center justify-center shrink-0 w-full md:w-auto mt-4 md:mt-0">
           <button 
             onClick={onOpenChat} 
-            className="w-full md:w-auto px-8 py-4 bg-[#FF5F15] hover:bg-[#ea580c] text-slate-900 font-bold rounded-xl shadow-[0_0_20px_rgba(255,95,21,0.3)] transition-all active:scale-95 border border-[#FF5F15]"
+            className="w-full md:w-auto px-8 py-4 bg-[#FF5F15] hover:bg-[#ea580c] text-gray-900 rounded-xl shadow-[0_0_20px_rgba(255,95,21,0.3)] transition-all active:scale-95 border border-[#FF5F15] text-base font-semibold"
           >
             Start Chat
           </button>
-          <p className="text-[10px] text-slate-600 mt-3 font-semibold uppercase tracking-wider text-center">
+          <p className="mt-3 uppercase tracking-wider text-center text-base font-normal text-gray-600 leading-relaxed">
             Free to use · No sign-up required
           </p>
         </div>

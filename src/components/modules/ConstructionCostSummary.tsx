@@ -168,11 +168,11 @@ const ConstructionCostSummary: React.FC = () => {
     <div className="tool-card p-4 md:p-8 flex flex-col w-full">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h2 className="text-2xl font-semibold text-slate-800 flex items-center gap-2">
+          <h2 className="flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight mb-4">
             <PieChartIcon className="w-6 h-6 text-purple-600" />
             Cost Summary Sheet
           </h2>
-          <p className="text-slate-500 mt-1">
+          <p className="mt-1 text-base font-normal text-gray-600 leading-relaxed">
             Consolidate estimates into a master summary with overheads and cost per sq ft analysis.
           </p>
         </div>
@@ -180,7 +180,7 @@ const ConstructionCostSummary: React.FC = () => {
           <CurrencySelector />
           <button
             onClick={exportToPDF}
-            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-slate-900 px-5 py-2.5 rounded-[24px] font-medium transition-colors whitespace-nowrap"
+            className="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-gray-900 px-5 py-2.5 rounded-[24px] transition-colors whitespace-nowrap text-base font-semibold"
           >
             <Download className="w-4 h-4" />
             Export Report
@@ -188,17 +188,17 @@ const ConstructionCostSummary: React.FC = () => {
         </div>
       </div>
 
-      <div className="mb-8 bg-purple-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-6 rounded-[24px] border border-purple-100">
-        <label className="block text-sm font-medium text-slate-700 mb-2">
+      <div className="mb-8 bg-purple-50 rounded-[24px] border border-slate-200 shadow-sm text-gray-800 p-6 rounded-[24px] border border-purple-100">
+        <label className="block mb-2 text-sm font-medium text-gray-700 mb-1">
           Total Built-Up Area (sq ft)
         </label>
         <div className="relative max-w-sm">
-          <Home className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
+          <Home className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
           <input
             type="number" inputMode="decimal"
             value={totalArea}
             onChange={(e) => setTotalArea(parseFloat(e.target.value) || 0)}
-            className="w-full bg-white border border-slate-300 rounded-[24px] px-4 py-2.5 pl-10 text-slate-900 focus:ring-2 focus:ring-purple-500 outline-none"
+            className="w-full bg-white border border-slate-300 rounded-[24px] px-4 py-2.5 pl-10 text-gray-900 focus:ring-2 focus:ring-purple-500 outline-none"
           />
         </div>
       </div>
@@ -209,15 +209,15 @@ const ConstructionCostSummary: React.FC = () => {
           
           {/* Grey Structure */}
           <div>
-            <h3 className="text-lg font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2">
+            <h3 className="mb-4 border-b border-slate-200 pb-2 text-lg font-medium text-gray-800">
               1. Grey Structure Cost
             </h3>
             <div className="space-y-3">
               {greyStructure.map((item, index) => (
                 <div key={item.id} className="flex items-center justify-between gap-4">
-                  <label className="text-slate-600 flex-1">{item.name}</label>
+                  <label className="flex-1 text-sm font-medium text-gray-700 mb-1 block">{item.name}</label>
                   <div className="relative w-40">
-                    <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-600" />
+                    <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-600" />
                     <input
                       type="number" inputMode="decimal"
                       value={convertAmount(item.amount) === 0 ? '' : Number(convertAmount(item.amount).toFixed(2))}
@@ -227,7 +227,7 @@ const ConstructionCostSummary: React.FC = () => {
                   </div>
                 </div>
               ))}
-              <div className="flex justify-between items-center pt-2 font-semibold text-slate-800">
+              <div className="flex justify-between items-center pt-2 font-semibold text-gray-800">
                 <span>Subtotal:</span>
                 <span>{formatCurrency(greyTotal)}</span>
               </div>
@@ -236,15 +236,15 @@ const ConstructionCostSummary: React.FC = () => {
 
           {/* Finishing */}
           <div>
-            <h3 className="text-lg font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2">
+            <h3 className="mb-4 border-b border-slate-200 pb-2 text-lg font-medium text-gray-800">
               2. Finishing Cost
             </h3>
             <div className="space-y-3">
               {finishing.map((item, index) => (
                 <div key={item.id} className="flex items-center justify-between gap-4">
-                  <label className="text-slate-600 flex-1">{item.name}</label>
+                  <label className="flex-1 text-sm font-medium text-gray-700 mb-1 block">{item.name}</label>
                   <div className="relative w-40">
-                    <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-600" />
+                    <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-600" />
                     <input
                       type="number" inputMode="decimal"
                       value={convertAmount(item.amount) === 0 ? '' : Number(convertAmount(item.amount).toFixed(2))}
@@ -254,7 +254,7 @@ const ConstructionCostSummary: React.FC = () => {
                   </div>
                 </div>
               ))}
-              <div className="flex justify-between items-center pt-2 font-semibold text-slate-800">
+              <div className="flex justify-between items-center pt-2 font-semibold text-gray-800">
                 <span>Subtotal:</span>
                 <span>{formatCurrency(finishTotal)}</span>
               </div>
@@ -263,15 +263,15 @@ const ConstructionCostSummary: React.FC = () => {
 
           {/* Labour */}
           <div>
-            <h3 className="text-lg font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2">
+            <h3 className="mb-4 border-b border-slate-200 pb-2 text-lg font-medium text-gray-800">
               3. Labour Cost
             </h3>
             <div className="space-y-3">
               {labour.map((item, index) => (
                 <div key={item.id} className="flex items-center justify-between gap-4">
-                  <label className="text-slate-600 flex-1">{item.name}</label>
+                  <label className="flex-1 text-sm font-medium text-gray-700 mb-1 block">{item.name}</label>
                   <div className="relative w-40">
-                    <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-600" />
+                    <DollarSign className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-600" />
                     <input
                       type="number" inputMode="decimal"
                       value={convertAmount(item.amount) === 0 ? '' : Number(convertAmount(item.amount).toFixed(2))}
@@ -281,7 +281,7 @@ const ConstructionCostSummary: React.FC = () => {
                   </div>
                 </div>
               ))}
-              <div className="flex justify-between items-center pt-2 font-semibold text-slate-800">
+              <div className="flex justify-between items-center pt-2 font-semibold text-gray-800">
                 <span>Subtotal:</span>
                 <span>{formatCurrency(labourTotal)}</span>
               </div>
@@ -290,7 +290,7 @@ const ConstructionCostSummary: React.FC = () => {
           
           {/* O&P / Contingency */}
           <div className="bg-orange-50 p-5 rounded-[24px] border border-orange-100">
-            <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+            <h3 className="mb-4 flex items-center gap-2 text-lg font-medium text-gray-800">
               <Settings2 className="w-5 h-5 text-orange-500" />
               Additional Factors
             </h3>
@@ -298,7 +298,7 @@ const ConstructionCostSummary: React.FC = () => {
             <div className="space-y-6">
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <label className="text-sm font-medium text-slate-700">Overhead & Profit (%)</label>
+                  <label className=" text-sm font-medium text-gray-700 mb-1 block">Overhead & Profit (%)</label>
                   <span className="bg-white px-2 py-1 rounded text-orange-600 font-bold border border-slate-200">{overheadProfitPct}%</span>
                 </div>
                 <input
@@ -314,7 +314,7 @@ const ConstructionCostSummary: React.FC = () => {
 
               <div>
                 <div className="flex justify-between items-center mb-2">
-                  <label className="text-sm font-medium text-slate-700">Contingency (%)</label>
+                  <label className=" text-sm font-medium text-gray-700 mb-1 block">Contingency (%)</label>
                   <span className="bg-white px-2 py-1 rounded text-orange-600 font-bold border border-slate-200">{contingencyPct}%</span>
                 </div>
                 <input
@@ -337,10 +337,10 @@ const ConstructionCostSummary: React.FC = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 p-6 h-[400px]"
+            className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-gray-800 p-6 h-[400px]"
           >
-            <h3 className="text-center font-bold text-slate-800 mb-1">Project Summary Dashboard</h3>
-            <p className="text-center text-xs text-slate-500 mb-4">Material vs. Labor Distribution</p>
+            <h3 className="text-center mb-1 text-lg font-medium text-gray-800 mb-4">Project Summary Dashboard</h3>
+            <p className="text-center mb-4 text-base font-normal text-gray-600 leading-relaxed">Material vs. Labor Distribution</p>
             <ResponsiveContainer width="100%" height="90%">
               <PieChart>
                 <Pie
@@ -365,8 +365,8 @@ const ConstructionCostSummary: React.FC = () => {
             </ResponsiveContainer>
           </motion.div>
 
-          <div className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-[24px] p-6 text-slate-900 shadow-xl">
-            <h3 className="text-purple-200 text-sm font-medium uppercase tracking-wider mb-4">Final Cost Summary</h3>
+          <div className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-[24px] p-6 text-gray-900 shadow-xl">
+            <h3 className="text-purple-200 uppercase r mb-4 text-lg font-medium text-gray-800">Final Cost Summary</h3>
             
             <div className="space-y-3 mb-6">
               <div className="flex justify-between items-center border-b border-purple-800/50 pb-2">
@@ -385,18 +385,18 @@ const ConstructionCostSummary: React.FC = () => {
 
             <div className="pt-2">
               <div className="text-purple-200 text-sm mb-1">Grand Total Estimation</div>
-              <div className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tracking-tight text-slate-900 mb-4">
+              <div className="text-3xl md:text-[clamp(1.75rem,5vw,2.5rem)] break-all font-semibold tracking-tight text-gray-900 mb-4">
                 {/* using standard large formatting */}
                 {formatCurrency(grandTotal)}
               </div>
               
-              <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] p-4 flex items-center justify-between">
+              <div className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-gray-800 rounded-[24px] p-4 flex items-center justify-between">
                 <div>
                   <div className="text-purple-200 text-xs uppercase tracking-wider mb-1">Cost Per Sq Ft</div>
                   <div className="text-2xl font-semibold">{formatCurrency(costPerSqFt)}</div>
                 </div>
                 <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
-                  <PieChartIcon className="w-6 h-6 text-slate-900" />
+                  <PieChartIcon className="w-6 h-6 text-gray-900" />
                 </div>
               </div>
             </div>

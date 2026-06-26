@@ -169,14 +169,14 @@ export default function ColumnDesignTool() {
   return (
     <div className="flex flex-col gap-8 w-full max-w-5xl mx-auto animate-in fade-in">
       <div className="bg-white  rounded-[24px] p-6 shadow-sm border border-slate-200 ">
-         <h2 className="text-xl font-bold mb-6 text-slate-800  flex items-center gap-2">
+         <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight mb-4">
             <Columns className="text-rose-600" /> Column Design & P-M Interaction
          </h2>
 
          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="lg:col-span-4 space-y-6">
                 <div>
-                  <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Loads & Boundary</h3>
+                  <h3 className="mb-3 border-b border-slate-100 pb-2 text-lg font-medium text-gray-800 mb-4">Loads & Boundary</h3>
                   <div className="space-y-4">
                     <NumberInput label="Working Load (P)" unit="kN" value={workingLoad} onChange={setWorkingLoad} />
                     <NumberInput label="Working Moment (M)" unit="kNm" value={workingMoment} onChange={setWorkingMoment} />
@@ -186,7 +186,7 @@ export default function ColumnDesignTool() {
                       </div>
                       <button 
                         onClick={handleAiSafetyFactor}
-                        className="h-11 px-4 bg-indigo-50 hover:bg-indigo-100   text-indigo-600  rounded-xl flex items-center justify-center transition-colors shadow-sm"
+                        className="h-11 px-4 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center transition-colors shadow-sm text-base font-semibold"
                         title="AI-Suggested Safety Factor based on Project Settings"
                       >
                         <Sparkles className="w-4 h-4 mr-1.5" /> AI Suggest
@@ -195,7 +195,7 @@ export default function ColumnDesignTool() {
                     <NumberInput label="Unsupported Length (L)" unit="m" value={length} onChange={setLength} />
                     
                     <div>
-                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1">End Condition</label>
+                        <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">End Condition</label>
                         <select 
                             value={endCondition}
                             onChange={(e) => setEndCondition(e.target.value as EndCondition)}
@@ -210,7 +210,7 @@ export default function ColumnDesignTool() {
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Section & Materials</h3>
+                  <h3 className="mb-3 border-b border-slate-100 pb-2 text-lg font-medium text-gray-800 mb-4">Section & Materials</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <NumberInput label="Width (B)" unit="mm" value={width} onChange={setWidth} />
                     <NumberInput label="Depth (D)" unit="mm" value={depth} onChange={setDepth} />
@@ -220,7 +220,7 @@ export default function ColumnDesignTool() {
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Reinforcement</h3>
+                  <h3 className="mb-3 border-b border-slate-100 pb-2 text-lg font-medium text-gray-800 mb-4">Reinforcement</h3>
                   <div className="grid grid-cols-2 gap-4">
                     <NumberInput label="Bar Dia" unit="mm" value={rebarDia} onChange={setRebarDia} />
                     <NumberInput label="No. of Bars" value={rebarCount} onChange={setRebarCount} />
@@ -262,7 +262,7 @@ export default function ColumnDesignTool() {
                 </MaterialSummary>
 
                 <div className="bg-slate-50 border border-slate-100 rounded-3xl p-6 flex-1 min-h-[400px]">
-                    <h3 className="font-bold text-slate-800 text-sm mb-4">P-M Interaction Diagram (IS 456)</h3>
+                    <h3 className="mb-4 text-lg font-medium text-gray-800">P-M Interaction Diagram (IS 456)</h3>
                     <ResponsiveContainer width="100%" height={350}>
                         <ComposedChart margin={{ top: 10, right: 20, left: 10, bottom: 20 }}>
                             <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />

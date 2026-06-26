@@ -13,7 +13,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
   };
 
   return (
-    <footer className="relative w-full overflow-hidden shrink-0 z-20 bg-gradient-to-b from-white to-slate-50 pt-16 pb-8 mt-auto border-t border-slate-200 text-slate-600" style={{ fontFamily: "'Inter', sans-serif" }}>
+    <footer className="relative w-full overflow-hidden shrink-0 z-20 bg-gradient-to-b from-white to-slate-50 pt-16 pb-8 mt-auto border-t border-slate-200 text-gray-600" style={{ fontFamily: "'Inter', sans-serif" }}>
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12">
         
         {/* Top Section */}
@@ -22,29 +22,29 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
           {/* Brand & Market Col - span 2 */}
           <div className="col-span-1 md:col-span-2 flex flex-col gap-5">
             <div className="flex items-center gap-2">
-              <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+              <h2 className=" text-xl font-semibold text-gray-900 tracking-tight mb-4">
                 Civil Estimation <span className="text-[#FF5F15]">Pro</span>
               </h2>
             </div>
-            <p className="text-slate-500 text-sm leading-relaxed max-w-sm">
+            <p className="max-w-sm text-base font-normal text-gray-600 leading-relaxed">
               Generate highly accurate engineering estimates in seconds. The complete toolkit for civil engineers driving standard workflows.
             </p>
             
             {/* Markets Row */}
-            <div className="flex items-center gap-2 text-sm text-slate-500 font-medium whitespace-nowrap overflow-x-auto scrollbar-hide py-1">
+            <div className="flex items-center gap-2 text-sm text-gray-500 font-medium whitespace-nowrap overflow-x-auto scrollbar-hide py-1">
               <span>🇵🇰 Pakistan</span>
-              <span className="text-slate-700">•</span>
+              <span className="text-gray-700">•</span>
               <span>🇮🇳 India</span>
-              <span className="text-slate-700">•</span>
+              <span className="text-gray-700">•</span>
               <span>🇦🇪 UAE</span>
-              <span className="text-slate-700">•</span>
+              <span className="text-gray-700">•</span>
               <span>🌍 Global</span>
             </div>
 
             {/* Compliance Badges */}
             <div className="flex flex-wrap gap-2 mt-2">
               {["IS Codes", "MORTH/IRC", "NBC", "RERA"].map(badge => (
-                <span key={badge} className="px-2 py-1 bg-slate-100 border border-slate-200 rounded flex items-center justify-center gap-1.5 text-[10px] uppercase font-bold text-slate-600">
+                <span key={badge} className="px-2 py-1 bg-slate-100 border border-slate-200 rounded flex items-center justify-center gap-1.5 text-xs uppercase font-bold text-gray-600">
                   <ShieldCheck className="w-3 h-3 text-[#FF5F15]" />
                   {badge}
                 </span>
@@ -57,7 +57,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
             
             {/* Tools Column (New) */}
             <div className="flex flex-col gap-4">
-              <h3 className="text-[11px] font-bold text-slate-900 uppercase tracking-widest mb-2">Tools</h3>
+              <h3 className="text-xs uppercase st mb-2 text-lg font-medium text-gray-800 mb-4">Tools</h3>
               <div className="flex flex-col gap-3">
                 {[
                   { name: 'BOQ Generator', id: 'house' },
@@ -69,7 +69,7 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
                   <button 
                     key={link.id} 
                     onClick={() => onNavigate?.(link.id as ModuleId)}
-                    className="group relative text-left text-sm text-slate-500 hover:text-[#FF5F15] transition-colors w-fit"
+                    className="group relative text-left text-sm text-gray-500 hover:text-[#FF5F15] transition-colors w-fit"
                   >
                     <span className="relative z-10">{link.name}</span>
                     <span className="absolute left-0 bottom-[-2px] w-0 h-[1px] bg-[#FF5F15] transition-all duration-300 group-hover:w-full"></span>
@@ -80,10 +80,10 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
 
             {/* Company Column */}
             <div className="flex flex-col gap-4">
-              <h3 className="text-[11px] font-bold text-slate-900 uppercase tracking-widest mb-2">Company</h3>
+              <h3 className="text-xs uppercase st mb-2 text-lg font-medium text-gray-800 mb-4">Company</h3>
               <div className="flex flex-col gap-3">
                 {['About Us', 'Careers', 'Contact', 'Blog'].map((link) => (
-                  <button key={link} className="group relative text-left text-sm text-slate-500 hover:text-[#FF5F15] transition-colors w-fit">
+                  <button key={link} className="group relative text-left text-gray-500 hover:text-[#FF5F15] transition-colors w-fit text-base font-semibold">
                     <span className="relative z-10">{link}</span>
                     <span className="absolute left-0 bottom-[-2px] w-0 h-[1px] bg-[#FF5F15] transition-all duration-300 group-hover:w-full"></span>
                   </button>
@@ -93,10 +93,10 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
 
             {/* Legal Column */}
             <div className="flex flex-col gap-4">
-              <h3 className="text-[11px] font-bold text-slate-900 uppercase tracking-widest mb-2">Legal</h3>
+              <h3 className="text-xs uppercase st mb-2 text-lg font-medium text-gray-800 mb-4">Legal</h3>
               <div className="flex flex-col gap-3">
                 {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((link) => (
-                  <button key={link} className="group relative text-left text-sm text-slate-500 hover:text-[#FF5F15] transition-colors w-fit">
+                  <button key={link} className="group relative text-left text-gray-500 hover:text-[#FF5F15] transition-colors w-fit text-base font-semibold">
                     <span className="relative z-10">{link}</span>
                     <span className="absolute left-0 bottom-[-2px] w-0 h-[1px] bg-[#FF5F15] transition-all duration-300 group-hover:w-full"></span>
                   </button>
@@ -106,10 +106,10 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
 
             {/* Resources Column */}
             <div className="flex flex-col gap-4">
-              <h3 className="text-[11px] font-bold text-slate-900 uppercase tracking-widest mb-2">Resources</h3>
+              <h3 className="text-xs uppercase st mb-2 text-lg font-medium text-gray-800 mb-4">Resources</h3>
               <div className="flex flex-col gap-3">
                 {['Embed Calculator', 'Link Exchange', 'APIs'].map((link) => (
-                  <button key={link} className="group relative text-left text-sm text-slate-500 hover:text-[#FF5F15] transition-colors w-fit">
+                  <button key={link} className="group relative text-left text-gray-500 hover:text-[#FF5F15] transition-colors w-fit text-base font-semibold">
                     <span className="relative z-10">{link}</span>
                     <span className="absolute left-0 bottom-[-2px] w-0 h-[1px] bg-[#FF5F15] transition-all duration-300 group-hover:w-full"></span>
                   </button>
@@ -122,10 +122,10 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
         {/* Email Capture Bar */}
         <div className="w-full bg-white/80 backdrop-blur-md border border-slate-100 shadow-xl rounded-2xl p-6 md:p-8 mb-10 flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
           <div className="flex flex-col items-center md:items-start text-center md:text-left gap-1">
-            <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <h3 className="flex items-center gap-2 text-lg font-medium text-gray-800 mb-4">
               <MailPlus className="w-5 h-5 text-[#FF5F15]" /> Stay Updated
             </h3>
-            <p className="text-slate-500 text-sm">Join our newsletter for new estimation tools and market updates.</p>
+            <p className=" text-base font-normal text-gray-600 leading-relaxed">Join our newsletter for new estimation tools and market updates.</p>
           </div>
           <div className="flex w-full md:w-auto relative max-w-md">
             <input 
@@ -133,11 +133,11 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
               placeholder="Enter your professional email" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full md:w-80 bg-slate-50 border border-slate-200 rounded-xl py-3 pl-4 pr-32 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FF5F15] focus:border-transparent transition-all shadow-sm"
+              className="w-full md:w-80 bg-slate-50 border border-slate-200 rounded-xl py-3 pl-4 pr-32 text-gray-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FF5F15] focus:border-transparent transition-all shadow-sm"
             />
             <button 
               onClick={handleSubscribe} 
-              className="absolute right-1 top-1 bottom-1 px-5 bg-[#FF5F15] hover:bg-[#ea580c] text-slate-900 font-bold text-sm rounded-lg transition-colors shadow-sm"
+              className="absolute right-1 top-1 bottom-1 px-5 bg-[#FF5F15] hover:bg-[#ea580c] text-gray-900 rounded-lg transition-colors shadow-sm text-base font-semibold"
             >
               Subscribe
             </button>
@@ -147,25 +147,25 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
         {/* Bottom Section */}
         <div className="pt-8 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-center md:text-left">
-             <p className="text-sm text-slate-500">
+             <p className=" text-base font-normal text-gray-600 leading-relaxed">
                 © {new Date().getFullYear()} Civil Estimation Pro. Pakistan, India & UAE. All rights reserved.
              </p>
           </div>
           
           <div className="flex items-center gap-4">
-            <a href="#" className="flex items-center gap-2 text-slate-500 hover:text-[#FF5F15] transition-colors group">
+            <a href="#" className="flex items-center gap-2 text-gray-500 hover:text-[#FF5F15] transition-colors group">
               <span className="w-9 h-9 rounded-full bg-slate-100 group-hover:bg-[#FF5F15]/10 flex items-center justify-center transition-colors">
                 <Twitter className="w-4 h-4" />
               </span>
               <span className="text-sm font-medium hidden md:inline">Twitter</span>
             </a>
-            <a href="#" className="flex items-center gap-2 text-slate-500 hover:text-[#FF5F15] transition-colors group">
+            <a href="#" className="flex items-center gap-2 text-gray-500 hover:text-[#FF5F15] transition-colors group">
               <span className="w-9 h-9 rounded-full bg-slate-100 group-hover:bg-[#FF5F15]/10 flex items-center justify-center transition-colors">
                 <Github className="w-4 h-4" />
               </span>
               <span className="text-sm font-medium hidden md:inline">GitHub</span>
             </a>
-            <a href="#" className="flex items-center gap-2 text-slate-500 hover:text-[#FF5F15] transition-colors group">
+            <a href="#" className="flex items-center gap-2 text-gray-500 hover:text-[#FF5F15] transition-colors group">
               <span className="w-9 h-9 rounded-full bg-slate-100 group-hover:bg-[#FF5F15]/10 flex items-center justify-center transition-colors">
                 <Linkedin className="w-4 h-4" />
               </span>

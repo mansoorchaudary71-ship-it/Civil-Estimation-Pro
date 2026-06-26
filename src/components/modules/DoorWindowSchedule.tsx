@@ -46,11 +46,11 @@ export default function DoorWindowSchedule() {
     <div className="w-full max-w-5xl mx-auto space-y-6">
        <div className="bg-white border border-slate-200 p-6 rounded-[24px] shadow-sm">
          <div className="flex justify-between items-center mb-6">
-           <h2 className="text-2xl font-semibold flex items-center gap-2">
+           <h2 className="flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight mb-4">
              <Columns className="w-6 h-6 text-teal-500" />
              Door & Window Schedule Generator
            </h2>
-           <button onClick={downloadCSV} className="bg-emerald-600 hover:bg-emerald-700 text-slate-900 px-4 py-2 rounded-[24px] font-bold transition flex items-center gap-2 text-sm">
+           <button onClick={downloadCSV} className="bg-emerald-600 hover:bg-emerald-700 text-gray-900 px-4 py-2 rounded-[24px] transition flex items-center gap-2 text-base font-semibold">
              <Save className="w-4 h-4"/> Export CSV
            </button>
          </div>
@@ -58,14 +58,14 @@ export default function DoorWindowSchedule() {
          <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border-y border-slate-200">
-                   <th className="p-3 text-sm font-bold text-slate-500">Mark</th>
-                   <th className="p-3 text-sm font-bold text-slate-500">Width (m)</th>
-                   <th className="p-3 text-sm font-bold text-slate-500">Height (m)</th>
-                   <th className="p-3 text-sm font-bold text-slate-500">Qty</th>
-                   <th className="p-3 text-sm font-bold text-slate-500">Area (sqm)</th>
-                   <th className="p-3 text-sm font-bold text-slate-500">Req. Lintel (m)</th>
-                   <th className="p-3 text-sm font-bold text-slate-500">Notes</th>
+                <tr className="bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-gray-800 border-y border-slate-200">
+                   <th className="p-3 text-sm font-bold text-gray-500">Mark</th>
+                   <th className="p-3 text-sm font-bold text-gray-500">Width (m)</th>
+                   <th className="p-3 text-sm font-bold text-gray-500">Height (m)</th>
+                   <th className="p-3 text-sm font-bold text-gray-500">Qty</th>
+                   <th className="p-3 text-sm font-bold text-gray-500">Area (sqm)</th>
+                   <th className="p-3 text-sm font-bold text-gray-500">Req. Lintel (m)</th>
+                   <th className="p-3 text-sm font-bold text-gray-500">Notes</th>
                    <th className="p-3"></th>
                 </tr>
               </thead>
@@ -84,10 +84,10 @@ export default function DoorWindowSchedule() {
                      <td className="p-2">
                         <input type="number" inputMode="decimal" value={e.qty} onChange={(ev)=>updateEntry(e.id, 'qty', parseInt(ev.target.value)||0)} className="w-[60px] bg-slate-50 border border-slate-200 px-3 py-2 rounded-[16px] text-sm" />
                      </td>
-                     <td className="p-2 text-sm font-bold text-slate-600">
+                     <td className="p-2 text-sm font-bold text-gray-600">
                         {((e.w * e.h) * e.qty).toFixed(2)}
                      </td>
-                     <td className="p-2 text-sm font-mono text-slate-500">
+                     <td className="p-2 text-sm font-mono text-gray-500">
                         {(e.w + 0.3).toFixed(2)}
                      </td>
                      <td className="p-2">
@@ -102,7 +102,7 @@ export default function DoorWindowSchedule() {
             </table>
          </div>
          <div className="mt-4">
-            <button onClick={addEntry} className="text-sm font-bold text-teal-600 bg-teal-50 px-4 py-2 rounded-[16px] hover:bg-teal-100 transition">
+            <button onClick={addEntry} className="text-teal-600 bg-teal-50 px-4 py-2 rounded-[16px] hover:bg-teal-100 transition text-base font-semibold">
               + Add Item
             </button>
          </div>

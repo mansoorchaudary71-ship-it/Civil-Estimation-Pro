@@ -18,8 +18,8 @@ export default function LocaleUnitDetector() {
         if (settings.measurement !== suggestedUnit) {
           toast((t) => (
             <div className="flex flex-col gap-2 p-1">
-              <div className="font-bold text-slate-800 text-base">Locale Detected</div>
-              <div className="text-sm text-slate-600">Based on your region, we suggest using {suggestedName} units for calculations.</div>
+              <div className="font-bold text-gray-800 text-base">Locale Detected</div>
+              <div className="text-sm text-gray-600">Based on your region, we suggest using {suggestedName} units for calculations.</div>
               <div className="flex gap-2 mt-3">
                 <button 
                   onClick={() => {
@@ -33,7 +33,7 @@ export default function LocaleUnitDetector() {
                 </button>
                 <button 
                   onClick={() => toast.dismiss(t.id)}
-                  className="flex-1 px-3 py-2 bg-slate-100 text-slate-600 hover:bg-slate-200 outline-none text-xs font-bold rounded-xl transition duration-150"
+                  className="flex-1 px-3 py-2 bg-slate-100 text-gray-600 hover:bg-slate-200 outline-none text-xs font-bold rounded-xl transition duration-150"
                 >
                   Keep {settings.measurement === 'SI' ? 'Metric' : 'Imperial'}
                 </button>

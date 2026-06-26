@@ -222,19 +222,19 @@ export default function BarBendingSchedule() {
              <button
                onClick={sendToBOQ}
                disabled={rows.length === 0}
-               className="text-sm font-bold px-4 py-2.5 bg-emerald-50 text-emerald-600 rounded-[24px] hover:bg-emerald-100 transition-colors disabled:opacity-50 border border-emerald-200"
+               className="px-4 py-2.5 bg-emerald-50 text-emerald-600 rounded-[24px] hover:bg-emerald-100 transition-colors disabled:opacity-50 border border-emerald-200 text-base font-semibold"
              >
                Send to BOQ
              </button>
-             <button onClick={loadExample} className="text-sm font-bold px-4 py-2.5 bg-indigo-50 text-indigo-600 rounded-[24px] hover:bg-indigo-100 transition-colors">
+             <button onClick={loadExample} className="px-4 py-2.5 bg-indigo-50 text-indigo-600 rounded-[24px] hover:bg-indigo-100 transition-colors text-base font-semibold">
                Load Example
              </button>
-             <button onClick={resetDefault} className="text-sm font-bold px-4 py-2.5 bg-slate-100 text-slate-500 rounded-[24px] hover:bg-slate-200 transition-colors">
+             <button onClick={resetDefault} className="px-4 py-2.5 bg-slate-100 text-gray-500 rounded-[24px] hover:bg-slate-200 transition-colors text-base font-semibold">
                Reset
              </button>
              <button
                 onClick={handlePrint}
-                className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold rounded-[24px] bg-indigo-600 hover:bg-blue-700 text-white shadow-md shadow-blue-200 transition-all"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-[24px] bg-indigo-600 hover:bg-blue-700 text-white shadow-md shadow-blue-200 transition-all text-base font-semibold"
              >
                 <Printer className="w-4 h-4" />
                 Print Schedule
@@ -247,26 +247,26 @@ export default function BarBendingSchedule() {
           {/* Input Form */}
           <section className="lg:col-span-4 space-y-6">
             <div className="bg-white px-6 py-6 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">
-               <h2 className="text-xl font-semibold tracking-tight text-slate-800 mb-6 flex items-center gap-2">
+               <h2 className="mb-6 flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight mb-4">
                  <Plus className="w-5 h-5 text-blue-500" /> Add Bar
                </h2>
                
                <div className="space-y-4">
                  <div>
-                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1">Member Name / Mark</label>
+                   <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">Member Name / Mark</label>
                    <input
                      type="text"
                      placeholder="e.g. B1, C2, Main Bar"
-                     className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px]"
+                     className="w-full bg-slate-50 border border-slate-200 text-gray-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px] text-base font-normal"
                      value={member}
                      onChange={(e) => setMember(e.target.value)}
                    />
                  </div>
                  
                  <div>
-                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1">Shape Code</label>
+                   <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">Shape Code</label>
                    <select
-                     className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all font-semibold"
+                     className="w-full bg-slate-50 border border-slate-200 text-gray-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all text-base font-normal"
                      value={shape}
                      onChange={(e) => setShape(e.target.value as ShapeType)}
                    >
@@ -282,9 +282,9 @@ export default function BarBendingSchedule() {
                  
                  <div className="grid grid-cols-2 gap-4">
                    <div>
-                     <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1">Bar Dia (mm)</label>
+                     <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">Bar Dia (mm)</label>
                      <select
-                       className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all"
+                       className="w-full bg-slate-50 border border-slate-200 text-gray-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all text-base font-normal"
                        value={dia}
                        onChange={(e) => setDia(e.target.value)}
                      >
@@ -299,10 +299,10 @@ export default function BarBendingSchedule() {
                      </select>
                    </div>
                    <div>
-                     <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1">No. of Bars</label>
+                     <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">No. of Bars</label>
                      <input
                        type="number" inputMode="decimal"
-                       className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px]"
+                       className="w-full bg-slate-50 border border-slate-200 text-gray-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px] text-base font-normal"
                        value={noOfBars}
                        onChange={(e) => setNoOfBars(e.target.value)}
                      />
@@ -310,10 +310,10 @@ export default function BarBendingSchedule() {
                  </div>
                  
                  <div>
-                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1">Cover (mm)</label>
+                   <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">Cover (mm)</label>
                    <input
                      type="number" inputMode="decimal"
-                     className="w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px]"
+                     className="w-full bg-slate-50 border border-slate-200 text-gray-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px] text-base font-normal"
                      value={cover}
                      onChange={(e) => setCover(e.target.value)}
                    />
@@ -323,19 +323,19 @@ export default function BarBendingSchedule() {
                  {(shape === "rect-stirrup" || shape === "u-stirrup") && (
                    <div className="grid grid-cols-2 gap-4 p-4 bg-blue-50 rounded-[24px] border border-blue-100">
                      <div>
-                       <label className="block text-xs font-bold text-blue-800 uppercase tracking-wider mb-1.5 ml-1">Sect Width (mm)</label>
+                       <label className="block text-blue-800 uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">Sect Width (mm)</label>
                        <input
                          type="number" inputMode="decimal"
-                         className="w-full bg-white border border-blue-200 text-slate-800 rounded-[24px] px-3 py-2.5 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px]"
+                         className="w-full bg-white border border-blue-200 text-gray-800 rounded-[24px] px-3 py-2.5 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px] text-base font-normal"
                          value={width}
                          onChange={(e) => setWidth(e.target.value)}
                        />
                      </div>
                      <div>
-                       <label className="block text-xs font-bold text-blue-800 uppercase tracking-wider mb-1.5 ml-1">Sect Depth (mm)</label>
+                       <label className="block text-blue-800 uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">Sect Depth (mm)</label>
                        <input
                          type="number" inputMode="decimal"
-                         className="w-full bg-white border border-blue-200 text-slate-800 rounded-[24px] px-3 py-2.5 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px]"
+                         className="w-full bg-white border border-blue-200 text-gray-800 rounded-[24px] px-3 py-2.5 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px] text-base font-normal"
                          value={depth}
                          onChange={(e) => setDepth(e.target.value)}
                        />
@@ -346,28 +346,28 @@ export default function BarBendingSchedule() {
                  {shape === "spiral" && (
                    <div className="grid grid-cols-2 gap-4 p-4 bg-blue-50 rounded-[24px] border border-blue-100">
                      <div className="col-span-2">
-                       <label className="block text-xs font-bold text-blue-800 uppercase tracking-wider mb-1.5 ml-1">Col Dia (mm)</label>
+                       <label className="block text-blue-800 uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">Col Dia (mm)</label>
                        <input
                          type="number" inputMode="decimal"
-                         className="w-full bg-white border border-blue-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px]"
+                         className="w-full bg-white border border-blue-200 text-gray-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px] text-base font-normal"
                          value={spiralDia}
                          onChange={(e) => setSpiralDia(e.target.value)}
                        />
                      </div>
                      <div>
-                       <label className="block text-xs font-bold text-blue-800 uppercase tracking-wider mb-1.5 ml-1">Pitch (mm)</label>
+                       <label className="block text-blue-800 uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">Pitch (mm)</label>
                        <input
                          type="number" inputMode="decimal"
-                         className="w-full bg-white border border-blue-200 text-slate-800 rounded-[24px] px-3 py-2.5 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px]"
+                         className="w-full bg-white border border-blue-200 text-gray-800 rounded-[24px] px-3 py-2.5 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px] text-base font-normal"
                          value={spiralPitch}
                          onChange={(e) => setSpiralPitch(e.target.value)}
                        />
                      </div>
                      <div>
-                       <label className="block text-xs font-bold text-blue-800 uppercase tracking-wider mb-1.5 ml-1">Height (mm)</label>
+                       <label className="block text-blue-800 uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">Height (mm)</label>
                        <input
                          type="number" inputMode="decimal"
-                         className="w-full bg-white border border-blue-200 text-slate-800 rounded-[24px] px-3 py-2.5 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px]"
+                         className="w-full bg-white border border-blue-200 text-gray-800 rounded-[24px] px-3 py-2.5 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px] text-base font-normal"
                          value={spiralHeight}
                          onChange={(e) => setSpiralHeight(e.target.value)}
                        />
@@ -378,10 +378,10 @@ export default function BarBendingSchedule() {
                  {(shape === "straight" || shape === "u-hook" || shape === "l-hook" || shape === "cranked") && (
                    <div className="space-y-4 p-4 bg-blue-50 rounded-[24px] border border-blue-100">
                      <div>
-                       <label className="block text-xs font-bold text-blue-800 uppercase tracking-wider mb-1.5 ml-1">Length/Span (mm)</label>
+                       <label className="block text-blue-800 uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">Length/Span (mm)</label>
                        <input
                          type="number" inputMode="decimal"
-                         className="w-full bg-white border border-blue-200 text-slate-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px]"
+                         className="w-full bg-white border border-blue-200 text-gray-800 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px] text-base font-normal"
                          value={span}
                          onChange={(e) => setSpan(e.target.value)}
                        />
@@ -389,19 +389,19 @@ export default function BarBendingSchedule() {
                      {shape === "cranked" && (
                        <div className="grid grid-cols-2 gap-4">
                          <div>
-                           <label className="block text-xs font-bold text-blue-800 uppercase tracking-wider mb-1.5 ml-1">Slab Thk (mm)</label>
+                           <label className="block text-blue-800 uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">Slab Thk (mm)</label>
                            <input
                              type="number" inputMode="decimal"
-                             className="w-full bg-white border border-blue-200 text-slate-800 rounded-[24px] px-3 py-2.5 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px]"
+                             className="w-full bg-white border border-blue-200 text-gray-800 rounded-[24px] px-3 py-2.5 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px] text-base font-normal"
                              value={slabThick}
                              onChange={(e) => setSlabThick(e.target.value)}
                            />
                          </div>
                          <div>
-                           <label className="block text-xs font-bold text-blue-800 uppercase tracking-wider mb-1.5 ml-1">No. Cranks</label>
+                           <label className="block text-blue-800 uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">No. Cranks</label>
                            <input
                              type="number" inputMode="decimal"
-                             className="w-full bg-white border border-blue-200 text-slate-800 rounded-[24px] px-3 py-2.5 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px]"
+                             className="w-full bg-white border border-blue-200 text-gray-800 rounded-[24px] px-3 py-2.5 focus:ring-2 focus:ring-blue-500/50 outline-none transition-all min-h-[44px] text-base font-normal"
                              value={cranks}
                              onChange={(e) => setCranks(e.target.value)}
                            />
@@ -413,7 +413,7 @@ export default function BarBendingSchedule() {
                  
                  <button
                    onClick={calculateBBS}
-                   className="w-full py-3.5 bg-white hover:bg-indigo-600 text-white font-bold rounded-[24px] transition-all shadow-md mt-4"
+                   className="w-full py-3.5 bg-white hover:bg-indigo-600 text-white rounded-[24px] transition-all shadow-md mt-4 text-base font-semibold"
                  >
                    Calculate & Add
                  </button>
@@ -425,7 +425,7 @@ export default function BarBendingSchedule() {
           <section className="lg:col-span-8 space-y-6">
              <div className="bg-white px-6 py-6 rounded-[1.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 min-h-[500px]">
                 <div className="flex items-center justify-between mb-6">
-                   <h2 className="text-xl font-semibold tracking-tight text-slate-800 flex items-center gap-2">
+                   <h2 className="flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight mb-4">
                      <LayoutList className="w-5 h-5 text-blue-500" /> Current Schedule
                    </h2>
                    <div className="bg-blue-50 text-blue-800 px-4 py-1.5 rounded-full font-bold text-sm">
@@ -434,14 +434,14 @@ export default function BarBendingSchedule() {
                 </div>
                 
                 {rows.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center h-64 text-slate-600">
+                  <div className="flex flex-col items-center justify-center h-64 text-gray-600">
                     <GripHorizontal className="w-12 h-12 mb-4 opacity-50" />
                     <p>No bars added yet. Add a bar from the panel.</p>
                   </div>
                 ) : (
                   <div className="overflow-x-auto rounded-[24px] border border-slate-200">
                      <table className="w-full text-sm text-left">
-                       <thead className="bg-slate-50 text-slate-600 font-bold uppercase text-xs">
+                       <thead className="bg-slate-50 text-gray-600 font-bold uppercase text-xs">
                          <tr>
                            <th className="px-4 py-3 border-b">Member</th>
                            <th className="px-4 py-3 border-b">Shape</th>
@@ -456,17 +456,17 @@ export default function BarBendingSchedule() {
                        <tbody className="divide-y divide-slate-100">
                          {rows.map((r, i) => (
                            <tr key={r.id} className="hover:bg-slate-50/50">
-                             <td className="px-4 py-3 font-semibold text-slate-800">{r.member}</td>
-                             <td className="px-4 py-3 text-slate-600">
+                             <td className="px-4 py-3 font-semibold text-gray-800">{r.member}</td>
+                             <td className="px-4 py-3 text-gray-600">
                                 <div className="capitalize">{r.shape.replace('-', ' ')}</div>
-                                <div className="text-[10px] text-slate-600">
+                                <div className="text-xs text-gray-600">
                                    {(r.shape === 'rect-stirrup' || r.shape === 'u-stirrup') && `A:${r.inputs.A} B:${r.inputs.B}`}
                                    {r.shape === 'cranked' && `S:${r.inputs.Span} T:${r.inputs.Thick}`}
                                    {r.shape === 'spiral' && `D:${r.inputs.ColDia} P:${r.inputs.Pitch} H:${r.inputs.Height}`}
                                 </div>
                              </td>
                              <td className="px-4 py-3 font-medium">Ø{r.dia}</td>
-                             <td className="px-4 py-3 text-center font-bold text-slate-700">{r.noOfBars}</td>
+                             <td className="px-4 py-3 text-center font-bold text-gray-700">{r.noOfBars}</td>
                              <td className="px-4 py-3 text-right font-medium">{r.cutLengthM.toFixed(3)}</td>
                              <td className="px-4 py-3 text-right">{r.totalLengthM.toFixed(2)}</td>
                              <td className="px-4 py-3 text-right font-bold text-blue-700">{r.totalWeightKg.toFixed(2)}</td>
@@ -487,11 +487,11 @@ export default function BarBendingSchedule() {
       </div>
       
       {/* Print-Only Layout */}
-      <div className="hidden print:block p-8 bg-white text-slate-900" ref={printRef}>
+      <div className="hidden print:block p-8 bg-white text-gray-900" ref={printRef}>
          
          
          <table className="w-full text-sm text-left border-collapse border border-slate-300">
-           <thead className="bg-slate-100 text-slate-800 font-bold uppercase text-xs">
+           <thead className="bg-slate-100 text-gray-800 font-bold uppercase text-xs">
              <tr>
                <th className="px-3 py-2 border border-slate-300">SN.</th>
                <th className="px-3 py-2 border border-slate-300">Member Description</th>
@@ -510,7 +510,7 @@ export default function BarBendingSchedule() {
                  <td className="px-3 py-2 border border-slate-300 font-semibold">{r.member}</td>
                  <td className="px-3 py-2 border border-slate-300">
                     <div className="capitalize font-medium">{r.shape.replace('-', ' ')}</div>
-                    <div className="text-xs text-slate-500 mt-0.5">
+                    <div className="text-xs text-gray-500 mt-0.5">
                        {(r.shape === 'rect-stirrup' || r.shape === 'u-stirrup') && `Inner Dim: A=${r.inputs.A}mm, B=${r.inputs.B}mm`}
                        {r.shape === 'cranked' && `Span=${r.inputs.Span}mm, Slab=${r.inputs.Thick}mm`}
                        {(r.shape === 'u-hook' || r.shape === 'l-hook') && `Clear Span=${r.inputs.Span}mm`}

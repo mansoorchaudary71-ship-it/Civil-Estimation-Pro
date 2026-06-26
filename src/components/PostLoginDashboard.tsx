@@ -88,17 +88,17 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
         <div className="flex flex-col items-center text-center gap-4 bg-white/70 backdrop-blur-3xl border border-white/40 rounded-[40px] p-6 sm:p-8 md:p-12 shadow-md hover:shadow-xl transition-shadow relative group w-full box-border">
           <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/10 pointer-events-none rounded-[40px]"></div>
           <div className="z-10 relative flex flex-col items-center">
-            <h1 className="text-2xl md:text-3xl lg:text-3xl md:text-4xl font-semibold tabular-nums tracking-tight text-[var(--primary-dark)] tracking-tight mb-3">
+            <h1 className="md: lg: tabular-nums text-[var(--primary-dark)] mb-3 text-2xl font-semibold text-gray-900 tracking-tight mb-6">
               Welcome back{user?.displayName ? `, ${user.displayName.split(' ')[0]}` : ''}
             </h1>
-            <p className="text-slate-500 font-medium text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+            <p className="md: max-w-xl mx-auto text-base font-normal text-gray-600 leading-relaxed">
               Ready to calculate your next project? Pick up where you left off or start a new estimate.
             </p>
           </div>
           
           <button 
             onClick={() => onSelectModule('calculators')}
-            className="z-10 mt-2 relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 text-slate-900 rounded-full px-6 py-3 sm:px-8 sm:py-4 font-bold text-sm sm:text-base transition-all hover:scale-105 active:scale-95 shadow-md w-full md:w-auto min-w-[250px] flex items-center justify-center group/btn"
+            className="z-10 mt-2 relative overflow-hidden bg-gradient-to-r from-blue-600 to-indigo-600 text-gray-900 rounded-full px-6 py-3 sm:px-8 sm:py-4 font-bold text-sm sm:text-base transition-all hover:scale-105 active:scale-95 shadow-md w-full md:w-auto min-w-[250px] flex items-center justify-center group/btn"
           >
             <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite] pointer-events-none"></div>
             <div className="flex items-center justify-center gap-2 relative z-10 w-full">
@@ -126,14 +126,14 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
     {/* Recent Estimates Section */}
     <div className="w-full flex flex-col gap-4 mt-2">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-slate-900 flex items-center gap-2 tracking-tight">
+        <h2 className="flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight mb-4">
           <Clock className="w-5 h-5 text-[var(--accent-blue)]" />
           Recent Estimates
         </h2>
         {estimates.length > 0 && (
           <button 
             onClick={() => onSelectModule('my-estimates')}
-            className="text-[13px] font-bold text-[var(--accent-blue)] hover:underline"
+            className="text-sm font-bold text-[var(--accent-blue)] hover:underline"
           >
             View All
           </button>
@@ -153,16 +153,16 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
                   <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-semibold text-[16px] sm:text-[17px] text-slate-900 leading-tight mb-0.5">{est.name}</span>
-                  <div className="flex items-center gap-2 text-[13px] sm:text-[14px] text-slate-500">
+                  <span className="font-semibold text-base sm:text-lg text-gray-900 leading-tight mb-0.5">{est.name}</span>
+                  <div className="flex items-center gap-2 text-sm sm:text-sm text-gray-500">
                     <span>{est.date}</span>
                     <span>•</span>
-                    <span className="text-slate-600 font-medium">{est.totalCost > 0 ? formatCurrency(est.totalCost) : '-'}</span>
+                    <span className="text-gray-600 font-medium">{est.totalCost > 0 ? formatCurrency(est.totalCost) : '-'}</span>
                   </div>
                 </div>
               </div>
               <button 
-                className="px-5 py-2.5 bg-slate-100 text-slate-700 text-sm font-bold rounded-full transition-colors group-hover/est:bg-indigo-50 group-hover/est:text-indigo-600"
+                className="px-5 py-2.5 bg-slate-100 text-gray-700 rounded-full transition-colors group-hover/est:bg-indigo-50 group-hover/est:text-indigo-600 text-base font-semibold"
               >
                 Resume
               </button>
@@ -172,10 +172,10 @@ export default function PostLoginDashboard({ onSelectModule }: PostLoginDashboar
       ) : (
         <div className="flex flex-col items-center justify-center p-12 bg-slate-50 border border-slate-200 rounded-[24px] text-center">
           <div className="w-16 h-16 rounded-[24px] bg-white border border-slate-200 flex items-center justify-center mb-4">
-            <FileText className="w-8 h-8 text-slate-600" />
+            <FileText className="w-8 h-8 text-gray-600" />
           </div>
-          <p className="text-slate-900 font-bold text-lg mb-1">No recent estimates</p>
-          <p className="text-slate-500 font-medium text-sm">Create a new estimate to get started</p>
+          <p className="mb-1 text-base font-normal text-gray-600 leading-relaxed">No recent estimates</p>
+          <p className=" text-base font-normal text-gray-600 leading-relaxed">Create a new estimate to get started</p>
         </div>
       )}
     </div>

@@ -89,7 +89,7 @@ export default function StandardEarthworks() {
       <ToolGuidedTour steps={EARTHWORKS_TOUR_STEPS} tourId="earthworks-base" />
       <div className="space-y-8 mt-4">
         <div className="mb-4">
-           <h2 className="text-2xl font-semibold bg-gradient-to-r bg-clip-text text-transparent pb-1">
+           <h2 className="bg-gradient-to-r bg-clip-text text-transparent pb-1 text-xl font-semibold text-gray-900 tracking-tight mb-4">
              Standard Area/Depth Method
            </h2>
            <GlobalSettingsToggle align="left" />
@@ -102,13 +102,13 @@ export default function StandardEarthworks() {
                 <div className="p-2.5 bg-blue-50 text-indigo-600 rounded-[24px]">
                   <Ruler className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-semibold tracking-tight text-gray-800">
+                <h2 className=" text-xl font-semibold text-gray-900 tracking-tight mb-4">
                   Volume Calculation
                 </h2>
               </div>
               <div className="space-y-4">
                 <div className="mb-4">
-                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2 ml-1">
+                  <label className="block uppercase tracking-wider mb-2 ml-1 text-sm font-medium text-gray-700 mb-1">
                     Calculation Method
                   </label>
                   <div id="tour-earthworks-method" className="flex bg-gray-100/80 p-1 rounded-[24px]">
@@ -127,13 +127,13 @@ export default function StandardEarthworks() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">
                     Length (L) [{unitL}]
                   </label>
                   <input
                     id="tour-earthworks-length"
                     type="number" inputMode="decimal"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px]"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px] text-base font-normal"
                     value={length}
                     onChange={(e) => setLength(e.target.value)}
                     placeholder={`Enter length in ${unitL}...`}
@@ -141,23 +141,23 @@ export default function StandardEarthworks() {
                 </div>
                 <div id="tour-earthworks-areas" className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">
                       End Area 1 (A₁) [{unitA}]
                     </label>
                     <input
                       type="number" inputMode="decimal"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px]"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px] text-base font-normal"
                       value={area1}
                       onChange={(e) => setArea1(e.target.value)}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">
                       End Area 2 (A₂) [{unitA}]
                     </label>
                     <input
                       type="number" inputMode="decimal"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px]"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px] text-base font-normal"
                       value={area2}
                       onChange={(e) => setArea2(e.target.value)}
                     />
@@ -166,10 +166,10 @@ export default function StandardEarthworks() {
                 {calcMethod === "prismoidal" && (
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
-                      <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider ml-1">
+                      <label className="block uppercase tracking-wider ml-1 text-sm font-medium text-gray-700 mb-1">
                         Middle Area (Aₘ) [{unitA}]
                       </label>
-                      <label className="flex items-center gap-2 cursor-pointer pr-1">
+                      <label className="flex items-center gap-2 cursor-pointer pr-1 text-sm font-medium text-gray-700 mb-1 block">
                         <input
                           type="checkbox"
                           checked={autoCalcAm}
@@ -184,7 +184,7 @@ export default function StandardEarthworks() {
                     {!autoCalcAm ? (
                       <input
                         type="number" inputMode="decimal"
-                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px]"
+                        className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-shadow min-h-[44px] text-base font-normal"
                         value={areaM}
                         onChange={(e) => setAreaM(e.target.value)}
                       />
@@ -205,43 +205,43 @@ export default function StandardEarthworks() {
                 <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-[24px]">
                   <Truck className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-semibold tracking-tight text-gray-800">
+                <h2 className=" text-xl font-semibold text-gray-900 tracking-tight mb-4">
                   Factors & Hauling
                 </h2>
               </div>
               <div className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1 flex items-center">
+                    <label className="block uppercase tracking-wider mb-1.5 ml-1 flex items-center text-sm font-medium text-gray-700 mb-1">
                       Swell Factor (%)
                       <FieldTooltip content="Volume increase when soil is excavated. Loose sandy soil = 10-15%, Clay = 20-30%, Rock = 25-50%" />
                     </label>
                     <input
                       type="number" inputMode="decimal"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow min-h-[44px]"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow min-h-[44px] text-base font-normal"
                       value={bulkingFactor}
                       onChange={(e) => setBulkingFactor(e.target.value)}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
+                    <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">
                       Shrink Factor (%)
                     </label>
                     <input
                       type="number" inputMode="decimal"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow min-h-[44px]"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow min-h-[44px] text-base font-normal"
                       value={shrinkageFactor}
                       onChange={(e) => setShrinkageFactor(e.target.value)}
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">
                     Truck Capacity ({unitV})
                   </label>
                   <input
                     type="number" inputMode="decimal"
-                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow min-h-[44px]"
+                    className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-shadow min-h-[44px] text-base font-normal"
                     value={truckCapacity}
                     onChange={(e) => setTruckCapacity(e.target.value)}
                   />
@@ -254,13 +254,13 @@ export default function StandardEarthworks() {
                 <div className="p-2.5 bg-emerald-50 text-emerald-600 rounded-[24px]">
                   <DollarSign className="w-5 h-5" />
                 </div>
-                <h2 className="text-xl font-semibold tracking-tight text-gray-800">
+                <h2 className=" text-xl font-semibold text-gray-900 tracking-tight mb-4">
                   Cost Estimation
                 </h2>
               </div>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">
                     Excavation Rate (per Bank {unitV})
                   </label>
                   <div className="relative">
@@ -271,7 +271,7 @@ export default function StandardEarthworks() {
                       type="number" inputMode="decimal"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-shadow min-h-[44px]"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-shadow min-h-[44px] text-base font-normal"
                       value={excavationRate}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -282,7 +282,7 @@ export default function StandardEarthworks() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">
                     Compaction Rate (per Compacted {unitV})
                   </label>
                   <div className="relative">
@@ -293,7 +293,7 @@ export default function StandardEarthworks() {
                       type="number" inputMode="decimal"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-shadow min-h-[44px]"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-shadow min-h-[44px] text-base font-normal"
                       value={compactionRate}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -304,7 +304,7 @@ export default function StandardEarthworks() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1.5 ml-1">
+                  <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">
                     Hauling Rate (per Truck Trip)
                   </label>
                   <div className="relative">
@@ -315,7 +315,7 @@ export default function StandardEarthworks() {
                       type="number" inputMode="decimal"
                       min="0"
                       step="any"
-                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-shadow min-h-[44px]"
+                      className="w-full bg-gray-50/50 border border-gray-200 text-gray-800 rounded-[24px] pl-12 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-shadow min-h-[44px] text-base font-normal"
                       value={haulingRate}
                       onChange={(e) => {
                         const val = parseFloat(e.target.value);
@@ -341,7 +341,7 @@ export default function StandardEarthworks() {
                 <div className="bg-amber-50 border border-amber-200 p-4 rounded-[24px] mt-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
                   <div className="flex items-center gap-3">
                     <span className="text-xl">⚠</span>
-                    <p className="text-sm font-bold text-amber-800">
+                    <p className="text-amber-800 text-base font-normal text-gray-600 leading-relaxed">
                       Material rates not set. Fill in the rates above or go to Live DB Rates to set current market prices first.
                     </p>
                   </div>
@@ -350,7 +350,7 @@ export default function StandardEarthworks() {
                       const event = new CustomEvent('navigate-module', { detail: { moduleId: 'rates' } });
                       window.dispatchEvent(event);
                     }}
-                    className="shrink-0 text-xs font-bold px-4 py-2 bg-amber-600 hover:bg-amber-700 text-slate-900 rounded-[16px] transition-colors"
+                    className="shrink-0 text-xs font-bold px-4 py-2 bg-amber-600 hover:bg-amber-700 text-gray-900 rounded-[16px] transition-colors"
                   >
                     Set Live DB Rates
                   </button>
@@ -395,7 +395,7 @@ export default function StandardEarthworks() {
             <div className="p-2 bg-gray-50 text-gray-600 rounded-[24px]">
               <Layers className="w-5 h-5" />
             </div>
-            <h3 className="text-lg font-bold tracking-tight text-gray-800">
+            <h3 className=" text-lg font-medium text-gray-800 mb-4">
               Earthwork Volume Data Table
             </h3>
           </div>

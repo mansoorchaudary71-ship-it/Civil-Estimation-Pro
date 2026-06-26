@@ -186,21 +186,21 @@ export default function RecentEstimates({
     return (
       <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col font-sans mb-auto">
         <div className="mb-8 flex flex-col items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500 text-center mt-6">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight tracking-tight text-text-primary flex items-center justify-center gap-2">
+          <h1 className="md: text-text-primary flex items-center justify-center gap-2 text-2xl font-semibold text-gray-900 tracking-tight mb-6">
             My Projects
           </h1>
-          <p className="text-slate-500 mt-1 font-medium text-base">
+          <p className="mt-1 text-base font-normal text-gray-600 leading-relaxed">
             Manage your saved construction projects and estimates
           </p>
         </div>
         <div className="w-full bg-bg-card opacity-90 backdrop-blur-xl border border-border-color rounded-[2rem] p-10 flex flex-col items-center justify-center text-center shadow-sm">
-          <div className="w-16 h-16 bg-white rounded-[24px] flex items-center justify-center mb-4 text-slate-700 shadow-inner">
+          <div className="w-16 h-16 bg-white rounded-[24px] flex items-center justify-center mb-4 text-gray-700 shadow-inner">
             <FolderOpen className="w-8 h-8" />
           </div>
-          <h4 className="text-lg font-bold text-slate-700 mb-1">
+          <h4 className="mb-1 text-lg font-medium text-gray-800 mb-4">
             Sign in to save estimates
           </h4>
-          <p className="text-sm text-slate-500 max-w-sm mb-6">
+          <p className="max-w-sm mb-6 text-base font-normal text-gray-600 leading-relaxed">
             Your saved estimates will appear here once you sign in and start
             estimating.
           </p>
@@ -220,23 +220,23 @@ export default function RecentEstimates({
   return (
     <div className="flex-1 w-full max-w-7xl mx-auto flex flex-col font-sans pb-12">
       <div className="mb-8 flex flex-col items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500 text-center mt-6">
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tight tracking-tight text-text-primary flex items-center justify-center gap-2">
+        <h1 className="md: text-text-primary flex items-center justify-center gap-2 text-2xl font-semibold text-gray-900 tracking-tight mb-6">
           My Projects
         </h1>
-        <p className="text-slate-500 mt-1 font-medium text-base">
+        <p className="mt-1 text-base font-normal text-gray-600 leading-relaxed">
           Manage your saved construction projects and estimates
         </p>
       </div>
 
       {estimates.length === 0 ? (
         <div className="w-full bg-bg-card opacity-90 backdrop-blur-xl border border-border-color rounded-[2rem] p-10 flex flex-col items-center justify-center text-center shadow-sm">
-          <div className="w-16 h-16 bg-white rounded-[24px] flex items-center justify-center mb-4 text-slate-700 shadow-inner">
+          <div className="w-16 h-16 bg-white rounded-[24px] flex items-center justify-center mb-4 text-gray-700 shadow-inner">
             <FolderOpen className="w-8 h-8" />
           </div>
-          <h4 className="text-lg font-bold text-slate-700 mb-1">
+          <h4 className="mb-1 text-lg font-medium text-gray-800 mb-4">
             No Projects Yet
           </h4>
-          <p className="text-sm text-slate-500 max-w-sm mb-6">
+          <p className="max-w-sm mb-6 text-base font-normal text-gray-600 leading-relaxed">
             Create a new estimate from the modules globally to see it appear
             here.
           </p>
@@ -259,7 +259,7 @@ export default function RecentEstimates({
               >
                 {/* Drag Handle Top Left */}
                 <div
-                  className="absolute top-4 left-4 z-20 cursor-grab text-slate-700 hover:text-slate-500 p-1"
+                  className="absolute top-4 left-4 z-20 cursor-grab text-gray-700 hover:text-gray-500 p-1"
                   onPointerDown={(e) => e.stopPropagation()}
                 >
                   <GripVertical className="w-5 h-5" />
@@ -271,12 +271,12 @@ export default function RecentEstimates({
                     value={est.status}
                     onClick={(e) => e.stopPropagation()}
                     onChange={(e) => handleStatusChange(e, est.id)}
-                    className={`text-[11px] font-bold rounded-[24px] px-2 py-1.5 border-none focus:ring-2 focus:ring-indigo-500/50 cursor-pointer shadow-sm transition-colors ${
+                    className={`text-xs font-bold rounded-[24px] px-2 py-1.5 border-none focus:ring-2 focus:ring-indigo-500/50 cursor-pointer shadow-sm transition-colors ${
                       est.status === "Completed"
                         ? "bg-green-100 text-green-700  "
                         : est.status === "In Progress"
                           ? "bg-amber-100 text-amber-700  "
-                          : "bg-slate-100 text-slate-600  "
+                          : "bg-slate-100 text-gray-600  "
                     }`}
                   >
                     <option value="To Do">To Do</option>
@@ -297,21 +297,21 @@ export default function RecentEstimates({
                   </div>
 
                   <div
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[24px] border ${est.theme.border} bg-bg-primary shadow-sm text-[11px] md:text-[12px] font-bold tracking-[0.1em] uppercase ${est.theme.textRaw} mb-4`}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[24px] border ${est.theme.border} bg-bg-primary shadow-sm text-xs md:text-xs font-bold tracking-[0.1em] uppercase ${est.theme.textRaw} mb-4`}
                   >
                     <span className="truncate">{est.typeLabel}</span>
                   </div>
 
-                  <h3 className="text-[18px] md:text-[20px] font-bold tracking-tight text-text-primary mb-2 leading-[1.2]">
+                  <h3 className="md: text-text-primary mb-2 leading-[1.2] text-lg font-medium text-gray-800 mb-4">
                     {est.title}
                   </h3>
 
                   <div className="flex flex-col items-center mt-auto">
-                    <p className="text-[12px] md:text-[13px] text-slate-500 font-medium whitespace-nowrap overflow-hidden text-ellipsis mb-1">
+                    <p className="md: whitespace-nowrap overflow-hidden text-ellipsis mb-1 text-base font-normal text-gray-600 leading-relaxed">
                       <FileText className="w-3 h-3 inline mr-1 opacity-70" />{" "}
                       {est.desc}
                     </p>
-                    <p className="text-[11px] text-slate-600 font-medium">
+                    <p className=" text-base font-normal text-gray-600 leading-relaxed">
                       Saved: {est.date}
                     </p>
                   </div>

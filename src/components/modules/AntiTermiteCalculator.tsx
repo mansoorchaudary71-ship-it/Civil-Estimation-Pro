@@ -65,7 +65,7 @@ export default function AntiTermiteCalculator() {
       />
 
       <div className="bg-white  border border-slate-200  p-6 rounded-[24px] shadow-sm">
-         <h2 className="text-xl font-bold flex items-center gap-2 mb-6 text-slate-800 ">
+         <h2 className="flex items-center gap-2 mb-6 text-xl font-semibold text-gray-900 tracking-tight mb-4">
           <Bug className="w-6 h-6 text-indigo-600" />
           Anti-Termite Treatment & Emulsion Engine
         </h2>
@@ -73,7 +73,7 @@ export default function AntiTermiteCalculator() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="lg:col-span-5 space-y-6">
                 <div>
-                  <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Surface Dimensions</h3>
+                  <h3 className="mb-3 border-b border-slate-100 pb-2 text-lg font-medium text-gray-800 mb-4">Surface Dimensions</h3>
                   <div className="space-y-4">
                     <NumberInput label="Total Ground Floor Area" unit="m²" value={floorArea} onChange={setFloorArea} />
                     <NumberInput label="Total Outer Perimeter" unit="m" value={perimeter} onChange={setPerimeter} />
@@ -82,10 +82,10 @@ export default function AntiTermiteCalculator() {
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-bold text-slate-800 mb-3 border-b border-slate-100 pb-2">Chemical Configuration</h3>
+                  <h3 className="mb-3 border-b border-slate-100 pb-2 text-lg font-medium text-gray-800 mb-4">Chemical Configuration</h3>
                   <div className="space-y-4">
                     <div>
-                        <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1">Treatment Chemical</label>
+                        <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">Treatment Chemical</label>
                         <select 
                             value={selectedChemical.name}
                             onChange={(e) => setSelectedChemical(chemicals.find(c => c.name === e.target.value) || chemicals[0])}
@@ -98,9 +98,9 @@ export default function AntiTermiteCalculator() {
                     </div>
 
                     <div className={selectedChemical.ratio === 0 ? "block" : "opacity-50 pointer-events-none"}>
-                         <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 ml-1">Water Parts (1:X)</label>
+                         <label className="block uppercase tracking-wider mb-1.5 ml-1 text-sm font-medium text-gray-700 mb-1">Water Parts (1:X)</label>
                          <div className="flex items-center gap-3">
-                             <div className="text-slate-600 font-bold font-mono">1 : </div>
+                             <div className="text-gray-600 font-bold font-mono">1 : </div>
                              <div className="flex-1">
                                  <NumberInput label="" unit="parts water" value={customRatio} onChange={setCustomRatio} />
                              </div>
@@ -126,7 +126,7 @@ export default function AntiTermiteCalculator() {
 
                     <div className="mt-6 flex flex-col gap-4">
                         <div className="bg-indigo-50 border border-indigo-200 p-5 rounded-2xl">
-                            <h4 className="text-sm font-bold text-indigo-900 mb-4 flex items-center justify-between">
+                            <h4 className="text-indigo-900 mb-4 flex items-center justify-between text-lg font-medium text-gray-800">
                                 <span>Pure Chemical Needed</span>
                                 <span className="text-xs bg-indigo-200 text-indigo-800 px-2 py-1 rounded-full uppercase tracking-wider">Dilution 1:{results.dilutionParts.toFixed(1)}</span>
                             </h4>
@@ -138,7 +138,7 @@ export default function AntiTermiteCalculator() {
                         </div>
 
                         <div className="bg-cyan-50 border border-cyan-200 p-5 rounded-2xl">
-                            <h4 className="text-sm font-bold text-cyan-900 mb-4 flex items-center justify-between">
+                            <h4 className="text-cyan-900 mb-4 flex items-center justify-between text-lg font-medium text-gray-800">
                                 <span>Water Needed For Mixing</span>
                                 <Droplets className="w-4 h-4 text-cyan-500" />
                             </h4>
