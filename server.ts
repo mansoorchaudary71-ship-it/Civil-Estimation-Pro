@@ -94,6 +94,53 @@ async function startServer() {
     }
   });
 
+  app.post("/api/workspace/gmail/send", async (req, res) => {
+    const { google } = await import("googleapis");
+    const { OAuth2Client } = await import("google-auth-library");
+    
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({ error: "No token provided" });
+    }
+    
+    try {
+      const client = new OAuth2Client();
+      client.setCredentials({ access_token: token });
+      const gmail = google.gmail({ version: "v1", auth: client });
+      
+      const { to, subject, body } = req.body;
+      
+      const utf8Subject = `=?utf-8?B?${Buffer.from(subject).toString('base64')}?=`;
+      const messageParts = [
+        `To: ${to}`,
+        `Subject: ${utf8Subject}`,
+        "Content-Type: text/html; charset=utf-8",
+        "MIME-Version: 1.0",
+        "",
+        body
+      ];
+      const message = messageParts.join('\\n');
+      
+      const encodedMessage = Buffer.from(message)
+        .toString("base64")
+        .replace(/\\+/g, "-")
+        .replace(/\\//g, "_")
+        .replace(/=+$/, "");
+        
+      await gmail.users.messages.send({
+        userId: "me",
+        requestBody: {
+          raw: encodedMessage,
+        },
+      });
+      
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error("Gmail error:", error);
+      res.status(500).json({ error: "Failed to send email", details: error.message });
+    }
+  });
+
   app.get("/api/sieve-specs", (req, res) => {
     try {
       const specifications = {

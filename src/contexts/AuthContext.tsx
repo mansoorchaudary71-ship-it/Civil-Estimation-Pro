@@ -6,6 +6,7 @@ import { auth, db, handleFirestoreError, OperationType } from "../lib/firebase";
 interface AuthContextType {
   user: User | null;
   loading: boolean;
+  workspaceToken: string | null;
   signInWithGoogle: () => Promise<void>;
   signInWithEmail: (e: string, p: string) => Promise<void>;
   signUpWithEmail: (e: string, p: string, name: string) => Promise<void>;
@@ -40,6 +41,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [workspaceToken, setWorkspaceToken] = useState<string | null>(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -49,6 +51,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         } catch (error) {
           console.warn("Failed to create or update user doc during auth state change:", error);
         }
+      } else {
+        setWorkspaceToken(null);
       }
       setUser(currentUser);
       setLoading(false);
@@ -60,7 +64,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signInWithGoogle = async () => {
     try {
       const provider = new GoogleAuthProvider();
+      provider.addScope('https://www.googleapis.com/auth/gmail.send');
       const result = await signInWithPopup(auth, provider);
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      if (credential?.accessToken) {
+        setWorkspaceToken(credential.accessToken);
+      }
       try {
         await createOrUpdateUserDoc(result.user);
       } catch (error) {
@@ -122,6 +131,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     <AuthContext.Provider value={{
       user, 
       loading, 
+      workspaceToken,
       signInWithGoogle, 
       signInWithEmail,
       signUpWithEmail,

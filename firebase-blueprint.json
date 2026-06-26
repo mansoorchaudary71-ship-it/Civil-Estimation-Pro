@@ -31,6 +31,42 @@
       },
       "required": ["userId", "name", "type", "createdAt"]
     },
+    "Project": {
+      "title": "Project",
+      "description": "Workspace project containing estimates",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "location": { "type": "string" },
+        "type": { "type": "string" },
+        "startDate": { "type": "string" },
+        "budget": { "type": "number" },
+        "ownerId": { "type": "string" },
+        "memberIds": { "type": "array", "items": { "type": "string" }, "description": "For querying: all users with any access" },
+        "roles": { "type": "object", "description": "Map of userId -> role (owner, editor, viewer)" },
+        "memberEmails": { "type": "object", "description": "Map of userId -> email" },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["name", "ownerId", "memberIds", "roles", "memberEmails", "createdAt", "updatedAt"]
+    },
+    "ProjectEstimate": {
+      "title": "ProjectEstimate",
+      "description": "An estimate saved under a project",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "toolId": { "type": "string" },
+        "name": { "type": "string" },
+        "cost": { "type": "number" },
+        "materials": { "type": "object" },
+        "category": { "type": "string" },
+        "date": { "type": "string" },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["projectId", "name", "createdAt", "updatedAt"]
+    },
     "Comment": {
       "title": "Comment",
       "description": "User reviews/comments for tools",
@@ -57,6 +93,14 @@
     "/estimates/{estimateId}": {
       "schema": { "$ref": "#/entities/Estimate" },
       "description": "Saved estimates for users"
+    },
+    "/projects/{projectId}": {
+      "schema": { "$ref": "#/entities/Project" },
+      "description": "Workspace projects"
+    },
+    "/projects/{projectId}/estimates/{estimateId}": {
+      "schema": { "$ref": "#/entities/ProjectEstimate" },
+      "description": "Estimates within a project"
     }
   }
 }
