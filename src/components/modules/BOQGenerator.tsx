@@ -453,7 +453,8 @@ export default function BOQGenerator() {
                         {divItems.map((item, idx) => (
                           <tr
                             key={item.id}
-                            className="border-b border-slate-100 last:border-0 hover:bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 transition-colors"
+                            className="border-b border-slate-100 last:border-0 hover:bg-slate-50/50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 transition-colors animate-in fade-in slide-in-from-bottom-2 duration-300"
+                            style={{ animationFillMode: 'both', animationDelay: `${idx * 50}ms` }}
                           >
                             <td className="p-2 align-top text-center">
                               <input 

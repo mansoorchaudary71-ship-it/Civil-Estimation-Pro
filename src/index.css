@@ -10,6 +10,19 @@
   --color-bg-primary: var(--bg-primary);
   --color-accent-vibrant: var(--accent-vibrant);
   --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --animate-float-slow: float-slow 4s ease-in-out infinite;
+  --animate-float-delayed: float-delayed 5s ease-in-out infinite;
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes float-delayed {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
 }
 
 :root {

@@ -1234,7 +1234,26 @@ export default function Dashboard({
  ::-webkit-scrollbar-track { background: transparent; }
  ::-webkit-scrollbar-thumb { background: rgba(15,23,42,0.15); border-radius: 10px; }
  `}</style>
- <div className="relative flex-1 w-full flex flex-col font-sans bg-[#f8f9fa] text-slate-900 border-none">
+ <div className="relative flex-1 w-full flex flex-col font-sans bg-[#f8f9fa] text-slate-900 border-none p-2 sm:p-4 md:p-8">
+  <div 
+    className="relative flex-1 w-full flex flex-col overflow-hidden bg-white shadow-2xl ring-1 ring-slate-200"
+    style={{ borderRadius: '48px' }}
+  >
+    <div className="absolute inset-0 z-0 pointer-events-none opacity-60">
+      <div 
+        className="absolute top-[-10%] left-[-10%] w-[80%] h-[50%] mix-blend-multiply filter blur-[80px] rounded-full" 
+        style={{ background: 'radial-gradient(circle, #E0C3FC 0%, transparent 70%)' }}
+      />
+      <div 
+        className="absolute top-[20%] right-[-20%] w-[70%] h-[60%] mix-blend-multiply filter blur-[80px] rounded-full" 
+        style={{ background: 'radial-gradient(circle, #FFC3A0 0%, transparent 70%)' }}
+      />
+      <div 
+        className="absolute bottom-[-10%] left-[10%] w-[80%] h-[50%] mix-blend-multiply filter blur-[80px] rounded-full" 
+        style={{ background: 'radial-gradient(circle, #FFD194 0%, transparent 70%)' }}
+      />
+    </div>
+    <div className="relative z-10 flex flex-col flex-1 w-full overflow-y-auto">
  <SEO
  title="Dashboard"
  description="Civil Estimation Pro: Advanced estimators for live construction rate analysis, house estimating, and comprehensive BOQ calculators."
@@ -1546,9 +1565,12 @@ export default function Dashboard({
  </button>
  </div>
  </div>
- </div>
- </div>
- </div>
- </>
- );
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </>
+  );
 }
+
