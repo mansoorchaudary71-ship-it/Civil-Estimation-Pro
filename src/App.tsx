@@ -2246,25 +2246,6 @@ const ModuleWrapper = React.forwardRef<
                             </p>
                           </div>
                         </div>
-
-                        <h2 className="text-lg font-semibold text-slate-800 mb-4">
-                          Frequently Asked Questions
-                        </h2>
-                        <div className="space-y-3">
-                          {genericFaqs.map((faq, index) => (
-                            <div
-                              key={index}
-                              className="bg-[#FAFAF8] transition-colors duration-500 p-4 rounded-xl border border-slate-200"
-                            >
-                              <h3 className="font-medium text-sm text-slate-800">
-                                {faq.q}
-                              </h3>
-                              <p className="text-sm text-slate-600 mt-2">
-                                {faq.a}
-                              </p>
-                            </div>
-                          ))}
-                        </div>
                       </div>
 
                       {/* Related Tools */}

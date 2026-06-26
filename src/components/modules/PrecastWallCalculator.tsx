@@ -5,6 +5,7 @@ import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
 import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
 import { useGlobalSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { GlobalFAQ } from "../ui/GlobalFAQ";
 
 export default function PrecastWallCalculator() {
   const { isProcessing, hasData, processEstimate } = useEstimateProcessing();
@@ -197,15 +198,12 @@ export default function PrecastWallCalculator() {
               </ul>
             </div>
             
-            <div className="bg-white p-5 rounded-[24px] border border-slate-200 shadow-sm">
-              <h4 className="font-bold text-slate-800 mb-3 uppercase tracking-wide text-xs">Frequently Asked Questions</h4>
-              <div className="space-y-3">
-                <div className="p-3 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-100">
-                  <p className="font-bold text-xs text-slate-700 mb-1">Why do we add 1 to the post count?</p>
-                  <p className="text-[11px] text-slate-500">A linear wall segment requires a starting post and an ending post. For n bays, you need n+1 posts. If it's a closed loop enclosure, n posts = n bays.</p>
-                </div>
-              </div>
-            </div>
+            <GlobalFAQ moduleId="precast-wall" faqs={[
+              {
+                question: "Why do we add 1 to the post count?",
+                answer: "A linear wall segment requires a starting post and an ending post. For n bays, you need n+1 posts. If it's a closed loop enclosure, n posts = n bays."
+              }
+            ]} />
           </div>
 
           {/* Results Panel */}

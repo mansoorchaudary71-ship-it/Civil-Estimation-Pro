@@ -4,6 +4,7 @@ import { useUnitChange } from "../../hooks/useUnitChange";
 import {
   Square, Triangle, Circle, Layers, Ruler, Map as MapIcon, Home, Compass, RectangleHorizontal, Hexagon, Type, CornerDownRight, Calculator, PaintBucket, Plus, Trash2, ShieldCheck
 } from "lucide-react";
+import { GlobalFAQ } from "../ui/GlobalFAQ";
 import { UniversalTabs } from "../ui/UniversalTabs";
 import { DetailedCalculationDisplay } from "../ui/DetailedCalculationDisplay";
 import toast from 'react-hot-toast';
@@ -532,23 +533,20 @@ export default function AreaSpaceCalculator() {
           </div>
         </section>
 
-        <section className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 md:p-8 rounded-[2rem] shadow-sm">
-          <h2 className="text-2xl font-bold text-slate-800  mb-4">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold text-slate-800  mb-1">How is an irregular plot calculated?</h3>
-              <p className="text-slate-600 ">Irregular land is measured by breaking the polygon into adjacent triangles (Geometric Triangulation). By measuring the 4 boundaries and one diagonal cross-section, Heron's formula is applied to each triangle for perfect accuracy.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-slate-800  mb-1">What is RERA Carpet Area?</h3>
-              <p className="text-slate-600 ">According to the Real Estate (Regulation and Development) Act (RERA), the carpet area is the net usable floor area of an apartment, excluding external walls, balconies, terraces, and service shafts, but including the area covered by internal partition walls.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold text-slate-800  mb-1">How does the Roof Pitch Multiplier work?</h3>
-              <p className="text-slate-600 ">A sloped roof has a larger surface area than its horizontal footprint. The calculator divides the horizontal area (plus overhangs) by the cosine of the pitch angle to give the true sloped area required for roofing materials.</p>
-            </div>
-          </div>
-        </section>
+        <GlobalFAQ moduleId="area" faqs={[
+          {
+            question: "How is an irregular plot calculated?",
+            answer: "Irregular land is measured by breaking the polygon into adjacent triangles (Geometric Triangulation). By measuring the 4 boundaries and one diagonal cross-section, Heron's formula is applied to each triangle for perfect accuracy."
+          },
+          {
+            question: "What is RERA Carpet Area?",
+            answer: "According to the Real Estate (Regulation and Development) Act (RERA), the carpet area is the net usable floor area of an apartment, excluding external walls, balconies, terraces, and service shafts, but including the area covered by internal partition walls."
+          },
+          {
+            question: "How does the Roof Pitch Multiplier work?",
+            answer: "A sloped roof has a larger surface area than its horizontal footprint. The calculator divides the horizontal area (plus overhangs) by the cosine of the pitch angle to give the true sloped area required for roofing materials."
+          }
+        ]} />
 
         <section className="bg-white/80  backdrop-blur-xl border border-white/20  p-6 md:p-8 rounded-[2rem] shadow-sm">
           <h2 className="text-2xl font-bold text-slate-800  mb-4">Methodology & Engineering Standards</h2>

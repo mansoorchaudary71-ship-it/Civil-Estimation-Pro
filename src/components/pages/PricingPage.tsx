@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PricingBackgroundWrapper from '../PricingBackgroundWrapper';
 import { motion, AnimatePresence } from 'motion/react';
 import { Check, X, Building2, Zap, ArrowRight, ShieldCheck, HelpCircle, ChevronDown, Sparkles } from 'lucide-react';
-import { SEOFAQ } from '../ui/SEOFAQ';
+import { GlobalFAQ } from '../ui/GlobalFAQ';
 import { cn } from "../../lib/utils";
 
 // Mock logos for trusted strip
@@ -268,7 +268,7 @@ export default function PricingPage() {
         </div>
 
         {/* FAQs */}
-        <SEOFAQ faqs={FAQS} />
+        <GlobalFAQ faqs={FAQS} />
 
       </div>
     </div>

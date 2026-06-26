@@ -7,6 +7,7 @@ import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { SoilReportHeader } from "../ui/SoilReportHeader";
 import { SoilReportDetails, generateGeotechReportPDF } from "../../utils/soilReports";
+import { GlobalFAQ } from "../ui/GlobalFAQ";
 
 export default function DirectShearTestCalculator() {
   const { isProcessing, hasData, processEstimate, resetEstimate } = useEstimateProcessing();
@@ -298,15 +299,12 @@ export default function DirectShearTestCalculator() {
               </div>
             </div>
             
-            <div className="bg-white p-5 rounded-[24px] border border-slate-200 shadow-sm">
-              <h4 className="font-bold text-slate-800 mb-3 uppercase tracking-wide text-xs">Frequently Asked Questions</h4>
-              <div className="space-y-3">
-                <div className="p-3 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-100">
-                  <p className="font-bold text-xs text-slate-700 mb-1">What if cohesion comes out negative?</p>
-                  <p className="text-[11px] text-slate-500">Theoretically, soil cannot have negative cohesion. We bound the bottom limit of 'c' to 0 if the linear fit forces a negative intercept.</p>
-                </div>
-              </div>
-            </div>
+            <GlobalFAQ moduleId="direct-shear" faqs={[
+              {
+                question: "What if cohesion comes out negative?",
+                answer: "Theoretically, soil cannot have negative cohesion. We bound the bottom limit of 'c' to 0 if the linear fit forces a negative intercept."
+              }
+            ]} />
           </div>
 
           {/* Results Panel */}

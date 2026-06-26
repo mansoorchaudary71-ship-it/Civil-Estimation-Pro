@@ -5,6 +5,7 @@ import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
 import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
 import { useGlobalSettings } from "../../context/SettingsContext";
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { GlobalFAQ } from "../ui/GlobalFAQ";
 
 export default function TopSoilFillCalculator() {
   const { isProcessing, hasData, processEstimate, resetEstimate } = useEstimateProcessing();
@@ -208,15 +209,12 @@ export default function TopSoilFillCalculator() {
               </ul>
             </div>
             
-            <div className="bg-white p-5 rounded-[24px] border border-slate-200 shadow-sm">
-              <h4 className="font-bold text-slate-800 mb-3 uppercase tracking-wide text-xs">Frequently Asked Questions</h4>
-              <div className="space-y-3">
-                <div className="p-3 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-100">
-                  <p className="font-bold text-xs text-slate-700 mb-1">What is Bulking (Swell) Factor?</p>
-                  <p className="text-[11px] text-slate-500">When earth is excavated, it loosens and expands. A factor of 1.25 means the soil requires 25% more volume in the truck than it occupied in the ground.</p>
-                </div>
-              </div>
-            </div>
+            <GlobalFAQ moduleId="topsoil" faqs={[
+              {
+                question: "What is Bulking (Swell) Factor?",
+                answer: "When earth is excavated, it loosens and expands. A factor of 1.25 means the soil requires 25% more volume in the truck than it occupied in the ground."
+              }
+            ]} />
           </div>
 
           {/* Results Panel */}

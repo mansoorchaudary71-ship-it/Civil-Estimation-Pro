@@ -137,7 +137,9 @@ export default function UnitConverter() {
   const [fromValue, setFromValue] = useState<string>("1");
   const [toValue, setToValue] = useState<string>("");
   
-  const [isBatchMode, setIsBatchMode] = useState<boolean>(false);
+  const [viewMode, setViewMode] = useState<"standard" | "batch" | "compare">("standard");
+  const isBatchMode = viewMode === "batch";
+  const isCompareMode = viewMode === "compare";
   const [batchInput, setBatchInput] = useState<string>("");
   const [batchResults, setBatchResults] = useState<{in: string, out: string}[]>([]);
 
@@ -305,19 +307,30 @@ export default function UnitConverter() {
             <h2 className="text-xl font-bold text-center sm:text-left text-slate-900  uppercase tracking-widest">
               {activeCategory} Conversion
             </h2>
-            <div className="flex items-center justify-center gap-3">
-               <span className="text-sm font-bold text-slate-700 ">Batch Mode</span>
+            <div className="flex items-center justify-center gap-1 bg-slate-100/80 p-1.5 rounded-full border border-slate-200 shadow-inner">
                <button 
-                 onClick={() => setIsBatchMode(!isBatchMode)}
-                 className={`w-12 h-6 rounded-full transition-colors relative shadow-inner ${isBatchMode ? 'bg-fuchsia-500' : 'bg-slate-300 '}`}
+                 onClick={() => setViewMode("standard")}
+                 className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${viewMode === "standard" ? 'bg-fuchsia-500 text-white shadow-md' : 'text-slate-600 hover:text-slate-900'}`}
                >
-                 <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-transform shadow-md ${isBatchMode ? 'translate-x-7' : 'translate-x-1'}`} />
+                 Standard
+               </button>
+               <button 
+                 onClick={() => setViewMode("batch")}
+                 className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${viewMode === "batch" ? 'bg-fuchsia-500 text-white shadow-md' : 'text-slate-600 hover:text-slate-900'}`}
+               >
+                 Batch
+               </button>
+               <button 
+                 onClick={() => setViewMode("compare")}
+                 className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${viewMode === "compare" ? 'bg-fuchsia-500 text-white shadow-md' : 'text-slate-600 hover:text-slate-900'}`}
+               >
+                 Compare
                </button>
             </div>
           </div>
 
           {/* Quick Pair Toggle */}
-          {QUICK_PAIRS[activeCategory] && QUICK_PAIRS[activeCategory]!.length > 0 && !isBatchMode && (
+          {QUICK_PAIRS[activeCategory] && QUICK_PAIRS[activeCategory]!.length > 0 && !isBatchMode && !isCompareMode && (
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-8 animate-in fade-in slide-in-from-top-2 duration-300">
               <span className="text-sm font-semibold text-slate-500 uppercase tracking-widest mr-2 hidden sm:block">
                 Quick Pairs
@@ -391,20 +404,27 @@ export default function UnitConverter() {
               )}{" "}
             </div>{" "}
             {/* SWAP BUTTON */}{" "}
-            <button
-              onClick={handleSwap}
-              className="p-5 rounded-full bg-fuchsia-100 text-fuchsia-600 hover:bg-fuchsia-600 hover:text-slate-900 transition-all shadow-lg hover:rotate-180 duration-500 flex-shrink-0"
-              title="Swap Units"
-            >
-              {" "}
-              <ArrowRightLeft className="w-6 h-6" strokeWidth={2.5} />{" "}
-            </button>{" "}
+            {!isCompareMode ? (
+              <button
+                onClick={handleSwap}
+                className="p-5 rounded-full bg-fuchsia-100 text-fuchsia-600 hover:bg-fuchsia-600 hover:text-slate-900 transition-all shadow-lg hover:rotate-180 duration-500 flex-shrink-0"
+                title="Swap Units"
+              >
+                {" "}
+                <ArrowRightLeft className="w-6 h-6" strokeWidth={2.5} />{" "}
+              </button>
+            ) : (
+              <div className="hidden md:flex p-5 rounded-full bg-fuchsia-50 text-fuchsia-300 shadow-sm flex-shrink-0">
+                <ArrowRightLeft className="w-6 h-6 opacity-50" strokeWidth={2.5} />
+              </div>
+            )}{" "}
             {/* TO PANE */}{" "}
-            <div className={`w-full bg-slate-100/50  backdrop-blur-xl rounded-[2rem] border border-slate-200  shadow-inner p-6 md:p-8 transition-all hover:border-fuchsia-500/50 hover:bg-slate-100/80  flex flex-col items-center justify-center relative ${isBatchMode ? 'flex-none md:w-[45%]' : 'flex-1'}`}>
+            <div className={`w-full bg-slate-100/50  backdrop-blur-xl rounded-[2rem] border border-slate-200  shadow-inner p-6 md:p-8 transition-all hover:border-fuchsia-500/50 hover:bg-slate-100/80  flex flex-col items-center justify-center relative ${isBatchMode || isCompareMode ? 'flex-none md:w-[45%]' : 'flex-1'}`}>
               {" "}
               <label className="block text-xs font-bold text-fuchsia-600  uppercase tracking-widest mb-4 drop-shadow-sm  z-10">
-                To
+                To {isCompareMode && "(Comparison)"}
               </label>{" "}
+              {!isCompareMode && (
               <select
                 value={toUnit}
                 onChange={(e) => handleToUnitChange(e.target.value)}
@@ -415,8 +435,9 @@ export default function UnitConverter() {
                   <option key={u.id} value={u.id}>
                     {u.label}
                   </option>
-                ))}{" "}
-              </select>{" "}
+                ))}
+              </select>
+              )}
               
               {isBatchMode ? (
                 <div className="w-full bg-white/50  border border-slate-300  rounded-[20px] p-4 text-center font-mono text-sm min-h-[120px] max-h-[200px] overflow-y-auto custom-scrollbar shadow-sm  z-10 flex flex-col gap-1">
@@ -430,6 +451,15 @@ export default function UnitConverter() {
                        </div>
                      ))
                    )}
+                </div>
+              ) : isCompareMode ? (
+                <div className="w-full bg-white/50 border border-slate-300 rounded-[20px] p-4 text-center font-mono text-sm min-h-[120px] max-h-[300px] overflow-y-auto custom-scrollbar shadow-sm z-10 flex flex-col gap-2">
+                   {currentUnits.filter(u => u.id !== fromUnit).map((u, i) => (
+                     <div key={i} className="flex justify-between items-center text-slate-700 bg-white/80 p-3 rounded-xl border border-slate-200 shadow-sm">
+                       <span className="font-bold text-fuchsia-600 text-lg truncate mr-3">{convertValue(fromValue, fromUnit, u.id, activeCategory)}</span>
+                       <span className="text-xs uppercase font-bold text-slate-600 text-right shrink-0">{u.id} <br/><span className="font-normal opacity-70 text-[10px]">{u.label.split(' (')[0]}</span></span>
+                     </div>
+                   ))}
                 </div>
               ) : (
                 <div
@@ -477,7 +507,7 @@ export default function UnitConverter() {
           )}
           
           {/* Conversion specific feedback */}
-          {conversionRate !== "" && (
+          {conversionRate !== "" && !isBatchMode && !isCompareMode && (
              <div className="mt-8 pt-6 border-t border-slate-200  flex flex-col items-center justify-center text-center animate-in fade-in slide-in-from-bottom-2 duration-500 w-full">
                 <p className="text-sm font-semibold text-slate-500  uppercase tracking-widest mb-3">
                   Conversion Rate & Reference

@@ -8,6 +8,7 @@ import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { SoilReportHeader } from "../ui/SoilReportHeader";
 import { SoilReportDetails, generateGeotechReportPDF } from "../../utils/soilReports";
+import { GlobalFAQ } from "../ui/GlobalFAQ";
 
 export default function CbrTestCalculator() {
   const { isProcessing, hasData, processEstimate, resetEstimate } = useEstimateProcessing();
@@ -287,19 +288,16 @@ export default function CbrTestCalculator() {
               </div>
             </div>
             
-            <div className="bg-white p-5 rounded-[24px] border border-slate-200 shadow-sm">
-              <h4 className="font-bold text-slate-800 mb-3 uppercase tracking-wide text-xs">Frequently Asked Questions</h4>
-              <div className="space-y-3">
-                <div className="p-3 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-100">
-                  <p className="font-bold text-xs text-slate-700 mb-1">What if the curve is concave upwards initially?</p>
-                  <p className="text-[11px] text-slate-500">This happens due to surface irregularities. The curve must be corrected by drawing a tangent at the point of greatest slope to intersect the load axis.</p>
-                </div>
-                <div className="p-3 bg-slate-50 rounded-[24px] border border-slate-200 shadow-sm text-slate-800 rounded-[24px] border border-slate-100">
-                  <p className="font-bold text-xs text-slate-700 mb-1">Why is 5.0mm CBR sometimes higher?</p>
-                  <p className="text-[11px] text-slate-500">Usually the 2.5mm CBR is higher. If 5.0mm is higher, the test should be repeated. If the second test also shows 5.0mm &gt; 2.5mm, the 5.0mm value is accepted.</p>
-                </div>
-              </div>
-            </div>
+            <GlobalFAQ moduleId="cbr" faqs={[
+              {
+                question: "What if the curve is concave upwards initially?",
+                answer: "This happens due to surface irregularities. The curve must be corrected by drawing a tangent at the point of greatest slope to intersect the load axis."
+              },
+              {
+                question: "Why is 5.0mm CBR sometimes higher?",
+                answer: "Usually the 2.5mm CBR is higher. If 5.0mm is higher, the test should be repeated. If the second test also shows 5.0mm > 2.5mm, the 5.0mm value is accepted."
+              }
+            ]} />
           </div>
 
           {/* Results Panel */}

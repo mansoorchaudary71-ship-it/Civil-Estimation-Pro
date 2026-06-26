@@ -58,7 +58,7 @@ import { useLocation } from "react-router-dom";
 import UnitToggleGroup from "../ui/UnitToggleGroup";
 import { MaskedInput } from "../ui/MaskedInput";
 import { useSchema } from "../../hooks/useSchema";
-import { SEOFAQ } from "../ui/SEOFAQ";
+import { GlobalFAQ } from "../ui/GlobalFAQ";
 import { ToolGuidedTour, TourStep } from "../ui/ToolGuidedTour";
 
 const HOUSE_TOUR_STEPS: TourStep[] = [
@@ -2255,7 +2255,7 @@ export default function HouseEstimator() {
         </div>
       )}
 
-      <SEOFAQ faqs={[
+      <GlobalFAQ moduleId="house" faqs={[
         {
           question: "What engineering formulas does this tool use?",
           answer: "It strictly uses internationally recognized civil engineering formulas relevant to the quantity estimation field, compliant with standards like NBC Pakistan 2021."

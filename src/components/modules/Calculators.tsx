@@ -40,6 +40,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, L
 import { CalculationHistory } from "../ui/CalculationHistory";
 import { SEO } from "../SEO";
 import { StyledChart } from "../ui/EstimateVisualizer";
+import { GlobalFAQ } from "../ui/GlobalFAQ";
 
 export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }: { forcedTab?: "master" | "concrete" | "bricks" | "blocks" | "plaster" | "bricks-blocks" | "steel"; hideHeader?: boolean } = {}) {
   const { formatCurrency, currentUnit, setCurrentUnit, currentCurrency } = useGlobalSettings();
@@ -1167,19 +1168,18 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 <li><strong>Cement Bags:</strong> [V_dry × (Cement Ratio / Total Ratio)] / 0.0347</li>
               </ul>
             </div>
-
+            
             <div className="sm:col-span-2 mt-6">
-              <h4 className="font-bold text-slate-800 mb-3">Frequently Asked Questions</h4>
-              <div className="space-y-3">
-                <div className="bg-white p-3 rounded-[16px] border border-slate-100">
-                  <p className="font-semibold text-sm text-slate-700">Why do we multiply wet volume by 1.33?</p>
-                  <p className="text-xs text-slate-500 mt-1">Dry mortar volume is typically 30-33% more than wet volume due to voids getting filled with water during mixing.</p>
-                </div>
-                <div className="bg-white p-3 rounded-[16px] border border-slate-100">
-                  <p className="font-semibold text-sm text-slate-700">What is the standard mix ratio for internal plaster?</p>
-                  <p className="text-xs text-slate-500 mt-1">1:4 (1 part cement to 4 parts sand) is the standard for internal walls and ceilings, ensuring strong adherence.</p>
-                </div>
-              </div>
+              <GlobalFAQ moduleId="concrete" faqs={[
+                {
+                  question: "Why do we multiply wet volume by 1.33?",
+                  answer: "Dry mortar volume is typically 30-33% more than wet volume due to voids getting filled with water during mixing."
+                },
+                {
+                  question: "What is the standard mix ratio for internal plaster?",
+                  answer: "1:4 (1 part cement to 4 parts sand) is the standard for internal walls and ceilings, ensuring strong adherence."
+                }
+              ]} />
             </div>
 
             <div className="sm:col-span-2 mt-6">
