@@ -9,3 +9,32 @@
     @apply antialiased;
   }
 }
+
+@layer utilities {
+  .hero-mesh-gradient {
+    background: linear-gradient(
+      -45deg,
+      #d1fae5,
+      #dbeafe,
+      #e0e7ff,
+      #ffedd5,
+      #ffffff
+    );
+    background-size: 400% 400%;
+    animation: gradientFlow 15s ease infinite;
+    -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  }
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

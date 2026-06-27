@@ -4,15 +4,9 @@ import { motion } from 'motion/react';
 
 export default function HeroSection({ onStart }: { onStart: () => void }) {
   return (
-    <div className="relative w-full bg-slate-50 overflow-hidden pt-24 md:pt-32 pb-16 flex flex-col items-center font-sans">
+    <div className="relative w-full bg-white overflow-hidden pt-24 md:pt-32 pb-16 flex flex-col items-center font-sans">
       {/* Background Mesh Gradient */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* Pale mint-green glow top-left/center */}
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-teal-50/80 blur-[100px] opacity-80 mix-blend-multiply"></div>
-        {/* Pale sky-blue glow right side */}
-        <div className="absolute top-[10%] right-[-10%] w-[45%] h-[45%] rounded-full bg-blue-50/80 blur-[100px] opacity-80 mix-blend-multiply"></div>
-        {/* Extra subtle glow for depth */}
-        <div className="absolute bottom-[20%] left-[20%] w-[60%] h-[60%] rounded-full bg-gray-50/60 blur-[100px] opacity-70"></div>
+      <div className="absolute top-0 left-0 right-0 h-[75%] z-0 pointer-events-none hero-mesh-gradient">
       </div>
 
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 w-full relative z-10 flex flex-col items-center justify-center text-center">
