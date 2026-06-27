@@ -16,6 +16,7 @@ import SkipToContent from "./components/ui/SkipToContent";
 import LoadingScreen from "./components/ui/LoadingScreen";
 import CustomCursor from "./components/ui/CustomCursor";
 import ScrollToTop from "./components/ui/ScrollToTop";
+import { ToolHeader } from "./components/ui/ToolHeader";
 import { Toaster } from "react-hot-toast";
 import { ProductTour } from "./components/ui/ProductTour";
 
@@ -109,11 +110,11 @@ const ModuleWrapper = ({ id, title, onNavigate, children }: { id: string, title:
   return (
     <div className="flex-1 flex flex-col min-h-0 relative w-full h-full overflow-y-auto overflow-x-hidden bg-transparent">
       <div className="max-w-7xl mx-auto w-full px-4 md:px-8 flex-1 flex flex-col">
+        <ToolHeader id={id} title={actualTitle} />
         {children}
         
         <div className="mt-12 space-y-8 pb-16">
           <ProTipsWidget moduleId={id} />
-          <CodeReferences moduleId={id} />
           <ToolArticleWidget toolName={actualTitle} />
           <GlobalFAQ moduleId={id} />
           <RelatedCalculators category={category} currentSlug={id} />
