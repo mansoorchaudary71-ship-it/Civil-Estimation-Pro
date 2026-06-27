@@ -36,7 +36,7 @@ export function ToolHeader({ id, title }: ToolHeaderProps) {
       navigator.share({
         title: `${title} - Civil Estimation Pro`,
         url: window.location.href,
-      }).catch(console.error);
+      }).catch((err) => console.log('Share canceled or failed', err));
     } else {
       navigator.clipboard.writeText(window.location.href);
       toast.success('Link copied to clipboard');

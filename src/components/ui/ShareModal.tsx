@@ -47,7 +47,7 @@ export function ShareModal({
           url
         });
       } catch (err) {
-        console.error('Error sharing', err);
+        console.log('Share canceled or failed', err);
       }
     } else {
       handleCopy();

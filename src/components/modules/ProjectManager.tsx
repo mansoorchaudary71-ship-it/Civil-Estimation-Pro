@@ -746,6 +746,70 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                 </div>
               )}
            </motion.div>
+
+           {/* Resource Allocation Timeline */}
+           <motion.div 
+             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.3 }}
+             className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+           >
+              <h2 className="text-xl font-semibold text-gray-900 tracking-tight mb-6">Resource Allocation Timeline</h2>
+              <p className="text-base font-normal text-gray-600 leading-relaxed mb-6">Visualize when materials and labour are needed on site based on your saved calculations.</p>
+              
+              {project.estimates.length === 0 ? (
+                 <div className="text-center py-10 text-slate-400 font-medium bg-slate-50/50 rounded-[24px] shadow-sm text-gray-800 border border-dashed border-slate-200/60">
+                    <AlertCircle className="w-10 h-10 mx-auto mb-3 opacity-50" />
+                    No calculation results saved to generate a timeline.
+                 </div>
+              ) : (
+                <div className="overflow-x-auto custom-scrollbar pb-4 relative">
+                   <div className="absolute top-[28px] left-0 w-full h-1 bg-slate-200/60 rounded-full z-0"></div>
+                   <div className="min-w-[800px] flex gap-6 relative z-10">
+                     {project.estimates.sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime()).map((est, idx) => (
+                       <div key={est.id} className="flex-1 min-w-[280px]">
+                         <div className="flex flex-col items-center mb-4">
+                           <div className="w-5 h-5 rounded-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)] border-4 border-white mb-2 z-10"></div>
+                           <div className="text-sm font-bold text-indigo-600">{new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date(est.date))}</div>
+                         </div>
+                         <div className="bg-white border border-slate-200 rounded-[24px] p-5 shadow-[0_4px_14px_rgba(15,23,42,0.02)] hover:shadow-lg hover:-translate-y-1 transition-all">
+                           <h4 className="font-semibold text-gray-800 mb-1 truncate" title={est.name}>{est.name}</h4>
+                           <p className="text-xs text-gray-500 mb-4">{est.category || 'General Task'}</p>
+                           
+                           <div className="space-y-3">
+                             <div>
+                               <div className="text-xs uppercase tracking-wider font-bold text-slate-400 mb-2">Key Materials Needed</div>
+                               {est.materials && Object.keys(est.materials).length > 0 ? (
+                                 <div className="space-y-2">
+                                   {Object.entries(est.materials).slice(0, 3).map(([mat, data]) => (
+                                     <div key={mat} className="flex justify-between items-center text-sm">
+                                       <span className="text-gray-600 truncate max-w-[120px]">{mat}</span>
+                                       <span className="font-semibold text-gray-800">{(data.quantity * qtyMultiplier).toFixed(1)} <span className="text-xs text-gray-500">{data.unit}</span></span>
+                                     </div>
+                                   ))}
+                                   {Object.keys(est.materials).length > 3 && (
+                                     <div className="text-xs text-indigo-500 font-medium pt-1">
+                                       +{Object.keys(est.materials).length - 3} more items
+                                     </div>
+                                   )}
+                                 </div>
+                               ) : (
+                                 <div className="text-sm text-gray-400 italic">No materials specified</div>
+                               )}
+                             </div>
+                             
+                             <div className="pt-3 border-t border-slate-100">
+                               <div className="flex justify-between items-center">
+                                 <span className="text-xs uppercase tracking-wider font-bold text-slate-400">Est. Task Cost</span>
+                                 <span className="text-sm font-bold text-emerald-600">${((Number(est.cost) || 0) * costMultiplier).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</span>
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                     ))}
+                   </div>
+                </div>
+              )}
+           </motion.div>
          </div>
 
          {/* Sidebar Summary */}

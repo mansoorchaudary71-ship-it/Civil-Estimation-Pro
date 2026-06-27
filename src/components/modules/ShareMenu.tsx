@@ -328,13 +328,17 @@ export default function ShareButtonWithPopup({
           navigator.canShare &&
           navigator.canShare({ files: [file] })
         ) {
-          await navigator.share({
-            title: title,
-            text: "Here is the estimation PDF generated via Civil Estimation Pro.",
-            files: [file],
-          });
-          toast.success("Shared successfully");
-          setIsOpen(false);
+          try {
+            await navigator.share({
+              title: title,
+              text: "Here is the estimation PDF generated via Civil Estimation Pro.",
+              files: [file],
+            });
+            toast.success("Shared successfully");
+            setIsOpen(false);
+          } catch (err: any) {
+            console.log("Share canceled or failed", err);
+          }
         } else {
           toast(
             `Direct file sharing via ${exportType} is not supported. The PDF will be downloaded.`,
