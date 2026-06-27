@@ -22,6 +22,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
+import { MarketRatesTrendChart } from "../ui/MarketRatesTrendChart";
 
 import { saveEstimate } from "../../lib/estimates";
 import { CalculationHistory } from "../ui/CalculationHistory";
@@ -418,6 +419,7 @@ export default function RateAnalysis() {
             </div>
           </section>
         </div>
+        <MarketRatesTrendChart />
       </div>
       <CalculationHistory
         calculatorId="rate_analysis_v1"
