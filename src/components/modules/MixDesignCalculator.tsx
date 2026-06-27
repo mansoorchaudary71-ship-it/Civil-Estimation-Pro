@@ -438,7 +438,7 @@ export default function MixDesignCalculator() {
                            <Cell key={`cell-${index}`} fill={entry.fill} />
                          ))}
                        </Pie>
-                       <RechartsTooltip formatter={(val: number) => `${val.toLocaleString('en-US')} kg`} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}/>
+                       <RechartsTooltip formatter={(val: any) => `${val.toLocaleString('en-US')} kg`} contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}/>
                        <Legend wrapperStyle={{ fontSize: "11px", fontWeight: "bold" }} />
                      </PieChart>
                    </ResponsiveContainer>

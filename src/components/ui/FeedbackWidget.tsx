@@ -12,11 +12,11 @@ export function FeedbackWidget({ toolName }: { toolName: string }) {
   };
 
   return (
-    <div className="no-print mt-8 mb-6 p-6 rounded-[2rem] bg-white border border-slate-200">
+    <div className="no-print w-full bg-white rounded-[32px] p-6 md:p-8 border border-slate-100 shadow-sm">
       {!submitted ? (
         <div className="flex flex-col items-center justify-center text-center">
-          <h3 className="text-lg font-semibold text-slate-800 mb-2">Was this {toolName} helpful?</h3>
-          <p className="text-sm text-slate-500 mb-6">Help us improve by providing quick feedback.</p>
+          <h3 className="text-xl md:text-2xl font-bold text-slate-800 tracking-tight mb-2">Was this {toolName} helpful?</h3>
+          <p className="text-base text-slate-600 leading-relaxed mb-6">Help us improve by providing quick feedback.</p>
           <div className="flex items-center justify-center gap-4">
             <button 
               onClick={() => handleRating('up')}

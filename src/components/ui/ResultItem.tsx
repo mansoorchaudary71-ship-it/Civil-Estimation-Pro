@@ -122,7 +122,7 @@ export function ResultItem({
     "text-amber-500",
     "text-teal-600",
   ];
-  const getColor = (str) => {
+  const getColor = (str: string) => {
     let hash = 0;
     for (let i = 0; i < str.length; i++) hash += str.charCodeAt(i);
     return palette[hash % 4];
@@ -130,7 +130,10 @@ export function ResultItem({
   const valueColor = getColor(label);
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
       className={`p-4 rounded-[24px] bg-white  border border-slate-200   shadow-sm hover:shadow-md transition-all duration-300 w-full mb-3`}
     >
       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 relative z-10 w-full">
@@ -220,6 +223,6 @@ export function ResultItem({
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }

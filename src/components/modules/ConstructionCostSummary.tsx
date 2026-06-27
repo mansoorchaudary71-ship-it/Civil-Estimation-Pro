@@ -357,7 +357,7 @@ const ConstructionCostSummary: React.FC = () => {
                   ))}
                 </Pie>
                 <RechartsTooltip 
-                  formatter={(value: number) => formatCurrency(value, false)}
+                  formatter={(value: any) => formatCurrency(value, false)}
                   contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                 />
                 <Legend verticalAlign="bottom" height={36} />

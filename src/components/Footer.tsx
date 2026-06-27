@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Twitter, Github, Linkedin, Mail, ShieldCheck, MailPlus } from 'lucide-react';
-import { ModuleId } from '../App';
+import { MessageSquare, Code, Briefcase, Mail, ShieldCheck, MailPlus } from 'lucide-react';
+import { ModuleId } from './Dashboard';
 
 export default function Footer({ activeModule, onNavigate }: { activeModule?: ModuleId, onNavigate?: (id: ModuleId) => void }) {
   const [email, setEmail] = useState("");
@@ -155,19 +155,19 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
           <div className="flex items-center gap-4">
             <a href="#" className="flex items-center gap-2 text-gray-500 hover:text-[#FF5F15] transition-colors group">
               <span className="w-9 h-9 rounded-full bg-slate-100 group-hover:bg-[#FF5F15]/10 flex items-center justify-center transition-colors">
-                <Twitter className="w-4 h-4" />
+                <MessageSquare className="w-4 h-4" />
               </span>
               <span className="text-sm font-medium hidden md:inline">Twitter</span>
             </a>
             <a href="#" className="flex items-center gap-2 text-gray-500 hover:text-[#FF5F15] transition-colors group">
               <span className="w-9 h-9 rounded-full bg-slate-100 group-hover:bg-[#FF5F15]/10 flex items-center justify-center transition-colors">
-                <Github className="w-4 h-4" />
+                <Code className="w-4 h-4" />
               </span>
               <span className="text-sm font-medium hidden md:inline">GitHub</span>
             </a>
             <a href="#" className="flex items-center gap-2 text-gray-500 hover:text-[#FF5F15] transition-colors group">
               <span className="w-9 h-9 rounded-full bg-slate-100 group-hover:bg-[#FF5F15]/10 flex items-center justify-center transition-colors">
-                <Linkedin className="w-4 h-4" />
+                <Briefcase className="w-4 h-4" />
               </span>
               <span className="text-sm font-medium hidden md:inline">LinkedIn</span>
             </a>

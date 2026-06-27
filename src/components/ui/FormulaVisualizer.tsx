@@ -131,7 +131,7 @@ export function FormulaVisualizer({ title }: VisualizerProps) {
               }}
               itemStyle={{ color: "#818cf8", fontWeight: "bold" }}
               labelStyle={{ color: "#94a3b8", marginBottom: "4px" }}
-              formatter={(value: number) => [
+              formatter={(value: any) => [
                 Math.round(value).toLocaleString(),
                 yLabel,
               ]}

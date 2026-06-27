@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useProjects, Project } from '../../context/ProjectContext';
 import { auth } from '../../lib/firebase';
 import { Plus, FolderOpen, Calendar, MapPin, Building, Share2, Printer, ChevronRight, BarChart3, AlertCircle, Upload, Play, FileText, ArrowRight, Home, Route } from 'lucide-react';
@@ -9,7 +10,7 @@ export default function ProjectManager() {
   const { projects, activeProjectId, setActiveProjectId, addProject, deleteProject } = useProjects();
   const [view, setView] = useState<'list' | 'detail' | 'compare'>('list');
   const [viewedProjectId, setViewedProjectId] = useState<string | null>(null);
-  const [compareIds, setCompareIds] = useState<[string, string] | [null, null]>([null, null]);
+  const [compareIds, setCompareIds] = useState<[string | null, string | null]>([null, null]);
   
   const [isCreating, setIsCreating] = useState(false);
   const [newProject, setNewProject] = useState({ name: '', location: '', type: 'Residential', startDate: '' });
@@ -275,7 +276,7 @@ export default function ProjectManager() {
                       <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
                       <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} dy={10} />
                       <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} tickFormatter={(val) => `$${val >= 1000 ? (val/1000).toFixed(0)+'k' : val}`} width={60} />
-                      <Tooltip formatter={(val: number) => `$${val.toLocaleString()}`} contentStyle={{ borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} cursor={{ fill: '#f1f5f9', opacity: 0.5 }} />
+                      <Tooltip formatter={(val: any) => `$${val.toLocaleString()}`} contentStyle={{ borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} cursor={{ fill: '#f1f5f9', opacity: 0.5 }} />
                       <Bar dataKey="cost" fill="#6366f1" radius={[4, 4, 0, 0]} maxBarSize={50} />
                     </BarChart>
                   </ResponsiveContainer>
@@ -289,7 +290,7 @@ export default function ProjectManager() {
                       <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0" />
                       <XAxis type="number" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} />
                       <YAxis type="category" dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} width={80} />
-                      <Tooltip formatter={(val: number, name: string, props: any) => [`${val.toLocaleString()} ${props.payload.unit}`, 'Quantity']} contentStyle={{ borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} cursor={{ fill: '#f1f5f9', opacity: 0.5 }} />
+                      <Tooltip formatter={(val: any, name: any, props: any) => [`${val.toLocaleString()} ${props.payload.unit}`, 'Quantity']} contentStyle={{ borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} cursor={{ fill: '#f1f5f9', opacity: 0.5 }} />
                       <Bar dataKey="quantity" fill="#10b981" radius={[0, 4, 4, 0]} maxBarSize={30} />
                     </BarChart>
                   </ResponsiveContainer>
@@ -298,10 +299,16 @@ export default function ProjectManager() {
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map(proj => {
+            {projects.map((proj, idx) => {
                const isCompare = compareIds[0] === proj.id || compareIds[1] === proj.id;
              return (
-            <div key={proj.id} className={`group bg-white  border ${activeProjectId === proj.id ? 'border-indigo-500 ring-1 ring-indigo-500' : 'border-slate-200 '} p-6 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col relative overflow-hidden`}>
+            <motion.div 
+              key={proj.id} 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: idx * 0.1, ease: [0.23, 1, 0.32, 1] }}
+              className={`group bg-white  border ${activeProjectId === proj.id ? 'border-indigo-500 ring-1 ring-indigo-500' : 'border-slate-200 '} p-6 rounded-[2rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col relative overflow-hidden`}
+            >
               
               {isCompare && (
                  <div className="absolute top-0 right-0 w-16 h-16 bg-emerald-500/10">
@@ -357,7 +364,7 @@ export default function ProjectManager() {
                    {isCompare ? "Selected for Compare" : "Select to Compare"}
                  </button>
               </div>
-            </div>
+            </motion.div>
              );
           })}
         </div>
@@ -403,7 +410,13 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
           {[p1, p2].map((proj, i) => {
             const totals = i === 0 ? t1 : t2;
             return (
-         <div key={proj.id} className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+         <motion.div 
+           key={proj.id} 
+           initial={{ opacity: 0, x: i === 0 ? -20 : 20 }}
+           animate={{ opacity: 1, x: 0 }}
+           transition={{ duration: 0.5, delay: 0.2 + (i * 0.1), ease: [0.23, 1, 0.32, 1] }}
+           className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+         >
             <h1 className="tabular-nums mb-6 flex items-center gap-2 text-2xl font-semibold text-gray-900 tracking-tight">
                <span className="w-6 h-6 rounded-full bg-indigo-500 text-white shadow-md flex items-center justify-center text-sm">{i+1}</span>
                {proj.name}
@@ -440,7 +453,7 @@ function ProjectCompare({ p1, p2, onBack }: { p1: Project, p2: Project, onBack: 
                  </div>
               </div>
             </div>
-         </div>
+         </motion.div>
             )})}
             
        </div>
@@ -633,7 +646,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
                                <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} dy={10} />
                                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#64748b' }} tickFormatter={(val) => `$${val >= 1000 ? (val/1000).toFixed(0)+'k' : val}`} width={60} />
-                               <Tooltip formatter={(val: number) => `$${val.toLocaleString()}`} contentStyle={{ borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
+                               <Tooltip formatter={(val: any) => `$${val.toLocaleString()}`} contentStyle={{ borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
                                <Line type="monotone" dataKey="cumulativeCost" name="Cumulative Cost" stroke="#6366f1" strokeWidth={3} dot={{ r: 4, fill: '#6366f1', strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 6 }} />
                             </LineChart>
                          </ResponsiveContainer>
@@ -665,7 +678,10 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
            </div>
 
            {/* Global Adjustments / Executive Variables */}
-           <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+           <motion.div 
+             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.1 }}
+             className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+           >
               <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold text-gray-900 tracking-tight">
                  Global Macro Adjustments
               </h2>
@@ -681,10 +697,13 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                     <p className="mt-1 text-base font-normal text-gray-600 leading-relaxed">Uniformly bumps all BOQ material quantities.</p>
                  </div>
               </div>
-           </div>
+           </motion.div>
 
            {/* Timeline & Operations */}
-           <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+           <motion.div 
+             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.2 }}
+             className="bg-white/40 backdrop-blur-xl border border-white/60 p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+           >
               <h2 className="mb-6 text-xl font-semibold text-gray-900 tracking-tight mb-4">Calculation Timeline</h2>
               {project.estimates.length === 0 ? (
                  <div className="text-center py-10 text-slate-400 font-medium bg-slate-50/50 rounded-[24px] shadow-sm text-gray-800 rounded-[24px] border border-dashed border-slate-200/60">
@@ -726,12 +745,15 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                   ))}
                 </div>
               )}
-           </div>
+           </motion.div>
          </div>
 
          {/* Sidebar Summary */}
          <div className="w-full lg:w-80 space-y-6">
-            <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4, delay: 0.1 }}
+              className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+            >
                <h3 className="mb-4 text-lg font-medium text-gray-800">Cost Breakdown</h3>
                {pieData.length > 0 ? (
                  <div className="h-48 w-full">
@@ -742,7 +764,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                           ))}
                         </Pie>
-                        <Tooltip formatter={(val: number) => `$${val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`} />
+                        <Tooltip formatter={(val: any) => `$${val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`} />
                       </PieChart>
                     </ResponsiveContainer>
                  </div>
@@ -761,9 +783,12 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                     </div>
                   ))}
                </div>
-            </div>
+            </motion.div>
 
-            <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4, delay: 0.2 }}
+              className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+            >
                <h3 className="mb-4 text-lg font-medium text-gray-800">Workspace Members</h3>
                <div className="space-y-3 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
                  {project.memberIds.map(memberUid => (
@@ -799,9 +824,12 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                    </button>
                  </div>
                )}
-            </div>
+            </motion.div>
 
-            <div className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4, delay: 0.3 }}
+              className="bg-white/40 backdrop-blur-xl border border-white/60 p-6 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+            >
                <h3 className="mb-4 text-lg font-medium text-gray-800">Aggregated Materials</h3>
                <div className="space-y-3 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
                   {Object.entries(aggregatedMaterials).length === 0 ? (
@@ -822,7 +850,7 @@ function ProjectDetail({ project, onBack }: { project: Project, onBack: () => vo
                      })
                   )}
                </div>
-            </div>
+            </motion.div>
          </div>
        </div>
     

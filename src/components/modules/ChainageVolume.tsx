@@ -419,7 +419,7 @@ export default function ChainageVolumeEstimator() {
                     <YAxis tick={{ fontSize: 12, fill: '#64748b' }} tickMargin={12} axisLine={false} tickLine={false} />
                     <Tooltip
                       contentStyle={{ borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
-                      formatter={(value: number) => [`${value.toFixed(2)} ${unitV}`, "Net Volume"]}
+                      formatter={(value: any) => [`${value.toFixed(2)} ${unitV}`, "Net Volume"]}
                       labelStyle={{ color: '#FFFFFF', fontWeight: 'bold', marginBottom: '4px' }}
                     />
                     <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="3 3" />

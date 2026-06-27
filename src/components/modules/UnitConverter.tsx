@@ -541,7 +541,7 @@ export default function UnitConverter() {
                       <Tooltip 
                         contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px', color: '#f8fafc' }}
                         itemStyle={{ color: '#e879f9' }}
-                        formatter={(value: number) => [value.toLocaleString(undefined, { maximumFractionDigits: 3 }) + ' ' + toUnit, 'Result']}
+                        formatter={(value: any) => [value.toLocaleString(undefined, { maximumFractionDigits: 3 }) + ' ' + toUnit, 'Result']}
                         labelFormatter={(label) => `${label} ${fromUnit}`}
                       />
                       <Line 

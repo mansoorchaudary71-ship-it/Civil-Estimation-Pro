@@ -307,7 +307,7 @@ export default function RateAnalysis() {
                             borderRadius: "12px",
                             color: "#fff",
                           }}
-                          formatter={(value: number) => formatCurrency(value)}
+                          formatter={(value: any) => formatCurrency(value)}
                         />
                         <Bar dataKey="value" radius={[4, 4, 0, 0]}>
                           {[

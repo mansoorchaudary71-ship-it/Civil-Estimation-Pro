@@ -447,7 +447,7 @@ export default function QSWorkflow() {
                             >
                                {pieData.map((e, index) => <Cell key={`cell-\${index}`} fill={COLORS[index % COLORS.length]} />)}
                             </Pie>
-                            <Tooltip formatter={(value: number) => `₹\${value.toLocaleString()}`} />
+                            <Tooltip formatter={(value: any) => `₹\${value.toLocaleString()}`} />
                             <Legend />
                          </RechartsPieChart>
                       </ResponsiveContainer>

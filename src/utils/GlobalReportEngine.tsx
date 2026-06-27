@@ -453,7 +453,7 @@ export const GlobalReportEngine = {
     const availableWidth = pageWidth - 28;
     const cardWidth = (availableWidth - (cardGap * (numCards - 1))) / numCards;
     
-    const drawKpiCard = (idx, title, value) => {
+    const drawKpiCard = (idx: number, title: string, value: any) => {
       const x = 14 + (idx * (cardWidth + cardGap));
       
       // Shadow layer
@@ -592,7 +592,7 @@ export const GlobalReportEngine = {
       body: summaryBody,
       theme: "plain",
       styles: { font: "helvetica", fontSize: 11, cellPadding: 4 },
-      willDrawCell: function(data) {
+      willDrawCell: function(data: any) {
         if (data.row.index === summaryBody.length - 1) {
            doc.setFont("helvetica", "bold");
            doc.setFontSize(13);

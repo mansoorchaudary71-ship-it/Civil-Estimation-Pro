@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ArrowRight, Play, Calculator, Layers, FileText, CheckCircle } from 'lucide-react';
 

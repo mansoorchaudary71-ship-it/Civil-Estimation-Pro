@@ -140,7 +140,7 @@ export function ProTipsWidget({ moduleId }: { moduleId: string }) {
   const tips = TIPS_DATABASE[moduleId] || DEFAULT_TIPS;
 
   return (
-    <div className="mt-6 mb-6 overflow-hidden rounded-[1.5rem] bg-white border border-slate-200">
+    <div className="w-full overflow-hidden bg-white rounded-[32px] border border-slate-100 shadow-sm">
       <button 
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between p-5 sm:p-6 text-left hover:bg-slate-50 transition-colors"

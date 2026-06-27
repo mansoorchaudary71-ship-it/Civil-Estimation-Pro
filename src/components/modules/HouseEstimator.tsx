@@ -1725,7 +1725,7 @@ export default function HouseEstimator() {
                                 boxShadow: "0 10px 30px rgba(15,23,42,0.05)",
                                 fontWeight: "bold",
                               }}
-                              formatter={(value: number) =>
+                              formatter={(value: any) =>
                                 formatCurrency(value, false)
                               }
                             />
@@ -1910,7 +1910,7 @@ export default function HouseEstimator() {
                                 boxShadow: "0 10px 30px rgba(15,23,42,0.05)",
                                 fontWeight: "bold",
                               }}
-                              formatter={(value: number) =>
+                              formatter={(value: any) =>
                                 formatCurrency(value, false)
                               }
                             />

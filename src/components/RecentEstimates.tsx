@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ModuleId } from "../App";
+import { ModuleId } from "./Dashboard";
 import {
   Clock,
   FolderOpen,
@@ -77,7 +77,7 @@ export default function RecentEstimates({
     const loadEstimates = async () => {
       setLoading(true);
       try {
-        const data: any[] | null = await getMyEstimates();
+        const data = (await getMyEstimates()) as any[] | null;
         if (data) {
           const formatted = data
             .sort((a: any, b: any) => {

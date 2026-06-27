@@ -397,7 +397,7 @@ export default function FormworkEstimator() {
                           ))}{" "}
                         </Pie>{" "}
                         <Tooltip
-                          formatter={(value: number) =>
+                          formatter={(value: any) =>
                             `${value.toFixed(1)} ${areaUnitStr}`
                           }
                           contentStyle={{

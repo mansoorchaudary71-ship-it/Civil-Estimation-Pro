@@ -144,7 +144,7 @@ export default function SolarRoofCalculator() {
   let currentTariff = gridTariff;
   let currentGen = annualGen;
   
-  const cashFlows = [];
+  const cashFlows: any[] = [];
   let lifetimeSavings = 0;
   
   for (let year = 1; year <= lifespan; year++) {

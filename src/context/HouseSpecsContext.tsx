@@ -56,7 +56,7 @@ export function HouseSpecsProvider({ children }: { children: ReactNode }) {
     setSpecs(prev => ({
       ...prev,
       [category]: {
-        ...prev[category as any] as any,
+        ...(prev as any)[category],
         [field]: value
       }
     }));

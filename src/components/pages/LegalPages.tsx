@@ -1,6 +1,6 @@
 import React from 'react';
 import { FileText, Shield, Cookie, ArrowRight } from 'lucide-react';
-import { ModuleId } from '../../App';
+import { ModuleId } from '../Dashboard';
 import { SEO } from '../SEO';
 
 type LegalPageProps = {

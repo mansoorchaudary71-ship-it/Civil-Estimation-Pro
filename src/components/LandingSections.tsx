@@ -20,7 +20,7 @@ import {
 
 export function HowItWorksSection() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const steps = [
     {

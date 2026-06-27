@@ -1,11 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { ModuleId, ALL_TOOLS } from "../App";
+import { useState, useEffect, useRef } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Calculator,
  Sparkles,
- Bookmark,
- Truck,
  Route,
  Waves,
  Paintbrush,
@@ -13,19 +9,10 @@ import { Calculator,
  TrendingUp,
  Hammer,
  Layers,
- BoxSelect,
- Search,
- Menu,
- CheckSquare,
  Map,
  Grid2X2,
  Box,
  ArrowRightLeft,
- Weight,
- Spline,
- ArrowRight,
- ChevronRight,
- ChevronDown,
  HardHat,
  Scaling,
  Container,
@@ -33,40 +20,30 @@ import { Calculator,
  Anvil,
  Building2,
  Building,
- Blocks,
  Shovel,
  Pickaxe,
  Cone,
  Droplet,
- PaintBucket,
  Ruler,
- Columns,
  FolderOpen,
  ClipboardList,
  Maximize2,
  FileSpreadsheet,
  Zap,
- Wand2,
- ArrowUpRight,
  LineChart,
  Sun,
- X,
- Mic,
- Clock,
  BarChart,
  ShieldCheck,
  Users, Activity, BookOpen, FileText,
- Droplets,
  Triangle,
  Bug,
  Layout,
  Square,
+ Bookmark,
+ X,
+ ArrowUpRight,
 } from "lucide-react";
 import { SEO } from "./SEO";
-import Logo from "./Logo";
-import RecentEstimates from "./RecentEstimates";
-import PremiumHero from "./PremiumHero";
-import ExcelPromo from "./ExcelPromo";
 import SearchAndFilterBar from "./SearchAndFilterBar";
 import HeroSection from "./HeroSection";
 import SocialProofSection from "./SocialProofSection";
@@ -76,7 +53,6 @@ import { HowItWorksSection,
  FeatureComparisonSection,
 } from "./LandingSections";
 
-import PostLoginDashboard from "./PostLoginDashboard";
 import { useSettings } from "../context/SettingsContext";
 import ToolCard from "./ToolCard";
 import { ScrollReveal } from "./ui/ScrollReveal";
@@ -96,6 +72,7 @@ function formatTimeAgo(timestamp: number) {
  return `${days}d ago`;
 }
 
+export type ModuleId = string;
 export const ALL_MODULES = [
  // 🚀 Guided Workflows
  {
@@ -897,8 +874,8 @@ export const ALL_MODULES = [
 ];
 
 interface DashboardProps {
- onSelectModule: (id: ModuleId) => void;
- onOpenSidebar: () => void;
+ onSelectModule: (id: string) => void;
+ onOpenSidebar?: () => void;
  onOpenSettings?: () => void;
  onOpenAuth?: () => void;
  previousModule?: string | null;
@@ -1031,9 +1008,6 @@ const ToolsSkeleton = () => (
 
 export default function Dashboard({
  onSelectModule,
- onOpenSidebar,
- onOpenSettings,
- onOpenAuth,
  previousModule,
 }: DashboardProps) {
  const { user } = useAuth();
@@ -1041,9 +1015,6 @@ export default function Dashboard({
  const { recentTools, addRecentTool } = useRecentTools();
  const [searchTerm, setSearchTerm] = useState("");
  const [activeCategory, setActiveCategory] = useState("All Tools");
- const [filterMode, setFilterMode] = useState("All");
- const [sortMode, setSortMode] = useState("Popular");
- const [isSortOpen, setIsSortOpen] = useState(false);
  const [isAiChatOpen, setIsAiChatOpen] = useState(false);
  const [aiMessage, setAiMessage] = useState("");
  const [isComputing, setIsComputing] = useState(true);
@@ -1052,7 +1023,7 @@ export default function Dashboard({
  setIsComputing(true);
  const t = setTimeout(() => setIsComputing(false), 350);
  return () => clearTimeout(t);
- }, [searchTerm, activeCategory, filterMode]);
+ }, [searchTerm, activeCategory]);
 
  const [aiMessages, setAiMessages] = useState<
  { role: string; content: string }[]
@@ -1065,51 +1036,10 @@ export default function Dashboard({
  ]);
  const chatEndRef = useRef<HTMLDivElement>(null);
 
- const [engineersCount, setEngineersCount] = useState(0);
-
- useEffect(() => {
- let startTimestamp: number;
- const duration = 2000;
- const target = 10000;
-
- const step = (timestamp: number) => {
- if (!startTimestamp) startTimestamp = timestamp;
- const progress = Math.min((timestamp - startTimestamp) / duration, 1);
- // easeOutExpo
- const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
- setEngineersCount(Math.floor(easeProgress * target));
- if (progress < 1) {
- window.requestAnimationFrame(step);
- }
- };
- window.requestAnimationFrame(step);
- }, []);
-
- let recommendedIds: string[] = [];
- if (settings.role === "Civil Engineer") {
- recommendedIds = [
- "master-rcc",
- "house",
- "boq",
- "takeoff",
- "road-pavement",
- "earthworks",
- ];
- } else if (settings.role === "Quantity Surveyor") {
- recommendedIds = ["master-quantity", "house", "rates", "takeoff"];
- } else if (settings.role === "Student") {
- recommendedIds = ["calculators", "bbs-generator", "unit-converter", "ai"];
- } else if (settings.role === "Contractor") {
- recommendedIds = ["house", "formwork", "rates", "interiors-finishes"];
- }
- const recommendedModules = recommendedIds
- .map((id) => ALL_MODULES.find((m) => m.id === id))
- .filter((m): m is (typeof ALL_MODULES)[0] => m !== undefined);
-
  const handleSelect = (id: string, inputs?: any) => {
  if (trackToolUse) trackToolUse(id);
  addRecentTool(id, inputs);
- onSelectModule(id as ModuleId);
+ onSelectModule(id);
  };
 
  useEffect(() => {
@@ -1146,16 +1076,6 @@ export default function Dashboard({
 
  const categories = ["All Tools", "My Tools", ...Array.from(new Set(ALL_MODULES.map(m => m.category)))];
 
- const filterPills = [
- "All",
- "Most Used",
- "New",
- "Beginner",
- "Advanced",
- "Saved",
- ];
- const sortOptions = ["Popular", "Newest", "A-Z", "Time (Quickest first)"];
-
  const filteredModules = [...ALL_MODULES]
  .filter((m) => {
  // 1. Search Filter
@@ -1178,36 +1098,10 @@ export default function Dashboard({
  activeCategory === "All Tools" || m.category === activeCategory;
  }
 
- // 3. Mode Filter
- let matchesMode = true;
- if (filterMode === "Most Used") matchesMode = m.isPopular === true;
- if (filterMode === "New") matchesMode = m.isNew === true;
- if (filterMode === "Beginner") matchesMode = m.difficulty === "Beginner";
- if (filterMode === "Advanced") matchesMode = m.difficulty === "Advanced";
- if (filterMode === "Saved")
- matchesMode = settings?.usedTools?.includes(m.id) ?? false;
-
- return matchesSearch && matchesCategory && matchesMode;
+ return matchesSearch && matchesCategory;
  })
  .sort((a, b) => {
- if (sortMode === "A-Z") return a.title.localeCompare(b.title);
- if (sortMode === "Popular") {
- const usageA =
- (a as any).usageCount ||
- Math.floor((a.id.length * 1024 + 5000) % 30000);
- const usageB =
- (b as any).usageCount ||
- Math.floor((b.id.length * 1024 + 5000) % 30000);
- return usageB - usageA;
- }
- if (sortMode === "Newest") return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
- if (sortMode === "Time (Quickest first)") {
- const getMins = (t: string) => parseInt(t.replace(/\D/g, "")) || 5;
- return (
- getMins(a.estimatedTime || "5") - getMins(b.estimatedTime || "5")
- );
- }
- return 0;
+ return a.title.localeCompare(b.title);
  });
 
  const totalFilteredCount = filteredModules.length;
@@ -1281,7 +1175,7 @@ export default function Dashboard({
  searchTerm={searchTerm}
  setSearchTerm={setSearchTerm}
  totalFilteredCount={totalFilteredCount}
- allTools={ALL_TOOLS.map(m => ({ id: m.id, name: m.title, category: m.category }))}
+ allTools={ALL_MODULES.map(m => ({ id: m.id, name: m.title, category: m.category }))}
  onSelectModule={handleSelect}
  />
  <div className="flex flex-col gap-8 w-full mt-2">
@@ -1419,7 +1313,7 @@ export default function Dashboard({
  searchTerm={searchTerm}
  setSearchTerm={setSearchTerm}
  totalFilteredCount={totalFilteredCount}
- allTools={ALL_TOOLS.map(m => ({ id: m.id, name: m.title, category: m.category }))}
+ allTools={ALL_MODULES.map(m => ({ id: m.id, name: m.title, category: m.category }))}
  onSelectModule={handleSelect}
  />
  <div className="flex flex-col gap-8 w-full mt-2">

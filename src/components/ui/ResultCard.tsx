@@ -203,7 +203,7 @@ export function ResultCard({
     "text-amber-500",
     "text-teal-600",
   ];
-  const getColor = (str) => {
+  const getColor = (str: string) => {
     let hash = 0;
     for (let i = 0; i < str.length; i++) hash += str.charCodeAt(i);
     return palette[hash % 4];

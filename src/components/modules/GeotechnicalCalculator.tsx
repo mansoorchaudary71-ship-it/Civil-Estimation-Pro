@@ -170,9 +170,6 @@ export default function GeotechnicalCalculator() {
       />
       
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
-          
-        </div>
 
         {/* Tab Navigation */}
         <UniversalTabs 

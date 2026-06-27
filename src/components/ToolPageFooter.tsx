@@ -19,7 +19,7 @@ export default function ToolPageFooter({
   category,
 }: ToolPageFooterProps) {
   return (
-    <div className="mt-8 space-y-3 border-t border-slate-200 pt-8">
+    <div className="w-full bg-white rounded-[32px] p-6 md:p-8 border border-slate-100 shadow-sm space-y-3">
       {/* Formula Transparency Box */}
       <div className="bg-[#FFFFFF] border border-slate-200 rounded-xl p-5 shadow-sm">
         <h3 className="mb-3 flex items-center gap-2 text-lg font-medium text-gray-800 mb-4">

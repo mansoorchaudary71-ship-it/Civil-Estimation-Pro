@@ -1,6 +1,6 @@
 import React from "react";
 import { ArrowRight, Ruler, FileSpreadsheet, Box, ClipboardList, Zap } from "lucide-react";
-import { ModuleId } from "../App";
+import { ModuleId } from "./Dashboard";
 
 interface EstimationWorkflowProps {
   onSelectModule: (id: ModuleId) => void;

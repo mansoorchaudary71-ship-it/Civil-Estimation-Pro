@@ -335,12 +335,12 @@ export default function SiteProgressTracker() {
                    <div className="flex items-end gap-2 relative z-10 w-full justify-between">
                      <div className="flex items-end gap-2">
                        <h3 className="tabular-nums leading-none text-lg font-medium text-gray-800 mb-4">${(metrics.totalCost / 1000).toFixed(1)}k</h3>
-                       <span className="text-sm font-bold text-gray-500 mb-1">Earned: ${(metrics.EV / 1000).toFixed(1)}k</span>
+                       <span className="text-sm font-bold text-gray-500 mb-1">Earned: ${( (metrics.EV || 0) / 1000).toFixed(1)}k</span>
                      </div>
                    </div>
                    <div className="w-full mt-3 relative z-10 flex items-center justify-between">
-                     <p className={`text-xs font-bold ${metrics.CV >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
-                        {metrics.CV >= 0 ? `Cost Variance: +$${(metrics.CV).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}` : `Cost Variance: -$${(Math.abs(metrics.CV)).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`}
+                     <p className={`text-xs font-bold ${(metrics.CV || 0) >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
+                        {(metrics.CV || 0) >= 0 ? `Cost Variance: +$${(metrics.CV || 0).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}` : `Cost Variance: -$${(Math.abs(metrics.CV || 0)).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`}
                      </p>
                    </div>
                 </div>
@@ -356,8 +356,8 @@ export default function SiteProgressTracker() {
                          <h3 className="tabular-nums leading-none text-lg font-medium text-gray-800 mb-4">On Track</h3>
                       )}
                    </div>
-                   <p className={`text-xs font-bold mt-3 relative z-10 ${metrics.SV >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
-                      {metrics.SV >= 0 ? `Schedule Variance: +$${(metrics.SV).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}` : `Schedule Variance: -$${(Math.abs(metrics.SV)).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`}
+                   <p className={`text-xs font-bold mt-3 relative z-10 ${(metrics.SV || 0) >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
+                      {(metrics.SV || 0) >= 0 ? `Schedule Variance: +$${(metrics.SV || 0).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}` : `Schedule Variance: -$${(Math.abs(metrics.SV || 0)).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`}
                    </p>
                 </div>
              </div>

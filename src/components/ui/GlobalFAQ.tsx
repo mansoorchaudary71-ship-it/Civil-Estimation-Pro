@@ -129,8 +129,8 @@ export function GlobalFAQ({ faqs = [], moduleId }: GlobalFAQProps) {
   const displayedFaqs = showAll ? combinedFaqs : combinedFaqs.slice(0, 2);
 
   return (
-    <section className="w-full max-w-4xl mx-auto my-12" aria-label="Frequently Asked Questions">
-      <h2 className="text-2xl md:text-3xl font-bold text-slate-800 text-center mb-8">
+    <section className="w-full bg-white rounded-[32px] p-6 md:p-8 border border-slate-100 shadow-sm" aria-label="Frequently Asked Questions">
+      <h2 className="text-xl md:text-2xl font-bold text-slate-800 tracking-tight mb-6">
         Frequently Asked Questions
       </h2>
       <div className="space-y-4">

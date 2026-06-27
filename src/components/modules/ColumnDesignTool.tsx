@@ -278,7 +278,7 @@ export default function ColumnDesignTool() {
                                 name="Axial Load" 
                                 label={{ value: 'Axial Load (kN)', angle: -90, position: 'insideLeft' }} 
                             />
-                            <RechartsTooltip cursor={{strokeDasharray: '3 3'}} formatter={(value: number) => value.toFixed(1)} />
+                            <RechartsTooltip cursor={{strokeDasharray: '3 3'}} formatter={(value: any) => value.toFixed(1)} />
                             <Legend verticalAlign="top" height={36} />
                             
                             <Line 

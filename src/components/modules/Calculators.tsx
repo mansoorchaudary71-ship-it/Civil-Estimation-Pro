@@ -1,16 +1,10 @@
 import React, { useState } from "react";
-import { UniversalTabs } from "../ui/UniversalTabs";
 import { CIVIL_CONSTANTS } from "../../utils/unitConverter";
-import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import {
   Copy,
   Droplet,
   Box,
   Hammer,
-  PaintBucket,
-  Scaling,
-  ArrowRightLeft,
-  Layers,
   Columns,
   Container,
   Spline,
@@ -18,11 +12,12 @@ import {
   Save,
   Clock,
   HelpCircle,
+  Layers,
+  PaintBucket,
+  Scaling,
 } from "lucide-react";
 import { useGlobalSettings } from "../../context/SettingsContext";
 import { useEstimateProcessing } from "../../hooks/useEstimateProcessing";
-import { MaterialSummary } from "../ui/MaterialSummary";
-import { ProcessingSkeleton } from "../ui/ProcessingSkeleton";
 import { BatchInputMode, BatchColumn } from "../ui/BatchInputMode";
 import {
   ConcreteMortarCalculator,
@@ -33,14 +28,10 @@ import {
 
 import UnitToggleGroup from "../ui/UnitToggleGroup";
 import MasterQuantityEstimator from "./MasterQuantityEstimator";
-import { saveEstimate } from "../../lib/estimates";
 import { useAuth } from "../../contexts/AuthContext";
 import Brickwork9InchModule from "./Brickwork9InchModule";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from "recharts";
-import { CalculationHistory } from "../ui/CalculationHistory";
 import { SEO } from "../SEO";
-import { StyledChart } from "../ui/EstimateVisualizer";
-import { GlobalFAQ } from "../ui/GlobalFAQ";
 
 export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }: { forcedTab?: "master" | "concrete" | "bricks" | "blocks" | "plaster" | "bricks-blocks" | "steel"; hideHeader?: boolean } = {}) {
   const { formatCurrency, currentUnit, setCurrentUnit, currentCurrency } = useGlobalSettings();
@@ -284,7 +275,7 @@ export default function ConstructionMaterialEstimator({ forcedTab, hideHeader }:
                 { id: "Imperial", label: "Imperial (ft³, gal)" },
               ]}
               activeUnit={currentUnit || "Metric"}
-              onChange={setCurrentUnit}
+              onChange={(u) => setCurrentUnit(u as "Metric" | "Imperial")}
               size="sm"
             />
           </div>

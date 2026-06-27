@@ -1,7 +1,7 @@
 import React from 'react';
 import { BookOpen, Layers, Bot, FileText, ChevronRight, X } from 'lucide-react';
 import { useSettings } from '../../context/SettingsContext';
-import { ALL_TOOLS } from '../../App';
+import { ALL_MODULES as ALL_TOOLS } from '../Dashboard';
 
 export function HelpGuideModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const { settings } = useSettings();

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ModuleId } from '../App';
+import { ModuleId } from './Dashboard';
 import { useAuth } from '../contexts/AuthContext';
 import { ALL_MODULES } from './Dashboard';
 import { getMyEstimates } from '../lib/estimates';

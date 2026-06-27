@@ -95,7 +95,7 @@ export function MaterialSummary({
 
   const { extractedMaterials, chartData } = useMemo(() => {
     const materials: Record<string, { quantity: number; unit: string }> = {};
-    const chart: { name: string; value: number }[] = [];
+    const chart: { name: string; value: any }[] = [];
     
     // Quick helper to recursively parse React children
     const parseChildren = (node: React.ReactNode) => {
@@ -271,7 +271,7 @@ export function MaterialSummary({
                           ))}
                         </Pie>
                         <RechartsTooltip 
-                          formatter={(value: number) => value.toLocaleString('en-US', { maximumFractionDigits: 2 })}
+                          formatter={(value: any) => value.toLocaleString('en-US', { maximumFractionDigits: 2 })}
                           contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
                         />
                         <Legend 

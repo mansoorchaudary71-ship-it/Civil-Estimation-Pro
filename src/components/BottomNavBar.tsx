@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Home, Clock, Save, Share2, Printer, X, MessageCircle, Mail, Copy, FileDown } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function BottomNavBar({
   activeModule,
   onNavigate,
-  onOpenProfile,
   onOpenHistory,
 }: {
   activeModule: string;
   onNavigate: (module: string) => void;
-  onOpenProfile: () => void;
   onOpenHistory: () => void;
 }) {
   const [mounted, setMounted] = useState(false);
@@ -113,7 +111,6 @@ export default function BottomNavBar({
       toast.loading("Saving estimate...", { id: "save-toast" });
       const { saveEstimate } = await import('../lib/estimates');
       
-      const inputs: any = { "Saved At": new Date().toLocaleString() };
       const tableData: any[][] = [];
       let totalCost = 0;
       
@@ -263,7 +260,6 @@ export default function BottomNavBar({
 
               <button
                 onClick={() => {
-                  const url = encodeURIComponent(window.location.href);
                   const titleStr = encodeURIComponent(document.title);
                   let resultText = encodeURIComponent(`Check out this calculation tool: ${window.location.href}`);
                   // ... logic ...
