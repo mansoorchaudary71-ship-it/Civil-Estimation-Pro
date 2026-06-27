@@ -113,7 +113,7 @@ const ModuleWrapper = ({ id, title, onNavigate, children }: { id: string, title:
         <ToolHeader id={id} title={actualTitle} />
         {children}
         
-        <div className="mt-12 space-y-8 pb-16">
+        <div className="mt-12 space-y-8 pb-16 print:hidden">
           <ProTipsWidget moduleId={id} />
           <ToolArticleWidget toolName={actualTitle} />
           <GlobalFAQ moduleId={id} />

@@ -17,10 +17,12 @@ import { ResultCard } from "../ui/ResultCard";
 import { MaterialSummary } from "../ui/MaterialSummary";
 import { FieldTooltip } from "../ui/FieldTooltip";
 
+import { ToolLayout, ToolLayoutInputs, ToolLayoutResults, ToolSection } from "../ui/ToolLayout";
+
 function InputGroup({ label, children, colSpan = 1 }: { label: React.ReactNode; children: React.ReactNode, colSpan?: number }) {
   return (
     <div className={`flex flex-col gap-2 ${colSpan > 1 ? `md:col-span-${colSpan}` : ''}`}>
-      <label className="text-sm font-bold text-slate-700">{label}</label>
+      <label className="text-sm font-bold text-slate-700 dark:text-slate-300">{label}</label>
       {children}
     </div>
   );
@@ -180,190 +182,175 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
   };
 
   return (
-    <div className={isEmbedded ? "w-full space-y-6" : "w-full h-full bg-transparent  text-text-primary p-6 md:p-8"}>
-      <div className="max-w-5xl mx-auto space-y-6">
-        {!isEmbedded && (
-          <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
-            
-            <div className="flex flex-col items-end gap-2">
-              <GlobalSettingsToggle align="left" showCurrency={false} />
-              <button onClick={sendToBOQ} className="text-xs font-bold px-3 py-2 bg-emerald-50 text-emerald-600 rounded-[16px] hover:bg-emerald-100 transition-colors border border-emerald-200">
-                Send to BOQ
-              </button>
-            </div>
+    <div className={isEmbedded ? "w-full space-y-6" : "w-full space-y-6"}>
+      {!isEmbedded && (
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+          <div className="flex-1"></div>
+          <div className="flex flex-col items-end gap-2">
+            <GlobalSettingsToggle align="left" showCurrency={false} />
+            <button onClick={sendToBOQ} className="text-xs font-bold px-4 py-2.5 bg-emerald-50 text-emerald-600 rounded-[16px] hover:bg-emerald-100 transition-colors border border-emerald-200">
+              Send to BOQ
+            </button>
           </div>
-        )}
-        
-        <div className="bg-bg-card rounded-[24px] shadow-md border border-border-color overflow-hidden">
-          <div className="p-6 md:p-8 space-y-8">
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-              {/* Inputs */}
-              <div className="space-y-6">
-                <div>
-                  <h3 className="font-bold text-lg mb-4 text-slate-800 border-b border-slate-100 pb-2">Wall Dimensions</h3>
-                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-                    <InputGroup label="Wall Height (m)">
-                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 min-h-[44px]" value={wallH} onChange={(e) => setWallH(e.target.value)} />
-                    </InputGroup>
-                    <InputGroup label="Wall Length (m)">
-                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 min-h-[44px]" value={wallL} onChange={(e) => setWallL(e.target.value)} />
-                    </InputGroup>
-                    <InputGroup label="Base Width (m)">
-                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 min-h-[44px]" value={baseW} onChange={(e) => setBaseW(e.target.value)} />
-                    </InputGroup>
-                    <InputGroup label="Base Thk (m)">
-                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 min-h-[44px]" value={baseD} onChange={(e) => setBaseD(e.target.value)} />
-                    </InputGroup>
-                    <InputGroup label="Stem Top (m)">
-                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 min-h-[44px]" value={stemWTop} onChange={(e) => setStemWTop(e.target.value)} />
-                    </InputGroup>
-                    <InputGroup label="Stem Bot (m)">
-                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 min-h-[44px]" value={stemWBot} onChange={(e) => setStemWBot(e.target.value)} />
-                    </InputGroup>
-                    <InputGroup label="Toe Proj (m)">
-                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3 focus:ring-2 focus:ring-[#E55A2B]/50 min-h-[44px]" value={toeProj} onChange={(e) => setToeProj(e.target.value)} />
-                    </InputGroup>
-                  </div>
-                </div>
+        </div>
+      )}
+      
+      {/* Structural Layout Wrapper - Reusable across tools */}
+      <ToolLayout>
+        {/* Left Column - Inputs */}
+        <ToolLayoutInputs>
+          {/* Dimensions Section */}
+          <ToolSection title="Wall Dimensions" number={1} color="blue">
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+              <InputGroup label="Wall Height (m)">
+                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-[16px] px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500/50" value={wallH} onChange={(e) => setWallH(e.target.value)} />
+              </InputGroup>
+              <InputGroup label="Wall Length (m)">
+                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-[16px] px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500/50" value={wallL} onChange={(e) => setWallL(e.target.value)} />
+              </InputGroup>
+              <InputGroup label="Base Width (m)">
+                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-[16px] px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500/50" value={baseW} onChange={(e) => setBaseW(e.target.value)} />
+              </InputGroup>
+              <InputGroup label="Base Thk (m)">
+                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-[16px] px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500/50" value={baseD} onChange={(e) => setBaseD(e.target.value)} />
+              </InputGroup>
+              <InputGroup label="Stem Top (m)">
+                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-[16px] px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500/50" value={stemWTop} onChange={(e) => setStemWTop(e.target.value)} />
+              </InputGroup>
+              <InputGroup label="Stem Bot (m)">
+                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-[16px] px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500/50" value={stemWBot} onChange={(e) => setStemWBot(e.target.value)} />
+              </InputGroup>
+              <InputGroup label="Toe Proj (m)">
+                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-[16px] px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-blue-500/50" value={toeProj} onChange={(e) => setToeProj(e.target.value)} />
+              </InputGroup>
+            </div>
+          </ToolSection>
 
-                <div>
-                  <h3 className="font-bold text-lg mb-4 text-slate-800 border-b border-slate-100 pb-2">Soil & Loads</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    <InputGroup label={
-                      <span className="flex items-center">
-                        Soil Density (kN/m³)
-                        <FieldTooltip content="Unit weight of retained soil. Typical values: Loose soil = 14-16, Compacted soil = 18-20, Gravel/Rock = 20-22" />
-                      </span>
-                    }>
-                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3 min-h-[44px]" value={soilDens} onChange={(e) => setSoilDens(e.target.value)} />
-                    </InputGroup>
-                    <InputGroup label={
-                      <span className="flex items-center">
-                        Friction Angle (deg)
-                        <FieldTooltip content="Angle of internal friction of soil (Φ). Typical values: Clay = 0-20°, Silt = 26-30°, Sand = 30-40°, Gravel = 35-45°" />
-                      </span>
-                    }>
-                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3 min-h-[44px]" value={phiAngle} onChange={(e) => setPhiAngle(e.target.value)} />
-                    </InputGroup>
-                    <InputGroup label="Base Friction Coeff (μ)">
-                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3 min-h-[44px]" value={frictionCoeff} onChange={(e) => setFrictionCoeff(e.target.value)} step="0.1" />
-                    </InputGroup>
-                    <InputGroup label="Surcharge (kN/m²)">
-                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3 min-h-[44px]" value={surcharge} onChange={(e) => setSurcharge(e.target.value)} />
-                    </InputGroup>
-                    <InputGroup label="Safe Bearing (kN/m²)">
-                      <input type="number" inputMode="decimal" className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-3 py-3 min-h-[44px]" value={sbc} onChange={(e) => setSbc(e.target.value)} />
-                    </InputGroup>
-                  </div>
-                </div>
-                
-                <div>
-                  <h3 className="font-bold text-lg mb-4 text-slate-800 border-b border-slate-100 pb-2">Materials</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    <InputGroup label="Concrete Mix">
-                      <select className="w-full bg-white rounded-[24px] border border-slate-200 shadow-sm text-slate-800 border border-slate-200 rounded-[24px] px-4 py-3" value={mix} onChange={(e) => setMix(e.target.value)}>
-                        {Object.keys(mixRatios).map((m) => <option key={m} value={m}>{m}</option>)}
-                      </select>
-                    </InputGroup>
-                  </div>
-                </div>
-              </div>
+          {/* Soil & Loads Section */}
+          <ToolSection title="Soil & Loads" number={2} color="indigo">
+            <div className="grid grid-cols-2 xl:grid-cols-3 gap-4">
+              <InputGroup label={
+                <span className="flex items-center">
+                  Soil Density (kN/m³)
+                  <FieldTooltip content="Unit weight of retained soil. Typical values: Loose soil = 14-16, Compacted soil = 18-20, Gravel/Rock = 20-22" />
+                </span>
+              }>
+                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-[16px] px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-indigo-500/50" value={soilDens} onChange={(e) => setSoilDens(e.target.value)} />
+              </InputGroup>
+              <InputGroup label={
+                <span className="flex items-center">
+                  Friction Angle (deg)
+                  <FieldTooltip content="Angle of internal friction of soil (Φ). Typical values: Clay = 0-20°, Silt = 26-30°, Sand = 30-40°, Gravel = 35-45°" />
+                </span>
+              }>
+                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-[16px] px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-indigo-500/50" value={phiAngle} onChange={(e) => setPhiAngle(e.target.value)} />
+              </InputGroup>
+              <InputGroup label="Base Friction (μ)">
+                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-[16px] px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-indigo-500/50" value={frictionCoeff} onChange={(e) => setFrictionCoeff(e.target.value)} step="0.1" />
+              </InputGroup>
+              <InputGroup label="Surcharge (kN/m²)">
+                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-[16px] px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-indigo-500/50" value={surcharge} onChange={(e) => setSurcharge(e.target.value)} />
+              </InputGroup>
+              <InputGroup label="Safe Bearing (kN/m²)">
+                <input type="number" inputMode="decimal" className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-[16px] px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-indigo-500/50" value={sbc} onChange={(e) => setSbc(e.target.value)} />
+              </InputGroup>
+            </div>
+          </ToolSection>
+          
+          {/* Materials Section */}
+          <ToolSection title="Materials" number={3} color="violet">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <InputGroup label="Concrete Mix">
+                <select className="w-full bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 shadow-sm text-slate-800 dark:text-slate-200 rounded-[16px] px-4 py-3 min-h-[48px] focus:ring-2 focus:ring-violet-500/50" value={mix} onChange={(e) => setMix(e.target.value)}>
+                  {Object.keys(mixRatios).map((m) => <option key={m} value={m}>{m}</option>)}
+                </select>
+              </InputGroup>
+            </div>
+          </ToolSection>
 
-              {/* Drawing & Stability check */}
-              <div>
-                <div className="grid grid-cols-3 gap-4 mb-2">
-                  <div className={`p-4 rounded-[24px] border ${isSlidingSafe ? 'bg-emerald-50 border-emerald-200 ' : 'bg-rose-50 border-rose-200 '}`}>
-                    <h4 className="font-bold text-xs text-slate-800 mb-1 leading-tight">Sliding (FS &gt; 1.5)</h4>
-                    <p className={`text-xl font-bold tabular-nums tracking-tight ${isSlidingSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{FS_sliding.toFixed(2)}</p>
-                  </div>
-                  <div className={`p-4 rounded-[24px] border ${isOverturnSafe ? 'bg-emerald-50 border-emerald-200 ' : 'bg-rose-50 border-rose-200 '}`}>
-                    <h4 className="font-bold text-xs text-slate-800 mb-1 leading-tight">Overturning (FS &gt; 2.0)</h4>
-                    <p className={`text-xl font-bold tabular-nums tracking-tight ${isOverturnSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{FS_overturn.toFixed(2)}</p>
-                  </div>
-                  <div className={`p-4 rounded-[24px] border ${isBearingSafe ? 'bg-emerald-50 border-emerald-200 ' : 'bg-rose-50 border-rose-200 '}`}>
-                    <h4 className="font-bold text-xs text-slate-800 mb-1 leading-tight">Pressure (kN/m²)</h4>
-                    <p className={`text-xl font-bold tabular-nums tracking-tight ${isBearingSafe ? 'text-emerald-600' : 'text-rose-600'}`}>{q_max.toFixed(1)} / {max_sbc}</p>
-                  </div>
-                </div>
-                
-                {(!isSlidingSafe || !isOverturnSafe || !isBearingSafe) && (
-                  <div className="mb-6 p-4 bg-rose-50 border border-rose-200 text-rose-700 rounded-[24px] text-sm font-bold flex items-start gap-3">
-                    <span className="text-lg mt-0.5">⚠</span>
-                    <div className="space-y-1">
-                      {!isSlidingSafe && <p>Sliding Factor of Safety ({FS_sliding.toFixed(2)}) &lt; 1.5 minimum required.</p>}
-                      {!isOverturnSafe && <p>Overturning Factor of Safety ({FS_overturn.toFixed(2)}) &lt; 2.0 minimum required.</p>}
-                      {!isBearingSafe && (
-                        <p>
-                          {e > b / 6 ? `Resultant is outside middle third (e=${e.toFixed(2)} > ${b/6} m). ` : ''}
-                          {q_max > max_sbc ? `Max Pressure (${q_max.toFixed(1)} kN/m²) exceeds SBC.` : ''}
-                          {q_min < 0 ? `Tension exists under base (q_min = ${q_min.toFixed(1)} kN/m²).` : ''}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                )}
+        </ToolLayoutInputs>
 
-                <div className="bg-white border border-slate-200 rounded-[24px] p-6 flex flex-col items-center justify-center min-h-[400px] shadow-sm relative overflow-hidden">
-                  <h4 className="font-bold text-slate-500 uppercase tracking-wider text-sm mb-4">Cross-Section Profile</h4>
-                  
-                  <svg width="100%" height="320" viewBox="-50 -50 400 350" className="max-w-full overflow-visible">
-                    <defs>
-                      <pattern id="soil" width="10" height="10" patternUnits="userSpaceOnUse">
-                        <circle cx="2" cy="2" r="1.5" fill="#d2b48c" opacity="0.4" />
-                        <circle cx="7" cy="8" r="1.0" fill="#d2b48c" opacity="0.4" />
-                      </pattern>
-                    </defs>
-                    
-                    {/* Scaling mapping for vis */}
-                    {/* Max H = 300px roughly. Let's say 1m = 40px */}
-                    <g transform="translate(0, 50)">
-                      {/* Soil on right (Heel side) */}
-                      <rect x={tp*40 + sb*40} y={-h*40} width={heelProj*40 + 50} height={h*40} fill="url(#soil)" />
-                      <line x1={tp*40 + sb*40} y1={-h*40} x2={350} y2={-h*40} stroke="#8b5a2b" strokeWidth="2" />
-                      
-                      {/* Soil on left (Toe side) - small cover */}
-                       <rect x={-30} y={-20} width={tp*40 + 30} height={20} fill="url(#soil)" />
-                       <line x1={-30} y1={-20} x2={tp*40} y2={-20} stroke="#8b5a2b" strokeWidth="2" />
-
-                      {/* Base */}
-                      <rect x={0} y={0} width={b*40} height={bd*40} fill="#cbd5e1" stroke="#475569" strokeWidth="2" />
-                      
-                      {/* Stem */}
-                      <polygon points={`${tp*40},0 ${(tp + sb - st)*40},${-h*40} ${(tp + sb)*40},${-h*40} ${(tp + sb)*40},0`} fill="#cbd5e1" stroke="#475569" strokeWidth="2" />
-
-                      {/* Dimensions Lines */}
-                      {/* Height */}
-                      <line x1={-15} y1={0} x2={-15} y2={-h*40} stroke="#64748b" strokeWidth="1" />
-                      <line x1={-20} y1={0} x2={-10} y2={0} stroke="#64748b" strokeWidth="1" />
-                      <line x1={-20} y1={-h*40} x2={-10} y2={-h*40} stroke="#64748b" strokeWidth="1" />
-                      <text x="-25" y={-h*20} fill="#64748b" fontSize="12" textAnchor="end">H={h}m</text>
-                      
-                      {/* Base Width */}
-                      <line x1={0} y1={bd*40 + 15} x2={b*40} y2={bd*40 + 15} stroke="#64748b" strokeWidth="1" />
-                      <line x1={0} y1={bd*40 + 10} x2={0} y2={bd*40 + 20} stroke="#64748b" strokeWidth="1" />
-                      <line x1={b*40} y1={bd*40 + 10} x2={b*40} y2={bd*40 + 20} stroke="#64748b" strokeWidth="1" />
-                      <text x={b*20} y={bd*40 + 30} fill="#64748b" fontSize="12" textAnchor="middle">B={b}m</text>
-                    </g>
-                  </svg>
-                </div>
-              </div>
+        {/* Right Column - Results & Visuals */}
+        <ToolLayoutResults>
+          
+          {/* Visual Profile */}
+            <div className="bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 rounded-[24px] p-5 flex flex-col items-center justify-center min-h-[300px] shadow-inner relative overflow-hidden">
+              <h4 className="font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-xs mb-4 w-full text-center">Cross-Section Profile</h4>
+              
+              <svg width="100%" height="280" viewBox="-50 -50 400 350" className="max-w-full overflow-visible">
+                <defs>
+                  <pattern id="soil" width="10" height="10" patternUnits="userSpaceOnUse">
+                    <circle cx="2" cy="2" r="1.5" fill="#d2b48c" opacity="0.6" />
+                    <circle cx="7" cy="8" r="1.0" fill="#d2b48c" opacity="0.6" />
+                  </pattern>
+                </defs>
+                <g transform="translate(0, 50)">
+                  <rect x={tp*40 + sb*40} y={-h*40} width={heelProj*40 + 50} height={h*40} fill="url(#soil)" />
+                  <line x1={tp*40 + sb*40} y1={-h*40} x2={350} y2={-h*40} stroke="#8b5a2b" strokeWidth="2" />
+                   <rect x={-30} y={-20} width={tp*40 + 30} height={20} fill="url(#soil)" />
+                   <line x1={-30} y1={-20} x2={tp*40} y2={-20} stroke="#8b5a2b" strokeWidth="2" />
+                  <rect x={0} y={0} width={b*40} height={bd*40} fill="#cbd5e1" stroke="#475569" strokeWidth="2" />
+                  <polygon points={`${tp*40},0 ${(tp + sb - st)*40},${-h*40} ${(tp + sb)*40},${-h*40} ${(tp + sb)*40},0`} fill="#cbd5e1" stroke="#475569" strokeWidth="2" />
+                  <line x1={-15} y1={0} x2={-15} y2={-h*40} stroke="#64748b" strokeWidth="1" />
+                  <line x1={-20} y1={0} x2={-10} y2={0} stroke="#64748b" strokeWidth="1" />
+                  <line x1={-20} y1={-h*40} x2={-10} y2={-h*40} stroke="#64748b" strokeWidth="1" />
+                  <text x="-25" y={-h*20} fill="#64748b" fontSize="12" textAnchor="end">H={h}m</text>
+                  <line x1={0} y1={bd*40 + 15} x2={b*40} y2={bd*40 + 15} stroke="#64748b" strokeWidth="1" />
+                  <line x1={0} y1={bd*40 + 10} x2={0} y2={bd*40 + 20} stroke="#64748b" strokeWidth="1" />
+                  <line x1={b*40} y1={bd*40 + 10} x2={b*40} y2={bd*40 + 20} stroke="#64748b" strokeWidth="1" />
+                  <text x={b*20} y={bd*40 + 30} fill="#64748b" fontSize="12" textAnchor="middle">B={b}m</text>
+                </g>
+              </svg>
             </div>
 
-            {/* Results */}
-            <div className="pt-8 border-t border-border-color mt-6">
+            {/* Stability Check */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-3">
+              <div className={`p-4 rounded-[20px] border ${isSlidingSafe ? 'bg-emerald-50 border-emerald-200/60 dark:bg-emerald-900/10 dark:border-emerald-500/20' : 'bg-rose-50 border-rose-200/60 dark:bg-rose-900/10 dark:border-rose-500/20'}`}>
+                <h4 className="font-bold text-xs text-slate-600 dark:text-slate-400 mb-1 leading-tight uppercase">Sliding FS</h4>
+                <p className={`text-xl font-bold tabular-nums tracking-tight ${isSlidingSafe ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>{FS_sliding.toFixed(2)}</p>
+              </div>
+              <div className={`p-4 rounded-[20px] border ${isOverturnSafe ? 'bg-emerald-50 border-emerald-200/60 dark:bg-emerald-900/10 dark:border-emerald-500/20' : 'bg-rose-50 border-rose-200/60 dark:bg-rose-900/10 dark:border-rose-500/20'}`}>
+                <h4 className="font-bold text-xs text-slate-600 dark:text-slate-400 mb-1 leading-tight uppercase">Overturn FS</h4>
+                <p className={`text-xl font-bold tabular-nums tracking-tight ${isOverturnSafe ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>{FS_overturn.toFixed(2)}</p>
+              </div>
+              <div className={`col-span-2 md:col-span-1 lg:col-span-2 p-4 rounded-[20px] border ${isBearingSafe ? 'bg-emerald-50 border-emerald-200/60 dark:bg-emerald-900/10 dark:border-emerald-500/20' : 'bg-rose-50 border-rose-200/60 dark:bg-rose-900/10 dark:border-rose-500/20'}`}>
+                <h4 className="font-bold text-xs text-slate-600 dark:text-slate-400 mb-1 leading-tight uppercase">Bearing Pressure (Max / SBC)</h4>
+                <p className={`text-xl font-bold tabular-nums tracking-tight ${isBearingSafe ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>{q_max.toFixed(1)} / {max_sbc}</p>
+              </div>
+            </div>
+            
+            {(!isSlidingSafe || !isOverturnSafe || !isBearingSafe) && (
+              <div className="p-4 bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800/50 text-rose-700 dark:text-rose-300 rounded-[20px] text-sm font-semibold flex items-start gap-3 shadow-sm">
+                <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
+                <div className="space-y-1">
+                  {!isSlidingSafe && <p>Sliding FS ({FS_sliding.toFixed(2)}) &lt; 1.5</p>}
+                  {!isOverturnSafe && <p>Overturning FS ({FS_overturn.toFixed(2)}) &lt; 2.0</p>}
+                  {!isBearingSafe && (
+                    <p>
+                      {e > b / 6 ? `Resultant outside middle third. ` : ''}
+                      {q_max > max_sbc ? `Max Pressure exceeds SBC. ` : ''}
+                      {q_min < 0 ? `Tension exists under base.` : ''}
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Action Results */}
+            <div className="flex-1 min-h-[300px] mt-4 flex flex-col">
               <MaterialSummary
                 title="Material Quantities"
                 totalLabel="Total Concrete"
                 totalValue={totalConcrete.toFixed(2)}
                 totalUnit="m³"
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                <div className="grid grid-cols-1 gap-6 mt-5">
                   <div>
-                    <h4 className="font-bold text-slate-800 flex items-center gap-2 mb-4">
-                      <Layers className="w-5 h-5 text-indigo-600" />
+                    <h4 className="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 mb-3 text-sm uppercase tracking-wider">
+                      <Layers className="w-4 h-4 text-indigo-500" />
                       Concrete Breakdown
                     </h4>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-3">
                       <ResultCard title="Stem Volume" value={stemVol.toFixed(2)} unit="m³" variant="neutral" />
                       <ResultCard title="Base Volume" value={baseVol.toFixed(2)} unit="m³" variant="neutral" />
                       <ResultCard title="Cement Bags" value={cementBags} unit="bags" variant="primary" />
@@ -372,39 +359,40 @@ export default function RetainingWallCalculator({ isEmbedded = false }: { isEmbe
                   </div>
 
                   <div>
-                    <h4 className="font-bold text-slate-800 flex items-center gap-2 mb-4">
-                      <ArrowDownToLine className="w-5 h-5 text-[#f43f5e]" />
-                      Steel Approximation (Stem Both Faces)
+                    <h4 className="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 mb-3 text-sm uppercase tracking-wider">
+                      <ArrowDownToLine className="w-4 h-4 text-rose-500" />
+                      Steel (Stem Only)
                     </h4>
                     
-                    <div className="grid grid-cols-2 gap-4 mb-4">
-                      <InputGroup label="Vert. Dia / Spc">
-                        <div className="flex gap-2">
-                           <input type="number" inputMode="decimal" className="w-full bg-slate-50 border-none rounded-[16px] px-2 py-2 min-h-[44px]" value={vertDia} onChange={e => setVertDia(e.target.value)} />
-                           <input type="number" inputMode="decimal" className="w-full bg-slate-50 border-none rounded-[16px] px-2 py-2 min-h-[44px]" value={vertSpace} onChange={e => setVertSpace(e.target.value)} />
+                    <div className="grid grid-cols-2 gap-3 mb-3">
+                      <InputGroup label="V. Dia/Spc">
+                        <div className="flex gap-1">
+                           <input type="number" inputMode="decimal" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-[12px] px-2 py-2 min-h-[40px] text-sm font-semibold" value={vertDia} onChange={e => setVertDia(e.target.value)} />
+                           <input type="number" inputMode="decimal" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-[12px] px-2 py-2 min-h-[40px] text-sm font-semibold" value={vertSpace} onChange={e => setVertSpace(e.target.value)} />
                         </div>
                       </InputGroup>
-                      <InputGroup label="Horiz. Dia / Spc">
-                        <div className="flex gap-2">
-                           <input type="number" inputMode="decimal" className="w-full bg-slate-50 border-none rounded-[16px] px-2 py-2 min-h-[44px]" value={horizDia} onChange={e => setHorizDia(e.target.value)} />
-                           <input type="number" inputMode="decimal" className="w-full bg-slate-50 border-none rounded-[16px] px-2 py-2 min-h-[44px]" value={horizSpace} onChange={e => setHorizSpace(e.target.value)} />
+                      <InputGroup label="H. Dia/Spc">
+                        <div className="flex gap-1">
+                           <input type="number" inputMode="decimal" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-[12px] px-2 py-2 min-h-[40px] text-sm font-semibold" value={horizDia} onChange={e => setHorizDia(e.target.value)} />
+                           <input type="number" inputMode="decimal" className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-[12px] px-2 py-2 min-h-[40px] text-sm font-semibold" value={horizSpace} onChange={e => setHorizSpace(e.target.value)} />
                         </div>
                       </InputGroup>
                     </div>
 
-                    <div className="bg-slate-50 border border-slate-200 rounded-[24px] overflow-hidden shadow-sm">
-                      <div className="p-4 bg-slate-100 border-b border-slate-200 flex justify-between items-center">
-                        <span className="font-bold text-slate-700">Stem Steel Weight</span>
-                        <span className="text-xl font-bold tabular-nums tracking-tight text-rose-600">{totalSteel.toFixed(1)} kg</span>
+                    <div className="bg-rose-50 dark:bg-rose-900/10 border border-rose-100 dark:border-rose-800/30 rounded-[16px] overflow-hidden shadow-sm">
+                      <div className="p-4 flex justify-between items-center">
+                        <span className="font-bold text-slate-700 dark:text-slate-300">Stem Steel Weight</span>
+                        <span className="text-xl font-bold tabular-nums tracking-tight text-rose-600 dark:text-rose-400">{totalSteel.toFixed(1)} kg</span>
                       </div>
                     </div>
                   </div>
                 </div>
               </MaterialSummary>
             </div>
-          </div>
-        </div>
-      </div>
+            
+        </ToolLayoutResults>
+      </ToolLayout>
+      
       <CalculationHistory
         calculatorId="retaining_wall"
         estimationName="Retaining Wall Estimate"
