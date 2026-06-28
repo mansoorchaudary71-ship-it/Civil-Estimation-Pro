@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { X, User, Camera, Loader2, Moon, Sun } from 'lucide-react';
+import { X, User, Camera, Loader2, Moon, Sun, Eye } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useSettings } from '../../context/SettingsContext';
 
@@ -49,9 +49,25 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
   };
 
   const isDarkMode = settings.theme === 'dark' || (settings.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const isHighContrast = settings.theme === 'high-contrast';
 
   const toggleTheme = () => {
-    updateSettings({ theme: isDarkMode ? 'light' : 'dark' });
+    if (settings.theme === 'light') updateSettings({ theme: 'dark' });
+    else if (settings.theme === 'dark') updateSettings({ theme: 'high-contrast' });
+    else updateSettings({ theme: 'light' });
+  };
+
+  const getThemeIcon = () => {
+    if (settings.theme === 'high-contrast') return <Eye className="w-5 h-5 text-yellow-500" />;
+    if (settings.theme === 'dark') return <Moon className="w-5 h-5 text-indigo-500" />;
+    return <Sun className="w-5 h-5 text-amber-500" />;
+  };
+
+  const getThemeLabel = () => {
+    if (settings.theme === 'high-contrast') return 'High Contrast';
+    if (settings.theme === 'dark') return 'Dark Mode';
+    if (settings.theme === 'system') return 'System Mode';
+    return 'Light Mode';
   };
 
   return (
@@ -124,13 +140,13 @@ export default function ProfileSettings({ isOpen, onClose }: ProfileSettingsProp
                   className="w-full flex items-center justify-between p-3 bg-white border border-border-color rounded-[24px] hover:bg-slate-50 transition-colors text-base font-semibold"
                 >
                   <div className="flex items-center gap-3">
-                    {isDarkMode ? <Moon className="w-5 h-5 text-indigo-500" /> : <Sun className="w-5 h-5 text-amber-500" />}
+                    {getThemeIcon()}
                     <span className="text-sm font-bold text-text-primary">
-                      {isDarkMode ? 'Dark Mode' : 'Light Mode'}
+                      {getThemeLabel()}
                     </span>
                   </div>
-                  <div className={`w-10 h-6 rounded-full p-1 relative transition-colors ${isDarkMode ? 'bg-indigo-600' : 'bg-slate-300'}`}>
-                    <div className={`w-4 h-4 rounded-full bg-white transition-all transform ${isDarkMode ? 'translate-x-4' : 'translate-x-0'}`} />
+                  <div className={`w-10 h-6 rounded-full p-1 relative transition-colors ${settings.theme === 'high-contrast' ? 'bg-yellow-500' : isDarkMode ? 'bg-indigo-600' : 'bg-slate-300'}`}>
+                    <div className={`w-4 h-4 rounded-full bg-white transition-all transform ${settings.theme === 'high-contrast' || isDarkMode ? 'translate-x-4' : 'translate-x-0'}`} />
                   </div>
                 </button>
               </div>

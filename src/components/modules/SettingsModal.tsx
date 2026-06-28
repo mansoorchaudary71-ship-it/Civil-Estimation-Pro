@@ -19,6 +19,7 @@ import {
   XCircle,
   Wand2,
   Clock,
+  Eye,
 } from "lucide-react";
 import {
   useSettings,
@@ -562,11 +563,12 @@ export default function SettingsModal({
                     <h4 className="text-base font-bold text-slate-800 mb-4">
                       Color Theme
                     </h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                       {[
                         { id: "light", label: "Light", icon: Sun },
                         { id: "dark", label: "Dark", icon: Moon },
                         { id: "system", label: "System", icon: Laptop },
+                        { id: "high-contrast", label: "High Contrast", icon: Eye },
                       ].map((t) => {
                         const Icon = t.icon;
                         const isActive = settings.theme === t.id;

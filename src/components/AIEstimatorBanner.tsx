@@ -6,7 +6,7 @@ interface AIEstimatorBannerProps {
 
 export default function AIEstimatorBanner({ onOpenChat }: AIEstimatorBannerProps) {
   return (
-    <div className="mt-8 mb-4 w-full relative group overflow-hidden rounded-[32px] border border-slate-200 bg-gradient-to-r from-[#166534] to-[#FFFFFF]">
+    <div className="mt-8 mb-4 w-full relative group overflow-hidden rounded-[32px] border border-white/10 bg-slate-900 backdrop-blur-md">
       {/* Floating Particles Animation */}
       <style>{`
         @keyframes float-particle {
@@ -20,34 +20,31 @@ export default function AIEstimatorBanner({ onOpenChat }: AIEstimatorBannerProps
         .animate-float-4 { animation: float-particle 5.5s infinite ease-in-out 0.5s; }
       `}</style>
 
-      {/* Floating Dots */}
+      {/* Ambient Glow */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-1.5 h-1.5 bg-green-400 rounded-full animate-float-1 blur-[1px]"></div>
-        <div className="absolute top-3/4 left-1/3 w-2 h-2 bg-green-400 rounded-full animate-float-2 blur-[1px] opacity-0"></div>
-        <div className="absolute top-1/3 right-1/4 w-1.5 h-1.5 bg-blue-400 rounded-full animate-float-3 blur-[1px] opacity-0"></div>
-        <div className="absolute bottom-1/4 right-1/3 w-2 h-2 bg-blue-400 rounded-full animate-float-4 blur-[1px] opacity-0"></div>
+        {/* Subtle radial gradients for dark mode glow */}
+        <div className="absolute -top-1/2 -left-1/4 w-[150%] h-[150%] bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none mix-blend-screen"></div>
+        <div className="absolute top-1/2 -right-1/4 w-96 h-96 bg-purple-500/10 blur-[100px] rounded-full pointer-events-none mix-blend-screen"></div>
       </div>
-
-      {/* Radial Glow Overlay */}
-      <div className="absolute left-6 top-1/2 -translate-y-1/2 w-32 h-32 bg-green-500/20 rounded-full blur-[40px] pointer-events-none z-0"></div>
 
       <div className="relative z-10 p-8 flex flex-col md:flex-row items-center justify-between gap-8 h-full">
         <div className="flex items-start md:items-center gap-6 flex-col md:flex-row w-full md:w-auto">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#166534] to-[#15803d] flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(22,101,52,0.5)] border border-green-500/30">
-            <Sparkles className="w-8 h-8 text-gray-900" />
+          {/* Logo / Icon */}
+          <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center shrink-0 shadow-inner border border-white/10 backdrop-blur-md">
+            <Sparkles className="w-7 h-7 text-white/80" />
           </div>
           <div>
-            <h3 className="md: mb-2 flex items-center gap-3 text-lg font-medium text-gray-800 mb-4">
+            <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400 mb-2">
               Meet Your AI Estimator
             </h3>
-            <p className="text-green-100/70 max-w-lg mb-4 md: text-base font-normal text-gray-600 leading-relaxed">
+            <p className="text-slate-400 max-w-lg mb-5 text-[15px] leading-relaxed">
               Describe your project naturally. We will automatically build your entire BOQ.
             </p>
             
             {/* Capability Chips */}
             <div className="flex flex-wrap gap-2">
               {["BOQ Generation", "Cost Estimation", "Material Takeoff", "Code Lookup"].map((chip) => (
-                <span key={chip} className="text-xs uppercase font-bold tracking-wider px-3 py-1 bg-[#FFFFFF]/50 text-gray-700 border border-slate-600 rounded-full">
+                <span key={chip} className="text-[11px] uppercase tracking-wider font-semibold px-3 py-1.5 bg-white/5 text-slate-300 rounded-full backdrop-blur-sm">
                   {chip}
                 </span>
               ))}
@@ -58,11 +55,11 @@ export default function AIEstimatorBanner({ onOpenChat }: AIEstimatorBannerProps
         <div className="flex flex-col items-center justify-center shrink-0 w-full md:w-auto mt-4 md:mt-0">
           <button 
             onClick={onOpenChat} 
-            className="w-full md:w-auto px-8 py-4 bg-[#FF5F15] hover:bg-[#ea580c] text-gray-900 rounded-xl shadow-[0_0_20px_rgba(255,95,21,0.3)] transition-all active:scale-95 border border-[#FF5F15] text-base font-semibold"
+            className="w-full md:w-auto px-8 py-3.5 bg-white text-black font-semibold shadow-lg shadow-white/10 hover:bg-slate-100 transition-all rounded-xl border border-white/20 hover:scale-[1.02] active:scale-95"
           >
             Start Chat
           </button>
-          <p className="mt-3 uppercase tracking-wider text-center text-base font-normal text-gray-600 leading-relaxed">
+          <p className="mt-4 tracking-widest text-xs text-slate-500 uppercase font-medium">
             Free to use · No sign-up required
           </p>
         </div>

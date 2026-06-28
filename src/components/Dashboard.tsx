@@ -1160,9 +1160,16 @@ export default function Dashboard({
  <ScrollReveal><SocialProofSection /></ScrollReveal>
  <ScrollReveal yOffset={30}><HowItWorksSection /></ScrollReveal>
  <ScrollReveal yOffset={30}><FeatureComparisonSection /></ScrollReveal>
- <div className="w-full bg-gradient-to-b from-slate-50 via-slate-100/80 to-[#1e293b]/5 py-16 -mt-8 relative z-10 rounded-t-[32px] border-t border-slate-200/60 shadow-[0_-8px_30px_rgba(0,0,0,0.04)] overflow-hidden">
- {/* Subtle ambient noise/glow layer */}
- <div className="absolute inset-0 z-0 pointer-events-none" style={{ background: 'radial-gradient(circle at top right, rgba(10, 25, 47, 0.03), transparent 60%), radial-gradient(circle at bottom left, rgba(255, 95, 21, 0.03), transparent 60%)' }} />
+ <div className="w-full bg-slate-50/50 py-16 -mt-8 relative z-10 rounded-t-[32px] border-t border-slate-200/60 shadow-[0_-8px_30px_rgba(0,0,0,0.04)] overflow-hidden">
+ {/* Premium Ambient Background */}
+ <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]" 
+ style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'24\' height=\'24\' viewBox=\'0 0 24 24\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'1.5\'/%3E%3C/g%3E%3C/svg%3E")' }} 
+ />
+ <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.08] mix-blend-multiply">
+ <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full filter blur-[100px]" style={{ background: 'radial-gradient(circle, #8b5cf6 0%, transparent 70%)' }} />
+ <div className="absolute top-[20%] right-[-10%] w-[60%] h-[60%] rounded-full filter blur-[100px]" style={{ background: 'radial-gradient(circle, #3b82f6 0%, transparent 70%)' }} />
+ <div className="absolute bottom-[-10%] left-[20%] w-[60%] h-[60%] rounded-full filter blur-[100px]" style={{ background: 'radial-gradient(circle, #f97316 0%, transparent 70%)' }} />
+ </div>
  <div className="w-full max-w-[1400px] mx-auto px-4 relative z-10 overflow-visible flex flex-col">
  <div className="flex flex-col gap-10 w-full" id="tools-section">
  <SearchAndFilterBar
@@ -1216,7 +1223,16 @@ export default function Dashboard({
  </div>
  </div>
 
- <div className="flex-1 w-full bg-[#eef2f6] rounded-t-[32px] overflow-x-hidden shadow-[0_-8px_30px_rgba(163,177,198,0.2)] border-t border-slate-200 pb-32 tools-section">
+ <div className="flex-1 w-full bg-slate-50/50 rounded-t-[32px] relative overflow-x-hidden shadow-[0_-8px_30px_rgba(163,177,198,0.2)] border-t border-slate-200/60 pb-32 tools-section">
+ {/* Premium Ambient Background */}
+ <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]" 
+ style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'24\' height=\'24\' viewBox=\'0 0 24 24\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'1.5\'/%3E%3C/g%3E%3C/svg%3E")' }} 
+ />
+ <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.08] mix-blend-multiply">
+ <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full filter blur-[100px]" style={{ background: 'radial-gradient(circle, #8b5cf6 0%, transparent 70%)' }} />
+ <div className="absolute top-[20%] right-[-10%] w-[60%] h-[60%] rounded-full filter blur-[100px]" style={{ background: 'radial-gradient(circle, #3b82f6 0%, transparent 70%)' }} />
+ <div className="absolute bottom-[-10%] left-[20%] w-[60%] h-[60%] rounded-full filter blur-[100px]" style={{ background: 'radial-gradient(circle, #f97316 0%, transparent 70%)' }} />
+ </div>
  <div className="w-full max-w-[1400px] mx-auto px-4 z-10 overflow-visible flex flex-col pt-8">
  <div className="mb-12">
  <WorkspaceSection onSelect={handleSelect} />

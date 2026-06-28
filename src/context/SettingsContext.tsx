@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, ReactNode, useEffect, useRe
 
 export type Currency = 'PKR' | 'USD' | 'INR' | 'AED' | 'SAR' | 'GBP' | 'BDT' | 'LKR';
 export type MeasurementSystem = 'FPS' | 'SI';
-export type Theme = 'light' | 'dark' | 'system';
+export type Theme = 'light' | 'dark' | 'system' | 'high-contrast';
 export type FontSize = 'small' | 'medium' | 'large';
 export type UserRole = 'Civil Engineer' | 'Quantity Surveyor' | 'Student' | 'Contractor' | 'Architect' | undefined;
 export type ProjectType = 'Residential' | 'Commercial' | 'Infrastructure' | 'Industrial' | undefined;
@@ -129,12 +129,14 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
           isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       }
 
-      if (isDark) {
+      root.classList.remove('light', 'dark', 'high-contrast');
+
+      if (settings.theme === 'high-contrast') {
+          root.classList.add('high-contrast');
+      } else if (isDark) {
           root.classList.add('dark');
-          root.classList.remove('light');
       } else {
           root.classList.add('light');
-          root.classList.remove('dark');
       }
       
       // Apply font size scaling

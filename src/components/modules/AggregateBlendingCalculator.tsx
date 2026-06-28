@@ -14,6 +14,7 @@ interface BinData {
 }
 
 import { CalculationHistory } from "../ui/CalculationHistory";
+import { FieldTooltip } from "../ui/FieldTooltip";
 
 import { Category, sieveSpecData } from "../../data/sieveSpecs";
 
@@ -216,7 +217,10 @@ export default function AggregateBlendingCalculator() {
           <div className="bg-bg-card/80 backdrop-blur-md rounded-[24px] p-6 shadow-sm border border-slate-200">
              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
               <div>
-                <label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Target Category</label>
+                <label className="block mb-2 text-sm font-medium text-gray-700 mb-1">
+                  Target Category
+                  <FieldTooltip content="The classification or standard specifying the required aggregate mix properties." />
+                </label>
                 <select 
                   className="w-full px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-[var(--accent-vibrant)] outline-none text-gray-700 transition-all text-base font-normal"
                   value={selectedCategory}
@@ -226,7 +230,10 @@ export default function AggregateBlendingCalculator() {
                 </select>
               </div>
               <div>
-                <label className="block mb-2 text-sm font-medium text-gray-700 mb-1">Target Specification</label>
+                <label className="block mb-2 text-sm font-medium text-gray-700 mb-1">
+                  Target Specification
+                  <FieldTooltip content="The specific grading limits (min and max percent passing) required for the blended aggregate." />
+                </label>
                 <select 
                   className="w-full px-4 py-3 rounded-[24px] bg-white border border-border-color focus:ring-2 focus:ring-[var(--accent-vibrant)] outline-none text-gray-700 transition-all text-base font-normal"
                   value={selectedGrading}

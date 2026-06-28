@@ -2,18 +2,13 @@ import React, { useState } from "react";
 import { Bookmark, BookmarkCheck, ArrowRight, Box } from "lucide-react";
 import { useSettings } from "../context/SettingsContext";
 import { motion } from "motion/react";
-
-const CARD  = "#FFFFFF";
-const CARDH = "#FAFAFA";
-const T1    = "#1C1917";  // stone-900
-const T2    = "#57534E";  // stone-600
-const T3    = "#A8A29E";  // stone-400
+import { cn } from "../lib/utils";
 
 const CAT_COLORS: Record<string, { c: string, glow: string }> = {
-  "ROAD PAVEMENT":       { c: "#F59E0B", glow: "rgba(245,158,11,0.15)"  },
-  "QUANTITY ESTIMATION": { c: "#3B82F6", glow: "rgba(59,130,246,0.15)"  },
-  "CONCRETE":            { c: "#8B5CF6", glow: "rgba(139,92,246,0.15)" },
-  "MEP":                 { c: "#10B981", glow: "rgba(16,185,129,0.15)"  },
+  "ROAD PAVEMENT":       { c: "#F97316", glow: "rgba(249,115,22,0.15)" }, // Vibrant orange
+  "QUANTITY ESTIMATION": { c: "#3B82F6", glow: "rgba(59,130,246,0.15)" },
+  "CONCRETE":            { c: "#8B5CF6", glow: "rgba(139,92,246,0.15)" }, // Deep purple
+  "MEP":                 { c: "#10B981", glow: "rgba(16,185,129,0.15)" },
   "DEFAULT":             { c: "#6366F1", glow: "rgba(99,102,241,0.15)" }, 
 };
 
@@ -30,12 +25,12 @@ const LEVEL_MAP: Record<number, string> = { 1: "Basic", 2: "Moderate", 3: "Advan
 
 function Dots({ level, color }: { level: number; color: string }) {
   return (
-    <span style={{ display: "inline-flex", gap: 4, alignItems: "center" }}>
+    <span className="inline-flex items-center gap-1">
       {[1, 2, 3].map(i => (
-        <span key={i} style={{
-          display: "block", width: 5, height: 5, borderRadius: "50%",
-          background: i <= level ? color : "rgba(0,0,0,0.10)",
-        }} />
+        <span key={i} 
+          className="block w-[5px] h-[5px] rounded-full"
+          style={{ background: i <= level ? color : "rgba(156,163,175,0.4)" }} 
+        />
       ))}
     </span>
   );
@@ -67,8 +62,6 @@ export default function ToolCard({
   };
 
   const IconComponent = mod.icon || Box;
-
-  // Add variety to the level indicator based on ID character length 
   const level = mod.level || ((mod.id.length % 3) + 1);
 
   return (
@@ -85,94 +78,97 @@ export default function ToolCard({
         damping: 25,
         opacity: { duration: 0.3 }
       }}
-      className="w-full relative overflow-hidden flex flex-col group font-sans"
+      className={cn(
+        "relative w-full flex flex-col font-sans overflow-hidden cursor-pointer",
+        "bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl",
+        "rounded-[28px]", // One UI signature super-rounded corners (xl/2xl)
+        "border border-black/5 dark:border-white/10", // Very subtle border
+        "py-3 px-4 md:p-6 gap-3 md:gap-4 transition-all duration-300",
+        hov ? "shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_40px_-15px_rgba(255,255,255,0.05)] -translate-y-1" : "shadow-sm"
+      )}
       style={{
-        background: hov ? CARDH : CARD,
-        borderTop: `1px solid ${hov ? cfg.c + "42" : "rgba(0,0,0,0.06)"}`,
-        borderRight: `1px solid ${hov ? cfg.c + "42" : "rgba(0,0,0,0.06)"}`,
-        borderBottom: `1px solid ${hov ? cfg.c + "42" : "rgba(0,0,0,0.06)"}`,
-        borderLeft: `3px solid ${cfg.c}`,
-        borderRadius: 14,
-        padding: "18px 16px 16px",
-        gap: 12,
-        cursor: "pointer",
-        transform: hov ? "translateY(-4px)" : "translateY(0)",
-        boxShadow: hov
-          ? `0 20px 56px ${cfg.glow}, 0 10px 20px -5px rgba(0,0,0,0.05)`
-          : "0 2px 14px rgba(0,0,0,0.05)",
-        transition: "all 0.20s ease",
+        borderLeft: `4px solid ${cfg.c}`,
       }}
     >
-      <div style={{
-        position: "absolute", top: -20, right: -20,
-        width: 90, height: 90, borderRadius: "50%",
-        background: cfg.c, opacity: hov ? 0.08 : 0.03,
-        filter: "blur(28px)", pointerEvents: "none",
-        transition: "opacity 0.30s",
-      }} />
+      <div 
+        className="absolute -top-5 -right-5 w-24 h-24 rounded-full pointer-events-none transition-opacity duration-300"
+        style={{
+          background: cfg.c, 
+          opacity: hov ? 0.12 : 0.05,
+          filter: "blur(30px)",
+        }} 
+      />
 
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{
-          width: 42, height: 42, borderRadius: 11,
-          background: `${cfg.c}14`, border: `1px solid ${cfg.c}24`,
-          display: "flex", alignItems: "center", justifyContent: "center",
-        }}>
+      <div className="flex items-center justify-between">
+        <div 
+          className="w-12 h-12 rounded-[14px] flex items-center justify-center transition-colors duration-300"
+          style={{
+            background: `${cfg.c}14`, 
+            border: `1px solid ${cfg.c}24`,
+          }}
+        >
           <motion.div
              animate={{ scale: hov ? 1.1 : 1, rotate: hov ? [0, -5, 5, 0] : 0 }}
              transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            <IconComponent size={19} color={cfg.c} strokeWidth={1.75} />
+            <IconComponent size={24} color={cfg.c} strokeWidth={1.75} />
           </motion.div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <span className="font-mono text-xs font-semibold tracking-widest text-gray-500">
+        <div className="flex items-center gap-3">
+          <span className="font-mono text-xs font-semibold tracking-widest text-slate-500 dark:text-slate-400">
             {mod.id?.slice(0, 2).toUpperCase() || "01"}
           </span>
           <button
             onClick={toggleFavorite}
-            style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex", lineHeight: 0 }}
+            className="w-12 h-12 flex items-center justify-center -mr-3 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            aria-label={saved ? "Remove from favorites" : "Add to favorites"}
           >
             <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }}>
-              {saved ? <BookmarkCheck size={16} color={cfg.c} /> : <Bookmark size={15} color={T3} strokeWidth={2.5} />}
+              {saved ? <BookmarkCheck size={20} color={cfg.c} /> : <Bookmark size={20} className="text-slate-400 dark:text-slate-500" strokeWidth={2.5} />}
             </motion.div>
           </button>
         </div>
       </div>
 
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8 }}>
-        <span className="text-base font-semibold text-gray-900 leading-snug flex-1">
-          {mod.title}
-        </span>
-        {mod.isNew && (
-          <span style={{
-            color: cfg.c, background: `${cfg.c}18`,
-            border: `1px solid ${cfg.c}32`,
-            padding: "2px 7px", borderRadius: 5,
-            whiteSpace: "nowrap", marginTop: 1, flexShrink: 0,
-          }} className="text-xs font-bold tracking-wider">NEW</span>
-        )}
+      <div className="flex flex-col gap-1 md:gap-1.5 mt-0 md:mt-1">
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="text-[16px] md:text-[17px] font-bold text-slate-900 dark:text-slate-100 leading-tight">
+            {mod.title}
+          </h3>
+          {mod.isNew && (
+            <span 
+              className="text-[10px] font-bold tracking-wider px-2 py-0.5 rounded-md shrink-0 mt-0.5"
+              style={{
+                color: cfg.c, 
+                background: `${cfg.c}18`,
+                border: `1px solid ${cfg.c}32`,
+              }}
+            >
+              NEW
+            </span>
+          )}
+        </div>
+        
+        <p className="text-[13px] md:text-[14px] font-medium text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2 md:line-clamp-none">
+          {mod.desc || "No description available."}
+        </p>
       </div>
 
-      <p className="text-sm font-normal text-gray-600 leading-relaxed m-0" style={{
-        display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden",
-      }}>
-        {mod.desc || "No description available."}
-      </p>
-
-      <div className="mt-auto" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 4 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+      <div className="mt-auto pt-3 md:pt-4 flex items-center justify-between border-t border-slate-100 dark:border-slate-800/50">
+        <div className="flex items-center gap-2">
           <Dots level={level} color={cfg.c} />
-          <span className="text-xs font-medium text-gray-500">{LEVEL_MAP[level] || "Moderate"}</span>
+          <span className="text-[12px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{LEVEL_MAP[level] || "Moderate"}</span>
         </div>
-        <button className="text-sm font-semibold flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all" style={{
-          background: hov ? cfg.c : "transparent",
-          border: `1px solid ${hov ? "transparent" : cfg.c + "48"}`,
-          color: hov ? "#FFFFFF" : cfg.c,
-          cursor: "pointer",
-        }}>
+        <button 
+          className="text-[14px] font-bold flex items-center gap-2 px-4 h-10 rounded-[14px] transition-all"
+          style={{
+            background: hov ? cfg.c : "transparent",
+            color: hov ? "#FFFFFF" : cfg.c,
+          }}
+        >
           Open 
-          <motion.div animate={{ x: hov ? 3 : 0 }} transition={{ type: "spring", stiffness: 300 }}>
-             <ArrowRight size={13} strokeWidth={2.5} />
+          <motion.div animate={{ x: hov ? 4 : 0 }} transition={{ type: "spring", stiffness: 300 }}>
+             <ArrowRight size={16} strokeWidth={2.5} />
           </motion.div>
         </button>
       </div>

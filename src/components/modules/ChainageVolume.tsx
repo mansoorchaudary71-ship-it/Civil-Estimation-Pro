@@ -19,6 +19,8 @@ import { MaterialSummary } from "../ui/MaterialSummary";
 import { v4 as uuidv4 } from "uuid";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 
+import { FieldTooltip } from "../ui/FieldTooltip";
+
 interface Station {
   id: string;
   chainage: string;
@@ -308,7 +310,10 @@ export default function ChainageVolumeEstimator() {
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="border-b border-slate-100 text-xs uppercase tracking-widest text-gray-500 font-bold">
-                      <th className="pb-3 pr-4 min-w-[120px]">Chainage</th>
+                      <th className="pb-3 pr-4 min-w-[120px]">
+                        Chainage
+                        <FieldTooltip content="The linear distance along the center line of the road, railway, or pipeline project." />
+                      </th>
                       <th className="pb-3 px-4 min-w-[100px]">NGL ({unitL})</th>
                       <th className="pb-3 px-4 min-w-[100px]">FL ({unitL})</th>
                       <th className="pb-3 px-4 min-w-[100px]">Section Depth</th>
