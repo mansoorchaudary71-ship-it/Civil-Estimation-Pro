@@ -1,15 +1,68 @@
-import React, { useState } from 'react';
-import { MessageSquare, Code, Briefcase, MailPlus, ShieldCheck } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { MessageSquare, Code, Briefcase, MailPlus, ShieldCheck, Users, Mail } from 'lucide-react';
 import { ModuleId } from './Dashboard';
 import { motion } from 'motion/react';
+import toast from 'react-hot-toast';
 
 export default function Footer({ activeModule, onNavigate }: { activeModule?: ModuleId, onNavigate?: (id: ModuleId) => void }) {
   const [email, setEmail] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [subscriberCount, setSubscriberCount] = useState<number | null>(null);
 
-  const handleSubscribe = () => {
-    if (email) {
-      alert(`Subscribed with ${email}`);
-      setEmail("");
+  useEffect(() => {
+    const fetchCount = async () => {
+      try {
+        const res = await fetch('/api/newsletter/count');
+        const data = await res.json();
+        if (data.success && typeof data.count === 'number') {
+          setSubscriberCount(data.count);
+        }
+      } catch (err) {
+        console.error("Failed to fetch subscriber count", err);
+      }
+    };
+    fetchCount();
+  }, []);
+
+  const handleSubscribe = async () => {
+    if (!email || !/^\\S+@\\S+\\.\\S+$/.test(email)) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+    
+    setIsSubscribing(true);
+    try {
+      const response = await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        toast.success(`Subscribed successfully with ${email}`, {
+          style: {
+            borderRadius: '12px',
+            background: '#1e293b',
+            color: '#fff',
+            fontSize: '14px',
+            padding: '12px 16px',
+          },
+          iconTheme: {
+            primary: '#10b981',
+            secondary: '#fff',
+          },
+        });
+        setEmail("");
+        setSubscriberCount(prev => (prev !== null ? prev + 1 : 1));
+      } else {
+        throw new Error(data.error || 'Failed to subscribe');
+      }
+    } catch (error: any) {
+      toast.error(error.message || 'An error occurred. Please try again.');
+    } finally {
+      setIsSubscribing(false);
     }
   };
 
@@ -19,48 +72,55 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="relative w-full overflow-hidden shrink-0 z-20 bg-slate-50 text-slate-600 py-12 px-6 border-t border-slate-200" 
+      className="relative w-full overflow-hidden shrink-0 z-20 bg-gradient-to-b from-white to-slate-50 text-slate-600 py-16 px-6 border-t border-slate-200 shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.05)]" 
       style={{ fontFamily: "'Inter', sans-serif" }}
     >
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col gap-12">
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col gap-16">
         
         {/* Top Section: Brand & Newsletter */}
         <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8 items-start">
           
           {/* Brand & Market */}
-          <div className="flex flex-col gap-6 max-w-sm">
+          <div className="flex flex-col gap-6 max-w-md">
             <div className="flex items-center gap-2">
               <h2 className="text-2xl tracking-tight text-slate-900 font-bold">
                 Civil Estimation <span className="text-[#FF5F15]">Pro</span>
               </h2>
             </div>
-            <p className="text-[15px] font-normal leading-relaxed text-slate-500">
+            <p className="text-[15px] font-medium leading-relaxed text-slate-500">
               Generate highly accurate engineering estimates in seconds. The complete toolkit for civil engineers driving standard workflows.
             </p>
             
-            {/* Markets Row */}
-            <div className="flex flex-wrap items-center gap-3">
-              {[
-                { name: 'Pakistan', flag: '🇵🇰' },
-                { name: 'India', flag: '🇮🇳' },
-                { name: 'UAE', flag: '🇦🇪' },
-                { name: 'Global', flag: '🌍' }
-              ].map(market => (
-                <span key={market.name} className="px-4 py-2 rounded-full bg-slate-50/80 backdrop-blur-md shadow-sm text-slate-700 font-medium flex items-center gap-2 hover:-translate-y-0.5 hover:bg-white transition-all duration-300 text-sm cursor-default">
-                  <span>{market.flag}</span>
-                  {market.name}
-                </span>
-              ))}
-            </div>
+            {/* Regions & Standards Card */}
+            <div className="mt-2 p-5 rounded-2xl bg-white/60 backdrop-blur-md border border-slate-200 shadow-sm">
+              <h3 className="text-[12px] uppercase tracking-widest font-bold text-slate-900 mb-4">Supported Regions & Standards</h3>
+              
+              <div className="flex flex-col gap-4">
+                {/* Markets Row */}
+                <div className="flex flex-wrap items-center gap-2">
+                  {[
+                    { name: 'Pakistan', flag: '🇵🇰' },
+                    { name: 'India', flag: '🇮🇳' },
+                    { name: 'UAE', flag: '🇦🇪' },
+                    { name: 'Global', flag: '🌍' }
+                  ].map(market => (
+                    <span key={market.name} className="px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm text-slate-700 font-medium flex items-center gap-1.5 hover:-translate-y-0.5 hover:shadow-md transition-all duration-300 text-[13px] cursor-default">
+                      <span>{market.flag}</span>
+                      {market.name}
+                    </span>
+                  ))}
+                </div>
 
-            {/* Compliance Badges */}
-            <div className="flex flex-wrap gap-3 mt-1">
-              {["IS Codes", "MORTH/IRC", "NBC", "RERA"].map(badge => (
-                <span key={badge} className="px-4 py-2 rounded-2xl bg-slate-50/80 backdrop-blur-md shadow-sm text-slate-700 font-medium flex items-center gap-2 hover:-translate-y-0.5 hover:bg-white transition-all duration-300 text-[13px] cursor-default uppercase tracking-wide">
-                  <ShieldCheck className="w-4 h-4 text-[#FF5F15]" />
-                  {badge}
-                </span>
-              ))}
+                {/* Compliance Badges */}
+                <div className="flex flex-wrap gap-2">
+                  {["IS Codes", "MORTH/IRC", "NBC", "RERA"].map(badge => (
+                    <span key={badge} className="px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 font-medium flex items-center gap-1.5 hover:-translate-y-0.5 hover:bg-slate-200 transition-all duration-300 text-[12px] cursor-default uppercase tracking-wider">
+                      <ShieldCheck className="w-3.5 h-3.5 text-[#FF5F15]" />
+                      {badge}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -69,22 +129,41 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
             <h3 className="flex items-center gap-2 text-base font-bold text-slate-900">
               <MailPlus className="w-5 h-5 text-[#FF5F15]" /> Stay Updated
             </h3>
-            <p className="text-[14px] text-slate-500">Join our newsletter for new estimation tools and market updates.</p>
+            <p className="text-[14px] text-slate-500 flex items-center gap-2">
+              Join our newsletter for new estimation tools and market updates.
+              {subscriberCount !== null && (
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[12px] font-medium border border-slate-200">
+                  <Users className="w-3 h-3" />
+                  {subscriberCount} joined
+                </span>
+              )}
+            </p>
             <div className="flex flex-col sm:flex-row w-full gap-3 mt-1">
               <input 
                 type="email" 
                 placeholder="Enter your professional email" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full sm:flex-1 bg-slate-50 border-transparent rounded-2xl py-3.5 px-5 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all duration-300"
+                className="w-full sm:flex-1 bg-white border border-slate-300 shadow-inner rounded-2xl py-3.5 px-5 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FF5F15]/30 focus:border-[#FF5F15] transition-all duration-300"
               />
               <button 
                 onClick={handleSubscribe} 
-                className="px-8 py-3.5 bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 text-white rounded-2xl transition-all duration-300 shadow-lg shadow-slate-900/20 text-[14px] font-semibold tracking-wide shrink-0 hover:-translate-y-0.5"
+                disabled={isSubscribing}
+                className="px-8 py-3.5 bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 text-white rounded-2xl transition-all duration-300 shadow-lg shadow-slate-900/20 text-[14px] font-semibold tracking-wide shrink-0 hover:-translate-y-0.5 disabled:opacity-70 disabled:hover:-translate-y-0 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
-                Subscribe
+                {isSubscribing ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                    Subscribing...
+                  </>
+                ) : (
+                  'Subscribe'
+                )}
               </button>
             </div>
+            <p className="text-[12px] text-slate-400 font-medium flex items-center gap-1.5 mt-2 ml-1">
+              <ShieldCheck className="w-3.5 h-3.5" /> No spam. Unsubscribe anytime.
+            </p>
           </div>
         </div>
 
@@ -148,22 +227,29 @@ export default function Footer({ activeModule, onNavigate }: { activeModule?: Mo
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-6 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="text-center md:text-left">
+        <div className="pt-8 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-8 text-center md:text-left">
              <p className="text-[14px] font-medium text-slate-500">
-                © {new Date().getFullYear()} Civil Estimation Pro. Pakistan, India & UAE. All rights reserved.
+                © {new Date().getFullYear()} Civil Estimation Pro. All rights reserved.
              </p>
+             <a href="mailto:support@civilestimation.pro" className="text-[14px] font-medium text-slate-500 hover:text-[#FF5F15] flex items-center gap-1.5 transition-colors">
+                <Mail className="w-4 h-4" /> support@civilestimation.pro
+             </a>
           </div>
           
           <div className="flex items-center gap-4">
-            <a href="#" className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-[#FF5F15] hover:border-slate-300 transition-all shadow-sm">
+            <a href="#" aria-label="LinkedIn" className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-[#FF5F15] hover:border-slate-300 transition-all shadow-sm">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="Twitter" className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-[#FF5F15] hover:border-slate-300 transition-all shadow-sm">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+              </svg>
+            </a>
+            <a href="#" aria-label="Contact" className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-[#FF5F15] hover:border-slate-300 transition-all shadow-sm">
               <MessageSquare className="w-4 h-4" />
-            </a>
-            <a href="#" className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-[#FF5F15] hover:border-slate-300 transition-all shadow-sm">
-              <Code className="w-4 h-4" />
-            </a>
-            <a href="#" className="flex items-center justify-center w-10 h-10 rounded-full bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-[#FF5F15] hover:border-slate-300 transition-all shadow-sm">
-              <Briefcase className="w-4 h-4" />
             </a>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GlobalSettingsToggle } from "../ui/GlobalSettingsToggle";
 import { Send, Loader2, Bot } from "lucide-react";
 import Markdown from "react-markdown";
@@ -9,7 +9,36 @@ import { CalculationHistory } from "../ui/CalculationHistory";
 interface Message {
   role: "user" | "model";
   content: string;
+  isStreaming?: boolean;
 }
+
+// Simulated streaming effect component
+function StreamingMessage({ content, isStreaming, onComplete }: { content: string, isStreaming?: boolean, onComplete?: () => void }) {
+  const [displayedContent, setDisplayedContent] = useState(isStreaming ? "" : content);
+
+  useEffect(() => {
+    if (!isStreaming) {
+      setDisplayedContent(content);
+      return;
+    }
+
+    let currentIndex = 0;
+    const streamInterval = setInterval(() => {
+      if (currentIndex < content.length) {
+        setDisplayedContent(content.slice(0, currentIndex + 1));
+        currentIndex++;
+      } else {
+        clearInterval(streamInterval);
+        if (onComplete) onComplete();
+      }
+    }, 15); // Adjust typing speed here (ms per char)
+
+    return () => clearInterval(streamInterval);
+  }, [content, isStreaming, onComplete]);
+
+  return <Markdown>{displayedContent}</Markdown>;
+}
+
 export default function AIAssistant() {
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -34,6 +63,7 @@ export default function AIAssistant() {
           role: "model",
           content:
             content || "I was unable to generate an estimate at this time.",
+          isStreaming: true,
         },
       ]);
     } catch (error) {
@@ -44,12 +74,22 @@ export default function AIAssistant() {
           role: "model",
           content:
             "Error executing estimation. Please check your API key configuration and try again.",
+          isStreaming: true,
         },
       ]);
     } finally {
       setIsLoading(false);
     }
   };
+
+  const handleStreamingComplete = (index: number) => {
+    setMessages((prev) =>
+      prev.map((msg, i) =>
+        i === index ? { ...msg, isStreaming: false } : msg
+      )
+    );
+  };
+
   return (
     <div className="flex flex-col h-full bg-transparent text-gray-900 p-8">
       <div className="flex-1 calc-input flex flex-col overflow-hidden relative shadow-sm">
@@ -83,7 +123,11 @@ export default function AIAssistant() {
               >
                 {msg.role === "model" ? (
                   <div className="prose prose-sm max-w-none prose-p:leading-relaxed prose-headings:text-gray-800 prose-a:text-indigo-600 prose-th:bg-slate-100 prose-td:border-slate-200">
-                    <Markdown>{msg.content}</Markdown>
+                    <StreamingMessage 
+                      content={msg.content} 
+                      isStreaming={msg.isStreaming} 
+                      onComplete={() => handleStreamingComplete(index)} 
+                    />
                   </div>
                 ) : (
                   <div className="leading-relaxed">{msg.content}</div>

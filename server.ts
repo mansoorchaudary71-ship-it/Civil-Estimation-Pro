@@ -94,6 +94,74 @@ async function startServer() {
     }
   });
 
+  app.get("/api/newsletter/count", async (req, res) => {
+    try {
+      // Initialize Firebase Admin lazily to avoid startup crashes if credentials differ
+      const admin = await import("firebase-admin");
+      if (!admin.apps.length) {
+        const fs = await import("fs");
+        const path = await import("path");
+        const configPath = path.join(process.cwd(), "firebase-applet-config.json");
+        let projectId = "gen-lang-client-0592260180";
+        if (fs.existsSync(configPath)) {
+          const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+          if (config.projectId) {
+            projectId = config.projectId;
+          }
+        }
+        admin.initializeApp({
+          projectId: projectId,
+        });
+      }
+
+      const firestore = admin.firestore();
+      const snapshot = await firestore.collection("newsletter_subscriptions").count().get();
+      res.json({ success: true, count: snapshot.data().count });
+    } catch (error: any) {
+      console.error("Newsletter count error:", error);
+      res.status(500).json({ error: "Failed to fetch count" });
+    }
+  });
+
+  app.post("/api/newsletter/subscribe", async (req, res) => {
+    try {
+      const { email } = req.body;
+      if (!email || !/^\\S+@\\S+\\.\\S+$/.test(email)) {
+        return res.status(400).json({ error: "Invalid email address" });
+      }
+
+      // Initialize Firebase Admin lazily to avoid startup crashes if credentials differ
+      const admin = await import("firebase-admin");
+      if (!admin.apps.length) {
+        const fs = await import("fs");
+        const path = await import("path");
+        const configPath = path.join(process.cwd(), "firebase-applet-config.json");
+        let projectId = "gen-lang-client-0592260180";
+        if (fs.existsSync(configPath)) {
+          const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+          if (config.projectId) {
+            projectId = config.projectId;
+          }
+        }
+        admin.initializeApp({
+          projectId: projectId,
+        });
+      }
+
+      const firestore = admin.firestore();
+      await firestore.collection("newsletter_subscriptions").add({
+        email,
+        subscribedAt: admin.firestore.FieldValue.serverTimestamp(),
+        source: "footer"
+      });
+
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error("Newsletter subscription error:", error);
+      res.status(500).json({ error: "Failed to subscribe" });
+    }
+  });
+
   app.post("/api/workspace/gmail/send", async (req, res) => {
     const { google } = await import("googleapis");
     const { OAuth2Client } = await import("google-auth-library");
